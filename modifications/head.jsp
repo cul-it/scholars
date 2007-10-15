@@ -6,7 +6,6 @@
 <%@ page import="edu.cornell.mannlib.vitro.webapp.web.PortalWebUtil" %>
 
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c"%><%/* this odd thing points to something in web.xml */ %>
-<%@ page import="edu.cornell.mannlib.vitro.webapp.flags.RequestToPortal" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.beans.ApplicationBean" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.dao.WebappDaoFactory" %>
 <jsp:useBean id="loginHandler" class="edu.cornell.mannlib.vedit.beans.LoginFormBean" scope="session" />
@@ -70,7 +69,7 @@
 <% /* =========== CALS RESEARCH PORTALS ============================================== */ %>
 
 <%
-if (portal.getPortalId()>1 && portal.getPortalId()<6) { // CALS Research portals
+if ((portal.getPortalId()>1 && portal.getPortalId()<6) || portal.getPortalId()==60) { // CALS Research portals
     int rotatingBannerWidth=0; %>
     <table id="CALS_Research_Head">
     <tr>
@@ -105,10 +104,15 @@ if (portal.getPortalId()>1 && portal.getPortalId()<6) { // CALS Research portals
            bannerImgName[23] = "studentfaces.reduced.jpg";
            bannerImgName[24] = "watershots.reduced.jpg";
            int[][] bannersForPortal = {{5,8,12,23,4,7,21},{5,8,12,23,0,1,3,4,10,14,15,16,17,19,20,24},{5,8,12,23,0,2,3,6,7,9,10,11,13,14,15,17,18,19,20,22},{5,8,12,23,0,2,3,10,11,14,16,17,22}};
-                      
+           
            java.util.Calendar cal = java.util.Calendar.getInstance();
            java.util.Random rand = new java.util.Random(cal.getInstance().getTimeInMillis());
-           String bannerImageName = bannerImgName[bannersForPortal[portal.getPortalId()-2][rand.nextInt(bannersForPortal[portal.getPortalId()-2].length)]];
+           String bannerImageName="";
+           if (portal.getPortalId()==60) {
+               bannerImageName = bannerImgName[rand.nextInt(24)];
+           } else {
+               bannerImageName = bannerImgName[bannersForPortal[portal.getPortalId()-2][rand.nextInt(bannersForPortal[portal.getPortalId()-2].length)]];
+		   }
         %>
         
          <td class="plainBannerAreaRight" align="right"><img src="${portal.themeDir}site_icons/<%=bannerImageName%>" align="right" alt="<%=portal.getAppName()%>"/></td>
