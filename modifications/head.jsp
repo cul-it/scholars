@@ -206,8 +206,8 @@ if ((portal.getPortalId()>1 && portal.getPortalId()<6) || portal.getPortalId()==
         </td>
         <td id="LogotypeArea" align="right">
         	<table><tr>
-	            <td><a target="_new" href="<%=portal.getRootBreadCrumbURL()%>">
-                <img class="closecrop" src="${portal.themeDir}site_icons/<%=appBean.getRootLogotypeImage()%>" width="<%=appBean.getRootLogotypeWidth()%>" height="<%=appBean.getRootLogotypeHeight()%>" alt="<%=appBean.getRootLogotypeTitle()%>"/></a></td>
+	            <td><a target="_new" href="http://www.cornell.edu/">
+                <img class="closecrop" src="${portal.themeDir}site_icons/CornellSeal.76x76.transparent.clipped.gif" width="69" height="65" alt="Cornell University"/></a></td>
  				<td><a target="_new" href="<%=portal.getRootBreadCrumbURL()%>">
                 <img class="closecrop" src="${portal.themeDir}site_icons/<%=portal.getLogotypeImage()%>" width="<%=portal.getLogotypeWidth()%>" height="<%=portal.getLogotypeHeight()%>" alt="<%=portal.getAppName()%>"/></a></td>
             </tr></table>
@@ -227,18 +227,18 @@ if ((portal.getPortalId()>1 && portal.getPortalId()<6) || portal.getPortalId()==
     <td id="LogotypeArea">
     	<table><tr>
     	<td>
-        <a target="_new" href="<%=portal.getRootBreadCrumbURL()%>">
+        <a target="_new" href="http://www.cornell.edu/">
         
         <% 
         // temporary hack to fix CALS Impact portal -- will later get moved to clone modifications
         if (!portal.getAppName().equalsIgnoreCase("CALS Impact")) { %>
-           <img class="closecrop" src="${themeDir}site_icons/<%=appBean.getRootLogotypeImage()%>"
-                                width="<%=appBean.getRootLogotypeWidth()%>"
-                     height="<%=appBean.getRootLogotypeHeight()%>"
-                     alt="<%=appBean.getRootLogotypeTitle()%>"/></a>
+           <img class="closecrop" src="${themeDir}site_icons/CornellSeal.76x76.transparent.clipped.gif"
+                                width="69"
+                     height="65"
+                     alt="Cornell University"/></a>
            
         <% } else { %>
-           <a><img class="closecrop" src="${themeDir}site_icons/cu_insignia_bw.gif" alt="Cornell University"/></a>      	
+           <a href="http://www.cornell.edu/"><img class="closecrop" src="${themeDir}site_icons/cu_insignia_bw.gif" alt="Cornell University"/></a>      	
         <% } %>
         </td><td>
         <a target="_new" href="<%=portal.getRootBreadCrumbURL()%>">
