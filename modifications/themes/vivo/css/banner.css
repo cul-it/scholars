@@ -1,0 +1,198 @@
+/****************************************
+ * Albert R. Mann Library 
+ * Cornell University
+ * Ithaca, NY 14853
+ ****************************************/
+
+/*
+Title:		VIVO - CU Banner
+Author:		nac26@cornell.edu
+Updated:	October 31, 2007
+*/
+
+/****************************************
+ * Cornell Identity
+ ****************************************/
+/* 
+	The following set of rules controls the appearance of the topmost 
+	banner on the page, including height, background color, and text color.
+	
+	The version of the logo that appears in the XHTML code is hidden from 
+	browsers that can read this stylesheet, and it is replaced by a version
+	of the logo that corresponds to the background color of the banner. 
+	This logo is placed in the background of two elements below (rather than
+	one) to prevent flickering when moused over by IE/Win users who have 
+	disabled the browser cache.
+*/
+#cu-identity {
+	font-family: verdana, arial, helvetica, sans-serif;
+	color: #000;
+	height: 75px;
+	text-align: left;
+	background: #fff;
+	}
+
+#cu-logo {
+	float: left;
+	margin: 0;
+	padding: 0;
+	width: 265px;
+	height: 75px;
+	background: url(../site_icons/layout/cu_logo.gif) no-repeat 12px top;	
+}
+
+#cu-logo a {
+	display: block;
+	border: none;
+	/* hide text link */
+	text-indent: -1000em; 
+	text-decoration: none;
+	}
+	
+#insignia-link {
+	float: left;
+	width: 68px;
+	height: 75px;
+	}
+
+#unit-signature-links a {
+	left: 68px;
+	}
+
+#cornell-link {
+	float: left;
+	width: 177px;
+	height: 38px;
+	}
+	
+#unit-link {
+	float: left;
+	top: 38px;
+	width: 74px;
+	height: 37px;
+	}
+	
+#cu-logo img {
+	display: none;
+	}
+ 
+/*	
+	Search Form
+	-------------------------
+	The following rules control the appearance of the search form interface. 
+	The form is displayed in the Cornell banner, and it is aligned with the 
+	right edge of the page. The search form should appear on every page 
+	of a site. 
+*/
+
+#maintenance-message {
+	float: left;
+	margin-top: 2px;
+	padding: 10px;
+	width: 230px;
+	border: solid 1px #fb2;
+	background: #fd9;
+}
+
+#search-highlight {
+	float: right;
+	width: 70px;
+	height: 75px;
+	background: #68645b url(../site_icons/layout/search_yourheartout.gif) no-repeat left top;
+}
+
+#search-form {
+	float: right;
+	display: inline; /* To adress IE Win Doubled Float-Margin Bug as described at http://www.positioniseverything.net/explorer/doubled-margin.html */
+	margin: 18px 14px 0 0;
+	padding: 0;
+	}
+	
+#search-form form {
+	margin: 0;
+	padding: 0;
+	text-align: right;
+	}
+	
+#search-form label {
+	color: #000;
+	font-size: 1.0em;
+	}
+	
+#search-form-query {
+	padding: 3px;
+	width: 145px;
+	border: none;
+	font-family: verdana, arial, helvetica, sans-serif;
+	font-size: 1.0em;
+	font-weight: bold;
+	color: #630;
+	background: /*#e8e2ca*/#f3f3f3 url(../site_icons/layout/bg_search_field.gif) no-repeat top left;
+	vertical-align: middle;
+	}
+	
+#search-form-submit {
+	padding: 0px 2px 3px 2px;
+	border-top: 1px solid #e5e5e5;
+	border-left: 1px solid #e5e5e5;
+	border-right: 1px solid #b3b3b3;
+	border-bottom: 1px solid #b3b3b3;
+/*	border-top: 1px solid #a6a295;
+	border-left: 1px solid #a6a295;
+	border-right: 1px solid #403000;
+	border-bottom: 1px solid #403000;*/	
+	font-family: verdana, arial, helvetica, sans-serif;
+	font-size: 1.0em;
+	font-weight: bold;
+	color: #333;
+	background: #f2f2f2;
+/*	color: #fff;
+	background: #59544b;*/
+	vertical-align: middle;
+	}
+	
+#search-filters {
+	margin: 5px 0 0 0;
+	}
+
+#search-filters input {
+	vertical-align: middle;
+	margin: 0;
+	}
+
+#search-filters label {
+	vertical-align: middle;
+	margin: 0 10px 0 0;
+	}
+	
+#search-filters label.force-right {
+	margin: 0;
+}
+	
+#search-form a {
+	color: #fff;
+	}
+	
+ 
+/****************************************
+ * Miscellaneous
+ ****************************************/
+
+/* 
+	Hide "skip to content" link from general users. 
+	Do not use display: none, as that will also hide it from some screen readers.
+*/
+#skipnav {
+	position: absolute;
+	top: -1000em;
+	left: -1000em;
+	}
+	
+/* 
+	Hide horizontal rules (hr) that are found throughout the site.
+	The rules are semantic separations of content, and they are useful for 
+	browsers that cannot utilize the stylesheet.
+*/	
+hr {
+	display: none;
+	}
