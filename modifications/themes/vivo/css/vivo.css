@@ -44,7 +44,7 @@ body {
 /*	width: 917px;*/
 }
 
-#page {
+#main {
 	margin-bottom: 4px;
 	padding: 12px 0 1px 16px; /* right padding taken care of within sidebar (to allow centering of profile image) */
 	background: #fff url(../site_icons/layout/bg_page.gif) no-repeat right top;
