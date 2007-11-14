@@ -7,7 +7,7 @@
 /*
 Title:		VIVO screen styles
 Author:		nac26@cornell.edu
-Updated:	November 2, 2007
+Updated:	November 14, 2007
 */
 
 /***********************************************************************
@@ -15,9 +15,9 @@ Updated:	November 2, 2007
 
 JON - uncomment this statement to display the info on data insertion */
 
-span {
+/*span {
 	display: none;
-}
+}*/
 
 /***********************************************************************
 ***********************************************************************/
@@ -191,7 +191,7 @@ h2.primary {
 
 h3 {
 	margin-top: 25px;
-	font-size: 1.3em;
+	font-size: 1.0em;
 	color: #087;
 }
 
@@ -259,11 +259,11 @@ address {
 	line-height: 1.3em;
 }
 
-span {
+/*span {
 	padding: 4px;
 	background: #fc0;
 }
-
+*/
 /****************************************************************
 image roll call
 ****************************************************************/
@@ -528,9 +528,10 @@ form label {
 }
 
 form em {
-	color: #f00;
-	font-size: 1.4em;
+/*	color: #f00;
+	font-size: 1.4em;*/
 	font-style: normal;
+	line-height: 1.0em;
 }
 
 p.note em {
@@ -741,6 +742,11 @@ form li {
 /****************************************************************
 table roll call
 ****************************************************************/
+
+table td {
+	padding: 5px 5px 0 5px;
+	vertical-align: top;
+}
 
 table#staff-list, table#staff-list tr, table#staff-list th, table#staff-list td, table.equipment-reserves, table.equipment-reserves tr, table.equipment-reserves th, table.equipment-reserves td, table.rooms, table.rooms tr, table.rooms th, table.rooms td {
 	border: 0;
