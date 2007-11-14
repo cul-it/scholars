@@ -1,0 +1,79 @@
+
+.editingForm {
+	margin-top: 0;
+	margin-bottom:0;
+	margin-right:0;
+	margin-left:0.5em;
+	padding-bottom:1em;
+	color: #444444;
+	font-family : Verdana, Geneva, Arial, Helvetica, sans-serif;
+	line-height : 16px;
+	background-color:#dddddd;
+	min-height:100px;
+	font-size:0.9em;
+}
+
+
+/* the pluses are not positioned correctly, but IE6 has problems with position:relative with the changing DWR DOM
+.editingForm img {
+	position:relative;
+	top:+1ex; 
+	margin-bottom:0; 
+	padding-bottom:0;
+}
+*/
+
+
+.editingForm table {
+	text-align:left;
+	border-width:1px;
+	border-style:solid;
+	border-color:black;
+}
+
+.editingForm td{
+	font-size:1em;
+}
+
+td.verticalfieldlabel {
+	font-size:11px;
+	line-height:13px;
+}
+
+.editingForm .entryFormHead {
+	text-align:center;
+	padding:0.2em;
+	background-color:#f8f8c8;
+	border-width:1px;
+	border-style:solid;
+	border-color:black;
+}
+
+.editingForm .entryFormHead h2{
+	margin:0.1em;
+	padding:0em;
+	font-size:1.4em;
+	color:black;
+}
+
+.editingForm .entryFormHead h3{
+	margin:0.1em;
+	padding:0em;
+	font-size:1.2em;
+	font-weight:600;
+	color:red;
+}
+
+.editingForm .entryFormHead .entryFormHeadInstructions{
+	margin:0em;
+	padding:0em;
+	font-size:0.8em;
+}
+
+table.form-background td {
+	padding-left:1em;
+	padding-right:1em;
+}
+table.form-background td form {
+	padding:0.2em;
+}
