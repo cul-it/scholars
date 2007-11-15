@@ -44,7 +44,7 @@ body {
 /*	width: 917px;*/
 }
 
-#main {
+#mainpage { /* jc55 was main */
 	margin-bottom: 4px;
 	padding: 12px 0 1px 16px; /* right padding taken care of within sidebar (to allow centering of profile image) */
 	background: #fff url(../site_icons/layout/bg_page.gif) no-repeat right top;
@@ -59,7 +59,7 @@ body {
 	background: #fc6;
 }
 
-#content {
+#mainpagebody { /* jc55 was content */
 	float: left;
 	display: inline;
 	width: 70%;
@@ -73,7 +73,7 @@ body {
 	/* end of jc55 added */
 }
 
-#content.full {
+#mainpagebody.full { /* jc55 was #content.full */
 	float: none;
 	width: 100%;
 }
