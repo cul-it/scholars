@@ -46,7 +46,7 @@
 		<div id="unit-signature-links"><a id="cornell-link" class="clean" href="http://www.cornell.edu/" title="Cornell University">Cornell University</a> <a id="unit-link" class="clean" href="http://www.cornell.edu" title="Cornell University">Cornell University</a> </div>
 	</div><!-- cu-logo -->
 	<div id="search-form"> 
-		<form action="search" method="get" name="gs">
+		<form action="${portal.themeDir}jsp/searchtriage.jsp" method="get" name="gs">
 			<!-- Cornell search -->
 			<input type="hidden" name="output" value="xml_no_dtd" />
 			<input type="hidden" name="sort" value="" />

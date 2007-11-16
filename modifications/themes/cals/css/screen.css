@@ -522,19 +522,19 @@ div.breadCrumbs {
 	border-bottom:1px solid #EEEEEE;
 }
 
-div.mainpagebody { /* jc55 was div.content */
+div.content {
 	margin-top: 2em;
 }
 
 /************************** main ******************************/
 
-#mainpagebody { /* jc55 was main */
+#contentwrap { /* jc55 was main */
 	padding-bottom:1ex;
 	background-color:white;
 	color:black;
 }
 
-#mainpagebody img { /* jc55 was #main img */
+#contentwrap img { /* jc55 was #main img */
 	margin-top:0.3ex;
 	margin-bottom:0.3ex;
 	margin-right:0.4em;

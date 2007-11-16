@@ -18,9 +18,10 @@
 %>
 <div id="footer">
 	<p class="siteFeedback"><a href="commentsForm.jsp" title="Send Us Feedback">Site Feedback</a></p>
-	<p>&#169; 2007 <%= BreadCrumbsUtil.getRootBreadCrumb(vreq,"",portal)%>
-    <div class='copyright'>
+	<p>&#169; 2007 <%=BreadCrumbsUtil.getRootBreadCrumb(vreq,"",portal)%>
+	
+    <div class="copyright">
 	    <p>All Rights Reserved. <a href="termsOfUse?home=<%=portal.getPortalId()%>">Terms of Use</a></p>
-    </div>
+    </div><!-- END div 'copyright' -->
 </div><!-- footer -->
 
