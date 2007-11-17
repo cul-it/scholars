@@ -11,11 +11,7 @@
 <jsp:useBean id="loginHandler" class="edu.cornell.mannlib.vedit.beans.LoginFormBean" scope="session" />
 
 <%
-// application variables not stored in application bean
-    final int CALS_IMPACT = 6;
-    final int FILTER_SECURITY_LEVEL = 4;
-    final int CALS_SEARCHBOX_SIZE = 25;
-    final int VIVO_SEARCHBOX_SIZE = 20;
+	final int FILTER_SECURITY_LEVEL = 4;
 
     HttpSession currentSession = request.getSession();
     String currentSessionIdStr = currentSession.getId();
@@ -25,16 +21,12 @@
         securityLevel = Integer.parseInt(loginHandler.getLoginRole());
         loginName = loginHandler.getLoginName();
     }
-
     VitroRequest vreq = new VitroRequest(request);
     ApplicationBean appBean = vreq.getAppBean();
     Portal portal = vreq.getPortal();
     PortalWebUtil.populateSearchOptions(portal, appBean, vreq.getWebappDaoFactory().getPortalDao());
     PortalWebUtil.populateNavigationChoices(portal, request, appBean, vreq.getWebappDaoFactory().getPortalDao());
-
-    String fixedTabStr = (fixedTabStr = request.getParameter("fixed")) == null ? null : fixedTabStr.equals("") ? null : fixedTabStr;
-    final String DEFAULT_SEARCH_METHOD = "fulltext";
-
+    String fixedTabStr=(fixedTabStr=request.getParameter("fixed"))==null?null:fixedTabStr.equals("")?null:fixedTabStr;
 %>
 <c:set var="portal" value="${requestScope.portalBean}"/>
 <c:set var="appBean" value="${requestScope.appBean}"/>
@@ -46,31 +38,20 @@
 		<div id="unit-signature-links"><a id="cornell-link" class="clean" href="http://www.cornell.edu/" title="Cornell University">Cornell University</a> <a id="unit-link" class="clean" href="http://www.cornell.edu" title="Cornell University">Cornell University</a> </div>
 	</div><!-- cu-logo -->
 	<div id="search-form"> 
-		<form action="${portal.themeDir}jsp/searchtriage.jsp" method="get" name="gs">
-			<!-- Cornell search -->
-			<input type="hidden" name="output" value="xml_no_dtd" />
-			<input type="hidden" name="sort" value="" />
-			<input type="hidden" name="ie" value="UTF-8" />
-			<input type="hidden" name="oe" value="UTF-8" />
-			<input type="hidden" name="gsa_client" value="default_frontend" />
-			<input type="hidden" name="site" value="default_collection" />
-			<input type="hidden" name="proxyreload" value="1" />
-			<input type="hidden" name="btnG" value="go" />
-			<!-- vitro search -->
+		<form action="${portal.themeDir}jsp/searchTriager.jsp" method="get" name="gs"> 
+		<!-- <form action="search" method="get" name="gs"> -->
 			<input type="hidden" name="home" value="<%=portal.getPortalId()%>" />
 			<input type="hidden" name="appname" value="<%=portal.getAppName()%>" />
-
 			<div id="search-input"> 
 				<label for="search-form-query">SEARCH:</label>
 <%              if (securityLevel>=FILTER_SECURITY_LEVEL && appBean.isFlag1Active()) { %>
-                    <select id="select" name="flag1" class="form-item" >
+                    <select id="search-form-qualifier" name="flag1">
                     	<option value="nofiltering" selected="selected">entire database (<%=loginName%>)</option>
                     	<option value="<%=portal.getPortalId()%>"><%=portal.getShortHand()%></option>
                     </select>
 <%              } else {%>
                     <input type="hidden" name="flag1" value="<%=portal.getPortalId()%>" />
 <%              } %>
-				<!-- input type="text" id="search-form-query" name="q" value="" size="20" /-->
 				<input type="text" id="search-form-query" name="querytext" value="" size="20" />
 				<input type="submit" id="search-form-submit" name="submit" value="go" />
 			</div>
