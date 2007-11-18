@@ -52,7 +52,7 @@
 <%              } else {%>
                     <input type="hidden" name="flag1" value="<%=portal.getPortalId()%>" />
 <%              } %>
-				<input type="text" id="search-form-query" name="querytext" value="" size="20" />
+				<input type="text" id="search-form-query" name="querytext" value="${requestScope.querytext}" size="20" />
 				<input type="submit" id="search-form-submit" name="submit" value="go" />
 			</div>
 			<div id="search-filters"> 
