@@ -82,10 +82,20 @@
 				</div>
                 </c:if>
 				</c:if>
-				
+			
+                             <% /* graduate portal wants data properties first */ %>
+                             <c:choose>
+                               <c:when test="${portalBean.appName eq 'CALS Impact'}">
+                                  <jsp:include page="/${entityDatapropsListJsp}"/> <% /*here we import the datatype properties for th
+e entity */ %>
+                                  <c:import url="${entityPropsListJsp}" />  <% /* here we import the properties for the entity */ %>
+                               </c:when>
+                               <c:otherwise>
 				 <c:import url="${entityPropsListJsp}" />  <% /* here we import the properties for the entity */ %>  
 				 <jsp:include page="/${entityDatapropsListJsp}"/> <% /*here we import the datatype properties for the entity */ %>
-				
+			       </c:otherwise>
+                             </c:choose>	
+
 				<div class='description'>
 				  ${entity.blurb}
 				</div>
