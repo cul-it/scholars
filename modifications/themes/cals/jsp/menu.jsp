@@ -3,6 +3,7 @@
 <%@ page import="edu.cornell.mannlib.vitro.webapp.web.TabMenu" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.beans.Portal" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.controller.VitroRequest" %>
+<%@ page import="edu.cornell.mannlib.vitro.webapp.web.BreadCrumbsUtil" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.dao.WebappDaoFactory" %>
 <%
     /***********************************************
@@ -24,32 +25,32 @@
 %>
 <!-- ***************Begin menu.jsp ********************** -->
 <div id="menu">
-<div id="primaryAndOther">
-<%	VitroRequest vreq = new VitroRequest(request);%>
-    <%=TabMenu.getPrimaryTabMenu(vreq)%>  
-    <ul id="otherMenu">
-<%		if ( fixedTabStr != null && fixedTabStr.equalsIgnoreCase("browse")) {%>
-        	<li class="activeTab"><a href="browsecontroller" title="list all contents by type">Index</a></li>
-<% 		} else { %>
-        	<li><a href="browsecontroller?home=<%=portalId%>" title="list all contents by type">Index</a></li>
-<%		}
-        if ( fixedTabStr != null && fixedTabStr.equalsIgnoreCase("about")) {%>
-        	<li><a class="activeTab" href="about.jsp?home=<%=portalId%>&amp;login=none" title="more about this web site">About</a></li>
-<%		} else { %>
-        	<li><a href="about?home=<%=portalId%>&amp;login=none" title="more about this web site">About</a></li>
-<%		}
-        if ( fixedTabStr != null && fixedTabStr.equalsIgnoreCase("comments")) {%>
-        	<li class="activeTab"><a href="comments?home=<%=portalId%>">Contact Us</a></li>
-<%		} else {%>
-        	<li><a href="comments?home=<%=portalId%>">Contact Us</a></li>
-<%		}%>
-    </ul>
-</div><!-- END 'primaryAndOther'-->
-<% 
-if (fixedTabStr==null) { %>
-<div id="secondaryTabMenu">
-<%=TabMenu.getSecondaryTabMenu(vreq)%>
-</div><!--END 'secondaryTabMenu'--><% 
-}%>
+	<div id="primaryAndOther">
+<%		VitroRequest vreq = new VitroRequest(request);%>
+    	<%=TabMenu.getPrimaryTabMenu(vreq)%>  
+    	<ul id="otherMenu">
+<%			if ( fixedTabStr != null && fixedTabStr.equalsIgnoreCase("browse")) {%>
+        		<li class="activeTab"><a href="browsecontroller" title="list all contents by type">Index</a></li>
+<% 			} else { %>
+        		<li><a href="browsecontroller?home=<%=portalId%>" title="list all contents by type">Index</a></li>
+<%			}
+        	if ( fixedTabStr != null && fixedTabStr.equalsIgnoreCase("about")) {%>
+        		<li><a class="activeTab" href="about.jsp?home=<%=portalId%>&amp;login=none" title="more about this web site">About</a></li>
+<%			} else { %>
+        		<li><a href="about?home=<%=portalId%>&amp;login=none" title="more about this web site">About</a></li>
+<%			}
+        	if ( fixedTabStr != null && fixedTabStr.equalsIgnoreCase("comments")) {%>
+        		<li class="activeTab"><a href="comments?home=<%=portalId%>">Contact Us</a></li>
+<%			} else {%>
+        		<li><a href="comments?home=<%=portalId%>">Contact Us</a></li>
+<%			}%>
+    	</ul>
+	</div><!-- END 'primaryAndOther'-->
+<%	if (fixedTabStr==null) { %>
+		<div id="secondaryTabMenu">
+		<%=TabMenu.getSecondaryTabMenu(vreq)%>
+		</div><!--END 'secondaryTabMenu'--><% 
+	}%>
 </div><!-- END 'menu' -->
+<div id="breadcrumbs"><%=BreadCrumbsUtil.getBreadCrumbsDiv(request)%></div>
 <!-- ************************ END menu.jsp ************************ -->
