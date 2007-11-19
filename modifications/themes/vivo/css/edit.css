@@ -79,7 +79,7 @@ td.verticalfieldlabel {
 	overflow        : visible;
 }
 
-.form-row-even {
+tr.form-row-even {
 	background-color : #e9f0ff;
 	border-color     : #eec; 
 	font-family      : Verdana, Geneva, Arial, Helvetica, sans-serif;
@@ -88,7 +88,7 @@ td.verticalfieldlabel {
 	margin-top       : 2px;
 }
 
-.form-row-odd {
+tr.form-row-odd {
 	background-color : #e9f9ff;
 	border-color     : #eec; 
 	font-family      : Verdana, Geneva, Arial, Helvetica, sans-serif;
@@ -117,14 +117,31 @@ td.verticalfieldlabel {
 } */
 
 table.form-background td {
-	background-color: #c8d8f8;
 	padding-left    : 1em;
 	padding-right   : 1em;
 }
 
 table.form-background td form {
-	padding:0.2em;
+	padding : 0.2em;
 }
+
+.form-background {
+	background-color : #C8D8F8;
+	border-color     : #CCCCFF;
+	font-family      : Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-size        : 10px;
+	border-width     : 1px;
+	margin-top       : 2px;
+}
+
+.form-background.vclass {
+	background-color : #E05550;
+}
+
+.form-background.property {
+	background-color : #A8F0A0;
+}
+
 
 .form-table-head {
 	background-color: #ccf;
