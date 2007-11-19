@@ -41,8 +41,59 @@
 <c:set var="themeDir"><c:out value="${portal.themeDir}" default="themes/default/"/></c:set>
 
 <div id="header">
-<%  /* ======================= CALS RESEARCH and IMPACT PORTALS ============================= */
-	/* no longer need to check if ((portal.getPortalId()>1 && portal.getPortalId()<6) || portal.getPortalId()==60) */
+
+<% if (portal.getPortalId()==6) { /* IMPACT */ %>
+
+<table id="head"><tr>
+
+    <td id="LogotypeArea">
+    	<table><tr>
+    	<td>
+        <a target="_new" href="http://www.cornell.edu">
+        
+        <img class="closecrop" src="themes/cals/site_icons/cu_insignia_bw.gif" alt="Cornell University"/></a>      	
+        </td><td>
+        <a target="_new" href="http://www.cals.cornell.edu/cals/research/index.cfm">
+            <img class="closecrop" src="themes/cals/site_icons/cals_logotype.gif"
+                     width="430" height="76"
+                     alt="CALS Impact"/></a>
+        </td>
+
+        </tr></table>
+    </td>
+
+        <td id="SearchArea" align="right">
+<table align="center"><tr><td>
+        		<div class="searchForm">
+        		<form action="search" >
+                	<input type="hidden" name="home" value="6" />
+                	<input type="hidden" name="appname" value="CALS Impact" />
+                	<input type="hidden" name="searchmethod" value="fulltext" /><table><tr>
+
+                	<td>
+                	
+       	<label for="search">Search Latest Impact Statements </label>   	    				
+   	    </td>
+	                <td>
+<input type="hidden" name="flag1" value="6" />
+<input type="text" name="querytext" id="search" class="search-form-item" value="" 
+                	   	size="20" />
+                	</td>
+                	<td>
+	                	<input class="search-form-button" name="submit" type="submit"  value="Go" />
+	                </td>
+
+	                </tr></table>
+        		</form>
+        		<a class="formlink" style="color:white;" href="search?home=6">Advanced Search | Search Tips</a>                
+                </div>
+        		</td></tr></table>
+</td>
+</tr></table>
+
+<% } else { /* RESEARCH PORTALS */ %>
+
+<%  /* ======================= CALS RESEARCH PORTALS ============================= */
     int rotatingBannerWidth=0; %>
     <table id="CALS_Research_Head">
     <tr>
@@ -129,5 +180,6 @@
         </table>
     </td></tr>
     </table>
+<% } %>
 </div><!--END header-->
 
