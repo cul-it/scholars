@@ -7,25 +7,13 @@
 /*
 Title:		VIVO screen styles
 Author:		nac26@cornell.edu
-Updated:	November 14, 2007
+Updated:	November 19, 2007
 */
 
-/***********************************************************************
-************************************************************************
-
-JON - uncomment this statement to display the info on data insertion */
-
-/*span {
-	display: none;
-}*/
-
-/***********************************************************************
-***********************************************************************/
-/* jc55 seems to be related to narrow vertical area intruding into footer
 * {
 	margin: 0;
 	padding: 0;
-} */
+}
  
 body {
 	font-family: Verdana, sans-serif;
@@ -33,7 +21,6 @@ body {
 	text-align: left;
 	color: #333;
 	background: #4d5155;
-/*	background: #d4c99d url(../site_icons/layout/bg_body.gif) repeat-x left top;	now being handled in template-basepage.head*/
 }
 
 #wrap {
@@ -44,7 +31,7 @@ body {
 /*	width: 917px;*/
 }
 
-#contentwrap { /* jc55 was main */
+#contentwrap {
 	margin-bottom: 4px;
 	padding: 12px 0 1px 16px; /* right padding taken care of within sidebar (to allow centering of profile image) */
 	background: #fff url(../site_icons/layout/bg_page.gif) no-repeat right top;
@@ -56,18 +43,21 @@ body {
 
 #menu {
 	float: right;
-	background: #fc6;
+	display: inline;
+	height: 69px;
+	width: 77%;
+	margin-left: 20px;
+/*	background: #fc6;*/
 }
 
 #content {
 	float: left;
-	display: inline;
+	clear: both;
 	width: 70%;
 /*	width: 72%;*/
 	min-width: 640px;
 /*	width: 640px;*/
-	padding-right: 5px;
-	padding-bottom: 20px;
+	padding: 3px 5px 20px 0;
 }
 
 #content.full {
@@ -88,6 +78,41 @@ body {
 #footer {
 	clear: both;
 	color: #fff;
+}
+
+/****************************************************************
+menu roll call
+****************************************************************/
+.breadCrumbs {
+	float: left;
+	clear: both;
+	margin-top: 3px;
+	padding-left: 1px;
+	color: #999;
+}
+
+.breadCrumbs a:link, .breadCrumbs a:visited {
+	color: #999;
+}
+
+.breadCrumbs a:hover {
+	color: #f81;
+}
+
+#secondaryTabMenu {
+	float: left;
+/*	background: #fc6;*/
+	text-align: left;
+}
+
+table#secondary {
+	float: left;
+/*	background: #fc6;*/
+/*	border: solid 1px #f00;*/
+}
+
+table#secondary td {
+	padding-top: 0;
 }
 
 /****************************************************************
@@ -123,11 +148,6 @@ font {
 
 div.pm-indicators {
 	font-size: 2.8em !important;
-}
-
-#cspot-ui a:link, #cspot-ui a:visited, #cspot-ui a:hover {
-	border: none;
-	background: none;
 }
 
 p {
@@ -318,6 +338,7 @@ img.headshot {
 img.manageProfile {
 	float: right;
 }
+
 img.border-free {
 	border: 0;
 }
@@ -374,6 +395,10 @@ a:link.spotty, a:visited.spotty, a:hover.spotty {
 	float: left;
 }
 
+a:link.vivoLogo, a:visited.vivoLogo, a:hover.vivoLogo {
+	float: left;
+}
+
 ul#profileCats li a:link, ul#profileCats li a:visited {
 	margin-right: 16px;
 	padding: 10px 10px 8px;
@@ -421,37 +446,60 @@ ul li {
 	font-size: 1.1em;
 }
 
-/* jc55 added */
 ul#primary {
-        margin: 10px 0;
-}
-
-ul#primary li {
-	display: inline;
-	margin: 10px 0;
-	font-size: 1.2em;
+	float: left;
+	width: 64%;
+	margin-top: 49px;
+/*	margin: 10px 0;*/
+/*	background: #fc6;*/
 }
 
 ul#otherMenu {
-        margin: 10px 0;
+	float: right;
+	margin: 3px 16px 0 0;
+/*	margin: 71px 16px 0 0;*/
+}
+
+ul#primary li, ul#otherMenu li {
+	display: inline;
+/*	margin: 10px 0;*/
+	margin-left: 5px;
+	padding: 5px 2px 5px 2px;
+/*	background: #000;*/
+	font-size: 1.2em;
 }
 
 ul#otherMenu li {
+	font-size: 1.0em;
+}
+
+ul#primary li a:link, ul#primary li a:visited, ul#otherMenu li a:link, ul#otherMenu li a:visited {
+	padding: 5px 2px 5px 2px;
+	color: #a8c1ca;
+/*	color: #999;*/
+	border: none;
+}
+
+ul#primary li a:hover, ul#otherMenu li a:hover {
+	color: #185;
+	border-bottom: solid 1px #fff;
+}
+
+ul#primary li a:link.activePrimaryTab, ul#primary a:visited.activePrimaryTab {
+	color: #f81;
+	background: transparent url(../site_icons/layout/bg_li_activetab_small.gif) no-repeat 50% bottom;
+}
+
+li.activeTab {
 	display: inline;
 	margin: 10px 0;
 	font-size: 1.2em;
 }
 
-li.activeTab {
-        display: inline;
-        margin: 10px 0;
-        font-size: 1.2em;
-}
-
 li.activePrimaryTab {
-        display: inline;
-        margin: 10px 0;
-        font-size: 1.2em;
+	display: inline;
+/*	margin: 10px 0;*/
+	color: #185;
 }
 
 /* end jc55 added */
@@ -586,6 +634,10 @@ form select#location {
 form textarea#referrer {
 	color: #666;
 	font-weight: normal;
+}
+
+form textarea {
+	width: 95%;
 }
 
 form dt {

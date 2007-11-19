@@ -7,7 +7,7 @@
 /*
 Title:		VIVO - CU Banner
 Author:		nac26@cornell.edu
-Updated:	October 31, 2007
+Updated:	November 19, 2007
 */
 
 /****************************************
@@ -34,11 +34,10 @@ Updated:	October 31, 2007
 
 #cu-logo {
 	float: left;
-	margin: 0;
 	padding: 0;
 	width: 265px;
 	height: 75px;
-	background: url(../site_icons/layout/cu_logo.gif) no-repeat 12px top;	
+	background: url(../site_icons/layout/cu_library_logo.gif) no-repeat 12px top;	
 }
 
 #cu-logo a {
@@ -51,6 +50,7 @@ Updated:	October 31, 2007
 	
 #insignia-link {
 	float: left;
+	margin-left: 16px;
 	width: 68px;
 	height: 75px;
 	}

@@ -3,6 +3,7 @@
 <%@ page import="edu.cornell.mannlib.vitro.webapp.controller.VitroRequest"%>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.web.*"%>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.beans.Portal" %>
+<%@ page import="org.joda.time.DateTime" %>
 <jsp:useBean id="loginHandler" class="edu.cornell.mannlib.vedit.beans.LoginFormBean" scope="session" />
 <%
     /**
@@ -18,7 +19,7 @@
 %>
 <div id="footer">
 	<p class="siteFeedback"><a href="commentsForm.jsp" title="Send Us Feedback">Site Feedback</a></p>
-	<p>&#169; 2007 <%=BreadCrumbsUtil.getRootBreadCrumb(vreq,"",portal)%>
+	<p>&#169; 2003-<%= new DateTime().getYear() %> <%= " " %> <a href="<%=portal.getCopyrightURL()%>"><%=portal.getCopyrightAnchor()%></a></p>
 	
     <div class="copyright">
 	    <p>All Rights Reserved. <a href="termsOfUse?home=<%=portal.getPortalId()%>">Terms of Use</a></p>
