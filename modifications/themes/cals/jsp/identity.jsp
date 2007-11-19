@@ -74,11 +74,20 @@
                 	
        	<label for="search">Search Latest Impact Statements </label>   	    				
    	    </td>
-	                <td>
-<input type="hidden" name="flag1" value="6" />
-<input type="text" name="querytext" id="search" class="search-form-item" value="" 
-                	   	size="20" />
-                	</td>
+    <%if (appBean.isFlag1Active()) {%>
+                          <td>
+                        <select id="select" name="flag1" class="search-form-item" >
+<%                                              if (securityLevel>=FILTER_SECURITY_LEVEL) {%>                                <option value="nofiltering" selected="selected">entire database (<%=loginName%>)</option>
+<%                              }%>
+                        <%=portal.getSearchOptions()%>
+                        </select>
+              </td>
+<%                              } else {%>
+                    <input type="hidden" name="flag1" value="<%=portal.getPortalId()%>" />
+<%                              }%>
+                          <td>
+                <input type="text" name="querytext" id="search" class="search-form-item" size="20" value="<c:out value="${requestScope.querytext}"/>" />
+              </td>	                
                 	<td>
 	                	<input class="search-form-button" name="submit" type="submit"  value="Go" />
 	                </td>
