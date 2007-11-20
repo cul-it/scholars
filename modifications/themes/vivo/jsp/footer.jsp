@@ -18,7 +18,7 @@
     Portal portal = vreq.getPortal();    
 %>
 <div id="footer">
-	<p class="siteFeedback"><a href="commentsForm.jsp" title="Send Us Feedback">Site Feedback</a></p>
+	<p class="siteFeedback"><a href="comments?home=<%=portal.getPortalId()%>" title="Send Us Feedback">Site Feedback</a></p>
 	<p>&#169; 2003-<%= new DateTime().getYear() %> <%= " " %> <a href="<%=portal.getCopyrightURL()%>"><%=portal.getCopyrightAnchor()%></a></p>
 	
     <div class="copyright">
