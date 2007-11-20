@@ -78,14 +78,3 @@
 }
 
 
-/* ****************** toggle-related ***************** */
-
-.resultsMoreSpan{
-	margin-left:1.7em;
-	position:relative; top:-0.7ex;
-}
-
-.resultsMoreSpan img{
-	position:relative; top:+0.8ex;
-	margin-right:0.1em;
-}

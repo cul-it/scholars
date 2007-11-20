@@ -43,11 +43,18 @@ body {
 
 #menu {
 	float: right;
-	display: inline;
+	display: inline-block;
 	height: 69px;
 	width: 77%;
 	margin-left: 20px;
 /*	background: #fc6;*/
+/*	border: solid 1px #f00;*/
+}
+
+#secondaryMenu {
+	display: inline-block;
+	clear: both;
+	width: 100%;
 }
 
 #content {
@@ -85,9 +92,8 @@ menu roll call
 ****************************************************************/
 .breadCrumbs {
 	float: left;
-	clear: both;
-	margin-top: 3px;
 	padding-left: 1px;
+	margin: 3px 0 0 1px;
 	color: #999;
 }
 
@@ -124,8 +130,7 @@ content roll call
 }
 
 span.SearchTerm, h1 span.SearchTerm, a:link span.SearchTerm, a:visited span.SearchTerm {
-	color: #f00;
-	font-weight: bold;
+	background: #ffb;
 }
 
 .entity {
@@ -169,22 +174,26 @@ ul.properties {
 	clear: both;
 }
 
-ul.properties li.property, ul.datatypeProperties li.datatypeProperty {
+ul.tabEntities {
+	margin-top: 25px;
+}
+
+ul.properties li.property, ul.datatypeProperties li.datatypeProperty, ul.tabEntities li {
 	margin-top: 7px;
 	font-size: 1.1em;
 	font-weight: bold;
 }
 
-ul.datatypeProperties li.datatypeProperty span, span.entityMoreSpan {
+ul.datatypeProperties li.datatypeProperty span, span.entityMoreSpan span.resultsMoreSpan {
 	font-weight: normal;
 	color: #185;
 }
 
-ul.datatypeProperties li.datatypeProperty span:hover, span:hover.entityMoreSpan {
+ul.datatypeProperties li.datatypeProperty span:hover, span:hover.entityMoreSpan span:hover.resultsMoreSpan {
 	color: #f81;
 }
 
-ul.properties li.property ul, ul.datatypeProperties li.datatypeProperty ul, div.indent {
+ul.properties li.property ul, ul.datatypeProperties li.datatypeProperty ul, div.indent, div.blurb {
 	margin-top: 4px;
 /*	margin: 4px 0 0 8px;*/
 	font-size: 0.9em;
@@ -192,8 +201,59 @@ ul.properties li.property ul, ul.datatypeProperties li.datatypeProperty ul, div.
 	line-height: 1.5em;
 }
 
-div.indent, ul.datatypeProperties li.datatypeProperty p {
+div.indent, ul.datatypeProperties li.datatypeProperty p, div.blurb {
 	font-size: 0.99em;
+}
+
+/****************************************************************
+search roll call
+****************************************************************/
+.searchTOC {
+	float: left;
+	padding: 7px 0;
+	font-size: 1.2em;
+}
+
+.searchTOC a:link, .searchTOC a:visited {
+	padding: 5px;
+	color: #f81;
+	border: dotted 1px #333;
+}
+
+.searchTOC a:hover {
+	background: #f81;
+	color: #fff;
+}
+
+.contentsBrowseGroup {
+	padding-top: 10px;
+}
+
+.contentsBrowseGroup ul li {
+	margin-bottom: 6px;
+	font-size: 1.2em;
+}
+
+.contentsBrowseGroup ul li div {
+	font-size: 0.86em;
+	color: #888;
+}
+
+/****************************************************************
+admin roll call
+****************************************************************/
+select#search-form-qualifier {
+/*	padding: 3px 0 3px 3px;*/
+	font-family: verdana, arial, helvetica, sans-serif;
+	font-size: 1.0em;
+	font-weight: bold;
+	color: #185;
+	border: none;
+	background: #f3f3f3 url(../site_icons/layout/bg_search_field.gif) no-repeat top left;
+}
+
+#search-input select option {
+	padding-right: 6px;
 }
 
 /****************************************************************
@@ -285,6 +345,20 @@ h3 {
 	color: #087;
 }
 
+h3.first, .contentsBrowseGroup h3.first {
+	margin-top: 4px;
+}
+
+.contentsBrowseGroup h3 {
+	margin-top: 12px;
+	margin-bottom: 4px;
+	font-size: 1.2em;
+}
+
+#loginarea h3 {
+	margin-top: 10px;
+}
+
 h3 a:link, h3 a:visited {
 	color: #087;
 	border-color: #087;
@@ -352,11 +426,6 @@ address {
 	line-height: 1.3em;
 }
 
-/*span {
-	padding: 4px;
-	background: #fc0;
-}
-*/
 /****************************************************************
 image roll call
 ****************************************************************/
@@ -533,16 +602,20 @@ table ul li {
 
 ul#primary {
 	float: left;
+	display: inline;
 	width: 64%;
-	margin-top: 49px;
+	height: 20px;
+	margin-top: 50px;
 /*	margin: 10px 0;*/
 /*	background: #fc6;*/
 }
 
 ul#otherMenu {
 	float: right;
+	display: inline-block;
 	margin: 3px 16px 0 0;
 /*	margin: 71px 16px 0 0;*/
+/*	border: solid 1px #f00;*/
 }
 
 ul#primary li, ul#otherMenu li {

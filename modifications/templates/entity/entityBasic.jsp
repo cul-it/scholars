@@ -37,7 +37,7 @@
 <c:set var='portal' value='${currentPortalId}'/>
 <c:set var='portalBean' value='${currentPortal}'/>
 
-		<div class='contents entity entity${entity.URI}'>
+		<div class='contents entity'>
 				<h1>${entity.name}</h1> 
 	  			<c:choose>
 	  				<c:when test="${!empty entity.moniker}">
@@ -72,7 +72,7 @@
 				<div class="thumbnail">
 					<c:if test="${!empty entity.imageFile}">
 							<c:url var="imageUrl" value="${imageDir}/${entity.imageFile}" />
-							<a href="${imageUrl}">
+							<a class="image" href="${imageUrl}">
 					</c:if>
 					<c:url var="imageSrc" value='${imageDir}/${entity.imageThumb}'/>
 					<img src="<c:out value="${imageSrc}"/>" title="click to view larger image in new window" alt="" width="150"/>

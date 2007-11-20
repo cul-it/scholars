@@ -37,24 +37,26 @@
 		<!-- include primary menu list elements from TabMenu.java -->
    		<%=TabMenu.getPrimaryTabMenu(vreq)%>
 	</div><!-- END menu -->
+	<div id="secondaryMenu">
 	<%=BreadCrumbsUtil.getBreadCrumbsDiv(request)+"\n"%>
 	<!-- now render the standard Index, About, and Contact Us navigation  --> 
-	<ul id="otherMenu">
-<%		if ("browse".equalsIgnoreCase(fixedTabStr)) {%>
-			<li class="activeTab"><a href="browsecontroller" title="list all contents by type">Index</a></li>
-<%		} else {%>
-			<li><a href="browsecontroller?home=<%=portalId%>" title="list all contents by type">Index</a></li>
-<%		}
-      	if ("about".equalsIgnoreCase(fixedTabStr)) {%>
-			<li><a class="activeTab" href="about.jsp?home=<%=portalId%>&amp;login=none" title="more about this web site">About</a></li>
-<%		} else {%>
-			<li><a href="about?home=<%=portalId%>&amp;login=none" title="more about this web site">About</a></li>
-<%		}
-      	if ("comments".equalsIgnoreCase(fixedTabStr)) { %>
-			<li class="activeTab"><a href="comments?home=<%=portalId%>">Contact Us</a></li>
-<%		} else {%>
-			<li><a href="comments?home=<%=portalId%>">Contact Us</a></li>
-<%		}%>
-	</ul>
+		<ul id="otherMenu">
+<%			if ("browse".equalsIgnoreCase(fixedTabStr)) {%>
+				<li class="activeTab"><a href="browsecontroller" title="list all contents by type">Index</a></li>
+<%			} else {%>
+				<li><a href="browsecontroller?home=<%=portalId%>" title="list all contents by type">Index</a></li>
+<%			}
+      		if ("about".equalsIgnoreCase(fixedTabStr)) {%>
+				<li><a class="activeTab" href="about.jsp?home=<%=portalId%>&amp;login=none" title="more about this web site">About</a></li>
+<%			} else {%>
+				<li><a href="about?home=<%=portalId%>&amp;login=none" title="more about this web site">About</a></li>
+<%			}
+      		if ("comments".equalsIgnoreCase(fixedTabStr)) { %>
+				<li class="activeTab"><a href="comments?home=<%=portalId%>">Contact Us</a></li>
+<%			} else {%>
+				<li><a href="comments?home=<%=portalId%>">Contact Us</a></li>
+<%			}%>
+		</ul>
+	</div>
 </div><!-- END header -->
 <!-- ********** END menu.jsp FROM /themes/vivo/jsp/ ************* -->
