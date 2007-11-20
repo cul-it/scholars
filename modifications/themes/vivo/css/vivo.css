@@ -43,10 +43,11 @@ body {
 
 #menu {
 	float: right;
-	display: inline-block;
-	height: 69px;
-	width: 77%;
-	margin-left: 20px;
+	display: inline;
+/*	height: 69px;*/
+/*	width: 77%;*/
+	margin-right: 262px;
+/*	margin-left: 180px;*/
 /*	background: #fc6;*/
 /*	border: solid 1px #f00;*/
 }
@@ -90,6 +91,67 @@ body {
 /****************************************************************
 menu roll call
 ****************************************************************/
+ul#primary {
+	float: right;
+	display: inline-block;
+/*	width: 64%;*/
+	height: 20px;
+	margin-top: 10px;
+/*	margin-top: 50px;*/
+/*	background: #fc6;*/
+}
+
+ul#otherMenu {
+	float: right;
+	display: inline-block;
+	margin: 3px 16px 0 0;
+/*	margin: 71px 16px 0 0;*/
+/*	border: solid 1px #f00;*/
+}
+
+ul#primary li, ul#otherMenu li {
+	display: inline;
+/*	margin: 10px 0;*/
+	margin-left: 5px;
+	padding: 5px 2px 5px 2px;
+/*	background: #000;*/
+	font-size: 1.2em;
+/*	border: solid 1px #f81;*/
+}
+
+ul#otherMenu li {
+	font-size: 1.0em;
+}
+
+ul#primary li a:link, ul#primary li a:visited, ul#otherMenu li a:link, ul#otherMenu li a:visited {
+	padding: 5px 2px 5px 2px;
+	color: #a8c1ca;
+/*	color: #999;*/
+	border: none;
+}
+
+ul#primary li a:hover, ul#otherMenu li a:hover {
+	color: #185;
+	border-bottom: solid 1px #fff;
+}
+
+ul#primary li a:link.activePrimaryTab, ul#primary a:visited.activePrimaryTab {
+	color: #f81;
+	background: transparent url(../site_icons/layout/bg_li_activetab_small.gif) no-repeat 50% bottom;
+}
+
+li.activeTab {
+	display: inline;
+	margin: 10px 0;
+	font-size: 1.2em;
+}
+
+li.activePrimaryTab {
+	display: inline;
+/*	margin: 10px 0;*/
+	color: #185;
+}
+
 .breadCrumbs {
 	float: left;
 	padding-left: 1px;
@@ -124,6 +186,10 @@ table#secondary td {
 /****************************************************************
 content roll call
 ****************************************************************/
+#contents {
+	padding-right: 16px;
+}
+
 .citation {
 	clear: both;
 	padding-top: 25px;
@@ -134,17 +200,23 @@ span.SearchTerm, h1 span.SearchTerm, a:link span.SearchTerm, a:visited span.Sear
 }
 
 .entity {
+	margin-top: 0;
+	padding-top: 0;
 	padding-right: 16px;
 }
 
 .entity h1 {
 	float: left;
+	margin-top: 0;
+	padding-top: 0;
 }
 
 .entity em.moniker {
 	float: left;
-	margin-top: 15px;
-	padding-left: 12px;
+	display: inline;
+	padding-top: 6px;
+	padding-left: 16px;
+	font-size: 1.2em;
 }
 
 ul.externalLinks {
@@ -156,12 +228,30 @@ ul.externalLinks {
 ul.externalLinks li {
 	display: inline;
 	padding-left: 4px;
-	border-left: solid 1px #000;
+	border-left: solid 1px #ccc;
 }
 
 ul.externalLinks li.first {
 	padding-left: 0;
 	border-left: none;
+}
+
+a:link.propertyLink, a:visited.propertyLink {
+	font-weight: bold;
+}
+
+a:link.externalLink, a:visited.externalLink {
+	color: #5ab;
+	font-size: 0.9em;
+	border: none;
+}
+
+a:visited.externalLink {
+	color: #666;
+}
+
+a:hover.externalLink {
+	color: #f81;
 }
 
 .thumbnail {
@@ -307,21 +397,20 @@ h1 em {
 
 h2 {
 	margin: 30px 0 4px 0;
-	font-size: 1.5em;
+	font-size: 1.7em;
 	line-height: 1.3em;
 	font-family: Helvetica, Verdana, sans-serif;
 	color: #203e48;
 }
 
-/*h2 a:link, h2 a:visited {
-	color: #054;
-	border-color: #054;
+h2 a:link, h2 a:visited {
+	color: #134;
+	border-color: #134;
 }
 
 h2 a:hover {
-	color: #fff;
-	background-color: #054;
-}*/
+	color: #f81;
+}
 
 span.h2 {
 	display: block;
@@ -339,6 +428,13 @@ h2.primary {
 	color: #630;
 }
 
+.contentsBrowseGroup h2 {
+	clear: both;
+	margin-top: 20px;
+	font-size: 2.0em;
+	color: #f81;
+}
+
 h3 {
 	margin-top: 25px;
 	font-size: 1.0em;
@@ -347,6 +443,11 @@ h3 {
 
 h3.first, .contentsBrowseGroup h3.first {
 	margin-top: 4px;
+}
+
+h3.centered {
+	margin-top: 10px;
+	font-size: 1.2em;
 }
 
 .contentsBrowseGroup h3 {
@@ -540,9 +641,9 @@ a:link.spotty, a:visited.spotty, a:hover.spotty {
 	float: left;
 }
 
-a:link.vivoLogo, a:visited.vivoLogo, a:hover.vivoLogo {
+/*a:link.vivoLogo, a:visited.vivoLogo, a:hover.vivoLogo {
 	float: left;
-}
+}*/
 
 ul#profileCats li a:link, ul#profileCats li a:visited {
 	margin-right: 16px;
@@ -598,66 +699,6 @@ table ul {
 table ul li {
 	margin-left: 12px;
 	list-style-type: disc;
-}
-
-ul#primary {
-	float: left;
-	display: inline;
-	width: 64%;
-	height: 20px;
-	margin-top: 50px;
-/*	margin: 10px 0;*/
-/*	background: #fc6;*/
-}
-
-ul#otherMenu {
-	float: right;
-	display: inline-block;
-	margin: 3px 16px 0 0;
-/*	margin: 71px 16px 0 0;*/
-/*	border: solid 1px #f00;*/
-}
-
-ul#primary li, ul#otherMenu li {
-	display: inline;
-/*	margin: 10px 0;*/
-	margin-left: 5px;
-	padding: 5px 2px 5px 2px;
-/*	background: #000;*/
-	font-size: 1.2em;
-}
-
-ul#otherMenu li {
-	font-size: 1.0em;
-}
-
-ul#primary li a:link, ul#primary li a:visited, ul#otherMenu li a:link, ul#otherMenu li a:visited {
-	padding: 5px 2px 5px 2px;
-	color: #a8c1ca;
-/*	color: #999;*/
-	border: none;
-}
-
-ul#primary li a:hover, ul#otherMenu li a:hover {
-	color: #185;
-	border-bottom: solid 1px #fff;
-}
-
-ul#primary li a:link.activePrimaryTab, ul#primary a:visited.activePrimaryTab {
-	color: #f81;
-	background: transparent url(../site_icons/layout/bg_li_activetab_small.gif) no-repeat 50% bottom;
-}
-
-li.activeTab {
-	display: inline;
-	margin: 10px 0;
-	font-size: 1.2em;
-}
-
-li.activePrimaryTab {
-	display: inline;
-/*	margin: 10px 0;*/
-	color: #185;
 }
 
 /* end jc55 added */

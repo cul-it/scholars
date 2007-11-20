@@ -318,4 +318,14 @@ span.entityRelationsSpan {
 }
 
 
-
+/****************************************************************
+nick's new styles --> November, 2007
+****************************************************************/
+p.error {
+	margin-top: 3px;
+	padding: 4px;
+/*	width: 350px;*/  /*Waiting for brian lowe to make some changes to jsp before we go live with this */
+	font-size: 1.4em;
+	color: #f00;
+/*	background: #f99; */  /*Waiting for brian lowe to make some changes to jsp before we go live with this */
+}
