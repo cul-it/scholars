@@ -38,23 +38,24 @@
 <c:set var='portalBean' value='${currentPortal}'/>
 
 		<div class='contents entity entity${entity.URI}'>
-				<h1>${entity.name}</h1>&nbsp;| 
+				<h1>${entity.name}</h1> 
 	  			<c:choose>
 	  				<c:when test="${!empty entity.moniker}">
-						${entity.moniker}
+						<em class="moniker">${entity.moniker}</em>
 	  				</c:when>
 	  				<c:otherwise>
-						${vclassName}
+						<em class="moniker">${vclassName}</em>
 	  				</c:otherwise>
 	  			</c:choose>
+				<ul class="externalLinks">
 				<c:if test="${!empty entity.anchor}">
 		  			<c:choose>
 		  				<c:when test="${!empty entity.url}">
 		  					<c:url var="entityUrl" value="${entity.url}" />
-		  					| <a class="externalLink" href="<c:out value="${entityUrl}"/>">${entity.anchor}</a>
+		  					<li class="first"><a class="externalLink" href="<c:out value="${entityUrl}"/>">${entity.anchor}</a></li>
 		  				</c:when>
 		  				<c:otherwise>
-		  					| <span class="externalLink">${entity.anchor}</span>
+		  					<li class="first"><span class="externalLink">${entity.anchor}</span></li>
 		  				</c:otherwise>
 		  			</c:choose>
 		  		</c:if>
@@ -62,9 +63,10 @@
 				<c:if test="${!empty entity.linksList }">
 					<c:forEach items="${entity.linksList}" var='link'>
 						<c:url var="linkUrl" value="${link.url}" />
-						| <a class="externalLink" href="<c:out value="${linkUrl}"/>">${link.anchor}</a>
+						<li><a class="externalLink" href="<c:out value="${linkUrl}"/>">${link.anchor}</a></li>
 					</c:forEach>
 				</c:if>
+				</ul>
 				 
 				<c:if test="${!empty entity.imageThumb}">
 				<div class="thumbnail">

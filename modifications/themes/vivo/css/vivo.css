@@ -57,7 +57,7 @@ body {
 /*	width: 72%;*/
 	min-width: 640px;
 /*	width: 640px;*/
-	padding: 3px 5px 20px 0;
+	padding: 3px 5px 10px 0;
 }
 
 #content.full {
@@ -118,11 +118,83 @@ table#secondary td {
 /****************************************************************
 content roll call
 ****************************************************************/
-#tags {
+.citation {
+	clear: both;
+	padding-top: 25px;
+}
+
+span.SearchTerm, h1 span.SearchTerm, a:link span.SearchTerm, a:visited span.SearchTerm {
+	color: #f00;
+	font-weight: bold;
+}
+
+.entity {
+	padding-right: 16px;
+}
+
+.entity h1 {
+	float: left;
+}
+
+.entity em.moniker {
+	float: left;
+	margin-top: 15px;
+	padding-left: 12px;
+}
+
+ul.externalLinks {
+	clear: both;
+	margin-bottom: 20px;
+	padding-left: 2px;
+}
+
+ul.externalLinks li {
+	display: inline;
+	padding-left: 4px;
+	border-left: solid 1px #000;
+}
+
+ul.externalLinks li.first {
+	padding-left: 0;
+	border-left: none;
+}
+
+.thumbnail {
+	float: left;
+	clear: both;
+	margin-bottom: 20px;
+}
+
+ul.properties {
 	clear: both;
 }
 
+ul.properties li.property, ul.datatypeProperties li.datatypeProperty {
+	margin-top: 7px;
+	font-size: 1.1em;
+	font-weight: bold;
+}
 
+ul.datatypeProperties li.datatypeProperty span, span.entityMoreSpan {
+	font-weight: normal;
+	color: #185;
+}
+
+ul.datatypeProperties li.datatypeProperty span:hover, span:hover.entityMoreSpan {
+	color: #f81;
+}
+
+ul.properties li.property ul, ul.datatypeProperties li.datatypeProperty ul, div.indent {
+	margin-top: 4px;
+/*	margin: 4px 0 0 8px;*/
+	font-size: 0.9em;
+	font-weight: normal;
+	line-height: 1.5em;
+}
+
+div.indent, ul.datatypeProperties li.datatypeProperty p {
+	font-size: 0.99em;
+}
 
 /****************************************************************
 sidebar roll call
@@ -176,11 +248,12 @@ h1 em {
 h2 {
 	margin: 30px 0 4px 0;
 	font-size: 1.5em;
+	line-height: 1.3em;
 	font-family: Helvetica, Verdana, sans-serif;
 	color: #203e48;
 }
 
-h2 a:link, h2 a:visited {
+/*h2 a:link, h2 a:visited {
 	color: #054;
 	border-color: #054;
 }
@@ -188,7 +261,7 @@ h2 a:link, h2 a:visited {
 h2 a:hover {
 	color: #fff;
 	background-color: #054;
-}
+}*/
 
 span.h2 {
 	display: block;
@@ -218,8 +291,11 @@ h3 a:link, h3 a:visited {
 }
 
 h3 a:hover {
-	color: #fff;
-	background-color: #087;
+	color: #f81;
+}
+
+table h3 {
+	margin-top: 0;
 }
 
 span.h3 {
@@ -444,6 +520,15 @@ ul li {
 	list-style-type: none;
 	background: transparent url(../site_icons/layout/bg_li_bullet.gif) no-repeat 4px 5px;
 	font-size: 1.1em;
+}
+
+table ul {
+	margin-top: 10px;
+}
+
+table ul li {
+	margin-left: 12px;
+	list-style-type: disc;
 }
 
 ul#primary {
@@ -842,4 +927,34 @@ caption {
 	text-align: left;
 	color: #888;
 	font-size: 1.1em;
+}
+
+.tab.depth1 table {	
+	table-layout:fixed; 
+}
+
+.tab.depth2 table {
+	table-layout:fixed;
+}
+
+.tabBody table{
+	table-layout:auto;
+}
+
+#contents td{
+	vertical-align: top;
+	/* font-family: "Lucida Grande",Verdana,Lucida,Arial,Helvetica,sans-serif; */
+	padding:0.2em;
+}
+
+.subtabs table{
+	 width: 100%;
+}
+
+#tabContent table{
+	width: 100%;
+}
+
+#tabContent td {
+  padding:0.4em;
 }
