@@ -33,7 +33,7 @@
         <ul>
       <c:forEach  items="${rs.rows}" var="gradfield">
             <li>
-                <c:url var="gradhref" value="/gradfield.jsp">
+                <c:url var="gradhref" value="gradfield.jsp">
                     <c:param name="uri" value="${gradfield.gradFieldUri}"/>
                 </c:url>
                 <a href="${gradhref}">${gradfield.gradFieldLabel.string}</a>
