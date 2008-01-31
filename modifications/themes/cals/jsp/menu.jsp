@@ -38,8 +38,12 @@
         		<li><a class="activeTab" href="about.jsp?home=<%=portalId%>&amp;login=none" title="more about this web site">About</a></li>
 <%			} else { %>
         		<li><a href="about?home=<%=portalId%>&amp;login=none" title="more about this web site">About</a></li>
-<%			}
-        	if ( fixedTabStr != null && fixedTabStr.equalsIgnoreCase("comments")) {%>
+<%			}         %>
+
+             <c:url value="/selfEditIntro.jsp" var="loginUrl"/>
+            <li><a href="${loginUrl}">Edit Your Profile</a></li>
+
+<%          if ( fixedTabStr != null && fixedTabStr.equalsIgnoreCase("comments")) {%>
         		<li class="activeTab"><a href="comments?home=<%=portalId%>">Contact Us</a></li>
 <%			} else {%>
         		<li><a href="comments?home=<%=portalId%>">Contact Us</a></li>
