@@ -31,7 +31,6 @@
 <c:set var="portal" value="${requestScope.portalBean}"/>
 <c:set var="appBean" value="${requestScope.appBean}"/>
 <c:set var='themeDir' ><c:out value='${portal.themeDir}' default='themes/default/'/></c:set>
-
 <div id="cu-identity">
 	<div id="cu-logo">
 		<a id="insignia-link" class="clean" href="http://www.cornell.edu/" title="Cornell University"><img src="${portal.themeDir}site_icons/layout/cu_logo.gif" alt="Cornell University" width="283" height="76" border="0" /></a> 

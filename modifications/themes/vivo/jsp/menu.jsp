@@ -31,7 +31,7 @@
 <!-- ********** START menu.jsp FROM /themes/vivo/jsp/ ************* -->
 <div id="header">
 	<!-- ************************ Theme logo ********************** generated in menu.jsp **** -->
-	<a class="image vivoLogo" href="index.jsp?home=<%=portalId%>" title="Home"><img src="themes/vivo/site_icons/vivo_logo.gif" alt="VIVO: Virtual Life Sciences Library" /></a>
+	<a class="image vivoLogo" href="index.jsp?home=<%=portalId%>" title="Home"><img src="themes/default/site_icons/vivo_logo.gif" alt="VIVO: Virtual Life Sciences Library" /></a>
 	
     <!-- ************************ Navigation ********************** generated in menu.jsp **** -->
 	<div id="menu">
