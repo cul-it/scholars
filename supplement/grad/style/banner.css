@@ -1,0 +1,101 @@
+/****************************************
+ * Albert R. Mann Library 
+ * Cornell University
+ * Ithaca, NY 14853
+ ****************************************/
+
+/*
+Title:		VIVO - CU Banner
+Author:		nac26@cornell.edu
+Updated:	October 31, 2007
+*/
+
+/****************************************
+ * Cornell Identity
+ ****************************************/
+/* 
+	The following set of rules controls the appearance of the topmost 
+	banner on the page, including height, background color, and text color.
+	
+	The version of the logo that appears in the XHTML code is hidden from 
+	browsers that can read this stylesheet, and it is replaced by a version
+	of the logo that corresponds to the background color of the banner. 
+	This logo is placed in the background of two elements below (rather than
+	one) to prevent flickering when moused over by IE/Win users who have 
+	disabled the browser cache.
+*/
+#cu-identity {
+	font-family: verdana, arial, helvetica, sans-serif;
+	color: #fff;
+	height: 45px;
+	text-align: left;
+	background: #000;
+}
+
+#cu-logo {
+	float: left;
+	margin: 0;
+	padding: 0;
+	width: 265px;
+	height: 45px;
+	background: url(../images/layout/cu_logo.gif) no-repeat 12px top;	
+}
+
+#cu-logo a {
+	display: block;
+	border: none;
+	width: 180px;
+	height: 45px;
+/*	background: url(../images/layout/cu_logo.gif) no-repeat top left;*/
+}
+	
+#cu-logo img {
+	display: none;
+}
+ 
+#cu-search {
+	float: right;
+	width: 200px;
+	margin-top: 10px;
+/*	position: absolute;
+	top: 11px; 
+	right: 50%;
+	width: 200px;
+	margin-right: -385px;*/
+	}
+	
+#cu-search a {
+	float: right;
+	padding: 5px 15px;
+	font-size: 1.1em;
+	color: #fff;
+	text-decoration: none;
+	border: none;
+	}
+	
+#cu-search a:hover {
+	background: #555;
+	}
+ 
+/****************************************
+ * Miscellaneous
+ ****************************************/
+
+/* 
+	Hide "skip to content" link from general users. 
+	Do not use display: none, as that will also hide it from some screen readers.
+*/
+#skipnav {
+	position: absolute;
+	top: -1000em;
+	left: -1000em;
+	}
+	
+/* 
+	Hide horizontal rules (hr) that are found throughout the site.
+	The rules are semantic separations of content, and they are useful for 
+	browsers that cannot utilize the stylesheet.
+*/	
+hr {
+	display: none;
+	}
