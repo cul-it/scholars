@@ -7,7 +7,7 @@
 /*
 Title:		VIVO screen styles
 Author:		nac26@cornell.edu
-Updated:	November 19, 2007
+Updated:	February 5, 2008
 */
 
 * {
@@ -643,9 +643,14 @@ a:link.spotty, a:visited.spotty, a:hover.spotty {
 }
 
 a:link.vivoLogo, a:visited.vivoLogo, a:hover.vivoLogo {
-/*	float: left;*/
+	float: left;
 	display: block;
 	height: 1%;
+}
+
+a:link.login, a:visited.login, a:hover.login {
+	float: right;
+	margin-right: 15px;
 }
 
 ul#profileCats li a:link, ul#profileCats li a:visited {

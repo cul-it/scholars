@@ -31,7 +31,10 @@
 <!-- ********** START menu.jsp FROM /themes/vivo/jsp/ ************* -->
 <div id="header">
 	<!-- ************************ Theme logo ********************** generated in menu.jsp **** -->
-	<a class="image vivoLogo" href="index.jsp?home=<%=portalId%>" title="Home"><img src="themes/default/site_icons/vivo_logo.gif" alt="VIVO: Virtual Life Sciences Library" /></a>
+	<a class="image vivoLogo" href="index.jsp?home=<%=portalId%>" title="Home"><img src="themes/vivo/site_icons/vivo_logo.gif" alt="VIVO: Virtual Life Sciences Library" /></a>
+	
+	<c:url value="/selfEditIntro.jsp" var="loginUrl"/>
+    <a class="image login" href="${loginUrl}" title="Edit Your Profile"><img src="themes/vivo/site_icons/login.gif" alt="Edit Your Profile" /></a>
 	
     <!-- ************************ Navigation ********************** generated in menu.jsp **** -->
 	<div id="menu">
@@ -52,11 +55,7 @@
 				<li><a class="activeTab" href="about.jsp?home=<%=portalId%>&amp;login=none" title="more about this web site">About</a></li>
 <%			} else {%>
 				<li><a href="about?home=<%=portalId%>&amp;login=none" title="more about this web site">About</a></li>
-<%			}                                                    %>
-
-             <c:url value="/selfEditIntro.jsp" var="loginUrl"/>
-            <li><a href="${loginUrl}">Edit Your Profile</a></li>
-            
+<%			}                                                    %>          
 <%          if ("comments".equalsIgnoreCase(fixedTabStr)) { %>
 				<li class="activeTab"><a href="comments?home=<%=portalId%>">Contact Us</a></li>
 <%			} else {%>
