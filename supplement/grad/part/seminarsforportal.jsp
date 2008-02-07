@@ -20,33 +20,35 @@
               PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
               PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
               PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+              PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
+              PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
               SELECT DISTINCT ?talkUri ?blurb ?label
               WHERE
               {
               ?person
-              <http://vivo.library.cornell.edu/ns/0.1#AcademicEmployeeOtherParticipantAsFieldMemberInAcademicInitiative>
+              vivo:AcademicEmployeeOtherParticipantAsFieldMemberInAcademicInitiative
               ?field .
 
-              ?field rdf:type <http://vivo.library.cornell.edu/ns/0.1#GraduateField> .
+              ?field rdf:type vivo:GraduateField .
 
               ?person
-              <http://vivo.library.cornell.edu/ns/0.1#CornellFacultyMemberInOrganizedEndeavor>
+              vivo:CornellFacultyMemberInOrganizedEndeavor
               ?dept .
 
-              ?dept rdf:type <http://vivo.library.cornell.edu/ns/0.1#AcademicDepartment> .
+              ?dept rdf:type vivo:AcademicDepartment .
 
               ?dept 
-              <http://vivo.library.cornell.edu/ns/0.1#OrganizedEndeavorSponsorOfAssociatedEnumeratedSet> 
+              vivo:OrganizedEndeavorSponsorOfAssociatedEnumeratedSet
               ?seminar.
 
               ?seminar
-              <http://vivo.library.cornell.edu/ns/0.1#seminarOrLectureSeriesHasMemberTalk>
+              vivo:seminarOrLectureSeriesHasMemberTalk
               ?talkUri .
 
               ?talkUri
-                <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#timekey> ?timekey ;
-                <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#sunrise> ?sunrise ;
-                <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#blurb>   ?blurb ;
+                vitro:timekey ?timekey ;
+                vitro:sunrise ?sunrise ;
+                vitro:blurb   ?blurb ;
                 rdfs:label ?label.
 
                FILTER( xsd:dateTime(?now) > ?sunrise  && xsd:dateTime(?now) < ?timekey )

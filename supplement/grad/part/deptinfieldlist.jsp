@@ -13,20 +13,21 @@
 
               PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
               PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+              PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
               SELECT DISTINCT ?deptUri ?deptLabel
               WHERE
               {
               ?person
-              <http://vivo.library.cornell.edu/ns/0.1#AcademicEmployeeOtherParticipantAsFieldMemberInAcademicInitiative>
+              vivo:AcademicEmployeeOtherParticipantAsFieldMemberInAcademicInitiative
               ?field .
 
               ?person
-              <http://vivo.library.cornell.edu/ns/0.1#CornellFacultyMemberInOrganizedEndeavor>
+              vivo:CornellFacultyMemberInOrganizedEndeavor
               ?deptUri .
 
               ?deptUri
                rdf:type
-               <http://vivo.library.cornell.edu/ns/0.1#AcademicDepartment> .
+               vivo:AcademicDepartment .
 
               OPTIONAL { ?deptUri rdfs:label ?deptLabel }
               }

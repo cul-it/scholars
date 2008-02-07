@@ -16,11 +16,11 @@
 
               PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
               PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+              PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
               SELECT ?gradFieldUri ?gradFieldLabel
               WHERE
               {
-              ?fieldCluster <http://vivo.library.cornell.edu/ns/0.1#hasAssocaited> ?gradFieldUri.
-              ?gradFieldUri rdf:type <http://vivo.library.cornell.edu/ns/0.1#GraduateField>.
+              ?fieldCluster vivo:hasAssociated ?gradFieldUri.
               OPTIONAL { ?gradFieldUri rdfs:label ?gradFieldLabel }
               }
               ORDER BY ?gradFieldUri

@@ -12,10 +12,11 @@
 
               PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
               PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+              PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
               SELECT ?fieldClusterUri ?clusterLabel
               WHERE
               {
-              ?fieldClusterUri rdf:type <http://lowe.mannlib.cornell.edu/ns/vitro/0.7/vitro.owl#fieldCluster>
+              ?fieldClusterUri rdf:type vivo:fieldCluster
               OPTIONAL { ?fieldClusterUri rdfs:label ?clusterLabel }
               }
               ORDER BY ?clusterLabel
