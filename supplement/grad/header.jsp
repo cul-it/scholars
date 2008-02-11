@@ -13,6 +13,7 @@
 </head>
 
 <body>
+	<div id="bodyOverlay">
 	<div id="skipnav">
 		<a href="#content">Skip to main content</a>
 	</div>
@@ -31,8 +32,8 @@
 		<hr />
 		
 		<div id="header">
-			<a class="image" href="/vivo/grad" title="Home"><img id="title" src="images/gradprogram_title.gif" alt="Graduate Program in the Life Sciences" /></a>
-			
+			<h1>Graduate Programs in the Life Sciences</h1>
+			<!-- <a class="image" href="/vivo/grad" title="Home"><img id="title" src="images/gradprogram_title.gif" alt="Graduate Program in the Life Sciences" /></a> -->
 			<div id="navigation">
 				<ul>
 					<li><a <c:if test="${fn:contains(pageContext.request.servletPath, 'index.jsp')}">class="currentTab" </c:if>href="/vivo/grad" title="Home">Home</a></li>
