@@ -2,11 +2,17 @@
 		
 		<div id="contentWrap">
 			<div id="content">
-				<h2 class="initial">${param.label}</h2>
-				
-				<jsp:include page="part/gradfieldlist.jsp">
-				    <jsp:param name="uri" value="${param.uri}"/>
-				</jsp:include>
+				<!-- <h2 class="initial">${param.label}</h2>
+								
+					<jsp:include page="part/gradfieldlist.jsp">
+					    <jsp:param name="uri" value="${param.uri}"/>
+					</jsp:include> -->
+							<div> Graduate Fields in ${param.label}</div>
+
+							<jsp:include page="part/gradfieldlist.jsp">
+							    <jsp:param name="uri" value="${param.uri}"/>
+							</jsp:include>	
+								
 			</div><!-- content -->
 		
 			<div id="sidebar">

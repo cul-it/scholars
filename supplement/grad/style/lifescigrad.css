@@ -54,8 +54,8 @@ body {
 	float: left;
 	display: inline;
 	width: 65%;
-	min-width: 610px;
-	padding: 22px 15px;
+	min-width: 600px;
+	padding: 22px 15px 22px 20px;
 	font-family: Arial, sans-serif;
 	font-size: 1.2em;
 	color: #efecca;
@@ -71,6 +71,7 @@ body {
 
 #footer {
     margin-bottom: 10px;
+    width: 99%;
 	clear: both;
 	color: #fff;
 }
@@ -121,7 +122,7 @@ header roll call
 /*	background: #031d1d;*/
 /*	background: #002f2f;*/
 /*  background: #021C1C;*/
-	background: #021C1C url(../images/layout/bg_content.png) left top !important;
+	background: #000 url(../images/layout/bg_content.png) left top !important;
 	background: #021C1C url(../images/layout/bg_content.gif) left top; /* Delivered to browsers without PNG support */
 }
 
@@ -193,7 +194,7 @@ basics roll call
 
 p {
 	font-size: 1.1em;
-	line-height: 1.2em;
+	line-height: 1.3em;
 	text-align: left;
 }
 
@@ -249,8 +250,8 @@ anchor roll call
 }
 
 a:link, a:visited {
-	color: #185;
-	border-bottom: solid 1px #bacec5;
+	color: #046380;
+	border-bottom: solid 1px #046380;
 	text-decoration: none;
 }
 
@@ -259,12 +260,13 @@ a:visited {
 }
 
 a:hover {
-	color: #f81;
+	color: #1ca533;
 /*	background: #d9e5e0;*/
 }
 
 #footer a:link, #footer a:visited {
 	color: #bacec5;
+	border-color: #bacec5;
 }
 
 #footer a:hover {

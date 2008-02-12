@@ -29,7 +29,7 @@
         <ul class="fields">
       <c:forEach  items="${rs.rows}" var="row">
             <li>
-                <c:url var="gradhref" value="gradfieldgroup.jsp">
+                <c:url var="gradhref" value="fields.jsp">
                   <c:param name="label" value="${row.clusterLabel.string}"/>
                   <c:param name="uri" value="${row.fieldClusterUri}"/>
                 </c:url>
