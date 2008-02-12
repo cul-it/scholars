@@ -1,0 +1,32 @@
+/****************************************
+ * Albert R. Mann Library 
+ * Cornell University
+ * Ithaca, NY 14853
+ ****************************************/
+
+/*
+Title:		VIVO screen styles and IE patches
+Author:		nac26@cornell.edu
+*/
+ 
+/* Import styles
+------------------------------*/
+@import url("vivo.css");
+@import url("banner.css");
+@import url("search.css");
+
+/* Import IE5/Mac patches
+   Uses the IE5/Mac Band Pass Filter:
+   http://stopdesign.com/examples/ie5mac-bpf/
+----------------------------------------------- */
+/*\*//*/
+  @import "patches/ie5mac.css";
+/**/
+
+/* Import IE5/Win patches
+   Uses the Mid Pass Filter:
+   http://tantek.com/CSS/Examples/midpass.html
+----------------------------------------------- */
+@media tty {
+ i{content:"\";/*" "*/}} @import 'patches/ie5win.css'; /*";}
+}/* */
