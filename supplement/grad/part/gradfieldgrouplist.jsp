@@ -29,13 +29,12 @@
     <div> <!-- root tag from gradfieldgrouplist -->
         <ul class="fields">
       <c:forEach  items="${rs.rows}" var="row">
-            <li>
-                <c:url var="gradhref" value="fields.jsp">
-                  <c:param name="label" value="${row.clusterLabel.string}"/>
-                  <c:param name="uri" value="${row.fieldClusterUri}"/>
-                </c:url>
-                <a class="${fn:substringAfter(row.fieldClusterUri,'#')}"
-                   href="${gradhref}">  ${row.clusterLabel.string}  </a>
+	      <c:url var="gradhref" value="fields.jsp">
+            <c:param name="label" value="${row.clusterLabel.string}"/>
+            <c:param name="uri" value="${row.fieldClusterUri}"/>
+          </c:url>
+            <li class="${fn:substringAfter(row.fieldClusterUri,'#')}">
+                <a href="${gradhref}">  ${row.clusterLabel.string}  </a>
             </li>
       </c:forEach>
         </ul>

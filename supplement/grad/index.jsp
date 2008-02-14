@@ -17,13 +17,16 @@
 				<div id="news">
 					<h2>Life Sciences News</h2>
 				    <jsp:include page="part/newsforportal.jsp" />
+					<a class="moreLink" href="#">more news &raquo;&raquo;</a>
 				</div>
 				<div id="search">
 					<h2>Find Research</h2>
 				</div>
 				<div id="seminars">
 					<h2>Life Sciences Seminars</h2>
-					<jsp:include page="part/seminarsforportal.jsp" />
+					<ul><li><a href="/vivo/entity?uri=http%3a%2f%2fvivo.library.cornell.edu%2fns%2f0.1%23individual32616_1_1_1_1_1_1_2_1_1_1_1_1_1_2_1_1_1_2_1">TBA-Chemistry and Chemical Biology Seminar</a></li><li><a href="/vivo/entity?uri=http%3a%2f%2fvivo.library.cornell.edu%2fns%2f0.1%23individual32616_1_1_1_1_1_1_2_1_1_1_1_1_1_2_1_1_1">TBA-Chemistry and Chemical Biology Seminar</a></li></ul>
+					<!-- ABOVE CONTENT HARD-CODED DUE TO SLOW RELOADING <include page="part/seminarsforportal.jsp" /> -->
+					<a class="moreLink" href="#">more news &raquo;&raquo;</a>
 				</div>
 			</div> <!-- sidebar -->
 		</div> <!-- contentWrap -->

@@ -41,14 +41,13 @@
               PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
               PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
               PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-              SELECT DISTINCT ?news ?newsLabel ?newsBlurb
+              SELECT DISTINCT ?news ?newsLabel ?newsThumb
               WHERE
               {
               ?news
                 <http://vivo.library.cornell.edu/ns/0.1#featuresPerson> ?person ;
                 <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#timekey> ?timekey ;
                 <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#sunrise> ?sunrise ;
-                <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#blurb>   ?newsBlurb ;
                 <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#imageThumb> ?newsThumb;
                 rdfs:label ?newsLabel .
                 
@@ -74,8 +73,8 @@
                 <li>
                     
                   <c:url var="href" value="/entity"><c:param name="uri" value="${item.news}"/></c:url>
-
-                  <img src="${item.newsThumb.string}"/>
+ 					<c:url var="image" value="/images/${item.newsThumb.string}"/>
+                  <img src="${image}"/>
                   <a href="${href}">${item.newsLabel.string}</a>
                 </li>
             </c:forEach>
