@@ -1,5 +1,6 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
-          xmlns:c="http://java.sun.com/jsp/jstl/core"   
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           xmlns:sparql="http://djpowell.net/tmp/sparql-tag/0.1/"
           version="2.0" >
 
@@ -33,7 +34,8 @@
                   <c:param name="label" value="${row.clusterLabel.string}"/>
                   <c:param name="uri" value="${row.fieldClusterUri}"/>
                 </c:url>
-                <a class="CLASS_BASED_ON_GROUP_NAME" href="${gradhref}">${row.clusterLabel.string}</a>
+                <a class="${fn:substringAfter(row.fieldClusterUri,'#')}"
+                   href="${gradhref}">  ${row.clusterLabel.string}  </a>
             </li>
       </c:forEach>
         </ul>
