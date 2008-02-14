@@ -20,7 +20,13 @@
 					<a class="moreLink" href="#">more news &raquo;&raquo;</a>
 				</div>
 				<div id="search">
-					<h2>Find Research</h2>
+					<form name="findresearch" action="" method="get">
+						<label for="findResearchInput"><h2>Find Research</h2></label>
+						<input name="findresearch" id="findResearchInput" type="text" />
+						<button name="submit" id="findResearchButton" type="submit" value="">
+							<img src="images/layout/button_search.gif" alt="Search" />
+						</button>
+					</form>
 				</div>
 				<div id="seminars">
 					<h2>Life Sciences Seminars</h2>

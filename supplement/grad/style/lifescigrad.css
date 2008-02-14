@@ -183,7 +183,7 @@ li.individual31915, li.individual31919, li.individual31918, li.individual31917, 
 }
 
 #apply {
-    width: 85%;
+    width: 94%;
     background: #046380;
     padding: 15px;
     margin-top: 20px;
@@ -210,14 +210,17 @@ li.individual31915, li.individual31919, li.individual31918, li.individual31917, 
 /****************************************************************
 sidebar roll call
 ****************************************************************/
-#sidebar h2 {
-	margin-bottom: 14px;
-	color: #046380;
-	text-align: left;
-}
 
 #sidebar {
     text-align: right;  /* For the 'more' links */
+}
+
+#sidebar h2 {
+	margin-bottom: 8px;
+	color: #046380;
+	font-size: 1.8em;
+	font-weight: bold;
+	text-align: left;
 }
 
 div#news, div#search, div#seminars {
@@ -228,6 +231,7 @@ div#news, div#search, div#seminars {
 
 div#search {
 	background: #a7a37e;
+	text-align: left;
 }
 
 div#search h2 {
@@ -253,12 +257,6 @@ div#search h2 {
     padding-right: 16px;
 }
 
-#news ul li img {
-    width: 95px;
-    display: block;
-    margin-bottom: 3px;
-    border: 1px solid #d8d5b6;
-}
 
 a.moreLink {
     clear: both;
@@ -269,11 +267,13 @@ a.moreLink {
 a:link.moreLink, a:visited.moreLink {
     color: #b9121b;
     border-bottom: 1px solid #b9121b;
+    font-weight: bold;
 }
 
 a:hover.moreLink, a:active.moreLink {
     color: red;
     border-bottom: 1px solid red;
+    font-weight: bold;
 }
 
 
@@ -315,6 +315,15 @@ h2 {
 image roll call
 ****************************************************************/
 
+#news ul li img {
+    width: 95px;
+    display: block;
+    margin-bottom: 5px;
+    border: 1px solid #c9c7a9;
+    border-left: 0;
+    border-top: 0;
+}
+
 /****************************************************************
 anchor roll call
 ****************************************************************/
@@ -326,7 +335,7 @@ a:link, a:visited {
 }
 
 a:visited {
-	color: #666;
+/*  color: #666;*/
 }
 
 a:hover {
@@ -357,6 +366,26 @@ ul li {
 /****************************************************************
 form roll call
 ****************************************************************/
+#findResearchInput {
+    height: 21px;
+    width: 160px;
+    vertical-align: bottom;
+    border: 1px solid #0D708F;
+    padding: 0;
+    margin: 0 4px 0 0;
+}
+
+#findResearchButton {
+    width: 68px;
+    vertical-align: bottom;
+    text-align: center;
+    cursor: pointer;
+    background: none;
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
+
 .hidden {
 	display: none;
 }
