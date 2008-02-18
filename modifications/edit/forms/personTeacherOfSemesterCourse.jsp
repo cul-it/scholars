@@ -186,8 +186,7 @@
 <jsp:include page="${postForm}"/>
 
 
- <%!
-     /* copy of method in personAuthorOf.jsp, need to find better place fo these to live. */
+ <%!/* copy of method in personAuthorOf.jsp, need to find better place fo these to live. */
   private void prepareForEditOfExisting( EditConfiguration editConfig, Model model, HttpSession session){
         SparqlEvaluate sparqlEval = new SparqlEvaluate(model);
         Map<String,String> varsToUris =   sparqlEval.sparqlEvaluateToUris(editConfig.getSparqlForExistingUris(),
@@ -195,9 +194,7 @@
         Map<String,String> varsToLiterals =   sparqlEval.sparqlEvaluateToLiterals(editConfig.getSparqlForExistingLiterals(),
                 editConfig.getUrisInScope(),editConfig.getLiteralsInScope());
         EditSubmission esub = new EditSubmission(editConfig);
-        esub.setUrisFromFrom(varsToUris);
-        esub.setLiteralsFromFrom(varsToLiterals);
+        esub.setUrisFromForm(varsToUris);
+        esub.setLiteralsFromForm(varsToLiterals);
         EditSubmission.putEditSubmissionInSession(session,esub);
-}
-
-         %>
+}%>

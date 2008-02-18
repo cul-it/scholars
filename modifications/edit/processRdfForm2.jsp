@@ -73,119 +73,118 @@ are well formed.
         String form = editConfig.getFormUrl();
         request.setAttribute("formUrl", form);
         %><jsp:forward page="${formUrl}"/><%
-        return;
-    }
+      	return;
+                }
 
-    List<String> n3Required = editConfig.getN3Required();
-    List<String> n3Optional = editConfig.getN3Optional();
+                List<String> n3Required = editConfig.getN3Required();
+                List<String> n3Optional = editConfig.getN3Optional();
 
-    /* ****************** URIs and Literals in Scope ************** */
-    Map<String,String> urisInScope = editConfig.getUrisInScope();
-    n3Required = subInUris( urisInScope, n3Required);
-    n3Optional = subInUris( urisInScope, n3Optional);
+                /* ****************** URIs and Literals in Scope ************** */
+                Map<String,String> urisInScope = editConfig.getUrisInScope();
+                n3Required = subInUris( urisInScope, n3Required);
+                n3Optional = subInUris( urisInScope, n3Optional);
 
-    //sub in values from sparql queries
-    SparqlEvaluate sparqlEval = new SparqlEvaluate((Model)application.getAttribute("jenaOntModel"));
-    Map<String,String> varToUris = sparqlEval.sparqlEvaluateToUris(editConfig.getSparqlForAdditionalUrisInScope());
-    n3Required = subInUris(varToUris, n3Required);
-    n3Optional = subInUris(varToUris, n3Optional);
+                //sub in values from sparql queries
+                SparqlEvaluate sparqlEval = new SparqlEvaluate((Model)application.getAttribute("jenaOntModel"));
+                Map<String,String> varToUris = sparqlEval.sparqlEvaluateToUris(editConfig.getSparqlForAdditionalUrisInScope());
+                n3Required = subInUris(varToUris, n3Required);
+                n3Optional = subInUris(varToUris, n3Optional);
 
-    Map<String,String> varToLiterals = sparqlEval.sparqlEvaluateToUris(editConfig.getSparqlForAdditionalLiteralsInScope());
-    n3Required = subInLiterals(varToLiterals, n3Required);
-    n3Optional = subInLiterals(varToLiterals, n3Optional);
+                Map<String,String> varToLiterals = sparqlEval.sparqlEvaluateToUris(editConfig.getSparqlForAdditionalLiteralsInScope());
+                n3Required = subInLiterals(varToLiterals, n3Required);
+                n3Optional = subInLiterals(varToLiterals, n3Optional);
 
-    /* ****************** New Resources ********************** */
-    Map<String,String> varToNewResource = newToUriMap(editConfig.getNewResources(),jenaOntModel);
+                /* ****************** New Resources ********************** */
+                Map<String,String> varToNewResource = newToUriMap(editConfig.getNewResources(),jenaOntModel);
 
-    n3Required = subInUris( varToNewResource, n3Required);
-    n3Optional = subInUris( varToNewResource, n3Optional);
+                n3Required = subInUris( varToNewResource, n3Required);
+                n3Optional = subInUris( varToNewResource, n3Optional);
 
-    /* ********** URIs and Literals on Form/Parameters *********** */
+                /* ********** URIs and Literals on Form/Parameters *********** */
 
-    
-    //sub in resource uris off form
-    n3Required = subInUris(submission.getUrisFromFrom(), n3Required);
-    n3Optional = subInUris(submission.getUrisFromFrom(), n3Optional);
+                
+                //sub in resource uris off form
+                n3Required = subInUris(submission.getUrisFromForm(), n3Required);
+                n3Optional = subInUris(submission.getUrisFromForm(), n3Optional);
 
-    //sub in literals from form
-    n3Required = subInLiterals(submission.getLiteralsFromFrom(), n3Required);
-    n3Optional = subInLiterals(submission.getLiteralsFromFrom(), n3Optional);
+                //sub in literals from form
+                n3Required = subInLiterals(submission.getLiteralsFromForm(), n3Required);
+                n3Optional = subInLiterals(submission.getLiteralsFromForm(), n3Optional);
 
-    /* ***************** Build Models ******************* */
-    request.setAttribute("n3RequiredProcessed",n3Required);
-    request.setAttribute("n3OptionalProcessed",n3Optional);
-    
-    List<Model> requiredNewModels = new ArrayList<Model>();
-    for(String n3 : n3Required){
-        try{
-            Model model = ModelFactory.createDefaultModel();
-            StringReader reader = new StringReader(n3);
-            model.read(reader, "", "N3");
-            requiredNewModels.add(model);
-        }catch(Throwable t){
-            errorMessages.add("error processing required n3 string \n"+
-                    t.getMessage() + '\n' +
-                    "n3: \n" + n3 );
-        }
-    }
-    if( !errorMessages.isEmpty() ){
-        System.out.println("problems processing required n3: \n" );
-        for( String error : errorMessages){
-            System.out.println(error);
-        }
-        throw new JspException("errors processing required n3, check catalina.out");
-    }
+                /* ***************** Build Models ******************* */
+                request.setAttribute("n3RequiredProcessed",n3Required);
+                request.setAttribute("n3OptionalProcessed",n3Optional);
+                
+                List<Model> requiredNewModels = new ArrayList<Model>();
+                for(String n3 : n3Required){
+                    try{
+                        Model model = ModelFactory.createDefaultModel();
+                        StringReader reader = new StringReader(n3);
+                        model.read(reader, "", "N3");
+                        requiredNewModels.add(model);
+                    }catch(Throwable t){
+                        errorMessages.add("error processing required n3 string \n"+
+                                t.getMessage() + '\n' +
+                                "n3: \n" + n3 );
+                    }
+                }
+                if( !errorMessages.isEmpty() ){
+                    System.out.println("problems processing required n3: \n" );
+                    for( String error : errorMessages){
+                        System.out.println(error);
+                    }
+                    throw new JspException("errors processing required n3, check catalina.out");
+                }
 
-    List<Model> optionalNewModels = new ArrayList<Model>();
-    for(String n3 : n3Optional){
-        try{
-            Model model = ModelFactory.createDefaultModel();
-            StringReader reader = new StringReader(n3);
-            model.read(reader, "", "N3");
-            optionalNewModels.add(model);
-        }catch(Throwable t){
-            errorMessages.add("error processing optional n3 string  \n"+
-                    t.getMessage() + '\n' +
-                    "n3: \n" + n3);
+                List<Model> optionalNewModels = new ArrayList<Model>();
+                for(String n3 : n3Optional){
+                    try{
+                        Model model = ModelFactory.createDefaultModel();
+                        StringReader reader = new StringReader(n3);
+                        model.read(reader, "", "N3");
+                        optionalNewModels.add(model);
+                    }catch(Throwable t){
+                        errorMessages.add("error processing optional n3 string  \n"+
+                                t.getMessage() + '\n' +
+                                "n3: \n" + n3);
 
-        }
-    }
-     if( !errorMessages.isEmpty() ){
-        System.out.println("problems processing optional n3: \n" );
-        for( String error : errorMessages){
-            System.out.println(error);
-        }
-        //throw new JspException("errors processing optional n3, check catalina.out");
-    }
-    
-    //The requiredNewModels and the optionalNewModels should be handled differently
-    //but for now we'll just do them the same
-    requiredNewModels.addAll(optionalNewModels);
+                    }
+                }
+                 if( !errorMessages.isEmpty() ){
+                    System.out.println("problems processing optional n3: \n" );
+                    for( String error : errorMessages){
+                        System.out.println(error);
+                    }
+                    //throw new JspException("errors processing optional n3, check catalina.out");
+                }
+                
+                //The requiredNewModels and the optionalNewModels should be handled differently
+                //but for now we'll just do them the same
+                requiredNewModels.addAll(optionalNewModels);
 
-    Lock lock = null;
-    try{
-        lock =  persistentOntModel.getLock();
-        lock.enterCriticalSection(Lock.WRITE);
-        for( Model model : requiredNewModels )
-            persistentOntModel.add(model);
-    }catch(Throwable t){
-        errorMessages.add("error adding required model to persistent model \n"+ t.getMessage() );
-    }finally{
-        lock.leaveCriticalSection();
-    }
+                Lock lock = null;
+                try{
+                    lock =  persistentOntModel.getLock();
+                    lock.enterCriticalSection(Lock.WRITE);
+                    for( Model model : requiredNewModels )
+                        persistentOntModel.add(model);
+                }catch(Throwable t){
+                    errorMessages.add("error adding required model to persistent model \n"+ t.getMessage() );
+                }finally{
+                    lock.leaveCriticalSection();
+                }
 
-     try{
-        lock =  jenaOntModel.getLock();
-        lock.enterCriticalSection(Lock.WRITE);
-        for( Model model : requiredNewModels)
-            jenaOntModel.add(model);
-    }catch(Throwable t){
-        errorMessages.add("error processing required model to in memory model \n"+ t.getMessage() );
-    }finally{
-        lock.leaveCriticalSection();
-    }
-
-%>
+                 try{
+                    lock =  jenaOntModel.getLock();
+                    lock.enterCriticalSection(Lock.WRITE);
+                    for( Model model : requiredNewModels)
+                        jenaOntModel.add(model);
+                }catch(Throwable t){
+                    errorMessages.add("error processing required model to in memory model \n"+ t.getMessage() );
+                }finally{
+                    lock.leaveCriticalSection();
+                }
+      %>
 
 <jsp:forward page="postEditCleanUp.jsp"/>
 

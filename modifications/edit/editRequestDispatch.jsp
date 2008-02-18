@@ -78,17 +78,14 @@
 <jsp:forward page="/edit/forms/${form}"  />
 
 
-<%!
-
-    private void prepareForEditOfExisting( EditConfiguration editConfig, Model model, HttpSession session){
+<%!private void prepareForEditOfExisting( EditConfiguration editConfig, Model model, HttpSession session){
         SparqlEvaluate sparqlEval = new SparqlEvaluate(model);
         Map<String,String> varsToUris =   sparqlEval.sparqlEvaluateToUris(editConfig.getSparqlForExistingUris(),
                 editConfig.getUrisInScope(),editConfig.getLiteralsInScope());
         Map<String,String> varsToLiterals =   sparqlEval.sparqlEvaluateToLiterals(editConfig.getSparqlForExistingLiterals(),
                 editConfig.getUrisInScope(),editConfig.getLiteralsInScope());
         EditSubmission esub = new EditSubmission(editConfig);
-        esub.setUrisFromFrom(varsToUris);
-        esub.setLiteralsFromFrom(varsToLiterals);
+        esub.setUrisFromForm(varsToUris);
+        esub.setLiteralsFromForm(varsToLiterals);
         EditSubmission.putEditSubmissionInSession(session,esub);
-}
-%>
+}%>

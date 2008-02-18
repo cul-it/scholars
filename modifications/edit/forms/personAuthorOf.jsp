@@ -84,21 +84,35 @@
            "journal article",
            "book chapter",
            "review",
-           "editorial" ]
+           "editorial" ] },
+    "fields" : {
+      "moniker" : {
+         "newResource"      : "false",
+         "type"             : "select",
+         "queryForExisting" : { },
+         "validators"       : [ ],
+         "optionsType"      : "LITERALS",
+         "literalOptions"   : ["journal article","book chapter","review","editorial","exhibit catalog"],
+         "subjectUri"       : "${param.subjectUri}",
+         "subjectClassUri"  : { },
+         "predicateUri"     : "${param.predicateUri}",
+         "objectClassUri"   : { }
+      }
     }
-   }
+  }
 </c:set>
 <%
-    EditConfiguration editConfig = EditConfiguration.getConfigFromSession(session);
-    if( editConfig == null ){
-        editConfig = new EditConfiguration((String)session.getAttribute("editjson"));
+    //EditConfiguration editConfig = EditConfiguration.getConfigFromSession(session);
+    //if( editConfig == null ){
+        EditConfiguration.clearConfigInSession(session); // otherwise keeps using same predicate from fields
+        EditConfiguration editConfig = new EditConfiguration((String)session.getAttribute("editjson"));
         EditConfiguration.putConfigInSession(editConfig, session);
         if( objectUri != null ){     //these get done on a edit of an existing entity.
             Model model =  (Model)application.getAttribute("jenaOntModel");
             prepareForEditOfExisting(editConfig,model,session);
             editConfig.getUrisInScope().put("newPub",objectUri); //makes sure we reuse objUri 
         }
-    }
+    //}
 
     /* get some data to make the form more useful */
     VitroRequest vreq = new VitroRequest(request);
@@ -118,45 +132,29 @@
 		<h1>Create a new publication</h1>
 
         <form action="<c:url value="/edit/processRdfForm2.jsp"/>" >
-			<dl>
-				<dt><label for="pubName">Title</label></dt>
-				<dd><input type="text" id="pubName" name="pubName" value="<v:value name="pubName"/>" size="70" /><dd>
-				<v:errorMessage name="pubName"/>
-
-				<dt><label for="moniker">Publication Type</label></dt>
-				<dd>
-					<select id="moniker" name="moniker">
-						<v:option name = "moniker"/>
-					</select>
-				</dd>
-
-				<dt><label for="pubDescription">Bibliographic Citation</label></dt>
-				<dd><textarea id="pubDescription" name="pubDescription" rows="5" cols="40"></textarea></dd>
-				<v:errorMessage name="pubDescription"/>
-			</dl>
-			
-				<p>
-					<c:url value="/entity" var="editCancel" >
-					<c:param name="uri" value="${param.subjectUri}"/>
-					</c:url>
-					<input type="submit" value="Create new publication"/> or <a class="cancel" href="${editCancel}" title="Cancel">Cancel</a>
-				</p>
-
+        	<!-- dt and dd tags activated in InputElementFormattingTag.java by default -->
+			<v:input type="text" label="Title" id="pubName" size="70" />
+			<v:input type="select" label="Publication Type" id="moniker" />
+			<v:input type="textarea" label="Bibliographic Citation" id="pubDescription" rows="5" />
+			<!-- v:input tag for submit buttons coming soon -->
+			<p>
+				<c:url value="/entity" var="editCancel" >
+				<c:param name="uri" value="${param.subjectUri}"/>
+				</c:url>
+				<input type="submit" value="Create new publication"/> or <a class="cancel" href="${editCancel}" title="Cancel">Cancel</a>
+			</p>
         </form>
 
 <jsp:include page="${postForm}"/>
 
- <%!
-  private void prepareForEditOfExisting( EditConfiguration editConfig, Model model, HttpSession session){
+ <%!private void prepareForEditOfExisting( EditConfiguration editConfig, Model model, HttpSession session){
         SparqlEvaluate sparqlEval = new SparqlEvaluate(model);
         Map<String,String> varsToUris =   sparqlEval.sparqlEvaluateToUris(editConfig.getSparqlForExistingUris(),
                 editConfig.getUrisInScope(),editConfig.getLiteralsInScope());
         Map<String,String> varsToLiterals =   sparqlEval.sparqlEvaluateToLiterals(editConfig.getSparqlForExistingLiterals(),
                 editConfig.getUrisInScope(),editConfig.getLiteralsInScope());
         EditSubmission esub = new EditSubmission(editConfig);
-        esub.setUrisFromFrom(varsToUris);
-        esub.setLiteralsFromFrom(varsToLiterals);
+        esub.setUrisFromForm(varsToUris);
+        esub.setLiteralsFromForm(varsToLiterals);
         EditSubmission.putEditSubmissionInSession(session,esub);
-}
-
-         %>
+}%>
