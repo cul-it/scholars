@@ -79,12 +79,7 @@
         "pubName"        : "${pubNameExisting}",
         "moniker"        : "${monikerExisting}" },
     "sparqlForExistingUris": { },
-    "optionsForFields" : {
-      "moniker"  : [
-           "journal article",
-           "book chapter",
-           "review",
-           "editorial" ] },
+    "optionsForFields" : { },
     "fields" : {
       "moniker" : {
          "newResource"      : "false",

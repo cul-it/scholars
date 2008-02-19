@@ -97,26 +97,61 @@
         "semester":"${courseSemesterExisting}"
     },
     "basicValidators" : {"courseName" : ["nonempty" ],
-                         "courseDescription" : ["nonempty" ]  }  ,
-    "optionsForFields" : {
-      "semester" : "${semesterClass}",
-      "heldIn"   : "${buildingClass}",
-      "moniker"  : [
-           "1 credit course",
-           "2 credit course",
-           "3 credit course",
-           "4 credit course",
-           "5 credit course",
-           "6 credit course",
-           "1-3 credit course",
-           "1.5 credit course" ]
+                         "courseDescription" : ["nonempty" ] },
+    "optionsForFields" : { "semester" : "${semesterClass}",
+                           "heldIn"   : "${buildingClass}" },
+    "fields" : {
+      "moniker" : {
+         "newResource"      : "false",
+         "type"             : "select",
+         "queryForExisting" : { },
+         "validators"       : [ ],
+         "optionsType"      : "LITERALS",
+         "literalOptions"   : ["1 credit course",
+                               "2 credit course",
+                               "3 credit course",
+                               "4 credit course",
+                               "5 credit course",
+                               "6 credit course",
+                               "1-3 credit course",
+                               "1.5 credit course"],
+         "subjectUri"       : "${param.subjectUri}",
+         "subjectClassUri"  : { },
+         "predicateUri"     : "${param.predicateUri}",
+         "objectClassUri"   : { }
+      },
+      "semester" : {
+         "newResource"      : "false",
+         "type"             : "select",
+         "queryForExisting" : { },
+         "validators"       : [ ],
+         "optionsType"      : "INDIVIDUALS_VIA_VCLASS",
+         "literalOptions"   : [ ],
+         "subjectUri"       : "${param.subjectUri}",
+         "subjectClassUri"  : { },
+         "predicateUri"     : "${param.predicateUri}",
+         "objectClassUri"   : "${semesterClass}"
+      },
+      "heldIn" : {
+         "newResource"      : "false",
+         "type"             : "select",
+         "queryForExisting" : { },
+         "validators"       : [ ],
+         "optionsType"      : "INDIVIDUALS_VIA_VCLASS",
+         "literalOptions"   : [ ],
+         "subjectUri"       : "${param.subjectUri}",
+         "subjectClassUri"  : { },
+         "predicateUri"     : "${param.predicateUri}",
+         "objectClassUri"   : "${buildingClass}"
+      }
     }
-   }
+  }
 </c:set>
 <%
-    EditConfiguration editConfig = EditConfiguration.getConfigFromSession(session);
-    if( editConfig == null ){
-        editConfig = new EditConfiguration((String)session.getAttribute("editjson"));
+    //EditConfiguration editConfig = EditConfiguration.getConfigFromSession(session);
+    //if( editConfig == null ){
+        EditConfiguration.clearConfigInSession(session); // otherwise keeps using same predicate from fields
+        EditConfiguration editConfig = new EditConfiguration((String)session.getAttribute("editjson"));
         EditConfiguration.putConfigInSession(editConfig, session);
 
         if( objectUri != null ){
@@ -124,7 +159,7 @@
             prepareForEditOfExisting(editConfig,model,session);
             editConfig.getUrisInScope().put("newCourse",objectUri); //makes sure we reuse objUri
         }
-    }
+    //}
 
     System.out.println("basicValidators " + editConfig.getBasicValidators());
 
@@ -144,35 +179,11 @@
 <jsp:include page="${preForm}"/>
 
         <form action="<c:url value="/edit/processRdfForm2.jsp"/>" >
-            <p/>
-            <label for="courseName">course title</label>
-            <input type="text" id="courseName" name="courseName" value="<v:value name="courseName"/>"/>
-            <v:errorMessage name="courseName"/>
-
-            <p/>
-            <label for="semester">semester</label>
-            <select id="semester" name="semester">
-                <v:option name = "semester"/>
-            </select>
-
-            <p/>
-            <label for="heldIn">held in location</label>
-            <select id="heldIn" name="heldIn">
-                <v:option name="heldIn"/>
-            </select>
-
-            <p/>
-            <label for="moniker">credit value of course</label>
-            <select id="moniker" name="moniker">
-                <v:option name="moniker"/>
-            </select>
-
-            <p/>
-            <label for="courseDescription">course description</label>
-            <textarea id="courseDescription" name="courseDescription"
-                      rows="5" cols="80"><v:value name="courseDescription"/></textarea>
-            <v:errorMessage name="courseDescription"/>
-
+            <p/><v:input type="text" label="course title" id="courseName" />
+            <p/><v:input type="select" label="semester" id="semester" />
+            <p/><v:input type="select" label="held in location" id="heldIn" />
+            <p/><v:input type="select" label="credit value of course" id="moniker" />
+            <p/><v:input type="textarea" label="course description" id="courseDescription" rows="5" />
             <p/>
             <input type="submit" value="Create new course"/>
             
