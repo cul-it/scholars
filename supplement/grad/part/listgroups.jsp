@@ -26,19 +26,20 @@
           ]]>
     </sparql:select>
     
-    <div> <!-- root tag from gradfieldgrouplist -->
-        <ul class="fields">
-      <c:forEach  items="${rs.rows}" var="row">
-	      <c:url var="gradhref" value="fields.jsp">
-            <c:param name="label" value="${row.clusterLabel.string}"/>
-            <c:param name="uri" value="${row.fieldClusterUri}"/>
-          </c:url>
-            <li class="${fn:substringAfter(row.fieldClusterUri,'#')}">
-                <a href="${gradhref}">  ${row.clusterLabel.string}  </a>
-            </li>
+    <ul class="groupings">
+        <c:forEach  items="${rs.rows}" var="row">
+            <c:set var="classForGrouping" value="${fn:substringAfter(row.fieldClusterUri,'#')}"/>
+	        <c:url var="gradhref" value="fields.jsp">
+                <c:param name="label" value="${row.clusterLabel.string}"/>
+                <c:param name="uri" value="${row.fieldClusterUri}"/>
+                <c:param name="groupLabel" value="${row.clusterLabel.string}"/>
+                <c:param name="groupClass" value="${classForGrouping}"/>
+            </c:url>
+          
+            <li class="${classForGrouping}"><a href="${gradhref}">${row.clusterLabel.string}</a></li>
       </c:forEach>
-        </ul>
-    </div>  <!-- end tag from gradfieldgrouplist -->
+    </ul>
+        
   </sparql:sparql>  
 </jsp:root>
 

@@ -5,17 +5,17 @@
  ****************************************/
 
 /*
-Title:		Life Sciences Graduate Portal screen styles
-Author:		nac26@cornell.edu and mw542@cornell.edu
-Updated:	February 14, 2008
+Title:      Life Sciences Graduate Portal screen styles
+Author:     nac26@cornell.edu and mw542@cornell.edu
+Updated:    February 14, 2008
 */
 
 body {
-	font-family: Helvetica, Verdana, sans-serif;
-	font-size: 63.125%;		/* translate 1.0em to 10px, 1.5em to 15px, etc. */
-	text-align: center;
-	color: #333;
-	background: #39393d url(../images/layout/bg_body.gif) repeat-x left top;
+    font-family: Helvetica, Arial, Verdana, sans-serif;
+    font-size: 63.125%;     /* translate 1.0em to 10px, 1.5em to 15px, etc. */
+    text-align: center;
+    color: #333;
+    background: #39393d url(../images/layout/bg_body.gif) repeat-x left top;
 }
 
 #bodyOverlay {
@@ -25,56 +25,73 @@ body {
 }
 
 #wrap {
-	margin: 0 auto;
-	text-align: left;
-	width: 85%;
-	min-width: 917px;
-/*	width: 917px;*/
+    margin: 0 auto;
+    text-align: left;
+    width: 85%;
+    min-width: 917px;
+/*  width: 917px;*/
 }
 
 #header {
-	padding: 6px 0;
-	background: transparent url(../images/layout/bg_header.jpg) no-repeat 96% 100%;
+    padding: 6px 0;
+    background: transparent url(../images/layout/bg_header.jpg) no-repeat 96% 100%;
 }
 
 #contentWrap {
-	float: left;
-	display: inline;
+    float: left;
+    display: inline;
     width: 98%;
-	min-width: 640px;
-	margin-bottom: 4px;
-	padding-right: 16px;
-	color: #fff;
-	background: transparent url(../images/layout/bg_content.png) left top !important;
-	background: transparent url(../images/layout/bg_content.gif) left top; /* Delivered to browsers without PNG support */
-/*	border: solid 1px #f00;*/
+    min-width: 640px;
+    margin-bottom: 4px;
+    padding-right: 16px;
+    color: #fff;
+    background: transparent url(../images/layout/bg_content.png) left top !important;
+    background: transparent url(../images/layout/bg_content.gif) left top; /* Delivered to browsers without PNG support */
+/*  border: solid 1px #f00;*/
 }
 
 #content {
-	float: left;
-	display: inline;
-	width: 65%;
-	min-width: 600px;
-	padding: 22px 15px 22px 20px;
-	font-family: Arial, sans-serif;
-	font-size: 1.2em;
-	color: #efecca;
+    float: left;
+    display: inline;
+    width: 60%;
+/*    min-width: 600px;*/
+    padding: 22px 15px 22px 20px;
+    font-family: Helvetica, Arial, Verdana, sans-serif;
+    font-size: 1.2em;
+    color: #efecca;
+}
+
+#content.fullPage {
+    width: 98%;
+}
+
+#leftColumn {
+    float: left;
+    width: 48%;
+/*    border: 1px solid green;*/
+}
+
+#rightColumn {
+    float: right;
+    width: 49%;
+/*    border: 1px solid red;*/
 }
 
 #sidebar {
-	float: right;
-	display: inline;
-	width: 256px;
+    float: right;
+    display: inline;
+    width: 300px;
+    font-size: 1.2em;
 /*  padding-top: 20px;*/
-/*	width: 240px;*/
-/*	text-align: center;*/
+/*  width: 240px;*/
+/*  text-align: center;*/
 }
 
 #footer {
     margin-bottom: 10px;
     width: 99%;
-	clear: both;
-	color: #fff;
+    clear: both;
+    color: #fff;
 }
 
 /****************************************************************
@@ -85,7 +102,7 @@ header roll call
 }
 
 #header h1 {
-	margin-left: 15px;
+    margin-left: 15px;
     font-size: 3.4em;
     font-family: "Myriad Pro", Helvetica, Verdana, sans-serif;
     font-weight: bold;
@@ -94,92 +111,76 @@ header roll call
 }
 
 #header ul {
-	margin-top: 2.4em;
+    margin-top: 2.4em;
 }
 
 #header ul li {
-	display: inline;
-/*	margin: 10px 0;*/
-/*	margin-left: 1px;*/
-/*	padding: 6px 5px 6px 5px;*/
-	font-size: 1.3em;
-/*	border: solid 1px #f81;*/
+    display: inline;
+/*  margin: 10px 0;*/
+/*  margin-left: 1px;*/
+/*  padding: 6px 5px 6px 5px;*/
+    font-size: 1.3em;
+/*  border: solid 1px #f81;*/
 }
 
 #header ul li a:link, #header ul li a:visited {
-	padding: 6px 8px 6px 8px;
-	color: #444;
-	background: #191919;
-	border: none;
+    padding: 6px 8px 6px 8px;
+    color: #444;
+    background: #191919;
+    border: none;
 }
 
 #header ul li a:hover {
-	color: #a7a37e;
+    color: #a7a37e;
 }
 
 #header ul li a:link.currentTab, #header ul a:visited.currentTab {
-	padding: 6px 8px 7px 8px;
-	color: #fff;
-/*	background: #031d1d;*/
-/*	background: #002f2f;*/
+    padding: 6px 8px 7px 8px;
+    color: #fff;
+/*  background: #031d1d;*/
+/*  background: #002f2f;*/
 /*  background: #021C1C;*/
-	background: #000 url(../images/layout/bg_content.png) left top !important;
-	background: #021C1C url(../images/layout/bg_content.gif) left top; /* Delivered to browsers without PNG support */
+    background: #000 url(../images/layout/bg_content.png) left top !important;
+    background: #021C1C url(../images/layout/bg_content.gif) left top; /* Delivered to browsers without PNG support */
 }
 
 /****************************************************************
 content roll call
 ****************************************************************/
-ul.fields {
+ul.groupings {
   margin: 20px 0;
 }
 
-ul.fields li {
-    margin-bottom: -10px; /* Tightening the space between group items */
-	font-size: 2.0em;
-	font-family: "Myriad Pro", Helvetica, Verdana, Sans-serif;
+ul.fields {
+    padding-left: 45px;
+    margin: -10px 0 16px 0;
+}
+
+ul.groupings li {
+    margin-bottom: -14px; /* Tightening the space between group items */
+    font-size: 2em;
+    font-family: "Myriad Pro", Helvetica, Verdana, Sans-serif;
+    line-height: 1.2em;
+}
+
+ul.groupings li a:link, ul.groupings li a:visited {
+    color: #fff;
+    border: none;
+}
+
+ul.groupings li a:hover {
+    color: #69bfde;
+}
+
+h2.groupLabel, h2.groupLabel a:link, h2.groupLabel a:visited {
+    line-height: 1.2em;
+    color: #fff
+}
+
+#content.fullPage h2.groupLabel {
+    font-size: 1.5em;   /* Scaling down group names to fit two-column layout */
     line-height: 1em;
-}
-
-ul.fields li a:link, ul.fields li a:visited {
-	color: #fff;
-	border: none;
-}
-
-ul.fields li a:hover {
-	color: #69bfde;
-}
-
-/* ---------- Icons for Grad Field Groupings ---------- */
-li.individual31915 {    /* Applied Biology */
-    background: url(../images/icons/icon-applied_bio.png) no-repeat left top !important; 
-    background: url(../images/icons/icon-applied_bio.gif) no-repeat left top; } 
-    
-li.individual31919 {    /* Biomedical Sciences */
-    background: url(../images/icons/icon-biomed.png) no-repeat left top !important;
-    background: url(../images/icons/icon-biomed.gif) no-repeat left top; }
-    
-li.individual31918 {    /* Ecology, Evolution, Integrative Biology */
-    background: url(../images/icons/icon-ecology.png) no-repeat left top !important;
-    background: url(../images/icons/icon-ecology.gif) no-repeat left top; }
-    
-li.individual31917 {    /* Genetics, Genomics, Bioinformatics */
-    background: url(../images/icons/icon-genetics.png) no-repeat left top !important;
-    background: url(../images/icons/icon-genetics.gif) no-repeat left top; }
-    
-li.individual31916 {    /* Molecular, Cellular Biology */
-    background: url(../images/icons/icon-molecbio.png) no-repeat left top !important;
-    background: url(../images/icons/icon-molecbio.gif) no-repeat left top; }
-    
-li.individual31920 {    /* Physical, Chemical, Computational Biology */
-    background: url(../images/icons/icon-physchem.png) no-repeat left top !important;  
-    background: url(../images/icons/icon-physchem.gif) no-repeat left top; }
-
-li.individual31915, li.individual31919, li.individual31918, li.individual31917, li.individual31916, li.individual31920 {
-    padding: 17px 0 20px 47px;
-/*  Background positioning had to be defined for each list item to work properly */
-/*  background-position: left top; */
-/*  background-repeat: no-repeat; */
+    font-weight: bold;
 }
 
 #apply {
@@ -211,42 +212,43 @@ li.individual31915, li.individual31919, li.individual31918, li.individual31917, 
 sidebar roll call
 ****************************************************************/
 
-#sidebar {
-    text-align: right;  /* For the 'more' links */
-}
-
 #sidebar h2 {
-	margin-bottom: 8px;
-	color: #046380;
-	font-size: 1.8em;
-	font-weight: bold;
-	text-align: left;
-}
-
-div#news, div#search, div#seminars {
-	margin-top: 20px;
-	padding: 12px 0px 8px 10px;  /* Setting right padding with UL's instead */
-	background: #efecca;
-}
-
-div#search {
-	background: #a7a37e;
-	text-align: left;
+    margin-bottom: 8px;
+    color: #046380;
+    font-size: 1.8em;
+    font-weight: bold;
 }
 
 div#search h2 {
-	color: #fff;
+    color: #fff;
 }
 
-#sidebar ul.fields li {
-	padding-left: 27px;
-	font-size: 1.1em;
-	line-height: 1.5em;
+#departments h2 {
+    color: #A7A37E;
+}
+
+div#news, div#search, div#seminars {
+    margin-top: 20px;
+    padding: 12px 0px 8px 10px;  /* Setting right padding with UL's instead */
+    background: #efecca;
+}
+
+div#search {
+    background: #a7a37e;
+}
+
+#sidebar ul.groupings {
+    margin-bottom: -10px;
+}
+
+#sidebar ul.groupings li {
+    padding-left: 27px;
+    font-size: 1.3em;
+    line-height: 1.2em;
 }
 
 #news ul, #seminars ul {
     float: left;
-    text-align: left;
     margin-bottom: 10px;
 }
 
@@ -257,31 +259,17 @@ div#search h2 {
     padding-right: 16px;
 }
 
-
-a.moreLink {
-    clear: both;
-    font-weight: bold;
-    margin-right: 10px;
+#departments {
+    margin-top: 20px;
+    padding: 10px;
+/*    background: #046380;*/
 }
-
-a:link.moreLink, a:visited.moreLink {
-    color: #b9121b;
-    border-bottom: 1px solid #b9121b;
-    font-weight: bold;
-}
-
-a:hover.moreLink, a:active.moreLink {
-    color: red;
-    border-bottom: 1px solid red;
-    font-weight: bold;
-}
-
 
 /****************************************************************
 footer roll call
 ****************************************************************/
 #footer p.siteFeedback {
-	float: right;
+    float: right;
 }
 
 /****************************************************************
@@ -289,13 +277,13 @@ basics roll call
 ****************************************************************/
 
 p {
-	font-size: 1.1em;
-	line-height: 1.3em;
-	text-align: left;
+    font-size: 1.1em;
+    line-height: 1.3em;
+    text-align: left;
 }
 
 h1 {
-	margin: 10px 15px;
+    margin: 10px 15px;
     font-size: 3.6em;
     font-family: "Myriad Pro", Helvetica, Verdana, sans-serif;
     font-weight: normal;
@@ -303,12 +291,19 @@ h1 {
     color: #69bfde;
 }
 
-h2 {
-/*  margin: 30px 0 4px 0;*/
-	font-size: 2.0em;
-	font-family: "Myriad Pro", Helvetica, Verdana, sans-serif;
-	font-weight: normal;
-	color: #a7a37e;
+h2, h3, h4 {
+    font-size: 2.0em;
+    font-family: "Myriad Pro", Helvetica, Verdana, sans-serif;
+    font-weight: normal;
+    color: #a7a37e;
+}
+
+h3 {
+    font-size: 1.8em;
+}
+
+h4 {
+    font-size: 1.4em;
 }
 
 /****************************************************************
@@ -327,41 +322,135 @@ image roll call
 /****************************************************************
 anchor roll call
 ****************************************************************/
+a:link, a:visited, a:hover, a:active {
+    text-decoration: none;
+}
 
-a:link, a:visited {
-	color: #046380;
-	border-bottom: solid 1px #046380;
-	text-decoration: none;
+a:link {
+    color: #fff;
 }
 
 a:visited {
-/*  color: #666;*/
+    color: #a6a6a6;
 }
 
 a:hover {
-	color: #1ca533;
-/*	background: #d9e5e0;*/
+    color: #69bfde;
+}
+
+a:active {
+    color: #ebe386;
+}
+
+#news a:link, #news a:visited, #seminars a:link, #seminars a:visited {
+    color: #046380;
+    border-bottom: solid 1px #046380;
+    text-decoration: none;
+}
+
+#news a:hover, #seminars a:hover {
+    color: #1ca533;
+}
+
+#sidebar a.moreLink {
+    display: block;
+    clear: both;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+#sidebar a:link.moreLink, #sidebar a:visited.moreLink {
+    color: #b9121b;
+/*    border-bottom: 1px solid #b9121b;*/
+    border-bottom: 0;
+    font-weight: bold;
+}
+
+#sidebar a:hover.moreLink, #sidebar a:active.moreLink {
+    color: red;
+/*    border-bottom: 1px solid red;*/
+    border-bottom: 0;
+    font-weight: bold;
 }
 
 #footer a:link, #footer a:visited {
-	color: #bacec5;
-	border-color: #bacec5;
+    color: #bacec5;
+    border-color: #bacec5;
 }
 
 #footer a:hover {
-	color: #fff;
-	border-color: #fff;
+    color: #fff;
+    border-color: #fff;
 }
 
 /****************************************************************
 list roll call
 ****************************************************************/
 ul li {
-	padding: 0 0 4px 0;
-	list-style-type: none;
-	background: transparent url(../images/layout/bg_li_bullet.gif) no-repeat 4px 5px;
-	font-size: 1.1em;
+    list-style-type: none;
+    background: transparent url(../images/layout/bg_li_bullet.gif) no-repeat 4px 5px;
+/*    font-size: 1.1em;*/
 }
+
+/* ---------- Icons for main groupings ---------- */
+/* Note: positioning rules had to be declared for each class because they did not work when grouped */
+.individual31915 {    /* Applied Biology */
+    background: url(../images/icons/icon-applied_bio.png) no-repeat left top !important; 
+    background: url(../images/icons/icon-applied_bio.gif) no-repeat left top; } 
+    
+.individual31919 {    /* Biomedical Sciences */
+    background: url(../images/icons/icon-biomed.png) no-repeat left top !important;
+    background: url(../images/icons/icon-biomed.gif) no-repeat left top; }
+    
+.individual31918 {    /* Ecology, Evolution, Integrative Biology */
+    background: url(../images/icons/icon-ecology.png) no-repeat left top !important;
+    background: url(../images/icons/icon-ecology.gif) no-repeat left top; }
+    
+.individual31917 {    /* Genetics, Genomics, Bioinformatics */
+    background: url(../images/icons/icon-genetics.png) no-repeat left top !important;
+    background: url(../images/icons/icon-genetics.gif) no-repeat left top; }
+    
+.individual31916 {    /* Molecular, Cellular Biology */
+    background: url(../images/icons/icon-molecbio.png) no-repeat left top !important;
+    background: url(../images/icons/icon-molecbio.gif) no-repeat left top; }
+    
+.individual31920 {    /* Physical, Chemical, Computational Biology */
+    background: url(../images/icons/icon-physchem.png) no-repeat left top !important;  
+    background: url(../images/icons/icon-physchem.gif) no-repeat left top; }
+
+.individual31915, .individual31919, .individual31918, .individual31917, .individual31916, .individual31920 {
+    padding: 17px 0 20px 45px;
+}
+
+/* ---------- Small icons for groupings displayed in sidebar ---------- */
+#sidebar .individual31915 {    /* Applied Biology */
+    background: url(../images/icons/small/smallicon-applied_bio.png) no-repeat left top !important; 
+    background: url(../images/icons/small/smallicon-applied_bio.gif) no-repeat left top; } 
+    
+#sidebar .individual31919 {    /* Biomedical Sciences */
+    background: url(../images/icons/small/smallicon-biomed.png) no-repeat left top !important;
+    background: url(../images/icons/small/smallicon-biomed.gif) no-repeat left top; }
+    
+#sidebar .individual31918 {    /* Ecology, Evolution, Integrative Biology */
+    background: url(../images/icons/small/smallicon-ecology.png) no-repeat left top !important;
+    background: url(../images/icons/small/smallicon-ecology.gif) no-repeat left top; }
+    
+#sidebar .individual31917 {    /* Genetics, Genomics, Bioinformatics */
+    background: url(../images/icons/small/smallicon-genetics.png) no-repeat left top !important;
+    background: url(../images/icons/small/smallicon-genetics.gif) no-repeat left top; }
+    
+#sidebar .individual31916 {    /* Molecular, Cellular Biology */
+    background: url(../images/icons/small/smallicon-molecbio.png) no-repeat left top !important;
+    background: url(../images/icons/small/smallicon-molecbio.gif) no-repeat left top; }
+    
+#sidebar .individual31920 {    /* Physical, Chemical, Computational Biology */
+    background: url(../images/icons/small/smallicon-physchem.png) no-repeat left top !important;  
+    background: url(../images/icons/small/smallicon-physchem.gif) no-repeat left top; }
+
+#sidebar .individual31915,  #sidebar .individual31919, #sidebar .individual31918, #sidebar .individual31917, #sidebar .individual31916, #sidebar .individual31920 {
+    padding: 10px 0 20px 47px;
+}
+
 
 /****************************************************************
 form roll call
@@ -384,10 +473,6 @@ form roll call
     border: 0;
     margin: 0;
     padding: 0;
-}
-
-.hidden {
-	display: none;
 }
 
 /****************************************************************

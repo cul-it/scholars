@@ -11,7 +11,7 @@
 
     <sparql:sparql>
     <sparql:select model="${applicationScope.jenaOntModel}" var="rs"
-            fieldCluster="&lt;${param.uri}&gt;">
+	            fieldCluster="&lt;${param.uri}&gt;">
       <![CDATA[
 
               PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -23,24 +23,27 @@
               ?fieldCluster vivo:hasAssociated ?gradFieldUri.
               OPTIONAL { ?gradFieldUri rdfs:label ?gradFieldLabel }
               }
-              ORDER BY ?gradFieldUri
+              ORDER BY ?gradFieldLabel
               LIMIT 200
 
           ]]>
     </sparql:select>
 
-    <div > <!-- root tag from gradfieldgrouplist -->
-        <ul>
+    <ul class="fields">
       <c:forEach  items="${rs.rows}" var="gradfield">
             <li>
-                <c:url var="gradhref" value="gradfield.jsp">
+                <c:url var="fieldhref" value="singlefields.jsp">
                     <c:param name="uri" value="${gradfield.gradFieldUri}"/>
+                    <c:param name="fieldLabel" value="${gradfield.gradFieldLabel.string}"/>
+                    <c:param name="groupLabel" value="${param.groupLabel}"/>
+                    <c:param name="groupUri" value="${param.uri}"/>
+                    <c:param name="groupClass" value="${param.groupClass}"/>       
                 </c:url>
-                <a href="${gradhref}">${gradfield.gradFieldLabel.string}</a>
+                <a href="${fieldhref}">${gradfield.gradFieldLabel.string}</a>
             </li>
       </c:forEach>
-        </ul>
-    </div>  <!-- end tag from gradfieldgrouplist -->
-  </sparql:sparql>
+    </ul>
 
+  </sparql:sparql>
 </jsp:root>
+

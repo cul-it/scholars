@@ -37,7 +37,7 @@
 			<div id="navigation">
 				<ul>
 					<li><a <c:if test="${fn:contains(pageContext.request.servletPath, 'index.jsp')}">class="currentTab" </c:if>href="/vivo/grad" title="Home">Home</a></li>
-					<li><a <c:if test="${fn:contains(pageContext.request.servletPath, 'fields.jsp')}">class="currentTab" </c:if>href="fields.jsp" title="Graduate Fields">Graduate Fields</a></li>
+					<li><a <c:if test="${fn:contains(pageContext.request.servletPath, 'fields.jsp')}">class="currentTab" </c:if>href="groupedfields.jsp" title="Graduate Fields">Graduate Fields</a></li>
 					<li><a <c:if test="${fn:contains(pageContext.request.servletPath, 'faculty.jsp')}">class="currentTab" </c:if>href="faculty.jsp" title="Faculty">Faculty</a></li>
 					<li><a <c:if test="${fn:contains(pageContext.request.servletPath, 'facilities.jsp')}">class="currentTab" </c:if>href="facilities.jsp" title="Research Facilities">Research Facilities</a></li>
 					<li><a <c:if test="${fn:contains(pageContext.request.servletPath, 'departments.jsp')}">class="currentTab" </c:if>href="departments.jsp" title="Departments">Departments</a></li>
