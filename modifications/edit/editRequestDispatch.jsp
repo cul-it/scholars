@@ -1,12 +1,9 @@
-<%@ page import="com.hp.hpl.jena.rdf.model.Model" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.beans.ObjectProperty" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.controller.VitroRequest" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.dao.WebappDaoFactory" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.edit.n3editing.EditConfiguration" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.edit.n3editing.EditSubmission" %>
-<%@ page import="edu.cornell.mannlib.vitro.webapp.edit.n3editing.SparqlEvaluate" %>
 <%@ page import="java.util.HashMap" %>
-<%@ page import="java.util.Map" %>
 <%
     /* this is just a hard code fisrt attempt, we could get the info out of the model */
 
@@ -42,6 +39,12 @@
     if( predicateUri == null || predicateUri.trim().length() == 0)
         throw new Error("predicateUri was empty, it is required by editRequestDispatch");
 
+    if( "true".equalsIgnoreCase( request.getParameter("clearEditConfig"))){
+        EditConfiguration.clearConfigInSession(session);
+        EditSubmission.clearEditSubmissionInSession(session);
+        session.removeAttribute("editjson");
+    }
+
     String url= "/edit/editRequestDispatch.jsp"; //I'd like to get this from the request but...
     request.setAttribute("formUrl", url + "?" + request.getQueryString());
     System.out.println("query url from editRequestDispatch: " + url);
@@ -54,8 +57,11 @@
     request.setAttribute("postForm", "/edit/formSuffix.jsp");
 
     if( "delete".equals(command) ){ %>
-      <jsp:forward page="/edit/forms/propDelete.jsp"/>  
-    <% }	 
+      <jsp:forward page="/edit/forms/propDelete.jsp"/>
+    <%
+        return;
+    }
+
     String form = null;
     if( propUriToForm.containsKey( predicateUri )){
         form = propUriToForm.get( predicateUri );
@@ -69,23 +75,8 @@
            	form = DEFAULT_DATA_FORM;  
     }
     request.setAttribute("form" ,form);
-
-
     
     if( session.getAttribute("requestedFromEntity") == null )
     	session.setAttribute("requestedFromEntity", subjectUri );
 %>
 <jsp:forward page="/edit/forms/${form}"  />
-
-
-<%!private void prepareForEditOfExisting( EditConfiguration editConfig, Model model, HttpSession session){
-        SparqlEvaluate sparqlEval = new SparqlEvaluate(model);
-        Map<String,String> varsToUris =   sparqlEval.sparqlEvaluateToUris(editConfig.getSparqlForExistingUris(),
-                editConfig.getUrisInScope(),editConfig.getLiteralsInScope());
-        Map<String,String> varsToLiterals =   sparqlEval.sparqlEvaluateToLiterals(editConfig.getSparqlForExistingLiterals(),
-                editConfig.getUrisInScope(),editConfig.getLiteralsInScope());
-        EditSubmission esub = new EditSubmission(editConfig);
-        esub.setUrisFromForm(varsToUris);
-        esub.setLiteralsFromForm(varsToLiterals);
-        EditSubmission.putEditSubmissionInSession(session,esub);
-}%>

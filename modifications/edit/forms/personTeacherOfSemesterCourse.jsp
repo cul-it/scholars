@@ -1,4 +1,6 @@
 <%@ page import="com.hp.hpl.jena.rdf.model.Model" %>
+<%@ page import="com.thoughtworks.xstream.XStream" %>
+<%@ page import="com.thoughtworks.xstream.io.xml.DomDriver" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.beans.Individual" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.controller.VitroRequest" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.dao.WebappDaoFactory" %>
@@ -11,14 +13,15 @@
 <%@ taglib prefix="v" uri="http://vitro.mannlib.cornell.edu/vitro/tags" %>
 <%
     String subjectUri   = request.getParameter("subjectUri");
-    String v = request.getParameter("subjectUri");
-    request.setAttribute("subjectUriJson", MiscWebUtils.escape(v));
+    request.setAttribute("subjectUriJson", MiscWebUtils.escape(subjectUri));
 
     String objectUri = request.getParameter("objectUri");
-    if( v != null){
+    if( objectUri != null){
+        System.out.println("found a objectUri in personTeacherOfSemesterCourse.jsp:" + objectUri);
         request.setAttribute("objectUriJson", MiscWebUtils.escape(objectUri));
         request.setAttribute("existingUris", ",\"newCourse\": \""+MiscWebUtils.escape(objectUri)+"\"");
     }else{
+        System.out.println("NO objectUri found in personTeacherOfSemesterCourse.jsp");
         request.setAttribute("existingUris","");  //since its a new insert, no existing uri
     }
 
@@ -85,6 +88,7 @@
     "literalsInScope": { },
     "urisOnForm"    : ["semester","heldIn"],
     "literalsOnForm":  [ "courseDescription", "courseName", "moniker" ],
+    "objectVar"     : "newCourse",
     "sparqlForLiterals" : { },
     "sparqlForUris":{  },
     "entityToReturnTo" : "${subjectUriJson}" ,
@@ -148,18 +152,21 @@
   }
 </c:set>
 <%
-    //EditConfiguration editConfig = EditConfiguration.getConfigFromSession(session);
-    //if( editConfig == null ){
-        EditConfiguration.clearConfigInSession(session); // otherwise keeps using same predicate from fields
-        EditConfiguration editConfig = new EditConfiguration((String)session.getAttribute("editjson"));
+    EditConfiguration editConfig = EditConfiguration.getConfigFromSession(session);
+    if( editConfig == null ){
+        editConfig = new EditConfiguration((String)session.getAttribute("editjson"));
         EditConfiguration.putConfigInSession(editConfig, session);
 
-        if( objectUri != null ){
-            Model model =  (Model)application.getAttribute("jenaOntModel");
-            prepareForEditOfExisting(editConfig,model,session);
-            editConfig.getUrisInScope().put("newCourse",objectUri); //makes sure we reuse objUri
-        }
-    //}
+        System.out.println("******************* JUST PUT EDITCONFIG IN SESSION ***********************");
+        dump("editConfig",editConfig);
+    }      else {
+        System.out.println("WARNING: reusing editConfig from session, this should only happen whe we are doing a update or a re-edit after a submit");
+    }
+    if( objectUri != null ){
+        Model model =  (Model)application.getAttribute("jenaOntModel");
+        prepareForEditOfExisting(editConfig,model,session);
+        editConfig.getUrisInScope().put("newCourse",objectUri); //makes sure we reuse objUri, maybe this should be done by prepareForEditOfExisting?
+    }
 
     System.out.println("basicValidators " + editConfig.getBasicValidators());
 
@@ -167,9 +174,8 @@
     VitroRequest vreq = new VitroRequest(request);
     WebappDaoFactory wdf = vreq.getWebappDaoFactory();
 
-    String personUri = editConfig.getUrisInScope().get("person");
-    Individual subject = wdf.getIndividualDao().getIndividualByURI(personUri);
-    if( subject == null ) throw new Error("could not find subject '" + personUri + "'");
+    Individual subject = wdf.getIndividualDao().getIndividualByURI(subjectUri);
+    if( subject == null ) throw new Error("could not find subject '" + subjectUri + "'");
     request.setAttribute("subjectName",subject.getName());
 
     /* these are used by pre and post form fragements */
@@ -209,3 +215,12 @@
         esub.setLiteralsFromForm(varsToLiterals);
         EditSubmission.putEditSubmissionInSession(session,esub);
 }%>
+
+<%!
+    private void dump(String name, Object fff){
+        XStream xstream = new XStream(new DomDriver());
+        System.out.println( "*******************************************************************" );
+        System.out.println( name );
+        System.out.println(xstream.toXML( fff ));
+    }
+%>

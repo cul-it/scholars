@@ -64,7 +64,7 @@ are well formed.
 
     EditConfiguration editConfig = new EditConfiguration(editJson);
 
-    EditSubmission submission = new EditSubmission(request,editConfig);
+    EditSubmission submission = new EditSubmission(request,jenaOntModel,editConfig);
     Map<String,String> errors =  submission.getValidationErrors();
     EditSubmission.putEditSubmissionInSession(session,submission);
 
@@ -86,11 +86,17 @@ are well formed.
 
                 //sub in values from sparql queries
                 SparqlEvaluate sparqlEval = new SparqlEvaluate((Model)application.getAttribute("jenaOntModel"));
-                Map<String,String> varToUris = sparqlEval.sparqlEvaluateToUris(editConfig.getSparqlForAdditionalUrisInScope());
+                Map<String,String> varToUris = sparqlEval.sparqlEvaluateToUris(
+                        editConfig.getSparqlForAdditionalUrisInScope(),
+                        editConfig.getUrisInScope(),
+                        editConfig.getLiteralsInScope());
                 n3Required = subInUris(varToUris, n3Required);
                 n3Optional = subInUris(varToUris, n3Optional);
 
-                Map<String,String> varToLiterals = sparqlEval.sparqlEvaluateToUris(editConfig.getSparqlForAdditionalLiteralsInScope());
+                Map<String,String> varToLiterals = sparqlEval.sparqlEvaluateToUris(
+                        editConfig.getSparqlForAdditionalLiteralsInScope(),
+                        editConfig.getUrisInScope(),
+                        editConfig.getLiteralsInScope());
                 n3Required = subInLiterals(varToLiterals, n3Required);
                 n3Optional = subInLiterals(varToLiterals, n3Optional);
 
