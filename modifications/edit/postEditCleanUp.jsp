@@ -26,7 +26,7 @@
         }
 
         session.removeAttribute("editjson");
-        EditConfiguration.clearConfigInSession(session);
+        EditConfiguration.clearAllConfigsInSession(session);
         EditSubmission.clearEditSubmissionInSession(session);
     }
     

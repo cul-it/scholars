@@ -99,7 +99,7 @@
 <%
     //EditConfiguration editConfig = EditConfiguration.getConfigFromSession(session);
     //if( editConfig == null ){
-        EditConfiguration.clearConfigInSession(session); // otherwise keeps using same predicate from fields
+        EditConfiguration.clearAllConfigsInSession(session); // otherwise keeps using same predicate from fields
         EditConfiguration editConfig = new EditConfiguration((String)session.getAttribute("editjson"));
         EditConfiguration.putConfigInSession(editConfig, session);
         if( objectUri != null ){     //these get done on a edit of an existing entity.

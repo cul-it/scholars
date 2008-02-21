@@ -40,7 +40,7 @@
         throw new Error("predicateUri was empty, it is required by editRequestDispatch");
 
     if( "true".equalsIgnoreCase( request.getParameter("clearEditConfig"))){
-        EditConfiguration.clearConfigInSession(session);
+        EditConfiguration.clearAllConfigsInSession(session);
         EditSubmission.clearEditSubmissionInSession(session);
         session.removeAttribute("editjson");
     }
