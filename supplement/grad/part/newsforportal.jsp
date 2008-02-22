@@ -69,12 +69,19 @@
 
 
         <ul>
-            <c:forEach  items="${rs.rows}" var="item">
+            <c:forEach  items="${rs.rows}" var="item" begin="0" end="0">
                 <li>
-                    
                   <c:url var="href" value="/entity"><c:param name="uri" value="${item.news}"/></c:url>
  					<c:url var="image" value="/images/${item.newsThumb.string}"/>
-                  <img src="${image}"/>
+                  <img src="${image}" width="95px"/>
+                  <a href="${href}">${item.newsLabel.string}</a>
+                </li>
+            </c:forEach>
+            <c:forEach  items="${rs.rows}" var="item" begin="0" end="0">
+                <li class="clean">
+                  <c:url var="href" value="/entity"><c:param name="uri" value="${item.news}"/></c:url>
+ 					<c:url var="image" value="/images/${item.newsThumb.string}"/>
+                  <img src="${image}" width="95px"/>
                   <a href="${href}">${item.newsLabel.string}</a>
                 </li>
             </c:forEach>

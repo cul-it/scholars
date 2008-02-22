@@ -29,7 +29,7 @@
           ]]>
     </sparql:select>
 
-    <ul class="fields">
+    <!-- UL tags being added elsewhere -->
       <c:forEach  items="${rs.rows}" var="gradfield">
             <li>
                 <c:url var="fieldhref" value="singlefields.jsp">
@@ -42,7 +42,6 @@
                 <a href="${fieldhref}">${gradfield.gradFieldLabel.string}</a>
             </li>
       </c:forEach>
-    </ul>
 
   </sparql:sparql>
 </jsp:root>

@@ -36,13 +36,15 @@
             </c:url>
             
             <h2 class="groupLabel ${classForGrouping}"><a href="${gradhref}">${row.clusterLabel.string}</a></h2>
-                
-            <c:import url="part/listfields.jsp">
-                <c:param name="uri" value="${row.fieldClusterUri}"/>
-                <c:param name="fieldLabel" value="${param.fieldLabel}"/>
-                <c:param name="groupLabel" value="${row.clusterLabel.string}"/>
-                <c:param name="groupClass" value="${classForGrouping}"/>
-            </c:import>
+            
+            <ul>   
+                <c:import url="part/listfields.jsp">
+                    <c:param name="uri" value="${row.fieldClusterUri}"/>
+                    <c:param name="fieldLabel" value="${param.fieldLabel}"/>
+                    <c:param name="groupLabel" value="${row.clusterLabel.string}"/>
+                    <c:param name="groupClass" value="${classForGrouping}"/>
+                </c:import>
+            </ul>
       </c:forEach>
     </div>
     
@@ -56,13 +58,15 @@
             </c:url>
     
             <h2 class="groupLabel ${classForGrouping}"><a href="${gradhref}">${row.clusterLabel.string}</a></h2>
-                
-            <c:import url="part/listfields.jsp">
-                <c:param name="uri" value="${row.fieldClusterUri}"/>
-                <c:param name="fieldLabel" value="${param.fieldLabel}"/>
-                <c:param name="groupLabel" value="${row.clusterLabel.string}"/>
-                <c:param name="groupClass" value="${classForGrouping}"/>
-            </c:import>
+            
+            <ul>
+                <c:import url="part/listfields.jsp">
+                    <c:param name="uri" value="${row.fieldClusterUri}"/>
+                    <c:param name="fieldLabel" value="${param.fieldLabel}"/>
+                    <c:param name="groupLabel" value="${row.clusterLabel.string}"/>
+                    <c:param name="groupClass" value="${classForGrouping}"/>
+                </c:import>
+            </ul>
       </c:forEach>
      </div>
 

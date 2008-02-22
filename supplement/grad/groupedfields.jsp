@@ -1,7 +1,7 @@
 <jsp:include page="header.jsp" />
 		
 		<div id="contentWrap">
-			<div id="content" class="fullPage">
+			<div id="content" class="fullPage fieldsIndent">
 								
 						<jsp:include page="part/listgroupswithfields.jsp" />
 						

@@ -22,35 +22,29 @@
               PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
               PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
               PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
-              SELECT DISTINCT ?talkUri ?blurb ?label
+              SELECT DISTINCT ?talkUri ?blurb ?label ?timekey ?hostname
               WHERE
               {
-              ?person
-              vivo:AcademicEmployeeOtherParticipantAsFieldMemberInAcademicInitiative
-              ?field .
-
-              ?field rdf:type vivo:GraduateField .
-
-              ?person
-              vivo:CornellFacultyMemberInOrganizedEndeavor
-              ?dept .
-
-              ?dept rdf:type vivo:AcademicDepartment .
-
-              ?dept 
-              vivo:OrganizedEndeavorSponsorOfAssociatedEnumeratedSet
-              ?seminar.
-
-              ?seminar
-              vivo:seminarOrLectureSeriesHasMemberTalk
-              ?talkUri .
-
               ?talkUri
+                rdf:type vivo:LectureSeminarOrColloquium ;
                 vitro:timekey ?timekey ;
                 vitro:sunrise ?sunrise ;
                 vitro:blurb   ?blurb ;
                 rdfs:label ?label.
 
+               OPTIONAL{
+                ?person 
+                    vivo:eventHasHostPerson ?talkUri ;  
+                    rdfs:lavel ?hostname ;
+                    vivo:AcademicEmployeeOtherParticipantAsFieldMemberInAcademicInitiative ?field .
+
+                 ?field 
+                    rdf:type vivo:GraduateField .
+                                  
+                 ?fieldCluster 
+                     rdf:type vivo:fieldCluster ;
+                     vivo:hasAssociated ?field. 
+               }
                FILTER( xsd:dateTime(?now) > ?sunrise  && xsd:dateTime(?now) < ?timekey )
               }
               ORDER BY ?timekey
@@ -64,7 +58,7 @@
             <c:forEach  items="${rs.rows}" var="talk">
                 <li>                  
                   <c:url var="href" value="/entity"><c:param name="uri" value="${talk.talkUri}"/></c:url>
-                  <a href="${href}">${talk.label.string}</a>
+                  <a href="${href}">${talk.label.string}</a> <!-- | ${talk.blurb.string} | ${talk.hostname.string} |  ${talk.timekey.string} -->
                 </li>
             </c:forEach>
         </ul>

@@ -10,6 +10,9 @@
 <head>
 	<title>Graduate Programs in the Life Sciences</title>
 	<link rel="stylesheet" href="style/screen.css" type="text/css" />
+	<link href="data/peopleData2.jsp" type="application/json" rel="exhibit/data" />
+  
+    <script src="http://static.simile.mit.edu/exhibit/api-2.0/exhibit-api.js" type="text/javascript"></script>
 </head>
 
 <body>

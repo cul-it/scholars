@@ -10,18 +10,18 @@
 
     <sparql:sparql>
     <sparql:select model="${applicationScope.jenaOntModel}" var="rs"
-	            fieldCluster="&lt;${param.uri}&gt;">
+	            gradfield="&lt;${param.uri}&gt;">
                 <![CDATA[
 
                         PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
                         PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
                         PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
-                        SELECT ?gradFieldUri ?gradFieldLabel ?gradFieldDescription
+                        PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
+                        SELECT  ?gradFieldLabel ?gradFieldDescription
                         WHERE
                         {
-                        ?fieldCluster vivo:hasAssociated ?gradFieldUri.
-                        OPTIONAL { ?gradFieldUri rdfs:label ?gradFieldLabel }
-                        OPTIONAL { ?gradFieldUri vivo:description ?gradFieldDescription }
+                        OPTIONAL { ?gradfield rdfs:label ?gradFieldLabel }
+                        OPTIONAL { ?gradfield vitro:description ?gradFieldDescription }
                         }
                         ORDER BY ?gradFieldLabel
                         LIMIT 200
@@ -29,9 +29,7 @@
                     ]]>
                 </sparql:select>
 
-                  <c:forEach  items="${rs.rows}" var="gradfield">
-                        <p style="color: red"> ${gradfield.gradFieldDescription.string} </p>
-                  </c:forEach>
+                  <c:forEach  items="${rs.rows}" var="gradfield">${gradfield.gradFieldDescription.string}</c:forEach>
 
   </sparql:sparql>
 </jsp:root>

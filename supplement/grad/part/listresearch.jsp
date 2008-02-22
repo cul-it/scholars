@@ -32,15 +32,12 @@
           ]]>
     </sparql:select>
 
-
-        <ul>
             <c:forEach  items="${rs.rows}" var="area">
                 <li> 
                     <c:url var="href" value="/entity"><c:param name="uri" value="${area.areaUri}"/></c:url>
                     <a href="${href}">${area.areaLabel.string}</a>
                 </li>
             </c:forEach>
-        </ul>
 
     </sparql:sparql>
 

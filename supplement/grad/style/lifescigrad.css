@@ -6,7 +6,7 @@
 
 /*
 Title:      Life Sciences Graduate Portal screen styles
-Author:     nac26@cornell.edu and mw542@cornell.edu
+Authors:     nac26@cornell.edu, mw542@cornell.edu
 Updated:    February 14, 2008
 */
 
@@ -21,7 +21,7 @@ body {
 #bodyOverlay {
     margin: 0 auto;
     width: 100%;
-/*    background: transparent url(../images/layout/bg_bodyoverlay.jpg) no-repeat center top;*/
+    background: transparent url(../images/layout/bg_bodyoverlay.jpg) no-repeat center top;
 }
 
 #wrap {
@@ -53,9 +53,9 @@ body {
 #content {
     float: left;
     display: inline;
-    width: 60%;
+    width: 64%;
 /*    min-width: 600px;*/
-    padding: 22px 15px 22px 20px;
+    padding: 5px 15px 22px 18px;
     font-family: Helvetica, Arial, Verdana, sans-serif;
     font-size: 1.2em;
     color: #efecca;
@@ -63,6 +63,30 @@ body {
 
 #content.fullPage {
     width: 98%;
+}
+
+#content.narrow {
+    width: 56%;
+    padding-right: 10px;
+}
+
+#content.gradfields {
+    padding-left: 32px;
+    padding-right: 0;
+}
+
+#sidebar {
+    float: right;
+    width: 270px;
+    font-size: 1.2em;
+    margin-bottom: 20px;
+/*  padding-top: 20px;*/
+/*  width: 240px;*/
+/*  text-align: center;*/
+}
+
+#sidebar.expanded {
+    width: 39%;
 }
 
 #leftColumn {
@@ -73,18 +97,26 @@ body {
 
 #rightColumn {
     float: right;
-    width: 49%;
+    width: 48%;
 /*    border: 1px solid red;*/
 }
 
-#sidebar {
-    float: right;
-    display: inline;
-    width: 300px;
-    font-size: 1.2em;
-/*  padding-top: 20px;*/
-/*  width: 240px;*/
-/*  text-align: center;*/
+#departmentsInField, #facultyInField {
+    width: 48%;
+/*    padding: 12px 20px;*/
+    margin-top: 1em;
+    margin-bottom: 30px;
+/*    background: transparent url(../images/layout/bg_sidebar-brown.png) top left !important;*/
+/*    background: url(../images/layout/bg_sidebar-brown.gif) top left;*/
+}
+
+#researchInField {
+    margin-top: 7em;
+    margin-bottom: 30px;
+    margin-right: 12px;
+    padding: 14px 20px;
+    background: transparent url(../images/layout/bg_sidebar.png) top left !important;
+    background: url(../images/layout/bg_sidebar.gif) top left;
 }
 
 #footer {
@@ -94,8 +126,16 @@ body {
     color: #fff;
 }
 
+.floatLeft {
+    float: left;
+}
+
+.floatRight {
+    float: right;
+}
+
 /****************************************************************
-header roll call
+/header roll call
 ****************************************************************/
 #header {
     position: relative;
@@ -104,7 +144,7 @@ header roll call
 #header h1 {
     margin-left: 15px;
     font-size: 3.4em;
-    font-family: "Myriad Pro", Helvetica, Verdana, sans-serif;
+    font-family: "Myriad Pro", Helvetica, Arial, Verdana, Sans-serif;
     font-weight: bold;
 /*    letter-spacing: -.02em;*/
     color: #69bfde;
@@ -145,42 +185,31 @@ header roll call
 }
 
 /****************************************************************
-content roll call
+/content roll call
 ****************************************************************/
-ul.groupings {
-  margin: 20px 0;
-}
-
-ul.fields {
-    padding-left: 45px;
-    margin: -10px 0 16px 0;
-}
-
-ul.groupings li {
-    margin-bottom: -14px; /* Tightening the space between group items */
-    font-size: 2em;
-    font-family: "Myriad Pro", Helvetica, Verdana, Sans-serif;
-    line-height: 1.2em;
-}
-
-ul.groupings li a:link, ul.groupings li a:visited {
-    color: #fff;
-    border: none;
-}
-
-ul.groupings li a:hover {
-    color: #69bfde;
-}
-
-h2.groupLabel, h2.groupLabel a:link, h2.groupLabel a:visited {
-    line-height: 1.2em;
-    color: #fff
-}
 
 #content.fullPage h2.groupLabel {
     font-size: 1.5em;   /* Scaling down group names to fit two-column layout */
     line-height: 1em;
+    padding-top: 20px;
+    padding-left: 45px;
     font-weight: bold;
+}
+
+#content.gradfields h2.groupLabel {
+    margin-left: -16px;   /* Pulling icon closer to edge of page */
+}
+
+.fieldLabel {
+    color: #fff; /* For field names that aren't links */
+    font-weight: bold;
+    padding-left: 6px;
+}
+
+.fieldRelationLabel {
+    padding: 6px 13px;
+    background: transparent url(../images/layout/bg_sidebar-brown.png) top left !important;
+    background: url(../images/layout/bg_sidebar-brown.gif) top left;
 }
 
 #apply {
@@ -197,6 +226,7 @@ h2.groupLabel, h2.groupLabel a:link, h2.groupLabel a:visited {
     font-weight: bold;
     font-size: 1.5em;
     line-height: 1.2em;
+    margin: 0;
 }
 
 #applyButton { 
@@ -207,16 +237,20 @@ h2.groupLabel, h2.groupLabel a:link, h2.groupLabel a:visited {
     margin-top: -15px;
 }
 
+.initial {
+    margin-top: 1em;
+}
 
 /****************************************************************
-sidebar roll call
+/sidebar roll call
 ****************************************************************/
 
 #sidebar h2 {
-    margin-bottom: 8px;
+    margin-bottom: 10px;
     color: #046380;
-    font-size: 1.8em;
+    font-size: 1.5em;
     font-weight: bold;
+    text-align: left;
 }
 
 div#search h2 {
@@ -227,36 +261,21 @@ div#search h2 {
     color: #A7A37E;
 }
 
-div#news, div#search, div#seminars {
+#news, #search, #seminars {
     margin-top: 20px;
     padding: 12px 0px 8px 10px;  /* Setting right padding with UL's instead */
+    color: #000;
     background: #efecca;
+    overflow: auto;
+    text-align: right;
 }
 
-div#search {
+#news li, #seminars li, #search {
+    text-align: left;
+}
+
+#search {
     background: #a7a37e;
-}
-
-#sidebar ul.groupings {
-    margin-bottom: -10px;
-}
-
-#sidebar ul.groupings li {
-    padding-left: 27px;
-    font-size: 1.3em;
-    line-height: 1.2em;
-}
-
-#news ul, #seminars ul {
-    float: left;
-    margin-bottom: 10px;
-}
-
-#news ul li {
-    float: left;
-    display: block;
-    width: 95px;
-    padding-right: 16px;
 }
 
 #departments {
@@ -266,61 +285,71 @@ div#search {
 }
 
 /****************************************************************
-footer roll call
+/footer roll call
 ****************************************************************/
 #footer p.siteFeedback {
     float: right;
+    margin: 0;
 }
 
 /****************************************************************
-basics roll call
+/basics roll call
 ****************************************************************/
 
 p {
     font-size: 1.1em;
-    line-height: 1.3em;
+    line-height: 1.2em;
     text-align: left;
+    margin: 1em 0;
+}
+
+h1, h2, h3, h4 {
+    font-family: Helvetica, Arial, Verdana, Sans-serif;
+    font-weight: normal;
+    color: #a7a37e; /* Gold */
 }
 
 h1 {
     margin: 10px 15px;
-    font-size: 3.6em;
-    font-family: "Myriad Pro", Helvetica, Verdana, sans-serif;
-    font-weight: normal;
+    font-size: 3.4em;
     letter-spacing: -.02em;
-    color: #69bfde;
+    color: #69bfde; /* Light Blue */
 }
 
-h2, h3, h4 {
-    font-size: 2.0em;
-    font-family: "Myriad Pro", Helvetica, Verdana, sans-serif;
-    font-weight: normal;
-    color: #a7a37e;
+h2 {
+    font-size: 1.7em;
 }
 
 h3 {
-    font-size: 1.8em;
+    font-size: 1.5em;
+    line-height: 1.5em;
+/*    font-weight: bold;*/
 }
 
 h4 {
-    font-size: 1.4em;
+    font-size: 1.5em;
+    line-height: 1.5em;
+/*    font-weight: bold;*/
+}
+
+li.clean {
+    margin: 0;
+    padding: 0;
 }
 
 /****************************************************************
-image roll call
+/image roll call
 ****************************************************************/
 
 #news ul li img {
-    width: 95px;
+    width: 110px;
     display: block;
-    margin-bottom: 5px;
+    margin-bottom: 7px;
     border: 1px solid #c9c7a9;
-    border-left: 0;
-    border-top: 0;
 }
 
 /****************************************************************
-anchor roll call
+/anchor roll call
 ****************************************************************/
 a:link, a:visited, a:hover, a:active {
     text-decoration: none;
@@ -342,6 +371,17 @@ a:active {
     color: #ebe386;
 }
 
+h2.groupLabel, h2.groupLabel a:link, h2.groupLabel a:visited {
+    line-height: 1.2em;
+    color: #fff;
+    font-weight: bold;
+}
+
+#news a, #seminars a {
+    font-size: 1em;
+/*    font-weight: bold;*/
+}
+
 #news a:link, #news a:visited, #seminars a:link, #seminars a:visited {
     color: #046380;
     border-bottom: solid 1px #046380;
@@ -349,13 +389,14 @@ a:active {
 }
 
 #news a:hover, #seminars a:hover {
-    color: #1ca533;
+    color: #2ca6d2;
 }
 
 #sidebar a.moreLink {
     display: block;
     clear: both;
     font-weight: bold;
+    font-size: 1.1em;
     margin-right: 10px;
 }
 
@@ -384,7 +425,7 @@ a:active {
 }
 
 /****************************************************************
-list roll call
+/list roll call
 ****************************************************************/
 ul li {
     list-style-type: none;
@@ -392,30 +433,109 @@ ul li {
 /*    font-size: 1.1em;*/
 }
 
+ul.groupings {
+  margin: 20px 0;
+}
+
+ul.groupings li {
+    margin-bottom: -17px; /* Tightening the space between group items */
+    font-size: 1.8em;
+    font-family: Helvetica, Arial, Verdana, Sans-serif;
+    font-weight: bold;
+    line-height: 1.3em;
+}
+
+ul.groupings li a:link, ul.groupings li a:visited {
+    color: #fff;
+    border: none;
+}
+
+ul.groupings li a:hover {
+    color: #69bfde;
+}
+
+ul.fields {
+    margin: .4em 0 1.5em 0;
+}
+
+ul.fields li a {
+    font-size: 1.2em;
+    font-weight: bold;
+    line-height: 1.3em;
+/*    border-bottom: 1px solid #666;*/
+}
+
+.fieldlistIndent {
+    padding-left: 12em; /* Indents list of fields on fields.jsp to align with title */
+}
+
+#leftColumn ul, #rightColumn ul {
+    margin: -1em 0 2em 0;
+}
+
+#leftColumn li, #rightColumn li {
+    padding-left: 46px;
+}
+
+#departmentsInField ul, #facultyInField ul {
+    padding: 8px 14px;
+}
+
+#sidebar ul.groupings {
+    padding: 12px 6px 12px 12px;
+    background: transparent url(../images/layout/bg_sidebar.png) top left !important;
+    background: url(../images/layout/bg_sidebar.gif) top left;
+}
+
+#sidebar ul.groupings li {
+    padding-left: 27px;
+    font-size: 1.1em;
+    font-weight: bold;
+    line-height: 1.2em;
+}
+
+#news ul, #seminars ul {
+    float: left;
+    margin-bottom: 10px;
+}
+
+#news li {
+    float: left;
+    display: block;
+    width: 110px;
+    padding-right: 20px;
+}
+
+#news li.clean {
+    margin: 0;
+    padding: 0;
+}
+
+
 /* ---------- Icons for main groupings ---------- */
 /* Note: positioning rules had to be declared for each class because they did not work when grouped */
 .individual31915 {    /* Applied Biology */
-    background: url(../images/icons/icon-applied_bio.png) no-repeat left top !important; 
+/*    background: url(../images/icons/icon-applied_bio.png) no-repeat left top !important; */
     background: url(../images/icons/icon-applied_bio.gif) no-repeat left top; } 
     
 .individual31919 {    /* Biomedical Sciences */
-    background: url(../images/icons/icon-biomed.png) no-repeat left top !important;
+/*    background: url(../images/icons/icon-biomed.png) no-repeat left top !important;*/
     background: url(../images/icons/icon-biomed.gif) no-repeat left top; }
     
 .individual31918 {    /* Ecology, Evolution, Integrative Biology */
-    background: url(../images/icons/icon-ecology.png) no-repeat left top !important;
+/*    background: url(../images/icons/icon-ecology.png) no-repeat left top !important;*/
     background: url(../images/icons/icon-ecology.gif) no-repeat left top; }
     
 .individual31917 {    /* Genetics, Genomics, Bioinformatics */
-    background: url(../images/icons/icon-genetics.png) no-repeat left top !important;
+/*    background: url(../images/icons/icon-genetics.png) no-repeat left top !important;*/
     background: url(../images/icons/icon-genetics.gif) no-repeat left top; }
     
 .individual31916 {    /* Molecular, Cellular Biology */
-    background: url(../images/icons/icon-molecbio.png) no-repeat left top !important;
+/*    background: url(../images/icons/icon-molecbio.png) no-repeat left top !important;*/
     background: url(../images/icons/icon-molecbio.gif) no-repeat left top; }
     
 .individual31920 {    /* Physical, Chemical, Computational Biology */
-    background: url(../images/icons/icon-physchem.png) no-repeat left top !important;  
+/*    background: url(../images/icons/icon-physchem.png) no-repeat left top !important;  */
     background: url(../images/icons/icon-physchem.gif) no-repeat left top; }
 
 .individual31915, .individual31919, .individual31918, .individual31917, .individual31916, .individual31920 {
@@ -453,14 +573,15 @@ ul li {
 
 
 /****************************************************************
-form roll call
+/form roll call
 ****************************************************************/
 #findResearchInput {
     height: 21px;
-    width: 160px;
+    width: 150px;
     vertical-align: bottom;
+    font-size: 1.2em;
     border: 1px solid #0D708F;
-    padding: 0;
+    padding: 3px 3px 1px 3px;
     margin: 0 4px 0 0;
 }
 
@@ -476,6 +597,6 @@ form roll call
 }
 
 /****************************************************************
-table roll call
+/table roll call
 ****************************************************************/
 
