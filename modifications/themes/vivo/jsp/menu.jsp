@@ -31,11 +31,10 @@
 <!-- ********** START menu.jsp FROM /themes/vivo/jsp/ ************* -->
 <div id="header">
 	<!-- ************************ Theme logo ********************** generated in menu.jsp **** -->
+	<c:url value="/edit/login.jsp" var="loginUrl"/>
 	<a class="image login" href="${loginUrl}" title="Edit Your Profile"><img src="themes/vivo/site_icons/login.gif" alt="Edit Your Profile" /></a>
 	<a class="image vivoLogo" href="index.jsp?home=<%=portalId%>" title="Home"><img src="themes/vivo/site_icons/vivo_logo.gif" alt="VIVO: Virtual Life Sciences Library" /></a>
 	<em class="portal"><%=portal.getShortHand()%></em>
-	<!-- <c:url value="/selfEditIntro.jsp" var="loginUrl"/> -->
-	<c:url value="/edit/login.jsp" var="loginUrl"/>
 	
     <!-- ************************ Navigation ********************** generated in menu.jsp **** -->
 	<div id="menu">
