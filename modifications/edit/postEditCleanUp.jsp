@@ -27,7 +27,7 @@
 
         session.removeAttribute("editjson");
         EditConfiguration.clearAllConfigsInSession(session);
-        EditSubmission.clearEditSubmissionInSession(session);
+        EditSubmission.clearAllEditSubmissionsInSession(session);
     }
     
     if( redirectTo != null ){

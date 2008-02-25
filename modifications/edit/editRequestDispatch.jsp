@@ -41,7 +41,7 @@
 
     if( "true".equalsIgnoreCase( request.getParameter("clearEditConfig"))){
         EditConfiguration.clearAllConfigsInSession(session);
-        EditSubmission.clearEditSubmissionInSession(session);
+        EditSubmission.clearAllEditSubmissionsInSession(session);
         session.removeAttribute("editjson");
     }
 
