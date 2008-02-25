@@ -47,6 +47,8 @@ body {
 	clear: both;
 /*	height: 69px;*/
 /*	width: 77%;*/
+	margin-top: 1px;
+/*	margin-top: 3px;*/
 	margin-right: 262px;
 /*	margin-left: 180px;*/
 /*	background: #fc6;*/
@@ -87,6 +89,21 @@ body {
 #footer {
 	clear: both;
 	color: #fff;
+}
+
+/****************************************************************
+head roll call
+****************************************************************/
+em.portal {
+/*	float: left;*/
+	display: inline;
+	vertical-align: top;
+	padding-left: 7px;
+	font-size: 1.4em;
+	font-family: helvetica, arial,sans-serif;
+/*	font-weight: bold;*/
+	font-style: normal;
+	color: #ccc;
 }
 
 /****************************************************************
@@ -446,6 +463,12 @@ h3.first, .contentsBrowseGroup h3.first {
 	margin-top: 4px;
 }
 
+h3.propertyName {
+	clear: both;
+	font-size: 1.2em;
+	color: #000;
+}
+
 h3.centered {
 	margin-top: 10px;
 	font-size: 1.2em;
@@ -643,9 +666,9 @@ a:link.spotty, a:visited.spotty, a:hover.spotty {
 }
 
 a:link.vivoLogo, a:visited.vivoLogo, a:hover.vivoLogo {
-	float: left;
-	display: block;
-	height: 1%;
+/*	float: left;*/
+	display: inline;
+/*	height: 1%;*/
 }
 
 a:link.login, a:visited.login, a:hover.login {
