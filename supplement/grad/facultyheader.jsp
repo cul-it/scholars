@@ -6,13 +6,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" xmlns:ex="http://simile.mit.edu/2006/11/exhibit#">
 <head>
 	<title>Graduate Programs in the Life Sciences</title>
 	<link rel="stylesheet" href="style/screen.css" type="text/css" />
-	<link href="data/peopleData2.jsp" type="application/json" rel="exhibit/data" />
+	<link href="data/peopleData2-dump.js" type="application/json" rel="exhibit/data" />
   
-    <script src="http://static.simile.mit.edu/exhibit/api-2.0/exhibit-api.js" type="text/javascript"></script>
+    <script src="exhibit/src/webapp/api/exhibit-api.js" type="text/javascript"></script>
 </head>
 
 <body>

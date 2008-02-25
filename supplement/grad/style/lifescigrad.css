@@ -34,7 +34,8 @@ body {
 
 #header {
     padding: 6px 0;
-    background: transparent url(../images/layout/bg_header.jpg) no-repeat 96% 100%;
+    background: transparent url(../images/layout/bg_header.jpg) no-repeat 98% 100%;
+    width: 98%;
 }
 
 #contentWrap {
@@ -48,6 +49,17 @@ body {
     background: transparent url(../images/layout/bg_content.png) left top !important;
     background: transparent url(../images/layout/bg_content.gif) left top; /* Delivered to browsers without PNG support */
 /*  border: solid 1px #f00;*/
+}
+
+#content.narrow {
+    width: 54%;
+    padding-left: 32px;
+    padding-right: 0;
+}
+
+#content.gradfields {
+    padding-left: 32px;
+    padding-right: 0;
 }
 
 #content {
@@ -65,18 +77,9 @@ body {
     width: 98%;
 }
 
-#content.narrow {
-    width: 56%;
-    padding-right: 10px;
-}
-
-#content.gradfields {
-    padding-left: 32px;
-    padding-right: 0;
-}
-
 #sidebar {
     float: right;
+    display: inline-block;
     width: 270px;
     font-size: 1.2em;
     margin-bottom: 20px;
@@ -104,7 +107,7 @@ body {
 #departmentsInField, #facultyInField {
     width: 48%;
 /*    padding: 12px 20px;*/
-    margin-top: 1em;
+    margin-top: 1.5em;
     margin-bottom: 30px;
 /*    background: transparent url(../images/layout/bg_sidebar-brown.png) top left !important;*/
 /*    background: url(../images/layout/bg_sidebar-brown.gif) top left;*/
@@ -197,7 +200,7 @@ body {
 }
 
 #content.gradfields h2.groupLabel {
-    margin-left: -16px;   /* Pulling icon closer to edge of page */
+    margin-left: -18px;   /* Pulling icon closer to edge of page */
 }
 
 .fieldLabel {
@@ -207,7 +210,7 @@ body {
 }
 
 .fieldRelationLabel {
-    padding: 6px 13px;
+    padding: 6px 13px 4px 13px;
     background: transparent url(../images/layout/bg_sidebar-brown.png) top left !important;
     background: url(../images/layout/bg_sidebar-brown.gif) top left;
 }
@@ -372,7 +375,7 @@ a:active {
 }
 
 h2.groupLabel, h2.groupLabel a:link, h2.groupLabel a:visited {
-    line-height: 1.2em;
+    line-height: 1.3em;
     color: #fff;
     font-weight: bold;
 }
@@ -412,6 +415,7 @@ h2.groupLabel, h2.groupLabel a:link, h2.groupLabel a:visited {
 /*    border-bottom: 1px solid red;*/
     border-bottom: 0;
     font-weight: bold;
+    text-decoration: underline;
 }
 
 #footer a:link, #footer a:visited {
@@ -438,8 +442,8 @@ ul.groupings {
 }
 
 ul.groupings li {
-    margin-bottom: -17px; /* Tightening the space between group items */
-    font-size: 1.8em;
+    margin-bottom: -13px; /* Tightening the space between group items */
+    font-size: 1.7em;
     font-family: Helvetica, Arial, Verdana, Sans-serif;
     font-weight: bold;
     line-height: 1.3em;
@@ -469,6 +473,12 @@ ul.fields li a {
     padding-left: 12em; /* Indents list of fields on fields.jsp to align with title */
 }
 
+/* Fix for IE6 3-pixel indent bug, described at: http://www.positioniseverything.net/explorer/threepxtest.html */ 
+/* Hide from IE5-mac. Only IE-win sees this. \*/
+* html ul.fieldlistIndent {  height: 1%;  margin: 0;  padding: .4em 0 0 1em;  }
+/* End hide from IE5/mac */
+
+
 #leftColumn ul, #rightColumn ul {
     margin: -1em 0 2em 0;
 }
@@ -489,9 +499,9 @@ ul.fields li a {
 
 #sidebar ul.groupings li {
     padding-left: 27px;
-    font-size: 1.1em;
+    font-size: 1em;
     font-weight: bold;
-    line-height: 1.2em;
+    line-height: 1.3em;
 }
 
 #news ul, #seminars ul {
@@ -515,27 +525,27 @@ ul.fields li a {
 /* ---------- Icons for main groupings ---------- */
 /* Note: positioning rules had to be declared for each class because they did not work when grouped */
 .individual31915 {    /* Applied Biology */
-/*    background: url(../images/icons/icon-applied_bio.png) no-repeat left top !important; */
+    background: url(../images/icons/icon-applied_bio.png) no-repeat left top !important; 
     background: url(../images/icons/icon-applied_bio.gif) no-repeat left top; } 
     
 .individual31919 {    /* Biomedical Sciences */
-/*    background: url(../images/icons/icon-biomed.png) no-repeat left top !important;*/
+    background: url(../images/icons/icon-biomed.png) no-repeat left top !important;
     background: url(../images/icons/icon-biomed.gif) no-repeat left top; }
     
 .individual31918 {    /* Ecology, Evolution, Integrative Biology */
-/*    background: url(../images/icons/icon-ecology.png) no-repeat left top !important;*/
+    background: url(../images/icons/icon-ecology.png) no-repeat left top !important;
     background: url(../images/icons/icon-ecology.gif) no-repeat left top; }
     
 .individual31917 {    /* Genetics, Genomics, Bioinformatics */
-/*    background: url(../images/icons/icon-genetics.png) no-repeat left top !important;*/
+    background: url(../images/icons/icon-genetics.png) no-repeat left top !important;
     background: url(../images/icons/icon-genetics.gif) no-repeat left top; }
     
 .individual31916 {    /* Molecular, Cellular Biology */
-/*    background: url(../images/icons/icon-molecbio.png) no-repeat left top !important;*/
+    background: url(../images/icons/icon-molecbio.png) no-repeat left top !important;
     background: url(../images/icons/icon-molecbio.gif) no-repeat left top; }
     
 .individual31920 {    /* Physical, Chemical, Computational Biology */
-/*    background: url(../images/icons/icon-physchem.png) no-repeat left top !important;  */
+    background: url(../images/icons/icon-physchem.png) no-repeat left top !important;  
     background: url(../images/icons/icon-physchem.gif) no-repeat left top; }
 
 .individual31915, .individual31919, .individual31918, .individual31917, .individual31916, .individual31920 {
@@ -576,7 +586,7 @@ ul.fields li a {
 /form roll call
 ****************************************************************/
 #findResearchInput {
-    height: 21px;
+    height: 18px;
     width: 150px;
     vertical-align: bottom;
     font-size: 1.2em;

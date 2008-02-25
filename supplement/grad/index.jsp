@@ -17,7 +17,7 @@
                 <div id="news">
                     <h2>Life Sciences News</h2>
                     <jsp:include page="part/newsforportal.jsp" />
-                    <a class="moreLink" href="#">more news &raquo;&raquo;</a>
+                    <a class="moreLink" href="#">more news &raquo;</a>
                 </div>
                 <div id="search">
                     <form name="findresearch" action="" method="get">
@@ -32,7 +32,7 @@
                     <h2>Life Sciences Seminars</h2>
                     <!-- <ul><li><a href="/vivo/entity?uri=http%3a%2f%2fvivo.library.cornell.edu%2fns%2f0.1%23individual32616_1_1_1_1_1_1_2_1_1_1_1_1_1_2_1_1_1_2_1">TBA-Chemistry and Chemical Biology Seminar</a></li><li><a href="/vivo/entity?uri=http%3a%2f%2fvivo.library.cornell.edu%2fns%2f0.1%23individual32616_1_1_1_1_1_1_2_1_1_1_1_1_1_2_1_1_1">TBA-Chemistry and Chemical Biology Seminar</a></li></ul>
                      --><jsp:include page="part/seminarsforportal.jsp" />
-                    <a class="moreLink" href="#">more news &raquo;&raquo;</a>
+                    <a class="moreLink" href="#">more events &raquo;</a>
                 </div>
             </div> <!-- sidebar -->
         </div> <!-- contentWrap -->
