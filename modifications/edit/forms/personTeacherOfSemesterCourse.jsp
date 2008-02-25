@@ -142,7 +142,7 @@
          "queryForExisting" : { },
          "validators"       : [ ],
          "optionsType"      : "INDIVIDUALS_VIA_VCLASS",
-         "literalOptions"   : [ ],
+         "literalOptions"   : ["leave blank"],
          "subjectUri"       : "${param.subjectUri}",
          "subjectClassUri"  : { },
          "predicateUri"     : "${param.predicateUri}",
@@ -178,27 +178,28 @@
     if( subject == null ) throw new Error("could not find subject '" + subjectUri + "'");
     request.setAttribute("subjectName",subject.getName());
 
-    /* these are used by pre and post form fragements */
-    request.setAttribute("title", "create a new semester course for " + subject.getName());
+    String submitLabel=""; // don't put local variables into the request
+    /* title is used by pre and post form fragments */
+    if (objectUri != null) {
+    	request.setAttribute("title", "Edit course for " + subject.getName());
+        submitLabel = "Save changes";
+    } else {
+        request.setAttribute("title","Create a new course for " + subject.getName());
+        submitLabel = "Create new course";
+    }
+
 %>
 
 <jsp:include page="${preForm}"/>
-
-        <form action="<c:url value="/edit/processRdfForm2.jsp"/>" >
-            <p/><v:input type="text" label="course title" id="courseName" />
-            <p/><v:input type="select" label="semester" id="semester" />
-            <p/><v:input type="select" label="held in location" id="heldIn" />
-            <p/><v:input type="select" label="credit value of course" id="moniker" />
-            <p/><v:input type="textarea" label="course description" id="courseDescription" rows="5" />
-            <p/>
-            <input type="submit" value="Create new course"/>
-            
-            <c:url value="/entity" var="editCancel" >
-                <c:param name="uri" value="${param.subjectUri}"/>
-            </c:url>
-            <button type="button" onclick="javascript:document.location.href='${editCancel}'">cancel</button>
-
-        </form>
+<h1>${title}</h1>
+<form action="<c:url value="/edit/processRdfForm2.jsp"/>" >
+    <v:input type="text" label="course title" id="courseName" size="60"/>
+    <v:input type="checkbox" label="semester" id="semester"/>
+    <v:input type="select" label="held in location" id="heldIn"/>
+    <v:input type="radio" label="credit value" id="moniker"/>
+    <v:input type="textarea" label="course description" id="courseDescription" rows="5"/>
+    <v:input type="submit" id="submit" value="<%=submitLabel%>" cancel="${param.subjectUri}"/>
+</form>
 
 <jsp:include page="${postForm}"/>
 

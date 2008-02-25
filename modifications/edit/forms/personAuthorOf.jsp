@@ -107,6 +107,7 @@
             prepareForEditOfExisting(editConfig,model,session);
             editConfig.getUrisInScope().put("newPub",objectUri); //makes sure we reuse objUri 
         }
+            
     //}
 
     /* get some data to make the form more useful */
@@ -117,28 +118,27 @@
     Individual subject = wdf.getIndividualDao().getIndividualByURI(personUri);
     if( subject == null ) throw new Error("could not find subject '" + personUri + "'");
     request.setAttribute("subjectName",subject.getName());
-
-    /* these are used by pre and post form fragements */
-    request.setAttribute("title", "create a new publication for " + subject.getName());
+    /* title is used by pre and post form fragments */
+    String submitLabel=""; // don't put local variables into the request
+    if (objectUri != null) {
+    	request.setAttribute("title", "Edit publication for " + subject.getName());
+        submitLabel = "Save changes";
+    } else {
+        request.setAttribute("title","Create a new publication for " + subject.getName());
+        submitLabel = "Create new publication";
+    }
 %>
 
 <jsp:include page="${preForm}"/>
 
-		<h1>Create a new publication</h1>
+<h1>${title}</h1>
 
-        <form action="<c:url value="/edit/processRdfForm2.jsp"/>" >
-        	<!-- dt and dd tags activated in InputElementFormattingTag.java by default -->
-			<v:input type="text" label="Title" id="pubName" size="70" />
-			<v:input type="select" label="Publication Type" id="moniker" />
-			<v:input type="textarea" label="Bibliographic Citation" id="pubDescription" rows="5" />
-			<!-- v:input tag for submit buttons coming soon -->
-			<p>
-				<c:url value="/entity" var="editCancel" >
-				<c:param name="uri" value="${param.subjectUri}"/>
-				</c:url>
-				<input type="submit" value="Create new publication"/> or <a class="cancel" href="${editCancel}" title="Cancel">Cancel</a>
-			</p>
-        </form>
+<form action="<c:url value="/edit/processRdfForm2.jsp"/>" >
+    <v:input type="text" label="Title" id="pubName" size="70" />
+    <v:input type="radio" label="Publication Type" id="moniker" />
+    <v:input type="textarea" label="Bibliographic Citation" id="pubDescription" rows="5" />
+    <v:input type="submit" id="submit" value="<%=submitLabel%>" cancel="${param.subjectUri}" />
+</form>
 
 <jsp:include page="${postForm}"/>
 
