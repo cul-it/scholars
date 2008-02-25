@@ -12,7 +12,7 @@
 	<link rel="stylesheet" href="style/screen.css" type="text/css" />
 	<link href="data/peopleData2-dump.js" type="application/json" rel="exhibit/data" />
   
-    <script src="exhibit/src/webapp/api/exhibit-api.js" type="text/javascript"></script>
+    <script src="http://static.simile.mit.edu/exhibit/api-2.0/exhibit-api.js" type="text/javascript"></script>
 </head>
 
 <body>
