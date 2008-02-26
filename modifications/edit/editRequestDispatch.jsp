@@ -39,11 +39,11 @@
     if( predicateUri == null || predicateUri.trim().length() == 0)
         throw new Error("predicateUri was empty, it is required by editRequestDispatch");
 
-    if( "true".equalsIgnoreCase( request.getParameter("clearEditConfig"))){
-        EditConfiguration.clearAllConfigsInSession(session);
-        EditSubmission.clearAllEditSubmissionsInSession(session);
-        session.removeAttribute("editjson");
-    }
+//    if( "true".equalsIgnoreCase( request.getParameter("clearEditConfig"))){
+//        EditConfiguration.clearAllConfigsInSession(session);
+//        EditSubmission.clearAllEditSubmissionsInSession(session);
+//        session.removeAttribute("editjson");
+//    }
 
     String url= "/edit/editRequestDispatch.jsp"; //I'd like to get this from the request but...
     request.setAttribute("formUrl", url + "?" + request.getQueryString());

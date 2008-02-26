@@ -26,6 +26,13 @@
     }
 
     request.getSession(true);
+    
+    if( EditConfiguration.getEditKey( request ) == null ){
+        request.setAttribute("editKey",EditConfiguration.newEditKey(session));
+    }else{
+        request.setAttribute("editKey", EditConfiguration.getEditKey( request ));
+    }
+
 %>
 <v:jsonset var="semesterClass">http://vivo.library.cornell.edu/ns/0.1#AcademicSemester</v:jsonset>
 <v:jsonset var="buildingClass">http://vivo.library.cornell.edu/ns/0.1#Building</v:jsonset>
@@ -77,9 +84,10 @@
           vivo:SemesterCourseOccursInSemester ?semester.
 </v:jsonset>
 
-<c:set var="editjson" scope="session">
+<c:set var="editjson" scope="request">
   {
     "formUrl" : "${formUrl}",
+    "editKey" : "${editKey}",
     "n3required"    : [ "${n3ForEdit}" ],
     "n3optional"    : [ ],
     "newResources"  : { "newCourse" : "default" },
@@ -152,9 +160,9 @@
   }
 </c:set>
 <%
-    EditConfiguration editConfig = EditConfiguration.getConfigFromSession(session);
+    EditConfiguration editConfig = EditConfiguration.getConfigFromSession(session,request);
     if( editConfig == null ){
-        editConfig = new EditConfiguration((String)session.getAttribute("editjson"));
+        editConfig = new EditConfiguration((String)request.getAttribute("editjson"));
         EditConfiguration.putConfigInSession(editConfig, session);
 
         System.out.println("******************* JUST PUT EDITCONFIG IN SESSION ***********************");
@@ -164,7 +172,7 @@
     }
     if( objectUri != null ){
         Model model =  (Model)application.getAttribute("jenaOntModel");
-        prepareForEditOfExisting(editConfig,model,session);
+        prepareForEditOfExisting(editConfig, model, request, session);
         editConfig.getUrisInScope().put("newCourse",objectUri); //makes sure we reuse objUri, maybe this should be done by prepareForEditOfExisting?
     }
 
@@ -198,6 +206,7 @@
     <v:input type="select" label="held in location" id="heldIn"/>
     <v:input type="radio" label="credit value" id="moniker"/>
     <v:input type="textarea" label="course description" id="courseDescription" rows="5"/>
+    <v:input type="editKey" id="editKey"/>
     <v:input type="submit" id="submit" value="<%=submitLabel%>" cancel="${param.subjectUri}"/>
 </form>
 
@@ -205,13 +214,13 @@
 
 
  <%!/* copy of method in personAuthorOf.jsp, need to find better place fo these to live. */
-  private void prepareForEditOfExisting( EditConfiguration editConfig, Model model, HttpSession session){
+  private void prepareForEditOfExisting( EditConfiguration editConfig, Model model, ServletRequest request, HttpSession session){
         SparqlEvaluate sparqlEval = new SparqlEvaluate(model);
         Map<String,String> varsToUris =   sparqlEval.sparqlEvaluateToUris(editConfig.getSparqlForExistingUris(),
                 editConfig.getUrisInScope(),editConfig.getLiteralsInScope());
         Map<String,String> varsToLiterals =   sparqlEval.sparqlEvaluateToLiterals(editConfig.getSparqlForExistingLiterals(),
                 editConfig.getUrisInScope(),editConfig.getLiteralsInScope());
-        EditSubmission esub = new EditSubmission(editConfig);
+        EditSubmission esub = new EditSubmission(request,model,editConfig);
         esub.setUrisFromForm(varsToUris);
         esub.setLiteralsFromForm(varsToLiterals);
         EditSubmission.putEditSubmissionInSession(session,esub);

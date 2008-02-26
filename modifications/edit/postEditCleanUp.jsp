@@ -11,8 +11,8 @@
 
          //get n3rdf from scope
         String editJson = (String)session.getAttribute("editjson");
-        EditConfiguration editConfig = EditConfiguration.getConfigFromSession(session);
-        EditSubmission editSub = EditSubmission.getEditSubmissionFromSession(session);
+        EditConfiguration editConfig = EditConfiguration.getConfigFromSession(session,request);
+        EditSubmission editSub = EditSubmission.getEditSubmissionFromSession(session,request);
 
         if( editConfig == null || editConfig.getEntityToReturnTo() == null ){
             if( editJson == null || editJson.trim().length() == 0 ){
@@ -26,10 +26,10 @@
         }
 
         session.removeAttribute("editjson");
-        EditConfiguration.clearAllConfigsInSession(session);
-        EditSubmission.clearAllEditSubmissionsInSession(session);
+        EditConfiguration.clearEditConfigurationInSession(session,editConfig);
+        EditSubmission.clearEditSubmissionInSession(session, editSub);
     }
-    
+
     if( redirectTo != null ){
         request.setAttribute("redirectTo",redirectTo);
         %>

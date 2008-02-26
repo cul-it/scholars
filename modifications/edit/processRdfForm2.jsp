@@ -3,6 +3,8 @@
 <%@ page import="com.hp.hpl.jena.rdf.model.Resource" %>
 <%@ page import="com.hp.hpl.jena.rdf.model.ResourceFactory" %>
 <%@ page import="com.hp.hpl.jena.shared.Lock" %>
+<%@ page import="com.thoughtworks.xstream.XStream" %>
+<%@ page import="com.thoughtworks.xstream.io.xml.DomDriver" %>
 <%@ page import="edu.cornell.mannlib.vedit.beans.LoginFormBean" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.edit.n3editing.EditConfiguration" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.edit.n3editing.EditSubmission" %>
@@ -19,27 +21,6 @@ all of the variables in the required n3 are not bound or it cannot
 be processed as n3 by Jena then it is an error in processing the form.
 The optional n3 blocks will proccessed if their variables are bound and
 are well formed.
-
-{
-    "n3required"    : [ ${n3ForEdit} ],
-    "n3optional"    : [ ],
-    "newResources"  : { "newCourse" : "http://vivo.library.cornell.edu/ns/0.1#individual" },
-    "urisInScope"   : ["subject" : ${subjectUri},
-                       "predicate":${predicateUri},
-                       "building" :${building}],
-    "literalsInScope": [ ],
-    "urisOnForm"    : ["object" ],
-    "literalsOnForm":  [ ],
-    "sparqlForAdditonalLiteralsInScope" : [ ],
-    "sparqlForAdditonalUrisInScope":[ "inverse" : ${queryForInverse} ],
-    "entityToReturnTo" : [ ${subjectUri} ],
-    "basicValidation" : {"object" : ["nonempty",  "inmodel" ] }
-    "optionsForFields" : {
-        "object" : "http://vivo.cornell.edu/ns/0.1#someVitroClass",
-        "buildings" : "http://vivo.cornell.edu/ns/0.1#Building",
-        "moniker" : ["first person", "second person", "third person"]
-    }
-}
 --%>
 <%
     System.out.println("in processRdfForm2.jsp");
@@ -55,16 +36,17 @@ are well formed.
     Model jenaOntModel =  (Model)application.getAttribute("jenaOntModel");
     Model persistentOntModel = (Model)application.getAttribute("persistentOntModel");
 
-    String editJson = (String)session.getAttribute("editjson");
-    if( editJson == null || editJson.trim().length() == 0 )
-            throw new Error("need edit object in session");
+    System.out.println("got models");
 
-    System.out.println("editJson:\n" + editJson);
-
-
-    EditConfiguration editConfig = new EditConfiguration(editJson);
+    System.out.println("parameter editKey: " + request.getParameter("editKey"));
+    System.out.println("attribute editKey: " + request.getAttribute("editKey"));
+    
+    EditConfiguration editConfig = EditConfiguration.getConfigFromSession(session,request);
+    System.out.println("got editConfig: " + editConfig);
 
     EditSubmission submission = new EditSubmission(request,jenaOntModel,editConfig);
+    System.out.println("got submission? " + submission);
+
     Map<String,String> errors =  submission.getValidationErrors();
     EditSubmission.putEditSubmissionInSession(session,submission);
 
@@ -74,123 +56,151 @@ are well formed.
         request.setAttribute("formUrl", form);
         %><jsp:forward page="${formUrl}"/><%
       	return;
-                }
+    }else{
+              System.out.println("no errors on page");
+          }
 
-                List<String> n3Required = editConfig.getN3Required();
-                List<String> n3Optional = editConfig.getN3Optional();
+    List<String> n3Required = editConfig.getN3Required();
+    List<String> n3Optional = editConfig.getN3Optional();
 
-                /* ****************** URIs and Literals in Scope ************** */
-                Map<String,String> urisInScope = editConfig.getUrisInScope();
-                n3Required = subInUris( urisInScope, n3Required);
-                n3Optional = subInUris( urisInScope, n3Optional);
+    dump("n3Required" , n3Required);
+    dump("n3Optional" , n3Optional);
 
-                //sub in values from sparql queries
-                SparqlEvaluate sparqlEval = new SparqlEvaluate((Model)application.getAttribute("jenaOntModel"));
-                Map<String,String> varToUris = sparqlEval.sparqlEvaluateToUris(
-                        editConfig.getSparqlForAdditionalUrisInScope(),
-                        editConfig.getUrisInScope(),
-                        editConfig.getLiteralsInScope());
-                n3Required = subInUris(varToUris, n3Required);
-                n3Optional = subInUris(varToUris, n3Optional);
+    /* ****************** URIs and Literals in Scope ************** */
+    Map<String,String> urisInScope = editConfig.getUrisInScope();
+    n3Required = subInUris( urisInScope, n3Required);
+    n3Optional = subInUris( urisInScope, n3Optional);
 
-                Map<String,String> varToLiterals = sparqlEval.sparqlEvaluateToUris(
-                        editConfig.getSparqlForAdditionalLiteralsInScope(),
-                        editConfig.getUrisInScope(),
-                        editConfig.getLiteralsInScope());
-                n3Required = subInLiterals(varToLiterals, n3Required);
-                n3Optional = subInLiterals(varToLiterals, n3Optional);
+    System.out.println("after urisInScope");
+    dump("n3Required" , n3Required);
+    dump("n3Optional" , n3Optional);
 
-                /* ****************** New Resources ********************** */
-                Map<String,String> varToNewResource = newToUriMap(editConfig.getNewResources(),jenaOntModel);
+    //sub in values from sparql queries
+    SparqlEvaluate sparqlEval = new SparqlEvaluate((Model)application.getAttribute("jenaOntModel"));
+    Map<String,String> varToUris = sparqlEval.sparqlEvaluateToUris(
+            editConfig.getSparqlForAdditionalUrisInScope(),
+            editConfig.getUrisInScope(),
+            editConfig.getLiteralsInScope());
+    n3Required = subInUris(varToUris, n3Required);
+    n3Optional = subInUris(varToUris, n3Optional);
 
-                n3Required = subInUris( varToNewResource, n3Required);
-                n3Optional = subInUris( varToNewResource, n3Optional);
+    System.out.println("after sparqlEval URIs");
+    dump("n3Required" , n3Required);
+    dump("n3Optional" , n3Optional);
 
-                /* ********** URIs and Literals on Form/Parameters *********** */
+    Map<String,String> varToLiterals = sparqlEval.sparqlEvaluateToUris(
+            editConfig.getSparqlForAdditionalLiteralsInScope(),
+            editConfig.getUrisInScope(),
+            editConfig.getLiteralsInScope());
+    n3Required = subInLiterals(varToLiterals, n3Required);
+    n3Optional = subInLiterals(varToLiterals, n3Optional);
 
-                
-                //sub in resource uris off form
-                n3Required = subInUris(submission.getUrisFromForm(), n3Required);
-                n3Optional = subInUris(submission.getUrisFromForm(), n3Optional);
+    System.out.println("after sparqlEval Literals");
+    dump("n3Required" , n3Required);
+    dump("n3Optional" , n3Optional);
 
-                //sub in literals from form
-                n3Required = subInLiterals(submission.getLiteralsFromForm(), n3Required);
-                n3Optional = subInLiterals(submission.getLiteralsFromForm(), n3Optional);
+    /* ****************** New Resources ********************** */
+    Map<String,String> varToNewResource = newToUriMap(editConfig.getNewResources(),jenaOntModel);
 
-                /* ***************** Build Models ******************* */
-                request.setAttribute("n3RequiredProcessed",n3Required);
-                request.setAttribute("n3OptionalProcessed",n3Optional);
-                
-                List<Model> requiredNewModels = new ArrayList<Model>();
-                for(String n3 : n3Required){
-                    try{
-                        Model model = ModelFactory.createDefaultModel();
-                        StringReader reader = new StringReader(n3);
-                        model.read(reader, "", "N3");
-                        requiredNewModels.add(model);
-                    }catch(Throwable t){
-                        errorMessages.add("error processing required n3 string \n"+
-                                t.getMessage() + '\n' +
-                                "n3: \n" + n3 );
-                    }
-                }
-                if( !errorMessages.isEmpty() ){
-                    System.out.println("problems processing required n3: \n" );
-                    for( String error : errorMessages){
-                        System.out.println(error);
-                    }
-                    throw new JspException("errors processing required n3, check catalina.out");
-                }
+    n3Required = subInUris( varToNewResource, n3Required);
+    n3Optional = subInUris( varToNewResource, n3Optional);
 
-                List<Model> optionalNewModels = new ArrayList<Model>();
-                for(String n3 : n3Optional){
-                    try{
-                        Model model = ModelFactory.createDefaultModel();
-                        StringReader reader = new StringReader(n3);
-                        model.read(reader, "", "N3");
-                        optionalNewModels.add(model);
-                    }catch(Throwable t){
-                        errorMessages.add("error processing optional n3 string  \n"+
-                                t.getMessage() + '\n' +
-                                "n3: \n" + n3);
+    System.out.println("after new resources");
+    dump("n3Required" , n3Required);
+    dump("n3Optional" , n3Optional);
 
-                    }
-                }
-                 if( !errorMessages.isEmpty() ){
-                    System.out.println("problems processing optional n3: \n" );
-                    for( String error : errorMessages){
-                        System.out.println(error);
-                    }
-                    //throw new JspException("errors processing optional n3, check catalina.out");
-                }
-                
-                //The requiredNewModels and the optionalNewModels should be handled differently
-                //but for now we'll just do them the same
-                requiredNewModels.addAll(optionalNewModels);
+    /* ********** URIs and Literals on Form/Parameters *********** */
+    
+    //sub in resource uris off form
+    n3Required = subInUris(submission.getUrisFromForm(), n3Required);
+    n3Optional = subInUris(submission.getUrisFromForm(), n3Optional);
 
-                Lock lock = null;
-                try{
-                    lock =  persistentOntModel.getLock();
-                    lock.enterCriticalSection(Lock.WRITE);
-                    for( Model model : requiredNewModels )
-                        persistentOntModel.add(model);
-                }catch(Throwable t){
-                    errorMessages.add("error adding required model to persistent model \n"+ t.getMessage() );
-                }finally{
-                    lock.leaveCriticalSection();
-                }
+    System.out.println("after URIS off form");
+    dump("n3Required" , n3Required);
+    dump("n3Optional" , n3Optional);
 
-                 try{
-                    lock =  jenaOntModel.getLock();
-                    lock.enterCriticalSection(Lock.WRITE);
-                    for( Model model : requiredNewModels)
-                        jenaOntModel.add(model);
-                }catch(Throwable t){
-                    errorMessages.add("error processing required model to in memory model \n"+ t.getMessage() );
-                }finally{
-                    lock.leaveCriticalSection();
-                }
-      %>
+    //sub in literals from form
+    n3Required = subInLiterals(submission.getLiteralsFromForm(), n3Required);
+    n3Optional = subInLiterals(submission.getLiteralsFromForm(), n3Optional);
+
+    System.out.println("after Literals off Form");
+    dump("n3Required" , n3Required);
+    dump("n3Optional" , n3Optional);
+
+    /* ***************** Build Models ******************* */
+    request.setAttribute("n3RequiredProcessed",n3Required);
+    request.setAttribute("n3OptionalProcessed",n3Optional);
+
+    List<Model> requiredNewModels = new ArrayList<Model>();
+    for(String n3 : n3Required){
+        try{
+            Model model = ModelFactory.createDefaultModel();
+            StringReader reader = new StringReader(n3);
+            model.read(reader, "", "N3");
+            requiredNewModels.add(model);
+        }catch(Throwable t){
+            errorMessages.add("error processing required n3 string \n"+
+                    t.getMessage() + '\n' +
+                    "n3: \n" + n3 );
+        }
+    }
+    if( !errorMessages.isEmpty() ){
+        System.out.println("problems processing required n3: \n" );
+        for( String error : errorMessages){
+            System.out.println(error);
+        }
+        throw new JspException("errors processing required n3, check catalina.out");
+    }
+
+    List<Model> optionalNewModels = new ArrayList<Model>();
+    for(String n3 : n3Optional){
+        try{
+            Model model = ModelFactory.createDefaultModel();
+            StringReader reader = new StringReader(n3);
+            model.read(reader, "", "N3");
+            optionalNewModels.add(model);
+        }catch(Throwable t){
+            errorMessages.add("error processing optional n3 string  \n"+
+                    t.getMessage() + '\n' +
+                    "n3: \n" + n3);
+
+        }
+    }
+    if( !errorMessages.isEmpty() ){
+        System.out.println("problems processing optional n3: \n" );
+        for( String error : errorMessages){
+            System.out.println(error);
+        }
+        //throw new JspException("errors processing optional n3, check catalina.out");
+    }
+
+    //The requiredNewModels and the optionalNewModels should be handled differently
+    //but for now we'll just do them the same
+    requiredNewModels.addAll(optionalNewModels);
+
+    Lock lock = null;
+    try{
+        lock =  persistentOntModel.getLock();
+        lock.enterCriticalSection(Lock.WRITE);
+        for( Model model : requiredNewModels )
+            persistentOntModel.add(model);
+    }catch(Throwable t){
+        errorMessages.add("error adding required model to persistent model \n"+ t.getMessage() );
+    }finally{
+        lock.leaveCriticalSection();
+    }
+
+    try{
+        lock =  jenaOntModel.getLock();
+        lock.enterCriticalSection(Lock.WRITE);
+        for( Model model : requiredNewModels)
+            jenaOntModel.add(model);
+    }catch(Throwable t){
+        errorMessages.add("error processing required model to in memory model \n"+ t.getMessage() );
+    }finally{
+        lock.leaveCriticalSection();
+    }
+%>
 
 <jsp:forward page="postEditCleanUp.jsp"/>
 
@@ -293,4 +303,14 @@ are well formed.
 //        return "http://vivo.cornell.edu/ns/need/way/to/make/new/uri/bunk#" + random.nextInt();
 //    }
 
+%>
+
+
+<%!
+    private void dump(String name, Object fff){
+        XStream xstream = new XStream(new DomDriver());
+        System.out.println( "*******************************************************************" );
+        System.out.println( name );
+        System.out.println(xstream.toXML( fff ));
+    }
 %>
