@@ -82,18 +82,17 @@
 
     VClass rangeClass = wdf.getVClassDao().getVClassByURI(prop.getRangeVClassURI());
     request.setAttribute("rangeClassName", rangeClass.getName());
-
-    if( EditConfiguration.getEditKey( request ) == null ){
-        request.setAttribute("editKey",EditConfiguration.newEditKey(session));
-    }else{
-        request.setAttribute("editKey", EditConfiguration.getEditKey( request ));
-    }
 %>
 
 <c:set var="editjson" scope="request">
   {
     "formUrl"                   : "${formUrl}",
     "editKey"                   : "${editKey}",
+
+    "subjectUri"   : "${subjectUri}",
+    "predicateUri" : "${predicateUri}",
+    "objectUri"    : "${objectUri}",
+
     "n3required"                : [ "${n3ForEdit}" ],
     "n3optional"                : [ ],
     "newResources"              : { },
@@ -122,8 +121,9 @@
                                        "subjectClassUri"  : { },
                                        "predicateUri"     : "${param.predicateUri}",
                                        "objectClassUri"   : { },
-                                       "literalOptions"   : [ ]
-								     }
+                                       "literalOptions"   : [ ] ,
+                                       "assertions"       : [] 
+                                     }
 								  }
   }
 </c:set>

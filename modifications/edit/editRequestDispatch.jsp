@@ -25,6 +25,12 @@
     
     /* ********************************************************** */
 
+    if( EditConfiguration.getEditKey( request ) == null ){
+        request.setAttribute("editKey",EditConfiguration.newEditKey(session));
+    }else{
+        request.setAttribute("editKey", EditConfiguration.getEditKey( request ));
+    }
+
      /* Figure out what type of edit is being requested,
         setup for that type of edit OR forward to some 
         thing that can do the setup  */

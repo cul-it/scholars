@@ -11,11 +11,11 @@
 <%@ taglib prefix="v" uri="http://vitro.mannlib.cornell.edu/vitro/tags" %>
 <%
     
-    String v = request.getParameter("subjectUri");
-    request.setAttribute("subjectUriJson", MiscWebUtils.escape(v));
+    String subjectUri = request.getParameter("subjectUri");
+    request.setAttribute("subjectUriJson", MiscWebUtils.escape(subjectUri));
 
     String objectUri = request.getParameter("objectUri");
-    if( v != null){   //here we fill out urisInScope with an existing uri for edit, notice the need for the comma
+    if( objectUri != null){   //here we fill out urisInScope with an existing uri for edit, notice the need for the comma
         request.setAttribute("objectUriJson", MiscWebUtils.escape(objectUri));
         request.setAttribute("existingUris", ",\"newPub\": \""+MiscWebUtils.escape(objectUri)+"\"");
     }else{
@@ -61,6 +61,13 @@
 <c:set var="editjson" scope="session">
   {
     "formUrl" : "${formUrl}",
+    "editKey"  : "${editKey}",
+
+    "subjectUri"   : "${subjectUri}",
+    "predicateUri" : "${predicateUri}",
+    "objectUri"    : "${objectUri}",
+    "objectVar"    : "newPub",
+
     "n3required"    : [ "${n3ForEdit}" ],
     "n3optional"    : [ ],
     "newResources"  : { "newPub" : "default" },
@@ -91,7 +98,8 @@
          "subjectUri"       : "${param.subjectUri}",
          "subjectClassUri"  : { },
          "predicateUri"     : "${param.predicateUri}",
-         "objectClassUri"   : { }
+         "objectClassUri"   : { },
+         "assertions"       : []
       }
     }
   }
@@ -99,12 +107,12 @@
 <%
     //EditConfiguration editConfig = EditConfiguration.getConfigFromSession(session);
     //if( editConfig == null ){
-        EditConfiguration.clearAllConfigsInSession(session); // otherwise keeps using same predicate from fields
+
         EditConfiguration editConfig = new EditConfiguration((String)session.getAttribute("editjson"));
         EditConfiguration.putConfigInSession(editConfig, session);
         if( objectUri != null ){     //these get done on a edit of an existing entity.
             Model model =  (Model)application.getAttribute("jenaOntModel");
-            prepareForEditOfExisting(editConfig,model,session);
+            prepareForEditOfExisting(editConfig,model,session,request);
             editConfig.getUrisInScope().put("newPub",objectUri); //makes sure we reuse objUri 
         }
             
@@ -137,18 +145,19 @@
     <v:input type="text" label="Title" id="pubName" size="70" />
     <v:input type="radio" label="Publication Type" id="moniker" />
     <v:input type="textarea" label="Bibliographic Citation" id="pubDescription" rows="5" />
+    <v:input type="editKey" id="editKey" />
     <v:input type="submit" id="submit" value="<%=submitLabel%>" cancel="${param.subjectUri}" />
 </form>
 
 <jsp:include page="${postForm}"/>
 
- <%!private void prepareForEditOfExisting( EditConfiguration editConfig, Model model, HttpSession session){
+ <%!private void prepareForEditOfExisting( EditConfiguration editConfig, Model model, HttpSession session,ServletRequest request){
         SparqlEvaluate sparqlEval = new SparqlEvaluate(model);
         Map<String,String> varsToUris =   sparqlEval.sparqlEvaluateToUris(editConfig.getSparqlForExistingUris(),
                 editConfig.getUrisInScope(),editConfig.getLiteralsInScope());
         Map<String,String> varsToLiterals =   sparqlEval.sparqlEvaluateToLiterals(editConfig.getSparqlForExistingLiterals(),
                 editConfig.getUrisInScope(),editConfig.getLiteralsInScope());
-        EditSubmission esub = new EditSubmission(editConfig);
+        EditSubmission esub = new EditSubmission(request,model,editConfig);
         esub.setUrisFromForm(varsToUris);
         esub.setLiteralsFromForm(varsToLiterals);
         EditSubmission.putEditSubmissionInSession(session,esub);

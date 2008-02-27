@@ -13,9 +13,8 @@
     System.out.println("in propDelete.jsp");
     if( session == null)
         throw new Error("need to have session");
-    if (!VitroRequestPrep.isSelfEditing(request) && !LoginFormBean.loggedIn(request, LoginFormBean.CURATOR)) {
-%>
-         <c:redirect url="/about.jsp"/>
+    if (!VitroRequestPrep.isSelfEditing(request) && !LoginFormBean.loggedIn(request, LoginFormBean.CURATOR)) {%>
+        <c:redirect url="/about.jsp"/>
 <%  }
 
     String subjectUri   = request.getParameter("subjectUri");
@@ -30,7 +29,7 @@
     
     //do the delete
     if( request.getParameter("y") != null ){    
-System.out.println("In propDelete.jsp, doing the delete of \n"+subjectUri+"\n"+predicateUri+"\n"+objectUri);
+        System.out.println("In propDelete.jsp, doing the delete of \n"+subjectUri+"\n"+predicateUri+"\n"+objectUri);
         wdf.getPropertyInstanceDao().deleteObjectPropertyStatement(subjectUri,predicateUri,objectUri);
 
 //      ObjectPropertyStatement stmt = new ObjectPropertyStatement();

@@ -8,41 +8,25 @@
     String redirectTo = null;
 
     if( session != null ) {
-
-         //get n3rdf from scope
-        String editJson = (String)session.getAttribute("editjson");
         EditConfiguration editConfig = EditConfiguration.getConfigFromSession(session,request);
         EditSubmission editSub = EditSubmission.getEditSubmissionFromSession(session,request);
 
-        if( editConfig == null || editConfig.getEntityToReturnTo() == null ){
-            if( editJson == null || editJson.trim().length() == 0 ){
-                redirectTo = null;
-            }else{
-                editConfig = new EditConfiguration(editJson);
-                redirectTo = editConfig.getEntityToReturnTo();
-            }
-        }else{
+        EditConfiguration.clearEditConfigurationInSession(session, editConfig);
+        EditSubmission.clearEditSubmissionInSession(session, editSub);
+
+        if( editConfig != null && editConfig.getEntityToReturnTo() != null ){
             redirectTo = editConfig.getEntityToReturnTo();
         }
-
-        session.removeAttribute("editjson");
-        EditConfiguration.clearEditConfigurationInSession(session,editConfig);
-        EditSubmission.clearEditSubmissionInSession(session, editSub);
     }
 
     if( redirectTo != null ){
-        request.setAttribute("redirectTo",redirectTo);
-        %>
-        
-		<c:redirect url="/entity">
+        request.setAttribute("redirectTo",redirectTo);    %>
+        <c:redirect url="/entity">
             <c:param name="uri" value="${redirectTo}" />
         </c:redirect>
-        <%
-    }else { %>
+    <% }else { %>
         <c:redirect url="/about.jsp"/>
-        <%
-    }
-%>
+    <% } %>
 
 
 

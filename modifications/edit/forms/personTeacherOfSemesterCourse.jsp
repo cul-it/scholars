@@ -5,9 +5,11 @@
 <%@ page import="edu.cornell.mannlib.vitro.webapp.controller.VitroRequest" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.dao.WebappDaoFactory" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.edit.n3editing.EditConfiguration" %>
-<%@ page import="edu.cornell.mannlib.vitro.webapp.edit.n3editing.EditSubmission" %>
+<%@ page import="edu.cornell.mannlib.vitro.webapp.edit.n3editing.Field" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.edit.n3editing.SparqlEvaluate" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.web.MiscWebUtils" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.List" %>
 <%@ page import="java.util.Map" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
 <%@ taglib prefix="v" uri="http://vitro.mannlib.cornell.edu/vitro/tags" %>
@@ -26,13 +28,6 @@
     }
 
     request.getSession(true);
-    
-    if( EditConfiguration.getEditKey( request ) == null ){
-        request.setAttribute("editKey",EditConfiguration.newEditKey(session));
-    }else{
-        request.setAttribute("editKey", EditConfiguration.getEditKey( request ));
-    }
-
 %>
 <v:jsonset var="semesterClass">http://vivo.library.cornell.edu/ns/0.1#AcademicSemester</v:jsonset>
 <v:jsonset var="buildingClass">http://vivo.library.cornell.edu/ns/0.1#Building</v:jsonset>
@@ -88,6 +83,11 @@
   {
     "formUrl" : "${formUrl}",
     "editKey" : "${editKey}",
+
+    "subjectUri"   : "${subjectUri}",
+    "predicateUri" : "${predicateUri}",
+    "objectUri"    : "${objectUri}",
+    
     "n3required"    : [ "${n3ForEdit}" ],
     "n3optional"    : [ ],
     "newResources"  : { "newCourse" : "default" },
@@ -130,7 +130,8 @@
          "subjectUri"       : "${param.subjectUri}",
          "subjectClassUri"  : { },
          "predicateUri"     : "${param.predicateUri}",
-         "objectClassUri"   : { }
+         "objectClassUri"   : { }  ,
+         "assertions"       : [ ]
       },
       "semester" : {
          "newResource"      : "false",
@@ -142,7 +143,8 @@
          "subjectUri"       : "${param.subjectUri}",
          "subjectClassUri"  : { },
          "predicateUri"     : "${param.predicateUri}",
-         "objectClassUri"   : "${semesterClass}"
+         "objectClassUri"   : "${semesterClass}"   ,
+    "assertions"       : [ ]
       },
       "heldIn" : {
          "newResource"      : "false",
@@ -154,7 +156,8 @@
          "subjectUri"       : "${param.subjectUri}",
          "subjectClassUri"  : { },
          "predicateUri"     : "${param.predicateUri}",
-         "objectClassUri"   : "${buildingClass}"
+         "objectClassUri"   : "${buildingClass}" ,
+    "assertions"       : [ ]
       }
     }
   }
@@ -171,9 +174,13 @@
         System.out.println("WARNING: reusing editConfig from session, this should only happen whe we are doing a update or a re-edit after a submit");
     }
     if( objectUri != null ){
+        System.out.println("found objectUri: " + objectUri);
+
         Model model =  (Model)application.getAttribute("jenaOntModel");
         prepareForEditOfExisting(editConfig, model, request, session);
         editConfig.getUrisInScope().put("newCourse",objectUri); //makes sure we reuse objUri, maybe this should be done by prepareForEditOfExisting?
+         System.out.println("******************* SETUP For Update ***********************");
+        dump("editConfig",editConfig);
     }
 
     System.out.println("basicValidators " + editConfig.getBasicValidators());
@@ -196,6 +203,8 @@
         submitLabel = "Create new course";
     }
 
+    System.out.println("******************* About to do form html ***********************");
+        dump("editConfig",editConfig)   ;
 %>
 
 <jsp:include page="${preForm}"/>
@@ -214,16 +223,36 @@
 
 
  <%!/* copy of method in personAuthorOf.jsp, need to find better place fo these to live. */
+/*
+tasks of this method:
+add objectUri to scope under specified var name
+run sparqlForExisting URIs and Literals, add to scope
+for each field:
+    sub values in to the assertion strings and save as retractions,
+    what else?
+ */
   private void prepareForEditOfExisting( EditConfiguration editConfig, Model model, ServletRequest request, HttpSession session){
-        SparqlEvaluate sparqlEval = new SparqlEvaluate(model);
-        Map<String,String> varsToUris =   sparqlEval.sparqlEvaluateToUris(editConfig.getSparqlForExistingUris(),
-                editConfig.getUrisInScope(),editConfig.getLiteralsInScope());
-        Map<String,String> varsToLiterals =   sparqlEval.sparqlEvaluateToLiterals(editConfig.getSparqlForExistingLiterals(),
-                editConfig.getUrisInScope(),editConfig.getLiteralsInScope());
-        EditSubmission esub = new EditSubmission(request,model,editConfig);
-        esub.setUrisFromForm(varsToUris);
-        esub.setLiteralsFromForm(varsToLiterals);
-        EditSubmission.putEditSubmissionInSession(session,esub);
+      //add objectUri to urisInScope
+      editConfig.getUrisInScope().put(editConfig.getObjectVar(), request.getParameter("objectUri"));
+
+      // run queries for existing values
+      SparqlEvaluate sparqlEval = new SparqlEvaluate(model);
+      Map<String,String> varsToUris =
+              sparqlEval.sparqlEvaluateToUris(editConfig.getSparqlForExistingUris(),editConfig.getUrisInScope(),editConfig.getLiteralsInScope());
+      editConfig.getUrisInScope().putAll( varsToUris );
+
+      Map<String,String> varsToLiterals =
+              sparqlEval.sparqlEvaluateToLiterals(editConfig.getSparqlForExistingLiterals(),editConfig.getUrisInScope(),editConfig.getLiteralsInScope());
+      editConfig.getLiteralsInScope().putAll(varsToLiterals);
+
+      //build retraction N3 for each Field
+      for(String var : editConfig.getFields().keySet() ){
+          Field field = editConfig.getField(var);
+          List<String> retractions = null;
+          retractions = EditConfiguration.subInLiterals(editConfig.getLiteralsInScope(),field.getAssertions());
+          retractions = EditConfiguration.subInUris(editConfig.getUrisInScope(), retractions);
+          field.setRetractions(retractions);
+      }
 }%>
 
 <%!
