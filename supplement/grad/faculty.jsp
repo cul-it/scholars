@@ -2,7 +2,6 @@
         
         <div id="contentWrap">
             
-            
             <div id="content" class="faculty">
                 
                 <h2 class="initial facultyHeading"><span class="exhibit-collectionView-group">Graduate Fields</span> and Associated Faculty Members</h2>

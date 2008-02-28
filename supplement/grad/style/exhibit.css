@@ -1,5 +1,4 @@
 /* -------- Sidebar --------- */
-
 div.exhibit-facet-body {
     padding: 12px 10px;
     border: 0;
@@ -15,7 +14,7 @@ div.exhibit-facet-header {
 span.exhibit-facet-header-title {
     font-size: 1.5em;
     font-weight: normal;    
-    color: #a7a37e;
+    color: #b1ab77;
     margin-top: 1em;
     margin-left: -3px;
 }
@@ -30,9 +29,11 @@ div.exhibit-resizableDivWidget-resizer img {
     display: none;
 }
 
+.exhibit-toolboxWidget-popup {
+    display: none !important;
+}
 
 /* -------- Main Content --------- */
-
 .researchArea {
     color: #85bcba;
 }
@@ -54,10 +55,11 @@ div.exhibit-collectionView-group-content {
 div.exhibit-collectionView-body a {
     text-decoration: none;
     border-bottom: 1px solid #777;
+    margin-right: 3px;
 }
 
 div.exhibit-collectionView-group h1 {
-    color: #a7a37e;
+    color: #b1ab77;
     font-size: 1.3em;
     margin-bottom: .5em;
     margin-top: 1.5em;
@@ -65,7 +67,7 @@ div.exhibit-collectionView-group h1 {
 }
 
 h2.facultyHeading {
-    color: #a7a37e
+    color: #b1ab77
 }
 
 div.exhibit-menu-popup {
@@ -82,11 +84,10 @@ div.exhibit-collectionView-header {
     margin-top: 2.5em;
     margin-bottom: 1em;
     color: #888;
-
 }
 
-span.exhibit-collectionSummaryWidget-results {
-
+div.exhibit-collectionView-header span {
+    margin-right: 3px;
 }
 
 div.exhibit-collectionView-header-sortControls {
