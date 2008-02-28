@@ -10,7 +10,7 @@ Authors:     nac26@cornell.edu, mw542@cornell.edu
 Updated:    February 14, 2008
 */
 html {
-    height: 100%;   /* Allow background over lay to extend to bottom of window */
+    height: 100%;   /* Allow background over lay to extend to bottom of window 
 }
 body {
     font-family: Helvetica, Arial, Verdana, sans-serif;
@@ -49,7 +49,6 @@ body {
     min-width: 640px;
     margin-bottom: 4px;
     padding-right: 16px;
-    color: #fff;
     background: transparent url(../images/layout/bg_content.png) left top !important;
     background: #193335 url(../images/layout/bg_content.gif) left top; /* Delivered to browsers without PNG support */
     background-color: #193335;
@@ -137,6 +136,7 @@ body {
     width: 99%;
     clear: both;
     color: #fff;
+    background: #39393d;
 }
 
 .floatLeft {
@@ -458,7 +458,7 @@ h2.groupLabel, h2.groupLabel a:link, h2.groupLabel a:visited {
 ****************************************************************/
 ul li {
     list-style-type: none;
-    background: transparent url(../images/layout/bg_li_bullet.gif) no-repeat 4px 5px;
+    background: url(../images/layout/bg_li_bullet.gif) no-repeat 4px 5px;
 }
 
 ul.groupings {
