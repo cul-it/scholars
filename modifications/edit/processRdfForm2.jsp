@@ -8,6 +8,7 @@
 <%@ page import="edu.cornell.mannlib.vedit.beans.LoginFormBean" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.edit.n3editing.EditConfiguration" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.edit.n3editing.EditSubmission" %>
+<%@ page import="edu.cornell.mannlib.vitro.webapp.edit.n3editing.Field" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.edit.n3editing.SparqlEvaluate" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.filters.VitroRequestPrep" %>
 <%@ page import="java.io.StringReader" %>
@@ -23,7 +24,7 @@ The optional n3 blocks will proccessed if their variables are bound and
 are well formed.
 --%>
 <%
-    System.out.println("in processRdfForm2.jsp");
+    System.out.println("************** in processRdfForm2.jsp ****************");
     if( session == null)
         throw new Error("need to have session");
 %>
@@ -36,16 +37,10 @@ are well formed.
     Model jenaOntModel =  (Model)application.getAttribute("jenaOntModel");
     Model persistentOntModel = (Model)application.getAttribute("persistentOntModel");
 
-    System.out.println("got models");
-
-    System.out.println("parameter editKey: " + request.getParameter("editKey"));
-    System.out.println("attribute editKey: " + request.getAttribute("editKey"));
-    
     EditConfiguration editConfig = EditConfiguration.getConfigFromSession(session,request);
-    System.out.println("got editConfig: " + editConfig);
-
     EditSubmission submission = new EditSubmission(request,jenaOntModel,editConfig);
-    System.out.println("got submission? " + submission);
+
+    dump("EditConfiguration" , editConfig);
 
     Map<String,String> errors =  submission.getValidationErrors();
     EditSubmission.putEditSubmissionInSession(session,submission);
@@ -56,76 +51,70 @@ are well formed.
         request.setAttribute("formUrl", form);
         %><jsp:forward page="${formUrl}"/><%
       	return;
-    }else{
-              System.out.println("no errors on page");
-          }
+    }
 
     List<String> n3Required = editConfig.getN3Required();
     List<String> n3Optional = editConfig.getN3Optional();
 
+    Map<String,List<String>> fieldAssertions = null;
+    if( editConfig.getObjectUri() != null && editConfig.getObjectUri().length() > 0){
+        fieldAssertions = fieldsToMap(editConfig.getFields());
+    }else{
+        fieldAssertions = new HashMap<String,List<String>>();
+    }
+
     dump("n3Required" , n3Required);
     dump("n3Optional" , n3Optional);
-
-    /* ****************** URIs and Literals in Scope ************** */
-    Map<String,String> urisInScope = editConfig.getUrisInScope();
-    n3Required = subInUris( urisInScope, n3Required);
-    n3Optional = subInUris( urisInScope, n3Optional);
-
-    System.out.println("after urisInScope");
-    dump("n3Required" , n3Required);
-    dump("n3Optional" , n3Optional);
-
-    //sub in values from sparql queries
-    SparqlEvaluate sparqlEval = new SparqlEvaluate((Model)application.getAttribute("jenaOntModel"));
-    Map<String,String> varToUris = sparqlEval.sparqlEvaluateToUris(
-            editConfig.getSparqlForAdditionalUrisInScope(),
-            editConfig.getUrisInScope(),
-            editConfig.getLiteralsInScope());
-    n3Required = subInUris(varToUris, n3Required);
-    n3Optional = subInUris(varToUris, n3Optional);
-
-    System.out.println("after sparqlEval URIs");
-    dump("n3Required" , n3Required);
-    dump("n3Optional" , n3Optional);
-
-    Map<String,String> varToLiterals = sparqlEval.sparqlEvaluateToUris(
-            editConfig.getSparqlForAdditionalLiteralsInScope(),
-            editConfig.getUrisInScope(),
-            editConfig.getLiteralsInScope());
-    n3Required = subInLiterals(varToLiterals, n3Required);
-    n3Optional = subInLiterals(varToLiterals, n3Optional);
-
-    System.out.println("after sparqlEval Literals");
-    dump("n3Required" , n3Required);
-    dump("n3Optional" , n3Optional);
-
-    /* ****************** New Resources ********************** */
-    Map<String,String> varToNewResource = newToUriMap(editConfig.getNewResources(),jenaOntModel);
-
-    n3Required = subInUris( varToNewResource, n3Required);
-    n3Optional = subInUris( varToNewResource, n3Optional);
-
-    System.out.println("after new resources");
-    dump("n3Required" , n3Required);
-    dump("n3Optional" , n3Optional);
+    dump("fieldAssertions" , fieldAssertions);
 
     /* ********** URIs and Literals on Form/Parameters *********** */
-    
     //sub in resource uris off form
     n3Required = subInUris(submission.getUrisFromForm(), n3Required);
     n3Optional = subInUris(submission.getUrisFromForm(), n3Optional);
-
-    System.out.println("after URIS off form");
-    dump("n3Required" , n3Required);
-    dump("n3Optional" , n3Optional);
 
     //sub in literals from form
     n3Required = subInLiterals(submission.getLiteralsFromForm(), n3Required);
     n3Optional = subInLiterals(submission.getLiteralsFromForm(), n3Optional);
 
-    System.out.println("after Literals off Form");
+    fieldAssertions = substituteIntoValues(  submission.getUrisFromForm(), submission.getLiteralsFromForm(), fieldAssertions);
+
+    System.out.println("after Literals and URIs off of HTML form");
     dump("n3Required" , n3Required);
     dump("n3Optional" , n3Optional);
+    dump("fieldAssertions" , fieldAssertions);
+
+    /* ****************** URIs and Literals in Scope ************** */
+    SparqlEvaluate sparqlEval = new SparqlEvaluate((Model)application.getAttribute("jenaOntModel"));
+    editConfig.runSparqlForAdditional(sparqlEval);
+
+    Map<String,String> urisInScope = editConfig.getUrisInScope();
+    n3Required = subInUris( urisInScope, n3Required);
+    n3Optional = subInUris( urisInScope, n3Optional);
+
+    Map<String,String> literalsInScope = editConfig.getLiteralsInScope();
+    n3Required = subInLiterals( literalsInScope, n3Required);
+    n3Optional = subInLiterals( literalsInScope, n3Optional);
+
+    fieldAssertions = substituteIntoValues(urisInScope, literalsInScope, fieldAssertions );
+
+    System.out.println("after literals and Uris from scope");
+    dump("n3Required" , n3Required);
+    dump("n3Optional" , n3Optional);
+    dump("fieldAssertions" , fieldAssertions);
+
+    /* ****************** New Resources ********************** */
+    Map<String,String> varToNewResource = newToUriMap(editConfig.getNewResources(),jenaOntModel);
+
+    //if we are editing an existing prop, no new resources will be substituted since the var will
+    //have already been substituted in by urisInScope.
+    n3Required = subInUris( varToNewResource, n3Required);
+    n3Optional = subInUris( varToNewResource, n3Optional);
+    fieldAssertions = substituteIntoValues(varToNewResource, null, fieldAssertions);
+
+    System.out.println("after new resources");
+    dump("n3Required" , n3Required);
+    dump("n3Optional" , n3Optional);
+    dump("fieldAssertions" , fieldAssertions);
 
     /* ***************** Build Models ******************* */
     request.setAttribute("n3RequiredProcessed",n3Required);
@@ -144,12 +133,50 @@ are well formed.
                     "n3: \n" + n3 );
         }
     }
+
+    List<Model> fieldAssertionModels = new ArrayList<Model>();
+    List<Model> fieldRetractionModels= new ArrayList<Model>();
+    for(String fieldName: fieldAssertions.keySet()){
+        Field field = editConfig.getFields().get(fieldName);
+        /* CHECK that field changed, then add assertions and retractions */
+        if( hasFieldChanged(fieldName, editConfig, submission) ){
+
+            List<String> assertions = fieldAssertions.get(fieldName);
+            for( String n3 : assertions){
+                try{
+                    Model model = ModelFactory.createDefaultModel();
+                    StringReader reader = new StringReader(n3);
+                    model.read(reader, "", "N3");
+                    fieldAssertionModels.add(model);
+
+                }catch(Throwable t){
+                    errorMessages.add("error processing N3 assertion string from field " + fieldName + "\n"+
+                            t.getMessage() + '\n' +
+                            "n3: \n" + n3 );
+                }
+            }
+            for( String n3 : field.getRetractions()){
+                try{
+                    Model model = ModelFactory.createDefaultModel();
+                    StringReader reader = new StringReader(n3);
+                    model.read(reader, "", "N3");
+                    fieldRetractionModels.add(model);
+
+                }catch(Throwable t){
+                    errorMessages.add("error processing N3 retraction string from field " + fieldName + "\n"+
+                            t.getMessage() + '\n' +
+                            "n3: \n" + n3 );
+                }
+            }
+        }
+    }
+
     if( !errorMessages.isEmpty() ){
         System.out.println("problems processing required n3: \n" );
         for( String error : errorMessages){
             System.out.println(error);
         }
-        throw new JspException("errors processing required n3, check catalina.out");
+        throw new JspException("errors processing required N3, check logs for details");
     }
 
     List<Model> optionalNewModels = new ArrayList<Model>();
@@ -177,6 +204,7 @@ are well formed.
     //The requiredNewModels and the optionalNewModels should be handled differently
     //but for now we'll just do them the same
     requiredNewModels.addAll(optionalNewModels);
+    requiredNewModels.addAll(fieldAssertionModels);
 
     Lock lock = null;
     try{
@@ -184,8 +212,11 @@ are well formed.
         lock.enterCriticalSection(Lock.WRITE);
         for( Model model : requiredNewModels )
             persistentOntModel.add(model);
+        for(Model model : fieldRetractionModels ){
+            persistentOntModel.remove( model );
+        }
     }catch(Throwable t){
-        errorMessages.add("error adding required model to persistent model \n"+ t.getMessage() );
+        errorMessages.add("error adding edit change n3required model to persistent model \n"+ t.getMessage() );
     }finally{
         lock.leaveCriticalSection();
     }
@@ -195,8 +226,11 @@ are well formed.
         lock.enterCriticalSection(Lock.WRITE);
         for( Model model : requiredNewModels)
             jenaOntModel.add(model);
+        for(Model model : fieldRetractionModels ){
+            persistentOntModel.remove( model );
+        }
     }catch(Throwable t){
-        errorMessages.add("error processing required model to in memory model \n"+ t.getMessage() );
+        errorMessages.add("error adding edit change n3required model to in memory model \n"+ t.getMessage() );
     }finally{
         lock.leaveCriticalSection();
     }
@@ -210,6 +244,37 @@ are well formed.
     /* ******************** utility functions ****************** */
     /* ********************************************************* */
 
+    public Map<String,List<String>> fieldsToMap( Map<String,Field> fields){
+        Map<String,List<String>> out = new HashMap<String,List<String>>();
+        for( String fieldName : fields.keySet()){
+            Field field = fields.get(fieldName);
+
+            List<String> copyOfN3 = new ArrayList<String>();
+            for( String str : field.getAssertions()){
+                copyOfN3.add(str);
+            }
+            out.put( fieldName, copyOfN3 );
+        }
+        return out;
+    }
+
+    public Map<String,List<String>> substituteIntoValues(Map<String,String> varsToUris,
+                                                      Map<String,String> varsToLiterals,
+                                                      Map<String,List<String>> namesToN3 ){
+
+        Map<String,List<String>> outHash = new HashMap<String,List<String>>();
+
+        for(String fieldName : namesToN3.keySet()){
+            List<String> n3strings = namesToN3.get(fieldName);
+            List<String> newList  = new ArrayList<String>();
+            if( varsToUris != null)
+                newList = subInUris(varsToUris, n3strings);
+            if( varsToLiterals != null)
+                newList = subInLiterals(varsToLiterals, newList);
+            outHash.put(fieldName, newList);
+        }
+        return outHash;
+    }
 
     public List<String> subInUris(Map<String,String> varsToVals, List<String> targets){
         if( varsToVals == null || varsToVals.isEmpty() ) return targets;
@@ -284,7 +349,7 @@ are well formed.
     }
 
     public String makeNewUri(String prefix, Model model){
-        if( prefix == null || prefix.length() == 0 || "default".equalsIgnoreCase(prefix) )
+        if( prefix == null || prefix.length() == 0 )
             prefix = defaultUriPrefix;
         
         String uri = prefix + random.nextInt();
@@ -307,6 +372,22 @@ are well formed.
 
 
 <%!
+    private boolean hasFieldChanged(String fieldName, EditConfiguration editConfig, EditSubmission submission) {
+        String orgValue = editConfig.getUrisInScope().get(fieldName);
+        String newValue = submission.getUrisFromForm().get(fieldName);
+        if( orgValue != null && newValue != null && orgValue.equals(newValue))
+            return false;
+        orgValue = editConfig.getLiteralsInScope().get(fieldName);
+        newValue = submission.getLiteralsFromForm().get(fieldName);
+        if( orgValue != null && newValue != null && orgValue.equals(newValue))
+            return false;
+
+        if( orgValue == null && newValue == null)
+            throw new Error("in hasFieldChanged(), both old and new values are null, this should not happen");
+
+        return true;
+    }
+
     private void dump(String name, Object fff){
         XStream xstream = new XStream(new DomDriver());
         System.out.println( "*******************************************************************" );

@@ -20,10 +20,12 @@
     // not yet fully set up for editing an existing object property statement by changing the related individual
     String objectUri = request.getParameter("objectUri");
 
-    String v = request.getParameter("subjectUri");
-    request.setAttribute("subjectUriJson",MiscWebUtils.escape(v));
-    v = request.getParameter("predicateUri");
-    request.setAttribute("predicateUriJson",MiscWebUtils.escape(v));
+    request.setAttribute("subjectUriJson",MiscWebUtils.escape(subjectUri));
+    request.setAttribute("predicateUriJson",MiscWebUtils.escape(predicateUri));
+
+    if( objectUri != null ){
+        request.setAttribute("objectUriJson",MiscWebUtils.escape(objectUri));
+    }
 
     request.getSession(true);
 %>
@@ -40,31 +42,6 @@
     ?subject ?predicate ?object.
     ?object ?inverse ?subject.
 </v:jsonset>
-
-<c:set var="editjson" scope="request">
-  {
-    "formUrl"       : "${formUrl}",
-    "n3required"    : [ "${n3ForEdit}" ],
-    "n3optional"    : [ ],
-    "newResources"  : { },
-    "urisInScope"   : {"subject" : "${subjectUriJson}",
-                       "predicate":"${predicateUriJson}"},
-    "literalsInScope": { },
-    "urisOnForm"    : ["object"],
-    "literalsOnForm":  [ ],
-    "objectVar"    : "",
-    "sparqlForLiterals" : { },
-    "sparqlForUris":{"inverse" : "${queryForInverse}" },
-    "entityToReturnTo" : "${subjectUriJson}",
-    "sparqlForExistingLiterals" : { },
-    "sparqlForExistingUris" : { },
-    "basicValidators"  : { "object" :    ["nonempty"] ,
-                           "predicate" : ["nonempty"] ,
-                           "subject" :   ["nonempty"] } ,
-    "optionsForFields" : { }
-   }
-</c:set>
-
 
 <%
     /* get some data to make the form more useful */
@@ -89,9 +66,9 @@
     "formUrl"                   : "${formUrl}",
     "editKey"                   : "${editKey}",
 
-    "subjectUri"   : "${subjectUri}",
-    "predicateUri" : "${predicateUri}",
-    "objectUri"    : "${objectUri}",
+    "subjectUri"   : "${subjectUriJson}",
+    "predicateUri" : "${predicateUriJson}",
+    "objectUri"    : "${objectUriJson}",
 
     "n3required"                : [ "${n3ForEdit}" ],
     "n3optional"                : [ ],
@@ -99,7 +76,7 @@
     "urisInScope"               : { "subject"   : "${subjectUriJson}",
                                     "predicate" : "${predicateUriJson}"},
     "literalsInScope"           : { },
-    "objectVar"                 : "",
+    "objectVar"                 : "object",
     "urisOnForm"                : ["object"],
     "literalsOnForm"            : [ ],
     "sparqlForLiterals"         : { },
@@ -107,22 +84,17 @@
     "entityToReturnTo"          : "${subjectUriJson}",
     "sparqlForExistingLiterals" : { },
     "sparqlForExistingUris"     : { },
-    "basicValidators"           : { "object"    : ["nonempty"] ,
-                                    "predicate" : ["nonempty"] ,
-                                    "subject"   : ["nonempty"] } ,
-    "optionsForFields"          : { },
     "fields"                    : { "object" : {
                                        "newResource"      : "false",
-                                       "type"             : "select",
                                        "queryForExisting" : { },
                                        "validators"       : [ ],
                                        "optionsType"      : "INDIVIDUALS_VIA_OBJECT_PROPERTY",
-                                       "subjectUri"       : "${param.subjectUri}",
+                                       "subjectUri"       : "${subjectUriJson}",
                                        "subjectClassUri"  : { },
-                                       "predicateUri"     : "${param.predicateUri}",
+                                       "predicateUri"     : "${predicateUriJson}",
                                        "objectClassUri"   : { },
                                        "literalOptions"   : [ ] ,
-                                       "assertions"       : [] 
+                                       "assertions"       : ["${n3ForEdit}"] 
                                      }
 								  }
   }

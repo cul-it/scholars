@@ -37,25 +37,49 @@
       SELECT ?moniker
       WHERE {  ?newCourse vitro:moniker ?moniker }
 </v:jsonset>
+<v:jsonset var="monikerAssertion" >
+      @prefix vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>.
+      ?newCourse vitro:moniker ?moniker .
+</v:jsonset>
+
 <v:jsonset var="courseNameExisting" >
       PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
       SELECT ?name
       WHERE {  ?newCourse rdfs:label ?name }
 </v:jsonset>
+<v:jsonset var="courseNameAssertion" >
+    @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+    ?newCourse rdfs:label ?name .
+</v:jsonset>
+
 <v:jsonset var="courseDescExisting" >
       PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
       SELECT ?desc
       WHERE {  ?newCourse vitro:description ?desc }
 </v:jsonset>
+<v:jsonset var="courseDescAssertion" >
+      @prefix vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>.
+      ?newCourse vitro:description ?courseDescription .
+</v:jsonset>
+
 <v:jsonset var="courseHeldInExisting" >
       PREFIX vivo:  <http://vivo.library.cornell.edu/ns/0.1#>
       SELECT ?extBuilding
       WHERE {  ?newCourse vivo:eventHeldInFacility ?extBuilding }
 </v:jsonset>
+<v:jsonset var="courseHeldInAssertion" >
+      @prefix vivo:  <http://vivo.library.cornell.edu/ns/0.1#>.
+    ?newCourse vivo:eventHeldInFacility ?extBuilding .
+</v:jsonset>
+
 <v:jsonset var="courseSemesterExisting" >
       PREFIX vivo:  <http://vivo.library.cornell.edu/ns/0.1#>
       SELECT ?extSem
       WHERE {  ?newCourse vivo:SemesterCourseOccursInSemester  ?extSem }
+</v:jsonset>
+<v:jsonset var="courseSemesterAssertion" >
+    @preifx vivo:  <http://vivo.library.cornell.edu/ns/0.1#>.
+    ?newCourse vivo:SemesterCourseOccursInSemester  ?extSem .
 </v:jsonset>
 
 <v:jsonset var="n3ForEdit"  >
@@ -84,13 +108,13 @@
     "formUrl" : "${formUrl}",
     "editKey" : "${editKey}",
 
-    "subjectUri"   : "${subjectUri}",
-    "predicateUri" : "${predicateUri}",
-    "objectUri"    : "${objectUri}",
+    "subjectUri"   : "${subjectUriJson}",
+    "predicateUri" : "${predicateUriJson}",
+    "objectUri"    : "${objectUriJson}",
     
     "n3required"    : [ "${n3ForEdit}" ],
     "n3optional"    : [ ],
-    "newResources"  : { "newCourse" : "default" },
+    "newResources"  : { "newCourse" : "http://vivo.library.cornell.edu/ns/0.1#individual" },
     "urisInScope"   : {"person" : "${subjectUriJson}"
                         ${existingUris} },
     "literalsInScope": { },
@@ -98,25 +122,40 @@
     "literalsOnForm":  [ "courseDescription", "courseName", "moniker" ],
     "objectVar"     : "newCourse",
     "sparqlForLiterals" : { },
-    "sparqlForUris":{  },
-    "entityToReturnTo" : "${subjectUriJson}" ,
-    "sparqlForExistingLiterals":{
+    "sparqlForUris" : {  },
+    "sparqlForExistingLiterals" : {
         "courseDescription" : "${courseDescExisting}",
         "courseName"        : "${courseNameExisting}",
         "moniker"        : "${monikerExisting}" },
     "sparqlForExistingUris" : {
         "heldIn" : "${courseHeldInExisting}",
-        "semester":"${courseSemesterExisting}"
+        "semester" : "${courseSemesterExisting}"
     },
-    "basicValidators" : {"courseName" : ["nonempty" ],
-                         "courseDescription" : ["nonempty" ] },
-    "optionsForFields" : { "semester" : "${semesterClass}",
-                           "heldIn"   : "${buildingClass}" },
     "fields" : {
+      "courseName" : {
+         "newResource"      : "false",
+         "validators"       : [ "nonempty" ],
+         "optionsType"      : "UNDEFINED",
+         "literalOptions"   : [],
+         "subjectUri"       : "${param.subjectUri}",
+         "subjectClassUri"  : { },
+         "predicateUri"     : "",
+         "objectClassUri"   : "" ,
+         "assertions"       : [ "${courseNameAssertion}" ]
+      },
+     "courseDescription" : {
+         "newResource"      : "false",
+         "validators"       : [ "nonempty" ],
+         "optionsType"      : "UNDEFINED",
+         "literalOptions"   : [],
+         "subjectUri"       : "${param.subjectUri}",
+         "subjectClassUri"  : { },
+         "predicateUri"     : "",
+         "objectClassUri"   : "" ,
+         "assertions"       : [ "${courseDescAssertion}" ]
+      },
       "moniker" : {
          "newResource"      : "false",
-         "type"             : "select",
-         "queryForExisting" : { },
          "validators"       : [ ],
          "optionsType"      : "LITERALS",
          "literalOptions"   : ["1 credit course",
@@ -131,12 +170,10 @@
          "subjectClassUri"  : { },
          "predicateUri"     : "${param.predicateUri}",
          "objectClassUri"   : { }  ,
-         "assertions"       : [ ]
+         "assertions"       : [ "${monikerAssertion}" ]
       },
       "semester" : {
          "newResource"      : "false",
-         "type"             : "select",
-         "queryForExisting" : { },
          "validators"       : [ ],
          "optionsType"      : "INDIVIDUALS_VIA_VCLASS",
          "literalOptions"   : [ ],
@@ -144,12 +181,10 @@
          "subjectClassUri"  : { },
          "predicateUri"     : "${param.predicateUri}",
          "objectClassUri"   : "${semesterClass}"   ,
-    "assertions"       : [ ]
+         "assertions"       : [ "${courseSemesterAssertion}"]
       },
       "heldIn" : {
          "newResource"      : "false",
-         "type"             : "select",
-         "queryForExisting" : { },
          "validators"       : [ ],
          "optionsType"      : "INDIVIDUALS_VIA_VCLASS",
          "literalOptions"   : ["leave blank"],
@@ -157,7 +192,7 @@
          "subjectClassUri"  : { },
          "predicateUri"     : "${param.predicateUri}",
          "objectClassUri"   : "${buildingClass}" ,
-    "assertions"       : [ ]
+         "assertions"       : [ "${courseHeldInAssertion}" ]
       }
     }
   }
@@ -182,8 +217,6 @@
          System.out.println("******************* SETUP For Update ***********************");
         dump("editConfig",editConfig);
     }
-
-    System.out.println("basicValidators " + editConfig.getBasicValidators());
 
     /* get some data to make the form more useful */
     VitroRequest vreq = new VitroRequest(request);
@@ -215,7 +248,6 @@
     <v:input type="select" label="held in location" id="heldIn"/>
     <v:input type="radio" label="credit value" id="moniker"/>
     <v:input type="textarea" label="course description" id="courseDescription" rows="5"/>
-    <v:input type="editKey" id="editKey"/>
     <v:input type="submit" id="submit" value="<%=submitLabel%>" cancel="${param.subjectUri}"/>
 </form>
 
