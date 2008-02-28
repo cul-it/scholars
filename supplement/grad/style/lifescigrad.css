@@ -10,7 +10,7 @@ Authors:     nac26@cornell.edu, mw542@cornell.edu
 Updated:    February 14, 2008
 */
 html {
-    height: 100%;   /* Allow background over lay to extend to bottom of window 
+/*    height: 100%;    */
 }
 body {
     font-family: Helvetica, Arial, Verdana, sans-serif;
@@ -136,7 +136,6 @@ body {
     width: 99%;
     clear: both;
     color: #fff;
-    background: #39393d;
 }
 
 .floatLeft {
