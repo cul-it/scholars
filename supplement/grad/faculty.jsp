@@ -1,10 +1,12 @@
 <jsp:include page="facultyheader.jsp" />
         
         <div id="contentWrap">
-            <div id="content">
+            
+            
+            <div id="content" class="faculty">
                 
-                <h2 class="initial">Graduate Fields and Associated Faculty Members</h2>
-                <!-- <div id="exhibit-control-panel"></div> -->
+                <h2 class="initial facultyHeading"><span class="exhibit-collectionView-group">Graduate Fields</span> and Associated Faculty Members</h2>
+                <div id="exhibit-control-panel"></div>
                
                 <div ex:role="viewPanel">
                     
@@ -23,9 +25,9 @@
                 
             </div><!-- content -->
         
-            <div id="sidebar">
-                    <div ex:role="facet" ex:facetClass="TextSearch"></div>
-                    <div ex:role="facet" ex:expression=".research-area" ex:facetLabel="Research Area" ex:height="40em"></div>
+            <div id="sidebar" class="faculty">
+                    <!-- <div ex:role="facet" ex:facetClass="TextSearch"></div> -->
+                    <div ex:role="facet" ex:expression=".research-area" ex:facetLabel="Research Areas" ex:height="40em"></div>
             </div> <!-- sidebar -->
         </div> <!-- contentWrap -->
 

@@ -21,6 +21,7 @@ body {
 #bodyOverlay {
     margin: 0 auto;
     width: 100%;
+    height: 100%;
     background: transparent url(../images/layout/bg_bodyoverlay.jpg) no-repeat center top;
 }
 
@@ -47,8 +48,8 @@ body {
     padding-right: 16px;
     color: #fff;
     background: transparent url(../images/layout/bg_content.png) left top !important;
-    background: transparent url(../images/layout/bg_content.gif) left top; /* Delivered to browsers without PNG support */
-/*  border: solid 1px #f00;*/
+    background: #193335 url(../images/layout/bg_content.gif) left top; /* Delivered to browsers without PNG support */
+    background-color: #193335;
 }
 
 #content.narrow {
@@ -76,6 +77,11 @@ body {
 #content.fullPage {
     width: 98%;
 }
+
+#content.faculty {
+    min-height: 500px;
+}
+
 
 #sidebar {
     float: right;
@@ -118,8 +124,9 @@ body {
     margin-bottom: 30px;
     margin-right: 12px;
     padding: 14px 20px;
-    background: transparent url(../images/layout/bg_sidebar.png) top left !important;
-    background: url(../images/layout/bg_sidebar.gif) top left;
+    background: #224b4c;
+/*    background: transparent url(../images/layout/bg_sidebar.png) top left !important;*/
+/*    background: url(../images/layout/bg_sidebar.gif) top left;*/
 }
 
 #footer {
@@ -210,9 +217,10 @@ body {
 }
 
 .fieldRelationLabel {
-    padding: 6px 13px 4px 13px;
-    background: transparent url(../images/layout/bg_sidebar-brown.png) top left !important;
-    background: url(../images/layout/bg_sidebar-brown.gif) top left;
+    padding: 5px 13px 3px 13px;
+    background: #224B4C;
+/*    background: transparent url(../images/layout/bg_sidebar-brown.png) top left !important;*/
+/*    background: url(../images/layout/bg_sidebar-brown.gif) top left;*/
 }
 
 #apply {
@@ -266,7 +274,7 @@ div#search h2 {
 
 #news, #search, #seminars {
     margin-top: 20px;
-    padding: 12px 0px 8px 10px;  /* Setting right padding with UL's instead */
+    padding: 12px 0px 8px 10px;
     color: #000;
     background: #efecca;
     overflow: auto;
@@ -281,10 +289,20 @@ div#search h2 {
     background: #a7a37e;
 }
 
+#testbox {
+    width: 300px;
+/*    height: 100px;*/
+    background: #ff0000;
+}
+
 #departments {
     margin-top: 20px;
     padding: 10px;
 /*    background: #046380;*/
+}
+
+#sidebar.faculty {
+    margin-top: 20px;
 }
 
 /****************************************************************
@@ -363,7 +381,7 @@ a:link {
 }
 
 a:visited {
-    color: #a6a6a6;
+    color: #a9a9a9;
 }
 
 a:hover {
@@ -372,6 +390,10 @@ a:hover {
 
 a:active {
     color: #ebe386;
+}
+
+li a, #researchInField li a {  /* link underlining */
+    border-bottom: 1px solid #4a7172;
 }
 
 h2.groupLabel, h2.groupLabel a:link, h2.groupLabel a:visited {
@@ -434,7 +456,6 @@ h2.groupLabel, h2.groupLabel a:link, h2.groupLabel a:visited {
 ul li {
     list-style-type: none;
     background: transparent url(../images/layout/bg_li_bullet.gif) no-repeat 4px 5px;
-/*    font-size: 1.1em;*/
 }
 
 ul.groupings {
@@ -451,15 +472,20 @@ ul.groupings li {
 
 ul.groupings li a:link, ul.groupings li a:visited {
     color: #fff;
-    border: none;
+    border: 0;
 }
 
 ul.groupings li a:hover {
     color: #69bfde;
+    border: 0;
 }
 
 ul.fields {
     margin: .4em 0 1.5em 0;
+}
+
+ul.fields li {
+    margin-bottom: 4px;
 }
 
 ul.fields li a {
@@ -488,13 +514,16 @@ ul.fields li a {
 }
 
 #departmentsInField ul, #facultyInField ul {
-    padding: 8px 14px;
+    padding: 9px 14px;
+}
+
+#departmentsInField ul li, #facultyInField ul li, #researchInField ul li {
+    margin-bottom: 4px;
 }
 
 #sidebar ul.groupings {
     padding: 12px 6px 12px 12px;
-    background: transparent url(../images/layout/bg_sidebar.png) top left !important;
-    background: url(../images/layout/bg_sidebar.gif) top left;
+    background: #183F40;
 }
 
 #sidebar ul.groupings li {

@@ -15,7 +15,7 @@
                     </ul>
             </div><!-- content -->
         
-            <div id="sidebar" class="expanded">
+            <div id="sidebar" class="expanded cornered">
                 <jsp:include page="part/listgroups.jsp"/>
             </div> <!-- sidebar -->
         </div> <!-- contentWrap -->

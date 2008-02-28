@@ -1,0 +1,104 @@
+/* -------- Sidebar --------- */
+
+div.exhibit-facet-body {
+    padding: 12px 10px;
+    border: 0;
+    border-left: 1px solid #a7a37e;
+    border-top: 1px solid #a7a37e;
+}
+
+div.exhibit-facet-header {
+    margin-top: 3em;
+    margin-bottom: .5em;
+}
+
+span.exhibit-facet-header-title {
+    font-size: 1.5em;
+    font-weight: normal;    
+    color: #a7a37e;
+    margin-top: 1em;
+    margin-left: -3px;
+}
+
+div.exhibit-resizableDivWidget-resizer {
+    margin-top: 1px;
+    border-top: 1px solid #a7a37e;
+    background: url(../images/layout/exhibit-resizer.gif) no-repeat center center;
+}
+
+div.exhibit-resizableDivWidget-resizer img {
+    display: none;
+}
+
+
+/* -------- Main Content --------- */
+
+.researchArea {
+    color: #85bcba;
+}
+
+ol.exhibit-tileView-body {
+    list-style-type: none;
+}
+
+ol.exhibit-tileView-body li {
+
+    margin-bottom: .5em;
+}
+
+div.exhibit-collectionView-group-content {
+    margin-left: 0;
+    padding-left: 0;
+}
+
+div.exhibit-collectionView-body a {
+    text-decoration: none;
+    border-bottom: 1px solid #777;
+}
+
+div.exhibit-collectionView-group h1 {
+    color: #a7a37e;
+    font-size: 1.3em;
+    margin-bottom: .5em;
+    margin-top: 1.5em;
+    letter-spacing: 0;
+}
+
+h2.facultyHeading {
+    color: #a7a37e
+}
+
+div.exhibit-menu-popup {
+    background: #000;
+}
+a:hover.exhibit-menu-item div {
+    background: #444;
+}
+a.exhibit-menu-item div img {
+    display: none;
+}
+
+div.exhibit-collectionView-header {
+    margin-top: 2.5em;
+    margin-bottom: 1em;
+    color: #888;
+
+}
+
+span.exhibit-collectionSummaryWidget-results {
+
+}
+
+div.exhibit-collectionView-header-sortControls {
+    display: none !important;
+    background: #183F40;
+    color: #ccc;
+    border: 1px solid #555;
+    padding:8px 10px;
+    text-align: left;
+}
+
+div.exhibit-collectionView-header-sortControls a {
+    color: #ccc;
+    font-weight: bold;
+}
