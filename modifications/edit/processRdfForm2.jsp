@@ -375,17 +375,25 @@ are well formed.
     private boolean hasFieldChanged(String fieldName, EditConfiguration editConfig, EditSubmission submission) {
         String orgValue = editConfig.getUrisInScope().get(fieldName);
         String newValue = submission.getUrisFromForm().get(fieldName);
-        if( orgValue != null && newValue != null && orgValue.equals(newValue))
-            return false;
+        if( orgValue != null && newValue != null){
+            if( orgValue.equals(newValue))
+              return false;
+            else
+              return true;
+        }
         orgValue = editConfig.getLiteralsInScope().get(fieldName);
         newValue = submission.getLiteralsFromForm().get(fieldName);
-        if( orgValue != null && newValue != null && orgValue.equals(newValue))
-            return false;
-
-        if( orgValue == null && newValue == null)
-            throw new Error("in hasFieldChanged(), both old and new values are null, this should not happen");
-
-        return true;
+        if( orgValue != null && newValue != null ){
+            if( orgValue.equals(newValue))
+                return false;
+            else
+                return true;
+        }
+        
+        System.out.println("***************************8 odd condition in hasFieldchanged() ********************");
+        dump("editConfig" ,editConfig);
+        dump("submission", submission);
+        throw new Error("in hasFieldChanged() for field " + fieldName + ", both old and new values are null, this should not happen");
     }
 
     private void dump(String name, Object fff){

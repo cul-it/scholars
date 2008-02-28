@@ -49,7 +49,7 @@
 </v:jsonset>
 <v:jsonset var="courseNameAssertion" >
     @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
-    ?newCourse rdfs:label ?name .
+    ?newCourse rdfs:label ?courseName .
 </v:jsonset>
 
 <v:jsonset var="courseDescExisting" >
@@ -69,7 +69,7 @@
 </v:jsonset>
 <v:jsonset var="courseHeldInAssertion" >
       @prefix vivo:  <http://vivo.library.cornell.edu/ns/0.1#>.
-    ?newCourse vivo:eventHeldInFacility ?extBuilding .
+    ?newCourse vivo:eventHeldInFacility ?heldIn .
 </v:jsonset>
 
 <v:jsonset var="courseSemesterExisting" >
@@ -79,7 +79,7 @@
 </v:jsonset>
 <v:jsonset var="courseSemesterAssertion" >
     @preifx vivo:  <http://vivo.library.cornell.edu/ns/0.1#>.
-    ?newCourse vivo:SemesterCourseOccursInSemester  ?extSem .
+    ?newCourse vivo:SemesterCourseOccursInSemester  ?semester .
 </v:jsonset>
 
 <v:jsonset var="n3ForEdit"  >
