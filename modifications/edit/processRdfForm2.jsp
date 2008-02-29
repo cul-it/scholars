@@ -126,7 +126,8 @@ are well formed.
     List<Model> requiredRetractions = null;
     List<Model> optionalAssertions  = null;
 
-    if( editConfig.getObjectUri() != null ){
+    if( editConfig.getObjectUri() != null && editConfig.getObjectUri().trim().length() > 0 ){
+        System.out.println(" doing an update of an existing '" +  editConfig.getObjectUri() + "'");
         //editing an existing statement
         List<Model> requiredFieldAssertions  = new ArrayList<Model>();
         List<Model> requiredFieldRetractions = new ArrayList<Model>();
@@ -134,6 +135,8 @@ are well formed.
             Field field = editConfig.getFields().get(fieldName);
             /* CHECK that field changed, then add assertions and retractions */
             if( hasFieldChanged(fieldName, editConfig, submission) ){
+                System.out.println( "field " + fieldName + " has changed " );
+
                 List<String> assertions = fieldAssertions.get(fieldName);
                 for( String n3 : assertions){
                     try{
@@ -146,6 +149,7 @@ are well formed.
                                 t.getMessage() + '\n' +
                                 "n3: \n" + n3 );
                     }
+                    System.out.println("processRdfform2.jsp change field assertions" + n3);
                 }
                 for( String n3 : field.getRetractions()){
                     try{
@@ -158,6 +162,7 @@ are well formed.
                                 t.getMessage() + '\n' +
                                 "n3: \n" + n3 );
                     }
+                    System.out.println("processRdfform2.jsp change field retractions" + n3);
                 }
             }
         }
@@ -166,6 +171,8 @@ are well formed.
         optionalAssertions = Collections.EMPTY_LIST;
 
     } else {
+        System.out.println("making a new individual");
+
         //editing a new statement
 
         //deal with required N3
@@ -175,7 +182,7 @@ are well formed.
                  Model model = ModelFactory.createDefaultModel();
                  StringReader reader = new StringReader(n3);
                  model.read(reader, "", "N3");
-                 requiredNewModels.add(model);
+                 requiredNewModels.add( model );
              }catch(Throwable t){
                  errorMessages.add("error processing required n3 string \n"+
                          t.getMessage() + '\n' +
@@ -204,7 +211,6 @@ are well formed.
                 errorMessages.add("error processing optional n3 string  \n"+
                         t.getMessage() + '\n' +
                         "n3: \n" + n3);
-
             }
         }
         if( !errorMessages.isEmpty() ){
@@ -216,17 +222,21 @@ are well formed.
         optionalAssertions = optionalNewModels;
     }
 
-
     //The requiredNewModels and the optionalNewModels could be handled differently
     //but for now we'll just do them the same
     requiredAssertions.addAll(optionalAssertions);
 
+    System.out.println("here are " + requiredAssertions.size() + " models in required");
+    System.out.println("here are " + optionalAssertions.size() + " models in optional");
+    System.out.println("here are " + requiredRetractions.size() + " models in retractions");
+    
     Lock lock = null;
     try{
         lock =  persistentOntModel.getLock();
         lock.enterCriticalSection(Lock.WRITE);
-        for( Model model : requiredAssertions )
+        for( Model model : requiredAssertions ) {
             persistentOntModel.add(model);
+        }
         for(Model model : requiredRetractions ){
             persistentOntModel.remove( model );
         }
@@ -239,10 +249,11 @@ are well formed.
     try{
         lock =  jenaOntModel.getLock();
         lock.enterCriticalSection(Lock.WRITE);
-        for( Model model : requiredAssertions)
+        for( Model model : requiredAssertions) {
             jenaOntModel.add(model);
+        }
         for(Model model : requiredRetractions ){
-            persistentOntModel.remove( model );
+            jenaOntModel.remove( model );
         }
     }catch(Throwable t){
         errorMessages.add("error adding edit change n3required model to in memory model \n"+ t.getMessage() );

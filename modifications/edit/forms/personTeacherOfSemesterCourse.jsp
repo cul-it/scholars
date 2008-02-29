@@ -98,9 +98,12 @@
           vitro:description ?courseDescription;
           rdfs:label        ?courseName.
 
-    ?newCourse
-          vivo:eventHeldInFacility            ?heldIn;
-          vivo:SemesterCourseOccursInSemester ?semester.
+    ?newCourse vivo:SemesterCourseOccursInSemester ?semester.
+</v:jsonset>
+
+<v:jsonset var="n3optional"  >
+    @prefix vivo: <http://vivo.library.cornell.edu/ns/0.1#>.
+    ?newCourse vivo:eventHeldInFacility ?heldIn.
 </v:jsonset>
 
 <c:set var="editjson" scope="request">
@@ -113,7 +116,7 @@
     "objectUri"    : "${objectUriJson}",
     
     "n3required"    : [ "${n3ForEdit}" ],
-    "n3optional"    : [ ],
+    "n3optional"    : [ "${n3optional}" ],
     "newResources"  : { "newCourse" : "http://vivo.library.cornell.edu/ns/0.1#individual" },
     "urisInScope"   : {"person" : "${subjectUriJson}"
                         ${existingUris} },
