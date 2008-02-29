@@ -117,102 +117,117 @@ are well formed.
     dump("fieldAssertions" , fieldAssertions);
 
     /* ***************** Build Models ******************* */
-    request.setAttribute("n3RequiredProcessed",n3Required);
-    request.setAttribute("n3OptionalProcessed",n3Optional);
+    /* bdc34: we should dcheck if this is an edit of an existing
+    or a new individual.  If this is a edit of an existing then
+    we don't need to do the n3required or the n3optional; only the
+    the assertions and retractions from the fields are needed.
+     */
+    List<Model> requiredAssertions  = null;
+    List<Model> requiredRetractions = null;
+    List<Model> optionalAssertions  = null;
 
-    List<Model> requiredNewModels = new ArrayList<Model>();
-    for(String n3 : n3Required){
-        try{
-            Model model = ModelFactory.createDefaultModel();
-            StringReader reader = new StringReader(n3);
-            model.read(reader, "", "N3");
-            requiredNewModels.add(model);
-        }catch(Throwable t){
-            errorMessages.add("error processing required n3 string \n"+
-                    t.getMessage() + '\n' +
-                    "n3: \n" + n3 );
-        }
-    }
-
-    List<Model> fieldAssertionModels = new ArrayList<Model>();
-    List<Model> fieldRetractionModels= new ArrayList<Model>();
-    for(String fieldName: fieldAssertions.keySet()){
-        Field field = editConfig.getFields().get(fieldName);
-        /* CHECK that field changed, then add assertions and retractions */
-        if( hasFieldChanged(fieldName, editConfig, submission) ){
-
-            List<String> assertions = fieldAssertions.get(fieldName);
-            for( String n3 : assertions){
-                try{
-                    Model model = ModelFactory.createDefaultModel();
-                    StringReader reader = new StringReader(n3);
-                    model.read(reader, "", "N3");
-                    fieldAssertionModels.add(model);
-
-                }catch(Throwable t){
-                    errorMessages.add("error processing N3 assertion string from field " + fieldName + "\n"+
-                            t.getMessage() + '\n' +
-                            "n3: \n" + n3 );
+    if( editConfig.getObjectUri() != null ){
+        //editing an existing statement
+        List<Model> requiredFieldAssertions  = new ArrayList<Model>();
+        List<Model> requiredFieldRetractions = new ArrayList<Model>();
+        for(String fieldName: fieldAssertions.keySet()){
+            Field field = editConfig.getFields().get(fieldName);
+            /* CHECK that field changed, then add assertions and retractions */
+            if( hasFieldChanged(fieldName, editConfig, submission) ){
+                List<String> assertions = fieldAssertions.get(fieldName);
+                for( String n3 : assertions){
+                    try{
+                        Model model = ModelFactory.createDefaultModel();
+                        StringReader reader = new StringReader(n3);
+                        model.read(reader, "", "N3");
+                        requiredFieldAssertions.add(model);
+                    }catch(Throwable t){
+                        errorMessages.add("error processing N3 assertion string from field " + fieldName + "\n"+
+                                t.getMessage() + '\n' +
+                                "n3: \n" + n3 );
+                    }
                 }
-            }
-            for( String n3 : field.getRetractions()){
-                try{
-                    Model model = ModelFactory.createDefaultModel();
-                    StringReader reader = new StringReader(n3);
-                    model.read(reader, "", "N3");
-                    fieldRetractionModels.add(model);
-
-                }catch(Throwable t){
-                    errorMessages.add("error processing N3 retraction string from field " + fieldName + "\n"+
-                            t.getMessage() + '\n' +
-                            "n3: \n" + n3 );
+                for( String n3 : field.getRetractions()){
+                    try{
+                        Model model = ModelFactory.createDefaultModel();
+                        StringReader reader = new StringReader(n3);
+                        model.read(reader, "", "N3");
+                        requiredFieldRetractions.add(model);
+                    }catch(Throwable t){
+                        errorMessages.add("error processing N3 retraction string from field " + fieldName + "\n"+
+                                t.getMessage() + '\n' +
+                                "n3: \n" + n3 );
+                    }
                 }
             }
         }
-    }
+        requiredAssertions = requiredFieldAssertions;
+        requiredRetractions = requiredFieldRetractions;
+        optionalAssertions = Collections.EMPTY_LIST;
 
-    if( !errorMessages.isEmpty() ){
-        System.out.println("problems processing required n3: \n" );
-        for( String error : errorMessages){
-            System.out.println(error);
+    } else {
+        //editing a new statement
+
+        //deal with required N3
+        List<Model> requiredNewModels = new ArrayList<Model>();
+         for(String n3 : n3Required){
+             try{
+                 Model model = ModelFactory.createDefaultModel();
+                 StringReader reader = new StringReader(n3);
+                 model.read(reader, "", "N3");
+                 requiredNewModels.add(model);
+             }catch(Throwable t){
+                 errorMessages.add("error processing required n3 string \n"+
+                         t.getMessage() + '\n' +
+                         "n3: \n" + n3 );
+             }
+         }
+        if( !errorMessages.isEmpty() ){
+            System.out.println("problems processing required n3: \n" );
+            for( String error : errorMessages){
+                System.out.println(error);
+            }
+            throw new JspException("errors processing required N3, check logs for details");
         }
-        throw new JspException("errors processing required N3, check logs for details");
-    }
+        requiredAssertions = requiredNewModels;
+        requiredRetractions = Collections.EMPTY_LIST;
 
-    List<Model> optionalNewModels = new ArrayList<Model>();
-    for(String n3 : n3Optional){
-        try{
-            Model model = ModelFactory.createDefaultModel();
-            StringReader reader = new StringReader(n3);
-            model.read(reader, "", "N3");
-            optionalNewModels.add(model);
-        }catch(Throwable t){
-            errorMessages.add("error processing optional n3 string  \n"+
-                    t.getMessage() + '\n' +
-                    "n3: \n" + n3);
+        //deal with optional N3
+        List<Model> optionalNewModels = new ArrayList<Model>();
+        for(String n3 : n3Optional){
+            try{
+                Model model = ModelFactory.createDefaultModel();
+                StringReader reader = new StringReader(n3);
+                model.read(reader, "", "N3");
+                optionalNewModels.add(model);
+            }catch(Throwable t){
+                errorMessages.add("error processing optional n3 string  \n"+
+                        t.getMessage() + '\n' +
+                        "n3: \n" + n3);
 
+            }
         }
-    }
-    if( !errorMessages.isEmpty() ){
-        System.out.println("problems processing optional n3: \n" );
-        for( String error : errorMessages){
-            System.out.println(error);
+        if( !errorMessages.isEmpty() ){
+            System.out.println("problems processing optional n3: \n" );
+            for( String error : errorMessages){
+                System.out.println(error);
+            }
         }
-        //throw new JspException("errors processing optional n3, check catalina.out");
+        optionalAssertions = optionalNewModels;
     }
 
-    //The requiredNewModels and the optionalNewModels should be handled differently
+
+    //The requiredNewModels and the optionalNewModels could be handled differently
     //but for now we'll just do them the same
-    requiredNewModels.addAll(optionalNewModels);
-    requiredNewModels.addAll(fieldAssertionModels);
+    requiredAssertions.addAll(optionalAssertions);
 
     Lock lock = null;
     try{
         lock =  persistentOntModel.getLock();
         lock.enterCriticalSection(Lock.WRITE);
-        for( Model model : requiredNewModels )
+        for( Model model : requiredAssertions )
             persistentOntModel.add(model);
-        for(Model model : fieldRetractionModels ){
+        for(Model model : requiredRetractions ){
             persistentOntModel.remove( model );
         }
     }catch(Throwable t){
@@ -224,9 +239,9 @@ are well formed.
     try{
         lock =  jenaOntModel.getLock();
         lock.enterCriticalSection(Lock.WRITE);
-        for( Model model : requiredNewModels)
+        for( Model model : requiredAssertions)
             jenaOntModel.add(model);
-        for(Model model : fieldRetractionModels ){
+        for(Model model : requiredRetractions ){
             persistentOntModel.remove( model );
         }
     }catch(Throwable t){
@@ -381,6 +396,7 @@ are well formed.
             else
               return true;
         }
+        
         orgValue = editConfig.getLiteralsInScope().get(fieldName);
         newValue = submission.getLiteralsFromForm().get(fieldName);
         if( orgValue != null && newValue != null ){

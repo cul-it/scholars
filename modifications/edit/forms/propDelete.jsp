@@ -17,14 +17,20 @@
         <c:redirect url="/about.jsp"/>
 <%  }
 
+    System.out.println("In propDelete.jsp, getting parameters");
+
     String subjectUri   = request.getParameter("subjectUri");
     String predicateUri = request.getParameter("predicateUri");
     String objectUri    = request.getParameter("objectUri");
     
     VitroRequest vreq = new VitroRequest(request);
     WebappDaoFactory wdf = vreq.getWebappDaoFactory();
+    if( wdf == null )
+        throw new Error("could not get a WebappDaoFactory");
+
     ObjectProperty prop = wdf.getObjectPropertyDao().getObjectPropertyByURI(predicateUri);
-    if( prop == null ) throw new Error("In propDelete.jsp, could not find property " + predicateUri);
+    if( prop == null )
+        throw new Error("In propDelete.jsp, could not find property " + predicateUri);
     request.setAttribute("propertyName",prop.getDomainPublic());
     
     //do the delete
@@ -46,6 +52,8 @@
 		</c:url>
 		<c:redirect url="${redirectUrl}"/>
 <%  }
+
+    System.out.println("In propDelete.jsp, getting ready to make form");
 
     Individual subject = wdf.getIndividualDao().getIndividualByURI(subjectUri);
     if( subject == null ) throw new Error("could not find subject " + subjectUri);
