@@ -113,7 +113,9 @@
 
     "subjectUri"   : "${subjectUriJson}",
     "predicateUri" : "${predicateUriJson}",
+    "objectVar"    : "newCourse",
     "objectUri"    : "${objectUriJson}",
+    "datapropKey"  : "",
     
     "n3required"    : [ "${n3ForEdit}" ],
     "n3optional"    : [ "${n3optional}" ],
@@ -121,18 +123,17 @@
     "urisInScope"   : {"person" : "${subjectUriJson}"
                         ${existingUris} },
     "literalsInScope": { },
-    "urisOnForm"    : ["semester","heldIn"],
-    "literalsOnForm":  [ "courseDescription", "courseName", "moniker" ],
-    "objectVar"     : "newCourse",
+    "urisOnForm"     : ["semester","heldIn"],
+    "literalsOnForm" :  [ "courseDescription", "courseName", "moniker" ],
     "sparqlForLiterals" : { },
     "sparqlForUris" : {  },
     "sparqlForExistingLiterals" : {
         "courseDescription" : "${courseDescExisting}",
         "courseName"        : "${courseNameExisting}",
-        "moniker"        : "${monikerExisting}" },
+        "moniker"           : "${monikerExisting}" },
     "sparqlForExistingUris" : {
-        "heldIn" : "${courseHeldInExisting}",
-        "semester" : "${courseSemesterExisting}"
+        "heldIn"            : "${courseHeldInExisting}",
+        "semester"          : "${courseSemesterExisting}"
     },
     "fields" : {
       "courseName" : {
@@ -141,9 +142,10 @@
          "optionsType"      : "UNDEFINED",
          "literalOptions"   : [],
          "subjectUri"       : "${param.subjectUri}",
-         "subjectClassUri"  : { },
+         "subjectClassUri"  : "",
          "predicateUri"     : "",
-         "objectClassUri"   : "" ,
+         "objectClassUri"   : "",
+         "rangeDatatypeUri" : "",
          "assertions"       : [ "${courseNameAssertion}" ]
       },
      "courseDescription" : {
@@ -152,9 +154,10 @@
          "optionsType"      : "UNDEFINED",
          "literalOptions"   : [],
          "subjectUri"       : "${param.subjectUri}",
-         "subjectClassUri"  : { },
+         "subjectClassUri"  : "",
          "predicateUri"     : "",
-         "objectClassUri"   : "" ,
+         "objectClassUri"   : "",
+         "rangeDatatypeUri" : "",
          "assertions"       : [ "${courseDescAssertion}" ]
       },
       "moniker" : {
@@ -170,9 +173,10 @@
                                "1-3 credit course",
                                "1.5 credit course"],
          "subjectUri"       : "${param.subjectUri}",
-         "subjectClassUri"  : { },
+         "subjectClassUri"  : "",
          "predicateUri"     : "${param.predicateUri}",
-         "objectClassUri"   : { }  ,
+         "objectClassUri"   : "",
+         "rangeDatatypeUri" : "",
          "assertions"       : [ "${monikerAssertion}" ]
       },
       "semester" : {
@@ -181,9 +185,10 @@
          "optionsType"      : "INDIVIDUALS_VIA_VCLASS",
          "literalOptions"   : [ ],
          "subjectUri"       : "${param.subjectUri}",
-         "subjectClassUri"  : { },
+         "subjectClassUri"  : "",
          "predicateUri"     : "${param.predicateUri}",
-         "objectClassUri"   : "${semesterClass}"   ,
+         "objectClassUri"   : "${semesterClass}",
+         "rangeDatatypeUri" : "",
          "assertions"       : [ "${courseSemesterAssertion}"]
       },
       "heldIn" : {
@@ -192,9 +197,10 @@
          "optionsType"      : "INDIVIDUALS_VIA_VCLASS",
          "literalOptions"   : ["leave blank"],
          "subjectUri"       : "${param.subjectUri}",
-         "subjectClassUri"  : { },
+         "subjectClassUri"  : "",
          "predicateUri"     : "${param.predicateUri}",
-         "objectClassUri"   : "${buildingClass}" ,
+         "objectClassUri"   : "${buildingClass}",
+         "rangeDatatypeUri" : "",
          "assertions"       : [ "${courseHeldInAssertion}" ]
       }
     }

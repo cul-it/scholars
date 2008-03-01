@@ -6,8 +6,7 @@
 <%@ page import="edu.cornell.mannlib.vitro.webapp.dao.WebappDaoFactory" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.edit.n3editing.EditConfiguration" %>
-<%@ page import="edu.cornell.mannlib.vitro.webapp.edit.n3editing.EditSubmission" %>
-<%@ page import="edu.cornell.mannlib.vitro.webapp.edit.n3editing.SparqlEvaluate" %>
+
 <%@ taglib prefix="v" uri="http://vitro.mannlib.cornell.edu/vitro/tags" %>
 <%@ page import="java.util.Map" %>
 <%@page import="edu.cornell.mannlib.vitro.webapp.web.MiscWebUtils"%>
@@ -68,7 +67,9 @@
 
     "subjectUri"   : "${subjectUriJson}",
     "predicateUri" : "${predicateUriJson}",
+    "objectVar"    : "object",
     "objectUri"    : "${objectUriJson}",
+    "datapropKey"  : "",
 
     "n3required"                : [ "${n3ForEdit}" ],
     "n3optional"                : [ ],
@@ -76,7 +77,6 @@
     "urisInScope"               : { "subject"   : "${subjectUriJson}",
                                     "predicate" : "${predicateUriJson}"},
     "literalsInScope"           : { },
-    "objectVar"                 : "object",
     "urisOnForm"                : ["object"],
     "literalsOnForm"            : [ ],
     "sparqlForLiterals"         : { },
@@ -90,9 +90,10 @@
                                        "validators"       : [ ],
                                        "optionsType"      : "INDIVIDUALS_VIA_OBJECT_PROPERTY",
                                        "subjectUri"       : "${subjectUriJson}",
-                                       "subjectClassUri"  : { },
+                                       "subjectClassUri"  : "",
                                        "predicateUri"     : "${predicateUriJson}",
-                                       "objectClassUri"   : { },
+                                       "objectClassUri"   : "",
+                                       "rangeDatatypeUri" : "",
                                        "literalOptions"   : [ ] ,
                                        "assertions"       : ["${n3ForEdit}"] 
                                      }
@@ -101,60 +102,35 @@
 </c:set>
 
 <%  /* put edit configuration Json object into session */
-    //EditConfiguration editConfig = EditConfiguration.getConfigFromSession(session);
-    //if( editConfig != null ){
-        //EditConfiguration.clearAllConfigsInSession(session); // otherwise keeps using same predicate from fields
-        
-        EditConfiguration editConfig = new EditConfiguration((String)request.getAttribute("editjson"));
-        EditConfiguration.putConfigInSession(editConfig, session);
-        /* this next section is the beginnings of being able to edit an existing statement -- have to figure */
-        /* out how to select the right object individual, and if changed, how to delete the existing statement */
-        /* and insert a new one */
-        String formTitle   =""; // don't add local page variables to the request
-        String submitLabel ="";
-        if( objectUri != null ){     //these get done on an edit of an existing object property statement
-            Model model =  (Model)application.getAttribute("jenaOntModel");
-            prepareForEditOfExisting(editConfig,model,session);
-            editConfig.getUrisInScope().put("newObject",objectUri); //makes sure we reuse objUri
-            formTitle   = "Change value for &quot;"+prop.getDomainPublic()+"&quot; property for "+subject.getName();
-            submitLabel = "save change";
-        } else {
-            formTitle   ="Select value for new &quot;"+prop.getDomainPublic()+"&quot; property for "+subject.getName();
-            submitLabel ="save entry";
-        }
-    //}
-
-%>
+    EditConfiguration editConfig = new EditConfiguration((String)request.getAttribute("editjson"));
+    EditConfiguration.putConfigInSession(editConfig, session);
+    String formTitle   =""; // don't add local page variables to the request
+    String submitLabel ="";
+    if( objectUri != null ){     //these get done on an edit of an existing object property statement
+        editConfig.getUrisInScope().put("newObject",objectUri); //makes sure we reuse objUri
+        formTitle   = "Change value for &quot;"+prop.getDomainPublic()+"&quot; property for "+subject.getName();
+        submitLabel = "save change";
+    } else {
+        formTitle   ="Select value for new &quot;"+prop.getDomainPublic()+"&quot; property for "+subject.getName();
+        submitLabel ="save entry";
+    }%>
 
 <jsp:include page="${preForm}"/>
-  <h1><%=formTitle%></h1>
-  <form action="<c:url value="/edit/processRdfForm2.jsp"/>" >
-	  <v:input type="select" id="object" label="object of property" /> 
-      <v:input type="submit" id="submit" value="<%=submitLabel%>" cancel="${param.subjectUri}"/>
-      <v:input type="editKey" id="editKey"/>
+<h1><%=formTitle%></h1>
+<form action="<c:url value="/edit/processRdfForm2.jsp"/>" >
+    <v:input type="select" id="object" label="object of property" /> 
+    <v:input type="submit" id="submit" value="<%=submitLabel%>" cancel="${param.subjectUri}"/>
+    <v:input type="editKey" id="editKey"/>
 
-      <c:if test="${hasCustomForm eq 'true'}">
-          <p>If you don't find the appropriate entry on the selection list,
-          <c:url var="createNewUrl" value="/edit/editRequestDispatch.jsp">
-              <c:param name="subjectUri" value="${param.subjectUri}"/>
-              <c:param name="predicateUri" value="${param.predicateUri}"/>
-              <c:param name="clearEditConfig" value="true"/>
-          </c:url>
-          <button type="button" onclick="javascript:document.location.href='${createNewUrl}'">create new ${rangeClassName}</button>
-          </p>
-      </c:if>
-      <!-- v:input type="cancel" id="cancel" cancel="${param.subjectUri}" / -->
-  </form>
+    <c:if test="${hasCustomForm eq 'true'}">
+        <p>If you don't find the appropriate entry on the selection list,
+        <c:url var="createNewUrl" value="/edit/editRequestDispatch.jsp">
+            <c:param name="subjectUri" value="${param.subjectUri}"/>
+            <c:param name="predicateUri" value="${param.predicateUri}"/>
+            <c:param name="clearEditConfig" value="true"/>
+        </c:url>
+        <button type="button" onclick="javascript:document.location.href='${createNewUrl}'">create new ${rangeClassName}</button>
+        </p>
+    </c:if>
+</form>
 <jsp:include page="${postForm}"/>
-
-<%!private void prepareForEditOfExisting( EditConfiguration editConfig, Model model, HttpSession session){
-//        SparqlEvaluate sparqlEval = new SparqlEvaluate(model);
-//        Map<String,String> varsToUris = sparqlEval.sparqlEvaluateToUris(editConfig.getSparqlForExistingUris(),
-//                editConfig.getUrisInScope(),editConfig.getLiteralsInScope());
-//        Map<String,String> varsToLiterals = sparqlEval.sparqlEvaluateToLiterals(editConfig.getSparqlForExistingLiterals(),
-//                editConfig.getUrisInScope(),editConfig.getLiteralsInScope());
-//        EditSubmission esub = new EditSubmission(editConfig);
-//        esub.setUrisFromForm(varsToUris);
-//        esub.setLiteralsFromForm(varsToLiterals);
-//        EditSubmission.putEditSubmissionInSession(session,esub);
-}%>

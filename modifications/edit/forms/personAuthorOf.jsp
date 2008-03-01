@@ -63,11 +63,11 @@
     "formUrl" : "${formUrl}",
     "editKey"  : "${editKey}",
 
-    "subjectUri"   : "${subjectUri}",
-    "predicateUri" : "${predicateUri}",
-    "objectUri"    : "${objectUri}",
+    "subjectUri"   : "${subjectUriJson}",
+    "predicateUri" : "${predicateUriJson}",
+    "objectUri"    : "${objectUriJson}",
     "objectVar"    : "newPub",
-
+    "datapropKey"  : "",
     "n3required"    : [ "${n3ForEdit}" ],
     "n3optional"    : [ ],
     "newResources"  : { "newPub" : "default" },
@@ -95,10 +95,11 @@
          "validators"       : [ ],
          "optionsType"      : "LITERALS",
          "literalOptions"   : ["journal article","book chapter","review","editorial","exhibit catalog"],
-         "subjectUri"       : "${param.subjectUri}",
-         "subjectClassUri"  : { },
-         "predicateUri"     : "${param.predicateUri}",
-         "objectClassUri"   : { },
+         "subjectUri"       : "${subjectUriJson}",
+         "subjectClassUri"  : "",
+         "predicateUri"     : "${predicateUriJson}",
+         "objectClassUri"   : "",
+         "rangeDatatypeUri" : "",
          "assertions"       : []
       }
     }
