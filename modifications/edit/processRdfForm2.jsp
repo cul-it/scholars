@@ -136,6 +136,7 @@ are well formed.
                 /* if the field was a checkbox then we need to something special */
                 
                 List<String> assertions = fieldAssertions.get(fieldName);
+                List<String> retractions = fieldRetractions.get(fieldName);
                 for( String n3 : assertions){
                     try{
                         Model model = ModelFactory.createDefaultModel();
@@ -149,7 +150,7 @@ are well formed.
                     }
                     System.out.println("processRdfform2.jsp change field assertions" + n3);
                 }
-                for( String n3 : field.getRetractions()){
+                for( String n3 : retractions ){
                     try{
                         Model model = ModelFactory.createDefaultModel();
                         StringReader reader = new StringReader(n3);
