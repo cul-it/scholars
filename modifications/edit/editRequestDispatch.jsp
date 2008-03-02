@@ -1,16 +1,24 @@
+<%@ page import="edu.cornell.mannlib.vitro.webapp.beans.Individual" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.beans.ObjectProperty" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.controller.VitroRequest" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.dao.WebappDaoFactory" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.edit.n3editing.EditConfiguration" %>
-<%@ page import="edu.cornell.mannlib.vitro.webapp.edit.n3editing.EditSubmission" %>
+<%@ page import="edu.cornell.mannlib.vitro.webapp.web.MiscWebUtils" %>
 <%@ page import="java.util.HashMap" %>
 <%
-    /* this is just a hard code fisrt attempt, we could get the info out of the model */
+    /*
+    Decide which form to forward to, set subjectUri, subjectUriJson, predicateUri, and predicateUriJson in request.
+    Also get the Individual for the subjectUri and put it in the request scope.
+
+    If objectUri is set as a http parameter, then set objectUri and objectUriJson in request, also get the
+    Individual for the objectUri and put it in the request.
 
     /* *************************************
     Parameters:
         subjectUri
         predicateUri
+        objectUri (optional)
+        cmd (optional)
         default (true|false)
       ************************************** */
     
@@ -22,7 +30,9 @@
     propUriToForm = new HashMap<String,String>();
     propUriToForm.put("http://vivo.library.cornell.edu/ns/0.1#PersonTeacherOfSemesterCourse", "personTeacherOfSemesterCourse.jsp");
     propUriToForm.put("http://vivo.library.cornell.edu/ns/0.1#authorOf", "personAuthorOf.jsp");
-    
+
+    request.getSession(true);
+
     /* ********************************************************** */
 
     if( EditConfiguration.getEditKey( request ) == null ){
@@ -45,26 +55,43 @@
     if( predicateUri == null || predicateUri.trim().length() == 0)
         throw new Error("predicateUri was empty, it is required by editRequestDispatch");
 
-//    if( "true".equalsIgnoreCase( request.getParameter("clearEditConfig"))){
-//        EditConfiguration.clearAllConfigsInSession(session);
-//        EditSubmission.clearAllEditSubmissionsInSession(session);
-//        session.removeAttribute("editjson");
-//    }
+    request.setAttribute("subjectUri", subjectUri);
+    request.setAttribute("subjectUriJson", MiscWebUtils.escape(subjectUri));
+    request.setAttribute("predicateUri", predicateUri);
+    request.setAttribute("predicateUriJson", MiscWebUtils.escape(predicateUri));
 
+    String objectUri = request.getParameter("objectUri");
+    if( objectUri != null){
+        request.setAttribute("objectUri", objectUri);
+        request.setAttribute("objectUriJson", MiscWebUtils.escape(objectUri));
+    }
+
+    /* since we have the URIs lets put the individuals in the request */
+    /* get some data to make the form more useful */
+    VitroRequest vreq = new VitroRequest(request);
+    WebappDaoFactory wdf = vreq.getWebappDaoFactory();
+
+    Individual subject = wdf.getIndividualDao().getIndividualByURI(subjectUri);
+    if( subject == null ) throw new Error("Could not find subject in model: '" + subjectUri + "'");
+    request.setAttribute("subject", subject);
+
+    if( objectUri != null ){
+        Individual object = wdf.getIndividualDao().getIndividualByURI( objectUri );
+        if( object == null ) throw new Error("Could not find object in model: '" + objectUri + "'");
+        request.setAttribute("object" , object);
+    }
+
+    /* keep track of what form we are using so it can be returned to after a failed validation */
     String url= "/edit/editRequestDispatch.jsp"; //I'd like to get this from the request but...
     request.setAttribute("formUrl", url + "?" + request.getQueryString());
     System.out.println("query url from editRequestDispatch: " + url);
-
-    VitroRequest vreq = new VitroRequest(request);
-    WebappDaoFactory wdf = vreq.getWebappDaoFactory();
 
     request.setAttribute("themeDir", "themes/editdefault/");
     request.setAttribute("preForm", "/edit/formPrefix.jsp");
     request.setAttribute("postForm", "/edit/formSuffix.jsp");
 
-    if( "delete".equals(command) ){ %>
-      <jsp:forward page="/edit/forms/propDelete.jsp"/>
-    <%
+    if( "delete".equals(command) ){
+        %>  <jsp:forward page="/edit/forms/propDelete.jsp"/>  <%
         return;
     }
 

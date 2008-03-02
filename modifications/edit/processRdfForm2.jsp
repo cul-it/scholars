@@ -137,6 +137,8 @@ are well formed.
             if( hasFieldChanged(fieldName, editConfig, submission) ){
                 System.out.println( "field " + fieldName + " has changed " );
 
+                /* if the field was a checkbox then we need to something special */
+                
                 List<String> assertions = fieldAssertions.get(fieldName);
                 for( String n3 : assertions){
                     try{

@@ -2,33 +2,10 @@
 <%@ page import="com.thoughtworks.xstream.XStream" %>
 <%@ page import="com.thoughtworks.xstream.io.xml.DomDriver" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.beans.Individual" %>
-<%@ page import="edu.cornell.mannlib.vitro.webapp.controller.VitroRequest" %>
-<%@ page import="edu.cornell.mannlib.vitro.webapp.dao.WebappDaoFactory" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.edit.n3editing.EditConfiguration" %>
-<%@ page import="edu.cornell.mannlib.vitro.webapp.edit.n3editing.Field" %>
-<%@ page import="edu.cornell.mannlib.vitro.webapp.edit.n3editing.SparqlEvaluate" %>
-<%@ page import="edu.cornell.mannlib.vitro.webapp.web.MiscWebUtils" %>
-<%@ page import="java.util.ArrayList" %>
-<%@ page import="java.util.List" %>
-<%@ page import="java.util.Map" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
 <%@ taglib prefix="v" uri="http://vitro.mannlib.cornell.edu/vitro/tags" %>
-<%
-    String subjectUri   = request.getParameter("subjectUri");
-    request.setAttribute("subjectUriJson", MiscWebUtils.escape(subjectUri));
 
-    String objectUri = request.getParameter("objectUri");
-    if( objectUri != null){
-        System.out.println("found a objectUri in personTeacherOfSemesterCourse.jsp:" + objectUri);
-        request.setAttribute("objectUriJson", MiscWebUtils.escape(objectUri));
-        request.setAttribute("existingUris", ",\"newCourse\": \""+MiscWebUtils.escape(objectUri)+"\"");
-    }else{
-        System.out.println("NO objectUri found in personTeacherOfSemesterCourse.jsp");
-        request.setAttribute("existingUris","");  //since its a new insert, no existing uri
-    }
-
-    request.getSession(true);
-%>
 <v:jsonset var="semesterClass">http://vivo.library.cornell.edu/ns/0.1#AcademicSemester</v:jsonset>
 <v:jsonset var="buildingClass">http://vivo.library.cornell.edu/ns/0.1#Building</v:jsonset>
 
@@ -111,17 +88,14 @@
     "formUrl" : "${formUrl}",
     "editKey" : "${editKey}",
 
-    "subjectUri"   : "${subjectUriJson}",
-    "predicateUri" : "${predicateUriJson}",
-    "objectVar"    : "newCourse",
-    "objectUri"    : "${objectUriJson}",
-    "datapropKey"  : "",
+    "subject"   : ["person",    "${subjectUriJson}", ],
+    "predicate" : ["predicate", "${predicateUriJson}" ],
+    "object"    : ["newCourse", "${objectUriJson}", "URI" ],
     
     "n3required"    : [ "${n3ForEdit}" ],
     "n3optional"    : [ "${n3optional}" ],
     "newResources"  : { "newCourse" : "http://vivo.library.cornell.edu/ns/0.1#individual" },
-    "urisInScope"   : {"person" : "${subjectUriJson}"
-                        ${existingUris} },
+    "urisInScope"    : { },
     "literalsInScope": { },
     "urisOnForm"     : ["semester","heldIn"],
     "literalsOnForm" :  [ "courseDescription", "courseName", "moniker" ],
@@ -207,6 +181,8 @@
   }
 </c:set>
 <%
+    dump("editJson",request.getAttribute("editjson"));
+    
     EditConfiguration editConfig = EditConfiguration.getConfigFromSession(session,request);
     if( editConfig == null ){
         editConfig = new EditConfiguration((String)request.getAttribute("editjson"));
@@ -217,23 +193,21 @@
     }      else {
         System.out.println("WARNING: reusing editConfig from session, this should only happen whe we are doing a update or a re-edit after a submit");
     }
+
+    String objectUri = (String)request.getAttribute("objectUri");
     if( objectUri != null ){
         System.out.println("found objectUri: " + objectUri);
 
         Model model =  (Model)application.getAttribute("jenaOntModel");
-        prepareForEditOfExisting(editConfig, model, request, session);
-        editConfig.getUrisInScope().put("newCourse",objectUri); //makes sure we reuse objUri, maybe this should be done by prepareForEditOfExisting?
-         System.out.println("******************* SETUP For Update ***********************");
+        //prepareForEditOfExisting(editConfig, model, request, session);
+        editConfig.prepareForUpdate(request,model);
+
+        System.out.println("******************* SETUP For Update ***********************");
         dump("editConfig",editConfig);
     }
 
     /* get some data to make the form more useful */
-    VitroRequest vreq = new VitroRequest(request);
-    WebappDaoFactory wdf = vreq.getWebappDaoFactory();
-
-    Individual subject = wdf.getIndividualDao().getIndividualByURI(subjectUri);
-    if( subject == null ) throw new Error("could not find subject '" + subjectUri + "'");
-    request.setAttribute("subjectName",subject.getName());
+    Individual subject = (Individual)request.getAttribute("subject");
 
     String submitLabel=""; // don't put local variables into the request
     /* title is used by pre and post form fragments */
@@ -250,6 +224,7 @@
 %>
 
 <jsp:include page="${preForm}"/>
+
 <h1>${title}</h1>
 <form action="<c:url value="/edit/processRdfForm2.jsp"/>" >
     <v:input type="text" label="course title" id="courseName" size="60"/>
@@ -263,7 +238,7 @@
 <jsp:include page="${postForm}"/>
 
 
- <%!/* copy of method in personAuthorOf.jsp, need to find better place fo these to live. */
+ <%--<%!/* copy of method in personAuthorOf.jsp, need to find better place fo these to live. */--%>
 /*
 tasks of this method:
 add objectUri to scope under specified var name
@@ -272,29 +247,29 @@ for each field:
     sub values in to the assertion strings and save as retractions,
     what else?
  */
-  private void prepareForEditOfExisting( EditConfiguration editConfig, Model model, ServletRequest request, HttpSession session){
-      //add objectUri to urisInScope
-      editConfig.getUrisInScope().put(editConfig.getObjectVar(), request.getParameter("objectUri"));
-
-      // run queries for existing values
-      SparqlEvaluate sparqlEval = new SparqlEvaluate(model);
-      Map<String,String> varsToUris =
-              sparqlEval.sparqlEvaluateToUris(editConfig.getSparqlForExistingUris(),editConfig.getUrisInScope(),editConfig.getLiteralsInScope());
-      editConfig.getUrisInScope().putAll( varsToUris );
-
-      Map<String,String> varsToLiterals =
-              sparqlEval.sparqlEvaluateToLiterals(editConfig.getSparqlForExistingLiterals(),editConfig.getUrisInScope(),editConfig.getLiteralsInScope());
-      editConfig.getLiteralsInScope().putAll(varsToLiterals);
-
-      //build retraction N3 for each Field
-      for(String var : editConfig.getFields().keySet() ){
-          Field field = editConfig.getField(var);
-          List<String> retractions = null;
-          retractions = EditConfiguration.subInLiterals(editConfig.getLiteralsInScope(),field.getAssertions());
-          retractions = EditConfiguration.subInUris(editConfig.getUrisInScope(), retractions);
-          field.setRetractions(retractions);
-      }
-}%>
+//  private void prepareForEditOfExisting( EditConfiguration editConfig, Model model, ServletRequest request, HttpSession session){
+//      //add objectUri to urisInScope
+//      editConfig.getUrisInScope().put(editConfig.getObjectVar(), request.getParameter("objectUri"));
+//
+//      // run queries for existing values
+//      SparqlEvaluate sparqlEval = new SparqlEvaluate(model);
+//      Map<String,String> varsToUris =
+//              sparqlEval.sparqlEvaluateToUris(editConfig.getSparqlForExistingUris(),editConfig.getUrisInScope(),editConfig.getLiteralsInScope());
+//      editConfig.getUrisInScope().putAll( varsToUris );
+//
+//      Map<String,String> varsToLiterals =
+//              sparqlEval.sparqlEvaluateToLiterals(editConfig.getSparqlForExistingLiterals(),editConfig.getUrisInScope(),editConfig.getLiteralsInScope());
+//      editConfig.getLiteralsInScope().putAll(varsToLiterals);
+//
+//      //build retraction N3 for each Field
+//      for(String var : editConfig.getFields().keySet() ){
+//          Field field = editConfig.getField(var);
+//          List<String> retractions = null;
+//          retractions = EditConfiguration.subInLiterals(editConfig.getLiteralsInScope(),field.getAssertions());
+//          retractions = EditConfiguration.subInUris(editConfig.getUrisInScope(), retractions);
+//          field.setRetractions(retractions);
+//      }
+<%--}%>--%>
 
 <%!
     private void dump(String name, Object fff){

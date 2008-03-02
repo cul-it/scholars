@@ -65,23 +65,23 @@
     "formUrl"                   : "${formUrl}",
     "editKey"                   : "${editKey}",
 
-    "subjectUri"   : "${subjectUriJson}",
-    "predicateUri" : "${predicateUriJson}",
-    "objectVar"    : "object",
-    "objectUri"    : "${objectUriJson}",
-    "datapropKey"  : "",
+    "subject"      : [ "subject", "${subjectUriJson}" ] ,
+    "predicate"    : [ "predicate", "${predicateUriJson}" ],
+    "object"       : [ "object" ,  "${objectUriJson}" , "URI"],
 
     "n3required"                : [ "${n3ForEdit}" ],
     "n3optional"                : [ ],
     "newResources"              : { },
-    "urisInScope"               : { "subject"   : "${subjectUriJson}",
-                                    "predicate" : "${predicateUriJson}"},
+
+    "urisInScope"               : { },
     "literalsInScope"           : { },
+
     "urisOnForm"                : ["object"],
     "literalsOnForm"            : [ ],
+
     "sparqlForLiterals"         : { },
     "sparqlForUris"             : {"inverse" : "${queryForInverse}" },
-    "entityToReturnTo"          : "${subjectUriJson}",
+
     "sparqlForExistingLiterals" : { },
     "sparqlForExistingUris"     : { },
     "fields"                    : { "object" : {
@@ -116,6 +116,7 @@
     }%>
 
 <jsp:include page="${preForm}"/>
+
 <h1><%=formTitle%></h1>
 <form action="<c:url value="/edit/processRdfForm2.jsp"/>" >
     <v:input type="select" id="object" label="object of property" /> 
@@ -133,4 +134,5 @@
         </p>
     </c:if>
 </form>
+
 <jsp:include page="${postForm}"/>
