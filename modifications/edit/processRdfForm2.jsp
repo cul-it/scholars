@@ -58,15 +58,18 @@ are well formed.
 
     Map<String,List<String>> fieldAssertions = null;
     if( editConfig.getObjectUri() != null && editConfig.getObjectUri().length() > 0){
-        fieldAssertions = fieldsToMap(editConfig.getFields());
+        fieldAssertions = fieldsToAssertionMap(editConfig.getFields());
     }else{
         fieldAssertions = new HashMap<String,List<String>>();
     }
 
-    dump("n3Required" , n3Required);
-    dump("n3Optional" , n3Optional);
-    dump("fieldAssertions" , fieldAssertions);
-
+    Map<String,List<String>> fieldRetractions = null;
+    if( editConfig.getObjectUri() != null && editConfig.getObjectUri().length() > 0){
+        fieldRetractions = fieldsToRetractionMap(editConfig.getFields());
+    }else{
+        fieldRetractions = new HashMap<String,List<String>>();
+    }
+    
     /* ********** URIs and Literals on Form/Parameters *********** */
     //sub in resource uris off form
     n3Required = subInUris(submission.getUrisFromForm(), n3Required);
@@ -77,11 +80,7 @@ are well formed.
     n3Optional = subInLiterals(submission.getLiteralsFromForm(), n3Optional);
 
     fieldAssertions = substituteIntoValues(  submission.getUrisFromForm(), submission.getLiteralsFromForm(), fieldAssertions);
-
-    System.out.println("after Literals and URIs off of HTML form");
-    dump("n3Required" , n3Required);
-    dump("n3Optional" , n3Optional);
-    dump("fieldAssertions" , fieldAssertions);
+    //fieldRetractions does NOT get values from form.
 
     /* ****************** URIs and Literals in Scope ************** */
     SparqlEvaluate sparqlEval = new SparqlEvaluate((Model)application.getAttribute("jenaOntModel"));
@@ -96,11 +95,7 @@ are well formed.
     n3Optional = subInLiterals( literalsInScope, n3Optional);
 
     fieldAssertions = substituteIntoValues(urisInScope, literalsInScope, fieldAssertions );
-
-    System.out.println("after literals and Uris from scope");
-    dump("n3Required" , n3Required);
-    dump("n3Optional" , n3Optional);
-    dump("fieldAssertions" , fieldAssertions);
+    fieldRetractions = substituteIntoValues(urisInScope, literalsInScope, fieldRetractions);
 
     /* ****************** New Resources ********************** */
     Map<String,String> varToNewResource = newToUriMap(editConfig.getNewResources(),jenaOntModel);
@@ -110,11 +105,12 @@ are well formed.
     n3Required = subInUris( varToNewResource, n3Required);
     n3Optional = subInUris( varToNewResource, n3Optional);
     fieldAssertions = substituteIntoValues(varToNewResource, null, fieldAssertions);
+    //fieldRetractions does NOT get values from form.
 
-    System.out.println("after new resources");
     dump("n3Required" , n3Required);
     dump("n3Optional" , n3Optional);
     dump("fieldAssertions" , fieldAssertions);
+    dump("fieldRetractions" , fieldRetractions);
 
     /* ***************** Build Models ******************* */
     /* bdc34: we should dcheck if this is an edit of an existing
@@ -272,13 +268,27 @@ are well formed.
     /* ******************** utility functions ****************** */
     /* ********************************************************* */
 
-    public Map<String,List<String>> fieldsToMap( Map<String,Field> fields){
+    public Map<String,List<String>> fieldsToAssertionMap( Map<String,Field> fields){
         Map<String,List<String>> out = new HashMap<String,List<String>>();
         for( String fieldName : fields.keySet()){
             Field field = fields.get(fieldName);
 
             List<String> copyOfN3 = new ArrayList<String>();
             for( String str : field.getAssertions()){
+                copyOfN3.add(str);
+            }
+            out.put( fieldName, copyOfN3 );
+        }
+        return out;
+    }
+
+     public Map<String,List<String>> fieldsToRetractionMap( Map<String,Field> fields){
+        Map<String,List<String>> out = new HashMap<String,List<String>>();
+        for( String fieldName : fields.keySet()){
+            Field field = fields.get(fieldName);
+
+            List<String> copyOfN3 = new ArrayList<String>();
+            for( String str : field.getRetractions()){
                 copyOfN3.add(str);
             }
             out.put( fieldName, copyOfN3 );
