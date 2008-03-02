@@ -30,7 +30,7 @@
     request.setAttribute("rangeClassName", rangeClass.getName());
 
     // not yet fully set up for editing an existing object property statement by changing the related individual
-    String objectVarHandle = "objhandle";
+    //String objectVarHandle = "objhandle";
     String objectUri = request.getParameter("objectUri");
     Individual object=null;
     if( objectUri != null ){
@@ -55,8 +55,8 @@
 </v:jsonset>
 
 <v:jsonset var="n3ForEdit"  >
-    ?subject ?predicate ?object.
-    ?object ?inverse ?subject.
+    ?subject ?predicate ?objectVar.
+    ?objectVar ?inverse ?subject.
 </v:jsonset>
 
 <c:set var="editjson" scope="request">
@@ -66,7 +66,7 @@
 
     "subject"      : [ "subject", "${subjectUriJson}" ] ,
     "predicate"    : [ "predicate", "${predicateUriJson}" ],
-    "object"       : [ "object" ,  "${objectUriJson}" , "URI"],
+    "object"       : [ "objectVar" ,  "${objectUriJson}" , "URI"],
 
     "n3required"                : [ "${n3ForEdit}" ],
     "n3optional"                : [ ],
@@ -75,7 +75,7 @@
     "urisInScope"               : { },
     "literalsInScope"           : { },
 
-    "urisOnForm"                : ["<%=objectVarHandle%>"],
+    "urisOnForm"                : ["objectVar"],
     "literalsOnForm"            : [ ],
 
     "sparqlForLiterals"         : { },
@@ -83,7 +83,7 @@
 
     "sparqlForExistingLiterals" : { },
     "sparqlForExistingUris"     : { },
-    "fields"                    : { "<%=objectVarHandle%>" : {
+    "fields"                    : { "objectVar" : {
                                        "newResource"      : "false",
                                        "queryForExisting" : { },
                                        "validators"       : [ ],
@@ -106,14 +106,8 @@
     String formTitle   =""; // don't add local page variables to the request
     String submitLabel ="";
     if( objectUri != null ){     //these get done on an edit of an existing object property statement
-        editConfig.getUrisInScope().put(objectVarHandle,objectUri); //makes sure we reuse objUri
-        //if (editConfig.getLiteralsInScope() == null) {
-        //    Map<String,String> varsToLiterals = new HashMap<String,String>();
-        //    varsToLiterals.put(objectVarHandle,object.getName());
-        //    editConfig.setLiteralsInScope(varsToLiterals);
-        //} else {
-        	editConfig.getLiteralsInScope().put(objectVarHandle,object.getName());
-        //}
+        Model model = (Model)application.getAttribute("jenaOntModel");
+		editConfig.prepareForUpdate(request,model);
         formTitle   = "Change value for &quot;"+prop.getDomainPublic()+"&quot; property for "+subject.getName();
         submitLabel = "save change";
     } else {
@@ -125,7 +119,7 @@
 
 <h1><%=formTitle%></h1>
 <form action="<c:url value="/edit/processRdfForm2.jsp"/>" >
-    <v:input type="select" id="<%=objectVarHandle%>" label="object of property" /> 
+    <v:input type="select" id="objectVar" label="object of property" /> 
     <v:input type="submit" id="submit" value="<%=submitLabel%>" cancel="${param.subjectUri}"/>
     <v:input type="editKey" id="editKey"/>
 
