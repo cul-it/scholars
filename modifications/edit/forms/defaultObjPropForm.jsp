@@ -1,4 +1,5 @@
 <%@ page import="com.hp.hpl.jena.rdf.model.Model" %>
+<%@ page import="java.util.HashMap" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.beans.Individual" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.beans.ObjectProperty" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.beans.VClass" %>
@@ -10,22 +11,38 @@
 <%@ taglib prefix="v" uri="http://vitro.mannlib.cornell.edu/vitro/tags" %>
 <%@ page import="java.util.Map" %>
 <%@page import="edu.cornell.mannlib.vitro.webapp.web.MiscWebUtils"%>
-<%!
 
-%>
-<%
+<%  /* get some data not already retrieved in editRequestDispatch to make the form more useful */
     String subjectUri   = request.getParameter("subjectUri");
+    // already done in editRequestDispatch.jsp: request.setAttribute("subjectUriJson",MiscWebUtils.escape(subjectUri));
+	Individual subject = (Individual)request.getAttribute("subject");
+	if( subject == null ) throw new Error("In defaultObjPropForm.jsp, did not find subject in request scope: " + subjectUri);
+	request.setAttribute("subjectName",subject.getName());
+
     String predicateUri = request.getParameter("predicateUri");
+    // already done in editRequestDispatch.jsp: request.setAttribute("predicateUriJson",MiscWebUtils.escape(predicateUri));
+    ObjectProperty prop = (ObjectProperty)request.getAttribute("predicate");
+    if( prop == null ) throw new Error("In defaultObjPropForm.jsp, did not find property in request scope: " + predicateUri);
+    request.setAttribute("propertyName",prop.getDomainPublic());
+    VitroRequest vreq = new VitroRequest(request);
+    WebappDaoFactory wdf = vreq.getWebappDaoFactory();
+    VClass rangeClass = wdf.getVClassDao().getVClassByURI(prop.getRangeVClassURI());
+    request.setAttribute("rangeClassName", rangeClass.getName());
+
     // not yet fully set up for editing an existing object property statement by changing the related individual
+    String objectVarHandle = "objhandle";
     String objectUri = request.getParameter("objectUri");
-
-    request.setAttribute("subjectUriJson",MiscWebUtils.escape(subjectUri));
-    request.setAttribute("predicateUriJson",MiscWebUtils.escape(predicateUri));
-
+    Individual object=null;
     if( objectUri != null ){
-        request.setAttribute("objectUriJson",MiscWebUtils.escape(objectUri));
+        object = (Individual)request.getAttribute("object");
+        if( object == null ){ throw new Error("found an objectUri but no object in defaultObjPropForm.jsp"); }
+        // already done in editRequestDispatch.jsp: request.setAttribute("objectUriJson",MiscWebUtils.escape(objectUri));
+        System.out.println("found an objectUri in defaultObjPropForm.jsp: '" + objectUri + "' and will attempt to edit relationship to existing object '"+object.getName()+"'");
+    }else{
+        System.out.println("no objectUri found in defaultObjPropForm.jsp, making new object property");
     }
 
+    // what does this do?
     request.getSession(true);
 %>
 
@@ -41,24 +58,6 @@
     ?subject ?predicate ?object.
     ?object ?inverse ?subject.
 </v:jsonset>
-
-<%
-    /* get some data to make the form more useful */
-
-    VitroRequest vreq = new VitroRequest(request);
-    WebappDaoFactory wdf = vreq.getWebappDaoFactory();
-
-    ObjectProperty prop = wdf.getObjectPropertyDao().getObjectPropertyByURI(predicateUri);
-    if( prop == null ) throw new Error("could not find property " + predicateUri);
-    request.setAttribute("propertyName",prop.getDomainPublic());
-    
-    Individual subject = wdf.getIndividualDao().getIndividualByURI(subjectUri);
-    if( subject == null ) throw new Error("could not find subject " + subjectUri);
-    request.setAttribute("subjectName",subject.getName());
-
-    VClass rangeClass = wdf.getVClassDao().getVClassByURI(prop.getRangeVClassURI());
-    request.setAttribute("rangeClassName", rangeClass.getName());
-%>
 
 <c:set var="editjson" scope="request">
   {
@@ -76,7 +75,7 @@
     "urisInScope"               : { },
     "literalsInScope"           : { },
 
-    "urisOnForm"                : ["object"],
+    "urisOnForm"                : ["<%=objectVarHandle%>"],
     "literalsOnForm"            : [ ],
 
     "sparqlForLiterals"         : { },
@@ -84,7 +83,7 @@
 
     "sparqlForExistingLiterals" : { },
     "sparqlForExistingUris"     : { },
-    "fields"                    : { "object" : {
+    "fields"                    : { "<%=objectVarHandle%>" : {
                                        "newResource"      : "false",
                                        "queryForExisting" : { },
                                        "validators"       : [ ],
@@ -101,25 +100,32 @@
   }
 </c:set>
 
-<%  /* put edit configuration Json object into session */
+<%  /* now put edit configuration Json object into session */
     EditConfiguration editConfig = new EditConfiguration((String)request.getAttribute("editjson"));
     EditConfiguration.putConfigInSession(editConfig, session);
     String formTitle   =""; // don't add local page variables to the request
     String submitLabel ="";
     if( objectUri != null ){     //these get done on an edit of an existing object property statement
-        editConfig.getUrisInScope().put("newObject",objectUri); //makes sure we reuse objUri
+        editConfig.getUrisInScope().put(objectVarHandle,objectUri); //makes sure we reuse objUri
+        //if (editConfig.getLiteralsInScope() == null) {
+        //    Map<String,String> varsToLiterals = new HashMap<String,String>();
+        //    varsToLiterals.put(objectVarHandle,object.getName());
+        //    editConfig.setLiteralsInScope(varsToLiterals);
+        //} else {
+        	editConfig.getLiteralsInScope().put(objectVarHandle,object.getName());
+        //}
         formTitle   = "Change value for &quot;"+prop.getDomainPublic()+"&quot; property for "+subject.getName();
         submitLabel = "save change";
     } else {
         formTitle   ="Select value for new &quot;"+prop.getDomainPublic()+"&quot; property for "+subject.getName();
         submitLabel ="save entry";
-    }%>
-
+    }
+%>
 <jsp:include page="${preForm}"/>
 
 <h1><%=formTitle%></h1>
 <form action="<c:url value="/edit/processRdfForm2.jsp"/>" >
-    <v:input type="select" id="object" label="object of property" /> 
+    <v:input type="select" id="<%=objectVarHandle%>" label="object of property" /> 
     <v:input type="submit" id="submit" value="<%=submitLabel%>" cancel="${param.subjectUri}"/>
     <v:input type="editKey" id="editKey"/>
 

@@ -78,7 +78,7 @@ in processing the form.
         // need to get subject because have to iterate through all its data property statements to match datapropKey hashcode
         subject = wdf.getIndividualDao().getIndividualByURI(subjectUri);
         if( subject == null ) throw new Error("In processDatapropRdfForm.jsp, could not find subject Individual via uri " + subjectUri);
-        fieldAssertions = fieldsToMap(editConfig.getFields(),subject,predicateUri);
+        fieldAssertions = fieldsToMap(editConfig.getFields());
 //  }else{
 //      fieldAssertions = new HashMap<String,List<String>>();
     }
@@ -260,31 +260,20 @@ in processing the form.
     /* ******************** utility functions ****************** */
     /* ********************************************************* */
 
-    public Map<String,List<String>> fieldsToMap( Map<String,Field> fields,Individual subject,String predicateUri){
+    public Map<String,List<String>> fieldsToMap( Map<String,Field> fields){
         Map<String,List<String>> out = new HashMap<String,List<String>>();
-        for( String fieldName : fields.keySet()){ // hashcodes from datapropKey
+        for( String fieldName : fields.keySet()){
             Field field = fields.get(fieldName);
 
             List<String> copyOfN3 = new ArrayList<String>();
-            for( String datapropKey : field.getAssertions()){
-                int dataHash=0;
-                try {
-                    dataHash = Integer.parseInt(datapropKey);
-                    System.out.println("read datapropKey as "+dataHash+" in processDatapropRdfForm.jsp fieldsToMap()");
-                } catch (NumberFormatException ex) {
-                    throw new Error("Cannot decode incoming datapropKey value "+datapropKey+" as an integer hash in processDatapropRdfForm.jsp fieldsToMap()");
-                }
-                // now retrieve the real data property value from the hashed parameter
-                DataPropertyStatement dps=EditConfiguration.findDataPropertyStatementViaHashcode(subject,predicateUri,dataHash);
-            	if (dps!=null) {
-                	copyOfN3.add(dps.getData().trim());
-            	}
+            for( String str : field.getAssertions()){
+                copyOfN3.add(str);
             }
             out.put( fieldName, copyOfN3 );
         }
         return out;
     }
-
+	
     public Map<String,List<String>> substituteIntoValues(Map<String,String> varsToUris,
                                                       Map<String,String> varsToLiterals,
                                                       Map<String,List<String>> namesToN3 ){

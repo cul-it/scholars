@@ -14,26 +14,20 @@ System.out.println("starting defaultDatapropForm.jsp");
     String datapropKey = request.getParameter("datapropKey");
     if( datapropKey != null){
         System.out.println("found a datapropKey in defaultDatapropForm.jsp:" + datapropKey + " will attempt to edit existing literal");
-        request.setAttribute("datapropKeyJson", MiscWebUtils.escape(datapropKey));
+        // already done in editDatapropStmtRequestDispatch: request.setAttribute("datapropKeyJson", MiscWebUtils.escape(datapropKey));
     }else{
         System.out.println("no datapropkey found in defaultDatapropForm.jsp, making new literal for object");
     }
 
-    /* bdc34: these should be moved to EditRequestDistpatch.jsp */
-    String v = request.getParameter("subjectUri");
-    request.setAttribute("subjectUriJson",MiscWebUtils.escape(v));
-    v = request.getParameter("predicateUri");
-    request.setAttribute("predicateUriJson",MiscWebUtils.escape(v));
-
-    //this should be moved to editREquestDispatch.jsp
+    //this should be moved to editREquestDispatch.jsp? what does it do?
     request.getSession(true);
 
     DataProperty prop = (DataProperty)request.getAttribute("predicate");
-    if( prop == null ) throw new Error("could not find predicate " + predicateUri);
+    if( prop == null ) throw new Error("In defaultDatapropForm.jsp, could not find predicate " + predicateUri);
     request.setAttribute("propertyName",prop.getPublicName());
     
     Individual subject = (Individual)request.getAttribute("subject");
-    if( subject == null ) throw new Error("could not find subject " + subjectUri);
+    if( subject == null ) throw new Error("In defaultDatapropForm.jsp, could not find subject " + subjectUri);
     request.setAttribute("subjectName",subject.getName());
 
     String rangeDatatypeUri = prop.getRangeDatatypeURI();
@@ -41,7 +35,6 @@ System.out.println("starting defaultDatapropForm.jsp");
     
     System.out.println("The "+prop.getPublicName()+" data property expects a "+rangeDatatypeUri+" value for individual "+subject.getName());
 %>
-
 <v:jsonset var="n3ForEdit"  >
     ?subject ?predicate ?editedLiteral.
 </v:jsonset>
@@ -108,7 +101,7 @@ System.out.println("starting defaultDatapropForm.jsp");
         submitLabel ="save entry";
     }
 %>
-
+<%--the following  parameters configure the tinymce textarea --%>
 <jsp:include page="${preForm}">
 	<jsp:param name="height" value="2"/>
 	<jsp:param name="width" value="95%"/>

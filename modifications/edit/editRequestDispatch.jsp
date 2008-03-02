@@ -23,7 +23,7 @@
       ************************************** */
     
     final String DEFAULT_OBJ_FORM =  "defaultObjPropForm.jsp";
-    final String DEFAULT_DATA_FORM = "defaultDataProp.jsp";
+    final String DEFAULT_ERROR_FORM = "error.jsp";
     final String DEFAULT_EDIT_THEME_DIR = "themes/default";
 
     HashMap<String,String> propUriToForm = null;
@@ -72,13 +72,17 @@
     WebappDaoFactory wdf = vreq.getWebappDaoFactory();
 
     Individual subject = wdf.getIndividualDao().getIndividualByURI(subjectUri);
-    if( subject == null ) throw new Error("Could not find subject in model: '" + subjectUri + "'");
+    if( subject == null ) throw new Error("In editRequestDispatch.jsp, could not find subject in model: '" + subjectUri + "'");
     request.setAttribute("subject", subject);
-
+    
+    ObjectProperty objectprop = wdf.getObjectPropertyDao().getObjectPropertyByURI(predicateUri);
+    if( objectprop == null ) throw new Error("In editRequestDispatch.jsp, could not find predicate object property in model: '"+predicateUri+"'");
+    request.setAttribute("predicate", objectprop);
+    
     if( objectUri != null ){
         Individual object = wdf.getIndividualDao().getIndividualByURI( objectUri );
         if( object == null ) throw new Error("Could not find object in model: '" + objectUri + "'");
-        request.setAttribute("object" , object);
+        request.setAttribute("object", object);
     }
 
     /* keep track of what form we are using so it can be returned to after a failed validation */
@@ -105,7 +109,7 @@
        	if( prop != null )
            	form = DEFAULT_OBJ_FORM;
        	else
-           	form = DEFAULT_DATA_FORM;  
+           	form = DEFAULT_ERROR_FORM;  
     }
     request.setAttribute("form" ,form);
     

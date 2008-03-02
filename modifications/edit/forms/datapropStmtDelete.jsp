@@ -26,7 +26,7 @@
     if (datapropKey!=null && datapropKey.trim().length()>0) {
         try {
         	dataHash = Integer.parseInt(datapropKey);
-        	System.out.println("read dataHash as "+dataHash+" in datapropStmtDelete.jsp");
+        	//System.out.println("read dataHash as "+dataHash+" in datapropStmtDelete.jsp");
         } catch (NumberFormatException ex) {
             throw new JspException("Cannot decode incoming datapropKey value "+datapropKey+" as an integer hash in datapropStmtDelete.jsp");
         }
