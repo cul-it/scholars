@@ -17,7 +17,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
 var niftyOk=(document.getElementById && document.createElement && Array.prototype.push);
-var niftyCss=false;  // Default false, forcing to be true
+var niftyCss=true;  // Default false, forcing to be true
 
 String.prototype.find=function(what){
 return(this.indexOf(what)>=0 ? true : false);
@@ -29,15 +29,15 @@ if(typeof(oldonload)=='function')
     window.onload=function(){oldonload();AddCss();NiftyLoad()};
 else window.onload=function(){AddCss();NiftyLoad()};
 
-function AddCss(){
-niftyCss=true;
-var l=CreateEl("link");
-l.setAttribute("type","text/css");
-l.setAttribute("rel","stylesheet");
-l.setAttribute("href","style/niftyCorners.css");
-l.setAttribute("media","screen");
-document.getElementsByTagName("head")[0].appendChild(l);
-}
+// function AddCss(){
+// niftyCss=true;
+// var l=CreateEl("link");
+// l.setAttribute("type","text/css");
+// l.setAttribute("rel","stylesheet");
+// l.setAttribute("href","style/niftyCorners.css");
+// l.setAttribute("media","screen");
+// document.getElementsByTagName("head")[0].appendChild(l);
+// }
 
 function Nifty(selector,options,userColorTop,userColorBottom){
 if(niftyOk==false) return;
