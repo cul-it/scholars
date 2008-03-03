@@ -10,8 +10,8 @@
 <head>
 	<title>Graduate Programs in the Life Sciences</title>
 	<link rel="stylesheet" href="style/screen.css" type="text/css" />
-    <!-- <script type="text/javascript" src="js/original-niftycube.js"></script> -->
-    <!-- <script type="text/javascript" src="js/corners.js"></script> -->
+    <script type="text/javascript" src="js/niftycube.js"></script>
+    <script type="text/javascript" src="js/corners.js"></script>
     <script type="text/javascript" src="js/jquery.js"></script>
 </head>
 

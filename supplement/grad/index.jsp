@@ -22,7 +22,7 @@
                 </div>
                 <div id="search">
                     <form name="findresearch" action="" method="get">
-                        <label for="findResearchInput"><h2>Find Research</h2></label>
+                        <h2><label for="findResearchInput">Find Research</label></h2>
                         <input name="findresearch" id="findResearchInput" type="text" />
                         <button name="submit" id="findResearchButton" type="submit" value="">
                             <img src="images/layout/button_search.gif" alt="Search" />

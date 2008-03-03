@@ -10,7 +10,7 @@ Authors:     nac26@cornell.edu, mw542@cornell.edu
 Updated:    February 14, 2008
 */
 html {
-/*    height: 100%;    */
+    height: 100%;    /* Allow background over lay to extend to bottom of window */
 }
 body {
     font-family: Helvetica, Arial, Verdana, sans-serif;
@@ -91,9 +91,6 @@ body {
     width: 270px;
     font-size: 1.2em;
     margin-bottom: 20px;
-/*  padding-top: 20px;*/
-/*  width: 240px;*/
-/*  text-align: center;*/
 }
 
 #sidebar.expanded {
@@ -103,22 +100,19 @@ body {
 #leftColumn {
     float: left;
     width: 48%;
-/*    border: 1px solid green;*/
+
 }
 
 #rightColumn {
     float: right;
     width: 48%;
-/*    border: 1px solid red;*/
+
 }
 
 #departmentsInField, #facultyInField {
     width: 48%;
-/*    padding: 12px 20px;*/
     margin-top: 1.5em;
     margin-bottom: 30px;
-/*    background: transparent url(../images/layout/bg_sidebar-brown.png) top left !important;*/
-/*    background: url(../images/layout/bg_sidebar-brown.gif) top left;*/
 }
 
 #researchInField {
@@ -127,8 +121,6 @@ body {
     margin-right: 12px;
     padding: 14px 20px;
     background: #224b4c;
-/*    background: transparent url(../images/layout/bg_sidebar.png) top left !important;*/
-/*    background: url(../images/layout/bg_sidebar.gif) top left;*/
 }
 
 #footer {
@@ -147,7 +139,7 @@ body {
 }
 
 /****************************************************************
-/header roll call
+header roll call
 ****************************************************************/
 #header {
     position: relative;
@@ -158,7 +150,6 @@ body {
     font-size: 3.4em;
     font-family: "Myriad Pro", Helvetica, Arial, Verdana, Sans-serif;
     font-weight: bold;
-/*    letter-spacing: -.02em;*/
     color: #69bfde;
 }
 
@@ -168,11 +159,7 @@ body {
 
 #header ul li {
     display: inline;
-/*  margin: 10px 0;*/
-/*  margin-left: 1px;*/
-/*  padding: 6px 5px 6px 5px;*/
     font-size: 1.3em;
-/*  border: solid 1px #f81;*/
 }
 
 #header ul li a:link, #header ul li a:visited {
@@ -189,15 +176,12 @@ body {
 #header ul li a:link.currentTab, #header ul a:visited.currentTab {
     padding: 6px 8px 7px 8px;
     color: #fff;
-/*  background: #031d1d;*/
-/*  background: #002f2f;*/
-/*  background: #021C1C;*/
     background: #000 url(../images/layout/bg_content.png) left top !important;
     background: #021C1C url(../images/layout/bg_content.gif) left top; /* Delivered to browsers without PNG support */
 }
 
 /****************************************************************
-/content roll call
+content roll call
 ****************************************************************/
 
 #content.fullPage h2.groupLabel {
@@ -221,8 +205,6 @@ body {
 .fieldRelationLabel {
     padding: 5px 13px 3px 13px;
     background: #224B4C;
-/*    background: transparent url(../images/layout/bg_sidebar-brown.png) top left !important;*/
-/*    background: url(../images/layout/bg_sidebar-brown.gif) top left;*/
 }
 
 #apply {
@@ -255,7 +237,7 @@ body {
 }
 
 /****************************************************************
-/sidebar roll call
+sidebar roll call
 ****************************************************************/
 
 #sidebar h2 {
@@ -308,7 +290,7 @@ div#search h2 {
 }
 
 /****************************************************************
-/footer roll call
+footer roll call
 ****************************************************************/
 #footer p.siteFeedback {
     float: right;
@@ -316,7 +298,7 @@ div#search h2 {
 }
 
 /****************************************************************
-/basics roll call
+basics roll call
 ****************************************************************/
 
 p {
@@ -346,13 +328,11 @@ h2 {
 h3 {
     font-size: 1.5em;
     line-height: 1.5em;
-/*    font-weight: bold;*/
 }
 
 h4 {
     font-size: 1.5em;
     line-height: 1.5em;
-/*    font-weight: bold;*/
 }
 
 li.clean {
@@ -361,7 +341,7 @@ li.clean {
 }
 
 /****************************************************************
-/image roll call
+image roll call
 ****************************************************************/
 
 #news ul li img {
@@ -372,7 +352,7 @@ li.clean {
 }
 
 /****************************************************************
-/anchor roll call
+anchor roll call
 ****************************************************************/
 a:link, a:visited, a:hover, a:active {
     text-decoration: none;
@@ -406,7 +386,6 @@ h2.groupLabel, h2.groupLabel a:link, h2.groupLabel a:visited {
 
 #news a, #seminars a {
     font-size: 1em;
-/*    font-weight: bold;*/
 }
 
 #news a:link, #news a:visited, #seminars a:link, #seminars a:visited {
@@ -429,14 +408,12 @@ h2.groupLabel, h2.groupLabel a:link, h2.groupLabel a:visited {
 
 #sidebar a:link.moreLink, #sidebar a:visited.moreLink {
     color: #b9121b;
-/*    border-bottom: 1px solid #b9121b;*/
     border-bottom: 0;
     font-weight: bold;
 }
 
 #sidebar a:hover.moreLink, #sidebar a:active.moreLink {
     color: red;
-/*    border-bottom: 1px solid red;*/
     border-bottom: 0;
     font-weight: bold;
     text-decoration: underline;
@@ -453,7 +430,7 @@ h2.groupLabel, h2.groupLabel a:link, h2.groupLabel a:visited {
 }
 
 /****************************************************************
-/list roll call
+list roll call
 ****************************************************************/
 ul li {
     list-style-type: none;
@@ -494,18 +471,11 @@ ul.fields li a {
     font-size: 1.2em;
     font-weight: bold;
     line-height: 1.3em;
-/*    border-bottom: 1px solid #666;*/
 }
 
 .fieldlistIndent {
     padding-left: 12em; /* Indents list of fields on fields.jsp to align with title */
 }
-
-/* Fix for IE6 3-pixel indent bug, described at: http://www.positioniseverything.net/explorer/threepxtest.html */ 
-/* Hide from IE5-mac. Only IE-win sees this. \*/
-* html ul.fieldlistIndent {  height: 1%;  margin: 0;  padding: .4em 0 0 1em;  }
-/* End hide from IE5/mac */
-
 
 #leftColumn ul, #rightColumn ul {
     margin: -1em 0 2em 0;
@@ -614,7 +584,7 @@ ul.fields li a {
 
 
 /****************************************************************
-/form roll call
+form roll call
 ****************************************************************/
 #findResearchInput {
     height: 18px;
@@ -638,6 +608,12 @@ ul.fields li a {
 }
 
 /****************************************************************
-/table roll call
+table roll call
 ****************************************************************/
+
+
+/* Fix for IE6 3-pixel indent bug, described at: http://www.positioniseverything.net/explorer/threepxtest.html */ 
+/* Hide from IE5-mac. Only IE-win sees this. \*/
+* html ul.fieldlistIndent {  height: 1%;  margin: 0;  padding: .4em 0 0 1em;  }
+/* End hide from IE5/mac */
 
