@@ -40,7 +40,6 @@ are well formed.
 
     EditConfiguration editConfig = EditConfiguration.getConfigFromSession(session,request);
     EditSubmission submission = new EditSubmission(request,jenaOntModel,editConfig);
-    dump("config" , editConfig);
     
     Map<String,String> errors =  submission.getValidationErrors();
     EditSubmission.putEditSubmissionInSession(session,submission);
@@ -177,11 +176,12 @@ are well formed.
              }
          }
         if( !errorMessages.isEmpty() ){
-            System.out.println("problems processing required n3: \n" );
-            for( String error : errorMessages){
-                System.out.println(error);
+
+            String error = "problems processing required n3: \n";
+            for( String errorMsg : errorMessages){
+                error += errorMsg + '\n';
             }
-            throw new JspException("errors processing required N3, check logs for details");
+            throw new JspException("errors processing required N3,\n" +  error );
         }
         requiredAssertions = requiredNewModels;
         requiredRetractions = Collections.EMPTY_LIST;
@@ -397,6 +397,23 @@ are well formed.
 
 
 <%!
+    /* What are the posibilities and what do they mean?
+     field is a Uri:
+      orgValue  formValue
+      null      null       Optional object property, maybe a un-filled out checkbox or radio button.
+      non-null  null       There was an object property and it was unset on the form
+      null      non-null   There was an objProp that was not set and is now set.
+      non-null  non-null    If they are the same then there was no edit, if the differ then form field was changed
+
+      field is a Literal:
+      orgValue  formValue
+      null      null      Optional value that was not set.
+      non-null  null      Optional value that was unset on form
+      null      non-null  Optional value that was unset but was set on form
+      non-null  non-null  If same, there was no edit, if different, there was a change to the form field.
+
+      What about checkboxes?
+    */
     private boolean hasFieldChanged(String fieldName, EditConfiguration editConfig, EditSubmission submission) {
         String orgValue = editConfig.getUrisInScope().get(fieldName);
         String newValue = submission.getUrisFromForm().get(fieldName);

@@ -116,7 +116,7 @@
 
 <h1><%=formTitle%></h1>
 <form action="<c:url value="/edit/processRdfForm2.jsp"/>" >
-    <v:input type="select" id="objectVar" label="object of property" />
+    <v:input type="select" id="objectVar" label="<%=rangeClass.getName()%>" />
     <v:input type="submit" id="submit" value="<%=submitLabel%>" cancel="${param.subjectUri}"/>
     <v:input type="editKey" id="editKey"/>
 
