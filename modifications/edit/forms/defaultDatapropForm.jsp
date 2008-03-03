@@ -6,18 +6,11 @@
 <%@ taglib prefix="v" uri="http://vitro.mannlib.cornell.edu/vitro/tags" %>
 <%@page import="edu.cornell.mannlib.vitro.webapp.web.MiscWebUtils"%>
 <%
-System.out.println("starting defaultDatapropForm.jsp");
 
     String subjectUri   = request.getParameter("subjectUri");
     String predicateUri = request.getParameter("predicateUri");
-    
+
     String datapropKey = request.getParameter("datapropKey");
-    if( datapropKey != null){
-        System.out.println("found a datapropKey in defaultDatapropForm.jsp:" + datapropKey + " will attempt to edit existing literal");
-        // already done in editDatapropStmtRequestDispatch: request.setAttribute("datapropKeyJson", MiscWebUtils.escape(datapropKey));
-    }else{
-        System.out.println("no datapropkey found in defaultDatapropForm.jsp, making new literal for object");
-    }
 
     //this should be moved to editREquestDispatch.jsp? what does it do?
     request.getSession(true);
@@ -25,15 +18,14 @@ System.out.println("starting defaultDatapropForm.jsp");
     DataProperty prop = (DataProperty)request.getAttribute("predicate");
     if( prop == null ) throw new Error("In defaultDatapropForm.jsp, could not find predicate " + predicateUri);
     request.setAttribute("propertyName",prop.getPublicName());
-    
+
     Individual subject = (Individual)request.getAttribute("subject");
     if( subject == null ) throw new Error("In defaultDatapropForm.jsp, could not find subject " + subjectUri);
     request.setAttribute("subjectName",subject.getName());
 
     String rangeDatatypeUri = prop.getRangeDatatypeURI();
     request.setAttribute("rangeDatatypeUriJson", MiscWebUtils.escape(rangeDatatypeUri));
-    
-    System.out.println("The "+prop.getPublicName()+" data property expects a "+rangeDatatypeUri+" value for individual "+subject.getName());
+
 %>
 <v:jsonset var="n3ForEdit"  >
     ?subject ?predicate ?editedLiteral.
@@ -78,9 +70,9 @@ System.out.println("starting defaultDatapropForm.jsp");
                                        "objectClassUri"   : "",
                                        "rangeDatatypeUri" : "${rangeDatatypeUriJson}",
                                        "literalOptions"   : [ ] ,
-                                       "assertions"       : ["${n3ForEdit}"] 
+                                       "assertions"       : ["${n3ForEdit}"]
                                      }
-								  }
+                                  }
   }
 </c:set>
 
@@ -103,15 +95,15 @@ System.out.println("starting defaultDatapropForm.jsp");
 %>
 <%--the following  parameters configure the tinymce textarea --%>
 <jsp:include page="${preForm}">
-	<jsp:param name="height" value="2"/>
-	<jsp:param name="width" value="95%"/>
-	<jsp:param name="buttons" value="bold,italic,underline,separator,link,bullist,numlist,separator,sub,sup,charmap,separator,undo,redo,separator,removeformat,cleanup,help,code"/>
-	<jsp:param name="toolbarLocation" value="bottom"/>
+    <jsp:param name="height" value="2"/>
+    <jsp:param name="width" value="95%"/>
+    <jsp:param name="buttons" value="bold,italic,underline,separator,link,bullist,numlist,separator,sub,sup,charmap,separator,undo,redo,separator,removeformat,cleanup,help,code"/>
+    <jsp:param name="toolbarLocation" value="bottom"/>
 </jsp:include>
 
 <h3><%=formTitle%></h3>
 <form action="<c:url value="/edit/processDatapropRdfForm.jsp"/>" >
-	<v:input type="textarea" id="editedLiteral" rows="2"/> 
+    <v:input type="textarea" id="editedLiteral" rows="2"/>
     <v:input type="submit" id="submit" value="<%=submitLabel%>" cancel="${param.subjectUri}"/>
 </form>
 

@@ -181,29 +181,17 @@
   }
 </c:set>
 <%
-    dump("editJson",request.getAttribute("editjson"));
-    
     EditConfiguration editConfig = EditConfiguration.getConfigFromSession(session,request);
     if( editConfig == null ){
         editConfig = new EditConfiguration((String)request.getAttribute("editjson"));
         EditConfiguration.putConfigInSession(editConfig, session);
-
-        System.out.println("******************* JUST PUT EDITCONFIG IN SESSION ***********************");
-        dump("editConfig",editConfig);
-    }      else {
-        System.out.println("WARNING: reusing editConfig from session, this should only happen whe we are doing a update or a re-edit after a submit");
     }
 
     String objectUri = (String)request.getAttribute("objectUri");
     if( objectUri != null ){
-        System.out.println("found objectUri: " + objectUri);
-
         Model model =  (Model)application.getAttribute("jenaOntModel");
         //prepareForEditOfExisting(editConfig, model, request, session);
         editConfig.prepareForUpdate(request,model);
-
-        System.out.println("******************* SETUP For Update ***********************");
-        dump("editConfig",editConfig);
     }
 
     /* get some data to make the form more useful */
@@ -219,8 +207,6 @@
         submitLabel = "Create new course";
     }
 
-    System.out.println("******************* About to do form html ***********************");
-        dump("editConfig",editConfig)   ;
 %>
 
 <jsp:include page="${preForm}"/>
@@ -271,11 +257,4 @@ for each field:
 //      }
 <%--}%>--%>
 
-<%!
-    private void dump(String name, Object fff){
-        XStream xstream = new XStream(new DomDriver());
-        System.out.println( "*******************************************************************" );
-        System.out.println( name );
-        System.out.println(xstream.toXML( fff ));
-    }
-%>
+

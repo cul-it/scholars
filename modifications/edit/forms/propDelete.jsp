@@ -10,19 +10,17 @@
 <%@ page import="edu.cornell.mannlib.vitro.webapp.filters.VitroRequestPrep" %>
 <%@ taglib prefix="v" uri="http://vitro.mannlib.cornell.edu/vitro/tags" %>
 <%
-    System.out.println("in propDelete.jsp");
     if( session == null)
         throw new Error("need to have session");
     if (!VitroRequestPrep.isSelfEditing(request) && !LoginFormBean.loggedIn(request, LoginFormBean.CURATOR)) {%>
         <c:redirect url="/about.jsp"/>
 <%  }
 
-    System.out.println("In propDelete.jsp, getting parameters");
 
     String subjectUri   = request.getParameter("subjectUri");
     String predicateUri = request.getParameter("predicateUri");
     String objectUri    = request.getParameter("objectUri");
-    
+
     VitroRequest vreq = new VitroRequest(request);
     WebappDaoFactory wdf = vreq.getWebappDaoFactory();
     if( wdf == null )
@@ -32,10 +30,9 @@
     if( prop == null )
         throw new Error("In propDelete.jsp, could not find property " + predicateUri);
     request.setAttribute("propertyName",prop.getDomainPublic());
-    
+
     //do the delete
-    if( request.getParameter("y") != null ){    
-        System.out.println("In propDelete.jsp, doing the delete of \n"+subjectUri+"\n"+predicateUri+"\n"+objectUri);
+    if( request.getParameter("y") != null ){
         wdf.getPropertyInstanceDao().deleteObjectPropertyStatement(subjectUri,predicateUri,objectUri);
 
 //      ObjectPropertyStatement stmt = new ObjectPropertyStatement();
@@ -48,12 +45,11 @@
         //request.setAttribute("propertyName",prop.getDomainPublic());
 %>
         <c:url var="redirectUrl" value="../entity">
-    	    <c:param name="uri" value="${param.subjectUri}"/>
-		</c:url>
-		<c:redirect url="${redirectUrl}"/>
+            <c:param name="uri" value="${param.subjectUri}"/>
+        </c:url>
+        <c:redirect url="${redirectUrl}"/>
 <%  }
 
-    System.out.println("In propDelete.jsp, getting ready to make form");
 
     Individual subject = wdf.getIndividualDao().getIndividualByURI(subjectUri);
     if( subject == null ) throw new Error("could not find subject " + subjectUri);
@@ -62,7 +58,7 @@
     Individual object = wdf.getIndividualDao().getIndividualByURI(objectUri);
     if( object == null ) throw new Error("could not find subject " + objectUri);
     request.setAttribute("objectName",object.getName());
-    
+
     VClass rangeClass = wdf.getVClassDao().getVClassByURI(prop.getRangeVClassURI());
     request.setAttribute("rangeClassName", rangeClass.getName());
 %>

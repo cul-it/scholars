@@ -15,9 +15,9 @@
 <%  /* get some data not already retrieved in editRequestDispatch to make the form more useful */
     String subjectUri   = request.getParameter("subjectUri");
     // already done in editRequestDispatch.jsp: request.setAttribute("subjectUriJson",MiscWebUtils.escape(subjectUri));
-	Individual subject = (Individual)request.getAttribute("subject");
-	if( subject == null ) throw new Error("In defaultObjPropForm.jsp, did not find subject in request scope: " + subjectUri);
-	request.setAttribute("subjectName",subject.getName());
+    Individual subject = (Individual)request.getAttribute("subject");
+    if( subject == null ) throw new Error("In defaultObjPropForm.jsp, did not find subject in request scope: " + subjectUri);
+    request.setAttribute("subjectName",subject.getName());
 
     String predicateUri = request.getParameter("predicateUri");
     // already done in editRequestDispatch.jsp: request.setAttribute("predicateUriJson",MiscWebUtils.escape(predicateUri));
@@ -37,9 +37,6 @@
         object = (Individual)request.getAttribute("object");
         if( object == null ){ throw new Error("found an objectUri but no object in defaultObjPropForm.jsp"); }
         // already done in editRequestDispatch.jsp: request.setAttribute("objectUriJson",MiscWebUtils.escape(objectUri));
-        System.out.println("found an objectUri in defaultObjPropForm.jsp: '" + objectUri + "' and will attempt to edit relationship to existing object '"+object.getName()+"'");
-    }else{
-        System.out.println("no objectUri found in defaultObjPropForm.jsp, making new object property");
     }
 
     // what does this do?
@@ -94,9 +91,9 @@
                                        "objectClassUri"   : "",
                                        "rangeDatatypeUri" : "",
                                        "literalOptions"   : [ ] ,
-                                       "assertions"       : ["${n3ForEdit}"] 
+                                       "assertions"       : ["${n3ForEdit}"]
                                      }
-								  }
+                                  }
   }
 </c:set>
 
@@ -107,7 +104,7 @@
     String submitLabel ="";
     if( objectUri != null ){     //these get done on an edit of an existing object property statement
         Model model = (Model)application.getAttribute("jenaOntModel");
-		editConfig.prepareForUpdate(request,model);
+        editConfig.prepareForUpdate(request,model);
         formTitle   = "Change value for &quot;"+prop.getDomainPublic()+"&quot; property for "+subject.getName();
         submitLabel = "save change";
     } else {
@@ -119,7 +116,7 @@
 
 <h1><%=formTitle%></h1>
 <form action="<c:url value="/edit/processRdfForm2.jsp"/>" >
-    <v:input type="select" id="objectVar" label="object of property" /> 
+    <v:input type="select" id="objectVar" label="object of property" />
     <v:input type="submit" id="submit" value="<%=submitLabel%>" cancel="${param.subjectUri}"/>
     <v:input type="editKey" id="editKey"/>
 

@@ -27,7 +27,6 @@ are not bound or it cannot be processed as n3 by Jena then it is an error
 in processing the form.
 --%>
 <%
-    System.out.println("************** starting processDatapropRdfForm.jsp ****************");
     if( session == null)
         throw new Error("need to have session");
 %>
@@ -43,17 +42,14 @@ in processing the form.
     EditConfiguration editConfig = EditConfiguration.getConfigFromSession(session,request);
     EditSubmission submission = new EditSubmission(request,jenaOntModel,editConfig);
 
-    dump("EditConfiguration in processDatapropRdfForm.jsp", editConfig);
-
     Map<String,String> errors = submission.getValidationErrors();
     EditSubmission.putEditSubmissionInSession(session,submission);
 
     if( errors != null && ! errors.isEmpty() ){
-        System.out.println("seems to be a validation error in processDatapropRdfForm.jsp");
         String form = editConfig.getFormUrl();
         request.setAttribute("formUrl", form);
         %><jsp:forward page="${formUrl}"/><%
-      	return;
+        return;
     }
 
     List<String> n3Required = editConfig.getN3Required();
@@ -71,7 +67,7 @@ in processing the form.
         if (predicateUri == null || predicateUri.trim().length()==0) {
             throw new Error("No predicateUri parameter available via editConfig in processDatapropRdfForm.jsp");
         }
-        
+
         VitroRequest vreq = new VitroRequest(request);
         WebappDaoFactory wdf = vreq.getWebappDaoFactory();
 
@@ -83,9 +79,6 @@ in processing the form.
 //      fieldAssertions = new HashMap<String,List<String>>();
     }
 
-    dump("n3Required" , n3Required);
-    //dump("n3Optional" , n3Optional);
-    dump("fieldAssertions" , fieldAssertions);
 
     /* ********** URIs and Literals on Form/Parameters *********** */
     //sub in resource uris off form
@@ -97,11 +90,6 @@ in processing the form.
     //n3Optional = subInLiterals(submission.getLiteralsFromForm(), n3Optional);
 
     fieldAssertions = substituteIntoValues(submission.getUrisFromForm(), submission.getLiteralsFromForm(), fieldAssertions);
-
-    System.out.println("after Literals and URIs off of HTML form");
-    dump("n3Required" , n3Required);
-    //dump("n3Optional" , n3Optional);
-    dump("fieldAssertions" , fieldAssertions);
 
     /* ****************** URIs and Literals in Scope ************** */
     SparqlEvaluate sparqlEval = new SparqlEvaluate((Model)application.getAttribute("jenaOntModel"));
@@ -117,11 +105,6 @@ in processing the form.
 
     fieldAssertions = substituteIntoValues(urisInScope, literalsInScope, fieldAssertions );
 
-    System.out.println("after literals and Uris from scope");
-    dump("n3Required" , n3Required);
-    //dump("n3Optional" , n3Optional);
-    dump("fieldAssertions" , fieldAssertions);
-
     /* ****************** New Resources ********************** */
     Map<String,String> varToNewResource = newToUriMap(editConfig.getNewResources(),jenaOntModel);
 
@@ -130,11 +113,6 @@ in processing the form.
     n3Required = subInUris( varToNewResource, n3Required);
     //n3Optional = subInUris( varToNewResource, n3Optional);
     fieldAssertions = substituteIntoValues(varToNewResource, null, fieldAssertions);
-
-    System.out.println("after new resources");
-    dump("n3Required" , n3Required);
-    //dump("n3Optional" , n3Optional);
-    dump("fieldAssertions" , fieldAssertions);
 
     /* ***************** Build Models ******************* */
     /* bdc34: we should check if this is an edit of an existing
@@ -147,7 +125,6 @@ in processing the form.
     //List<Model> optionalAssertions  = null;
 
     if( editConfig.getDatapropKey() != null && editConfig.getDatapropKey().trim().length() > 0 ){
-        System.out.println(" doing a replacement of an existing data property '" + predicateUri + "'");
         //editing an existing statement
         List<Model> requiredFieldAssertions  = new ArrayList<Model>();
         List<Model> requiredFieldRetractions = new ArrayList<Model>();
@@ -155,8 +132,6 @@ in processing the form.
             Field field = editConfig.getFields().get(fieldName);
             /* CHECK that field changed, then add assertions and retractions */
             if( hasFieldChanged(fieldName, editConfig, submission) ){
-                System.out.println( "field " + fieldName + " has changed " );
-
                 List<String> assertions = fieldAssertions.get(fieldName);
                 for( String n3 : assertions){
                     try{
@@ -169,7 +144,6 @@ in processing the form.
                                 t.getMessage() + '\n' +
                                 "n3: \n" + n3 );
                     }
-                    System.out.println("processDatapropRdfForm.jsp change field assertions" + n3);
                 }
                 for( String n3 : field.getRetractions()){
                     try{
@@ -182,16 +156,14 @@ in processing the form.
                                 t.getMessage() + '\n' +
                                 "n3: \n" + n3 );
                     }
-                    System.out.println("processDatapropRdfForm.jsp change field retractions" + n3);
                 }
             }
         }
         requiredAssertions = requiredFieldAssertions;
         requiredRetractions = requiredFieldRetractions;
         //optionalAssertions = Collections.EMPTY_LIST;
-   
+
     } else {
-        System.out.println("making a new data property statement in processDatapropRdfForm.jsp");
         //deal with required N3
         List<Model> requiredNewModels = new ArrayList<Model>();
         for(String n3 : n3Required){
@@ -207,7 +179,6 @@ in processing the form.
             }
         }
         if( !errorMessages.isEmpty() ){
-            System.out.println("problems processing required n3 in processDatapropRdfForm.jsp: \n" );
             for( String error : errorMessages){
                 System.out.println(error);
             }
@@ -217,10 +188,6 @@ in processing the form.
         requiredRetractions = Collections.EMPTY_LIST;
     }
 
-    System.out.println("In processDatapropRdfForm.jsp there are " + requiredAssertions.size() + " models in required assertions");
-    //System.out.println("here are " + optionalAssertions.size() + " models in optional");
-    System.out.println("In processDatapropRdfForm.jsp there are " + requiredRetractions.size() + " models in retractions");
-    
     Lock lock = null;
     try{
         lock =  persistentOntModel.getLock();
@@ -273,7 +240,7 @@ in processing the form.
         }
         return out;
     }
-	
+
     public Map<String,List<String>> substituteIntoValues(Map<String,String> varsToUris,
                                                       Map<String,String> varsToLiterals,
                                                       Map<String,List<String>> namesToN3 ){
@@ -281,19 +248,19 @@ in processing the form.
         Map<String,List<String>> outHash = new HashMap<String,List<String>>();
 
         if (namesToN3==null) {
-            System.out.println("In processDatapropRdfForm.jsp substituteIntoValues(), incoming namesToN3 is null");
+            return outHash;
         } else if (namesToN3.isEmpty()) {
-            System.out.println("In processDatapropRdfForm.jsp substituteIntoValues(), incoming namesToN3 is empty");           
+            return outHash;
         } else {
-	        for(String fieldName : namesToN3.keySet()){
-	            List<String> n3strings = namesToN3.get(fieldName);
-	            List<String> newList  = new ArrayList<String>();
-	            if( varsToUris != null)
-	                newList = subInUris(varsToUris, n3strings);
-	            if( varsToLiterals != null)
-	                newList = subInLiterals(varsToLiterals, newList);
-	            outHash.put(fieldName, newList);
-	        }
+            for(String fieldName : namesToN3.keySet()){
+                List<String> n3strings = namesToN3.get(fieldName);
+                List<String> newList  = new ArrayList<String>();
+                if( varsToUris != null)
+                    newList = subInUris(varsToUris, n3strings);
+                if( varsToLiterals != null)
+                    newList = subInLiterals(varsToLiterals, newList);
+                outHash.put(fieldName, newList);
+            }
         }
         return outHash;
     }
@@ -373,7 +340,7 @@ in processing the form.
     public String makeNewUri(String prefix, Model model){
         if( prefix == null || prefix.length() == 0 )
             prefix = defaultUriPrefix;
-        
+
         String uri = prefix + random.nextInt();
         Resource r = ResourceFactory.createResource(uri);
         while( model.containsResource(r) ){
@@ -398,7 +365,7 @@ in processing the form.
             else
               return true;
         }
-        
+
         orgValue = editConfig.getLiteralsInScope().get(fieldName);
         newValue = submission.getLiteralsFromForm().get(fieldName);
         if( orgValue != null && newValue != null ){
@@ -407,10 +374,8 @@ in processing the form.
             else
                 return true;
         }
-        
+
         System.out.println("**************************** odd condition in hasFieldchanged() ********************");
-        dump("editConfig" ,editConfig);
-        dump("submission", submission);
         throw new Error("in hasFieldChanged() for field " + fieldName + ", both old and new values are null, this should not happen");
     }
 

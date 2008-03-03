@@ -21,7 +21,7 @@
         cmd (optional)
         default (true|false)
       ************************************** */
-    
+
     final String DEFAULT_OBJ_FORM =  "defaultObjPropForm.jsp";
     final String DEFAULT_ERROR_FORM = "error.jsp";
     final String DEFAULT_EDIT_THEME_DIR = "themes/default";
@@ -42,7 +42,7 @@
     }
 
      /* Figure out what type of edit is being requested,
-        setup for that type of edit OR forward to some 
+        setup for that type of edit OR forward to some
         thing that can do the setup  */
 
     String subjectUri   = request.getParameter("subjectUri");
@@ -74,11 +74,11 @@
     Individual subject = wdf.getIndividualDao().getIndividualByURI(subjectUri);
     if( subject == null ) throw new Error("In editRequestDispatch.jsp, could not find subject in model: '" + subjectUri + "'");
     request.setAttribute("subject", subject);
-    
+
     ObjectProperty objectprop = wdf.getObjectPropertyDao().getObjectPropertyByURI(predicateUri);
     if( objectprop == null ) throw new Error("In editRequestDispatch.jsp, could not find predicate object property in model: '"+predicateUri+"'");
     request.setAttribute("predicate", objectprop);
-    
+
     if( objectUri != null ){
         Individual object = wdf.getIndividualDao().getIndividualByURI( objectUri );
         if( object == null ) throw new Error("Could not find object in model: '" + objectUri + "'");
@@ -88,7 +88,6 @@
     /* keep track of what form we are using so it can be returned to after a failed validation */
     String url= "/edit/editRequestDispatch.jsp"; //I'd like to get this from the request but...
     request.setAttribute("formUrl", url + "?" + request.getQueryString());
-    System.out.println("query url from editRequestDispatch: " + url);
 
     request.setAttribute("themeDir", "themes/editdefault/");
     request.setAttribute("preForm", "/edit/formPrefix.jsp");
@@ -104,16 +103,16 @@
         form = propUriToForm.get( predicateUri );
         request.setAttribute("hasCustomForm","true");
     }
-    if( form == null || "true".equalsIgnoreCase(defaultParam) ){        			
-       	ObjectProperty prop = wdf.getObjectPropertyDao().getObjectPropertyByURI( predicateUri );
-       	if( prop != null )
-           	form = DEFAULT_OBJ_FORM;
-       	else
-           	form = DEFAULT_ERROR_FORM;  
+    if( form == null || "true".equalsIgnoreCase(defaultParam) ){
+        ObjectProperty prop = wdf.getObjectPropertyDao().getObjectPropertyByURI( predicateUri );
+        if( prop != null )
+            form = DEFAULT_OBJ_FORM;
+        else
+            form = DEFAULT_ERROR_FORM;
     }
     request.setAttribute("form" ,form);
-    
+
     if( session.getAttribute("requestedFromEntity") == null )
-    	session.setAttribute("requestedFromEntity", subjectUri );
+        session.setAttribute("requestedFromEntity", subjectUri );
 %>
 <jsp:forward page="/edit/forms/${form}"  />

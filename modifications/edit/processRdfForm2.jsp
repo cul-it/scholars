@@ -24,7 +24,6 @@ The optional n3 blocks will proccessed if their variables are bound and
 are well formed.
 --%>
 <%
-    System.out.println("************** in processRdfForm2.jsp ****************");
     if( session == null)
         throw new Error("need to have session");
 %>
@@ -33,24 +32,24 @@ are well formed.
         %><c:redirect url="/about.jsp"></c:redirect>      <%
     }
 
+
+
     List<String>  errorMessages = new ArrayList<String>();
     Model jenaOntModel =  (Model)application.getAttribute("jenaOntModel");
     Model persistentOntModel = (Model)application.getAttribute("persistentOntModel");
 
     EditConfiguration editConfig = EditConfiguration.getConfigFromSession(session,request);
     EditSubmission submission = new EditSubmission(request,jenaOntModel,editConfig);
-
-    dump("EditConfiguration" , editConfig);
-
+    dump("config" , editConfig);
+    
     Map<String,String> errors =  submission.getValidationErrors();
     EditSubmission.putEditSubmissionInSession(session,submission);
 
     if(  errors != null && ! errors.isEmpty() ){
-        System.out.println("seems to be a validation error");
         String form = editConfig.getFormUrl();
         request.setAttribute("formUrl", form);
         %><jsp:forward page="${formUrl}"/><%
-      	return;
+        return;
     }
 
     List<String> n3Required = editConfig.getN3Required();
@@ -69,7 +68,7 @@ are well formed.
     }else{
         fieldRetractions = new HashMap<String,List<String>>();
     }
-    
+
     /* ********** URIs and Literals on Form/Parameters *********** */
     //sub in resource uris off form
     n3Required = subInUris(submission.getUrisFromForm(), n3Required);
@@ -107,11 +106,6 @@ are well formed.
     fieldAssertions = substituteIntoValues(varToNewResource, null, fieldAssertions);
     //fieldRetractions does NOT get values from form.
 
-    dump("n3Required" , n3Required);
-    dump("n3Optional" , n3Optional);
-    dump("fieldAssertions" , fieldAssertions);
-    dump("fieldRetractions" , fieldRetractions);
-
     /* ***************** Build Models ******************* */
     /* bdc34: we should dcheck if this is an edit of an existing
     or a new individual.  If this is a edit of an existing then
@@ -123,7 +117,6 @@ are well formed.
     List<Model> optionalAssertions  = null;
 
     if( editConfig.getObjectUri() != null && editConfig.getObjectUri().trim().length() > 0 ){
-        System.out.println(" doing an update of an existing '" +  editConfig.getObjectUri() + "'");
         //editing an existing statement
         List<Model> requiredFieldAssertions  = new ArrayList<Model>();
         List<Model> requiredFieldRetractions = new ArrayList<Model>();
@@ -131,10 +124,9 @@ are well formed.
             Field field = editConfig.getFields().get(fieldName);
             /* CHECK that field changed, then add assertions and retractions */
             if( hasFieldChanged(fieldName, editConfig, submission) ){
-                System.out.println( "field " + fieldName + " has changed " );
 
                 /* if the field was a checkbox then we need to something special */
-                
+
                 List<String> assertions = fieldAssertions.get(fieldName);
                 List<String> retractions = fieldRetractions.get(fieldName);
                 for( String n3 : assertions){
@@ -148,7 +140,6 @@ are well formed.
                                 t.getMessage() + '\n' +
                                 "n3: \n" + n3 );
                     }
-                    System.out.println("processRdfform2.jsp change field assertions" + n3);
                 }
                 for( String n3 : retractions ){
                     try{
@@ -161,7 +152,6 @@ are well formed.
                                 t.getMessage() + '\n' +
                                 "n3: \n" + n3 );
                     }
-                    System.out.println("processRdfform2.jsp change field retractions" + n3);
                 }
             }
         }
@@ -170,8 +160,6 @@ are well formed.
         optionalAssertions = Collections.EMPTY_LIST;
 
     } else {
-        System.out.println("making a new individual");
-
         //editing a new statement
 
         //deal with required N3
@@ -212,12 +200,14 @@ are well formed.
                         "n3: \n" + n3);
             }
         }
+        /*
         if( !errorMessages.isEmpty() ){
             System.out.println("problems processing optional n3: \n" );
             for( String error : errorMessages){
                 System.out.println(error);
             }
         }
+        */
         optionalAssertions = optionalNewModels;
     }
 
@@ -225,10 +215,6 @@ are well formed.
     //but for now we'll just do them the same
     requiredAssertions.addAll(optionalAssertions);
 
-    System.out.println("here are " + requiredAssertions.size() + " models in required");
-    System.out.println("here are " + optionalAssertions.size() + " models in optional");
-    System.out.println("here are " + requiredRetractions.size() + " models in retractions");
-    
     Lock lock = null;
     try{
         lock =  persistentOntModel.getLock();
@@ -390,7 +376,7 @@ are well formed.
     public String makeNewUri(String prefix, Model model){
         if( prefix == null || prefix.length() == 0 )
             prefix = defaultUriPrefix;
-        
+
         String uri = prefix + random.nextInt();
         Resource r = ResourceFactory.createResource(uri);
         while( model.containsResource(r) ){
@@ -420,7 +406,7 @@ are well formed.
             else
               return true;
         }
-        
+
         orgValue = editConfig.getLiteralsInScope().get(fieldName);
         newValue = submission.getLiteralsFromForm().get(fieldName);
         if( orgValue != null && newValue != null ){
@@ -429,11 +415,9 @@ are well formed.
             else
                 return true;
         }
-        
-        System.out.println("***************************8 odd condition in hasFieldchanged() ********************");
-        dump("editConfig" ,editConfig);
-        dump("submission", submission);
-        throw new Error("in hasFieldChanged() for field " + fieldName + ", both old and new values are null, this should not happen");
+
+        //value wasn't set originally because the field is optional 
+        return false;
     }
 
     private void dump(String name, Object fff){

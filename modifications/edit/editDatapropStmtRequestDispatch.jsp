@@ -19,7 +19,7 @@
         cmd (optional -- deletion)
         default (true|false)
       ************************************** */
-    
+
     final String DEFAULT_DATA_FORM = "defaultDatapropForm.jsp";
     final String DEFAULT_ERROR_FORM = "error.jsp";
     final String DEFAULT_EDIT_THEME_DIR = "themes/default";
@@ -29,7 +29,7 @@
     // may not need these -- depends on where we go with ordering data property statements in Javascript vs stub entities
     // propUriToForm.put("http://vivo.library.cornell.edu/ns/0.1#researchFocus", "personResearchFocus.jsp");
     // propUriToForm.put("http://vivo.library.cornell.edu/ns/0.1#teachingFocus", "personTeachingFocus.jsp");
-    
+
     /* ********************************************************** */
 
     if( EditConfiguration.getEditKey( request ) == null ){
@@ -52,12 +52,12 @@
     request.setAttribute("subjectUriJson", MiscWebUtils.escape(subjectUri));
     request.setAttribute("predicateUri", predicateUri);
     request.setAttribute("predicateUriJson", MiscWebUtils.escape(predicateUri));
-    
+
     String datapropKey = request.getParameter("datapropKey");
-	if( datapropKey != null && datapropKey.trim().length()>0 ){
-	    request.setAttribute("datapropKey",datapropKey);
-	    request.setAttribute("datapropKeyJson",MiscWebUtils.escape(datapropKey));
-	} // else creating a new data property
+    if( datapropKey != null && datapropKey.trim().length()>0 ){
+        request.setAttribute("datapropKey",datapropKey);
+        request.setAttribute("datapropKeyJson",MiscWebUtils.escape(datapropKey));
+    } // else creating a new data property
 
     /* since we have the URIs let's put the individual, data property, and optional data property statement in the request */
     VitroRequest vreq = new VitroRequest(request);
@@ -70,7 +70,7 @@
     DataProperty dataproperty = wdf.getDataPropertyDao().getDataPropertyByURI( predicateUri );
     if( dataproperty == null ) throw new Error("editDatapropStmtRequest.jsp: Could not find DataProperty in model: " + predicateUri);
     request.setAttribute("predicate", dataproperty);
-    
+
     if( datapropKey != null ) {
         int hash = 0;
         try {
@@ -85,7 +85,6 @@
 
     String url= "/edit/editDatapropStmtRequestDispatch.jsp"; //I'd like to get this from the request but...
     request.setAttribute("formUrl", url + "?" + request.getQueryString());
-    System.out.println("query url from editDatapropStmtRequestDispatch.jsp: " + url);
 
     request.setAttribute("themeDir", "themes/editdefault/");
     request.setAttribute("preForm", "/edit/formPrefix.jsp");
@@ -101,17 +100,16 @@
         form = propUriToForm.get( predicateUri );
         request.setAttribute("hasCustomForm","true");
     }
-    if( form == null || "true".equalsIgnoreCase(defaultParam) ){        			
-       	if( dataproperty != null ) {
-           	form = DEFAULT_DATA_FORM; //System.out.println("Setting up editing for datatprop "+predicateUri);
-       	} else {
-           	form = DEFAULT_ERROR_FORM;
-           	System.out.println("Could not retrieve data property object for predicateUri "+predicateUri);
-       	}
+    if( form == null || "true".equalsIgnoreCase(defaultParam) ){
+        if( dataproperty != null ) {
+            form = DEFAULT_DATA_FORM;
+        } else {
+            form = DEFAULT_ERROR_FORM;
+        }
     }
     request.setAttribute("form" ,form);
-    
+
     if( session.getAttribute("requestedFromEntity") == null )
-    	session.setAttribute("requestedFromEntity", subjectUri );
+        session.setAttribute("requestedFromEntity", subjectUri );
 %>
 <jsp:forward page="/edit/forms/${form}"  />
