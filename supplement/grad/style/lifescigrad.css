@@ -236,6 +236,13 @@ content roll call
     margin-top: 1em;
 }
 
+.test {
+    background-color: #555;
+    color: #fff;
+    padding: 20px;
+    border: 1px solid yellow;
+}
+
 /****************************************************************
 sidebar roll call
 ****************************************************************/

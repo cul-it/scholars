@@ -1,6 +1,12 @@
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
+<%@ page import="edu.cornell.mannlib.vitro.webapp.web.*" %>
+<%@ page import="edu.cornell.mannlib.vitro.webapp.controller.VitroRequest" %>
+<%@ page import="edu.cornell.mannlib.vitro.webapp.dao.WebappDaoFactory" %>
+<%@ page import="edu.cornell.mannlib.vitro.webapp.filters.VitroRequestPrep" %>
+
+<c:url var="jsDir" value="/js"></c:url>   
 
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -10,9 +16,10 @@
 <head>
 	<title>Graduate Programs in the Life Sciences</title>
 	<link rel="stylesheet" href="style/screen.css" type="text/css" />
-    <script type="text/javascript" src="js/niftycube.js"></script>
-    <script type="text/javascript" src="js/corners.js"></script>
-    <script type="text/javascript" src="js/jquery.js"></script>
+    <link rel="stylesheet" href="${jsDir}/niftyCorners.css" type="text/css" />
+    <script type="text/javascript" src="${jsDir}/niftycube.js"></script>
+    <script type="text/javascript" src="js/niftyConfig.js"></script>
+    <script type="text/javascript" src="${jsDir}/jquery.js"></script>
 </head>
 
 <body>
