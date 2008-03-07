@@ -25,8 +25,8 @@
       WHERE {  ?newCourse rdfs:label ?name }
 </v:jsonset>
 <v:jsonset var="courseNameAssertion" >
-    @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
-    ?newCourse rdfs:label ?courseName .
+      @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+      ?newCourse rdfs:label ?courseName .
 </v:jsonset>
 
 <v:jsonset var="courseDescExisting" >
@@ -46,7 +46,7 @@
 </v:jsonset>
 <v:jsonset var="courseHeldInAssertion" >
       @prefix vivo:  <http://vivo.library.cornell.edu/ns/0.1#>.
-    ?newCourse vivo:eventHeldInFacility ?heldIn .
+      ?newCourse vivo:eventHeldInFacility ?heldIn .
 </v:jsonset>
 
 <v:jsonset var="courseSemesterExisting" >
@@ -55,8 +55,8 @@
       WHERE {  ?newCourse vivo:SemesterCourseOccursInSemester  ?extSem }
 </v:jsonset>
 <v:jsonset var="courseSemesterAssertion" >
-    @preifx vivo:  <http://vivo.library.cornell.edu/ns/0.1#>.
-    ?newCourse vivo:SemesterCourseOccursInSemester  ?semester .
+      @prefix vivo:  <http://vivo.library.cornell.edu/ns/0.1#>.
+      ?newCourse vivo:SemesterCourseOccursInSemester  ?semester .
 </v:jsonset>
 
 <v:jsonset var="n3ForEdit"  >
@@ -158,9 +158,9 @@
          "validators"       : [ ],
          "optionsType"      : "INDIVIDUALS_VIA_VCLASS",
          "literalOptions"   : [ ],
-         "subjectUri"       : "${param.subjectUri}",
+         "subjectUri"       : "",
          "subjectClassUri"  : "",
-         "predicateUri"     : "${param.predicateUri}",
+         "predicateUri"     : "",
          "objectClassUri"   : "${semesterClass}",
          "rangeDatatypeUri" : "",
          "assertions"       : [ "${courseSemesterAssertion}"]
@@ -170,9 +170,9 @@
          "validators"       : [ ],
          "optionsType"      : "INDIVIDUALS_VIA_VCLASS",
          "literalOptions"   : ["leave blank"],
-         "subjectUri"       : "${param.subjectUri}",
+         "subjectUri"       : "",
          "subjectClassUri"  : "",
-         "predicateUri"     : "${param.predicateUri}",
+         "predicateUri"     : "",
          "objectClassUri"   : "${buildingClass}",
          "rangeDatatypeUri" : "",
          "assertions"       : [ "${courseHeldInAssertion}" ]
@@ -222,39 +222,5 @@
 </form>
 
 <jsp:include page="${postForm}"/>
-
-
- <%--<%!/* copy of method in personAuthorOf.jsp, need to find better place fo these to live. */--%>
-/*
-tasks of this method:
-add objectUri to scope under specified var name
-run sparqlForExisting URIs and Literals, add to scope
-for each field:
-    sub values in to the assertion strings and save as retractions,
-    what else?
- */
-//  private void prepareForEditOfExisting( EditConfiguration editConfig, Model model, ServletRequest request, HttpSession session){
-//      //add objectUri to urisInScope
-//      editConfig.getUrisInScope().put(editConfig.getObjectVar(), request.getParameter("objectUri"));
-//
-//      // run queries for existing values
-//      SparqlEvaluate sparqlEval = new SparqlEvaluate(model);
-//      Map<String,String> varsToUris =
-//              sparqlEval.sparqlEvaluateToUris(editConfig.getSparqlForExistingUris(),editConfig.getUrisInScope(),editConfig.getLiteralsInScope());
-//      editConfig.getUrisInScope().putAll( varsToUris );
-//
-//      Map<String,String> varsToLiterals =
-//              sparqlEval.sparqlEvaluateToLiterals(editConfig.getSparqlForExistingLiterals(),editConfig.getUrisInScope(),editConfig.getLiteralsInScope());
-//      editConfig.getLiteralsInScope().putAll(varsToLiterals);
-//
-//      //build retraction N3 for each Field
-//      for(String var : editConfig.getFields().keySet() ){
-//          Field field = editConfig.getField(var);
-//          List<String> retractions = null;
-//          retractions = EditConfiguration.subInLiterals(editConfig.getLiteralsInScope(),field.getAssertions());
-//          retractions = EditConfiguration.subInUris(editConfig.getUrisInScope(), retractions);
-//          field.setRetractions(retractions);
-//      }
-<%--}%>--%>
 
 
