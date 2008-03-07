@@ -117,12 +117,12 @@
      "degree" : {
          "newResource"      : "false",
          "validators"       : [ "nonempty" ],
-         "optionsType"      : "INDIVIDUALS_VIA_OBJECT_PROPERTY",
+         "optionsType"      : "INDIVIDUALS_VIA_VCLASS",
          "literalOptions"   : [],
-         "subjectUri"       : "${objectUriJson}",
+         "subjectUri"       : "INDIVIDUALS_VIA_VCLASS",
          "subjectClassUri"  : "",
-         "predicateUri"     : "${degreePredicate}",
-         "objectClassUri"   : "",
+         "predicateUri"     : "",
+         "objectClassUri"   : "${AcademicDegree}",
          "rangeDatatypeUri" : "",
          "assertions"       : [ "${degreeAssertion}" ]
       },
