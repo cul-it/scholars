@@ -23,6 +23,6 @@
 	
     <div class="copyright">
 	    <p>All Rights Reserved. <a href="termsOfUse?home=<%=portal.getPortalId()%>">Terms of Use</a></p>
-    </div><!-- END div 'copyright' -->
-</div><!-- end themes/editdefalt/footer.jsp -->
-
+    </div> <!-- copyright -->
+</div> <!-- footer -->
+<!-- end themes/editdefalt/footer.jsp -->

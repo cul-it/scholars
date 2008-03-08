@@ -34,13 +34,9 @@
 
     <div id="cu-logo">
         <c:url var="culogo" value="/${portal.themeDir}site_icons/layout/cu_logo.gif"/>
-        <a id="insignia-link" class="clean" href="http://www.cornell.edu/" title="Cornell University">
+        <a class="clean" href="http://www.cornell.edu/" title="Cornell University">
             <img src="${culogo}" alt="Cornell University" width="283" height="76" border="0" />
         </a>
-		<div id="unit-signature-links">
-            <a id="cornell-link" class="clean" href="http://www.cornell.edu/" title="Cornell University">Cornell University</a>
-            <a id="unit-link" class="clean" href="http://library.cornell.edu" title="Cornell University Library">Cornell University Library</a>
-        </div>
 	</div><!-- cu-logo -->
 
     <div id="search-form">

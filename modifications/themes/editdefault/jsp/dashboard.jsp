@@ -102,16 +102,16 @@
 		<li class="dashboardProperty"><a href="#">performer of</a></li>
 		<li class="dashboardProperty"><a href="#">creator of</a></li>
 		<li class="dashboardProperty"><a href="#">contributor of</a></li>
-	</li>
 		</ul>
+	</li>
 	<li>
 		<h2><a href="#">International Expertise &amp; Activities</a></h2>
 		<ul class="dashboardCategories">
 		<li class="dashboardProperty"><a href="#">international statement</a></li>
 		<li class="dashboardProperty"><a href="#">geographical research area</a></li>
 		<li class="dashboardProperty"><a href="#">collaboration with</a></li>
-	</li>
 		</ul>
+	</li>
 	<li>
 		<h2><a href="#">Contact Information</a></h2>
 		<ul class="dashboardCategories">
