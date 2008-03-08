@@ -1,331 +1,93 @@
-/******************* styles copied from old global.css.jsp ********************************/
+/****************************************
+ * Albert R. Mann Library 
+ * Cornell University
+ * Ithaca, NY 14853
+ ****************************************/
 
-.editingForm {
-	margin-top       : 0;
-	margin-bottom    : 0;
-	margin-right     : 0;
-	margin-left      : 0.5em;
-	padding-bottom   : 1em;
-	color            : #444444;
-	font-family      : Verdana, Geneva, Arial, Helvetica, sans-serif;
-	line-height      : 16px;
-	background-color : #eee; /* cals+vivo themes were: #dddddd; */
-	min-height       : 100px;
-	font-size        : 0.9em;
-}
-
-.editingForm table {
-	text-align   : left;
-	border-width : 1px;
-	border-style : solid;
-	border-color : black;
-}
-
-.editingForm td{
-	font-size : 1em;
-}
-
-td.verticalfieldlabel {
-	font-size   : 11px;
-	line-height : 13px;
-}
-
-.editingForm .entryFormHead {
-	text-align      : center;
-	padding         : 0.2em;
-	background-color: #f8f8c8;
-	border-width    : 1px;
-	border-style    : solid;
-	border-color    : black;
-}
-
-.editingForm .entryFormHead h2{
-	margin   : 0.1em;
-	padding  : 0em;
-	font-size: 1.4em;
-	color    : black;
-}
-
-.editingForm .entryFormHead h3{
-	margin     : 0.1em;
-	padding    : 0em;
-	font-size  : 1.2em;
-	font-weight: 600; /* cals theme was: 650 */
-	color      : red;
-}
-
-.editingForm .entryFormHead .entryFormHeadInstructions {
-	margin    : 0em;
-	padding   : 0em;
-	font-size : 0.8em;
-}
-
-.editingForm .form-item {
-	background-color: #FAFAD2;
-	border-color    : #2E440C;
-	font-family     : Verdana, Geneva, Arial, Helvetica, sans-serif;
-	font-size       : 10px;
-	border-width    : 1px;
-}
-
-.editingForm .form-button {
-	background-color: #ccf;
-	border-color    : #ccf;
-	font-family     : Verdana, Geneva, Arial, Helvetica, sans-serif;
-	font-size       : 10px;
-	border-width    : 1px;
-	margin-top      : 2px;
-	width           : auto;
-	overflow        : visible;
-}
-
-tr.form-row-even {
-	background-color : #e9f0ff;
-	border-color     : #eec; 
-	font-family      : Verdana, Geneva, Arial, Helvetica, sans-serif;
-	font-size        : 10px;
-	border-width     : 1px;
-	margin-top       : 2px;
-}
-
-tr.form-row-odd {
-	background-color : #e9f9ff;
-	border-color     : #eec; 
-	font-family      : Verdana, Geneva, Arial, Helvetica, sans-serif;
-	font-size        : 10px;
-	border-width     : 1px;
-	margin-top       : 2px;
-}
-
-.form-editingRow {
-	background-color: #ff9;
-	border-color    : #eec; 
-	font-family     : Verdana, Geneva, Arial, Helvetica, sans-serif;
-	font-size       : 10px;
-	border-width    : 1px;
-	margin-top      : 2px;
-}
-
-/* DWR apparently no longer used
-.form-subEditingRow {
-	background-color : #ffb;
-	border-color : #eec; 
-	font-family : Verdana, Geneva, Arial, Helvetica, sans-serif;
-	font-size: 10px;
-	border-width : 1px;
-	margin-top : 2px;
-} */
-
-table.form-background td {
-	padding-left    : 1em;
-	padding-right   : 1em;
-}
-
-table.form-background td form {
-	padding : 0.2em;
-}
-
-.form-background {
-	background-color : #C8D8F8;
-	border-color     : #CCCCFF;
-	font-family      : Verdana, Geneva, Arial, Helvetica, sans-serif;
-	font-size        : 10px;
-	border-width     : 1px;
-	margin-top       : 2px;
-}
-
-.form-background.vclass {
-	background-color : #E05550;
-}
-
-.form-background.property {
-	background-color : #A8F0A0;
-}
+/*
+Title:		Academic Profile screen styles
+Author:		mw542@cornell.edu
+Updated:	March 7, 2008
+*/
 
 
-.form-table-head {
-	background-color: #ccf;
-	border-color    : #eec; 
-	font-family     : Verdana, Geneva, Arial, Helvetica, sans-serif;
-	font-size       : 10px;
-	border-width    : 1px;
-	margin-top      : 2px;
-}
+/*div#header a, div#header img {display: none; }*/
+div#header { height: 72px; }
+div#header a.manage, div#header a.logout {display: block; float: right; margin-right: 15px;}
+div#header a.image img {display: block;}
 
-.navlinkblock {
-	color			: black; /*#4B0082;*/
-	font-family 	: Verdana,Arial, Helvetica, sans-serif;
-	font-size 		: 10px;
-	font-weight		: normal;
-	margin-top		: 1px;
-	margin-bottom	: 1px;
-	padding-top		: 1px;
-	padding-bottom	: 4px;
-}
+#contentwrap { border-top: 3px solid #b21a1b; background: #fff url(../site_icons/layout/bg_facedit_chalkboard.jpg) no-repeat left top; }
 
-td.editformcell {
-	font-size: 9px;
-}
+body { background: #c2c0c0; }
 
-td.editformcell select {
-	margin: 0;
-}
+ul#profileCats { display: block; }
 
-.header {
-	background-color: #B0C4DE;
-	color 			: black;
-	font-family		: Arial, Helvetica, sans-serif;
-	font-size		: 10pt;
-	font-style		: normal;
-	text-align		: left;
-}
-.database_header {
-	background-color: #B0C4DE;
-	color 			: black;
-	font-family		: Arial, Helvetica, sans-serif;
-	font-size		: 10pt;
-	font-style		: normal;
-	text-align		: left;
-}
+ul#profileCats li a:link, ul#profileCats li a:visited { color: #8fa993; background: #eaf0eb; }
 
-.database_upperleftcorner {
-	background-color: #B0C4DE;
-	color 			: black;
-	font-family		: Arial, Helvetica, sans-serif;
-	font-size		: 10pt;
-	font-style		: normal;
-	text-align		: left;
-}
+ul#profileCats li a:hover { color: #eaf0eb; background: #8fa993; }
 
-.database_upperleftcenter {
-	background-color: #B0C4DE;
-	color 			: black;
-	font-family		: Arial, Helvetica, sans-serif;
-	font-size		: 10pt;
-	font-style		: normal;
-	text-align		: center;
-}
+ul#profileCats li a:link#currentCat, ul#profileCats li a:visited#currentCat { color: #fff; background: #579c62; }
 
-.rownumheader {
-	background-color: #B0C4DE;
-	color			: black;
-	font-family		: Arial, Helvetica, sans-serif;
-	font-size		: 10pt;
-	font-style		: normal;
-	text-align		: center;
-}
+h1 { font-weight: normal; font-family: Verdana, Helvetica, sans-serif; color: #fff; font-size: 6.0em; }
+.entity em.moniker { font-style: normal; color: #b21a1b; padding-top: .9em; padding-left: 12px; }
+/*div.entity ul.externalLinks { display: none; }  /* Hiding external links under name */*/
 
+div.thumbnail { display: none; padding: 14px; margin-top: 35px; } /* Hidden when editing */
 
-.headercenter {
-	background-color: #9370DB;
-	color 			:  black;
-	font-family		:  Arial, Helvetica, sans-serif;
-	font-size		:  10pt;
-	font-style		:  normal;
-	text-align		:  center;
-}
+h3.propertyName { float: left; clear: left; color: #fff; background-color: #6a7f6b; font-size: 1.1em; font-weight: bold; text-transform: uppercase; padding: 3px 5px; }
+a:link.add, a:visited.add { float: left; margin: 25px 0 0 6px; }
+a:link.edit, a:visited.edit { margin-left: 10px; }
+li.property { color: #bbb; padding-top: 20px; }
+li.property a.edit { padding: 6px; } 
 
-.postheader {
-	background-color: #E6E6FA;
-	color			: #777777;
-	font-family		: Arial, Helvetica, sans-serif;
-	font-size		: 10pt;
-	font-style		: normal;
-	text-align		: left;
-}
+ul.properties { padding: 8px 12px 5px 12px; margin:0; }
+ul.properties, div.thumbnail { background-color: #f2f0f0; }
 
-.database_postheader {
-	background-color: #E6E6FA;
-	color			: #777777;
-	font-family		: Arial, Helvetica, sans-serif;
-	font-size		: 10pt;
-	font-style		: normal;
-	text-align		: left;
-}
+li.datatypeProperty { padding-top: 20px; }
+div#datatypeProperties ul, div#datatypeProperties p, ul.propertyLinks { padding: 6px 0 6px 12px; background-color: #f2f0f0; }
+/*div#datatypeProperties p { padding: 6px 0 6px 12px; }*/
+div.indent { background-color: #f2f0f0; margin: 0; padding: 8px 12px 5px 12px; }
 
-.postheadercenter {
-	background-color: #E6E6FA;
-	color			: #4682B4;
-	font-family		: Arial, Helvetica, sans-serif;
-	font-size		: 10pt;
-	font-style		: normal;
-	text-align		: center;
-}
+div.navlinkblock { background-color: #f2f0f0; padding: 8px 12px 5px 12px; }
 
-.postheaderright {
-	background-color: #E6E6FA;
-	color			: #4682B4;
-	font-family		: Arial, Helvetica, sans-serif;
-	font-size		: 10pt;
-	font-style		: normal;
-	text-align		: right;
-}
+div.description { margin-top: 16px; }
+div.citation { clear: both; }
+p.caption { margin-top: 2em; }
 
-.verticalfieldlabel {
-	background-color: #DEDEDF;
-	color			: black;
-	font-family		: Verdana, Arial, Helvetica, sans-serif;
-	font-size		: 8pt;
-	font-style		: normal;
-	text-align		: right;
-	vertical-align		: top;
-}
+div.clearingDiv {clear: both;}
 
-.row, .rowvert {
-	background-color: #F0FFFF;
-	color			: black;
-	font-family		: Arial, Helvetica, sans-serif;
-	font-size		: 10pt;
-	font-style		: normal;
-	text-align		: left;
-}
+/* Here are the changed link colors */
+span.entityMoreSpan { color: #50a882; }
+span:hover.entityMoreSpan, span:active.entityMoreSpan { color: #8a4a8a; }
 
-.rowalternate {
-	background-color: #F8F8FF;
-	color			: black;
-	font-family		: Arial, Helvetica, sans-serif;
-	font-size		: 10pt;
-	font-style		: normal;
-	text-align		: left;
-}
+a:link.propertyLink, a:visited.propertyLink { color: #50a882; border: none; }
+a:hover.propertyLink, a:active.propertyLink { color: #8a4a8a; border: none; }
 
-.rowbold {
-	background-color: #FFFAFA;
-	color			: black;
-	font-family		: Arial, Helvetica, sans-serif;
-	font-size		: 10pt;
-	font-style		: normal;
-	font-weight	: bold;
-	text-align		: left;
-}
+a:link.externalLink, a:visited.externalLink { color: #a7595a; border: none; }
+a:hover.externalLink, a:active.externalLink { color: #ff0003; border: none; }
 
-.rownum {
-	background-color: #87CEFA;
-	color			: black;
-	font-family		: Arial, Helvetica, sans-serif;
-	font-size		: 10pt;
-	font-style		: normal;
-	text-align		: center;
-}
+p.caption a:link, p.caption a:visited { color: #50a882; border: 0; }
 
-span.entityRelationsSpan {
-	padding-top     : 4px;
-	margin          : 0 0 0 1em;
-	font-weight     : bold;
-	font-size       : 90%;
-	color           : #2E440C;
-	text-align      : center;
-}
+/* Alterations for 2-column layout */
+/*#content.full { clear: none; width: 67%; min-width: 400px; padding-right: 0; margin-top: 40px; }*/
+/*.entity { padding-right: 0; }*/
+.citation, ul.externalLinks, .thumbnail, ul.properties, .contentsBrowseGroup h2 { clear: left; }  /* To clear the moniker but not sidebar */
 
+#dashboard { border-left: 1px solid #e1e1e1; margin: 0; padding: 0; text-align: left; background-image: none; background-position: top left; }
+/*#dashboard { float: right; width: 30%; border-left: 1px solid #e1e1e1; padding: 0; }*/
 
-/****************************************************************
-nick's new styles --> November, 2007
-****************************************************************/
-p.error {
-	margin-top: 3px;
-	padding: 4px;
-/*	width: 350px;*/  /*Waiting for brian lowe to make some changes to jsp before we go live with this */
-	font-size: 1.4em;
-	color: #f00;
-/*	background: #f99; */  /*Waiting for brian lowe to make some changes to jsp before we go live with this */
-}
+/*#dashboard p { padding-left: 16px;}*/
+#dashboard img { display: block; border: 2px solid #e1e1e1; width: 100px; height: 100px; margin: 0 0 16px 16px; padding: 0; }
+
+#dashboard a:link, #dashboard a:visited { color: #4d5155; }
+#dashboard a:hover, #dashboard a:active { color: #8a4a8a; }
+
+ul#dashboardNavigation li h2 { font-size: 1.3em; background: #eaf0eb url(../site_icons/layout/bg-dashboardcat.gif) top left repeat-y; padding: 7px 8px 4px 8px; margin: 3px 0 0 0; } 
+ul#dashboardNavigation a { border: 0; }
+
+ul.dashboardCategories { padding: 4px 8px 12px 0; }
+ul.dashboardCategories li.dashboardProperty { list-style-type: disc; font-size: 1em; padding: 0; margin-left: 23px; }
+
+#footer a:link, #footer a:visited {	color: #bf7374; border-bottom: 1px solid #bf7374; }
+#footer a:hover, #footer a:active {	color: #b21a1b; border-bottom: 1px solid #b21a1b; }
+#footer { color: #878787; }

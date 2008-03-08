@@ -7,7 +7,7 @@
 /*
 Title:		VIVO screen styles
 Author:		nac26@cornell.edu
-Updated:	February 5, 2008
+Updated:	March 3, 2008
 */
 
 * {
@@ -28,31 +28,25 @@ body {
 	text-align: left;
 	width: 85%;
 	min-width: 917px;
-/*	width: 917px;*/
 }
 
 #contentwrap {
 	margin-bottom: 4px;
-	padding: 12px 0 1px 16px; /* right padding taken care of within sidebar (to allow centering of profile image) */
+	padding: 12px 0 1px 16px; /* right padding taken care of within dashboard (to allow centering of profile image) */
 	background: #fff url(../site_icons/layout/bg_page.gif) no-repeat right top;
 }
 
 #header {
-	margin-bottom: 27px;
+/*	margin-bottom: 19px;*/
+	display: inline; /* nac26: added 080307 so dasboard will sit up at the top of the page, touching the bottom of the header */
 }
 
 #menu {
 	float: right;
 	display: inline;
 	clear: both;
-/*	height: 69px;*/
-/*	width: 77%;*/
 	margin-top: 1px;
-/*	margin-top: 3px;*/
 	margin-right: 262px;
-/*	margin-left: 180px;*/
-/*	background: #fc6;*/
-/*	border: solid 1px #f00;*/
 }
 
 #secondaryMenu {
@@ -62,27 +56,29 @@ body {
 }
 
 #content {
-	float: left;
-	clear: both;
-	width: 70%;
-/*	width: 72%;*/
-	min-width: 640px;
-/*	width: 640px;*/
-	padding: 3px 5px 10px 0;
+	width: 100%;
+	padding: 16px 16px 10px 0;
 }
 
-#content.full {
+#content.person {
+/*	float: left;*/
+/*	clear: both;*/
+	width: 70%;
+	min-width: 640px;
+}
+
+/*#content.full {
 	float: none;
 	width: 100%;
-}
+}*/
 
-#sidebar {
+#dashboard {
 	float: right;
-	display: inline;
+	clear: right;
+/*	display: inline;*/
 	width: 256px;
-/*	width: 240px;*/
 	height: 600px;
-	background: transparent url(../site_icons/layout/bg_sidebar.gif) no-repeat left top;
+	background: transparent url(../site_icons/layout/bg_dashboard.gif) no-repeat left 4px;
 	text-align: center;
 }
 
@@ -95,13 +91,11 @@ body {
 head roll call
 ****************************************************************/
 em.portal {
-/*	float: left;*/
 	display: inline;
 	vertical-align: top;
 	padding-left: 7px;
 	font-size: 1.4em;
-	font-family: helvetica, arial,sans-serif;
-/*	font-weight: bold;*/
+	font-family: Helvetica, Arial,sans-serif;
 	font-style: normal;
 	color: #ccc;
 }
@@ -112,27 +106,21 @@ menu roll call
 ul#primary {
 	float: right;
 	display: inline-block;
-/*	width: 64%;*/
 	height: 20px;
 	margin-top: 11px;
-/*	margin-top: 50px;*/
-/*	background: #fc6;*/
 }
 
 ul#otherMenu {
 	float: right;
 	display: inline-block;
 	margin: 3px 16px 0 0;
-/*	margin: 71px 16px 0 0;*/
-/*	border: solid 1px #f00;*/
+	padding: 0;
 }
 
 ul#primary li, ul#otherMenu li {
 	display: inline;
-/*	margin: 10px 0;*/
 	margin-left: 5px;
 	padding: 5px 2px 5px 2px;
-/*	background: #000;*/
 	font-size: 1.2em;
 /*	border: solid 1px #f81;*/
 }
@@ -185,29 +173,9 @@ li.activePrimaryTab {
 	color: #f81;
 }
 
-#secondaryTabMenu {
-	float: left;
-/*	background: #fc6;*/
-	text-align: left;
-}
-
-table#secondary {
-	float: left;
-/*	background: #fc6;*/
-/*	border: solid 1px #f00;*/
-}
-
-table#secondary td {
-	padding-top: 0;
-}
-
 /****************************************************************
 content roll call
 ****************************************************************/
-#contents {
-	padding-right: 16px;
-}
-
 .citation {
 	clear: both;
 	padding-top: 25px;
@@ -223,16 +191,10 @@ span.SearchTerm, h1 span.SearchTerm, a:link span.SearchTerm, a:visited span.Sear
 	padding-right: 16px;
 }
 
-.entity h1 {
-	float: left;
-	margin-top: 0;
-	padding-top: 0;
-}
-
 .entity em.moniker {
 	float: left;
-	display: inline;
-	padding-top: 6px;
+	display: inline-block;
+	padding-top: 12px;
 	padding-left: 16px;
 	font-size: 1.2em;
 }
@@ -261,7 +223,7 @@ a:link.propertyLink, a:visited.propertyLink {
 a:link.externalLink, a:visited.externalLink {
 	color: #5ab;
 	font-size: 0.9em;
-	border: none;
+/*	border: none;*/
 }
 
 a:visited.externalLink {
@@ -279,11 +241,20 @@ a:hover.externalLink {
 }
 
 ul.properties {
-	clear: both;
+/*	clear: both;*/
 }
 
 ul.tabEntities {
 	margin-top: 25px;
+}
+
+#datatypeProperties ul ul {
+	margin-left: 10px;
+	font-size: 0.9em;
+}
+
+#datatypeProperties ul, #datatypeProperties p {
+	clear: left;
 }
 
 ul.properties li.property, ul.datatypeProperties li.datatypeProperty, ul.tabEntities li {
@@ -365,7 +336,7 @@ select#search-form-qualifier {
 }
 
 /****************************************************************
-sidebar roll call
+dashboard roll call
 ****************************************************************/
 
 
@@ -402,15 +373,7 @@ h1 {
 	margin: 7px 0 2px 0;
 	font-size: 2.3em;
 	font-family: Helvetica, Verdana, sans-serif;
-	color: #000;
-}
-
-h1 em {
-	padding-left: 2em;
-	font-size: 0.55em;
-	font-weight: normal;
-	font-style: normal;
-	color: #397382;
+	color: #fff;
 }
 
 h2 {
@@ -428,6 +391,28 @@ h2 a:link, h2 a:visited {
 
 h2 a:hover {
 	color: #f81;
+}
+
+.entity h2 {
+	margin: 7px 0 2px 0;
+	font-size: 2.3em;
+	font-family: Helvetica, Verdana, sans-serif;
+	color: #000;
+}
+
+.entity h2 em {
+	padding: 1.5em 0 2em 0;
+	font-size: 0.55em;
+	font-weight: normal;
+	font-style: normal;
+	color: #397382;
+}
+
+.entity h2 {
+	float: left;
+	margin-top: 0;
+	margin-bottom: 10px;
+	padding-top: 0;
 }
 
 span.h2 {
@@ -464,7 +449,7 @@ h3.first, .contentsBrowseGroup h3.first {
 }
 
 h3.propertyName {
-	clear: both;
+	clear: left;
 	font-size: 1.2em;
 	color: #000;
 }
@@ -677,10 +662,12 @@ a:link.login, a:visited.login, a:hover.login {
 }
 
 ul#profileCats li a:link, ul#profileCats li a:visited {
-	margin-right: 16px;
-	padding: 10px 10px 8px;
+	margin-right: 8px;
+	padding: 6px 6px 4px;
+/*	padding: 10px 10px 8px;*/
 	border: none;
-	font-family: Helvetica, Verdana, sans-serif;
+	font-family: Arial, sans-serif;
+/*	font-family: Helvetica, Verdana, sans-serif;*/
 	font-weight: bold;
 	color: #a7b9bd;
 	background: #f2f6f7;
@@ -735,13 +722,17 @@ table ul li {
 /* end jc55 added */
 
 ul#profileCats {
-	margin: 20px 0;
+	clear: left;
+	display: inline-block; /* to stop IE6 jump on hover */
+/*	margin: 20px 0;*/
 }
 
 ul#profileCats li {
 	display: inline;
-	margin: 20px 0;
-	font-size: 1.2em;
+/*	margin: 20px 0;*/
+	font-size: 1.0em;
+/*	font-size: 1.2em;*/
+	line-height: 3.0em;
 	text-transform: uppercase;
 }
 
@@ -1086,7 +1077,7 @@ caption {
 	table-layout:auto;
 }
 
-#contents td{
+#content td{
 	vertical-align: top;
 	/* font-family: "Lucida Grande",Verdana,Lucida,Arial,Helvetica,sans-serif; */
 	padding:0.2em;
