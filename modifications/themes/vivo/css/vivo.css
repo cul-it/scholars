@@ -377,20 +377,10 @@ h1 {
 }
 
 h2 {
-	margin: 30px 0 4px 0;
-	font-size: 1.7em;
-	line-height: 1.3em;
+	margin: 20px 0 2px 0;
+	font-size: 2.3em;
 	font-family: Helvetica, Verdana, sans-serif;
-	color: #203e48;
-}
-
-h2 a:link, h2 a:visited {
-	color: #134;
-	border-color: #134;
-}
-
-h2 a:hover {
-	color: #f81;
+	color: #000;
 }
 
 .entity h2 {
@@ -438,14 +428,32 @@ h2.primary {
 	color: #f81;
 }
 
-h3 {
-	margin-top: 25px;
-	font-size: 1.0em;
-	color: #087;
+.siteMap h2  {
+    font-size: 1.7em;
+    color: #203E48;
 }
 
-h3.first, .contentsBrowseGroup h3.first {
-	margin-top: 4px;
+h3 {
+	margin: 30px 0 4px 0;
+	font-size: 1.7em;
+	line-height: 1.3em;
+	font-family: Helvetica, Verdana, sans-serif;
+	color: #203e48;
+}
+
+/*h3 {
+    margin-top: 25px;
+    font-size: 1.0em;
+    color: #087;
+}*/
+
+h3 a:link, h3 a:visited {
+	color: #134;
+	border-color: #134;
+}
+
+h3 a:hover {
+	color: #f81;
 }
 
 h3.propertyName {
@@ -459,6 +467,10 @@ h3.centered {
 	font-size: 1.2em;
 }
 
+h3.first, .contentsBrowseGroup h3.first {
+	margin-top: 4px;
+}
+
 .contentsBrowseGroup h3 {
 	margin-top: 12px;
 	margin-bottom: 4px;
@@ -467,31 +479,6 @@ h3.centered {
 
 #loginarea h3 {
 	margin-top: 10px;
-}
-
-h3 a:link, h3 a:visited {
-	color: #087;
-	border-color: #087;
-}
-
-h3 a:hover {
-	color: #f81;
-}
-
-table h3 {
-	margin-top: 0;
-}
-
-span.h3 {
-	display: block;
-	margin-top: 15px;
-	font-size: 1.1em;
-	font-weight: bold;
-	color: #b68b51;
-}
-
-p span.h3 {
-	margin-bottom: 5px;
 }
 
 h4 {
@@ -504,6 +491,15 @@ h4.compapp-ref {
 	font-size: 1.2em;
 	color: #777;
 	background: #ded5b3;
+}
+
+h4 a:link, h4 a:visited {
+	color: #087;
+	border-color: #087;
+}
+
+h4 a:hover {
+	color: #f81;
 }
 
 h6 {

@@ -37,7 +37,7 @@
 
  Map results = (Map) request.getAttribute("collatedResultsLists");
 
- out.println("<h1>Search Results</h1> <div class='contentsBrowseGroup'>");
+ out.println("<h2>Search Results</h2> <div class='contentsBrowseGroup'>");
 
  //do classgroup toc
  Iterator it = results.keySet().iterator();
@@ -52,7 +52,7 @@
  it = results.keySet().iterator();
  while (it.hasNext()) {
      Object key = it.next();
-     out.println("<h2 id='" + key.toString().replaceAll("\\W","") + "'>" + key + "</h2>");
+     out.println("<h3 id='" + key.toString().replaceAll("\\W","") + "'>" + key + "</h3>");
      VClassGroup grp = (VClassGroup) results.get(key);
 
      //get each VClassList
@@ -68,9 +68,9 @@
          boolean hiddenDivStarted = false;
 
          if (countVclass == 0)
-         	out.println("<h3 class=\"first\">" + vcl.getName() + " (" + resultSetSize + ")</h3>");
+         	out.println("<h4 class=\"first\">" + vcl.getName() + " (" + resultSetSize + ")</h4>");
          else
-         	out.println("<h3>" + vcl.getName() + " (" + resultSetSize + ")</h3>");
+         	out.println("<h4>" + vcl.getName() + " (" + resultSetSize + ")</h4>");
          out.println("<ul>");
 
          ++countVclass;
@@ -157,4 +157,4 @@
     } // END while it2.hasNext()
 } // END while it.hasNext()
 %>
-</div><!--END contents_browseGroup-->
+</div><!--contentsBrowseGroup-->
