@@ -44,7 +44,7 @@
     
     List<VClass> vclasses=entity.getVClasses(false);
     for(VClass clas: vclasses) {
-        //System.out.println(clas.getURI());
+        System.out.println(clas.getURI());
         if ( "http://www.aktors.org/ontology/portal#Person".equals(clas.getURI()) ) {
             %><jsp:include page="/templates/entity/individualPerson.jsp" flush="true"/><%
             return;
@@ -67,7 +67,7 @@
 
     <div id="content">
         <div class='contents entity'>
-                <h1>${entity.name}</h1> 
+                <h2>${entity.name}</h2> 
                 <c:choose>
                     <c:when test="${!empty entity.moniker}">
                         <em class="moniker">${entity.moniker}</em>
