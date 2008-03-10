@@ -110,13 +110,13 @@
     } else if ("true".equals((String)request.getAttribute("hasCustomForm"))) {
         formTitle   = "Create a new entry for "+subject.getName();
     } else {
-        formTitle   =  "Select value for new &quot;"+prop.getDomainPublic()+"&quot; property for "+subject.getName();
+        formTitle   =  "Choose an item to add to your &quot;"+prop.getDomainPublic()+"&quot; list";
         submitLabel ="save entry";
     }
 %>
 <jsp:include page="${preForm}"/>
 
-<h1><%=formTitle%></h1>
+<h2><%=formTitle%></h2>
 <form action="<c:url value="/edit/processRdfForm2.jsp"/>" >
     <c:choose>
         <c:when test="${hasCustomForm eq 'true'}">
