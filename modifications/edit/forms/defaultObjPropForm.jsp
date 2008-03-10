@@ -128,7 +128,7 @@
         	<button type="button" onclick="javascript:document.location.href='${createNewUrl}'">create new ${rangeClassName}</button>
         </c:when>
         <c:otherwise>
-    		<v:input type="select" id="objectVar" label="<%=rangeClass.getName()%>" />
+    		<v:input type="select" id="objectVar" size="80" label="<%=rangeClass.getName()%>" />
     		<v:input type="submit" id="submit" value="<%=submitLabel%>" cancel="${param.subjectUri}"/>
     		<v:input type="editKey" id="editKey"/>
     		<%-- use this here instead of the <c:choose> structure if you want to both pick an existing object and allow
