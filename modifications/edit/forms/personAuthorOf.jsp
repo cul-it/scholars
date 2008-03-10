@@ -140,7 +140,7 @@
 
 <jsp:include page="${preForm}"/>
 
-<h1>${title}</h1>
+<h2>${title}</h2>
 
 <form action="<c:url value="/edit/processRdfForm2.jsp"/>" >
     <v:input type="text" label="Title" id="pubName" size="70" />

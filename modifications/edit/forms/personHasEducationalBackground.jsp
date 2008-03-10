@@ -258,7 +258,7 @@
 
 <jsp:include page="${preForm}"/>
 
-<h1>${title}</h1>
+<h2>${title}</h2>
 <form action="<c:url value="/edit/processRdfForm2.jsp"/>" >
     <v:input type="text" label="year" id="year" size="4"/>
     <v:input type="select" label="degree type" id="degreeType"/>

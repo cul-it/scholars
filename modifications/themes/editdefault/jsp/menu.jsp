@@ -6,6 +6,7 @@
 <%@ page import="edu.cornell.mannlib.vitro.webapp.web.TabMenu" %>
 <%@ page import="org.apache.commons.logging.Log" %>
 <%@ page import="org.apache.commons.logging.LogFactory" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%
 	/***********************************************
     Include the theme logo and navigation, which want to live in one div element
@@ -37,8 +38,14 @@
 	<% if (VitroRequestPrep.isSelfEditing(request) ){ %>
     <c:url value="/edit/logout.jsp" var="editLogout" />
 	<c:url value="/edit/login.jsp" var="editManage" />
-	<a class="image logout" href="${editLogout}" title="Logout of editing"><img src="${themeDir}site_icons/logout.gif" alt="Logout of editing" /></a>
-    <a class="image manage" href="${editManage}" title="Manage Your Profile"><img src="${themeDir}site_icons/manage.gif" alt="Manage Your Profile" /></a>
+	<c:choose>
+	    <c:when test="${fn:contains(pageContext.request.servletPath, 'edit/forms/')}">
+	    </c:when>
+	    <c:otherwise>
+        	<a class="image logout" href="${editLogout}" title="Logout of editing"><img src="${themeDir}site_icons/logout.gif" alt="Logout of editing" /></a>
+            <a class="image manage" href="${editManage}" title="Manage Your Profile"><img src="${themeDir}site_icons/manage.gif" alt="Manage Your Profile" /></a>
+        </c:otherwise>
+    </c:choose>
 	<% } %>
 
 	<h1>Academic Profile</h1>

@@ -101,7 +101,7 @@
     <jsp:param name="toolbarLocation" value="bottom"/>
 </jsp:include>
 
-<h3><%=formTitle%></h3>
+<h2><%=formTitle%></h2>
 <form action="<c:url value="/edit/processDatapropRdfForm.jsp"/>" >
     <v:input type="textarea" id="editedLiteral" rows="2"/>
     <v:input type="submit" id="submit" value="<%=submitLabel%>" cancel="${param.subjectUri}"/>

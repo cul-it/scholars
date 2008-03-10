@@ -212,7 +212,7 @@
 
 <jsp:include page="${preForm}"/>
 
-<h1>${title}</h1>
+<h2>${title}</h2>
 <form action="<c:url value="/edit/processRdfForm2.jsp"/>" >
     <v:input type="text" label="course title" id="courseName" size="60"/>
     <v:input type="checkbox" label="semester" id="semester"/>
