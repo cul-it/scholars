@@ -421,13 +421,6 @@ h2.primary {
 	color: #630;
 }
 
-.contentsBrowseGroup h2 {
-	clear: both;
-	margin-top: 20px;
-	font-size: 2.0em;
-	color: #f81;
-}
-
 .siteMap h2  {
     font-size: 1.7em;
     color: #203E48;
@@ -467,14 +460,11 @@ h3.centered {
 	font-size: 1.2em;
 }
 
-h3.first, .contentsBrowseGroup h3.first {
-	margin-top: 4px;
-}
-
 .contentsBrowseGroup h3 {
-	margin-top: 12px;
-	margin-bottom: 4px;
-	font-size: 1.2em;
+	clear: both;
+	margin-top: 20px;
+	font-size: 2.0em;
+	color: #f81;
 }
 
 #loginarea h3 {
@@ -500,6 +490,16 @@ h4 a:link, h4 a:visited {
 
 h4 a:hover {
 	color: #f81;
+}
+
+h4.first, .contentsBrowseGroup h4.first {
+	margin-top: 4px;
+}
+
+.contentsBrowseGroup h4 {
+	margin-top: 12px;
+	margin-bottom: 4px;
+	font-size: 1.2em;
 }
 
 h6 {
