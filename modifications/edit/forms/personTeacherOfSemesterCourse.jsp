@@ -8,6 +8,7 @@
 
 <v:jsonset var="semesterClass">http://vivo.library.cornell.edu/ns/0.1#AcademicSemester</v:jsonset>
 <v:jsonset var="buildingClass">http://vivo.library.cornell.edu/ns/0.1#Building</v:jsonset>
+<v:jsonset var="degreeClass">http://vivo.library.cornell.edu/ns/0.1#AcademicDegree</v:jsonset>
 
 <v:jsonset var="monikerExisting" >
       PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>

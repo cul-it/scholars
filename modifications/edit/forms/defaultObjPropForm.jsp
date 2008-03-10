@@ -107,8 +107,10 @@
         editConfig.prepareForUpdate(request,model);
         formTitle   = "Change value for &quot;"+prop.getDomainPublic()+"&quot; property for "+subject.getName();
         submitLabel = "save change";
+    } else if ("true".equals((String)request.getAttribute("hasCustomForm"))) {
+        formTitle   = "Create a new entry for "+subject.getName();
     } else {
-        formTitle   ="Select value for new &quot;"+prop.getDomainPublic()+"&quot; property for "+subject.getName();
+        formTitle   =  "Select value for new &quot;"+prop.getDomainPublic()+"&quot; property for "+subject.getName();
         submitLabel ="save entry";
     }
 %>
@@ -116,20 +118,34 @@
 
 <h1><%=formTitle%></h1>
 <form action="<c:url value="/edit/processRdfForm2.jsp"/>" >
-    <v:input type="select" id="objectVar" label="<%=rangeClass.getName()%>" />
-    <v:input type="submit" id="submit" value="<%=submitLabel%>" cancel="${param.subjectUri}"/>
-    <v:input type="editKey" id="editKey"/>
-
-    <c:if test="${hasCustomForm eq 'true'}">
-        <p>If you don't find the appropriate entry on the selection list,
-        <c:url var="createNewUrl" value="/edit/editRequestDispatch.jsp">
-            <c:param name="subjectUri" value="${param.subjectUri}"/>
-            <c:param name="predicateUri" value="${param.predicateUri}"/>
-            <c:param name="clearEditConfig" value="true"/>
-        </c:url>
-        <button type="button" onclick="javascript:document.location.href='${createNewUrl}'">create new ${rangeClassName}</button>
-        </p>
-    </c:if>
+    <c:choose>
+        <c:when test="${hasCustomForm eq 'true'}">
+        	<c:url var="createNewUrl" value="/edit/editRequestDispatch.jsp">
+            	<c:param name="subjectUri" value="${param.subjectUri}"/>
+            	<c:param name="predicateUri" value="${param.predicateUri}"/>
+            	<c:param name="clearEditConfig" value="true"/>
+        	</c:url>
+        	<button type="button" onclick="javascript:document.location.href='${createNewUrl}'">create new ${rangeClassName}</button>
+        </c:when>
+        <c:otherwise>
+    		<v:input type="select" id="objectVar" label="<%=rangeClass.getName()%>" />
+    		<v:input type="submit" id="submit" value="<%=submitLabel%>" cancel="${param.subjectUri}"/>
+    		<v:input type="editKey" id="editKey"/>
+    		<%-- use this here instead of the <c:choose> structure if you want to both pick an existing object and allow
+    		     creation of a new one ...
+    		    <c:if test="${hasCustomForm eq 'true'}">
+        			<c:url var="createNewUrl" value="/edit/editRequestDispatch.jsp">
+            			<c:param name="subjectUri" value="${param.subjectUri}"/>
+            			<c:param name="predicateUri" value="${param.predicateUri}"/>
+            			<c:param name="clearEditConfig" value="true"/>
+        			</c:url>
+        			<p>If you don't find the appropriate entry on the selection list,
+        			<button type="button" onclick="javascript:document.location.href='${createNewUrl}'">create new ${rangeClassName}</button>
+        			</p>
+    			</c:if>
+    		--%>
+        </c:otherwise>
+    </c:choose>
 </form>
 
 <jsp:include page="${postForm}"/>

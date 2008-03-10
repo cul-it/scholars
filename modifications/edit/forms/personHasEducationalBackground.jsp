@@ -6,19 +6,26 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
 <%@ taglib prefix="v" uri="http://vitro.mannlib.cornell.edu/vitro/tags" %>
 
+<%-- Enter here the class names to be used for constructing INDIVIDUALS_VIA_VCLASS pick lists
+     These are then referenced in the field's ObjectClassUri but not elsewhere --%>
 <v:jsonset var="educationalBackgroundClass">http://vivo.library.cornell.edu/ns/0.1#EducationalBackground</v:jsonset>
 <v:jsonset var="degreeClass">http://vivo.library.cornell.edu/ns/0.1#AcademicDegree</v:jsonset>
-<v:jsonset var="degreePredicate">http://vivo.library.cornell.edu/ns/0.1#awardedAcademicDegree</v:jsonset>
 
-
+<%--  Then enter a SPARQL query for each field, by convention concatenating the field id with "Existing"
+      to convey that the expression is used to retrieve any existing value for the field in an existing individual.
+      Each of these must then be referenced in the sparqlForExistingLiterals section of the JSON block below
+      and in the literalsOnForm --%>
 <v:jsonset var="yearExisting" >
       PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
       SELECT ?yearExisting
       WHERE {  ?edBackground vivo:yearDegreeAwarded ?yearExisting }
 </v:jsonset>
+<%--  Pair the "existing" query with the skeleton of what will be asserted for a new statement involving this field.
+      The actual assertion inserted in the model will be created via string substitution into the ? variables.
+      NOTE the pattern of punctuation (a period after the prefix URI and after the ?field) --%> 
 <v:jsonset var="yearAssertion" >
       @prefix vivo: <http://vivo.library.cornell.edu/ns/0.1#>.
-      ?edBackground vivo:yearDegreeAwarded ?year.
+      ?edBackground vivo:yearDegreeAwarded ?year .
 </v:jsonset>
 
 <v:jsonset var="institutionExisting" >
@@ -27,8 +34,8 @@
       WHERE {  ?edBackground vivo:institutionAwardingDegree ?institutionExisting }
 </v:jsonset>
 <v:jsonset var="institutionAssertion" >
-    @prefix vivo: <http://vivo.library.cornell.edu/ns/0.1#>.
-    ?edBackground vivo:institutionAwardingDegree ?institution.
+      @prefix vivo: <http://vivo.library.cornell.edu/ns/0.1#>.
+      ?edBackground vivo:institutionAwardingDegree ?institution .
 </v:jsonset>
 
 <v:jsonset var="majorFieldExisting" >
@@ -38,17 +45,40 @@
 </v:jsonset>
 <v:jsonset var="majorFieldAssertion" >
       @prefix vivo: <http://vivo.library.cornell.edu/ns/0.1#>.
-      ?edBackground vivo:majorFieldOfDegree ?majorField.
+      ?edBackground vivo:majorFieldOfDegree ?majorField .
 </v:jsonset>
 
-<v:jsonset var="degreeExisting" >
-      PREFIX vivo:  <http://vivo.library.cornell.edu/ns/0.1#>
-      SELECT ?degreeExisting
-      WHERE {  ?edBackground vivo:awardedAcademicDegree ?degreeExisting }
+<v:jsonset var="visibilityExisting" >
+      PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
+      SELECT ?visibilityExisting
+      WHERE {  ?edBackground vivo:ownerPublicVisibilityFlag ?visibilityExisting }
 </v:jsonset>
-<v:jsonset var="degreeAssertion" >
+<v:jsonset var="visibilityAssertion" >
+      @prefix vivo: <http://vivo.library.cornell.edu/ns/0.1#>.
+      ?edBackground vivo:ownerPublicVisibilityFlag ?visibility .
+</v:jsonset>
+
+<v:jsonset var="degreeAbbrevExisting" >
+      PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
+      SELECT ?degreeAbbrevExisting
+      WHERE {  ?edBackground vivo:preferredDegreeAbbreviation ?degreeAbbrevExisting }
+</v:jsonset>
+<v:jsonset var="degreeAbbrevAssertion" >
+      @prefix vivo: <http://vivo.library.cornell.edu/ns/0.1#>.
+      ?edBackground vivo:preferredDegreeAbbreviation ?degreeAbbrev .
+</v:jsonset>
+
+<%--  Note there is really no difference in how things are set up for an object property except
+      below in the n3ForEdit section, in whether the ..Existing variable goes in SparqlForExistingLiterals
+      or in the SparqlForExistingUris, as well as perhaps in how the options are prepared --%>
+<v:jsonset var="degreeTypeExisting" >
+      PREFIX vivo:  <http://vivo.library.cornell.edu/ns/0.1#>
+      SELECT ?degreeTypeExisting
+      WHERE {  ?edBackground vivo:awardedAcademicDegree ?degreeTypeExisting }
+</v:jsonset>
+<v:jsonset var="degreeTypeAssertion" >
       @prefix vivo:  <http://vivo.library.cornell.edu/ns/0.1#>.
-      ?edBackground vivo:awardedAcademicDegree ?degree.
+      ?edBackground vivo:awardedAcademicDegree ?degreeType .
 </v:jsonset>
 
 
@@ -64,11 +94,13 @@
     ?edBackground rdf:type vivo:EducationalBackground.
 
     ?edBackground
-          vivo:year        ?year;
-          vivo:institution ?institution;
-          vivo:majorField  ?majorField.
+          vivo:yearDegreeAwarded           ?year;
+          vivo:institutionAwardingDegree   ?institution;
+          vivo:preferredDegreeAbbreviation ?degreeAbbrev;
+          vivo:majorFieldOfDegree          ?majorField;
+          vivo:ownerPublicVisibilityFlag   ?visibility.
 
-    ?edBackground vivo:awardedAcademicDegree ?degree.
+    ?edBackground vivo:awardedAcademicDegree ?degreeType.
 </v:jsonset>
 
 <v:jsonset var="n3optional"  >
@@ -90,23 +122,25 @@
     "newResources"  : { "edBackground" : "http://vivo.library.cornell.edu/ns/0.1#individual" },
     "urisInScope"    : { },
     "literalsInScope": { },
-    "urisOnForm"     : ["degree"],
-    "literalsOnForm" :  [ "year", "institution", "majorField", "comment" ],
+    "urisOnForm"     : ["degreeType"],
+    "literalsOnForm" :  [ "year", "institution", "degreeAbbrev", "majorField", "visibility", "comment" ],
     "sparqlForLiterals" : { },
     "sparqlForUris" : {  },
     "sparqlForExistingLiterals" : {
         "year"              : "${yearExisting}",
         "institution"       : "${institutionExisting}",
-        "majorField"        : "${majorFieldExisting}" },
+        "majorField"        : "${majorFieldExisting}",
+        "visibility"        : "${visibilityExisting}",
+        "degreeAbbrev"      : "${degreeAbbrevExisting}" },
     "sparqlForExistingUris" : {
-        "degree"            : "${degreeExisting}",
+        "degreeType"        : "${degreeTypeExisting}",
     },
     "fields" : {
       "year" : {
          "newResource"      : "false",
          "validators"       : [ "nonempty" ],
          "optionsType"      : "UNDEFINED",
-         "literalOptions"   : [],
+         "literalOptions"   : [ ],
          "subjectUri"       : "",
          "subjectClassUri"  : "",
          "predicateUri"     : "",
@@ -114,23 +148,39 @@
          "rangeDatatypeUri" : "",
          "assertions"       : [ "${yearAssertion}" ]
       },
-     "degree" : {
+     "degreeType" : {
          "newResource"      : "false",
          "validators"       : [ "nonempty" ],
          "optionsType"      : "INDIVIDUALS_VIA_VCLASS",
-         "literalOptions"   : [],
-         "subjectUri"       : "INDIVIDUALS_VIA_VCLASS",
+         "literalOptions"   : [ ],
+         "subjectUri"       : "",
          "subjectClassUri"  : "",
          "predicateUri"     : "",
-         "objectClassUri"   : "${AcademicDegree}",
+         "objectClassUri"   : "${degreeClass}",
          "rangeDatatypeUri" : "",
-         "assertions"       : [ "${degreeAssertion}" ]
+         "assertions"       : [ "${degreeTypeAssertion}" ]
       },
+      "degreeAbbrev" : {
+         "newResource"      : "false",
+         "validators"       : [ "nonempty" ],
+         "optionsType"      : "LITERALS",
+         "literalOptions"   : ["A.B.","A.M.","B.A.","B.B.S.","B.C.L.","B.D.","B.Lit.","B.Litt.","B.L.L.","B.S.","B.Sc.","C.E.","Ch.E.",
+                               "D.C.L.","D.D.","D.D.S.","D.Litt.","D.M.D.","D.S.","D.Sc.","D.V.M.","E.E.","J.D.","L.H.D.","L.L.D.",
+                               "Lit.B.","Litt.D.","L.L.B.","M.A.","M.B.A.","M.C.E.","M.D.","M.E.","M.S.","M.Sc.","Mus.B.","Mus.D.",
+                               "Ph.D.","Ph.G.","Sc.B.","S.T.B.","S.T.D.","V.S."],
+         "subjectUri"       : "",
+         "subjectClassUri"  : "",
+         "predicateUri"     : "",
+         "objectClassUri"   : "",
+         "rangeDatatypeUri" : "",
+         "assertions"       : [ "${degreeAbbrevAssertion}" ]
+      },
+
       "institution" : {
          "newResource"      : "false",
          "validators"       : [ "nonempty" ],
          "optionsType"      : "UNDEFINED",
-         "literalOptions"   : [],
+         "literalOptions"   : [ ],
          "subjectUri"       : "",
          "subjectClassUri"  : "",
          "predicateUri"     : "",
@@ -140,15 +190,27 @@
       },
       "majorField" : {
          "newResource"      : "false",
-         "validators"       : [],
+         "validators"       : [ ],
          "optionsType"      : "UNDEFINED",
-         "literalOptions"   : [],
+         "literalOptions"   : [ ],
          "subjectUri"       : "",
          "subjectClassUri"  : "",
          "predicateUri"     : "",
          "objectClassUri"   : "",
          "rangeDatatypeUri" : "",
          "assertions"       : ["${majorFieldAssertion}"]
+      },
+      "visibility" : {
+         "newResource"      : "false",
+         "validators"       : [],
+         "optionsType"      : "LITERALS",
+         "literalOptions"   : ["true","false"],
+         "subjectUri"       : "",
+         "subjectClassUri"  : "",
+         "predicateUri"     : "",
+         "objectClassUri"   : "",
+         "rangeDatatypeUri" : "",
+         "assertions"       : [ "${visibilityAssertion}" ]
       },
       "comment" : {
          "newResource"      : "false",
@@ -185,7 +247,7 @@
     String submitLabel=""; // don't put local variables into the request
     /* title is used by pre and post form fragments */
     if (objectUri != null) {
-    	request.setAttribute("title", "Edit educational background for " + subject.getName());
+    	request.setAttribute("title", "Edit educational background entry for " + subject.getName());
         submitLabel = "Save changes";
     } else {
         request.setAttribute("title","Create a new educational background entry for " + subject.getName());
@@ -199,11 +261,13 @@
 <h1>${title}</h1>
 <form action="<c:url value="/edit/processRdfForm2.jsp"/>" >
     <v:input type="text" label="year" id="year" size="4"/>
-    <v:input type="select" label="degree" id="degree"/>
-    <v:input type="text" label="institution" id="institution"/>
-    <v:input type="text" label="major field" id="majorField"/>
-    <v:input type="text" label="comment" id="comment"/>
-    <v:input type="submit" id="submit" value="<%=submitLabel%>"/>
+    <v:input type="select" label="degree type" id="degreeType"/>
+    <v:input type="select" label="abbreviation" id="degreeAbbrev"/>
+    <v:input type="text" label="institution" id="institution" size="30" value="Cornell University"/>
+    <v:input type="text" label="major field" id="majorField" size="30"/>
+    <v:input type="radio" label="publicly visible" id="visibility" value="true"/>
+    <v:input type="text" label="comment" id="comment" size="40"/>
+    <v:input type="submit" id="submit" value="<%=submitLabel%>" cancel="${param.subjectUri}"/>
 </form>
 
 <jsp:include page="${postForm}"/>
