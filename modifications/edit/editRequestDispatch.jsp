@@ -30,6 +30,7 @@
     propUriToForm = new HashMap<String,String>();
     propUriToForm.put("http://vivo.library.cornell.edu/ns/0.1#PersonTeacherOfSemesterCourse", "personTeacherOfSemesterCourse.jsp");
     propUriToForm.put("http://vivo.library.cornell.edu/ns/0.1#authorOf", "personAuthorOf.jsp");
+    propUriToForm.put("http://vivo.library.cornell.edu/ns/0.1#seminarOrLectureSeriesHasMemberTalk", "seminarHasMemberTalk.jsp");
     propUriToForm.put("http://vivo.library.cornell.edu/ns/0.1#hasEducationalBackground", "personHasEducationalBackground.jsp");
 
     request.getSession(true);

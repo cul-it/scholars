@@ -121,6 +121,7 @@ are well formed.
         List<Model> requiredFieldRetractions = new ArrayList<Model>();
         for(String fieldName: fieldAssertions.keySet()){
             Field field = editConfig.getFields().get(fieldName);
+            
             /* CHECK that field changed, then add assertions and retractions */
             if( hasFieldChanged(fieldName, editConfig, submission) ){
 
@@ -358,7 +359,7 @@ are well formed.
 
     public String subInLiterals(String var, String value, String target){
         String varRegex = "\\?" + var;
-        String out = target.replaceAll(varRegex,'"'+value+'"');  //*** THIS  NEEDS TO BE ESCAPED!
+        String out = target.replaceAll(varRegex,'"'+value+'"');  //*** THIS  NEEDS TO BE ESCAPED for N3 (thats python escaping)
         if( out != null && out.length() > 0 )
             return out    ;
         else

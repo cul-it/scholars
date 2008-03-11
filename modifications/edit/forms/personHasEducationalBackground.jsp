@@ -113,7 +113,7 @@
     "formUrl" : "${formUrl}",
     "editKey" : "${editKey}",
 
-    "subject"   : ["person",    "${subjectUriJson}", ],
+    "subject"   : ["person",    "${subjectUriJson}" ],
     "predicate" : ["predicate", "${predicateUriJson}" ],
     "object"    : ["edBackground", "${objectUriJson}", "URI" ],
     

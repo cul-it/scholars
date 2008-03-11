@@ -22,11 +22,18 @@
     String predicateUri = request.getParameter("predicateUri");
     // already done in editRequestDispatch.jsp: request.setAttribute("predicateUriJson",MiscWebUtils.escape(predicateUri));
     ObjectProperty prop = (ObjectProperty)request.getAttribute("predicate");
-    if( prop == null ) throw new Error("In defaultObjPropForm.jsp, did not find property in request scope: " + predicateUri);
+    if( prop == null ) 
+        throw new Error("In defaultObjPropForm.jsp, did not find property in request scope: " + predicateUri);
     request.setAttribute("propertyName",prop.getDomainPublic());
+    
     VitroRequest vreq = new VitroRequest(request);
     WebappDaoFactory wdf = vreq.getWebappDaoFactory();
-    VClass rangeClass = wdf.getVClassDao().getVClassByURI(prop.getRangeVClassURI());
+    if( prop.getRangeVClassURI() == null )
+        throw new Error("Property has null for its range class URI");
+    
+    VClass rangeClass = wdf.getVClassDao().getVClassByURI( prop.getRangeVClassURI());
+    if( rangeClass == null ) 
+        throw new Error ("Cannot find class for range for property.  Looking for " + prop.getRangeVClassURI() );
     request.setAttribute("rangeClassName", rangeClass.getName());
 
     // not yet fully set up for editing an existing object property statement by changing the related individual

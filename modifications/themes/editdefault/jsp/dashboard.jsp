@@ -41,13 +41,13 @@
         <c:param name="predicateUri" value="http://vivo.library.cornell.edu/ns/0.1#PersonLeadParticipantForOrganizedEndeavor"/>
     </c:url>
     <%-- Research & Professional Activities --%>
-    <c:url var="researchFocus" value="/edit/editDatapropStmtRequestDispatch.jsp">
+    <c:url var="researchArea" value="/edit/editRequestDispatch.jsp">
         <c:param name="subjectUri" value="${entity.URI}"/>
-        <c:param name="predicateUri" value="http://vivo.library.cornell.edu/ns/0.1#researchFocus"/>
+        <c:param name="predicateUri" value="http://vivo.library.cornell.edu/ns/0.1#PersonHasResearchArea"/>
     </c:url>
     <c:url var="sponsoredProjects" value="/edit/editRequestDispatch.jsp">
         <c:param name="subjectUri" value="${entity.URI}"/>
-        <c:param name="predicateUri" value="http://vivo.library.cornell.edu/ns/0.1#primaryInvestigatorOf"/>
+        <c:param name="predicateUri" value="http://vivo.library.cornell.edu/ns/0.1#PersonPrimaryInvestigatorOfFinancialAward"/>
     </c:url>
     <c:url var="linkkeyword" value="/editForm">
         <c:param name="home" value="${portal.portalId}"/>
@@ -110,18 +110,16 @@
 	<li>
 		<h2><a href="#">Research &amp; Professional Activities</a></h2>
 		<ul class="dashboardCategories">
-		<li class="dashboardProperty"><a href="${researchFocus}">research focus</a></li>
+		<li class="dashboardProperty"><a href="${researchArea}">research areas</a></li>
 		<li class="dashboardProperty"><a href="${sponsoredProjects}">sponsored projects</a></li>
-		<li class="dashboardProperty"><a href="#">other research projects</a></li>
 		<li class="dashboardProperty"><a href="${linkkeyword}">select keyword</a></li>
 		<c:if test="${!empty(entity.keywords)}">
 			<li class="dashboardProperty"><a href="${removekeyword}">remove keyword</a></li>
 		</c:if>
 		<li class="dashboardProperty"><a href="${newkeyword}">new keyword</a></li>
-		<li class="dashboardProperty"><a href="${researchAreas}">research areas</a></li>
-		<li class="dashboardProperty"><a href="${facilities}">research services or facilities used</a></li>
-		<li class="dashboardProperty"><a href="${professionalService}">professional service</a></li>
-		<li class="dashboardProperty"><a href="${presentations}">presentations</a></li>
+		<li class="dashboardProperty"><a title="disabled">professional
+		service (disabled)</a></li>
+		<li class="dashboardProperty"><a title="disabled">presentations (disabled)</a></li>
 		</ul>
 	</li>
 	<li>
