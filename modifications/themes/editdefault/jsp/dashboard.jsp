@@ -43,7 +43,7 @@
     <%-- Research & Professional Activities --%>
     <c:url var="researchArea" value="/edit/editRequestDispatch.jsp">
         <c:param name="subjectUri" value="${entity.URI}"/>
-        <c:param name="predicateUri" value="http://vivo.library.cornell.edu/ns/0.1#researchFocus"/>
+        <c:param name="predicateUri" value="http://vivo.library.cornell.edu/ns/0.1#PersonHasResearchArea"/>
     </c:url>
     <c:url var="researchFocus" value="/edit/editDatapropStmtRequestDispatch.jsp">
         <c:param name="subjectUri" value="${entity.URI}"/>
@@ -86,9 +86,13 @@
         <c:param name="predicateUri" value="http://vivo.library.cornell.edu/ns/0.1#outreachFocus"/>
     </c:url>
     <%-- Background --%>
+    <c:url var="educationalBackground" value="/edit/editRequestDispatch.jsp">
+    	<c:param name="subjectUri" value="${entity.URI}"/>
+    	<c:param name="predicateUri" value="http://vivo.library.cornell.edu/ns/0.1#hasEducationalBackground"/>
+    </c:url>
     <%-- Publications --%>
     <%-- International --%>
-    <c:url var="researchFocus" value="/edit/editRequestDispatch.jsp">
+    <c:url var="internationalFocus" value="/edit/editDatapropStmtRequestDispatch.jsp">
         <c:param name="subjectUri" value="${entity.URI}"/>
         <c:param name="predicateUri" value="http://vivo.library.cornell.edu/ns/0.1#internationalFocus"/>
     </c:url>
@@ -100,116 +104,114 @@
 
     <%-- Contact --%>
 <ul id="dashboardNavigation">
-    <li>
-        <h2><a href="#">Cornell Affiliations</a></h2>
-        <ul class="dashboardCategories">
-            <li class="dashboardProperty"><a href="${overviewStatement}">overview statement</a></li>
-            <li class="dashboardProperty"><a href="${headof}">head of</a></li>
-            <li class="dashboardProperty"><a href="${dept}">academic initiative(s)</a></li>
-            <li class="dashboardProperty"><a href="${gradfield}">graduate field membership(s)</a></li>
-            <li class="dashboardProperty"><a href="${membercenter}">affiliations with center/institute</a></li>
-            <li class="dashboardProperty"><a href="${committees}">campus committees &amp; services</a></li>
-        </ul>
-    </li>
-    <li>
-        <h2><a href="#">Research &amp; Professional Activities</a></h2>
-        <ul class="dashboardCategories">
-            <li class="dashboardProperty"><a href="${researchArea}">research areas</a></li>
-            <li class="dashboardProperty"><a href="${researchFocus}">research focus</a></li>
-            <li class="dashboardProperty"><a href="${sponsoredProjects}">sponsored projects</a></li>
-            <!-- li class="dashboardProperty"><a href="${linkkeyword}">select keyword</a></li> -->
-            <!-- <c:if test="${!empty(entity.keywords)}"> -->
-                <!-- <li class="dashboardProperty"><a href="${removekeyword}">remove keyword</a></li>  -->
-            <!-- </c:if> -->
-            <!-- <li class="dashboardProperty"><a href="${newkeyword}">new keyword</a></li> -->
-            <li class="dashboardProperty"><a title="disabled">professional service (disabled)</a></li>
-            <li class="dashboardProperty"><a title="disabled">presentations (disabled)</a></li>
-            <li class="dashboardProperty"><a href="#">patents</a></li>
-            <li class="dashboardProperty"><a href="${facilities}">research services or facilities used</a></li>
-            <li class="dashboardProperty"><a href="${professionalService}">professional service</a></li>
-        </ul>
-    </li>
-    <li>
-        <h2><a href="#">International Expertise &amp; Activities</a></h2>
-        <ul class="dashboardCategories">
-            <li class="dashboardProperty"><a href="${geographicalResearchArea}">geographical
-            research area</a></li>
-            <li class="dashboardProperty"><a title="disabled"
-            >international statement (disabled)</a></li>
-            <li class="dashboardProperty"><a title="disabled"
-            >collaboration with (disabled)</a></li>
-        </ul>
-    </li>       
-    <li>
-        <h2><a href="#">Instruction &amp; Academics</a></h2>
-        <ul class="dashboardCategories">
-            <li class="dashboardProperty"><a title="disabled" >teaching
-            areas (disabled)</a></li>
-            <li class="dashboardProperty"><a title="disabled" >for-credit
-            courses (disabled)</a></li>
-            <li class="dashboardProperty"><a title="disabled" >new courses
-            planned (disabled)</a></li>
-            <li class="dashboardProperty"><a title="disabled" >academic
-            initiatives (disabled)</a></li>
-            <li class="dashboardProperty"><a title="disabled" >advising (disabled)</a></li>
-        </ul>
-    </li>
-    <li>
-        <h2><a href="#">Outreach &amp; Service</a></h2>
-        <ul class="dashboardCategories">
-            <li class="dashboardProperty"><a title="disabled" >outreach
-            statement (disabled)</a></li>
-            <li class="dashboardProperty"><a title="disabled" >impact
-            statement (disabled)</a></li>
-            <li class="dashboardProperty"><a title="disabled" >public
-            service (disabled)</a></li>
-            <li class="dashboardProperty"><a title="disabled"
-            >organizational advising or consulting (disabled)</a></li>
-            <li class="dashboardProperty"><a title="disabled" >non-credit
-            instruction (disabled)</a></li>
-            <li class="dashboardProperty"><a title="disabled" >media
-            expertise (disabled)</a></li>
-        </ul>
-    </li>
-    <li>
-        <h2><a href="#">Bio &amp; Background</a></h2>
-        <ul class="dashboardCategories">
-            <li class="dashboardProperty"><a title="disabled" >educational
-            background (disabled)</a></li>
-            <li class="dashboardProperty"><a title="disabled"
-            >professional background (disabled)</a></li>
-            <li class="dashboardProperty"><a title="disabled" >awards
-            &amp; distinctions (disabled)</a></li>
-            <li class="dashboardProperty"><a title="disabled" >university
-            title (disabled)</a></li>
-            <li class="dashboardProperty"><a title="disabled" >working
-            title (disabled)</a></li>
-        </ul>
-    </li>
-    <li>
-        <h2><a href="#">Publications &amp; Other Works</a></h2>
-        <ul class="dashboardCategories">
-            <li class="dashboardProperty"><a title="disabled" >author of (disabled)</a></li>
-            <li class="dashboardProperty"><a title="disabled" >editor of (disabled)</a></li>
-            <li class="dashboardProperty"><a title="disabled" >performer
-            of (disabled)</a></li>
-            <li class="dashboardProperty"><a title="disabled" >creator of (disabled)</a></li>
-            <li class="dashboardProperty"><a title="disabled" >contributor
-            of (disabled)</a></li>
-        </ul>
-    </li>
-    <li>
-        <h2><a href="#">Contact Information</a></h2>
-        <ul class="dashboardCategories">
-            <li class="dashboardProperty"><a title="disabled" >photo (disabled)</a></li>
-            <li class="dashboardProperty"><a title="disabled" >office
-            address (disabled)</a></li>
-            <li class="dashboardProperty"><a title="disabled" >office
-            phone (disabled)</a></li>
-            <li class="dashboardProperty"><a title="disabled" >email
-            address (disabled)</a></li>
-            <li class="dashboardProperty"><a title="disabled" >links (disabled)</a></li>
-        </ul>
-    </li>
+	<li>
+		<h2><a href="#">Cornell Affiliations</a></h2>
+		<ul class="dashboardCategories">
+			<li class="dashboardProperty"><a href="${overviewStatement}">overview statement</a></li>
+			<li class="dashboardProperty"><a href="${headof}">head of</a></li>
+			<li class="dashboardProperty"><a href="${dept}">academic initiative(s)</a></li>
+			<li class="dashboardProperty"><a href="${gradfield}">graduate field membership(s)</a></li>
+			<li class="dashboardProperty"><a href="${membercenter}">affiliations with center/institute</a></li>
+			<li class="dashboardProperty"><a href="${committees}">campus committees &amp; services</a></li>
+		</ul>
+	</li>
+	<li>
+		<h2><a href="#">Research &amp; Professional Activities</a></h2>
+		<ul class="dashboardCategories">
+		<li class="dashboardProperty"><a href="${researchArea}">research areas</a></li>
+		<li class="dashboardProperty"><a href="${researchFocus}">research focus</a></li>
+		<li class="dashboardProperty"><a href="${sponsoredProjects}">sponsored projects</a></li>
+		<!-- li class="dashboardProperty"><a href="${linkkeyword}">select keyword</a></li> -->
+		<!-- <c:if test="${!empty(entity.keywords)}"> -->
+			<!-- <li class="dashboardProperty"><a href="${removekeyword}">remove keyword</a></li>  -->
+		<!-- </c:if> -->
+		<!-- <li class="dashboardProperty"><a href="${newkeyword}">new keyword</a></li> -->
+		<li class="dashboardProperty"><a title="disabled">professional service (disabled)</a></li>
+		<li class="dashboardProperty"><a title="disabled">presentations (disabled)</a></li>
+		<li class="dashboardProperty"><a href="#">patents</a></li>
+		<li class="dashboardProperty"><a href="${facilities}">research services or facilities used</a></li>
+		<li class="dashboardProperty"><a href="${professionalService}">professional service</a></li>
+	</li>
+	<li>
+		<h2><a href="#">International Expertise &amp; Activities</a></h2>
+		<ul class="dashboardCategories">
+		<li class="dashboardProperty"><a href="${geographicalResearchArea}">geographical
+		research area</a></li>
+		<li class="dashboardProperty"><a title="disabled"
+		>international statement (disabled)</a></li>
+		<li class="dashboardProperty"><a title="disabled"
+		>collaboration with (disabled)</a></li>
+		</ul>
+	</li>		
+	<li>
+		<h2><a href="#">Instruction &amp; Academics</a></h2>
+		<ul class="dashboardCategories">
+		<li class="dashboardProperty"><a title="disabled" >teaching
+		areas (disabled)</a></li>
+		<li class="dashboardProperty"><a title="disabled" >for-credit
+		courses (disabled)</a></li>
+		<li class="dashboardProperty"><a title="disabled" >new courses
+		planned (disabled)</a></li>
+		<li class="dashboardProperty"><a title="disabled" >academic
+		initiatives (disabled)</a></li>
+		<li class="dashboardProperty"><a title="disabled" >advising (disabled)</a></li>
+		</ul>
+	</li>
+	<li>
+		<h2><a href="#">Outreach &amp; Service</a></h2>
+		<ul class="dashboardCategories">
+		<li class="dashboardProperty"><a title="disabled" >outreach
+		statement (disabled)</a></li>
+		<li class="dashboardProperty"><a title="disabled" >impact
+		statement (disabled)</a></li>
+		<li class="dashboardProperty"><a title="disabled" >public
+		service (disabled)</a></li>
+		<li class="dashboardProperty"><a title="disabled"
+		>organizational advising or consulting (disabled)</a></li>
+		<li class="dashboardProperty"><a title="disabled" >non-credit
+		instruction (disabled)</a></li>
+		<li class="dashboardProperty"><a title="disabled" >media
+		expertise (disabled)</a></li>
+		</ul>
+	</li>
+	<li>
+		<h2><a href="#">Bio &amp; Background</a></h2>
+		<ul class="dashboardCategories">
+		<li class="dashboardProperty"><a href="${educationalBackground}">educational background (disabled)</a></li>
+		<li class="dashboardProperty"><a title="disabled"
+		>professional background (disabled)</a></li>
+		<li class="dashboardProperty"><a title="disabled" >awards
+		&amp; distinctions (disabled)</a></li>
+		<li class="dashboardProperty"><a title="disabled" >university
+		title (disabled)</a></li>
+		<li class="dashboardProperty"><a title="disabled" >working
+		title (disabled)</a></li>
+		</ul>
+	</li>
+	<li>
+		<h2><a href="#">Publications &amp; Other Works</a></h2>
+		<ul class="dashboardCategories">
+		<li class="dashboardProperty"><a title="disabled" >author of (disabled)</a></li>
+		<li class="dashboardProperty"><a title="disabled" >editor of (disabled)</a></li>
+		<li class="dashboardProperty"><a title="disabled" >performer
+		of (disabled)</a></li>
+		<li class="dashboardProperty"><a title="disabled" >creator of (disabled)</a></li>
+		<li class="dashboardProperty"><a title="disabled" >contributor
+		of (disabled)</a></li>
+		</ul>
+	</li>
+	<li>
+		<h2><a href="#">Contact Information</a></h2>
+		<ul class="dashboardCategories">
+		<li class="dashboardProperty"><a title="disabled" >photo (disabled)</a></li>
+		<li class="dashboardProperty"><a title="disabled" >office
+		address (disabled)</a></li>
+		<li class="dashboardProperty"><a title="disabled" >office
+		phone (disabled)</a></li>
+		<li class="dashboardProperty"><a title="disabled" >email
+		address (disabled)</a></li>
+		<li class="dashboardProperty"><a title="disabled" >links (disabled)</a></li>
+		</ul>
+	</li>
 </ul>
 </div>
