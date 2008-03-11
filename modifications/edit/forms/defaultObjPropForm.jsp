@@ -117,7 +117,7 @@
     } else if ("true".equals((String)request.getAttribute("hasCustomForm"))) {
         formTitle   = "Create a new entry for "+subject.getName();
     } else {
-        formTitle   =  "Choose an item to add to your &quot;"+prop.getDomainPublic()+"&quot; list";
+        formTitle   =  "Add an entry to: <em>"+prop.getDomainPublic()+"</em>";
         submitLabel ="save entry";
     }
 %>
