@@ -65,7 +65,8 @@
 <jsp:include page="${preForm}"/>
 
 <form action="editRequestDispatch.jsp" method="get">
-    <h4>You are attempting to delete the property statement "${subjectName}" <i>${propertyName}"</i> "${objectName}"</h4>
+    <h2>You are attempting to delete the following from <i>${propertyName}</i>:</h2>
+    <div class="toBeDeleted">"${objectName}"</div>
     <input type="hidden" name="subjectUri"   value="${param.subjectUri}"/>
     <input type="hidden" name="predicateUri" value="${param.predicateUri}"/>
     <input type="hidden" name="objectUri"    value="${param.objectUri}"/>

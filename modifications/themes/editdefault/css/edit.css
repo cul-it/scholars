@@ -29,12 +29,14 @@ ul#profileCats li a:hover { color: #eaf0eb; background: #8fa993; }
 ul#profileCats li a:link#currentCat, ul#profileCats li a:visited#currentCat { color: #fff; background: #579c62; }
 
 h1 { font-weight: normal; font-family: Verdana, Helvetica, sans-serif; color: #fff; font-size: 6.0em; }
+body.formsEdit h2 { font-size: 1.7em; }
+
 .entity em.moniker { font-style: normal; color: #b21a1b; padding-top: .9em; padding-left: 12px; }
 /*div.entity ul.externalLinks { display: none; }  /* Hiding external links under name */*/
 
 div.thumbnail { display: none; padding: 14px; margin-top: 35px; } /* Hidden when editing */
 
-h3.propertyName { float: left; clear: left; color: #fff; background-color: #6a7f6b; font-size: 1.1em; font-weight: bold; text-transform: uppercase; padding: 3px 5px; }
+h3.propertyName { float: left; clear: left; color: #fff; background-color: #6a7f6b; font-size: 1.1em; font-weight: bold; text-transform: uppercase; padding: 3px 5px; margin-bottom: 0; }
 a:link.add, a:visited.add { float: left; margin: 25px 0 0 6px; }
 a:link.edit, a:visited.edit { margin-left: 10px; }
 li.property { color: #bbb; padding-top: 20px; }
@@ -44,8 +46,10 @@ ul.properties { padding: 8px 12px 5px 12px; margin:0; }
 ul.properties, div.thumbnail { background-color: #f2f0f0; }
 
 li.datatypeProperty { padding-top: 20px; }
-div#datatypeProperties ul, div#datatypeProperties p, ul.propertyLinks { padding: 6px 0 6px 12px; background-color: #f2f0f0; }
+div#datatypeProperties ul, div#datatypeProperties div, ul.propertyLinks { padding: 6px 0 6px 12px; background-color: #f2f0f0; }
 /*div#datatypeProperties p { padding: 6px 0 6px 12px; }*/
+div#datatypeProperties div { clear: left; }
+div#datatypeProperties div ul { padding: 0; }
 div.indent { background-color: #f2f0f0; margin: 0; padding: 8px 12px 5px 12px; }
 
 div.navlinkblock { background-color: #f2f0f0; padding: 8px 12px 5px 12px; }
@@ -87,6 +91,10 @@ ul#dashboardNavigation a { border: 0; }
 
 ul.dashboardCategories { padding: 4px 8px 12px 0; }
 ul.dashboardCategories li.dashboardProperty { list-style-type: disc; font-size: 1em; padding: 0; margin-left: 23px; }
+
+div.toBeDeleted { margin: 12px 0; padding: 10px; width: 80%; background: #FFB673; border: solid 1px #FF7B2E;}
+div.toBeDeleted ul { padding-left: 15px; }
+div.toBeDeleted ul li { list-style-type: disc; }
 
 #footer a:link, #footer a:visited {	color: #bf7374; border-bottom: 1px solid #bf7374; }
 #footer a:hover, #footer a:active {	color: #b21a1b; border-bottom: 1px solid #b21a1b; }

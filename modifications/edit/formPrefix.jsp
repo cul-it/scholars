@@ -41,7 +41,7 @@
 	<c:url value="/${themeDir}css/formedit.css" var="prefixFormCss"/>
 	<link rel="stylesheet" type="text/css" href="${prefixFormCss}" media="screen"/>
     <title>${themeDir}</title>
-<body>
+<body class="formsEdit">
 <div id="wrap">
     <jsp:include page="/${themeDir}jsp/identity.jsp" flush="true"/>
     <div id="contentwrap">

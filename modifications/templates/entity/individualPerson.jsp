@@ -104,3 +104,4 @@
                     <jsp:include page="entityAdmin.jsp"/> 
         </div>
     </div> <!-- content -->
+    <div class="clear"></div>
