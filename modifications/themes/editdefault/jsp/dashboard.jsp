@@ -43,7 +43,11 @@
     <%-- Research & Professional Activities --%>
     <c:url var="researchArea" value="/edit/editRequestDispatch.jsp">
         <c:param name="subjectUri" value="${entity.URI}"/>
-        <c:param name="predicateUri" value="http://vivo.library.cornell.edu/ns/0.1#PersonHasResearchArea"/>
+        <c:param name="predicateUri" value="http://vivo.library.cornell.edu/ns/0.1#researchFocus"/>
+    </c:url>
+    <c:url var="researchFocus" value="/edit/editDatapropStmtRequestDispatch.jsp">
+        <c:param name="subjectUri" value="${entity.URI}"/>
+        <c:param name="predicateUri" value="http://vivo.library.cornell.edu/ns/0.1#researchFocus"/>
     </c:url>
     <c:url var="sponsoredProjects" value="/edit/editRequestDispatch.jsp">
         <c:param name="subjectUri" value="${entity.URI}"/>
@@ -111,16 +115,18 @@
 		<h2><a href="#">Research &amp; Professional Activities</a></h2>
 		<ul class="dashboardCategories">
 		<li class="dashboardProperty"><a href="${researchArea}">research areas</a></li>
+		<li class="dashboardProperty"><a href="${researchFocus}">research focus</a></li>
 		<li class="dashboardProperty"><a href="${sponsoredProjects}">sponsored projects</a></li>
-		<li class="dashboardProperty"><a href="${linkkeyword}">select keyword</a></li>
-		<c:if test="${!empty(entity.keywords)}">
-			<li class="dashboardProperty"><a href="${removekeyword}">remove keyword</a></li>
-		</c:if>
-		<li class="dashboardProperty"><a href="${newkeyword}">new keyword</a></li>
-		<li class="dashboardProperty"><a title="disabled">professional
-		service (disabled)</a></li>
+		<!-- li class="dashboardProperty"><a href="${linkkeyword}">select keyword</a></li> -->
+		<!-- <c:if test="${!empty(entity.keywords)}"> -->
+			<!-- <li class="dashboardProperty"><a href="${removekeyword}">remove keyword</a></li>  -->
+		<!-- </c:if> -->
+		<!-- <li class="dashboardProperty"><a href="${newkeyword}">new keyword</a></li> -->
+		<li class="dashboardProperty"><a title="disabled">professional service (disabled)</a></li>
 		<li class="dashboardProperty"><a title="disabled">presentations (disabled)</a></li>
-		</ul>
+		<li class="dashboardProperty"><a href="#">patents</a></li>
+		<li class="dashboardProperty"><a href="${facilities}">research services or facilities used</a></li>
+		<li class="dashboardProperty"><a href="${professionalService}">professional service</a></li>
 	</li>
 	<li>
 		<h2><a href="#">International Expertise &amp; Activities</a></h2>
@@ -132,8 +138,7 @@
 		<li class="dashboardProperty"><a title="disabled"
 		>collaboration with (disabled)</a></li>
 		</ul>
-	</li>
-
+	</li>		
 	<li>
 		<h2><a href="#">Instruction &amp; Academics</a></h2>
 		<ul class="dashboardCategories">
@@ -148,7 +153,6 @@
 		<li class="dashboardProperty"><a title="disabled" >advising (disabled)</a></li>
 		</ul>
 	</li>
-
 	<li>
 		<h2><a href="#">Outreach &amp; Service</a></h2>
 		<ul class="dashboardCategories">
