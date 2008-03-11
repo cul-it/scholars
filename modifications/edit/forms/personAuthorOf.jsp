@@ -40,6 +40,28 @@
       SELECT ?desc
       WHERE {  ?newPub vitro:description ?desc }
 </v:jsonset>
+<v:jsonset var="pubYearExisting" >
+      PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
+      SELECT ?yearEx
+      WHERE {  ?newPub vivo:publicationYear ?yearEx }
+</v:jsonset>
+
+<v:jsonset var="monikerAssertion" >
+      @prefix vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>.
+      ?newPub vitro:moniker ?moniker .
+</v:jsonset>
+<v:jsonset var="pubNameAssertion" >
+      @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+    ?newPub rdfs:label ?name .
+</v:jsonset>
+<v:jsonset var="pubDescriptionAssertion" >
+      @prefix vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>.
+      ?newPub vitro:description ?desc .
+</v:jsonset>
+<v:jsonset var="pubYearAssertion" >
+  @prefix vivo:  <http://vivo.library.cornell.edu/ns/0.1#>.
+  ?newPub vitro:publicationYear ?year .
+</v:jsonset>
 
 <v:jsonset var="n3ForEdit"  >
     @prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
@@ -55,6 +77,7 @@
     ?newPub
           vitro:moniker     ?moniker;
           vitro:description ?pubDescription;
+          vivo:publicationYear ?pubYear;
           rdfs:label        ?pubName.
 </v:jsonset>
 
@@ -63,30 +86,29 @@
     "formUrl" : "${formUrl}",
     "editKey"  : "${editKey}",
 
-    "subjectUri"   : "${subjectUriJson}",
-    "predicateUri" : "${predicateUriJson}",
-    "objectUri"    : "${objectUriJson}",
-    "objectVar"    : "newPub",
+    "subject"   : [ "person",    "${subjectUriJson}"],
+    "predicate" : [ "predicate", "${predicateUriJson}"],
+    "object"    : [ "newPub" ,   "${objectUriJson}" , "URI" ],
+      
     "datapropKey"  : "",
     "n3required"    : [ "${n3ForEdit}" ],
     "n3optional"    : [ ],
-    "newResources"  : { "newPub" : "default" },
-    "urisInScope"   : {"person" : "${subjectUriJson}"
-                       ${existingUris} },
+    "newResources"  : { "newPub" : "http://vivo.library.cornell.edu/ns/0.1#individual" },
+    "urisInScope"   : { },
     "literalsInScope": { },
     "urisOnForm"    : [ ],
-    "literalsOnForm":  [ "pubDescription", "pubName", "moniker" ],
+    "literalsOnForm":  [ "pubDescription", "pubName", "moniker" ,"pubYear"],
     "sparqlForLiterals" : { },
     "sparqlForUris":{  },
-    "entityToReturnTo" : "${subjectUriJson}" ,
-    "basicValidators" : {"pubName" : ["nonempty" ],
-                         "pubDescription" : ["nonempty" ]  }  ,
+    
     "sparqlForExistingLiterals":{
         "pubDescription" : "${pubDescExisting}",
         "pubName"        : "${pubNameExisting}",
-        "moniker"        : "${monikerExisting}" },
+        "moniker"        : "${monikerExisting}",
+        "pubYear"        : "${pubYearExisting}"  },
     "sparqlForExistingUris": { },
-    "optionsForFields" : { },
+    
+   
     "fields" : {
       "moniker" : {
          "newResource"      : "false",
@@ -95,12 +117,48 @@
          "validators"       : [ ],
          "optionsType"      : "LITERALS",
          "literalOptions"   : ["journal article","book chapter","review","editorial","exhibit catalog"],
-         "subjectUri"       : "${subjectUriJson}",
+         "subjectUri"       : "",
          "subjectClassUri"  : "",
-         "predicateUri"     : "${predicateUriJson}",
+         "predicateUri"     : "",
          "objectClassUri"   : "",
          "rangeDatatypeUri" : "",
-         "assertions"       : []
+         "assertions"       : ["${monikerAssertion}"]
+      },
+      "pubName" : {
+         "newResource"      : "false",
+         "validators"       : [ "nonempty" ],
+         "optionsType"      : "UNDEFINED",
+         "literalOptions"   : [],
+         "subjectUri"       : "",
+         "subjectClassUri"  : "",
+         "predicateUri"     : "",
+         "objectClassUri"   : "",
+         "rangeDatatypeUri" : "",
+         "assertions"       : [ "${pubNameAssertion}" ]
+      },
+         "pubDescription" : {
+         "newResource"      : "false",
+         "validators"       : [ "nonempty" ],
+         "optionsType"      : "UNDEFINED",
+         "literalOptions"   : [],
+         "subjectUri"       : "",
+         "subjectClassUri"  : "",
+         "predicateUri"     : "",
+         "objectClassUri"   : "",
+         "rangeDatatypeUri" : "",
+         "assertions"       : [ "${pubDescriptionAssertion}" ]
+      },
+      "pubYear" : {
+         "newResource"      : "false",
+         "validators"       : [ "nonempty" ],
+         "optionsType"      : "UNDEFINED",
+         "literalOptions"   : [],
+         "subjectUri"       : "",
+         "subjectClassUri"  : "",
+         "predicateUri"     : "",
+         "objectClassUri"   : "",
+         "rangeDatatypeUri" : "",
+         "assertions"       : [ "${pubYearAssertion}" ]
       }
     }
   }
@@ -111,10 +169,10 @@
 
         EditConfiguration editConfig = new EditConfiguration((String)session.getAttribute("editjson"));
         EditConfiguration.putConfigInSession(editConfig, session);
-        if( objectUri != null ){     //these get done on a edit of an existing entity.
+             
+        if( objectUri != null ){
             Model model =  (Model)application.getAttribute("jenaOntModel");
-            prepareForEditOfExisting(editConfig,model,session,request);
-            editConfig.getUrisInScope().put("newPub",objectUri); //makes sure we reuse objUri 
+            editConfig.prepareForUpdate(request,model);
         }
             
     //}
@@ -143,23 +201,13 @@
 <h2>${title}</h2>
 
 <form action="<c:url value="/edit/processRdfForm2.jsp"/>" >
-    <v:input type="text" label="Title" id="pubName" size="70" />
+    <v:input type="text"  label="Title" id="pubName" size="70" />
+    <v:input type="text"  label="year"  id="pubYear" size="4" />
     <v:input type="radio" label="Publication Type" id="moniker" />
     <v:input type="textarea" label="Bibliographic Citation" id="pubDescription" rows="5" />
     <v:input type="editKey" id="editKey" />
-    <v:input type="submit" id="submit" value="<%=submitLabel%>" cancel="${param.subjectUri}" />
+    <v:input type="submit"  id="submit" value="<%=submitLabel%>" cancel="${param.subjectUri}" />
 </form>
 
 <jsp:include page="${postForm}"/>
 
- <%!private void prepareForEditOfExisting( EditConfiguration editConfig, Model model, HttpSession session,ServletRequest request){
-        SparqlEvaluate sparqlEval = new SparqlEvaluate(model);
-        Map<String,String> varsToUris =   sparqlEval.sparqlEvaluateToUris(editConfig.getSparqlForExistingUris(),
-                editConfig.getUrisInScope(),editConfig.getLiteralsInScope());
-        Map<String,String> varsToLiterals =   sparqlEval.sparqlEvaluateToLiterals(editConfig.getSparqlForExistingLiterals(),
-                editConfig.getUrisInScope(),editConfig.getLiteralsInScope());
-        EditSubmission esub = new EditSubmission(request,model,editConfig);
-        esub.setUrisFromForm(varsToUris);
-        esub.setLiteralsFromForm(varsToLiterals);
-        EditSubmission.putEditSubmissionInSession(session,esub);
-}%>
