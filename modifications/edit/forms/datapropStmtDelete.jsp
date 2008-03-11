@@ -53,7 +53,7 @@
 <%      } else { %>
             <jsp:include page="${preForm}"/>
             <form action="editDatapropStmtRequestDispatch.jsp" method="get">
-                <h2>You are attempting to delete the following from <i>${propertyName}</i>:</h2>
+                <h2>Are you sure you want to delete the following from <i>${propertyName}</i>?</h2>
                 <div class="toBeDeleted"><%=dataValue%></div>
                 <input type="hidden" name="subjectUri"   value="${param.subjectUri}"/>
                 <input type="hidden" name="predicateUri" value="${param.predicateUri}"/>
