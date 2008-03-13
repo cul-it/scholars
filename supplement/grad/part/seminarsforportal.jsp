@@ -1,6 +1,8 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:sparql="http://djpowell.net/tmp/sparql-tag/0.1/"
+          xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           version="2.0" >
 
 <jsp:directive.page import="org.joda.time.DateTime" />
@@ -22,7 +24,7 @@
               PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
               PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
               PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
-              SELECT DISTINCT ?talkUri ?blurb ?label ?timekey ?hostname
+              SELECT DISTINCT ?talkUri ?blurb ?label ?timekey ?hostname ?location ?person
               WHERE
               {
               ?talkUri
@@ -30,20 +32,17 @@
                 vitro:timekey ?timekey ;
                 vitro:sunrise ?sunrise ;
                 vitro:blurb   ?blurb ;
-                rdfs:label ?label.
+                rdfs:label ?label .
 
                OPTIONAL{
-                ?person 
-                    vivo:eventHasHostPerson ?talkUri ;  
-                    rdfs:lavel ?hostname ;
-                    vivo:AcademicEmployeeOtherParticipantAsFieldMemberInAcademicInitiative ?field .
+                ?talkUri
+                    vivo:eventHasHostPerson ?person ;
+                    vivo:eventHeldInFacility ?place .
 
-                 ?field 
-                    rdf:type vivo:GraduateField .
-                                  
-                 ?fieldCluster 
-                     rdf:type vivo:fieldCluster ;
-                     vivo:hasAssociated ?field. 
+                ?person rdfs:label ?hostname .
+                
+                ?place rdfs:label ?location .
+                
                }
                FILTER( xsd:dateTime(?now) > ?sunrise  && xsd:dateTime(?now) < ?timekey )
               }
@@ -52,14 +51,31 @@
 
           ]]>
     </sparql:select>
-
-
+    
         <ul>
-            <c:forEach  items="${rs.rows}" var="talk">
-                <li>                  
-                  <c:url var="href" value="/entity"><c:param name="uri" value="${talk.talkUri}"/></c:url>
-                  <a href="${href}">${talk.label.string}</a> <!-- | ${talk.blurb.string} | ${talk.hostname.string} |  ${talk.timekey.string} -->
-                </li>
+            <c:forEach  items="${rs.rows}" var="talk" begin="0" varStatus="status">
+                <fmt:parseDate var="seminarTimekey" value="${talk.timekey.string}" pattern="yyyy-MM-dd'T'HH:mm:ss" />
+                <fmt:formatDate var="seminarDate" value="${seminarTimekey}" pattern="EEEE', 'MMM'. 'd" />
+                <fmt:formatDate var="calendarStart" value="${seminarTimekey}" pattern="yyyyMMdd'T'HHmm'-0500'" />
+                <fmt:formatDate var="calendarEnd" value="${seminarTimekey}" pattern="yyyyMMdd" />
+                
+                <c:url var="seminarLink" value="/entity"><c:param name="uri" value="${talk.talkUri}"/></c:url>
+                <c:url var="seminarHostLink" value="/entity"><c:param name="uri" value="${talk.person}"/></c:url>
+                
+                <c:set var="firstName" value="${fn:substringAfter(talk.hostname.string,',')}"/>
+                <c:set var="lastName" value="${fn:substringBefore(talk.hostname.string,',')}"/>
+                
+                <c:set var="cleanClass"><c:if test="${status.count eq 2}">clean</c:if></c:set>
+                
+                <li id="hcalendar-${calendarSummary}" class="vevent ${cleanClass}">
+                    <abbr title="${calendarStart}" class="dtstart">${seminarDate}</abbr>
+                    <abbr title="${calendarEnd}" class="dtend"></abbr>
+                    <p class="host"><a href="${seminarHostLink}">${fn:trim(firstName)}&amp;nbsp;${lastName}</a></p>
+                    <p class="summary"><a href="${seminarLink}" class="url">${talk.label.string}</a></p> 
+                    <p class="location">${talk.location.string}</p>
+                    <p class="description">${talk.blurb.string}</p>
+               </li>
+            
             </c:forEach>
         </ul>
 

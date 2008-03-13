@@ -13,7 +13,7 @@ html {
     height: 100%;    /* Allow background over lay to extend to bottom of window */
 }
 body {
-    font-family: Helvetica, Arial, Verdana, sans-serif;
+    font-family: Arial, Helvetica, Verdana, sans-serif;
     font-size: 63.125%;     /* translate 1.0em to 10px, 1.5em to 15px, etc. */
     text-align: center;
     color: #333;
@@ -71,7 +71,7 @@ body {
     width: 64%;
 /*    min-width: 600px;*/
     padding: 5px 15px 22px 18px;
-    font-family: Helvetica, Arial, Verdana, sans-serif;
+    font-family: Arial, Helvetica, Verdana, sans-serif;
     font-size: 1.2em;
     color: #efecca;
 }
@@ -148,7 +148,7 @@ header roll call
 #header h1 {
     margin-left: 15px;
     font-size: 3.4em;
-    font-family: "Myriad Pro", Helvetica, Arial, Verdana, Sans-serif;
+    font-family: "Myriad Pro", Arial, Helvetica, Verdana, sans-serif;
     font-weight: bold;
     color: #69bfde;
 }
@@ -265,10 +265,9 @@ div#search h2 {
 
 #news, #search, #seminars {
     margin-top: 20px;
-    padding: 12px 0px 8px 10px;
+    padding: 12px 10px 8px 10px;
     color: #000;
     background: #efecca;
-    overflow: auto;
     text-align: right;
 }
 
@@ -316,7 +315,7 @@ p {
 }
 
 h1, h2, h3, h4 {
-    font-family: Helvetica, Arial, Verdana, Sans-serif;
+    font-family: Arial, Helvetica, Verdana, sans-serif;
     font-weight: normal;
     color: #a7a37e; /* Gold */
 }
@@ -391,8 +390,9 @@ h2.groupLabel, h2.groupLabel a:link, h2.groupLabel a:visited {
     font-weight: bold;
 }
 
-#news a, #seminars a {
-    font-size: 1em;
+#news a {
+    font-size: .95em;
+    line-height: 1.3em;
 }
 
 #news a:link, #news a:visited, #seminars a:link, #seminars a:visited {
@@ -405,12 +405,55 @@ h2.groupLabel, h2.groupLabel a:link, h2.groupLabel a:visited {
     color: #2ca6d2;
 }
 
+#seminars p {
+    margin: 0;
+}
+
+#seminars li {
+    margin-bottom:1em;
+}
+
+#seminars abbr.dtstart, #seminars p.host {
+    font-size: .95em;
+    font-weight: bold;
+    line-height: 1.2em;
+}
+
+#seminars abbr.dtstart {
+    float: left;
+}
+
+#seminars p.host {
+    float: right;
+}
+
+#seminars p.host a:link, #seminars p.host a:visited {
+    color: #000;
+    border-bottom: 0;
+}
+
+#seminars p.host a:hover {
+    color: #69bfde;
+    border-bottom: 0;
+}
+
+#seminars p.summary {
+    clear:both;
+    font-size: .95em;
+    line-height: 1.3em;
+}
+
+
+
+
+#seminars abbr.dtend, #seminars p.location, #seminars p.description {display:none;}
+
+
+
 #sidebar a.moreLink {
-    display: block;
     clear: both;
     font-weight: bold;
     font-size: 1.1em;
-    margin-right: 10px;
 }
 
 #sidebar a:link.moreLink, #sidebar a:visited.moreLink {
@@ -451,7 +494,7 @@ ul.groupings {
 ul.groupings li {
     margin-bottom: -13px; /* Tightening the space between group items */
     font-size: 1.7em;
-    font-family: Helvetica, Arial, Verdana, Sans-serif;
+    font-family: Arial, Helvetica, Verdana, sans-serif;
     font-weight: bold;
     line-height: 1.3em;
 }
@@ -524,7 +567,7 @@ ul.fields li a {
     padding-right: 20px;
 }
 
-#news li.clean {
+#news li.clean, #seminars li.clean {
     margin: 0;
     padding: 0;
 }

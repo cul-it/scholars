@@ -1,9 +1,16 @@
 /* -------- Sidebar --------- */
-div.exhibit-facet-body {
+#exhibitGradFields div.exhibit-facet-body {
     padding: 12px 10px;
     border: 0;
     border-left: 1px solid #a7a37e;
     border-top: 1px solid #a7a37e;
+}
+
+#exhibitResearchAreas div.exhibit-facet-body {
+    padding: 12px 10px;
+    border: 0;
+    border-left: 1px solid #85bcba;
+    border-top: 1px solid #85bcba;
 }
 
 div.exhibit-facet-header {
@@ -11,7 +18,7 @@ div.exhibit-facet-header {
     margin-bottom: .5em;
 }
 
-span.exhibit-facet-header-title {
+#exhibitGradFields span.exhibit-facet-header-title {
     font-size: 1.5em;
     font-weight: normal;    
     color: #b1ab77;
@@ -19,10 +26,28 @@ span.exhibit-facet-header-title {
     margin-left: -3px;
 }
 
-div.exhibit-resizableDivWidget-resizer {
+#exhibitGradFields div.exhibit-resizableDivWidget-resizer {
     margin-top: 1px;
     border-top: 1px solid #a7a37e;
     background: url(../images/layout/exhibit-resizer.gif) no-repeat center center;
+}
+
+#exhibitResearchAreas span.exhibit-facet-header-title {
+    font-size: 1.5em;
+    font-weight: normal;    
+    color: #85bcba;
+    margin-top: 1em;
+    margin-left: -3px;
+}
+
+#exhibitResearchAreas div.exhibit-resizableDivWidget-resizer {
+    margin-top: 1px;
+    border-top: 1px solid #85bcba;
+    background: url(../images/layout/exhibit-resizer.gif) no-repeat center center;
+}
+
+div.exhibit-facet-value-selected a.exhibit-facet-value-link {
+    color: #ebe386;    
 }
 
 div.exhibit-resizableDivWidget-resizer img {
