@@ -66,6 +66,8 @@
 </c:choose>
 
     <div id="content">
+        <jsp:include page="entityAdmin.jsp"/> 
+        
         <div class='contents entity'>
                 <h2>${entity.name}</h2> 
                 <c:choose>
@@ -144,6 +146,5 @@
                 </div>
                 </c:if>
                 ${requestScope.servletButtons}
-                    <jsp:include page="entityAdmin.jsp"/> 
         </div>
     </div> <!-- content -->

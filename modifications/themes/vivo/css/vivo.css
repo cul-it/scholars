@@ -181,6 +181,26 @@ li.activePrimaryTab {
 /****************************************************************
 content roll call
 ****************************************************************/
+.admin {
+	margin: 10px 0;
+	padding: 10px;
+	background-color: #8ac;
+}
+
+.admin a:link, .admin a:visited {
+	color: #fff;
+}
+
+.admin a:hover {
+	color: #203e48;
+}
+
+.entityValues {
+	color: #555;
+	font-size: 0.9em;
+	line-height: 0.9em;
+}
+
 .citation {
 	clear: both;
 	padding-top: 25px;
@@ -465,6 +485,10 @@ h3.propertyName {
 h3.centered {
 	margin-top: 10px;
 	font-size: 1.2em;
+}
+
+.admin h3 {
+	margin-top: 0;
 }
 
 .contentsBrowseGroup h3 {

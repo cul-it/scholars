@@ -50,6 +50,8 @@
     <jsp:include page="/${themeDir}jsp/dashboard.jsp" flush="true" />
 
     <div id="content" class="person">
+        <jsp:include page="entityAdmin.jsp"/>
+        
         <div class='contents entity'>
                 <h2>${entity.name}</h2> 
                 <c:choose>
@@ -100,8 +102,7 @@
                     Keywords: ${entity.keywordString}
                 </div>
                 </c:if>
-                ${requestScope.servletButtons}
-                    <jsp:include page="entityAdmin.jsp"/> 
+                ${requestScope.servletButtons} 
         </div>
     </div> <!-- content -->
     <div class="clear"></div>
