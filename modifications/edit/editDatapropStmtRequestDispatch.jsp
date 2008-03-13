@@ -6,6 +6,8 @@
 <%@ page import="edu.cornell.mannlib.vitro.webapp.beans.DataPropertyStatement" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.web.MiscWebUtils" %>
 <%@ page import="java.util.HashMap" %>
+<%@ page import="org.apache.commons.logging.Log" %>
+<%@ page import="org.apache.commons.logging.LogFactory" %>
 <%
     // Decide which form to forward to, set subjectUri, subjectUriJson, predicateUri, predicateUriJson in request
     // Also get the Individual for the subjectUri and put it in the request scope
@@ -23,7 +25,10 @@
     final String DEFAULT_DATA_FORM = "defaultDatapropForm.jsp";
     final String DEFAULT_ERROR_FORM = "error.jsp";
     final String DEFAULT_EDIT_THEME_DIR = "themes/default";
-
+    
+    //final Log log = LogFactory.getLog("clones.vivo.modifications.edit.editDatapropStmtRequestDispatch.jsp");
+    org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger("edu.cornell.mannlib.vitro.jsp.edit.editDatappropStmtRequestDispatch");
+    
     HashMap<String,String> propUriToForm = null;
     propUriToForm = new HashMap<String,String>();
     // may not need these -- depends on where we go with ordering data property statements in Javascript vs stub entities
@@ -43,20 +48,29 @@
     String defaultParam = request.getParameter("defaultForm");
     String command      = request.getParameter("cmd");
 
-    if( subjectUri == null || subjectUri.trim().length() == 0 )
+    if( subjectUri == null || subjectUri.trim().length() == 0 ) {
+        log.error("required subjectUri parameter missing");
         throw new Error("subjectUri was empty, it is required by editDatapropStmtRequestDispatch");
-    if( predicateUri == null || predicateUri.trim().length() == 0)
+    }
+    if( predicateUri == null || predicateUri.trim().length() == 0) {
+        log.error("required subjectUri parameter missing");
         throw new Error("predicateUri was empty, it is required by editDatapropStmtRequestDispatch");
-
+    }
     request.setAttribute("subjectUri", subjectUri);
     request.setAttribute("subjectUriJson", MiscWebUtils.escape(subjectUri));
     request.setAttribute("predicateUri", predicateUri);
     request.setAttribute("predicateUriJson", MiscWebUtils.escape(predicateUri));
 
-    String datapropKey = request.getParameter("datapropKey");
-    if( datapropKey != null && datapropKey.trim().length()>0 ){
-        request.setAttribute("datapropKey",datapropKey);
-        request.setAttribute("datapropKeyJson",MiscWebUtils.escape(datapropKey));
+    String datapropKeyStr = request.getParameter("datapropKey");
+    int dataHash = 0;
+    if( datapropKeyStr != null && datapropKeyStr.trim().length()>0 ){
+        try {
+            dataHash = Integer.parseInt(datapropKeyStr);
+        } catch (NumberFormatException ex) {
+            throw new JspException("Cannot decode incoming datapropKey value "+datapropKeyStr+" as an integer hash in editDatapropStmtRequestDispatch.jsp");
+        }
+        //request.setAttribute("datapropHash",new Integer(dataHash));
+        //request.setAttribute("datapropKeyJson",MiscWebUtils.escape(datapropKeyStr));
     } // else creating a new data property
 
     /* since we have the URIs let's put the individual, data property, and optional data property statement in the request */
@@ -64,22 +78,25 @@
     WebappDaoFactory wdf = vreq.getWebappDaoFactory();
 
     Individual subject = wdf.getIndividualDao().getIndividualByURI(subjectUri);
-    if( subject == null ) throw new Error("editDatapropStmtRequest.jsp: Could not find subject Individual in model: '" + subjectUri + "'");
+    if( subject == null ) {
+        log.error("Could not find subject Individual '"+subjectUri+"' in model");
+        throw new Error("editDatapropStmtRequest.jsp: Could not find subject Individual in model: '" + subjectUri + "'");
+    }
     request.setAttribute("subject", subject);
 
     DataProperty dataproperty = wdf.getDataPropertyDao().getDataPropertyByURI( predicateUri );
-    if( dataproperty == null ) throw new Error("editDatapropStmtRequest.jsp: Could not find DataProperty in model: " + predicateUri);
+    if( dataproperty == null ) {
+        log.error("Could not find data property '"+predicateUri+"' in model");
+        throw new Error("editDatapropStmtRequest.jsp: Could not find DataProperty in model: " + predicateUri);
+    }
     request.setAttribute("predicate", dataproperty);
 
-    if( datapropKey != null ) {
-        int hash = 0;
-        try {
-            hash = Integer.parseInt(datapropKey);
-        } catch (NumberFormatException ex) {
-            throw new JspException("Cannot decode incoming datapropKey value "+datapropKey+" as an integer hash in editRequestDispatch.jsp");
+    if( dataHash > 0) {
+        DataPropertyStatement dps=EditConfiguration.findDataPropertyStatementViaHashcode(subject,predicateUri,dataHash);
+        if (dps==null) {
+            log.error("No match to existing data property \""+predicateUri+"\" statement for subject \""+subjectUri+"\" via key "+datapropKeyStr);
+            throw new Error("In editRequestDispatch.jsp, no match to existing data property \""+predicateUri+"\" statement for subject \""+subjectUri+"\" via key "+datapropKeyStr+"\n");
         }
-        DataPropertyStatement dps=EditConfiguration.findDataPropertyStatementViaHashcode(subject,predicateUri,hash);
-        if (dps==null) throw new Error("In editRequestDispatch.jsp, no match to existing data property \""+predicateUri+"\" statement for subject \""+subjectUri+"\" via key "+datapropKey+"\n");
         request.setAttribute("dataprop", dps );
     }
 

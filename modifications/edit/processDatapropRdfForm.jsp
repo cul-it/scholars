@@ -18,6 +18,8 @@
 <%@ page import="java.io.StringReader" %>
 <%@ page import="java.util.*" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
+<%@ page import="org.apache.commons.logging.Log" %>
+<%@ page import="org.apache.commons.logging.LogFactory" %>
 
 <%-- 2nd prototype of processing, adapted for data property editing
 
@@ -27,6 +29,12 @@ are not bound or it cannot be processed as n3 by Jena then it is an error
 in processing the form.
 --%>
 <%
+	//final Log log = LogFactory.getLog("edu.cornell.mannlib.vitro.jsp.edit.processDatapropRdfForm");
+    org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger("edu.cornell.mannlib.vitro.jsp.edit.forms.processDatapropRdfForm.jsp");
+    log.info("Starting processDatapropRdfForm.jsp");
+
+	System.out.println("there should be a message in the log that we are starting processDatapropRdfForm");
+
     if( session == null)
         throw new Error("need to have session");
 %>
@@ -59,12 +67,15 @@ in processing the form.
     String subjectUri=null, predicateUri=null;
     Individual subject=null;
     if( editConfig.getDatapropKey() != null && editConfig.getDatapropKey().length() > 0){
+        // we are editing an existing data property statement
         subjectUri   = editConfig.getSubjectUri(); //request.getParameter("subjectUri");
         if (subjectUri == null || subjectUri.trim().length()==0) {
+            log.error("No subjectUri parameter available via editConfig for datapropKey "+editConfig.getDatapropKey());
             throw new Error("No subjectUri parameter available via editConfig in processDatapropRdfForm.jsp");
         }
         predicateUri = editConfig.getPredicateUri(); //request.getParameter("predicateUri");
         if (predicateUri == null || predicateUri.trim().length()==0) {
+            log.error("No predicateUri parameter available via editConfig for datapropKey "+editConfig.getDatapropKey());
             throw new Error("No predicateUri parameter available via editConfig in processDatapropRdfForm.jsp");
         }
 
@@ -73,7 +84,10 @@ in processing the form.
 
         // need to get subject because have to iterate through all its data property statements to match datapropKey hashcode
         subject = wdf.getIndividualDao().getIndividualByURI(subjectUri);
-        if( subject == null ) throw new Error("In processDatapropRdfForm.jsp, could not find subject Individual via uri " + subjectUri);
+        if( subject == null ) {
+            log.error("Could not find subject Individual via editConfig's subjectUri while proceessing update to datapropKey "+editConfig.getDatapropKey());
+            throw new Error("In processDatapropRdfForm.jsp, could not find subject Individual via uri " + subjectUri);
+        }
         fieldAssertions = fieldsToMap(editConfig.getFields());
 //  }else{
 //      fieldAssertions = new HashMap<String,List<String>>();
@@ -83,7 +97,7 @@ in processing the form.
     /* ********** URIs and Literals on Form/Parameters *********** */
     //sub in resource uris off form
     n3Required = subInUris(submission.getUrisFromForm(), n3Required);
-    //n3Optional = subInUris(submission.getUrisFromForm(), n3Optional);
+    // only 1 literal value: n3Optional = subInUris(submission.getUrisFromForm(), n3Optional);
 
     //sub in literals from form
     n3Required = subInLiterals(submission.getLiteralsFromForm(), n3Required);
@@ -132,14 +146,19 @@ in processing the form.
             Field field = editConfig.getFields().get(fieldName);
             /* CHECK that field changed, then add assertions and retractions */
             if( hasFieldChanged(fieldName, editConfig, submission) ){
+                log.debug("Field "+fieldName+" has changed for datapropKey "+editConfig.getDatapropKey());
                 List<String> assertions = fieldAssertions.get(fieldName);
                 for( String n3 : assertions){
                     try{
+                        System.out.println("Adding assertion '"+n3+"' to requiredFieldAssertions");
+                        log.debug("Adding assertion '"+n3+"' to requiredFieldAssertions");
                         Model model = ModelFactory.createDefaultModel();
                         StringReader reader = new StringReader(n3);
                         model.read(reader, "", "N3");
                         requiredFieldAssertions.add(model);
                     }catch(Throwable t){
+                        System.out.println("Error processing N3 assertions string from field "+fieldName+"\n"+t.getMessage()+'\n'+"n3: \n"+n3);
+                        log.error("processing N3 assertions string from field "+fieldName+"\n"+t.getMessage()+'\n'+"n3: \n"+n3);
                         errorMessages.add("error processing N3 assertion string from field " + fieldName + "\n"+
                                 t.getMessage() + '\n' +
                                 "n3: \n" + n3 );
@@ -147,14 +166,16 @@ in processing the form.
                 }
                 for( String n3 : field.getRetractions()){
                     try{
+                        System.out.println("Adding retraction '"+n3+"' to requiredFieldRetractions");
+                        log.debug("Adding retraction '"+n3+"' to requiredFieldRetractions");
                         Model model = ModelFactory.createDefaultModel();
                         StringReader reader = new StringReader(n3);
                         model.read(reader, "", "N3");
                         requiredFieldRetractions.add(model);
                     }catch(Throwable t){
-                        errorMessages.add("error in processDatapropRdfForm.jsp processing N3 retraction string from field " + fieldName + "\n"+
-                                t.getMessage() + '\n' +
-                                "n3: \n" + n3 );
+                        System.out.println("processing N3 retraction string from field "+fieldName+"\n"+t.getMessage()+'\n'+"n3: \n"+n3);
+                        log.error("processing N3 retraction string from field "+fieldName+"\n"+t.getMessage()+'\n'+"n3: \n"+n3);
+                        errorMessages.add("error in processDatapropRdfForm.jsp processing N3 retraction string from field "+fieldName+"\n"+t.getMessage()+'\n'+"n3: \n"+n3);
                     }
                 }
             }
@@ -162,24 +183,27 @@ in processing the form.
         requiredAssertions = requiredFieldAssertions;
         requiredRetractions = requiredFieldRetractions;
         //optionalAssertions = Collections.EMPTY_LIST;
-
-    } else {
-        //deal with required N3
+    } else { //deal with required N3
+        System.out.println("Not editing an existing statement since no datapropKey in editConfig");
+        log.debug("Not editing an existing statement since no datapropKey in editConfig");
         List<Model> requiredNewModels = new ArrayList<Model>();
         for(String n3 : n3Required){
             try{
-                 Model model = ModelFactory.createDefaultModel();
-                 StringReader reader = new StringReader(n3);
-                 model.read(reader, "", "N3");
-                 requiredNewModels.add( model );
+                System.out.println("Adding assertion '"+n3+"' to requiredNewModels");
+                log.debug("Adding assertion '"+n3+"' to requiredNewModels");
+                Model model = ModelFactory.createDefaultModel();
+                StringReader reader = new StringReader(n3);
+                model.read(reader, "", "N3");
+                requiredNewModels.add( model );
             }catch(Throwable t){
-                 errorMessages.add("error processing required n3 string \n"+
-                         t.getMessage() + '\n' +
-                         "n3: \n" + n3 );
+                System.out.println("error processing required n3 string \n"+t.getMessage()+'\n'+"n3: \n"+n3);
+                log.error("error processing required n3 string \n"+t.getMessage()+'\n'+"n3: \n"+n3);
+                errorMessages.add("error processing required n3 string \n"+t.getMessage()+'\n'+"n3: \n"+n3);
             }
         }
         if( !errorMessages.isEmpty() ){
             for( String error : errorMessages){
+                log.error(error);
                 System.out.println(error);
             }
             throw new JspException("errors processing required N3 in processDatapropRdfForm.jsp, check logs for details");

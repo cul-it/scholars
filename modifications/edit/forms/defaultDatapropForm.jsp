@@ -5,12 +5,23 @@
 <%@ page import="edu.cornell.mannlib.vitro.webapp.edit.n3editing.EditConfiguration" %>
 <%@ taglib prefix="v" uri="http://vitro.mannlib.cornell.edu/vitro/tags" %>
 <%@page import="edu.cornell.mannlib.vitro.webapp.web.MiscWebUtils"%>
+<%@ page import="org.apache.commons.logging.Log" %>
+<%@ page import="org.apache.commons.logging.LogFactory" %>
 <%
-
+    //final Log log = LogFactory.getLog("clones.vivo.modifications.edit.forms.defaultDatapropForm.jsp");
+	org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger("edu.cornell.mannlib.vitro.jsp.edit.forms.defaultDatapropForm.jsp");
+	log.info("Starting defaultDatapropForm.jsp");
+	
     String subjectUri   = request.getParameter("subjectUri");
     String predicateUri = request.getParameter("predicateUri");
 
-    String datapropKey = request.getParameter("datapropKey");
+    String datapropKeyStr = request.getParameter("datapropKey");
+    int dataHash=0;
+    try {
+        dataHash = Integer.parseInt(datapropKeyStr);
+    } catch (NumberFormatException ex) {
+        throw new JspException("Cannot decode incoming datapropKey String value "+datapropKeyStr+" as an integer hash in defaultDatapropForm.jsp");
+    }
 
     //this should be moved to editREquestDispatch.jsp? what does it do?
     request.getSession(true);
@@ -38,11 +49,11 @@
 
     "subject"   : ["subject",   "${subjectUriJson}" ],
     "predicate" : ["predicate", "${predicateUriJson}"],
-    "object"    : ["editedLiteral",    "" , "DATAPROPHASH"],
+    "object"    : ["editedLiteral","","DATAPROPHASH"],
 
-    "datapropKey"  : "${datapropKey}",
+    "datapropKey"  : "${dataHash}",
 
-    "n3required"                : [ "${n3ForEdit}" ],
+    "n3required"                : ["${n3ForEdit}"],
     "n3optional"                : [ ],
     "newResources"              : { },
     "urisInScope"               : { },
@@ -55,8 +66,8 @@
     "sparqlForExistingLiterals" : { },
     "sparqlForExistingUris"     : { },
     "basicValidators"           : { "editedLiteral" : ["nonempty"] ,
-                                    "predicate" : ["nonempty"] ,
-                                    "subject"   : ["nonempty"] } ,
+                                    "predicate"     : ["nonempty"] ,
+                                    "subject"       : ["nonempty"] } ,
     "optionsForFields"          : { },
     "fields"                    : { "editedLiteral" : {
                                        "newResource"      : "false",
@@ -83,7 +94,8 @@
     String formTitle   =""; // don't add local page variables to the request
     String submitLabel ="";
 
-    if( datapropKey != null ){
+    if( dataHash > 0) {
+        editConfig.setDatapropKey(String.valueOf(dataHash));
         Model model =  (Model)application.getAttribute("jenaOntModel");
         editConfig.prepareForUpdate(request,model);
         formTitle   = "Change value for &quot;"+prop.getPublicName()+"&quot; data property for "+subject.getName();

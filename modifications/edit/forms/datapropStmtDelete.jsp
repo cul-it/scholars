@@ -20,13 +20,13 @@
 
     String subjectUri   = request.getParameter("subjectUri");
     String predicateUri = request.getParameter("predicateUri");
-    String datapropKey  = request.getParameter("datapropKey");
+    String datapropKeyStr  = request.getParameter("datapropKey");
     int dataHash = 0;
-    if (datapropKey!=null && datapropKey.trim().length()>0) {
+    if (datapropKeyStr!=null && datapropKeyStr.trim().length()>0) {
         try {
-            dataHash = Integer.parseInt(datapropKey);
+            dataHash = Integer.parseInt(datapropKeyStr);
         } catch (NumberFormatException ex) {
-            throw new JspException("Cannot decode incoming datapropKey value "+datapropKey+" as an integer hash in datapropStmtDelete.jsp");
+            throw new JspException("Cannot decode incoming datapropKey String value "+datapropKeyStr+" as an integer hash in datapropStmtDelete.jsp");
         }
     }
 
