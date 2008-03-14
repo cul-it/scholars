@@ -392,13 +392,14 @@ h2.groupLabel, h2.groupLabel a:link, h2.groupLabel a:visited {
     color: #2ca6d2;
 }
 
-#news ul li:hover a {
-    /* Applying rollover to entire li to avoid flickering */
-    color: #2ca6d2;
-}
+
 
 #seminars p {
     margin: 0;
+}
+
+#seminars ul {
+    width: 100%
 }
 
 #seminars li {
