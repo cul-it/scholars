@@ -10,12 +10,17 @@
 <%@ page import="java.util.Iterator" %>
 <%@page contentType="text/text" %>
 {
-    "properties" : {
+    properties: {
         "graduate-field" : {
             valueType : "item"
         }
     },
-    "items" : [
+    types: {
+        "faculty member": {
+            pluralLabel: "faculty members"
+        }
+    },
+    items : [
 <%
     //get people and to JSON as items
     Model model = (Model)application.getAttribute("jenaOntModel");

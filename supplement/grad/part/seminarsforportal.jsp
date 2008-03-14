@@ -61,15 +61,14 @@
                 
                 <c:url var="seminarLink" value="/entity"><c:param name="uri" value="${talk.talkUri}"/></c:url>
                 <c:url var="seminarHostLink" value="/entity"><c:param name="uri" value="${talk.person}"/></c:url>
-                
                 <c:set var="firstName" value="${fn:substringAfter(talk.hostname.string,',')}"/>
                 <c:set var="lastName" value="${fn:substringBefore(talk.hostname.string,',')}"/>
-                
+
                 <c:set var="cleanClass"><c:if test="${status.count eq 2}">clean</c:if></c:set>
                 
-                <li id="hcalendar-${calendarSummary}" class="vevent ${cleanClass}">
+                <li class="vevent ${cleanClass}">
                     <abbr title="${calendarStart}" class="dtstart">${seminarDate}</abbr>
-                    <abbr title="${calendarEnd}" class="dtend"></abbr>
+                    <abbr title="${calendarEnd}" class="dtend">- ?</abbr>
                     <p class="host"><a href="${seminarHostLink}">${fn:trim(firstName)}&amp;nbsp;${lastName}</a></p>
                     <p class="summary"><a href="${seminarLink}" class="url">${talk.label.string}</a></p> 
                     <p class="location">${talk.location.string}</p>

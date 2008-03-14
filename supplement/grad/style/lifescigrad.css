@@ -236,13 +236,6 @@ content roll call
     margin-top: 1em;
 }
 
-.test {
-    background-color: #555;
-    color: #fff;
-    padding: 20px;
-    border: 1px solid yellow;
-}
-
 /****************************************************************
 sidebar roll call
 ****************************************************************/
@@ -279,16 +272,9 @@ div#search h2 {
     background: #a7a37e;
 }
 
-#testbox {
-    width: 300px;
-/*    height: 100px;*/
-    background: #ff0000;
-}
-
 #departments {
     margin-top: 20px;
     padding: 10px;
-/*    background: #046380;*/
 }
 
 #sidebar.faculty {
@@ -380,7 +366,8 @@ a:active {
     color: #ebe386;
 }
 
-li a, #researchInField li a {  /* link underlining */
+li a, #researchInField li a {  
+    /* link underlining */
     border-bottom: 1px solid #4a7172;
 }
 
@@ -391,8 +378,8 @@ h2.groupLabel, h2.groupLabel a:link, h2.groupLabel a:visited {
 }
 
 #news a {
-    font-size: .95em;
-    line-height: 1.3em;
+    font-size: .9em;
+    line-height: 1.4em;
 }
 
 #news a:link, #news a:visited, #seminars a:link, #seminars a:visited {
@@ -402,6 +389,11 @@ h2.groupLabel, h2.groupLabel a:link, h2.groupLabel a:visited {
 }
 
 #news a:hover, #seminars a:hover {
+    color: #2ca6d2;
+}
+
+#news ul li:hover a {
+    /* Applying rollover to entire li to avoid flickering */
     color: #2ca6d2;
 }
 
@@ -429,26 +421,22 @@ h2.groupLabel, h2.groupLabel a:link, h2.groupLabel a:visited {
 
 #seminars p.host a:link, #seminars p.host a:visited {
     color: #000;
-    border-bottom: 0;
+    border-bottom: 1px solid #000;
 }
 
 #seminars p.host a:hover {
     color: #69bfde;
-    border-bottom: 0;
 }
 
 #seminars p.summary {
     clear:both;
-    font-size: .95em;
-    line-height: 1.3em;
+    font-size: .90em;
+    line-height: 1.4em;
 }
 
-
-
-
-#seminars abbr.dtend, #seminars p.location, #seminars p.description {display:none;}
-
-
+#seminars abbr.dtend, #seminars p.location, #seminars p.description {
+    display:none;
+}
 
 #sidebar a.moreLink {
     clear: both;

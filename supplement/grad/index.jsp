@@ -9,7 +9,7 @@
                 <p>On campus, a biorevolution has transformed research. Biology is no longer just being done by biologists. Scientists and scholars from traditionally separate disciplines pursue biological questions and work with biological systems and biologists.</p>
                 <div id="apply">
                     <p>Begin the process of studying in one of the world's most exciting and diverse academic environments.</p>
-                    <a href="#" id="applyButton" title="Apply"><img src="images/layout/button_apply.gif" alt="Apply"/></a>
+                    <a href="http://www.gradschool.cornell.edu/?p=1" id="applyButton" title="Apply"><img src="images/layout/button_apply.gif" alt="Apply Button"/></a>
                 </div>
                 
             </div><!-- content -->
