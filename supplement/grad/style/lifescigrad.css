@@ -421,7 +421,7 @@ h2.groupLabel, h2.groupLabel a:link, h2.groupLabel a:visited {
 
 #seminars p.host a:link, #seminars p.host a:visited {
     color: #000;
-    border-bottom: 1px solid #000;
+    border-bottom: 0;
 }
 
 #seminars p.host a:hover {

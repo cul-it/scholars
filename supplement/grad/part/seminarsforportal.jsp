@@ -68,8 +68,10 @@
                 
                 <li class="vevent ${cleanClass}">
                     <abbr title="${calendarStart}" class="dtstart">${seminarDate}</abbr>
-                    <abbr title="${calendarEnd}" class="dtend">- ?</abbr>
-                    <p class="host"><a href="${seminarHostLink}">${fn:trim(firstName)}&amp;nbsp;${lastName}</a></p>
+                    <abbr title="${calendarEnd}" class="dtend"> - &amp;#63;</abbr>
+                    <c:if test="${not empty talk.hostname.string}">
+                        <p class="host"><a href="${seminarHostLink}">${fn:trim(firstName)}&amp;nbsp;${lastName}</a></p>
+                    </c:if>
                     <p class="summary"><a href="${seminarLink}" class="url">${talk.label.string}</a></p> 
                     <p class="location">${talk.location.string}</p>
                     <p class="description">${talk.blurb.string}</p>
