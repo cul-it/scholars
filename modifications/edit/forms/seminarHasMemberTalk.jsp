@@ -119,6 +119,7 @@
          "predicateUri"     : "",
          "objectClassUri"   : "",
          "rangeDatatypeUri" : "",
+         "rangeLang"        : "",
          "assertions"       : [ "${talkNameAssertion}" ]
       },
 
@@ -132,6 +133,7 @@
          "predicateUri"     : "",
          "objectClassUri"   : "",
          "rangeDatatypeUri" : "",
+         "rangeLang"        : "",
          "assertions"       : [ "${talkBlurbAssertion}" ]
       },
       "moniker" : {
@@ -144,6 +146,7 @@
          "predicateUri"     : "${param.predicateUri}",
          "objectClassUri"   : "",
          "rangeDatatypeUri" : "",
+         "rangeLang"        : "",
          "assertions"       : [ "${monikerAssertion}" ]
       },
       "room" : {
@@ -156,6 +159,7 @@
          "predicateUri"     : "${heldInObjProp}",
          "objectClassUri"   : "${buildingClass}",
          "rangeDatatypeUri" : "",
+         "rangeLang"        : "",
          "assertions"       : [ "${talkHeldInAssertion}" ]
       } ,
        "timekey" : {
@@ -168,6 +172,7 @@
          "predicateUri"     : "",
          "objectClassUri"   : "",
          "rangeDatatypeUri" : "",
+         "rangeLang"        : "",
          "assertions"       : [ "${talkTimeKeyAssertion}" ]
       }
     }

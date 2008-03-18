@@ -121,6 +121,7 @@
          "predicateUri"     : "",
          "objectClassUri"   : "",
          "rangeDatatypeUri" : "",
+         "rangeLang"        : "",
          "assertions"       : [ "${courseNameAssertion}" ]
       },
      "courseDescription" : {
@@ -133,6 +134,7 @@
          "predicateUri"     : "",
          "objectClassUri"   : "",
          "rangeDatatypeUri" : "",
+         "rangeLang"        : "",
          "assertions"       : [ "${courseDescAssertion}" ]
       },
       "moniker" : {
@@ -152,6 +154,7 @@
          "predicateUri"     : "${param.predicateUri}",
          "objectClassUri"   : "",
          "rangeDatatypeUri" : "",
+         "rangeLang"        : "",
          "assertions"       : [ "${monikerAssertion}" ]
       },
       "semester" : {
@@ -164,6 +167,7 @@
          "predicateUri"     : "",
          "objectClassUri"   : "${semesterClass}",
          "rangeDatatypeUri" : "",
+         "rangeLang"        : "",
          "assertions"       : [ "${courseSemesterAssertion}"]
       },
       "heldIn" : {
@@ -176,6 +180,7 @@
          "predicateUri"     : "",
          "objectClassUri"   : "${buildingClass}",
          "rangeDatatypeUri" : "",
+         "rangeLang"        : "",
          "assertions"       : [ "${courseHeldInAssertion}" ]
       }
     }

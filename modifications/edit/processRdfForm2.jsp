@@ -1,4 +1,4 @@
-<%@ page import="com.hp.hpl.jena.rdf.model.OntModel" %>
+<%@ page import="com.hp.hpl.jena.ontology.OntModel" %>
 <%@ page import="com.hp.hpl.jena.rdf.model.Model" %>
 <%@ page import="com.hp.hpl.jena.rdf.model.ModelFactory" %>
 <%@ page import="com.hp.hpl.jena.rdf.model.Resource" %>
@@ -7,6 +7,7 @@
 <%@ page import="com.thoughtworks.xstream.XStream" %>
 <%@ page import="com.thoughtworks.xstream.io.xml.DomDriver" %>
 <%@ page import="edu.cornell.mannlib.vedit.beans.LoginFormBean" %>
+<%@ page import="edu.cornell.mannlib.vitro.webapp.dao.jena.event.IndividualDeletionEvent" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.edit.n3editing.EditConfiguration" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.edit.n3editing.EditSubmission" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.edit.n3editing.Field" %>
@@ -36,8 +37,8 @@ are well formed.
 
 
     List<String>  errorMessages = new ArrayList<String>();
-    OntModel jenaOntModel =  (Model)application.getAttribute("jenaOntModel");
-    OntModel persistentOntModel = (Model)application.getAttribute("persistentOntModel");
+    OntModel jenaOntModel =  (OntModel)application.getAttribute("jenaOntModel");
+    OntModel persistentOntModel = (OntModel)application.getAttribute("persistentOntModel");
 
     EditConfiguration editConfig = EditConfiguration.getConfigFromSession(session,request);
     EditSubmission submission = new EditSubmission(request,jenaOntModel,editConfig);
@@ -221,7 +222,7 @@ are well formed.
     try{
         lock =  persistentOntModel.getLock();
         lock.enterCriticalSection(Lock.WRITE);
-        persistentOntModel.getBaseModel().notifyEvent(new IndividualDeletionEvent(getWebappDaoFactory().getUserURI(),true,URI));
+        //persistentOntModel.getBaseModel().notifyEvent(new IndividualDeletionEvent(getWebappDaoFactory().getUserURI(),true,URI));
         for( Model model : requiredAssertions ) {
             persistentOntModel.add(model);
         }
@@ -231,7 +232,7 @@ are well formed.
     }catch(Throwable t){
         errorMessages.add("error adding edit change n3required model to persistent model \n"+ t.getMessage() );
     }finally{
-        persistentOntModel.getBaseModel().notifyEvent(new IndividualDeletionEvent(getWebappDaoFactory().getUserURI(),false,URI));
+        //persistentOntModel.getBaseModel().notifyEvent(new IndividualDeletionEvent(getWebappDaoFactory().getUserURI(),false,URI));
         lock.leaveCriticalSection();
     }
 

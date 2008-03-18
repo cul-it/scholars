@@ -146,6 +146,7 @@
          "predicateUri"     : "",
          "objectClassUri"   : "",
          "rangeDatatypeUri" : "",
+         "rangeLang"        : "",
          "assertions"       : [ "${yearAssertion}" ]
       },
      "degreeType" : {
@@ -158,6 +159,7 @@
          "predicateUri"     : "",
          "objectClassUri"   : "${degreeClass}",
          "rangeDatatypeUri" : "",
+         "rangeLang"        : "",
          "assertions"       : [ "${degreeTypeAssertion}" ]
       },
       "degreeAbbrev" : {
@@ -173,6 +175,7 @@
          "predicateUri"     : "",
          "objectClassUri"   : "",
          "rangeDatatypeUri" : "",
+         "rangeLang"        : "",
          "assertions"       : [ "${degreeAbbrevAssertion}" ]
       },
 
@@ -186,6 +189,7 @@
          "predicateUri"     : "",
          "objectClassUri"   : "",
          "rangeDatatypeUri" : "",
+         "rangeLang"        : "",
          "assertions"       : [ "${institutionAssertion}" ]
       },
       "majorField" : {
@@ -198,6 +202,7 @@
          "predicateUri"     : "",
          "objectClassUri"   : "",
          "rangeDatatypeUri" : "",
+         "rangeLang"        : "",
          "assertions"       : ["${majorFieldAssertion}"]
       },
       "visibility" : {
@@ -210,6 +215,7 @@
          "predicateUri"     : "",
          "objectClassUri"   : "",
          "rangeDatatypeUri" : "",
+         "rangeLang"        : "",
          "assertions"       : [ "${visibilityAssertion}" ]
       },
       "comment" : {
@@ -222,6 +228,7 @@
          "predicateUri"     : "",
          "objectClassUri"   : "",
          "rangeDatatypeUri" : "",
+         "rangeLang"        : "",
          "assertions"       : [ "${commentAssertion}" ]
       }
     }

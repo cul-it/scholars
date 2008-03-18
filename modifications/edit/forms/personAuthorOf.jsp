@@ -122,6 +122,7 @@
          "predicateUri"     : "",
          "objectClassUri"   : "",
          "rangeDatatypeUri" : "",
+         "rangeLang"        : "",
          "assertions"       : ["${monikerAssertion}"]
       },
       "pubName" : {
@@ -134,6 +135,7 @@
          "predicateUri"     : "",
          "objectClassUri"   : "",
          "rangeDatatypeUri" : "",
+         "rangeLang"        : "",
          "assertions"       : [ "${pubNameAssertion}" ]
       },
          "pubDescription" : {
@@ -146,6 +148,7 @@
          "predicateUri"     : "",
          "objectClassUri"   : "",
          "rangeDatatypeUri" : "",
+         "rangeLang"        : "",
          "assertions"       : [ "${pubDescriptionAssertion}" ]
       },
       "pubYear" : {
@@ -158,6 +161,7 @@
          "predicateUri"     : "",
          "objectClassUri"   : "",
          "rangeDatatypeUri" : "",
+         "rangeLang"        : "",
          "assertions"       : [ "${pubYearAssertion}" ]
       }
     }

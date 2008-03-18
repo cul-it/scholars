@@ -97,6 +97,7 @@
                                        "predicateUri"     : "${predicateUriJson}",
                                        "objectClassUri"   : "",
                                        "rangeDatatypeUri" : "",
+                                       "rangeLang"        : "",
                                        "literalOptions"   : [ ] ,
                                        "assertions"       : ["${n3ForEdit}"]
                                      }
