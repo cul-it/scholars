@@ -11,7 +11,12 @@
 <%@ page import="edu.cornell.mannlib.vitro.webapp.dao.WebappDaoFactory" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.filters.VitroRequestPrep" %>
 <%@ taglib prefix="v" uri="http://vitro.mannlib.cornell.edu/vitro/tags" %>
+<%@ page import="org.apache.commons.logging.Log" %>
+<%@ page import="org.apache.commons.logging.LogFactory" %>
+
 <%
+    org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger("edu.cornell.mannlib.vitro.jsp.edit.forms.datapropStmtDelete");
+
     if( session == null)
         throw new Error("need to have session");
     if (!VitroRequestPrep.isSelfEditing(request) && !LoginFormBean.loggedIn(request, LoginFormBean.CURATOR)) {%>
@@ -42,6 +47,22 @@
 
     String dataValue=null;
     DataPropertyStatement dps=EditConfiguration.findDataPropertyStatementViaHashcode(subject,predicateUri,dataHash);
+    if( log.isTraceEnabled() ){
+        log.trace("attempting to delete dataPropertyStatement: subjectURI <" + dps.getIndividualURI() +">");
+        log.trace( "predicateURI <" + dps.getDatapropURI() + ">");
+        log.trace( "literal \"" + dps.getData() + "\"" );
+        log.trace( "lang @" + (dps.getLanguage() == null ? "null" : dps.getLanguage()));
+        log.trace( "datatype ^^" + (dps.getDatatypeURI() == null ? "null" : dps.getDatatypeURI() ));       
+    }
+    if( dps.getIndividualURI() == null || dps.getIndividualURI().trim().length() == 0){
+        log.debug("adding missing subjectURI to DataPropertyStatement" );
+        dps.setIndividualURI( subjectUri );
+    }
+    if( dps.getDatapropURI() == null || dps.getDatapropURI().trim().length() == 0){
+        log.debug("adding missing datapropUri to DataPropertyStatement");
+        dps.setDatapropURI( predicateUri );
+    }
+    
     if (dps!=null) {
         dataValue = dps.getData().trim();
         if( request.getParameter("y") != null ) { //do the delete
