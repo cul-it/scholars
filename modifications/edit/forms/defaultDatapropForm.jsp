@@ -16,17 +16,12 @@
     String subjectUri   = request.getParameter("subjectUri");
     String predicateUri = request.getParameter("predicateUri");
 
+    DataPropertyStatement dataproperty = (DataPropertyStatement)request.getAttribute("dataproperty");
+    
     String datapropKeyStr = request.getParameter("datapropKey");
+        
     int dataHash=0;
-    try {
-        dataHash = Integer.parseInt(datapropKeyStr);
-        log.debug("dataHash is " + dataHash);
-    } catch (NumberFormatException ex) {
-        throw new JspException("Cannot decode incoming datapropKey String value "+datapropKeyStr+" as an integer hash in defaultDatapropForm.jsp");
-    }
-
-    //this should be moved to editREquestDispatch.jsp? what does it do?
-    request.getSession(true);
+    
 
     DataProperty prop = (DataProperty)request.getAttribute("predicate");
     if( prop == null ) throw new Error("In defaultDatapropForm.jsp, could not find predicate " + predicateUri);
@@ -38,9 +33,16 @@
 
     String rangeDatatypeUri = prop.getRangeDatatypeURI();
     request.setAttribute("rangeDatatypeUriJson", MiscWebUtils.escape(rangeDatatypeUri));
-
-    DataPropertyStatement dataproperty = (DataPropertyStatement)request.getAttribute("dataproperty");
+    
     if( dataproperty != null ){
+        try {
+            dataHash = Integer.parseInt(datapropKeyStr);
+            log.debug("dataHash is " + dataHash);
+        } catch (NumberFormatException ex) {
+            log.debug("could not parse dataprop hash "+ 
+                    "but there was a dataproperty; hash: '"+datapropKeyStr+"'"); 
+        }
+        
         String rangeDatatype = dataproperty.getDatatypeURI();
         if( rangeDatatype == null ){
             request.setAttribute("rangeDatatypeUriJson","");

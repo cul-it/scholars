@@ -25,10 +25,10 @@
     final String DEFAULT_DATA_FORM = "defaultDatapropForm.jsp";
     final String DEFAULT_ERROR_FORM = "error.jsp";
     final String DEFAULT_EDIT_THEME_DIR = "themes/default";
-    
+
     //final Log log = LogFactory.getLog("clones.vivo.modifications.edit.editDatapropStmtRequestDispatch.jsp");
     org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger("edu.cornell.mannlib.vitro.jsp.edit.editDatappropStmtRequestDispatch");
-    
+
     HashMap<String,String> propUriToForm = null;
     propUriToForm = new HashMap<String,String>();
     // may not need these -- depends on where we go with ordering data property statements in Javascript vs stub entities
@@ -66,6 +66,7 @@
     if( datapropKeyStr != null && datapropKeyStr.trim().length()>0 ){
         try {
             dataHash = Integer.parseInt(datapropKeyStr);
+            request.setAttribute("datahash", dataHash);
             log.trace("dataHash is " + dataHash);
         } catch (NumberFormatException ex) {
             throw new JspException("Cannot decode incoming datapropKey value "+datapropKeyStr+" as an integer hash in editDatapropStmtRequestDispatch.jsp");
