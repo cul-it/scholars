@@ -1,6 +1,7 @@
 <%@ page import="com.hp.hpl.jena.rdf.model.Model" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.beans.Individual" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.beans.DataProperty" %>
+<%@ page import="edu.cornell.mannlib.vitro.webapp.beans.DataPropertyStatement" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.edit.n3editing.EditConfiguration" %>
 <%@ taglib prefix="v" uri="http://vitro.mannlib.cornell.edu/vitro/tags" %>
@@ -19,6 +20,7 @@
     int dataHash=0;
     try {
         dataHash = Integer.parseInt(datapropKeyStr);
+        log.debug("dataHash is " + dataHash);
     } catch (NumberFormatException ex) {
         throw new JspException("Cannot decode incoming datapropKey String value "+datapropKeyStr+" as an integer hash in defaultDatapropForm.jsp");
     }
@@ -36,6 +38,22 @@
 
     String rangeDatatypeUri = prop.getRangeDatatypeURI();
     request.setAttribute("rangeDatatypeUriJson", MiscWebUtils.escape(rangeDatatypeUri));
+
+    DataPropertyStatement dataproperty = (DataPropertyStatement)request.getAttribute("dataproperty");
+    if( dataproperty != null ){
+        String rangeDatatype = dataproperty.getDatatypeURI();
+        if( rangeDatatype == null ){
+            request.setAttribute("rangeDatatypeUriJson","");
+        }else{
+            request.setAttribute("rangeDatatypeUriJson",rangeDatatype);
+        }
+        String rangeLang = dataproperty.getLanguage();
+        if( rangeLang == null )
+            request.setAttribute("rangeLangJson", "");
+        else
+            request.setAttribute("rangeLangJson", rangeLang);
+
+    }
 
 %>
 <v:jsonset var="n3ForEdit"  >
@@ -79,7 +97,8 @@
                                        "subjectClassUri"  : "",
                                        "predicateUri"     : "",
                                        "objectClassUri"   : "",
-                                       "rangeDatatypeUri" : "${rangeDatatypeUriJson}",
+                                       "rangeDatatypeUri" : "${rangeDatatypeUriJson}"  ,
+                                       "rangeLang" : "${rangeLangJson}",
                                        "literalOptions"   : [ ] ,
                                        "assertions"       : ["${n3ForEdit}"]
                                      }
@@ -88,14 +107,16 @@
 </c:set>
 
 <%
+    if( log.isDebugEnabled()) log.debug(request.getAttribute("editjson"));
+
     EditConfiguration editConfig = new EditConfiguration((String)request.getAttribute("editjson"));
     EditConfiguration.putConfigInSession(editConfig, session);
 
     String formTitle   =""; // don't add local page variables to the request
     String submitLabel ="";
 
-    if( dataHash > 0) {
-        editConfig.setDatapropKey(String.valueOf(dataHash));
+    if( datapropKeyStr != null && datapropKeyStr.trim().length() > 0  ) {
+        editConfig.setDatapropKey( datapropKeyStr );
         Model model =  (Model)application.getAttribute("jenaOntModel");
         editConfig.prepareForUpdate(request,model);
         formTitle   = "Change value for &quot;"+prop.getPublicName()+"&quot; data property for "+subject.getName();

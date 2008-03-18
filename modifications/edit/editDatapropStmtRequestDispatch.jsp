@@ -66,6 +66,7 @@
     if( datapropKeyStr != null && datapropKeyStr.trim().length()>0 ){
         try {
             dataHash = Integer.parseInt(datapropKeyStr);
+            log.trace("dataHash is " + dataHash);
         } catch (NumberFormatException ex) {
             throw new JspException("Cannot decode incoming datapropKey value "+datapropKeyStr+" as an integer hash in editDatapropStmtRequestDispatch.jsp");
         }
@@ -91,8 +92,9 @@
     }
     request.setAttribute("predicate", dataproperty);
 
-    if( dataHash > 0) {
-        DataPropertyStatement dps=EditConfiguration.findDataPropertyStatementViaHashcode(subject,predicateUri,dataHash);
+    DataPropertyStatement dps = null;
+    if( dataHash != 0) {
+        dps=EditConfiguration.findDataPropertyStatementViaHashcode(subject,predicateUri,dataHash);
         if (dps==null) {
             log.error("No match to existing data property \""+predicateUri+"\" statement for subject \""+subjectUri+"\" via key "+datapropKeyStr);
             throw new Error("In editRequestDispatch.jsp, no match to existing data property \""+predicateUri+"\" statement for subject \""+subjectUri+"\" via key "+datapropKeyStr+"\n");
@@ -102,6 +104,17 @@
 
     String url= "/edit/editDatapropStmtRequestDispatch.jsp"; //I'd like to get this from the request but...
     request.setAttribute("formUrl", url + "?" + request.getQueryString());
+
+    if( log.isTraceEnabled() ){
+        log.trace("predicate is " + dataproperty.getURI() + " with rangeDatatypeUri of '" + dataproperty.getRangeDatatypeURI() + "'");
+        if( dps == null )
+            log.trace("no exisitng dataPropertyStatement statement was found");
+        else{
+            log.trace("DataPropertyStatemet " + dps.getData());
+            log.trace("  lang " + dps.getLanguage() );
+            log.trace("  datatype " + dps.getDatatypeURI());
+        }
+    }
 
     request.setAttribute("themeDir", "themes/editdefault/");
     request.setAttribute("preForm", "/edit/formPrefix.jsp");

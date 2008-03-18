@@ -1,3 +1,4 @@
+<%@ page import="com.hp.hpl.jena.rdf.model.OntModel" %>
 <%@ page import="com.hp.hpl.jena.rdf.model.Model" %>
 <%@ page import="com.hp.hpl.jena.rdf.model.ModelFactory" %>
 <%@ page import="com.hp.hpl.jena.rdf.model.Resource" %>
@@ -35,8 +36,8 @@ are well formed.
 
 
     List<String>  errorMessages = new ArrayList<String>();
-    Model jenaOntModel =  (Model)application.getAttribute("jenaOntModel");
-    Model persistentOntModel = (Model)application.getAttribute("persistentOntModel");
+    OntModel jenaOntModel =  (Model)application.getAttribute("jenaOntModel");
+    OntModel persistentOntModel = (Model)application.getAttribute("persistentOntModel");
 
     EditConfiguration editConfig = EditConfiguration.getConfigFromSession(session,request);
     EditSubmission submission = new EditSubmission(request,jenaOntModel,editConfig);
@@ -220,6 +221,7 @@ are well formed.
     try{
         lock =  persistentOntModel.getLock();
         lock.enterCriticalSection(Lock.WRITE);
+        persistentOntModel.getBaseModel().notifyEvent(new IndividualDeletionEvent(getWebappDaoFactory().getUserURI(),true,URI));
         for( Model model : requiredAssertions ) {
             persistentOntModel.add(model);
         }
@@ -229,6 +231,7 @@ are well formed.
     }catch(Throwable t){
         errorMessages.add("error adding edit change n3required model to persistent model \n"+ t.getMessage() );
     }finally{
+        persistentOntModel.getBaseModel().notifyEvent(new IndividualDeletionEvent(getWebappDaoFactory().getUserURI(),false,URI));
         lock.leaveCriticalSection();
     }
 

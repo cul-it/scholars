@@ -181,7 +181,10 @@
     }
   }
 </c:set>
+
 <%
+    System.out.println( request.getAttribute("editjson") );
+    
     EditConfiguration editConfig = EditConfiguration.getConfigFromSession(session,request);
     if( editConfig == null ){
         editConfig = new EditConfiguration((String)request.getAttribute("editjson"));

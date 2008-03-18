@@ -96,37 +96,37 @@ in processing the form.
 
     /* ********** URIs and Literals on Form/Parameters *********** */
     //sub in resource uris off form
-    n3Required = subInUris(submission.getUrisFromForm(), n3Required);
+    n3Required = EditConfiguration.subInUris(submission.getUrisFromForm(), n3Required);
     // only 1 literal value: n3Optional = subInUris(submission.getUrisFromForm(), n3Optional);
 
     //sub in literals from form
-    n3Required = subInLiterals(submission.getLiteralsFromForm(), n3Required);
+    n3Required = editConfig.subInLiterals(submission.getLiteralsFromForm(), n3Required);
     //n3Optional = subInLiterals(submission.getLiteralsFromForm(), n3Optional);
 
-    fieldAssertions = substituteIntoValues(submission.getUrisFromForm(), submission.getLiteralsFromForm(), fieldAssertions);
+    fieldAssertions = substituteIntoValues(submission.getUrisFromForm(), submission.getLiteralsFromForm(), fieldAssertions, editConfig);
 
     /* ****************** URIs and Literals in Scope ************** */
     SparqlEvaluate sparqlEval = new SparqlEvaluate((Model)application.getAttribute("jenaOntModel"));
     editConfig.runSparqlForAdditional(sparqlEval);
 
     Map<String,String> urisInScope = editConfig.getUrisInScope();
-    n3Required = subInUris( urisInScope, n3Required);
+    n3Required = EditConfiguration.subInUris( urisInScope, n3Required);
     //n3Optional = subInUris( urisInScope, n3Optional);
 
     Map<String,String> literalsInScope = editConfig.getLiteralsInScope();
-    n3Required = subInLiterals( literalsInScope, n3Required);
+    n3Required = editConfig.subInLiterals( literalsInScope, n3Required);
     //n3Optional = subInLiterals( literalsInScope, n3Optional);
 
-    fieldAssertions = substituteIntoValues(urisInScope, literalsInScope, fieldAssertions );
+    fieldAssertions = substituteIntoValues(urisInScope, literalsInScope, fieldAssertions, editConfig );
 
     /* ****************** New Resources ********************** */
     Map<String,String> varToNewResource = newToUriMap(editConfig.getNewResources(),jenaOntModel);
 
     //if we are editing an existing prop, no new resources will be substituted since the var will
     //have already been substituted in by urisInScope.
-    n3Required = subInUris( varToNewResource, n3Required);
+    n3Required = EditConfiguration.subInUris( varToNewResource, n3Required);
     //n3Optional = subInUris( varToNewResource, n3Optional);
-    fieldAssertions = substituteIntoValues(varToNewResource, null, fieldAssertions);
+    fieldAssertions = substituteIntoValues(varToNewResource, null, fieldAssertions, editConfig);
 
     /* ***************** Build Models ******************* */
     /* bdc34: we should check if this is an edit of an existing
@@ -267,8 +267,8 @@ in processing the form.
 
     public Map<String,List<String>> substituteIntoValues(Map<String,String> varsToUris,
                                                       Map<String,String> varsToLiterals,
-                                                      Map<String,List<String>> namesToN3 ){
-
+                                                      Map<String,List<String>> namesToN3,
+                                                      EditConfiguration editConfig ){
         Map<String,List<String>> outHash = new HashMap<String,List<String>>();
 
         if (namesToN3==null) {
@@ -280,77 +280,13 @@ in processing the form.
                 List<String> n3strings = namesToN3.get(fieldName);
                 List<String> newList  = new ArrayList<String>();
                 if( varsToUris != null)
-                    newList = subInUris(varsToUris, n3strings);
+                    newList = EditConfiguration.subInUris(varsToUris, n3strings);
                 if( varsToLiterals != null)
-                    newList = subInLiterals(varsToLiterals, newList);
+                    newList = editConfig.subInLiterals(varsToLiterals, newList);
                 outHash.put(fieldName, newList);
             }
         }
         return outHash;
-    }
-
-    public List<String> subInUris(Map<String,String> varsToVals, List<String> targets){
-        if( varsToVals == null || varsToVals.isEmpty() ) return targets;
-        ArrayList<String> outv = new ArrayList<String>();
-        for( String target : targets){
-            String temp = target;
-            for( String key : varsToVals.keySet()) {
-                temp = subInUris( key, varsToVals.get(key), temp)  ;
-            }
-            outv.add(temp);
-        }
-        return outv;
-    }
-
-
-    public String subInUris(String var, String value, String target){
-        if( var == null || var.length() == 0 || value==null )
-            return target;
-        String varRegex = "\\?" + var;
-        String out = target.replaceAll(varRegex,"<"+value+">");
-        if( out != null && out.length() > 0 )
-            return out;
-        else
-            return target;
-    }
-
-    public List<String>subInUris(String var, String value, List<String> targets){
-        ArrayList<String> outv = new ArrayList<String>();
-        for( String target : targets){
-            outv.add( subInUris( var,value,target) ) ;
-        }
-        return outv;
-    }
-
-    public List<String> subInLiterals(Map<String,String> varsToVals, List<String> targets){
-        if( varsToVals == null || varsToVals.isEmpty()) return targets;
-
-        ArrayList<String> outv =new ArrayList<String>();
-        for( String target : targets){
-            String temp = target;
-            for( String key : varsToVals.keySet()) {
-                temp = subInLiterals( key,varsToVals.get(key),temp);
-            }
-            outv.add(temp);
-        }
-        return outv;
-    }
-
-    public List<String>subInLiterals(String var, String value, List<String> targets){
-        ArrayList<String> outv = new ArrayList<String>();
-        for( String target : targets){
-            outv.add( subInLiterals( var,value,target) ) ;
-        }
-        return outv;
-    }
-
-    public String subInLiterals(String var, String value, String target){
-        String varRegex = "\\?" + var;
-        String out = target.replaceAll(varRegex,'"'+value+'"');  //*** THIS  NEEDS TO BE ESCAPED!
-        if( out != null && out.length() > 0 )
-            return out    ;
-        else
-            return target;
     }
 
     public Map<String,String> newToUriMap(Map<String,String> newResources, Model model){
