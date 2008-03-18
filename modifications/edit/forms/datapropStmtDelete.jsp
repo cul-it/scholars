@@ -1,18 +1,14 @@
 <%@ page import="edu.cornell.mannlib.vedit.beans.LoginFormBean" %>
-<%@ page import="java.util.List" %>
-<%@ page import="edu.cornell.mannlib.vitro.webapp.beans.Individual" %>
+<%@ page import="edu.cornell.mannlib.vitro.webapp.beans.DataProperty" %>
+<%@ page import="edu.cornell.mannlib.vitro.webapp.beans.DataPropertyStatement" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
 <%@ taglib prefix="v" uri="http://vitro.mannlib.cornell.edu/vitro/tags" %>
-<%@ page import="edu.cornell.mannlib.vitro.webapp.edit.n3editing.EditConfiguration" %>
-<%@ page import="edu.cornell.mannlib.vitro.webapp.beans.DataProperty"%>
-<%@page import="edu.cornell.mannlib.vitro.webapp.beans.DataPropertyStatement"%>
-<%@ page import="edu.cornell.mannlib.vitro.webapp.beans.VClass" %>
-<%@ page import="edu.cornell.mannlib.vitro.webapp.controller.VitroRequest" %>
-<%@ page import="edu.cornell.mannlib.vitro.webapp.dao.WebappDaoFactory" %>
+<%@ page import="edu.cornell.mannlib.vitro.webapp.beans.Individual" %>
+<%@ page import="edu.cornell.mannlib.vitro.webapp.controller.VitroRequest"%>
+<%@page import="edu.cornell.mannlib.vitro.webapp.dao.WebappDaoFactory"%>
+<%@ page import="edu.cornell.mannlib.vitro.webapp.edit.n3editing.RdfLiteralHash" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.filters.VitroRequestPrep" %>
 <%@ taglib prefix="v" uri="http://vitro.mannlib.cornell.edu/vitro/tags" %>
-<%@ page import="org.apache.commons.logging.Log" %>
-<%@ page import="org.apache.commons.logging.LogFactory" %>
 
 <%
     org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger("edu.cornell.mannlib.vitro.jsp.edit.forms.datapropStmtDelete");
@@ -46,7 +42,8 @@
     request.setAttribute("subjectName",subject.getName());
 
     String dataValue=null;
-    DataPropertyStatement dps=EditConfiguration.findDataPropertyStatementViaHashcode(subject,predicateUri,dataHash);
+   // DataPropertyStatement dps=EditConfiguration.findDataPropertyStatementViaHashcode(subject,predicateUri,dataHash);
+     DataPropertyStatement dps= RdfLiteralHash.getDataPropertyStmtByHash(subject,dataHash);
     if( log.isTraceEnabled() ){
         log.trace("attempting to delete dataPropertyStatement: subjectURI <" + dps.getIndividualURI() +">");
         log.trace( "predicateURI <" + dps.getDatapropURI() + ">");

@@ -1,13 +1,12 @@
 <%@ page import="edu.cornell.mannlib.vitro.webapp.beans.DataProperty" %>
+<%@ page import="edu.cornell.mannlib.vitro.webapp.beans.DataPropertyStatement" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.beans.Individual" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.controller.VitroRequest" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.dao.WebappDaoFactory" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.edit.n3editing.EditConfiguration" %>
-<%@ page import="edu.cornell.mannlib.vitro.webapp.beans.DataPropertyStatement" %>
+<%@ page import="edu.cornell.mannlib.vitro.webapp.edit.n3editing.RdfLiteralHash" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.web.MiscWebUtils" %>
 <%@ page import="java.util.HashMap" %>
-<%@ page import="org.apache.commons.logging.Log" %>
-<%@ page import="org.apache.commons.logging.LogFactory" %>
 <%
     // Decide which form to forward to, set subjectUri, subjectUriJson, predicateUri, predicateUriJson in request
     // Also get the Individual for the subjectUri and put it in the request scope
@@ -95,7 +94,7 @@
 
     DataPropertyStatement dps = null;
     if( dataHash != 0) {
-        dps=EditConfiguration.findDataPropertyStatementViaHashcode(subject,predicateUri,dataHash);
+        dps = RdfLiteralHash.getDataPropertyStmtByHash( subject ,dataHash);
         if (dps==null) {
             log.error("No match to existing data property \""+predicateUri+"\" statement for subject \""+subjectUri+"\" via key "+datapropKeyStr);
             throw new Error("In editRequestDispatch.jsp, no match to existing data property \""+predicateUri+"\" statement for subject \""+subjectUri+"\" via key "+datapropKeyStr+"\n");
