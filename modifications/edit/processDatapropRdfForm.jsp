@@ -6,20 +6,19 @@
 <%@ page import="com.thoughtworks.xstream.XStream" %>
 <%@ page import="com.thoughtworks.xstream.io.xml.DomDriver" %>
 <%@ page import="edu.cornell.mannlib.vedit.beans.LoginFormBean" %>
+<%@ page import="edu.cornell.mannlib.vitro.webapp.beans.Individual" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.controller.VitroRequest" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.dao.WebappDaoFactory" %>
-<%@ page import="edu.cornell.mannlib.vitro.webapp.beans.Individual" %>
-<%@page import="edu.cornell.mannlib.vitro.webapp.beans.DataPropertyStatement"%>
-<%@ page import="edu.cornell.mannlib.vitro.webapp.edit.n3editing.EditConfiguration" %>
+<%@page import="edu.cornell.mannlib.vitro.webapp.edit.n3editing.EditConfiguration"%>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.edit.n3editing.EditSubmission" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.edit.n3editing.Field" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.edit.n3editing.SparqlEvaluate" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.filters.VitroRequestPrep" %>
+<%@ page import="org.apache.commons.logging.Log" %>
+<%@ page import="org.apache.commons.logging.LogFactory" %>
 <%@ page import="java.io.StringReader" %>
 <%@ page import="java.util.*" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
-<%@ page import="org.apache.commons.logging.Log" %>
-<%@ page import="org.apache.commons.logging.LogFactory" %>
 
 <%-- 2nd prototype of processing, adapted for data property editing
 
@@ -29,11 +28,8 @@ are not bound or it cannot be processed as n3 by Jena then it is an error
 in processing the form.
 --%>
 <%
-	//final Log log = LogFactory.getLog("edu.cornell.mannlib.vitro.jsp.edit.processDatapropRdfForm");
-    org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger("edu.cornell.mannlib.vitro.jsp.edit.forms.processDatapropRdfForm.jsp");
-    log.info("Starting processDatapropRdfForm.jsp");
-
-	System.out.println("there should be a message in the log that we are starting processDatapropRdfForm");
+    Log log = LogFactory.getLog("edu.cornell.mannlib.vitro.webapp.jsp.edit.processDatapropRdfForm.jsp");
+    log.debug("Starting processDatapropRdfForm.jsp");
 
     if( session == null)
         throw new Error("need to have session");
@@ -150,15 +146,13 @@ in processing the form.
                 List<String> assertions = fieldAssertions.get(fieldName);
                 for( String n3 : assertions){
                     try{
-                        System.out.println("Adding assertion '"+n3+"' to requiredFieldAssertions");
                         log.debug("Adding assertion '"+n3+"' to requiredFieldAssertions");
                         Model model = ModelFactory.createDefaultModel();
                         StringReader reader = new StringReader(n3);
                         model.read(reader, "", "N3");
                         requiredFieldAssertions.add(model);
                     }catch(Throwable t){
-                        System.out.println("Error processing N3 assertions string from field "+fieldName+"\n"+t.getMessage()+'\n'+"n3: \n"+n3);
-                        log.error("processing N3 assertions string from field "+fieldName+"\n"+t.getMessage()+'\n'+"n3: \n"+n3);
+                        log.warn("processing N3 assertions string from field "+fieldName+"\n"+t.getMessage()+'\n'+"n3: \n"+n3);
                         errorMessages.add("error processing N3 assertion string from field " + fieldName + "\n"+
                                 t.getMessage() + '\n' +
                                 "n3: \n" + n3 );
@@ -166,15 +160,13 @@ in processing the form.
                 }
                 for( String n3 : field.getRetractions()){
                     try{
-                        System.out.println("Adding retraction '"+n3+"' to requiredFieldRetractions");
                         log.debug("Adding retraction '"+n3+"' to requiredFieldRetractions");
                         Model model = ModelFactory.createDefaultModel();
                         StringReader reader = new StringReader(n3);
                         model.read(reader, "", "N3");
                         requiredFieldRetractions.add(model);
                     }catch(Throwable t){
-                        System.out.println("processing N3 retraction string from field "+fieldName+"\n"+t.getMessage()+'\n'+"n3: \n"+n3);
-                        log.error("processing N3 retraction string from field "+fieldName+"\n"+t.getMessage()+'\n'+"n3: \n"+n3);
+                        log.warn("processing N3 retraction string from field "+fieldName+"\n"+t.getMessage()+'\n'+"n3: \n"+n3);
                         errorMessages.add("error in processDatapropRdfForm.jsp processing N3 retraction string from field "+fieldName+"\n"+t.getMessage()+'\n'+"n3: \n"+n3);
                     }
                 }
@@ -184,27 +176,24 @@ in processing the form.
         requiredRetractions = requiredFieldRetractions;
         //optionalAssertions = Collections.EMPTY_LIST;
     } else { //deal with required N3
-        System.out.println("Not editing an existing statement since no datapropKey in editConfig");
         log.debug("Not editing an existing statement since no datapropKey in editConfig");
         List<Model> requiredNewModels = new ArrayList<Model>();
         for(String n3 : n3Required){
             try{
-                System.out.println("Adding assertion '"+n3+"' to requiredNewModels");
                 log.debug("Adding assertion '"+n3+"' to requiredNewModels");
                 Model model = ModelFactory.createDefaultModel();
                 StringReader reader = new StringReader(n3);
                 model.read(reader, "", "N3");
                 requiredNewModels.add( model );
             }catch(Throwable t){
-                System.out.println("error processing required n3 string \n"+t.getMessage()+'\n'+"n3: \n"+n3);
-                log.error("error processing required n3 string \n"+t.getMessage()+'\n'+"n3: \n"+n3);
+                log.warn("error processing required n3 string \n"+t.getMessage()+'\n'+"n3: \n"+n3);
                 errorMessages.add("error processing required n3 string \n"+t.getMessage()+'\n'+"n3: \n"+n3);
             }
         }
         if( !errorMessages.isEmpty() ){
             for( String error : errorMessages){
                 log.error(error);
-                System.out.println(error);
+                log.debug(error);
             }
             throw new JspException("errors processing required N3 in processDatapropRdfForm.jsp, check logs for details");
         }
@@ -334,15 +323,16 @@ in processing the form.
             else
                 return true;
         }
-
-        System.out.println("**************************** odd condition in hasFieldchanged() ********************");
+        Log log = LogFactory.getLog("edu.cornell.mannlib.vitro.webapp.jsp.edit.forms.processDatapropRdfForm.jsp");
+        log.debug("**************************** odd condition in hasFieldchanged() ********************");
         throw new Error("in hasFieldChanged() for field " + fieldName + ", both old and new values are null, this should not happen");
     }
 
     private void dump(String name, Object fff){
         XStream xstream = new XStream(new DomDriver());
-        System.out.println( "*******************************************************************" );
-        System.out.println( name );
-        System.out.println(xstream.toXML( fff ));
+        Log log = LogFactory.getLog("edu.cornell.mannlib.vitro.webapp.jsp.edit.forms.processDatapropRdfForm.jsp");
+        log.debug( "*******************************************************************" );
+        log.debug( name );
+        log.debug(xstream.toXML( fff ));
     }
 %>

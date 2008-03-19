@@ -8,6 +8,10 @@
 <%@ page import="edu.cornell.mannlib.vitro.webapp.web.MiscWebUtils" %>
 <%@ page import="java.util.HashMap" %>
 <%
+    org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory.getLog("edu.cornell.mannlib.vitro.webapp.jsp.edit.editDatapropStmtRequestDispatch");
+    //Log log = LogFactory.getLog("edu.cornell.mannlib.vitro.webapp.jsp.edit.editDatapropStmtRequestDispatch");
+%>
+<%
     // Decide which form to forward to, set subjectUri, subjectUriJson, predicateUri, predicateUriJson in request
     // Also get the Individual for the subjectUri and put it in the request scope
     // If a datapropKey is sent it as an http parameter, then set datapropKey and datapropKeyJson in request, and
@@ -25,8 +29,7 @@
     final String DEFAULT_ERROR_FORM = "error.jsp";
     final String DEFAULT_EDIT_THEME_DIR = "themes/default";
 
-    //final Log log = LogFactory.getLog("clones.vivo.modifications.edit.editDatapropStmtRequestDispatch.jsp");
-    org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger("edu.cornell.mannlib.vitro.jsp.edit.editDatappropStmtRequestDispatch");
+
 
     HashMap<String,String> propUriToForm = null;
     propUriToForm = new HashMap<String,String>();
@@ -60,19 +63,6 @@
     request.setAttribute("predicateUri", predicateUri);
     request.setAttribute("predicateUriJson", MiscWebUtils.escape(predicateUri));
 
-    String datapropKeyStr = request.getParameter("datapropKey");
-    int dataHash = 0;
-    if( datapropKeyStr != null && datapropKeyStr.trim().length()>0 ){
-        try {
-            dataHash = Integer.parseInt(datapropKeyStr);
-            request.setAttribute("datahash", dataHash);
-            log.trace("dataHash is " + dataHash);
-        } catch (NumberFormatException ex) {
-            throw new JspException("Cannot decode incoming datapropKey value "+datapropKeyStr+" as an integer hash in editDatapropStmtRequestDispatch.jsp");
-        }
-        //request.setAttribute("datapropHash",new Integer(dataHash));
-        //request.setAttribute("datapropKeyJson",MiscWebUtils.escape(datapropKeyStr));
-    } // else creating a new data property
 
     /* since we have the URIs let's put the individual, data property, and optional data property statement in the request */
     VitroRequest vreq = new VitroRequest(request);
@@ -92,27 +82,52 @@
     }
     request.setAttribute("predicate", dataproperty);
 
+    String url= "/edit/editDatapropStmtRequestDispatch.jsp"; //I'd like to get this from the request but...
+    request.setAttribute("formUrl", url + "?" + request.getQueryString());
+
+
+    String datapropKeyStr = request.getParameter("datapropKey");
+    int dataHash = 0;
+    if( datapropKeyStr != null ){
+        try {
+            dataHash = Integer.parseInt(datapropKeyStr);
+            request.setAttribute("datahash", dataHash);
+            log.debug("Found a datapropKey in parameters and parsed it to int: " + dataHash);
+        } catch (NumberFormatException ex) {
+            throw new JspException("Cannot decode incoming datapropKey value "+datapropKeyStr+" as an integer hash in editDatapropStmtRequestDispatch.jsp");
+        }
+    }
+
     DataPropertyStatement dps = null;
     if( dataHash != 0) {
         dps = RdfLiteralHash.getDataPropertyStmtByHash( subject ,dataHash);
+
+
         if (dps==null) {
             log.error("No match to existing data property \""+predicateUri+"\" statement for subject \""+subjectUri+"\" via key "+datapropKeyStr);
-            throw new Error("In editRequestDispatch.jsp, no match to existing data property \""+predicateUri+"\" statement for subject \""+subjectUri+"\" via key "+datapropKeyStr+"\n");
+            throw new Error("In editDatapropStmtRequest.jsp, no match to existing data property \""+predicateUri+"\" statement for subject \""+subjectUri+"\" via key "+datapropKeyStr+"\n");
         }
         request.setAttribute("dataprop", dps );
     }
 
-    String url= "/edit/editDatapropStmtRequestDispatch.jsp"; //I'd like to get this from the request but...
-    request.setAttribute("formUrl", url + "?" + request.getQueryString());
 
-    if( log.isTraceEnabled() ){
-        log.trace("predicate is " + dataproperty.getURI() + " with rangeDatatypeUri of '" + dataproperty.getRangeDatatypeURI() + "'");
+
+    if( log.isDebugEnabled() ){
+        log.debug("predicate for DataProperty from reuqest is " + dataproperty.getURI() + " with rangeDatatypeUri of '" + dataproperty.getRangeDatatypeURI() + "'");
         if( dps == null )
-            log.trace("no exisitng dataPropertyStatement statement was found");
+            log.debug("no exisitng DataPropertyStatement statement was found, making a new statemet");
         else{
-            log.trace("DataPropertyStatemet " + dps.getData());
-            log.trace("  lang " + dps.getLanguage() );
-            log.trace("  datatype " + dps.getDatatypeURI());
+            log.debug("Found an existing DataPropertyStatement");
+
+            if( log.isDebugEnabled()){
+                String msg = "existing datapropstmt: ";
+                msg += " subject uri: <"+dps.getIndividualURI() + ">\n";
+                msg += " prop uri: <"+dps.getDatapropURI() + ">\n";
+                msg += " prop data: \"" + dps.getData() + "\"\n";
+                msg += " datatype: <" + dps.getDatatypeURI() + ">\n";
+                msg += " hash of this stmt: " + RdfLiteralHash.makeRdfLiteralHash(dps);
+                log.debug(msg);
+            }
         }
     }
 
