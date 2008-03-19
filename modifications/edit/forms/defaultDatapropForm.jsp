@@ -16,12 +16,11 @@
     String subjectUri   = request.getParameter("subjectUri");
     String predicateUri = request.getParameter("predicateUri");
 
-    DataPropertyStatement dataproperty = (DataPropertyStatement)request.getAttribute("dataproperty");
+    DataPropertyStatement dps = (DataPropertyStatement)request.getAttribute("dataprop");
     
     String datapropKeyStr = request.getParameter("datapropKey");
         
     int dataHash=0;
-    
 
     DataProperty prop = (DataProperty)request.getAttribute("predicate");
     if( prop == null ) throw new Error("In defaultDatapropForm.jsp, could not find predicate " + predicateUri);
@@ -34,27 +33,34 @@
     String rangeDatatypeUri = prop.getRangeDatatypeURI();
     request.setAttribute("rangeDatatypeUriJson", MiscWebUtils.escape(rangeDatatypeUri));
     
-    if( dataproperty != null ){
+    if( dps != null ){
         try {
             dataHash = Integer.parseInt(datapropKeyStr);
             log.debug("dataHash is " + dataHash);
+            System.out.println("in defaultDatapropForm.jsp, incoming data hash is "+dataHash);
         } catch (NumberFormatException ex) {
             log.debug("could not parse dataprop hash "+ 
                     "but there was a dataproperty; hash: '"+datapropKeyStr+"'"); 
         }
         
-        String rangeDatatype = dataproperty.getDatatypeURI();
+        String rangeDatatype = dps.getDatatypeURI();
         if( rangeDatatype == null ){
+            System.out.println("no range datatype uri set on data property statement when property's range datatype is "+prop.getRangeDatatypeURI()+" in defaultDatapropForm.jsp");
             request.setAttribute("rangeDatatypeUriJson","");
         }else{
+            System.out.println("range datatype uri of ["+rangeDatatype+"] on data property statement in defaultDatapropForm.jsp");
             request.setAttribute("rangeDatatypeUriJson",rangeDatatype);
         }
-        String rangeLang = dataproperty.getLanguage();
-        if( rangeLang == null )
-            request.setAttribute("rangeLangJson", "");
-        else
+        String rangeLang = dps.getLanguage();
+        if( rangeLang == null ) {
+            System.out.println("no language attribute on data property statement in defaultDatapropForm.jsp");
+            request.setAttribute("rangeLangJson","");
+        }else{
+            System.out.println("language attribute of ["+rangeLang+"] on data property statement in defaultDatapropForm.jsp");
             request.setAttribute("rangeLangJson", rangeLang);
-
+        }
+    } else {
+        System.out.println("No incoming dataproperty statement attribute in defaultDatapropForm.jsp");
     }
 
 %>
@@ -100,7 +106,7 @@
                                        "predicateUri"     : "",
                                        "objectClassUri"   : "",
                                        "rangeDatatypeUri" : "${rangeDatatypeUriJson}"  ,
-                                       "rangeLang" : "${rangeLangJson}",
+                                       "rangeLang"        : "${rangeLangJson}",
                                        "literalOptions"   : [ ] ,
                                        "assertions"       : ["${n3ForEdit}"]
                                      }
