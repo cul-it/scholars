@@ -6,15 +6,18 @@
 
 /*
 Title:      Life Sciences Graduate Portal screen styles
-Authors:     nac26@cornell.edu, mw542@cornell.edu
+Authors:    mw542@cornell.edu
 Updated:    February 14, 2008
 */
+
 html {
     height: 100%;    /* Allow background over lay to extend to bottom of window */
+    font-size: 100%; /* Preventing IE from messing up keyword steps for font sizes */
 }
 body {
     font-family: Arial, Helvetica, Verdana, sans-serif;
-    font-size: 63.125%;     /* translate 1.0em to 10px, 1.5em to 15px, etc. */
+/*    font-size: 63.125%; */
+    font-size: 62.5%;  /*   translate 1.0em to 10px, 1.5em to 15px, etc.    */
     text-align: center;
     color: #333;
     background: #39393d url(../images/layout/bg_body.gif) repeat-x left top;
@@ -31,104 +34,75 @@ body {
 #wrap {
     margin: 0 auto;
     text-align: left;
-    width: 85%;
-    min-width: 917px;
-/*  width: 917px;*/
+    width: 930px;
 }
 
 #header {
     padding: 6px 0;
     background: transparent url(../images/layout/bg_header.jpg) no-repeat 98% 100%;
-    width: 98%;
 }
 
 #contentWrap {
     float: left;
-    display: inline;
-    width: 98%;
-    min-width: 640px;
+    display: inline; /* fixes IE double floated margin bug */
+    width: 930px;
     margin-bottom: 4px;
-    padding-right: 16px;
+    padding-bottom: 28px;
     background: transparent url(../images/layout/bg_content.png) left top !important;
-    background: #193335 url(../images/layout/bg_content.gif) left top; /* Delivered to browsers without PNG support */
-    background-color: #193335;
-}
-
-#content.narrow {
-    width: 54%;
-    padding-left: 32px;
-    padding-right: 0;
-}
-
-#content.gradfields {
-    padding-left: 32px;
-    padding-right: 0;
+/*    background: transparent url(../images/layout/bg_contentGrid.png) center top repeat-y !important;*/
+     background: #193335 url(../images/layout/bg_content.gif) left top;
+/*    background: #193335 url(../images/layout/bg_contentGrid.gif) center top repeat-y;*/
+/*    background-color: #193335;*/
 }
 
 #content {
     float: left;
     display: inline;
-    width: 64%;
-/*    min-width: 600px;*/
-    padding: 5px 15px 22px 18px;
-    font-family: Arial, Helvetica, Verdana, sans-serif;
-    font-size: 1.2em;
+    width: 590px;   /*eight units*/
+    margin-left: 20px;
+    padding-top: 28px;
     color: #efecca;
 }
 
-#content.fullPage {
-    width: 98%;
-}
-
-#content.faculty {
-    min-height: 500px;
-}
-
+body#fields #content {  width: 515px; } /*seven units*/
+body#groups #content { width: 890px; margin-right: 20px; } /*sixteen units*/
+body#faculty #content { min-height: 500px; }
 
 #sidebar {
     float: right;
-    display: inline-block;
-    width: 270px;
-    font-size: 1.2em;
-    margin-bottom: 20px;
+    display: inline;
+    width: 290px; /*four units*/
+    margin-right: 20px;
+    padding-top: 28px;
 }
 
-#sidebar.expanded {
-    width: 39%;
-}
+body#fields #sidebar { width: 365px; }
 
-#leftColumn {
+#content div.leftColumn {
     float: left;
-    width: 48%;
-
+    width: 440px;
 }
 
-#rightColumn {
+#content div.rightColumn {
     float: right;
-    width: 48%;
-
-}
-
-#departmentsInField, #facultyInField {
-    width: 48%;
-    margin-top: 1.5em;
-    margin-bottom: 30px;
-}
-
-#researchInField {
-    margin-top: 7em;
-    margin-bottom: 30px;
-    margin-right: 12px;
-    padding: 14px 20px;
-    background: #224b4c;
+    width: 440px;
 }
 
 #footer {
     margin-bottom: 10px;
-    width: 99%;
+    width: 930px;
     clear: both;
     color: #fff;
 }
+
+.eightUnit { width: 590px; }
+.sevenUnit { width: 515px; }
+.sixUnit { width: 440px; }
+.fiveUnit { width: 365px; }
+.fourUnit { width: 290px; }
+.threeUnit { width: 215px; }
+.twoUnit { width: 140px; }
+.oneUnit { width: 65px; }
 
 .floatLeft {
     float: left;
@@ -147,7 +121,7 @@ header roll call
 
 #header h1 {
     margin-left: 15px;
-    font-size: 3.4em;
+    font-size: 3.2em;
     font-family: "Myriad Pro", Arial, Helvetica, Verdana, sans-serif;
     font-weight: bold;
     color: #69bfde;
@@ -184,20 +158,35 @@ header roll call
 content roll call
 ****************************************************************/
 
-#content.fullPage h2.groupLabel {
-    font-size: 1.5em;   /* Scaling down group names to fit two-column layout */
-    line-height: 1em;
+body#home #content h2 {
+    letter-spacing: 1px;
+    word-spacing: 1px;
+}
+
+body#groups h2 {
+    font-size: 1.7em;   /* Scaling down group names to fit two-column layout */
+    line-height: 1.4em;
     padding-top: 20px;
     padding-left: 45px;
+}
+
+body#fields h2, body#singlefield h2 {
+    margin-top: -18px;
+}
+
+body#fields h3.floatLeft {
+    margin-left: 45px;
+    display: inline;
+}
+
+h2.groupLabel, h2.groupLabel a:link, h2.groupLabel a:visited {
+    line-height: 1.4em;
+    color: #fff;
     font-weight: bold;
 }
 
-#content.gradfields h2.groupLabel {
-    margin-left: -18px;   /* Pulling icon closer to edge of page */
-}
-
 .fieldLabel {
-    color: #fff; /* For field names that aren't links */
+    color: #fff;
     font-weight: bold;
     padding-left: 6px;
 }
@@ -208,20 +197,20 @@ content roll call
 }
 
 #apply {
-    width: 94%;
-    background: #046380;
-    padding: 15px;
+/*    padding: 15px;*/
     margin-top: 20px;
+    margin-right: 75px;
+    background: #046380;
     position: relative;
 }
 
 #apply p { 
-    width: 80%;
     color: #fff;
     font-weight: bold;
-    font-size: 1.5em;
+    font-size: 1.7em;
     line-height: 1.2em;
     margin: 0;
+    padding: 15px 110px 15px 15px;
 }
 
 #applyButton { 
@@ -232,23 +221,46 @@ content roll call
     margin-top: -15px;
 }
 
-.initial {
-    margin-top: 1em;
-}
-
 /****************************************************************
 sidebar roll call
 ****************************************************************/
 
-#sidebar h2 {
-    margin-bottom: 10px;
-    color: #046380;
-    font-size: 1.5em;
-    font-weight: bold;
-    text-align: left;
+#news, #search, #seminars {
+    padding: 12px 10px;
+    color: #000;
+    background: #efecca;
 }
 
-div#search h2 {
+#search, #seminars {
+    margin-top: 20px;
+}
+
+#search {
+    background: #a7a37e;
+}
+
+#departmentsInField, #facultyInField {
+    width: 48%;
+    margin-top: 1.5em;
+    margin-bottom: 30px;
+}
+
+#researchInField {
+    margin-top: 7em;
+    margin-bottom: 30px;
+/*    margin-right: 12px;*/
+    padding: 14px 20px;
+    background: #224b4c;
+}
+
+#sidebar h2 {
+    margin-bottom: 16px;
+    color: #046380;
+    font-size: 1.8em;
+    font-weight: bold;
+}
+
+#search h2 {
     color: #fff;
 }
 
@@ -256,29 +268,20 @@ div#search h2 {
     color: #A7A37E;
 }
 
-#news, #search, #seminars {
-    margin-top: 20px;
-    padding: 12px 10px 8px 10px;
-    color: #000;
-    background: #efecca;
-    text-align: right;
+#seminars span.abbrStart, #seminars p.host {
+    font-size: 1.2em;
+    line-height: 1.2em;
+    margin: 0;
 }
 
-#news li, #seminars li, #search {
-    text-align: left;
+#seminars p.summary {
+    clear:both;
+    font-size: 1em;
+    line-height: 1.4em;
 }
 
-#search {
-    background: #a7a37e;
-}
-
-#departments {
-    margin-top: 20px;
-    padding: 10px;
-}
-
-#sidebar.faculty {
-    margin-top: 20px;
+#seminars span.abbrEnd, #seminars p.location, #seminars p.description {
+    display:none;
 }
 
 /****************************************************************
@@ -289,15 +292,28 @@ footer roll call
     margin: 0;
 }
 
+#footer a:link, #footer a:visited {
+    color: #91c4d4;
+}
+
+#footer a:hover {
+    color: #69bfde;
+    border-bottom: 1px solid #69bfde;
+}
+
 /****************************************************************
 basics roll call
 ****************************************************************/
 
 p {
-    font-size: 1.1em;
-    line-height: 1.2em;
+    font-size: 1.2em;
+    line-height: 1.4em;
     text-align: left;
     margin: 1em 0;
+}
+
+p.clean {
+    margin: 0;
 }
 
 h1, h2, h3, h4 {
@@ -314,28 +330,22 @@ h1 {
 }
 
 h2 {
-    font-size: 1.7em;
+    font-size: 1.9em;
 }
 
 h3 {
-    font-size: 1.5em;
+    font-size: 1.7em;
     line-height: 1.5em;
 }
 
 h4 {
-    font-size: 1.5em;
+    font-size: 1.6em;
     line-height: 1.5em;
-}
-
-li.clean {
-    margin: 0;
-    padding: 0;
 }
 
 /****************************************************************
 image roll call
 ****************************************************************/
-
 #news ul li img {
     width: 110px;
     display: block;
@@ -346,146 +356,16 @@ image roll call
 /****************************************************************
 anchor roll call
 ****************************************************************/
-a:link, a:visited, a:hover, a:active {
-    text-decoration: none;
-}
+a:link, a:visited, a:hover, a:active { text-decoration: none; }
+a:link { color: #fff; }
+a:visited { color: #a9a9a9; }
+a:hover { color: #69bfde; }
+a:active { color: #69bfde; }
 
-a:link {
-    color: #fff;
-}
+li a { border-bottom: 1px solid #4a7172; }
 
-a:visited {
-    color: #a9a9a9;
-}
-
-a:hover {
-    color: #69bfde;
-}
-
-a:active {
-    color: #ebe386;
-}
-
-li a, #researchInField li a {  
-    /* link underlining */
-    border-bottom: 1px solid #4a7172;
-}
-
-h2.groupLabel, h2.groupLabel a:link, h2.groupLabel a:visited {
-    line-height: 1.3em;
-    color: #fff;
-    font-weight: bold;
-}
-
-#news a {
-    font-size: .9em;
-    line-height: 1.4em;
-}
-
-#news a:link, #news a:visited, #seminars a:link, #seminars a:visited {
-    color: #046380;
-    border-bottom: solid 1px #046380;
-    text-decoration: none;
-}
-
-#news a:hover, #seminars a:hover {
-    color: #2ca6d2;
-}
-
-
-
-#seminars p {
-    margin: 0;
-}
-
-#seminars ul {
-    width: 100%
-}
-
-#seminars li {
-    margin-bottom:1em;
-}
-
-#seminars abbr.dtstart, #seminars p.host {
-    font-size: .95em;
-    font-weight: bold;
-    line-height: 1.2em;
-}
-
-#seminars abbr.dtstart {
-    float: left;
-}
-
-#seminars p.host {
-    float: right;
-}
-
-#seminars p.host a:link, #seminars p.host a:visited {
-    color: #000;
-    border-bottom: 0;
-}
-
-#seminars p.host a:hover {
-    color: #69bfde;
-}
-
-#seminars p.summary {
-    clear:both;
-    font-size: .90em;
-    line-height: 1.4em;
-}
-
-#seminars abbr.dtend, #seminars p.location, #seminars p.description {
-    display:none;
-}
-
-#sidebar a.moreLink {
-    clear: both;
-    font-weight: bold;
-    font-size: 1.1em;
-}
-
-#sidebar a:link.moreLink, #sidebar a:visited.moreLink {
-    color: #b9121b;
-    border-bottom: 0;
-    font-weight: bold;
-}
-
-#sidebar a:hover.moreLink, #sidebar a:active.moreLink {
-    color: red;
-    border-bottom: 0;
-    font-weight: bold;
-    text-decoration: underline;
-}
-
-#footer a:link, #footer a:visited {
-    color: #bacec5;
-    border-color: #bacec5;
-}
-
-#footer a:hover {
-    color: #fff;
-    border-color: #fff;
-}
-
-/****************************************************************
-list roll call
-****************************************************************/
-ul li {
-    list-style-type: none;
-    background: url(../images/layout/bg_li_bullet.gif) no-repeat 4px 5px;
-}
-
-ul.groupings {
-  margin: 20px 0;
-}
-
-ul.groupings li {
-    margin-bottom: -13px; /* Tightening the space between group items */
-    font-size: 1.7em;
-    font-family: Arial, Helvetica, Verdana, sans-serif;
-    font-weight: bold;
-    line-height: 1.3em;
+body#faculty #content a, body#faculty #sidebar a {
+    font-size: 1.2em;
 }
 
 ul.groupings li a:link, ul.groupings li a:visited {
@@ -498,6 +378,79 @@ ul.groupings li a:hover {
     border: 0;
 }
 
+ul.fields li a {
+    font-size: 1.2em;
+    font-weight: bold;
+    line-height: 1.3em;
+}
+
+#news a:link, #news a:visited, #seminars a:link, #seminars a:visited {
+    color: #046380;
+    text-decoration: underline;
+    border: 0;
+}
+
+#news a:hover, #seminars a:hover {
+    color: #2ca6d2;
+}
+
+#seminars p.host a:link, #seminars p.host a:visited {
+    color: #000;
+    border-bottom: 0;
+    text-decoration: none;
+}
+
+#seminars p.host a:hover {
+    color: #69bfde;
+}
+
+#sidebar a.moreLink {
+    clear: both;
+    display: block;
+    text-align: right;
+    font-weight: bold;
+    font-size: 1.2em;
+    text-decoration: none;
+}
+
+#sidebar a:link.moreLink, #sidebar a:visited.moreLink {
+    font-weight: bold;
+    color: #b9121b;
+    border-bottom: 0;
+}
+
+#sidebar a:hover.moreLink, #sidebar a:active.moreLink {
+    color: red;
+    border-bottom: 0;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+
+/****************************************************************
+list roll call
+****************************************************************/
+ul li {
+    list-style-type: none;
+    background: url(../images/layout/bg_li_bullet.gif) no-repeat 4px 5px;
+}
+
+li.clean {
+    margin: 0;
+    padding: 0;
+}
+
+ul.groupings {
+  margin: 20px 0;
+}
+
+ul.groupings li {
+    font-size: 2.2em;
+    font-weight: bold;
+    line-height: 1.1em;
+    margin-bottom: -10px; /* Tightening the space between group items */
+}
+
 ul.fields {
     margin: .4em 0 1.5em 0;
 }
@@ -506,22 +459,19 @@ ul.fields li {
     margin-bottom: 4px;
 }
 
-ul.fields li a {
+body#groups #content ul {
+    margin: -1em 0 2em 46px;
     font-size: 1.2em;
-    font-weight: bold;
-    line-height: 1.3em;
+    line-height: 1.5em;
 }
 
-.fieldlistIndent {
-    padding-left: 12em; /* Indents list of fields on fields.jsp to align with title */
+body#fields #content ul {
+    margin-left: 18em;
+    margin-top: .5em;
 }
 
-#leftColumn ul, #rightColumn ul {
-    margin: -1em 0 2em 0;
-}
-
-#leftColumn li, #rightColumn li {
-    padding-left: 46px;
+body#singlefield #content li, body#singlefield #sidebar li {
+    font-size: 1.2em;
 }
 
 #departmentsInField ul, #facultyInField ul {
@@ -539,13 +489,13 @@ ul.fields li a {
 
 #sidebar ul.groupings li {
     padding-left: 27px;
-    font-size: 1em;
-    font-weight: bold;
+    font-size: 1.2em;
     line-height: 1.3em;
+    font-weight: bold;
 }
 
 #news ul, #seminars ul {
-    float: left;
+    width: 100%;
     margin-bottom: 10px;
 }
 
@@ -561,6 +511,13 @@ ul.fields li a {
     padding: 0;
 }
 
+#seminars ul {
+    width: 100%;
+}
+
+#seminars li {
+    margin-bottom: 1em;
+}
 
 /* ---------- Icons for main groupings ---------- */
 /* Note: positioning rules had to be declared for each class because they did not work when grouped */
@@ -653,6 +610,6 @@ table roll call
 
 /* Fix for IE6 3-pixel indent bug, described at: http://www.positioniseverything.net/explorer/threepxtest.html */ 
 /* Hide from IE5-mac. Only IE-win sees this. \*/
-* html ul.fieldlistIndent {  height: 1%;  margin: 0;  padding: .4em 0 0 1em;  }
+* html body#fields #content ul {  height: 1%;  margin: 0; padding: .4em 0 0 1em;  }
 /* End hide from IE5/mac */
 

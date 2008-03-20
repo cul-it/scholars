@@ -26,7 +26,7 @@
           ]]>
     </sparql:select>
     
-    <div id="leftColumn">
+    <div class="leftColumn">
       <c:forEach items="${rs.rows}" var="row" begin="0" end="2" step="1">
             <c:set var="classForGrouping" value="${fn:substringAfter(row.fieldClusterUri,'#')}"/>
             <c:url var="gradhref" value="fields.jsp">
@@ -48,7 +48,7 @@
       </c:forEach>
     </div>
     
-    <div id="rightColumn">
+    <div class="rightColumn">
       <c:forEach items="${rs.rows}" var="row" begin="0" end="2" step="1">
             <c:set var="classForGrouping" value="${fn:substringAfter(row.fieldClusterUri,'#')}"/>
             <c:url var="gradhref" value="fields.jsp">

@@ -1,17 +1,19 @@
-<jsp:include page="facultyheader.jsp" />
+<jsp:include page="header.jsp">
+    <jsp:param name="bodyID" value="faculty"/>
+</jsp:include>
         
         <div id="contentWrap">
             
             <div id="content" class="faculty">
                 
-                <h2 class="initial facultyHeading"><span class="exhibit-collectionView-group">Graduate Fields</span> and Associated Faculty Members</h2>
+                <h2><span class="exhibit-collectionView-group">Graduate Fields</span> and Associated Faculty Members</h2>
                 <div id="exhibit-control-panel"></div>
                
                 <div ex:role="viewPanel">
                     
                     <div ex:role="exhibit-lens" class="facultyMember">
                         <a ex:href-content=".url" target="_new"><span ex:content=".label"></span></a>
-                        <span class="researchArea" ex:if-exists=".research-area" ex:content=".research-area"></span>
+
                     </div>
 
                      <div ex:role="exhibit-view"

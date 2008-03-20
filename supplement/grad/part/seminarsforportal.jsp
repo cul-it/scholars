@@ -54,7 +54,7 @@
     
         <ul>
             <c:forEach  items="${rs.rows}" var="talk" begin="0" varStatus="status">
-                <fmt:parseDate var="seminarTimekey" value="${talk.timekey.string}" pattern="yyyy-MM-dd'T'HH:mm:ss" />
+                <fmt:parseDate parseLocale="en_US" var="seminarTimekey" value="${talk.timekey.string}" pattern="yyyy-MM-dd'T'HH:mm:ss" />
                 <fmt:formatDate var="seminarDate" value="${seminarTimekey}" pattern="EEEE', 'MMM'. 'd" />
                 <fmt:formatDate var="calendarStart" value="${seminarTimekey}" pattern="yyyyMMdd'T'HHmm'-0500'" />
                 <fmt:formatDate var="calendarEnd" value="${seminarTimekey}" pattern="yyyyMMdd" />
@@ -67,10 +67,10 @@
                 <c:set var="cleanClass"><c:if test="${status.count eq 2}">clean</c:if></c:set>
                 
                 <li class="vevent ${cleanClass}">
-                    <abbr title="${calendarStart}" class="dtstart">${seminarDate}</abbr>
-                    <abbr title="${calendarEnd}" class="dtend"> - &amp;#63;</abbr>
+                    <span class="abbrStart floatLeft"><abbr title="${calendarStart}" class="dtstart">${seminarDate}</abbr></span>
+                    <span class="abbrEnd"><abbr title="${calendarEnd}" class="dtend"> &amp;ndash; &amp;#63;</abbr></span>
                     <c:if test="${not empty talk.hostname.string}">
-                        <p class="host"><a href="${seminarHostLink}">${fn:trim(firstName)}&amp;nbsp;${lastName}</a></p>
+                        <p class="host floatRight"><a href="${seminarHostLink}">${fn:trim(firstName)}&amp;nbsp;${lastName}</a></p>
                     </c:if>
                     <p class="summary"><a href="${seminarLink}" class="url">${talk.label.string}</a></p> 
                     <p class="location">${talk.location.string}</p>

@@ -2,9 +2,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://djpowell.net/tmp/sparql-tag/0.1/" prefix="sparql" %>
 
-<jsp:include page="header.jsp" />
+<jsp:include page="header.jsp">
+    <jsp:param name="bodyID" value="singlefield"/>
+</jsp:include>
+
 <div id="contentWrap">
-	<div id="content" class="gradfields">
+	<div id="content">
 
         <!-- Build URL for returning to Group -->
         <c:url var="grouphref" value="fields.jsp">
@@ -13,19 +16,18 @@
             <c:param name="groupClass" value="${param.groupClass}"/>
         </c:url>
         
-       
-
-<h2 class="groupLabel ${param.groupClass}"><a href="${grouphref}">${param.groupLabel}</a></h2
+        <h2 class="groupLabel ${param.groupClass}"><a href="${grouphref}">${param.groupLabel}</a></h2>
  
-<h3>Graduate Field: <span class="fieldLabel">${param.fieldLabel}</span></h3>
+        <h4>Graduate Field: <span class="fieldLabel">${param.fieldLabel}</span></h4>
 
-<c:import var="fieldDescription" url="part/getdescription.jsp">
-         <c:param  name="uri" value="${param.uri}"/>
- </c:import>
-<p>${fieldDescription}</p>
+        <c:import var="fieldDescription" url="part/getdescription.jsp">
+                 <c:param  name="uri" value="${param.uri}"/>
+         </c:import>
+
+        <p>${fieldDescription}</p>
 
 <div id="departmentsInField" class="floatLeft">
-    <h4 class="fieldRelationLabel">Departments</h4>
+    <h3 class="fieldRelationLabel">Departments</h3>
     <ul>
         <jsp:include page="part/listdepartments.jsp">
             <jsp:param name="uri" value="${param.uri}"/>
