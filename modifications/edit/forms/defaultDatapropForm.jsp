@@ -6,11 +6,9 @@
 <%@ page import="edu.cornell.mannlib.vitro.webapp.edit.n3editing.EditConfiguration" %>
 <%@ taglib prefix="v" uri="http://vitro.mannlib.cornell.edu/vitro/tags" %>
 <%@page import="edu.cornell.mannlib.vitro.webapp.web.MiscWebUtils"%>
-<%@ page import="org.apache.commons.logging.Log" %>
-<%@ page import="org.apache.commons.logging.LogFactory" %>
+
 <%
-    //final Log log = LogFactory.getLog("clones.vivo.modifications.edit.forms.defaultDatapropForm.jsp");
-	org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger("edu.cornell.mannlib.vitro.jsp.edit.forms.defaultDatapropForm.jsp");
+    org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger("edu.cornell.mannlib.vitro.jsp.edit.forms.defaultDatapropForm.jsp");
 	log.info("Starting defaultDatapropForm.jsp");
 	
     String subjectUri   = request.getParameter("subjectUri");
@@ -72,13 +70,12 @@
   {
     "formUrl"      : "${formUrl}",
     "editKey"      : "${editKey}",
+    "datapropKey"  : "${dataHash}",
 
     "subject"   : ["subject",   "${subjectUriJson}" ],
     "predicate" : ["predicate", "${predicateUriJson}"],
     "object"    : ["editedLiteral","","DATAPROPHASH"],
-
-    "datapropKey"  : "${dataHash}",
-
+    
     "n3required"                : ["${n3ForEdit}"],
     "n3optional"                : [ ],
     "newResources"              : { },
@@ -124,7 +121,6 @@
     String submitLabel ="";
 
     if( datapropKeyStr != null && datapropKeyStr.trim().length() > 0  ) {
-        editConfig.setDatapropKey( datapropKeyStr );
         Model model =  (Model)application.getAttribute("jenaOntModel");
         editConfig.prepareForUpdate(request,model);
         formTitle   = "Change value for &quot;"+prop.getPublicName()+"&quot; data property for "+subject.getName();
