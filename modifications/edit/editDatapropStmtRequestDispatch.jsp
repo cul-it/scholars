@@ -102,7 +102,6 @@
     if( dataHash != 0) {
         dps = RdfLiteralHash.getDataPropertyStmtByHash( subject ,dataHash);
 
-
         if (dps==null) {
             log.error("No match to existing data property \""+predicateUri+"\" statement for subject \""+subjectUri+"\" via key "+datapropKeyStr);
             throw new Error("In editDatapropStmtRequest.jsp, no match to existing data property \""+predicateUri+"\" statement for subject \""+subjectUri+"\" via key "+datapropKeyStr+"\n");

@@ -74,7 +74,7 @@
 
     "subject"   : ["subject",   "${subjectUriJson}" ],
     "predicate" : ["predicate", "${predicateUriJson}"],
-    "object"    : ["editedLiteral","","DATAPROPHASH"],
+    "object"    : ["editedLiteral","","DATAPROPHASH"],  
     
     "n3required"                : ["${n3ForEdit}"],
     "n3optional"                : [ ],

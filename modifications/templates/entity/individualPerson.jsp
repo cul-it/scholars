@@ -63,15 +63,15 @@
                     </c:otherwise>
                 </c:choose>
                 
-                <ul id="profileCats">
-                    <li><a id="currentCat" href="#" title="Cornell Affiliations">Affiliations</a></li>
-                    <li><a class="miles" href="#" title="Research, Practice &amp; Professional Activites">Research</a></li>
-                    <li><a href="#" title="Instruction &amp; Advising">Teaching</a></li>
-                    <li><a href="#" title="Outreach &amp; Service">Service</a></li>
-                    <li><a href="#" title="Biography &amp; Background">Background</a></li>
-                    <li><a href="#" title="Publications &amp; Other Works">Publications</a></li>
-                    <li><a href="#" title="International Expertise &amp; Activites">International</a></li>
-                </ul>
+<!--                 <ul id="profileCats"> -->
+<!--                     <li><a id="currentCat" href="#" title="Cornell Affiliations">Affiliations</a></li> -->
+<!--                     <li><a class="miles" href="#" title="Research, Practice &amp; Professional Activites">Research</a></li> -->
+<!--                     <li><a href="#" title="Instruction &amp; Advising">Teaching</a></li> -->
+<!--                     <li><a href="#" title="Outreach &amp; Service">Service</a></li> -->
+<!--                     <li><a href="#" title="Biography &amp; Background">Background</a></li> -->
+<!--                     <li><a href="#" title="Publications &amp; Other Works">Publications</a></li> -->
+<!--                     <li><a href="#" title="International Expertise &amp; Activites">International</a></li> -->
+<!--                 </ul> -->
 
                 <% /* CALS Impact portal wants data properties first */ %>
                 <c:choose>

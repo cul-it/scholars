@@ -199,8 +199,7 @@
     String objectUri = (String)request.getAttribute("objectUri");
     if( objectUri != null ){
         Model model =  (Model)application.getAttribute("jenaOntModel");
-        //prepareForEditOfExisting(editConfig, model, request, session);
-        editConfig.prepareForUpdate(request,model);
+        editConfig.prepareForObjPropUpdate( model );
     }
 
     /* get some data to make the form more useful */

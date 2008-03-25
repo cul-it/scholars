@@ -75,7 +75,7 @@
             <div>
                  Faculty
                 <ul>
-                <c:forEach items='${entity.objectPropertyMap["http://vivo.library.cornell.edu/ns/0.1#CornellFacultyMemberInOrganizedEndeavor"].objectPropertyStatements}' var="Faculty">
+                <c:forEach items='${entity.objectPropertyMap["http://vivo.library.cornell.edu/ns/0.1#CornellFacultyMemberInOrganizedEndeavorac"].objectPropertyStatements}' var="Faculty">
                     <li>${Faculty.object.name}</li>
                 </c:forEach>
                 </ul>

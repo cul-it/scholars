@@ -1,6 +1,5 @@
+<%@ page import="com.hp.hpl.jena.rdf.model.Literal" %>
 <%@ page import="com.hp.hpl.jena.rdf.model.Model" %>
-<%@ page import="com.thoughtworks.xstream.XStream" %>
-<%@ page import="com.thoughtworks.xstream.io.xml.DomDriver" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.beans.Individual" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.edit.n3editing.EditConfiguration" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
@@ -244,8 +243,15 @@
     String objectUri = (String)request.getAttribute("objectUri");
     if( objectUri != null ){
         Model model =  (Model)application.getAttribute("jenaOntModel");
-        //prepareForEditOfExisting(editConfig, model, request, session);
-        editConfig.prepareForUpdate(request,model);
+        editConfig.prepareForObjPropUpdate(model);
+        System.out.println("in personHasEducationalBackground");
+        for( String key : editConfig.getUrisInScope().keySet()){
+            System.out.println("key: " + key + " uri: " + editConfig.getUrisInScope().get(key));
+        }
+        for( String key : editConfig.getLiteralsInScope().keySet()){
+            Literal lit = editConfig.getLiteralsInScope().get(key);
+            System.out.println("key: " + key + " lang: " + lit.getLanguage() + " datatypeUri : " + lit.getDatatypeURI() + "\nvalue: " + lit.getString() );
+        }
     }
 
     /* get some data to make the form more useful */

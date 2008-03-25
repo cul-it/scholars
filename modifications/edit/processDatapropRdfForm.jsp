@@ -9,15 +9,12 @@
 <%@ page import="edu.cornell.mannlib.vitro.webapp.beans.Individual" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.controller.VitroRequest" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.dao.WebappDaoFactory" %>
-<%@page import="edu.cornell.mannlib.vitro.webapp.edit.n3editing.EditConfiguration"%>
-<%@ page import="edu.cornell.mannlib.vitro.webapp.edit.n3editing.EditSubmission" %>
-<%@ page import="edu.cornell.mannlib.vitro.webapp.edit.n3editing.Field" %>
-<%@ page import="edu.cornell.mannlib.vitro.webapp.edit.n3editing.SparqlEvaluate" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.filters.VitroRequestPrep" %>
 <%@ page import="org.apache.commons.logging.Log" %>
 <%@ page import="org.apache.commons.logging.LogFactory" %>
 <%@ page import="java.io.StringReader" %>
 <%@ page import="java.util.*" %>
+<%@ page import="edu.cornell.mannlib.vitro.webapp.edit.n3editing.*" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
 
 <%-- 2nd prototype of processing, adapted for data property editing
@@ -56,20 +53,20 @@ in processing the form.
         return;
     }
 
+    EditN3Generator n3Subber = editConfig.getN3Generator();
     List<String> n3Required = editConfig.getN3Required();
-    //List<String> n3Optional = editConfig.getN3Optional();
 
     Map<String,List<String>> fieldAssertions = null;
     String subjectUri=null, predicateUri=null;
     Individual subject=null;
     if( editConfig.getDatapropKey() != null && editConfig.getDatapropKey().length() > 0){
         // we are editing an existing data property statement
-        subjectUri   = editConfig.getSubjectUri(); //request.getParameter("subjectUri");
+        subjectUri   = editConfig.getSubjectUri();
         if (subjectUri == null || subjectUri.trim().length()==0) {
             log.error("No subjectUri parameter available via editConfig for datapropKey "+editConfig.getDatapropKey());
             throw new Error("No subjectUri parameter available via editConfig in processDatapropRdfForm.jsp");
         }
-        predicateUri = editConfig.getPredicateUri(); //request.getParameter("predicateUri");
+        predicateUri = editConfig.getPredicateUri();
         if (predicateUri == null || predicateUri.trim().length()==0) {
             log.error("No predicateUri parameter available via editConfig for datapropKey "+editConfig.getDatapropKey());
             throw new Error("No predicateUri parameter available via editConfig in processDatapropRdfForm.jsp");
@@ -92,37 +89,28 @@ in processing the form.
 
     /* ********** URIs and Literals on Form/Parameters *********** */
     //sub in resource uris off form
-    n3Required = EditConfiguration.subInUris(submission.getUrisFromForm(), n3Required);
-    // only 1 literal value: n3Optional = subInUris(submission.getUrisFromForm(), n3Optional);
+    n3Required = n3Subber.subInUris(submission.getUrisFromForm(), n3Required);
 
     //sub in literals from form
-    n3Required = editConfig.subInLiterals(submission.getLiteralsFromForm(), n3Required);
-    //n3Optional = subInLiterals(submission.getLiteralsFromForm(), n3Optional);
+    n3Required = n3Subber.subInLiterals(submission.getLiteralsFromForm(), n3Required);
 
-    fieldAssertions = substituteIntoValues(submission.getUrisFromForm(), submission.getLiteralsFromForm(), fieldAssertions, editConfig);
+    fieldAssertions = n3Subber.substituteIntoValues(submission.getUrisFromForm(), submission.getLiteralsFromForm(), fieldAssertions );
 
     /* ****************** URIs and Literals in Scope ************** */
-    SparqlEvaluate sparqlEval = new SparqlEvaluate((Model)application.getAttribute("jenaOntModel"));
-    editConfig.runSparqlForAdditional(sparqlEval);
+    n3Required = n3Subber.subInUris(  editConfig.getUrisInScope(), n3Required);
 
-    Map<String,String> urisInScope = editConfig.getUrisInScope();
-    n3Required = EditConfiguration.subInUris( urisInScope, n3Required);
-    //n3Optional = subInUris( urisInScope, n3Optional);
+    n3Required = n3Subber.subInLiterals( editConfig.getLiteralsInScope(), n3Required);
 
-    Map<String,String> literalsInScope = editConfig.getLiteralsInScope();
-    n3Required = editConfig.subInLiterals( literalsInScope, n3Required);
-    //n3Optional = subInLiterals( literalsInScope, n3Optional);
-
-    fieldAssertions = substituteIntoValues(urisInScope, literalsInScope, fieldAssertions, editConfig );
+    fieldAssertions = n3Subber.substituteIntoValues(editConfig.getUrisInScope(),editConfig.getLiteralsInScope(), fieldAssertions );
 
     /* ****************** New Resources ********************** */
     Map<String,String> varToNewResource = newToUriMap(editConfig.getNewResources(),jenaOntModel);
 
     //if we are editing an existing prop, no new resources will be substituted since the var will
     //have already been substituted in by urisInScope.
-    n3Required = EditConfiguration.subInUris( varToNewResource, n3Required);
-    //n3Optional = subInUris( varToNewResource, n3Optional);
-    fieldAssertions = substituteIntoValues(varToNewResource, null, fieldAssertions, editConfig);
+    n3Required = n3Subber.subInUris( varToNewResource, n3Required);
+
+    fieldAssertions = n3Subber.substituteIntoValues(varToNewResource, null, fieldAssertions );
 
     /* ***************** Build Models ******************* */
     /* bdc34: we should check if this is an edit of an existing
@@ -132,7 +120,6 @@ in processing the form.
      */
     List<Model> requiredAssertions  = null;
     List<Model> requiredRetractions = null;
-    //List<Model> optionalAssertions  = null;
 
     if( editConfig.getDatapropKey() != null && editConfig.getDatapropKey().trim().length() > 0 ){
         //editing an existing statement
@@ -174,7 +161,7 @@ in processing the form.
         }
         requiredAssertions = requiredFieldAssertions;
         requiredRetractions = requiredFieldRetractions;
-        //optionalAssertions = Collections.EMPTY_LIST;
+
     } else { //deal with required N3
         log.debug("Not editing an existing statement since no datapropKey in editConfig");
         List<Model> requiredNewModels = new ArrayList<Model>();
@@ -254,29 +241,29 @@ in processing the form.
         return out;
     }
 
-    public Map<String,List<String>> substituteIntoValues(Map<String,String> varsToUris,
-                                                      Map<String,String> varsToLiterals,
-                                                      Map<String,List<String>> namesToN3,
-                                                      EditConfiguration editConfig ){
-        Map<String,List<String>> outHash = new HashMap<String,List<String>>();
-
-        if (namesToN3==null) {
-            return outHash;
-        } else if (namesToN3.isEmpty()) {
-            return outHash;
-        } else {
-            for(String fieldName : namesToN3.keySet()){
-                List<String> n3strings = namesToN3.get(fieldName);
-                List<String> newList  = new ArrayList<String>();
-                if( varsToUris != null)
-                    newList = EditConfiguration.subInUris(varsToUris, n3strings);
-                if( varsToLiterals != null)
-                    newList = editConfig.subInLiterals(varsToLiterals, newList);
-                outHash.put(fieldName, newList);
-            }
-        }
-        return outHash;
-    }
+//    public Map<String,List<String>> substituteIntoValues(Map<String,String> varsToUris,
+//                                                      Map<String,String> varsToLiterals,
+//                                                      Map<String,List<String>> namesToN3,
+//                                                      EditConfiguration editConfig ){
+//        Map<String,List<String>> outHash = new HashMap<String,List<String>>();
+//
+//        if (namesToN3==null) {
+//            return outHash;
+//        } else if (namesToN3.isEmpty()) {
+//            return outHash;
+//        } else {
+//            for(String fieldName : namesToN3.keySet()){
+//                List<String> n3strings = namesToN3.get(fieldName);
+//                List<String> newList  = new ArrayList<String>();
+//                if( varsToUris != null)
+//                    newList = editConfig.getN3Generator().subInUris(varsToUris, n3strings);
+//                if( varsToLiterals != null)
+//                    newList = editConfig.getN3Generator().subInLiterals(varsToLiterals, newList);
+//                outHash.put(fieldName, newList);
+//            }
+//        }
+//        return outHash;
+//    }
 
     public Map<String,String> newToUriMap(Map<String,String> newResources, Model model){
         HashMap<String,String> newUris = new HashMap<String,String>();

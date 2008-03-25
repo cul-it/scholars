@@ -9,6 +9,7 @@
 <%@ page import="edu.cornell.mannlib.vedit.beans.LoginFormBean" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.dao.jena.event.IndividualDeletionEvent" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.edit.n3editing.EditConfiguration" %>
+<%@ page import="edu.cornell.mannlib.vitro.webapp.edit.n3editing.EditN3Generator" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.edit.n3editing.EditSubmission" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.edit.n3editing.Field" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.edit.n3editing.SparqlEvaluate" %>
@@ -41,6 +42,7 @@ are well formed.
     OntModel persistentOntModel = (OntModel)application.getAttribute("persistentOntModel");
 
     EditConfiguration editConfig = EditConfiguration.getConfigFromSession(session,request);
+    EditN3Generator n3Subber = editConfig.getN3Generator();
     EditSubmission submission = new EditSubmission(request,jenaOntModel,editConfig);
     
     Map<String,String> errors =  submission.getValidationErrors();
@@ -57,14 +59,14 @@ are well formed.
     List<String> n3Optional = editConfig.getN3Optional();
 
     Map<String,List<String>> fieldAssertions = null;
-    if( editConfig.getObjectUri() != null && editConfig.getObjectUri().length() > 0){
+    if( editConfig.getObject() != null && editConfig.getObject().length() > 0){
         fieldAssertions = fieldsToAssertionMap(editConfig.getFields());
     }else{
         fieldAssertions = new HashMap<String,List<String>>();
     }
 
     Map<String,List<String>> fieldRetractions = null;
-    if( editConfig.getObjectUri() != null && editConfig.getObjectUri().length() > 0){
+    if( editConfig.getObject() != null && editConfig.getObject().length() > 0){
         fieldRetractions = fieldsToRetractionMap(editConfig.getFields());
     }else{
         fieldRetractions = new HashMap<String,List<String>>();
@@ -76,26 +78,22 @@ are well formed.
     n3Optional = subInUris(submission.getUrisFromForm(), n3Optional);
 
     //sub in literals from form
-    n3Required = subInLiterals(submission.getLiteralsFromForm(), n3Required);
-    n3Optional = subInLiterals(submission.getLiteralsFromForm(), n3Optional);
+    n3Required = n3Subber.subInLiterals(submission.getLiteralsFromForm(), n3Required);
+    n3Optional = n3Subber.subInLiterals(submission.getLiteralsFromForm(), n3Optional);
 
-    fieldAssertions = substituteIntoValues(  submission.getUrisFromForm(), submission.getLiteralsFromForm(), fieldAssertions);
+    fieldAssertions = n3Subber.substituteIntoValues(  submission.getUrisFromForm(), submission.getLiteralsFromForm(), fieldAssertions);
     //fieldRetractions does NOT get values from form.
 
     /* ****************** URIs and Literals in Scope ************** */
-    SparqlEvaluate sparqlEval = new SparqlEvaluate((Model)application.getAttribute("jenaOntModel"));
-    editConfig.runSparqlForAdditional(sparqlEval);
-
     Map<String,String> urisInScope = editConfig.getUrisInScope();
     n3Required = subInUris( urisInScope, n3Required);
     n3Optional = subInUris( urisInScope, n3Optional);
+   
+    n3Required = n3Subber.subInLiterals( editConfig.getLiteralsInScope(), n3Required);
+    n3Optional = n3Subber.subInLiterals( editConfig.getLiteralsInScope(), n3Optional);
 
-    Map<String,String> literalsInScope = editConfig.getLiteralsInScope();
-    n3Required = subInLiterals( literalsInScope, n3Required);
-    n3Optional = subInLiterals( literalsInScope, n3Optional);
-
-    fieldAssertions = substituteIntoValues(urisInScope, literalsInScope, fieldAssertions );
-    fieldRetractions = substituteIntoValues(urisInScope, literalsInScope, fieldRetractions);
+    fieldAssertions = n3Subber.substituteIntoValues(urisInScope, editConfig.getLiteralsInScope(), fieldAssertions );
+    fieldRetractions = n3Subber.substituteIntoValues(urisInScope, editConfig.getLiteralsInScope(), fieldRetractions);
 
     /* ****************** New Resources ********************** */
     Map<String,String> varToNewResource = newToUriMap(editConfig.getNewResources(),jenaOntModel);
@@ -117,7 +115,7 @@ are well formed.
     List<Model> requiredRetractions = null;
     List<Model> optionalAssertions  = null;
 
-    if( editConfig.getObjectUri() != null && editConfig.getObjectUri().trim().length() > 0 ){
+    if( editConfig.getObject() != null && editConfig.getObject().trim().length() > 0 ){
         //editing an existing statement
         List<Model> requiredFieldAssertions  = new ArrayList<Model>();
         List<Model> requiredFieldRetractions = new ArrayList<Model>();
@@ -429,8 +427,10 @@ are well formed.
               return true;
         }
 
-        orgValue = editConfig.getLiteralsInScope().get(fieldName);
-        newValue = submission.getLiteralsFromForm().get(fieldName);
+        System.out.println("processRdfForm2.jsp needs to do better comparison of Literals");
+        
+        orgValue = editConfig.getLiteralsInScope().get(fieldName).toString();
+        newValue = submission.getLiteralsFromForm().get(fieldName).toString();
         if( orgValue != null && newValue != null ){
             if( orgValue.equals(newValue))
                 return false;
