@@ -64,9 +64,25 @@ body {
     color: #efecca;
 }
 
-body#fields #content {  width: 515px; } /*seven units*/
-body#groups #content { width: 890px; margin-right: 20px; } /*sixteen units*/
-body#faculty #content { min-height: 500px; }
+body#fields #content {  
+    width: 515px;  /*seven units*/
+}
+
+body#groups #content { 
+    width: 890px; margin-right: 20px; /*sixteen units*/
+}
+
+body#departments #content { 
+    width: 890px; margin-right: 20px; /*sixteen units*/
+}
+
+body#faculty #content { 
+    min-height: 500px; 
+}
+
+/*body#singlefield #content {
+    width: 515px;
+}*/
 
 #sidebar {
     float: right;
@@ -76,7 +92,13 @@ body#faculty #content { min-height: 500px; }
     padding-top: 28px;
 }
 
-body#fields #sidebar { width: 365px; }
+body#fields #sidebar { 
+    width: 365px;
+}
+
+/*body#singlefield #sidebar {
+    width: 365px;
+}*/
 
 #content div.leftColumn {
     float: left;
@@ -221,6 +243,15 @@ h2.groupLabel, h2.groupLabel a:link, h2.groupLabel a:visited {
     margin-top: -15px;
 }
 
+body#departments span.colOne, span.colTwo, span.colThree {
+    float: left;
+    width: 240px;
+}
+
+body#departments span.colOne li, span.colTwo li, span.colThree li {
+    display: block;
+}
+
 /****************************************************************
 sidebar roll call
 ****************************************************************/
@@ -239,14 +270,14 @@ sidebar roll call
     background: #a7a37e;
 }
 
-#departmentsInField, #facultyInField {
+/*#departmentsInField, #facultyInField {
     width: 48%;
     margin-top: 1.5em;
     margin-bottom: 30px;
-}
+}*/
 
-#researchInField {
-    margin-top: 7em;
+#departmentsInField {
+    margin-top: 4em;
     margin-bottom: 30px;
 /*    margin-right: 12px;*/
     padding: 14px 20px;
@@ -293,12 +324,12 @@ footer roll call
 }
 
 #footer a:link, #footer a:visited {
-    color: #91c4d4;
+    color: #74AAAB;
 }
 
 #footer a:hover {
-    color: #69bfde;
-    border-bottom: 1px solid #69bfde;
+    color: #74AAAB;
+    border-bottom: 1px solid #74AAAB;
 }
 
 /****************************************************************
@@ -474,7 +505,7 @@ body#singlefield #content li, body#singlefield #sidebar li {
     font-size: 1.2em;
 }
 
-#departmentsInField ul, #facultyInField ul {
+#researchInField ul, #facultyInField ul {
     padding: 9px 14px;
 }
 

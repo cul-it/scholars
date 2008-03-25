@@ -10,5 +10,5 @@ window.onload=function(){
     Nifty("div#search","all","#193335");
     Nifty("div#apply","all","#193335");   
     Nifty("div.cornered ul","big all","#031D1D","#173133"); 
-    Nifty("div#researchInField","big","#0A2424","#193335"); 
+    Nifty("div#departmentsInField","big","#0A2424","#193335"); 
 }
