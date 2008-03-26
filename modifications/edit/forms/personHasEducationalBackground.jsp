@@ -250,7 +250,10 @@
         }
         for( String key : editConfig.getLiteralsInScope().keySet()){
             Literal lit = editConfig.getLiteralsInScope().get(key);
-            System.out.println("key: " + key + " lang: " + lit.getLanguage() + " datatypeUri : " + lit.getDatatypeURI() + "\nvalue: " + lit.getString() );
+            if( lit != null )
+                System.out.println("key: " + key + " lang: " + lit.getLanguage() + " datatypeUri : " + lit.getDatatypeURI() + "\nvalue: " + lit.getString() );
+            else
+                System.out.println("key: " + key + "had null literal");
         }
     }
 

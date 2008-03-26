@@ -41,7 +41,7 @@ in processing the form.
     Model persistentOntModel = (Model)application.getAttribute("persistentOntModel");
 
     EditConfiguration editConfig = EditConfiguration.getConfigFromSession(session,request);
-    EditSubmission submission = new EditSubmission(request,jenaOntModel,editConfig);
+    EditSubmission submission = new EditSubmission(request,editConfig);
 
     Map<String,String> errors = submission.getValidationErrors();
     EditSubmission.putEditSubmissionInSession(session,submission);

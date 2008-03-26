@@ -2,6 +2,7 @@
 <%@ page import="com.hp.hpl.jena.rdf.model.Model" %>
 <%@ page import="com.hp.hpl.jena.rdf.model.ModelFactory" %>
 <%@ page import="com.hp.hpl.jena.rdf.model.Resource" %>
+<%@ page import="com.hp.hpl.jena.rdf.model.Literal" %>
 <%@ page import="com.hp.hpl.jena.rdf.model.ResourceFactory" %>
 <%@ page import="com.hp.hpl.jena.shared.Lock" %>
 <%@ page import="com.thoughtworks.xstream.XStream" %>
@@ -43,8 +44,8 @@ are well formed.
 
     EditConfiguration editConfig = EditConfiguration.getConfigFromSession(session,request);
     EditN3Generator n3Subber = editConfig.getN3Generator();
-    EditSubmission submission = new EditSubmission(request,jenaOntModel,editConfig);
-    
+    EditSubmission submission = new EditSubmission(request,editConfig);
+
     Map<String,String> errors =  submission.getValidationErrors();
     EditSubmission.putEditSubmissionInSession(session,submission);
 
@@ -88,7 +89,7 @@ are well formed.
     Map<String,String> urisInScope = editConfig.getUrisInScope();
     n3Required = subInUris( urisInScope, n3Required);
     n3Optional = subInUris( urisInScope, n3Optional);
-   
+
     n3Required = n3Subber.subInLiterals( editConfig.getLiteralsInScope(), n3Required);
     n3Optional = n3Subber.subInLiterals( editConfig.getLiteralsInScope(), n3Optional);
 
@@ -121,7 +122,7 @@ are well formed.
         List<Model> requiredFieldRetractions = new ArrayList<Model>();
         for(String fieldName: fieldAssertions.keySet()){
             Field field = editConfig.getFields().get(fieldName);
-            
+
             /* CHECK that field changed, then add assertions and retractions */
             if( hasFieldChanged(fieldName, editConfig, submission) ){
 
@@ -428,9 +429,15 @@ are well formed.
         }
 
         System.out.println("processRdfForm2.jsp needs to do better comparison of Literals");
-        
-        orgValue = editConfig.getLiteralsInScope().get(fieldName).toString();
-        newValue = submission.getLiteralsFromForm().get(fieldName).toString();
+
+        //This does NOT use the semantics of the literal's Datatype or the language.
+        Literal orgLit = editConfig.getLiteralsInScope().get(fieldName);
+        Literal newLit = submission.getLiteralsFromForm().get(fieldName);
+        if( orgLit != null )
+            orgValue = orgLit.getValue().toString();
+        if( newLit != null )
+            newValue = newLit.getValue().toString();
+
         if( orgValue != null && newValue != null ){
             if( orgValue.equals(newValue))
                 return false;
@@ -438,7 +445,7 @@ are well formed.
                 return true;
         }
 
-        //value wasn't set originally because the field is optional 
+        //value wasn't set originally because the field is optional
         return false;
     }
 
