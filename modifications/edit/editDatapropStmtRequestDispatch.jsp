@@ -93,6 +93,7 @@
             dataHash = Integer.parseInt(datapropKeyStr);
             request.setAttribute("datahash", dataHash);
             log.debug("Found a datapropKey in parameters and parsed it to int: " + dataHash);
+            System.out.println("Found a datapropKey in parameters and parsed it to int: " + dataHash + "; also set as request attribute datahash");
         } catch (NumberFormatException ex) {
             throw new JspException("Cannot decode incoming datapropKey value "+datapropKeyStr+" as an integer hash in editDatapropStmtRequestDispatch.jsp");
         }

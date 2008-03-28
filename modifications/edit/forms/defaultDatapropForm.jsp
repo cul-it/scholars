@@ -70,7 +70,7 @@
   {
     "formUrl"      : "${formUrl}",
     "editKey"      : "${editKey}",
-    "datapropKey"  : "${dataHash}",
+    "datapropKey"  : "${datahash}",
 
     "subject"   : ["subject",   "${subjectUriJson}" ],
     "predicate" : ["predicate", "${predicateUriJson}"],
@@ -85,26 +85,18 @@
     "literalsOnForm"            : ["editedLiteral"],
     "sparqlForLiterals"         : { },
     "sparqlForUris"             : { },
-    "entityToReturnTo"          : "${subjectUriJson}",
     "sparqlForExistingLiterals" : { },
     "sparqlForExistingUris"     : { },
-    "basicValidators"           : { "editedLiteral" : ["nonempty"] ,
-                                    "predicate"     : ["nonempty"] ,
-                                    "subject"       : ["nonempty"] } ,
     "optionsForFields"          : { },
     "fields"                    : { "editedLiteral" : {
                                        "newResource"      : "false",
-                                       "type"             : "text",
-                                       "queryForExisting" : { },
-                                       "validators"       : [ ],
+                                       "validators"       : ["nonempty"],
                                        "optionsType"      : "LITERALS",
-                                       "subjectUri"       : "${subjectUriJson}",
-                                       "subjectClassUri"  : "",
+                                       "literalOptions"   : [],
                                        "predicateUri"     : "",
                                        "objectClassUri"   : "",
                                        "rangeDatatypeUri" : "${rangeDatatypeUriJson}"  ,
                                        "rangeLang"        : "${rangeLangJson}",
-                                       "literalOptions"   : [ ] ,
                                        "assertions"       : ["${n3ForEdit}"]
                                      }
                                   }
@@ -122,7 +114,7 @@
 
     if( datapropKeyStr != null && datapropKeyStr.trim().length() > 0  ) {
         Model model =  (Model)application.getAttribute("jenaOntModel");
-        editConfig.prepareForUpdate(request,model);
+        editConfig.prepareForDataPropUpdate(model,dps);
         formTitle   = "Change value for &quot;"+prop.getPublicName()+"&quot; data property for "+subject.getName();
         submitLabel = "save change";
     } else {
