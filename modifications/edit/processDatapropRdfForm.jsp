@@ -25,8 +25,11 @@ and there will be no optional fields.  If the variables in the required n3
 are not bound or it cannot be processed as n3 by Jena then it is an error
 in processing the form.
 --%>
+<%! 
+    public static Log log = LogFactory.getLog("edu.cornell.mannlib.vitro.webapp.jsp.edit.processDatapropRdfForm.jsp");
+%>
 <%
-    Log log = LogFactory.getLog("edu.cornell.mannlib.vitro.webapp.jsp.edit.processDatapropRdfForm.jsp");
+    
     log.debug("Starting processDatapropRdfForm.jsp");
 
     if( session == null)
@@ -305,11 +308,10 @@ in processing the form.
       
         Literal orgLit = editConfig.getLiteralsInScope().get(fieldName);
         Literal newLit = submission.getLiteralsFromForm().get(fieldName);
-        EditLiteral.equalLiterals( orgLit, newLit);
+        boolean fieldChanged =  !EditLiteral.equalLiterals( orgLit, newLit);
+        log.debug( "field " + fieldName + " " + (fieldChanged ? "did Change" : "did NOT change") );
+        return fieldChanged;
         
-        Log log = LogFactory.getLog("edu.cornell.mannlib.vitro.webapp.jsp.edit.forms.processDatapropRdfForm.jsp");
-        log.debug("**************************** odd condition in hasFieldchanged() ********************");
-        throw new Error("in hasFieldChanged() for field " + fieldName + ", both old and new values are null, this should not happen");
     }
 
     private void dump(String name, Object fff){
