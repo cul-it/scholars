@@ -1,7 +1,4 @@
-<%@ page import="com.hp.hpl.jena.rdf.model.Model" %>
-<%@ page import="com.hp.hpl.jena.rdf.model.ModelFactory" %>
-<%@ page import="com.hp.hpl.jena.rdf.model.Resource" %>
-<%@ page import="com.hp.hpl.jena.rdf.model.ResourceFactory" %>
+<%@ page import="com.hp.hpl.jena.rdf.model.*" %>
 <%@ page import="com.hp.hpl.jena.shared.Lock" %>
 <%@ page import="com.thoughtworks.xstream.XStream" %>
 <%@ page import="com.thoughtworks.xstream.io.xml.DomDriver" %>
@@ -9,12 +6,16 @@
 <%@ page import="edu.cornell.mannlib.vitro.webapp.beans.Individual" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.controller.VitroRequest" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.dao.WebappDaoFactory" %>
+<%@ page import="edu.cornell.mannlib.vitro.webapp.edit.EditLiteral" %>
+<%@ page import="edu.cornell.mannlib.vitro.webapp.edit.n3editing.EditConfiguration" %>
+<%@ page import="edu.cornell.mannlib.vitro.webapp.edit.n3editing.EditN3Generator" %>
+<%@ page import="edu.cornell.mannlib.vitro.webapp.edit.n3editing.EditSubmission" %>
+<%@ page import="edu.cornell.mannlib.vitro.webapp.edit.n3editing.Field" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.filters.VitroRequestPrep" %>
 <%@ page import="org.apache.commons.logging.Log" %>
 <%@ page import="org.apache.commons.logging.LogFactory" %>
 <%@ page import="java.io.StringReader" %>
 <%@ page import="java.util.*" %>
-<%@ page import="edu.cornell.mannlib.vitro.webapp.edit.n3editing.*" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
 
 <%-- 2nd prototype of processing, adapted for data property editing
@@ -301,15 +302,11 @@ in processing the form.
             else
               return true;
         }
-
-        orgValue = editConfig.getLiteralsInScope().get(fieldName);
-        newValue = submission.getLiteralsFromForm().get(fieldName);
-        if( orgValue != null && newValue != null ){
-            if( orgValue.equals(newValue))
-                return false;
-            else
-                return true;
-        }
+      
+        Literal orgLit = editConfig.getLiteralsInScope().get(fieldName);
+        Literal newLit = submission.getLiteralsFromForm().get(fieldName);
+        EditLiteral.equalLiterals( orgLit, newLit);
+        
         Log log = LogFactory.getLog("edu.cornell.mannlib.vitro.webapp.jsp.edit.forms.processDatapropRdfForm.jsp");
         log.debug("**************************** odd condition in hasFieldchanged() ********************");
         throw new Error("in hasFieldChanged() for field " + fieldName + ", both old and new values are null, this should not happen");
