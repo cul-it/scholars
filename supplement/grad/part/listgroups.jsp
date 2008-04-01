@@ -29,7 +29,7 @@
     <ul class="groupings">
         <c:forEach  items="${rs.rows}" var="row">
             <c:set var="classForGrouping" value="${fn:substringAfter(row.fieldClusterUri,'#')}"/>
-	        <c:url var="gradhref" value="fields.jsp">
+	        <c:url var="gradhref" value="groups.jsp">
                 <c:param name="label" value="${row.clusterLabel.string}"/>
                 <c:param name="uri" value="${row.fieldClusterUri}"/>
                 <c:param name="groupLabel" value="${row.clusterLabel.string}"/>

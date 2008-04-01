@@ -6,7 +6,7 @@
 
 /*
 Title:      Life Sciences Graduate Portal screen styles
-Authors:    mw542@cornell.edu
+Author:     mw542@cornell.edu
 Updated:    February 14, 2008
 */
 
@@ -55,6 +55,7 @@ body {
 /*    background-color: #193335;*/
 }
 
+
 #content {
     float: left;
     display: inline;
@@ -64,25 +65,26 @@ body {
     color: #efecca;
 }
 
-body#fields #content {  
+body#groups #content {  
     width: 515px;  /*seven units*/
 }
 
-body#groups #content { 
+body#fields #content { 
     width: 890px; margin-right: 20px; /*sixteen units*/
 }
 
+body#groupindex #content { 
+    width: 890px; margin-right: 20px;
+}
+
 body#departments #content { 
-    width: 890px; margin-right: 20px; /*sixteen units*/
+    width: 890px; margin-right: 20px;
 }
 
 body#faculty #content { 
     min-height: 500px; 
 }
 
-/*body#singlefield #content {
-    width: 515px;
-}*/
 
 #sidebar {
     float: right;
@@ -92,11 +94,11 @@ body#faculty #content {
     padding-top: 28px;
 }
 
-body#fields #sidebar { 
+body#groups #sidebar { 
     width: 365px;
 }
 
-/*body#singlefield #sidebar {
+/*body#fields #sidebar {
     width: 365px;
 }*/
 
@@ -181,22 +183,22 @@ content roll call
 ****************************************************************/
 
 body#home #content h2 {
-    letter-spacing: 1px;
+    letter-spacing: .5px;
     word-spacing: 1px;
 }
 
-body#groups h2 {
+body#groupindex h2 {
     font-size: 1.7em;   /* Scaling down group names to fit two-column layout */
     line-height: 1.4em;
     padding-top: 20px;
     padding-left: 45px;
 }
 
-body#fields h2, body#singlefield h2 {
+body#groups h2 {
     margin-top: -18px;
 }
 
-body#fields h3.floatLeft {
+body#groups h3.floatLeft {
     margin-left: 45px;
     display: inline;
 }
@@ -207,17 +209,26 @@ h2.groupLabel, h2.groupLabel a:link, h2.groupLabel a:visited {
     font-weight: bold;
 }
 
-.fieldLabel {
+/*.fieldLabel {
     color: #fff;
     font-weight: bold;
     padding-left: 6px;
+}*/
+
+.sectionLabel {
+    display: block;
+    margin-top: .3em;
+    color: #fff;
+    font-weight: bold;
+    font-size: 1.2em;
+    line-height: 1em;
 }
 
-.fieldRelationLabel {
+/*.fieldRelationLabel {
     padding: 5px 13px 3px 13px;
     background: #224B4C;
 }
-
+*/
 #apply {
 /*    padding: 15px;*/
     margin-top: 20px;
@@ -242,15 +253,135 @@ h2.groupLabel, h2.groupLabel a:link, h2.groupLabel a:visited {
     border: 0;
     margin-top: -15px;
 }
-
-body#departments span.colOne, span.colTwo, span.colThree {
-    float: left;
-    width: 240px;
+body#fields h3, 
+body#departments h3 {
+    margin-top: 10px;
 }
 
-body#departments span.colOne li, span.colTwo li, span.colThree li {
+body#departments div#deptPageScreenshot {
+    float: right;
+    padding: 18px 26px 15px 26px;
+/*    background: #234a4a;*/
+    border: 3px solid #234a4a;
+    line-height: 1.2em;
+    margin-left: 10px;
+    margin-bottom: 20px;
+}
+
+body#departments div#deptPageScreenshot img {
+    display: block;
+    margin-bottom: .5em;
+}
+body#departments div#deptPageScreenshot a {
+    display: block;
+    width: 160px;
+}
+
+/* Not all descriptions are pre-wrapped in paragraphs - overriding to keep sizes consistent */
+body#fields div#fieldDescription p, 
+body#fields div#fieldDescription p *, 
+body#fields div#fieldDescription li,
+body#departments div#deptDescription p, 
+body#departments div#deptDescription p *, 
+body#departments div#deptDescription li { 
+    font-size: 1em;
+    line-height: 1em;
+}
+body#fields div#fieldDescription div,
+body#departments div#deptDescription div {
+    font-size: 1.3em;
+    line-height: 1.3em;
+    margin-top: 1em;
+}
+body#fields div#fieldDescription div p,
+body#departments div#deptDescription div p {
+    line-height: 1.3em;
+}
+
+body#fields div#fieldDescription ul li,
+body#departments div#deptDescription ul li {
+    list-style-type: disc;
+    margin-left: 2em;
+    margin-bottom: .5em;
+    line-height: 1.3em;
+}
+/*--- end overrides ---*/
+
+
+body#fields div.wrapper,
+body#departments div.wrapper {
+    clear: both;
+    width: 100%;
+    border-top: 1px solid #295758;
+    margin-top: 20px;
+    padding-top: 10px;
+}
+
+body#fields div.wrapper li,
+body#departments div.wrapper li {
+    line-height: 1.2em;
+    margin-bottom: .4em;
+}
+body#fields div#fieldDepartments,
+body#departments div#deptOverview {
+    float: left;
+    width: 290px;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+
+body#fields div#fieldFaculty,
+body#departments div#deptFaculty {
+    float: left;
+    width: 565px;
+    border-left: 1px solid #295758;
+    padding-left: 20px;
+    padding-bottom: 10px;
+    margin-left: 10px;    
+    margin-bottom: 10px;
+}
+
+span.colOne,
+span.colTwo,
+span.colThree {
+    float: left;
+    width: 175px;
+    margin-right: 10px;
+}
+
+span.colOne li,
+span.colTwo li,
+span.colThree li {
     display: block;
 }
+
+body#departments div#deptProjects li {
+    line-height: 1.4em;
+    margin-bottom: .6em;
+}
+
+/* Filters to fix mysterious left-padding issue in IE7 and IE6, respectively */
+* + html span.colOne,
+* + html span.colTwo,
+* + html span.colThree { margin-left: -16px; }
+
+* html span.colOne,
+* html span.colTwo,
+* html span.colThree { margin-left: -16px; }
+
+body#fields facultyInField {
+    width: 400px;
+    float: left;
+}
+
+body#fields #departmentsInField {
+    width: 300px;
+    float: right;
+    margin-bottom: 30px;
+    padding: 14px 20px;
+    background: #224b4c;
+}
+
 
 /****************************************************************
 sidebar roll call
@@ -276,14 +407,6 @@ sidebar roll call
     margin-bottom: 30px;
 }*/
 
-#departmentsInField {
-    margin-top: 4em;
-    margin-bottom: 30px;
-/*    margin-right: 12px;*/
-    padding: 14px 20px;
-    background: #224b4c;
-}
-
 #sidebar h2 {
     margin-bottom: 16px;
     color: #046380;
@@ -294,10 +417,10 @@ sidebar roll call
 #search h2 {
     color: #fff;
 }
-
+/*
 #departments h2 {
-    color: #A7A37E;
-}
+    color: #a7a37e;
+}*/
 
 #seminars span.abbrStart, #seminars p.host {
     font-size: 1.2em;
@@ -372,6 +495,10 @@ h3 {
 h4 {
     font-size: 1.6em;
     line-height: 1.5em;
+}
+
+.clear {
+    clear: both;
 }
 
 /****************************************************************
@@ -457,13 +584,35 @@ ul.fields li a {
     text-decoration: underline;
 }
 
+span.toggleLink {
+    display: block;
+    padding-left: 14px;
+    margin: 6px 0;
+    font-style: italic;
+    font-weight: bold;
+    font-size: 1.1em;
+    color: #EAE8C7;
+    background: url(../images/layout/expander.gif) no-repeat left center;
+}
+
+span.toggleLink:hover {
+    cursor: pointer;
+}
+
 
 /****************************************************************
 list roll call
 ****************************************************************/
 ul li {
     list-style-type: none;
-    background: url(../images/layout/bg_li_bullet.gif) no-repeat 4px 5px;
+    font-size: 1.2em;
+/*    background: url(../images/layout/bg_li_bullet.gif) no-repeat 4px 5px;*/
+}
+
+ol li {
+    margin-left: 2.5em;
+    font-size: 1.2em;
+    margin-bottom: .5em;
 }
 
 li.clean {
@@ -471,12 +620,12 @@ li.clean {
     padding: 0;
 }
 
-ul.groupings {
+#content ul.groupings {
   margin: 20px 0;
 }
 
-ul.groupings li {
-    font-size: 2.2em;
+#content ul.groupings li {
+    font-size: 2.1em;
     font-weight: bold;
     line-height: 1.1em;
     margin-bottom: -10px; /* Tightening the space between group items */
@@ -490,39 +639,40 @@ ul.fields li {
     margin-bottom: 4px;
 }
 
-body#groups #content ul {
+body#groupindex #content ul {
     margin: -1em 0 2em 46px;
     font-size: 1.2em;
     line-height: 1.5em;
 }
 
-body#fields #content ul {
+body#groups #content ul {
     margin-left: 18em;
     margin-top: .5em;
 }
 
-body#singlefield #content li, body#singlefield #sidebar li {
+body#fields #content li, body#fields #sidebar li {
     font-size: 1.2em;
 }
 
-#researchInField ul, #facultyInField ul {
-    padding: 9px 14px;
-}
+    #researchInField ul, #facultyInField ul {
+        padding: 9px 14px;
+    }
 
-#departmentsInField ul li, #facultyInField ul li, #researchInField ul li {
-    margin-bottom: 4px;
-}
+    #departmentsInField ul li, #facultyInField ul li, #researchInField ul li {
+        margin-bottom: 4px;
+    }
 
 #sidebar ul.groupings {
     padding: 12px 6px 12px 12px;
-    background: #183F40;
+    background: #183F40;  /*lighter green*/
 }
 
 #sidebar ul.groupings li {
     padding-left: 27px;
-    font-size: 1.2em;
+/*    font-size: 1.2em;*/
     line-height: 1.3em;
     font-weight: bold;
+    margin-bottom: -10px; 
 }
 
 #news ul, #seminars ul {
@@ -535,6 +685,7 @@ body#singlefield #content li, body#singlefield #sidebar li {
     display: block;
     width: 110px;
     padding-right: 20px;
+    font-size: 1.1em;
 }
 
 #news li.clean, #seminars li.clean {
@@ -548,6 +699,7 @@ body#singlefield #content li, body#singlefield #sidebar li {
 
 #seminars li {
     margin-bottom: 1em;
+    font-size: 1.1em;
 }
 
 /* ---------- Icons for main groupings ---------- */
@@ -638,9 +790,59 @@ form roll call
 table roll call
 ****************************************************************/
 
+body#departments table {
+    width: 100%;
+    font-size: 1.4em;
+}
+
+body#departments thead td {
+    color: #a7a37e;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding-top: 6px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #a7a37e;
+}
+
+body#departments td {
+    padding: 5px 10px 7px 8px;
+}
+
+body#departments tbody td {
+    border-bottom: 1px solid #204647;
+}
+
+body#departments tbody tr:first-child td {
+    padding-top: 12px;
+}
+
+body#departments tbody tr:last-child td {
+    border: 0;
+}
+
+body#departments tbody tr:hover {
+    background-color: #204647;
+}
+
+body#departments tbody a:hover {
+    text-decoration: underline;
+}
+
+body#departments td.deptLink {
+    text-align: center;
+}
+
+body#departments td.deptLink a {
+    display: block;
+    text-indent: -99999px;
+    width: 16px;
+    height: 16px;
+    margin: 0 auto;
+    background: url(../images/icons/world_link.png);
+    overflow: hidden;
+}
 
 /* Fix for IE6 3-pixel indent bug, described at: http://www.positioniseverything.net/explorer/threepxtest.html */ 
 /* Hide from IE5-mac. Only IE-win sees this. \*/
-* html body#fields #content ul {  height: 1%;  margin: 0; padding: .4em 0 0 1em;  }
+* html body#groups #content ul {  height: 1%;  margin: 0; padding: .4em 0 0 1em;  }
 /* End hide from IE5/mac */
-

@@ -29,7 +29,7 @@
     <div class="leftColumn">
       <c:forEach items="${rs.rows}" var="row" begin="0" end="2" step="1">
             <c:set var="classForGrouping" value="${fn:substringAfter(row.fieldClusterUri,'#')}"/>
-            <c:url var="gradhref" value="fields.jsp">
+            <c:url var="gradhref" value="groups.jsp">
                 <c:param name="uri" value="${row.fieldClusterUri}"/>
                 <c:param name="groupLabel" value="${row.clusterLabel.string}"/>
                 <c:param name="groupClass" value="${classForGrouping}"/>
@@ -51,7 +51,7 @@
     <div class="rightColumn">
       <c:forEach items="${rs.rows}" var="row" begin="0" end="2" step="1">
             <c:set var="classForGrouping" value="${fn:substringAfter(row.fieldClusterUri,'#')}"/>
-            <c:url var="gradhref" value="fields.jsp">
+            <c:url var="gradhref" value="groups.jsp">
                 <c:param name="uri" value="${row.fieldClusterUri}"/>
                 <c:param name="groupLabel" value="${row.clusterLabel.string}"/>
                 <c:param name="groupClass" value="${classForGrouping}"/>

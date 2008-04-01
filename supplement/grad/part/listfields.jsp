@@ -32,7 +32,7 @@
     <!-- UL tags being added elsewhere -->
       <c:forEach  items="${rs.rows}" var="gradfield">
             <li>
-                <c:url var="fieldhref" value="singlefield.jsp">
+                <c:url var="fieldhref" value="fields.jsp">
                     <c:param name="uri" value="${gradfield.gradFieldUri}"/>
                     <c:param name="fieldLabel" value="${gradfield.gradFieldLabel.string}"/>
                     <c:param name="groupLabel" value="${param.groupLabel}"/>

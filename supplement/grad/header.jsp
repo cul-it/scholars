@@ -22,11 +22,23 @@
     <script type="text/javascript" src="${jsDir}/niftycube.js"></script>
     <script type="text/javascript" src="js/niftyConfig.js"></script>
     <script type="text/javascript" src="${jsDir}/jquery.js"></script>
+    
     <c:if test="${fn:contains(pageContext.request.servletPath, 'faculty.jsp')}">
         <link href="data/peopleData2.jsp" type="application/json" rel="exhibit/data" />
         <script src="http://static.simile.mit.edu/exhibit/api-2.0/exhibit-api.js" type="text/javascript"></script>
         <link rel="stylesheet" href="style/exhibit.css" type="text/css" /> <!-- Override exhibit styles -->
     </c:if>
+    
+    <script>
+        $(document).ready(function(){
+          $("span.toggleLink").click(function () {
+            $("ul#moreProjects").slideToggle("medium");
+             return false;
+          });
+        });
+    </script>
+    
+    <!--[if IE]><script type="text/javascript" src="js/iepngfix.js"></script><![endif]-->
 </head>
 
 <body <c:if test="${not empty param.bodyID}">id="${param.bodyID}"</c:if>>
@@ -53,11 +65,12 @@
 			<div id="navigation">
 				<ul>
 					<li><a <c:if test="${fn:contains(pageContext.request.servletPath, 'index.jsp')}">class="currentTab" </c:if>href="/vivo/grad" title="Home">Home</a></li>
-					<li><a <c:choose><c:when test="${fn:contains(pageContext.request.servletPath, 'fields.jsp')}">class="currentTab"</c:when>
+					<li><a <c:choose><c:when test="${fn:contains(pageContext.request.servletPath, 'gradfieldsIndex.jsp')}">class="currentTab"</c:when>
 					                    <c:when test="${fn:contains(pageContext.request.servletPath, 'groups.jsp')}">class="currentTab"</c:when>
-					                    <c:when test="${fn:contains(pageContext.request.servletPath, 'singlefield.jsp')}">class="currentTab"</c:when>
-					    </c:choose> href="groups.jsp" title="Graduate Fields">Graduate Fields</a></li>
+					                    <c:when test="${fn:contains(pageContext.request.servletPath, 'fields.jsp')}">class="currentTab"</c:when>
+					    </c:choose> href="gradfieldsIndex.jsp" title="Graduate Fields">Graduate Fields</a></li>
 					<li><a <c:if test="${fn:contains(pageContext.request.servletPath, 'faculty.jsp')}">class="currentTab" </c:if>href="faculty.jsp" title="Faculty">Faculty</a></li>
+					<li><a <c:if test="${fn:contains(pageContext.request.servletPath, 'departments.jsp')}">class="currentTab" </c:if>href="departments.jsp" title="Departments">Departments</a></li>
 					<li><a <c:if test="${fn:contains(pageContext.request.servletPath, 'facilities.jsp')}">class="currentTab" </c:if>href="http://vivo.cornell.edu/index.jsp?collection=1441173947" title="Research Facilities">Research Facilities</a></li>
                     <li><a <c:if test="${fn:contains(pageContext.request.servletPath, 'events.jsp')}">class="currentTab" </c:if>href="http://vivo.cornell.edu/index.jsp?collection=20" title="Events">Events</a></li>
 					<li><a <c:if test="${fn:contains(pageContext.request.servletPath, 'search.jsp')}">class="currentTab" </c:if>href="#" title="Search">Search</a></li>

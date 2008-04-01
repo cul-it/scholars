@@ -41,6 +41,7 @@
                 <li>
                     <c:url var="href" value="/entity"><c:param name="uri" value="${dept.deptUri}"/></c:url>
                     <a href="${href}">${dept.deptLabel.string}</a>
+
                 </li>
             </c:forEach>
 
