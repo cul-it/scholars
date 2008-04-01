@@ -186,9 +186,11 @@
     }
 
     String objectUri = (String)request.getAttribute("objectUri");
-    if( objectUri != null ){
-        Model model =  (Model)application.getAttribute("jenaOntModel");
-        editConfig.prepareForObjPropUpdate( model );
+    Model model =  (Model)application.getAttribute("jenaOntModel");
+    if( objectUri != null ){            
+        editConfig.prepareForObjPropUpdate( model);
+    }else{
+        editConfig.prepareForNonUpdate( model );
     }
 
     /* get some data to make the form more useful */

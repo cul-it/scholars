@@ -226,21 +226,12 @@
         EditConfiguration.putConfigInSession(editConfig, session);
     }
 
-    String objectUri = (String)request.getAttribute("objectUri");
-    if( objectUri != null ){
-        Model model =  (Model)application.getAttribute("jenaOntModel");
-        editConfig.prepareForObjPropUpdate(model);
-        System.out.println("in personHasEducationalBackground");
-        for( String key : editConfig.getUrisInScope().keySet()){
-            System.out.println("key: " + key + " uri: " + editConfig.getUrisInScope().get(key));
-        }
-        for( String key : editConfig.getLiteralsInScope().keySet()){
-            Literal lit = editConfig.getLiteralsInScope().get(key);
-            if( lit != null )
-                System.out.println("key: " + key + " lang: " + lit.getLanguage() + " datatypeUri : " + lit.getDatatypeURI() + "\nvalue: " + lit.getString() );
-            else
-                System.out.println("key: " + key + "had null literal");
-        }
+    Model model =  (Model)application.getAttribute("jenaOntModel");
+    String objectUri = (String)request.getAttribute("objectUri");    
+    if( objectUri != null ){        
+        editConfig.prepareForObjPropUpdate(model);            
+    }else{
+        editConfig.prepareForNonUpdate(model);
     }
 
     /* get some data to make the form more useful */

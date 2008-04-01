@@ -80,16 +80,19 @@
     EditConfiguration.putConfigInSession(editConfig, session);
     String formTitle   ="";
     String submitLabel ="";
+    Model model = (Model)application.getAttribute("jenaOntModel");
     if( request.getAttribute("object") != null ){//this block is for an edit of an existing object property statement
-        Model model = (Model)application.getAttribute("jenaOntModel");
         editConfig.prepareForObjPropUpdate( model );
         formTitle   = "Change value for &quot;"+prop.getDomainPublic()+"&quot; property for "+subject.getName();
         submitLabel = "save change";
-    } else if ("true".equals((String)request.getAttribute("hasCustomForm"))) {
-        formTitle   = "Create a new entry for "+subject.getName();
     } else {
-        formTitle   =  "Add an entry to: <em>"+prop.getDomainPublic()+"</em>";
-        submitLabel ="save entry";
+        editConfig.prepareForNonUpdate( model );
+        if ("true".equals((String)request.getAttribute("hasCustomForm"))) {
+            formTitle   = "Create a new entry for "+subject.getName();
+        } else {
+            formTitle   =  "Add an entry to: <em>"+prop.getDomainPublic()+"</em>";
+            submitLabel ="save entry";
+        }
     }
 %>
 <jsp:include page="${preForm}"/>

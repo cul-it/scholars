@@ -173,10 +173,12 @@
 
         EditConfiguration editConfig = new EditConfiguration((String)session.getAttribute("editjson"));
         EditConfiguration.putConfigInSession(editConfig, session);
-             
-        if( objectUri != null ){
-            Model model =  (Model)application.getAttribute("jenaOntModel");
-            editConfig.prepareForUpdate(request,model);
+            
+        Model model =  (Model)application.getAttribute("jenaOntModel");
+        if( objectUri != null ){            
+            editConfig.prepareForObjPropUpdate( model);
+        }else{
+            editConfig.prepareForNonUpdate( model );
         }
             
     //}
