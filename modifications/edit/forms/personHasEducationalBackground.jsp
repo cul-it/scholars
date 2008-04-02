@@ -67,6 +67,16 @@
       ?edBackground vivo:preferredDegreeAbbreviation ?degreeAbbrev .
 </v:jsonset>
 
+<v:jsonset var="commentExisting" >
+      PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
+      SELECT ?comment
+      WHERE {  ?edBackground vitro:description ?comment }
+</v:jsonset>
+<v:jsonset var="commentAssertion" >
+      @prefix vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>.
+      ?edBackground vitro:description ?comment .
+</v:jsonset>
+
 <%--  Note there is really no difference in how things are set up for an object property except
       below in the n3ForEdit section, in whether the ..Existing variable goes in SparqlForExistingLiterals
       or in the SparqlForExistingUris, as well as perhaps in how the options are prepared --%>
@@ -130,7 +140,8 @@
         "institution"       : "${institutionExisting}",
         "majorField"        : "${majorFieldExisting}",
         "visibility"        : "${visibilityExisting}",
-        "degreeAbbrev"      : "${degreeAbbrevExisting}" },
+        "degreeAbbrev"      : "${degreeAbbrevExisting}",
+        "comment"           : "${commentExisting}" },
     "sparqlForExistingUris" : {
         "degreeType"        : "${degreeTypeExisting}",
     },
