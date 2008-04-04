@@ -15,5 +15,5 @@
         <img src="<c:out value="${imageSrc}"/>" alt=""/>
         <c:if test="${!empty entity.imageFile}"></a></c:if>
     </c:if>
-<jsp:include page="dashboardPropsList.jsp" flush="true"/>
+<jsp:include page="../../../edit/dashboardPropsList.jsp" flush="true"/>
 </div>
