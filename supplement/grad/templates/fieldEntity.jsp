@@ -5,6 +5,7 @@
 <%@ taglib uri="http://djpowell.net/tmp/sparql-tag/0.1/" prefix="sparql" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://mannlib.cornell.edu/vitro/ListSparqlTag/0.1/" prefix="listsparql" %>
 
 <%@ page errorPage="/error.jsp"%>
 <%  /***********************************************
@@ -32,19 +33,6 @@
         
         <%-- Estimating size of Overview column --%>
         <c:set var="counter" value="0"/>
-        
-        <%-- <c:if test='${not empty entity.objectPropertyMap[departmentsPropUri].objectPropertyStatements}'>
-            <h3>Departments</h3>
-            <ul>
-                <c:forEach items='${entity.objectPropertyMap[departmentsPropUri].objectPropertyStatements}' var="departments" varStatus="itemCount">
-                    <c:if test="${itemCount.last == true}"><c:set var="counter">${counter + itemCount.index}</c:set></c:if>
-                    <c:url var="href" value="/entity">
-                        <c:param name="uri" value="${departments.object.URI}"/>
-                    </c:url>
-                    <li><a href="${href}" title="">${departments.object.name}</a></li>
-                </c:forEach>
-            </ul>
-        </c:if> --%>
     
         <h3>Departments</h3>
             <sparql:sparql>
@@ -87,15 +75,16 @@
     <div id="fieldFaculty">
             <h3>Faculty</h3>     
             
+            <c:set var="counter">${counter + itemCount.index + 2}</c:set>
             <c:set var="facultyTotal" value='${fn:length(entity.objectPropertyMap[facultyMembersPropUri].objectPropertyStatements)}' />
             
             <%--This calculates ideal column lengths based on total items--%>
             <c:choose>
-                <c:when test="${(facultyTotal mod 3) == 0}">
+                <c:when test="${(facultyTotal mod 3) == 0}"><%--For lists that will have even column lengths--%>
                     <c:set var="colSize" value="${(facultyTotal div 3)}" />
                     <fmt:parseNumber var="facultyColumnSize" value="${colSize}" type="number" integerOnly="true" />
                 </c:when>
-                <c:otherwise>
+                <c:otherwise><%--For uneven columns--%>
                     <c:set var="colSize" value="${(facultyTotal div 3) + 1}" />
                     <fmt:parseNumber var="facultyColumnSize" value="${colSize}" type="number" integerOnly="true" />
                 </c:otherwise>
@@ -144,6 +133,7 @@
                     </c:forEach>
                 </span>
             </c:if>
+            
             </ul>
     </div><!-- fieldFaculty -->
     
@@ -152,51 +142,106 @@
 <div class="wrapper">
     <h3>Research Areas</h3>
         <sparql:sparql>
-            <sparql:select model="${applicationScope.jenaOntModel}" var="rs" field="<${param.uri}>">
+            <listsparql:select model="${applicationScope.jenaOntModel}" var="researchResults" field="<${param.uri}>">
                 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
                 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+                PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
                 SELECT DISTINCT ?areaUri ?areaLabel
                 WHERE
                 {
                 ?person
-                <http://vivo.library.cornell.edu/ns/0.1#AcademicEmployeeOtherParticipantAsFieldMemberInAcademicInitiative>
+                vivo:AcademicEmployeeOtherParticipantAsFieldMemberInAcademicInitiative
                 ?field .
 
                 ?areaUri
-                <http://vivo.library.cornell.edu/ns/0.1#ResearchAreaOfPerson>
+                vivo:ResearchAreaOfPerson
                 ?person .
 
                 OPTIONAL { ?areaUri rdfs:label ?areaLabel }
                 }
-                ORDER BY regex(?areaLabel , "i" ) 
-                LIMIT 200
-            </sparql:select>
-                <ul>
-                    <c:forEach  items="${rs.rows}" var="area" varStatus="itemCount">
-                        <c:if test="${itemCount.last == true}">
-                            <c:set var="counter">${counter + itemCount.index}</c:set>
-                        </c:if>
-                        <li><c:url var="href" value="/entity"><c:param name="uri" value="${area.areaUri}"/></c:url><a href="${href}" title="">${area.areaLabel.string}</a></li>
-                    </c:forEach>
-                </ul>
+                ORDER BY ?areaLabel
+                LIMIT 300
+            </listsparql:select>
         </sparql:sparql>
         
-</div><!-- wrapper2 -->
-<%-- <c:if test='${not empty entity.objectPropertyMap[financialAwardPropUri].objectPropertyStatements}'>
-    <div id="deptResearch" class="wrapper">           
-    
-        <h3>Administers Projects</h3>
-                <c:set var="researchAreasTotal" value='${fn:length(entity.objectPropertyMap[financialAwardPropUri].objectPropertyStatements)}'/>
-                    <ul>
-                        <c:forEach items='${entity.objectPropertyMap[financialAwardPropUri].objectPropertyStatements}' var="project" begin="0" end="">
+        <c:set var="researchTotal" value="${fn:length(researchResults)}"/>
+        
+        <%--This calculates ideal column lengths based on total items--%>
+        <c:choose>
+            <c:when test="${(researchTotal mod 4) == 0}"><%--For lists that will have even column lengths--%>
+                <c:set var="colSize" value="${(researchTotal div 4)}" />
+                <fmt:parseNumber var="researchColumnSize" value="${colSize}" type="number" integerOnly="true" />
+            </c:when>
+            <c:otherwise><%--For uneven columns--%>
+                <c:set var="colSize" value="${(researchTotal div 4) + 1}" />
+                <fmt:parseNumber var="researchColumnSize" value="${colSize}" type="number" integerOnly="true" />
+            </c:otherwise>
+        </c:choose>
+        
+        <%--Prevent orphaned items--%>
+        <%-- <c:if test="${(researchTotal - researchColumnSize) eq 1 || (researchTotal - researchColumnSize*2) eq 1 || (researchTotal - researchColumnSize*3) eq 1}">
+            <c:set var="researchColumnSize" value="${researchColumnSize + 1}"/>
+        </c:if> --%>
+
+        <ul class="researchAreaList">
+                <span class="colOne">
+                    <c:forEach items='${researchResults}' var="Research" varStatus="researchCount" begin="0" end="${researchColumnSize - 1}">
+                        <li>
                             <c:url var="href" value="/entity">
-                                <c:param name="uri" value="${project.object.URI}"/>
+                                <c:param name="uri" value="${Research['areaUri']}"/>
                             </c:url>
-                            <li><a href="${href}" title="learn more about this project in VIVO">${project.object.name}</a></li>
-                        </c:forEach>
-                    </ul>
-    </div><!-- deptResearch -->
-</c:if> --%>
+                            <a href="${href}" title="view profile in VIVO">${Research['areaLabel'].string}</a>
+                        </li>
+                    </c:forEach>
+                </span>
+        
+            <c:if test="${(researchTotal-(researchColumnSize-1)) gt 0}">
+                <span class="colTwo">
+                    <c:forEach items='${researchResults}' var="Research" begin="${researchColumnSize}" end="${researchColumnSize * 2 - 1}">
+                        <li>
+                            <c:url var="href" value="/entity">
+                                <c:param name="uri" value="${Research['areaUri']}"/>
+                            </c:url>
+                            <a href="${href}" title="view profile in VIVO">${Research['areaLabel'].string}</a>
+                        </li>
+                    </c:forEach>
+                </span>
+            </c:if>
+    
+            <c:if test="${(researchTotal-(researchColumnSize*2)) gt 0}">
+                <span class="colThree">
+                     <c:forEach items='${researchResults}' var="Research" begin="${researchColumnSize * 2}" end="${researchColumnSize * 3 - 1}">
+                        <li>
+                            <c:url var="href" value="/entity">
+                                <c:param name="uri" value="${Research['areaUri']}"/>
+                            </c:url>
+                            <a href="${href}" title="view profile in VIVO">${Research['areaLabel'].string}</a>
+                        </li>
+                    </c:forEach>
+                </span>
+            </c:if>
+            
+            <c:if test="${(researchTotal-(researchColumnSize*3)) gt 0}">
+                <span class="colFour">
+                     <c:forEach items='${researchResults}' var="Research" begin="${researchColumnSize * 3}">
+                        <li>
+                            <c:url var="href" value="/entity">
+                                <c:param name="uri" value="${Research['areaUri']}"/>
+                            </c:url>
+                            <a href="${href}" title="view profile in VIVO">${Research['areaLabel'].string}</a>
+                        </li>
+                    </c:forEach>
+                </span>
+            </c:if>
+        </ul>
+
+        <%-- <ul>
+            <c:forEach  items="${researchResults}" var="area" varStatus="itemCount" begin="0" end="${researchColumnSize - 1}">
+                <li><c:url var="href" value="/entity"><c:param name="uri" value="${area['areaUri']}"/></c:url><a href="${href}" title="">${area['areaLabel'].string}</a></li>
+            </c:forEach>
+        </ul> --%>
+        
+</div><!-- wrapper2 -->
 
 <%!
         private void dump(String name, Object fff){

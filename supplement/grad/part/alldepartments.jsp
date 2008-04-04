@@ -13,25 +13,25 @@
               SELECT DISTINCT ?deptUri ?deptLabel ?deptLocation ?deptLocationLabel ?deptPageUrl
               WHERE
               {
-              ?group
-              rdf:type
-              vivo:fieldCluster .
+                  ?group
+                  rdf:type
+                  vivo:fieldCluster .
 
-              ?group
-              vivo:hasAssociated
-              ?field .
+                  ?group
+                  vivo:hasAssociated
+                  ?field .
               
-              ?person
-              vivo:AcademicEmployeeOtherParticipantAsFieldMemberInAcademicInitiative
-              ?field .
+                  ?person
+                  vivo:AcademicEmployeeOtherParticipantAsFieldMemberInAcademicInitiative
+                  ?field .
 
-              ?person
-              vivo:CornellFacultyMemberInOrganizedEndeavor
-              ?deptUri .
+                  ?person
+                  vivo:CornellFacultyMemberInOrganizedEndeavor
+                  ?deptUri .
 
-              ?deptUri
-              rdf:type
-              vivo:AcademicDepartment .
+                  ?deptUri
+                  rdf:type
+                  vivo:AcademicDepartment .
 
               OPTIONAL { ?deptUri rdfs:label ?deptLabel }
               OPTIONAL { ?deptUri vivo:OrganizedEndeavorLocatedInFacility ?deptLocation . ?deptLocation rdfs:label ?deptLocationLabel }
@@ -43,11 +43,12 @@
     </sparql:select>
     
     <table cellspacing="0">
+        
       <thead>
         <tr>
-            <td>Department</td>
-            <td>Location</td>
-            <td class="deptLink">Web page</td>
+            <th>Department</th>
+            <th>Location</th>
+            <th class="deptLink">Web page</th>
         </tr>
       </thead>
         <tbody>
@@ -56,9 +57,9 @@
                 <c:url var="deptLocationHref" value="/entity"><c:param name="uri" value="${dept.deptLocation}"/></c:url>
                 <c:set var="deptPageLink" value="${dept.deptPageUrl.string}"/>
                     <tr>
-                        <td class="deptName"><a href="${deptHref}" title="more about this department">${dept.deptLabel.string}</a></td>
+                        <td class="deptName <c:if test='${counter.index == 0}'>firstRow</c:if>"><a href="${deptHref}" title="more about this department">${dept.deptLabel.string}</a></td>
                         <td><a href="${deptLocationHref}" title="more about this location in VIVO">${dept.deptLocationLabel.string}</a></td>
-                        <td class="deptLink"><a href="<str:decodeUrl>${deptPageLink}</str:decodeUrl>" title="Department Web page">Link</a></td>
+                        <td class="deptLink"><a class="websnapr" href="<str:decodeUrl>${deptPageLink}</str:decodeUrl>" title="">Department Web page</a></td>
                     </tr>                    
             </c:forEach>
         </tbody>

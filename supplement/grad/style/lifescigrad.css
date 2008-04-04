@@ -11,9 +11,10 @@ Updated:    February 14, 2008
 */
 
 html {
-    height: 100%;    /* Allow background over lay to extend to bottom of window */
+    height: 100%;    /* Allow background overlay to extend to bottom of window */
     font-size: 100%; /* Preventing IE from messing up keyword steps for font sizes */
 }
+
 body {
     font-family: Arial, Helvetica, Verdana, sans-serif;
 /*    font-size: 63.125%; */
@@ -82,6 +83,7 @@ body#departments #content {
 }
 
 body#faculty #content { 
+    width: 890px; margin-right: 20px;
     min-height: 500px; 
 }
 
@@ -117,6 +119,7 @@ body#groups #sidebar {
     width: 930px;
     clear: both;
     color: #fff;
+    font-size: 1.2em;
 }
 
 .eightUnit { width: 590px; }
@@ -187,6 +190,11 @@ body#home #content h2 {
     word-spacing: 1px;
 }
 
+body#home #content p {
+    font-size: 1.2em;
+    line-height: 1.5em;
+}
+
 body#groupindex h2 {
     font-size: 1.7em;   /* Scaling down group names to fit two-column layout */
     line-height: 1.4em;
@@ -224,20 +232,14 @@ h2.groupLabel, h2.groupLabel a:link, h2.groupLabel a:visited {
     line-height: 1em;
 }
 
-/*.fieldRelationLabel {
-    padding: 5px 13px 3px 13px;
-    background: #224B4C;
-}
-*/
-#apply {
-/*    padding: 15px;*/
+body#home #apply {
     margin-top: 20px;
     margin-right: 75px;
     background: #046380;
     position: relative;
 }
 
-#apply p { 
+body#home #apply p { 
     color: #fff;
     font-weight: bold;
     font-size: 1.7em;
@@ -246,21 +248,26 @@ h2.groupLabel, h2.groupLabel a:link, h2.groupLabel a:visited {
     padding: 15px 110px 15px 15px;
 }
 
-#applyButton { 
+body#home #applyButton { 
     position: absolute;
     top: 50%;
     right: 7%;
     border: 0;
     margin-top: -15px;
 }
+
 body#fields h3, 
 body#departments h3 {
     margin-top: 10px;
 }
 
+#body#fields h3 {
+    margin-bottom: 3px;
+}
+
 body#departments div#deptPageScreenshot {
     float: right;
-    padding: 18px 26px 15px 26px;
+    padding: 18px 24px 15px 24px;
 /*    background: #234a4a;*/
     border: 3px solid #234a4a;
     line-height: 1.2em;
@@ -270,6 +277,7 @@ body#departments div#deptPageScreenshot {
 
 body#departments div#deptPageScreenshot img {
     display: block;
+    width: 160px;
     margin-bottom: .5em;
 }
 body#departments div#deptPageScreenshot a {
@@ -277,25 +285,19 @@ body#departments div#deptPageScreenshot a {
     width: 160px;
 }
 
-/* Not all descriptions are pre-wrapped in paragraphs - overriding to keep sizes consistent */
-body#fields div#fieldDescription p, 
-body#fields div#fieldDescription p *, 
-body#fields div#fieldDescription li,
-body#departments div#deptDescription p, 
-body#departments div#deptDescription p *, 
-body#departments div#deptDescription li { 
-    font-size: 1em;
-    line-height: 1em;
+body#departments div#deptPageScreenshot a:hover {
+    text-decoration: underline;
 }
-body#fields div#fieldDescription div,
-body#departments div#deptDescription div {
+
+body#fields div#fieldDescription div.description,
+body#departments div#deptDescription div.description {
     font-size: 1.3em;
     line-height: 1.3em;
     margin-top: 1em;
 }
-body#fields div#fieldDescription div p,
-body#departments div#deptDescription div p {
-    line-height: 1.3em;
+
+body#fields div#fieldDescription div.description {
+/*    width: 665px;*/
 }
 
 body#fields div#fieldDescription ul li,
@@ -305,8 +307,6 @@ body#departments div#deptDescription ul li {
     margin-bottom: .5em;
     line-height: 1.3em;
 }
-/*--- end overrides ---*/
-
 
 body#fields div.wrapper,
 body#departments div.wrapper {
@@ -319,6 +319,7 @@ body#departments div.wrapper {
 
 body#fields div.wrapper li,
 body#departments div.wrapper li {
+    font-size: 1.2em;
     line-height: 1.2em;
     margin-bottom: .4em;
 }
@@ -341,17 +342,24 @@ body#departments div#deptFaculty {
     margin-bottom: 10px;
 }
 
+ul.facultyList span { width: 167px; }
+ul.researchAreaList span { width: 215px; }
+
+ul.facultyList span.colThree { margin-right: 0; }
+ul.researchAreaList span.colFour { margin-right: 0; }
+
 span.colOne,
 span.colTwo,
-span.colThree {
+span.colThree,
+span.colFour {
     float: left;
-    width: 175px;
     margin-right: 10px;
 }
 
 span.colOne li,
 span.colTwo li,
-span.colThree li {
+span.colThree li,
+span.colFour li {
     display: block;
 }
 
@@ -422,8 +430,12 @@ sidebar roll call
     color: #a7a37e;
 }*/
 
-#seminars span.abbrStart, #seminars p.host {
+#seminars span.abbrStart {
     font-size: 1.2em;
+}
+
+#seminars span.abbrStart, #seminars p.host {
+    font-size: 1em;
     line-height: 1.2em;
     margin: 0;
 }
@@ -447,12 +459,13 @@ footer roll call
 }
 
 #footer a:link, #footer a:visited {
-    color: #74AAAB;
+    color: #6f9da5;
+    border: 0;
 }
 
 #footer a:hover {
-    color: #74AAAB;
-    border-bottom: 1px solid #74AAAB;
+    color: #91ced9;
+    border-bottom: 1px solid #91ced9;
 }
 
 /****************************************************************
@@ -460,8 +473,8 @@ basics roll call
 ****************************************************************/
 
 p {
-    font-size: 1.2em;
-    line-height: 1.4em;
+/*    font-size: 1.2em;*/
+/*    line-height: 1.4em;*/
     text-align: left;
     margin: 1em 0;
 }
@@ -511,6 +524,16 @@ image roll call
     border: 1px solid #c9c7a9;
 }
 
+body#faculty #fdImageThumb img {
+    width: 150px;
+/*    height: 150px;*/
+    padding-top: 1px;
+}
+
+body#faculty img.localsnapr {
+    padding-left: 3px;
+}
+
 /****************************************************************
 anchor roll call
 ****************************************************************/
@@ -521,10 +544,6 @@ a:hover { color: #69bfde; }
 a:active { color: #69bfde; }
 
 li a { border-bottom: 1px solid #4a7172; }
-
-body#faculty #content a, body#faculty #sidebar a {
-    font-size: 1.2em;
-}
 
 ul.groupings li a:link, ul.groupings li a:visited {
     color: #fff;
@@ -605,13 +624,13 @@ list roll call
 ****************************************************************/
 ul li {
     list-style-type: none;
-    font-size: 1.2em;
+/*    font-size: 1.2em;*/
 /*    background: url(../images/layout/bg_li_bullet.gif) no-repeat 4px 5px;*/
 }
 
 ol li {
     margin-left: 2.5em;
-    font-size: 1.2em;
+/*    font-size: 1.2em;*/
     margin-bottom: .5em;
 }
 
@@ -654,14 +673,6 @@ body#fields #content li, body#fields #sidebar li {
     font-size: 1.2em;
 }
 
-    #researchInField ul, #facultyInField ul {
-        padding: 9px 14px;
-    }
-
-    #departmentsInField ul li, #facultyInField ul li, #researchInField ul li {
-        margin-bottom: 4px;
-    }
-
 #sidebar ul.groupings {
     padding: 12px 6px 12px 12px;
     background: #183F40;  /*lighter green*/
@@ -669,7 +680,6 @@ body#fields #content li, body#fields #sidebar li {
 
 #sidebar ul.groupings li {
     padding-left: 27px;
-/*    font-size: 1.2em;*/
     line-height: 1.3em;
     font-weight: bold;
     margin-bottom: -10px; 
@@ -789,56 +799,86 @@ form roll call
 /****************************************************************
 table roll call
 ****************************************************************/
-
-body#departments table {
-    width: 100%;
-    font-size: 1.4em;
+body#faculty div#indexNav {
+    margin: 3em 0 2em 0;
+    height: 2em; /* Explicitly set because some browsers will not clear with margins */
+    font-size: 1.2em;
 }
 
-body#departments thead td {
+body#faculty div#indexNav a {
+    color: #fff;
+    float: left;
+    padding:  3px 5px 2px 5px;
+    margin-right: 2px;
+    background: #204647;
+    border: 1px solid transparent !important;
+    border: 1px solid #002f2f; /* IE6 can't deal handle the transparent property */
+}
+
+body#faculty div#indexNav a:hover {
+    border: 1px solid #fff !important;
+}
+
+body#faculty table,
+body#departments table {
+    width: 100%;
+    clear: left;
+    font-size: 1.2em;
+    color: #efecca; /* IE6 not reading color from content div */
+}
+
+body#faculty tbody td.firstRow,
+body#departments tbody td.firstRow {
+    padding-top: 12px;
+}
+
+body#faculty thead th,
+body#departments thead th {
     color: #a7a37e;
+    font-size: 1.1em;
     font-weight: bold;
     text-transform: uppercase;
-    padding-top: 6px;
-    padding-bottom: 5px;
+    padding: 2px 10px 2px 8px;
     border-bottom: 1px solid #a7a37e;
 }
 
-body#departments td {
-    padding: 5px 10px 7px 8px;
-}
-
+body#faculty tbody td,
 body#departments tbody td {
     border-bottom: 1px solid #204647;
 }
 
-body#departments tbody tr:first-child td {
-    padding-top: 12px;
-}
-
-body#departments tbody tr:last-child td {
-    border: 0;
-}
-
+body#faculty tbody tr:hover,
 body#departments tbody tr:hover {
     background-color: #204647;
 }
 
+body#faculty tbody a:hover,
 body#departments tbody a:hover {
     text-decoration: underline;
 }
 
-body#departments td.deptLink {
+body#faculty tbody td,
+body#departments tbody td {
+    padding: 3px 10px 4px 8px;
+    width: 49%;
+}
+
+body#faculty tfoot td {
+    padding-top: 1em;
+}
+
+body#departments th.deptLink {
     text-align: center;
 }
 
 body#departments td.deptLink a {
-    display: block;
     text-indent: -99999px;
+    display: block;
     width: 16px;
     height: 16px;
-    margin: 0 auto;
-    background: url(../images/icons/world_link.png);
+    padding: 0;
+    margin: 0 50px;
+    background: url(../images/icons/world_link.png) no-repeat center center;
     overflow: hidden;
 }
 

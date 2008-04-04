@@ -31,8 +31,17 @@
     <c:import var="deptImgSrc" url="http://localhost/thmbnl/getScreenshot.php">
         <c:param name="deptLink" value="${entity.url}" />
     </c:import>
-    <a href="<c:url value='${entity.url}'/>"><img src='<c:out value="${deptImgSrc}"/>' title="${entity.anchor}" alt="${entity.anchor}" /></a>
-    <a href="<c:url value='${entity.url}'/>">${entity.anchor}</a>
+    
+    <c:url var="webSnaprUrl" value="http://images.websnapr.com/">
+        <c:param name="url" value="${entity.url}"/>
+        <c:param name="size" value="s"/>
+    </c:url>
+    
+    <a href="<c:url value='${entity.url}'/>"><img src="${webSnaprUrl}" alt=""/>${entity.anchor}</a>
+    
+    <%-- <img src='<c:out value="${deptImgSrc}"/>' title="${entity.anchor}" alt="screenshot" /></a> --%>
+        
+        
 </div>
 
 <div id="deptDescription">

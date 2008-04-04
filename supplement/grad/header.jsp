@@ -22,14 +22,47 @@
     <script type="text/javascript" src="${jsDir}/niftycube.js"></script>
     <script type="text/javascript" src="js/niftyConfig.js"></script>
     <script type="text/javascript" src="${jsDir}/jquery.js"></script>
-    
-    <c:if test="${fn:contains(pageContext.request.servletPath, 'faculty.jsp')}">
+    <%-- For Exhibit page only --%>
+    <c:if test="${fn:contains(pageContext.request.servletPath, 'XXX.jsp')}">
         <link href="data/peopleData2.jsp" type="application/json" rel="exhibit/data" />
         <script src="http://static.simile.mit.edu/exhibit/api-2.0/exhibit-api.js" type="text/javascript"></script>
         <link rel="stylesheet" href="style/exhibit.css" type="text/css" /> <!-- Override exhibit styles -->
     </c:if>
     
-    <script>
+    <c:if test="${fn:contains(pageContext.request.servletPath, 'faculty.jsp')}">
+        <script src="js/defuscate.js" type="text/javascript"></script>
+        <link rel="stylesheet" href="style/websnapr.css" type="text/css" />
+        <script src="js/localsnapr.js" type="text/javascript"></script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                var origCount = $("tfoot td").text();
+                $("#indexNav").append('<a id="showAll" href="#">show all<\/a>');
+                $("#indexNav a#showAll").click(function(){
+                    $("tbody").show();
+                    $(this).css("outline", "none");
+                    $("tfoot td").text("Total: " + origCount);
+                });
+                $("#indexNav a").not("#showAll").click(function(){
+                    var tbodyID = "#" + $(this).text();
+                    var count = $("tbody"+ tbodyID + " tr").length;
+                    $("tbody").not(tbodyID).hide();
+                    $("tbody").filter(tbodyID).show().each(function(){
+                        $(this).children("tr").children("td:first").css("padding-top", "12px");
+                    });
+                    $(this).css("outline", "none");
+                    $("tfoot td").text("Total: " + count);
+                    return false;
+                });
+            });
+        </script>
+    </c:if>
+        
+    <c:if test="${fn:contains(pageContext.request.servletPath, 'departments.jsp')}">
+        <link rel="stylesheet" href="style/websnapr.css" type="text/css" />
+        <script src="js/websnapr.js" type="text/javascript"></script>
+    </c:if>
+    
+    <script type="text/javascript">
         $(document).ready(function(){
           $("span.toggleLink").click(function () {
             $("ul#moreProjects").slideToggle("medium");
