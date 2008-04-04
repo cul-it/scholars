@@ -90,7 +90,12 @@
 
     private final String DEFAULT_ERROR_MSG ="There was an error in the system while accessing your profile, " +
             "please use the contact us form to request assistance.";
-    private final String NO_NETID_ERROR_MSG = "There does not seem to be a profile in the system for your netId";
+	private final String NO_NETID_ERROR_MSG = "<p>No netId is available from the current session; "
+											+ "CUWebAuth may not be configured on this server.</p>"
+											+ "<p>Please use the contact form to let us know that "
+											+ "you were unable to edit your profile.</p>";
+	
+    private final String NO_MATCHING_NETID_ERROR_MSG = "There does not seem to be a profile in the system for your netId";
     private final String MULTIPLE_NETID_ERROR_MSG =
             "There is a problem with the system, please use the contact us form to let us "+
             "know that you were unable to edit your profile." ;
