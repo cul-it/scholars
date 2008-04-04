@@ -8,6 +8,7 @@
 <%@ page import="edu.cornell.mannlib.vitro.webapp.controller.VitroRequest" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.dao.WebappDaoFactory" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.filters.VitroRequestPrep" %>
+<%@ page import="java.util.List" %>
 <%@ taglib prefix="v" uri="http://vitro.mannlib.cornell.edu/vitro/tags" %>
 <%
     if( session == null)
@@ -27,23 +28,26 @@
         throw new Error("could not get a WebappDaoFactory");
 
     ObjectProperty prop = wdf.getObjectPropertyDao().getObjectPropertyByURI(predicateUri);
-    if( prop == null )
-        throw new Error("In propDelete.jsp, could not find property " + predicateUri);
+    if( prop == null ) { throw new Error("In propDelete.jsp, could not find property " + predicateUri); }
     request.setAttribute("propertyName",prop.getDomainPublic());
 
     //do the delete
     if( request.getParameter("y") != null ){
         wdf.getPropertyInstanceDao().deleteObjectPropertyStatement(subjectUri,predicateUri,objectUri);
-
-//      ObjectPropertyStatement stmt = new ObjectPropertyStatement();
-//      stmt.setSubjectURI( subjectUri );
-//      stmt.setPropertyURI( predicateUri );
-//      stmt.setObjectURI( objectUri );
-//
-//      wdf.getObjectPropertyStatementDao().deleteObjectPropertyStatement(stmt);
-
-        //request.setAttribute("propertyName",prop.getDomainPublic());
-%>
+        // insert code to test predicateUri as an object property with stub individual range classes
+        // that should be deleted -- could possibly look just at the objectUri vclass
+        Individual object = (Individual)request.getAttribute("object");
+        if (object==null) {
+            object = wdf.getIndividualDao().getIndividualByURI( objectUri );
+            if( object == null ) throw new Error("Could not find object as request attribute or in model: '" + objectUri + "'");
+            request.setAttribute("object", object);
+            List<VClass> vclasses=object.getVClasses(false);
+        	for(VClass clas: vclasses) {
+            	if ( "http://vivo.library.cornell.edu/ns/0.1#EducationalBackground".equals(clas.getURI()) ) {
+            	    wdf.getIndividualDao().deleteIndividual(object);
+            	}
+            }
+        }%>
         <c:url var="redirectUrl" value="../entity">
             <c:param name="uri" value="${param.subjectUri}"/>
         </c:url>
