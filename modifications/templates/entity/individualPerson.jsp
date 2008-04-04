@@ -2,29 +2,28 @@
 <%@ page import="edu.cornell.mannlib.vitro.webapp.beans.VClass" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.edit.n3editing.EditConfiguration" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.edit.n3editing.EditSubmission" %>
+<%@ page import="edu.cornell.mannlib.vedit.beans.LoginFormBean" %>
+<%@ page import="edu.cornell.mannlib.vitro.webapp.controller.VitroRequest"%>
+<%@ page import="edu.cornell.mannlib.vitro.webapp.filters.VitroRequestPrep" %>
 <%@ page import="java.util.List" %>
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
 <%@ page errorPage="/error.jsp"%>
-<%  /***********************************************
-         Display a single Entity in the most basic fashion.
-         
-         request.attributes:
-         an Entity object with the name "entity" 
-         
-         request.parameters:
-         None yet.
-         
-          Consider sticking < % = MiscWebUtils.getReqInfo(request) % > in the html output
-          for debugging info.
-                 
-         bdc34 2006-01-22 created        
-        **********************************************/                           
-        Individual entity = (Individual)request.getAttribute("entity");
-        if (entity == null){
-            String e="entityBasic.jsp expects that request attribute 'entity' be set to the Entity object to display.";
-            throw new JspException(e);
-        }
- %>
+<%                         
+Individual entity = (Individual)request.getAttribute("entity");
+if (entity == null){
+    String e="entityBasic.jsp expects that request attribute 'entity' be set to the Entity object to display.";
+    throw new JspException(e);
+}
+
+if (VitroRequestPrep.isSelfEditing(request) || LoginFormBean.loggedIn(request, LoginFormBean.CURATOR)) {
+    request.setAttribute("showKeywordEdits","true");
+}
+%>
+<c:if test="${sessionScope.loginHandler != null &&
+              sessionScope.loginHandler.loginStatus == 'authenticated' &&
+              sessionScope.loginHandler.loginRole >= sessionScope.loginHandler.editor}">
+	<c:set var="showKeywordEdits" value="true"/>
+</c:if>
 <c:set var='imageDir' value='images' />
 <%
     //here we build up the url for the larger image.
@@ -98,9 +97,16 @@
                 </div>
                 </c:if>
                 <c:if test="${!empty entity.keywordString}">
-                <div class="citation">
-                    Keywords: ${entity.keywordString}
-                </div>
+                	<div class="citation">
+						<c:choose>
+					    	<c:when test="${showKeywordEdits == true}">
+					        	<jsp:include page="/${entityKeywordsListJsp}" />
+					    	</c:when>
+					    	<c:otherwise>
+					    		Keywords: ${entity.keywordString}
+					    	</c:otherwise>
+						</c:choose>
+                	</div>
                 </c:if>
                 ${requestScope.servletButtons} 
         </div>
