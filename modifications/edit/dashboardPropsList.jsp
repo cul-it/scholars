@@ -129,7 +129,10 @@ if (loginHandler!=null && loginHandler.getLoginStatus()=="authenticated" && Inte
 		int groupCount=0;%>
 		<ul id="dashboardNavigation">
 <%		for (Property p : mergedList) {
-		    String groupName=pgDao.getGroupByURI(p.getGroupURI()).getName();
+    		String groupName="unspecified";
+    		if (p.getGroupURI()!=null) {
+		    	groupName=pgDao.getGroupByURI(p.getGroupURI()).getName();
+    		}
 		    if (!groupName.equals(lastGroupName)) {
 		    	lastGroupName=groupName;
 		        ++groupCount;
@@ -178,25 +181,29 @@ private class PropertyRanker implements Comparator {
         Property p1 = (Property) o1;
         Property p2 = (Property) o2;
         
-        int diff=0;
-        if (p1.getGroupURI()==null || p2.getGroupURI()==null) {
-            return p1.getEditLabel().compareTo(p2.getEditLabel());
-        } else {
-	        PropertyGroup pg1 = pgDao.getGroupByURI(p1.getGroupURI());
-	        PropertyGroup pg2 = pgDao.getGroupByURI(p2.getGroupURI());
-	        if (pg1==null || pg2==null) {
-	            return p1.getEditLabel().compareTo(p2.getEditLabel());
-	        } else {
-			   	diff = pg1.getDisplayRank() - pg2.getDisplayRank();
-			    if (diff==0) {
-			       	diff = determineDisplayRank(p1) - determineDisplayRank(p2);
-			       	if (diff==0) {
-			           	return p1.getEditLabel().compareTo(p2.getEditLabel());
-			       	} else {
-			           	return diff;
-			       	}
-			    }
-	        }
+        String p1GroupName="unspecified";
+        if (p1.getGroupURI()!=null) {
+            PropertyGroup pg1 = pgDao.getGroupByURI(p1.getGroupURI());
+            if (pg1!=null) {
+            	p1GroupName=pg1.getName();
+            }
+        }
+      	
+        String p2GroupName="unspecified";
+        if (p2.getGroupURI()!=null) {
+            PropertyGroup pg2 = pgDao.getGroupByURI(p2.getGroupURI());
+            if (pg2!=null) {
+            	p2GroupName=pg2.getName();
+            }
+        }
+	    int diff=p1GroupName.compareTo(p2GroupName);
+	    if (diff==0) {
+	       	diff = determineDisplayRank(p1) - determineDisplayRank(p2);
+	       	if (diff==0) {
+	           	return p1.getEditLabel().compareTo(p2.getEditLabel());
+	       	} else {
+	           	return diff;
+	       	}
         }
         return diff;
     }
