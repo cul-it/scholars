@@ -22,9 +22,21 @@
 <%@ page import="java.util.HashSet" %>
 <%@ page import="org.apache.commons.logging.Log" %>
 <%@ page import="org.apache.commons.logging.LogFactory" %>
+<%@ page import="edu.cornell.mannlib.vitro.webapp.filters.VitroRequestPrep" %>
+<%@ page import="edu.cornell.mannlib.vedit.beans.LoginFormBean" %>
+<jsp:useBean id="loginHandler" class="edu.cornell.mannlib.vedit.beans.LoginFormBean" scope="session" />
 <%! 
 public static Log log = LogFactory.getLog("edu.cornell.mannlib.vitro.webapp.jsp.themes.editdefault.jsp.dashboardPropsList.jsp");
 %>
+<%
+boolean showSelfEdits=false;
+boolean showCuratorEdits=false;
+if( VitroRequestPrep.isSelfEditing(request) ) {
+    showSelfEdits=true;
+}
+if (loginHandler!=null && loginHandler.getLoginStatus()=="authenticated" && Integer.parseInt(loginHandler.getLoginRole())>=loginHandler.getEditor()) {
+	showCuratorEdits=true;
+}%>
 <c:set var='entity' value='${requestScope.entity}'/><%-- just moving this into page scope for easy use --%>
 <c:set var='portal' value='${requestScope.portalBean}'/><%-- likewise --%>
 <%
@@ -129,7 +141,22 @@ public static Log log = LogFactory.getLog("edu.cornell.mannlib.vitro.webapp.jsp.
 		    	<ul class="dashboardCategories">
 <%			}%>
 			<edLnk:editLinks item="<%=p %>" var="links" />
-            <li class="dashboardProperty"><a href="${links[0].href}"><%=p.getEditLabel()%></a></li>
+            <li class="dashboardProperty"><a href="${links[0].href}"><%=p.getEditLabel()%></a>
+<%			if (showCuratorEdits) {
+    			if (p instanceof ObjectProperty) {
+				    ObjectProperty op = (ObjectProperty)p;%>
+				    (o<%=p.isSubjectSide() ? op.getDomainDisplayTier() : op.getRangeDisplayTier()%>)
+<%			    } else if (p instanceof DataProperty) {
+    			    DataProperty dp = (DataProperty)p;%>
+				    (d<%=dp.getDisplayTier() %>)
+<%			    } else if (p instanceof KeywordProperty) {
+				    KeywordProperty kp = (KeywordProperty)p;%>
+				    (k<%=kp.getDisplayRank()%>)
+<%			    } else {
+				    log.error("unknown class of property "+p.getClass().getName()+" in merging properties for edit list");
+			    }
+			}%>
+            </li>
 <%      }%>
         </ul></li></ul>
 <%    }

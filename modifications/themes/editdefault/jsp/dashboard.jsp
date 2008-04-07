@@ -2,6 +2,16 @@
 <%@ page import="edu.cornell.mannlib.vitro.webapp.beans.Individual" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.controller.VitroRequest" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.dao.WebappDaoFactory" %>
+<%@ page import="edu.cornell.mannlib.vitro.webapp.filters.VitroRequestPrep" %>
+<%  if( VitroRequestPrep.isSelfEditing(request) ){
+        request.setAttribute("showSelfEdits","true");
+    } %>
+    <c:if test="${sessionScope.loginHandler != null &&
+             sessionScope.loginHandler.loginStatus == 'authenticated' &&
+             sessionScope.loginHandler.loginRole >= sessionScope.loginHandler.editor}">
+        <c:set var="showCuratorEdits" value="true"/>
+    </c:if>
+
 <c:set var='imageDir' value='images' />
 <c:set var='entity' value='${requestScope.entity}'/><%-- just moving this into page scope for easy use --%>
 <c:set var='portal' value='${requestScope.portalBean}'/><%-- likewise --%>
