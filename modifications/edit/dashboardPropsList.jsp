@@ -179,20 +179,24 @@ private class PropertyRanker implements Comparator {
         Property p2 = (Property) o2;
         
         int diff=0;
-        PropertyGroup pg1 = pgDao.getGroupByURI(p1.getGroupURI());
-        PropertyGroup pg2 = pgDao.getGroupByURI(p2.getGroupURI());
-        if (pg1==null || pg2==null) {
+        if (p1.getGroupURI()==null || p2.getGroupURI()==null) {
             return p1.getEditLabel().compareTo(p2.getEditLabel());
         } else {
-		   	diff = pg1.getDisplayRank() - pg2.getDisplayRank();
-		    if (diff==0) {
-		       	diff = determineDisplayRank(p1) - determineDisplayRank(p2);
-		       	if (diff==0) {
-		           	return p1.getEditLabel().compareTo(p2.getEditLabel());
-		       	} else {
-		           	return diff;
-		       	}
-		    }
+	        PropertyGroup pg1 = pgDao.getGroupByURI(p1.getGroupURI());
+	        PropertyGroup pg2 = pgDao.getGroupByURI(p2.getGroupURI());
+	        if (pg1==null || pg2==null) {
+	            return p1.getEditLabel().compareTo(p2.getEditLabel());
+	        } else {
+			   	diff = pg1.getDisplayRank() - pg2.getDisplayRank();
+			    if (diff==0) {
+			       	diff = determineDisplayRank(p1) - determineDisplayRank(p2);
+			       	if (diff==0) {
+			           	return p1.getEditLabel().compareTo(p2.getEditLabel());
+			       	} else {
+			           	return diff;
+			       	}
+			    }
+	        }
         }
         return diff;
     }
