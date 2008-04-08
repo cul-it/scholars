@@ -675,7 +675,7 @@ body#groups #content ul {
 }
 
 body#fields #content li, body#fields #sidebar li {
-    font-size: 1.2em;
+/*    font-size: 1.2em;*/
 }
 
 #sidebar ul.groupings {

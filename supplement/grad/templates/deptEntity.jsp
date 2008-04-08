@@ -28,9 +28,9 @@
 <c:set var='imageDir' value='images' scope="page"/>
 
 <div id='deptPageScreenshot'>
-    <c:import var="deptImgSrc" url="http://localhost/thmbnl/getScreenshot.php">
+    <%-- <c:import var="deptImgSrc" url="http://localhost/thmbnl/getScreenshot.php">
         <c:param name="deptLink" value="${entity.url}" />
-    </c:import>
+    </c:import> --%>
     
     <c:url var="webSnaprUrl" value="http://images.websnapr.com/">
         <c:param name="url" value="${entity.url}"/>
