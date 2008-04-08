@@ -151,7 +151,7 @@ var webSnapr = {
                 }
 
                 webSnapr.obj.className = positionClass;
-                webSnapr.timer = window.setTimeout("webSnapr.showThumb()",500);
+                webSnapr.timer = window.setTimeout("webSnapr.showThumb()",100);
         },
         showThumb: function(e) {
                 webSnapr.hidden = false;

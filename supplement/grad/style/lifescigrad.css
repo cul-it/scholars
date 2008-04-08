@@ -531,7 +531,12 @@ body#faculty #fdImageThumb img {
 }
 
 body#faculty img.localsnapr {
-    padding-left: 3px;
+    padding-left: 5px;
+    text-decoration: none;
+}
+
+body#faculty img.localsnapr {
+    cursor: pointer;
 }
 
 /****************************************************************
@@ -849,7 +854,7 @@ body#departments tbody td {
 
 body#faculty tbody tr:hover,
 body#departments tbody tr:hover {
-    background-color: #204647;
+    background-color: #244e4f;
 }
 
 body#faculty tbody a:hover,
@@ -859,7 +864,7 @@ body#departments tbody a:hover {
 
 body#faculty tbody td,
 body#departments tbody td {
-    padding: 3px 10px 4px 8px;
+    padding: 4px 10px 3px 8px;
     width: 49%;
 }
 

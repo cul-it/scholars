@@ -9,8 +9,7 @@
     
 
     <sparql:sparql>
-    <sparql:select model="${applicationScope.jenaOntModel}" var="rs"
-	            gradfield="&lt;${param.uri}&gt;">
+    <sparql:select model="${applicationScope.jenaOntModel}" var="rs" gradfield="&lt;${param.uri}&gt;">
                 <![CDATA[
 
                         PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>

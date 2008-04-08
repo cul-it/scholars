@@ -35,6 +35,17 @@
         <script src="js/localsnapr.js" type="text/javascript"></script>
         <script type="text/javascript">
             $(document).ready(function() {
+                
+                // Inserting camera icons here instead of markup
+                var thumbSrc = $("span.localsnapr").attr("title");
+                $("span.localsnapr").append('<img alt="" src="images/icons/camera_small.png"/>').each(function() {
+                    var thumbSrc = $(this).attr("title");
+                    $(this).children("img").attr("alt", thumbSrc);            
+                    $(this).children("img").addClass("localsnapr");   
+                });
+                $("span.localsnapr").removeAttr("title");
+                
+                // Pagination functions
                 var origCount = $("tfoot td").text();
                 $("#indexNav").append('<a id="showAll" href="#">show all<\/a>');
                 $("#indexNav a#showAll").click(function(){
@@ -50,7 +61,7 @@
                         $(this).children("tr").children("td:first").css("padding-top", "12px");
                     });
                     $(this).css("outline", "none");
-                    $("tfoot td").text("Total: " + count);
+                    $("tfoot td").empty().text("Total: " + count);
                     return false;
                 });
             });

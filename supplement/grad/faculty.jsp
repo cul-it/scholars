@@ -107,7 +107,8 @@
                                         
                                             <tr>
                                                 <td <c:if test="${counter.index == 1}">class="firstRow"</c:if>><a href="${prevFacultyHref}" title="view profile in VIVO">${prevFacultyName}</a>
-                                                    <c:if test="${not empty prevImageThumb}"><img class="localsnapr" alt="${prevImageThumb}" src="images/icons/camera_small.png"/></c:if></td>
+                                                    <%--Icons inserted inside span via JavaScript --%>
+                                                    <c:if test="${not empty prevImageThumb}"><span class="localsnapr" title="${prevImageThumb}"> </span></c:if></td>
                                                 <td class="email">${prevCornellEmail}<c:if test="${empty prevCornellEmail}">${prevNonCornellEmail}</c:if>
                                                     <c:if test="${!empty secondCornellEmail}">, ${secondCornellEmail}</c:if>
                                                 </td>
