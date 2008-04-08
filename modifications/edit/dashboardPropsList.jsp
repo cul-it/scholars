@@ -129,6 +129,7 @@ if (loginHandler!=null && loginHandler.getLoginStatus()=="authenticated" && Inte
 		int groupCount=0;%>
 		<ul id="dashboardNavigation">
 <%		for (Property p : mergedList) {
+		    //String groupName=pgDao.getGroupByURI(p.getGroupURI()).getName();
     		String groupName="unspecified";
     		if (p.getGroupURI()!=null) {
 		    	groupName=pgDao.getGroupByURI(p.getGroupURI()).getName();
@@ -140,7 +141,7 @@ if (loginHandler!=null && loginHandler.getLoginStatus()=="authenticated" && Inte
 		        	</ul></li>
 <%		    	}%>
 		    	<li>
-		    	<h2><a href="#"><%=groupName%></a></h2>
+		    	<h2><%=groupName%></h2>
 		    	<ul class="dashboardCategories">
 <%			}%>
 			<edLnk:editLinks item="<%=p %>" var="links" />
@@ -181,29 +182,34 @@ private class PropertyRanker implements Comparator {
         Property p1 = (Property) o1;
         Property p2 = (Property) o2;
         
-        String p1GroupName="unspecified";
+        // sort first by property group rank; if the same, then sort by property rank
+        final int MAX_GROUP_RANK=99;
+        
+        int p1GroupRank=MAX_GROUP_RANK;
         if (p1.getGroupURI()!=null) {
             PropertyGroup pg1 = pgDao.getGroupByURI(p1.getGroupURI());
             if (pg1!=null) {
-            	p1GroupName=pg1.getName();
+            	p1GroupRank=pg1.getDisplayRank();
             }
         }
       	
-        String p2GroupName="unspecified";
+        int p2GroupRank=MAX_GROUP_RANK;
         if (p2.getGroupURI()!=null) {
             PropertyGroup pg2 = pgDao.getGroupByURI(p2.getGroupURI());
             if (pg2!=null) {
-            	p2GroupName=pg2.getName();
+            	p2GroupRank=pg2.getDisplayRank();
             }
         }
-	    int diff=p1GroupName.compareTo(p2GroupName);
-	    if (diff==0) {
-	       	diff = determineDisplayRank(p1) - determineDisplayRank(p2);
-	       	if (diff==0) {
-	           	return p1.getEditLabel().compareTo(p2.getEditLabel());
-	       	} else {
-	           	return diff;
-	       	}
+        
+        // int diff = pgDao.getGroupByURI(p1.getGroupURI()).getDisplayRank() - pgDao.getGroupByURI(p2.getGroupURI()).getDisplayRank();
+	    int diff=p1GroupRank - p2GroupRank;
+        if (diff==0) {
+        	diff = determineDisplayRank(p1) - determineDisplayRank(p2);
+        	if (diff==0) {
+            	return p1.getEditLabel().compareTo(p2.getEditLabel());
+        	} else {
+            	return diff;
+        	}
         }
         return diff;
     }
