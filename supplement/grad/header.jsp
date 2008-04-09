@@ -82,7 +82,7 @@
         });
     </script>
     
-    <!--[if IE]><script type="text/javascript" src="js/iepngfix.js"></script><![endif]-->
+    <!--[if xE]><script type="text/javascript" src="js/iepngfix.js"></script><![endif]-->
 </head>
 
 <body <c:if test="${not empty param.bodyID}">id="${param.bodyID}"</c:if>>

@@ -82,6 +82,10 @@ body#departments #content {
     width: 890px; margin-right: 20px;
 }
 
+body#events #content { 
+    width: 890px; margin-right: 20px;
+}
+
 body#faculty #content { 
     width: 890px; margin-right: 20px;
     min-height: 500px; 

@@ -45,7 +45,7 @@
               WHERE
               {
               ?news
-                <http://vivo.library.cornell.edu/ns/0.1#featuresPerson> ?person ;
+                <http://vivo.library.cornell.edu/ns/0.1#featuresPerson2> ?person ;
                 <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#timekey> ?timekey ;
                 <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#sunrise> ?sunrise ;
                 <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#imageThumb> ?newsThumb;

@@ -25,49 +25,10 @@
             </c:when>
         
             <c:otherwise>
-                <%-- <jsp:include page="part/alldepartments.jsp" /> --%>
+                <c:redirect url="gradfieldsIndex.jsp"/>
             </c:otherwise>
         </c:choose>
-        
-<%-- 
-        <h2 class="groupLabel ${param.groupClass}"><a href="${grouphref}">${param.groupLabel}</a></h2>
- 
-        <h3>Graduate Field: <span class="fieldLabel">${param.fieldLabel}</span></h3>
-
-        <c:import var="fieldDescription" url="part/getdescription.jsp">
-                 <c:param  name="uri" value="${param.uri}"/>
-         </c:import>
-        
-        <div id="departmentsInField">
-            <h4>Departments</h4>
-            <ul>
-                <jsp:include page="part/listdepartments.jsp">
-                    <jsp:param name="uri" value="${param.uri}"/>
-                </jsp:include>
-            </ul>
-        </div>
-        <p>${fieldDescription}</p>
-
-        <div id="facultyInField">
-            <h4>Faculty</h4>
-            <ul>
-            <jsp:include page="part/listfaculty.jsp">
-                <jsp:param name="uri" value="${param.uri}"/>
-            </jsp:include>
-            </ul>
-        </div>
-
-
-        <div id="researchInField">
-            <h4>Research Areas</h4>
-            <ul>
-                <jsp:include page="part/listresearch.jsp">
-                    <jsp:param name="uri" value="${param.uri}"/>
-                </jsp:include>
-            </ul>
-        </div>
---%>
-
+      
 	</div> <!-- content -->
 		
 		</div> <!-- contentWrap -->

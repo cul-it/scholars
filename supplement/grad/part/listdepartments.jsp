@@ -22,7 +22,7 @@
               ?field .
 
               ?person
-              vivo:CornellFacultyMemberInOrganizedEndeavor
+              vivo:holdFacultyAppointmentIn
               ?deptUri .
 
               ?deptUri

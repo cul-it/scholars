@@ -79,7 +79,6 @@
             
             </c:forEach>
         </ul>
-
     </sparql:sparql>
 
 </jsp:root>
