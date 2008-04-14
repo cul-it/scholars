@@ -5,6 +5,13 @@
     <jsp:param name="bodyID" value="events"/>
 </jsp:include>
 
+<style type="text/css">
+    body td { border: 1px solid #666; padding: 5px; }
+    th { font-weight: bold; font-size: 1.4em;}
+    table { width: 100%; border-collapse: collapse; }
+    tbody.odd { background: #204647; }    
+</style>
+
 <div id="contentWrap">
 	<div id="content">
 

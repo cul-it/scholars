@@ -77,6 +77,7 @@
         $(document).ready(function(){
           $("span.toggleLink").click(function () {
             $("ul#moreProjects").slideToggle("medium");
+            $(this).toggleClass("toggled");
              return false;
           });
         });

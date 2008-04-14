@@ -42,7 +42,7 @@
               LIMIT 2000
     </sparql:select>
     
-    <table cellspacing="0">
+    <table cellspacing="0" summary="A list of all departments connected with graduate studies in Life Sciences at Cornell.">
         
       <thead>
         <tr>

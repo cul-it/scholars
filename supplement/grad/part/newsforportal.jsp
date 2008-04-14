@@ -41,27 +41,32 @@
               PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
               PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
               PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-              SELECT DISTINCT ?news ?newsLabel ?newsThumb
+              PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
+              PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
+              SELECT DISTINCT ?news ?newsLabel ?blurb ?newsThumb ?sourceLink
               WHERE
               {
               ?news
-                <http://vivo.library.cornell.edu/ns/0.1#featuresPerson2> ?person ;
-                <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#timekey> ?timekey ;
-                <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#sunrise> ?sunrise ;
-                <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#imageThumb> ?newsThumb;
+                vivo:featuresPerson2 ?person ;
+                vitro:sunrise ?sunrise ;
+                vitro:primaryLink ?link ;
+                vitro:imageThumb ?newsThumb;
+                vitro:blurb ?blurb ;
                 rdfs:label ?newsLabel .
-                
+            
+                ?link vitro:linkURL ?sourceLink .
+            
               ?person
-              <http://vivo.library.cornell.edu/ns/0.1#AcademicEmployeeOtherParticipantAsFieldMemberInAcademicInitiative>
+              vivo:AcademicEmployeeOtherParticipantAsFieldMemberInAcademicInitiative
               ?field .
 
               ?field 
               rdf:type
-              <http://vivo.library.cornell.edu/ns/0.1#GraduateField> .
+              vivo:GraduateField .
 
                FILTER( xsd:dateTime(?now) > ?sunrise )
               }
-              ORDER BY DESC(?timekey)
+              ORDER BY DESC(?sunrise)
               LIMIT 2
 
           ]]>
@@ -71,16 +76,16 @@
         <ul>
             <c:forEach  items="${rs.rows}" var="item" begin="0" end="0">
                 <li>
-                  <c:url var="href" value="/entity"><c:param name="uri" value="${item.news}"/></c:url>
+                  
  					<c:url var="image" value="/images/${item.newsThumb.string}"/>
-                  <a href="${href}"><img src="${image}" width="95" alt="News Image"/>${item.newsLabel.string}</a>
+                  <a href="${item.sourceLink.string}"><img width="128px" src="${image}" alt="${item.newsLabel.string}"/></a><a title="read the full story" href="${item.sourceLink.string}">${item.newsLabel.string}</a>
                 </li>
             </c:forEach>
             <c:forEach  items="${rs.rows}" var="item" begin="0" end="0">
                 <li class="clean">
-                  <c:url var="href" value="/entity"><c:param name="uri" value="${item.news}"/></c:url>
+                  
  					<c:url var="image" value="/images/${item.newsThumb.string}"/>
-                  <a href="${href}"><img src="${image}" width="95" alt="News Image"/>${item.newsLabel.string}</a>
+                  <a href="${item.sourceLink.string}"><img width="128px" src="${image}" alt="${item.newsLabel.string}"/></a><a title="read the full story" href="${item.sourceLink.string}">${item.newsLabel.string}</a>
                 </li>
             </c:forEach>
         </ul>

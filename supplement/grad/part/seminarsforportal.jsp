@@ -68,7 +68,7 @@
                 
                 <li class="vevent ${cleanClass}">
                     <span class="abbrStart floatLeft"><abbr title="${calendarStart}" class="dtstart">${seminarDate}</abbr></span>
-                    <span class="abbrEnd"><abbr title="${calendarEnd}" class="dtend"> &amp;ndash; &amp;#63;</abbr></span>
+                    <!-- <span class="abbrEnd"><abbr title="${calendarEnd}" class="dtend"> &amp;ndash; &amp;#63;</abbr></span> -->
                     <c:if test="${not empty talk.hostname.string}">
                         <p class="host floatRight"><a href="${seminarHostLink}">${fn:trim(firstName)}&amp;nbsp;${lastName}</a></p>
                     </c:if>

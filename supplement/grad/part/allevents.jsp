@@ -13,7 +13,7 @@
 </jsp:scriptlet>
 
 <sparql:sparql>
-  <sparql:select model="${applicationScope.jenaOntModel}" var="rs" now="${now}">
+  <sparql:select model="${applicationScope.jenaOntModel}" var="rs" now="${now}" through='"2008-04-24T13:26:51.363-04:00"'>
 
 
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -38,12 +38,7 @@ vivo:hasAssociated
 vivo:AcademicInitiativeHasOtherParticipantAcademicEmployeeAsFieldMember
 ?person .
 
-?person
-vivo:holdFacultyAppointmentIn
-?sponsor .
-
-OPTIONAL { ?person vivo:CornellAcademicStaffOtherParticipantInOrganizedEndeavor ?sponsor }
-OPTIONAL { ?person vivo:CornellFacultyMemberInOrganizedEndeavor ?sponsor }
+{ ?person vivo:holdFacultyAppointmentIn ?sponsor } UNION { ?person vivo:CornellFacultyMemberInOrganizedEndeavor ?sponsor }
 
 ?sponsor
 vivo:OrganizedEndeavorSponsorOfAssociatedEnumeratedSet 
@@ -64,32 +59,28 @@ rdfs:label ?eventName .
 
     OPTIONAL { ?event vivo:eventHeldInFacility ?location . ?location rdfs:label ?locationName }
 
-FILTER( xsd:dateTime("2008-04-09T13:26:51.363-04:00") > ?sunrise  && xsd:dateTime("2008-04-09T13:26:51.363-04:00") < ?timekey )
+FILTER( xsd:dateTime(?now) > ?sunrise  && xsd:dateTime(?now) < ?timekey && xsd:dateTime(?through) > ?timekey )
 }
-ORDER BY ?group ?timekey
+ORDER BY ?groupName ?timekey
 LIMIT 200
-
-
     </sparql:select>
     
-    <style type="text/css">
-        td { border: 1px solid #555; padding: 5px;  }
-        table { width: 100%; border-collapse: collapse; }    
-    </style>
-    
-        <table>
+        <table summary="Upcoming events and seminars related to graduate studies in Life Sciences at Cornell, organized by area of study">
+            <caption>Upcoming Events and Seminars</caption>
             <thead>
                 <tr>
-                    <th>Grouping</th>
-                    <th>Date</th>
-                    <th>Title</th>
-                    <th>Location</th>
-                    <th>Host</th>
-                    <th>Blurb</th>
+                    <th scope="col">Grouping</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Location</th>
+                    <th scope="col">Host</th>
+                    <th scope="col">Blurb</th>
                 </tr>
             </thead>
             <tbody>
-                
+            
+            <c:set var="sectionStriping" value="odd"/>
+            
             <c:forEach  items="${rs.rows}" var="talk" begin="0" varStatus="status">
                 <fmt:parseDate parseLocale="en_US" var="seminarTimekey" value="${talk.timekey.string}" pattern="yyyy-MM-dd'T'HH:mm:ss" />
                 <fmt:formatDate var="seminarDate" value="${seminarTimekey}" pattern="EEEE', 'MMM'. 'd" />
@@ -100,10 +91,20 @@ LIMIT 200
                 <c:url var="seminarHostLink" value="/entity"><c:param name="uri" value="${talk.host}"/></c:url>
                 <c:set var="firstName" value="${fn:substringAfter(talk.hostName.string,',')}"/>
                 <c:set var="lastName" value="${fn:substringBefore(talk.hostName.string,',')}"/>
-
-                <c:set var="cleanClass"><c:if test="${status.count eq 2}">clean</c:if></c:set>
                 
-                <c:if test="${talk.group != prevGroup}"></tbody><tbody></c:if>
+                <c:if test="${talk.group != prevGroup}">
+                <c:choose>
+                    <c:when test="${sectionStriping eq 'odd'}"><c:set var="sectionStriping" value="even"/></c:when>
+                    <c:when test="${sectionStriping eq 'even'}"><c:set var="sectionStriping" value="odd"/></c:when>
+                </c:choose>
+                </tbody>
+                <thead>
+                    <tr>
+                    <th>${talk.groupLabel.string}</th>
+                    </tr>
+                </thead>
+                <tbody class="${sectionStriping}">
+                </c:if>
                 
                 <tr>
                     <td>${talk.groupName.string}</td>
@@ -116,6 +117,8 @@ LIMIT 200
                 </tr>
                 
                 <c:set var="prevGroup" value="${talk.group}"/>
+                
+
             </c:forEach>
             
             </tbody>

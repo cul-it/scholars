@@ -74,7 +74,7 @@
                 </sparql:select>
 
                     <%-- Add a noscript to explain email address hiding --%>
-                    <table cellspacing="0">
+                    <table cellspacing="0" summary="A list of all faculty members involved in graduate work in Life Sciences at Cornell.">
                         <thead>
                           <tr>
                               <th>Name</th>

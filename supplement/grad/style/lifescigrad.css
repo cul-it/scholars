@@ -405,6 +405,10 @@ sidebar roll call
     background: #efecca;
 }
 
+#news {
+    padding-right: 0;
+}
+
 #search, #seminars {
     margin-top: 20px;
 }
@@ -429,10 +433,6 @@ sidebar roll call
 #search h2 {
     color: #fff;
 }
-/*
-#departments h2 {
-    color: #a7a37e;
-}*/
 
 #seminars span.abbrStart {
     font-size: 1.2em;
@@ -448,6 +448,7 @@ sidebar roll call
     clear:both;
     font-size: 1em;
     line-height: 1.4em;
+    margin: 0;
 }
 
 #seminars span.abbrEnd, #seminars p.location, #seminars p.description {
@@ -522,9 +523,14 @@ h4 {
 image roll call
 ****************************************************************/
 #news ul li img {
-    width: 110px;
+/*    width: 100%;*/
+    max-height: 128px;
+    max-width: 128px;
+    width: auto !important; 
+    width: 128px; /* Giving IE6 and below a fixed width since they doesn't accept maximums */
     display: block;
-    margin-bottom: 7px;
+    margin: 0 auto;
+    margin-bottom: 5px;
     border: 1px solid #c9c7a9;
 }
 
@@ -590,22 +596,25 @@ ul.fields li a {
     color: #69bfde;
 }
 
-#sidebar a.moreLink {
+#sidebar span.moreLink {
     clear: both;
     display: block;
     text-align: right;
     font-weight: bold;
     font-size: 1.2em;
-    text-decoration: none;
 }
 
-#sidebar a:link.moreLink, #sidebar a:visited.moreLink {
+#news span.moreLink {
+    margin-right: 10px;
+}
+
+#sidebar span.moreLink a:link, #sidebar span.moreLink a:visited {
     font-weight: bold;
     color: #b9121b;
     border-bottom: 0;
 }
 
-#sidebar a:hover.moreLink, #sidebar a:active.moreLink {
+#sidebar span.moreLink a:hover, #sidebar span.moreLink a:active {
     color: red;
     border-bottom: 0;
     font-weight: bold;
@@ -620,7 +629,11 @@ span.toggleLink {
     font-weight: bold;
     font-size: 1.1em;
     color: #EAE8C7;
-    background: url(../images/layout/expander.gif) no-repeat left center;
+    background: url(../images/icons/expander-plus.gif) no-repeat left center;
+}
+
+span.toggled {
+    background: url(../images/icons/expander-minus.gif) no-repeat left center;
 }
 
 span.toggleLink:hover {
@@ -702,8 +715,8 @@ body#fields #content li, body#fields #sidebar li {
 #news li {
     float: left;
     display: block;
-    width: 110px;
-    padding-right: 20px;
+    width: 129px;
+    margin-right: 10px;
     font-size: 1.1em;
 }
 

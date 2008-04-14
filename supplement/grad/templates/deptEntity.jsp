@@ -22,7 +22,7 @@
 <c:set var='deptHeadPropUri' value='http://vivo.library.cornell.edu/ns/0.1#OrganizedEndeavorHasLeadParticipantPerson' scope="page"/>
 <c:set var='locationPropUri' value='http://vivo.library.cornell.edu/ns/0.1#OrganizedEndeavorLocatedInFacility' scope="page"/>
 <c:set var='sponsorsSeriesPropUri' value='http://vivo.library.cornell.edu/ns/0.1#OrganizedEndeavorSponsorOfAssociatedEnumeratedSet' scope="page"/>
-<c:set var='facultyMembersPropUri' value='http://vivo.library.cornell.edu/ns/0.1#OrganizedEndeavorHasCornellFacultyMember' scope="page"/>
+<c:set var='facultyMembersPropUri' value='http://vivo.library.cornell.edu/ns/0.1#hasAppointedFaculty' scope="page"/>
 <c:set var='hasCoursePropUri' value='' scope="page"/>
 
 <c:set var='imageDir' value='images' scope="page"/>
@@ -44,9 +44,15 @@
         
 </div>
 
+<%-- TEMPORARY FIX UNTIL CONCENTRATIONS ARE PERMANENTLY EXTRACTED --%>
+<c:set var="parsedDescription" value="${entity.description}"/>
+<c:if test="${fn:contains(entity.description, 'Concentrations')}">
+    <c:set var="parsedDescription" value="${fn:substringBefore(entity.description, 'Concentrations')}"/>
+</c:if>
+
 <div id="deptDescription">
     <h2>Department of <span class="sectionLabel">${entity.name}</span></h2>
-    <div class="description">${entity.description}</div>
+    <div class="description">${parsedDescription}</div>
 </div><!-- deptDescription -->
 
 <div class="wrapper">
@@ -104,12 +110,15 @@
                   SELECT DISTINCT ?fieldUri ?fieldLabel
                   WHERE
                   {
-                  ?person vivo:CornellFacultyMemberInOrganizedEndeavor ?dept .
+                  ?person vivo:holdFacultyAppointmentIn ?dept .
 
                   ?person vivo:AcademicEmployeeOtherParticipantAsFieldMemberInAcademicInitiative ?fieldUri .
 
                   ?fieldUri rdf:type vivo:GraduateField .
-
+                  
+                  ?group vivo:hasAssociated ?fieldUri ;
+                  rdf:type vivo:fieldCluster .
+                  
                   OPTIONAL { ?fieldUri rdfs:label ?fieldLabel }
                   }
                   ORDER BY ?fieldLabel

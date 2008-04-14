@@ -75,7 +75,9 @@
     <div id="fieldFaculty">
             <h3>Faculty</h3>     
             
+            <%--Set the estimated size of the Overview list--%>
             <c:set var="counter">${counter + itemCount.index + 2}</c:set>
+            
             <c:set var="facultyTotal" value='${fn:length(entity.objectPropertyMap[facultyMembersPropUri].objectPropertyStatements)}' />
             
             <%--This calculates ideal column lengths based on total items--%>
@@ -87,6 +89,7 @@
                 <c:otherwise><%--For uneven columns--%>
                     <c:set var="colSize" value="${(facultyTotal div 3) + 1}" />
                     <fmt:parseNumber var="facultyColumnSize" value="${colSize}" type="number" integerOnly="true" />
+                    <c:if test="${facultyColumnSize == 1}"><c:set var="facultyColumnSize" value="2"/></c:if>
                 </c:otherwise>
             </c:choose>
             
@@ -95,7 +98,7 @@
             
             <%--Prevent orphaned items--%>
             <c:if test="${(facultyTotal - facultyColumnSize) eq 1}"><c:set var="facultyColumnSize" value="${facultyColumnSize + 1}"/></c:if>
-    
+            
             <ul class="facultyList">
                 <span class="colOne">
                     <c:forEach items='${entity.objectPropertyMap[facultyMembersPropUri].objectPropertyStatements}' var="Faculty" varStatus="facultyCount" begin="0" end="${facultyColumnSize - 1}">
@@ -140,7 +143,7 @@
 </div><!-- wrapper -->
 
 <div class="wrapper">
-    <h3>Research Areas</h3>
+
         <sparql:sparql>
             <listsparql:select model="${applicationScope.jenaOntModel}" var="researchResults" field="<${param.uri}>">
                 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -183,6 +186,8 @@
             <c:set var="researchColumnSize" value="${researchColumnSize + 1}"/>
         </c:if> --%>
 
+<c:if test="${researchTotal gt 0}">
+    <h3>Research Areas</h3>
         <ul class="researchAreaList">
                 <span class="colOne">
                     <c:forEach items='${researchResults}' var="Research" varStatus="researchCount" begin="0" end="${researchColumnSize - 1}">
@@ -234,7 +239,7 @@
                 </span>
             </c:if>
         </ul>
-
+</c:if>
         <%-- <ul>
             <c:forEach  items="${researchResults}" var="area" varStatus="itemCount" begin="0" end="${researchColumnSize - 1}">
                 <li><c:url var="href" value="/entity"><c:param name="uri" value="${area['areaUri']}"/></c:url><a href="${href}" title="">${area['areaLabel'].string}</a></li>
