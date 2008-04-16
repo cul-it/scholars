@@ -14,7 +14,7 @@
     <c:set var="showCuratorEdits" value="true"/>
 </c:if>
 <c:set var='entity' value='${requestScope.entity}'/><%/* just moving this into page scope for easy use */ %>
-<c:set var='entityPropsListJsp' value='/entityPropList'/>
+<c:set var='dashboardPropsListJsp' value='/dashboardPropList'/>
 <c:set var='portal' value='${currentPortalId}'/>
 <c:set var='portalBean' value='${currentPortal}'/>
 <c:set var='imageDir' value='images' />
@@ -49,6 +49,9 @@
         </c:if>
     </ul>
     <c:if test="${showCuratorEdits}">
-        <jsp:include page="../../../edit/dashboardPropsList.jsp" flush="true"/>
+        <!-- jsp:include page="../../../edit/dashboardPropsList.jsp" flush="true"/ -->
+        <c:import url="${dashboardPropsListJsp}">
+        	<c:param name="keywords">visible</c:param>
+        </c:import>
     </c:if>
 </div>
