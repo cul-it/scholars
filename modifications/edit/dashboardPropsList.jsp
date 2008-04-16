@@ -50,9 +50,11 @@ if (loginHandler!=null && loginHandler.getLoginStatus()=="authenticated" && Inte
 		<ul id="dashboardNavigation">
 <%		for (Property p : mergedList) {
     		String groupName="unspecified";
-    		PropertyGroup pg = pgDao.getGroupByURI(p.getGroupURI());
+String localName="unspecified";
     		if (p.getGroupURI()!=null) {
+    		        PropertyGroup pg = pgDao.getGroupByURI(p.getGroupURI());
 		    	groupName=pg.getName();
+	localName = pg.getLocalName();
     		}
 		    if (!groupName.equals(lastGroupName)) {
 		    	lastGroupName=groupName;
@@ -66,7 +68,7 @@ if (loginHandler!=null && loginHandler.getLoginStatus()=="authenticated" && Inte
 <%			}%>
 			<edLnk:editLinks item="<%=p %>" var="links" />
 			<c:if test="${!empty links}">
-	            <li class="dashboardProperty"><a href="#<%=pg.getLocalName()%>"><%=p.getEditLabel()%></a>
+	            <li class="dashboardProperty"><a href="#<%=localName%>"><%=p.getEditLabel()%></a>
 <%				if (showCuratorEdits) {
 	    			if (p instanceof ObjectProperty) {
 					    ObjectProperty op = (ObjectProperty)p;%>
