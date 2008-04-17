@@ -32,24 +32,16 @@
 <%! 
 public static Log log = LogFactory.getLog("edu.cornell.mannlib.vitro.webapp.jsp.templates.entity.entityMergedPropsList.jsp");
 %>
-<%  boolean showSelfEdits=false;
-    boolean showCuratorEdits=false;
-    if( VitroRequestPrep.isSelfEditing(request) ) {
-        showSelfEdits=true;
-        log.debug("setting showSelfEdits true");
-    }
+<%  if( VitroRequestPrep.isSelfEditing(request) ) {
+        log.debug("setting showSelfEdits true");%>
+        <c:set var="showSelfEdits" value="${true}"/>
+        <c:set var='themeDir'><c:out value='${portalBean.themeDir}' default='themes/editdefault/'/></c:set>
+<%  }
     if (loginHandler!=null && loginHandler.getLoginStatus()=="authenticated" && Integer.parseInt(loginHandler.getLoginRole())>=loginHandler.getEditor()) {
-	    showCuratorEdits=true;
-	    log.debug("setting showCuratorEdits true");
-    }%>
-    <c:choose>
-    	<c:when test="${showSelfEdits}">
-    		<c:set var='themeDir'><c:out value='${portalBean.themeDir}' default='themes/editdefault/'/></c:set>
-        </c:when>
-    	<c:otherwise>
-        	<c:set var='themeDir'><c:out value='${portalBean.themeDir}' default='themes/vivo/'/></c:set>
-        </c:otherwise>
-    </c:choose>
+	    log.debug("setting showCuratorEdits true");%>
+	    <c:set var="showCuratorEdits" value="${true}"/>
+	    <c:set var='themeDir'><c:out value='${portalBean.themeDir}' default='themes/vivo/'/></c:set>
+<%  }%>
     <c:set var='entity' value='${requestScope.entity}'/><%-- just moving this into page scope for easy use --%>
     <c:set var='portal' value='${requestScope.portalBean}'/><%-- likewise --%>
     <c:set var="hiddenDivCount" value="0"/>
@@ -58,6 +50,7 @@ public static Log log = LogFactory.getLog("edu.cornell.mannlib.vitro.webapp.jsp.
     	throw new Error("Subject individual must be in request scope for dashboardPropsList.jsp");
 	}
 
+	// Nick wants not to use explicit parameters to trigger visibility of a div, but for now we don't just want to always show the 1st one
 	String openingGroupLocalName = (String) request.getParameter("curgroup");
     VitroRequest vreq = new VitroRequest(request);
     WebappDaoFactory wdf = vreq.getWebappDaoFactory();
@@ -80,166 +73,177 @@ public static Log log = LogFactory.getLog("edu.cornell.mannlib.vitro.webapp.jsp.
 		for (PropertyGroup g : groupsList) {%>
 			<div class="propsCategory" id="<%=g.getLocalName()%>">
 			<h2><%=g.getName()%></h2>
-<%			for (Property p : g.getPropertyList()) {
-				request.setAttribute("prop",p);%>
-				<h3><%=p.getEditLabel()%></h3>
-<%				if (showSelfEdits || showCuratorEdits) { %>
-			        <c:url var="editProp" value="edit/editRequestDispatch.jsp">
-			            <c:param name="subjectUri" value="${entity.URI}"/>
-			            <c:param name="predicateUri" value="${prop.URI}"/>
-			            <c:param name="defaultForm" value="false"/>
-			        </c:url>
-        			<a class="add image" href="${editProp}" title="add new"><img src="${themeDir}site_icons/add_new.gif" alt="(add new)" /></a>
-<%				}
-				int counter = 0;
-				if (p instanceof ObjectProperty) {
-    				ObjectProperty op = (ObjectProperty)p;
-    		    	int displayLimit = op.isSubjectSide() ? op.getDomainDisplayLimit() : op.getRangeDisplayLimit();
-    		    	List<ObjectPropertyStatement> objPropStmtsList = op.getObjectPropertyStatements();
-					if (objPropStmtsList != null ) {
-				    	if (objPropStmtsList.size()-displayLimit==1) {
-				    		displayLimit += 1;
-						}
-						if (displayLimit>0) { %>
-							<ul class="properties">
-<%							for (ObjectPropertyStatement ops : objPropStmtsList) {
-	    						request.setAttribute("objPropertyStmt",ops);
-	    						request.setAttribute("displayLimit",displayLimit);
-	    						if ( counter==displayLimit ) {
-	    							if (displayLimit>0) {%>
-	    								</ul>
-<%									}%>
-	    		                	<c:set var="hiddenDivCount" value="${hiddenDivCount+1}"/>
-	                            	<div style="color: black; cursor: pointer;" onclick="javascript:switchGroupDisplay('type${hiddenDivCount}','typeSw${hiddenDivCount}','${themeDir}site_icons')" title="click to toggle additional entities on or off" class="navlinkblock" onmouseover="onMouseOverHeading(this)" onmouseout="onMouseOutHeading(this)">                                                           
-	                    				<span class="entityMoreSpan"><img src="<c:url value="${themeDir}site_icons/plus.gif"/>" id="typeSw${hiddenDivCount}" alt="more links"/> <c:out value='${fn:length(prop.objectPropertyStatements) - counter}' /> 
-	                                	<c:choose>
-	                                    	<c:when test='${displayLimit==0}'> entries </c:when>
-	                                    	<c:otherwise> more </c:otherwise>
-	                                	</c:choose>
-	                                	</span>
-	                            	</div>
-	            					<div id="type${hiddenDivCount}" style="display: none;">                                   
-	                				<ul class="propertyLinks">
-<%								}%>
-	       						<li>
-	            				<c:url var="propertyLink" value="entity">
-	                				<c:param name="home" value="${portal}"/>
-	                				<c:param name="uri" value="${objPropertyStmt.object.URI}"/>
-	            				</c:url>
-	            				<c:forEach items="${objPropertyStmt.object.VClasses}" var="type">
-	            					<c:if test="${'http://vivo.library.cornell.edu/ns/0.1#EducationalBackground'==type.URI}">
-	            						<c:set var="altRenderInclude" value="true"/>
-	            					</c:if>
-	            				</c:forEach> 
-	            				<c:choose>
-				            		<c:when test="${altRenderInclude}">
-										<c:set var="gradyear" value="${objPropertyStmt.object.dataPropertyMap['http://vivo.library.cornell.edu/ns/0.1#yearDegreeAwarded'].dataPropertyStatements[0].data}"/>
-										<c:set var="degree" value="${objPropertyStmt.object.dataPropertyMap['http://vivo.library.cornell.edu/ns/0.1#preferredDegreeAbbreviation'].dataPropertyStatements[0].data}"/>
-										<c:set var="institution" value="${objPropertyStmt.object.dataPropertyMap['http://vivo.library.cornell.edu/ns/0.1#institutionAwardingDegree'].dataPropertyStatements[0].data}"/>
-										<c:set var="major" value="${objPropertyStmt.object.dataPropertyMap['http://vivo.library.cornell.edu/ns/0.1#majorFieldOfDegree'].dataPropertyStatements[0].data}"/>
-										<c:out value="${gradyear} : ${degree}, ${institution}, ${major}"/>
-				            			<c:set var="altRenderInclude" value="false"/>
-				    				</c:when>
-				            		<c:otherwise>
-				            			<a class="propertyLink" href='<c:out value="${propertyLink}"/>'><c:out value="${objPropertyStmt.object.name}"/></a> <c:if test="${showPropEdits != true}">| </c:if>
-				            			<c:choose>
-				                			<c:when test="${!empty objPropertyStmt.object.moniker}">
-				                        		<c:out value="${objPropertyStmt.object.moniker}"/>
-				                			</c:when>
-				                			<c:otherwise>
-				                       		<c:out value="${objPropertyStmt.object.VClass.name}"/>
-				                			</c:otherwise>
-				            			</c:choose>
-									</c:otherwise>
-	            				</c:choose>
-	
-<%								if (showSelfEdits || showCuratorEdits) {%>
-				            		<c:url var="edit" value="edit/editRequestDispatch.jsp">
-				                		<c:param name="subjectUri" value="${entity.URI}"/>
-				                		<c:param name="predicateUri" value="${prop.URI}"/>
-				                		<c:param name="objectUri" value="${objPropertyStmt.object.URI}"/>
-				            		</c:url>
-				            		<a class="edit image" href="${edit}" title="edit"><img src="${themeDir}site_icons/pencil.gif" alt="(edit)" /></a>
-				            		<c:url var="delete" value="edit/editRequestDispatch.jsp">
-				                		<c:param name="subjectUri" value="${entity.URI}"/>
-				                		<c:param name="predicateUri" value="${prop.URI}"/>
-				                		<c:param name="objectUri" value="${objPropertyStmt.object.URI}"/>
-				                		<c:param name="cmd" value="delete"/>
-				            		</c:url>
-				            		<a class="delete image" href="${delete}" title="delete"><img src="${themeDir}site_icons/trashcan.gif" alt="(delete)" /></a>
-<%								} %>
-	        					</li>					
-<%							} // end for %>
-							</ul><!-- class="properties" -->
-<%						} // end if displayLimit > 0
-					} // end if getObjectPropertyStatements() != null
-				} else if (p instanceof DataProperty) {
-    				DataProperty dp = (DataProperty)p;
-    				request.setAttribute("dataprop",dp);
-    				int displayLimit = dp.getDisplayLimit();
-    				int dataRows=0;
-    				List<DataPropertyStatement> dataPropStmtsList = dp.getDataPropertyStatements();
-    				if (dataPropStmtsList != null) {
-    			    	dataRows = dataPropStmtsList.size();
-    			    	if ((dataRows - displayLimit)==1) {
-    			    		displayLimit += 1;
-    					}
-    			    	displayLimit= (displayLimit<0) ? 20 : displayLimit;%>
-    			    	<div class="datatypeProperties">
-<%    			    	if (dataRows>1 && displayLimit>0) { %>
-							<ul class='datatypePropertyValue'>
-<%            			}
-						if (dataRows==1) { %>
-							<div class='datatypePropertyValue'>
-<%            			}
-						for (DataPropertyStatement dps : dataPropStmtsList) {
-    						//request.setAttribute("dataPropertyStmt",dps);
-    						request.setAttribute("displayLimit",displayLimit);
-    						if ( counter==displayLimit ) {
-    							if (dataRows>1 && displayLimit>0) {%>
-    								</ul>
-<%								} %>
-                 				<div style="color: black; cursor: pointer;" onclick="javascript:switchGroupDisplay('type${dataprop.URI}','typeSw${dataprop.URI}','${themeDir}site_icons')"
-                        			title="click to toggle additional entities on or off" class="navlinkblock" onmouseover="onMouseOverHeading(this)"
-                        			onmouseout="onMouseOutHeading(this)">                                   
-                        			<span class="entityMoreSpan"><img src="${themeDir}site_icons/plus.gif" id="typeSw${dataprop.URI}" alt="more links"/> <c:out value='${fn:length(dataprop.dataPropertyStatements) - counter}' />
-                        				<c:choose>
-                            				<c:when test='${displayLimit==0}'> entries </c:when>
-                            				<c:otherwise> more </c:otherwise>
-                        				</c:choose>
-                        			</span>
-                				</div>
-                				<div id="type${dataprop.URI}" style="display: none;">                     
-                				<ul class="datatypePropertyDataList">
-<%    						}
-           					counter += 1;
-           					if (dataRows == 1 ) { %>
-                      			<%=dps.getData()%>
-<%							} else { %>
-                    			<li>${dataPropertyStmt.data}</li>
-<%							}
-							if ( showSelfEdits || showCuratorEdits ) {
-								int requestHash = RdfLiteralHash.makeRdfLiteralHash(dps); %>
-                				<c:url var="edit" value="edit/editDatapropStmtRequestDispatch.jsp">
-                    				<c:param name="subjectUri" value="${entity.URI}"/>
-                    				<c:param name="predicateUri" value="${dataprop.URI}"/>
-                    				<c:param name="datapropKey" value="<%=String.valueOf(requestHash)%>"/>
-                				</c:url>
-                				<a class="edit image" href="${edit}" title="edit"> <img src="${themeDir}site_icons/pencil.gif" alt="(edit)" /></a>
-          
-                				<c:url var="delete" value="edit/editDatapropStmtRequestDispatch.jsp">
-                    				<c:param name="subjectUri" value="${entity.URI}"/>
-                    				<c:param name="predicateUri" value="${dataprop.URI}"/>
-                    				<c:param name="datapropKey" value="<%=String.valueOf(requestHash)%>"/>
-                    				<c:param name="cmd" value="delete"/>
-               					</c:url>
-                				<a class="delete image" href="${delete}" title="delete"> <img src="${themeDir}site_icons/trashcan.gif" alt="(delete)" /></a>
-                				<c:remove var="datapropStmt" scope="request"/>
-<%							} // end if (showSelfEdits ...
-						} // end for %>
-						</div><!-- class="datatypeProperties" -->
-<%					} // end if dp.getDataPropertyStatements() != null
-				} else { // keyword property -- ignore
+<%			for (Property p : g.getPropertyList()) {%>
+    			<c:set var="counter" value="0"/>
+<%				if (p instanceof ObjectProperty) {
+    				ObjectProperty op = (ObjectProperty)p;%>
+    				<c:set var="objProp" value="<%=op%>"/>
+				    <c:set var="styleStr" value="display:block"/>
+				    <c:if test="${fn:length(objProp.objectPropertyStatements)==0}"><c:set var="styleStr" value="display.none"/></c:if>
+					<div id="${objProp.localName}" style="${styleStr}">
+					<h3>${objProp.editLabel}</h3>
+				    <c:if test="${showSelfEdits || showCuratorEdits}">
+				        <c:url var="editProp" value="edit/editRequestDispatch.jsp">
+				            <c:param name="subjectUri" value="${entity.URI}"/>
+				            <c:param name="predicateUri" value="${objProp.URI}"/>
+				            <c:param name="defaultForm" value="false"/>
+				        </c:url>
+	        			<a class="add image" href="${editProp}" title="add new"><img src="${themeDir}site_icons/add_new.gif" alt="(add new)" /></a>
+	        		</c:if>
+    				<c:set var="displayLimit" value="${objProp.domainDisplayLimit}"/>
+    				<c:if test="${fn:length(objProp.objectPropertyStatements)-displayLimit==1}"><c:set var="displayLimit" value="${displayLimit+1}"/></c:if>
+					<ul class="properties">
+					<c:forEach items="${objProp.objectPropertyStatements}" var="objPropertyStmt">
+						<c:if test="${counter == displayLimit}"><!-- set up toggle div and expandable continuation div -->
+    						</ul>
+    		                <c:set var="hiddenDivCount" value="${hiddenDivCount+1}"/>
+                            <div style="color: black; cursor: pointer;" onclick="javascript:switchGroupDisplay('type${hiddenDivCount}','typeSw${hiddenDivCount}','${themeDir}site_icons')" title="click to toggle additional entities on or off" class="navlinkblock" onmouseover="onMouseOverHeading(this)" onmouseout="onMouseOutHeading(this)">                                                           
+                    			<span class="entityMoreSpan"><img src="<c:url value="${themeDir}site_icons/plus.gif"/>" id="typeSw${hiddenDivCount}" alt="more links"/> <c:out value='${fn:length(prop.objectPropertyStatements) - counter}' /> 
+                                <c:choose>
+                                    <c:when test='${displayLimit==0}'> entries </c:when>
+                                    <c:otherwise> more </c:otherwise>
+                                </c:choose>
+                                </span>
+                            </div>
+            				<div id="type${hiddenDivCount}" style="display: none;">                                   
+                			<ul class="propertyLinks">
+						</c:if>
+       					<li>
+            			<c:url var="propertyLink" value="entity">
+                			<c:param name="home" value="${portal}"/>
+                			<c:param name="uri" value="${objPropertyStmt.object.URI}"/>
+            			</c:url>
+            			<c:forEach items="${objPropertyStmt.object.VClasses}" var="type">
+            				<c:if test="${'http://vivo.library.cornell.edu/ns/0.1#EducationalBackground'==type.URI}">
+            					<c:set var="altRenderInclude" value="true"/>
+            				</c:if>
+            			</c:forEach> 
+            			<c:choose>
+			            	<c:when test="${altRenderInclude}">
+								<c:set var="gradyear" value="${objPropertyStmt.object.dataPropertyMap['http://vivo.library.cornell.edu/ns/0.1#yearDegreeAwarded'].dataPropertyStatements[0].data}"/>
+								<c:set var="degree" value="${objPropertyStmt.object.dataPropertyMap['http://vivo.library.cornell.edu/ns/0.1#preferredDegreeAbbreviation'].dataPropertyStatements[0].data}"/>
+								<c:set var="institution" value="${objPropertyStmt.object.dataPropertyMap['http://vivo.library.cornell.edu/ns/0.1#institutionAwardingDegree'].dataPropertyStatements[0].data}"/>
+								<c:set var="major" value="${objPropertyStmt.object.dataPropertyMap['http://vivo.library.cornell.edu/ns/0.1#majorFieldOfDegree'].dataPropertyStatements[0].data}"/>
+								<c:out value="${gradyear} : ${degree}, ${institution}, ${major}"/>
+			            		<c:set var="altRenderInclude" value="false"/>
+			    			</c:when>
+			            	<c:otherwise>
+			            		<a class="propertyLink" href='<c:out value="${propertyLink}"/>'><c:out value="${objPropertyStmt.object.name}"/></a> <c:if test="${showPropEdits != true}">| </c:if>
+			            		<c:choose>
+			                		<c:when test="${!empty objPropertyStmt.object.moniker}">
+			                        	<c:out value="${objPropertyStmt.object.moniker}"/>
+			                		</c:when>
+			                		<c:otherwise>
+			                       	<c:out value="${objPropertyStmt.object.VClass.name}"/>
+			                		</c:otherwise>
+			            		</c:choose>
+							</c:otherwise>
+            			</c:choose>
+
+						<c:if test="${showSelfEdits || showCuratorEdits}">
+			            	<c:url var="edit" value="edit/editRequestDispatch.jsp">
+			                	<c:param name="subjectUri" value="${entity.URI}"/>
+			                	<c:param name="predicateUri" value="${objProp.URI}"/>
+			                	<c:param name="objectUri" value="${objPropertyStmt.object.URI}"/>
+			            	</c:url>
+			            	<a class="edit image" href="${edit}" title="edit"><img src="${themeDir}site_icons/pencil.gif" alt="(edit)" /></a>
+			            	<c:url var="delete" value="edit/editRequestDispatch.jsp">
+			                	<c:param name="subjectUri" value="${entity.URI}"/>
+			                	<c:param name="predicateUri" value="${objProp.URI}"/>
+			                	<c:param name="objectUri" value="${objPropertyStmt.object.URI}"/>
+			                	<c:param name="cmd" value="delete"/>
+			            	</c:url>
+			            	<a class="delete image" href="${delete}" title="delete"><img src="${themeDir}site_icons/trashcan.gif" alt="(delete)" /></a>
+						</c:if>
+        				</li>
+						<c:set var="counter" value="${counter+1}"/>
+					</c:forEach>
+					</ul>
+   					<c:if test="${counter gt displayLimit}">
+       					</div>
+   					</c:if>
+<%				} else if (p instanceof DataProperty) {
+    				DataProperty dp = (DataProperty)p;%>
+    				<c:set var="dataProp" value="<%=dp%>"/>
+   			    	<c:set var="dataRows" value="${fn:length(dataProp.dataPropertyStatements)}"/>
+				    <c:set var="styleStr" value="display:block"/>
+				    <c:if test="${dataRows==0}"><c:set var="styleStr" value="display.none"/></c:if>
+					<div id="${dataProp.localName}" style="${styleStr}">
+					<h3>${dataProp.editLabel}</h3>
+				    <c:if test="${showSelfEdits || showCuratorEdits}">
+				        <c:url var="editProp" value="edit/editRequestDispatch.jsp">
+				            <c:param name="subjectUri" value="${entity.URI}"/>
+				            <c:param name="predicateUri" value="${dataProp.URI}"/>
+				            <c:param name="defaultForm" value="false"/>
+				        </c:url>
+	        			<a class="add image" href="${editProp}" title="add new"><img src="${themeDir}site_icons/add_new.gif" alt="(add new)" /></a>
+	        		</c:if>
+					<c:set var="displayLimit" value="${dataProp.displayLimit}"/>
+					<c:if test="${fn:length(dataProp.dataPropertyStatements)-displayLimit==1}"><c:set var="displayLimit" value="${displayLimit+1}"/></c:if>
+					<c:if test="${displayLimit < 0}"><c:set var="displayLimit" value="20"/></c:if>
+   			    	<div class="datatypeProperties">
+   			    	<c:if test="${dataRows > 1 && displayLimit < 0}">
+						<ul class='datatypePropertyValue'>
+					</c:if>
+					<c:if test="${dataRows == 1}">
+						<div class='datatypePropertyValue'>
+					</c:if>
+					<c:forEach items="${dataProp.dataPropertyStatements}" var="dataPropertyStmt">
+						<c:if test="${counter == displayLimit}">
+    						<c:if test="${dataRows > 1 && displayLimit < 0}">
+    							</ul>
+							</c:if>
+                			<div style="color: black; cursor: pointer;" onclick="javascript:switchGroupDisplay('type${dataProp.URI}','typeSw${dataProp.URI}','${themeDir}site_icons')"
+                       			title="click to toggle additional entities on or off" class="navlinkblock" onmouseover="onMouseOverHeading(this)"
+                       			onmouseout="onMouseOutHeading(this)">                                   
+                       			<span class="entityMoreSpan"><img src="${themeDir}site_icons/plus.gif" id="typeSw${dataProp.URI}" alt="more links"/> <c:out value='${fn:length(dataProp.dataPropertyStatements) - counter}' />
+                       				<c:choose>
+                           				<c:when test='${displayLimit==0}'> entries </c:when>
+                           				<c:otherwise> more </c:otherwise>
+                       				</c:choose>
+                       			</span>
+               				</div>
+               				<div id="type${dataProp.URI}" style="display: none;">                     
+               				<ul class="datatypePropertyDataList">
+						</c:if>
+			            <c:set var="counter" value="${counter+1}"/>
+			            <c:choose>
+			                <c:when test='${dataRows==1}'>
+			                      ${dataPropertyStmt.data}
+			                </c:when>
+			                <c:otherwise>
+			                    <li>${dataPropertyStmt.data}</li>
+			                </c:otherwise>
+			            </c:choose>
+			            <c:if test="${showPropEdits || showCuratorEdits}">
+			            	<c:set var="dataStmt" scope="request" value="${dataPropertyStmt}"/>
+<%							DataPropertyStatement dps=(DataPropertyStatement)request.getAttribute("dataStmt");
+                			if (dps==null) {
+                    			log.warn("DataPropertyStatement passed via request attribute from JSTL to Java is null in entityDatapropsList");
+                			}
+                			if (dps.getData()==null) {
+                    			log.warn("DataPropertyStatement.getData() returns null in entityDatapropsList");
+                			}
+                			int requestHash = RdfLiteralHash.makeRdfLiteralHash(dps);%>
+               				<c:url var="edit" value="edit/editDatapropStmtRequestDispatch.jsp">
+                   				<c:param name="subjectUri" value="${entity.URI}"/>
+                   				<c:param name="predicateUri" value="${dataProp.URI}"/>
+                   				<c:param name="datapropKey" value="<%=String.valueOf(requestHash)%>"/>
+               				</c:url>
+               				<a class="edit image" href="${edit}" title="edit"> <img src="${themeDir}site_icons/pencil.gif" alt="(edit)" /></a>
+         
+               				<c:url var="delete" value="edit/editDatapropStmtRequestDispatch.jsp">
+                   				<c:param name="subjectUri" value="${entity.URI}"/>
+                   				<c:param name="predicateUri" value="${dataProp.URI}"/>
+                   				<c:param name="datapropKey" value="<%=String.valueOf(requestHash)%>"/>
+                   				<c:param name="cmd" value="delete"/>
+              					</c:url>
+               				<a class="delete image" href="${delete}" title="delete"> <img src="${themeDir}site_icons/trashcan.gif" alt="(delete)" /></a>
+							<c:remove var="dataStmt" scope="request"/>
+						</c:if>
+						</div>
+					</c:forEach>
+<%				} else { // keyword property -- ignore
 				    if (p instanceof KeywordProperty) {%>
 						<p>Not expecting keyword properties here.</p>
 <%					} else {

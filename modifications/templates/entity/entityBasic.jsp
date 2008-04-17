@@ -129,8 +129,8 @@ if (VitroRequestPrep.isSelfEditing(request) || LoginFormBean.loggedIn(request, L
                 		<c:import url="${entityMergedPropsListJsp}"/>
                 	</c:otherwise>
                 </c:choose>
-
-
+				<p/>
+				<p>-------------- end of merged properties and start of traditional rendering for comparison purposes ---------------</p>
 
                 <% /* CALS Impact portal wants data properties first */ %>
                 <c:choose>

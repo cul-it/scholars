@@ -50,11 +50,12 @@ if (loginHandler!=null && loginHandler.getLoginStatus()=="authenticated" && Inte
 		<ul id="dashboardNavigation">
 <%		for (Property p : mergedList) {
     		String groupName="unspecified";
-String localName="unspecified";
+			String propertyLocalName = p.getLocalName() == null ? "unspecified" : p.getLocalName();
     		if (p.getGroupURI()!=null) {
-    		        PropertyGroup pg = pgDao.getGroupByURI(p.getGroupURI());
-		    	groupName=pg.getName();
-	localName = pg.getLocalName();
+    		    PropertyGroup pg = pgDao.getGroupByURI(p.getGroupURI());
+    		    if (pg != null) {
+		    		groupName=pg.getName();
+    		    }
     		}
 		    if (!groupName.equals(lastGroupName)) {
 		    	lastGroupName=groupName;
@@ -66,10 +67,11 @@ String localName="unspecified";
 		    	<h2><%=groupName%></h2>
 		    	<ul class="dashboardCategories">
 <%			}%>
+			<!-- edLnk:editLinks item="<%=p %>" var="links" / -->
 			<edLnk:editLinks item="<%=p %>" var="links" />
 			<c:if test="${!empty links}">
-	            <li class="dashboardProperty"><a href="#<%=localName%>"><%=p.getEditLabel()%></a>
-<%				if (showCuratorEdits) {
+	            <li class="dashboardProperty"><a href="#<%=propertyLocalName%>"><%=p.getEditLabel()%></a>
+<%				if (showCuratorEdits) { // just while we want to survey ranking en masse in prep for finding a rational order
 	    			if (p instanceof ObjectProperty) {
 					    ObjectProperty op = (ObjectProperty)p;%>
 					    (o<%=p.isSubjectSide() ? op.getDomainDisplayTier() : op.getRangeDisplayTier()%>)
