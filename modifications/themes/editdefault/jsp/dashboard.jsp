@@ -15,6 +15,7 @@
 <c:set var='imageDir' value='images' />
 <c:set var='entity' value='${requestScope.entity}'/><%-- just moving this into page scope for easy use --%>
 <c:set var='portal' value='${requestScope.portalBean}'/><%-- likewise --%>
+<c:set var='dashboardPropsListJsp' value='/dashboardPropList'/>
 <div id="dashboard"><p>Hello, ${entity.name}</p>
     <c:if test="${!empty entity.imageThumb}">
         <c:if test="${!empty entity.imageFile}">
@@ -25,5 +26,9 @@
         <img src="<c:out value="${imageSrc}"/>" alt=""/>
         <c:if test="${!empty entity.imageFile}"></a></c:if>
     </c:if>
-<jsp:include page="../../../edit/dashboardPropsList.jsp" flush="true"/>
+    <c:if test="${showSelfEdits || showCuratorEdits}">
+        <c:import url="${dashboardPropsListJsp}">
+        	<c:param name="keywords">visible</c:param>
+        </c:import>
+    </c:if>
 </div>
