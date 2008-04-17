@@ -130,7 +130,7 @@ if (VitroRequestPrep.isSelfEditing(request) || LoginFormBean.loggedIn(request, L
                 	</c:otherwise>
                 </c:choose>
 				<p/>
-				<p>-------------- end of merged properties and start of traditional rendering for comparison purposes ---------------</p>
+				<p>----------------- start of traditional property rendering for comparison purposes -----------------</p>
 
                 <% /* CALS Impact portal wants data properties first */ %>
                 <c:choose>
@@ -144,6 +144,8 @@ if (VitroRequestPrep.isSelfEditing(request) || LoginFormBean.loggedIn(request, L
                         <jsp:include page="/${entityDatapropsListJsp}"/> <% /*here we import the datatype properties for the entity */ %>
                     </c:otherwise>
                 </c:choose>
+                
+                <p>-------------- end of traditional property rendering and resumption of remainder of page ---------------</p>
                 
                 <div class='description'>
                   ${entity.blurb}
