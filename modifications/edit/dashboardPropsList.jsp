@@ -67,7 +67,6 @@ if (loginHandler!=null && loginHandler.getLoginStatus()=="authenticated" && Inte
 		    	<h2><%=groupName%></h2>
 		    	<ul class="dashboardCategories">
 <%			}%>
-			<!-- edLnk:editLinks item="<%=p %>" var="links" / -->
 			<edLnk:editLinks item="<%=p %>" var="links" />
 			<c:if test="${!empty links}">
 	            <li class="dashboardProperty"><a href="#<%=propertyLocalName%>"><%=p.getEditLabel()%></a>

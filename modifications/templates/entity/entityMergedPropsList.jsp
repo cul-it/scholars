@@ -62,7 +62,7 @@ public static Log log = LogFactory.getLog("edu.cornell.mannlib.vitro.webapp.jsp.
 			if (openingGroupLocalName == null || openingGroupLocalName.equals("")) {
 				openingGroupLocalName = pg.getLocalName();
 			}
-			String styleStr = pg.getStatementCount()==0 ? "display: none;" : "display: block;";
+			String styleStr = pg.getStatementCount()==0 ? "display: inline;" : "display: inline;";
 			if (openingGroupLocalName.equals(pg.getLocalName())) {%>
       		    <li style="<%=styleStr%>"><a id="currentCat" href="#<%=pg.getLocalName()%>" title="<%=pg.getName()%>"><%=pg.getName()%></a></li>
 <%			} else { %>
@@ -74,7 +74,7 @@ public static Log log = LogFactory.getLog("edu.cornell.mannlib.vitro.webapp.jsp.
 		for (PropertyGroup g : groupsList) {%>
 			<c:set var="group" value="<%=g%>"/>
 			<c:set var="groupStyle" value="display: block;"/>
-			<c:if test="${group.statementCount==0}"><c:set var="groupStyle" value="display: none"/></c:if>
+			<c:if test="${group.statementCount==0}"><c:set var="groupStyle" value="display: block"/></c:if>
 			<div class="propsCategory" id="<%=g.getLocalName()%>" style="${groupStyle}">
 				<h2><%=g.getName()%></h2>
 <%				for (Property p : g.getPropertyList()) {%>
@@ -83,16 +83,11 @@ public static Log log = LogFactory.getLog("edu.cornell.mannlib.vitro.webapp.jsp.
     					ObjectProperty op = (ObjectProperty)p;%>
     					<c:set var="objProp" value="<%=op%>"/>
 				    	<c:set var="objStyle" value="display: block;"/>
-				    	<c:if test="${fn:length(objProp.objectPropertyStatements)==0}"><c:set var="objStyle" value="display: none;"/></c:if>
+				    	<c:if test="${fn:length(objProp.objectPropertyStatements)==0}"><c:set var="objStyle" value="display: block;"/></c:if>
 						<div id="${objProp.localName}" style="${objStyle}">
 							<h3>${objProp.editLabel}</h3>
 				    		<c:if test="${showSelfEdits || showCuratorEdits}">
-				        		<c:url var="editProp" value="edit/editRequestDispatch.jsp">
-				            		<c:param name="subjectUri" value="${entity.URI}"/>
-				            		<c:param name="predicateUri" value="${objProp.URI}"/>
-				            		<c:param name="defaultForm" value="false"/>
-				        		</c:url>
-	        					<a class="add image" href="${editProp}" title="add new"><img src="${themeDir}site_icons/add_new.gif" alt="(add new)" /></a>
+				    			<edLnk:editLinks item="${objProp}"/>
 	        				</c:if>
     						<c:set var="displayLimit" value="${objProp.domainDisplayLimit}"/>
     						<c:if test="${fn:length(objProp.objectPropertyStatements)-displayLimit==1}"><c:set var="displayLimit" value="${displayLimit+1}"/></c:if>
@@ -145,25 +140,13 @@ public static Log log = LogFactory.getLog("edu.cornell.mannlib.vitro.webapp.jsp.
 			            			</c:choose>
 	
 									<c:if test="${showSelfEdits || showCuratorEdits}">
-						            	<c:url var="edit" value="edit/editRequestDispatch.jsp">
-						                	<c:param name="subjectUri" value="${entity.URI}"/>
-						                	<c:param name="predicateUri" value="${objProp.URI}"/>
-						                	<c:param name="objectUri" value="${objPropertyStmt.object.URI}"/>
-						            	</c:url>
-						            	<a class="edit image" href="${edit}" title="edit"><img src="${themeDir}site_icons/pencil.gif" alt="(edit)" /></a>
-						            	<c:url var="delete" value="edit/editRequestDispatch.jsp">
-						                	<c:param name="subjectUri" value="${entity.URI}"/>
-						                	<c:param name="predicateUri" value="${objProp.URI}"/>
-						                	<c:param name="objectUri" value="${objPropertyStmt.object.URI}"/>
-						                	<c:param name="cmd" value="delete"/>
-						            	</c:url>
-						            	<a class="delete image" href="${delete}" title="delete"><img src="${themeDir}site_icons/trashcan.gif" alt="(delete)" /></a>
+										<edLnk:editLinks item="${objPropertyStmt}"/>
 									</c:if>
         						</li>
 								<c:set var="counter" value="${counter+1}"/>
 							</c:forEach>
 							</ul>
-   							<c:if test="${counter gt displayLimit}">
+   							<c:if test="${counter > displayLimit}">
        							</div>
    							</c:if>
    						</div>
@@ -172,16 +155,11 @@ public static Log log = LogFactory.getLog("edu.cornell.mannlib.vitro.webapp.jsp.
 	    				<c:set var="dataProp" value="<%=dp%>"/>
 	   			    	<c:set var="dataRows" value="${fn:length(dataProp.dataPropertyStatements)}"/>
 					    <c:set var="dataStyle" value="display: block;"/>
-					    <c:if test="${dataRows==0}"><c:set var="dataStyle" value="display: none;"/></c:if>
+					    <c:if test="${dataRows==0}"><c:set var="dataStyle" value="display: block;"/></c:if>
 						<div id="${dataProp.localName}" style="${dataStyle}">
 							<h3>${dataProp.editLabel}</h3>
 					    	<c:if test="${showSelfEdits || showCuratorEdits}">
-					        	<c:url var="editProp" value="edit/editRequestDispatch.jsp">
-					            	<c:param name="subjectUri" value="${entity.URI}"/>
-					            	<c:param name="predicateUri" value="${dataProp.URI}"/>
-					            	<c:param name="defaultForm" value="false"/>
-					        	</c:url>
-		        				<a class="add image" href="${editProp}" title="add new"><img src="${themeDir}site_icons/add_new.gif" alt="(add new)" /></a>
+					    		<edLnk:editLinks item="${dataProp}"/>
 		        			</c:if>
 							<c:set var="displayLimit" value="${dataProp.displayLimit}"/>
 							<c:if test="${fn:length(dataProp.dataPropertyStatements)-displayLimit==1}"><c:set var="displayLimit" value="${displayLimit+1}"/></c:if>
@@ -217,30 +195,7 @@ public static Log log = LogFactory.getLog("edu.cornell.mannlib.vitro.webapp.jsp.
 				                		<c:otherwise><li>${dataPropertyStmt.data}</li></c:otherwise>
 				            		</c:choose>
 				            		<c:if test="${showPropEdits || showCuratorEdits}">
-				            			<c:set var="dataStmt" scope="request" value="${dataPropertyStmt}"/>
-<%										DataPropertyStatement dps=(DataPropertyStatement)request.getAttribute("dataStmt");
-	                					if (dps==null) {
-	                    					log.warn("DataPropertyStatement passed via request attribute from JSTL to Java is null in entityDatapropsList");
-	                					}
-	                					if (dps.getData()==null) {
-	                    					log.warn("DataPropertyStatement.getData() returns null in entityDatapropsList");
-	                					}
-	                					int requestHash = RdfLiteralHash.makeRdfLiteralHash(dps);%>
-	               						<c:url var="edit" value="edit/editDatapropStmtRequestDispatch.jsp">
-	                   						<c:param name="subjectUri" value="${entity.URI}"/>
-	                   						<c:param name="predicateUri" value="${dataProp.URI}"/>
-	                   						<c:param name="datapropKey" value="<%=String.valueOf(requestHash)%>"/>
-	               						</c:url>
-	               						<a class="edit image" href="${edit}" title="edit"> <img src="${themeDir}site_icons/pencil.gif" alt="(edit)" /></a>
-	         
-	               						<c:url var="delete" value="edit/editDatapropStmtRequestDispatch.jsp">
-	                   						<c:param name="subjectUri" value="${entity.URI}"/>
-	                   						<c:param name="predicateUri" value="${dataProp.URI}"/>
-	                   						<c:param name="datapropKey" value="<%=String.valueOf(requestHash)%>"/>
-	                   						<c:param name="cmd" value="delete"/>
-	              						</c:url>
-	               						<a class="delete image" href="${delete}" title="delete"> <img src="${themeDir}site_icons/trashcan.gif" alt="(delete)" /></a>
-										<c:remove var="dataStmt" scope="request"/>
+				            			<edLnk:editLinks item="${dataPropertyStmt}"/>
 									</c:if>
 	        						<c:choose>
 	        							<c:when test="${dataRows>1}"></ul></c:when>
