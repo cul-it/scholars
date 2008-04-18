@@ -87,7 +87,7 @@ public static Log log = LogFactory.getLog("edu.cornell.mannlib.vitro.webapp.jsp.
 						<div id="${objProp.localName}" style="${objStyle}">
 							<h3>${objProp.editLabel}</h3>
 				    		<c:if test="${showSelfEdits || showCuratorEdits}">
-				    			<edLnk:editLinks item="${objProp}"/>
+				    			<edLnk:editLinks item="${objProp}" icons="true" />                                                                
 	        				</c:if>
     						<c:set var="displayLimit" value="${objProp.domainDisplayLimit}"/>
     						<c:if test="${fn:length(objProp.objectPropertyStatements)-displayLimit==1}"><c:set var="displayLimit" value="${displayLimit+1}"/></c:if>
@@ -140,7 +140,7 @@ public static Log log = LogFactory.getLog("edu.cornell.mannlib.vitro.webapp.jsp.
 			            			</c:choose>
 	
 									<c:if test="${showSelfEdits || showCuratorEdits}">
-										<edLnk:editLinks item="${objPropertyStmt}"/>
+										<edLnk:editLinks item="${objPropertyStmt}" icons="true"/>
 									</c:if>
         						</li>
 								<c:set var="counter" value="${counter+1}"/>
@@ -159,7 +159,7 @@ public static Log log = LogFactory.getLog("edu.cornell.mannlib.vitro.webapp.jsp.
 						<div id="${dataProp.localName}" style="${dataStyle}">
 							<h3>${dataProp.editLabel}</h3>
 					    	<c:if test="${showSelfEdits || showCuratorEdits}">
-					    		<edLnk:editLinks item="${dataProp}"/>
+					    		<edLnk:editLinks item="${dataProp}" icons="true"/>
 		        			</c:if>
 							<c:set var="displayLimit" value="${dataProp.displayLimit}"/>
 							<c:if test="${fn:length(dataProp.dataPropertyStatements)-displayLimit==1}"><c:set var="displayLimit" value="${displayLimit+1}"/></c:if>
@@ -195,7 +195,7 @@ public static Log log = LogFactory.getLog("edu.cornell.mannlib.vitro.webapp.jsp.
 				                		<c:otherwise><li>${dataPropertyStmt.data}</li></c:otherwise>
 				            		</c:choose>
 				            		<c:if test="${showPropEdits || showCuratorEdits}">
-				            			<edLnk:editLinks item="${dataPropertyStmt}"/>
+				            			<edLnk:editLinks item="${dataPropertyStmt}" icons="true"/>
 									</c:if>
 	        						<c:choose>
 	        							<c:when test="${dataRows>1}"></ul></c:when>

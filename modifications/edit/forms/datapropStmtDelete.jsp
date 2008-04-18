@@ -44,12 +44,12 @@
     String dataValue=null;
    // DataPropertyStatement dps=EditConfiguration.findDataPropertyStatementViaHashcode(subject,predicateUri,dataHash);
      DataPropertyStatement dps= RdfLiteralHash.getDataPropertyStmtByHash(subject,dataHash);
-    if( log.isTraceEnabled() ){
-        log.trace("attempting to delete dataPropertyStatement: subjectURI <" + dps.getIndividualURI() +">");
-        log.trace( "predicateURI <" + dps.getDatapropURI() + ">");
-        log.trace( "literal \"" + dps.getData() + "\"" );
-        log.trace( "lang @" + (dps.getLanguage() == null ? "null" : dps.getLanguage()));
-        log.trace( "datatype ^^" + (dps.getDatatypeURI() == null ? "null" : dps.getDatatypeURI() ));       
+    if( log.isDebugEnabled() ){
+        log.debug("attempting to delete dataPropertyStatement: subjectURI <" + dps.getIndividualURI() +">");
+        log.debug( "predicateURI <" + dps.getDatapropURI() + ">");
+        log.debug( "literal \"" + dps.getData() + "\"" );
+        log.debug( "lang @" + (dps.getLanguage() == null ? "null" : dps.getLanguage()));
+        log.debug( "datatype ^^" + (dps.getDatatypeURI() == null ? "null" : dps.getDatatypeURI() ));       
     }
     if( dps.getIndividualURI() == null || dps.getIndividualURI().trim().length() == 0){
         log.debug("adding missing subjectURI to DataPropertyStatement" );
