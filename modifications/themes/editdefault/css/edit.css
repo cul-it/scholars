@@ -7,7 +7,7 @@
 /*
 Title:		Academic Profile screen styles
 Author:		mw542@cornell.edu
-Updated:	March 7, 2008
+Updated:	April 21, 2008
 */
 
 
@@ -37,10 +37,6 @@ body.formsEdit h2 { font-size: 1.7em; }
 div.thumbnail { display: none; padding: 14px; margin-top: 35px; } /* Hidden when editing */
 
 h3.propertyName { float: left; clear: left; color: #fff; background-color: #6a7f6b; font-size: 1.1em; font-weight: bold; text-transform: uppercase; padding: 3px 5px; margin-bottom: 0; }
-a:link.add, a:visited.add { float: left; margin: 25px 0 0 6px; }
-a:link.edit, a:visited.edit { margin-left: 10px; }
-li.property { color: #bbb; padding-top: 20px; }
-li.property a.edit { padding: 6px; } 
 
 ul.properties { padding: 8px 12px 5px 12px; margin:0; }
 ul.properties, div.thumbnail { background-color: #f2f0f0; }

@@ -18,7 +18,7 @@
 <c:set var='portal' value='${currentPortalId}'/>
 <c:set var='portalBean' value='${currentPortal}'/>
 <c:set var='imageDir' value='images' />
-<div id="dashboard">
+<div id="dashboard"<c:if test="${showCuratorEdits}"> class="loggedIn"</c:if>>
     <c:if test="${!empty entity.imageThumb}">
         <c:if test="${!empty entity.imageFile}">
             <c:url var="imageUrl" value="${imageDir}/${entity.imageFile}" />

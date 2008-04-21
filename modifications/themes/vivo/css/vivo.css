@@ -7,7 +7,7 @@
 /*
 Title:		VIVO screen styles
 Authors:	nac26@cornell.edu, mw542@cornell.edu
-Updated:	April 17, 2008
+Updated:	April 21, 2008
 */
 
 * {
@@ -272,7 +272,29 @@ a:hover.externalLink {
 }
 
 ul.properties {
-/*	clear: both;*/
+	clear: left;
+}
+
+a:link.add, a:visited.add {
+	float: left;
+	margin: 25px 0 0 6px;
+}
+
+a:link.edit, a:visited.edit {
+	margin-left: 10px;
+}
+
+li.property {
+	color: #bbb;
+	padding-top: 20px;
+}
+
+li.property a.edit {
+	padding: 6px;
+}
+
+.datatypePropertyValue {
+	clear: left;
 }
 
 ul.tabEntities {
@@ -369,7 +391,36 @@ select#search-form-qualifier {
 /****************************************************************
 dashboard roll call
 ****************************************************************/
+#dashboard.loggedIn {
+	border-left: 1px solid #e1e1e1;
+	text-align: left;
+	background-image: none;
+	background-position: top left;
+}
 
+#dashboard.loggedIn img {
+	display: block;
+	margin: 20px 0 16px 16px;
+	padding: 0;
+	width: 100px;
+	height: 100px;
+	border: 2px solid #e1e1e1;
+}
+
+#dashboard a:link, #dashboard a:visited { color: #4d5155; }
+#dashboard a:hover, #dashboard a:active { color: #f81; }
+
+ul#dashboardNavigation li h2 {
+	margin: 3px 0 0 0;
+	padding: 7px 8px 4px 8px;
+	font-size: 1.3em;
+	background: #f2f6f7;
+}
+
+ul#dashboardNavigation a { border: 0; }
+
+ul.dashboardCategories { padding: 4px 8px 12px 0; }
+ul.dashboardCategories li.dashboardProperty { list-style-type: disc; font-size: 1em; padding: 0; margin-left: 23px; }
 
 /****************************************************************
 footer roll call
@@ -482,10 +533,16 @@ h3 a:hover {
 
 h3.propertyName, .propsCategory h4 {
 	clear: left;
+	float: left;
 	margin: 30px 0 3px 0;
 	padding: 0;
 	font-size: 1.2em;
 	color: #000;
+}
+
+.propsCategory h3 {
+	clear: left;
+	float: left;
 }
 
 h3.centered {
