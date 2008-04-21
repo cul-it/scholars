@@ -79,22 +79,6 @@ if (VitroRequestPrep.isSelfEditing(request) || LoginFormBean.loggedIn(request, L
                 	</c:otherwise>
                 </c:choose>
                 <p/>
-                <p>----------------- start of traditional property rendering for comparison purposes -----------------</p>
-                
-                <% /* CALS Impact portal wants data properties first */ %>
-                <c:choose>
-                    <c:when test="${portalBean.appName eq 'CALS Impact'}">
-                        <jsp:include page="/${entityDatapropsListJsp}"/> <% /*here we import the datatype properties for th
-                        e entity */ %>
-                        <c:import url="${entityPropsListJsp}" />  <% /* here we import the properties for the entity */ %>
-                    </c:when>
-                    <c:otherwise>
-                        <c:import url="${entityPropsListJsp}" />  <% /* here we import the properties for the entity */ %>  
-                        <jsp:include page="/${entityDatapropsListJsp}"/> <% /*here we import the datatype properties for the entity */ %>
-                    </c:otherwise>
-                </c:choose>
-                
-                <p>-------------- end of traditional property rendering and resumption of remainder of page ---------------</p>
 
                 <div class='description'>
                   ${entity.blurb}

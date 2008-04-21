@@ -75,8 +75,9 @@ public static Log log = LogFactory.getLog("edu.cornell.mannlib.vitro.webapp.jsp.
 			<c:set var="group" value="<%=g%>"/>
 			<c:set var="groupStyle" value="display: block;"/>
 			<c:if test="${group.statementCount==0}"><c:set var="groupStyle" value="display: block"/></c:if>
-			<div class="propsCategory" id="<%=g.getLocalName()%>" style="${groupStyle}">
-				<h2><%=g.getName()%></h2>
+			
+			<div class="propsCategory" id="<%=g.getLocalName()%>">
+				<h3><%=g.getName()%></h3>
 <%				for (Property p : g.getPropertyList()) {%>
     				<c:set var="counter" value="0"/>
 <%					if (p instanceof ObjectProperty) {
@@ -85,7 +86,7 @@ public static Log log = LogFactory.getLog("edu.cornell.mannlib.vitro.webapp.jsp.
 				    	<c:set var="objStyle" value="display: block;"/>
 				    	<c:if test="${fn:length(objProp.objectPropertyStatements)==0}"><c:set var="objStyle" value="display: block;"/></c:if>
 						<div id="${objProp.localName}" style="${objStyle}">
-							<h3>${objProp.editLabel}</h3>
+							<h4>${objProp.editLabel}</h4>
 				    		<c:if test="${showSelfEdits || showCuratorEdits}">
 				    			<edLnk:editLinks item="${objProp}" icons="true" />                                                                
 	        				</c:if>
