@@ -84,24 +84,30 @@ public static Log log = LogFactory.getLog("edu.cornell.mannlib.vitro.webapp.jsp.
     					ObjectProperty op = (ObjectProperty)p;%>
     					<c:set var="objProp" value="<%=op%>"/>
 				    	<c:set var="objStyle" value="display: block;"/>
-				    	<c:if test="${fn:length(objProp.objectPropertyStatements)==0}"><c:set var="objStyle" value="display: block;"/></c:if>
+				    	<c:set var="objRows" value="${fn:length(objProp.objectPropertyStatements)}"/>
+				    	<c:if test="${objRows==0}"><c:set var="objStyle" value="display: block;"/></c:if>
 						<div id="${objProp.localName}" style="${objStyle}">
 							<h4>${objProp.editLabel}</h4>
 				    		<c:if test="${showSelfEdits || showCuratorEdits}">
 				    			<edLnk:editLinks item="${objProp}" icons="true" />                                                                
 	        				</c:if>
     						<c:set var="displayLimit" value="${objProp.domainDisplayLimit}"/>
-    						<c:if test="${fn:length(objProp.objectPropertyStatements)-displayLimit==1}"><c:set var="displayLimit" value="${displayLimit+1}"/></c:if>
-							<ul class="properties">
+    						<%-- don't hide just 1 more than display limit: --%>
+    						<c:if test="${objRows-displayLimit==1}"><c:set var="displayLimit" value="${displayLimit+1}"/></c:if>
+							<c:if test="${objRows>0 && displayLimit > 0}">
+        						<ul class='properties'>
+    						</c:if>
 							<c:forEach items="${objProp.objectPropertyStatements}" var="objPropertyStmt">
 								<c:if test="${counter == displayLimit}"><!-- set up toggle div and expandable continuation div -->
     								</ul>
     		                		<c:set var="hiddenDivCount" value="${hiddenDivCount+1}"/>
                             		<div style="color: black; cursor: pointer;" onclick="javascript:switchGroupDisplay('type${hiddenDivCount}','typeSw${hiddenDivCount}','${themeDir}site_icons')" title="click to toggle additional entities on or off" class="navlinkblock" onmouseover="onMouseOverHeading(this)" onmouseout="onMouseOutHeading(this)">                                                           
-                    					<span class="entityMoreSpan"><img src="<c:url value="${themeDir}site_icons/plus.gif"/>" id="typeSw${hiddenDivCount}" alt="more links"/> <c:out value='${fn:length(prop.objectPropertyStatements) - counter}' /> 
+                    					<span class="entityMoreSpan"><img src="<c:url value="${themeDir}site_icons/plus.gif"/>" id="typeSw${hiddenDivCount}" alt="more links"/> 
                                 		<c:choose>
-                                    		<c:when test='${displayLimit==0}'> entries </c:when>
-                                    		<c:otherwise> more </c:otherwise>
+                                    		<c:when test='${displayLimit==0}'>
+                                    			<c:out value='${objRows}' /> entries
+                                    		</c:when>
+                                    		<c:otherwise><c:out value='${objRows - counter}'/> more </c:otherwise>
                                 		</c:choose>
                                 		</span>
                             		</div>
@@ -146,7 +152,7 @@ public static Log log = LogFactory.getLog("edu.cornell.mannlib.vitro.webapp.jsp.
         						</li>
 								<c:set var="counter" value="${counter+1}"/>
 							</c:forEach>
-							</ul>
+							<c:if test="${objRows > 0 && displayLimit > 0}"></ul></c:if>
    							<c:if test="${counter > displayLimit}">
        							</div>
    							</c:if>
@@ -158,7 +164,7 @@ public static Log log = LogFactory.getLog("edu.cornell.mannlib.vitro.webapp.jsp.
 					    <c:set var="dataStyle" value="display: block;"/>
 					    <c:if test="${dataRows==0}"><c:set var="dataStyle" value="display: block;"/></c:if>
 						<div id="${dataProp.localName}" style="${dataStyle}">
-							<h3>${dataProp.editLabel}</h3>
+							<h4>${dataProp.editLabel}</h4>
 					    	<c:if test="${showSelfEdits || showCuratorEdits}">
 					    		<edLnk:editLinks item="${dataProp}" icons="true"/>
 		        			</c:if>
@@ -180,10 +186,14 @@ public static Log log = LogFactory.getLog("edu.cornell.mannlib.vitro.webapp.jsp.
 	                					<div style="color: black; cursor: pointer;" onclick="javascript:switchGroupDisplay('type${dataProp.URI}','typeSw${dataProp.URI}','${themeDir}site_icons')"
 	                       					title="click to toggle additional entities on or off" class="navlinkblock" onmouseover="onMouseOverHeading(this)"
 	                       					onmouseout="onMouseOutHeading(this)">                                   
-	                       					<span class="entityMoreSpan"><img src="${themeDir}site_icons/plus.gif" id="typeSw${dataProp.URI}" alt="more links"/> <c:out value='${fn:length(dataProp.dataPropertyStatements) - counter}' />
+	                       					<span class="entityMoreSpan"><img src="${themeDir}site_icons/plus.gif" id="typeSw${dataProp.URI}" alt="more links"/>
 	                       						<c:choose>
-	                           						<c:when test='${displayLimit==0}'> entries </c:when>
-	                           						<c:otherwise> more </c:otherwise>
+	                           						<c:when test='${displayLimit==0}'>
+	                           							<c:out value='${dataRows}' />entries
+	                           						</c:when>
+	                           						<c:otherwise> 
+	                           							<c:out value='${dataRows - counter}' />more
+	                           						</c:otherwise>
 	                       						</c:choose>
 	                       					</span>
 	               						</div>
