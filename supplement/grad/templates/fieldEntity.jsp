@@ -6,6 +6,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://mannlib.cornell.edu/vitro/ListSparqlTag/0.1/" prefix="listsparql" %>
+<%@ taglib uri="http://jakarta.apache.org/taglibs/string-1.1" prefix="str" %>
+<%@ taglib uri="http://jakarta.apache.org/taglibs/random-1.0" prefix="rand" %>
 
 <%@ page errorPage="/error.jsp"%>
 <%  /***********************************************
@@ -21,20 +23,153 @@
 
 <c:set var='departmentsPropUri' value='http://vivo.library.cornell.edu/ns/0.1#OrganizedEndeavorHasAffiliatedOrganizedEndeavor' scope="page"/>
 <c:set var='facultyMembersPropUri' value='http://vivo.library.cornell.edu/ns/0.1#AcademicInitiativeHasOtherParticipantAcademicEmployeeAsFieldMember' scope="page"/>
+<c:set var='researchFocusURI' value='http://vivo.library.cornell.edu/ns/0.1#researchFocus'/>
+<c:set var='imageDir' value='../images/' scope="page"/>
 
 <div id="fieldDescription">
-    <h2>Graduate field of <span class="sectionLabel">${entity.name}</span></h2>
+    <h2>Graduate Field of <span class="sectionLabel">${entity.name}</span></h2>
     <div class="description">${entity.description}</div>
 </div><!-- fieldDescription -->
+      
+<div id="fieldFaculty">
+        <h3>Meet our Faculty</h3>
+        
+        <%--Set the estimated size of the Overview list--%>
+        <c:set var="counter">${counter + itemCount.index + 2}</c:set>
+        
+        <c:set var="facultyTotal" value='${fn:length(entity.objectPropertyMap[facultyMembersPropUri].objectPropertyStatements)}' />
+        
+        <%--This calculates ideal column lengths based on total items--%>
+        <c:choose>
+            <c:when test="${(facultyTotal mod 2) == 0}"><%--For lists that will have even column lengths--%>
+                <c:set var="colSize" value="${(facultyTotal div 2)}" />
+                <fmt:parseNumber var="facultyColumnSize" value="${colSize}" type="number" integerOnly="true" />
+            </c:when>
+            <c:otherwise><%--For uneven columns--%>
+                <c:set var="colSize" value="${(facultyTotal div 2) + 1}" />
+                <fmt:parseNumber var="facultyColumnSize" value="${colSize}" type="number" integerOnly="true" />
+            </c:otherwise>
+        </c:choose>
+                
+        <ul>
+            <div class="colOne">
+                <c:forEach items='${entity.objectPropertyMap[facultyMembersPropUri].objectPropertyStatements}' var="Faculty" varStatus="facultyCount" begin="0" end="${facultyColumnSize - 1}">
+                <li>
+                    <c:choose>
+                        <c:when test="${!empty Faculty.object.imageThumb}">
+                            <img align="left" alt="" src="${imageDir}${Faculty.object.imageThumb}"/>
+                        </c:when>
+                        <c:otherwise>
+                            <img alt="" src="images/profile_missing.gif"/>
+                        </c:otherwise>
+                    </c:choose>
+                        <c:url var="href" value="/entity">
+                            <c:param name="uri" value="${Faculty.object.URI}"/>
+                        </c:url>
+                        <strong><a href="${href}" title="view profile in VIVO">${Faculty.object.name}</a></strong>
+                        <em>${Faculty.object.moniker}</em>
+                </li>
+                </c:forEach>
+            </div>
+        
+            <div class="colTwo">
+                <c:forEach items='${entity.objectPropertyMap[facultyMembersPropUri].objectPropertyStatements}' var="Faculty" begin="${facultyColumnSize}">
+                <li>
+                    <c:choose>
+                        <c:when test="${!empty Faculty.object.imageThumb}">
+                            <img align="left" alt="" src="${imageDir}${Faculty.object.imageThumb}"/>
+                        </c:when>
+                        <c:otherwise>
+                            <img alt="" src="images/profile_missing.gif"/>
+                        </c:otherwise>
+                    </c:choose>
 
-<div class="wrapper">
+                        <c:url var="href" value="/entity">
+                            <c:param name="uri" value="${Faculty.object.URI}"/>
+                        </c:url>
+                        <strong><a href="${href}" title="view profile in VIVO">${Faculty.object.name}</a></strong>
+                        <em>${Faculty.object.moniker}</em>
+
+                </li>
+                </c:forEach>
+            </div>    
+    
+        </ul>
+</div><!-- fieldFaculty -->
+
+</div> <!-- content -->
+
+<div id="sidebar">
+    
+<c:set var="randomPerson">
+    <rand:number id="random1" range="1-100"/>
+    <jsp:getProperty name="random1" property="random"/>
+</c:set>
+
+<fmt:parseNumber var="chosenFaculty" value="${(facultyTotal * (randomPerson/100) ) - 1}" integerOnly="true"/>
+
+<%-- Test that the random faculty member has a research focus --%>
+<c:forEach var="chosen" items="${entity.objectPropertyMap[facultyMembersPropUri].objectPropertyStatements}" begin="0" end="${facultyTotal}">
+    <c:if test="${empty entity.objectPropertyMap[facultyMembersPropUri].objectPropertyStatements[chosenFaculty].object.dataPropertyMap[researchFocusURI].dataPropertyStatements[0].data}">
+        <c:set var="randomPerson">
+            <rand:number id="random1" range="1-100"/>
+            <jsp:getProperty name="random1" property="random"/>
+        </c:set>
+        <fmt:parseNumber var="chosenFaculty" value="${(facultyTotal * (randomPerson/100) ) - 1}" integerOnly="true"/>
+    </c:if>
+</c:forEach>
+
+
+    <div id="facultySpotlight">
+        <h3>Faculty Spotlight</h3>        
+                
+                <c:set var="spotlight" value="${entity.objectPropertyMap[facultyMembersPropUri].objectPropertyStatements[chosenFaculty].object}"/>
+                
+                <c:url var="href" value="/entity"><c:param name="uri" value="${spotlight.URI}"/></c:url>
+                <c:url var="thumbSrc" value='${imageDir}${spotlight.imageThumb}'/>
+                <c:if test="${empty spotlight.imageThumb}"><c:url var="thumbSrc" value='images/profile_missing.gif'/></c:if>
+                <c:set var="firstName" value="${fn:substringAfter(spotlight.name,',')}"/>
+                <c:set var="lastName" value="${fn:substringBefore(spotlight.name,',')}"/>
+                
+                    <img alt="${lastName} photo" src="${thumbSrc}"/>
+                    <h4><a href="${href}" title="view profile in VIVO">${fn:trim(firstName)}&nbsp;${lastName}</a></h4>
+                    <em>${entity.objectPropertyMap[facultyMembersPropUri].objectPropertyStatements[chosenFaculty].object.moniker}</em>
+                    
+                    <c:set var="researchFocus" value="${spotlight.dataPropertyMap[researchFocusURI].dataPropertyStatements[0].data}"/>
+                    <c:set var="maxBlurbLength" value="500"/>
+                    <c:set var="blurbLength"> 1 <%-- <str:length>${researchFocus}</str:length> --%></c:set>
+                    
+                    <div class="blurb">
+                        <h5>Research Focus:</h5>
+                        <c:choose>
+                            <c:when test="${blurbLength ge (maxBlurbLength + 400)}">
+                                <str:chomp var="chomped" delimiter=" ">
+                                    <str:left count="${maxBlurbLength}">${researchFocus}</str:left>
+                                </str:chomp>
+                                <str:length var="chompLength">${chomped}</str:length>
+                                ${chomped}...
+                                <span style="" class="toggleLink">more</span>
+                                <div style="display: none;" class="readMore">
+                                    <str:substring start="${chompLength}">${researchFocus}</str:substring>
+                                </div>
+                            </c:when>
+                            <c:otherwise>
+                                ${researchFocus}
+                            </c:otherwise>
+                        </c:choose>
+                        
+                    </div>
+
+        
+    </div> <!-- facultyProfile -->
     
     <div id="fieldDepartments">
-        
+    
         <%-- Estimating size of Overview column --%>
         <c:set var="counter" value="0"/>
-    
+
         <h3>Departments</h3>
+        <p>Where faculty members in this field work</p>
             <sparql:sparql>
                 <sparql:select model="${applicationScope.jenaOntModel}" var="rs" field="<${param.uri}>">
                     PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -70,80 +205,15 @@
                     </ul>
             </sparql:sparql>
 
-    </div><!-- fieldDepartments -->     
-     
-    <div id="fieldFaculty">
-            <h3>Faculty</h3>     
-            
-            <%--Set the estimated size of the Overview list--%>
-            <c:set var="counter">${counter + itemCount.index + 2}</c:set>
-            
-            <c:set var="facultyTotal" value='${fn:length(entity.objectPropertyMap[facultyMembersPropUri].objectPropertyStatements)}' />
-            
-            <%--This calculates ideal column lengths based on total items--%>
-            <c:choose>
-                <c:when test="${(facultyTotal mod 3) == 0}"><%--For lists that will have even column lengths--%>
-                    <c:set var="colSize" value="${(facultyTotal div 3)}" />
-                    <fmt:parseNumber var="facultyColumnSize" value="${colSize}" type="number" integerOnly="true" />
-                </c:when>
-                <c:otherwise><%--For uneven columns--%>
-                    <c:set var="colSize" value="${(facultyTotal div 3) + 1}" />
-                    <fmt:parseNumber var="facultyColumnSize" value="${colSize}" type="number" integerOnly="true" />
-                    <c:if test="${facultyColumnSize == 1}"><c:set var="facultyColumnSize" value="2"/></c:if>
-                </c:otherwise>
-            </c:choose>
-            
-            <%--If the Overview list is longer than a single faculty column, change the column size--%>
-            <c:if test="${facultyColumnSize lt counter}"><c:set var="facultyColumnSize" value="${counter}"/></c:if>
-            
-            <%--Prevent orphaned items--%>
-            <c:if test="${(facultyTotal - facultyColumnSize) eq 1}"><c:set var="facultyColumnSize" value="${facultyColumnSize + 1}"/></c:if>
-            
-            <ul class="facultyList">
-                <span class="colOne">
-                    <c:forEach items='${entity.objectPropertyMap[facultyMembersPropUri].objectPropertyStatements}' var="Faculty" varStatus="facultyCount" begin="0" end="${facultyColumnSize - 1}">
-                        <li>
-                            <c:url var="href" value="/entity">
-                                <c:param name="uri" value="${Faculty.object.URI}"/>
-                            </c:url>
-                            <a href="${href}" title="view profile in VIVO">${Faculty.object.name}</a>
-                        </li>
-                    </c:forEach>
-                </span>
-            
-            <c:if test="${(facultyTotal-(facultyColumnSize-1)) gt 0}">
-                <span class="colTwo">
-                    <c:forEach items='${entity.objectPropertyMap[facultyMembersPropUri].objectPropertyStatements}' var="Faculty" begin="${facultyColumnSize}" end="${facultyColumnSize * 2 - 1}">
-                        <li>
-                            <c:url var="href" value="/entity">
-                                <c:param name="uri" value="${Faculty.object.URI}"/>
-                            </c:url>
-                            <a href="${href}" title="view profile in VIVO">${Faculty.object.name}</a>
-                        </li>
-                    </c:forEach>
-                </span>
-            </c:if>
-        
-            <c:if test="${(facultyTotal-(facultyColumnSize*2)) gt 0}">
-                <span class="colThree">
-                     <c:forEach items='${entity.objectPropertyMap[facultyMembersPropUri].objectPropertyStatements}' var="Faculty" varStatus="facultyCount" begin="${facultyColumnSize * 2 }">
-                        <li>
-                            <c:url var="href" value="/entity">
-                                <c:param name="uri" value="${Faculty.object.URI}"/>
-                            </c:url>
-                            <a href="${href}" title="view profile in VIVO">${Faculty.object.name}</a>
-                        </li>
-                    </c:forEach>
-                </span>
-            </c:if>
-            
-            </ul>
-    </div><!-- fieldFaculty -->
-    
-</div><!-- wrapper -->
+    </div><!-- fieldDepartments -->
 
-<div class="wrapper">
+</div> <!-- sidebar -->
 
+
+
+
+
+<div id="researchAreas">
         <sparql:sparql>
             <listsparql:select model="${applicationScope.jenaOntModel}" var="researchResults" field="<${param.uri}>">
                 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -240,13 +310,10 @@
             </c:if>
         </ul>
 </c:if>
-        <%-- <ul>
-            <c:forEach  items="${researchResults}" var="area" varStatus="itemCount" begin="0" end="${researchColumnSize - 1}">
-                <li><c:url var="href" value="/entity"><c:param name="uri" value="${area['areaUri']}"/></c:url><a href="${href}" title="">${area['areaLabel'].string}</a></li>
-            </c:forEach>
-        </ul> --%>
-        
-</div><!-- wrapper2 -->
+</div> <!-- researchAreas -->
+
+
+</div> <!-- researchAreas -->
 
 <%!
         private void dump(String name, Object fff){

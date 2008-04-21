@@ -29,7 +29,7 @@
             </c:otherwise>
         </c:choose>
       
-	</div> <!-- content -->
+        <!-- content closed in fieldEntity -->
 		
 		</div> <!-- contentWrap -->
 

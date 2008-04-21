@@ -75,10 +75,15 @@
     
     <script type="text/javascript">
         $(document).ready(function(){
-          $("span.toggleLink").click(function () {
+          $("body#departments span.toggleLink").click(function () {
             $("ul#moreProjects").slideToggle("medium");
             $(this).toggleClass("toggled");
              return false;
+         });
+        $("body#fields span.toggleLink").click(function () {
+            $("div.readMore").slideToggle("medium");
+            $(this).toggleClass("toggled");
+            return false;     
           });
         });
     </script>
@@ -109,7 +114,7 @@
 			<h1>Graduate Programs in the Life Sciences</h1>
 			<div id="navigation">
 				<ul>
-					<li><a <c:if test="${fn:contains(pageContext.request.servletPath, 'index.jsp')}">class="currentTab" </c:if>href="/vivo/grad" title="Home">Home</a></li>
+					<li><a <c:if test="${fn:contains(pageContext.request.servletPath, 'index.jsp')}">class="currentTab" </c:if>href="index.jsp" title="Home">Home</a></li>
 					<li><a <c:choose><c:when test="${fn:contains(pageContext.request.servletPath, 'gradfieldsIndex.jsp')}">class="currentTab"</c:when>
 					                    <c:when test="${fn:contains(pageContext.request.servletPath, 'groups.jsp')}">class="currentTab"</c:when>
 					                    <c:when test="${fn:contains(pageContext.request.servletPath, 'fields.jsp')}">class="currentTab"</c:when>
