@@ -403,12 +403,16 @@ dashboard roll call
 	margin: 20px 0 16px 16px;
 	padding: 0;
 	width: 100px;
-	height: 100px;
 	border: 2px solid #e1e1e1;
 }
 
-#dashboard a:link, #dashboard a:visited { color: #4d5155; }
-#dashboard a:hover, #dashboard a:active { color: #f81; }
+#dashboard a:link, #dashboard a:visited {
+	color: #4d5155;
+}
+
+#dashboard a:hover, #dashboard a:active {
+	color: #f81;
+}
 
 ul#dashboardNavigation li h2 {
 	margin: 3px 0 0 0;
@@ -417,7 +421,9 @@ ul#dashboardNavigation li h2 {
 	background: #f2f6f7;
 }
 
-ul#dashboardNavigation a { border: 0; }
+ul#dashboardNavigation a {
+	border: 0;
+}
 
 ul.dashboardCategories { padding: 4px 8px 12px 0; }
 ul.dashboardCategories li.dashboardProperty { list-style-type: disc; font-size: 1em; padding: 0; margin-left: 23px; }

@@ -83,7 +83,6 @@ p.caption a:link, p.caption a:visited { color: #50a882; border: 0; }
 #dashboard a:hover, #dashboard a:active { color: #8a4a8a; }
 
 ul#dashboardNavigation li h2 { font-size: 1.3em; background: #eaf0eb url(../site_icons/layout/bg-dashboardcat.gif) top left repeat-y; padding: 7px 8px 4px 8px; margin: 3px 0 0 0; } 
-ul#dashboardNavigation a { border: 0; }
 
 ul.dashboardCategories { padding: 4px 8px 12px 0; }
 ul.dashboardCategories li.dashboardProperty { list-style-type: disc; font-size: 1em; padding: 0; margin-left: 23px; }

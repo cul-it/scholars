@@ -31,7 +31,9 @@
 <!-- ********** START menu.jsp FROM /themes/vivo/jsp/ ************* -->
 <div id="header">
     <!-- ************************ Theme logo ********************** generated in menu.jsp **** -->
-    <c:url value="/edit/login.jsp" var="loginUrl"/>
+    <%-- <c:url value="/edit/login.jsp" var="loginUrl"/> --%>
+    <%-- nac26: 080422 - changed login url to handle temporary login via self editing for CAS demo --%>
+    <c:url value="/admin/temporaryLogin.jsp" var="loginUrl"/>
     <a class="image login" href="${loginUrl}" title="Edit Your Profile"><img src="themes/vivo/site_icons/login.gif" alt="Edit Your Profile" /></a>
     <a class="image vivoLogo" href="index.jsp?home=<%=portalId%>" title="Home"><img src="themes/vivo/site_icons/vivo_logo.gif" alt="VIVO: Virtual Life Sciences Library" /></a>
     <em class="portal"><%=portal.getShortHand()%></em>
