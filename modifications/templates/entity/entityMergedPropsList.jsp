@@ -83,80 +83,89 @@ public static Log log = LogFactory.getLog("edu.cornell.mannlib.vitro.webapp.jsp.
 <%					if (p instanceof ObjectProperty) {
     					ObjectProperty op = (ObjectProperty)p;%>
     					<c:set var="objProp" value="<%=op%>"/>
+    					<c:set var="editableInSomeWay" value="${false}"/>
+    					<c:if test="${showSelfEdits || showCuratorEdits}">
+				    		<edLnk:editLinks item="${objProp}" var="links" />
+				    		<c:if test="${!empty links}">
+				    			<c:set var="editableInSomeWay" value="${true}"/>
+				    		</c:if>                                                       
+	        			</c:if>
 				    	<c:set var="objStyle" value="display: block;"/>
 				    	<c:set var="objRows" value="${fn:length(objProp.objectPropertyStatements)}"/>
 				    	<c:if test="${objRows==0}"><c:set var="objStyle" value="display: block;"/></c:if>
-						<div id="${objProp.localName}" style="${objStyle}">
-							<h4>${objProp.editLabel}</h4>
-				    		<c:if test="${showSelfEdits || showCuratorEdits}">
-				    			<edLnk:editLinks item="${objProp}" icons="true" />                                                                
-	        				</c:if>
-    						<c:set var="displayLimit" value="${objProp.domainDisplayLimit}"/>
-    						<%-- don't hide just 1 more than display limit: --%>
-    						<c:if test="${objRows-displayLimit==1}"><c:set var="displayLimit" value="${displayLimit+1}"/></c:if>
-							<c:if test="${objRows>0 && displayLimit > 0}">
-        						<ul class='properties'>
-    						</c:if>
-							<c:forEach items="${objProp.objectPropertyStatements}" var="objPropertyStmt">
-								<c:if test="${counter == displayLimit}"><!-- set up toggle div and expandable continuation div -->
-    								</ul>
-    		                		<c:set var="hiddenDivCount" value="${hiddenDivCount+1}"/>
-                            		<div style="color: black; cursor: pointer;" onclick="javascript:switchGroupDisplay('type${hiddenDivCount}','typeSw${hiddenDivCount}','${themeDir}site_icons')" title="click to toggle additional entities on or off" class="navlinkblock" onmouseover="onMouseOverHeading(this)" onmouseout="onMouseOutHeading(this)">                                                           
-                    					<span class="entityMoreSpan"><img src="<c:url value="${themeDir}site_icons/plus.gif"/>" id="typeSw${hiddenDivCount}" alt="more links"/> 
-                                		<c:choose>
-                                    		<c:when test='${displayLimit==0}'>
-                                    			<c:out value='${objRows}' /> entries
-                                    		</c:when>
-                                    		<c:otherwise><c:out value='${objRows - counter}'/> more </c:otherwise>
-                                		</c:choose>
-                                		</span>
-                            		</div>
-            						<div id="type${hiddenDivCount}" style="display: none;">                                   
-                					<ul class="propertyLinks">
-								</c:if>
-       							<li>
-	            					<c:url var="propertyLink" value="entity">
-	                					<c:param name="home" value="${portal}"/>
-	                					<c:param name="uri" value="${objPropertyStmt.object.URI}"/>
-	            					</c:url>
-	            					<c:forEach items="${objPropertyStmt.object.VClasses}" var="type">
-	            						<c:if test="${'http://vivo.library.cornell.edu/ns/0.1#EducationalBackground'==type.URI}">
-	            							<c:set var="altRenderInclude" value="true"/>
-	            						</c:if>
-	            					</c:forEach> 
-	            					<c:choose>
-						            	<c:when test="${altRenderInclude}">
-											<c:set var="gradyear" value="${objPropertyStmt.object.dataPropertyMap['http://vivo.library.cornell.edu/ns/0.1#yearDegreeAwarded'].dataPropertyStatements[0].data}"/>
-											<c:set var="degree" value="${objPropertyStmt.object.dataPropertyMap['http://vivo.library.cornell.edu/ns/0.1#preferredDegreeAbbreviation'].dataPropertyStatements[0].data}"/>
-											<c:set var="institution" value="${objPropertyStmt.object.dataPropertyMap['http://vivo.library.cornell.edu/ns/0.1#institutionAwardingDegree'].dataPropertyStatements[0].data}"/>
-											<c:set var="major" value="${objPropertyStmt.object.dataPropertyMap['http://vivo.library.cornell.edu/ns/0.1#majorFieldOfDegree'].dataPropertyStatements[0].data}"/>
-											<c:out value="${gradyear} : ${degree}, ${institution}, ${major}"/>
-						            		<c:set var="altRenderInclude" value="false"/>
-						    			</c:when>
-						            	<c:otherwise>
-						            		<a class="propertyLink" href='<c:out value="${propertyLink}"/>'><c:out value="${objPropertyStmt.object.name}"/></a> <c:if test="${showPropEdits != true}">| </c:if>
-						            		<c:choose>
-						                		<c:when test="${!empty objPropertyStmt.object.moniker}">
-						                        	<c:out value="${objPropertyStmt.object.moniker}"/>
-						                		</c:when>
-						                		<c:otherwise>
-						                       	<c:out value="${objPropertyStmt.object.VClass.name}"/>
-						                		</c:otherwise>
-						            		</c:choose>
-										</c:otherwise>
-			            			</c:choose>
-	
-									<c:if test="${showSelfEdits || showCuratorEdits}">
-										<edLnk:editLinks item="${objPropertyStmt}" icons="true"/>
+				    	<c:if test="${editableInSomeWay || objRows>0}">
+							<div id="${objProp.localName}" style="${objStyle}">
+								<h4>${objProp.editLabel}</h4>
+					    		<c:if test="${showSelfEdits || showCuratorEdits}">
+					    			<edLnk:editLinks item="${objProp}" icons="true" />                                                                
+		        				</c:if>
+	    						<c:set var="displayLimit" value="${objProp.domainDisplayLimit}"/>
+	    						<%-- don't hide just 1 more than display limit: --%>
+	    						<c:if test="${objRows-displayLimit==1}"><c:set var="displayLimit" value="${displayLimit+1}"/></c:if>
+								<c:if test="${objRows>0 && displayLimit > 0}">
+	        						<ul class='properties'>
+	    						</c:if>
+								<c:forEach items="${objProp.objectPropertyStatements}" var="objPropertyStmt">
+									<c:if test="${counter == displayLimit}"><!-- set up toggle div and expandable continuation div -->
+	    								</ul>
+	    		                		<c:set var="hiddenDivCount" value="${hiddenDivCount+1}"/>
+	                            		<div style="color: black; cursor: pointer;" onclick="javascript:switchGroupDisplay('type${hiddenDivCount}','typeSw${hiddenDivCount}','${themeDir}site_icons')" title="click to toggle additional entities on or off" class="navlinkblock" onmouseover="onMouseOverHeading(this)" onmouseout="onMouseOutHeading(this)">                                                           
+	                    					<span class="entityMoreSpan"><img src="<c:url value="${themeDir}site_icons/plus.gif"/>" id="typeSw${hiddenDivCount}" alt="more links"/> 
+	                                		<c:choose>
+	                                    		<c:when test='${displayLimit==0}'>
+	                                    			<c:out value='${objRows}' /> entries
+	                                    		</c:when>
+	                                    		<c:otherwise><c:out value='${objRows - counter}'/> more </c:otherwise>
+	                                		</c:choose>
+	                                		</span>
+	                            		</div>
+	            						<div id="type${hiddenDivCount}" style="display: none;">                                   
+	                					<ul class="propertyLinks">
 									</c:if>
-        						</li>
-								<c:set var="counter" value="${counter+1}"/>
-							</c:forEach>
-							<c:if test="${objRows > 0 && displayLimit > 0}"></ul></c:if>
-   							<c:if test="${counter > displayLimit}">
-       							</div>
-   							</c:if>
-   						</div>
+	       							<li>
+		            					<c:url var="propertyLink" value="entity">
+		                					<c:param name="home" value="${portal}"/>
+		                					<c:param name="uri" value="${objPropertyStmt.object.URI}"/>
+		            					</c:url>
+		            					<c:forEach items="${objPropertyStmt.object.VClasses}" var="type">
+		            						<c:if test="${'http://vivo.library.cornell.edu/ns/0.1#EducationalBackground'==type.URI}">
+		            							<c:set var="altRenderInclude" value="true"/>
+		            						</c:if>
+		            					</c:forEach> 
+		            					<c:choose>
+							            	<c:when test="${altRenderInclude}">
+												<c:set var="gradyear" value="${objPropertyStmt.object.dataPropertyMap['http://vivo.library.cornell.edu/ns/0.1#yearDegreeAwarded'].dataPropertyStatements[0].data}"/>
+												<c:set var="degree" value="${objPropertyStmt.object.dataPropertyMap['http://vivo.library.cornell.edu/ns/0.1#preferredDegreeAbbreviation'].dataPropertyStatements[0].data}"/>
+												<c:set var="institution" value="${objPropertyStmt.object.dataPropertyMap['http://vivo.library.cornell.edu/ns/0.1#institutionAwardingDegree'].dataPropertyStatements[0].data}"/>
+												<c:set var="major" value="${objPropertyStmt.object.dataPropertyMap['http://vivo.library.cornell.edu/ns/0.1#majorFieldOfDegree'].dataPropertyStatements[0].data}"/>
+												<c:out value="${gradyear} : ${degree}, ${institution}, ${major}"/>
+							            		<c:set var="altRenderInclude" value="false"/>
+							    			</c:when>
+							            	<c:otherwise>
+							            		<a class="propertyLink" href='<c:out value="${propertyLink}"/>'><c:out value="${objPropertyStmt.object.name}"/></a> <c:if test="${showPropEdits != true}">| </c:if>
+							            		<c:choose>
+							                		<c:when test="${!empty objPropertyStmt.object.moniker}">
+							                        	<c:out value="${objPropertyStmt.object.moniker}"/>
+							                		</c:when>
+							                		<c:otherwise>
+							                       	<c:out value="${objPropertyStmt.object.VClass.name}"/>
+							                		</c:otherwise>
+							            		</c:choose>
+											</c:otherwise>
+				            			</c:choose>
+		
+										<c:if test="${showSelfEdits || showCuratorEdits}">
+											<edLnk:editLinks item="${objPropertyStmt}" icons="true"/>
+										</c:if>
+	        						</li>
+									<c:set var="counter" value="${counter+1}"/>
+								</c:forEach>
+								<c:if test="${objRows > 0 && displayLimit > 0}"></ul></c:if>
+	   							<c:if test="${counter > displayLimit}">
+	       							</div>
+	   							</c:if>
+	   						</div>
+	   					</c:if>
 <%					} else if (p instanceof DataProperty) {
 	    				DataProperty dp = (DataProperty)p;%>
 	    				<c:set var="dataProp" value="<%=dp%>"/>
