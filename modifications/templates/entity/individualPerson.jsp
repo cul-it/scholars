@@ -20,7 +20,7 @@ if (entity == null){
     throw new JspException(e);
 }
 
-if (VitroRequestPrep.isSelfEditing(request) || LoginFormBean.loggedIn(request, LoginFormBean.CURATOR)) {
+if (VitroRequestPrep.isSelfEditing(request)) { // || LoginFormBean.loggedIn(request, LoginFormBean.CURATOR)) {
     request.setAttribute("showSelfEdits",Boolean.TRUE );
 }
 %>
@@ -55,7 +55,7 @@ if (VitroRequestPrep.isSelfEditing(request) || LoginFormBean.loggedIn(request, L
     <jsp:include page="/${themeDir}jsp/dashboard.jsp" flush="true" />
 
     <div id="content" class="person">
-        <jsp:include page="entityAdmin.jsp"/>
+        <c:if test="${showCuratorEdits}"><jsp:include page="entityAdmin.jsp"/></c:if>
         
         <div class='contents entity'>
                 <h2>${entity.name}</h2> 
