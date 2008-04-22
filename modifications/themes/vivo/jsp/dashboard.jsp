@@ -50,8 +50,6 @@
     </ul>
     <c:if test="${showCuratorEdits}">
         <!-- jsp:include page="../../../edit/dashboardPropsList.jsp" flush="true"/ -->
-        <c:import url="${dashboardPropsListJsp}">
-        	<c:param name="keywords">visible</c:param>
-        </c:import>
+        <c:import url="${dashboardPropsListJsp}"></c:import>
     </c:if>
 </div>
