@@ -99,29 +99,14 @@ public static Log log = LogFactory.getLog("edu.cornell.mannlib.vitro.webapp.jsp.
 					    		<c:if test="${showSelfEdits || showCuratorEdits}">
 					    			<edLnk:editLinks item="${objProp}" icons="true" />                                                                
 		        				</c:if>
+	    						
 	    						<c:set var="displayLimit" value="${objProp.domainDisplayLimit}"/>
-	    						<%-- don't hide just 1 more than display limit: --%>
-	    						<c:if test="${objRows-displayLimit==1}"><c:set var="displayLimit" value="${displayLimit+1}"/></c:if>
-								<c:if test="${objRows>0 && displayLimit > 0}">
+
+								<c:if test="${objRows>0}">
 	        						<ul class='properties'>
 	    						</c:if>
 								<c:forEach items="${objProp.objectPropertyStatements}" var="objPropertyStmt">
-									<c:if test="${counter == displayLimit}"><!-- set up toggle div and expandable continuation div -->
-	    								</ul>
-	    		                		<c:set var="hiddenDivCount" value="${hiddenDivCount+1}"/>
-	                            		<div style="color: black; cursor: pointer;" onclick="javascript:switchGroupDisplay('type${hiddenDivCount}','typeSw${hiddenDivCount}','${themeDir}site_icons')" title="click to toggle additional entities on or off" class="navlinkblock" onmouseover="onMouseOverHeading(this)" onmouseout="onMouseOutHeading(this)">                                                           
-	                    					<span class="entityMoreSpan"><img src="<c:url value="${themeDir}site_icons/plus.gif"/>" id="typeSw${hiddenDivCount}" alt="more links"/> 
-	                                		<c:choose>
-	                                    		<c:when test='${displayLimit==0}'>
-	                                    			<c:out value='${objRows}' /> entries
-	                                    		</c:when>
-	                                    		<c:otherwise><c:out value='${objRows - counter}'/> more </c:otherwise>
-	                                		</c:choose>
-	                                		</span>
-	                            		</div>
-	            						<div id="type${hiddenDivCount}" style="display: none;">                                   
-	                					<ul class="propertyLinks">
-									</c:if>
+                           
 	       							<li>
 		            					<c:url var="propertyLink" value="entity">
 		                					<c:param name="home" value="${portal}"/>
@@ -160,11 +145,8 @@ public static Log log = LogFactory.getLog("edu.cornell.mannlib.vitro.webapp.jsp.
 	        						</li>
 									<c:set var="counter" value="${counter+1}"/>
 								</c:forEach>
-								<c:if test="${objRows > 0 && displayLimit > 0}"></ul></c:if>
-	   							<c:if test="${counter > displayLimit}">
-	       							</div>
-	   							</c:if>
-	   						</div>
+								<c:if test="${objRows > 0}"></ul></c:if>
+	   						</div><!-- ${objProp.localName} -->
 	   					</c:if>
 <%					} else if (p instanceof DataProperty) {
 	    				DataProperty dp = (DataProperty)p;%>
@@ -180,35 +162,19 @@ public static Log log = LogFactory.getLog("edu.cornell.mannlib.vitro.webapp.jsp.
 							<c:set var="displayLimit" value="${dataProp.displayLimit}"/>
 							<c:if test="${fn:length(dataProp.dataPropertyStatements)-displayLimit==1}"><c:set var="displayLimit" value="${displayLimit+1}"/></c:if>
 							<c:if test="${displayLimit < 0}"><c:set var="displayLimit" value="20"/></c:if>
+	   			    		
 	   			    		<div class="datatypeProperties">
-	   			    			<c:if test="${dataRows > 1 && displayLimit < 0}">
-									<ul class='datatypePropertyValue'>
+	   			    			
+	   			    			<c:if test="${dataRows > 1}">
+									<ul class="datatypePropertyValue">
 								</c:if>
 								<c:if test="${dataRows == 1}">
-									<div class='datatypePropertyValue'>
+									<div class="datatypePropertyValue">
 								</c:if>
+								
 								<c:forEach items="${dataProp.dataPropertyStatements}" var="dataPropertyStmt">
-									<c:if test="${counter == displayLimit}">
-	    								<c:if test="${dataRows > 1 && displayLimit < 0}">
-	    									</ul>
-										</c:if>
-	                					<div style="color: black; cursor: pointer;" onclick="javascript:switchGroupDisplay('type${dataProp.URI}','typeSw${dataProp.URI}','${themeDir}site_icons')"
-	                       					title="click to toggle additional entities on or off" class="navlinkblock" onmouseover="onMouseOverHeading(this)"
-	                       					onmouseout="onMouseOutHeading(this)">                                   
-	                       					<span class="entityMoreSpan"><img src="${themeDir}site_icons/plus.gif" id="typeSw${dataProp.URI}" alt="more links"/>
-	                       						<c:choose>
-	                           						<c:when test='${displayLimit==0}'>
-	                           							<c:out value='${dataRows}' />entries
-	                           						</c:when>
-	                           						<c:otherwise> 
-	                           							<c:out value='${dataRows - counter}' />more
-	                           						</c:otherwise>
-	                       						</c:choose>
-	                       					</span>
-	               						</div>
-	               						<div id="type${dataProp.URI}" style="display: none;">                     
-	               						<ul class="datatypePropertyDataList">
-									</c:if>
+	                					                        
+                                    <!-- <div id="type${dataProp.URI}" style="display: none;">  -->
 				            		<c:set var="counter" value="${counter+1}"/>
 				            		<c:choose>
 				                		<c:when test='${dataRows==1}'>${dataPropertyStmt.data}</c:when>
@@ -222,8 +188,10 @@ public static Log log = LogFactory.getLog("edu.cornell.mannlib.vitro.webapp.jsp.
 	        							<c:when test="${dataRows==1}"></div></c:when>
 	        						</c:choose>
 								</c:forEach>
-							</div>
-						</div>
+								
+                            </div><!-- datatypeProperties -->
+						</div><!-- ${dataProp.localName} -->
+						
 <%					} else { // keyword property -- ignore
 				    	if (p instanceof KeywordProperty) {%>
 							<p>Not expecting keyword properties here.</p>

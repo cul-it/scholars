@@ -280,8 +280,21 @@ a:link.add, a:visited.add {
 	margin: 25px 0 0 6px;
 }
 
-a:link.edit, a:visited.edit {
+a.add img {
+    margin-top: .5em;
+}
+
+a.edit img, a.delete img {
 	margin-left: 10px;
+	vertical-align: bottom;
+}
+
+a.edit img {
+	margin-right: -5px; /* tighten space between edit and delete icons */
+}
+
+div.datatypePropertyValue a.edit img {
+    margin-left: 0;  /* no margin for edit icon inside datatype property boxes */
 }
 
 li.property {

@@ -33,6 +33,13 @@
 <c:set var="portal" value="${requestScope.portalBean}"/>
 <c:set var="themeDir"><c:out value="${portal.themeDir}" default="themes/editdefault/"/></c:set>
 
+<!-- Temporarily importing these in /themes/editdefault/jsp/menu.jsp -->
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript">
+    <jsp:include page="../js/groupSwitcher.js"/>
+</script>
+
+
 <!-- ********** START menu.jsp FROM /themes/editdefault/jsp/ ************* -->
 <div id="header">
 	<!-- ************************ Theme logo ********************** generated in menu.jsp **** -->

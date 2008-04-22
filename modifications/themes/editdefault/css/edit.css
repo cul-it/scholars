@@ -38,12 +38,12 @@ div.thumbnail { display: none; padding: 14px; margin-top: 35px; } /* Hidden when
 
 h3.propertyName { float: left; clear: left; color: #fff; background-color: #6a7f6b; font-size: 1.1em; font-weight: bold; text-transform: uppercase; padding: 3px 5px; margin-bottom: 0; }
 
-ul.properties { padding: 8px 12px 5px 12px; margin:0; }
-ul.properties, div.thumbnail { background-color: #f2f0f0; }
+ul.properties, div.datatypePropertyValue { padding: 8px 12px 5px 12px; margin:0; background-color: #f2f0f0; }
 
 li.datatypeProperty { padding-top: 20px; }
 div#datatypeProperties ul, div#datatypeProperties div, ul.propertyLinks { padding: 6px 0 6px 12px; background-color: #f2f0f0; }
 /*div#datatypeProperties p { padding: 6px 0 6px 12px; }*/
+
 div#datatypeProperties div { clear: left; }
 div#datatypeProperties div ul { padding: 0; }
 div.indent { background-color: #f2f0f0; margin: 0; padding: 8px 12px 5px 12px; }
