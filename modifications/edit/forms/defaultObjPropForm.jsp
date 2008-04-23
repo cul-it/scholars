@@ -107,7 +107,7 @@
         </c:url>
     </c:if>
     <v:input type="editKey" id="editKey"/>
-    <v:input type="select" id="objectVar" size="80" label="<%=rangeClass.getName()%>" />
+    <v:input type="select" id="objectVar" size="80" /><%--label="<%=rangeClass.getName()%>" --%>
     <v:input type="submit" id="submit" value="<%=submitLabel%>" cancel="${param.subjectUri}"/>
     <c:if test="${hasCustonForm eq 'true'}">
         <p>If you don't find the appropriate entry on the selection list,
