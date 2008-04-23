@@ -16,7 +16,10 @@
 <c:set var='entity' value='${requestScope.entity}'/><%-- just moving this into page scope for easy use --%>
 <c:set var='portal' value='${requestScope.portalBean}'/><%-- likewise --%>
 <c:set var='dashboardPropsListJsp' value='/dashboardPropList'/>
-<div id="dashboard"><p>Hello, ${entity.name}</p>
+<c:set var="firstName" value="${fn:substringAfter(entity.name,',')}"/>
+<c:set var="lastName" value="${fn:substringBefore(entity.name,',')}"/>
+
+<div id="dashboard"><p>Hello, ${firstName}&nbsp;${lastName}</p>
     <c:if test="${!empty entity.imageThumb}">
         <c:if test="${!empty entity.imageFile}">
                 <c:url var="imageUrl" value="${imageDir}/${entity.imageFile}" />
@@ -27,6 +30,8 @@
         <c:if test="${!empty entity.imageFile}"></a></c:if>
     </c:if>
     <c:if test="${showSelfEdits || showCuratorEdits}">
-        <c:import url="${dashboardPropsListJsp}"></c:import>
+        <c:import url="${dashboardPropsListJsp}">
+        	<c:param name="keywords">visible</c:param>
+        </c:import>
     </c:if>
 </div>
