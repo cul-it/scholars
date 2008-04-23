@@ -17,12 +17,12 @@ $(document).ready(function() {
             var inactiveID = $(this).attr("href");
 			var inactiveDashboardItem = $(this).text();
             $(inactiveID).hide();
-			$("li." + inactiveDashboardItem + " ul").slideUp("fast");
+            $("li." + inactiveDashboardItem + " ul").slideUp("fast");
 			$("li." + inactiveDashboardItem + " h2").removeClass("active");
             });
         $(this).attr("id", "currentCat");
-        $(activeID).fadeIn("fast");
-		$("li." + activeDashboardItem + " ul").slideDown();
+        $(activeID).show();
+		$("li." + activeDashboardItem + " ul").slideDown("slow");
 		$("li." + activeDashboardItem + " h2").addClass("active");
         return false;
 	});
@@ -31,6 +31,9 @@ $(document).ready(function() {
 	$("ul.dashboardCategories li a").click(function(){
 		var childID = $(this).attr("href");
 		var targetID = $(childID).parent().attr("id");
+		
+		$("h4").removeClass("targeted");	
+				
 		$("ul#profileCats li a").removeAttr("id").each(function(){
             var inactiveID = $(this).attr("href");
             $(inactiveID).hide();
@@ -42,7 +45,9 @@ $(document).ready(function() {
 		$("ul#dashboardNavigation h2").removeClass("active");
 		var currentLink = "ul li " + this;
 		var groupHeading = "ul#dashboardNavigation h2 + ul li " + this;
-		$(groupHeading).addClass("active");		
+		$(groupHeading).addClass("active");	
+		
+		$(childID).children("h4").addClass("targeted");	
 		return false;
 	});		
 	
