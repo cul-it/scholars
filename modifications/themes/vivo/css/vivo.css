@@ -562,6 +562,8 @@ h3.propertyName, .propsCategory h4 {
 .propsCategory h3 {
 	clear: left;
 	float: left;
+	color: #2E515C;
+	text-transform: uppercase;
 }
 
 h3.centered {

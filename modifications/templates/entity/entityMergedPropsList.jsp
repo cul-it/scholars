@@ -64,9 +64,9 @@ public static Log log = LogFactory.getLog("edu.cornell.mannlib.vitro.webapp.jsp.
 			}
 			String styleStr = pg.getStatementCount()==0 ? "display: inline;" : "display: inline;";
 			if (openingGroupLocalName.equals(pg.getLocalName())) {%>
-      		    <li style="<%=styleStr%>"><a id="currentCat" href="#<%=pg.getLocalName()%>" title="<%=pg.getName()%>"><%=pg.getName()%></a></li>
+      		    <li><a id="currentCat" href="#<%=pg.getLocalName()%>" title="<%=pg.getName()%>"><%=pg.getName()%></a></li>
 <%			} else { %>
-        		<li style="<%=styleStr%>"><a href="#<%=pg.getLocalName()%>" title="<%=pg.getName()%>"><%=pg.getName()%></a></li>
+        		<li><a href="#<%=pg.getLocalName()%>" title="<%=pg.getName()%>"><%=pg.getName()%></a></li>
 <%		    }
 		} %>
 		</ul>
@@ -94,7 +94,7 @@ public static Log log = LogFactory.getLog("edu.cornell.mannlib.vitro.webapp.jsp.
 				    	<c:set var="objRows" value="${fn:length(objProp.objectPropertyStatements)}"/>
 				    	<c:if test="${objRows==0}"><c:set var="objStyle" value="display: block;"/></c:if>
 				    	<c:if test="${editableInSomeWay || objRows>0}">
-							<div id="${objProp.localName}" style="${objStyle}">
+							<div id="${objProp.localName}">
 								<h4>${objProp.editLabel}</h4>
 					    		<c:if test="${showSelfEdits || showCuratorEdits}">
 					    			<edLnk:editLinks item="${objProp}" icons="true" />                                                                

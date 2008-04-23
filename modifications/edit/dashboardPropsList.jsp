@@ -49,7 +49,7 @@ if (loginHandler!=null && loginHandler.getLoginStatus()=="authenticated" && Inte
 		int groupCount=0;%>
 		<ul id="dashboardNavigation">
 <%		for (Property p : mergedList) {
-    		String groupName="unspecified";
+    		String groupName="other";
 			String propertyLocalName = p.getLocalName() == null ? "unspecified" : p.getLocalName();
     		if (p.getGroupURI()!=null) {
     		    PropertyGroup pg = pgDao.getGroupByURI(p.getGroupURI());
@@ -63,13 +63,13 @@ if (loginHandler!=null && loginHandler.getLoginStatus()=="authenticated" && Inte
 		        if (groupCount>1) { // close existing group %>
 		        	</ul></li>
 <%		    	}%>
-		    	<li>
+		    	<li class="<%=groupName%>">
 		    	<h2><%=groupName%></h2>
 		    	<ul class="dashboardCategories">
 <%			}%>
 			<edLnk:editLinks item="<%=p %>" var="links" />
 			<c:if test="${!empty links}">
-	            <li class="dashboardProperty"><a href="#<%=propertyLocalName%>"><%=p.getEditLabel()%></a>
+	            <li><a href="#<%=propertyLocalName%>"><%=p.getEditLabel()%></a>
 <%				if (showCuratorEdits) { // just while we want to survey ranking en masse in prep for finding a rational order
 	    			if (p instanceof ObjectProperty) {
 					    ObjectProperty op = (ObjectProperty)p;%>

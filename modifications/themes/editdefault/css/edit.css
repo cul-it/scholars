@@ -38,6 +38,9 @@ div.thumbnail { display: none; padding: 14px; margin-top: 35px; } /* Hidden when
 
 h3.propertyName { float: left; clear: left; color: #fff; background-color: #6a7f6b; font-size: 1.1em; font-weight: bold; text-transform: uppercase; padding: 3px 5px; margin-bottom: 0; }
 
+.propsCategory h3 {	color: #579C62; }
+
+
 ul.properties, div.datatypePropertyValue { padding: 8px 12px 5px 12px; margin:0; background-color: #f2f0f0; }
 
 li.datatypeProperty { padding-top: 20px; }
@@ -78,14 +81,18 @@ p.caption a:link, p.caption a:visited { color: #50a882; border: 0; }
 
 /*#dashboard p { padding-left: 16px;}*/
 #dashboard img { display: block; border: 2px solid #e1e1e1; width: 100px; height: 100px; margin: 0 0 16px 16px; padding: 0; }
+#dashboard p { margin-left: 8px; }
 
 #dashboard a:link, #dashboard a:visited { color: #4d5155; }
 #dashboard a:hover, #dashboard a:active { color: #8a4a8a; }
 
-ul#dashboardNavigation li h2 { font-size: 1.3em; background: #eaf0eb url(../site_icons/layout/bg-dashboardcat.gif) top left repeat-y; padding: 7px 8px 4px 8px; margin: 3px 0 0 0; } 
+ul#dashboardNavigation li h2 { font-size: 1.1em; background: #eaf0eb url(../site_icons/layout/bg-dashboardcat.gif) top left repeat-y; padding: 7px 8px 4px 8px; margin: 3px 0 0 0; text-transform: uppercase; } 
+ul#dashboardNavigation li h2:hover { cursor: pointer; }
+ul#dashboardNavigation li h2.active { color: #579C62; }
+
 
 ul.dashboardCategories { padding: 4px 8px 12px 0; }
-ul.dashboardCategories li.dashboardProperty { list-style-type: disc; font-size: 1em; padding: 0; margin-left: 23px; }
+ul.dashboardCategories li { list-style-type: disc; font-size: 1em; padding: 0; margin-left: 23px; }
 
 div.toBeDeleted { margin: 12px 0; padding: 10px; width: 80%; background: #FFB673; border: solid 1px #FF7B2E;}
 div.toBeDeleted ul { padding-left: 15px; }
