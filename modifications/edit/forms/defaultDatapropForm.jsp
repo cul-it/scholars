@@ -115,10 +115,10 @@
     if( datapropKeyStr != null && datapropKeyStr.trim().length() > 0  ) {
         Model model =  (Model)application.getAttribute("jenaOntModel");
         editConfig.prepareForDataPropUpdate(model,dps);
-        formTitle   = "Change value for &quot;"+prop.getPublicName()+"&quot; data property for "+subject.getName();
+        formTitle   = "Change text for: <em>"+prop.getPublicName()+"</em>";
         submitLabel = "save change";
     } else {
-        formTitle   ="Enter new &quot;"+prop.getPublicName()+"&quot; data property for "+subject.getName();
+        formTitle   ="Add new entry for: <em>"+prop.getPublicName()+"</em>";
         submitLabel ="save entry";
     }
 %>

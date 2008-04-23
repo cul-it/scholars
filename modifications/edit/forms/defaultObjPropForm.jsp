@@ -83,7 +83,7 @@
     Model model = (Model)application.getAttribute("jenaOntModel");
     if( request.getAttribute("object") != null ){//this block is for an edit of an existing object property statement
         editConfig.prepareForObjPropUpdate( model );
-        formTitle   = "Change value for &quot;"+prop.getDomainPublic()+"&quot; property for "+subject.getName();
+        formTitle   = "Change entry for: <em>"+prop.getDomainPublic()+"</em>";
         submitLabel = "save change";
     } else {
         editConfig.prepareForNonUpdate( model );
