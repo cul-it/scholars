@@ -28,6 +28,7 @@
 
     String fixedTabStr=(fixedTabStr=request.getParameter("fixed"))==null?null:fixedTabStr.equals("")? null:fixedTabStr;
 %>
+
 <!-- ********** START menu.jsp FROM /themes/vivo/jsp/ ************* -->
 <div id="header">
     <!-- ************************ Theme logo ********************** generated in menu.jsp **** -->
