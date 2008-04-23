@@ -1,13 +1,81 @@
 $(document).ready(function() {
 	
+	/* Copyright (c) 2006 Mathias Bank (http://www.mathias-bank.de)
+	 * Dual licensed under the MIT (http://www.opensource.org/licenses/mit-license.php) 
+	 * and GPL (http://www.opensource.org/licenses/gpl-license.php) licenses.
+	 * 
+	 * Thanks to Hinnerk Ruemenapf - http://hinnerk.ruemenapf.de/ for bug reporting and fixing.
+	 */
+	jQuery.extend({
+	/**
+	* Returns get parameters.
+	*
+	* If the desired param does not exist, null will be returned
+	*
+	* @example value = $.getURLParam("paramName");
+	*/ 
+	 getURLParam: function(strParamName){
+		  var strReturn = "";
+		  var strHref = window.location.href;
+		  var bFound=false;
+
+		  var cmpstring = strParamName + "=";
+		  var cmplen = cmpstring.length;
+
+		  if ( strHref.indexOf("?") > -1 ){
+		    var strQueryString = strHref.substr(strHref.indexOf("?")+1);
+		    var aQueryString = strQueryString.split("&");
+		    for ( var iParam = 0; iParam < aQueryString.length; iParam++ ){
+		      if (aQueryString[iParam].substr(0,cmplen)==cmpstring){
+		        var aParam = aQueryString[iParam].split("=");
+		        strReturn = aParam[1];
+		        bFound=true;
+		        break;
+		      }
+
+		    }
+		  }
+		  if (bFound==false) return null;
+		  return strReturn;
+		}
+	});
+	
+	var parameter = $.getURLParam("returnTo");
+	
+	// if ( parameter != null ) {
+	// 	var groupID = $("#"+parameter).parent().attr("id");
+	// 	$("ul#profileCats li a").each(function(){
+	// 		$(this).removeAttr("id");
+	// 	});
+	// 	$("ul#profileCats li a").attr("href").
+	// }
+	
+	if ( parameter != null ) {
+		var childID = "#"+parameter;
+		// alert(childID);
+		var targetID = $(childID).parent().attr("id");
+		$("ul#profileCats li a").removeAttr("id").each(function(){
+            var inactiveID = $(this).attr("href");
+            $(inactiveID).hide();
+			if (inactiveID == ("#" + targetID)) {
+				$(this).attr("id", "currentCat");
+			};
+        });
+        $("#" + targetID).show();
+		$("ul#dashboardNavigation h2").removeClass("active");
+
+		$(childID).children("h4").addClass("targeted");
+
+	}
+	
 	// Hide all groups except currentCat when page loads
     $("ul#profileCats li a").not("a#currentCat").each(function(){
         var groupID = $(this).attr("href");
 		var dashboardItem = $(this).text();
         $(groupID).hide();
 		$("li." + dashboardItem + " ul").hide();	
-        });
-	$("li.unspecified")
+    });
+
 
 	// Change active tab and view when tab is clicked
     $("ul#profileCats li a").click(function(){
@@ -33,6 +101,7 @@ $(document).ready(function() {
 		var targetID = $(childID).parent().attr("id");
 		
 		$("h4").removeClass("targeted");	
+		// $("div.propsCategory div").removeClass("targeted");	
 				
 		$("ul#profileCats li a").removeAttr("id").each(function(){
             var inactiveID = $(this).attr("href");
@@ -48,6 +117,7 @@ $(document).ready(function() {
 		$(groupHeading).addClass("active");	
 		
 		$(childID).children("h4").addClass("targeted");	
+		// $(childID).addClass("targeted");	
 		return false;
 	});		
 	
