@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.beans.Individual" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.controller.VitroRequest" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.dao.WebappDaoFactory" %>
