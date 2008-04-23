@@ -1,4 +1,4 @@
-<%@ page import="com.hp.hpl.jena.rdf.model.Model" %>
+Å<%@ page import="com.hp.hpl.jena.rdf.model.Model" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.beans.Individual" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.beans.ObjectProperty" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.beans.VClass" %>

@@ -1,6 +1,7 @@
 <%@ page import="edu.cornell.mannlib.vitro.webapp.edit.n3editing.EditConfiguration" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.edit.n3editing.EditSubmission" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jstl/functions" %>
 
 <%
     /* Clear any cruft from session. */
@@ -15,7 +16,13 @@
         EditSubmission.clearEditSubmissionInSession(session, editSub);
 
         if( editConfig != null && editConfig.getEntityToReturnTo() != null ){
-            redirectTo = editConfig.getEntityToReturnTo();
+            String predicateUri = editConfig.getPredicateUri();
+            System.out.println("Return to property after submitting form: " + predicateUri);
+            /*String predicateUri = "hello";*/%>
+            <c:set var="predicateUri" value="<%=predicateUri%>" />
+            <c:set var="localName" value="${fn:substringAfter(predicateUri, '#')}" />
+            
+        <%    redirectTo = editConfig.getEntityToReturnTo();
         }
     }
 
@@ -23,6 +30,7 @@
         request.setAttribute("redirectTo",redirectTo);    %>
         <c:redirect url="/entity">
             <c:param name="uri" value="${redirectTo}" />
+            <c:param name="returnTo" value="${localName}" />
         </c:redirect>
     <% }else { %>
         <c:redirect url="/about.jsp"/>
