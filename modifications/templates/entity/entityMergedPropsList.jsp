@@ -123,7 +123,8 @@ public static Log log = LogFactory.getLog("edu.cornell.mannlib.vitro.webapp.jsp.
 												<c:set var="degree" value="${objPropertyStmt.object.dataPropertyMap['http://vivo.library.cornell.edu/ns/0.1#preferredDegreeAbbreviation'].dataPropertyStatements[0].data}"/>
 												<c:set var="institution" value="${objPropertyStmt.object.dataPropertyMap['http://vivo.library.cornell.edu/ns/0.1#institutionAwardingDegree'].dataPropertyStatements[0].data}"/>
 												<c:set var="major" value="${objPropertyStmt.object.dataPropertyMap['http://vivo.library.cornell.edu/ns/0.1#majorFieldOfDegree'].dataPropertyStatements[0].data}"/>
-												<c:out value="${gradyear} : ${degree}, ${institution}, ${major}"/>
+												<c:out value="${gradyear} : ${degree}, ${institution}"/>
+												<c:if test="${!empty major }">, ${major}</c:if>
 							            		<c:set var="altRenderInclude" value="false"/>
 							    			</c:when>
 							            	<c:otherwise>
