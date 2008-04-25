@@ -17,8 +17,7 @@
 
         if( editConfig != null && editConfig.getEntityToReturnTo() != null ){
             String predicateUri = editConfig.getPredicateUri();
-            System.out.println("Return to property after submitting form: " + predicateUri);
-            /*String predicateUri = "hello";*/%>
+            /*System.out.println("Return to property after submitting form: " + predicateUri);*/%>
             <c:set var="predicateUri" value="<%=predicateUri%>" />
             <c:set var="localName" value="${fn:substringAfter(predicateUri, '#')}" />
             
@@ -30,7 +29,7 @@
         request.setAttribute("redirectTo",redirectTo);    %>
         <c:redirect url="/entity">
             <c:param name="uri" value="${redirectTo}" />
-            <c:param name="returnTo" value="${localName}" />
+            <c:param name="property" value="${localName}" />
         </c:redirect>
     <% }else { %>
         <c:redirect url="/about.jsp"/>

@@ -350,6 +350,10 @@ div.indent, ul.datatypeProperties li.datatypeProperty p, div.blurb {
 	font-size: 0.99em;
 }
 
+div.description ol {
+	margin-left: 18px;
+}
+
 /****************************************************************
 search roll call
 ****************************************************************/
