@@ -57,7 +57,6 @@ if (VitroRequestPrep.isSelfEditing(request) || LoginFormBean.loggedIn(request, L
 %>
 
 <c:set var='entity' value='${requestScope.entity}'/><%/* just moving this into page scope for easy use */ %>
-<c:set var='entityPropsListJsp' value='/entityPropList'/>
 <c:set var='entityMergedPropsListJsp' value='/entityMergedPropList'/>
 <c:set var='portal' value='${currentPortalId}'/>
 <c:set var='portalBean' value='${currentPortal}'/>
@@ -123,10 +122,13 @@ if (VitroRequestPrep.isSelfEditing(request) || LoginFormBean.loggedIn(request, L
 					<c:when test="${showCuratorEdits || showSelfEdits}">
                 		<c:import url="${entityMergedPropsListJsp}">
                 			<c:param name="mode" value="edit"/>
+                			<c:param name="grouped" value="false"/>
                 		</c:import>
                 	</c:when>
                 	<c:otherwise>
-                		<c:import url="${entityMergedPropsListJsp}"/>
+                		<c:import url="${entityMergedPropsListJsp}">
+                			<c:param name="grouped" value="false"/>
+                		</c:import>
                 	</c:otherwise>
                 </c:choose>
 				<p/>
