@@ -5,6 +5,7 @@
 <%@ page import="edu.cornell.mannlib.vedit.beans.LoginFormBean" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.controller.VitroRequest"%>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.filters.VitroRequestPrep" %>
+<%@ page import="edu.cornell.mannlib.vitro.webapp.auth.identifier.FakeSelfEditingIdentifierFactory"%>
 <%@ page import="org.apache.commons.logging.Log" %>
 <%@ page import="org.apache.commons.logging.LogFactory" %>
 <%@ page import="java.util.List" %>
@@ -20,7 +21,12 @@ if (entity == null){
     throw new JspException(e);
 }
 
-if (VitroRequestPrep.isSelfEditing(request)) { // || LoginFormBean.loggedIn(request, LoginFormBean.CURATOR)) {
+String netid = (String)session.getAttribute(FakeSelfEditingIdentifierFactory.FAKE_SELF_EDIT_NETID);
+if (netid != null) {
+    request.setAttribute("amIFaking",Boolean.TRUE);
+}
+
+if (VitroRequestPrep.isSelfEditing(request) || LoginFormBean.loggedIn(request, LoginFormBean.CURATOR)) {
     request.setAttribute("showSelfEdits",Boolean.TRUE );
 }
 %>
@@ -55,7 +61,7 @@ if (VitroRequestPrep.isSelfEditing(request)) { // || LoginFormBean.loggedIn(requ
     <jsp:include page="/${themeDir}jsp/dashboard.jsp" flush="true" />
 
     <div id="content" class="person">
-        <c:if test="${showCuratorEdits}"><jsp:include page="entityAdmin.jsp"/></c:if>
+        <c:if test="${showCuratorEdits and !amIFaking}"><jsp:include page="entityAdmin.jsp"/></c:if>
         
         <div class='contents entity'>
                 <h2>${entity.name}</h2> 
