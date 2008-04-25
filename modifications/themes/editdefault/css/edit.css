@@ -40,8 +40,6 @@ h3.propertyName { float: left; clear: left; color: #fff; background-color: #6a7f
 
 .propsCategory h3 {	color: #579C62; }
 
-h4.targeted { background: yellow; }
-
 ul.properties, div.datatypePropertyValue { padding: 8px 12px 5px 12px; margin:0; background-color: #f2f0f0; }
 
 li.datatypeProperty { padding-top: 20px; }

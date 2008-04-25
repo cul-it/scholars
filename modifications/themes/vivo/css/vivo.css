@@ -438,12 +438,15 @@ ul#dashboardNavigation li h2 {
 	background: #f2f6f7;
 }
 
+ul#dashboardNavigation li h2:hover { cursor: pointer; }
+ul#dashboardNavigation li h2.active { color: #579C62; }
+
 ul#dashboardNavigation a {
 	border: 0;
 }
 
 ul.dashboardCategories { padding: 4px 8px 12px 0; }
-ul.dashboardCategories li.dashboardProperty { list-style-type: disc; font-size: 1em; padding: 0; margin-left: 23px; }
+ul.dashboardCategories li { list-style-type: disc; font-size: 1em; padding: 0; margin-left: 23px; }
 
 /****************************************************************
 footer roll call
@@ -594,6 +597,8 @@ h4 {
 	margin-top: 10px;
 	font-size: 1.0em;
 }
+
+h4.targeted { background: yellow; }
 
 h4.compapp-ref {
 	padding: 10px;
