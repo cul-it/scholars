@@ -12,7 +12,7 @@
             
             <div id="content" class="faculty">
                                 
-                <h2>Meet our Faculty</h2>
+                <h2>Faculty Index</h2>
 
                 <div id="indexNav">
                     <a href="#A">A</a>
@@ -91,8 +91,8 @@
                                 <c:set var="facultyName" value="${person.personLabel.string}"/>
                                 <c:set var="facultyUri" value="${person.person}"/>
                                 <c:url var="facultyHref" value="/entity"><c:param name="uri" value="${person.person}"/></c:url>
-                                <c:set var="cornellEmail" value="${fn:replace(person.netid.string, '@', '(at)')}"/>
-                                <c:set var="nonCornellEmail" value="${fn:replace(person.otherid.string, '@', '(at)')}"/>
+                                <c:set var="cornellEmail" value="${person.netid.string}"/>
+                                <c:set var="nonCornellEmail" value="${person.otherid.string}"/>
                                 <c:set var="imageThumb" value="${person.thumb.string}"/>
                                 
                                 <c:set var="firstLetter"><str:left count="1"><str:upperCase>${person.personLabel.string}</str:upperCase></str:left></c:set>
@@ -106,11 +106,9 @@
                                         <c:if test="${prevFacultyUri != facultyUri && counter.first != true}">
                                         
                                             <tr>
-                                                <td <c:if test="${counter.index == 1}">class="firstRow"</c:if>><a href="${prevFacultyHref}" title="view profile in VIVO">${prevFacultyName}</a>
-                                                    <%--Icons inserted inside span via JavaScript --%>
-                                                    <c:if test="${not empty prevImageThumb}"><span class="localsnapr" title="${prevImageThumb}"> </span></c:if></td>
-                                                <td class="email">${prevCornellEmail}<c:if test="${empty prevCornellEmail}">${prevNonCornellEmail}</c:if>
-                                                    <c:if test="${!empty secondCornellEmail}">, ${secondCornellEmail}</c:if>
+                                                <td <c:if test="${counter.index == 1}">class="firstRow"</c:if>><a <c:if test="${not empty prevImageThumb}">class="localsnapr" name="${prevImageThumb}" </c:if>href="${prevFacultyHref}" title="view profile in VIVO">${prevFacultyName}</a></td>
+                                                <td class="email"><a href="mailto:${prevCornellEmail}">${prevCornellEmail}</a><c:if test="${empty prevCornellEmail}"><a href="mailto:${prevNonCornellEmail}">${prevNonCornellEmail}</a></c:if>
+                                                    <c:if test="${!empty secondCornellEmail}">, <a href="mailto:${secondCornellEmail}">${secondCornellEmail}</a></c:if>
                                                 </td>
                                             </tr>
                                             

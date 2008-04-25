@@ -26,6 +26,8 @@
 <c:set var='researchFocusURI' value='http://vivo.library.cornell.edu/ns/0.1#researchFocus'/>
 <c:set var='imageDir' value='../images/' scope="page"/>
 
+
+
 <div id="fieldDescription">
     <h2>Graduate Field of <span class="sectionLabel">${entity.name}</span></h2>
     <div class="description">${entity.description}</div>
@@ -54,7 +56,8 @@
         <ul>
             <div class="colOne">
                 <c:forEach items='${entity.objectPropertyMap[facultyMembersPropUri].objectPropertyStatements}' var="Faculty" varStatus="facultyCount" begin="0" end="${facultyColumnSize - 1}">
-                <li>
+                <c:set var="facultyID" value="${fn:substringAfter(Faculty.object.URI,'#')}"/>
+                <li id="${facultyID}">
                     <c:choose>
                         <c:when test="${!empty Faculty.object.imageThumb}">
                             <img align="left" alt="" src="${imageDir}${Faculty.object.imageThumb}"/>
@@ -74,7 +77,8 @@
         
             <div class="colTwo">
                 <c:forEach items='${entity.objectPropertyMap[facultyMembersPropUri].objectPropertyStatements}' var="Faculty" begin="${facultyColumnSize}">
-                <li>
+                <c:set var="facultyID" value="${fn:substringAfter(Faculty.object.URI,'#')}"/>
+                <li id="${facultyID}">
                     <c:choose>
                         <c:when test="${!empty Faculty.object.imageThumb}">
                             <img align="left" alt="" src="${imageDir}${Faculty.object.imageThumb}"/>
@@ -89,11 +93,9 @@
                         </c:url>
                         <strong><a href="${href}" title="view profile in VIVO">${Faculty.object.name}</a></strong>
                         <em>${Faculty.object.moniker}</em>
-
                 </li>
                 </c:forEach>
             </div>    
-    
         </ul>
 </div><!-- fieldFaculty -->
 
@@ -207,113 +209,68 @@
 
     </div><!-- fieldDepartments -->
 
+
+    <div id="researchAreas">
+            <sparql:sparql>
+                <listsparql:select model="${applicationScope.jenaOntModel}" var="researchResults" field="<${param.uri}>">
+                    PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+                    PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+                    PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
+                    SELECT DISTINCT ?areaUri ?areaLabel
+                    WHERE
+                    {
+                    ?person
+                    vivo:AcademicEmployeeOtherParticipantAsFieldMemberInAcademicInitiative
+                    ?field .
+
+                    ?areaUri
+                    vivo:ResearchAreaOfPerson
+                    ?person .
+
+                    OPTIONAL { ?areaUri rdfs:label ?areaLabel }
+                    }
+                    ORDER BY ?areaLabel
+                    LIMIT 300
+                </listsparql:select>
+            </sparql:sparql>
+
+            <c:set var="researchTotal" value="${fn:length(researchResults)}"/>
+
+            <%--This calculates ideal column lengths based on total items--%>
+            <c:choose>
+                <c:when test="${(researchTotal mod 4) == 0}"><%--For lists that will have even column lengths--%>
+                    <c:set var="colSize" value="${(researchTotal div 4)}" />
+                    <fmt:parseNumber var="researchColumnSize" value="${colSize}" type="number" integerOnly="true" />
+                </c:when>
+                <c:otherwise><%--For uneven columns--%>
+                    <c:set var="colSize" value="${(researchTotal div 4) + 1}" />
+                    <fmt:parseNumber var="researchColumnSize" value="${colSize}" type="number" integerOnly="true" />
+                </c:otherwise>
+            </c:choose>
+
+            <%--Prevent orphaned items--%>
+            <%-- <c:if test="${(researchTotal - researchColumnSize) eq 1 || (researchTotal - researchColumnSize*2) eq 1 || (researchTotal - researchColumnSize*3) eq 1}">
+                <c:set var="researchColumnSize" value="${researchColumnSize + 1}"/>
+            </c:if> --%>
+
+    <c:if test="${researchTotal gt 0}">
+        <h3>Research Areas</h3>
+        <p>Select an area to highlight participating faculty</p>
+            <ul class="researchAreaList">
+                <c:forEach items='${researchResults}' var="Research" varStatus="researchCount">
+                    <c:set var="areaID" value="${fn:substringAfter(Research['areaUri'],'#')}"/>
+                    <li id="${areaID}">
+                        <c:url var="href" value="/entity">
+                            <c:param name="uri" value="${Research['areaUri']}"/>
+                        </c:url>
+                        <a href="${href}" title="view profile in VIVO">${Research['areaLabel'].string}</a>
+                    </li>
+                </c:forEach>
+            </ul>
+    </c:if>
+    </div> <!-- researchAreas -->
+
 </div> <!-- sidebar -->
-
-
-
-
-
-<div id="researchAreas">
-        <sparql:sparql>
-            <listsparql:select model="${applicationScope.jenaOntModel}" var="researchResults" field="<${param.uri}>">
-                PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-                PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-                PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
-                SELECT DISTINCT ?areaUri ?areaLabel
-                WHERE
-                {
-                ?person
-                vivo:AcademicEmployeeOtherParticipantAsFieldMemberInAcademicInitiative
-                ?field .
-
-                ?areaUri
-                vivo:ResearchAreaOfPerson
-                ?person .
-
-                OPTIONAL { ?areaUri rdfs:label ?areaLabel }
-                }
-                ORDER BY ?areaLabel
-                LIMIT 300
-            </listsparql:select>
-        </sparql:sparql>
-        
-        <c:set var="researchTotal" value="${fn:length(researchResults)}"/>
-        
-        <%--This calculates ideal column lengths based on total items--%>
-        <c:choose>
-            <c:when test="${(researchTotal mod 4) == 0}"><%--For lists that will have even column lengths--%>
-                <c:set var="colSize" value="${(researchTotal div 4)}" />
-                <fmt:parseNumber var="researchColumnSize" value="${colSize}" type="number" integerOnly="true" />
-            </c:when>
-            <c:otherwise><%--For uneven columns--%>
-                <c:set var="colSize" value="${(researchTotal div 4) + 1}" />
-                <fmt:parseNumber var="researchColumnSize" value="${colSize}" type="number" integerOnly="true" />
-            </c:otherwise>
-        </c:choose>
-        
-        <%--Prevent orphaned items--%>
-        <%-- <c:if test="${(researchTotal - researchColumnSize) eq 1 || (researchTotal - researchColumnSize*2) eq 1 || (researchTotal - researchColumnSize*3) eq 1}">
-            <c:set var="researchColumnSize" value="${researchColumnSize + 1}"/>
-        </c:if> --%>
-
-<c:if test="${researchTotal gt 0}">
-    <h3>Research Areas</h3>
-        <ul class="researchAreaList">
-                <span class="colOne">
-                    <c:forEach items='${researchResults}' var="Research" varStatus="researchCount" begin="0" end="${researchColumnSize - 1}">
-                        <li>
-                            <c:url var="href" value="/entity">
-                                <c:param name="uri" value="${Research['areaUri']}"/>
-                            </c:url>
-                            <a href="${href}" title="view profile in VIVO">${Research['areaLabel'].string}</a>
-                        </li>
-                    </c:forEach>
-                </span>
-        
-            <c:if test="${(researchTotal-(researchColumnSize-1)) gt 0}">
-                <span class="colTwo">
-                    <c:forEach items='${researchResults}' var="Research" begin="${researchColumnSize}" end="${researchColumnSize * 2 - 1}">
-                        <li>
-                            <c:url var="href" value="/entity">
-                                <c:param name="uri" value="${Research['areaUri']}"/>
-                            </c:url>
-                            <a href="${href}" title="view profile in VIVO">${Research['areaLabel'].string}</a>
-                        </li>
-                    </c:forEach>
-                </span>
-            </c:if>
-    
-            <c:if test="${(researchTotal-(researchColumnSize*2)) gt 0}">
-                <span class="colThree">
-                     <c:forEach items='${researchResults}' var="Research" begin="${researchColumnSize * 2}" end="${researchColumnSize * 3 - 1}">
-                        <li>
-                            <c:url var="href" value="/entity">
-                                <c:param name="uri" value="${Research['areaUri']}"/>
-                            </c:url>
-                            <a href="${href}" title="view profile in VIVO">${Research['areaLabel'].string}</a>
-                        </li>
-                    </c:forEach>
-                </span>
-            </c:if>
-            
-            <c:if test="${(researchTotal-(researchColumnSize*3)) gt 0}">
-                <span class="colFour">
-                     <c:forEach items='${researchResults}' var="Research" begin="${researchColumnSize * 3}">
-                        <li>
-                            <c:url var="href" value="/entity">
-                                <c:param name="uri" value="${Research['areaUri']}"/>
-                            </c:url>
-                            <a href="${href}" title="view profile in VIVO">${Research['areaLabel'].string}</a>
-                        </li>
-                    </c:forEach>
-                </span>
-            </c:if>
-        </ul>
-</c:if>
-</div> <!-- researchAreas -->
-
-
-</div> <!-- researchAreas -->
 
 <%!
         private void dump(String name, Object fff){

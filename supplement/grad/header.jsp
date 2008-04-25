@@ -22,7 +22,8 @@
     <script type="text/javascript" src="${jsDir}/niftycube.js"></script>
     <script type="text/javascript" src="js/niftyConfig.js"></script>
     <script type="text/javascript" src="${jsDir}/jquery.js"></script>
-    <%-- For Exhibit page only --%>
+    
+    <%-- For Exhibit only --%>
     <c:if test="${fn:contains(pageContext.request.servletPath, 'XXX.jsp')}">
         <link href="data/peopleData2.jsp" type="application/json" rel="exhibit/data" />
         <script src="http://static.simile.mit.edu/exhibit/api-2.0/exhibit-api.js" type="text/javascript"></script>
@@ -30,65 +31,21 @@
     </c:if>
     
     <c:if test="${fn:contains(pageContext.request.servletPath, 'faculty.jsp')}">
-        <script src="js/defuscate.js" type="text/javascript"></script>
         <link rel="stylesheet" href="style/websnapr.css" type="text/css" />
         <script src="js/localsnapr.js" type="text/javascript"></script>
-        <script type="text/javascript">
-            $(document).ready(function() {
-                
-                // Inserting camera icons here instead of markup
-                var thumbSrc = $("span.localsnapr").attr("title");
-                $("span.localsnapr").append('<img alt="" src="images/icons/camera_small.png"/>').each(function() {
-                    var thumbSrc = $(this).attr("title");
-                    $(this).children("img").attr("alt", thumbSrc);            
-                    $(this).children("img").addClass("localsnapr");   
-                });
-                $("span.localsnapr").removeAttr("title");
-                
-                // Pagination functions
-                var origCount = $("tfoot td").text();
-                $("#indexNav").append('<a id="showAll" href="#">show all<\/a>');
-                $("#indexNav a#showAll").click(function(){
-                    $("tbody").show();
-                    $(this).css("outline", "none");
-                    $("tfoot td").text("Total: " + origCount);
-                });
-                $("#indexNav a").not("#showAll").click(function(){
-                    var tbodyID = "#" + $(this).text();
-                    var count = $("tbody"+ tbodyID + " tr").length;
-                    $("tbody").not(tbodyID).hide();
-                    $("tbody").filter(tbodyID).show().each(function(){
-                        $(this).children("tr").children("td:first").css("padding-top", "12px");
-                    });
-                    $(this).css("outline", "none");
-                    $("tfoot td").empty().text("Total: " + count);
-                    return false;
-                });
-            });
-        </script>
     </c:if>
-        
+    
+    <c:if test="${fn:contains(pageContext.request.servletPath, 'fields.jsp')}">
+        <script type="text/javascript" src="${jsDir}/jquery_plugins/getURLParam.js"></script>
+    </c:if>
+    
     <c:if test="${fn:contains(pageContext.request.servletPath, 'departments.jsp')}">
         <link rel="stylesheet" href="style/websnapr.css" type="text/css" />
         <script src="js/websnapr.js" type="text/javascript"></script>
     </c:if>
-    
-    <script type="text/javascript">
-        $(document).ready(function(){
-          $("body#departments span.toggleLink").click(function () {
-            $("ul#moreProjects").slideToggle("medium");
-            $(this).toggleClass("toggled");
-             return false;
-         });
-        $("body#fields span.toggleLink").click(function () {
-            $("div.readMore").slideToggle("medium");
-            $(this).toggleClass("toggled");
-            return false;     
-          });
-        });
-    </script>
-    
-    <!--[if xE]><script type="text/javascript" src="js/iepngfix.js"></script><![endif]-->
+
+    <script type="text/javascript" src="js/lifescigrad.js"></script>
+    <!--[if xE 6]><script type="text/javascript" src="js/iepngfix.js"></script><![endif]-->
 </head>
 
 <body <c:if test="${not empty param.bodyID}">id="${param.bodyID}"</c:if>>

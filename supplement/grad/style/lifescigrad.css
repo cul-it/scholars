@@ -193,7 +193,7 @@ content roll call
 ****************************************************************/
 
 body#home #content h2 {
-    letter-spacing: .5px;
+/*    letter-spacing: .5px;*/
     word-spacing: 1px;
 }
 
@@ -282,7 +282,7 @@ body#fields div#facultySpotlight h4 {
     font-size: 1.2em;
     line-height: 1.2em;
     margin-bottom: .2em;
-    margin-top: 12px;
+    margin-top: 20px;
     margin-left: 80px;
     padding-right: 10px;
 }
@@ -301,7 +301,7 @@ body#fields div#facultySpotlight div.blurb {
 body#fields div#facultySpotlight img {
     float: left;
     position: relative;
-    width: 70px;
+    width: 80px;
     margin: 10px 6px 0 10px;
     border: 1px solid #fff;
 }
@@ -404,6 +404,8 @@ body#fields div#fieldFaculty li {
     display: block;
     clear: left;
     font-size: 1.2em;
+    min-height: 46px;
+    margin-bottom: 14px; /*Spacing between items*/
 }
 
 body#fields div#fieldFaculty li a {
@@ -416,7 +418,6 @@ body#fields div#fieldFaculty li img {
     display: inline; /* Avoiding IE float-margin bugs */
     border: 1px solid #fff;
     margin-right: 6px;
-    margin-bottom: 18px; /*Spacing between items*/
 }
 
 body#fields div#fieldFaculty li strong {
@@ -426,6 +427,7 @@ body#fields div#fieldFaculty li strong {
 
 body#fields div#fieldFaculty li em {
     display: block;
+    margin-left: 50px;
     font-style: italic;
 }
 
@@ -446,12 +448,13 @@ body#departments div.wrapper li {
 }
 
 body#fields div#fieldDepartments {
-    margin-top: 3em;
+    margin-top: 2em;
     padding: 10px;
     border: 2px solid #005959;
 }
 
-body#fields div#fieldDepartments p {
+body#fields div#fieldDepartments p,
+body#fields div#researchAreas p {
     color: #efecca;
     font-style: italic;
     line-height: 1.3em;
@@ -464,7 +467,7 @@ body#fields div#fieldDepartments a {
 
 
 body#fields div#fieldDepartments li {
-    color: #efecca;
+    color: #a7a37e;
     font-size: 1.1em;
     line-height: 1.3em;
     margin-bottom: .5em;
@@ -497,9 +500,44 @@ body#departments div#deptProjects li {
 }
 
 body#fields div#researchAreas {
-    clear: both;
-    margin: 0 20px;
+/*    clear: both;*/
+/*    margin: 0 20px;*/
+    margin-top: 2em;
+    padding-top: 10px;
+    border: 2px solid #005959;
 }
+
+body#fields div#researchAreas h3,
+body#fields div#researchAreas p {
+    padding: 0 10px;
+}
+
+body#fields div#researchAreas li {
+/*    padding: 2px 10px 3px 10px;*/
+    margin-top: 2px;
+}
+
+body#fields div#researchAreas li a {
+    display: block;
+    background: #183e40;
+    padding: 2px 10px 3px 10px;
+    border: 0;
+}
+
+body#fields div#researchAreas a:hover {
+    background: #225c5e;
+    color: #fff;
+}
+
+body#fields div#researchAreas a:visited {
+    color: #fff;
+}
+body#fields div#fieldFaculty li.selected,
+body#fields div#researchAreas a.selected {
+    background: #735574;
+}
+
+
 
 div.colOne,
 div.colTwo {
@@ -692,7 +730,7 @@ image roll call
     width: auto !important; 
     width: 128px; /* Giving IE6 and below a fixed width since they doesn't accept maximums */
     display: block;
-    margin: 0 auto;
+/*    margin: 0 auto;*/
     margin-bottom: 5px;
     border: 1px solid #c9c7a9;
 }
@@ -769,7 +807,7 @@ ul.fields li a {
 
 #news span.moreLink {
     margin-right: 10px;
-    margin-top: .5em;
+    padding-top: 1em;
 }
 
 #sidebar span.moreLink a:link, #sidebar span.moreLink a:visited {
@@ -1067,6 +1105,10 @@ body#departments td.deptLink a {
     background: url(../images/icons/world_link.png) no-repeat center center;
     overflow: hidden;
 }
+
+/****************************************************************
+table roll call
+****************************************************************/
 
 /* Fix for IE6 3-pixel indent bug, described at: http://www.positioniseverything.net/explorer/threepxtest.html */ 
 /* Hide from IE5-mac. Only IE-win sees this. \*/

@@ -44,14 +44,14 @@ var webSnapr = {
         baseURI: "images/screenshots/",
         imageCache: [],
         init: function() {
-                var lnks = document.getElementsByTagName('img');
+                var lnks = document.getElementsByTagName('a');
                 var i = lnks.length || 0;
                 var cnt = 0;
                 while(i--) {
                         if(lnks[i].className && lnks[i].className.search(/localsnapr/) != -1) {
                                 webSnapr.addEvent(lnks[i], ["focus", "mouseover"], webSnapr.initThumb);
                                 webSnapr.addEvent(lnks[i], ["blur",  "mouseout"],  webSnapr.hideThumb);
-                                webSnapr.linkPool[lnks[i].alt] = cnt++;
+                                webSnapr.linkPool[lnks[i].name] = cnt++;
                         }
                 }
                 if(cnt) {
@@ -159,10 +159,10 @@ var webSnapr = {
                 webSnapr.obj.style.opacity = webSnapr.ind.style.opacity = '0';
                 webSnapr.img.style.visibility = "hidden";
                 
-                var addy = String(webSnapr.lnk.alt);
+                var addy = String(webSnapr.lnk.name);
 
                 webSnapr.errorTimer = window.setTimeout("webSnapr.imageError()",15000);
-                webSnapr.img.src = '/vivo/images/' + addy;
+                webSnapr.img.src = '../images/' + addy;
 
                 /*@cc_on@*/
                 /*@if(@_win32)
