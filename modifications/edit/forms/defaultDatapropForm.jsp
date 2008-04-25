@@ -132,8 +132,8 @@
 
 <h2><%=formTitle%></h2>
 <form action="<c:url value="/edit/processDatapropRdfForm.jsp"/>" >
-	<c:if test="${!empty predicate.example}">
-    	<p class="propEntryHelpText">${predicate.example}</p>
+	<c:if test="${!empty predicate.publicDescription}">
+    	<p class="propEntryHelpText">${predicate.publicDescription}</p>
 	</c:if>
     <v:input type="textarea" id="editedLiteral" rows="2"/>
     <v:input type="submit" id="submit" value="<%=submitLabel%>" cancel="${param.subjectUri}"/>
