@@ -47,7 +47,7 @@ public static Log log = LogFactory.getLog("edu.cornell.mannlib.vitro.webapp.jsp.
     <c:set var="hiddenDivCount" value="0"/>
 <%	Individual subject = (Individual) request.getAttribute("entity");
 	if (subject==null) {
-    	throw new Error("Subject individual must be in request scope for dashboardPropsList.jsp");
+    	throw new Error("Subject individual must be in request scope for entityMergedPropsList.jsp");
 	}
 
 	// Nick wants not to use explicit parameters to trigger visibility of a div, but for now we don't just want to always show the 1st one
@@ -205,7 +205,7 @@ public static Log log = LogFactory.getLog("edu.cornell.mannlib.vitro.webapp.jsp.
 			</div><!-- class="propsCategory" -->
 <%		} // end for (PropertyGroup g : groupsList)
     } else {
-    	log.warn("incoming merged property list not found as request attribute");
+    	log.warn("incoming groups list with merged properties not found as request attribute for subject "+subject.getName()+"\n");
     }
 %>
 
