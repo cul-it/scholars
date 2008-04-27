@@ -46,6 +46,10 @@ if (VitroRequestPrep.isSelfEditing(request) || LoginFormBean.loggedIn(request, L
     EditConfiguration.clearAllConfigsInSession(session);
     EditSubmission.clearAllEditSubmissionsInSession(session);
     
+    if (VitroRequestPrep.isSelfEditing(request) || LoginFormBean.loggedIn(request, LoginFormBean.CURATOR)) { %>
+    	<jsp:include page="/templates/entity/individualPerson.jsp" flush="true"/>
+<%      return;
+	}
     List<VClass> vclasses=entity.getVClasses(false);
     for(VClass clas: vclasses) {
         //System.out.println(clas.getURI());
