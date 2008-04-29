@@ -17,17 +17,17 @@ public static Log log = LogFactory.getLog("edu.cornell.mannlib.vitro.webapp.jsp.
 log.debug("Starting entityBasic.jsp");
 Individual entity = (Individual)request.getAttribute("entity");
 if (entity == null){
-	String e="entityBasic.jsp expects that request attribute 'entity' be set to the Entity object to display.";
-	throw new JspException(e);
+    String e="entityBasic.jsp expects that request attribute 'entity' be set to the Entity object to display.";
+    throw new JspException(e);
 }
 
 if (VitroRequestPrep.isSelfEditing(request) || LoginFormBean.loggedIn(request, LoginFormBean.CURATOR)) {
-	request.setAttribute("showSelfEdits",Boolean.TRUE);
+    request.setAttribute("showSelfEdits",Boolean.TRUE);
 }%>
 <c:if test="${sessionScope.loginHandler != null &&
               sessionScope.loginHandler.loginStatus == 'authenticated' &&
               sessionScope.loginHandler.loginRole >= sessionScope.loginHandler.editor}">
-	<c:set var="showCuratorEdits" value="${true}"/>
+    <c:set var="showCuratorEdits" value="${true}"/>
 </c:if>
 <c:set var='imageDir' value='images' />
 <c:set var="themeDir"><c:out value="${portalBean.themeDir}" default="themes/vivo/"/></c:set>
@@ -123,19 +123,19 @@ if (VitroRequestPrep.isSelfEditing(request) || LoginFormBean.loggedIn(request, L
                 </c:if>
                 
                 <c:choose>
-					<c:when test="${showCuratorEdits || showSelfEdits}">
-                		<c:import url="${entityMergedPropsListJsp}">
-                			<c:param name="mode" value="edit"/>
-                			<c:param name="grouped" value="false"/>
-                		</c:import>
-                	</c:when>
-                	<c:otherwise>
-                		<c:import url="${entityMergedPropsListJsp}">
-                			<c:param name="grouped" value="false"/>
-                		</c:import>
-                	</c:otherwise>
+                    <c:when test="${showCuratorEdits || showSelfEdits}">
+                        <c:import url="${entityMergedPropsListJsp}">
+                            <c:param name="mode" value="edit"/>
+                            <c:param name="grouped" value="false"/>
+                        </c:import>
+                    </c:when>
+                    <c:otherwise>
+                        <c:import url="${entityMergedPropsListJsp}">
+                            <c:param name="grouped" value="false"/>
+                        </c:import>
+                    </c:otherwise>
                 </c:choose>
-				<p/>
+                <p/>
                 
                 <div class='description'>
                   ${entity.blurb}
@@ -144,22 +144,22 @@ if (VitroRequestPrep.isSelfEditing(request) || LoginFormBean.loggedIn(request, L
                   ${entity.description}
                 </div>
                 <c:if test="${(!empty entity.citation) && (empty entity.imageThumb)}">
+                    <div class="citation">
+                        ${entity.citation}
+                    </div>
+                </c:if>
                 <div class="citation">
-                    ${entity.citation}
+                <c:choose>
+                    <c:when test="${showKeywordEdits == true}">
+                        <jsp:include page="/${entityKeywordsListJsp}" />
+                    </c:when>
+                    <c:otherwise>
+                        <c:if test="${!empty entity.keywordString}">
+                            Keywords: ${entity.keywordString}
+                        </c:if>
+                    </c:otherwise>
+                </c:choose>
                 </div>
-                </c:if>
-                <c:if test="${!empty entity.keywordString}">
-                	<div class="citation">
-					<c:choose>
-					    <c:when test="${showKeywordEdits == true}">
-					        <jsp:include page="/${entityKeywordsListJsp}" />
-					    </c:when>
-					    <c:otherwise>
-					        Keywords: ${entity.keywordString}
-					    </c:otherwise>
-					</c:choose>
-                </div>
-                </c:if>
                 ${requestScope.servletButtons}
         </div>
     </div> <!-- content -->

@@ -10,6 +10,17 @@
 <%@ page import="edu.cornell.mannlib.vitro.webapp.filters.VitroRequestPrep" %>
 <%@ page import="java.util.List" %>
 <%@ taglib prefix="v" uri="http://vitro.mannlib.cornell.edu/vitro/tags" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jstl/functions" %>
+
+
+<% /* grab the predicate URI and trim it down to get the Local Name so we can send the user back to the appropriate property */ %>
+<c:set var="predicateUri" value="${param.predicateUri}" />
+<c:set var="localName" value="${fn:substringAfter(predicateUri, '#')}" />
+<c:url var="redirectUrl" value="../entity">
+    <c:param name="uri" value="${param.subjectUri}"/>
+    <c:param name="property" value="${localName}" />
+</c:url>
+
 <%
     if( session == null)
         throw new Error("need to have session");
@@ -48,9 +59,6 @@
             	}
             }
         }%>
-        <c:url var="redirectUrl" value="../entity">
-            <c:param name="uri" value="${param.subjectUri}"/>
-        </c:url>
         <c:redirect url="${redirectUrl}"/>
 <%  }
 

@@ -73,7 +73,7 @@ public static Log log = LogFactory.getLog("edu.cornell.mannlib.vitro.webapp.jsp.
 	    	<c:if test="${objRows==0}"><c:set var="objStyle" value="display: block;"/></c:if>
 	    	<c:if test="${editableInSomeWay || objRows>0}">
 				<div id="${objProp.localName}">
-					<h4>${objProp.editLabel}</h4>
+					<h3 class="propertyName">${objProp.editLabel}</h3>
 		    		<c:if test="${showSelfEdits || showCuratorEdits}">
 		    			<edLnk:editLinks item="${objProp}" icons="true" />                                                                
        				</c:if>
@@ -148,7 +148,7 @@ public static Log log = LogFactory.getLog("edu.cornell.mannlib.vitro.webapp.jsp.
 		    <c:set var="dataStyle" value="display: block;"/>
 		    <c:if test="${dataRows==0}"><c:set var="dataStyle" value="display: block;"/></c:if>
 			<div id="${dataProp.localName}" style="${dataStyle}">
-				<h4>${dataProp.editLabel}</h4>
+				<h3 class="propertyName">${dataProp.editLabel}</h3>
 		    	<c:if test="${showSelfEdits || showCuratorEdits}">
 		    		<edLnk:editLinks item="${dataProp}" icons="true"/>
        			</c:if>

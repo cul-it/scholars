@@ -7,7 +7,7 @@
 /*
 Title:		VIVO screen styles
 Authors:	nac26@cornell.edu, mw542@cornell.edu
-Updated:	April 21, 2008
+Updated:	April 29, 2008
 */
 
 * {
@@ -348,6 +348,12 @@ ul.properties li.property ul, ul.datatypeProperties li.datatypeProperty ul, div.
 
 div.indent, ul.datatypeProperties li.datatypeProperty p, div.blurb {
 	font-size: 0.99em;
+}
+
+div.description {
+    clear: left;
+    float: left;
+    margin-top: 16px;
 }
 
 div.description ol {
@@ -855,8 +861,12 @@ table ul li {
 
 ul#profileCats {
 	clear: left;
-	display: inline-block; /* to stop IE6 jump on hover */
 /*	margin: 20px 0;*/
+}
+
+/* Filter to stop IE6 jump on hover -- filter required because otherwise Safari does not clear left */
+* html ul#profileCats {
+    display: inline-block;
 }
 
 ul#profileCats li {
