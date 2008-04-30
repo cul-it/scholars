@@ -319,8 +319,12 @@ ul.tabEntities {
 	font-size: 0.9em;
 }
 
-#datatypeProperties ul, #datatypeProperties p {
+#datatypeProperties ul, #datatypeProperties ol, #datatypeProperties p {
 	clear: left;
+}
+
+.datatypeProperties ol {
+    margin-left: 18px;
 }
 
 ul.properties li.property, ul.datatypeProperties li.datatypeProperty, ul.tabEntities li {
