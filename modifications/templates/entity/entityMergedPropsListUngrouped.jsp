@@ -100,7 +100,7 @@ public static Log log = LogFactory.getLog("edu.cornell.mannlib.vitro.webapp.jsp.
 						</c:if>
      					<li>
            				<c:url var="propertyLink" value="entity">
-               				<c:param name="home" value="${portal}"/>
+               				<c:param name="home" value="${portal.portalId}"/>
                				<c:param name="uri" value="${objPropertyStmt.object.URI}"/>
            				</c:url>
            				<c:forEach items="${objPropertyStmt.object.VClasses}" var="type">
