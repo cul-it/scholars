@@ -70,7 +70,7 @@ if (loginHandler!=null && loginHandler.getLoginStatus()=="authenticated" && Inte
 			<edLnk:editLinks item="<%=p %>" var="links" />
 			<c:if test="${!empty links}">
 	            <li><a href="#<%=propertyLocalName%>"><%=p.getEditLabel()%></a>
-<%				if (showCuratorEdits) { // just while we want to survey ranking en masse in prep for finding a rational order
+<%				if (showCuratorEdits && !showSelfEdits) { // just while we want to survey ranking en masse in prep for finding a rational order
 	    			if (p instanceof ObjectProperty) {
 					    ObjectProperty op = (ObjectProperty)p;%>
 					    (o<%=p.isSubjectSide() ? op.getDomainDisplayTier() : op.getRangeDisplayTier()%>)
