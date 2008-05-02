@@ -1,92 +1,88 @@
 $(document).ready(function() {
     
-    // grab the property parameter from the URL if present using the getURLParam jQuery plugin (/js/jquery_plugins/getURLParam.js)
-    var parameter = $.getURLParam("property");
+    // note: parameters passed to these functions should NOT include a pound sign
     
-    // if ( parameter != null ) {
-    //  var groupID = $("#"+parameter).parent().attr("id");
-    //  $("ul#profileCats li a").each(function(){
-    //      $(this).removeAttr("id");
-    //  });
-    //  $("ul#profileCats li a").attr("href").
-    // }
-    
-    // if the property parameter is present, let's show the parent grouping for the requested property and hide all others
-    if ( parameter != null ) {
-        var childID = "#"+parameter;
-        // alert(childID);
-        var targetID = $(childID).parent().attr("id");
+    function switchPropertyGroup(targetGroup) {
         $("ul#profileCats li a").removeAttr("id").each(function(){
-            var inactiveID = $(this).attr("href");
-            $(inactiveID).hide();
-            if (inactiveID == ("#" + targetID)) {
-                $(this).attr("id", "currentCat");
-            };
+            var thisID = $(this).attr("href");
+            if (thisID == ("#" + targetGroup)) { $(this).attr("id", "currentCat"); }
+            $(thisID).hide();
         });
-        $("#" + targetID).show();
+        $("#" + targetGroup).show();
         $("ul#dashboardNavigation h2").removeClass("active");
-        
-        // highlight the requested property name
-        $(childID).children("h4").addClass("targeted");
-
+        $("ul#dashboardNavigation li." + targetGroup + " h2").addClass("active"); 
     }
     
-    // Hide all groups except currentCat when page loads
-    $("ul#profileCats li a").not("a#currentCat").each(function(){
-        var groupID = $(this).attr("href");
-        var dashboardItem = $(this).text();
-        $(groupID).hide();
-        $("li." + dashboardItem + " ul").hide();    
-    });
-
-
-    // Change active tab and view when tab is clicked
-    $("ul#profileCats li a").click(function(){
-        var activeID = $(this).attr("href");
-        var activeDashboardItem = $(this).text();
-        $("ul#profileCats li a").removeAttr("id").each(function(){
-            var inactiveID = $(this).attr("href");
-            var inactiveDashboardItem = $(this).text();
-            $(inactiveID).hide();
-            $("li." + inactiveDashboardItem + " ul").slideUp("fast");
-            $("li." + inactiveDashboardItem + " h2").removeClass("active");
-            });
-        $(this).attr("id", "currentCat");
-        $(activeID).show();
-        $("li." + activeDashboardItem + " ul").slideDown("slow");
-        $("li." + activeDashboardItem + " h2").addClass("active");
-        return false;
-    });
-    
-    // Change tab and view when dashboard item is clicked
-    $("ul.dashboardCategories li a").click(function(){
-        var childID = $(this).attr("href");
-        var targetID = $(childID).parent().attr("id");
-        
-        $("h4").removeClass("targeted");    
-        // $("div.propsCategory div").removeClass("targeted");  
-                
-        $("ul#profileCats li a").removeAttr("id").each(function(){
-            var inactiveID = $(this).attr("href");
-            $(inactiveID).hide();
-            if (inactiveID == ("#" + targetID)) {
-                $(this).attr("id", "currentCat");
+    function switchDashboardGroup(targetGroup, method) {
+        $("ul#dashboardNavigation ul").each(function(){
+            if (method == "quick") {
+                $(this).hide();
+                if ($(this).parent().hasClass(targetGroup)) { $(this).show(); }
+            }
+            if (method == "slide") {
+                $(this).slideUp("fast");
+                if ($(this).parent().hasClass(targetGroup)) { $(this).slideDown(); };
             }
         });
-        $("#" + targetID).show();
-        $("ul#dashboardNavigation h2").removeClass("active");
-        var currentLink = "ul li " + this;
-        var groupHeading = "ul#dashboardNavigation h2 + ul li " + this;
-        $(groupHeading).addClass("active"); 
-        
-        $(childID).children("h4").addClass("targeted"); 
-        // $(childID).addClass("targeted"); 
-        return false;
-    });     
+    }
     
-    $("ul#dashboardNavigation li h2").click(function(){
-        $(this).parent().children("ul").slideToggle("fast");
-        return false;
-
-    });
+    function changeHighlight(property) {
+        $("h4").removeClass("targeted");    
+        if (property != null) {
+            $(property).children("h4").addClass("targeted");
+        }
+    }
+ 
+    // do the following after the page initially loads
+    
+        var initialGroup = $("ul#profileCats a#currentCat").attr("href").substring(1);
+    
+        // grab the property parameter from the URL if present using the getURLParam jQuery plugin (/js/jquery_plugins/getURLParam.js)
+        var parameter = $.getURLParam("property");
+        var fragment = document.location.hash;
+    
+        // if there's a fragment identifier present (directly after a parameter), don't use the parameter at all
+        if (parameter != null && parameter.indexOf("#") > 0) {
+            parameter = null;
+        }
+    
+        // if the property parameter is present, let's show the parent grouping for the requested property and hide all others
+        if ( parameter != null ) {
+            var propertyID = "#" + parameter;
+            var paramGroupID = $(propertyID).parent("div").attr("id");
+            changeHighlight(propertyID);
+            initialGroup = paramGroupID;
+        }
+    
+        // if there's a fragment identifier present, switch to that group
+        if ( fragment.indexOf("-") > 1 ) {
+            var fragmentID = fragment.substring(1,fragment.indexOf("-"));
+            initialGroup = fragmentID;
+        }
+    
+        switchPropertyGroup(initialGroup);
+        switchDashboardGroup(initialGroup, "quick");
+    
+    
+    // event handlers
+    
+        $("ul#profileCats li a").click(function(){
+            var thisGroupID = $(this).attr("href").substring(1);
+            switchPropertyGroup(thisGroupID);
+            switchDashboardGroup(thisGroupID, "slide");
+            return false;
+        });
+        
+        $("ul.dashboardCategories li a").click(function(){
+            var thisPropertyID = $(this).attr("href");
+            var thisGroupID = $(thisPropertyID).parent().attr("id");
+            changeHighlight(thisPropertyID);
+            switchPropertyGroup(thisGroupID);
+            return false;
+        });
+    
+        $("ul#dashboardNavigation li h2").click(function(){
+            $(this).parent().children("ul").slideToggle("fast");
+            return false;
+        });
 });

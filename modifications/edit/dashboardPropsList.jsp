@@ -50,11 +50,13 @@ if (loginHandler!=null && loginHandler.getLoginStatus()=="authenticated" && Inte
 		<ul id="dashboardNavigation">
 <%		for (Property p : mergedList) {
     		String groupName="other";
+    		String groupLocalName="other";
 			String propertyLocalName = p.getLocalName() == null ? "unspecified" : p.getLocalName();
     		if (p.getGroupURI()!=null) {
     		    PropertyGroup pg = pgDao.getGroupByURI(p.getGroupURI());
     		    if (pg != null) {
 		    		groupName=pg.getName();
+		    		groupLocalName=pg.getLocalName();
     		    }
     		}
 		    if (!groupName.equals(lastGroupName)) {
@@ -63,7 +65,7 @@ if (loginHandler!=null && loginHandler.getLoginStatus()=="authenticated" && Inte
 		        if (groupCount>1) { // close existing group %>
 		        	</ul></li>
 <%		    	}%>
-		    	<li class="<%=groupName%>">
+		    	<li class="<%=groupLocalName%>">
 		    	<h2><%=groupName%></h2>
 		    	<ul class="dashboardCategories">
 <%			}%>
