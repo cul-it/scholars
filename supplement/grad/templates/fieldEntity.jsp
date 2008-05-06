@@ -139,7 +139,7 @@
                     
                     <c:set var="researchFocus" value="${spotlight.dataPropertyMap[researchFocusURI].dataPropertyStatements[0].data}"/>
                     <c:set var="maxBlurbLength" value="500"/>
-                    <c:set var="blurbLength"> 1 <%-- <str:length>${researchFocus}</str:length> --%></c:set>
+                    <c:set var="blurbLength"><str:length>${researchFocus}</str:length></c:set>
                     
                     <div class="blurb">
                         <h5>Research Focus:</h5>
@@ -150,10 +150,10 @@
                                 </str:chomp>
                                 <str:length var="chompLength">${chomped}</str:length>
                                 ${chomped}...
-                                <span style="" class="toggleLink">more</span>
-                                <div style="display: none;" class="readMore">
+                                <a  class="readMore" title="more about this person's research" href="#">read more</a>
+                                <%-- <div style="display: none;" class="readMore">
                                     <str:substring start="${chompLength}">${researchFocus}</str:substring>
-                                </div>
+                                </div> --%>
                             </c:when>
                             <c:otherwise>
                                 ${researchFocus}

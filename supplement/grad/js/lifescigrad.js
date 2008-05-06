@@ -1,9 +1,10 @@
 $(document).ready(function() {
 
 
-// Graduate Field pages
+// Graduate field pages
 if ($("body").attr("id") == "fields") {
     
+    // alert ("yes, it's fields");
     // Toggle Links
     $("body#fields span.toggleLink").click(function () {
         $("div.readMore").slideToggle("medium");
@@ -11,7 +12,7 @@ if ($("body").attr("id") == "fields") {
         return false;     
     });
 
-    // Highlighting Faculty Members by Research Area
+    // Highlighting faculty members by research rrea
     var parameter = $.getURLParam("uri");
     var jsonLink = "data/researchAreas.jsp" + "?uri=" + parameter;
 
@@ -19,7 +20,7 @@ if ($("body").attr("id") == "fields") {
         $("ul.researchAreaList li a").click(function(){
             if ($(this).hasClass("selected")) {
                 $("div#researchAreas li a").removeClass("selected");
-                $("div#fieldFaculty li").removeClass("selected");
+                $("div#fieldFaculty li").blur().removeClass("selected");
             }
             else {
                 $("div#researchAreas li a").removeClass("selected");
@@ -40,7 +41,7 @@ if ($("body").attr("id") == "fields") {
     }); 
 }
     
-// Department Pages
+// Department pages
 if ($("body").attr("id") == "departments") {
      $("body#departments span.toggleLink").click(function () {
         $("ul#moreProjects").slideToggle("medium");
@@ -49,7 +50,7 @@ if ($("body").attr("id") == "departments") {
      });
 }
 
-// Faculty Index Page
+// Faculty index Page
 if ($("body").attr("id") == "faculty") {
     
      // Pagination functions
@@ -72,6 +73,32 @@ if ($("body").attr("id") == "faculty") {
          $(this).blur();
          return false;
      });
+}
+
+// Graduate grouping pages
+if ($("body").attr("id") == "groups") {
+
+    var parameter = $.getURLParam("uri");
+    var jsonLink = "data/groupsFields2.jsp" + "?uri=" + parameter;
+    var hoverDivs = '<div id="overview"><div id="fieldDescription"></div><div id="fieldDepartments"></div></div>';
+    $("h2.groupLabel").after(hoverDivs);
+    
+        $.getJSON(jsonLink, function(json) {
+        $("ul.fields li").mouseover(function(){
+            var thisID = $(this).attr("class");
+            $.each(json.Fields, function(i, field) {
+                if (field.ID == thisID) {
+                    $("div#fieldDescription").empty().append(field.Description);
+                    $("div#fieldDepartments").empty().append("<ul></ul>");
+                    $.each(field.Departments, function(i, dept) {
+                        var newListItem = "<li>" + field.Departments[i].Label + "</li>";
+                        $("div#fieldDepartments ul").append(newListItem);
+                    });
+                    $("div#overview").show();
+                }
+            });
+        });
+    }); 
 }
 
 }); // document ready

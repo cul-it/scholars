@@ -22,6 +22,7 @@
     <script type="text/javascript" src="${jsDir}/niftycube.js"></script>
     <script type="text/javascript" src="js/niftyConfig.js"></script>
     <script type="text/javascript" src="${jsDir}/jquery.js"></script>
+    <script type="text/javascript" src="${jsDir}/jquery_plugins/getURLParam.js"></script>
     
     <%-- For Exhibit only --%>
     <c:if test="${fn:contains(pageContext.request.servletPath, 'XXX.jsp')}">
@@ -34,11 +35,7 @@
         <link rel="stylesheet" href="style/websnapr.css" type="text/css" />
         <script src="js/localsnapr.js" type="text/javascript"></script>
     </c:if>
-    
-    <c:if test="${fn:contains(pageContext.request.servletPath, 'fields.jsp')}">
-        <script type="text/javascript" src="${jsDir}/jquery_plugins/getURLParam.js"></script>
-    </c:if>
-    
+        
     <c:if test="${fn:contains(pageContext.request.servletPath, 'departments.jsp')}">
         <link rel="stylesheet" href="style/websnapr.css" type="text/css" />
         <script src="js/websnapr.js" type="text/javascript"></script>

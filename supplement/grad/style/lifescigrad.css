@@ -67,11 +67,11 @@ body {
 }
 
 body#groups #content {  
-    width: 515px;  /*seven units*/
+    width: 890px; margin-right: 20px;
 }
 
 body#fields #content { 
-    width: 590px; margin-right: 20px; /*sixteen units*/
+    width: 590px; margin-right: 20px;
 }
 
 body#groupindex #content { 
@@ -100,7 +100,7 @@ body#faculty #content {
 }
 
 body#groups #sidebar { 
-    width: 365px;
+/*    width: 365px;*/
 }
 
 body#fields #sidebar { 
@@ -263,6 +263,25 @@ body#home #applyButton {
     margin-top: -15px;
 }
 
+body#groups div#overview {
+    float: right;
+    display: none;
+    width: 440px;
+/*    padding: 14px;*/
+    background: #0e627b;
+    color: #fff;
+}
+
+body#groups div#fieldDescription,
+body#groups div#fieldDepartments ul {
+    font-size: 1.2em;
+}
+
+body#groups div#fieldDescription,
+body#groups div#fieldDepartments {
+    margin: 16px;
+}
+
 body#fields div#facultySpotlight {
     background: #4f4b47;
     color: #fff;
@@ -331,8 +350,8 @@ body#fields div#facultySpotlight li p {
     margin: 0;
 }
 
-body#fields div#facultySpotlight a.toggleLink {
-    padding-left: 10px;
+body#fields div#facultySpotlight a.readMore {
+    margin-left: 10px;
     font-weight: bold;
     text-decoration: underline;
     color: #EFECCA;
@@ -376,11 +395,6 @@ body#departments div#deptDescription div.description {
     font-size: 1.3em;
     line-height: 1.3em;
     margin-top: 1em;
-}
-
-body#fields div#fieldDescription div.description {
-    padding-bottom: 1em;
-    border-bottom: 1px dotted #005959;
 }
 
 body#fields div#fieldDescription ul li,
@@ -468,7 +482,7 @@ body#fields div#fieldDepartments a {
 
 body#fields div#fieldDepartments li {
     color: #a7a37e;
-    font-size: 1.1em;
+    font-size: 1em;
     line-height: 1.3em;
     margin-bottom: .5em;
     margin-left: 18px;
@@ -879,7 +893,25 @@ ul.fields {
 }
 
 ul.fields li {
-    margin-bottom: 4px;
+/*    margin-bottom: 4px;*/
+}
+
+body#groups ul.fields {
+    width: 445px;
+}
+
+body#groups ul.fields li:hover {
+    background: #0e627b;
+} 
+
+body#groups ul.fields a {
+    display: block;
+    border: 0;
+    padding: 3px 0 3px 12px;
+}
+
+body#groups ul.fields a:hover {
+    color: #f0eaa7;
 }
 
 body#groupindex #content ul {
@@ -888,24 +920,28 @@ body#groupindex #content ul {
     line-height: 1.5em;
 }
 
-body#groups #content ul {
-    margin-left: 18em;
-    margin-top: .5em;
+body#groups #content ul.fields {
+/*    margin-left: 18em;*/
+/*    margin-top: .5em;*/
 }
 
 body#fields #content li, body#fields #sidebar li {
 /*    font-size: 1.2em;*/
 }
 
-#sidebar ul.groupings {
+body#groups ul.groupings {
+    clear: left;
+    width: 350px;
     padding: 12px 6px 12px 12px;
+    border: 2px solid #005959;
     background: #183F40;  /*lighter green*/
 }
 
-#sidebar ul.groupings li {
+body#groups ul.groupings li {
     padding-left: 27px;
     line-height: 1.3em;
     font-weight: bold;
+    font-size: 1em;
     margin-bottom: -10px; 
 }
 
@@ -967,31 +1003,31 @@ body#fields #content li, body#fields #sidebar li {
 }
 
 /* ---------- Small icons for groupings displayed in sidebar ---------- */
-#sidebar .individual31915 {    /* Applied Biology */
+.small .individual31915 {    /* Applied Biology */
     background: url(../images/icons/small/smallicon-applied_bio.png) no-repeat left top !important; 
     background: url(../images/icons/small/smallicon-applied_bio.gif) no-repeat left top; } 
     
-#sidebar .individual31919 {    /* Biomedical Sciences */
+.small .individual31919 {    /* Biomedical Sciences */
     background: url(../images/icons/small/smallicon-biomed.png) no-repeat left top !important;
     background: url(../images/icons/small/smallicon-biomed.gif) no-repeat left top; }
     
-#sidebar .individual31918 {    /* Ecology, Evolution, Integrative Biology */
+.small .individual31918 {    /* Ecology, Evolution, Integrative Biology */
     background: url(../images/icons/small/smallicon-ecology.png) no-repeat left top !important;
     background: url(../images/icons/small/smallicon-ecology.gif) no-repeat left top; }
     
-#sidebar .individual31917 {    /* Genetics, Genomics, Bioinformatics */
+.small .individual31917 {    /* Genetics, Genomics, Bioinformatics */
     background: url(../images/icons/small/smallicon-genetics.png) no-repeat left top !important;
     background: url(../images/icons/small/smallicon-genetics.gif) no-repeat left top; }
     
-#sidebar .individual31916 {    /* Molecular, Cellular Biology */
+.small .individual31916 {    /* Molecular, Cellular Biology */
     background: url(../images/icons/small/smallicon-molecbio.png) no-repeat left top !important;
     background: url(../images/icons/small/smallicon-molecbio.gif) no-repeat left top; }
     
-#sidebar .individual31920 {    /* Physical, Chemical, Computational Biology */
+.small .individual31920 {    /* Physical, Chemical, Computational Biology */
     background: url(../images/icons/small/smallicon-physchem.png) no-repeat left top !important;  
     background: url(../images/icons/small/smallicon-physchem.gif) no-repeat left top; }
 
-#sidebar .individual31915,  #sidebar .individual31919, #sidebar .individual31918, #sidebar .individual31917, #sidebar .individual31916, #sidebar .individual31920 {
+.small .individual31915,  .small .individual31919, .small .individual31918, .small .individual31917, .small .individual31916, .small .individual31920 {
     padding: 10px 0 20px 47px;
 }
 

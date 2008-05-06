@@ -1,5 +1,6 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           xmlns:sparql="http://djpowell.net/tmp/sparql-tag/0.1/"
           version="2.0" >
 
@@ -10,36 +11,44 @@
     
 
     <sparql:sparql>
-    <sparql:select model="${applicationScope.jenaOntModel}" var="rs"
-	            fieldCluster="&lt;${param.uri}&gt;">
+    <sparql:select model="${applicationScope.jenaOntModel}" var="rs" group="&lt;${param.uri}&gt;">
       <![CDATA[
 
-              PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-              PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-              PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
-              SELECT ?gradFieldUri ?gradFieldLabel
-              WHERE
-              {
-              ?fieldCluster vivo:hasAssociated ?gradFieldUri.
-              OPTIONAL { ?gradFieldUri rdfs:label ?gradFieldLabel }
-              }
-              ORDER BY ?gradFieldLabel
-              LIMIT 200
+          PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+          PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+          PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
+          SELECT DISTINCT ?field ?fieldLabel
+          WHERE
+          {
+
+          ?group
+          vivo:hasAssociated
+          ?field .
+
+          ?field
+          vivo:AcademicInitiativeHasOtherParticipantAcademicEmployeeAsFieldMember
+          ?person .
+
+          OPTIONAL { ?field rdfs:label ?fieldLabel }
+          }
+          ORDER BY ?fieldLabel
+          LIMIT 200
 
           ]]>
     </sparql:select>
 
     <!-- UL tags being added elsewhere -->
       <c:forEach  items="${rs.rows}" var="gradfield">
-            <li>
+        <c:set var="classForField" value="${fn:substringAfter(gradfield.field,'#')}"/>
+            <li class="${classForField}">
                 <c:url var="fieldhref" value="fields.jsp">
-                    <c:param name="uri" value="${gradfield.gradFieldUri}"/>
-                    <c:param name="fieldLabel" value="${gradfield.gradFieldLabel.string}"/>
+                    <c:param name="uri" value="${gradfield.field}"/>
+                    <c:param name="fieldLabel" value="${gradfield.fieldLabel.string}"/>
                     <c:param name="groupLabel" value="${param.groupLabel}"/>
                     <c:param name="groupUri" value="${param.uri}"/>
                     <c:param name="groupClass" value="${param.groupClass}"/>       
                 </c:url>
-                <a href="${fieldhref}">${gradfield.gradFieldLabel.string}</a>
+                <a href="${fieldhref}">${gradfield.fieldLabel.string}</a>
             </li>
       </c:forEach>
 
