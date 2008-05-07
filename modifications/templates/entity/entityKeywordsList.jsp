@@ -16,7 +16,7 @@ String themeDir="themes/vivo/";
 if (VitroRequestPrep.isSelfEditing(request)) {
 	themeDir = "themes/editdefault/";
 } else if (!LoginFormBean.loggedIn(request, LoginFormBean.CURATOR)) {%>
-    <c:redirect url="/about.jsp"/>
+    <c:redirect url="/about"/>
 <%
 }
 Individual ent = (Individual)request.getAttribute("entity");

@@ -25,7 +25,7 @@
     if( session == null)
         throw new Error("need to have session");
     if (!VitroRequestPrep.isSelfEditing(request) && !LoginFormBean.loggedIn(request, LoginFormBean.CURATOR)) {%>
-        <c:redirect url="/about.jsp"/>
+        <c:redirect url="/about"/>
 <%  }
 
 

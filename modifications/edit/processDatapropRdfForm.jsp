@@ -37,7 +37,7 @@ in processing the form.
 %>
 <%
     if (!VitroRequestPrep.isSelfEditing(request) && !LoginFormBean.loggedIn(request, LoginFormBean.CURATOR)) {
-        %><c:redirect url="/about.jsp"></c:redirect><%
+        %><c:redirect url="/about"></c:redirect><%
     }
 
     List<String> errorMessages = new ArrayList<String>();

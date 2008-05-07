@@ -32,7 +32,7 @@
             <c:param name="property" value="${localName}" />
         </c:redirect>
     <% }else { %>
-        <c:redirect url="/about.jsp"/>
+        <c:redirect url="/about"/>
     <% } %>
 
 

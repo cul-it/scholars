@@ -55,7 +55,7 @@
                 <li><a href="browsecontroller?home=<%=portalId%>" title="list all contents by type">Index</a></li>
 <%          }
             if ("about".equalsIgnoreCase(fixedTabStr)) {%>
-                <li><a class="activeTab" href="about.jsp?home=<%=portalId%>&amp;login=none" title="more about this web site">About</a></li>
+                <li><a class="activeTab" href="about?home=<%=portalId%>&amp;login=none" title="more about this web site">About</a></li>
 <%          } else {%>
                 <li><a href="about?home=<%=portalId%>&amp;login=none" title="more about this web site">About</a></li>
 <%          }                                                    %>

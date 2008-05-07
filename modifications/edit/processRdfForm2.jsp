@@ -33,7 +33,7 @@ are well formed.
 %>
 <%
     if (!VitroRequestPrep.isSelfEditing(request) && !LoginFormBean.loggedIn(request, LoginFormBean.CURATOR)) {
-        %><c:redirect url="/about.jsp"></c:redirect>      <%
+        %><c:redirect url="/about"></c:redirect>      <%
     }
 
 
