@@ -3,6 +3,7 @@
 
 <jsp:include page="header.jsp">
     <jsp:param name="bodyID" value="fields"/>
+    <jsp:param name="titleText" value="Graduate Field of ${param.fieldLabel} - Cornell University"/>
 </jsp:include>
 
 <div id="contentWrap">

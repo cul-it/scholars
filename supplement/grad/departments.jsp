@@ -1,8 +1,14 @@
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
+<c:set var="pageTitle">
+    <c:if test="${!empty param.deptLabel}">Department of ${param.deptLabel} - Cornell University</c:if>
+    <c:if test="${empty param.deptLabel}">Departments associated with Life Sciences Graduate Programs - Cornell University</c:if>
+</c:set>
+
 <jsp:include page="header.jsp">
     <jsp:param name="bodyID" value="departments"/>
+    <jsp:param name="titleText" value="${pageTitle}"/>
 </jsp:include>
         
         <div id="contentWrap">

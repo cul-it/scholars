@@ -25,7 +25,7 @@
 <c:set var='facultyMembersPropUri' value='http://vivo.library.cornell.edu/ns/0.1#AcademicInitiativeHasOtherParticipantAcademicEmployeeAsFieldMember' scope="page"/>
 <c:set var='researchFocusURI' value='http://vivo.library.cornell.edu/ns/0.1#researchFocus'/>
 <c:set var='imageDir' value='../images/' scope="page"/>
-
+<fmt:setLocale value="en_US"/>    
 
 
 <div id="fieldDescription">
@@ -202,7 +202,7 @@
                             <c:if test="${itemCount.last == true}">
                                 <c:set var="counter">${counter + itemCount.index}</c:set>
                             </c:if>
-                            <li><c:url var="href" value="departments.jsp"><c:param name="uri" value="${departments.deptUri}"/></c:url><a href="${href}" title="">${departments.deptLabel.string}</a></li>
+                            <li><c:url var="href" value="departments.jsp"><c:param name="uri" value="${departments.deptUri}"/><c:param name="deptLabel" value="${departments.deptLabel.string}"/></c:url><a href="${href}" title="">${departments.deptLabel.string}</a></li>
                         </c:forEach>
                     </ul>
             </sparql:sparql>

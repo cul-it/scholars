@@ -80,11 +80,12 @@ if ($("body").attr("id") == "groups") {
 
     var parameter = $.getURLParam("uri");
     var jsonLink = "data/groupsFields2.jsp" + "?uri=" + parameter;
-    var hoverDivs = '<div id="overview"><div id="fieldDescription"></div><div id="fieldDepartments"></div></div>';
-    $("h2.groupLabel").after(hoverDivs);
+    // var hoverDivs = '<div id="overview"><div id="fieldDescription"></div><div id="fieldDepartments"></div></div>';
+    // $("h2.groupLabel").after(hoverDivs);
     
         $.getJSON(jsonLink, function(json) {
         $("ul.fields li").mouseover(function(){
+            // $(this).addClass("selected");
             var thisID = $(this).attr("class");
             $.each(json.Fields, function(i, field) {
                 if (field.ID == thisID) {
@@ -98,6 +99,9 @@ if ($("body").attr("id") == "groups") {
                 }
             });
         });
+        // $("ul.fields li").mouseout(function(){
+        //     $(this).removeClass("selected");
+        // });
     }); 
 }
 

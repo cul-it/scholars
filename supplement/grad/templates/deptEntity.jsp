@@ -24,6 +24,7 @@
 <c:set var='sponsorsSeriesPropUri' value='http://vivo.library.cornell.edu/ns/0.1#OrganizedEndeavorSponsorOfAssociatedEnumeratedSet' scope="page"/>
 <c:set var='facultyMembersPropUri' value='http://vivo.library.cornell.edu/ns/0.1#hasAppointedFaculty' scope="page"/>
 <c:set var='hasCoursePropUri' value='' scope="page"/>
+<fmt:setLocale value="en_US"/>    
 
 <c:set var='imageDir' value='images' scope="page"/>
 

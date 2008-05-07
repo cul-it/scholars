@@ -16,7 +16,14 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
-	<title>Graduate Programs in the Life Sciences</title>
+	<title>
+	    <c:choose>
+            <c:when test="${!empty param.titleText}">${param.titleText}</c:when>
+            <c:otherwise>Graduate Programs in the Life Sciences - Cornell University</c:otherwise>
+	    </c:choose>
+	</title>
+	<c:url var="faviconLoc" value="/favicon.ico"/>
+	<link rel="shortcut icon" href="${faviconLoc}"/>
 	<link rel="stylesheet" href="style/screen.css" type="text/css" />
     <link rel="stylesheet" href="${jsDir}/niftyCorners.css" type="text/css" />
     <script type="text/javascript" src="${jsDir}/niftycube.js"></script>
