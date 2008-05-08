@@ -6,7 +6,7 @@
 
 <jsp:include page="header.jsp">
     <jsp:param name="bodyID" value="faculty"/>
-    <jsp:param name="titleText" value="Faculty in Life Sciences Graduate Programs - Cornell University"/>
+    <jsp:param name="titleText" value="Faculty Index for Life Sciences Graduate Programs - Cornell University"/>
 </jsp:include>
         
         <div id="contentWrap">

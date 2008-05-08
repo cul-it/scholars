@@ -18,13 +18,8 @@
             <div id="content">
 
                     <h2 class="groupLabel ${param.groupClass}">${param.groupLabel}</h2>
-                    
-                    <div id="overview">
-                        <div id="fieldDescription"></div>
-                        <div id="fieldDepartments"></div>
-                    </div>
-                    
-                    <h3>Graduate Fields in this area:</h3>
+
+                    <h3>Graduate Fields in this area</h3>
                     <ul class="fields">
                         <jsp:include page="part/listfields.jsp">
                             <jsp:param name="uri" value="${param.uri}"/>

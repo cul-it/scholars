@@ -53,8 +53,7 @@
             </c:otherwise>
         </c:choose>
                 
-        <ul>
-            <div class="colOne">
+            <ul class="colOne">
                 <c:forEach items='${entity.objectPropertyMap[facultyMembersPropUri].objectPropertyStatements}' var="Faculty" varStatus="facultyCount" begin="0" end="${facultyColumnSize - 1}">
                 <c:set var="facultyID" value="${fn:substringAfter(Faculty.object.URI,'#')}"/>
                 <li id="${facultyID}">
@@ -73,9 +72,9 @@
                         <em>${Faculty.object.moniker}</em>
                 </li>
                 </c:forEach>
-            </div>
+            </ul>
         
-            <div class="colTwo">
+            <ul class="colTwo">
                 <c:forEach items='${entity.objectPropertyMap[facultyMembersPropUri].objectPropertyStatements}' var="Faculty" begin="${facultyColumnSize}">
                 <c:set var="facultyID" value="${fn:substringAfter(Faculty.object.URI,'#')}"/>
                 <li id="${facultyID}">
@@ -95,8 +94,7 @@
                         <em>${Faculty.object.moniker}</em>
                 </li>
                 </c:forEach>
-            </div>    
-        </ul>
+            </ul>    
 </div><!-- fieldFaculty -->
 
 </div> <!-- content -->

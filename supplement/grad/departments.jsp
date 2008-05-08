@@ -3,7 +3,7 @@
 
 <c:set var="pageTitle">
     <c:if test="${!empty param.deptLabel}">Department of ${param.deptLabel} - Cornell University</c:if>
-    <c:if test="${empty param.deptLabel}">Departments associated with Life Sciences Graduate Programs - Cornell University</c:if>
+    <c:if test="${empty param.deptLabel}">Department Index for Life Sciences Graduate Programs - Cornell University</c:if>
 </c:set>
 
 <jsp:include page="header.jsp">

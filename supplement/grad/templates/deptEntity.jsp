@@ -160,8 +160,7 @@
             <%--Prevent orphaned items--%>
             <c:if test="${(facultyTotal - facultyColumnSize) eq 1}"><c:set var="facultyColumnSize" value="${facultyColumnSize + 1}"/></c:if>
     
-            <ul class="facultyList">
-                <span class="colOne">
+            <ul class="colOne">
                     <c:forEach items='${entity.objectPropertyMap[facultyMembersPropUri].objectPropertyStatements}' var="Faculty" varStatus="facultyCount" begin="0" end="${facultyColumnSize - 1}">
                         <li>
                             <c:url var="href" value="/entity">
@@ -170,10 +169,10 @@
                             <a href="${href}" title="view profile in VIVO">${Faculty.object.name}</a>
                         </li>
                     </c:forEach>
-                </span>
+            </ul>
             
             <c:if test="${(facultyTotal-(facultyColumnSize-1)) gt 0}">
-                <span class="colTwo">
+                <ul class="colTwo">
                     <c:forEach items='${entity.objectPropertyMap[facultyMembersPropUri].objectPropertyStatements}' var="Faculty" begin="${facultyColumnSize}" end="${facultyColumnSize * 2 - 1}">
                         <li>
                             <c:url var="href" value="/entity">
@@ -182,11 +181,11 @@
                             <a href="${href}" title="view profile in VIVO">${Faculty.object.name}</a>
                         </li>
                     </c:forEach>
-                </span>
+                </ul>
             </c:if>
         
             <c:if test="${(facultyTotal-(facultyColumnSize*2)) gt 0}">
-                <span class="colThree">
+                <ul class="colThree">
                      <c:forEach items='${entity.objectPropertyMap[facultyMembersPropUri].objectPropertyStatements}' var="Faculty" varStatus="facultyCount" begin="${facultyColumnSize * 2 }">
                         <li>
                             <c:url var="href" value="/entity">
@@ -195,9 +194,8 @@
                             <a href="${href}" title="view profile in VIVO">${Faculty.object.name}</a>
                         </li>
                     </c:forEach>
-                </span>
+                </ul>
             </c:if>
-            </ul>
     </div><!-- deptFaculty -->
     
 </div><!-- wrapper -->
