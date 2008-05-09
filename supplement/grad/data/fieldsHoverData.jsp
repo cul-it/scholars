@@ -37,7 +37,7 @@
              <json:property name="Label" value="${group.fieldLabel.string}"/>
              <json:property name="URI" value="${group.field}"/>
              <json:property name="Description" value="${group.fieldDescription.string}" escapeXml="false"/>
-                <c:import url="groupsFields-departments.jsp">
+                <c:import url="fieldsHoverData-departments.jsp">
                     <c:param name="uri" value="${group.field}"/>
                 </c:import>
          </json:object>

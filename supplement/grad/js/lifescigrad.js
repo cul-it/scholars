@@ -115,12 +115,11 @@ if ($("body").attr("id") == "groups") {
             var json = fieldsJSON;
             var fieldsCount = json.Fields.length - 1;
             var randomField = Math.floor(Math.random()*fieldsCount);
-            var thisField = json.Fields[randomField].ID;
+            var initialField = json.Fields[randomField].ID;
             
-            changeSelected(thisField);
-            fieldHoverSwitch(thisField, json);
+            changeSelected(initialField);
+            fieldHoverSwitch(initialField, json);
                         
-            // alert("Fields: " + fieldsCount + "\nRandom Field:" + randomField + "\nJSON: " + thisField);
             $("ul.fields li a").mouseover(function() {
                 var thisField = $(this).parent().attr("class");
                 changeSelected(thisField);
