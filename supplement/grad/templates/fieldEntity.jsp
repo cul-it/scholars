@@ -30,7 +30,16 @@
 
 <div id="fieldDescription">
     <h2>Graduate Field of <span class="sectionLabel">${entity.name}</span></h2>
-    <div class="description">${entity.description}</div>
+    <div class="description">
+        ${entity.description}
+        <c:if test="${!empty entity.linksList }">
+            <c:forEach items="${entity.linksList}" var='link' begin="0" end="0">
+                <c:url var="linkUrl" value="${link.url}" />
+                <a title="view the ${entity.name} web page" href="<c:out value="${linkUrl}"/>">Official ${entity.name} Web page</a>
+            </c:forEach>
+        </c:if>
+    </div>
+
 </div><!-- fieldDescription -->
       
 <div id="fieldFaculty">
@@ -57,19 +66,19 @@
                 <c:forEach items='${entity.objectPropertyMap[facultyMembersPropUri].objectPropertyStatements}' var="Faculty" varStatus="facultyCount" begin="0" end="${facultyColumnSize - 1}">
                 <c:set var="facultyID" value="${fn:substringAfter(Faculty.object.URI,'#')}"/>
                 <li id="${facultyID}">
+                    <c:url var="href" value="/entity">
+                        <c:param name="uri" value="${Faculty.object.URI}"/>
+                    </c:url>
                     <c:choose>
                         <c:when test="${!empty Faculty.object.imageThumb}">
-                            <img align="left" alt="" src="${imageDir}${Faculty.object.imageThumb}"/>
+                            <a href="${href}" title="view profile in VIVO"><img align="left" alt="" src="${imageDir}${Faculty.object.imageThumb}"/></a>
                         </c:when>
                         <c:otherwise>
-                            <img alt="" src="images/profile_missing.gif"/>
+                            <a href="${href}" title="view profile in VIVO"><img alt="" src="images/profile_missing.gif"/></a>
                         </c:otherwise>
                     </c:choose>
-                        <c:url var="href" value="/entity">
-                            <c:param name="uri" value="${Faculty.object.URI}"/>
-                        </c:url>
-                        <strong><a href="${href}" title="view profile in VIVO">${Faculty.object.name}</a></strong>
-                        <em>${Faculty.object.moniker}</em>
+                    <strong><a href="${href}" title="view profile in VIVO">${Faculty.object.name}</a></strong>
+                    <em>${Faculty.object.moniker}</em>
                 </li>
                 </c:forEach>
             </ul>
@@ -78,20 +87,19 @@
                 <c:forEach items='${entity.objectPropertyMap[facultyMembersPropUri].objectPropertyStatements}' var="Faculty" begin="${facultyColumnSize}">
                 <c:set var="facultyID" value="${fn:substringAfter(Faculty.object.URI,'#')}"/>
                 <li id="${facultyID}">
+                    <c:url var="href" value="/entity">
+                        <c:param name="uri" value="${Faculty.object.URI}"/>
+                    </c:url>
                     <c:choose>
                         <c:when test="${!empty Faculty.object.imageThumb}">
-                            <img align="left" alt="" src="${imageDir}${Faculty.object.imageThumb}"/>
+                            <a href="${href}" title="view profile in VIVO"><img align="left" alt="" src="${imageDir}${Faculty.object.imageThumb}"/></a>
                         </c:when>
                         <c:otherwise>
-                            <img alt="" src="images/profile_missing.gif"/>
+                            <a href="${href}" title="view profile in VIVO"><img alt="" src="images/profile_missing.gif"/></a>
                         </c:otherwise>
                     </c:choose>
-
-                        <c:url var="href" value="/entity">
-                            <c:param name="uri" value="${Faculty.object.URI}"/>
-                        </c:url>
-                        <strong><a href="${href}" title="view profile in VIVO">${Faculty.object.name}</a></strong>
-                        <em>${Faculty.object.moniker}</em>
+                    <strong><a href="${href}" title="view profile in VIVO">${Faculty.object.name}</a></strong>
+                    <em>${Faculty.object.moniker}</em>
                 </li>
                 </c:forEach>
             </ul>    

@@ -406,6 +406,12 @@ body#departments div#deptPageScreenshot a:hover {
     text-decoration: underline;
 }
 
+body#fields div#fieldDescription a {
+    border-bottom: 1px solid #4a7172;
+/*    text-decoration: underline;*/
+    font-size: 1em;
+}
+
 body#fields div#fieldDescription div.description,
 body#departments div#deptDescription div.description {
     font-size: 1.3em;
@@ -422,7 +428,8 @@ body#departments div#deptDescription ul li {
 }
 
 body#fields div#fieldFaculty {
-    margin-top: 2em;
+    margin-top: 3em;
+    clear: right;
 }
 
 body#fields div#fieldFaculty ul {
@@ -903,6 +910,9 @@ body#groups ul.fields a {
 /*    margin-left: -24px;*/
 }
 
+body#groups ul.fields a:hover {
+    color: #f4ea7c;
+}
 /*body#groups ul.fields a:hover,*/
 body#groups ul.fields a.selected {
     color: #f4ea7c;
