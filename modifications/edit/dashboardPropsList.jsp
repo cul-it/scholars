@@ -51,12 +51,14 @@ if (loginHandler!=null && loginHandler.getLoginStatus()=="authenticated" && Inte
 <%		for (Property p : mergedList) {
     		String groupName="other";
     		String groupLocalName="other";
+			String groupPublicDescription=null;
 			String propertyLocalName = p.getLocalName() == null ? "unspecified" : p.getLocalName();
     		if (p.getGroupURI()!=null) {
     		    PropertyGroup pg = pgDao.getGroupByURI(p.getGroupURI());
     		    if (pg != null) {
 		    		groupName=pg.getName();
 		    		groupLocalName=pg.getLocalName();
+		    		groupPublicDescription=pg.getPublicDescription();
     		    }
     		}
 		    if (!groupName.equals(lastGroupName)) {
@@ -68,7 +70,10 @@ if (loginHandler!=null && loginHandler.getLoginStatus()=="authenticated" && Inte
 		    	<li class="<%=groupLocalName%>">
 		    	<h2><%=groupName%></h2>
 		    	<ul class="dashboardCategories">
-<%			}%>
+<%				if (groupPublicDescription != null && groupPublicDescription.length()>0) { %>
+					<div class="groupDescription"><%=groupPublicDescription%></div>
+<%				}
+			}%>
 			<edLnk:editLinks item="<%=p %>" var="links" />
 			<c:if test="${!empty links}">
 	            <li><a href="#<%=propertyLocalName%>"><%=p.getEditLabel()%></a>
