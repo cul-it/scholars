@@ -88,7 +88,9 @@
     } else {
         editConfig.prepareForNonUpdate( model );
         if ("true".equals((String)request.getAttribute("hasCustomForm"))) {
-            formTitle   = "Create a new entry for "+subject.getName();
+            System.out.println("have a custom form in defaultObjPropForm.jsp: "+prop.getCustomEntryForm());
+            formTitle   = "Select an existing "+rangeClass.getName()+" for "+subject.getName();
+            submitLabel = "select existing";
         } else {
             formTitle   =  "Add an entry to: <em>"+prop.getDomainPublic()+"</em>";
             submitLabel ="save entry";
@@ -104,6 +106,7 @@
             <c:param name="subjectUri" value="${param.subjectUri}"/>
             <c:param name="predicateUri" value="${param.predicateUri}"/>
             <c:param name="clearEditConfig" value="true"/>
+            <c:param name="cmd" value="create"/>
         </c:url>
     </c:if>
     <c:if test="${!empty predicate.publicDescription}">
@@ -112,7 +115,7 @@
     <v:input type="editKey" id="editKey"/>
     <v:input type="select" id="objectVar" size="80" /><%--label="<%=rangeClass.getName()%>" --%>
     <v:input type="submit" id="submit" value="<%=submitLabel%>" cancel="${param.subjectUri}"/>
-    <c:if test="${hasCustonForm eq 'true'}">
+    <c:if test="${hasCustomForm eq 'true'}">
         <p>If you don't find the appropriate entry on the selection list,
         <button type="button"
         onclick="javascript:document.location.href='${createNewUrl}'">create

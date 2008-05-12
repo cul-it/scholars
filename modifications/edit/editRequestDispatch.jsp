@@ -25,14 +25,15 @@
     final String DEFAULT_OBJ_FORM =  "defaultObjPropForm.jsp";
     final String DEFAULT_ERROR_FORM = "error.jsp";
     final String DEFAULT_EDIT_THEME_DIR = "themes/default";
-
-    HashMap<String,String> propUriToForm = null;
-    propUriToForm = new HashMap<String,String>();
-    propUriToForm.put("http://vivo.library.cornell.edu/ns/0.1#PersonTeacherOfSemesterCourse", "personTeacherOfSemesterCourse.jsp");
-    propUriToForm.put("http://vivo.library.cornell.edu/ns/0.1#authorOf", "personAuthorOf.jsp");
-    propUriToForm.put("http://vivo.library.cornell.edu/ns/0.1#seminarOrLectureSeriesHasMemberTalk", "seminarHasMemberTalk.jsp");
-    propUriToForm.put("http://vivo.library.cornell.edu/ns/0.1#hasEducationalBackground", "personHasEducationalBackground.jsp");
-
+	
+  
+    //HashMap<String,String> propUriToForm = null;
+    //propUriToForm = new HashMap<String,String>();
+    //propUriToForm.put("http://vivo.library.cornell.edu/ns/0.1#PersonTeacherOfSemesterCourse", "personTeacherOfSemesterCourse.jsp");
+    //propUriToForm.put("http://vivo.library.cornell.edu/ns/0.1#authorOf", "personAuthorOf.jsp");
+    //propUriToForm.put("http://vivo.library.cornell.edu/ns/0.1#seminarOrLectureSeriesHasMemberTalk", "seminarHasMemberTalk.jsp");
+    //propUriToForm.put("http://vivo.library.cornell.edu/ns/0.1#hasEducationalBackground", "personHasEducationalBackground.jsp");
+	//propUriToForm.put("http://vivo.library.cornell.edu/ns/0.1#PersonLeadParticipantAsSpeakerAtEvent","personSpeakerAtEvent.jsp");
     request.getSession(true);
 
     /* ********************************************************** */
@@ -49,7 +50,7 @@
 
     String subjectUri   = request.getParameter("subjectUri");
     String predicateUri = request.getParameter("predicateUri");
-    String defaultParam = request.getParameter("defaultForm");
+    //String defaultParam = request.getParameter("defaultForm");
     String command      = request.getParameter("cmd");
 
     if( subjectUri == null || subjectUri.trim().length() == 0 )
@@ -77,9 +78,9 @@
     if( subject == null ) throw new Error("In editRequestDispatch.jsp, could not find subject in model: '" + subjectUri + "'");
     request.setAttribute("subject", subject);
 
-    ObjectProperty objectprop = wdf.getObjectPropertyDao().getObjectPropertyByURI(predicateUri);
-    if( objectprop == null ) throw new Error("In editRequestDispatch.jsp, could not find predicate object property in model: '"+predicateUri+"'");
-    request.setAttribute("predicate", objectprop);
+    ObjectProperty objectProp = wdf.getObjectPropertyDao().getObjectPropertyByURI(predicateUri);
+    if( objectProp == null ) throw new Error("In editRequestDispatch.jsp, could not find predicate object property in model: '"+predicateUri+"'");
+    request.setAttribute("predicate", objectProp);
 
     if( objectUri != null ){
         Individual object = wdf.getIndividualDao().getIndividualByURI( objectUri );
@@ -95,22 +96,27 @@
     request.setAttribute("preForm", "/edit/formPrefix.jsp");
     request.setAttribute("postForm", "/edit/formSuffix.jsp");
 
-    if( "delete".equals(command) ){
-        %>  <jsp:forward page="/edit/forms/propDelete.jsp"/>  <%
-        return;
+    if( "delete".equals(command) ){%>
+    	<jsp:forward page="/edit/forms/propDelete.jsp"/>
+<%      return;
     }
 
-    String form = null;
-    if( propUriToForm.containsKey( predicateUri )){
-        form = propUriToForm.get( predicateUri );
+    String form = objectProp.getCustomEntryForm();
+    if (form != null && form.length()>0) {
+        System.out.println("have a custom form for this property: "+form);
         request.setAttribute("hasCustomForm","true");
-    }
-    if( form == null || "true".equalsIgnoreCase(defaultParam) ){
-        ObjectProperty prop = wdf.getObjectPropertyDao().getObjectPropertyByURI( predicateUri );
-        if( prop != null )
+        if ("create".equals(command)) {
+            System.out.println("have a 'create' command so go directly to custom form");
+    	} else if (objectProp.getSelectFromExisting()) {
+    	    System.out.println("not creating a new property, and SelectFromExisting is true, so start with default form");
             form = DEFAULT_OBJ_FORM;
-        else
-            form = DEFAULT_ERROR_FORM;
+        }
+    } else if (objectProp.getSelectFromExisting()) {
+        System.out.println("no custom form and SelectFromExisting is true");
+        form = DEFAULT_OBJ_FORM;
+    } else {
+        System.out.println("Error condition -- no custom form but SelectFromExisting is false");
+        form = DEFAULT_ERROR_FORM; // don't select from existing, don't create, and no custom form
     }
     request.setAttribute("form" ,form);
 
