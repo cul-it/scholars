@@ -206,7 +206,7 @@
     <h3>Administers Projects</h3>
             <c:set var="projectsTotal" value='${fn:length(entity.objectPropertyMap[financialAwardPropUri].objectPropertyStatements)}'/>
             <c:set var="maxProjects" value="10" />
-            <c:if test="${maxProjects le (projectsTotal + 5)}"><c:set var="maxProjects" value="${maxProjects + 5}" /></c:if>
+            <c:if test="${maxProjects le (projectsTotal + 5)}"><c:set var="maxProjects" value="${maxProjects + 10}" /></c:if>
                 <ul>
                     <c:forEach items='${entity.objectPropertyMap[financialAwardPropUri].objectPropertyStatements}' var="project" begin="0" end="${maxProjects - 1}">
                         <c:url var="href" value="/entity">

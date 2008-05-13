@@ -13,7 +13,7 @@
 </jsp:scriptlet>
 
 <sparql:sparql>
-  <sparql:select model="${applicationScope.jenaOntModel}" var="rs" now="${now}" through='"2008-04-24T13:26:51.363-04:00"'>
+  <sparql:select model="${applicationScope.jenaOntModel}" var="rs" now="${now}" through='"2008-05-24T13:26:51.363-04:00"'>
 
 
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>

@@ -78,6 +78,10 @@ body#groupindex #content {
     width: 890px; margin-right: 20px;
 }
 
+body#facilities #content { 
+    width: 890px; margin-right: 20px;
+}
+
 body#departments #content { 
     width: 890px; margin-right: 20px;
 }
@@ -596,6 +600,82 @@ body#departments div#deptFaculty ul.colThree {
     margin-right: 0; 
 }
 
+
+body#facilities em.subhead {
+    display: block;
+    font-style: italic;
+    font-size: 1.2em;
+    margin-bottom: 24px;
+    margin-top: 6px;
+}
+
+body#facilities h3 {
+    /*    clear: both;*/
+/*    font-weight: bold;*/
+    padding: 4px 12px 6px 12px;
+    margin-top: 10px;
+    /*margin-bottom: 7px;*/
+    background: #5a5651 url(../images/layout/arrow-collapsed_big.gif) no-repeat 98% 50%;
+    color: #fff;
+}
+
+body#facilities h3.expanded {
+    background: #5a5651 url(../images/layout/arrow-expanded_big.gif) no-repeat 98.5% 60%;
+}
+
+body#facilities h4.facilityName {
+/*    float: left;*/
+color: #ffee8f;
+font-size: 1.2em;
+font-weight: bold;
+
+}
+
+body#facilities div.description h4 {
+    font-size: 1em;
+    font-weight: bold;
+    color: #fff;
+    margin: 10px 0 0 0;
+}
+
+body#facilities a.facilityPage {
+/*    float: right;*/
+    padding: 4px 0 4px 20px;
+    background: url(../images/icons/world_link.png) no-repeat left center;
+    height: 20px;
+    border: 0;
+/*    white-space: nowrap;*/
+    text-decoration: underline;
+/*    color: #ffee8f;*/
+}
+
+body#facilities div.description {
+/*    clear: both;*/
+    color: #fff;
+    margin-bottom: 1em;
+}
+
+body#facilities ul.facilityList {
+    margin: 0 10px;
+}
+
+body#facilities ul.facilityList li {
+/*    clear: both;*/
+    background: #184040;
+    padding: 14px 12px;
+    margin: 6px 0;
+}
+
+/* Styles to reset markup inside data properties */
+body#facilities div.description ul {
+    list-style-position: inside;
+}
+
+body#facilities div.description  li {
+    padding: 0;
+    margin: 0 0 .5em 0;
+    list-style-type: disc;
+}
 
 /****************************************************************
 sidebar roll call

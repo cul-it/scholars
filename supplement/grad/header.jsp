@@ -82,7 +82,7 @@
 					    </c:choose> href="gradfieldsIndex.jsp" title="Graduate Fields">Graduate Fields</a></li>
 					<li><a <c:if test="${fn:contains(pageContext.request.servletPath, 'faculty.jsp')}">class="currentTab" </c:if>href="faculty.jsp" title="Faculty">Faculty</a></li>
 					<li><a <c:if test="${fn:contains(pageContext.request.servletPath, 'departments.jsp')}">class="currentTab" </c:if>href="departments.jsp" title="Departments">Departments</a></li>
-					<li><a <c:if test="${fn:contains(pageContext.request.servletPath, 'facilities.jsp')}">class="currentTab" </c:if>href="http://vivo.cornell.edu/index.jsp?collection=1441173947" title="Research Facilities">Research Facilities</a></li>
+					<li><a <c:if test="${fn:contains(pageContext.request.servletPath, 'facilities.jsp')}">class="currentTab" </c:if>href="facilities.jsp" title="Research Facilities">Research Facilities</a></li>
                     <li><a <c:if test="${fn:contains(pageContext.request.servletPath, 'events.jsp')}">class="currentTab" </c:if>href="http://vivo.cornell.edu/index.jsp?collection=20" title="Events">Events</a></li>
 					<li><a <c:if test="${fn:contains(pageContext.request.servletPath, 'search.jsp')}">class="currentTab" </c:if>href="#" title="Search">Search</a></li>
 				</ul>

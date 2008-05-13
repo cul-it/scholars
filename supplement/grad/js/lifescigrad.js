@@ -129,4 +129,32 @@ if ($("body").attr("id") == "groups") {
 } 
 }); 
 
-
+// Facilities page
+$(document).ready(function() {
+if ($("body").attr("id") == "facilities") {
+    
+    $("h3 + ul").hide();
+    initialGroup = document.location.hash.substring(5);
+    // alert(initialGroup);
+    if (initialGroup != "") {
+        $("li#" + initialGroup + " ul").show();
+        $("li#" + initialGroup + " h3:first").addClass("expanded");
+    }
+    
+    $("h3.facilityGroup").css("cursor", "pointer").click( function(){
+        $(this).parent().children("ul").slideToggle("medium");
+        if ($(this).hasClass("expanded")) { 
+            $(this).removeClass("expanded");
+        }
+        else {
+            $(this).addClass("expanded");
+        }
+    });
+    $("a.facilityPage").click( function(){
+        groupID = $(this).parents("ul.facilityList").parent().attr("id");
+        document.location.hash = "Tab-" + groupID;
+        // alert(groupID);
+        // return false;
+    });
+}
+});
