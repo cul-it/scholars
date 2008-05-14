@@ -213,7 +213,7 @@ content roll call
 #breadcrumbs ol {
     /*    margin: 0;*/
     background: #243f3f;
-    height: 2.9em;
+    height: 3em;
 }
 
 #breadcrumbs li {
@@ -223,7 +223,8 @@ content roll call
     background: #243f3f;
     margin: 0;
     font-size: 1em;
-    padding: .7em 0;
+    line-height: 3em;
+/*    padding: .7em 0;*/
 }
 
 #breadcrumbs li.second,
@@ -234,14 +235,19 @@ content roll call
 }
 
 #breadcrumbs a {
+    float: left;
     border: 0;
     color: #91aaaa;
-    padding: .7em 0;
+    padding: 1em 0;
+    line-height: 1em;
 }
 
 #breadcrumbs a.first {
-    background: url(../images/layout/breadcrumb-home.gif) no-repeat left center;
-    padding-left: 26px;
+    background: url(../images/layout/breadcrumb-home.gif) no-repeat center center;
+/*    padding-left: 26px;*/
+    width: 24px;
+    text-indent: -5000px;
+    overflow: hidden;
 }
 
 #breadcrumbs.small a.individual31915,
