@@ -57,6 +57,7 @@ body {
 }
 
 
+
 #content {
     float: left;
     display: inline;
@@ -176,13 +177,15 @@ header roll call
 
 #header ul li a:link, #header ul li a:visited {
     padding: 6px 8px 6px 8px;
-    color: #444;
-    background: #191919;
+    color: #888;
+/*    background: #333;*/
+/*    color: #444;*/
+/*    background: #191919;*/
     border: none;
 }
 
 #header ul li a:hover {
-    color: #a7a37e;
+    color: #ffee8f;
 }
 
 #header ul li a:link.currentTab, #header ul a:visited.currentTab {
@@ -190,11 +193,67 @@ header roll call
     color: #fff;
     background: #000 url(../images/layout/bg_content.png) left top !important;
     background: #021C1C url(../images/layout/bg_content.gif) left top; /* Delivered to browsers without PNG support */
+/*    background: #000 url(../images/layout/bg_content.png) left top !important;*/
+/*    background: #021C1C url(../images/layout/bg_content.gif) left top; */
 }
 
 /****************************************************************
 content roll call
 ****************************************************************/
+
+#breadcrumbs {
+/*    height: 30px;*/
+    margin-right: 20px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    background: #243f3f;
+    padding-left: 20px;
+}
+
+#breadcrumbs ol {
+    /*    margin: 0;*/
+    background: #243f3f;
+    height: 2.9em;
+}
+
+#breadcrumbs li {
+    float: left;
+    list-style-type: none;
+    color: #91aaaa;
+    background: #243f3f;
+    margin: 0;
+    font-size: 1em;
+    padding: .7em 0;
+}
+
+#breadcrumbs li.second,
+#breadcrumbs li.third,
+#breadcrumbs li.fourth {
+     background: url(../images/layout/breadcrumb-arrow.gif) no-repeat 0% 47%;
+     padding-left: 30px;
+}
+
+#breadcrumbs a {
+    border: 0;
+    color: #91aaaa;
+    padding: .7em 0;
+}
+
+#breadcrumbs a.first {
+    background: url(../images/layout/breadcrumb-home.gif) no-repeat left center;
+    padding-left: 26px;
+}
+
+#breadcrumbs.small a.individual31915,
+#breadcrumbs.small a.individual31919,
+#breadcrumbs.small a.individual31918,
+#breadcrumbs.small a.individual31917,
+#breadcrumbs.small a.individual31916,
+#breadcrumbs.small a.individual31920 {
+    background-position: left center !important;
+    padding-left: 28px;
+}
+
 
 body#home #content h2 {
 /*    letter-spacing: .5px;*/
@@ -347,7 +406,6 @@ body#fields div#facultySpotlight img {
 
 body#fields div#facultySpotlight em {
     display: block;
-    font-style: italic;
     font-size: 1.1em;
     line-height: 1.1em;
     margin-left: 80px;
@@ -355,7 +413,7 @@ body#fields div#facultySpotlight em {
 }
 
 body#fields div#facultySpotlight ul {
-    margin-top: 1;
+/*    margin-top: 1em;*/
     list-style-type: disc;
 }
 
@@ -410,10 +468,10 @@ body#departments div#deptPageScreenshot a:hover {
     text-decoration: underline;
 }
 
-body#fields div#fieldDescription a {
+body#fields div#fieldDescription a.fieldLink {
     border-bottom: 1px solid #4a7172;
 /*    text-decoration: underline;*/
-    font-size: 1em;
+    font-size: 1.2em;
 }
 
 body#fields div#fieldDescription div.description,
@@ -469,7 +527,6 @@ body#fields div#fieldFaculty li strong {
 body#fields div#fieldFaculty li em {
     display: block;
     margin-left: 50px;
-    font-style: italic;
 }
 
 /*body#fields div.wrapper,*/
@@ -603,7 +660,6 @@ body#departments div#deptFaculty ul.colThree {
 
 body#facilities em.subhead {
     display: block;
-    font-style: italic;
     font-size: 1.2em;
     margin-bottom: 24px;
     margin-top: 6px;
@@ -620,6 +676,7 @@ body#facilities h3 {
 }
 
 body#facilities h3.expanded {
+/*    font-weight: bold;*/
     background: #5a5651 url(../images/layout/arrow-expanded_big.gif) no-repeat 98.5% 60%;
 }
 
@@ -641,7 +698,8 @@ body#facilities div.description h4 {
 body#facilities a.facilityPage {
 /*    float: right;*/
     padding: 4px 0 4px 20px;
-    background: url(../images/icons/world_link.png) no-repeat left center;
+    background: url(../images/icons/world_link.png) no-repeat left center !important;
+    background: url(../images/icons/world_link.gif) no-repeat left center;
     height: 20px;
     border: 0;
 /*    white-space: nowrap;*/
@@ -772,7 +830,7 @@ h1, h2, h3, h4 {
 }
 
 h1 {
-    margin: 10px 15px;
+    margin: 10px 20px;
     font-size: 3.4em;
     letter-spacing: -.02em;
     color: #69bfde; /* Light Blue */
@@ -790,6 +848,10 @@ h3 {
 h4 {
     font-size: 1.4em;
     line-height: 1.5em;
+}
+
+em {
+    font-style: italic;
 }
 
 .clear {
@@ -951,7 +1013,7 @@ li.clean {
 #content ul.groupings li {
     font-size: 1.8em;
     font-weight: bold;
-    line-height: 1.1em;
+    line-height: 1.4em;
     margin-bottom: -10px; /* Tightening the space between group items */
 }
 
@@ -965,25 +1027,21 @@ body#groups ul.groupings {
 
 body#groups ul.groupings li {
     padding-left: 27px;
-    line-height: 1.3em;
+    line-height: 1.1em;
     font-weight: bold;
     font-size: 1em;
-    margin-bottom: -16px; 
+    margin-bottom: -12px; 
 }
 
 body#groups ul.fields {
     width: 445px;
 }
 
-/*body#groups ul.fields li:hover,*/
-body#groups ul.fields li {
-/*    margin-left: -24px;*/
-} 
-
 
 body#groups ul.fields a {
     display: block;
     border: 0;
+/*    text-decoration: underline;*/
     padding: 3px 0 3px 10px;
     position: relative;
     left: 14px;
@@ -992,6 +1050,7 @@ body#groups ul.fields a {
 
 body#groups ul.fields a:hover {
     color: #f4ea7c;
+    text-decoration: none;
 }
 /*body#groups ul.fields a:hover,*/
 body#groups ul.fields a.selected {
@@ -1017,6 +1076,7 @@ body#groups div#groupList {
 
 body#groups h3 {
     margin-left: 24px;
+    margin-top: 5px;
 }
 
 body#groups div#groupList h3 {
@@ -1217,7 +1277,8 @@ body#departments td.deptLink a {
     height: 16px;
     padding: 0;
     margin: 0 50px;
-    background: url(../images/icons/world_link.png) no-repeat center center;
+    background: url(../images/icons/world_link.png) no-repeat center center !important;
+    background: url(../images/icons/world_link.gif) no-repeat center center;
     overflow: hidden;
 }
 
@@ -1234,6 +1295,7 @@ table roll call
 /* Colors
 
 Light brown: #5a5651  (faculty spotlight)
-Active yellow: #ffd16f  (highlighted field)
+Active yellow: #ffee8f  (highlighted field)
+Light blue: #69bfde (link hover)
 
 */

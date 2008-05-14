@@ -7,13 +7,36 @@
 </jsp:include>
 
 <div id="contentWrap">
+    
+    <div id="breadcrumbs" class="small">
+        <ol>
+            <li class="first"><a class="first" href="index.jsp">Home</a></li>
+            <li class="second">
+                <c:choose>
+                    <c:when test="${!empty param.groupLabel}">
+                        <c:url var="groupHref" value="groups.jsp">
+                            <c:param name="uri" value="${param.groupUri}"/>
+                            <c:param name="groupLabel" value="${param.groupLabel}"/>
+                            <c:param name="groupClass" value="${param.groupClass}"/>
+                        </c:url>
+                        <a class="second ${param.groupClass}" href="${groupHref}">${param.groupLabel}</a>
+                    </c:when>
+                    <c:otherwise>
+                        <a class="second" href="gradfieldsIndex.jsp">Graduate Fields</a>
+                    </c:otherwise>
+                </c:choose>
+            </li>
+            <li class="third">${param.fieldLabel}</li>
+        </ol>
+    </div> <!-- breadcrumbs -->
+    
 	<div id="content">
 
         <!-- Build URL for returning to Group -->
         <c:url var="grouphref" value="fields.jsp">
             <c:param name="uri" value="${param.groupUri}"/>
             <c:param name="groupLabel" value="${param.groupLabel}"/>
-            <c:param name="groupClass" value="${param.groupClass}"/>
+            <c:param   name="groupClass" value="${param.groupClass}"/>
         </c:url>
         
         <c:choose>

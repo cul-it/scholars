@@ -15,6 +15,14 @@
         </c:if>
         
         <div id="contentWrap">
+        
+        <!-- <div id="breadcrumbs" class="small">
+            <ol>
+                <li class="first"><a class="first" href="index.jsp">Home</a></li>
+                <li class="second">${param.groupLabel}</li>
+            </ol>
+        </div>  -->
+        
             <div id="content">
 
                     <h2 class="groupLabel ${param.groupClass}">${param.groupLabel}</h2>

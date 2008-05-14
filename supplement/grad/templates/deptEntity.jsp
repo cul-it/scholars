@@ -103,6 +103,7 @@
         </c:if>
 
         <h3>Part of graduate fields</h3>
+        <!-- <em>Select a Field to highlight participating faculty</em> -->
             <sparql:sparql>
                 <sparql:select model="${applicationScope.jenaOntModel}" var="rs" dept="<${param.uri}>">
                   PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>

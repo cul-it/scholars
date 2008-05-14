@@ -32,13 +32,13 @@
     <h2>Graduate Field of <span class="sectionLabel">${entity.name}</span></h2>
     <div class="description">
         ${entity.description}
-        <c:if test="${!empty entity.linksList }">
-            <c:forEach items="${entity.linksList}" var='link' begin="0" end="0">
-                <c:url var="linkUrl" value="${link.url}" />
-                <a title="view the ${entity.name} web page" href="<c:out value="${linkUrl}"/>">Official ${entity.name} Web page</a>
-            </c:forEach>
-        </c:if>
     </div>
+    <c:if test="${!empty entity.linksList }">
+        <c:forEach items="${entity.linksList}" var='link' begin="0" end="0">
+            <c:url var="linkUrl" value="${link.url}" />
+            <a class="fieldLink" title="go to the ${entity.name} web page" href="<c:out value="${linkUrl}"/>">Official ${entity.name} Web page</a>
+        </c:forEach>
+    </c:if>
 
 </div><!-- fieldDescription -->
       
