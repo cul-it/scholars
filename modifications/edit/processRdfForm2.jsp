@@ -17,6 +17,9 @@
 <%@ page import="edu.cornell.mannlib.vitro.webapp.filters.VitroRequestPrep" %>
 <%@ page import="java.io.StringReader" %>
 <%@ page import="java.util.*" %>
+<%@page import="edu.cornell.mannlib.vitro.webapp.controller.VitroRequest"%>
+<%@page import="edu.cornell.mannlib.vitro.webapp.dao.WebappDaoFactory"%>
+<%@page import="edu.cornell.mannlib.vitro.webapp.dao.jena.event.EditEvent"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
 
 <%-- 2nd prototype of processing.
@@ -216,28 +219,13 @@ are well formed.
     //The requiredNewModels and the optionalNewModels could be handled differently
     //but for now we'll just do them the same
     requiredAssertions.addAll(optionalAssertions);
-
+       
     Lock lock = null;
-    try{
-        lock =  persistentOntModel.getLock();
-        lock.enterCriticalSection(Lock.WRITE);
-        //persistentOntModel.getBaseModel().notifyEvent(new IndividualDeletionEvent(getWebappDaoFactory().getUserURI(),true,URI));
-        for( Model model : requiredAssertions ) {
-            persistentOntModel.add(model);
-        }
-        for(Model model : requiredRetractions ){
-            persistentOntModel.remove( model );
-        }
-    }catch(Throwable t){
-        errorMessages.add("error adding edit change n3required model to persistent model \n"+ t.getMessage() );
-    }finally{
-        //persistentOntModel.getBaseModel().notifyEvent(new IndividualDeletionEvent(getWebappDaoFactory().getUserURI(),false,URI));
-        lock.leaveCriticalSection();
-    }
-
+    WebappDaoFactory wdf = new VitroRequest(request).getWebappDaoFactory();
     try{
         lock =  jenaOntModel.getLock();
         lock.enterCriticalSection(Lock.WRITE);
+        jenaOntModel.getBaseModel().notifyEvent( new EditEvent(wdf.getUserURI(),true ) );
         for( Model model : requiredAssertions) {
             jenaOntModel.add(model);
         }
@@ -247,6 +235,7 @@ are well formed.
     }catch(Throwable t){
         errorMessages.add("error adding edit change n3required model to in memory model \n"+ t.getMessage() );
     }finally{
+        jenaOntModel.getBaseModel().notifyEvent( new EditEvent(wdf.getUserURI(),false ) );
         lock.leaveCriticalSection();
     }
 %>

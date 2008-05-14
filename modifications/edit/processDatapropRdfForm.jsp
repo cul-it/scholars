@@ -16,6 +16,8 @@
 <%@ page import="org.apache.commons.logging.LogFactory" %>
 <%@ page import="java.io.StringReader" %>
 <%@ page import="java.util.*" %>
+<%@page import="com.hp.hpl.jena.ontology.OntModel"%>
+<%@page import="edu.cornell.mannlib.vitro.webapp.dao.jena.event.EditEvent"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
 
 <%-- 2nd prototype of processing, adapted for data property editing
@@ -41,8 +43,7 @@ in processing the form.
     }
 
     List<String> errorMessages = new ArrayList<String>();
-    Model jenaOntModel = (Model)application.getAttribute("jenaOntModel");
-    Model persistentOntModel = (Model)application.getAttribute("persistentOntModel");
+    OntModel jenaOntModel = (OntModel)application.getAttribute("jenaOntModel");    
 
     EditConfiguration editConfig = EditConfiguration.getConfigFromSession(session,request);
     EditSubmission submission = new EditSubmission(request,editConfig);
@@ -193,24 +194,11 @@ in processing the form.
     }
 
     Lock lock = null;
-    try{
-        lock =  persistentOntModel.getLock();
-        lock.enterCriticalSection(Lock.WRITE);
-        for( Model model : requiredAssertions ) {
-            persistentOntModel.add(model);
-        }
-        for(Model model : requiredRetractions ){
-            persistentOntModel.remove( model );
-        }
-    }catch(Throwable t){
-        errorMessages.add("In processDatapropRdfForm.jsp, error adding edit change n3required model to persistent model \n"+ t.getMessage() );
-    }finally{
-        lock.leaveCriticalSection();
-    }
-
+    WebappDaoFactory wdf = new VitroRequest(request).getWebappDaoFactory();    
     try{
         lock =  jenaOntModel.getLock();
         lock.enterCriticalSection(Lock.WRITE);
+        jenaOntModel.getBaseModel().notifyEvent( new EditEvent(wdf.getUserURI(),true ) );
         for( Model model : requiredAssertions) {
             jenaOntModel.add(model);
         }
@@ -220,6 +208,7 @@ in processing the form.
     }catch(Throwable t){
         errorMessages.add("In processDatapropRdfForm.jsp, error adding edit change n3required model to in memory model \n"+ t.getMessage() );
     }finally{
+        jenaOntModel.getBaseModel().notifyEvent( new EditEvent(wdf.getUserURI(),false ) );
         lock.leaveCriticalSection();
     }
 %>
