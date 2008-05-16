@@ -12,5 +12,5 @@ Author:		nac26@cornell.edu
 /* Import styles
 ------------------------------*/
 @import url("../../vivo/css/screen.css");
-@import url("banner.css");
-@import url("edit.css");
+@import url("editBanner.css");
+@import url("inlineEdit.css");
