@@ -1,6 +1,6 @@
 <jsp:include page="header.jsp">
     <jsp:param name="bodyID" value="groupindex"/>
-    <jsp:param name="titleText" value="Index of Graduate Fields in the Life Sciences - Cornell University"/>
+    <jsp:param name="titleText" value="Index of Graduate Fields - Life Sciences Graduate Programs at Cornell"/>
 </jsp:include>
 		
 		<div id="contentWrap">

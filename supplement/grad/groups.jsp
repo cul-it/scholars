@@ -7,7 +7,7 @@
 
 <jsp:include page="header.jsp">
     <jsp:param name="bodyID" value="groups"/>
-    <jsp:param name="titleText" value="Graduate Fields in ${param.groupLabel} - Cornell University"/>
+    <jsp:param name="titleText" value="${param.label} - Life Sciences Graduate Programs at Cornell"/>
 </jsp:include>
         
         <c:if test="${empty param.uri}">
@@ -25,7 +25,7 @@
         
             <div id="content">
 
-                    <h2 class="groupLabel ${param.groupClass}">${param.groupLabel}</h2>
+                    <h2 class="groupLabel ${param.class}">${param.label}</h2>
 
                     <h3>Graduate Fields in this area</h3>
                     <ul class="fields">

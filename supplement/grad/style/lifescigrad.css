@@ -1055,10 +1055,10 @@ body#groups ul.fields a {
 }
 
 body#groups ul.fields a:hover {
-    color: #f4ea7c;
-    text-decoration: none;
+/*    color: #f4ea7c;*/
+/*    text-decoration: none;*/
 }
-/*body#groups ul.fields a:hover,*/
+
 body#groups ul.fields a.selected {
     color: #f4ea7c;
     background: #5a5651;

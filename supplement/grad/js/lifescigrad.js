@@ -77,8 +77,31 @@ if ($("body").attr("id") == "faculty") {
          $(this).blur();
          return false;
      });
+    
+    $("td a.person").cluetip({
+        titleAttribute: 'name', 
+        width: '200px', 
+        showTitle: false, 
+        waitImage: false, 
+        arrows: true,
+        dropShadowSteps: 8,
+        leftOffset: 30,
+        topOffset: 30
+    });
+    
+    $("div#fieldFaculty").cluetip({
+        titleAttribute: 'name', 
+        width: '200px', 
+        showTitle: false, 
+        waitImage: false, 
+        arrows: true,
+        dropShadowSteps: 8,
+        leftOffset: 30,
+        topOffset: 30
+    });
 } 
 });
+
 
 
 // Graduate group pages

@@ -19,7 +19,7 @@
 	<title>
 	    <c:choose>
             <c:when test="${!empty param.titleText}">${param.titleText}</c:when>
-            <c:otherwise>Graduate Programs in the Life Sciences - Cornell University</c:otherwise>
+            <c:otherwise>Life Sciences Graduate Programs | Cornell University</c:otherwise>
 	    </c:choose>
 	</title>
 	<c:url var="faviconLoc" value="/favicon.ico"/>
@@ -39,8 +39,12 @@
     </c:if>
     
     <c:if test="${fn:contains(pageContext.request.servletPath, 'faculty.jsp')}">
-        <link rel="stylesheet" href="style/websnapr.css" type="text/css" />
-        <script src="js/localsnapr.js" type="text/javascript"></script>
+        <!-- <link rel="stylesheet" href="style/websnapr.css" type="text/css" /> -->
+        <!-- <script src="js/localsnapr.js" type="text/javascript"></script> -->
+        <script type="text/javascript" src="js/jquery_plugins/jquery.cluetip.js"></script>
+        <script type="text/javascript" src="js/jquery_plugins/jquery.dimensions.js"></script>
+        <script type="text/javascript" src="js/jquery_plugins/jquery.hoverIntent.js"></script>
+        <link rel="stylesheet" href="style/jquery.cluetip.css" type="text/css" />
     </c:if>
         
     <c:if test="${fn:contains(pageContext.request.servletPath, 'departments.jsp')}">
@@ -48,6 +52,10 @@
         <script src="js/websnapr.js" type="text/javascript"></script>
     </c:if>
 
+    <c:if test="${fn:contains(pageContext.request.servletPath, 'fields.jsp')}">
+
+    </c:if>
+    
     <script type="text/javascript" src="js/lifescigrad.js"></script>
     <!--[if xE 6]><script type="text/javascript" src="js/iepngfix.js"></script><![endif]-->
 </head>

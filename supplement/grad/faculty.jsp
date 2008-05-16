@@ -6,7 +6,7 @@
 
 <jsp:include page="header.jsp">
     <jsp:param name="bodyID" value="faculty"/>
-    <jsp:param name="titleText" value="Faculty Index for Life Sciences Graduate Programs - Cornell University"/>
+    <jsp:param name="titleText" value="Faculty Index - Life Sciences Graduate Programs at Cornell"/>
 </jsp:include>
         
         <div id="contentWrap">
@@ -92,6 +92,7 @@
                                 <c:set var="facultyName" value="${person.personLabel.string}"/>
                                 <c:set var="facultyUri" value="${person.person}"/>
                                 <c:url var="facultyHref" value="/entity"><c:param name="uri" value="${person.person}"/></c:url>
+                                <c:url var="cluetipHref" value="data/facultyProfile.jsp"><c:param name="uri" value="${person.person}"/></c:url>
                                 <c:set var="cornellEmail" value="${person.netid.string}"/>
                                 <c:set var="nonCornellEmail" value="${person.otherid.string}"/>
                                 <c:set var="imageThumb" value="${person.thumb.string}"/>
@@ -105,9 +106,8 @@
                                         
                                         <%-- Then append it as an additional address --%>
                                         <c:if test="${prevFacultyUri != facultyUri && counter.first != true}">
-                                        
                                             <tr>
-                                                <td <c:if test="${counter.index == 1}">class="firstRow"</c:if>><a <c:if test="${not empty prevImageThumb}">class="localsnapr" name="${prevImageThumb}" </c:if>href="${prevFacultyHref}" title="view profile in VIVO">${prevFacultyName}</a></td>
+                                                <td <c:if test="${counter.index == 1}">class="firstRow"</c:if>><a class="person" href="${prevFacultyHref}" title="view profile in VIVO" rel="${cluetipHref}">${prevFacultyName}</a></td>
                                                 <td class="email"><a href="mailto:${prevCornellEmail}">${prevCornellEmail}</a><c:if test="${empty prevCornellEmail}"><a href="mailto:${prevNonCornellEmail}">${prevNonCornellEmail}</a></c:if>
                                                     <c:if test="${!empty secondCornellEmail}">, <a href="mailto:${secondCornellEmail}">${secondCornellEmail}</a></c:if>
                                                 </td>
@@ -127,6 +127,7 @@
                                         <c:set var="prevFacultyName" value="${facultyName}"/>
                                         <c:set var="prevFacultyUri" value="${facultyUri}"/>
                                         <c:set var="prevFacultyHref" value="${facultyHref}"/>
+                                        <c:set var="prevCluetipHref" value="${cluetipHref}"/>
                                         <c:set var="prevCornellEmail" value="${cornellEmail}"/>
                                         <c:set var="prevNonCornellEmail" value="${nonCornellEmail}"/>
                                         <c:set var="prevImageThumb" value="${imageThumb}"/>

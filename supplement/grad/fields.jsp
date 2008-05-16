@@ -1,9 +1,11 @@
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
+<%-- NOTE: Pages with URL parameters containing 'groupLabel' are ignored by the search crawler --%>
+
 <jsp:include page="header.jsp">
     <jsp:param name="bodyID" value="fields"/>
-    <jsp:param name="titleText" value="Graduate Field of ${param.fieldLabel} - Cornell University"/>
+    <jsp:param name="titleText" value="Graduate Field of ${param.fieldLabel} - Life Sciences Graduate Programs at Cornell"/>
 </jsp:include>
 
 <div id="contentWrap">

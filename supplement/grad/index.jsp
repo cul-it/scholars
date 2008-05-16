@@ -1,5 +1,6 @@
 <jsp:include page="header.jsp">
     <jsp:param name="bodyID" value="home"/>
+    <jsp:param name="titleText" value="Home - Life Sciences Graduate Programs at Cornell"/>
 </jsp:include>
         
         <div id="contentWrap">

@@ -17,7 +17,7 @@
           PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
           PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
           PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
-          SELECT DISTINCT ?field ?fieldLabel
+          SELECT DISTINCT ?field ?fieldLabel ?groupLabel
           WHERE
           {
 
@@ -30,6 +30,7 @@
           ?person .
 
           OPTIONAL { ?field rdfs:label ?fieldLabel }
+          OPTIONAL { ?group rdfs:label ?groupLabel }
           }
           ORDER BY ?fieldLabel
           LIMIT 200
@@ -40,13 +41,14 @@
     <!-- UL tags being added elsewhere -->
       <c:forEach  items="${rs.rows}" var="gradfield">
         <c:set var="classForField" value="${fn:substringAfter(gradfield.field,'#')}"/>
+        <c:set var="classForGroup" value="${fn:substringAfter(param.uri,'#')}"/>
             <li class="${classForField}">
                 <c:url var="fieldhref" value="fields.jsp">
                     <c:param name="uri" value="${gradfield.field}"/>
                     <c:param name="fieldLabel" value="${gradfield.fieldLabel.string}"/>
-                    <c:param name="groupLabel" value="${param.groupLabel}"/>
                     <c:param name="groupUri" value="${param.uri}"/>
-                    <c:param name="groupClass" value="${param.groupClass}"/>       
+                    <c:param name="groupLabel" value="${gradfield.groupLabel.string}"/>
+                    <c:param name="groupClass" value="${classForGroup}"/>       
                 </c:url>
                 <a href="${fieldhref}">${gradfield.fieldLabel.string}</a>
             </li>

@@ -2,8 +2,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <c:set var="pageTitle">
-    <c:if test="${!empty param.deptLabel}">Department of ${param.deptLabel} - Cornell University</c:if>
-    <c:if test="${empty param.deptLabel}">Department Index for Life Sciences Graduate Programs - Cornell University</c:if>
+    <c:if test="${!empty param.deptLabel}">Department of ${param.deptLabel} - Life Sciences Graduate Programs at Cornell</c:if>
+    <c:if test="${empty param.deptLabel}">Index of Departments - Life Sciences Graduate Programs at Cornell</c:if>
 </c:set>
 
 <jsp:include page="header.jsp">
