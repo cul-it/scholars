@@ -1,6 +1,11 @@
 $(document).ready(function() {
     
     // note: parameters passed to these functions should NOT include a pound sign
+    // fragments inserted into the url have "_tab" appended because IE tries to navigate to that ID even when returning false
+    
+    function changeUrlFragment(targetGroup) {
+        document.location.hash = "#" + targetGroup + "_tab";
+    }
     
     function switchPropertyGroup(targetGroup) {
         $("ul#profileCats li a").removeAttr("id").each(function(){
@@ -55,8 +60,9 @@ $(document).ready(function() {
         }
     
         // if there's a fragment identifier present, switch to that group
-        if ( fragment.indexOf("-") > 1 ) {
-            var fragmentID = fragment.substring(1,fragment.indexOf("-"));
+        // fragment should have "_tab" on the end
+        if ( fragment.indexOf("_") > 1 ) {
+            var fragmentID = fragment.substring(1,fragment.indexOf("_")); 
             initialGroup = fragmentID;
         }
     
@@ -70,6 +76,7 @@ $(document).ready(function() {
             var thisGroupID = $(this).attr("href").substring(1);
             switchPropertyGroup(thisGroupID);
             switchDashboardGroup(thisGroupID, "slide");
+            changeUrlFragment(thisGroupID);
             return false;
         });
         
@@ -78,6 +85,7 @@ $(document).ready(function() {
             var thisGroupID = $(thisPropertyID).parent().attr("id");
             changeHighlight(thisPropertyID);
             switchPropertyGroup(thisGroupID);
+            changeUrlFragment(thisGroupID);
             return false;
         });
     
