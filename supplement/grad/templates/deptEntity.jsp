@@ -59,7 +59,6 @@
 <div class="wrapper">
     
     <div id="deptOverview">
-        
         <%-- Estimating size of Overview column --%>
         <c:set var="counter" value="0"/>
         
@@ -135,7 +134,6 @@
                         </c:forEach>
                     </ul>
             </sparql:sparql>
-
     </div><!-- deptOverview -->     
      
     <div id="deptFaculty">

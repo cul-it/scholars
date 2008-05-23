@@ -96,6 +96,11 @@ body#faculty #content {
     min-height: 500px; 
 }
 
+body#searchpage #content { 
+    width: 890px; margin-right: 20px;
+    min-height: 500px; 
+}
+
 #sidebar {
     float: right;
     display: inline;
@@ -1055,7 +1060,7 @@ body#groups ul.fields a {
 }
 
 body#groups ul.fields a:hover {
-/*    color: #f4ea7c;*/
+    color: #f4ea7c;
 /*    text-decoration: none;*/
 }
 
@@ -1303,5 +1308,6 @@ table roll call
 Light brown: #5a5651  (faculty spotlight)
 Active yellow: #ffee8f  (highlighted field)
 Light blue: #69bfde (link hover)
+Light blue: #97e3e5 (new links)
 
 */

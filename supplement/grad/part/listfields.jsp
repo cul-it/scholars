@@ -50,7 +50,7 @@
                     <c:param name="groupLabel" value="${gradfield.groupLabel.string}"/>
                     <c:param name="groupClass" value="${classForGroup}"/>       
                 </c:url>
-                <a href="${fieldhref}">${gradfield.fieldLabel.string}</a>
+                <a href="${fn:escapeXml(fieldhref)}">${gradfield.fieldLabel.string}</a>
             </li>
       </c:forEach>
 

@@ -7,7 +7,7 @@
 
 <jsp:include page="header.jsp">
     <jsp:param name="bodyID" value="groups"/>
-    <jsp:param name="titleText" value="${param.label} - Life Sciences Graduate Programs at Cornell"/>
+    <jsp:param name="titleText" value="${param.label} | Cornell University"/>
 </jsp:include>
         
         <c:if test="${empty param.uri}">
@@ -56,10 +56,9 @@
                                 <c:if test="${grad.group != param.uri}">
                                   <c:set var="classForGrouping" value="${fn:substringAfter(grad.group,'#')}"/>
                       	          <c:url var="gradhref" value="groups.jsp">
-                                      <c:param name="label" value="${grad.groupLabel.string}"/>
                                       <c:param name="uri" value="${grad.group}"/>
-                                      <c:param name="groupLabel" value="${grad.groupLabel.string}"/>
-                                      <c:param name="groupClass" value="${classForGrouping}"/>
+                                      <c:param name="label" value="${grad.groupLabel.string}"/>
+                                      <c:param name="class" value="${classForGrouping}"/>
                                   </c:url>
                                   <li class="${classForGrouping}"><a href="${gradhref}">${grad.groupLabel.string}</a></li>
                               </c:if>

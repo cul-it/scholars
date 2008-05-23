@@ -1,6 +1,6 @@
 <jsp:include page="header.jsp">
     <jsp:param name="bodyID" value="home"/>
-    <jsp:param name="titleText" value="Home - Life Sciences Graduate Programs at Cornell"/>
+    <jsp:param name="titleText" value="Graduate Programs in the Life Sciences | Cornell University"/>
 </jsp:include>
         
         <div id="contentWrap">
@@ -25,12 +25,10 @@
                     <span class="moreLink"><a title="more Life Sciences news in VIVO" href="http://vivo.cornell.edu/index.jsp?collection=209">more news &raquo;</a></span>
                 </div>
                 <div id="search">
-                    <form name="findresearch" action="" method="get">
-                        <h2><label for="findResearchInput">Find Research</label></h2>
-                        <input name="findresearch" id="findResearchInput" type="text" />
-                        <button name="submit" id="findResearchButton" type="submit" value="">
-                            <img src="images/layout/button_search.gif" alt="Search" />
-                        </button>
+                    <form name="findresearch" action="search.jsp" method="get"> 
+                        <h2><label for="search-form-query">Search</label></h2>
+                        <input type="text" id="search-form-query" name="querytext" value="" size="26" />
+                        <input type="submit" id="search-form-submit" name="submit" value="GO" />
                     </form>
                 </div>
                 <div id="seminars">

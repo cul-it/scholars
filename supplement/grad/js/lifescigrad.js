@@ -59,7 +59,9 @@ if ($("body").attr("id") == "faculty") {
       
      // Pagination functions
      var origCount = $("tfoot td").text();
+     
      $("#indexNav").append('<a id="showAll" href="#">show all<\/a>');
+     
      $("#indexNav a#showAll").click(function(){
          $("tbody").show();
          $("tfoot td").text("Total: " + origCount);
@@ -83,22 +85,13 @@ if ($("body").attr("id") == "faculty") {
         width: '200px', 
         showTitle: false, 
         waitImage: false, 
-        arrows: true,
-        dropShadowSteps: 8,
+        arrows: false,
+        dropShadowSteps: 7,
         leftOffset: 30,
-        topOffset: 30
+        topOffset: 30,
+        ajaxCache: true
     });
-    
-    $("div#fieldFaculty").cluetip({
-        titleAttribute: 'name', 
-        width: '200px', 
-        showTitle: false, 
-        waitImage: false, 
-        arrows: true,
-        dropShadowSteps: 8,
-        leftOffset: 30,
-        topOffset: 30
-    });
+
 } 
 });
 

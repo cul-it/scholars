@@ -19,9 +19,10 @@
 	<title>
 	    <c:choose>
             <c:when test="${!empty param.titleText}">${param.titleText}</c:when>
-            <c:otherwise>Life Sciences Graduate Programs | Cornell University</c:otherwise>
+            <c:otherwise>Graduate Programs in the Life Sciences | Cornell University</c:otherwise>
 	    </c:choose>
 	</title>
+	<!--noindex-->
 	<c:url var="faviconLoc" value="/favicon.ico"/>
 	<link rel="shortcut icon" href="${faviconLoc}"/>
 	<link rel="stylesheet" href="style/screen.css" type="text/css" />
@@ -57,7 +58,6 @@
     </c:if>
     
     <script type="text/javascript" src="js/lifescigrad.js"></script>
-    <!--[if xE 6]><script type="text/javascript" src="js/iepngfix.js"></script><![endif]-->
 </head>
 
 <body <c:if test="${not empty param.bodyID}">id="${param.bodyID}"</c:if>>
@@ -77,7 +77,7 @@
 			</div><!-- cu-search -->
 		</div> <!-- cu-identity -->
 		
-		<hr />
+		
 		
 		<div id="header">
 			<h1>Graduate Programs in the Life Sciences</h1>
@@ -92,7 +92,8 @@
 					<li><a <c:if test="${fn:contains(pageContext.request.servletPath, 'departments.jsp')}">class="currentTab" </c:if>href="departments.jsp" title="an index of departments">Departments</a></li>
 					<li><a <c:if test="${fn:contains(pageContext.request.servletPath, 'facilities.jsp')}">class="currentTab" </c:if>href="facilities.jsp" title="life science research facilities">Research Facilities</a></li>
                     <!-- <li><a <c:if test="${fn:contains(pageContext.request.servletPath, 'events.jsp')}">class="currentTab" </c:if>href="http://vivo.cornell.edu/index.jsp?collection=20" title="Events">Events</a></li> -->
-					<li><a <c:if test="${fn:contains(pageContext.request.servletPath, 'search.jsp')}">class="currentTab" </c:if>href="#" title="search this site">Search</a></li>
+					<li><a <c:if test="${fn:contains(pageContext.request.servletPath, 'search.jsp')}">class="currentTab" </c:if>href="search.jsp" title="search this site">Search</a></li>
 				</ul>
 			</div><!-- navigation -->
 		</div><!-- header -->
+		<!--/noindex-->

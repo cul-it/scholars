@@ -35,7 +35,7 @@
                 <c:param name="class" value="${classForGrouping}"/>
             </c:url>
           
-            <li class="${classForGrouping}"><a href="${gradhref}">${row.clusterLabel.string}</a></li>
+            <li class="${fn:escapeXml(classForGrouping)}"><a href="${gradhref}">${row.clusterLabel.string}</a></li>
       </c:forEach>
     </ul>
         
