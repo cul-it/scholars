@@ -791,6 +791,10 @@ a:link.login, a:visited.login, a:hover.login {
 	margin-right: 15px;
 }
 
+ul#profileCats li a {
+    white-space: nowrap;
+}
+
 ul#profileCats li a:link, ul#profileCats li a:visited {
 	margin-right: 8px;
 	padding: 6px 6px 4px;
