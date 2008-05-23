@@ -84,10 +84,11 @@
 			<div id="navigation">
 				<ul>
 					<li><a <c:if test="${fn:contains(pageContext.request.servletPath, 'index.jsp')}">class="currentTab" </c:if>href="index.jsp" title="Home">Home</a></li>
-					<li><a <c:choose><c:when test="${fn:contains(pageContext.request.servletPath, 'gradfieldsIndex.jsp')}">class="currentTab"</c:when>
-					                    <c:when test="${fn:contains(pageContext.request.servletPath, 'groups.jsp')}">class="currentTab"</c:when>
-					                    <c:when test="${fn:contains(pageContext.request.servletPath, 'fields.jsp')}">class="currentTab"</c:when>
-					    </c:choose> href="gradfieldsIndex.jsp" title="an index of graduate fields">Graduate Fields</a></li>
+					<li><a <c:choose>
+					            <c:when test="${fn:contains(pageContext.request.servletPath, 'gradfieldsIndex.jsp')}">class="currentTab"</c:when>
+					            <c:when test="${fn:contains(pageContext.request.servletPath, 'groups.jsp')}">class="currentTab"</c:when>
+					            <c:when test="${fn:contains(pageContext.request.servletPath, 'fields.jsp')}">class="currentTab"</c:when>
+					        </c:choose> href="gradfieldsIndex.jsp" title="an index of graduate fields">Graduate Fields</a></li>
 					<li><a <c:if test="${fn:contains(pageContext.request.servletPath, 'faculty.jsp')}">class="currentTab" </c:if>href="faculty.jsp" title="index of graduate faculty">Faculty</a></li>
 					<li><a <c:if test="${fn:contains(pageContext.request.servletPath, 'departments.jsp')}">class="currentTab" </c:if>href="departments.jsp" title="an index of departments">Departments</a></li>
 					<li><a <c:if test="${fn:contains(pageContext.request.servletPath, 'facilities.jsp')}">class="currentTab" </c:if>href="facilities.jsp" title="life science research facilities">Research Facilities</a></li>
