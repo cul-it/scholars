@@ -5,6 +5,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
 <%@ taglib prefix="v" uri="http://vitro.mannlib.cornell.edu/vitro/tags" %>
 
+
 <%-- Enter here the class names to be used for constructing INDIVIDUALS_VIA_VCLASS pick lists
      These are then referenced in the field's ObjectClassUri but not elsewhere --%>
 <v:jsonset var="educationalBackgroundClass">http://vivo.library.cornell.edu/ns/0.1#EducationalBackground</v:jsonset>
@@ -48,13 +49,13 @@
 </v:jsonset>
 
 <v:jsonset var="visibilityExisting" >
-      PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
+      PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
       SELECT ?visibilityExisting
-      WHERE {  ?edBackground vivo:ownerPublicVisibilityFlag ?visibilityExisting }
+      WHERE {  ?edBackground vitro:hiddenFromPublicDisplayAnnot ?visibilityExisting }
 </v:jsonset>
 <v:jsonset var="visibilityAssertion" >
-      @prefix vivo: <http://vivo.library.cornell.edu/ns/0.1#>.
-      ?edBackground vivo:ownerPublicVisibilityFlag ?visibility .
+      @prefix vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>.
+      ?edBackground vitro:hiddenFromPublicDisplayAnnot ?visibility .
 </v:jsonset>
 
 <v:jsonset var="degreeAbbrevExisting" >
@@ -103,11 +104,11 @@
     ?edBackground rdf:type vivo:EducationalBackground.
 
     ?edBackground
-          vivo:yearDegreeAwarded           ?year;
-          vivo:institutionAwardingDegree   ?institution;
-          vivo:preferredDegreeAbbreviation ?degreeAbbrev;
-          vivo:majorFieldOfDegree          ?majorField;
-          vivo:ownerPublicVisibilityFlag   ?visibility.
+          vivo:yearDegreeAwarded             ?year;
+          vivo:institutionAwardingDegree     ?institution;
+          vivo:preferredDegreeAbbreviation   ?degreeAbbrev;
+          vivo:majorFieldOfDegree            ?majorField;
+          vitro:hiddenFromPublicDisplayAnnot ?visibility.
 
     ?edBackground vivo:awardedAcademicDegree ?degreeType.
 </v:jsonset>
@@ -130,7 +131,7 @@
     "n3optional"    : [ "${n3optional}" ],
     "newResources"  : { "edBackground" : "http://vivo.library.cornell.edu/ns/0.1#individual" },
     "urisInScope"    : { },
-    "literalsInScope": { },
+    "literalsInScope": { "visibility" : {"value"="true","datatype"="http://www.w3.org/2001/XMLSchema#boolean"} },
     "urisOnForm"     : ["degreeType"],
     "literalsOnForm" :  [ "year", "institution", "degreeAbbrev", "majorField", "visibility", "comment" ],
     "sparqlForLiterals" : { },
@@ -148,7 +149,7 @@
     "fields" : {
       "year" : {
          "newResource"      : "false",
-         "validators"       : [ "nonempty" ],
+         "validators"       : [ ],
          "optionsType"      : "UNDEFINED",
          "literalOptions"   : [ ],
          "predicateUri"     : "",
@@ -212,7 +213,7 @@
          "literalOptions"   : ["true","false"],
          "predicateUri"     : "",
          "objectClassUri"   : "",
-         "rangeDatatypeUri" : "",
+         "rangeDatatypeUri" : "http://www.w3.org/2001/XMLSchema#boolean";
          "rangeLang"        : "",
          "assertions"       : [ "${visibilityAssertion}" ]
       },
@@ -223,7 +224,7 @@
          "literalOptions"   : [],
          "predicateUri"     : "",
          "objectClassUri"   : "",
-         "rangeDatatypeUri" : "",
+         "rangeDatatypeUri" : "http://www.w3.org/2001/XMLSchema#string",
          "rangeLang"        : "",
          "assertions"       : [ "${commentAssertion}" ]
       }
@@ -269,8 +270,8 @@
     <v:input type="select" label="abbreviation" id="degreeAbbrev"/>
     <v:input type="text" label="institution" id="institution" size="30" value="Cornell University"/>
     <v:input type="text" label="major field" id="majorField" size="30"/>
-    <v:input type="radio" label="publicly visible" id="visibility" value="true"/>
-    <v:input type="text" label="comment" id="comment" size="40"/>
+    <v:input type="select" label="publicly visible" id="visibility" value="true"/>
+    <v:input type="text" label="comment" id="comment" size="50"/>
     <v:input type="submit" id="submit" value="<%=submitLabel%>" cancel="${param.subjectUri}"/>
 </form>
 
