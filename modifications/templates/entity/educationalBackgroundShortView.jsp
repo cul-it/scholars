@@ -11,8 +11,10 @@
 		<c:set var="degree" value="${objPropStmt.object.dataPropertyMap['http://vivo.library.cornell.edu/ns/0.1#preferredDegreeAbbreviation'].dataPropertyStatements[0].data}"/>
 		<c:set var="institution" value="${objPropStmt.object.dataPropertyMap['http://vivo.library.cornell.edu/ns/0.1#institutionAwardingDegree'].dataPropertyStatements[0].data}"/>
 		<c:set var="major" value="${objPropStmt.object.dataPropertyMap['http://vivo.library.cornell.edu/ns/0.1#majorFieldOfDegree'].dataPropertyStatements[0].data}"/>
-		<c:out value="${gradyear} : ${degree}, ${institution}"/>
-		<c:if test="${!empty major }">, ${major}</c:if>
+		<c:if test="${!empty gradyear }"><c:out value="${gradyear} : "/></c:if>
+		<c:out value="${degree}"/>
+		<c:if test="${!empty institution }"><c:out value=", ${institution}"/></c:if>
+		<c:if test="${!empty major }"><c:out value=", ${major}"/></c:if>
 	</c:when>
 	<c:otherwise>
 		<c:out value="Got nothing to draw here ..."/>
