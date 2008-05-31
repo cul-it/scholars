@@ -27,27 +27,23 @@
 <div id="menu">
 	<div id="primaryAndOther">
 <%		VitroRequest vreq = new VitroRequest(request);%>
-    	<%=TabMenu.getPrimaryTabMenu(vreq)%>  
-    	<ul id="otherMenu">
-<%			if ( fixedTabStr != null && fixedTabStr.equalsIgnoreCase("browse")) {%>
-        		<li class="activeTab"><a href="browsecontroller" title="list all contents by type">Index</a></li>
-<% 			} else { %>
-        		<li><a href="browsecontroller?home=<%=portalId%>" title="list all contents by type">Index</a></li>
-<%			}
-        	if ( fixedTabStr != null && fixedTabStr.equalsIgnoreCase("about")) {%>
-        		<li><a class="activeTab" href="about?home=<%=portalId%>&amp;login=none" title="more about this web site">About</a></li>
-<%			} else { %>
-        		<li><a href="about?home=<%=portalId%>&amp;login=none" title="more about this web site">About</a></li>
-<%			}         %>
-
-             <c:url value="/selfEditIntro.jsp" var="loginUrl"/>
-            <li><a href="${loginUrl}">Edit Your Profile</a></li>
-
-<%          if ( fixedTabStr != null && fixedTabStr.equalsIgnoreCase("comments")) {%>
-        		<li class="activeTab"><a href="comments?home=<%=portalId%>">Contact Us</a></li>
-<%			} else {%>
-        		<li><a href="comments?home=<%=portalId%>">Contact Us</a></li>
-<%			}%>
+    	<%=TabMenu.getPrimaryTabMenu(vreq)%>                  
+            <ul id="otherMenu">
+<%          if ("browse".equalsIgnoreCase(fixedTabStr)) {%>
+                <li class="activeTab"><a href="<c:url value="/browsecontroller"/>" title="list all contents by type">Index</a></li>
+<%          } else {%>
+                <li><a href="<c:url value="/browsecontroller"><c:param name="home" value="${portalBean.portalId}"/></c:url>" title="list all contents by type">Index</a></li>
+<%          }
+            if ("about".equalsIgnoreCase(fixedTabStr)) {%>
+                <li><a class="activeTab" href="<c:url value="/about"><c:param name="home" value="${portalBean.portalId}"/><c:param name="login" value="none"/></c:url>" title="more about this web site">About</a></li>
+<%          } else {%>
+                <li><a href="<c:url value="/about"><c:param name="home" value="${portalBean.portalId}"/><c:param name="login" value="none"/></c:url>" title="more about this web site">About</a></li>
+<%          }                                                    %>
+<%          if ("comments".equalsIgnoreCase(fixedTabStr)) { %>
+                <li class="activeTab"><a href="<c:url value="/comments"><c:param name="home" value="${portalBean.portalId }"/></c:url>">Contact Us</a></li>
+<%          } else {%>
+                <li><a href="<c:url value="/comments"><c:param name="home" value="${portalBean.portalId }"/></c:url>">Contact Us</a></li>
+<%          }%>        
     	</ul>
 	</div><!-- END 'primaryAndOther'-->
 <%	if (fixedTabStr==null) { %>

@@ -31,7 +31,7 @@
 %>
 
 <c:set var="portal" value="${requestScope.portalBean}"/>
-<c:set var="themeDir"><c:out value="${portal.themeDir}" default="themes/editdefault/"/></c:set>
+<c:set var="themeDir"><c:out value="${request.pageContext}/${portal.themeDir}" default="${request.pageContext}/themes/editdefault/"/></c:set>
 
 <!-- ********** START menu.jsp FROM /themes/editdefault/jsp/ ************* -->
 <div id="header">
@@ -50,8 +50,8 @@
 	    <c:when test="${fn:contains(pageContext.request.servletPath, 'edit/forms/')}">
 	    </c:when>
 	    <c:otherwise>
-        	<a class="image logout" href="${editLogout}" title="Logout of editing"><img src="${themeDir}site_icons/logout.gif" alt="Logout of editing" /></a>
-            <a class="image manage" href="${editManage}" title="Manage Your Profile"><img src="${themeDir}site_icons/manage.gif" alt="Manage Your Profile" /></a>
+        	<a class="image logout" href="${editLogout}" title="Logout of editing"><img src="<c:url value='${themeDir}site_icons/logout.gif'/>" alt="Logout of editing" /></a>
+            <a class="image manage" href="${editManage}" title="Manage Your Profile"><img src="<c:url value='${themeDir}site_icons/manage.gif'/>" alt="Manage Your Profile" /></a>
         </c:otherwise>
     </c:choose>
 	<% } %>

@@ -18,11 +18,11 @@
     Portal portal = vreq.getPortal();    
 %>
 <div id="footer">
-	<p class="siteFeedback"><a href="comments?home=<%=portal.getPortalId()%>" title="Send Us Feedback">Contact Us</a></p>
+	<p class="siteFeedback"><a href="<c:url value="/comments"><c:param name="home" value="${portalBean.portalId}"/></c:url>" title="Send Us Feedback">Contact Us</a></p>
 	<p>&#169; 2003-<%= new DateTime().getYear() %> <%= " " %> <a href="<%=portal.getCopyrightURL()%>"><%=portal.getCopyrightAnchor()%></a></p>
 	
     <div class="copyright">
-	    <p>All Rights Reserved. <a href="termsOfUse?home=<%=portal.getPortalId()%>">Terms of Use</a></p>
+	    <p>All Rights Reserved. <a href="<c:url value="/termsOfUse"/>">Terms of Use</a></p>
     </div><!-- END div 'copyright' -->
 </div><!-- footer -->
 

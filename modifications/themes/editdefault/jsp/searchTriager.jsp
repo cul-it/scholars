@@ -25,5 +25,5 @@ if (scope!=null && !scope.equals("")) {
 		return;
 	}
 }
-response.sendRedirect("../../../search?" + request.getQueryString());
+response.sendRedirect(request.getContextPath() + "/search?" + request.getQueryString());
 %>

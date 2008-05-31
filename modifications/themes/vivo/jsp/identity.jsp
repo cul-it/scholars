@@ -31,14 +31,13 @@
 <c:set var="portal" value="${requestScope.portalBean}"/>
 <c:set var="appBean" value="${requestScope.appBean}"/>
 <c:set var='themeDir' ><c:out value='${portal.themeDir}' default='themes/default/'/></c:set>
-<div id="cu-identity">
+<div id="cu-identity"> <!--  genearated by clones/vivo/modifications/themes/vivo/jsp/identity.jsp -->
     <div id="cu-logo">
-        <a id="insignia-link" class="clean" href="http://www.cornell.edu/" title="Cornell University"><img src="${portal.themeDir}site_icons/layout/cu_logo.gif" alt="Cornell University" width="283" height="76" border="0" /></a> 
+        <a id="insignia-link" class="clean" href="http://www.cornell.edu/" title="Cornell University"><img src="${request.pageContext}/${portal.themeDir}site_icons/layout/cu_logo.gif" alt="Cornell University" width="283" height="76" border="0" /></a> 
         <div id="unit-signature-links"><a id="cornell-link" class="clean" href="http://www.cornell.edu/" title="Cornell University">Cornell University</a> <a id="unit-link" class="clean" href="http://library.cornell.edu" title="Cornell University Library">Cornell University Library</a> </div>
     </div> <!-- cu-logo -->
     <div id="search-form"> 
-        <form action="${portal.themeDir}jsp/searchTriager.jsp" method="get" name="gs"> 
-        <!-- <form action="search" method="get" name="gs"> -->
+        <form action="<c:url value="/${portal.themeDir}jsp/searchTriager.jsp"/>" method="get" name="gs">         
             <input type="hidden" name="home" value="<%=portal.getPortalId()%>" />
             <input type="hidden" name="appname" value="<%=portal.getAppName()%>" />
             <div id="search-input"> 

@@ -29,8 +29,8 @@
 <c:set var="portal" value="${requestScope.portalBean}"/>
 <c:set var="appBean" value="${requestScope.appBean}"/>
 
-<!-- themes/editdefault/identity.jsp -->
-<div id="cu-identity">
+
+<div id="cu-identity"> <!-- clones/modifications/themes/editdefault/identity.jsp -->
 
     <div id="cu-logo">
         <c:url var="culogo" value="/${portal.themeDir}site_icons/layout/cu_logo.gif"/>
