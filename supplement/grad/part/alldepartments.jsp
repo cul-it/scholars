@@ -13,25 +13,15 @@
               SELECT DISTINCT ?deptUri ?deptLabel ?deptLocation ?deptLocationLabel ?deptPageUrl
               WHERE
               {
-                  ?group
-                  rdf:type
-                  vivo:fieldCluster .
+                  ?group rdf:type vivo:fieldCluster .
 
-                  ?group
-                  vivo:hasAssociated
-                  ?field .
+                  ?group vivo:hasAssociated ?field .
               
-                  ?person
-                  vivo:AcademicEmployeeOtherParticipantAsFieldMemberInAcademicInitiative
-                  ?field .
+                  ?person vivo:AcademicEmployeeOtherParticipantAsFieldMemberInAcademicInitiative ?field .
 
-                  ?person
-                  vivo:holdFacultyAppointmentIn
-                  ?deptUri .
+                  ?person vivo:holdFacultyAppointmentIn ?deptUri .
 
-                  ?deptUri
-                  rdf:type
-                  vivo:AcademicDepartment .
+                  ?deptUri rdf:type vivo:AcademicDepartment .
 
               OPTIONAL { ?deptUri rdfs:label ?deptLabel }
               OPTIONAL { ?deptUri vivo:OrganizedEndeavorLocatedInFacility ?deptLocation . ?deptLocation rdfs:label ?deptLocationLabel }
