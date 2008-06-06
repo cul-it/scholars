@@ -54,6 +54,22 @@
                 </x:choose>
             
             
+                <div id="vivoResults">
+                    <c:url var="vivoQuery" value="search">
+                        <c:param name="home" value="1"/>
+                        <c:param name="appname" value="VIVO"/>
+                        <c:param name="flag1" value="1"/>
+                        <c:param name="submit" value="go"/>
+                        <c:param name="sitesearch" value="vivo.cornell.edu"/>
+                        <c:param name="querytext" value="biology"/>
+                    </c:url>
+                    <c:out value="${vivoQuery}"/>
+                    <c:import var="vivo" url="/${vivoQuery}"/>
+                    <c:set var="startIndex" value="${fn:indexOf(vivo, 'contentsBrowseGroup')}"/>
+                    <c:set var="endIndex" value="${fn:indexOf(vivo, '--contentsBrowseGroup--')}"/>
+                    <c:set var="trimmed" value="${fn:substring(vivo, startIndex+22, endIndex-8)}"/>
+                    <c:out escapeXml="false" value="${trimmed}"/>
+                </div>
             
             
             </div><!-- content -->
