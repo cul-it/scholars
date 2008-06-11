@@ -7,7 +7,7 @@
 window.onload=function(){
     Nifty("div#news","all","#031D1D","#193335");
     Nifty("div#seminars","all","#193335");
-    Nifty("div#search","all","#193335");
+    Nifty("div#searchBox","all","#193335");
     Nifty("div#apply","all","#193335");   
     Nifty("div.cornered ul","big all","#031D1D","#173133"); 
     Nifty("div#departmentsInField","big","#0A2424","#193335"); 

@@ -22,7 +22,7 @@ body {
     font-size: 62.5%;  /*   translate 1.0em to 10px, 1.5em to 15px, etc.    */
     text-align: center;
     color: #333;
-    background: #575552 url(../images/layout/bg_body.png) repeat-x left top;
+    background: #494949 url(../images/layout/bg_body.png) repeat-x left top;
 }
 
 #bodyOverlay {
@@ -57,7 +57,7 @@ body {
 /*    margin-bottom: 4px;*/
     padding-bottom: 28px;
 /*    border: 1px solid #093436;*/
-    border: 1px solid #113838;
+    border: 1px solid #143737;
     border-top: 0;
     background: transparent url(../images/layout/bg_content.png) left top !important;
 /*    background: transparent url(../images/layout/bg_contentGrid.png) center top repeat-y !important;*/
@@ -104,7 +104,7 @@ body#faculty #content {
     min-height: 500px; 
 }
 
-body#searchpage #content { 
+body#search #content { 
     width: 890px; margin-right: 20px;
     min-height: 500px; 
 }
@@ -203,7 +203,7 @@ header roll call
 
 #header ul li a {
     float: left;
-    padding: 5px 9px 5px 9px;
+    padding: 5px 9px 4px 9px;
     color: #000;
     border: 0;
     background: url(../images/layout/tab-inactive_right.gif) no-repeat right top;
@@ -214,8 +214,21 @@ header roll call
     margin-top: 0;
 }
 
+#header ul li#homeTab {
+    background: none;
+}
+
+#header ul li#homeTab.currentTab a {
+    background: url(../images/layout/tab-active_left_home.gif) no-repeat right top;
+    border-left: 1px solid #143737;
+}
+
+#header ul li#homeTab a {
+    background: url(../images/layout/tab-inactive_left_home.gif) no-repeat right top;
+}
+
 #header ul li.currentTab a {
-    padding: 7px 10px 5px 10px;
+    padding: 7px 9px 4px 9px;
     color: #fff;
     background: url(../images/layout/tab-active_right.gif) no-repeat right top;
 }
@@ -235,6 +248,7 @@ content roll call
     margin-top: 20px;
     margin-bottom: 10px;
     background: #243f3f;
+/*    background: #1d3333;*/
     padding-left: 20px;
 }
 
@@ -769,11 +783,32 @@ body#facilities div.description  li {
     list-style-type: disc;
 }
 
+body#search h3 {
+    font-size: 1.4em;
+    margin: 1.8em 0 0 0;
+}
+
+body#search h3 a {
+/*    border-bottom: 1px solid #999999;*/
+/*    border-bottom: 1px solid #4a7172;*/
+    text-decoration: underline;
+}
+
+body#search #searchResults p {
+    font-size: 1.2em;
+    margin-top: 0;
+}
+
+body#search #searchResults span.highlight {
+    font-weight: bold;
+    background: none;
+}
+
 /****************************************************************
 sidebar roll call
 ****************************************************************/
 
-#news, #search, #seminars {
+#news, #searchBox, #seminars {
     padding: 12px 10px;
     color: #000;
     background: #efecca;
@@ -783,11 +818,11 @@ sidebar roll call
     padding-right: 0;
 }
 
-#search, #seminars {
+#searchBox, #seminars {
     margin-top: 20px;
 }
 
-#search {
+#searchBox {
     background: #a7a37e;
 }
 
@@ -798,7 +833,7 @@ sidebar roll call
     font-weight: bold;
 }
 
-#search h2 {
+#searchBox h2 {
     color: #fff;
 }
 
@@ -1241,6 +1276,37 @@ form roll call
     border: 0;
     margin: 0;
     padding: 0;
+}
+
+body#search #search-form-query {
+    width: 400px;
+    font-size: 1.4em;
+    line-height: 1em;
+    padding: .2em;
+    color: #fff;
+    background: #000;
+    border: 2px solid #758e90;
+}
+
+body#search #search-form-submit {
+    font-size: 1.2em;
+    margin-left: 4px;
+}
+
+body#search #search-form {
+    margin-bottom: 3em;
+}
+
+body#search #search-form h2 {
+    margin-bottom: 1em;
+}
+
+body#search #resultsCount {
+/*    float: left;*/
+/*    width: 200px;*/
+/*    margin-left: 50px;*/
+    margin-top: 100px;
+    color: red;
 }
 
 /****************************************************************

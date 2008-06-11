@@ -6,55 +6,63 @@
 <c:set var="searchParam" value=" Results: ${param.querytext}"/>
 
 <jsp:include page="header.jsp">
-    <jsp:param name="bodyID" value="searchpage"/>
-    <jsp:param name="titleText" value="Search${searchParam} | Cornell University"/>
+    <jsp:param name="bodyID" value="search"/>
+    <jsp:param name="titleText" value="Search${searchParam}"/>
 </jsp:include>
-
-        <style type="text/css">
-            span.highlight { background: #5a5651; padding: 0 1px; }
-        </style>
         
         <div id="contentWrap">
             <div id="content">
-
-                <form action="search.jsp" method="get" name  e="gs"> 
-
-                    <div id="search-input" style="padding: 20px 10px; border: 1px solid #ccc; margin-bottom: 20px"> 
-                        <label for="search-form-query">SEARCH:</label>
-                        <input type="text" id="search-form-query" name="querytext" value="${param.querytext}" size="30" />
-                        <input type="submit" id="search-form-submit" name="submit" value="go" />
-                    </div>
-                    
+                
+                <form action="search.jsp" method="get" name="gs" id="search-form"> 
+                    <h2><label for="search-form-query">Search</label></h2>
+                    <input type="text" id="search-form-query" name="querytext" value="${param.querytext}" size="30" />
+                    <button type="submit" id="search-form-submit" name="submit" value="go" />go</button>
                 </form>
 
-                <c:import var="rss" url="http://localhost:8080/nutch/opensearch">
+                <c:import var="rss" url="http://zoe.mannlib.cornell.edu:8080/nutch-0.8.1/opensearch?">
+                <%-- <c:import var="rss" url="http://localhost:8080/nutch/opensearch"> --%>
                     <c:param name="query" value="${param.querytext}"/>
                     <c:param name="hitsPerSite" value="0"/>
                     <c:param name="lang" value="en"/>
-                    <c:param name="hitsPerPage" value="10"/>
+                    <c:param name="hitsPerPage" value="30"/>
                 </c:import>
+                
+                <c:url var="queryUrl" value="http://localhost:8080/nutch/opensearch">
+                    <c:param name="query" value="${param.querytext}"/>
+                    <c:param name="hitsPerSite" value="0"/>
+                    <c:param name="lang" value="en"/>
+                    <c:param name="hitsPerPage" value="40"/>
+                </c:url>
+                
+                <!-- <c:out value="${queryUrl}"/>  -->
                 
                 <x:parse var="results" doc="${rss}"/>
             
-                <x:choose>
-                    <x:when select="$results//item">
-                        <x:forEach select="$results//item">
-                            <x:set var="resultTitle" select="substring-before(title, ' |')"/>
-                            <h4>
-                                <a href="<x:out select='link'/>">
-                                <c:out value="${resultTitle}"/>
-                                </a>
-                            </h4>
-                            <p><x:out escapeXml="false" select="description"/></p>
-                        </x:forEach>
-                    </x:when>
-                    <x:otherwise>
-                        <p>No Results</p>
-                    </x:otherwise>
-                </x:choose>
+                <div id="searchResults">
+                    <x:choose>
+                        <x:when select="$results//item">
+                            <x:forEach select="$results//item">
+                                <x:set var="resultTitle" select="substring-before(title, ' |')"/>
+                                <h3>
+                                    <a href="<x:out select='link'/>">
+                                    <c:out value="${resultTitle}"/>
+                                    </a>
+                                </h3>
+                                <p><x:out escapeXml="false" select="description"/></p>
+                            </x:forEach>
+                        </x:when>
+                        <x:otherwise>
+                        <c:choose>
+                            <c:when test="${empty param.querytext}">
+                                <p>No matches found.</p>   
+                            </c:when>
+                            <c:otherwise>&nbsp;</c:otherwise>
+                        </c:choose>
+                        </x:otherwise>
+                    </x:choose>
+                </div>
             
-            
-                <div id="vivoResults">
+                <%-- %><div id="vivoResults">
                     <c:url var="vivoQuery" value="search">
                         <c:param name="home" value="1"/>
                         <c:param name="appname" value="VIVO"/>
@@ -69,7 +77,7 @@
                     <c:set var="endIndex" value="${fn:indexOf(vivo, '--contentsBrowseGroup--')}"/>
                     <c:set var="trimmed" value="${fn:substring(vivo, startIndex+22, endIndex-8)}"/>
                     <c:out escapeXml="false" value="${trimmed}"/>
-                </div>
+                </div> --%>
             
             
             </div><!-- content -->

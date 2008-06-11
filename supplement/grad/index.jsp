@@ -24,7 +24,7 @@
                     <jsp:include page="part/newsforportal.jsp" />
                     <span class="moreLink"><a title="more Life Sciences news in VIVO" href="http://vivo.cornell.edu/index.jsp?collection=209">more news &raquo;</a></span>
                 </div>
-                <div id="search">
+                <div id="searchBox">
                     <form name="findresearch" action="search.jsp" method="get"> 
                         <h2><label for="search-form-query">Search</label></h2>
                         <input type="text" id="search-form-query" name="querytext" value="" size="26" />

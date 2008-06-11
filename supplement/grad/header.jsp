@@ -16,13 +16,14 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
+    <!--noindex-->
 	<title>
 	    <c:choose>
             <c:when test="${!empty param.titleText}">${param.titleText}</c:when>
             <c:otherwise>Graduate Programs in the Life Sciences | Cornell University</c:otherwise>
 	    </c:choose>
 	</title>
-	<!--noindex-->
+	
 	<c:url var="faviconLoc" value="/favicon.ico"/>
 	<link rel="shortcut icon" href="${faviconLoc}"/>
 	<link rel="stylesheet" href="style/screen.css" type="text/css" />
@@ -32,16 +33,15 @@
     <script type="text/javascript" src="${jsDir}/jquery.js"></script>
     <script type="text/javascript" src="${jsDir}/jquery_plugins/getURLParam.js"></script>
     
-    <%-- For Exhibit only --%>
+
     <c:if test="${fn:contains(pageContext.request.servletPath, 'XXX.jsp')}">
         <link href="data/peopleData2.jsp" type="application/json" rel="exhibit/data" />
         <script src="http://static.simile.mit.edu/exhibit/api-2.0/exhibit-api.js" type="text/javascript"></script>
-        <link rel="stylesheet" href="style/exhibit.css" type="text/css" /> <!-- Override exhibit styles -->
+        <link rel="stylesheet" href="style/exhibit.css" type="text/css" />
     </c:if>
     
     <c:if test="${fn:contains(pageContext.request.servletPath, 'faculty.jsp')}">
-        <!-- <link rel="stylesheet" href="style/websnapr.css" type="text/css" /> -->
-        <!-- <script src="js/localsnapr.js" type="text/javascript"></script> -->
+
         <script type="text/javascript" src="js/jquery_plugins/jquery.cluetip.js"></script>
         <script type="text/javascript" src="js/jquery_plugins/jquery.dimensions.js"></script>
         <script type="text/javascript" src="js/jquery_plugins/jquery.hoverIntent.js"></script>
@@ -83,7 +83,7 @@
 			<h1>Graduate Programs in the Life Sciences</h1>
 			<div id="navigation">
 				<ul>
-					<li <c:if test="${fn:contains(pageContext.request.servletPath, 'index.jsp')}">class="currentTab"</c:if>><a href="index.jsp" title="Home">Home</a></li>
+					<li id="homeTab" <c:if test="${fn:contains(pageContext.request.servletPath, 'index.jsp')}">class="currentTab"</c:if>><a href="index.jsp" title="Home">Home</a></li>
 					<li <c:choose>
 					            <c:when test="${fn:contains(pageContext.request.servletPath, 'gradfieldsIndex.jsp')}">class="currentTab"</c:when>
 					            <c:when test="${fn:contains(pageContext.request.servletPath, 'groups.jsp')}">class="currentTab"</c:when>
