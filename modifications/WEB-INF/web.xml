@@ -37,6 +37,13 @@
 
 <!-- Listeners ****************************************************** -->
 
+    <!-- experimental ModelMaker for ingest workflows - BJL 2008-06-01 -->
+    <listener>
+        <listener-class>
+            edu.cornell.mannlib.vitro.webapp.servlet.setup.VitroJenaModelMakerSetup
+        </listener-class>
+    </listener>
+
     <!-- Comment out this listener to run Vitro without a database -->
     <!-- If used, this listener must be run before JenaDataSourceSetup -->
     <listener>
@@ -247,6 +254,15 @@
     </servlet-mapping>
     
     <servlet>
+      <servlet-name>SitemapIndexController</servlet-name>
+      <servlet-class>edu.cornell.mannlib.vitro.webapp.controller.SitemapIndexController</servlet-class>
+    </servlet>   
+    <servlet-mapping>
+      <servlet-name>SitemapIndexController</servlet-name>
+      <url-pattern>/sitemap.xml</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
       <servlet-name>RDFUploadFormController</servlet-name>
       <servlet-class>edu.cornell.mannlib.vitro.webapp.controller.jena.RDFUploadFormController</servlet-class>
     </servlet>   
@@ -262,6 +278,15 @@
     <servlet-mapping>
       <servlet-name>RDFUploadController</servlet-name>
       <url-pattern>/uploadRDF</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+      <servlet-name>JenaIngestController</servlet-name>
+      <servlet-class>edu.cornell.mannlib.vitro.webapp.controller.jena.JenaIngestController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+      <servlet-name>JenaIngestController</servlet-name>
+      <url-pattern>/ingest</url-pattern>
     </servlet-mapping>
 
     <servlet>
@@ -707,14 +732,15 @@
       <url-pattern>/index.jsp</url-pattern>
     </servlet-mapping>
     
-    <servlet>
-      <servlet-name>EntityPropertyListController</servlet-name>     
-      <servlet-class>edu.cornell.mannlib.vitro.webapp.controller.EntityPropertyListController</servlet-class>
-    </servlet>
-    <servlet-mapping>
-      <servlet-name>EntityPropertyListController</servlet-name>
-      <url-pattern>/entityPropList</url-pattern>
-    </servlet-mapping>
+<!-- <servlet>
+       <servlet-name>EntityPropertyListController</servlet-name>     
+       <servlet-class>edu.cornell.mannlib.vitro.webapp.controller.EntityPropertyListController</servlet-class>
+     </servlet>
+     <servlet-mapping>
+       <servlet-name>EntityPropertyListController</servlet-name>
+       <url-pattern>/entityPropList</url-pattern>
+     </servlet-mapping>
+-->
     
     <servlet>
       <servlet-name>EntityMergedPropertyListController</servlet-name>     
@@ -857,7 +883,7 @@
 	
 	<servlet-mapping>
 		<servlet-name>SparqlQuery</servlet-name>
-		<url-pattern>/sparqlquery</url-pattern>
+		<url-pattern>/admin/sparqlquery</url-pattern>
 	</servlet-mapping>
 
 	<servlet>
