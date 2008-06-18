@@ -15,7 +15,7 @@
      **********************************************/
     Individual entity = (Individual)request.getAttribute("entity");
     if (entity == null)
-        throw new JspException("gradPortalDeptEntity.jsp expects that request attribute 'entity' be set to the Entity object to display.");
+        throw new JspException("deptEntity.jsp expects that request attribute 'entity' be set to the Entity object to display.");
 %>
 
 <c:set var='financialAwardPropUri' value='http://vivo.library.cornell.edu/ns/0.1#OrganizedEndeavorAdministersFinancialAward' scope="page" />
@@ -25,8 +25,6 @@
 <c:set var='facultyMembersPropUri' value='http://vivo.library.cornell.edu/ns/0.1#hasAppointedFaculty' scope="page"/>
 <c:set var='hasCoursePropUri' value='' scope="page"/>
 <fmt:setLocale value="en_US"/>    
-
-<c:set var='imageDir' value='images' scope="page"/>
 
 <div id='deptPageScreenshot'>
     <%-- <c:import var="deptImgSrc" url="http://localhost/thmbnl/getScreenshot.php">
@@ -38,7 +36,8 @@
         <c:param name="size" value="s"/>
     </c:url>
     
-    <a href="<c:url value='${entity.url}'/>"><img src="${webSnaprUrl}" alt=""/>${entity.anchor}</a>
+    <a href="<c:url value='${entity.url}'/>"><img src="${webSnaprUrl}" alt="screenshot of ${entity.anchor}"/></a>
+    <a href="<c:url value='${entity.url}'/>">${entity.anchor}</a>
     
     <%-- <img src='<c:out value="${deptImgSrc}"/>' title="${entity.anchor}" alt="screenshot" /></a> --%>
         
@@ -162,8 +161,9 @@
             <ul class="colOne">
                     <c:forEach items='${entity.objectPropertyMap[facultyMembersPropUri].objectPropertyStatements}' var="Faculty" varStatus="facultyCount" begin="0" end="${facultyColumnSize - 1}">
                         <li>
-                            <c:url var="href" value="/entity">
+                            <c:url var="href" value="faculty.jsp">
                                 <c:param name="uri" value="${Faculty.object.URI}"/>
+                                <c:param name="name" value="${Faculty.object.name}"/>
                             </c:url>
                             <a href="${href}" title="view profile in VIVO">${Faculty.object.name}</a>
                         </li>
@@ -174,8 +174,9 @@
                 <ul class="colTwo">
                     <c:forEach items='${entity.objectPropertyMap[facultyMembersPropUri].objectPropertyStatements}' var="Faculty" begin="${facultyColumnSize}" end="${facultyColumnSize * 2 - 1}">
                         <li>
-                            <c:url var="href" value="/entity">
+                            <c:url var="href" value="faculty.jsp">
                                 <c:param name="uri" value="${Faculty.object.URI}"/>
+                                <c:param name="name" value="${Faculty.object.name}"/>
                             </c:url>
                             <a href="${href}" title="view profile in VIVO">${Faculty.object.name}</a>
                         </li>
@@ -187,8 +188,9 @@
                 <ul class="colThree">
                      <c:forEach items='${entity.objectPropertyMap[facultyMembersPropUri].objectPropertyStatements}' var="Faculty" varStatus="facultyCount" begin="${facultyColumnSize * 2 }">
                         <li>
-                            <c:url var="href" value="/entity">
+                            <c:url var="href" value="faculty.jsp">
                                 <c:param name="uri" value="${Faculty.object.URI}"/>
+                                <c:param name="name" value="${Faculty.object.name}"/>
                             </c:url>
                             <a href="${href}" title="view profile in VIVO">${Faculty.object.name}</a>
                         </li>

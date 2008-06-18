@@ -33,7 +33,7 @@ body {
     height: 100%;
     font-size: 1em;
     margin-bottom: -6em;
-    background: transparent url(../images/layout/bg_bodyoverlay.png) 90% 0% ;
+/*    background: transparent url(../images/layout/bg_bodyoverlay.png) 90% 0% ;*/
 }
 
 #wrap {
@@ -57,7 +57,7 @@ body {
 /*    margin-bottom: 4px;*/
     padding-bottom: 28px;
 /*    border: 1px solid #093436;*/
-    border: 1px solid #143737;
+    border: 2px solid #143737;
     border-top: 0;
     background: transparent url(../images/layout/bg_content.png) left top !important;
 /*    background: transparent url(../images/layout/bg_contentGrid.png) center top repeat-y !important;*/
@@ -69,7 +69,7 @@ body {
 #content {
     float: left;
     display: inline;
-    width: 590px;   /*eight units*/
+    width: 580px;   /*eight units*/
     margin-left: 20px;
     padding-top: 28px;
     color: #efecca; /*yellow*/
@@ -99,7 +99,7 @@ body#events #content {
     width: 890px; margin-right: 20px;
 }
 
-body#faculty #content { 
+body#faculty #content.index { 
     width: 890px; margin-right: 20px;
     min-height: 500px; 
 }
@@ -115,6 +115,8 @@ body#search #content {
     width: 290px; /*four units*/
     margin-right: 20px;
     padding-top: 28px;
+/*    color: #efecca;*/
+    color: #fff;
 }
 
 body#groups #sidebar { 
@@ -314,14 +316,14 @@ body#home #content p {
 }
 
 body#groupindex h2 {
-    font-size: 1.7em;   /* Scaling down group names to fit two-column layout */
-    line-height: 1.4em;
+    font-size: 1.5em;   /* Scaling down group names to fit two-column layout */
+    line-height: 1.5em;
     padding-top: 20px;
     padding-left: 45px;
 }
 
 body#groups h2 {
-    margin-top: -18px;
+    margin-top: -10px;
 }
 
 body#groups h3.floatLeft {
@@ -347,7 +349,7 @@ h2.groupLabel, h2.groupLabel a:link, h2.groupLabel a:visited {
     color: #fff;
     font-weight: bold;
     font-size: 1.2em;
-    line-height: 1em;
+    line-height: 1.2em;
 }
 
 body#home #apply {
@@ -381,7 +383,7 @@ body#groups div#hoverBox {
     margin-top: 1em;
     min-height: 400px;
     background: #5a5651;
-    color: #fff;
+    color: #EFECCA;
 }
 
 body#groups div#fieldDescription,
@@ -402,7 +404,14 @@ body#groups div#fieldDepartments {
 
 body#groups div#hoverBox h4 {
     font-weight: bold;
-    margin: 16px 16px 3px 16px;
+    font-size: 1.6em;
+    line-height: 1.2em;
+}
+
+body#groups div#hoverBox h4,
+body#groups div#hoverBox h5 {
+/*    font-weight: bold;*/
+    margin: 16px 16px 0 16px;
 }
 
 body#groups div#fieldDescription p:first-child {
@@ -433,13 +442,20 @@ body#fields div#facultySpotlight h4 {
     padding-right: 10px;
 }
 
+body#fields div#facultySpotlight h4 a {
+    border-bottom: 1px solid #777;
+}
+
 body#fields div#facultySpotlight h5 {
+    color: #fff;
+    font-weight: bold;
     font-size: 1em;
     margin-bottom: .5em;
 }
 
 body#fields div#facultySpotlight div.blurb {
     clear: left;
+    min-width: 190px; /* Some blurbs not long enough to fill width and do not clear image */
     display: inline-block; /* Prevent IE from doubling any padding */
     padding:  10px;
 }
@@ -447,7 +463,7 @@ body#fields div#facultySpotlight div.blurb {
 body#fields div#facultySpotlight img {
     float: left;
     position: relative;
-    width: 80px;
+    width: 75px;
     margin: 10px 6px 0 10px;
     border: 1px solid #fff;
 }
@@ -517,7 +533,7 @@ body#departments div#deptPageScreenshot a:hover {
 }
 
 body#fields div#fieldDescription a.fieldLink {
-    border-bottom: 1px solid #4a7172;
+    border-bottom: 1px solid #777;
 /*    text-decoration: underline;*/
     font-size: 1.2em;
 }
@@ -556,7 +572,8 @@ body#fields div#fieldFaculty li {
 }
 
 body#fields div#fieldFaculty li a {
-    border: 0;
+/*    border: 0;*/
+    line-height: 1.5em;
 }
 
 body#fields div#fieldFaculty li img {
@@ -608,7 +625,7 @@ body#fields div#researchAreas p {
 }
 
 body#fields div#fieldDepartments a {
-    border: 0;
+/*    border: 0;*/
 }
 
 
@@ -804,6 +821,186 @@ body#search #searchResults span.highlight {
     background: none;
 }
 
+p.resultCount {
+    padding: 5px 22px;
+    margin-left: -20px;
+    margin-right: -20px;
+    background: #1a3e40;
+    border-top: 2px solid #305e61;
+    font-style: italic;
+}
+
+body#faculty #overview h2 {
+    line-height: 1em;
+    color: #fff;
+    font-weight: bold;
+    padding-top: .5em;
+}
+
+body#faculty #overview em {
+    font-size: 1.2em;
+    line-height: 1.6em;
+    color: #fff;
+}
+
+body#faculty div.description {
+    clear: left;
+    line-height: 1.3em;
+}
+
+body#faculty div.description h4 {
+    color: #efecca;
+    font-size: 1em;
+    font-weight: bold;
+}
+
+body#faculty div.description li {
+    list-style-type: disc;
+    list-style-position: outside;
+    line-height: 1.1em;
+    margin: .5em 0 .5em 17px;
+}
+
+body#faculty div.description li p {
+    margin: .5em 0;
+}
+
+body#faculty #overview img {
+    float: left;
+    width: 7.5em;
+    border: 1px solid #fff;
+    margin: 0 12px 18px 0;
+}
+
+body#faculty #content h3 {
+    font-weight: bold;
+}
+
+#faculty-research,
+#faculty-publications,
+#faculty-teaching {
+/*    background: #385266;*/
+    background: #315959;
+    padding: 10px 15px 15px 15px;
+    margin: 2em 0;
+}
+
+#faculty-research h3 {
+    background: url(../images/icons/faculty-research.gif) no-repeat left center;
+    padding-left: 31px;
+    line-height: 2em;
+}
+
+#faculty-publications h3 {
+    background: url(../images/icons/faculty-publications.gif) no-repeat left center;
+    padding-left: 31px;
+    line-height: 2em;
+}
+
+#faculty-teaching h3 {
+    background: url(../images/icons/faculty-teaching.gif) no-repeat left center;
+    padding-left: 24px;
+    line-height: 2em;
+}
+
+#faculty-research {
+    font-size: 1em;
+}
+
+#faculty-research li,
+#faculty-publications li,
+#faculty-teaching li {
+    line-height: 1.3em;
+    margin: .5em 0 1em 0;
+}
+
+#faculty-teaching p {
+   margin-top: .3em;
+   line-height: 1.1em;
+}
+
+body#faculty #content {
+    font-size: 1.2em;
+}
+
+body#faculty #content a {
+/*    border-color: #888;*/
+    border-color: #708c8c;
+}
+
+body#faculty #content.index {
+    font-size: 1em;
+}
+
+body#faculty #sidebar a {
+    border-color: #5C7373;
+}
+
+body#faculty #sidebar h3 {
+    font-size: 1.4em;
+/*    margin-left: 12px;*/
+}
+
+body#faculty #sidebar ul {
+/*    margin-left: 12px;*/
+    margin-bottom: 20px;
+    font-size: 1.1em;
+}
+
+body#faculty #sidebar p {
+    font-size: 1.1em;
+}
+
+body#faculty #education,
+body#faculty #awards {
+    margin-bottom: 20px;
+}
+
+body#faculty #education li,
+body#faculty #awards li {
+    line-height: 1.1em;
+    margin: .2em 0 .8em 0;
+}
+
+body#faculty #awards li {
+/*    margin: .5em 0;*/
+}
+
+body#faculty #contactInfo {
+    background: #4F4B47;
+    margin-bottom: 20px;
+}
+
+body#faculty #contactInfo h3 {
+    background: #363431;
+    padding: 3px 10px;
+    margin: 0;
+}
+
+body#faculty #contactInfo table {
+    margin: 10px 10px 0 12px;
+    padding-bottom: 10px;
+    color: #efecca;
+}
+
+body#faculty ul#profileLinks {
+    padding: 10px 10px 10px 13px;
+    margin: 0;
+}
+
+body#faculty ul#profileLinks li {
+    padding: 1px 0 3px 18px;
+    background: url(../images/icons/external_profile.gif) no-repeat left top;
+    line-height: 1.1em;
+    margin-bottom: .5em;
+}
+
+body#faculty ul#profileLinks li a {
+    border: 0;
+}
+
+
+
 /****************************************************************
 sidebar roll call
 ****************************************************************/
@@ -905,7 +1102,7 @@ p.clean {
     margin: 0;
 }
 
-h1, h2, h3, h4 {
+h1, h2, h3, h4, h5 {
     font-family: Verdana, Arial, Helvetica, sans-serif;
 /*    font-weight: bold;*/
     font-weight: normal;
@@ -929,6 +1126,11 @@ h3 {
 }
 
 h4 {
+    font-size: 1.4em;
+    line-height: 1.5em;
+}
+
+h5 {
     font-size: 1.4em;
     line-height: 1.5em;
 }
@@ -984,20 +1186,24 @@ anchor roll call
 ****************************************************************/
 a:link, a:visited, a:hover, a:active { text-decoration: none; }
 a:link { color: #fff; }
-a:visited { color: #a9a9a9; }
+/*a:visited { color: #a1b3b3; }*/
+a:visited { color: #b8b8b8; }
 a:hover { color: #69bfde; }
 a:active { color: #69bfde; }
 
-li a { border-bottom: 1px solid #4a7172; }
+/*li a { border-bottom: 1px solid #4a7172; }*/
+/*li a { border-bottom: 1px solid #5C7373; }*/
+li a { border-bottom: 1px solid #777; }
 
 ul.groupings li a:link, ul.groupings li a:visited {
     color: #fff;
-    border: 0;
+    border-bottom: 1px solid #5c7373;
 }
 
 ul.groupings li a:hover {
     color: #69bfde;
-    border: 0;
+/*    border-bottom: 1px solid #69bfde;*/
+/*    border: 0;*/
 }
 
 ul.fields li a {
@@ -1096,7 +1302,7 @@ li.clean {
 #content ul.groupings li {
     font-size: 1.8em;
     font-weight: bold;
-    line-height: 1.4em;
+    line-height: 1.3em;
     margin-bottom: -10px; /* Tightening the space between group items */
 }
 
@@ -1120,14 +1326,18 @@ body#groups ul.fields {
     width: 445px;
 }
 
+body#groups ul.fields li {
+    margin: .3em 0 .5em 0;
+    padding-left: 30px;
+}
 
 body#groups ul.fields a {
-    display: block;
-    border: 0;
+/*    display: block;*/
+/*    border: 0;*/
 /*    text-decoration: underline;*/
-    padding: 3px 0 3px 10px;
-    position: relative;
-    left: 14px;
+/*    padding: 3px 0 3px 10px;*/
+/*    position: relative;*/
+/*    left: 14px;*/
 /*    margin-left: -24px;*/
 }
 
@@ -1138,7 +1348,8 @@ body#groups ul.fields a:hover {
 
 body#groups ul.fields a.selected {
     color: #f4ea7c;
-    background: #5a5651;
+    border: 0;
+/*    background: #5a5651;*/
 }
 
 body#groupindex #content ul {
@@ -1158,8 +1369,8 @@ body#groups div#groupList {
 }
 
 body#groups h3 {
-    margin-left: 24px;
-    margin-top: 5px;
+    margin-left: 30px;
+    margin-top: 8px;
 }
 
 body#groups div#groupList h3 {
@@ -1285,7 +1496,7 @@ body#search #search-form-query {
     padding: .2em;
     color: #fff;
     background: #000;
-    border: 2px solid #758e90;
+    border: 1px solid #758e90;
 }
 
 body#search #search-form-submit {
@@ -1312,7 +1523,7 @@ body#search #resultsCount {
 /****************************************************************
 table roll call
 ****************************************************************/
-body#faculty div#indexNav {
+body#faculty #indexNav {
     margin: 3em 0 2em 0;
     height: 2em; /* Explicitly set because some browsers will not clear with margins */
     font-size: 1.2em;
@@ -1332,7 +1543,7 @@ body#faculty div#indexNav a:hover {
     border: 1px solid #fff !important;
 }
 
-body#faculty table,
+body#faculty .index table,
 body#departments table {
     width: 100%;
     clear: left;
@@ -1340,12 +1551,12 @@ body#departments table {
     color: #efecca; /* IE6 not reading color from content div */
 }
 
-body#faculty tbody td.firstRow,
+body#faculty .index tbody td.firstRow,
 body#departments tbody td.firstRow {
     padding-top: 12px;
 }
 
-body#faculty thead th,
+body#faculty .index thead th,
 body#departments thead th {
     color: #a7a37e;
     font-size: 1.1em;
@@ -1355,28 +1566,28 @@ body#departments thead th {
     border-bottom: 1px solid #a7a37e;
 }
 
-body#faculty tbody td,
+body#faculty .index tbody td,
 body#departments tbody td {
     border-bottom: 1px solid #204647;
 }
 
-body#faculty tbody tr:hover,
+body#faculty .index tbody tr:hover,
 body#departments tbody tr:hover {
     background-color: #244e4f;
 }
 
-body#faculty tbody a:hover,
+body#faculty .index tbody a:hover,
 body#departments tbody a:hover {
     text-decoration: underline;
 }
 
-body#faculty tbody td,
+body#faculty .index tbody td,
 body#departments tbody td {
     padding: 4px 10px 3px 8px;
     width: 49%;
 }
 
-body#faculty tfoot td {
+body#faculty .index tfoot td {
     padding-top: 1em;
 }
 
@@ -1408,6 +1619,8 @@ table roll call
 
 /* Colors
 
+Light green: #5C7373 (homepage group links)
+Light green: #708c8c (link underlines)
 Light brown: #5a5651  (faculty spotlight)
 Active yellow: #ffee8f  (highlighted field)
 Light blue: #69bfde (link hover)

@@ -12,4 +12,7 @@ window.onload=function(){
     Nifty("div.cornered ul","big all","#031D1D","#173133"); 
     Nifty("div#departmentsInField","big","#0A2424","#193335"); 
     Nifty("h3.facilityGroup","all","#193335"); 
+    Nifty("#faculty-research","big all","#193335"); 
+    Nifty("#faculty-publications","big all","#193335"); 
+    Nifty("#faculty-teaching","big all","#193335"); 
 }

@@ -16,7 +16,6 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
-    <!--noindex-->
 	<title>
 	    <c:choose>
             <c:when test="${!empty param.titleText}">${param.titleText}</c:when>
@@ -61,6 +60,7 @@
 </head>
 
 <body <c:if test="${not empty param.bodyID}">id="${param.bodyID}"</c:if>>
+<!--noindex-->
 	<div id="bodyOverlay">
 	<div id="skipnav">
 		<a href="#content">Skip to main content</a>
@@ -92,10 +92,9 @@
 					<li <c:if test="${fn:contains(pageContext.request.servletPath, 'faculty.jsp')}">class="currentTab" </c:if>><a href="faculty.jsp" title="index of graduate faculty">Faculty</a></li>
 					<li <c:if test="${fn:contains(pageContext.request.servletPath, 'departments.jsp')}">class="currentTab" </c:if>><a href="departments.jsp" title="an index of departments">Departments</a></li>
 					<li <c:if test="${fn:contains(pageContext.request.servletPath, 'facilities.jsp')}">class="currentTab" </c:if>><a href="facilities.jsp" title="life science research facilities">Research Facilities</a></li>
-                    <!-- <li><a <c:if test="${fn:contains(pageContext.request.servletPath, 'events.jsp')}">class="currentTab" </c:if>href="http://vivo.cornell.edu/index.jsp?collection=20" title="Events">Events</a></li> -->
 					<li <c:if test="${fn:contains(pageContext.request.servletPath, 'search.jsp')}">class="currentTab" </c:if>><a href="search.jsp" title="search this site">Search</a></li>
 				</ul>
 			</div><!-- navigation -->
 			
 		</div><!-- header -->
-		<!--/noindex-->
+<!--/noindex-->

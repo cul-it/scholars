@@ -80,17 +80,17 @@ if ($("body").attr("id") == "faculty") {
          return false;
      });
     
-    $("td a.person").cluetip({
-        titleAttribute: 'name', 
-        width: '200px', 
-        showTitle: false, 
-        waitImage: false, 
-        arrows: false,
-        dropShadowSteps: 7,
-        leftOffset: 30,
-        topOffset: 30,
-        ajaxCache: true
-    });
+    // $("td a.person").cluetip({
+    //     titleAttribute: 'name', 
+    //     width: '200px', 
+    //     showTitle: false, 
+    //     waitImage: false, 
+    //     arrows: false,
+    //     dropShadowSteps: 7,
+    //     leftOffset: 30,
+    //     topOffset: 30,
+    //     ajaxCache: true
+    // });
 
 } 
 });
@@ -103,21 +103,22 @@ if ($("body").attr("id") == "groups") {
 
         var parameter = $.getURLParam("uri");
         var jsonLink = "data/fieldsHoverData.jsp" + "?uri=" + parameter;
-        var hoverDivs = '<div id="hoverBox"><h4>Overview</h4><div id="fieldDescription"></div><h4>Departments</h4><div id="fieldDepartments"></div></div>';
+        var hoverDivs = '<div id="hoverBox"><h4></h4><h5>Overview</h5><div id="fieldDescription"></div><h5>Departments</h5><div id="fieldDepartments"></div></div>';
         $("h2.groupLabel").after(hoverDivs);
     
         function fieldHoverSwitch(targetFieldID, json) {
             $("div#hoverBox").show();
             $.each(json.Fields, function(i, field) {
                 if (field.ID == targetFieldID) {
-                    $("div#hoverBox h4").hide();
+                    $("div#hoverBox h5").hide();
+                    $("div#hoverBox h4").hide().empty().append(field.Label);
                     $("div#fieldDescription").hide().empty().append(field.Description);
                     $("div#fieldDepartments").hide().empty().append("<ul></ul>");
                     $.each(field.Departments, function(i, dept) {
                         var newListItem = "<li>" + field.Departments[i].Label + "</li>";
                         $("div#fieldDepartments ul").append(newListItem);
                     });
-                    $("div#fieldDescription, div#fieldDepartments, div#hoverBox h4").fadeIn("fast");
+                    $("div#fieldDescription, div#fieldDepartments, div#hoverBox h5, div#hoverBox h4").fadeIn("fast");
                 }
             });
         }
@@ -131,7 +132,8 @@ if ($("body").attr("id") == "groups") {
             var json = fieldsJSON;
             var fieldsCount = json.Fields.length - 1;
             var randomField = Math.floor(Math.random()*fieldsCount);
-            var initialField = json.Fields[randomField].ID;
+            // var initialField = json.Fields[randomField].ID;
+            var initialField = json.Fields[0].ID;
             
             changeSelected(initialField);
             fieldHoverSwitch(initialField, json);
@@ -174,3 +176,43 @@ if ($("body").attr("id") == "facilities") {
     });
 }
 });
+
+// Search page
+$(document).ready(function() {
+if ($("body").attr("id") == "searc") {
+    var search_timeout = undefined;
+    $("#search-form").append("<div id='resultsCount'></div>");
+    
+    function getResultCount(queryString){
+        $.ajax({
+            type: "GET",
+            url: "http://localhost:8080/nutch/opensearch?hitsPerSite=0&amp;lang=en&amp;hitsPerPage=100",
+            dataType: "xml",
+            data: "query=" + queryString,
+            success: function(xml){
+                count = $("totalResults", xml).text() + " results";
+                $("div#resultsCount").text(count).show();
+            }
+        });
+    }
+    
+    
+    $("#search-form-query").keyup(function(){
+        if(search_timeout != undefined) {
+            clearTimeout(search_timeout);
+        }
+        search_timeout = setTimeout(function() {
+            search_timeout = undefined;
+            if($("#search-form-query").val() == ""){
+                $("div#resultsCount").hide();
+            }
+            else {
+                currentText = $("#search-form-query").val();
+                getResultCount(currentText);
+            };
+        }, 700);
+    });
+
+}
+});
+

@@ -18,7 +18,7 @@
      **********************************************/
     Individual entity = (Individual)request.getAttribute("entity");
     if (entity == null)
-        throw new JspException("gradPortalDeptEntity.jsp expects that request attribute 'entity' be set to the Entity object to display.");
+        throw new JspException("fieldEntity.jsp expects that request attribute 'entity' be set to the Entity object to display.");
 %>
 
 <c:set var='departmentsPropUri' value='http://vivo.library.cornell.edu/ns/0.1#OrganizedEndeavorHasAffiliatedOrganizedEndeavor' scope="page"/>
@@ -66,8 +66,16 @@
                 <c:forEach items='${entity.objectPropertyMap[facultyMembersPropUri].objectPropertyStatements}' var="Faculty" varStatus="facultyCount" begin="0" end="${facultyColumnSize - 1}">
                 <c:set var="facultyID" value="${fn:substringAfter(Faculty.object.URI,'#')}"/>
                 <li id="${facultyID}">
-                    <c:url var="href" value="/entity">
+                    <c:url var="href" value="faculty.jsp">
                         <c:param name="uri" value="${Faculty.object.URI}"/>
+                        <c:param name="name" value="${Faculty.object.name}"/>
+                        <c:param name="fieldUri" value="${param.uri}"/>
+                        <c:param name="fieldLabel" value="${param.fieldLabel}"/>
+                        <c:if test="${!empty param.groupLabel}">
+                            <c:param name="groupUri" value="${param.groupUri}"/>
+                            <c:param name="groupLabel" value="${param.groupLabel}"/>
+                            <c:param name="groupClass" value="${param.groupClass}"/>
+                        </c:if>
                     </c:url>
                     <c:choose>
                         <c:when test="${!empty Faculty.object.imageThumb}">
@@ -90,8 +98,16 @@
                 <c:forEach items='${entity.objectPropertyMap[facultyMembersPropUri].objectPropertyStatements}' var="Faculty" begin="${facultyColumnSize}">
                 <c:set var="facultyID" value="${fn:substringAfter(Faculty.object.URI,'#')}"/>
                 <li id="${facultyID}">
-                    <c:url var="href" value="/entity">
+                    <c:url var="href" value="faculty.jsp">
                         <c:param name="uri" value="${Faculty.object.URI}"/>
+                        <c:param name="name" value="${Faculty.object.name}"/>
+                        <c:param name="fieldUri" value="${param.uri}"/>
+                        <c:param name="fieldLabel" value="${param.fieldLabel}"/>
+                        <c:if test="${!empty param.groupLabel}">
+                            <c:param name="groupUri" value="${param.groupUri}"/>
+                            <c:param name="groupLabel" value="${param.groupLabel}"/>
+                            <c:param name="groupClass" value="${param.groupClass}"/>
+                        </c:if>
                     </c:url>
                     <c:choose>
                         <c:when test="${!empty Faculty.object.imageThumb}">
@@ -136,14 +152,24 @@
                 
                 <c:set var="spotlight" value="${entity.objectPropertyMap[facultyMembersPropUri].objectPropertyStatements[chosenFaculty].object}"/>
                 
-                <c:url var="href" value="/entity"><c:param name="uri" value="${spotlight.URI}"/></c:url>
+                <c:url var="href" value="faculty.jsp">
+                    <c:param name="uri" value="${spotlight.URI}"/>
+                    <c:param name="name" value="${spotlight.name}"/>
+                    <c:param name="fieldUri" value="${param.uri}"/>
+                    <c:param name="fieldLabel" value="${param.fieldLabel}"/>
+                    <c:if test="${!empty param.groupLabel}">
+                        <c:param name="groupUri" value="${param.groupUri}"/>
+                        <c:param name="groupLabel" value="${param.groupLabel}"/>
+                        <c:param name="groupClass" value="${param.groupClass}"/>
+                    </c:if>
+                </c:url>
                 <c:url var="thumbSrc" value='${imageDir}${spotlight.imageThumb}'/>
                 <c:if test="${empty spotlight.imageThumb}"><c:url var="thumbSrc" value='images/profile_missing.gif'/></c:if>
                 <c:set var="firstName" value="${fn:substringAfter(spotlight.name,',')}"/>
                 <c:set var="lastName" value="${fn:substringBefore(spotlight.name,',')}"/>
                 
-                    <img alt="${lastName} photo" src="${thumbSrc}"/>
-                    <h4><a href="${href}" title="view profile in VIVO">${fn:trim(firstName)}&nbsp;${lastName}</a></h4>
+                    <a href="${href}" title="view faculty profile"><img alt="${lastName} photo" src="${thumbSrc}"/></a>
+                    <h4><a href="${href}" title="view faculty profile">${fn:trim(firstName)}&nbsp;${lastName}</a></h4>
                     <em>${entity.objectPropertyMap[facultyMembersPropUri].objectPropertyStatements[chosenFaculty].object.moniker}</em>
                     
                     <c:set var="researchFocus" value="${spotlight.dataPropertyMap[researchFocusURI].dataPropertyStatements[0].data}"/>
@@ -172,7 +198,7 @@
                     </div>
 
         
-    </div> <!-- facultyProfile -->
+    </div> <!-- facultySpotlight -->
     
     <div id="fieldDepartments">
     
@@ -218,8 +244,8 @@
 
     </div><!-- fieldDepartments -->
 
-
-    <div id="researchAreas"><!--noindex-->
+    <!--noindex-->
+    <div id="researchAreas">
             <sparql:sparql>
                 <listsparql:select model="${applicationScope.jenaOntModel}" var="researchResults" field="<${param.uri}>">
                     PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -277,8 +303,8 @@
                 </c:forEach>
             </ul>
     </c:if>
-    <!--/noindex-->
     </div> <!-- researchAreas -->
+    <!--/noindex-->
 
 </div> <!-- sidebar -->
 

@@ -18,8 +18,8 @@
                     <c:when test="${!empty param.groupLabel}">
                         <c:url var="groupHref" value="groups.jsp">
                             <c:param name="uri" value="${param.groupUri}"/>
-                            <c:param name="groupLabel" value="${param.groupLabel}"/>
-                            <c:param name="groupClass" value="${param.groupClass}"/>
+                            <c:param name="label" value="${param.groupLabel}"/>
+                            <c:param name="class" value="${param.groupClass}"/>
                         </c:url>
                         <a class="second ${param.groupClass}" href="${groupHref}">${param.groupLabel}</a>
                     </c:when>

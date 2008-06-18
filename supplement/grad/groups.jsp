@@ -16,12 +16,26 @@
         
         <div id="contentWrap">
         
-        <!-- <div id="breadcrumbs" class="small">
-            <ol>
-                <li class="first"><a class="first" href="index.jsp">Home</a></li>
-                <li class="second">${param.groupLabel}</li>
-            </ol>
-        </div>  -->
+            <%-- <div id="breadcrumbs" class="small">
+                <ol>
+                    <li class="first"><a class="first" href="index.jsp">Home</a></li>
+                    <li class="second">
+                        <c:choose>
+                            <c:when test="${!empty param.label}">
+                                <c:url var="groupHref" value="groups.jsp">
+                                    <c:param name="uri" value="${param.uri}"/>
+                                    <c:param name="label" value="${param.label}"/>
+                                    <c:param name="class" value="${param.class}"/>
+                                </c:url>
+                                <span class="second ${param.class}">${param.label}</span>
+                            </c:when>
+                            <c:otherwise>
+                                <span>Graduate Fields</span>
+                            </c:otherwise>
+                        </c:choose>
+                    </li>
+                </ol>
+            </div> --%> <!-- breadcrumbs -->
         
             <div id="content">
 
@@ -50,7 +64,7 @@
                             LIMIT 200
                           </listsparql:select>
 
-                          <h3>Other Areas</h3>
+                          <h3>Other areas</h3>
                           <ul class="groupings">
                               <c:forEach  items="${gradGroupings}" var="grad">
                                 <c:if test="${grad.group != param.uri}">
