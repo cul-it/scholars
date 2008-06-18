@@ -883,6 +883,7 @@ body#faculty #content h3 {
     background: #315959;
     padding: 10px 15px 15px 15px;
     margin: 2em 0;
+/*    color: #fff;*/
 }
 
 #faculty-research h3 {
@@ -978,9 +979,17 @@ body#faculty #contactInfo h3 {
 }
 
 body#faculty #contactInfo table {
+    width: 100%;
     margin: 10px 10px 0 12px;
     padding-bottom: 10px;
     color: #efecca;
+    font-size: 1.1em;
+}
+
+body#faculty #contactInfo th {
+    width: 20%;
+    color: #fff;
+    font-weight: bold;
 }
 
 body#faculty ul#profileLinks {
@@ -1236,7 +1245,7 @@ ul.fields li a {
     clear: both;
     display: block;
     text-align: right;
-    font-weight: bold;
+/*    font-weight: bold;*/
     font-size: 1.2em;
 }
 
@@ -1246,7 +1255,7 @@ ul.fields li a {
 }
 
 #sidebar span.moreLink a:link, #sidebar span.moreLink a:visited {
-    font-weight: bold;
+/*    font-weight: bold;*/
     color: #b9121b;
     border-bottom: 0;
 }
@@ -1254,7 +1263,7 @@ ul.fields li a {
 #sidebar span.moreLink a:hover, #sidebar span.moreLink a:active {
     color: red;
     border-bottom: 0;
-    font-weight: bold;
+/*    font-weight: bold;*/
     text-decoration: underline;
 }
 

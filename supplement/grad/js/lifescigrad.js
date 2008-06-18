@@ -177,6 +177,7 @@ if ($("body").attr("id") == "facilities") {
 }
 });
 
+
 // Search page
 $(document).ready(function() {
 if ($("body").attr("id") == "searc") {

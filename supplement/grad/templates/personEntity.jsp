@@ -24,6 +24,7 @@
 <fmt:setLocale value="en_US"/>    
 
 <c:set var="researchFocus" value="${entity.dataPropertyMap['http://vivo.library.cornell.edu/ns/0.1#researchFocus'].dataPropertyStatements[0].data}"/>
+<c:set var="selectedPubs" value="${entity.dataPropertyMap['http://vivo.library.cornell.edu/ns/0.1#publications'].dataPropertyStatements[0].data}"/>
 <c:set var="researchAreas" value="${entity.objectPropertyMap['http://vivo.library.cornell.edu/ns/0.1#PersonHasResearchArea'].objectPropertyStatements}"/>
 <c:set var="primaryInvestigator" value="${entity.objectPropertyMap['http://vivo.library.cornell.edu/ns/0.1#PersonPrimaryInvestigatorOfFinancialAward'].objectPropertyStatements}"/>
 <c:set var="authorOf" value="${entity.objectPropertyMap['http://vivo.library.cornell.edu/ns/0.1#authorOf'].objectPropertyStatements}"/>
@@ -45,6 +46,24 @@
 <%-- <c:set var='headOf' value='http://vivo.library.cornell.edu/ns/0.1#PersonLeadParticipantForOrganizedEndeavor'/> --%>
 
 <c:set var='imageDir' value='../images/' scope="page"/>
+
+<sparql:sparql>
+<listsparql:select model="${applicationScope.jenaOntModel}" var="rs" person="<${param.uri}>">
+      PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
+      SELECT DISTINCT ?netid
+      WHERE
+      {
+      ?person vivo:CornellemailnetId ?netid . 
+      OPTIONAL { ?person vivo:nonCornellemail ?otherid }
+      }
+      LIMIT 10
+</listsparql:select>
+</sparql:sparql>
+
+<c:forEach items="${rs}" var="faculty" begin="0" end="0">
+    <c:set var="cornellEmail" value="${faculty.netid.string}"/>
+    <c:set var="otherEmail" value="${faculty.otherid.string}"/>
+</c:forEach>
 
 <div id="overview">
     <c:if test="${!empty entity.imageThumb}">
@@ -95,6 +114,7 @@
         </c:url>    
             <li><a title="more about this in VIVO" href="${pubHref}">${publications.object.name}</a></li>
         </c:forEach>
+        <div>${selectedPubs}</div>
     </ul>
 </div>
 </c:if>
@@ -123,8 +143,13 @@
     <h3>Contact Information</h3>        
         <table>
             <tr>
-                <th>${email}</th>
-                <td></td>
+                <th>Email:</th>
+                <td>
+                    <c:choose>
+                        <c:when test="${!empty cornellEmail}"><a title="" href="mailto:${cornellEmail}">${cornellEmail}</a></c:when>
+                        <c:otherwise><a title="" href="mailto:${otherEmail}">${otherEmail}</a></c:otherwise>
+                    </c:choose>
+                </td>
             </tr>
         </table>
         <c:if test="${!empty entity.linksList}">

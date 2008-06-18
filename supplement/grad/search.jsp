@@ -16,7 +16,7 @@
                 <form action="search.jsp" method="get" name="gs" id="search-form"> 
                     <h2><label for="search-form-query">Search</label></h2>
                     <input type="text" id="search-form-query" name="querytext" value="${param.querytext}" size="30" />
-                    <button type="submit" id="search-form-submit" name="submit" value="go" />go</button>
+                    <button type="submit" id="search-form-submit" name="submit"/>go</button>
                 </form>
 
                 <c:import var="rss" url="http://zoe.mannlib.cornell.edu:8080/nutch-0.8.1/opensearch?">
@@ -24,23 +24,25 @@
                     <c:param name="query" value="${param.querytext}"/>
                     <c:param name="hitsPerSite" value="0"/>
                     <c:param name="lang" value="en"/>
-                    <c:param name="hitsPerPage" value="30"/>
+                    <c:param name="hitsPerPage" value="100"/>
                 </c:import>
                 
-                <c:url var="queryUrl" value="http://localhost:8080/nutch/opensearch">
-                    <c:param name="query" value="${param.querytext}"/>
-                    <c:param name="hitsPerSite" value="0"/>
-                    <c:param name="lang" value="en"/>
-                    <c:param name="hitsPerPage" value="40"/>
-                </c:url>
-                
-                <!-- <c:out value="${queryUrl}"/>  -->
                 
                 <x:parse var="results" doc="${rss}"/>
-            
+                
+                <c:set var="total">
+                    <x:out select="$results//*[local-name()='totalResults']"/>
+                </c:set>
+                
                 <div id="searchResults">
                     <x:choose>
                         <x:when select="$results//item">
+                            <c:if test="${total == 1}">
+                                <p class="resultCount">${total} result for <strong><x:out select="$results//*[local-name()='query']"/></strong></p>
+                            </c:if>
+                            <c:if test="${total > 1}">
+                                <p class="resultCount">${total} results for <strong><x:out select="$results//*[local-name()='query']"/></strong></p>
+                            </c:if>
                             <x:forEach select="$results//item">
                                 <x:set var="resultTitle" select="substring-before(title, ' |')"/>
                                 <h3>
@@ -53,8 +55,8 @@
                         </x:when>
                         <x:otherwise>
                         <c:choose>
-                            <c:when test="${empty param.querytext}">
-                                <p>No matches found.</p>   
+                            <c:when test="${!empty param.querytext}">
+                                <p>Your search - <strong>${param.querytext}</strong> - did not return any results.</p>   
                             </c:when>
                             <c:otherwise>&nbsp;</c:otherwise>
                         </c:choose>

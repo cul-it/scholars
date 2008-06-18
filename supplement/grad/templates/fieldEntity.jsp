@@ -82,13 +82,13 @@
                             <c:url var="cluetipHref" value="data/facultyProfile.jsp">
                                 <c:param name="uri" value="${Faculty.object.URI}"/>
                             </c:url>
-                            <a href="${href}" title="view profile in VIVO" rel="${cluetipHref}"><img height="44px" alt="" src="${imageDir}${Faculty.object.imageThumb}"/></a>
+                            <a href="${href}" title="view profile" rel="${cluetipHref}"><img height="44px" alt="" src="${imageDir}${Faculty.object.imageThumb}"/></a>
                         </c:when>
                         <c:otherwise>
-                            <a href="${href}" title="view profile in VIVO" rel="${cluetipHref}"><img height="44px" alt="" src="images/profile_missing.gif"/></a>
+                            <a href="${href}" title="view profile" rel="${cluetipHref}"><img height="44px" alt="" src="images/profile_missing.gif"/></a>
                         </c:otherwise>
                     </c:choose>
-                    <strong><a href="${href}" title="view profile in VIVO" rel="${cluetipHref}">${Faculty.object.name}</a></strong>
+                    <strong><a href="${href}" title="view profile" rel="${cluetipHref}">${Faculty.object.name}</a></strong>
                     <em>${Faculty.object.moniker}</em>
                 </li>
                 </c:forEach>
@@ -111,13 +111,13 @@
                     </c:url>
                     <c:choose>
                         <c:when test="${!empty Faculty.object.imageThumb}">
-                            <a href="${href}" title="view profile in VIVO"><img height="44px" alt="" src="${imageDir}${Faculty.object.imageThumb}"/></a>
+                            <a href="${href}" title="view profile"><img height="44px" alt="" src="${imageDir}${Faculty.object.imageThumb}"/></a>
                         </c:when>
                         <c:otherwise>
-                            <a href="${href}" title="view profile in VIVO"><img height="44px" alt="" src="images/profile_missing.gif"/></a>
+                            <a href="${href}" title="view profile"><img height="44px" alt="" src="images/profile_missing.gif"/></a>
                         </c:otherwise>
                     </c:choose>
-                    <strong><a href="${href}" title="view profile in VIVO">${Faculty.object.name}</a></strong>
+                    <strong><a href="${href}" title="view profile">${Faculty.object.name}</a></strong>
                     <em>${Faculty.object.moniker}</em>
                 </li>
                 </c:forEach>
@@ -298,7 +298,7 @@
                         <c:url var="href" value="/entity">
                             <c:param name="uri" value="${Research['areaUri']}"/>
                         </c:url>
-                        <a href="${href}" title="view profile in VIVO">${Research['areaLabel'].string}</a>
+                        <a href="${href}" title="view profile">${Research['areaLabel'].string}</a>
                     </li>
                 </c:forEach>
             </ul>

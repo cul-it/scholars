@@ -28,7 +28,7 @@
                     <form name="findresearch" action="search.jsp" method="get"> 
                         <h2><label for="search-form-query">Search</label></h2>
                         <input type="text" id="search-form-query" name="querytext" value="" size="26" />
-                        <input type="submit" id="search-form-submit" name="submit" value="GO" />
+                        <input type="submit" id="search-form-submit" name="submit" value="go" />
                     </form>
                 </div>
                 <div id="seminars">
