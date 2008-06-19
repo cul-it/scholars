@@ -70,8 +70,8 @@
 
 <v:jsonset var="commentExisting" >
       PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
-      SELECT ?comment
-      WHERE {  ?edBackground vitro:description ?comment }
+      SELECT ?commentExisting
+      WHERE {  ?edBackground vitro:description ?commentExisting }
 </v:jsonset>
 <v:jsonset var="commentAssertion" >
       @prefix vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>.
