@@ -35,14 +35,12 @@
 <ul class="facilityList">
 <c:forEach  items="${facilities}" var="facility" varStatus="count">
     <li>
-        <h4 class="facilityName">${facility.label.string}</h4>
+        <h4 class="facilityName">
+            <a class="facilityPage" title="visit the ${facility.anchor.string}" href="<str:decodeUrl>${facility.url.string}</str:decodeUrl>">${facility.label.string}</a></h4>
         <div class="description">
             <c:if test="${empty facility.description.string}">${facility.blurb.string}</c:if>
             ${facility.description.string}
         </div>
-        <c:if test="${not empty facility.url.string}">
-            <a class="facilityPage" title="visit the ${facility.anchor.string}" href="<str:decodeUrl>${facility.url.string}</str:decodeUrl>">${facility.anchor.string}</a>
-        </c:if>
     </li>
 </c:forEach>
 </ul>

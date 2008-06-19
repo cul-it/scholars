@@ -41,7 +41,7 @@
 
                     <h2 class="groupLabel ${param.class}">${param.label}</h2>
 
-                    <h3>Graduate Fields in this area</h3>
+                    <h3>Graduate Fields in this Area</h3>
                     <ul class="fields">
                         <jsp:include page="part/listfields.jsp">
                             <jsp:param name="uri" value="${param.uri}"/>
@@ -64,7 +64,7 @@
                             LIMIT 200
                           </listsparql:select>
 
-                          <h3>Other areas</h3>
+                          <h3>Other Areas</h3>
                           <ul class="groupings">
                               <c:forEach  items="${gradGroupings}" var="grad">
                                 <c:if test="${grad.group != param.uri}">

@@ -57,7 +57,7 @@ body {
 /*    margin-bottom: 4px;*/
     padding-bottom: 28px;
 /*    border: 1px solid #093436;*/
-    border: 2px solid #143737;
+    border: 1px solid #143737;
     border-top: 0;
     background: transparent url(../images/layout/bg_content.png) left top !important;
 /*    background: transparent url(../images/layout/bg_contentGrid.png) center top repeat-y !important;*/
@@ -443,7 +443,7 @@ body#fields div#facultySpotlight h4 {
 }
 
 body#fields div#facultySpotlight h4 a {
-    border-bottom: 1px solid #777;
+    border-bottom: 1px dotted #888;
 }
 
 body#fields div#facultySpotlight h5 {
@@ -511,8 +511,9 @@ body#fields h3 {
 body#departments div#deptPageScreenshot {
     float: right;
     padding: 14px 24px 12px 24px;
-/*    background: #234a4a;*/
-    border: 2px solid #234a4a;
+/*    padding: 12px 18px 10px;*/
+    background: #234a4a;
+/*    border: 2px solid #234a4a;*/
     line-height: 1.2em;
     margin-left: 10px;
     margin-bottom: 20px;
@@ -520,12 +521,12 @@ body#departments div#deptPageScreenshot {
 
 body#departments div#deptPageScreenshot img {
     display: block;
-    width: 160px;
+/*    width: 160px;*/
     margin-bottom: .5em;
 }
 body#departments div#deptPageScreenshot a {
     display: block;
-    width: 160px;
+    width: 200px;
 }
 
 body#departments div#deptPageScreenshot a:hover {
@@ -533,7 +534,7 @@ body#departments div#deptPageScreenshot a:hover {
 }
 
 body#fields div#fieldDescription a.fieldLink {
-    border-bottom: 1px solid #777;
+    border-bottom: 1px dotted #888;
 /*    text-decoration: underline;*/
     font-size: 1.2em;
 }
@@ -775,7 +776,7 @@ body#facilities a.facilityPage {
 body#facilities div.description {
 /*    clear: both;*/
     color: #fff;
-    margin-bottom: 1em;
+/*    margin-bottom: 1em;*/
 }
 
 body#facilities ul.facilityList {
@@ -1202,11 +1203,11 @@ a:active { color: #69bfde; }
 
 /*li a { border-bottom: 1px solid #4a7172; }*/
 /*li a { border-bottom: 1px solid #5C7373; }*/
-li a { border-bottom: 1px solid #777; }
+li a { border-bottom: 1px dotted #888; }
 
 ul.groupings li a:link, ul.groupings li a:visited {
     color: #fff;
-    border-bottom: 1px solid #5c7373;
+/*    border-bottom: 1px solid #5c7373;*/
 }
 
 ul.groupings li a:hover {

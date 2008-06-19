@@ -5,7 +5,7 @@
         
         <div id="contentWrap">
             <div id="content">
-                <h2 class="initial">Explore our Graduate Fields</h2>
+                <h2 class="initial">Explore Graduate Fields in these Areas</h2>
                 
                 <jsp:include page="part/listgroups.jsp"/>
                 
