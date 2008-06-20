@@ -16,6 +16,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
+<!--noindex-->
 	<title>
 	    <c:choose>
             <c:when test="${!empty param.titleText}">${param.titleText}</c:when>
@@ -60,7 +61,6 @@
 </head>
 
 <body <c:if test="${not empty param.bodyID}">id="${param.bodyID}"</c:if>>
-<!--noindex-->
 	<div id="bodyOverlay">
 	<div id="skipnav">
 		<a href="#content">Skip to main content</a>

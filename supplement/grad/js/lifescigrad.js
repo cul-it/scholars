@@ -103,7 +103,7 @@ if ($("body").attr("id") == "groups") {
 
         var parameter = $.getURLParam("uri");
         var jsonLink = "data/fieldsHoverData.jsp" + "?uri=" + parameter;
-        var hoverDivs = '<div id="hoverBox"><h4></h4><h5>Overview</h5><div id="fieldDescription"></div><h5>Departments</h5><div id="fieldDepartments"></div></div>';
+        var hoverDivs = '<div id="hoverBox"><h4></h4><div id="fieldDescription"></div><h5>Departments with Faculty in this Field</h5><div id="fieldDepartments"></div></div>';
         $("h2.groupLabel").after(hoverDivs);
     
         function fieldHoverSwitch(targetFieldID, json) {

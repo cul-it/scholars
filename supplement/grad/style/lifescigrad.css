@@ -402,16 +402,29 @@ body#groups div#fieldDepartments {
     background: #5a5651;
 }
 
-body#groups div#hoverBox h4 {
-    font-weight: bold;
-    font-size: 1.6em;
-    line-height: 1.2em;
+body#groups div#fieldDescription p {
+    margin-top: 0;
+}
+
+body#groups div#fieldDescription ul {
+    margin: 1em 0;
+}
+
+body#groups div#fieldDescription li {
+    list-style-type: disc;
 }
 
 body#groups div#hoverBox h4,
 body#groups div#hoverBox h5 {
 /*    font-weight: bold;*/
-    margin: 16px 16px 0 16px;
+    margin: 20px 16px 0 16px;
+}
+
+body#groups div#hoverBox h4 {
+    font-weight: bold;
+    font-size: 1.6em;
+    line-height: 1.2em;
+    margin-bottom: .5em;
 }
 
 body#groups div#fieldDescription p:first-child {
@@ -887,6 +900,25 @@ body#faculty #content h3 {
 /*    color: #fff;*/
 }
 
+#faculty-publications h3 {
+    width: 49%;
+    float: left;
+}
+
+#faculty-publications ul {
+    clear: left;
+    padding-top: 4px;
+}
+
+#pubmedLink {
+    float: right;
+    font-size: .8em;
+    margin-top: 1.2em;
+    color: #7bc4c4;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
 #faculty-research h3 {
     background: url(../images/icons/faculty-research.gif) no-repeat left center;
     padding-left: 31px;
@@ -943,19 +975,20 @@ body#faculty #sidebar h3 {
 /*    margin-left: 12px;*/
 }
 
-body#faculty #sidebar ul {
-/*    margin-left: 12px;*/
-    margin-bottom: 20px;
+body#faculty ul#facultyFields,
+body#faculty ul#facultyDepts {
     font-size: 1.1em;
+    margin-bottom: 20px;
 }
 
 body#faculty #sidebar p {
-    font-size: 1.1em;
+/*    font-size: 1.1em;*/
 }
 
 body#faculty #education,
 body#faculty #awards {
     margin-bottom: 20px;
+    font-size: 1.1em;
 }
 
 body#faculty #education li,
@@ -971,6 +1004,7 @@ body#faculty #awards li {
 body#faculty #contactInfo {
     background: #4F4B47;
     margin-bottom: 20px;
+    padding-bottom: 10px;
 }
 
 body#faculty #contactInfo h3 {
@@ -980,7 +1014,7 @@ body#faculty #contactInfo h3 {
 }
 
 body#faculty #contactInfo table {
-    width: 100%;
+    width: 90%;
     margin: 10px 10px 0 12px;
     padding-bottom: 10px;
     color: #efecca;
@@ -994,7 +1028,7 @@ body#faculty #contactInfo th {
 }
 
 body#faculty ul#profileLinks {
-    padding: 10px 10px 10px 13px;
+    padding: 10px 10px 0 13px;
     margin: 0;
 }
 
@@ -1204,6 +1238,7 @@ a:active { color: #69bfde; }
 /*li a { border-bottom: 1px solid #4a7172; }*/
 /*li a { border-bottom: 1px solid #5C7373; }*/
 li a { border-bottom: 1px dotted #888; }
+* html li a { border-bottom-style: solid; border-bottom-color: #666; }
 
 ul.groupings li a:link, ul.groupings li a:visited {
     color: #fff;

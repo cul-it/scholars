@@ -206,7 +206,7 @@
         <c:set var="counter" value="0"/>
 
         <h3>Departments</h3>
-        <p>Where faculty members in this field work</p>
+        <p>with faculty in this field</p>
             <sparql:sparql>
                 <sparql:select model="${applicationScope.jenaOntModel}" var="rs" field="<${param.uri}>">
                     PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -298,7 +298,7 @@
                         <c:url var="href" value="/entity">
                             <c:param name="uri" value="${Research['areaUri']}"/>
                         </c:url>
-                        <a href="${href}" title="view profile">${Research['areaLabel'].string}</a>
+                        <a href="${href}" title="">${Research['areaLabel'].string}</a>
                     </li>
                 </c:forEach>
             </ul>

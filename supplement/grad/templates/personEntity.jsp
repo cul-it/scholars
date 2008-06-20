@@ -90,9 +90,56 @@
     </c:if>
 </div>
 
+<c:if test="${!empty authorOf}">
+<div id="faculty-publications">
+    <h3>Publications</h3>
+    <c:url var="pubmedHref" value="http://www.ncbi.nlm.nih.gov/sites/entrez">
+        <c:param name="db" value="pubmed"/>
+        <c:param name="cmd" value="Search"/>
+        <c:param name="itool" value="pubmed_AbstractPlus"/>
+        <c:param name="term" value="${entity.name}"/>
+    </c:url>
+    <a id="pubmedLink" href="${pubmedHref}">Full PubMed listing</a>
+    <ul>
+        <c:forEach var="publications" items="${authorOf}">
+            <sparql:sparql>
+            <listsparql:select model="${applicationScope.jenaOntModel}" var="publicationLinks" publication="<${publications.object.URI}>">
+                  PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
+                  SELECT DISTINCT ?linkUrl
+                  WHERE
+                  {
+                  ?publication vitro:additionalLink ?links . 
+                  OPTIONAL { ?links vitro:linkURL ?linkUrl }
+                  }
+                  LIMIT 10
+            </listsparql:select>
+            </sparql:sparql>
+        
+
+            <c:choose>
+                <c:when test="${!empty publicationLinks}">
+                    <c:set var="pubHref">
+                        <c:forEach var="pub" items="${publicationLinks}" begin="0" end="0"><str:decodeUrl>${pub.linkUrl.string}</str:decodeUrl></c:forEach>
+                    </c:set>
+                </c:when>
+                <c:otherwise>
+                    <c:url var="pubHref" value="/entity">
+                        <c:param name="uri" value="${publications.object.URI}"/>
+                    </c:url>
+                </c:otherwise>
+            </c:choose>
+            
+            <li><a title="more about this publication" href="${pubHref}">${publications.object.name}</a></li>
+
+        </c:forEach>
+        <div>${selectedPubs}</div>
+    </ul>
+</div>
+</c:if>
+
 <c:if test="${!empty primaryInvestigator}">
 <div id="faculty-research">
-    <h3>Research</h3>
+    <h3>Research Grants</h3>
     <ul>
         <c:forEach var="research" items="${primaryInvestigator}">
         <c:url var="grantHref" value="/entity">
@@ -100,21 +147,6 @@
         </c:url>    
             <li><a title="more about this in VIVO" href="${grantHref}">${research.object.name}</a></li>
         </c:forEach>
-    </ul>
-</div>
-</c:if>
-
-<c:if test="${!empty authorOf}">
-<div id="faculty-publications">
-    <h3>Publications</h3>
-    <ul>
-        <c:forEach var="publications" items="${authorOf}">
-        <c:url var="pubHref" value="/entity">
-            <c:param name="uri" value="${publications.object.URI}"/>
-        </c:url>    
-            <li><a title="more about this in VIVO" href="${pubHref}">${publications.object.name}</a></li>
-        </c:forEach>
-        <div>${selectedPubs}</div>
     </ul>
 </div>
 </c:if>
@@ -164,7 +196,7 @@
 
 <c:if test="${!empty gradFields}">
     <h3>Graduate Fields</h3>
-    <ul>
+    <ul id="facultyFields">
         <c:forEach var="fields" items="${gradFields}">
         <c:url var="fieldHref" value="fields.jsp">
             <c:param name="uri" value="${fields.object.URI}"/>
@@ -179,7 +211,7 @@
 
 <c:if test="${!empty departments}">
     <h3>Departments</h3>        
-    <ul>
+    <ul id="facultyDepts">
         <c:forEach var="dept" items="${departments}">
         <c:url var="deptHref" value="departments.jsp">
             <c:param name="uri" value="${dept.object.URI}"/>
