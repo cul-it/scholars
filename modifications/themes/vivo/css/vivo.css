@@ -90,6 +90,7 @@ body {
 	width: 256px;
 	min-height: 600px;
 	padding-bottom: 40px;
+	padding-top: 12px;
 	background: transparent url(../site_icons/layout/bg_dashboard.gif) no-repeat left 4px;
 	text-align: center;
 }
@@ -279,6 +280,7 @@ ul.properties {
 /********* ADDED *********/
 
 div.propsItem {
+    clear: left;
     margin: 1.7em 0;
     padding: 10px 8px 8px 0;
 /*    background: #f5f5f5;*/
