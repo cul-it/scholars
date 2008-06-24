@@ -89,6 +89,7 @@ body {
 /*	display: inline;*/
 	width: 256px;
 	min-height: 600px;
+	padding-bottom: 40px;
 	background: transparent url(../site_icons/layout/bg_dashboard.gif) no-repeat left 4px;
 	text-align: center;
 }
@@ -219,7 +220,7 @@ span.SearchTerm, h1 span.SearchTerm, a:link span.SearchTerm, a:visited span.Sear
 .entity {
 	margin-top: 0;
 	padding-top: 0;
-	padding-right: 16px;
+/*  padding-right: 16px;*/
 }
 
 .entity em.moniker {
@@ -272,16 +273,43 @@ a:hover.externalLink {
 }
 
 ul.properties {
-	clear: left;
+/*  clear: left;*/
 }
 
+/********* ADDED *********/
+
+div.propsItem {
+    margin: 1.7em 0;
+    padding: 10px 8px 8px 0;
+/*    background: #f5f5f5;*/
+/*    border: 2px solid #f0f0f0;*/
+    border: 1px solid #fff;
+}
+
+div.highlighted {
+    margin-left: -8px;
+    padding: 10px 8px 8px 8px;
+}
+
+div.datatypeProperties,
+ul.properties {
+    margin-top: 4px;
+}
+
+div.admin {
+    display: none;
+}
+
+/***********************/
+
 a:link.add, a:visited.add {
-	float: left;
+/*  float: left;*/
 	margin: 25px 0 0 6px;
 }
 
 a.add img {
-    margin-top: .5em;
+/*    margin-top: .5em;*/
+    margin-bottom: -2px;
 }
 
 a.edit img, a.delete img {
@@ -307,7 +335,7 @@ li.property a.edit {
 }
 
 .datatypePropertyValue {
-	clear: left;
+/*  clear: left;*/
 }
 
 ul.tabEntities {
@@ -320,7 +348,7 @@ ul.tabEntities {
 }
 
 #datatypeProperties ul, #datatypeProperties ol, #datatypeProperties p {
-	clear: left;
+/*  clear: left;*/
 }
 
 .datatypeProperties ol {
@@ -443,13 +471,15 @@ dashboard roll call
 
 ul#dashboardNavigation li h2 {
 	margin: 3px 0 0 0;
-	padding: 7px 8px 4px 8px;
-	font-size: 1.3em;
+	padding: 7px 8px 6px 8px;
+  font-size: 1.1em;
 	background: #f2f6f7;
+	color: #A7B9BD;
+	text-transform: uppercase;
 }
 
 ul#dashboardNavigation li h2:hover { cursor: pointer; }
-ul#dashboardNavigation li h2.active { color: #579C62; }
+ul#dashboardNavigation li h2.active { color: #fff; background: #2E515C; }
 
 ul#dashboardNavigation a {
 	border: 0;
@@ -568,8 +598,9 @@ h3 a:hover {
 }
 
 h3.propertyName, .propsCategory h4 {
-	clear: left;
-	float: left;
+    display: inline;
+/*  clear: left;*/
+/*  float: left;*/
 	margin: 30px 0 3px 0;
 	padding: 0;
 	font-size: 1.2em;
@@ -577,8 +608,11 @@ h3.propertyName, .propsCategory h4 {
 }
 
 .propsCategory h3 {
-	clear: left;
-	float: left;
+/*  clear: left;*/
+/*  float: left;*/
+    margin: 2em 0 1em 0;
+    padding-bottom: 3px;
+    border-bottom: 2px solid #EDF1F2;
 	color: #2E515C;
 	text-transform: uppercase;
 }
@@ -800,11 +834,12 @@ ul#profileCats li a:link, ul#profileCats li a:visited {
 	padding: 6px 6px 4px;
 /*	padding: 10px 10px 8px;*/
 	border: none;
-	font-family: Arial, sans-serif;
+/*  font-family: Arial, sans-serif;*/
 /*	font-family: Helvetica, Verdana, sans-serif;*/
 	font-weight: bold;
 	color: #a7b9bd;
 	background: #f2f6f7;
+	border: 1px solid #edf1f2;
 }
 
 ul#profileCats li a:hover {
@@ -815,6 +850,7 @@ ul#profileCats li a:hover {
 ul#profileCats li a:link#currentCat, ul#profileCats li a:visited#currentCat {
 	color: #fff;
 	background: #2e515c;
+	border-color: #000;
 }
 
 ul.dataProperties li em a:link {
@@ -826,7 +862,7 @@ ul.profileLinks li a:link {
 }
 
 .propsCategory h2 {
-	float:none;
+/*  float:none;*/
 	display:inline;
 	font-size:1.8em;
 	font-weight:500;
@@ -882,7 +918,7 @@ ul#profileCats li {
 /*	margin: 20px 0;*/
 	font-size: 1.0em;
 /*	font-size: 1.2em;*/
-	line-height: 3.0em;
+	line-height: 3.3em;
 	text-transform: uppercase;
 }
 
@@ -893,6 +929,7 @@ ul.dataProperties li em {
 
 ul.profileLinks {
 	margin-left: 10px;
+	margin-bottom: 16px;
 	text-align: left;
 }
 
