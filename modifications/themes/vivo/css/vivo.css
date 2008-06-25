@@ -299,7 +299,7 @@ ul.properties {
 }
 
 div.admin {
-    display: none;
+/*    display: none;*/
 }
 
 /***********************/
@@ -484,7 +484,12 @@ ul#dashboardNavigation li h2:hover { cursor: pointer; }
 ul#dashboardNavigation li h2.active { color: #fff; background: #2E515C; }
 
 ul#dashboardNavigation a {
+    padding: 0 3px;
 	border: 0;
+}
+
+ul#dashboardNavigation a.highlighted {
+    background: #FFFBCC;
 }
 
 ul.dashboardCategories { padding: 4px 8px 12px 0; }
