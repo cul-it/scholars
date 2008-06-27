@@ -103,13 +103,20 @@ if ($("body").attr("id") == "groups") {
 
         var parameter = $.getURLParam("uri");
         var jsonLink = "data/fieldsHoverData.jsp" + "?uri=" + parameter;
-        var hoverDivs = '<div id="hoverBox"><h4></h4><div id="fieldDescription"></div><h5>Departments with Faculty in this Field</h5><div id="fieldDepartments"></div></div>';
+        var hoverDivs = '<div id="hoverBox"><h4></h4><div id="fieldDescription"></div><h5>Departments with faculty in this Field</h5><div id="fieldDepartments"></div></div>';
+        var height = null;
         $("h2.groupLabel").after(hoverDivs);
+        Nifty("#hoverBox","big all","#1c3637"); 
+        
     
         function fieldHoverSwitch(targetFieldID, json) {
             $("div#hoverBox").show();
             $.each(json.Fields, function(i, field) {
                 if (field.ID == targetFieldID) {
+                    if(height != null) {
+                        $("div#hoverBox").height(height + "px")
+                        // height = $("div#hoverBox").height();
+                    }
                     $("div#hoverBox h5").hide();
                     $("div#hoverBox h4").hide().empty().append(field.Label);
                     $("div#fieldDescription").hide().empty().append(field.Description);
@@ -118,7 +125,9 @@ if ($("body").attr("id") == "groups") {
                         var newListItem = "<li>" + field.Departments[i].Label + "</li>";
                         $("div#fieldDepartments ul").append(newListItem);
                     });
-                    $("div#fieldDescription, div#fieldDepartments, div#hoverBox h5, div#hoverBox h4").fadeIn("fast");
+                    $("div#hoverBox").height("auto");
+                    height = $("div#hoverBox").height();
+                    $("div#fieldDescription, div#fieldDepartments, div#hoverBox h5, div#hoverBox h4").fadeIn("fast")
                 }
             });
         }
@@ -137,12 +146,24 @@ if ($("body").attr("id") == "groups") {
             
             changeSelected(initialField);
             fieldHoverSwitch(initialField, json);
-                        
-            $("ul.fields li a").mouseover(function() {
-                var thisField = $(this).parent().attr("class");
-                changeSelected(thisField);
-                fieldHoverSwitch(thisField, json);
-            });
+
+            $("ul.fields li a").hoverIntent({    
+                 sensitivity: 3,
+                 interval: 100,
+                 over: function(){
+                        var thisField = $(this).parent().attr("class");
+                        fieldHoverSwitch(thisField, json);
+                        changeSelected(thisField);
+                        },
+                 timeout: 500,
+                 out: function(){}
+            })
+            
+            // $("ul.fields li a").hover(function() {
+                // var thisField = $(this).parent().attr("class");
+                // changeSelected(thisField);
+                // fieldHoverSwitch(thisField, json);
+            // });
         });
 } 
 }); 

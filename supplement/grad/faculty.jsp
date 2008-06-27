@@ -188,7 +188,7 @@
                                             <%-- Then append it as an additional address --%>
                                             <c:if test="${prevFacultyUri != facultyUri && counter.first != true}">
                                                 <tr>
-                                                    <td <c:if test="${counter.index == 1}">class="firstRow"</c:if>><a class="person" href="${prevFacultyHref}" title="view profile in VIVO" rel="${cluetipHref}">${prevFacultyName}</a></td>
+                                                    <td <c:if test="${counter.index == 1}">class="firstRow"</c:if>><a class="person" href="${prevFacultyHref}" title="view profile" rel="${cluetipHref}">${prevFacultyName}</a></td>
                                                     <td class="email"><a href="mailto:${prevCornellEmail}">${prevCornellEmail}</a><c:if test="${empty prevCornellEmail}"><a href="mailto:${prevNonCornellEmail}">${prevNonCornellEmail}</a></c:if>
                                                         <c:if test="${!empty secondCornellEmail}">, <a href="mailto:${secondCornellEmail}">${secondCornellEmail}</a></c:if>
                                                     </td>

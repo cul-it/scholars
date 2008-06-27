@@ -57,7 +57,7 @@ body {
 /*    margin-bottom: 4px;*/
     padding-bottom: 28px;
 /*    border: 1px solid #093436;*/
-    border: 1px solid #143737;
+    border: 2px solid #143737;
     border-top: 0;
     background: transparent url(../images/layout/bg_content.png) left top !important;
 /*    background: transparent url(../images/layout/bg_contentGrid.png) center top repeat-y !important;*/
@@ -222,7 +222,7 @@ header roll call
 
 #header ul li#homeTab.currentTab a {
     background: url(../images/layout/tab-active_left_home.gif) no-repeat right top;
-    border-left: 1px solid #143737;
+    border-left: 2px solid #143737;
 }
 
 #header ul li#homeTab a {
@@ -381,9 +381,15 @@ body#groups div#hoverBox {
     display: none;
     width: 435px;
     margin-top: 1em;
-    min-height: 400px;
+/*    min-height: 400px;*/
+/*    background: transparent url(../images/layout/hoverbox-top2.gif) no-repeat top center;*/
     background: #5a5651;
     color: #EFECCA;
+}
+
+body#groups div#fieldDepartments {
+    background: transparent url(../images/layout/hoverbox-top.gif) no-repeat bottom center;
+    min-height: 50px;
 }
 
 body#groups div#fieldDescription,
@@ -393,13 +399,14 @@ body#groups div#fieldDepartments ul {
 }
 
 body#groups div#fieldDepartments ul li {
+    margin-left: 4px;
     list-style-type: disc;
 }
 
 body#groups div#fieldDescription,
 body#groups div#fieldDepartments {
-    margin: 0 16px 16px 16px;
-    background: #5a5651;
+    margin: 0 20px 20px 20px;
+/*    background: #5a5651;*/
 }
 
 body#groups div#fieldDescription p {
@@ -417,7 +424,7 @@ body#groups div#fieldDescription li {
 body#groups div#hoverBox h4,
 body#groups div#hoverBox h5 {
 /*    font-weight: bold;*/
-    margin: 20px 16px 0 16px;
+    margin: 20px 20px 0 20px;
 }
 
 body#groups div#hoverBox h4 {
@@ -544,6 +551,17 @@ body#departments div#deptPageScreenshot a {
 
 body#departments div#deptPageScreenshot a:hover {
     text-decoration: underline;
+}
+
+.weillNotice {
+    font-size: 1.2em;
+/*    font-style: italic;*/
+    color: #fff582;
+/*    margin-top: 1.8em;*/
+}
+
+.weillNotice span {
+    font-weight: bold;
 }
 
 body#fields div#fieldDescription a.fieldLink {
@@ -782,13 +800,14 @@ body#facilities a.facilityPage {
     height: 20px;
     border: 0;
 /*    white-space: nowrap;*/
-    text-decoration: underline;
+/*    text-decoration: underline;*/
 /*    color: #ffee8f;*/
 }
 
 body#facilities div.description {
+    font-size: 1.2em;
 /*    clear: both;*/
-    color: #fff;
+/*    color: #fff;*/
 /*    margin-bottom: 1em;*/
 }
 
@@ -913,7 +932,7 @@ body#faculty #content h3 {
 #pubmedLink {
     float: right;
     font-size: .8em;
-    margin-top: 1.2em;
+    margin-top: 1.2fem;
     color: #7bc4c4;
     font-weight: bold;
     text-decoration: underline;
@@ -994,7 +1013,7 @@ body#faculty #awards {
 body#faculty #education li,
 body#faculty #awards li {
     line-height: 1.1em;
-    margin: .2em 0 .8em 0;
+    margin: .2em 0 .8em .3em;
 }
 
 body#faculty #awards li {
@@ -1347,8 +1366,8 @@ li.clean {
 #content ul.groupings li {
     font-size: 1.8em;
     font-weight: bold;
-    line-height: 1.3em;
-    margin-bottom: -10px; /* Tightening the space between group items */
+    line-height: 1.2em;
+    margin-bottom: -8px; /* Tightening the space between group items */
 }
 
 ul.fields {
@@ -1387,7 +1406,8 @@ body#groups ul.fields a {
 }
 
 body#groups ul.fields a:hover {
-    color: #f4ea7c;
+    color: #fff;
+/*    color: #f4ea7c;*/
 /*    text-decoration: none;*/
 }
 
@@ -1635,6 +1655,15 @@ body#departments tbody td {
 body#faculty .index tfoot td {
     padding-top: 1em;
 }
+
+body#faculty .index td a {
+    display: block;
+}
+
+body#faculty .index td.email a {
+    display: inline;
+}
+
 
 body#departments th.deptLink {
     text-align: center;

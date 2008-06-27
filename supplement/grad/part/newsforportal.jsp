@@ -46,6 +46,19 @@
               SELECT DISTINCT ?news ?newsLabel ?blurb ?newsThumb ?sourceLink
               WHERE
               {
+                  
+              ?group
+              rdf:type
+              vivo:fieldCluster .
+
+              ?group
+              vivo:hasAssociated
+              ?field .
+
+              ?field
+              vivo:AcademicInitiativeHasOtherParticipantAcademicEmployeeAsFieldMember
+              ?person .
+              
               ?news
                 vivo:featuresPerson2 ?person ;
                 vitro:sunrise ?sunrise ;
@@ -55,14 +68,6 @@
                 rdfs:label ?newsLabel .
             
                 ?link vitro:linkURL ?sourceLink .
-            
-              ?person
-              vivo:AcademicEmployeeOtherParticipantAsFieldMemberInAcademicInitiative
-              ?field .
-
-              ?field 
-              rdf:type
-              vivo:GraduateField .
 
                FILTER( xsd:dateTime(?now) > ?sunrise )
               }

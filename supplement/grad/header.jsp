@@ -32,6 +32,8 @@
     <script type="text/javascript" src="js/niftyConfig.js"></script>
     <script type="text/javascript" src="${jsDir}/jquery.js"></script>
     <script type="text/javascript" src="${jsDir}/jquery_plugins/getURLParam.js"></script>
+    <script type="text/javascript" src="js/jquery_plugins/jquery.hoverIntent.minified.js"></script>
+    
     
 
     <c:if test="${fn:contains(pageContext.request.servletPath, 'XXX.jsp')}">

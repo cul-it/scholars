@@ -21,6 +21,7 @@
 <c:set var='financialAwardPropUri' value='http://vivo.library.cornell.edu/ns/0.1#OrganizedEndeavorAdministersFinancialAward' scope="page" />
 <c:set var='deptHeadPropUri' value='http://vivo.library.cornell.edu/ns/0.1#OrganizedEndeavorHasLeadParticipantPerson' scope="page"/>
 <c:set var='locationPropUri' value='http://vivo.library.cornell.edu/ns/0.1#OrganizedEndeavorLocatedInFacility' scope="page"/>
+<c:set var='locatedOnCampus' value='http://vivo.library.cornell.edu/ns/0.1#OrganizedEndeavorLocatedOnCampus' scope="page"/>
 <c:set var='sponsorsSeriesPropUri' value='http://vivo.library.cornell.edu/ns/0.1#OrganizedEndeavorSponsorOfAssociatedEnumeratedSet' scope="page"/>
 <c:set var='facultyMembersPropUri' value='http://vivo.library.cornell.edu/ns/0.1#hasAppointedFaculty' scope="page"/>
 <c:set var='hasCoursePropUri' value='' scope="page"/>
@@ -53,7 +54,13 @@
 <div id="deptDescription">
     <h2>Department of <span class="sectionLabel">${entity.name}</span></h2>
     <div class="description">${parsedDescription}</div>
+    <c:forEach items="${entity.objectPropertyMap[locatedOnCampus].objectPropertyStatements}" var="campus">
+        <c:if test="${fn:contains(campus.object.name, 'New York')}">
+            <p class="weillNotice"><span>Note:</span> This department is part of Weill Medical College, located at Cornell's New York City campus.</p>
+        </c:if>
+    </c:forEach>
 </div><!-- deptDescription -->
+
 
 <div class="wrapper">
     
@@ -100,7 +107,7 @@
             </ul>
         </c:if>
 
-        <h3>Part of graduate fields</h3>
+        <h3>Associated Graduate Fields</h3>
         <!-- <em>Select a Field to highlight participating faculty</em> -->
             <sparql:sparql>
                 <sparql:select model="${applicationScope.jenaOntModel}" var="rs" dept="<${param.uri}>">
