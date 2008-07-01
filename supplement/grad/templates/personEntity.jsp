@@ -11,7 +11,7 @@
 
 <%@ page errorPage="/error.jsp"%>
 <%  /***********************************************
-     Display a single Department Entity for the grad portal.
+     Display a single Person Entity for the grad portal.
 
      request.attributes:
      an Entity object with the name "entity"
@@ -66,13 +66,18 @@
 </c:forEach>
 
 <div id="overview">
-    <c:if test="${!empty entity.imageThumb}">
-        <c:url var="imageSrc" value='${imageDir}/${entity.imageThumb}'/>
-        <img src="<c:out value="${imageSrc}"/>" title="click to view larger image in new window" alt="" width="150"/>
-        <c:if test="${!empty entity.citation}">
-            <%-- <div class="citation">${entity.citation}</div>--%>
-        </c:if>
-    </c:if>
+    <c:choose>
+        <c:when test="${!empty entity.imageThumb}">
+            <c:url var="imageSrc" value='${imageDir}/${entity.imageThumb}'/>
+            <img src="<c:out value="${imageSrc}"/>" alt="profile photo" width="150"/>
+            <c:if test="${!empty entity.citation}">
+                <%-- <div class="citation">${entity.citation}</div>--%>
+            </c:if>
+        </c:when>
+        <c:otherwise>
+            <img src="images/profile_missing.gif" title="actual photo unavailable" alt="profile photo" width="150"/>
+        </c:otherwise>
+    </c:choose>
     <c:set var="firstName" value="${fn:substringAfter(entity.name,',')}"/>
     <c:set var="lastName" value="${fn:substringBefore(entity.name,',')}"/>
     <h2>${firstName}&nbsp;${lastName}</h2>
@@ -194,7 +199,43 @@
         </c:if>
     </div><!-- contactinfo -->
 
-<c:if test="${!empty gradFields}">
+    <sparql:sparql>
+        <listsparql:select model="${applicationScope.jenaOntModel}" var="gradfields" person="<${param.uri}>">
+          PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+          PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+          PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
+          SELECT DISTINCT ?fieldUri ?fieldLabel
+          WHERE
+          {
+          ?person vivo:AcademicEmployeeOtherParticipantAsFieldMemberInAcademicInitiative ?fieldUri .
+
+          ?fieldUri rdf:type vivo:GraduateField ;
+          rdfs:label ?fieldLabel .
+          
+          ?group vivo:hasAssociated ?fieldUri ;
+          rdf:type vivo:fieldCluster .
+          }
+          ORDER BY ?fieldLabel
+          LIMIT 100
+        </listsparql:select>
+            <c:if test="${fn:length(gradfields) > 0}">
+                <h3>Graduate Fields</h3>
+                <ul id="facultyFields">
+                <c:forEach items="${gradfields}" var="fields">
+                        <li>
+                            <c:url var="href" value="fields.jsp">
+                                <c:param name="uri" value="${fields.fieldUri}"/>
+                                <c:param name="fieldLabel" value="${fields.fieldLabel.string}"/>
+                            </c:url>
+                            <a href="${href}" title="more about this field">${fields.fieldLabel.string}</a>
+                        </li>
+                </c:forEach>
+                </ul>
+            </c:if>
+    </sparql:sparql>
+
+
+<%-- <c:if test="${!empty gradFields}">
     <h3>Graduate Fields</h3>
     <ul id="facultyFields">
         <c:forEach var="fields" items="${gradFields}">
@@ -207,7 +248,7 @@
             </li>
         </c:forEach>
     </ul>
-</c:if>
+</c:if> --%>
 
 <c:if test="${!empty departments}">
     <h3>Departments</h3>        

@@ -3,6 +3,7 @@
 <%@ page import="edu.cornell.mannlib.vitro.webapp.beans.Individual" %>
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
 <%@ taglib uri="http://djpowell.net/tmp/sparql-tag/0.1/" prefix="sparql" %>
+<%@ taglib uri="http://mannlib.cornell.edu/vitro/ListSparqlTag/0.1/" prefix="listsparql" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
@@ -89,13 +90,24 @@
                     <c:url var="href" value="/entity">
                         <c:param name="uri" value="${location.object.URI}"/>
                     </c:url>
-                    <li><a href="${href}" title="more about this location in VIVO">${location.object.name}</a></li>
+                    <li><%-- <a href="${href}" title="more about this location in VIVO"> --%>${location.object.name}<%-- </a> --%></li>
                 </c:forEach>
             </ul>
         </c:if>
+        
+        <%-- <c:if test='${empty entity.objectPropertyMap[locationPropUri].objectPropertyStatements && !empty entity.objectPropertyMap[locatedOnCampus].objectPropertyStatements}'>
+            <c:forEach items="${entity.objectPropertyMap[locatedOnCampus].objectPropertyStatements[0]}" var="campus">
+                <c:if test="${fn:contains(campus.object.name, 'New York')}">
+                <h3>Located in</h3>
+                    <ul>
+                        <li>Weill Medical Center, New York City</li>
+                    </ul>
+                </c:if>
+            </c:forEach>
+        </c:if> --%>
 
         <c:if test='${not empty entity.objectPropertyMap[sponsorsSeriesPropUri].objectPropertyStatements}'>
-            <h3>Sponsors series</h3>
+            <h3>Seminar series</h3>
             <ul>
                 <c:forEach items='${entity.objectPropertyMap[sponsorsSeriesPropUri].objectPropertyStatements}' var="series" varStatus="itemCount">
                     <c:if test="${itemCount.last == true}"><c:set var="counter">${counter + itemCount.index + 2}</c:set></c:if>
@@ -143,10 +155,47 @@
     </div><!-- deptOverview -->     
      
     <div id="deptFaculty">
+            
+        <%-- We're getting the moniker in this query to use as a flag in differentiating faculty. 
+             Those with monikers in the results are those who participate in life sciences graduate fields --%>
+            
+            <sparql:sparql>
+                <listsparql:select model="${applicationScope.jenaOntModel}" var="facultyInDept" dept="<${param.uri}>">
+                PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+                PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+                PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
+                PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
+                SELECT DISTINCT ?person ?personLabel ?moniker
+                WHERE {
+
+                ?person
+                vivo:holdFacultyAppointmentIn ?dept ;
+                rdfs:label ?personLabel .
+
+                OPTIONAL {
+
+                    ?person vivo:AcademicEmployeeOtherParticipantAsFieldMemberInAcademicInitiative ?field .
+
+                    ?group 
+                    vivo:hasAssociated ?field ;
+                    rdf:type vivo:fieldCluster .
+
+                    ?group vitro:moniker ?moniker .
+                    
+                    }
+                }
+                ORDER BY ?personLabel
+                LIMIT 200
+                </listsparql:select>
+            </sparql:sparql>
+        
+        
+        
             <h3>Faculty</h3>     
             
-            <c:set var="facultyTotal" value='${fn:length(entity.objectPropertyMap[facultyMembersPropUri].objectPropertyStatements)}' />
-            
+            <c:set var="facultyTotal" value='${fn:length(facultyInDept)}' />
+            <c:set var="oldFacultyTotal" value='${fn:length(entity.objectPropertyMap[facultyMembersPropUri].objectPropertyStatements)}' />
+
             <%--This calculates ideal column lengths based on total items--%>
             <c:choose>
                 <c:when test="${(facultyTotal mod 3) == 0}">
@@ -165,27 +214,42 @@
             <%--Prevent orphaned items--%>
             <c:if test="${(facultyTotal - facultyColumnSize) eq 1}"><c:set var="facultyColumnSize" value="${facultyColumnSize + 1}"/></c:if>
     
+            <%-- See notes above query to explain why moniker is adding anchors here --%>
             <ul class="colOne">
-                    <c:forEach items='${entity.objectPropertyMap[facultyMembersPropUri].objectPropertyStatements}' var="Faculty" varStatus="facultyCount" begin="0" end="${facultyColumnSize - 1}">
+                    <c:forEach items='${facultyInDept}' var="Faculty" varStatus="facultyCount" begin="0" end="${facultyColumnSize - 1}">
                         <li>
                             <c:url var="href" value="faculty.jsp">
-                                <c:param name="uri" value="${Faculty.object.URI}"/>
-                                <c:param name="name" value="${Faculty.object.name}"/>
+                                <c:param name="uri" value="${Faculty.person}"/>
+                                <c:param name="name" value="${Faculty.personLabel.string}"/>
                             </c:url>
-                            <a href="${href}" title="view profile in VIVO">${Faculty.object.name}</a>
+                            <c:choose>
+                                <c:when test="${empty Faculty.moniker}">
+                                    ${Faculty.personLabel.string}
+                                </c:when>
+                                <c:otherwise>
+                                    <a href="${href}" title="view profile">${Faculty.personLabel.string}</a>
+                                </c:otherwise>
+                            </c:choose>
                         </li>
                     </c:forEach>
             </ul>
             
             <c:if test="${(facultyTotal-(facultyColumnSize-1)) gt 0}">
                 <ul class="colTwo">
-                    <c:forEach items='${entity.objectPropertyMap[facultyMembersPropUri].objectPropertyStatements}' var="Faculty" begin="${facultyColumnSize}" end="${facultyColumnSize * 2 - 1}">
+                    <c:forEach items='${facultyInDept}' var="Faculty" begin="${facultyColumnSize}" end="${facultyColumnSize * 2 - 1}">
                         <li>
                             <c:url var="href" value="faculty.jsp">
-                                <c:param name="uri" value="${Faculty.object.URI}"/>
-                                <c:param name="name" value="${Faculty.object.name}"/>
+                                <c:param name="uri" value="${Faculty.person}"/>
+                                <c:param name="name" value="${Faculty.personLabel.string}"/>
                             </c:url>
-                            <a href="${href}" title="view profile in VIVO">${Faculty.object.name}</a>
+                            <c:choose>
+                                <c:when test="${empty Faculty.moniker}">
+                                    ${Faculty.personLabel.string}
+                                </c:when>
+                                <c:otherwise>
+                                    <a href="${href}" title="view profile">${Faculty.personLabel.string}</a>
+                                </c:otherwise>
+                            </c:choose>
                         </li>
                     </c:forEach>
                 </ul>
@@ -193,13 +257,20 @@
         
             <c:if test="${(facultyTotal-(facultyColumnSize*2)) gt 0}">
                 <ul class="colThree">
-                     <c:forEach items='${entity.objectPropertyMap[facultyMembersPropUri].objectPropertyStatements}' var="Faculty" varStatus="facultyCount" begin="${facultyColumnSize * 2 }">
+                     <c:forEach items='${facultyInDept}' var="Faculty" varStatus="facultyCount" begin="${facultyColumnSize * 2 }">
                         <li>
                             <c:url var="href" value="faculty.jsp">
-                                <c:param name="uri" value="${Faculty.object.URI}"/>
-                                <c:param name="name" value="${Faculty.object.name}"/>
+                                <c:param name="uri" value="${Faculty.person}"/>
+                                <c:param name="name" value="${Faculty.personLabel.string}"/>
                             </c:url>
-                            <a href="${href}" title="view profile in VIVO">${Faculty.object.name}</a>
+                            <c:choose>
+                                <c:when test="${empty Faculty.moniker}">
+                                    ${Faculty.personLabel.string}
+                                </c:when>
+                                <c:otherwise>
+                                    <a href="${href}" title="view profile">${Faculty.personLabel.string}</a>
+                                </c:otherwise>
+                            </c:choose>
                         </li>
                     </c:forEach>
                 </ul>
@@ -211,7 +282,7 @@
 <c:if test='${not empty entity.objectPropertyMap[financialAwardPropUri].objectPropertyStatements}'>
 <div id="deptProjects" class="wrapper">           
     
-    <h3>Administers Projects</h3>
+    <h3>Research Grants</h3>
             <c:set var="projectsTotal" value='${fn:length(entity.objectPropertyMap[financialAwardPropUri].objectPropertyStatements)}'/>
             <c:set var="maxProjects" value="10" />
             <c:if test="${maxProjects le (projectsTotal + 5)}"><c:set var="maxProjects" value="${maxProjects + 10}" /></c:if>

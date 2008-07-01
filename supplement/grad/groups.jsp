@@ -39,49 +39,57 @@
         
             <div id="content">
 
-                    <h2 class="groupLabel ${param.class}">${param.label}</h2>
+                <h2 class="groupLabel ${param.class}">${param.label}</h2>
 
-                    <h3>Graduate Fields in this Area</h3>
-                    <ul class="fields">
-                        <jsp:include page="part/listfields.jsp">
-                            <jsp:param name="uri" value="${param.uri}"/>
-                        </jsp:include>  
-                    </ul>
+                <h3>Graduate Fields in this Area</h3>
+                <ul class="fields">
+                    <jsp:include page="part/listfields.jsp">
+                        <jsp:param name="uri" value="${param.uri}"/>
+                    </jsp:include>  
+                </ul>
                     
-                    <div id="groupList" class="small">
-                        <sparql:sparql>
-                          <listsparql:select model="${applicationScope.jenaOntModel}" var="gradGroupings">
-                            PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-                            PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-                            PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
-                            SELECT ?group ?groupLabel
-                            WHERE
-                            {
-                            ?group rdf:type vivo:fieldCluster
-                            OPTIONAL { ?group rdfs:label ?groupLabel }
-                            }
-                            ORDER BY ?groupLabel
-                            LIMIT 200
-                          </listsparql:select>
-
-                          <h3>Other Areas</h3>
-                          <ul class="groupings">
-                              <c:forEach  items="${gradGroupings}" var="grad">
-                                <c:if test="${grad.group != param.uri}">
-                                  <c:set var="classForGrouping" value="${fn:substringAfter(grad.group,'#')}"/>
-                      	          <c:url var="gradhref" value="groups.jsp">
-                                      <c:param name="uri" value="${grad.group}"/>
-                                      <c:param name="label" value="${grad.groupLabel.string}"/>
-                                      <c:param name="class" value="${classForGrouping}"/>
-                                  </c:url>
-                                  <li class="${classForGrouping}"><a href="${gradhref}">${grad.groupLabel.string}</a></li>
-                              </c:if>
-                            </c:forEach>
-                          </ul>
-
-                        </sparql:sparql>
-                    </div>
                     
+                <sparql:sparql>
+                  <listsparql:select model="${applicationScope.jenaOntModel}" var="gradGroupings">
+                    PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+                    PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+                    PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
+                    SELECT ?group ?groupLabel
+                    WHERE
+                    {
+                    ?group rdf:type vivo:fieldCluster
+                    OPTIONAL { ?group rdfs:label ?groupLabel }
+                    }
+                    ORDER BY ?groupLabel
+                    LIMIT 200
+                  </listsparql:select>
+                </sparql:sparql>
+                
+                
+                <div class="gradEducation small">
+                    <h3>Other Areas</h3>
+                      <ul class="groupings">
+                      <c:forEach  items="${gradGroupings}" var="grad">
+                      <c:if test="${grad.group != param.uri}">
+                        <c:set var="classForGrouping" value="${fn:substringAfter(grad.group,'#')}"/>
+                            <c:url var="gradhref" value="groups.jsp">
+                            <c:param name="uri" value="${grad.group}"/>
+                            <c:param name="label" value="${grad.groupLabel.string}"/>
+                            <c:param name="class" value="${classForGrouping}"/>
+                        </c:url>
+                        <li class="${classForGrouping}"><a href="${gradhref}">${grad.groupLabel.string}</a></li>
+                      </c:if>
+                      </c:forEach>
+                      </ul>
+                  </div>
+
+                  <div class="gradEducation">
+                      <h3>What are Graduate Fields?</h3>
+                      <p>Graduate education at Cornell is organized by Fields, which group faculty by common academic interest.  Almost all Fields have an administrative home in a department.  In some cases the faculty comprising the Field are virtually the same as those comprising the department.  In other cases not all the departmental faculty are members of a Field with a home in that department, and many outside-departmental faculty are members.  Generally each Field acts independently in graduate student admissions, e.g. recruiting, selecting, financing, and interviewing prospective students who visit Cornell, although in some cases Fields recruit together.</p>
+                      <p><strong>The first step in applying to Cornell's Graduate School is identifying which Field most closely matches your goals.</strong></p>
+                      <p>For more information visit the <a title="Cornell Graduate School Web site" href="http://www.gradschool.cornell.edu/index.php?p=9">Graduate School Web site</a></p>
+                  </div>
+
             </div><!-- content -->
 
         </div> <!-- contentWrap -->

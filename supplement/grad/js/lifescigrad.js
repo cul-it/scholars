@@ -148,14 +148,14 @@ if ($("body").attr("id") == "groups") {
             fieldHoverSwitch(initialField, json);
 
             $("ul.fields li a").hoverIntent({    
-                 sensitivity: 3,
-                 interval: 100,
+                 sensitivity: 2,
+                 interval: 80,
                  over: function(){
                         var thisField = $(this).parent().attr("class");
                         fieldHoverSwitch(thisField, json);
                         changeSelected(thisField);
                         },
-                 timeout: 500,
+                 timeout: 300,
                  out: function(){}
             })
             
@@ -172,13 +172,22 @@ if ($("body").attr("id") == "groups") {
 $(document).ready(function() {
 if ($("body").attr("id") == "facilities") {
     
+    // Fragment identifiers inserted to allow 'return-to-group' when hitting back button
+    
     $("h3 + ul").hide();
     initialGroup = document.location.hash.substring(5);
-    // alert(initialGroup);
     if (initialGroup != "") {
         $("li#" + initialGroup + " ul").show();
         $("li#" + initialGroup + " h3:first").addClass("expanded");
     }
+    // Open all the tabs when referrer is the search page
+    else if (document.referrer.indexOf("search.jsp") > 0) {
+        $("ul.facilityList").show();
+        $("li h3:first").addClass("expanded");
+    }
+   
+    
+    // alert(document.referrer.indexOf("search.jsp"));
     
     $("h3.facilityGroup").css("cursor", "pointer").click( function(){
         $(this).parent().children("ul").slideToggle("medium");
@@ -189,6 +198,7 @@ if ($("body").attr("id") == "facilities") {
             $(this).addClass("expanded");
         }
     });
+    
     $("a.facilityPage").click( function(){
         groupID = $(this).parents("ul.facilityList").parent().attr("id");
         document.location.hash = "Tab-" + groupID;
@@ -201,7 +211,7 @@ if ($("body").attr("id") == "facilities") {
 
 // Search page
 $(document).ready(function() {
-if ($("body").attr("id") == "searc") {
+if ($("body").attr("id") == "seark") {
     var search_timeout = undefined;
     $("#search-form").append("<div id='resultsCount'></div>");
     
@@ -214,6 +224,7 @@ if ($("body").attr("id") == "searc") {
             success: function(xml){
                 count = $("totalResults", xml).text() + " results";
                 $("div#resultsCount").text(count).show();
+                // document.write($("totalResults", xml).text());
             }
         });
     }

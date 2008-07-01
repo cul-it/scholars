@@ -337,6 +337,10 @@ h2.groupLabel, h2.groupLabel a:link, h2.groupLabel a:visited {
     font-weight: bold;
 }
 
+body#groupindex h2.groupLabel {
+    margin-bottom: -20px;
+}
+
 /*.fieldLabel {
     color: #fff;
     font-weight: bold;
@@ -438,6 +442,10 @@ body#groups div#fieldDescription p:first-child {
     margin-top: 0;
 }
 
+body#fields #sidebar h3 {
+    font-size: 1.6  em;    
+}
+
 body#fields div#facultySpotlight {
     background: #4f4b47;
     color: #fff;
@@ -454,7 +462,7 @@ body#fields div#facultySpotlight h3 {
 
 body#fields div#facultySpotlight h4 {
     font-weight: bold;
-    font-size: 1.2em;
+    font-size: 1.1em;
     line-height: 1.2em;
     margin-bottom: .2em;
     margin-top: 20px;
@@ -556,7 +564,8 @@ body#departments div#deptPageScreenshot a:hover {
 .weillNotice {
     font-size: 1.2em;
 /*    font-style: italic;*/
-    color: #fff582;
+/*    color: #fff582;*/
+    color: #fff260;
 /*    margin-top: 1.8em;*/
 }
 
@@ -565,9 +574,10 @@ body#departments div#deptPageScreenshot a:hover {
 }
 
 body#fields div#fieldDescription a.fieldLink {
-    border-bottom: 1px dotted #888;
+    border-bottom: 1px dotted #7a9899;
 /*    text-decoration: underline;*/
-    font-size: 1.2em;
+    font-size: 1.3em;
+    margin: 1em 0;
 }
 
 body#fields div#fieldDescription div.description,
@@ -675,6 +685,7 @@ body#departments div#deptOverview {
     width: 290px;
     padding-bottom: 10px;
     margin-bottom: 10px;
+    color: #fff;
 }
 
 body#departments div#deptFaculty {
@@ -685,6 +696,7 @@ body#departments div#deptFaculty {
     padding-bottom: 10px;
     margin-left: 10px;    
     margin-bottom: 10px;
+    color: #fff;
 }
 
 body#departments div#deptProjects li {
@@ -712,7 +724,7 @@ body#fields div#researchAreas li {
 
 body#fields div#researchAreas li a {
     display: block;
-    background: #183e40;
+    background: #1a4547;
     padding: 2px 10px 3px 10px;
     border: 0;
 }
@@ -936,24 +948,29 @@ body#faculty #content h3 {
     color: #7bc4c4;
     font-weight: bold;
     text-decoration: underline;
+    margin-top: .9em;
+}
+
+#faculty-research h3,
+#faculty-publications h3,
+#faculty-teaching h3 {
+    line-height: 2em;
+    font-size: 1.3em;
 }
 
 #faculty-research h3 {
     background: url(../images/icons/faculty-research.gif) no-repeat left center;
     padding-left: 31px;
-    line-height: 2em;
 }
 
 #faculty-publications h3 {
     background: url(../images/icons/faculty-publications.gif) no-repeat left center;
     padding-left: 31px;
-    line-height: 2em;
 }
 
 #faculty-teaching h3 {
     background: url(../images/icons/faculty-teaching.gif) no-repeat left center;
-    padding-left: 24px;
-    line-height: 2em;
+    padding-left: 26px;
 }
 
 #faculty-research {
@@ -973,7 +990,7 @@ body#faculty #content h3 {
 }
 
 body#faculty #content {
-    font-size: 1.2em;
+    font-size: 1.3em;
 }
 
 body#faculty #content a {
@@ -1067,6 +1084,10 @@ body#faculty ul#profileLinks li a {
 /****************************************************************
 sidebar roll call
 ****************************************************************/
+
+body#fields #sidebar {
+    font-size: 1.1em;
+}
 
 #news, #searchBox, #seminars {
     padding: 12px 10px;
@@ -1254,10 +1275,15 @@ a:visited { color: #b8b8b8; }
 a:hover { color: #69bfde; }
 a:active { color: #69bfde; }
 
-/*li a { border-bottom: 1px solid #4a7172; }*/
-/*li a { border-bottom: 1px solid #5C7373; }*/
-li a { border-bottom: 1px dotted #888; }
-* html li a { border-bottom-style: solid; border-bottom-color: #666; }
+p a { border-bottom: 1px dotted #7a9899;  }
+p a:visited { border-bottom: 1px dotted #777777;  }
+* html p a { border-bottom-style: solid; border-bottom-color: #7a9899; }
+* html p a:visited { border-bottom-style: solid; border-bottom-color: #777777; }
+
+li a { border-bottom: 1px dotted #7a9899; }
+li a:visited { border-bottom: 1px dotted #777777; }
+* html li a { border-bottom-style: solid; border-bottom-color: #7a9899; }
+* html li a:visited { border-bottom-style: solid; border-bottom-color: #777777; }
 
 ul.groupings li a:link, ul.groupings li a:visited {
     color: #fff;
@@ -1271,7 +1297,7 @@ ul.groupings li a:hover {
 }
 
 ul.fields li a {
-    font-size: 1.2em;
+    font-size: 1.3em;
     font-weight: bold;
     line-height: 1.3em;
 }
@@ -1341,6 +1367,9 @@ span.toggleLink:hover {
     cursor: pointer;
 }
 
+body#groups p a {
+    border-bottom: 1px dotted #7a9899;
+}
 
 /****************************************************************
 list roll call
@@ -1359,6 +1388,10 @@ li.clean {
     padding: 0;
 }
 
+body#home ul.groupings a {
+    padding-bottom: 2px;
+}
+
 #content ul.groupings {
   margin: 20px 0;
 }
@@ -1367,7 +1400,7 @@ li.clean {
     font-size: 1.8em;
     font-weight: bold;
     line-height: 1.2em;
-    margin-bottom: -8px; /* Tightening the space between group items */
+    margin-bottom: -14px; /* Tightening the space between group items */
 }
 
 ul.fields {
@@ -1388,6 +1421,7 @@ body#groups ul.groupings li {
 
 body#groups ul.fields {
     width: 445px;
+    margin-bottom: 4em;
 }
 
 body#groups ul.fields li {
@@ -1407,40 +1441,68 @@ body#groups ul.fields a {
 
 body#groups ul.fields a:hover {
     color: #fff;
-/*    color: #f4ea7c;*/
-/*    text-decoration: none;*/
+}
+
+body#groups ul.fields a:visited:hover {
+    color: #B8B8B8;
+}
+
+body#groups ul.fields a.selected:hover {
+    color: #F4EA7C;
 }
 
 body#groups ul.fields a.selected {
     color: #f4ea7c;
-    border: 0;
+    border-color: #f4ea7c;
 /*    background: #5a5651;*/
 }
 
 body#groupindex #content ul {
     margin: -1em 0 2em 46px;
-    font-size: 1.2em;
+    font-size: 1.3em;
     line-height: 1.5em;
 }
 
+body#groupindex div.gradEducation {
+    margin-bottom: 4em;
+}
 
-body#groups div#groupList {
+body#groupindex div.gradEducation p {
+    font-size: 1.2em;
+}
+
+body#groups div.gradEducation {
     clear: left;
     width: 350px;
-    padding: 6px 6px 12px 12px;
-    margin-top: 3em;
+    padding: 12px;
+    margin: 1em 0 2em 0;
     border: 2px solid #005959;
     background: #183F40;  /*lighter green*/
 }
 
+body#groups div.gradEducation p {
+    font-size: 1.1em;
+}
+
+body#groups div.gradEducation p:first-child {
+    margin-top: .5em;
+}
+
+body#groups div.small ul {
+    font-size: 1.1em;
+}
+
 body#groups h3 {
+/*    font-weight: bold;*/
     margin-left: 30px;
     margin-top: 8px;
 }
 
-body#groups div#groupList h3 {
-    margin-bottom: 6px;
-    margin-left: 0;
+body#groups div.gradEducation h3,
+body#groups div.small h3  {
+/*    font-weight: normal;*/
+    font-size: 1.6em;
+    margin: 0 0 6px 0;
 }
 
 #news ul, #seminars ul {
@@ -1497,7 +1559,8 @@ body#groups div#groupList h3 {
     background: url(../images/icons/icon-physchem.gif) no-repeat left top; }
 
 .individual31915, .individual31919, .individual31918, .individual31917, .individual31916, .individual31920 {
-    padding: 17px 0 20px 45px;
+/*    padding: 17px 0 20px 45px;*/
+    padding: 14px 0 28px 45px;
 }
 
 /* ---------- Small icons for groupings displayed in sidebar ---------- */
@@ -1527,6 +1590,7 @@ body#groups div#groupList h3 {
 
 .small .individual31915,  .small .individual31919, .small .individual31918, .small .individual31917, .small .individual31916, .small .individual31920 {
     padding: 10px 0 20px 47px;
+    padding: 8px 0 20px 47px;
 }
 
 
