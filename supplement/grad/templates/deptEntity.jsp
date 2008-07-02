@@ -90,7 +90,7 @@
                     <c:url var="href" value="/entity">
                         <c:param name="uri" value="${location.object.URI}"/>
                     </c:url>
-                    <li><%-- <a href="${href}" title="more about this location in VIVO"> --%>${location.object.name}<%-- </a> --%></li>
+                    <li><a href="${location.object.url}" title="more about this location in VIVO">${location.object.name}</a></li>
                 </c:forEach>
             </ul>
         </c:if>

@@ -19,8 +19,8 @@
                     <button type="submit" id="search-form-submit" name="submit"/>go</button>
                 </form>
 
-                <c:import var="rss" url="http://zoe.mannlib.cornell.edu:8080/nutch-0.8.1/opensearch?">
-                <%-- <c:import var="rss" url="http://localhost:8080/nutch/opensearch"> --%>
+                <%-- <c:import var="rss" url="http://zoe.mannlib.cornell.edu:8080/nutch-0.8.1/opensearch?"> --%>
+                <c:import var="rss" url="http://localhost:8080/nutch/opensearch">
                     <c:param name="query" value="${param.querytext}"/>
                     <c:param name="hitsPerSite" value="0"/>
                     <c:param name="lang" value="en"/>

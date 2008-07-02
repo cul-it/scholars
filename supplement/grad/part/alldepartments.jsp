@@ -12,7 +12,7 @@
               PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
               PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
               PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
-              SELECT DISTINCT ?deptUri ?deptLabel ?deptLocation ?deptLocationLabel ?deptPageUrl ?campusLabel
+              SELECT DISTINCT ?deptUri ?deptLabel ?deptLocation ?deptLocationLabel ?deptLocationUrl ?deptPageUrl ?campusLabel
               WHERE
               {
                   ?group rdf:type vivo:fieldCluster .
@@ -26,7 +26,7 @@
                   ?deptUri rdf:type vivo:AcademicDepartment .
 
               OPTIONAL { ?deptUri rdfs:label ?deptLabel }
-              OPTIONAL { ?deptUri vivo:OrganizedEndeavorLocatedInFacility ?deptLocation . ?deptLocation rdfs:label ?deptLocationLabel }
+              OPTIONAL { ?deptUri vivo:OrganizedEndeavorLocatedInFacility ?deptLocation . ?deptLocation rdfs:label ?deptLocationLabel . ?deptLocation vitro:primaryLink ?deptLocationLink . ?deptLocationLink vitro:linkURL ?deptLocationUrl }
               OPTIONAL { ?deptUri vitro:primaryLink ?deptLinksUri . ?deptLinksUri vitro:linkURL ?deptPageUrl }
               OPTIONAL { ?deptUri vivo:OrganizedEndeavorLocatedOnCampus ?campus . ?campus rdfs:label ?campusLabel }
               }
@@ -52,7 +52,7 @@
                         <td class="deptName <c:if test='${counter.index == 0}'>firstRow</c:if>"><a href="${deptHref}" title="more about this department">${dept.deptLabel.string}</a></td>
                         <c:choose>
                             <c:when test="${!empty dept.deptLocationLabel.string}">
-                                <td><%-- <a href="${deptLocationHref}" title="more about this location in VIVO"> --%>${dept.deptLocationLabel.string}<%-- </a> --%></td>
+                                <td><a href="<str:decodeUrl>${dept.deptLocationUrl.string}</str:decodeUrl>" title="more about this location">${dept.deptLocationLabel.string}</a></td>
                             </c:when>
                             <c:otherwise>
                                 <td><c:if test="${fn:contains(dept.campusLabel.string, 'New York')}">Weill Medical Center, New York City</c:if></td>

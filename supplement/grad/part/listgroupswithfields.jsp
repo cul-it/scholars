@@ -35,7 +35,7 @@
                 <c:param name="class" value="${classForGrouping}"/>
             </c:url>
             
-            <h2 class="groupLabel ${classForGrouping}"><a href="${fn:escapeXml(gradhref)}">${row.clusterLabel.string}</a></h2>
+            <h3 class="groupLabel ${classForGrouping}"><a href="${fn:escapeXml(gradhref)}">${row.clusterLabel.string}</a></h3>
             
             <ul>   
                 <c:import url="part/listfields.jsp">
@@ -57,7 +57,7 @@
                 <c:param name="groupClass" value="${classForGrouping}"/>
             </c:url>
     
-            <h2 class="groupLabel ${classForGrouping}"><a href="${fn:escapeXml(gradhref)}">${row.clusterLabel.string}</a></h2>
+            <h3 class="groupLabel ${classForGrouping}"><a href="${fn:escapeXml(gradhref)}">${row.clusterLabel.string}</a></h3>
             
             <ul>
                 <c:import url="part/listfields.jsp">

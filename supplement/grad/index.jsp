@@ -22,7 +22,7 @@
                 <div id="news">
                     <h2>Life Sciences News</h2>
                     <jsp:include page="part/newsforportal.jsp" />
-                    <span class="moreLink"><a title="more Life Sciences news in VIVO" href="http://vivo.cornell.edu/index.jsp?collection=209">more news &raquo;</a></span>
+                    <span class="moreLink"><a title="more Life Sciences news" href="news.jsp">more news &raquo;</a></span>
                 </div>
                 <div id="searchBox">
                     <form name="findresearch" action="search.jsp" method="get"> 

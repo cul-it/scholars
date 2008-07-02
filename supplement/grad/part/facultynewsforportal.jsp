@@ -34,7 +34,8 @@
     </jsp:scriptlet>
 
  <sparql:sparql>
-   <sparql:select model="${applicationScope.jenaOntModel}" var="rs" now="${now}" >
+   <sparql:select model="${applicationScope.jenaOntModel}" var="rs"
+         now="${now}" >
      <![CDATA[
 
               PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -42,21 +43,31 @@
               PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
               PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
               PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
-              SELECT DISTINCT ?news ?newsLabel ?blurb ?newsThumb ?sourceLink ?moniker
+              SELECT DISTINCT ?news ?newsLabel ?blurb ?newsThumb ?sourceLink
               WHERE
               {
-                ?news
-                   vitro:sunrise ?sunrise ;
-                   vitro:primaryLink ?link ;
-                   vitro:imageThumb ?newsThumb ;
-                   vitro:blurb ?blurb ;
-                   rdfs:label ?newsLabel ;
-                   rdf:type vitro:Flag1Value1Thing ;
-                   rdf:type vivo:NewsRelease .
+                  
+              ?group
+              rdf:type
+              vivo:fieldCluster .
 
-                   ?link vitro:linkURL ?sourceLink .
+              ?group
+              vivo:hasAssociated
+              ?field .
 
-                  OPTIONAL { ?news vitro:moniker ?moniker }
+              ?field
+              vivo:AcademicInitiativeHasOtherParticipantAcademicEmployeeAsFieldMember
+              ?person .
+              
+              ?news
+                vivo:featuresPerson2 ?person ;
+                vitro:sunrise ?sunrise ;
+                vitro:primaryLink ?link ;
+                vitro:imageThumb ?newsThumb;
+                vitro:blurb ?blurb ;
+                rdfs:label ?newsLabel .
+            
+                ?link vitro:linkURL ?sourceLink .
 
                FILTER( xsd:dateTime(?now) > ?sunrise )
               }
@@ -72,14 +83,14 @@
                 <li>
                   
  					<c:url var="image" value="/images/${item.newsThumb.string}"/>
-                  <a href="full ${item.moniker.string}"><img width="128" src="${image}" alt="${item.newsLabel.string}"/></a><a title="full ${item.moniker.string}" href="${item.sourceLink.string}">${item.newsLabel.string}</a>
+                  <a href="${item.sourceLink.string}"><img width="128" src="${image}" alt="${item.newsLabel.string}"/></a><a title="read the full story" href="${item.sourceLink.string}">${item.newsLabel.string}</a>
                 </li>
             </c:forEach>
             <c:forEach  items="${rs.rows}" var="item" begin="0" end="0">
                 <li class="clean">
                   
  					<c:url var="image" value="/images/${item.newsThumb.string}"/>
-                  <a href="full ${item.moniker.string}"><img width="128" src="${image}" alt="${item.newsLabel.string}"/></a><a title="full ${item.moniker.string}" href="${item.sourceLink.string}">${item.newsLabel.string}</a>
+                  <a href="${item.sourceLink.string}"><img width="128" src="${image}" alt="${item.newsLabel.string}"/></a><a title="read the full story" href="${item.sourceLink.string}">${item.newsLabel.string}</a>
                 </li>
             </c:forEach>
         </ul>

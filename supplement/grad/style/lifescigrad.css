@@ -33,7 +33,7 @@ body {
     height: 100%;
     font-size: 1em;
     margin-bottom: -6em;
-/*    background: transparent url(../images/layout/bg_bodyoverlay.png) 90% 0% ;*/
+    background: transparent url(../images/layout/bg_bodyoverlay.png) 90% 0% ;
 }
 
 #wrap {
@@ -81,6 +81,10 @@ body#groups #content {
 
 body#fields #content { 
     width: 590px; margin-right: 20px;
+}
+
+body#newsindex #content { 
+    width: 890px; margin-right: 20px;
 }
 
 body#groupindex #content { 
@@ -134,11 +138,13 @@ body#fields #sidebar {
 #content div.leftColumn {
     float: left;
     width: 440px;
+    margin-top: 20px;
 }
 
 #content div.rightColumn {
     float: right;
     width: 440px;
+    margin-top: 20px;
 }
 
 #footer {
@@ -316,6 +322,15 @@ body#home #content p {
 }
 
 body#groupindex h2 {
+    font-size: 1.6em;
+}
+
+body#groupindex h2 span {
+    font-style: italic;
+    font-size: .7em;
+}
+
+body#groupindex h3 {
     font-size: 1.5em;   /* Scaling down group names to fit two-column layout */
     line-height: 1.5em;
     padding-top: 20px;
@@ -323,7 +338,7 @@ body#groupindex h2 {
 }
 
 body#groups h2 {
-    margin-top: -10px;
+/*    margin-top: -10px;*/
 }
 
 body#groups h3.floatLeft {
@@ -331,14 +346,16 @@ body#groups h3.floatLeft {
     display: inline;
 }
 
-h2.groupLabel, h2.groupLabel a:link, h2.groupLabel a:visited {
+h2.groupLabel, h2.groupLabel a:link, 
+h2.groupLabel a:visited,
+body#groupindex h3.groupLabel a {
     line-height: 1.4em;
     color: #fff;
     font-weight: bold;
 }
 
-body#groupindex h2.groupLabel {
-    margin-bottom: -20px;
+body#groupindex h3.groupLabel {
+    margin-bottom: -25px;
 }
 
 /*.fieldLabel {
@@ -378,6 +395,46 @@ body#home #applyButton {
     right: 7%;
     border: 0;
     margin-top: -15px;
+}
+
+body#newsindex #content ul {
+    width: 100%;
+}
+
+body#newsindex #content li {
+    width: 420px;
+    float: right;
+    clear: right;
+    padding-bottom: 50px;
+}
+
+body#newsindex #content li.odd {
+    float: left;
+    clear: both;
+}
+
+body#newsindex #content img {
+    float: left;
+    width: 80px;
+    border: 1px solid #fff;
+    margin: 3px 8px 2px 0;
+}
+
+body#newsindex h2 {
+    margin-bottom: 2em;
+}
+
+body#newsindex h3 {
+    font-size: 1.2em;
+    font-weight: bold;
+    letter-spacing: -.03em;
+    line-height: 1.4em;
+    margin-top: 0;
+}
+
+body#newsindex p {
+    font-size: 1.2em;
+    margin: .5em 0;
 }
 
 body#groups div#hoverBox {
@@ -1458,7 +1515,7 @@ body#groups ul.fields a.selected {
 }
 
 body#groupindex #content ul {
-    margin: -1em 0 2em 46px;
+    margin: 0 0 20px 46px;
     font-size: 1.3em;
     line-height: 1.5em;
 }
