@@ -53,8 +53,8 @@
             <c:set var="classForGrouping" value="${fn:substringAfter(row.fieldClusterUri,'#')}"/>
             <c:url var="gradhref" value="groups.jsp">
                 <c:param name="uri" value="${row.fieldClusterUri}"/>
-                <c:param name="groupLabel" value="${row.clusterLabel.string}"/>
-                <c:param name="groupClass" value="${classForGrouping}"/>
+                <c:param name="label" value="${row.clusterLabel.string}"/>
+                <c:param name="class" value="${classForGrouping}"/>
             </c:url>
     
             <h3 class="groupLabel ${classForGrouping}"><a href="${fn:escapeXml(gradhref)}">${row.clusterLabel.string}</a></h3>

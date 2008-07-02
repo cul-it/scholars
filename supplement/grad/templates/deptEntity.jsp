@@ -6,6 +6,8 @@
 <%@ taglib uri="http://mannlib.cornell.edu/vitro/ListSparqlTag/0.1/" prefix="listsparql" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://jakarta.apache.org/taglibs/string-1.1" prefix="str" %>
+
 
 <%@ page errorPage="/error.jsp"%>
 <%  /***********************************************
@@ -74,8 +76,9 @@
             <ul>
                 <c:forEach items='${entity.objectPropertyMap[deptHeadPropUri].objectPropertyStatements}' var="headPerson" varStatus="itemCount">
                     <c:if test="${itemCount.last == true}"><c:set var="counter">${counter + itemCount.index + 3}</c:set></c:if>
-                    <c:url var="href" value="/entity">
+                    <c:url var="href" value="faculty.jsp">
                         <c:param name="uri" value="${headPerson.object.URI}"/>
+                        <c:param name="name" value="${headPerson.object.name}"/>
                     </c:url>
                     <li><a href="${href}" title="view profile in VIVO">${headPerson.object.name}</a></li>
                 </c:forEach>
@@ -114,7 +117,7 @@
                     <c:url var="href" value="/entity">
                         <c:param name="uri" value="${series.object.URI}"/>
                     </c:url>
-                    <li><a href="${href}" title="views events from this series">${series.object.name}</a></li>
+                    <li><a href="<str:decodeUrl>${series.object.url}</str:decodeUrl>" title="${series.object.anchor}">${series.object.name}</a></li>
                 </c:forEach>
             </ul>
         </c:if>

@@ -314,6 +314,7 @@ content roll call
 body#home #content h2 {
 /*    letter-spacing: .5px;*/
     word-spacing: 1px;
+    margin-top: 0.6em;
 }
 
 body#home #content p {
@@ -1447,6 +1448,10 @@ li.clean {
 
 body#home ul.groupings a {
     padding-bottom: 2px;
+}
+
+body#home ul.groupings a:visited {
+    border-color: #7a9899;
 }
 
 #content ul.groupings {
