@@ -1,4 +1,5 @@
 $(document).ready(function() {
+if ( $("ul#profileCats").length ) {
     
     // note: parameters passed to these functions should NOT include a pound sign
     // fragments inserted into the url have "_tab" appended because IE tries to navigate to that ID even when returning false
@@ -169,4 +170,5 @@ $(document).ready(function() {
             $(this).blur();
             return false;
         });
+}
 });
