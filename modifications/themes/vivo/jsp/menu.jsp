@@ -5,6 +5,7 @@
 <%@ page import="edu.cornell.mannlib.vitro.webapp.web.BreadCrumbsUtil" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.controller.VitroRequest" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.dao.WebappDaoFactory" %>
+<%@ page import="edu.cornell.mannlib.vitro.webapp.filters.VitroRequestPrep" %>
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c"%>
 
 <%
@@ -35,8 +36,13 @@
     <%-- <c:url value="/edit/login.jsp" var="loginUrl"/> --%>
     <%-- nac26: 080422 - changed login url to handle temporary login via self editing for CAS demo --%>
     
-    <a class="image login" href="<c:url value="/admin/temporaryLogin.jsp" />" title="Edit Your Profile">
-       <img src="<c:url value="/themes/vivo/site_icons/login.gif"/>" alt="Edit Your Profile" /></a>
+    <% if ( VitroRequestPrep.isSelfEditing( request )) { %>
+              	<a class="image login" href="<c:url value="/edit/logout.jsp" />" title="Logout of Editing">Logout of Editing</a>
+         <% }else { %>
+         	<a class="image login" href="<c:url value="/edit/login.jsp" />" title="Edit Your Profile">
+        	<img src="<c:url value="/themes/vivo/site_icons/login.gif"/>" alt="Edit Your Profile" /></a>
+    <% } %>
+        
        
     <a class="image vivoLogo" href="<c:url value="/index.jsp"><c:param name="home" value="${portalBean.portalId}"/></c:url> title="Home">
        <img src="<c:url value="/themes/vivo/site_icons/vivo_logo.gif"/>" alt="VIVO: Virtual Life Sciences Library" /></a>
