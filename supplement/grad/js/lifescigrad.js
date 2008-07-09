@@ -249,3 +249,35 @@ if ($("body").attr("id") == "seark") {
 }
 });
 
+// Feedback form
+$(document).ready(function() {
+if ($("body").attr("id") == "feedback") {
+    
+    var captchaSrc = $("#captchaImage").attr("src");
+    
+    $("#captchaImage, em.notice a").click(function(){
+        // This just adds a random parameter to get the image to reload - the parameter is ignored
+        var randomParam = Math.floor(Math.random()*777);
+        var newSrc = captchaSrc + "?reload=" + randomParam;
+        $("#captchaImage").attr("src",newSrc);
+        return false;
+    });
+    
+    if ($("#feedbackForm").length){
+        $("#feedbackForm").validate({
+            errorElement: "span",
+            errorPlacement: function(error, element) { error.insertAfter(element) },
+            rules: { 
+                type: "required",
+                captcha: {
+    				required: true,
+    				remote: "forms/sessionkey.jsp"
+    			}
+            }, 
+    		messages: {
+    			captcha: "Correct code is required."	
+    		},
+        });
+    }
+}
+});

@@ -33,7 +33,8 @@ body {
     height: 100%;
     font-size: 1em;
     margin-bottom: -6em;
-    background: transparent url(../images/layout/bg_bodyoverlay.png) 90% 0% ;
+    background: transparent url(../images/layout/bg_bodyoverlay.png) 90% 0% !important;
+    background-image: none;
 }
 
 #wrap {
@@ -61,7 +62,8 @@ body {
     border-top: 0;
     background: transparent url(../images/layout/bg_content.png) left top !important;
 /*    background: transparent url(../images/layout/bg_contentGrid.png) center top repeat-y !important;*/
-     background: #193335 url(../images/layout/bg_content.gif) left top;
+/*     background: #193335 url(../images/layout/bg_content.gif) left top;*/
+     background: #002e2f url(../images/layout/bg_content.gif) repeat-x left top;
 /*    background: #193335 url(../images/layout/bg_contentGrid.gif) center top repeat-y;*/
 /*    background-color: #193335;*/
 }
@@ -73,6 +75,7 @@ body {
     margin-left: 20px;
     padding-top: 28px;
     color: #efecca; /*yellow*/
+    min-height: 400px;
 }
 
 body#groups #content {  
@@ -109,6 +112,11 @@ body#faculty #content.index {
 }
 
 body#search #content { 
+    width: 890px; margin-right: 20px;
+    min-height: 500px; 
+}
+
+body#feedback #content { 
     width: 890px; margin-right: 20px;
     min-height: 500px; 
 }
@@ -402,17 +410,24 @@ body#newsindex #content ul {
     width: 100%;
 }
 
+
+
 body#newsindex #content li {
     width: 420px;
-    float: right;
-    clear: right;
+    float: left;
+    display: inline-block;
     padding-bottom: 50px;
+/*    background: #555;*/
 }
 
 body#newsindex #content li.odd {
     float: left;
     clear: both;
+    margin-right: 40px;
+/*    background: green;*/
 }
+
+/* Note: IE6 and IE7 have trouble clearing floats properly (to allow the tops of each pair of news items to align) and therefore require the filters down at the bottom */
 
 body#newsindex #content img {
     float: left;
@@ -1066,13 +1081,14 @@ body#faculty #sidebar a {
 
 body#faculty #sidebar h3 {
     font-size: 1.4em;
-/*    margin-left: 12px;*/
+    margin-left: 11px;
 }
 
 body#faculty ul#facultyFields,
 body#faculty ul#facultyDepts {
     font-size: 1.1em;
     margin-bottom: 20px;
+    margin-left: 12px;
 }
 
 body#faculty #sidebar p {
@@ -1083,12 +1099,13 @@ body#faculty #education,
 body#faculty #awards {
     margin-bottom: 20px;
     font-size: 1.1em;
+    margin-left: 12px;
 }
 
 body#faculty #education li,
 body#faculty #awards li {
     line-height: 1.1em;
-    margin: .2em 0 .8em .3em;
+    margin: .2em 0 .8em 0;
 }
 
 body#faculty #awards li {
@@ -1711,6 +1728,86 @@ body#search #resultsCount {
     color: red;
 }
 
+body#feedback form {
+    margin-top: 30px;
+}
+
+body#feedback h2 {
+/*    margin-bottom: 1em;*/
+}
+
+body#feedback label {
+    color: #fff;
+    display: block;
+    margin-top: 25px;
+    margin-bottom: 5px;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+body#feedback label em,
+body#feedback p em { 
+    font-weight: bold;
+    color: red; 
+}
+
+body#feedback em.notice { display: block; margin-bottom: 5px; font-style: italic; }
+
+body#feedback span.error {
+    display: block;
+    color: red;
+    font-weight: bold;
+    margin-top: 3px;
+}
+
+body#feedback input.text, 
+body#feedback textarea, 
+body#feedback select {
+    color: #fff;
+    background: #000;
+    border: 1px solid #5d7173;
+    padding: 5px;
+}
+
+body#feedback input.text {
+    width: 350px;
+    font-size: 1.3em;
+}
+
+body#feedback input:focus,
+body#feedback textarea:focus,
+body#feedback select:focus {
+/*    border-color: #bcbcbc;*/
+}
+
+body#feedback textarea {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    width: 877px;
+    height: 150px;
+    font-size: 13px;
+}
+
+body#feedback input.submit {
+    display: block;
+    margin-top: 30px;
+}
+
+body#feedback p {
+    font-size: 1.3em;
+    line-height: 1.2em;
+}
+
+body#feedback select {
+    font-size: 1.3em;
+    padding: 0;
+}
+
+body#feedback img {
+    display: block;
+    margin-bottom: 4px;
+    cursor: pointer;
+}
+
 /****************************************************************
 table roll call
 ****************************************************************/
@@ -1732,6 +1829,11 @@ body#faculty div#indexNav a {
 
 body#faculty div#indexNav a:hover {
     border: 1px solid #fff !important;
+}
+
+body#departments td span {
+    color: #fff;
+    font-style: italic;
 }
 
 body#faculty .index table,
@@ -1762,8 +1864,16 @@ body#departments tbody td {
     border-bottom: 1px solid #204647;
 }
 
-body#faculty .index tbody tr:hover,
-body#departments tbody tr:hover {
+body#departments tbody tr td {
+/*    background: #163030;*/
+}
+
+body#departments tbody tr.even td {
+    background: #1e4142;
+    padding: 5px 10px 4px 8px;
+}
+
+body#faculty .index tbody tr:hover {
     background-color: #244e4f;
 }
 
@@ -1774,20 +1884,12 @@ body#departments tbody a:hover {
 
 body#faculty .index tbody td,
 body#departments tbody td {
-    padding: 4px 10px 3px 8px;
+    padding: 7px 10px 6px 8px;
     width: 49%;
 }
 
 body#faculty .index tfoot td {
     padding-top: 1em;
-}
-
-body#faculty .index td a {
-    display: block;
-}
-
-body#faculty .index td.email a {
-    display: inline;
 }
 
 
@@ -1816,6 +1918,14 @@ table roll call
 /** html body#groups #content ul {  height: 1%;  margin: 0; padding: .4em 0 0 1em;  }*/
 /* End hide from IE5/mac */
 
+
+* html body#newsindex #content li { 
+    float: none;
+}
+
+* + html body#newsindex #content li {
+    float: none;
+}
 
 /* Colors
 

@@ -33,8 +33,6 @@
     <script type="text/javascript" src="${jsDir}/jquery.js"></script>
     <script type="text/javascript" src="${jsDir}/jquery_plugins/getURLParam.js"></script>
     <script type="text/javascript" src="js/jquery_plugins/jquery.hoverIntent.minified.js"></script>
-    
-    
 
     <c:if test="${fn:contains(pageContext.request.servletPath, 'XXX.jsp')}">
         <link href="data/peopleData2.jsp" type="application/json" rel="exhibit/data" />
@@ -43,7 +41,6 @@
     </c:if>
     
     <c:if test="${fn:contains(pageContext.request.servletPath, 'faculty.jsp')}">
-
         <script type="text/javascript" src="js/jquery_plugins/jquery.cluetip.js"></script>
         <script type="text/javascript" src="js/jquery_plugins/jquery.dimensions.js"></script>
         <script type="text/javascript" src="js/jquery_plugins/jquery.hoverIntent.js"></script>
@@ -55,8 +52,10 @@
         <script src="js/websnapr.js" type="text/javascript"></script>
     </c:if>
 
-    <c:if test="${fn:contains(pageContext.request.servletPath, 'fields.jsp')}">
-
+    <c:if test="${fn:contains(pageContext.request.servletPath, 'feedback.jsp')}">
+        <script type="text/javascript" src="js/jquery_plugins/jquery.validate.pack.js"></script>
+        <script type="text/javascript" src="js/jquery_plugins/jquery.form.js"></script>
+        <script type="text/javascript" src="js/jquery_plugins/jquery.delegate.js"></script>
     </c:if>
     
     <script type="text/javascript" src="js/lifescigrad.js"></script>

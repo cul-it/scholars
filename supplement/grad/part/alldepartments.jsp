@@ -48,14 +48,14 @@
                 <c:url var="deptHref" value="departments.jsp"><c:param name="uri" value="${dept.deptUri}"/><c:param name="deptLabel" value="${dept.deptLabel.string}"/></c:url>
                 <c:url var="deptLocationHref" value="/entity"><c:param name="uri" value="${dept.deptLocation}"/></c:url>
                 <c:set var="deptPageLink" value="${dept.deptPageUrl.string}"/>
-                    <tr>
+                    <tr<c:if test='${counter.index mod 2 != 0}'> class="even"</c:if>>
                         <td class="deptName <c:if test='${counter.index == 0}'>firstRow</c:if>"><a href="${deptHref}" title="more about this department">${dept.deptLabel.string}</a></td>
                         <c:choose>
                             <c:when test="${!empty dept.deptLocationLabel.string}">
                                 <td><a href="<str:decodeUrl>${dept.deptLocationUrl.string}</str:decodeUrl>" title="more about this location">${dept.deptLocationLabel.string}</a></td>
                             </c:when>
                             <c:otherwise>
-                                <td><c:if test="${fn:contains(dept.campusLabel.string, 'New York')}">Weill Medical Center, New York City</c:if></td>
+                                <td><c:if test="${fn:contains(dept.campusLabel.string, 'New York')}"><span>Weill Medical Center, New York City</span></c:if></td>
                             </c:otherwise>
                         </c:choose>
                         

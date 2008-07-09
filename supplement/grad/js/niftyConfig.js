@@ -15,4 +15,5 @@ window.onload=function(){
     Nifty("#faculty-research","big all","#193335"); 
     Nifty("#faculty-publications","big all","#193335"); 
     Nifty("#faculty-teaching","big all","#193335"); 
+    Nifty("#contactInfo","small bottom","#193335"); 
 }
