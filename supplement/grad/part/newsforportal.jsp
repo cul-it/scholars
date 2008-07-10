@@ -1,7 +1,10 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:sparql="http://djpowell.net/tmp/sparql-tag/0.1/"
+          xmlns:listsparql="http://mannlib.cornell.edu/vitro/ListSparqlTag/0.1/"
+          xmlns:rand="http://jakarta.apache.org/taglibs/random-1.0"
           version="2.0" >
+          
 <!-- get some news items for the front of the grad portal -->
 
 <!-- from http://thefigtrees.net/lee/sw/sparql-faq#universal -->
@@ -34,48 +37,83 @@
     </jsp:scriptlet>
 
  <sparql:sparql>
-   <sparql:select model="${applicationScope.jenaOntModel}" var="rs" now="${now}" >
+   <listsparql:select model="${applicationScope.jenaOntModel}" var="rs" now="${now}" >
      <![CDATA[
 
-              PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-              PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-              PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-              PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
-              PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
-              SELECT DISTINCT ?news ?newsLabel ?blurb ?newsThumb ?sourceLink ?moniker
-              WHERE
-              {
-                ?news
-                   vitro:sunrise ?sunrise ;
-                   vitro:primaryLink ?link ;
-                   vitro:imageThumb ?newsThumb ;
-                   vitro:blurb ?blurb ;
-                   rdfs:label ?newsLabel ;
-                   rdf:type vitro:Flag1Value1Thing ;
-                   rdf:type vivo:NewsRelease .
+         PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+         PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+         PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+         PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
+         PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
+         SELECT DISTINCT ?news ?newsLabel ?blurb ?sourceLink ?newsThumb ?moniker
+         WHERE
+         {
 
-                   ?link vitro:linkURL ?sourceLink .
+         ?group
+         rdf:type
+         vivo:fieldCluster .
 
-                  OPTIONAL { ?news vitro:moniker ?moniker }
+         ?group
+         vivo:hasAssociated
+         ?field .
 
-               FILTER( xsd:dateTime(?now) > ?sunrise )
-              }
-              ORDER BY DESC(?sunrise)
-              LIMIT 2
+         ?field
+         vivo:AcademicInitiativeHasOtherParticipantAcademicEmployeeAsFieldMember
+         ?person .
+
+         ?news
+           vivo:featuresPerson2 ?person ;
+           vitro:sunrise ?sunrise ;
+           vitro:primaryLink ?link ;
+           vitro:blurb ?blurb ;
+           rdfs:label ?newsLabel .
+
+           ?link vitro:linkURL ?sourceLink .
+
+          OPTIONAL { ?news vitro:imageThumb ?newsThumb }
+      
+          OPTIONAL { ?news vitro:moniker ?moniker }
+      
+          FILTER( xsd:dateTime(?now) > ?sunrise )
+         }
+         ORDER BY DESC(?sunrise)
+         LIMIT 40
 
           ]]>
-    </sparql:select>
+          
+    </listsparql:select>
+    
+        
 
+        <rand:number id="random1" range="0-39"/>
+        <c:set var="random1"><jsp:getProperty name="random1" property="random"/></c:set>
+        
+        <rand:number id="random2" range="0-39"/>
+        <c:set var="random2"><jsp:getProperty name="random2" property="random"/></c:set>
+        
+        <c:forEach begin="0" end="100">
+            <c:if test="${rs[random1].newsThumb.string == null}">
+                <rand:number id="random1" range="0-39"/>
+                <c:set var="random1"><jsp:getProperty name="random1" property="random"/></c:set>
+            </c:if>
+        </c:forEach>
+        
+        <c:forEach begin="0" end="100">
+            <c:if test="${rs[random2].newsThumb.string == null || random1 == random2 }">
+                <rand:number id="random2" range="0-39"/>
+                <c:set var="random2"><jsp:getProperty name="random2" property="random"/></c:set>
+            </c:if>
+        </c:forEach>
 
         <ul>
-            <c:forEach  items="${rs.rows}" var="item" begin="0" end="0">
+            <c:forEach  items="${rs}" var="item" begin="${random1}" end="${random1}">
                 <li>
                   
  					<c:url var="image" value="/images/${item.newsThumb.string}"/>
                   <a href="full ${item.moniker.string}"><img width="128" src="${image}" alt="${item.newsLabel.string}"/></a><a title="full ${item.moniker.string}" href="${item.sourceLink.string}">${item.newsLabel.string}</a>
                 </li>
             </c:forEach>
-            <c:forEach  items="${rs.rows}" var="item" begin="0" end="0">
+            <c:forEach  items="${rs}" var="item" begin="${random2}" end="${random2}">
                 <li class="clean">
                   
  					<c:url var="image" value="/images/${item.newsThumb.string}"/>

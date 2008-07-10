@@ -90,6 +90,10 @@ body#newsindex #content {
     width: 890px; margin-right: 20px;
 }
 
+body#eventindex #content { 
+    width: 890px; margin-right: 20px;
+}
+
 body#groupindex #content { 
     width: 890px; margin-right: 20px;
 }
@@ -451,6 +455,31 @@ body#newsindex h3 {
 body#newsindex p {
     font-size: 1.2em;
     margin: .5em 0;
+}
+
+body#eventindex #content li,
+body#eventindex p {
+    font-size: 1.3em;
+}
+
+body#eventindex #content li {
+    margin-bottom: 20px;
+}
+
+body#eventindex h3 {
+    margin-top: 40px;
+    margin-bottom: 12px;
+    font-weight: bold;
+}
+
+body#eventindex p {
+    margin-top: 0;
+}
+
+body#eventindex dt {
+    margin-bottom: .3em;
+/*    font-weight: bold;*/
+    line-height: 1.3em;
 }
 
 body#groups div#hoverBox {

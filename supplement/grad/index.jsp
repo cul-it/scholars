@@ -34,7 +34,7 @@
                 <div id="seminars">
                     <h2>Life Sciences Seminars</h2>
                     <jsp:include page="part/seminarsforportal.jsp" />
-                    <span class="moreLink"><a title="more Life Sciences news in VIVO" href="http://vivo.cornell.edu/index.jsp?collection=20">more events &raquo;</a></span>
+                    <span class="moreLink"><a title="more Life Sciences events" href="events.jsp">more events &raquo;</a></span>
                 </div>
             </div> <!-- sidebar -->
         </div> <!-- contentWrap -->

@@ -32,13 +32,24 @@
                      WHERE
                      {
 
+                     ?group
+                     rdf:type
+                     vivo:fieldCluster .
+
+                     ?group
+                     vivo:hasAssociated
+                     ?field .
+
+                     ?field
+                     vivo:AcademicInitiativeHasOtherParticipantAcademicEmployeeAsFieldMember
+                     ?person .
+
                      ?news
+                       vivo:featuresPerson2 ?person ;
                        vitro:sunrise ?sunrise ;
                        vitro:primaryLink ?link ;
                        vitro:blurb ?blurb ;
-                       rdfs:label ?newsLabel ;
-                       rdf:type vitro:Flag1Value1Thing ;
-                       rdf:type vivo:NewsRelease .
+                       rdfs:label ?newsLabel .
 
                        ?link vitro:linkURL ?sourceLink .
 
@@ -55,13 +66,8 @@
 
            <h2>Cornell Life Sciences News</h2>
                <ul>
-                   <c:forEach  items="${rs.rows}" var="item" begin="0" end="40" varStatus="count">
-                       <li 
-                        <c:choose>
-                        <c:when test='${count.index mod 2 == 0 && count.index == 0}'>class="odd first"</c:when>
-                        <c:when test='${count.index mod 2 == 0}'>class="odd"</c:when>
-                        </c:choose>
-                        >
+                   <c:forEach  items="${rs.rows}" var="item" varStatus="count">
+                       <li <c:if test='${count.index mod 2 == 0}'>class="odd"</c:if>>
         			        <c:url var="image" value="/images/${item.newsThumb.string}"/>
                             <c:if test="${!empty item.newsThumb.string}">
                                 <a title="full ${item.moniker.string}" href="${item.sourceLink.string}"><img width="150" src="${image}" alt="news photo"/></a>
