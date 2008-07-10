@@ -15,10 +15,11 @@
 <div id="contentWrap">
 	<div id="content">
 
-<% 
+<%-- 
     String captchaKey = session.getAttribute("captcha").toString(); 
     String requestedValue = request.getParameter("captcha");
-
+--%>
+<%
     DateTime now = new DateTime();
     request.setAttribute("now", "\"" + now.toDateTime().toString() + "\"" );
 
@@ -28,10 +29,10 @@
 
 %>
 
-        <c:set var="captchaKey" value="<%=captchaKey%>"/>
-        <c:set var="requestKey" value="<%=requestedValue%>"/>
+        <%-- <c:set var="captchaKey" value="<%=captchaKey%>"/> --%>
+        <%-- <c:set var="requestKey" value="<%=requestedValue%>"/> --%>
         
-        <c:if test="${captchaKey == requestKey}">
+        <%-- <c:if test="${captchaKey == requestKey}"> --%>
         
             <h2>Got it!</h2>
             <p>Thanks for taking the time to send us feedback.</p>
@@ -86,16 +87,17 @@ ${fbMessage}
                 <c:choose>
                     <c:when test="${param.type == 'content'}">
                        <mt:setrecipient type="to">mw542@cornell.edu</mt:setrecipient>
-                       <%-- <mt:setrecipient type="cc">Lee Kraus</mt:setrecipient> --%>
+                       <%-- <mt:setrecipient type="cc">nac26@cornell.edu</mt:setrecipient> --%>
                        <mt:subject>Life Science Graduate Portal - Feedback Received (content-related)</mt:subject>
                     </c:when>
                     <c:when test="${param.type == 'technical'}">
                         <mt:setrecipient type="to">mw542@cornell.edu</mt:setrecipient>
+                        <%-- <mt:setrecipient type="cc">nac26@cornell.edu</mt:setrecipient> --%>
                         <mt:subject>Life Science Graduate Portal - Feedback Received (technical issues)</mt:subject>
                     </c:when>
                     <c:when test="${param.type == 'other'}">
                         <mt:setrecipient type="to">mw542@cornell.edu</mt:setrecipient>
-                        <%-- <mt:setrecipient type="cc">Lee Kraus</mt:setrecipient> --%>
+                        <%-- <mt:setrecipient type="cc">nac26@cornell.edu</mt:setrecipient> --%>
                         <mt:subject>Life Science Graduate Portal - Feedback Received (other)</mt:subject>
                     </c:when>
                 </c:choose>
@@ -114,12 +116,12 @@ ${fbMessage}
 
             </mt:mail>
         
-        </c:if>
+        <%-- </c:if> --%>
         
-        <c:if test="${captchaKey != requestKey}">
+        <%-- <c:if test="${captchaKey != requestKey}">
             <h2>Sorry, there was a problem...</h2>
             <p>It looks like the code you entered was incorrect. Hit your back button to try again.</p>
-        </c:if>
+        </c:if> --%>
         
 	</div> <!-- content -->
 </div> <!-- contentWrap -->
