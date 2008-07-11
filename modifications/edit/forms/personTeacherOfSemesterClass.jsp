@@ -151,6 +151,7 @@ public static Log log = LogFactory.getLog("edu.cornell.mannlib.vitro.webapp.jsp.
     "literalsInScope" : { },
     "urisOnForm"     : ["semester"],
     "literalsOnForm" : ["description", "title", "moniker", "enrollment", "code4digit" ],
+    "filesOnForm"    : [ ],
     "sparqlForLiterals" : { },
     "sparqlForUris"     : { },
     "sparqlForExistingLiterals" : {

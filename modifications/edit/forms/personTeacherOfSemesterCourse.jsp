@@ -100,6 +100,7 @@
     "literalsInScope": { },
     "urisOnForm"     : ["semester","heldIn"],
     "literalsOnForm" :  [ "courseDescription", "courseName", "moniker" ],
+    "filesOnForm"    : [ ],
     "sparqlForLiterals" : { },
     "sparqlForUris" : {  },
     "sparqlForExistingLiterals" : {

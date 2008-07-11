@@ -99,6 +99,7 @@
     "literalsInScope": { },
     "urisOnForm"     : ["room"],
     "literalsOnForm" :  [ "talkDescription", "talkName", "moniker", "timekey" ],
+    "filesOnForm"    : [ ],
     "sparqlForLiterals" : { },
     "sparqlForUris" : {  },
     "sparqlForExistingLiterals" : {

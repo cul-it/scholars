@@ -98,6 +98,7 @@
     "literalsInScope": { },
     "urisOnForm"    : [ ],
     "literalsOnForm":  [ "pubDescription", "pubName", "moniker" ,"pubYear"],
+    "filesOnForm"   : [ ],
     "sparqlForLiterals" : { },
     "sparqlForUris":{  },
     

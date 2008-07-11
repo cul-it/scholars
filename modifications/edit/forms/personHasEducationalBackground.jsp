@@ -106,16 +106,19 @@
     ?edBackground
           vivo:yearDegreeAwarded             ?year;
           vivo:institutionAwardingDegree     ?institution;
-          vivo:preferredDegreeAbbreviation   ?degreeAbbrev;
-          vivo:majorFieldOfDegree            ?majorField;
+          vivo:preferredDegreeAbbreviation   ?degreeAbbrev;          
           vitro:hiddenFromPublicDisplayAnnot ?visibility.
 
     ?edBackground vivo:awardedAcademicDegree ?degreeType.
 </v:jsonset>
 
-<v:jsonset var="n3optional"  >
+<v:jsonset var="n3optional1"  >
     @prefix vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>.
-    ?edBackground vitro:description ?comment.
+    ?edBackground vitro:description ?comment .
+</v:jsonset>
+<v:jsonset var="n3optional2"  >
+    @prefix vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>.
+    ?edBackground vivo:majorFieldOfDegree ?majorField .
 </v:jsonset>
 
 <c:set var="editjson" scope="request">
@@ -128,12 +131,13 @@
     "object"    : ["edBackground", "${objectUriJson}", "URI" ],
     
     "n3required"    : [ "${n3ForEdit}" ],
-    "n3optional"    : [ "${n3optional}" ],
+    "n3optional"    : [ "${n3optional1}", "${n3optional2}" ],
     "newResources"  : { "edBackground" : "http://vivo.library.cornell.edu/ns/0.1#individual" },
     "urisInScope"    : { },
     "literalsInScope": { "visibility" : {"value"="true","datatype"="http://www.w3.org/2001/XMLSchema#boolean"} },
     "urisOnForm"     : ["degreeType"],
     "literalsOnForm" :  [ "year", "institution", "degreeAbbrev", "majorField", "visibility", "comment" ],
+    "filesOnForm"    : [ ],
     "sparqlForLiterals" : { },
     "sparqlForUris" : {  },
     "sparqlForExistingLiterals" : {
@@ -191,8 +195,8 @@
          "literalOptions"   : [ ],
          "predicateUri"     : "",
          "objectClassUri"   : "",
-         "rangeDatatypeUri" : "",
-         "rangeLang"        : "",
+         "rangeDatatypeUri" : "http://www.w3.org/2001/XMLSchema#string",
+         "rangeLang"        : "",         
          "assertions"       : [ "${institutionAssertion}" ]
       },
       "majorField" : {
@@ -202,8 +206,8 @@
          "literalOptions"   : [ ],
          "predicateUri"     : "",
          "objectClassUri"   : "",
-         "rangeDatatypeUri" : "",
-         "rangeLang"        : "",
+         "rangeDatatypeUri" : "http://www.w3.org/2001/XMLSchema#string",
+         "rangeLang"        : "",         
          "assertions"       : ["${majorFieldAssertion}"]
       },
       "visibility" : {
@@ -214,7 +218,7 @@
          "predicateUri"     : "",
          "objectClassUri"   : "",
          "rangeDatatypeUri" : "http://www.w3.org/2001/XMLSchema#boolean";
-         "rangeLang"        : "",
+         "rangeLang"        : "",         
          "assertions"       : [ "${visibilityAssertion}" ]
       },
       "comment" : {
@@ -225,7 +229,7 @@
          "predicateUri"     : "",
          "objectClassUri"   : "",
          "rangeDatatypeUri" : "http://www.w3.org/2001/XMLSchema#string",
-         "rangeLang"        : "",
+         "rangeLang"        : "",         
          "assertions"       : [ "${commentAssertion}" ]
       }
     }
