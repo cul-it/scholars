@@ -41,8 +41,7 @@
     //and to give them useful selfediting login buttons
     if( request.getServerName() != null && request.getServerName().contains("vivotest.mannlib.cornell.edu") ){        
          if ( VitroRequestPrep.isSelfEditing( request )) { %>
-         <p>This is in vivotest.mannlib.cornell.edu</p>
-				<a class="image manage" href="<c:url value="/edit/login.jsp" />" title="Manage Your Profile"><img src="<c:url value="/themes/vivo/site_icons/manage.gif"/>" alt="Edit Your Profile" /></a>
+				<a class="image login" href="<c:url value="/edit/login.jsp" />" title="Manage Your Profile"><img src="<c:url value="/themes/vivo/site_icons/manage.gif"/>" alt="Edit Your Profile" /></a>
                 <a class="image login" href="<c:url value="/edit/logout.jsp" />" title="Logout of Editing">
                 <img src="<c:url value="/themes/vivo/site_icons/logout.gif"/>" alt="Logout of Editing Your Profile" /></a>
              <% }else { %>
