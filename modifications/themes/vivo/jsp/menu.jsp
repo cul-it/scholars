@@ -41,21 +41,17 @@
     //and to give them useful selfediting login buttons
     if( request.getServerName() != null && request.getServerName().contains("vivotest.mannlib.cornell.edu") ){        
          if ( VitroRequestPrep.isSelfEditing( request )) { %>
+				<a class="image login" href="<c:url value="/edit/logout.jsp" />" title="Logout of Editing"><img src="<c:url value="/themes/vivo/site_icons/logout.gif"/>" alt="Logout of Editing Your Profile" /></a>
 				<a class="image login" href="<c:url value="/edit/login.jsp" />" title="Manage Your Profile"><img src="<c:url value="/themes/vivo/site_icons/manage.gif"/>" alt="Edit Your Profile" /></a>
-                <a class="image login" href="<c:url value="/edit/logout.jsp" />" title="Logout of Editing">
-                <img src="<c:url value="/themes/vivo/site_icons/logout.gif"/>" alt="Logout of Editing Your Profile" /></a>
              <% }else { %>
-             	<a class="image login" href="<c:url value="/edit/login.jsp" />" title="Edit Your Profile">
-            	<img src="<c:url value="/themes/vivo/site_icons/login.gif"/>" alt="Edit Your Profile" /></a>
+             	<a class="image login" href="<c:url value="/edit/login.jsp" />" title="Edit Your Profile"><img src="<c:url value="/themes/vivo/site_icons/login.gif"/>" alt="Edit Your Profile" /></a>
         <% }        
     } else {
     %>
-       <a class="image login" href="<c:url value="/admin/temporaryLogin.jsp" />" title="Edit Your Profile">
-       <img src="<c:url value="/themes/vivo/site_icons/hiddenlogin.gif"/>" alt="Edit Your Profile" /></a>
+       <a class="image login" href="<c:url value="/admin/temporaryLogin.jsp" />" title="Edit Your Profile"><img src="<c:url value="/themes/vivo/site_icons/hiddenlogin.gif"/>" alt="Edit Your Profile" /></a>
     <% } %>
       
-    <a class="image vivoLogo" href="<c:url value="/index.jsp"><c:param name="home" value="${portalBean.portalId}"/></c:url> title="Home">
-       <img src="<c:url value="/themes/vivo/site_icons/vivo_logo.gif"/>" alt="VIVO: Virtual Life Sciences Library" /></a>
+    <a class="image vivoLogo" href="<c:url value="/index.jsp"><c:param name="home" value="${portalBean.portalId}"/></c:url> title="Home"><img src="<c:url value="/themes/vivo/site_icons/vivo_logo.gif"/>" alt="VIVO: Virtual Life Sciences Library" /></a>
        
     <em class="portal"><%=portal.getShortHand()%></em>
     
