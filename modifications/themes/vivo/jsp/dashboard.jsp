@@ -3,10 +3,13 @@
 <%@ page import="edu.cornell.mannlib.vitro.webapp.edit.n3editing.EditConfiguration" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.edit.n3editing.EditSubmission" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.filters.VitroRequestPrep" %>
-<%@ page import="edu.cornell.mannlib.vitro.webapp.filters.VitroRequestPrep" %>
 <%@ page import="java.util.List" %>
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
 <%@ page errorPage="/error.jsp"%>
+<%
+if (VitroRequestPrep.isSelfEditing(request)) {
+    request.setAttribute("showSelfEdits",Boolean.TRUE );
+} %>
 
 <c:if test="${sessionScope.loginHandler != null &&
              sessionScope.loginHandler.loginStatus == 'authenticated' &&
@@ -18,7 +21,7 @@
 <c:set var='portal' value='${currentPortalId}'/>
 <c:set var='portalBean' value='${currentPortal}'/>
 <c:set var='imageDir' value='images' />
-<div id="dashboard"<c:if test="${showCuratorEdits}"> class="loggedIn"</c:if>>
+<div id="dashboard"<c:if test="${showCuratorEdits || showSelfEdits}"> class="loggedIn"</c:if>>
     <c:if test="${!empty entity.imageThumb}">
         <c:if test="${!empty entity.imageFile}">
             <c:url var="imageUrl" value="${imageDir}/${entity.imageFile}" />
@@ -48,8 +51,7 @@
             </c:forEach>
         </c:if>
     </ul>
-    <c:if test="${showCuratorEdits}">
-        <!-- jsp:include page="../../../edit/dashboardPropsList.jsp" flush="true"/ -->
+    <c:if test="${showCuratorEdits || showSelfEdits}">
         <c:import url="${dashboardPropsListJsp}"></c:import>
     </c:if>
 </div>
