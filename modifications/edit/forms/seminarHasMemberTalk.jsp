@@ -87,6 +87,7 @@
   {
     "formUrl" : "${formUrl}",
     "editKey" : "${editKey}",
+    "urlPatternToReturnTo" : "/entity",
 
     "subject"   : ["series",    "${subjectUriJson}", ],
     "predicate" : ["predicate", "${predicateUriJson}" ],

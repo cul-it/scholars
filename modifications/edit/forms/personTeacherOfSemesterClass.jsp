@@ -139,6 +139,7 @@ public static Log log = LogFactory.getLog("edu.cornell.mannlib.vitro.webapp.jsp.
   {
     "formUrl" : "${formUrl}",
     "editKey" : "${editKey}",
+    "urlPatternToReturnTo" : "/entity",
 
     "subject"   : ["person",    "${subjectUriJson}" ],
     "predicate" : ["predicate", "${predicateUriJson}" ],

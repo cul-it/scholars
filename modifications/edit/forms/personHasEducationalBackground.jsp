@@ -125,6 +125,7 @@
   {
     "formUrl" : "${formUrl}",
     "editKey" : "${editKey}",
+    "urlPatternToReturnTo" : "/entity",
 
     "subject"   : ["person",    "${subjectUriJson}" ],
     "predicate" : ["predicate", "${predicateUriJson}" ],
