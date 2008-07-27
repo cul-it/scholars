@@ -43,7 +43,7 @@
 
 <%-- <c:set var='coInvestigator' value='http://vivo.library.cornell.edu/ns/0.1#PersonCoInvestigatorOfFinancialAward'/> --%>
 <%-- <c:set var='featuredIn' value='http://vivo.library.cornell.edu/ns/0.1#featuredPersonIn2'/> --%>
-<%-- <c:set var='headOf' value='http://vivo.library.cornell.edu/ns/0.1#PersonLeadParticipantForOrganizedEndeavor'/> --%>
+<%-- <c:set var='headOf' value='http://vivo.library.cornell.edu/ns/0.1#personLeadParticipantForCornellOrganizedEndeavor'/> --%>
 
 <c:set var='imageDir' value='../images/' scope="page"/>
 
