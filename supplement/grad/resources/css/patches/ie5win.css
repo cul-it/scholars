@@ -1,0 +1,52 @@
+/****************************************
+ * Cornell University 
+ * Web Template with Two-line Unit Signature Banner
+ * IE5/Win Patches
+ ****************************************/
+ 
+/* 
+	The purpose of this stylesheet is to provide style rules to 
+	Internet Explorer v5.x on Windows only. This browser's support 
+	for CSS is somewhat limited, and it is often necessary to provide
+	it with alternate rules to acheive the same results as other 
+	browsers.
+*/
+
+/* IE5/Win does not support margin: 0 auto for centering 
+#cu-identity {
+	text-align: center;
+	}
+#cu-logo {
+	text-align: left;
+	}
+*/
+	
+	
+/* header search form layout needs several minor adjustments */
+#search-form-query {
+	height: 19px;
+	}
+#search-form-submit {
+	padding-bottom: 1px;
+	}
+
+	
+/* header search form layout needs several minor adjustments 
+#search-form-query {
+	height: 19px;
+	}
+#search-form-submit {
+	padding-bottom: 1px;
+	}
+#search-filters label {
+	margin: 0;
+	position: relative;
+	right: 13px;
+	}
+#search-filters input {
+	vertical-align: top;
+	position: relative;
+	bottom: 4px;
+	right: 12px;
+	}
+*/
