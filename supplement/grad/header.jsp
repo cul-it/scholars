@@ -26,39 +26,33 @@
 	
 	<c:url var="faviconLoc" value="/favicon.ico"/>
 	<link rel="shortcut icon" href="${faviconLoc}"/>
-	<link rel="stylesheet" href="style/screen.css" type="text/css" />
+	<link rel="stylesheet" href="resources/css/screen.css" type="text/css" />
     <link rel="stylesheet" href="${jsDir}/niftyCorners.css" type="text/css" />
     <script type="text/javascript" src="${jsDir}/niftycube.js"></script>
-    <script type="text/javascript" src="js/niftyConfig.js"></script>
+    <script type="text/javascript" src="resources/js/niftyConfig.js"></script>
     <script type="text/javascript" src="${jsDir}/jquery.js"></script>
     <script type="text/javascript" src="${jsDir}/jquery_plugins/getURLParam.js"></script>
-    <script type="text/javascript" src="js/jquery_plugins/jquery.hoverIntent.minified.js"></script>
+    <script type="text/javascript" src="${jsDir}/jquery_plugins/jquery.hoverIntent.minified.js"></script>
 
-    <c:if test="${fn:contains(pageContext.request.servletPath, 'XXX.jsp')}">
-        <link href="data/peopleData2.jsp" type="application/json" rel="exhibit/data" />
-        <script src="http://static.simile.mit.edu/exhibit/api-2.0/exhibit-api.js" type="text/javascript"></script>
-        <link rel="stylesheet" href="style/exhibit.css" type="text/css" />
-    </c:if>
-    
-    <c:if test="${fn:contains(pageContext.request.servletPath, 'faculty.jsp')}">
-        <script type="text/javascript" src="js/jquery_plugins/jquery.cluetip.js"></script>
-        <script type="text/javascript" src="js/jquery_plugins/jquery.dimensions.js"></script>
-        <script type="text/javascript" src="js/jquery_plugins/jquery.hoverIntent.js"></script>
-        <link rel="stylesheet" href="style/jquery.cluetip.css" type="text/css" />
-    </c:if>
+    <%-- <c:if test="${fn:contains(pageContext.request.servletPath, 'faculty.jsp')}">
+        <script type="text/javascript" src="resources/js/jquery_plugins/jquery.cluetip.js"></script>
+        <script type="text/javascript" src="resources/js/jquery_plugins/jquery.dimensions.js"></script>
+        <script type="text/javascript" src="resources/js/jquery_plugins/jquery.hoverIntent.js"></script>
+        <link rel="stylesheet" href="resources/css/jquery.cluetip.css" type="text/css" />
+    </c:if> --%>
         
     <c:if test="${fn:contains(pageContext.request.servletPath, 'departments.jsp')}">
-        <link rel="stylesheet" href="style/websnapr.css" type="text/css" />
-        <script src="js/websnapr.js" type="text/javascript"></script>
+        <link rel="stylesheet" href="resources/css/websnapr.css" type="text/css" />
+        <script src="resources/js/websnapr.js" type="text/javascript"></script>
     </c:if>
 
     <c:if test="${fn:contains(pageContext.request.servletPath, 'feedback.jsp')}">
-        <script type="text/javascript" src="js/jquery_plugins/jquery.validate.pack.js"></script>
-        <script type="text/javascript" src="js/jquery_plugins/jquery.form.js"></script>
-        <script type="text/javascript" src="js/jquery_plugins/jquery.delegate.js"></script>
+        <script type="text/javascript" src="${jsDir}/jquery_plugins/jquery.validate.pack.js"></script>
+        <script type="text/javascript" src="${jsDir}/jquery_plugins/jquery.form.js"></script>
+        <script type="text/javascript" src="${jsDir}/jquery_plugins/jquery.delegate.js"></script>
     </c:if>
     
-    <script type="text/javascript" src="js/lifescigrad.js"></script>
+    <script type="text/javascript" src="resources/js/lifescigrad.js"></script>
 </head>
 
 <body <c:if test="${not empty param.bodyID}">id="${param.bodyID}"</c:if>>

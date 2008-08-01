@@ -20,12 +20,12 @@
                DateTime now = new DateTime();
                request.setAttribute("now", "\"" + now.toDateTimeISO().toString() + "\"" );
                
-               DateTime past = now.plusDays(-90);
+               DateTime past = now.plusDays(-200);
                request.setAttribute("past", "\"" + past.toDateTimeISO().toString() + "\"" );
         </jsp:scriptlet>
         
         <sparql:sparql>
-          <listsparql:select model="${applicationScope.jenaOntModel}" var="upcoming" now="${now}" >
+          <listsparql:select model="${applicationScope.jenaOntModel}" var="upcomingEvents" now="${now}" >
                 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
                 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
                 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
@@ -48,6 +48,14 @@
                       vivo:eventHeldInFacility ?place .
 
                   ?person rdfs:label ?hostname .
+                  
+                  ?person vivo:AcademicEmployeeOtherParticipantAsFieldMemberInAcademicInitiative ?field .
+
+                  ?field rdf:type vivo:GraduateField .
+                  
+                  ?field vivo:associatedWith ?group . 
+                  
+                  ?group rdf:type vivo:fieldCluster .
 
                   ?place rdfs:label ?location .
 
@@ -58,7 +66,7 @@
                 LIMIT 2
             </listsparql:select>
               
-            <listsparql:select model="${applicationScope.jenaOntModel}" var="past" now="${now}" past="${past}" >
+            <listsparql:select model="${applicationScope.jenaOntModel}" var="pastEvents" now="${now}" past="${past}" >
                   PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
                   PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
                   PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
@@ -96,7 +104,7 @@
                    FILTER( xsd:dateTime(?now) > ?timekey  && xsd:dateTime(?past) < ?timekey )
                   }
                   ORDER BY DESC(?timekey)
-                  LIMIT 30
+                  LIMIT 20
               </listsparql:select>
               
             <fmt:setLocale value="en_US"/>
@@ -105,19 +113,19 @@
             <h3>Upcoming Events</h3>
             
             <c:choose>
-            <c:when test="${fn:length(upcoming) < 3}">
+            <c:when test="${fn:length(upcomingEvents) < 3}">
                 <p>There are currently no Life Sciences events listed. New lectures, seminars and colloquia will be posted here as the academic semester approaches.</p>
             </c:when>
                 <c:otherwise>
                     <ul>
-                        <c:forEach  items="${upcoming}" var="talk" begin="0" varStatus="status">
+                        <c:forEach  items="${upcomingEvents}" var="talk" begin="0" varStatus="status">
                             <fmt:parseDate var="seminarTimekey" value="${talk.timekey.string}" pattern="yyyy-MM-dd'T'HH:mm:ss" />
                             <fmt:formatDate var="seminarDate" value="${seminarTimekey}" pattern="EEEE', 'MMM'. 'd' 'yyyy' - 'hh:mm a" />
                             <fmt:formatDate var="calendarStart" value="${seminarTimekey}" pattern="yyyyMMdd'T'HHmm'-0500'" />
                             <fmt:formatDate var="calendarEnd" value="${seminarTimekey}" pattern="yyyyMMdd" />
 
                             <c:url var="seminarLink" value="/entity"><c:param name="uri" value="${talk.talkUri}"/></c:url>
-                            <c:url var="seminarHostLink" value="/entity"><c:param name="uri" value="${talk.person}"/><c:param name="name" value="${talk.hostname}"/></c:url>
+                            <c:url var="seminarHostLink" value="/entity"><c:param name="uri" value="${talk.person}"/><c:param name="name" value="${talk.hostname.string}"/></c:url>
                             <c:set var="firstName" value="${fn:substringAfter(talk.hostname.string,',')}"/>
                             <c:set var="lastName" value="${fn:substringBefore(talk.hostname.string,',')}"/>
 
@@ -148,14 +156,14 @@
                 
                 <h3>Past Events</h3>
                 <ul>
-                    <c:forEach  items="${past}" var="talk" begin="0" varStatus="status">
+                    <c:forEach  items="${pastEvents}" var="talk" begin="0" varStatus="status">
                         <fmt:parseDate var="seminarTimekey" value="${talk.timekey.string}" pattern="yyyy-MM-dd'T'HH:mm:ss" />
                         <fmt:formatDate var="seminarDate" value="${seminarTimekey}" pattern="EEEE', 'MMM'. 'd' 'yyyy' - 'hh:mm a" />
                         <fmt:formatDate var="calendarStart" value="${seminarTimekey}" pattern="yyyyMMdd'T'HHmm'-0500'" />
                         <fmt:formatDate var="calendarEnd" value="${seminarTimekey}" pattern="yyyyMMdd" />
 
                         <c:url var="seminarLink" value="/entity"><c:param name="uri" value="${talk.talkUri}"/></c:url>
-                        <c:url var="seminarHostLink" value="faculty.jsp"><c:param name="uri" value="${talk.person}"/></c:url>
+                        <c:url var="seminarHostLink" value="faculty.jsp"><c:param name="uri" value="${talk.person}"/><c:param name="name" value="${talk.hostname.string}"/></c:url>
                         <c:set var="firstName" value="${fn:substringAfter(talk.hostname.string,',')}"/>
                         <c:set var="lastName" value="${fn:substringBefore(talk.hostname.string,',')}"/>
 

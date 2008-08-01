@@ -110,14 +110,14 @@
                 <li>
                   
  					<c:url var="image" value="/images/${item.newsThumb.string}"/>
-                  <a href="full ${item.moniker.string}"><img width="128" src="${image}" alt="${item.newsLabel.string}"/></a><a title="full ${item.moniker.string}" href="${item.sourceLink.string}">${item.newsLabel.string}</a>
+                  <a href="${item.sourceLink.string}"><img width="128" src="${image}" alt="${item.newsLabel.string}"/></a><a title="full ${item.moniker.string}" href="${item.sourceLink.string}">${item.newsLabel.string}</a>
                 </li>
             </c:forEach>
             <c:forEach  items="${rs}" var="item" begin="${random2}" end="${random2}">
                 <li class="clean">
                   
  					<c:url var="image" value="/images/${item.newsThumb.string}"/>
-                  <a href="full ${item.moniker.string}"><img width="128" src="${image}" alt="${item.newsLabel.string}"/></a><a title="full ${item.moniker.string}" href="${item.sourceLink.string}">${item.newsLabel.string}</a>
+                  <a href="${item.sourceLink.string}"><img width="128" src="${image}" alt="${item.newsLabel.string}"/></a><a title="full ${item.moniker.string}" href="${item.sourceLink.string}">${item.newsLabel.string}</a>
                 </li>
             </c:forEach>
         </ul>
