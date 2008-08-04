@@ -295,7 +295,7 @@
                 <c:forEach items='${researchResults}' var="Research" varStatus="researchCount">
                     <c:set var="areaID" value="${fn:substringAfter(Research['areaUri'],'#')}"/>
                     <li id="${areaID}">
-                        <c:url var="href" value="/entity">
+                        <c:url var="href" value="http://vivo.cornell.edu/entity">
                             <c:param name="uri" value="${Research['areaUri']}"/>
                         </c:url>
                         <a href="${href}" title="">${Research['areaLabel'].string}</a>

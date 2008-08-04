@@ -30,7 +30,7 @@
 
             <c:forEach  items="${rs.rows}" var="person">
                 <li>
-                    <c:url var="href" value="/entity"><c:param name="uri" value="${person.person}"/></c:url>
+                    <c:url var="href" value="http://vivo.cornell.edu/entity"><c:param name="uri" value="${person.person}"/></c:url>
                     <a href="${href}">${person.personLabel.string}</a>
                 </li>
             </c:forEach>

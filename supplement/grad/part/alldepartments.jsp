@@ -46,7 +46,7 @@
         <tbody>
             <c:forEach  items="${rs.rows}" var="dept" varStatus="counter">
                 <c:url var="deptHref" value="departments.jsp"><c:param name="uri" value="${dept.deptUri}"/><c:param name="deptLabel" value="${dept.deptLabel.string}"/></c:url>
-                <c:url var="deptLocationHref" value="/entity"><c:param name="uri" value="${dept.deptLocation}"/></c:url>
+                <c:url var="deptLocationHref" value="http://vivo.cornell.edu/entity"><c:param name="uri" value="${dept.deptLocation}"/></c:url>
                 <c:set var="deptPageLink" value="${dept.deptPageUrl.string}"/>
                     <tr<c:if test='${counter.index mod 2 != 0}'> class="even"</c:if>>
                         <td class="deptName <c:if test='${counter.index == 0}'>firstRow</c:if>"><a href="${deptHref}" title="more about this department">${dept.deptLabel.string}</a></td>

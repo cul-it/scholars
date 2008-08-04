@@ -13,7 +13,7 @@
                 
                 <div id="apply">
                     <p>Begin the process of studying in one of the world's most exciting and diverse academic environments.</p>
-                    <a href="http://www.gradschool.cornell.edu/?p=1" id="applyButton" title="Apply"><img src="images/layout/button_apply.gif" alt="Apply Button"/></a>
+                    <a href="http://www.gradschool.cornell.edu/?p=1" id="applyButton" title="Apply"><img src="resources/images/layout/button_apply.gif" alt="Apply Button"/></a>
                 </div>
                 
             </div><!-- content -->

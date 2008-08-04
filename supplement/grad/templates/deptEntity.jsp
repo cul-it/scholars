@@ -90,7 +90,7 @@
             <ul>
                 <c:forEach items='${entity.objectPropertyMap[locationPropUri].objectPropertyStatements}' var="location" varStatus="itemCount">
                     <c:if test="${itemCount.last == true}"><c:set var="counter">${counter + itemCount.index + 3}</c:set></c:if>
-                    <c:url var="href" value="/entity">
+                    <c:url var="href" value="http://vivo.cornell.edu/entity">
                         <c:param name="uri" value="${location.object.URI}"/>
                     </c:url>
                     <li><a href="${location.object.url}" title="more about this location in VIVO">${location.object.name}</a></li>
@@ -114,7 +114,7 @@
             <ul>
                 <c:forEach items='${entity.objectPropertyMap[sponsorsSeriesPropUri].objectPropertyStatements}' var="series" varStatus="itemCount">
                     <c:if test="${itemCount.last == true}"><c:set var="counter">${counter + itemCount.index + 2}</c:set></c:if>
-                    <c:url var="href" value="/entity">
+                    <c:url var="href" value="http://vivo.cornell.edu/entity">
                         <c:param name="uri" value="${series.object.URI}"/>
                     </c:url>
                     <li><a href="<str:decodeUrl>${series.object.url}</str:decodeUrl>" title="${series.object.anchor}">${series.object.name}</a></li>
@@ -291,7 +291,7 @@
             <c:if test="${maxProjects le (projectsTotal + 5)}"><c:set var="maxProjects" value="${maxProjects + 10}" /></c:if>
                 <ul>
                     <c:forEach items='${entity.objectPropertyMap[financialAwardPropUri].objectPropertyStatements}' var="project" begin="0" end="${maxProjects - 1}">
-                        <c:url var="href" value="/entity">
+                        <c:url var="href" value="http://vivo.cornell.edu/entity">
                             <c:param name="uri" value="${project.object.URI}"/>
                         </c:url>
                         <li><a href="${href}" title="more about this project in VIVO">${project.object.name}</a></li>
@@ -301,7 +301,7 @@
                 <span class="toggleLink" title="full list of projects">${projectsTotal-maxProjects} more</span>
                 <ul id="moreProjects" class="collapsed" style="display: none;">
                     <c:forEach items='${entity.objectPropertyMap[financialAwardPropUri].objectPropertyStatements}' var="project" begin="${maxProjects}">
-                        <c:url var="href" value="/entity">
+                        <c:url var="href" value="http://vivo.cornell.edu/entity">
                             <c:param name="uri" value="${project.object.URI}"/>
                         </c:url>
                         <li><a href="${href}" title="more about this project in VIVO">${project.object.name}</a></li>

@@ -75,7 +75,7 @@
             </c:if>
         </c:when>
         <c:otherwise>
-            <img src="images/profile_missing.gif" title="actual photo unavailable" alt="profile photo" width="150"/>
+            <img src="resources/images/profile_missing.gif" title="photo unavailable" alt="photo unavailable" width="150"/>
         </c:otherwise>
     </c:choose>
     <c:set var="firstName" value="${fn:substringAfter(entity.name,',')}"/>
@@ -128,7 +128,7 @@
                     </c:set>
                 </c:when>
                 <c:otherwise>
-                    <c:url var="pubHref" value="/entity">
+                    <c:url var="pubHref" value="http://vivo.cornell.edu/entity">
                         <c:param name="uri" value="${publications.object.URI}"/>
                     </c:url>
                 </c:otherwise>
@@ -147,7 +147,7 @@
     <h3>Research Grants</h3>
     <ul>
         <c:forEach var="research" items="${primaryInvestigator}">
-        <c:url var="grantHref" value="/entity">
+        <c:url var="grantHref" value="http://vivo.cornell.edu/entity">
             <c:param name="uri" value="${research.object.URI}"/>
         </c:url>    
             <li><a title="more about this in VIVO" href="${grantHref}">${research.object.name}</a></li>
@@ -161,7 +161,7 @@
     <h3>Teaching</h3>
     <ul>
         <c:forEach var="courses" items="${teaches}">
-        <c:url var="courseHref" value="/entity">
+        <c:url var="courseHref" value="http://vivo.cornell.edu/entity">
             <c:param name="uri" value="${courses.object.URI}"/>
         </c:url>    
             <li><a title="more about this in VIVO" href="${courseHref}">${courses.object.name}</a>

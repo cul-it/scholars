@@ -22,16 +22,19 @@
                
                DateTime past = now.plusDays(-200);
                request.setAttribute("past", "\"" + past.toDateTimeISO().toString() + "\"" );
+               
+               DateTime future = now.plusDays(90);
+               request.setAttribute("future", "\"" + future.toDateTimeISO().toString() + "\"" );
         </jsp:scriptlet>
-        
+
         <sparql:sparql>
-          <listsparql:select model="${applicationScope.jenaOntModel}" var="upcomingEvents" now="${now}" >
+          <listsparql:select model="${applicationScope.jenaOntModel}" var="upcomingEvents" now="${now}" future="${future}" >
                 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
                 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
                 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
                 PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
                 PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
-                SELECT DISTINCT ?talkUri ?blurb ?label ?timekey ?hostname ?location ?person
+                SELECT DISTINCT ?talkUri ?blurb ?label ?timekey ?hostname ?location ?person ?linkUrl
                 WHERE
                 {
                 ?talkUri
@@ -42,28 +45,28 @@
                   vitro:blurb   ?blurb ;
                   rdfs:label ?label .
 
-                 OPTIONAL{
-                  ?talkUri
-                      vivo:eventHasHostPerson ?person ;
-                      vivo:eventHeldInFacility ?place .
-
-                  ?person rdfs:label ?hostname .
-                  
-                  ?person vivo:AcademicEmployeeOtherParticipantAsFieldMemberInAcademicInitiative ?field .
-
-                  ?field rdf:type vivo:GraduateField .
-                  
-                  ?field vivo:associatedWith ?group . 
-                  
-                  ?group rdf:type vivo:fieldCluster .
-
-                  ?place rdfs:label ?location .
-
-                 }
-                 FILTER( xsd:dateTime(?now) > ?sunrise  && xsd:dateTime(?now) < ?timekey )
+                  OPTIONAL { 
+                   ?talkUri vivo:eventHasHostPerson ?person .
+                   ?person rdfs:label ?hostname .
+                   ?person vivo:AcademicEmployeeOtherParticipantAsFieldMemberInAcademicInitiative ?field .
+                   ?field rdf:type vivo:GraduateField .
+                   ?field vivo:associatedWith ?group . 
+                   ?group rdf:type vivo:fieldCluster .
+                   }
+                   
+                   OPTIONAL {
+                   ?talkUri vivo:eventHeldInFacility ?place .
+                   ?place rdfs:label ?location .
+                   }
+                   
+                   OPTIONAL {
+                   ?talkUri vitro:primaryLink ?link . 
+                   ?link vitro:linkURL ?linkUrl .
+                   }
+                 FILTER( xsd:dateTime(?now) > ?sunrise && xsd:dateTime(?now) < ?timekey )
                 }
                 ORDER BY ?timekey
-                LIMIT 2
+                LIMIT 15
             </listsparql:select>
               
             <listsparql:select model="${applicationScope.jenaOntModel}" var="pastEvents" now="${now}" past="${past}" >
@@ -72,7 +75,7 @@
                   PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
                   PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
                   PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
-                  SELECT DISTINCT ?talkUri ?blurb ?label ?timekey ?hostname ?location ?person
+                  SELECT DISTINCT ?talkUri ?blurb ?label ?timekey ?hostname ?location ?person ?linkUrl
                   WHERE
                   {
                   ?talkUri
@@ -83,28 +86,28 @@
                     vitro:blurb   ?blurb ;
                     rdfs:label ?label .
 
-                   OPTIONAL{
-                    ?talkUri
-                        vivo:eventHasHostPerson ?person ;
-                        vivo:eventHeldInFacility ?place .
-
+                   OPTIONAL { 
+                    ?talkUri vivo:eventHasHostPerson ?person .
                     ?person rdfs:label ?hostname .
-                    
                     ?person vivo:AcademicEmployeeOtherParticipantAsFieldMemberInAcademicInitiative ?field .
-
                     ?field rdf:type vivo:GraduateField .
-                    
                     ?field vivo:associatedWith ?group . 
-                    
                     ?group rdf:type vivo:fieldCluster .
-
+                    }
+                    
+                    OPTIONAL {
+                    ?talkUri vivo:eventHeldInFacility ?place .
                     ?place rdfs:label ?location .
-
-                   }
+                    }
+                    
+                    OPTIONAL {
+                    ?talkUri vitro:primaryLink ?link . 
+                    ?link vitro:linkURL ?linkUrl .
+                    }
                    FILTER( xsd:dateTime(?now) > ?timekey  && xsd:dateTime(?past) < ?timekey )
                   }
                   ORDER BY DESC(?timekey)
-                  LIMIT 20
+                  LIMIT 15
               </listsparql:select>
               
             <fmt:setLocale value="en_US"/>
@@ -113,10 +116,13 @@
             <h3>Upcoming Events</h3>
             
             <c:choose>
-            <c:when test="${fn:length(upcomingEvents) < 3}">
-                <p>There are currently no Life Sciences events listed. New lectures, seminars and colloquia will be posted here as the academic semester approaches.</p>
+            <c:when test="${fn:length(upcomingEvents) < 1}">
+                <p>There are currently no events listed. New lectures, seminars and colloquia will be posted here as the academic semester approaches.</p>
             </c:when>
                 <c:otherwise>
+                    <c:if test="${fn:length(upcomingEvents) < 5}">
+                        <p><strong>NOTE:</strong> This list is short due to the time of year. As the academic semester approaches new lectures, seminars and colloquia will be posted here.</p>
+                    </c:if>
                     <ul>
                         <c:forEach  items="${upcomingEvents}" var="talk" begin="0" varStatus="status">
                             <fmt:parseDate var="seminarTimekey" value="${talk.timekey.string}" pattern="yyyy-MM-dd'T'HH:mm:ss" />
@@ -124,8 +130,8 @@
                             <fmt:formatDate var="calendarStart" value="${seminarTimekey}" pattern="yyyyMMdd'T'HHmm'-0500'" />
                             <fmt:formatDate var="calendarEnd" value="${seminarTimekey}" pattern="yyyyMMdd" />
 
-                            <c:url var="seminarLink" value="/entity"><c:param name="uri" value="${talk.talkUri}"/></c:url>
-                            <c:url var="seminarHostLink" value="/entity"><c:param name="uri" value="${talk.person}"/><c:param name="name" value="${talk.hostname.string}"/></c:url>
+                            <c:url var="seminarLink" value="http://vivo.cornell.edu/entity"><c:param name="uri" value="${talk.talkUri}"/></c:url>
+                            <c:url var="seminarHostLink" value="http://vivo.cornell.edu/entity"><c:param name="uri" value="${talk.person}"/><c:param name="name" value="${talk.hostname.string}"/></c:url>
                             <c:set var="firstName" value="${fn:substringAfter(talk.hostname.string,',')}"/>
                             <c:set var="lastName" value="${fn:substringBefore(talk.hostname.string,',')}"/>
 
@@ -133,7 +139,7 @@
 
                             <li class="vevent">
                             <dl>
-                                <dt class="summary"><a href="${seminarLink}" class="url">${talk.label.string}</a></dt>
+                                <dt class="summary"><a href="<str:decodeUrl>${talk.linkUrl.string}</str:decodeUrl>" class="url">${talk.label.string}</a></dt>
                                 <dd>Date: <abbr title="${calendarStart}" class="dtstart">${seminarDate}</abbr></span></dd>
                                 <!-- <span class="abbrEnd"><abbr title="${calendarEnd}" class="dtend"> &amp;ndash; &amp;#63;</abbr></span> -->
                                 <c:if test="${not empty talk.hostname.string}">
@@ -154,7 +160,7 @@
                 </c:choose>
                 
                 
-                <h3>Past Events</h3>
+                <h3>Recent Events</h3>
                 <ul>
                     <c:forEach  items="${pastEvents}" var="talk" begin="0" varStatus="status">
                         <fmt:parseDate var="seminarTimekey" value="${talk.timekey.string}" pattern="yyyy-MM-dd'T'HH:mm:ss" />
@@ -162,7 +168,7 @@
                         <fmt:formatDate var="calendarStart" value="${seminarTimekey}" pattern="yyyyMMdd'T'HHmm'-0500'" />
                         <fmt:formatDate var="calendarEnd" value="${seminarTimekey}" pattern="yyyyMMdd" />
 
-                        <c:url var="seminarLink" value="/entity"><c:param name="uri" value="${talk.talkUri}"/></c:url>
+                        <c:url var="seminarLink" value="http://vivo.cornell.edu/entity"><c:param name="uri" value="${talk.talkUri}"/></c:url>
                         <c:url var="seminarHostLink" value="faculty.jsp"><c:param name="uri" value="${talk.person}"/><c:param name="name" value="${talk.hostname.string}"/></c:url>
                         <c:set var="firstName" value="${fn:substringAfter(talk.hostname.string,',')}"/>
                         <c:set var="lastName" value="${fn:substringBefore(talk.hostname.string,',')}"/>

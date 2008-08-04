@@ -1757,6 +1757,32 @@ body#search #resultsCount {
     color: red;
 }
 
+body#search #pagination {
+    margin: 40px 0 60px 0;
+    font-size: 1.3em;
+}
+
+body#search #pagination a {
+    color: #fff;
+    float: left;
+    padding:  3px 6px 3px 6px;
+    margin-right: 4px;
+    background: #204647;
+    border: 1px solid #2f6869;
+}
+
+body#search #pagination span {
+    float: left;
+    padding:  3px 7px 3px 7px;
+    margin-right: 4px;
+    font-weight: bold;
+}
+
+body#search #pagination a:hover {
+    border: 1px solid #fff;
+}
+
+
 body#feedback form {
     margin-top: 30px;
 }

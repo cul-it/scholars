@@ -19,35 +19,44 @@
                  now="${now}" >
     <![CDATA[
 
-              PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-              PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-              PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-              PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
-              PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
-              SELECT DISTINCT ?talkUri ?blurb ?label ?timekey ?hostname ?location ?person
-              WHERE
-              {
-              ?talkUri
-                rdf:type vivo:LectureSeminarOrColloquium ;
-                vitro:timekey ?timekey ;
-                vitro:sunrise ?sunrise ;
-                vitro:blurb   ?blurb ;
-                rdfs:label ?label .
+        PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+        PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+        PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+        PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
+        PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
+        SELECT DISTINCT ?talkUri ?blurb ?label ?timekey ?hostname ?location ?person
+        WHERE
+        {
+        ?talkUri
+          rdf:type vivo:LectureSeminarOrColloquium ;
+          rdf:type vitro:Flag1Value1Thing ;
+          vitro:timekey ?timekey ;
+          vitro:sunrise ?sunrise ;
+          vitro:blurb   ?blurb ;
+          rdfs:label ?label .
 
-               OPTIONAL{
-                ?talkUri
-                    vivo:eventHasHostPerson ?person ;
-                    vivo:eventHeldInFacility ?place .
+          OPTIONAL{
+          ?talkUri vivo:eventHasHostPerson ?person .
+       
+          ?talkUri vivo:eventHeldInFacility ?place .
 
-                ?person rdfs:label ?hostname .
-                
-                ?place rdfs:label ?location .
-                
-               }
-               FILTER( xsd:dateTime(?now) > ?sunrise  && xsd:dateTime(?now) < ?timekey )
-              }
-              ORDER BY ?timekey
-              LIMIT 2
+          ?person rdfs:label ?hostname .
+      
+          ?person vivo:AcademicEmployeeOtherParticipantAsFieldMemberInAcademicInitiative ?field .
+
+          ?field rdf:type vivo:GraduateField .
+      
+          ?field vivo:associatedWith ?group . 
+      
+          ?group rdf:type vivo:fieldCluster .
+
+          ?place rdfs:label ?location .
+
+         }
+         FILTER( xsd:dateTime(?now) > ?sunrise && xsd:dateTime(?now) < ?timekey )
+        }
+        ORDER BY ?timekey
+        LIMIT 2
 
           ]]>
     </sparql:select>
@@ -59,8 +68,8 @@
                 <fmt:formatDate var="calendarStart" value="${seminarTimekey}" pattern="yyyyMMdd'T'HHmm'-0500'" />
                 <fmt:formatDate var="calendarEnd" value="${seminarTimekey}" pattern="yyyyMMdd" />
                 
-                <c:url var="seminarLink" value="/entity"><c:param name="uri" value="${talk.talkUri}"/></c:url>
-                <c:url var="seminarHostLink" value="/entity"><c:param name="uri" value="${talk.person}"/></c:url>
+                <c:url var="seminarLink" value="http://vivo.cornell.edu/entity"><c:param name="uri" value="${talk.talkUri}"/></c:url>
+                <c:url var="seminarHostLink" value="http://vivo.cornell.edu/entity"><c:param name="uri" value="${talk.person}"/></c:url>
                 <c:set var="firstName" value="${fn:substringAfter(talk.hostname.string,',')}"/>
                 <c:set var="lastName" value="${fn:substringBefore(talk.hostname.string,',')}"/>
 
