@@ -601,8 +601,9 @@ div.content {
 
 /**************************************************************/
 
-#content {
-    padding: 12px;
+#content,
+.contents {
+    margin: 12px;
 }
 
 #dashboard {
@@ -723,7 +724,25 @@ a .SearchTerm {
     color: #a00000;
 }
 
+.resultsMoreSpan {
+	font-size:0.9em;
+	color: #B31B1B;
+}
 
+.resultsMoreSpan img {
+	position:relative; top:+0.3ex;
+	margin-right:0.2em;
+}
+
+div.siteMap ul {
+    list-style-type: none;
+    margin-left: 0;
+    padding-left: 0;
+}
+
+div.siteMap h2 {
+    margin-left: 0;
+}
 
 /*********** Entity List ****************/
 

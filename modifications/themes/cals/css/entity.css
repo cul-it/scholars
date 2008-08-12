@@ -14,7 +14,7 @@
 
 .entity{
 	margin-left:0.4em;
-	margin-top:1em;
+	margin-top:2em;
 	font-size:1em;
 	line-height:1.5em;
 }
@@ -65,8 +65,8 @@ em.moniker {
 	font-weight:normal;
 	margin-top:1ex;
 	list-style-type:square;
-	margin-left:1.2em;
-	padding-left:1.2em;
+/*  margin-left:1.2em;*/
+	padding-left:1.3em;
 }
 
 .description ul li{
@@ -232,14 +232,13 @@ ul.datatypeProperties li p {
 
 /************ toggle-related ***************************/
 
-.entityMoreSpan,
-.resultsMoreSpan {
+.entityMoreSpan {
 	font-size:0.9em;
 	color: #B31B1B;
+	font-weight: bold;
 }
 
-.entityMoreSpan img
-.resultsMoreSpan img {
+.entityMoreSpan img {
 	position:relative; top:+0.3ex;
 	margin-right:0.2em;
 }

@@ -123,11 +123,18 @@
 
 /******** vertical layout *****/
 
+div.tab ul,
+div.subtabs ul {
+/*    list-style-type: square;*/
+/*    padding-left: 0;*/
+/*    margin-left: 0;*/
+}
+
 ul.tabSubAsList {
-	list-style:disc;
-	margin-left:2em;
-	margin-top:0.5ex;
-	margin-bottom:0.5ex;
+    list-style-type: none;
+/*    margin-left:1.3em;*/
+  margin-top:0.5ex;
+  margin-bottom:0.5ex;
 	padding:0;
 }
 
@@ -171,7 +178,7 @@ ul.tabEntities {
 	margin-top:0.2em;
 	margin-bottom:0.2em;
 /*  margin-left:2.2em;*/
-	margin-left:1.6em;
+	margin-left:1.8em;
 	padding:0;
 }
 
