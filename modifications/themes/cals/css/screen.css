@@ -2,6 +2,9 @@
  CSS for CALS research portals
  main site styles
  
+ Last Modified
+ 2008-08-12	mw542
+ 
  This version
  2006-07-03 bjl23
 *****************************************/
@@ -14,38 +17,47 @@ body {
 	color:black;
 	font-size:82%;
 	line-height:120%;
-	margin-top:1ex ;
-	margin-bottom:1ex;
-	margin-left:0.5em;
-	margin-right:0.5em;
+/*  margin-top:1ex ;*/
+/*  margin-bottom:1ex;*/
+/*  margin-left:0.5em;*/
+/*  margin-right:0.5em;*/
+    margin: 10px 5px;
 }
 
 #wrap{
 	background-color:rgb(207,207,173);
 	color:inherit;
+	margin: 0 30px;
 }
 
 img {
 	border:0 hidden;
 }
 
-h1 {
+h2 {
 	font-size:1.2em;
 	margin-top:0.7em;
 	margin-bottom:0.7em;
+	margin-left: 20px; /*setting to indent headings outside a content div*/
 }
 
-h2 {
+h3 {
 	font-size:1.15em;
 	margin-top:0.6em;
 	margin-bottom:0.6em;
 }
 
-h3 {
+h4 {
 	font-size:1.0em;
 	margin-top:0.5em;
 	margin-bottom:0.5em;
 	font-weight:500;
+}
+
+h5 {
+	font-size:1.0em;
+	margin-top:0.5em;
+	margin-bottom:0.5em;
 }
 
 table{
@@ -83,6 +95,8 @@ a img {
 
 a.externalLink{
 	font-style:italic;
+	font-size: .9em;
+	text-decoration: underline;
 }
 
 /*************************** forms ****************************/
@@ -173,7 +187,8 @@ td#logotypeArea{
 td.plainBannerAreaRight {
 	background-color:black;
 	color:inherit;
-	height:93px;
+/*  height:93px;*/
+    min-height: 85px;
 }
 
 td.shadedBannerArea{
@@ -181,8 +196,32 @@ td.shadedBannerArea{
 	padding-left:1em;
 }
 
-table#interportalnav{
+table#interportalnav {
 	font-size:0.9em;
+	line-height: 105%;
+	color: #4d4d40;
+	font-weight: bold;
+}
+
+table#interportalnav td {
+    text-align: center;
+/*    background: #F1F1D1;*/
+/*    background: url(../site_icons/interportalnav-bg.jpg) repeat-x top center;*/
+/*    border: 1px solid #bebebe;*/
+    border: 2px solid #CFCFAD;
+    background: #C5C5A3;
+    padding: 0;
+}
+
+table#interportalnav td a {
+    display: block;
+    padding: 6px 5px 4px 5px;
+    background: none;
+    font-weight: normal;
+}
+table#interportalnav td a:hover {
+    background: #ccc;
+    background: #f2f2dc;
 }
 
 table#CALS_Research_Head{
@@ -217,7 +256,8 @@ table#head td{
 /************** header search form related ***********************/
 
 td#shadedSearchBox{
-	padding:0.7em;
+/*  padding:0.7em;*/
+    padding: 8px 12px;
 	font-size:0.9em;
 }
 
@@ -360,7 +400,8 @@ form.indent {
 	background-color:rgb(207,207,173);
 	color:inherit;
 	width:100%;
-	min-height:2em; 
+/*  min-height:2em; */
+	min-height:1em; 
 	padding-top:0;
 	padding-bottom:0;
 }
@@ -374,6 +415,8 @@ form.indent {
 	padding-top:0;
 	padding-bottom:0;
 	min-height:2em;
+	min-height:2em;
+	display: none;
 }
 
 #menu li {
@@ -391,6 +434,7 @@ form.indent {
 	font-weight:normal;
 	background-image: url(../site_icons/CALSbucketNav_3.gif);
 	background-repeat: repeat-x;
+	padding: auto 4px;
 }
 
 #primary li.activePrimaryTab{
@@ -418,9 +462,16 @@ form.indent {
 }
 
 #otherMenu li{
-	background-color: rgb(222, 222, 222);
+/*  background-color: rgb(222, 222, 222);*/
 	color:inherit;
-	border-left: 1px solid rgb(222, 184, 135);
+/*  border-left: 1px solid rgb(222, 184, 135);*/
+    border-left: 1px solid #ccc;
+}
+
+#dashboard ul {
+    padding: 0;
+    list-style-position: inside;
+    list-style-type: none;
 }
 
 #otherMenu a:hover {
@@ -435,8 +486,10 @@ form.indent {
 #otherMenu a {
 	color: gray;
 	background-color:inherit;
-	padding-left:0.4em;
-	padding-right:0.4em;
+/*  padding-left:0.4em;*/
+/*  padding-right:0.4em;*/
+    padding-left: 0.6em;
+    padding-right: 0.6em;
 	line-height:2em;
 
 }
@@ -444,16 +497,20 @@ form.indent {
 #primary a {
 	color: black;
 	background-color:inherit;
-	padding-left:0.4em;
-	padding-right:0.4em;
+/*  padding-left:0.4em;*/
+/*  padding-right:0.4em;*/
+    padding-left: 0.6em;
+    padding-right: 0.6em;
 	line-height:2em;
 }
 
 #primary a:hover {
-padding-top:0.6ex;
-padding-bottom:0.6ex;
-padding-left:0.4em;
-padding-right:0.4em;
+    padding-top:0.6ex;
+    padding-bottom:0.6ex;
+    /*padding-left:0.4em;*/
+    /*padding-right:0.4em;*/
+    padding-left: 0.6em;
+    padding-right: 0.6em;
 	background-image: url(../site_icons/CALSbucketNav_over_1.gif);
 	background-repeat: repeat-x;
 }
@@ -516,10 +573,10 @@ div.breadCrumbs {
 	font-size:0.9em;
 	height:3.5ex;
 	line-height:3.5ex;
-	padding-left:0.3em;
+	padding-left: 7px;
 	margin-top:0px;
 	margin-bottom:0px;
-	border-bottom:1px solid #EEEEEE;
+/*  border-bottom:1px solid #EEEEEE;*/
 }
 
 div.content {
@@ -544,9 +601,21 @@ div.content {
 
 /**************************************************************/
 
+#content {
+    padding: 12px;
+}
+
+#dashboard {
+    width: 25%;
+    float: right;
+    background: #f0f0f0;
+    margin: 0 20px 12px 12px;
+    padding: 12px;
+}
+
 .contents{
-	padding-left:1em;
-	padding-right:1.5em;
+/*  padding-left:1em;*/
+/*  padding-right:1.5em;*/
 }
 
 .float-hack{
@@ -569,18 +638,22 @@ div.content {
    
 /********** browsegroup *****************/
 
-.contents_browseGroup .searchTOC{
-	margin-top:1em;
-	margin-left:0.3em;
-	padding:0.4em;
+.contentsBrowseGroup {
+    padding: 20px;
+}
+
+.contentsBrowseGroup .searchTOC{
+	margin-top:0;
+	margin-left:0;
+	padding:0;
 	line-height:2.5em;
 }
 
-.contents_browseGroup .searchTOC a{
+.contentsBrowseGroup .searchTOC a{
 	border-width:1px;
 	border-style:dotted;
 	background-color:#eeeeee;
-	color:inherit;
+	color: #666;
 	padding-top:0.3em;
 	padding-bottom:0.3em;
 	padding-right:0.6em;
@@ -588,29 +661,34 @@ div.content {
 	margin-top:0;
 	margin-left:0.2em;
 	margin-right:0.2em;
+	text-transform: uppercase;
 }
 
-.contents_browseGroup a{
+.contentsBrowseGroup a{
 	text-decoration:none;
 }
 
-.contents_browseGroup ul{
-	margin-top:0.4em;
+.contentsBrowseGroup ul{
+/*  margin-top:0.4em;*/
+	margin-top:0;
 	margin-bottom:0.4em;
+	padding: 0 0 0 10px;
+	list-style-type: none;
 }
 
-.contents_browseGroup li{
-	margin-top:0.7em;
-	margin-bottom:0.7em;
+.contentsBrowseGroup li{
+/*  margin-top:0.7em;*/
+/*  margin-bottom:0.7em;*/
+    margin: .2em 0 .5em 0;
 }
 
-.contents_browseGroup li div{
+.contentsBrowseGroup li div{
 	font-size:0.9em;
 	color:gray;
 	background-color:inherit;
 }
 
-.contents_browseGroup h2{
+.contentsBrowseGroup h2{
 	font-size:1.3em;
 	font-weight:500;
 	color:black;
@@ -620,15 +698,31 @@ div.content {
 	padding-bottom:0.3em;
 }
 
-.contents_browseGroup h3{
-	margin-left:0.6em;
+.contentsBrowseGroup h3{
+	margin-top: 2em;
+	text-transform: uppercase;
+	border-bottom: 1px solid #ccc;
+	color: #999;
+	padding-bottom: 3px;
+}
+
+.contentsBrowseGroup h4{
+	margin-top: 1em;
+	margin-bottom: .5em;
+	font-weight: bold;
 }
 
 .SearchTerm{
-	color:red;
+/*  color:red;*/
+    color: #777;
 	background-color:inherit;
 	font-weight:bold;
 }
+
+a .SearchTerm {
+    color: #a00000;
+}
+
 
 
 /*********** Entity List ****************/
@@ -688,10 +782,11 @@ div.footer{
 	background-color:#e0e0e0;
 	color:inherit;
 	margin:0;
-	padding-left:0.45em;
-	padding-right:0.45em;
-	padding-top:0.45em;
-	padding-bottom:0.45em;
+/*  padding-left:0.45em;*/
+/*  padding-right:0.45em;*/
+/*  padding-top:0.45em;*/
+/*  padding-bottom:0.45em;*/
+    padding: 5px;
 }
 
 .staticPageBackground table{

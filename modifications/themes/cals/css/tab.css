@@ -1,0 +1,186 @@
+/****************************
+ CSS for CALS tab styles
+ 
+ Last Modified
+ 2008-08-12	mw542
+ 
+ This version
+ 2006-06-29 bjl23
+***************************/
+
+
+/************ header ******************/
+
+#contents h2 {
+	border-bottom:1px solid #999966;
+	font-weight:normal;
+/*  font-size:1.1em;*/
+	font-size:1.3em;
+	padding-left:0;
+	padding-top:0.5ex;
+	padding-bottom:0.5ex;
+/*  margin-top:0ex;*/
+    margin-top: 1em;
+/*  margin-left:0.45em;*/
+    margin-left: 6px;
+/*  margin-right:0em;*/
+    margin-right: 6px;
+}
+
+.tab.depth1 table {	
+	table-layout:fixed; 
+}
+
+/*
+
+.tab.depth2 {
+	font-size:0.9em;
+}
+
+*/
+
+.tab.depth2 h3 {
+	background-image: url(../site_icons/h2_bg_4.jpg);
+	background-repeat:repeat-x;
+/*  border-bottom:1px solid #999966;*/
+	border-bottom:1px solid #ddd;
+	font-size:1em;
+	line-height:2ex;
+	font-weight: normal;
+/*      padding: 0.6ex 0.45em 0.6ex 0.45em;*/
+    padding: 8px 6px;
+	margin-right:0;
+	margin-left:0;
+	margin-top:1.5ex;
+	margin-bottom:1.5ex;
+}
+
+.tab.depth2 table {
+	table-layout:fixed;
+}
+
+.tab.depth3 h4{	
+	font-weight: normal;
+	margin:0;
+/*      padding: 0.6ex 0.45em 0.6ex 0.45em;*/
+    padding: 8px 6px;
+}
+
+.tabBody {
+/*  margin-left:0.9em;*/
+/*  margin-right:0.45em;*/
+    margin: auto 6px;
+	/* font-size:1em;
+	line-height:2.5ex; */
+}
+
+.tabBody h4{
+	font-weight:bold;
+	text-align:center;
+}
+
+.tabBody table{
+	table-layout:auto;
+}
+
+.tabBody img{
+	margin-right:0.5em;
+}
+
+.tabBody form{
+	margin-top:0.5ex;
+	margin-bottom:0.5ex;
+}
+
+.tabBody p{
+	margin-top:1.4ex;
+	margin-bottom:1.4ex;
+}
+
+#tabContent, .depth2 {
+    margin-top: 20px;
+}
+
+/******** table *******************/
+
+#contents td{
+	vertical-align: top;
+	padding:0.2em;
+}
+
+.subtabs table{
+	 width: 100%;
+}
+
+#tabContent table{
+	width: 100%;
+/*	table-layout:fixed; */
+}
+
+#tabContent td {
+  padding:0.4em;
+}
+
+/******** vertical layout *****/
+
+ul.tabSubAsList {
+	list-style:disc;
+	margin-left:2em;
+	margin-top:0.5ex;
+	margin-bottom:0.5ex;
+	padding:0;
+}
+
+ul.tabSubAsList li{
+	/* font-size:1em;
+	line-height:2.2ex; */
+	margin:0;
+	padding:0;
+}
+
+.tabDesc{
+/*  margin-left:0.8em;*/
+    margin-left: 6px;
+	font-size:1em;
+	line-height:2.4ex;
+}
+
+.alphaIndex{
+/*  margin-left:0.45em;*/
+/*  margin-right:0.45em;*/
+/*  margin-top:1em;*/
+/*  margin-bottom:1em;*/
+    margin: 12px 6px;
+}
+
+/** tab specific ***/
+/* a style can be applied to a single tab based on its tabId */
+
+#tabNN{
+	color:rgb(200,0,0);
+	background-color:rgb(0,200,200); 
+}
+
+/**************** tab entities ******************/
+
+.tabEntities img {
+	position:relative; left:-0.2em;
+}
+
+ul.tabEntities {
+	margin-top:0.2em;
+	margin-bottom:0.2em;
+/*  margin-left:2.2em;*/
+	margin-left:1.6em;
+	padding:0;
+}
+
+.tabEntities li{
+	padding: 0 0 0 0;
+	margin-top:1em;
+	margin-bottom:1em;
+}
+
+.tabEntities.entityListForGalleryTab{
+	margin-left:0.8em;
+}
