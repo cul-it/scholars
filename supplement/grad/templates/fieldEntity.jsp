@@ -50,6 +50,13 @@
         
         <c:set var="facultyTotal" value='${fn:length(entity.objectPropertyMap[facultyMembersPropUri].objectPropertyStatements)}' />
         
+        <%-- A very ridiculous method for filtering out Emeritus Faculty --%>
+        <c:set var="emeritusTotal" value="0"/>
+        <c:forEach var="person" items='${entity.objectPropertyMap[facultyMembersPropUri].objectPropertyStatements}'>
+            <c:if test="${fn:contains(person.object.moniker, 'Emeritus') == true}"><c:set var="emeritusTotal" value="${emeritusTotal + 1}"/></c:if>
+        </c:forEach>
+        <c:set var="facultyTotal" value='${facultyTotal - emeritusTotal}' />
+        
         <%--This calculates ideal column lengths based on total items--%>
         <c:choose>
             <c:when test="${(facultyTotal mod 2) == 0}"><%--For lists that will have even column lengths--%>
@@ -61,65 +68,82 @@
                 <fmt:parseNumber var="facultyColumnSize" value="${colSize}" type="number" integerOnly="true" />
             </c:otherwise>
         </c:choose>
+        
+        <%-- Figure out how many of those pesky emeritus faculty are in each column --%>
+        <c:set var="emeritusOne" value="0"/>
+        <c:forEach var="person" items='${entity.objectPropertyMap[facultyMembersPropUri].objectPropertyStatements}' begin="0" end="${facultyColumnSize - 1}">
+            <c:if test="${fn:contains(person.object.moniker, 'Emeritus') == true}"><c:set var="emeritusOne" value="${emeritusOne + 1}"/></c:if>
+        </c:forEach>
+        
+        <c:set var="emeritusTwo" value="0"/>
+        <c:forEach var="person" items='${entity.objectPropertyMap[facultyMembersPropUri].objectPropertyStatements}' begin="${facultyColumnSize}">
+            <c:if test="${fn:contains(person.object.moniker, 'Emeritus') == true}"><c:set var="emeritusTwo" value="${emeritusTwo + 1}"/></c:if>
+        </c:forEach>
                 
             <ul class="colOne">
-                <c:forEach items='${entity.objectPropertyMap[facultyMembersPropUri].objectPropertyStatements}' var="Faculty" varStatus="facultyCount" begin="0" end="${facultyColumnSize - 1}">
-                <c:set var="facultyID" value="${fn:substringAfter(Faculty.object.URI,'#')}"/>
-                <li id="${facultyID}">
-                    <c:url var="href" value="faculty.jsp">
-                        <c:param name="uri" value="${Faculty.object.URI}"/>
-                        <c:param name="name" value="${Faculty.object.name}"/>
-                        <c:param name="fieldUri" value="${param.uri}"/>
-                        <c:param name="fieldLabel" value="${param.fieldLabel}"/>
-                        <c:if test="${!empty param.groupLabel}">
-                            <c:param name="groupUri" value="${param.groupUri}"/>
-                            <c:param name="groupLabel" value="${param.groupLabel}"/>
-                            <c:param name="groupClass" value="${param.groupClass}"/>
-                        </c:if>
-                    </c:url>
-                    <c:choose>
-                        <c:when test="${!empty Faculty.object.imageThumb}">
-                            <c:url var="cluetipHref" value="data/facultyProfile.jsp">
-                                <c:param name="uri" value="${Faculty.object.URI}"/>
-                            </c:url>
-                            <a href="${href}" title="view profile" rel="${cluetipHref}"><img width="44px" alt="" src="${imageDir}${Faculty.object.imageThumb}"/></a>
-                        </c:when>
-                        <c:otherwise>
-                            <a href="${href}" title="view profile" rel="${cluetipHref}"><img width="44px" alt="" src="images/profile_missing.gif"/></a>
-                        </c:otherwise>
-                    </c:choose>
-                    <strong><a href="${href}" title="view profile" rel="${cluetipHref}">${Faculty.object.name}</a></strong>
-                    <em>${Faculty.object.moniker}</em>
-                </li>
+                <c:forEach items='${entity.objectPropertyMap[facultyMembersPropUri].objectPropertyStatements}' var="Faculty" varStatus="facultyCount" begin="0" end="${facultyColumnSize - 1 + emeritusOne}">
+                <c:set var="emeritusStatus" value="${fn:contains(Faculty.object.moniker,'Emeritus')}"/>
+                <c:if test="${emeritusStatus != true}">
+                    <c:set var="facultyID" value="${fn:substringAfter(Faculty.object.URI,'#')}"/>
+                    <li id="${facultyID}">
+                        <c:url var="href" value="faculty.jsp">
+                            <c:param name="uri" value="${Faculty.object.URI}"/>
+                            <c:param name="name" value="${Faculty.object.name}"/>
+                            <c:param name="fieldUri" value="${param.uri}"/>
+                            <c:param name="fieldLabel" value="${param.fieldLabel}"/>
+                            <c:if test="${!empty param.groupLabel}">
+                                <c:param name="groupUri" value="${param.groupUri}"/>
+                                <c:param name="groupLabel" value="${param.groupLabel}"/>
+                                <c:param name="groupClass" value="${param.groupClass}"/>
+                            </c:if>
+                        </c:url>
+                        <c:choose>
+                            <c:when test="${!empty Faculty.object.imageThumb}">
+                                <c:url var="cluetipHref" value="data/facultyProfile.jsp">
+                                    <c:param name="uri" value="${Faculty.object.URI}"/>
+                                </c:url>
+                                <a href="${href}" title="view profile" rel="${cluetipHref}"><img width="44px" alt="" src="${imageDir}${Faculty.object.imageThumb}"/></a>
+                            </c:when>
+                            <c:otherwise>
+                                <a href="${href}" title="view profile" rel="${cluetipHref}"><img width="44px" alt="" src="resources/images/profile_missing.gif"/></a>
+                            </c:otherwise>
+                        </c:choose>
+                        <strong><a href="${href}" title="view profile" rel="${cluetipHref}">${Faculty.object.name}</a></strong>
+                        <em>${Faculty.object.moniker}</em>
+                    </li>
+                </c:if>
                 </c:forEach>
             </ul>
         
             <ul class="colTwo">
-                <c:forEach items='${entity.objectPropertyMap[facultyMembersPropUri].objectPropertyStatements}' var="Faculty" begin="${facultyColumnSize}">
-                <c:set var="facultyID" value="${fn:substringAfter(Faculty.object.URI,'#')}"/>
-                <li id="${facultyID}">
-                    <c:url var="href" value="faculty.jsp">
-                        <c:param name="uri" value="${Faculty.object.URI}"/>
-                        <c:param name="name" value="${Faculty.object.name}"/>
-                        <c:param name="fieldUri" value="${param.uri}"/>
-                        <c:param name="fieldLabel" value="${param.fieldLabel}"/>
-                        <c:if test="${!empty param.groupLabel}">
-                            <c:param name="groupUri" value="${param.groupUri}"/>
-                            <c:param name="groupLabel" value="${param.groupLabel}"/>
-                            <c:param name="groupClass" value="${param.groupClass}"/>
-                        </c:if>
-                    </c:url>
-                    <c:choose>
-                        <c:when test="${!empty Faculty.object.imageThumb}">
-                            <a href="${href}" title="view profile"><img width="44px" alt="" src="${imageDir}${Faculty.object.imageThumb}"/></a>
-                        </c:when>
-                        <c:otherwise>
-                            <a href="${href}" title="view profile"><img width="44px" alt="" src="images/profile_missing.gif"/></a>
-                        </c:otherwise>
-                    </c:choose>
-                    <strong><a href="${href}" title="view profile">${Faculty.object.name}</a></strong>
-                    <em>${Faculty.object.moniker}</em>
-                </li>
+                <c:forEach items='${entity.objectPropertyMap[facultyMembersPropUri].objectPropertyStatements}' var="Faculty" begin="${facultyColumnSize + emeritusOne}">
+                <c:set var="emeritusStatus" value="${fn:contains(Faculty.object.moniker,'Emeritus')}"/>
+                <c:if test="${emeritusStatus != true}">
+                    <c:set var="facultyID" value="${fn:substringAfter(Faculty.object.URI,'#')}"/>
+                    <li id="${facultyID}">
+                        <c:url var="href" value="faculty.jsp">
+                            <c:param name="uri" value="${Faculty.object.URI}"/>
+                            <c:param name="name" value="${Faculty.object.name}"/>
+                            <c:param name="fieldUri" value="${param.uri}"/>
+                            <c:param name="fieldLabel" value="${param.fieldLabel}"/>
+                            <c:if test="${!empty param.groupLabel}">
+                                <c:param name="groupUri" value="${param.groupUri}"/>
+                                <c:param name="groupLabel" value="${param.groupLabel}"/>
+                                <c:param name="groupClass" value="${param.groupClass}"/>
+                            </c:if>
+                        </c:url>
+                        <c:choose>
+                            <c:when test="${!empty Faculty.object.imageThumb}">
+                                <a href="${href}" title="view profile"><img width="44px" alt="" src="${imageDir}${Faculty.object.imageThumb}"/></a>
+                            </c:when>
+                            <c:otherwise>
+                                <a href="${href}" title="view profile"><img width="44px" alt="" src="images/profile_missing.gif"/></a>
+                            </c:otherwise>
+                        </c:choose>
+                        <strong><a href="${href}" title="view profile">${Faculty.object.name}</a></strong>
+                        <em>${Faculty.object.moniker}</em>
+                    </li>
+                </c:if>
                 </c:forEach>
             </ul>    
 </div><!-- fieldFaculty -->

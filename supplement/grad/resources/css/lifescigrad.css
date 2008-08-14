@@ -1857,7 +1857,7 @@ body#feedback select {
     padding: 0;
 }
 
-body#feedback img {
+body#feedback #content img {
     display: block;
     margin-bottom: 4px;
     cursor: pointer;

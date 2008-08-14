@@ -131,7 +131,7 @@
                           PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
                           PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
                           PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
-                          SELECT DISTINCT ?person ?personLabel ?netid ?otherid ?thumb
+                          SELECT DISTINCT ?person ?personLabel ?netid ?otherid ?thumb ?moniker
                           WHERE
                           {
                             ?group
@@ -145,11 +145,16 @@
                             ?person
                             vivo:AcademicEmployeeOtherParticipantAsFieldMemberInAcademicInitiative
                             ?field .
-                       
+                                                        
+                            ?person
+                            vitro:moniker
+                            ?moniker .
+                            
                           OPTIONAL { ?person rdfs:label ?personLabel }
                           OPTIONAL { ?person vivo:CornellemailnetId ?netid }
                           OPTIONAL { ?person vivo:nonCornellemail ?otherid }
                           OPTIONAL { ?person vitro:imageThumb ?thumb }
+                          FILTER (!regex(?moniker, "emeritus", "i"))
                           }
                           ORDER BY ?personLabel
                           LIMIT 3000
@@ -169,7 +174,6 @@
                                 <c:set var="realCounter" value="0"/>
                             
                                 <c:forEach  items="${rs.rows}" var="person" varStatus="counter">
-                            
                                     <c:set var="facultyName" value="${person.personLabel.string}"/>
                                     <c:set var="facultyUri" value="${person.person}"/>
                                     <c:url var="facultyHref" value="faculty.jsp"><c:param name="uri" value="${person.person}"/><c:param name="name" value="${person.personLabel.string}"/></c:url>
