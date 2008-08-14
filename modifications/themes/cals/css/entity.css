@@ -171,6 +171,11 @@ div.datatypeProperties ul {
     margin-top: 0;
 }
 
+/* jc55 added 2008-08-12 */
+div.datatypeProperties li {
+	list-style-type:none;
+}
+
 div.datatypeProperties ul,
 div.datatypeProperties ol {
     padding-left: 1.4em;
