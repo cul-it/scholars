@@ -58,7 +58,7 @@
                     WHERE
                     {
                     ?group 
-                    vivo:enumeratedSetAssociatedWithGenericAgent 
+                    vivo:hasAssociatedGroup 
                     ?uri .
                     
                     ?uri
@@ -73,10 +73,11 @@
                     LIMIT 200
                   </listsparql:select>
                 </sparql:sparql>
-                
+               
+		<c:if test="${!empty programs}"> 
                 <div class="gradEducation">
-                    <h3>Additional Programs</h3>
-                      <ul>
+                    <h3>Related Programs</h3>
+                      <ul class="related">
                       <c:forEach  items="${programs}" var="program">
                         <c:choose>
                             <c:when test="${!empty program.url.string}">
@@ -91,7 +92,7 @@
                       </c:forEach>
                       </ul>
                   </div>
-                
+                </c:if>
                     
                 <sparql:sparql>
                   <listsparql:select model="${applicationScope.jenaOntModel}" var="gradGroupings">
