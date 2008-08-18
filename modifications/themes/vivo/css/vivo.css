@@ -286,6 +286,7 @@ div.propsItem {
 /*    background: #f5f5f5;*/
 /*    border: 2px solid #f0f0f0;*/
     border: 1px solid #fff;
+    background: #fff;
 }
 
 div.highlighted {
@@ -301,6 +302,20 @@ ul.properties {
 div.admin {
 /*    display: none;*/
 }
+
+ul.datatypePropertyValue li {
+    margin-bottom: .5em;
+}
+
+ul.datatypePropertyValue ul {
+    display: inline;
+    list-style-position: inside;
+}
+
+ul.datatypePropertyValue ul li {
+    margin: 0;
+}
+
 
 /***********************/
 
@@ -323,9 +338,6 @@ a.edit img {
 	margin-right: -5px; /* tighten space between edit and delete icons */
 }
 
-div.datatypePropertyValue a.edit img {
-    margin-left: 0;  /* no margin for edit icon inside datatype property boxes */
-}
 
 li.property {
 	color: #bbb;
@@ -336,21 +348,14 @@ li.property a.edit {
 	padding: 6px;
 }
 
-.datatypePropertyValue {
-/*  clear: left;*/
-}
-
 ul.tabEntities {
 	margin-top: 25px;
 }
 
-#datatypeProperties ul ul {
+.datatypeProperties ul ul {
 	margin-left: 10px;
-	font-size: 0.9em;
-}
-
-#datatypeProperties ul, #datatypeProperties ol, #datatypeProperties p {
-/*  clear: left;*/
+	list-style-position: inside;
+    font-size: 0.9em;
 }
 
 .datatypeProperties ol {

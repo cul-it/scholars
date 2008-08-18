@@ -50,7 +50,7 @@ if ( $("ul#profileCats").length ) {
                 borderLeftColor: borderColor,
                 borderRightColor: borderColor,
                 backgroundColor: bgColor
-                }, 500);
+                }, 800);
             $(property).addClass("highlighted");
         }
     }
@@ -61,18 +61,34 @@ if ( $("ul#profileCats").length ) {
     }
     
     function scrollToHighlight(property){
-        var targetOffset = $(property).offset().top;
-        var divHeight = document.getElementById(property.substring(1)).offsetHeight;
+        // Note: we're doing all this extra stuff because initial values for height and offset are wrong
+        // since they are calculated before all the property groups are hidden.
+        var targetOffset = $(property).offset({scroll: false}).top; // top of the div we want to highlight
+        var offsetFromParent = targetOffset - $(property).parent().offset({scroll: false}).top; // how far it is down from its parent div
+        var firstGroupOffset = $("div.propsCategory:first").offset({scroll: false}).top; // how far the very first property group is from the beginning of the document
+        targetOffset = firstGroupOffset + offsetFromParent; // where we'll scroll to (with property groups hidden)
+        var divHeight = $(property).height(); // total height of what we want to highglight
         var viewportHeight = getViewportHeight();
-        var scrollPosition = getScrollPosition();
-        // alert("Target Top: " + targetOffset + "\nDiv Height: " + divHeight + "\nViewport: " + viewportHeight + "\nScroll Position: " + scrollPosition);
+        var scrollPosition = getScrollPosition(); 
+        
+        // alert("Property:" + property 
+        //     + "\nTarget Top: " + targetOffset 
+        //     + "\nOffset from Parent: " + offsetFromParent 
+        //     + "\nFirst Group: " + firstGroupOffset 
+        //     + "\nDiv Height: " + divHeight 
+        //     + "\nViewport: " + viewportHeight 
+        //     + "\nScroll Position: " + scrollPosition);
         // $('html,body').animate({scrollTop: targetOffset - (viewportHeight/2)}, 700); 
-        if (targetOffset < scrollPosition || (targetOffset + divHeight) > (viewportHeight + scrollPosition - 40)){
-            if(divHeight >=  viewportHeight*.6) { 
-                $('html,body').animate({scrollTop: targetOffset - 40}, 700); 
+        
+        // if the div for property to be highlighted is outside of the viewport
+        if (targetOffset < scrollPosition || (targetOffset + divHeight) > (viewportHeight + scrollPosition - 40)){  
+            // if it's a big div, fill most of the viewport with it
+            if(divHeight >=  viewportHeight*.6) {   
+                $('html,body').animate({scrollTop: targetOffset - 40}, 1000); 
             }
+            // if it's a little div, scroll so that it's top is about one third from the top of the viewport
             if(divHeight < viewportHeight*.6) { 
-                $('html,body').animate({scrollTop: targetOffset - (viewportHeight/2)}, 700);
+                $('html,body').animate({scrollTop: targetOffset - (viewportHeight/3)}, 1000);
             }
         }
         changeHighlight(property);
