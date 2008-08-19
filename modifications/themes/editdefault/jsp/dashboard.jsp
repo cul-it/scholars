@@ -31,8 +31,6 @@
         <c:if test="${!empty entity.imageFile}"></a></c:if>
     </c:if>
     <c:if test="${showSelfEdits || showCuratorEdits}">
-        <c:import url="${dashboardPropsListJsp}">
-        	<c:param name="keywords">visible</c:param>
-        </c:import>
+        <c:import url="${dashboardPropsListJsp}"/>
     </c:if>
 </div>

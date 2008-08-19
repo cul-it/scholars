@@ -48,7 +48,7 @@
             </c:forEach>
         </c:if>
     </ul>
-    <c:if test="${showCuratorEdits}">
-        <jsp:include page="../../../edit/dashboardPropsList.jsp" flush="true"/>
+    <c:if test="${showSelfEdits || showCuratorEdits}">
+        <c:import url="${dashboardPropsListJsp}"/>
     </c:if>
 </div>
