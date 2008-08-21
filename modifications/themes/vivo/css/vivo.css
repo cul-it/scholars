@@ -391,7 +391,7 @@ div.indent, ul.datatypeProperties li.datatypeProperty p, div.blurb {
 
 div.description {
     clear: left;
-    float: left;
+    /* float: left; */
     margin-top: 16px;
 }
 

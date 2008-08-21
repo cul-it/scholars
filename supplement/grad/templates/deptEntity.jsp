@@ -158,44 +158,52 @@
     </div><!-- deptOverview -->     
      
     <div id="deptFaculty">
-            
+        
+        <jsp:directive.page import="org.joda.time.DateTime" />
+        <jsp:directive.page session="false" />
+        <jsp:scriptlet>
+               DateTime now = new DateTime();
+               request.setAttribute("now", "\"" + now.toDateTimeISO().toString() + "\"" );
+        </jsp:scriptlet>
+        
         <%-- We're getting the moniker in this query to use as a flag in differentiating faculty. It's used in a test below to leave non-grad-portal faculty unlinked. Those with monikers in the results are those who participate in life sciences graduate fields. --%>
              
             <sparql:sparql>
-                <listsparql:select model="${applicationScope.jenaOntModel}" var="facultyInDept" dept="<${param.uri}>">
-                PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-                PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-                PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
-                PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
-                SELECT DISTINCT ?person ?personLabel ?moniker
-                WHERE {
+                <listsparql:select model="${applicationScope.jenaOntModel}" var="facultyInDept" dept="<${param.uri}>" now="${now}">
+                    PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+                    PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+                    PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
+                    PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
+                    PREFIX afn: <http://jena.hpl.hp.com/function#>
+                    PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+                    SELECT DISTINCT ?person ?personLabel ?moniker
+                    WHERE {
 
-                ?person
-                vivo:holdFacultyAppointmentIn ?dept ;
-                rdfs:label ?personLabel .
+                    ?person
+                    vivo:holdFacultyAppointmentIn ?dept ;
+                    rdfs:label ?personLabel .
 
-                OPTIONAL {
+                    OPTIONAL {
 
-                    ?person vivo:AcademicEmployeeOtherParticipantAsFieldMemberInAcademicInitiative ?field .
+                        ?person vivo:AcademicEmployeeOtherParticipantAsFieldMemberInAcademicInitiative ?field .
 
-                    ?group 
-                    vivo:hasAssociated ?field ;
-                    rdf:type vivo:fieldCluster .
+                        ?group 
+                        vivo:hasAssociated ?field ;
+                        rdf:type vivo:fieldCluster .
 
-                    ?group vitro:moniker ?moniker .
-                    
+                        ?group vitro:moniker ?moniker .
+    
+                        }
+                    ?person vitro:moniker ?emeritus .
+                    ?person vitro:sunset ?sunset .
+    
+                    FILTER (!regex(?emeritus, "emeritus", "i") && ?sunset > xsd:dateTime(?now))
                     }
-                ?person vitro:moniker ?emeritus .
-                    
-                FILTER (!regex(?emeritus, "emeritus", "i"))
-                }
-                ORDER BY ?personLabel
-                LIMIT 200
+                    ORDER BY ?personLabel
+                    LIMIT 200
                 </listsparql:select>
             </sparql:sparql>
-        
-        
-        
+            
             <h3>Faculty</h3>     
             
             <c:set var="facultyTotal" value='${fn:length(facultyInDept)}' />
