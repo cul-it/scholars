@@ -24,7 +24,7 @@
 	    </c:choose>
 	</title>
 	
-	<c:url var="faviconLoc" value="/favicon.ico"/>
+	<c:url var="faviconLoc" value="resources/images/icons/favicon.ico"/>
 	<link rel="shortcut icon" href="${faviconLoc}"/>
 	<link rel="stylesheet" href="resources/css/screen.css" type="text/css" />
     <link rel="stylesheet" href="${jsDir}/niftyCorners.css" type="text/css" />

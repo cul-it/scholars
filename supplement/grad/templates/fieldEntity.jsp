@@ -137,7 +137,7 @@
                                 <a href="${href}" title="view profile"><img width="44px" alt="" src="${imageDir}${Faculty.object.imageThumb}"/></a>
                             </c:when>
                             <c:otherwise>
-                                <a href="${href}" title="view profile"><img width="44px" alt="" src="images/profile_missing.gif"/></a>
+                                <a href="${href}" title="view profile"><img width="44px" alt="" src="resources/images/profile_missing.gif"/></a>
                             </c:otherwise>
                         </c:choose>
                         <strong><a href="${href}" title="view profile">${Faculty.object.name}</a></strong>
@@ -188,7 +188,7 @@
                     </c:if>
                 </c:url>
                 <c:url var="thumbSrc" value='${imageDir}${spotlight.imageThumb}'/>
-                <c:if test="${empty spotlight.imageThumb}"><c:url var="thumbSrc" value='images/profile_missing.gif'/></c:if>
+                <c:if test="${empty spotlight.imageThumb}"><c:url var="thumbSrc" value='resources/images/profile_missing.gif'/></c:if>
                 <c:set var="firstName" value="${fn:substringAfter(spotlight.name,',')}"/>
                 <c:set var="lastName" value="${fn:substringBefore(spotlight.name,',')}"/>
                 
