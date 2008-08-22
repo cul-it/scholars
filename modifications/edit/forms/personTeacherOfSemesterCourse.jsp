@@ -12,50 +12,50 @@
 
 <v:jsonset var="monikerExisting" >
       PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
-      SELECT ?moniker
-      WHERE {  ?newCourse vitro:moniker ?moniker }
+      SELECT ?existingMoniker
+      WHERE {  ?newCourse vitro:moniker ?existingMoniker }
 </v:jsonset>
 <v:jsonset var="monikerAssertion" >
-      @prefix vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>.
+      @prefix vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#> .
       ?newCourse vitro:moniker ?moniker .
 </v:jsonset>
 
-<v:jsonset var="courseNameExisting" >
+<v:jsonset var="titleExisting" >
       PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-      SELECT ?name
-      WHERE {  ?newCourse rdfs:label ?name }
+      SELECT ?existingTitle
+      WHERE {  ?newCourse rdfs:label ?existingTitle }
 </v:jsonset>
-<v:jsonset var="courseNameAssertion" >
-      @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
-      ?newCourse rdfs:label ?courseName .
+<v:jsonset var="titleAssertion" >
+      @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+      ?newCourse rdfs:label ?title .
 </v:jsonset>
 
-<v:jsonset var="courseDescExisting" >
+<v:jsonset var="descriptionExisting" >
       PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
       SELECT ?desc
       WHERE {  ?newCourse vitro:description ?desc }
 </v:jsonset>
-<v:jsonset var="courseDescAssertion" >
-      @prefix vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>.
-      ?newCourse vitro:description ?courseDescription .
+<v:jsonset var="descriptionAssertion" >
+      @prefix vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#> .
+      ?newCourse vitro:description ?eescription .
 </v:jsonset>
 
-<v:jsonset var="courseHeldInExisting" >
+<v:jsonset var="roomExisting" >
       PREFIX vivo:  <http://vivo.library.cornell.edu/ns/0.1#>
-      SELECT ?extBuilding
-      WHERE {  ?newCourse vivo:eventHeldInFacility ?extBuilding }
+      SELECT ?existingRoom
+      WHERE {  ?newCourse vivo:eventHeldInFacility ?existingRoom }
 </v:jsonset>
-<v:jsonset var="courseHeldInAssertion" >
-      @prefix vivo:  <http://vivo.library.cornell.edu/ns/0.1#>.
-      ?newCourse vivo:eventHeldInFacility ?heldIn .
+<v:jsonset var="roomAssertion" >
+      @prefix vivo:  <http://vivo.library.cornell.edu/ns/0.1#> .
+      ?newCourse vivo:eventHeldInFacility ?room .
 </v:jsonset>
 
-<v:jsonset var="courseSemesterExisting" >
+<v:jsonset var="semesterExisting" >
       PREFIX vivo:  <http://vivo.library.cornell.edu/ns/0.1#>
-      SELECT ?extSem
-      WHERE {  ?newCourse vivo:SemesterCourseOccursInSemester  ?extSem }
+      SELECT ?existingSemester
+      WHERE {  ?newCourse vivo:SemesterCourseOccursInSemester  ?existingSemester }
 </v:jsonset>
-<v:jsonset var="courseSemesterAssertion" >
+<v:jsonset var="semesterAssertion" >
       @prefix vivo:  <http://vivo.library.cornell.edu/ns/0.1#>.
       ?newCourse vivo:SemesterCourseOccursInSemester  ?semester .
 </v:jsonset>
@@ -72,9 +72,9 @@
     ?newCourse rdf:type vivo:CornellSemesterCourse.
 
     ?newCourse
-          vitro:moniker     ?moniker;
-          vitro:description ?courseDescription;
-          rdfs:label        ?courseName.
+          vitro:moniker     ?moniker ;
+          vitro:description ?description ;
+          rdfs:label        ?title .
 
     ?newCourse vivo:SemesterCourseOccursInSemester ?semester.
 </v:jsonset>
@@ -99,21 +99,22 @@
     "newResources"  : { "newCourse" : "http://vivo.library.cornell.edu/ns/0.1#individual" },
     "urisInScope"    : { },
     "literalsInScope": { },
-    "urisOnForm"     : ["semester","heldIn"],
-    "literalsOnForm" :  [ "courseDescription", "courseName", "moniker" ],
+    "urisOnForm"     : ["semester","room"],
+    "literalsOnForm" : [ "description", "title", "moniker" ],
     "filesOnForm"    : [ ],
     "sparqlForLiterals" : { },
-    "sparqlForUris" : {  },
+    "sparqlForUris" : { },
     "sparqlForExistingLiterals" : {
-        "courseDescription" : "${courseDescExisting}",
-        "courseName"        : "${courseNameExisting}",
-        "moniker"           : "${monikerExisting}" },
+        "description"       : "${descriptionExisting}",
+        "title"             : "${titleExisting}",
+        "moniker"           : "${monikerExisting}" 
+    },
     "sparqlForExistingUris" : {
-        "heldIn"            : "${courseHeldInExisting}",
-        "semester"          : "${courseSemesterExisting}"
+        "room"              : "${roomExisting}",
+        "semester"          : "${semesterExisting}"
     },
     "fields" : {
-      "courseName" : {
+      "title" : {
          "newResource"      : "false",
          "validators"       : [ "nonempty" ],
          "optionsType"      : "UNDEFINED",
@@ -122,9 +123,9 @@
          "objectClassUri"   : "",
          "rangeDatatypeUri" : "",
          "rangeLang"        : "",
-         "assertions"       : [ "${courseNameAssertion}" ]
+         "assertions"       : [ "${titleAssertion}" ]
       },
-     "courseDescription" : {
+     "description" : {
          "newResource"      : "false",
          "validators"       : [ "nonempty" ],
          "optionsType"      : "UNDEFINED",
@@ -133,7 +134,7 @@
          "objectClassUri"   : "",
          "rangeDatatypeUri" : "",
          "rangeLang"        : "",
-         "assertions"       : [ "${courseDescAssertion}" ]
+         "assertions"       : [ "${descriptionAssertion}" ]
       },
       "moniker" : {
          "newResource"      : "false",
@@ -162,9 +163,9 @@
          "objectClassUri"   : "${semesterClass}",
          "rangeDatatypeUri" : "",
          "rangeLang"        : "",
-         "assertions"       : [ "${courseSemesterAssertion}"]
+         "assertions"       : [ "${semesterAssertion}"]
       },
-      "heldIn" : {
+      "room" : {
          "newResource"      : "false",
          "validators"       : [ ],
          "optionsType"      : "INDIVIDUALS_VIA_VCLASS",
@@ -173,7 +174,7 @@
          "objectClassUri"   : "${buildingClass}",
          "rangeDatatypeUri" : "",
          "rangeLang"        : "",
-         "assertions"       : [ "${courseHeldInAssertion}" ]
+         "assertions"       : [ "${roomAssertion}" ]
       }
     }
   }
@@ -215,11 +216,11 @@
 
 <h2>${title}</h2>
 <form action="<c:url value="/edit/processRdfForm2.jsp"/>" >
-    <v:input type="text" label="course title" id="courseName" size="60"/>
+    <v:input type="text" label="course title" id="title" size="60"/>
     <v:input type="checkbox" label="semester" id="semester"/>
-    <v:input type="select" label="held in location" id="heldIn"/>
+    <v:input type="select" label="held in location" id="room"/>
     <v:input type="radio" label="credit value" id="moniker"/>
-    <v:input type="textarea" label="course description" id="courseDescription" rows="5"/>
+    <v:input type="textarea" label="course description" id="description" rows="5"/>
     <v:input type="submit" id="submit" value="<%=submitLabel%>" cancel="${param.subjectUri}"/>
 </form>
 

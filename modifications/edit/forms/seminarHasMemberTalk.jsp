@@ -11,76 +11,76 @@
 <v:jsonset var="talkClass">http://vivo.library.cornell.edu/ns/0.1#LectureSeminarOrColloquium</v:jsonset>
 <v:jsonset var="heldInObjProp">http://vivo.library.cornell.edu/ns/0.1#eventHeldInFacility</v:jsonset>
 
-<v:jsonset var="talkMonikerExisting" >
+<v:jsonset var="monikerExisting" >
       PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
       SELECT ?existingMoniker
-      WHERE {  ?talk vitro:moniker ?existingMoniker }
+      WHERE { ?newTalk vitro:moniker ?existingMoniker }
 </v:jsonset>
-<v:jsonset var="talkNameExisting" >
+<v:jsonset var="titleExisting" >
       PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-      SELECT ?name
-      WHERE {  ?talk rdfs:label ?name }
+      SELECT ?existingTitle
+      WHERE { ?newTalk rdfs:label ?existingTitle }
 </v:jsonset>
-<v:jsonset var="talkBlurbExisting" >
+<v:jsonset var="blurbExisting" >
       PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
-      SELECT ?blurb
-      WHERE {  ?talk vitro:blurb ?blurb }
+      SELECT ?existingBlurb
+      WHERE { ?newTalk vitro:blurb ?existingBlurb }
 </v:jsonset>
-<v:jsonset var="talkHeldInExisting" >
+<v:jsonset var="roomExisting" >
       PREFIX vivo:  <http://vivo.library.cornell.edu/ns/0.1#>
-      SELECT ?extBuilding
-      WHERE {  ?talk vivo:eventHeldInFacility ?extBuilding }
+      SELECT ?existingRoom
+      WHERE { ?newTalk vivo:eventHeldInFacility ?existingRoom }
 </v:jsonset>
-<v:jsonset var="talkTimekeyExisting" >
-    PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
-    SELECT ?time
-    WHERE { ?talk vitro:timekey ?time } 
+<v:jsonset var="timekeyExisting" >
+      PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
+      SELECT ?existingTimekey
+      WHERE { ?newTalk vitro:timekey ?existingTimekey } 
 </v:jsonset>
 
 <v:jsonset var="monikerAssertion" >
-      @prefix vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>.
-      ?talk vitro:moniker ?moniker .
+      @prefix vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#> .
+      ?newTalk vitro:moniker ?assertedMoniker .
 </v:jsonset>
-<v:jsonset var="talkNameAssertion" >
-    @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
-    ?talk rdfs:label ?talkName .
+<v:jsonset var="titleAssertion" >
+      @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+      ?newTalk rdfs:label ?assertedTitle .
 </v:jsonset>
-<v:jsonset var="talkBlurbAssertion" >
-      @prefix vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>.
-      ?talk vitro:blurb ?talkBlurb  .
+<v:jsonset var="blurbAssertion" >
+      @prefix vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#> .
+      ?newTalk vitro:blurb ?assertedBlurb .
 </v:jsonset>
-<v:jsonset var="talkHeldInAssertion" >
-      @prefix vivo:  <http://vivo.library.cornell.edu/ns/0.1#>.
-    ?talk vivo:eventHeldInFacility ?room .
+<v:jsonset var="roomAssertion" >
+      @prefix vivo:  <http://vivo.library.cornell.edu/ns/0.1#> .
+      ?newTalk vivo:eventHeldInFacility ?assertedRoom .
 </v:jsonset>
-<v:jsonset var="talkTimekeyAssertion" >
-      @prefix vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>.
-      ?talk vitro:timekey ?talkTimekey  .
+<v:jsonset var="timekeyAssertion" >
+      @prefix vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#> .
+      ?newTalk vitro:timekey ?assertedTimekey .
 </v:jsonset>
 
 
 <v:jsonset var="n3ForEdit"  >
-    @prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
-    @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
-    @prefix vivo: <http://vivo.library.cornell.edu/ns/0.1#>.
-    @prefix vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>.
+      @prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+      @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+      @prefix vivo: <http://vivo.library.cornell.edu/ns/0.1#> .
+      @prefix vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#> .
 
-    ?series vivo:seminarOrLectureSeriesHasMemberTalk  ?talk.
-    ?talk   vivo:talkMemberOfSeminarOrLectureSeries ?series.
+      ?series vivo:seminarOrLectureSeriesHasMemberTalk  ?newTalk .
+      ?newTalk   vivo:talkMemberOfSeminarOrLectureSeries ?series .
 
-    ?talk rdf:type vivo:LectureSeminarOrColloquium .
+      ?newTalk rdf:type vivo:LectureSeminarOrColloquium .
 
-    ?talk
-          vitro:moniker     ?moniker;
-          vitro:description ?talkDescription;
-          rdfs:label        ?talkName;
-          vitro:timekey     ?timekey.
+      ?newTalk
+          vitro:moniker     ?assertedMoniker ;
+          vitro:blurb       ?assertedBlurb ;
+          rdfs:label        ?assertedTitle ;
+          vitro:timekey     ?assertedTimekey .
 </v:jsonset>
 
 <v:jsonset var="n3optional"  >
-    @prefix vivo: <http://vivo.library.cornell.edu/ns/0.1#>.
-    ?talk vivo:eventHeldInFacility ?room .
-    ?room vivo:facilityForEvent ?talk .
+      @prefix vivo: <http://vivo.library.cornell.edu/ns/0.1#>.
+      ?newTalk vivo:eventHeldInFacility ?assertedRoom .
+      ?assertedRoom vivo:facilityForEvent ?newTalk .
 </v:jsonset>
 
 <c:set var="editjson" scope="request">
@@ -91,93 +91,93 @@
 
     "subject"   : ["series",    "${subjectUriJson}", ],
     "predicate" : ["predicate", "${predicateUriJson}" ],
-    "object"    : ["talk", "${objectUriJson}", "URI" ],
+    "object"    : ["newTalk", "${objectUriJson}", "URI" ],
     
-    "n3required"    : [ "${n3ForEdit}" ],
-    "n3optional"    : [ "${n3optional}" ],
-    "newResources"  : { "talk" : "http://vivo.library.cornell.edu/ns/0.1#individual" },
-    "urisInScope"    : { },
-    "literalsInScope": { },
-    "urisOnForm"     : ["room"],
-    "literalsOnForm" :  [ "talkDescription", "talkName", "moniker", "timekey" ],
-    "filesOnForm"    : [ ],
-    "sparqlForLiterals" : { },
-    "sparqlForUris" : {  },
+    "n3required"                : [ "${n3ForEdit}" ],
+    "n3optional"                : [ "${n3optional}" ],
+    "newResources"              : { "newTalk" : "http://vivo.library.cornell.edu/ns/0.1#individual" },
+    "urisInScope"               : { },
+    "literalsInScope"           : { },
+    "urisOnForm"                : [ "assertedRoom" ],
+    "literalsOnForm"            : [ "assertedBlurb", "assertedTitle", "assertedMoniker", "assertedTimekey" ],
+    "filesOnForm"               : [ ],
+    "sparqlForLiterals"         : { },
+    "sparqlForUris"             : { },
     "sparqlForExistingLiterals" : {
-        "talkDescription" : "${talkBlurbExisting}",
-        "talkName"        : "${talkNameExisting}",
-        "moniker"         : "${talkMonikerExisting}" },
-    "sparqlForExistingUris" : {
-        "room"            : "${talkHeldInExisting}",
+        "assertedBlurb"         : "${blurbExisting}",
+        "assertedTitle"         : "${titleExisting}",
+        "assertedMoniker"       : "${monikerExisting}"
+    },
+    "sparqlForExistingUris"     : {
+        "assertedRoom"          : "${roomExisting}",
     },
     "fields" : {
-      "talkName" : {
-         "newResource"      : "false",
-         "validators"       : [ "nonempty" ],
-         "optionsType"      : "UNDEFINED",
-         "literalOptions"   : [],
-         "subjectUri"       : "${param.subjectUri}",
-         "subjectClassUri"  : "",
-         "predicateUri"     : "",
-         "objectClassUri"   : "",
-         "rangeDatatypeUri" : "",
-         "rangeLang"        : "",
-         "assertions"       : [ "${talkNameAssertion}" ]
-      },
-
-     "talkBlurb" : {
-         "newResource"      : "false",
-         "validators"       : [ "nonempty" ],
-         "optionsType"      : "UNDEFINED",
-         "literalOptions"   : [],
-         "subjectUri"       : "${param.subjectUri}",
-         "subjectClassUri"  : "",
-         "predicateUri"     : "",
-         "objectClassUri"   : "",
-         "rangeDatatypeUri" : "",
-         "rangeLang"        : "",
-         "assertions"       : [ "${talkBlurbAssertion}" ]
-      },
-      "moniker" : {
-         "newResource"      : "false",
-         "validators"       : [ ],
-         "optionsType"      : "STRINGS_VIA_DATATYPE_PROPERTY",
-         "literalOptions"   : [],
-         "subjectUri"       : "${param.subjectUri}",
-         "subjectClassUri"  : "",
-         "predicateUri"     : "${param.predicateUri}",
-         "objectClassUri"   : "",
-         "rangeDatatypeUri" : "",
-         "rangeLang"        : "",
-         "assertions"       : [ "${monikerAssertion}" ]
-      },
-      "room" : {
-         "newResource"      : "false",
-         "validators"       : [ ],
-         "optionsType"      : "INDIVIDUALS_VIA_OBJECT_PROPERTY",
-         "literalOptions"   : [" (none)"],
-         "subjectUri"       : "${param.subjectUri}",
-         "subjectClassUri"  : "",
-         "predicateUri"     : "${heldInObjProp}",
-         "objectClassUri"   : "${buildingClass}",
-         "rangeDatatypeUri" : "",
-         "rangeLang"        : "",
-         "assertions"       : [ "${talkHeldInAssertion}" ]
-      } ,
-       "timekey" : {
-         "newResource"      : "false",
-         "validators"       : [ ],
-         "optionsType"      : "UNDEFINED",
-         "literalOptions"   : [],
-         "subjectUri"       : "${param.subjectUri}",
-         "subjectClassUri"  : "",
-         "predicateUri"     : "",
-         "objectClassUri"   : "",
-         "rangeDatatypeUri" : "",
-         "rangeLang"        : "",
-         "assertions"       : [ "${talkTimeKeyAssertion}" ]
-      }
-    }
+        "assertedTitle" : {
+            "newResource"       : "false",
+            "validators"        : [ "nonempty" ],
+            "optionsType"       : "UNDEFINED",
+            "literalOptions"    : [],
+            "subjectUri"        : "${param.subjectUri}",
+            "subjectClassUri"   : "",
+            "predicateUri"      : "",
+            "objectClassUri"    : "",
+            "rangeDatatypeUri"  : "",
+            "rangeLang"         : "",
+            "assertions"        : [ "${titleAssertion}" ]
+        },
+        "assertedBlurb" : {
+            "newResource"       : "false",
+            "validators"        : [ "nonempty" ],
+            "optionsType"       : "UNDEFINED",
+            "literalOptions"    : [],
+            "subjectUri"        : "${param.subjectUri}",
+            "subjectClassUri"   : "",
+            "predicateUri"      : "",
+            "objectClassUri"    : "",
+            "rangeDatatypeUri"  : "",
+            "rangeLang"         : "",
+            "assertions"        : [ "${blurbAssertion}" ]
+        },
+        "assertedMoniker" : {
+            "newResource"       : "false",
+            "validators"        : [ ],
+            "optionsType"       : "STRINGS_VIA_DATATYPE_PROPERTY",
+            "literalOptions"    : [],
+            "subjectUri"        : "${param.subjectUri}",
+            "subjectClassUri"   : "",
+            "predicateUri"      : "${param.predicateUri}",
+            "objectClassUri"    : "",
+            "rangeDatatypeUri"  : "",
+            "rangeLang"         : "",
+            "assertions"        : [ "${monikerAssertion}" ]
+        },
+            "assertedRoom" : {
+            "newResource"       : "false",
+            "validators"        : [ ],
+            "optionsType"       : "INDIVIDUALS_VIA_OBJECT_PROPERTY",
+            "literalOptions"    : [" (none)"],
+            "subjectUri"        : "${param.subjectUri}",
+            "subjectClassUri"   : "",
+            "predicateUri"      : "${heldInObjProp}",
+            "objectClassUri"    : "${buildingClass}",
+            "rangeDatatypeUri"  : "",
+            "rangeLang"         : "",
+            "assertions"        : [ "${roomAssertion}" ]
+        } ,
+            "assertedTimekey"   : {
+            "newResource"       : "false",
+            "validators"        : [ ],
+            "optionsType"       : "UNDEFINED",
+            "literalOptions"    : [],
+            "subjectUri"        : "${param.subjectUri}",
+            "subjectClassUri"   : "",
+            "predicateUri"      : "",
+            "objectClassUri"    : "",
+            "rangeDatatypeUri"  : "",
+            "rangeLang"         : "",
+            "assertions"        : [ "${timeKeyAssertion}" ]
+        }
+     }
   }
 </c:set>
 <%
@@ -214,15 +214,15 @@
 
 <h1>${title}</h1>
 <form action="<c:url value="/edit/processRdfForm2.jsp"/>" >
-    <v:input type="text" label="seminar title" id="talkName" size="60"/>
+    <v:input type="text" label="seminar title" id="assertedTitle" size="60"/>
     <% System.out.println("in seminarHasMemberTalk.jsp A"); %>
-    <v:input type="select" label="held in room" id="room"/>
+    <v:input type="select" label="held in room" id="assertedRoom"/>
     <% System.out.println("in seminarHasMemberTalk.jsp B"); %>
-    <v:input type="text" label="moniker " id="moniker"/>
+    <v:input type="text" label="type of talk" id="assertedMoniker"/>
     <% System.out.println("in seminarHasMemberTalk.jsp B2"); %>
-    <v:input type="datetime" label="date and time" id="timekey"/>
+    <v:input type="datetime" label="date and time" id="assertedTimekey"/>
     <% System.out.println("in seminarHasMemberTalk.jsp C "); %>
-    <v:input type="textarea" label="seminar description" id="talkDescription" rows="5"/>
+    <v:input type="textarea" label="seminar description" id="assertedBlurb" rows="5"/>
     <v:input type="submit" id="submit" value="<%=submitLabel%>" cancel="${param.subjectUri}"/>
 </form>
 

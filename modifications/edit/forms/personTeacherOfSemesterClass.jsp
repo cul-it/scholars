@@ -112,26 +112,26 @@ public static Log log = LogFactory.getLog("edu.cornell.mannlib.vitro.webapp.jsp.
     @prefix vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>.
     @prefix reporting: <http://vitro.mannlib.cornell.edu/ns/reporting#>.
 
-    ?person vivo:teacherOfSemesterClass  ?newSemesterClass.
-    ?newSemesterClass vivo:taughtByAcademicEmployee ?person.
+    ?person vivo:teacherOfSemesterClass  ?newSemesterClass .
+    ?newSemesterClass vivo:taughtByAcademicEmployee ?person .
 
-    ?newSemesterClass rdf:type vivo:CornellSemesterClass.
+    ?newSemesterClass rdf:type vivo:CornellSemesterClass .
 
     ?newSemesterClass
-          vitro:moniker     ?moniker;
-          rdfs:label        ?title.
+          vitro:moniker     ?moniker ;
+          rdfs:label        ?title .
 
-    ?newSemesterClass vivo:classTaughtInSemester ?semester.
+    ?newSemesterClass vivo:classTaughtInSemester ?semester .
 </v:jsonset>
 
 <v:jsonset var="n3optional"  >
-    @prefix vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>.
-    @prefix vivo: <http://vivo.library.cornell.edu/ns/0.1#>.
-    @prefix reporting: <http://vitro.mannlib.cornell.edu/ns/reporting#>.
+    @prefix vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#> .
+    @prefix vivo: <http://vivo.library.cornell.edu/ns/0.1#> .
+    @prefix reporting: <http://vitro.mannlib.cornell.edu/ns/reporting#> .
     
-    ?newSemesterClass vitro:description ?description.
-    ?newSemesterClass vivo:classCourseCode4Digit ?code4digit.
-    ?newSemesterClass reporting:semesterClassEnrollment ?enrollment.
+    ?newSemesterClass vitro:description ?description .
+    ?newSemesterClass vivo:classCourseCode4Digit ?code4digit .
+    ?newSemesterClass reporting:semesterClassEnrollment ?enrollment .
 </v:jsonset>
 
 
