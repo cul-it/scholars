@@ -6,20 +6,45 @@
 <%@ page import="edu.cornell.mannlib.vitro.webapp.controller.VitroRequest" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.filters.VitroRequestPrep" %>
 <%@ page import="java.util.List" %>
+<%@page import="edu.cornell.mannlib.vitro.webapp.auth.identifier.SelfEditingUriFactory"%>
+<%@page import="edu.cornell.mannlib.vitro.webapp.dao.jena.WebappDaoFactoryJena"%>
+<%@page import="edu.cornell.mannlib.vitro.webapp.dao.WebappDaoFactory"%>
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
 <%@ page errorPage="/error.jsp"%>
-<%@ page contentType="text/html; charset=UTF-8"%>
-
-
-<%@ page errorPage="/error.jsp"%>
-<%@ page contentType="text/html; charset=UTF-8"%>
 
 <c:set var="themeDir">themes/editdefault/</c:set>
 
 <%
     String errorMsg = "";
     IdentifierBundle ids =
-            ServletIdentifierBundleFactory.getIdBundleForRequest(request,session,pageContext.getServletContext());
+        ServletIdentifierBundleFactory.getIdBundleForRequest(request,session,pageContext.getServletContext());
+    
+    //get the selfEditingId
+    SelfEditingUriFactory.SelfEditing selfEditingId =
+        SelfEditingUriFactory.getSelfEditingIdentifier(ids);
+    
+    if( selfEditingId != null && 
+        selfEditingId.getBlacklisted() == SelfEditingUriFactory.NOT_BLACKLISTED &&
+        selfEditingId.getValue() != null ){
+        %>
+        <c:redirect url="/entity">       
+            <c:param name="uri" value="${personUri}"/>
+        </c:redirect>
+        <%
+        return;        
+    }
+
+    // Conditions that deny a user self-editing:
+    // no netid from CUWebAuth, not really logged in
+    // blacklisted
+    // A good netid but no individual in the system
+
+    if( selfEditingId.getBlacklisted() != null ){
+        %> <jsp:forward page="/edit/mayNotLogin.jsp"/> <%
+        return;        
+    }
+    
+    //get the netId
     String netid = null;
     if( ids != null ){
         for(Identifier id : ids){
@@ -29,41 +54,29 @@
         }
     }
 
+    
     String personUri = null;
-    VitroRequest vreq = new VitroRequest(request);
-    if( netid != null && netid.length() > 0 && netid.length() < 100){
-        String uri = null;
-        try{
-            uri = vreq.getWebappDaoFactory().getIndividualDao().getIndividualURIFromNetId(netid);
-            if( uri == null  ){
-                errorMsg = NO_NETID_ERROR_MSG;
-            }
-        }catch (Throwable t) {
-            errorMsg = DEFAULT_ERROR_MSG;
-        }
-        Individual ind = vreq.getWebappDaoFactory().getIndividualDao().getIndividualByURI(uri);
-        if( ind == null || ind.getURI() == null ){
+    WebappDaoFactory wdf = (WebappDaoFactory)application.getAttribute("WebappDaoFactory");    
+    String uri = null;
+    Individual ind = null;
+    
+    try{
+        if( netid != null )
+            uri =wdf.getIndividualDao().getIndividualURIFromNetId(netid);    
+        if( uri != null )
+            ind = wdf.getIndividualDao().getIndividualByURI(uri);
+    
+        if( netid == null || netid.length() <= 0){
             errorMsg = NO_NETID_ERROR_MSG;
-        }else{
-            personUri = ind.getURI();
-            errorMsg = null;
-        }
-    }else{
-        errorMsg = NO_NETID_ERROR_MSG;
-    }
-
-    if( personUri != null ){
-        VitroRequestPrep.forceToSelfEditing(request);
-        request.setAttribute("personUri",personUri);
-
-        %>
-        <c:redirect url="/entity">       
-            <c:param name="uri" value="${personUri}"/>
-        </c:redirect>
-        <%
-        return;
-    }
-
+        }else if( netid.length() > 0 ){
+            errorMsg = "The system could not accept the NetId '" + netid +
+            "', it is too long.";
+        }else if( uri == null || ind == null ){
+            errorMsg = NO_MATCHING_NETID_ERROR_MSG;
+        }            
+    }catch(RuntimeException rx){
+        errorMsg = DEFAULT_ERROR_MSG;
+    }    
 
     VitroRequestPrep.forceOutOfSelfEditing(request);
     //continue on to JSP error page bellow
@@ -99,4 +112,5 @@
     private final String MULTIPLE_NETID_ERROR_MSG =
             "There is a problem with the system, please use the contact us form to let us "+
             "know that you were unable to edit your profile." ;
+    
 %>
