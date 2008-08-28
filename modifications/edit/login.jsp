@@ -23,6 +23,7 @@
     if( selfEditingId != null ){        
         if( selfEditingId.getBlacklisted() == SelfEditingUriFactory.NOT_BLACKLISTED &&
             selfEditingId.getValue() != null ){               
+		VitroRequestPrep.forceToSelfEditing(request);
                 //This puts the user into the all portal when the log into 
                 //self editing.  The reason for this is to avoid confusion
                 //created by individuals that are hidden by portal filtering
