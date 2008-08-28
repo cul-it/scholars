@@ -3,11 +3,8 @@
 <%@ page import="edu.cornell.mannlib.vitro.webapp.auth.identifier.NetIdIdentifierFactory" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.auth.identifier.ServletIdentifierBundleFactory" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.beans.Individual" %>
-<%@ page import="edu.cornell.mannlib.vitro.webapp.controller.VitroRequest" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.filters.VitroRequestPrep" %>
-<%@ page import="java.util.List" %>
 <%@page import="edu.cornell.mannlib.vitro.webapp.auth.identifier.SelfEditingUriFactory"%>
-<%@page import="edu.cornell.mannlib.vitro.webapp.dao.jena.WebappDaoFactoryJena"%>
 <%@page import="edu.cornell.mannlib.vitro.webapp.dao.WebappDaoFactory"%>
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
 <%@ page errorPage="/error.jsp"%>
@@ -23,26 +20,29 @@
     SelfEditingUriFactory.SelfEditing selfEditingId =
         SelfEditingUriFactory.getSelfEditingIdentifier(ids);
     
-    if( selfEditingId != null && 
-        selfEditingId.getBlacklisted() == SelfEditingUriFactory.NOT_BLACKLISTED &&
-        selfEditingId.getValue() != null ){
-        %>
-        <c:redirect url="/entity">       
-            <c:param name="uri" value="${personUri}"/>
-        </c:redirect>
-        <%
-        return;        
-    }
-
-    // Conditions that deny a user self-editing:
-    // no netid from CUWebAuth, not really logged in
-    // blacklisted
-    // A good netid but no individual in the system
-
-    if( selfEditingId.getBlacklisted() != null ){
-        %> <jsp:forward page="/edit/mayNotLogin.jsp"/> <%
-        return;        
-    }
+    if( selfEditingId != null ){        
+        if( selfEditingId.getBlacklisted() == SelfEditingUriFactory.NOT_BLACKLISTED &&
+            selfEditingId.getValue() != null ){               
+                //This puts the user into the all portal when the log into 
+                //self editing.  The reason for this is to avoid confusion
+                //created by individuals that are hidden by portal filtering
+                //but visible when logged in to self editing.
+                %>
+                <c:set var="personUri"><%= selfEditingId.getValue() %></c:set>
+                <c:redirect url="/all/entity">       
+                    <c:param name="uri" value="${personUri}"/>
+                </c:redirect>
+                <%
+                return;        
+       } else {
+          // Conditions that deny a user self-editing:
+          // no netid from CUWebAuth, not really logged in
+          // blacklisted
+          // A good netid but no individual in the system       
+          %> <jsp:forward page="/edit/mayNotLogin.jsp"/> <%
+          return;                
+      }
+    }    
     
     //get the netId
     String netid = null;
