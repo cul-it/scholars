@@ -22,36 +22,37 @@ if (VitroRequestPrep.isSelfEditing(request)) {
 <c:set var='portalBean' value='${currentPortal}'/>
 <c:set var='imageDir' value='images' />
 <div id="dashboard"<c:if test="${showCuratorEdits || showSelfEdits}"> class="loggedIn"</c:if>>
-    <c:if test="${!empty entity.imageThumb}">
-        <c:if test="${!empty entity.imageFile}">
-            <c:url var="imageUrl" value="${imageDir}/${entity.imageFile}" />
-            <a class="image" href="${imageUrl}">
-        </c:if>
-        <c:url var="imageSrc" value='${imageDir}/${entity.imageThumb}'/>
-        <img class="headshot" src="<c:out value="${imageSrc}"/>" title="click to view larger image in new window" alt="" width="150"/>
-        <c:if test="${!empty entity.imageFile}"></a></c:if>
-        <c:if test="${!empty entity.citation}"><div class="citation">${entity.citation}</div></c:if>
-    </c:if>
-       
-    <ul class="profileLinks">
-        <c:if test="${!empty entity.anchor}">
-            <c:choose>
-                <c:when test="${!empty entity.url}">
-                    <c:url var="entityUrl" value="${entity.url}" />
-                    <li><a class="externalLink" href="<c:out value="${entityUrl}"/>">${entity.anchor}</a></li>
-                </c:when>
-                <c:otherwise><li>${entity.anchor}</li></c:otherwise>
-            </c:choose>
-        </c:if>
-       
-        <c:if test="${!empty entity.linksList }">
-            <c:forEach items="${entity.linksList}" var='link'>
-                <c:url var="linkUrl" value="${link.url}" />
-                <li><a class="externalLink" href="<c:out value="${linkUrl}"/>">${link.anchor}</a></li>
-            </c:forEach>
-        </c:if>
-    </ul>
+     
     <c:if test="${showSelfEdits || showCuratorEdits}">
-        <c:import url="${dashboardPropsListJsp}"/>
+        <c:import url="${dashboardPropsListJsp}"></c:import>
     </c:if>
+    
+    <c:if test="${(!empty entity.anchor) || (!empty entity.linksList)}">
+     
+    <div id="dashboardExtras">
+        <h3>Links</h3>
+            <ul class="profileLinks">
+                <c:if test="${!empty entity.anchor}">
+                    <c:choose>
+                        <c:when test="${!empty entity.url}">
+                            <c:url var="entityUrl" value="${entity.url}" />
+                            <li><a class="externalLink" href="<c:out value="${entityUrl}"/>">${entity.anchor}</a></li>
+                        </c:when>
+                        <c:otherwise><li>${entity.anchor}</li></c:otherwise>
+                    </c:choose>
+                </c:if>
+       
+                <c:if test="${!empty entity.linksList }">
+                    <c:forEach items="${entity.linksList}" var='link'>
+                        <c:url var="linkUrl" value="${link.url}" />
+                        <li><a class="externalLink" href="<c:out value="${linkUrl}"/>">${link.anchor}</a></li>
+                    </c:forEach>
+                </c:if>
+            </ul>
+        </div>
+    </c:if>
+    
+    <%-- <c:if test="${showCuratorEdits || showSelfEdits}">
+        <c:import url="${dashboardPropsListJsp}"></c:import>
+    </c:if> --%>
 </div>
