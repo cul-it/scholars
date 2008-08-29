@@ -59,7 +59,7 @@ if (keywordStmts.size()>1) {
 <c:set var='portalBean' value='${currentPortal}'/>
 <c:set var='imageDir' value='images' />
 <div id="dashboard"<c:if test="${showCuratorEdits || showSelfEdits}"> class="loggedIn"</c:if>>
-     
+   
     <c:if test="${showSelfEdits || showCuratorEdits}">
         <c:import url="${dashboardPropsListJsp}">
        	    <%-- unless a value is provided, properties not assigned to a group will not appear on the dashboard --%>
@@ -89,10 +89,13 @@ if (keywordStmts.size()>1) {
             </ul>
 
             <c:if test="${!empty keywordStatements}">
+            <h3 class="secondary">Keywords</h3>
                 <ul class="keywords">
     	            <c:forEach items="${keywordStatements}" var="dataPropertyStmt">
-        	            <li>${dataPropertyStmt.data}</li>
-                        <c:if test="${showSelfEdits || showCuratorEdits}"><edLnk:editLinks item="${dataPropertyStmt}" icons="false"/></c:if>
+        	            <li>
+        	                <c:if test="${showSelfEdits || showCuratorEdits}"><edLnk:editLinks item="${dataPropertyStmt}" icons="false"/></c:if>
+        	                ${dataPropertyStmt.data}
+        	            </li>
                     </c:forEach>
                 </ul>
             </c:if>    

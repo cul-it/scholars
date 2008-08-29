@@ -275,7 +275,17 @@ if ( $("ul#propGroupNav").length ) {
 		}
 	}
 	
-	$("head").append('<style type="text/css"> #contentwrap {background: #fff url(themes/vivo/site_icons/layout/bg_page_person.gif) no-repeat right top;} .editBox a.edit {display:none} .editBox.editMode a.edit {display:inline} .editBox div.button {display:none} .editBox.editMode div.button {display:block} .editBox div.ajaxBox {display:none} .editBox.editMode div.ajaxBox {display:block}</style>');
+	var embeddedCSS = '<style type="text/css"> \
+	                        #contentwrap {background: #fff url(themes/vivo/site_icons/layout/bg_page_person.gif) no-repeat right top;} \
+	                        .editBox a.edit {display:none} \
+	                        .editBox.editMode a.edit {display:inline} \
+	                        .editBox div.button {display:none} \
+	                        .editBox.editMode div.button {display:block} \
+	                        .editBox div.ajaxBox {display:none} \
+	                        .editBox.editMode div.ajaxBox {display:block} \
+	                    </style>';
+	
+	$("head").append(embeddedCSS);
     
     makeTogglers();
     insertWrappers();

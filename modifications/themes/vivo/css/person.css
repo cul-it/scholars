@@ -11,11 +11,11 @@ Updated:	August 19, 2008
 */
 
 #personWrap div.admin {
-/*    display: none;*/
+    display: none;
 }
 
 #personWrap #vitroPropertyGroupname {
-/*    display: none;*/
+    display: none;
 }
 
 #personWrap #content.person {
@@ -66,11 +66,11 @@ Updated:	August 19, 2008
     margin: 0 12px 3px 0;
 }
 
-#personWrap p.overview {
-/*    margin-top: 1em;*/
+#personWrap div#overview {
     clear: left;
     margin: 0;
     padding-top: 1em;
+    font-size: 1.1em;
 }
 
 #personWrap div.propsCategory h3 {
@@ -132,6 +132,10 @@ Updated:	August 19, 2008
 
 #personWrap div.propsCategory div.propsItem.last {
     border-bottom: 0;
+}
+
+#personWrap div.propsCategory div.propsItem:first-child { /* temporary patch - can't apply class of first to initial property under affiliations group */
+    border-top: 0;
 }
 
 #personWrap div.propsItem h4 {
@@ -213,6 +217,10 @@ Updated:	August 19, 2008
     margin: 0 0 .3em 0;
 }
 
+#personWrap #dashboardExtras h3.secondary {
+    margin-top: 1em;
+}
+
 #personWrap ul.profileLinks {
     margin-left: 0;
     margin-bottom: 0;
@@ -223,6 +231,9 @@ Updated:	August 19, 2008
     background: none;
 }
 
+ul.keywords li {
+    font-size: 1em;
+}
 
 /* ----------------- Editing Controls ---------------- */
 
@@ -240,13 +251,17 @@ Updated:	August 19, 2008
     color: #FF8811;
 } 
 
-#personWrap #content a.add,
-#personWrap #content a.edit {
+#personWrap div.propsCategory a.add,
+#personWrap div.propsCategory a.edit {
     position: absolute; /* only want to position links for properties themselves */
     top: 14px;
     right: 0;
     margin: 0;
     padding: 0;
+}
+
+#personWrap #overview a.edit {
+    padding-left: 5px;
 }
 
 #personWrap #content ul.properties a.edit,
