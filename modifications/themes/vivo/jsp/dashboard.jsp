@@ -1,15 +1,52 @@
+<%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
+<%@ taglib uri="http://vitro.mannlib.cornell.edu/vitro/tags/PropertyEditLink" prefix="edLnk" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ page import="edu.cornell.mannlib.vitro.webapp.beans.DataPropertyStatement" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.beans.Individual" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.beans.VClass" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.edit.n3editing.EditConfiguration" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.edit.n3editing.EditSubmission" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.filters.VitroRequestPrep" %>
+<%@ page import="java.text.Collator" %>
+<%@ page import="java.util.Collections" %>
+<%@ page import="java.util.Comparator" %>
+<%@ page import="java.util.Iterator" %>
 <%@ page import="java.util.List" %>
-<%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
+<%@ page import="java.util.ArrayList" %>
 <%@ page errorPage="/error.jsp"%>
 <%
 if (VitroRequestPrep.isSelfEditing(request)) {
     request.setAttribute("showSelfEdits",Boolean.TRUE );
-} %>
+} 
+
+Individual indiv = (Individual)request.getAttribute("entity"); // already tested for null in individualPerson.jsp
+
+//here we get any VIVO keywords (now a regular dataproperty)
+List<DataPropertyStatement> dataPropertyStatements = indiv.getDataPropertyStatements();
+List<DataPropertyStatement> keywordStmts= new ArrayList<DataPropertyStatement>();
+for (DataPropertyStatement dps : dataPropertyStatements) {
+    if ("http://vivo.library.cornell.edu/ns/0.1#keyword".equals(dps.getDatapropURI())) {
+	    if (dps.getData()!=null && dps.getData().trim().length()>0) {
+	        keywordStmts.add(dps);
+	    }
+    }
+}
+if (keywordStmts.size()>1) {
+	Collections.sort(keywordStmts,new Comparator<DataPropertyStatement>() {
+        public int compare( DataPropertyStatement first, DataPropertyStatement second ) {
+            if (first==null || first.getData()==null) {
+                return 1;
+            }
+            if (second==null || second.getData()==null) {
+                return -1;
+            }
+            Collator collator = Collator.getInstance();
+            return collator.compare(first.getData(),second.getData());
+        }
+    });
+}
+%>
+<c:set var="keywordStatements" value="<%=keywordStmts%>"/>
 
 <c:if test="${sessionScope.loginHandler != null &&
              sessionScope.loginHandler.loginStatus == 'authenticated' &&
@@ -24,13 +61,15 @@ if (VitroRequestPrep.isSelfEditing(request)) {
 <div id="dashboard"<c:if test="${showCuratorEdits || showSelfEdits}"> class="loggedIn"</c:if>>
      
     <c:if test="${showSelfEdits || showCuratorEdits}">
-        <c:import url="${dashboardPropsListJsp}"></c:import>
+        <c:import url="${dashboardPropsListJsp}">
+       	    <%-- unless a value is provided, properties not assigned to a group will not appear on the dashboard --%>
+        	<c:param name="unassignedPropsGroupName" value=""/>
+        </c:import>
     </c:if>
     
     <c:if test="${(!empty entity.anchor) || (!empty entity.linksList)}">
-     
-    <div id="dashboardExtras">
-        <h3>Links</h3>
+        <div id="dashboardExtras">
+            <h3>Links</h3>
             <ul class="profileLinks">
                 <c:if test="${!empty entity.anchor}">
                     <c:choose>
@@ -41,7 +80,6 @@ if (VitroRequestPrep.isSelfEditing(request)) {
                         <c:otherwise><li>${entity.anchor}</li></c:otherwise>
                     </c:choose>
                 </c:if>
-       
                 <c:if test="${!empty entity.linksList }">
                     <c:forEach items="${entity.linksList}" var='link'>
                         <c:url var="linkUrl" value="${link.url}" />
@@ -49,10 +87,15 @@ if (VitroRequestPrep.isSelfEditing(request)) {
                     </c:forEach>
                 </c:if>
             </ul>
+
+            <c:if test="${!empty keywordStatements}">
+                <ul class="keywords">
+    	            <c:forEach items="${keywordStatements}" var="dataPropertyStmt">
+        	            <li>${dataPropertyStmt.data}</li>
+                        <c:if test="${showSelfEdits || showCuratorEdits}"><edLnk:editLinks item="${dataPropertyStmt}" icons="false"/></c:if>
+                    </c:forEach>
+                </ul>
+            </c:if>    
         </div>
     </c:if>
-    
-    <%-- <c:if test="${showCuratorEdits || showSelfEdits}">
-        <c:import url="${dashboardPropsListJsp}"></c:import>
-    </c:if> --%>
 </div>
