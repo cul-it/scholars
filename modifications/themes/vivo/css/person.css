@@ -10,44 +10,44 @@ Authors:	mw542@cornell.edu
 Updated:	August 19, 2008
 */
 
-div.admin {
-    display: none;
+#personWrap div.admin {
+/*    display: none;*/
 }
 
-#vitroPropertyGroupname {
-    display: none;
+#personWrap #vitroPropertyGroupname {
+/*    display: none;*/
 }
 
-#content.person {
+#personWrap #content.person {
     padding: 0 0 20px 4px;
     width: 69%;
     min-width: 600px;
 /*    padding-top: 10px;*/
 }
 
-#contentwrap {
+#personWrap #contentwrap {
 	background: #fff url(../site_icons/layout/bg_page_person.gif) no-repeat right top;
 }
 
-#innerwrap {
+#personWrap {
 	background: #fff url(../site_icons/layout/bg_innerwrap_person.gif) repeat-y right top;
 	margin-top: 25px;
 }
 
-#entity {
+#personWrap #entity {
     clear: left;
     margin: 0;
     padding-bottom: 30px;
 }
 
-#entity h2,
-#entity em.moniker {
+#personWrap #entity h2,
+#personWrap #entity em.moniker {
     float: none;
 /*    display: inline;*/
     display: block;
 }
 
-#entity h2 {
+#personWrap #entity h2 {
 /*    padding-right: 16px;*/
 /*    line-height: 2.5em;*/
     line-height: 1.3em;
@@ -55,25 +55,25 @@ div.admin {
     padding-top: 10px;
 }
 
-#entity em.moniker {
+#personWrap #entity em.moniker {
     padding: 2px 0 0 0;
     font-size: 1.4em;
 }
 
-img.headshot {
+#personWrap img.headshot {
     width: 75px;
     float: left;
     margin: 0 12px 3px 0;
 }
 
-p.overview {
+#personWrap p.overview {
 /*    margin-top: 1em;*/
     clear: left;
     margin: 0;
     padding-top: 1em;
 }
 
-div.propsCategory h3 {
+#personWrap div.propsCategory h3 {
     float: left;
     display: inline;
     height: 24px;
@@ -85,7 +85,7 @@ div.propsCategory h3 {
     border: 0;
 }
 
-div.propsCategory h3 strong {
+#personWrap div.propsCategory h3 strong {
     float: left;
     display: inline;
     height: 19px;
@@ -93,7 +93,7 @@ div.propsCategory h3 strong {
     background: url(../site_icons/layout/h3_tab_right.gif) right top no-repeat;
 }
 
-div.propsCategory {
+#personWrap div.propsCategory {
     clear: left;
     background: #FAF8F3 url(../site_icons/layout/bg_propsCategory.gif) right top no-repeat;
 /*    border-left: 1px solid #d9d9d9;*/
@@ -103,7 +103,7 @@ div.propsCategory {
     margin-bottom: 30px;
 }
 
-div.propsWrap {
+#personWrap div.propsWrap {
     clear: left;
     margin: 0;
     padding: 8px 16px;
@@ -113,7 +113,7 @@ div.propsWrap {
 /*    background: #f7f7f7;*/
 }
 
-div.propsItem {
+#personWrap div.propsItem {
     position: relative;
     background: none;
     border: 0;
@@ -121,24 +121,24 @@ div.propsItem {
     padding: 14px 0;
 }
 
-div.propsCategory div.propsItem { /* being more specific here to leave borders off ungrouped (single) properties */
+#personWrap div.propsCategory div.propsItem { /* being more specific here to leave borders off ungrouped (single) properties */
     border-top: 1px solid #fff;
     border-bottom: 1px solid #F2EFE5;
 }
 
-div.propsCategory div.propsItem.first {
+#personWrap div.propsCategory div.propsItem.first {
     border-top: 0;
 }
 
-div.propsCategory div.propsItem.last {
+#personWrap div.propsCategory div.propsItem.last {
     border-bottom: 0;
 }
 
-div.propsItem h4 {
+#personWrap div.propsItem h4 {
     margin: 0;
 }
 
-ul.properties {
+#personWrap ul.properties {
     color: #888;
 }
 
@@ -146,28 +146,28 @@ ul.properties {
 
 /* ----------------- Dashboard ---------------- */
 
-#dashboard {
+#personWrap #dashboard {
     padding: 0 0 100px 0;
     display: inline-block; /* fixes IE double top-padding bug, discussed at: http://exscale.se/archives/2007/06/13/ie-double-padding-bug/ */
     background: none;
     text-align: left;
 }
 
-#dashboard a:link,
-#dashboard a:visited {
+#personWrap #dashboard a:link,
+#personWrap #dashboard a:visited {
     color: #118855;
 }
 
-#dashboard a:hover,
-#dashboard a:active {
+#personWrap #dashboard a:hover,
+#personWrap #dashboard a:active {
     color: #FF8811;
 }
 
-#propGroupNav li {
+#personWrap #propGroupNav li {
     padding: 0 0 1px 0;
 }
 
-#propGroupNav h2 {
+#personWrap #propGroupNav h2 {
     margin: 0;
     padding: 0;
     font-size: 1.08em;
@@ -176,7 +176,7 @@ ul.properties {
 /*    background: #6d8e80;*/
 }
 
-#dashboard #propGroupNav h2 a {
+#personWrap #dashboard #propGroupNav h2 a {
     display: block;
     padding: 4px 18px 5px 18px;
     border: 0;
@@ -185,40 +185,40 @@ ul.properties {
     background: #baa280 url(../site_icons/layout/bg_propGroupNav-active.gif) top right repeat-y;
 }
 
-#dashboard #propGroupNav h2 a.inactive {
+#personWrap #dashboard #propGroupNav h2 a.inactive {
     color: #b4bfba;
     background: #baa280 url(../site_icons/layout/bg_propGroupNav-inactive.gif) top right repeat-y;
 }
 
-#dashboard #propGroupNav h2 a:hover {
+#personWrap #dashboard #propGroupNav h2 a:hover {
     color: #fff;
 /*    background: #FF8811;*/
     background: #e77300;
     background-image: none;
 }
 
-#dashboard #propGroupNav h2 a#currentCat {
+#personWrap #dashboard #propGroupNav h2 a#currentCat {
     background: #b3a37c;
 }
 
-#dashboardExtras {
+#personWrap #dashboardExtras {
     margin: 18px;
     padding: 10px;
     border: 1px solid #CBCBCB;
     background: #e6e6e6;
 }
 
-#dashboardExtras h3 {
+#personWrap #dashboardExtras h3 {
     font-size: 1em;
     margin: 0 0 .3em 0;
 }
 
-ul.profileLinks {
+#personWrap ul.profileLinks {
     margin-left: 0;
     margin-bottom: 0;
 }
 
-ul.profileLinks li {
+#personWrap ul.profileLinks li {
     padding-left: 0;
     background: none;
 }
@@ -226,22 +226,22 @@ ul.profileLinks li {
 
 /* ----------------- Editing Controls ---------------- */
 
-#content a.delete {
+#personWrap #content a.delete {
     display: none;
 }
 
-a.add, a.edit, a.delete {
+#personWrap a.add, #personWrap a.edit, #personWrap a.delete {
     color: #209ae0;
     text-decoration: underline;
 }
 
-a.add:hover, a.edit:hover, a.delete:hover,
-a.add:active, a.edit:active, a.delete:active {
+#personWrap a.add:hover, #personWrap a.edit:hover, #personWrap a.delete:hover,
+#personWrap a.add:active, #personWrap a.edit:active, #personWrap a.delete:active {
     color: #FF8811;
 } 
 
-#content a.add,
-#content a.edit {
+#personWrap #content a.add,
+#personWrap #content a.edit {
     position: absolute; /* only want to position links for properties themselves */
     top: 14px;
     right: 0;
@@ -249,8 +249,8 @@ a.add:active, a.edit:active, a.delete:active {
     padding: 0;
 }
 
-#content ul.properties a.edit,
-#content div.datatypeProperties a.edit {
+#personWrap #content ul.properties a.edit,
+#personWrap #content div.datatypeProperties a.edit {
     position: static; /* reset for edit links for individual property statements */
     padding-right: 3px;
 }
@@ -283,16 +283,17 @@ a.addNewButton button {
     color: #209AE0;
 }
 
-a.cancel {
+#personWrap a.cancel {
     color: red;
     border-color: #E7B6B9;
 }
 
-.editForm input#submit {
+#personWrap .editForm input#submit {
     color: #209AE0;
 }
 
-table.mceEditor {
+/*#personWrap table.mceEditor {*/
+#personWrap div.editBox textarea {
     margin: 10px 0;
 }
 
@@ -300,10 +301,10 @@ table.mceEditor {
 /* fixes IE double top-padding bug, discussed at: http://exscale.se/archives/2007/06/13/ie-double-padding-bug/ 
  -- recent versions of Firefox and Safari don't ignore inline-block anymore */
 
-* html div.propsWrap {
+* html #personWrap div.propsWrap {
     display: inline-block; 
 }
 
-* + html div.propsWrap {
+* + html #personWrap div.propsWrap {
     display: inline-block;
 }

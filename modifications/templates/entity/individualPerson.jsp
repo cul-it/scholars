@@ -55,7 +55,7 @@ if (VitroRequestPrep.isSelfEditing(request) || LoginFormBean.loggedIn(request, L
     } else {
         imageUrl = response.encodeURL( "images/" + entity.getImageFile() );                     
     }
-    
+
     // here we look for a property specific to VIVO and retrieve it's value
     List<DataPropertyStatement> dataPropertyStatements = entity.getDataPropertyStatements();
     for (DataPropertyStatement dps : dataPropertyStatements) {
@@ -111,22 +111,39 @@ if (VitroRequestPrep.isSelfEditing(request) || LoginFormBean.loggedIn(request, L
 <c:set var='portal' value='${currentPortalId}'/>
 <c:set var='portalBean' value='${currentPortal}'/>
 <c:set var="themeDir"><c:out value="${portalBean.themeDir}" default="themes/vivo/"/></c:set>
+  <script type="text/javascript" src="js/person.js"></script>
+
+    <div id="personWrap">
+
     <jsp:include page="/${themeDir}jsp/dashboard.jsp" flush="true" />
     <div id="content" class="person"><!-- from templates/entity/individualPerson.jsp -->
         <c:if test="${showCuratorEdits and !amIFaking}"><jsp:include page="entityAdmin.jsp"/></c:if>
         <div class='contents entity'>
-       		<div id="entity label" style="overflow:auto;">
+       		<div id="entity">
+       		    
+       		    <c:if test="${!empty entity.imageThumb}">
+                    <c:if test="${!empty entity.imageFile}">
+                        <c:url var="imageUrl" value="${imageDir}/${entity.imageFile}" />
+                        <a class="image" href="${imageUrl}">
+                    </c:if>
+                    <c:url var="imageSrc" value='${imageDir}/${entity.imageThumb}'/>
+                    <img class="headshot" src="<c:out value="${imageSrc}"/>" title="click to view larger image in new window" alt="" width="150"/>
+                    <c:if test="${!empty entity.imageFile}"></a></c:if>
+                    <c:if test="${!empty entity.citation}"><div class="citation"><p:process>${entity.citation}</p:process></div></c:if>
+                </c:if>
+       		    
                 <h2><p:process>${entity.name}</p:process></h2> 
                 <c:if test="${!empty entity.moniker}">
                     <p:process><em class="moniker">${entity.moniker}</em></p:process>
                 </c:if>
-            </div><!-- entity label -->
+            
             <c:if test="${!empty overviewStatementData}">
             	<div id="overview">
             		${overviewStatementData}
                    	<c:if test="${showSelfEdits || showCuratorEdits}"><edLnk:editLinks item="${overviewStatement}" icons="false"/></c:if>
             	</div>
             </c:if>
+	</div><!-- entity id -->
             <c:choose>
                 <c:when test="${showCuratorEdits || showSelfEdits}">
                     <c:import url="${entityMergedPropsListJsp}">
@@ -142,18 +159,14 @@ if (VitroRequestPrep.isSelfEditing(request) || LoginFormBean.loggedIn(request, L
                     </c:import>
                 </c:otherwise>
             </c:choose>
-            <p/>
+
             <div class='description'>
                 <p:process>${entity.blurb}</p:process>
             </div>
             <div class='description'>
                 <p:process>${entity.description}</p:process>
-            </div>
-            <c:if test="${(!empty entity.citation) && (empty entity.imageThumb)}">
-    	        <div class="citation">
-        	        <p:process>${entity.citation}</p:process>
-            	</div>
-	        </c:if>
+            </div>  
+             
 	        <c:if test="${!empty entityKeywordString}">
     	        <div class="citation">
                     <a href="#keywords"/>
@@ -164,3 +177,4 @@ if (VitroRequestPrep.isSelfEditing(request) || LoginFormBean.loggedIn(request, L
         </div> <!-- contents entity -->
     </div> <!-- content -->
     <div class="clear"></div>
+    </div> <!-- innerwrap -->
