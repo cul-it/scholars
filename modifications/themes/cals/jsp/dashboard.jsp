@@ -52,6 +52,9 @@ if (VitroRequestPrep.isSelfEditing(request)) {
         </c:if>
     </ul>
     <c:if test="${showSelfEdits || showCuratorEdits}">
-        <c:import url="${dashboardPropsListJsp}"/>
+        <c:import url="${dashboardPropsListJsp}">
+        	<%-- unless a value is provided, properties not assigned to a group will not appear on the dashboard --%>
+        	<c:param name="unassignedPropsGroupName" value=""/>
+        </c:import>
     </c:if>
 </div>

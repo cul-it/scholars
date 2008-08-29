@@ -17,26 +17,27 @@
 
 <div id="content" class="full">
     <div align="center">
-      <h2> CLAS will not allow you to edit your profile.</h2>
-	<h4>Please contact <a href="mailto:SomeOneAtCALS@cornell.edu?subject=It seems that I am blocked from logging in to the VIVO web site, why is that?">CALS office of administration</a> with your questions and suggesions.</h4> 
-     </div>
-
-    <% if( selfEditingId.getValue() != null ) { %>   
-       <c:url value="/entity" var="siteRoot">
-          <c:param name="uri"><%=selfEditingId.getValue() %></c:param>
-       </c:url>
-           
-    <div align="center">                
-      <button type="button" 
-        onclick="javascript:document.location.href='${siteRoot}'">
-        Goto your profile</button>
+        <h2>CALS Administration has requested that you edit your profile only through the CALS annual reporting process</h2>
+        <p style="text-align:center;">The next reporting period begins in January, 2009. Changes you make then will be propagated to VIVO and the CALS
+            Research Portals.</p>
+	    <h4>Please contact <a href="mailto:lad23@cornell.edu?subject=request to change CALS research/VIVO profile">CALS</a> with any questions or with corrections you wish to make before January.</h4> 
     </div>
-    
-    <% } %>
-    
+    <p/>
+<%  if( selfEditingId.getValue() != null ) { %>   
+        <c:url value="/entity" var="siteRoot">
+            <c:param name="uri"><%=selfEditingId.getValue() %></c:param>
+        </c:url>
+           
+        <div align="center">                
+            <button type="button" 
+            onclick="javascript:document.location.href='${siteRoot}'">
+            Go to your profile</button>
+        </div>
+<%  } %>
+    <p/>
     <c:url value="/" var="siteRoot"/>   
     <div align="center">                
-      <button type="button" 
+        <button type="button" 
         onclick="javascript:document.location.href='${siteRoot}'">
         Return to main site</button>
     </div>
