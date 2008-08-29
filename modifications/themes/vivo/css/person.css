@@ -146,7 +146,14 @@ Updated:	August 19, 2008
     color: #888;
 }
 
+#personWrap div.datatypeProperties {
+    font-size: 1.1em;
+}
 
+#personWrap div.datatypeProperties p, /* resetting font sizes for html inside data props */
+#personWrap div.datatypeProperties ul {
+    font-size: 1em;
+}
 
 /* ----------------- Dashboard ---------------- */
 

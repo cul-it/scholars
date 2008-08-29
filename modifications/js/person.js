@@ -193,7 +193,7 @@ if ( $("ul#propGroupNav").length ) {
 			// 2: object property, empty
 			else if ($(this).hasClass("dataItem") == false && $(this).find("ul.properties").length < 1) {
                 // $(this).append("<p>empty object</p>");
-				setupHandlers(this,"2");
+                // setupHandlers(this,"2");
             }
 
             // 3: data property, populated
