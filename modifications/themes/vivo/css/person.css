@@ -11,11 +11,11 @@ Updated:	August 19, 2008
 */
 
 #personWrap div.admin {
-    display: none;
+/*    display: none;*/
 }
 
 #personWrap #vitroPropertyGroupname {
-    display: none;
+/*    display: none;*/
 }
 
 #personWrap #content.person {
@@ -37,7 +37,7 @@ Updated:	August 19, 2008
 #personWrap #entity {
     clear: left;
     margin: 0;
-    padding-bottom: 30px;
+    padding-bottom: 40px;
 }
 
 #personWrap #entity h2,
@@ -245,7 +245,7 @@ ul.keywords li {
 /* ----------------- Editing Controls ---------------- */
 
 #personWrap #content a.delete {
-    display: none;
+/*    display: none;*/
 }
 
 #personWrap a.add, #personWrap a.edit, #personWrap a.delete {
@@ -272,7 +272,9 @@ ul.keywords li {
 }
 
 #personWrap #content ul.properties a.edit,
-#personWrap #content div.datatypeProperties a.edit {
+#personWrap #content ul.properties a.delete,
+#personWrap #content div.datatypeProperties a.edit,
+#personWrap #content div.datatypeProperties a.delete {
     position: static; /* reset for edit links for individual property statements */
     padding-right: 3px;
 }
@@ -287,6 +289,7 @@ div.editBox.editMode {
 div.editBox.editMode.editing {
     background: #F4F8FE;
 }
+
 
 div.editing ul.properties,
 div.editing div.datatypeProperties {
@@ -314,9 +317,22 @@ a.addNewButton button {
     color: #209AE0;
 }
 
-/*#personWrap table.mceEditor {*/
-#personWrap div.editBox textarea {
+#personWrap div.editBox .editForm {
     margin: 10px 0;
+}
+
+#personWrap table.mceEditor,
+#personWrap div.editBox textarea {
+    margin: 5px 0;
+}
+
+#personWrap p.propEntryHelpText {
+    font-weight: bold;
+    font-style: italic;
+    margin: 0;
+    padding: 5px 0;
+    line-height: 1.2em;
+    color: #439CBD;
 }
 
 
