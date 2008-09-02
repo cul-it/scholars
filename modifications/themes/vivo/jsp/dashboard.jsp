@@ -1,11 +1,19 @@
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
 <%@ taglib uri="http://vitro.mannlib.cornell.edu/vitro/tags/PropertyEditLink" prefix="edLnk" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ page import="edu.cornell.mannlib.vitro.webapp.beans.Link" %>
+<%@ page import="edu.cornell.mannlib.vitro.webapp.dao.WebappDaoFactory" %>
+<%@ page import="edu.cornell.mannlib.vitro.webapp.beans.ObjectProperty" %>
+<%@ page import="edu.cornell.mannlib.vitro.webapp.dao.ObjectPropertyDao" %>
+<%@ page import="edu.cornell.mannlib.vitro.webapp.dao.VitroVocabulary" %>
+<%@ page import="edu.cornell.mannlib.vitro.webapp.beans.ObjectPropertyStatement" %>
+<%@ page import="edu.cornell.mannlib.vitro.webapp.beans.ObjectPropertyStatementImpl" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.beans.DataPropertyStatement" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.beans.Individual" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.beans.VClass" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.edit.n3editing.EditConfiguration" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.edit.n3editing.EditSubmission" %>
+<%@ page import="edu.cornell.mannlib.vitro.webapp.controller.VitroRequest" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.filters.VitroRequestPrep" %>
 <%@ page import="java.text.Collator" %>
 <%@ page import="java.util.Collections" %>
@@ -17,7 +25,16 @@
 <%
 if (VitroRequestPrep.isSelfEditing(request)) {
     request.setAttribute("showSelfEdits",Boolean.TRUE );
-} 
+}
+
+VitroRequest vreq = new VitroRequest(request);
+WebappDaoFactory wdf = vreq.getWebappDaoFactory();
+
+ObjectProperty linkObjectProp = wdf.getObjectPropertyDao().getObjectPropertyByURI(VitroVocabulary.ADDITIONAL_LINK);
+if (linkObjectProp != null) {%>
+	<c:set var="additionalLinkObjectProperty" value="<%=linkObjectProp%>"/>
+<%
+}
 
 Individual indiv = (Individual)request.getAttribute("entity"); // already tested for null in individualPerson.jsp
 
@@ -45,6 +62,7 @@ if (keywordStmts.size()>1) {
         }
     });
 }
+
 %>
 <c:set var="keywordStatements" value="<%=keywordStmts%>"/>
 
@@ -67,15 +85,21 @@ if (keywordStmts.size()>1) {
         </c:import>
     </c:if>
     
-    <c:if test="${(!empty entity.anchor) || (!empty entity.linksList)}">
+    <c:if test="${(!empty entity.anchor) || (!empty entity.linksList) || showSelfEdits || showCuratorEdits}">
         <div id="dashboardExtras">
             <h3>Links</h3>
+            <c:if test="${showSelfEdits || showCuratorEdits}">
+                <edLnk:editLinks item="${additionalLinkObjectProperty}" icons="false"/>
+            </c:if>
             <ul class="profileLinks">
                 <c:if test="${!empty entity.anchor}">
                     <c:choose>
                         <c:when test="${!empty entity.url}">
                             <c:url var="entityUrl" value="${entity.url}" />
                             <li><a class="externalLink" href="<c:out value="${entityUrl}"/>">${entity.anchor}</a></li>
+                            <c:if test="${showSelfEdits || showCuratorEdits}">
+                            	<edLnk:editLinks item="${entity.primaryLink.objectPropertyStatement}" icons="false"/>
+                            </c:if>
                         </c:when>
                         <c:otherwise><li>${entity.anchor}</li></c:otherwise>
                     </c:choose>
@@ -84,6 +108,9 @@ if (keywordStmts.size()>1) {
                     <c:forEach items="${entity.linksList}" var='link'>
                         <c:url var="linkUrl" value="${link.url}" />
                         <li><a class="externalLink" href="<c:out value="${linkUrl}"/>">${link.anchor}</a></li>
+                        <c:if test="${showSelfEdits || showCuratorEdits}">
+                            <edLnk:editLinks item="${link.objectPropertyStatement}" icons="false"/>
+                        </c:if>
                     </c:forEach>
                 </c:if>
             </ul>

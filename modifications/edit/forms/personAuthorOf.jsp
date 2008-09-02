@@ -212,7 +212,6 @@
     <v:input type="text"  label="year"  id="pubYear" size="4" />
     <v:input type="radio" label="Publication Type" id="moniker" />
     <v:input type="textarea" label="Bibliographic Citation" id="pubDescription" rows="5" />
-    <v:input type="editKey" id="editKey" />
     <v:input type="submit"  id="submit" value="<%=submitLabel%>" cancel="${param.subjectUri}" />
 </form>
 
