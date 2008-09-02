@@ -1,173 +1,31 @@
+tinyMCE.init({
+     theme : "advanced",
+     mode : "none",
+     theme_advanced_buttons1 : "bold,italic,underline,separator,link,bullist,numlist,separator,sub,sup,charmap,separator,undo,redo,separator,removeformat,cleanup,help,code",
+     theme_advanced_buttons2 : "",
+     theme_advanced_buttons3 : "",
+     theme_advanced_toolbar_location : "top",
+     theme_advanced_toolbar_align : "left",
+     theme_advanced_resizing : true,
+     height : "2",
+     width  : "99%",
+     valid_elements : "a[href|target|name|title],br,p,i,em,cite,strong/b,u,ul,ol,li"     
+});
+
 $(document).ready(function() {
 if ( $("ul#propGroupNav").length ) {
-    
-    // note: parameters passed to these functions should NOT include a pound sign
-    // fragments inserted into the url have "_tab" appended because IE tries to navigate to that ID even when returning false
-    
-    function changeUrlFragment(targetGroup) {
-        document.location.hash = "#" + targetGroup + "_tab";
-    }
-    
-    function switchPropertyGroup(targetGroup, toggle) {
-        // $("ul#propGroupNav li.currentCat").removeClass("currentCat");
-        if(toggle == "on"){
-            $("ul#propGroupNav li a").removeAttr("id").addClass("inactive").each(function(){
-                var thisID = $(this).attr("href");
-                $(thisID).hide();
-                if (thisID == ("#" + targetGroup)) { 
-                    $(this).attr("id", "currentCat").removeClass("inactive");
-                    $("#" + targetGroup).show();
-                 }
-            });
-        }
-        if(toggle == "off"){
-            $("ul#propGroupNav li a").removeAttr("id").removeClass("inactive").each(function(){
-                var thisID = $(this).attr("href");
-                $(thisID).show();
-            });
-        }
-    }
-            
-    // the parameter for this does need a pound sign
-    function changeHighlight(property) {
-        if (property != null) {
-            removeHighlighting();
-            bgColor = "#fffbcc";
-            borderColor = "#ede9be";
-            $(property).animate({ 
-                borderBottomColor: borderColor,
-                borderTopColor: borderColor,
-                borderLeftColor: borderColor,
-                borderRightColor: borderColor,
-                backgroundColor: bgColor
-                }, 800);
-            $(property).addClass("highlighted");
-        }
-    }
-    
-    function removeHighlighting(){
-        $("#content div.highlighted").css({ borderColor:"#fff", backgroundColor:"#fff" }).removeClass("highlighted");
-    }
-    
-    function scrollToHighlight(property){
-        // Note: we're doing all this extra stuff because initial values for height and offset are wrong
-        // since they are calculated before all the property groups are hidden.
-        var targetOffset = $(property).offset({scroll: false}).top; // top of the div we want to highlight
-        var offsetFromParent = targetOffset - $(property).parent().offset({scroll: false}).top; // how far it is down from its parent div
-        var firstGroupOffset = $("div.propsCategory:first").offset({scroll: false}).top; // how far the very first property group is from the beginning of the document
-        targetOffset = firstGroupOffset + offsetFromParent; // where we'll scroll to (with property groups hidden)
-        var divHeight = $(property).height(); // total height of what we want to highglight
-        var viewportHeight = getViewportHeight();
-        var scrollPosition = getScrollPosition(); 
+     
+    function makeEditBoxes(propID) {
+        if ( propID != null){ var targetDiv = propID; } 
+        else { var targetDiv = "div.propsItem"; }
         
-        // alert("Property:" + property 
-        //     + "\nTarget Top: " + targetOffset 
-        //     + "\nOffset from Parent: " + offsetFromParent 
-        //     + "\nFirst Group: " + firstGroupOffset 
-        //     + "\nDiv Height: " + divHeight 
-        //     + "\nViewport: " + viewportHeight 
-        //     + "\nScroll Position: " + scrollPosition);
-        // $('html,body').animate({scrollTop: targetOffset - (viewportHeight/2)}, 700); 
-        
-        // if the div for property to be highlighted is outside of the viewport
-        if (targetOffset < scrollPosition || (targetOffset + divHeight) > (viewportHeight + scrollPosition - 40)){  
-            // if it's a big div, fill most of the viewport with it
-            if(divHeight >=  viewportHeight*.6) {   
-                $('html,body').animate({scrollTop: targetOffset - 40}, 1000); 
-            }
-            // if it's a little div, scroll so that it's top is about one third from the top of the viewport
-            if(divHeight < viewportHeight*.6) { 
-                $('html,body').animate({scrollTop: targetOffset - (viewportHeight/3)}, 1000);
-            }
-        }
-        changeHighlight(property);
-    }
-    
-    function getScrollPosition() {
-       var height = window.pageYOffset || document.body.scrollTop || document.documentElement.scrollTop;
-       return height ? height : 0;
-    }
-    
-    function getViewportHeight() {
-        if (typeof window.innerHeight != 'undefined'){
-            viewportheight = window.innerHeight
-        }
-        else if (typeof document.documentElement != 'undefined' 
-                && typeof document.documentElement.clientHeight != 'undefined' 
-                && document.documentElement.clientHeight != 0) {
-            viewportheight = document.documentElement.clientHeight
-        }
-       return viewportheight;
-    }
-    
-    // function updateAnchors(proptype) {
-    //     $("a.add:not(.dataItem a.add)").each(function(){
-    //         $(this).parent("div:has(ul.properties)").each(function(){
-    //             var workingDiv = $(this);
-    //             var toggleEdit = $(this).children("a.add");
-    //             var editLinks = $(this).children("a.edit");
-    //             $(toggleEdit).addClass("propEdit").text("edit").attr("title","edit this field")
-    //             $(workingDiv).children("a.propEdit").bind("click", function(){
-    //                 var propID = "#" + $(workingDiv).attr("id");
-    //                 var link = $(workingDiv).children("a.propEdit").attr("href");
-    //                 toggleEditMode(propID);
-    //                 addNewButton(propID, link);
-    //                 $(this).blur();
-    //                 return false;
-    //             });
-    //         })
-    //     })
-    //     
-    //     $("div.dataItem a.add, a.edit:not(.datatypeProperties a.edit)").each(function(){
-    //         $(this).parent("div:has(div.datatypeProperties)").each(function(){
-    //             var workingDiv = $(this);
-    //             var toggleEdit = $(this).children("a.add");
-    //             var editLinks = $(this).children("a.edit");
-    //             $(toggleEdit).addClass("propEdit").text("edit").attr("title","edit this field")
-    //             $(workingDiv).children("a.propEdit").bind("click", function(){
-    //                 var propID = "#" + $(workingDiv).attr("id");
-    //                 var link = $(workingDiv).children("a.propEdit").attr("href");
-    //                 toggleEditMode(propID);
-    //                 addNewButton(propID, link);
-    //                 $(this).blur();
-    //                 return false;
-    //             });
-    //         })
-    //     })
-    // 
-    // }
-    // 
-    // function toggleEditMode(propID) {
-    //     $(propID).children("ul.properties, div.datatypeProperties").toggleClass("editMode");
-    //     if($(propID).find("ul.editMode, div.editMode").length > 0){
-    //         $(propID).find("a.propEdit").text("close").css("font-weight","bold");
-    //     } else {
-    //         $(propID).find("a.propEdit").text("edit").css("font-weight","normal");
-    //     }
-    // }
-    // 
-    // function addNewButton(propID, link) {
-    //     if($(propID).find("li.button").length < 1) {
-    //         $(propID).children("ul.properties").append('<li class="button"><a class="addNewButton" href="' + link + '"><button>add new</button></a></li>');
-    //     }
-    // }
-    
-
-    // Hide edit buttons
-    // $("head").append('<style type="text/css">    ul.properties a.edit, div.datatypeProperties a.edit { display: none }    ul.properties.editMode a.edit, div.datatypeProperties.editMode a.edit { display:inline }    li.button {display:none}    ul.editMode li.button {display:block}    </style>');
-    // $("head").append('<style type="text/css"> div.editBox a.edit { display: none } </style>');
-    
-    // $("a.edit").hide();
-    // updateAnchors();
-    
-    function insertWrappers() {
-        $("div.propsItem").not("div:has(ul.properties), div:has(div.datatypeProperties)").each(function(){
+        $(targetDiv).not("div:has(ul.properties), div:has(div.datatypeProperties)").each(function(){
             if($(this).find("div.editBox").length < 1){
                 $(this).append("<div class='editBox'><div class='ajaxBox'></div></div>");
                 $(this).addClass("empty");
             }
         });
-        $("div.propsItem ul.properties, div.propsItem div.datatypeProperties").each(function(){
+        $(targetDiv + " ul.properties, " + targetDiv + " div.datatypeProperties").each(function(){
             if($(this).find("div.editBox").length < 1){
                 $(this).wrap("<div class='editBox'></div>");
 				$(this).after("<div class='ajaxBox'></div>");
@@ -176,46 +34,55 @@ if ( $("ul#propGroupNav").length ) {
         });
     }
     
-    function makeTogglers(){
-        $("div.propsItem").children("a.add, a.edit").addClass("toggler");
+    function makeTogglers(propID) {
+        if ( propID != null){ var targetDiv = propID; } 
+        else { var targetDiv = "div.propsItem"; }
+        
+        $(targetDiv).children("a.add, a.edit").addClass("toggler"); // only reaches immediate children
     }
 
-    // only accepts propsItem level containers
-    function updateToggle(propertyDiv) {
+    // accepts only propsItem level containers
+    function checkPropType(propertyDiv) {
+        if ( propertyDiv == null) { var propertyDiv = "div.propsItem" } 
+        
         $(propertyDiv).each(function(){
 	
             // 1: object property, populated
             if ($(this).hasClass("dataItem") == false && $(this).find("ul.properties").length > 0) {
 				setupHandlers(this,"1");
-                // $(this).append("<p>populated object</p>");
             }
 
 			// 2: object property, empty
 			else if ($(this).hasClass("dataItem") == false && $(this).find("ul.properties").length < 1) {
-                // $(this).append("<p>empty object</p>");
                 // setupHandlers(this,"2");
             }
 
-            // 3: data property, populated
-            else if ($(this).hasClass("dataItem") == true && $(this).find("div.datatypeProperties").length > 0) {
-                // $(this).append("<p>populated data</p>");	
-            	// setupHandlers(this,"3");
+            // 3: multi-statement data property
+            else if ($(this).hasClass("multiItem") == true) {
+                if ($(this).children("a.add, a.edit").length == 0) {
+                    $(this).children("h4").after("<a class='image edit toggler' title='edit these items' href='#'>edit</a>");
+                }
+                setupHandlers(this,"3");
 			}
 
-            // 4: data property, empty
+            // 4: single-statement data property, populated
+            else if ($(this).hasClass("dataItem") == true && $(this).find("div.datatypeProperties").length > 0) {
+                // setupHandlers(this,"4");
+			}
+
+            // 5: data property, empty
             else if ($(this).hasClass("dataItem") == true && $(this).find("div.datatypeProperties").length < 1) {
-                // $(this).append("<p>empty data</p>");
-            	// setupHandlers(this,"4");
+                // setupHandlers(this,"5");
 			}
         });
     }
 
-	function setupHandlers(property, type) {
-		if(type == 1) {
+	function setupHandlers(property,type) {
+		if (type == 1) { // object populated
 			$(property).children("a.toggler").text("edit").attr("title","edit this item").unbind().bind("click", function(){
 				$(this).blur();
 				var editbox = $(this).parent("div.propsItem").children("div.editBox");
-				var ajaxbox = $(editbox + " div.ajaxBox");
+				var ajaxbox = $(property).find("div.ajaxBox");
 				$(editbox).toggleClass("editMode");
 				if($(editbox).hasClass("editMode")) { 
 					$(this).text("close").css("font-weight","bold");
@@ -229,67 +96,201 @@ if ( $("ul#propGroupNav").length ) {
 				return false;
 			})
 		}
-		if(type == 2) {
+		if (type == 2) { // object empty
 			$(property).children("a.toggler").unbind().bind("click", function(){
-				$(this).blur();
-				var editbox = $(property).children("div.editBox");
+				var propID = "#" + $(property).attr("id");
+				var editbox = $(this).parent("div.propsItem").children("div.editBox");
 				var ajaxbox = $(property).find("div.ajaxBox");
+                var formLink = $(this).attr("href")+" .editForm";
+                $(this).blur();
 				$(editbox).toggleClass("editMode");
-				if($(editbox).hasClass("editMode")) { 
+				if ($(editbox).hasClass("editMode")) { 
 					$(this).text("close").attr("title","close without saving").css("font-weight","bold");
-					var formLink = $(this).attr("href")+" .editForm";
-					$(ajaxbox).load(formLink);
+                    $(ajaxbox).append(loadingImg);
+                    $(ajaxbox).load(formLink,"",function(){
+                        $(editbox).find(".editForm").bind("submit", function(){ 
+                            $(this).ajaxSubmit({success:function(){
+                                loadNewContent(propID);
+                                }                                
+                            });
+                            return false;
+                        });
+                    });
 				} else {
 					$(this).text("add").attr("title","add relationship").css("font-weight","normal");
 				}
 				return false;
 			})
 		}
-		if(type == 3) {
-			$(property).children("a.toggler").unbind().bind("click", function(){
+		
+		if (type == 3) { // multi data
+			$(property).children("a.toggler").text("edit").attr("title","edit these items").unbind().bind("click", function(){
 				$(this).blur();
 				var editbox = $(this).parent("div.propsItem").children("div.editBox");
-				var ajaxbox = $(editbox + " div.ajaxBox");
+				var ajaxbox = $(property).find("div.ajaxBox");
 				$(editbox).toggleClass("editMode");
 				if($(editbox).hasClass("editMode")) { 
+					$(this).text("close").css("font-weight","bold");
+				} else {
+					$(this).text("edit").css("font-weight","normal");
+				}
+			    if($(property).find("div.button").length < 1 && $(property).children("a.add").length > 0 ) {
+					var link = $(property).children("a.toggler").attr("href");
+		            $(editbox).append('<div class="button"><a class="addNewButton" href="' + link + '"><button>add new</button></a></div>');
+		        }
+				return false;
+			})
+		}
+		
+		if (type == 4) { // single data populated
+			$(property).children("a.toggler").unbind().bind("click", function(){
+				$(this).blur();
+				var propID = "#" + $(property).attr("id");
+				var editbox = $(this).parent("div.propsItem").children("div.editBox");
+				var ajaxbox = $(property).find("div.ajaxBox");
+                var formLink = $(this).attr("href")+" .editForm";
+				$(editbox).toggleClass("editMode");
+				if ($(editbox).hasClass("editMode")) { 
 					$(this).text("close").attr("title","close without saving").css("font-weight","bold");
+                    $(ajaxbox).load(formLink,"",function(){
+                        $(this).parent("div.editBox").addClass("editing");
+                        var textArea = $(ajaxbox).find("textarea").attr("id");
+                        tinyMCE.execCommand("mceAddControl", true, textArea); 
+                        $(editbox).find(".editForm").unbind().bind("submit", function(){ 
+							tinyMCE.triggerSave(true,true);
+							// need to catch empty values
+                            $(this).ajaxSubmit({success:function(newcontent){
+								tinyMCE.execCommand('mceRemoveControl', false, textArea); 
+                                    // $(ajaxbox).empty().append(loadingImg);
+                                    loadNewContent(newcontent,propID);
+                                }                                
+                            });
+                            return false;
+                        });
+                    });
 				} else {
 					$(this).text("edit").attr("title","edit this text").css("font-weight","normal");
+					$(propID).find("div.editBox").removeClass("editing");
+                    var textArea = $(ajaxbox).find("textarea").attr("id");
+                    tinyMCE.execCommand('mceRemoveControl', false, textArea); 
 				}
 				return false;
 			})
 		}
-		if(type == 4) {
+		
+		if (type == 5) { // data empty
 			$(property).children("a.toggler").unbind().bind("click", function(){
 				$(this).blur();
-				var editbox = $(property).children("div.editBox");
-				var ajaxbox = $(editbox + " div.ajaxBox");
+				var propID = "#" + $(property).attr("id");
+				var editbox = $(this).parent("div.propsItem").children("div.editBox");
+				var ajaxbox = $(property).find("div.ajaxBox");
+                var formLink = $(this).attr("href")+" .editForm";
 				$(editbox).toggleClass("editMode");
-				if($(editbox).hasClass("editMode")) { 
+				if ($(editbox).hasClass("editMode")) { 
 					$(this).text("close").attr("title","close without saving").css("font-weight","bold");
+                    $(ajaxbox).load(formLink,"",function(){
+                        $(this).parent("div.editBox").addClass("editing");
+                        var textArea = $(ajaxbox).find("textarea").attr("id");
+                        tinyMCE.execCommand("mceAddControl", true, textArea); 
+                        $(editbox).find(".editForm").unbind().bind("submit", function(){ 
+							tinyMCE.triggerSave(true,true);
+                            // tinyMCE.execCommand('mceRemoveControl', false, textArea); 
+                            $(this).ajaxSubmit({dataType: 'xml', success:function(newcontent){
+								var updateDiv = $(newcontent).find(propID);
+                                // $(propID).replaceWith(updateDiv).removeClass("editing");
+								tinyMCE.execCommand('mceRemoveControl', false, textArea); 
+                                makeEditBoxes(propID);
+                                makeTogglers(propID);
+                                checkPropType(propID);
+                                return false;
+                                }                                
+                            });
+                            return false;
+                        });
+                    });
 				} else {
 					$(this).text("add").attr("title","add new entry").css("font-weight","normal");
+					$(propID).find("div.editBox").removeClass("editing");
+                    var textArea = $(ajaxbox).find("textarea").attr("id");
+                    tinyMCE.execCommand('mceRemoveControl', false, textArea); 
 				}
 				return false;
 			})
 		}
 	}
 	
-	var embeddedCSS = '<style type="text/css"> \
-	                        #contentwrap {background: #fff url(themes/vivo/site_icons/layout/bg_page_person.gif) no-repeat right top;} \
-	                        .editBox a.edit {display:none} \
-	                        .editBox.editMode a.edit {display:inline} \
-	                        .editBox div.button {display:none} \
-	                        .editBox.editMode div.button {display:block} \
-	                        .editBox div.ajaxBox {display:none} \
-	                        .editBox.editMode div.ajaxBox {display:block} \
-	                    </style>';
-	
-	$("head").append(embeddedCSS);
+	function loadNewContent(propID,container) {
+	    if (container != null) {container = container + " "} 
+        else {container = "div.propsCategory "}
+	    var url = thisPage + " " + propID;
+		$("#swapBox").empty().load(url,'',function(){
+    		$(container + propID).replaceWith($("#swapBox").children(propID));
+            $("#swapBox").empty()
+    	    makeEditBoxes(propID);
+            makeTogglers(propID);
+            checkPropType(propID);
+            return false;
+		});
+
+	}
+
+    //     tempID = "new_" + $("#swapBox").children().attr("id");  // some browsers are freaking out with more than one ID in the DOM
+    //     $("#swapBox").children().attr("id",tempID);
+    // $(propID).replaceWith($('#'+tempID));
+    // $('#'+tempID).attr("id", tempID.substring(4));
+
+
+
+	$("head").append('<style type="text/css"> \
+						#contentwrap {background: #fff url(themes/vivo/site_icons/layout/bg_page_person.gif) no-repeat right top;} \
+						.editBox a.edit, \
+						    .editBox a.delete, \
+						    #personWrap div.editBox a.delete {display:none} \
+						.editBox.editMode a.edit, \
+						    .editBox.editMode a.delete, \
+						    #personWrap div.editBox.editMode a.delete {display:inline} \
+						.editBox div.button {display:none} \
+						.editBox.editMode div.button {display:block} \
+						.editBox div.ajaxBox {display:none} \
+						.editBox.editMode div.ajaxBox {display:block}\
+						</style>');
+						
+    $("#content").prepend("<div id='swapBox' style='display:none'></div>");  // container for temporarily storing ajax content
+
+    var MAX_DUMP_DEPTH = 10;
+    var loadingImg = "<img style='border:0' class='img-center' src='themes/vivo/site_icons/loading.gif' alt=''/>";
+    var thisPage = window.location.toString();
     
     makeTogglers();
-    insertWrappers();
-    updateToggle("div.propsItem");
+    makeEditBoxes();
+    checkPropType();
+   
+    function dumpObj(obj, name, indent, depth) {
+           if (depth > MAX_DUMP_DEPTH) {
+                  return indent + name + ": <Maximum Depth Reached>\n";
+           }
+           if (typeof obj == "object") {
+                  var child = null;
+                  var output = indent + name + "\n";
+                  indent += "\t";
+                  for (var item in obj)
+                  {
+                        try {
+                               child = obj[item];
+                        } catch (e) {
+                               child = "<Unable to Evaluate>";
+                        }
+                        if (typeof child == "object") {
+                               output += dumpObj(child, item, indent, depth + 1);
+                        } else {
+                               output += indent + item + ": " + child + "\n";
+                        }
+                  }
+                  return output;
+           } else {
+                  return obj;
+           }
+    }
     
 
     // $("ul#propGroupNav li a").click(function(){

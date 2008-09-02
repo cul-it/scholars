@@ -260,7 +260,7 @@ ul.keywords li {
 
 #personWrap div.propsCategory a.add,
 #personWrap div.propsCategory a.edit {
-    position: absolute; /* only want to position links for properties themselves */
+    position: absolute; /* only want to position links for property names */
     top: 14px;
     right: 0;
     margin: 0;
@@ -271,12 +271,20 @@ ul.keywords li {
     padding-left: 5px;
 }
 
+#personWrap div.dataItem a.delete {
+    display: none;
+}
+
+#personWrap div.datatypeProperties a.delete {
+    display: inline;
+}
+
 #personWrap #content ul.properties a.edit,
 #personWrap #content ul.properties a.delete,
 #personWrap #content div.datatypeProperties a.edit,
 #personWrap #content div.datatypeProperties a.delete {
-    position: static; /* reset for edit links for individual property statements */
-    padding-right: 3px;
+    position: static; /* reset for edit links for property statements */
+    padding-right: 2px;
 }
 
 div.editBox.editMode {
@@ -334,6 +342,7 @@ a.addNewButton button {
     line-height: 1.2em;
     color: #439CBD;
 }
+
 
 
 /* fixes IE double top-padding bug, discussed at: http://exscale.se/archives/2007/06/13/ie-double-padding-bug/ 

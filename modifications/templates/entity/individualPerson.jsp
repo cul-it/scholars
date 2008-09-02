@@ -169,8 +169,8 @@ if (VitroRequestPrep.isSelfEditing(request) || LoginFormBean.loggedIn(request, L
              
 	        <c:if test="${!empty entityKeywordString}">
     	        <div class="citation">
-                    <a href="#keywords"/>
-                    Keywords: <p:process>${entityKeywordString}</p:process>
+                    <%-- <a href="#keywords">&nbsp;</a> --%>
+                    <strong>Keywords:</strong> <p:process>${entityKeywordString}</p:process>
                 </div>
 	        </c:if>
     	    ${requestScope.servletButtons} 
