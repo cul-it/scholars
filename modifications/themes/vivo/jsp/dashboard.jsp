@@ -87,44 +87,52 @@ if (keywordStmts.size()>1) {
     
     <c:if test="${(!empty entity.anchor) || (!empty entity.linksList) || showSelfEdits || showCuratorEdits}">
         <div id="dashboardExtras">
+            <div id="links">
             <h3>Links</h3>
             <c:if test="${showSelfEdits || showCuratorEdits}">
                 <edLnk:editLinks item="${additionalLinkObjectProperty}" icons="false"/>
             </c:if>
-            <ul class="profileLinks">
-                <c:if test="${!empty entity.anchor}">
-                    <c:choose>
-                        <c:when test="${!empty entity.url}">
-                            <c:url var="entityUrl" value="${entity.url}" />
-                            <li><a class="externalLink" href="<c:out value="${entityUrl}"/>">${entity.anchor}</a></li>
-                            <c:if test="${showSelfEdits || showCuratorEdits}">
-                            	<edLnk:editLinks item="${entity.primaryLink.objectPropertyStatement}" icons="false"/>
-                            </c:if>
-                        </c:when>
-                        <c:otherwise><li>${entity.anchor}</li></c:otherwise>
-                    </c:choose>
-                </c:if>
-                <c:if test="${!empty entity.linksList }">
-                    <c:forEach items="${entity.linksList}" var='link'>
-                        <c:url var="linkUrl" value="${link.url}" />
-                        <li><a class="externalLink" href="<c:out value="${linkUrl}"/>">${link.anchor}</a></li>
-                        <c:if test="${showSelfEdits || showCuratorEdits}">
-                            <edLnk:editLinks item="${link.objectPropertyStatement}" icons="false"/>
-                        </c:if>
-                    </c:forEach>
-                </c:if>
-            </ul>
+                <ul class="profileLinks">
+                    <c:if test="${!empty entity.anchor}">
+                        <c:choose>
+                            <c:when test="${!empty entity.url}">
+                                <c:url var="entityUrl" value="${entity.url}" />
+                                <li>
+                                    <c:if test="${showSelfEdits || showCuratorEdits}">
+                                    	<edLnk:editLinks item="${entity.primaryLink.objectPropertyStatement}" icons="false"/>
+                                    </c:if>
+                                    <a class="externalLink" href="<c:out value="${entityUrl}"/>">${entity.anchor}</a>
+                                </li>
+                            </c:when>
+                            <c:otherwise><li>${entity.anchor}</li></c:otherwise>
+                        </c:choose>
+                    </c:if>
+                    <c:if test="${!empty entity.linksList }">
+                        <c:forEach items="${entity.linksList}" var='link'>
+                            <c:url var="linkUrl" value="${link.url}" />
+                            <li>
+                                <c:if test="${showSelfEdits || showCuratorEdits}">
+                                    <edLnk:editLinks item="${link.objectPropertyStatement}" icons="false"/>
+                                </c:if>
+                                <a class="externalLink" href="<c:out value="${linkUrl}"/>">${link.anchor}</a>
+                            </li>
+                        </c:forEach>
+                    </c:if>
+                </ul>
+            </div>
 
             <c:if test="${!empty keywordStatements}">
-            <h3 class="secondary">Keywords</h3>
-                <ul class="keywords">
-    	            <c:forEach items="${keywordStatements}" var="dataPropertyStmt">
-        	            <li>
-        	                <c:if test="${showSelfEdits || showCuratorEdits}"><edLnk:editLinks item="${dataPropertyStmt}" icons="false"/></c:if>
-        	                ${dataPropertyStmt.data}
-        	            </li>
-                    </c:forEach>
-                </ul>
+                <div id="keywords">
+                <h3>Keywords</h3>
+                    <ul class="keywords">
+        	            <c:forEach items="${keywordStatements}" var="dataPropertyStmt">
+            	            <li>
+            	                <c:if test="${showSelfEdits || showCuratorEdits}"><edLnk:editLinks item="${dataPropertyStmt}" icons="false"/></c:if>
+            	                ${dataPropertyStmt.data}
+            	            </li>
+                        </c:forEach>
+                    </ul>
+                </div>
             </c:if>    
         </div><!-- dashboardExtras -->
     </c:if>

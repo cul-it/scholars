@@ -137,12 +137,16 @@ if (VitroRequestPrep.isSelfEditing(request) || LoginFormBean.loggedIn(request, L
                     <p:process><em class="moniker">${entity.moniker}</em></p:process>
                 </c:if>
             
-            <c:if test="${!empty overviewStatementData}">
-            	<div id="overview">
+            <c:if test="${showCuratorEdits || showSelfEdits}">
+                <c:set var="loggedInClass" value="class='loggedIn'"/>
+            </c:if>
+            
+        	<div id="overview" ${loggedInClass}>
+            	<c:if test="${!empty overviewStatementData}">
             		${overviewStatementData}
                    	<c:if test="${showSelfEdits || showCuratorEdits}"><edLnk:editLinks item="${overviewStatement}" icons="false"/></c:if>
-            	</div>
-            </c:if>
+                </c:if>
+        	</div>
 	</div><!-- entity id -->
             <c:choose>
                 <c:when test="${showCuratorEdits || showSelfEdits}">

@@ -11,7 +11,7 @@ Updated:	August 19, 2008
 */
 
 #personWrap div.admin {
-/*    display: none;*/
+    display: none;
 }
 
 #personWrap #vitroPropertyGroupname {
@@ -20,8 +20,10 @@ Updated:	August 19, 2008
 
 #personWrap #content.person {
     padding: 0 0 20px 4px;
-    width: 69%;
+/*    width: 69%;*/
+    width: auto;
     min-width: 600px;
+    margin-right: 280px;
 /*    padding-top: 10px;*/
 }
 
@@ -31,18 +33,20 @@ Updated:	August 19, 2008
 
 #personWrap {
 	background: #fff url(../site_icons/layout/bg_innerwrap_person.gif) repeat-y right top;
-	margin-top: 25px;
+    padding-top: 20px;
+    clear: both;
 }
 
 #personWrap #entity {
     clear: left;
     margin: 0;
-    padding-bottom: 40px;
+    padding-bottom: 10px;
 }
 
 #personWrap #entity h2,
 #personWrap #entity em.moniker {
     float: none;
+    height: 2%; /* fixes IE6 peekaboo bug */
 /*    display: inline;*/
     display: block;
 }
@@ -60,17 +64,25 @@ Updated:	August 19, 2008
     font-size: 1.4em;
 }
 
-#personWrap img.headshot {
+#personWrap img.headshot,
+#personWrap a.img img.headshot {
     width: 75px;
     float: left;
     margin: 0 12px 3px 0;
+/*    border: 1px solid #333333;*/
+    border: 1px solid #777;
 }
 
 #personWrap div#overview {
+    position: relative;
     clear: left;
     margin: 0;
-    padding-top: 1em;
+    padding-top: 6px;
     font-size: 1.1em;
+}
+
+#personWrap div#overview.loggedIn {
+/*    padding-right: 4em;*/
 }
 
 #personWrap div.propsCategory h3 {
@@ -100,7 +112,8 @@ Updated:	August 19, 2008
     border-left: 1px solid #eae2d2;
 /*    border-bottom: 1px solid #d9d9d9;*/
     border-bottom: 1px solid #eae2d2;
-    margin-bottom: 30px;
+/*    margin-bottom: 30px;*/
+    margin: 25px 0;
 }
 
 #personWrap div.propsWrap {
@@ -115,6 +128,7 @@ Updated:	August 19, 2008
 
 #personWrap div.propsItem {
     position: relative;
+    height: 1%; /* fixes IE6 bug described at http://www.positioniseverything.net/abs_relbugs.html */
     background: none;
     border: 0;
     margin: 0;
@@ -126,16 +140,24 @@ Updated:	August 19, 2008
     border-bottom: 1px solid #F2EFE5;
 }
 
-#personWrap div.propsCategory div.propsItem.first {
+/* temporary patch - can't reliably apply class of first to some properties */
+
+#personWrap div.propsCategory div.propsItem.first,
+#personWrap div.propsCategory div.propsItem:first-child {
     border-top: 0;
 }
 
-#personWrap div.propsCategory div.propsItem.last {
+#personWrap div.propsCategory div.propsItem.last,
+#personWrap div.propsCategory div.propsItem:last-child {
     border-bottom: 0;
 }
 
 #personWrap div.propsCategory div.propsItem:first-child { /* temporary patch - can't apply class of first to initial property under affiliations group */
     border-top: 0;
+}
+
+#personWrap div.propsCategory div.propsItem:last-child {
+    border-bottom: 0;
 }
 
 #personWrap div.propsItem h4 {
@@ -174,6 +196,10 @@ Updated:	August 19, 2008
     color: #FF8811;
 }
 
+#personWrap #propGroupNav  {
+    margin-bottom: 20px;
+}
+
 #personWrap #propGroupNav li {
     padding: 0 0 1px 0;
 }
@@ -189,7 +215,7 @@ Updated:	August 19, 2008
 
 #personWrap #dashboard #propGroupNav h2 a {
     display: block;
-    padding: 4px 18px 5px 18px;
+    padding: 4px 14px 5px 14px;
     border: 0;
     color: #fff;
 /*    background: #6d8e80;*/
@@ -213,19 +239,19 @@ Updated:	August 19, 2008
 }
 
 #personWrap #dashboardExtras {
-    margin: 18px;
+    position: relative;
+    height: 1%;
+    margin: 10px 14px;
     padding: 10px;
     border: 1px solid #CBCBCB;
     background: #e6e6e6;
 }
 
 #personWrap #dashboardExtras h3 {
+    display: inline;
     font-size: 1em;
+    line-height: 1.5em;
     margin: 0 0 .3em 0;
-}
-
-#personWrap #dashboardExtras h3.secondary {
-    margin-top: 1em;
 }
 
 #personWrap ul.profileLinks {
@@ -242,10 +268,46 @@ ul.keywords li {
     font-size: 1em;
 }
 
+#personWrap #links,
+#personWrap #keywords {
+/*    position: relative;*/
+    clear: both;
+    width: 100%;
+}
+
+#personWrap #links {
+    margin-bottom: 1em;
+}
+
 /* ----------------- Editing Controls ---------------- */
+
+#personWrap #dashboard #dashboardExtras a.add, 
+#personWrap #dashboard #dashboardExtras a.edit, 
+#personWrap #dashboard #dashboardExtras a.delete { /* being overly specific because IE6 had difficulties */
+    color: #209ae0;
+}
+
+#personWrap #dashboardExtras a.add {
+    position: absolute;
+/*    top: 0;*/
+    right: 8px;
+    margin: 0;
+    padding: 0;
+}
 
 #personWrap #content a.delete {
 /*    display: none;*/
+}
+
+#personWrap #overview a.delete {
+    display: none;
+}
+
+#personWrap #overview a.edit {
+    padding-left: 5px;
+/*    position: absolute;*/
+/*    top: 0;*/
+/*    right: 16px;*/
 }
 
 #personWrap a.add, #personWrap a.edit, #personWrap a.delete {
@@ -267,10 +329,6 @@ ul.keywords li {
     padding: 0;
 }
 
-#personWrap #overview a.edit {
-    padding-left: 5px;
-}
-
 #personWrap div.dataItem a.delete {
     display: none;
 }
@@ -279,10 +337,10 @@ ul.keywords li {
     display: inline;
 }
 
-#personWrap #content ul.properties a.edit,
-#personWrap #content ul.properties a.delete,
-#personWrap #content div.datatypeProperties a.edit,
-#personWrap #content div.datatypeProperties a.delete {
+#personWrap #content .properties a.edit,
+#personWrap #content .properties a.delete,
+#personWrap #content .datatypeProperties a.edit,
+#personWrap #content .datatypeProperties a.delete {
     position: static; /* reset for edit links for property statements */
     padding-right: 2px;
 }
@@ -290,6 +348,7 @@ ul.keywords li {
 div.editBox.editMode {
     border: 2px solid #b5d6e8;
     background: #fff;
+/*    padding: 12px 10px;*/
     padding: 12px 10px;
     margin-top: 3px;
 }
@@ -302,14 +361,24 @@ div.editBox.editMode.editing {
 div.editing ul.properties,
 div.editing div.datatypeProperties {
     color: #888;
+    display: none;
 }
 
 div.button {
     padding: 16px 0 0 0;
 }
 
+div.editBox button {
+    color: #209ae0;
+    padding: 3px 6px 3px 6px;
+}
+
 a.addNewButton {
-    border: 0;
+/*    color: #209ae0;
+    border: 1px solid #5394c3;
+    padding: 6px 16px;
+    line-height: 3em;
+    background: url(../site_icons/layout/bg_links_addnew.gif) center center repeat-x;*/
 }
 
 a.addNewButton button {
@@ -343,7 +412,16 @@ a.addNewButton button {
     color: #439CBD;
 }
 
+#personWrap #links div.editBox a.edit {
+    display: none;
+}
 
+/* ----------------- Colors ---------------- 
+
+Light Blue (edit links): #209ae0
+Bright Orange (link hover): #FF8811
+
+*/
 
 /* fixes IE double top-padding bug, discussed at: http://exscale.se/archives/2007/06/13/ie-double-padding-bug/ 
  -- recent versions of Firefox and Safari don't ignore inline-block anymore */
@@ -352,6 +430,14 @@ a.addNewButton button {
     display: inline-block; 
 }
 
-* + html #personWrap div.propsWrap {
+*:first-child+html #personWrap div.propsWrap {
     display: inline-block;
+}
+
+* html div.editBox button {
+    padding: 1px 3px 2px 3px;
+} 
+    
+*:first-child+html div.editBox button {
+    padding: 1px 3px 2px 3px;}
 }

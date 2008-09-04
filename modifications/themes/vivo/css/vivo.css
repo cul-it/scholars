@@ -541,6 +541,7 @@ h2 {
 	font-size: 2.3em;
 	font-family: Verdana, Helvetica, sans-serif;
 	color: #000;
+	height: 1%; /* fixing IE6 peekaboo bug */
 }
 
 .entity h2 {
