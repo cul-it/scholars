@@ -78,12 +78,12 @@ if (keywordStmts.size()>1) {
 <c:set var='imageDir' value='images' />
 <div id="dashboard"<c:if test="${showCuratorEdits || showSelfEdits}"> class="loggedIn"</c:if>>
    
-    <c:if test="${showSelfEdits || showCuratorEdits}">
+    <%-- c:if test="${showSelfEdits || showCuratorEdits}"> --%>
         <c:import url="${dashboardPropsListJsp}">
        	    <%-- unless a value is provided, properties not assigned to a group will not appear on the dashboard --%>
         	<c:param name="unassignedPropsGroupName" value=""/>
         </c:import>
-    </c:if>
+    <%-- </c:if> --%>
     
     <c:if test="${(!empty entity.anchor) || (!empty entity.linksList) || showSelfEdits || showCuratorEdits}">
         <div id="dashboardExtras">
@@ -126,6 +126,6 @@ if (keywordStmts.size()>1) {
                     </c:forEach>
                 </ul>
             </c:if>    
-        </div>
+        </div><!-- dashboardExtras -->
     </c:if>
-</div>
+</div><!-- dashboard -->
