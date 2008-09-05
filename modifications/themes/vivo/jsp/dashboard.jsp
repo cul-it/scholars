@@ -5,6 +5,8 @@
 <%@ page import="edu.cornell.mannlib.vitro.webapp.dao.WebappDaoFactory" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.beans.ObjectProperty" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.dao.ObjectPropertyDao" %>
+<%@ page import="edu.cornell.mannlib.vitro.webapp.beans.DataProperty" %>
+<%@ page import="edu.cornell.mannlib.vitro.webapp.dao.DataPropertyDao" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.dao.VitroVocabulary" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.beans.ObjectPropertyStatement" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.beans.ObjectPropertyStatementImpl" %>
@@ -36,6 +38,12 @@ if (linkObjectProp != null) {%>
 <%
 }
 
+DataProperty keywordDataProp = wdf.getDataPropertyDao().getDataPropertyByURI("http://vivo.library.cornell.edu/ns/0.1#keyword");
+if (keywordDataProp != null) {%>
+	<c:set var="keywordDataProperty" value="<%=keywordDataProp%>"/>
+<%
+}
+
 Individual indiv = (Individual)request.getAttribute("entity"); // already tested for null in individualPerson.jsp
 
 //here we get any VIVO keywords (now a regular dataproperty)
@@ -48,7 +56,7 @@ for (DataPropertyStatement dps : dataPropertyStatements) {
 	    }
     }
 }
-if (keywordStmts.size()>1) {
+if (keywordStmts.size()>1) { // now sort the keywords, which do not retain an inherent sort order
 	Collections.sort(keywordStmts,new Comparator<DataPropertyStatement>() {
         public int compare( DataPropertyStatement first, DataPropertyStatement second ) {
             if (first==null || first.getData()==null) {
@@ -78,12 +86,24 @@ if (keywordStmts.size()>1) {
 <c:set var='imageDir' value='images' />
 <div id="dashboard"<c:if test="${showCuratorEdits || showSelfEdits}"> class="loggedIn"</c:if>>
    
-    <%-- c:if test="${showSelfEdits || showCuratorEdits}"> --%>
-        <c:import url="${dashboardPropsListJsp}">
-       	    <%-- unless a value is provided, properties not assigned to a group will not appear on the dashboard --%>
-        	<c:param name="unassignedPropsGroupName" value=""/>
-        </c:import>
-    <%-- </c:if> --%>
+    <c:choose>
+        <c:when test="${showSelfEdits || showCuratorEdits}">
+            <c:import url="${dashboardPropsListJsp}">
+       	        <%-- unless a value is provided, properties not assigned to a group will not appear on the dashboard --%>
+                <c:param name="unassignedPropsGroupName" value=""/>
+                <c:param name="grouped" value="true"/>
+                <c:param name="allProps" value="true"/>
+            </c:import>
+        </c:when>
+        <c:otherwise>
+            <c:import url="${dashboardPropsListJsp}">
+       	        <%-- unless a value is provided, properties not assigned to a group will not appear on the dashboard --%>
+                <c:param name="unassignedPropsGroupName" value=""/>
+                <c:param name="grouped" value="true"/>
+                <c:param name="allProps" value="false"/> 
+            </c:import>
+        </c:otherwise>
+    </c:choose>
     
     <c:if test="${(!empty entity.anchor) || (!empty entity.linksList) || showSelfEdits || showCuratorEdits}">
         <div id="dashboardExtras">
@@ -123,7 +143,7 @@ if (keywordStmts.size()>1) {
 
             <c:if test="${!empty keywordStatements}">
                 <div id="keywords">
-                <h3>Keywords</h3>
+                <h3>Keywords</h3><edLnk:editLinks item="${keywordDataProperty}" icons="false"/>
                     <ul class="keywords">
         	            <c:forEach items="${keywordStatements}" var="dataPropertyStmt">
             	            <li>
