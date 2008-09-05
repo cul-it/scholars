@@ -1,11 +1,10 @@
 <%@ page import="edu.cornell.mannlib.vitro.webapp.auth.identifier.Identifier" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.auth.identifier.IdentifierBundle" %>
-<%@ page import="edu.cornell.mannlib.vitro.webapp.auth.identifier.NetIdIdentifierFactory" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.auth.identifier.ServletIdentifierBundleFactory" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.beans.Individual" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.filters.VitroRequestPrep" %>
-<%@page import="edu.cornell.mannlib.vitro.webapp.auth.identifier.SelfEditingUriFactory"%>
 <%@page import="edu.cornell.mannlib.vitro.webapp.dao.WebappDaoFactory"%>
+<%@page import="edu.cornell.mannlib.vitro.webapp.auth.identifier.SelfEditingIdentifierFactory"%>
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
 <%@ page errorPage="/error.jsp"%>
 
@@ -17,11 +16,11 @@
         ServletIdentifierBundleFactory.getIdBundleForRequest(request,session,pageContext.getServletContext());
     
     //get the selfEditingId
-    SelfEditingUriFactory.SelfEditing selfEditingId =
-        SelfEditingUriFactory.getSelfEditingIdentifier(ids);
+    SelfEditingIdentifierFactory.SelfEditing selfEditingId =
+        SelfEditingIdentifierFactory.getSelfEditingIdentifier(ids);
     
     if( selfEditingId != null ){        
-        if( selfEditingId.getBlacklisted() == SelfEditingUriFactory.NOT_BLACKLISTED &&
+        if( selfEditingId.getBlacklisted() == SelfEditingIdentifierFactory.NOT_BLACKLISTED &&
             selfEditingId.getValue() != null ){               
 		VitroRequestPrep.forceToSelfEditing(request);
                 //This puts the user into the all portal when the log into 
@@ -49,8 +48,8 @@
     String netid = null;
     if( ids != null ){
         for(Identifier id : ids){
-            if( id instanceof NetIdIdentifierFactory.NetId){
-                netid = ((NetIdIdentifierFactory.NetId)id).getValue();
+            if( id instanceof SelfEditingIdentifierFactory.NetId){
+                netid = ((SelfEditingIdentifierFactory.NetId)id).getValue();
             }
         }
     }
@@ -69,7 +68,7 @@
     
         if( netid == null || netid.length() <= 0){
             errorMsg = NO_NETID_ERROR_MSG;
-        }else if( netid.length() > 0 ){
+        }else if( netid.length() > 100 ){
             errorMsg = "The system could not accept the NetId '" + netid +
             "', it is too long.";
         }else if( uri == null || ind == null ){
