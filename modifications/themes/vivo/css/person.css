@@ -64,6 +64,11 @@ Updated:	August 19, 2008
     font-size: 1.4em;
 }
 
+#personWrap div#profileImage {
+    width: 87px;
+    float: left;
+}
+
 #personWrap img.headshot,
 #personWrap a.img img.headshot {
     width: 75px;
@@ -71,6 +76,14 @@ Updated:	August 19, 2008
     margin: 0 12px 3px 0;
 /*    border: 1px solid #333333;*/
     border: 1px solid #777;
+}
+
+#personWrap #entity div.citation {
+    clear: left;
+    display: inline;
+    font-size: .8em;
+    line-height: 1.2em;
+    color: #888;
 }
 
 #personWrap div#overview {

@@ -127,9 +127,10 @@ if (VitroRequestPrep.isSelfEditing(request) || LoginFormBean.loggedIn(request, L
                         <a class="image" href="${imageUrl}">
                     </c:if>
                     <c:url var="imageSrc" value='${imageDir}/${entity.imageThumb}'/>
+                    <c:if test="${!empty entity.citation}"><div id="profileImage"></c:if>
                     <img class="headshot" src="<c:out value="${imageSrc}"/>" title="click to view larger image in new window" alt="" width="150"/>
                     <c:if test="${!empty entity.imageFile}"></a></c:if>
-                    <c:if test="${!empty entity.citation}"><div class="citation"><p:process>${entity.citation}</p:process></div></c:if>
+                    <c:if test="${!empty entity.citation}"><div class="citation"><p:process>${entity.citation}</p:process></div></div><!-- profileImage --></c:if>
                 </c:if>
        		    
                 <h2><p:process>${entity.name}</p:process></h2> 
