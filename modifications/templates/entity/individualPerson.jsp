@@ -1,5 +1,7 @@
 <%@ page import="edu.cornell.mannlib.vitro.webapp.beans.Individual" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.beans.VClass" %>
+<%@ page import="edu.cornell.mannlib.vitro.webapp.dao.WebappDaoFactory" %>
+<%@ page import="edu.cornell.mannlib.vitro.webapp.beans.DataProperty" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.beans.DataPropertyStatement" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.edit.n3editing.EditConfiguration" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.edit.n3editing.EditSubmission" %>
@@ -57,15 +59,27 @@ if (VitroRequestPrep.isSelfEditing(request) || LoginFormBean.loggedIn(request, L
     }
 
     // here we look for a property specific to VIVO and retrieve it's value
+    boolean foundOverview = false;
     List<DataPropertyStatement> dataPropertyStatements = entity.getDataPropertyStatements();
     for (DataPropertyStatement dps : dataPropertyStatements) {
         if ("http://vivo.library.cornell.edu/ns/0.1#overviewStatement".equals(dps.getDatapropURI())) {
-    	    if (dps.getData()!=null && dps.getData().trim().length()>0) {%>
+    	    if (dps.getData()!=null && dps.getData().trim().length()>0) {
+    	    	foundOverview=true; %>
     	    	<c:set var="overviewStatement" value="<%=dps%>"/>
     	        <c:set var="overviewStatementData" value="<%=dps.getData().trim()%>"/>
 <%   	        break; // only want 1 statement; should not be more than 1
     	    }
         }
+    }
+    if (!foundOverview) {
+        VitroRequest vreq = new VitroRequest(request);
+        WebappDaoFactory wdf = vreq.getWebappDaoFactory();
+        DataProperty overviewDataProp = wdf.getDataPropertyDao().getDataPropertyByURI("http://vivo.library.cornell.edu/ns/0.1#overviewStatement");
+        if (overviewDataProp == null) {
+        	log.error("Error: cannot find overview statement data property \"http://vivo.library.cornell.edu/ns/0.1#overviewStatement\" for \"add\" link");
+        } else {%>
+        	<c:set var="overviewDataProperty" value="<%=overviewDataProp%>"/>
+<%      }
     }
     
     // here we get any VIVO keywords (now a regular dataproperty) or, if empty, the traditional Vitro keywords
@@ -143,10 +157,15 @@ if (VitroRequestPrep.isSelfEditing(request) || LoginFormBean.loggedIn(request, L
             </c:if>
             
         	<div id="overview" ${loggedInClass}>
-            	<c:if test="${!empty overviewStatementData}">
-            		${overviewStatementData}
-                   	<c:if test="${showSelfEdits || showCuratorEdits}"><edLnk:editLinks item="${overviewStatement}" icons="false"/></c:if>
-                </c:if>
+        	    <c:choose>
+            	    <c:when test="${!empty overviewStatementData}">
+            		    ${overviewStatementData}
+                   	    <c:if test="${showSelfEdits || showCuratorEdits}"><edLnk:editLinks item="${overviewStatement}" icons="false"/></c:if>
+                    </c:when>
+                    <c:when test="${showSelfEdits || showCuratorEdits}">
+                        <em>Note: you do not yet have an overview statement to headline your page.</em><edLnk:editLinks item="${overviewDataProperty}" icons="false"/>
+                    </c:when>
+                </c:choose>
         	</div>
 	</div><!-- entity id -->
             <c:choose>
