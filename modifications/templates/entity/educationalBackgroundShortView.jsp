@@ -6,11 +6,11 @@
 <%@ page import="edu.cornell.mannlib.vitro.webapp.beans.DataPropertyStatement" %>
 
 <c:choose>
-	<c:when test="${!empty objPropStmt}">
-		<c:set var="gradyear" value="${objPropStmt.object.dataPropertyMap['http://vivo.library.cornell.edu/ns/0.1#yearDegreeAwarded'].dataPropertyStatements[0].data}"/>
-		<c:set var="degree" value="${objPropStmt.object.dataPropertyMap['http://vivo.library.cornell.edu/ns/0.1#preferredDegreeAbbreviation'].dataPropertyStatements[0].data}"/>
-		<c:set var="institution" value="${objPropStmt.object.dataPropertyMap['http://vivo.library.cornell.edu/ns/0.1#institutionAwardingDegree'].dataPropertyStatements[0].data}"/>
-		<c:set var="major" value="${objPropStmt.object.dataPropertyMap['http://vivo.library.cornell.edu/ns/0.1#majorFieldOfDegree'].dataPropertyStatements[0].data}"/>
+	<c:when test="${!empty individual}">
+		<c:set var="gradyear" value="${individual.dataPropertyMap['http://vivo.library.cornell.edu/ns/0.1#yearDegreeAwarded'].dataPropertyStatements[0].data}"/>
+		<c:set var="degree" value="${individual.dataPropertyMap['http://vivo.library.cornell.edu/ns/0.1#preferredDegreeAbbreviation'].dataPropertyStatements[0].data}"/>
+		<c:set var="institution" value="${individual.dataPropertyMap['http://vivo.library.cornell.edu/ns/0.1#institutionAwardingDegree'].dataPropertyStatements[0].data}"/>
+		<c:set var="major" value="${individual.dataPropertyMap['http://vivo.library.cornell.edu/ns/0.1#majorFieldOfDegree'].dataPropertyStatements[0].data}"/>
 		<c:if test="${!empty gradyear }"><c:out value="${gradyear} : "/></c:if>
 		<c:out value="${degree}"/>
 		<c:if test="${!empty institution }"><c:out value=", ${institution}"/></c:if>
