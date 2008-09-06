@@ -188,6 +188,7 @@ Updated:	August 19, 2008
 #personWrap div.datatypeProperties p, /* resetting font sizes for html inside data props */
 #personWrap div.datatypeProperties ul {
     font-size: 1em;
+    line-height: 1.5em;
 }
 
 /* ----------------- Dashboard ---------------- */
@@ -425,8 +426,21 @@ a.addNewButton button {
     color: #439CBD;
 }
 
-#personWrap #links div.editBox a.edit {
+#personWrap #keywords div.editBox a.edit {
     display: none;
+}
+
+a.backToTop {
+    float: right;
+    margin-top: -22px;
+    font-size: .9em;
+    color: #aaa;   
+    border-color: #ddd;
+}
+
+a.backToTop:link, 
+a.backToTop:visited {
+/* color: #118855;   */
 }
 
 /* ----------------- Colors ---------------- 

@@ -364,7 +364,7 @@ if ($("#dashboard").hasClass("loggedIn")) {
     makeEditBoxes();
     makeEditBoxes("#links, #keywords","extras");
     checkPropType();
-    checkPropType("#links");
+    checkPropType("#links, #keywords");
     
     function dumpObj(obj, name, indent, depth) {
            if (depth > MAX_DUMP_DEPTH) {
