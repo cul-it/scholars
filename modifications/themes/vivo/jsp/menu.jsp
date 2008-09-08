@@ -51,7 +51,7 @@
        <a class="image login" href="<c:url value="/admin/temporaryLogin.jsp" />" title="Edit Your Profile"><img src="<c:url value="/themes/vivo/site_icons/hiddenlogin.gif"/>" alt="Edit Your Profile" /></a>
     <% } %>
       
-    <a class="image vivoLogo" href="<c:url value="/index.jsp"><c:param name="home" value="${portalBean.portalId}"/></c:url> title="Home"><img src="<c:url value="/themes/vivo/site_icons/vivo_logo.gif"/>" alt="VIVO: Virtual Life Sciences Library" /></a>
+    <a class="image vivoLogo" href="<c:url value="/index.jsp"><c:param name="home" value="${portalBean.portalId}"/></c:url>" title="Home"><img src="<c:url value="/themes/vivo/site_icons/vivo_logo.gif"/>" alt="VIVO: Virtual Life Sciences Library" /></a>
        
     <em class="portal"><%=portal.getShortHand()%></em>
     
