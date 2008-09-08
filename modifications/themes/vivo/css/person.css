@@ -177,6 +177,7 @@ Updated:	August 19, 2008
 }
 
 #personWrap ul.properties {
+    padding-left: 0;
     color: #888;
 }
 
@@ -221,6 +222,10 @@ Updated:	August 19, 2008
 #personWrap #dashboard a:hover,
 #personWrap #dashboard a:active {
     color: #FF8811;
+}
+
+#personWrap #dashboard ul {
+    padding-left: 0;
 }
 
 #personWrap #propGroupNav  {
