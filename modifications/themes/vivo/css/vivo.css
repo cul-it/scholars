@@ -1,4 +1,4 @@
-/****************************************
+ß/****************************************
  * Albert R. Mann Library 
  * Cornell University
  * Ithaca, NY 14853
@@ -37,19 +37,21 @@ body {
 #contentwrap {
 	margin-bottom: 4px;
 	padding: 12px 0 1px 16px; /* right padding taken care of within dashboard (to allow centering of profile image) */
+	/*padding: 12px 0 1px 16px;*/ /* right padding taken care of within dashboard (to allow centering of profile image) */
 	background: #fff url(../site_icons/layout/bg_page.gif) no-repeat right top;
 }
 
 #header {
+    position: relative;
 /*	margin-bottom: 19px;*/
-	display: inline; /* nac26: added 080307 so dasboard will sit up at the top of the page, touching the bottom of the header */
+/*  display: inline; /* nac26: added 080307 so dasboard will sit up at the top of the page, touching the bottom of the header */
 }
 
 #menu {
-	float: right;
-	display: inline;
+/*  float: right;*/
+/*  display: inline;*/
 	clear: both;
-	margin-top: 1px;
+/*  margin-top: 1px;*/
 	margin-right: 262px;
 }
 
@@ -104,13 +106,16 @@ body {
 head roll call
 ****************************************************************/
 em.portal {
-	display: inline;
-	vertical-align: top;
-	padding-left: 7px;
-	font-size: 1.4em;
-	font-family: Arial, Helvetica, sans-serif;
-	font-style: normal;
-	color: #ccc;
+/*    display: inline;*/
+    position: absolute;
+    top: 0;
+    left: 147px;
+/*    vertical-align: top;*/
+/*    padding-left: 7px;*/
+    font-size: 1.4em;
+    font-family: Arial, Helvetica, sans-serif;
+    font-style: normal;
+    color: #ccc;
 }
 
 /****************************************************************
@@ -119,8 +124,9 @@ menu roll call
 ul#primary {
 	float: right;
 	display: inline-block;
-	height: 20px;
-	margin-top: 11px;
+    height: 2em;
+/*    margin-top: 11px;*/
+    margin-top: 49px;
 }
 
 ul#otherMenu {
@@ -133,9 +139,13 @@ ul#otherMenu {
 ul#primary li, ul#otherMenu li {
 	display: inline;
 	margin-left: 5px;
-	padding: 5px 2px 5px 2px;
+    padding: 5px 2px 5px 2px;
 	font-size: 1.2em;
 /*	border: solid 1px #f81;*/
+}
+
+ul#primary li {
+    height: 2em;
 }
 
 ul#otherMenu li {
@@ -143,7 +153,7 @@ ul#otherMenu li {
 }
 
 ul#primary li a:link, ul#primary li a:visited, ul#otherMenu li a:link, ul#otherMenu li a:visited {
-	padding: 5px 2px 5px 2px;
+    padding: 5px 2px 5px 2px;
 	color: #a8c1ca;
 /*	color: #999;*/
 	border: none;
@@ -828,13 +838,19 @@ a:link.spotty, a:visited.spotty, a:hover.spotty {
 }
 
 a:link.vivoLogo, a:visited.vivoLogo, a:hover.vivoLogo {
+    position: absolute;
+    top: 0;
+    left: 0;
 /*	float: left;*/
-	display: inline;
+/*  display: inline;*/
 /*	height: 1%;*/
 }
 
 a:link.login, a:visited.login, a:hover.login {
-	float: right;
+/*  float: right;*/
+    position: absolute;
+    top: 0;
+    right: 0;
 	margin-right: 15px;
 }
 
