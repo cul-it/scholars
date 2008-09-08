@@ -8,8 +8,6 @@
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
 <%@ page errorPage="/error.jsp"%>
 
-<c:set var="themeDir">themes/editdefault/</c:set>
-
 <%
     String errorMsg = "";
     IdentifierBundle ids =
@@ -81,7 +79,6 @@
     VitroRequestPrep.forceOutOfSelfEditing(request);
     //continue on to JSP error page bellow
     request.setAttribute("title","there was a problem accessing your profile");
-    request.setAttribute("editThemeDir","/themes/editdefault");
     request.setAttribute("errorMsg",errorMsg);
 %>
 
