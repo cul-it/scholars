@@ -11,7 +11,7 @@ Updated:	August 19, 2008
 */
 
 #personWrap div.admin {
-    display: none;
+/*    display: none;*/
 }
 
 #personWrap #vitroPropertyGroupname {
@@ -189,6 +189,17 @@ Updated:	August 19, 2008
 #personWrap div.datatypeProperties ul {
     font-size: 1em;
     line-height: 1.5em;
+}
+
+#personWrap div.datatypeProperties ul {
+/*    list-style-type: disc;*/
+/*    list-style-position: inside;*/
+/*    margin: 0 0 0 1.25em;*/
+/*    padding: 0 0 4px 0;*/
+}
+
+#personWrap div.datatypeProperties li {
+/*    list-style-type: disc;*/
 }
 
 /* ----------------- Dashboard ---------------- */
