@@ -1,0 +1,24 @@
+/****************************************
+ * Albert R. Mann Library 
+ * Cornell University
+ * Ithaca, NY 14853
+ ****************************************/
+
+/*
+Title:		VIVO styles for ALL home
+Authors:	nac26@cornell.edu
+Updated:	September 8, 2008
+*/
+
+#contentwrap .home h2 {
+    margin-top: 0;
+    font-family: arial, sans-serif;
+    font-size: 2.2em;
+    color: #5291ac;
+}
+
+p.intro {
+    font-size: 1.4em;
+/*    font-weight: bold;*/
+    color: #aaa;
+}

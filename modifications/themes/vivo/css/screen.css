@@ -15,6 +15,7 @@ Author:		nac26@cornell.edu
 @import url("banner.css");
 @import url("search.css");
 @import url("person.css");
+@import url("home.css");
 
 /* Import IE5/Mac patches
    Uses the IE5/Mac Band Pass Filter:
