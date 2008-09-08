@@ -36,7 +36,7 @@ if (netid != null) {
     request.setAttribute("amIFaking",Boolean.TRUE);
 }
 
-if (VitroRequestPrep.isSelfEditing(request) || LoginFormBean.loggedIn(request, LoginFormBean.EDITOR /* minimum level */)) {
+if (VitroRequestPrep.isSelfEditing(request) /* || LoginFormBean.loggedIn(request, LoginFormBean.EDITOR)*/) {
     request.setAttribute("showSelfEdits",Boolean.TRUE);
 }
 %>
@@ -162,8 +162,8 @@ if (VitroRequestPrep.isSelfEditing(request) || LoginFormBean.loggedIn(request, L
             		    ${overviewStatementData}
                    	    <c:if test="${showSelfEdits || showCuratorEdits}"><edLnk:editLinks item="${overviewStatement}" icons="false"/></c:if>
                     </c:when>
-                    <c:when test="${showSelfEdits || showCuratorEdits}">
-                        <em>Note: you do not yet have an overview statement to headline your page.</em><edLnk:editLinks item="${overviewDataProperty}" icons="false"/>
+                    <c:when test="${showSelfEdits}">
+                    	<em>Note: this page lacks an overview statement.</em><edLnk:editLinks item="${overviewDataProperty}" icons='false'/>
                     </c:when>
                 </c:choose>
         	</div>

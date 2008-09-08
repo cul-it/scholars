@@ -1,9 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<%@ page import="edu.cornell.mannlib.vitro.webapp.beans.ObjectProperty" %>
-<%@ page import="edu.cornell.mannlib.vitro.webapp.beans.ObjectPropertyStatement" %>
-<%@ page import="edu.cornell.mannlib.vitro.webapp.beans.DataProperty" %>
-<%@ page import="edu.cornell.mannlib.vitro.webapp.beans.DataPropertyStatement" %>
 
 <c:choose>
 	<c:when test="${!empty individual}">
