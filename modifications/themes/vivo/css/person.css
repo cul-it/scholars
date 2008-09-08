@@ -97,6 +97,18 @@ Updated:	August 19, 2008
 /*    padding-right: 4em;*/
 }
 
+#personWrap ol,
+#personWrap ul {
+    padding-left: 0;
+    margin-left: 0;
+}
+
+#personWrap #content ol li,
+#personWrap #content ul li {
+    padding-left: 0;
+    font-size: 1em;
+}
+
 #personWrap div.propsCategory h3 {
     float: left;
     display: inline;
@@ -177,6 +189,7 @@ Updated:	August 19, 2008
 }
 
 #personWrap ul.properties {
+    font-size: 1.1em;
     padding-left: 0;
     color: #888;
 }
@@ -192,17 +205,38 @@ Updated:	August 19, 2008
 }
 
 #personWrap div.datatypeProperties ul {
-    list-style-type: disc;
-    margin: 0 0 0 0;
-    padding: 0 0 4px 1.5em;
+    margin: 0;
+    padding: 0 0 .5em 1.5em;
 }
 
-#personWrap div.datatypeProperties li {
+#personWrap div.datatypeProperties ol {
+    list-style-type: decimal;
+    margin: 0;
+    padding: 0 0 .5em 2em;
+}
+
+#personWrap div.datatypeProperties ul li {
     list-style-type: disc;
 }
 
-#personWrap div.multiItem li { /* hiding bullets for multi-item data properties */
+/* multi-item data properties should not have initial bullets */
+#personWrap div.datatypeProperties ul.datatypePropertyValue li {
     list-style-type: none;
+}
+
+#personWrap div.datatypeProperties ul.datatypePropertyValue ul li {
+    list-style-type: disc;
+}
+
+#personWrap div.datatypeProperties ul.datatypePropertyValue ol li {
+    list-style-type: decimal;
+}
+
+
+#personWrap div.datatypeProperties ul ol,
+#personWrap div.datatypeProperties ul ul {
+    padding-left: 1.5em;
+    list-style-position: outside; /* resetting from vivo.css */
 }
 
 /* ----------------- Dashboard ---------------- */
@@ -212,6 +246,7 @@ Updated:	August 19, 2008
     display: inline-block; /* fixes IE double top-padding bug, discussed at: http://exscale.se/archives/2007/06/13/ie-double-padding-bug/ */
     background: none;
     text-align: left;
+    width: 255px;
 }
 
 #personWrap #dashboard a:link,
@@ -222,10 +257,6 @@ Updated:	August 19, 2008
 #personWrap #dashboard a:hover,
 #personWrap #dashboard a:active {
     color: #FF8811;
-}
-
-#personWrap #dashboard ul {
-    padding-left: 0;
 }
 
 #personWrap #propGroupNav  {
@@ -383,6 +414,12 @@ div.editBox.editMode {
 /*    padding: 12px 10px;*/
     padding: 12px 10px;
     margin-top: 3px;
+}
+
+
+#personWrap div.datatypeProperties div.editMode ol li,
+#personWrap div.datatypeProperties div.editMode ul li {
+    list-style-type: none;
 }
 
 div.editBox.editMode.editing {
