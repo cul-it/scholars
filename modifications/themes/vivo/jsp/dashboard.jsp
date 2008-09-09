@@ -112,8 +112,8 @@ if (keywordStmts.size()>1) { // now sort the keywords, which do not retain an in
             <c:if test="${showSelfEdits || showCuratorEdits}">
                 <edLnk:editLinks item="${additionalLinkObjectProperty}" icons="false"/>
             </c:if>
-                <ul class="profileLinks">
-                    <c:if test="${!empty entity.anchor}">
+                <c:if test="${!empty entity.anchor}">
+                    <ul class="profileLinks">
                         <c:choose>
                             <c:when test="${!empty entity.url}">
                                 <c:url var="entityUrl" value="${entity.url}" />
@@ -137,8 +137,8 @@ if (keywordStmts.size()>1) { // now sort the keywords, which do not retain an in
                                 <a class="externalLink" href="<c:out value="${linkUrl}"/>">${link.anchor}</a>
                             </li>
                         </c:forEach>
-                    </c:if>
-                </ul>
+                    </ul>
+                </c:if>
             </div>
 
             <c:choose>

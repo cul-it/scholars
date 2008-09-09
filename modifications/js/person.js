@@ -22,9 +22,11 @@ if ($("ul#propGroupNav").length) {
     					</style>'); 
 
 
-    function scrollTo(id) {
+    function scrollTo(id,ms,offset) {
+        if(ms==null){ ms = 500 };
+        if(offset==null){ offset = 40 };
         var position = $(id).offset({scroll:false}).top;
-        $('html,body').animate({scrollTop: position-40},500);    
+        $('html,body').animate({scrollTop: position - offset},ms);    
     }
 
     $("ul#propGroupNav h2 a").click(function(){
@@ -79,17 +81,13 @@ if ($("#dashboard").hasClass("loggedIn")) {
             $(target).children("ul").wrap("<div class='editBox'></div>");
 			$(target).children("div.editBox").append("<div class='ajaxBox'></div>");
         }
-        
-        if (itemType != null) {
-            // $(target).wrap("<div class='editBox'></div>");
-            // $(target).after("<div class='ajaxBox'></div>");
-        }
     }
     
-    function makeTogglers(propID) {
+    function makeTogglers(propID,filter) {
         if ( propID != null){ var targetDiv = propID; } 
         else { var targetDiv = "div.propsItem"; }
-        $(targetDiv).children("a.add, a.edit").addClass("toggler"); // only reaches immediate children
+        if ( filter == null){ var filter = ""; } 
+        $(targetDiv + filter).children("a.add, a.edit").addClass("toggler"); // only reaches immediate children
     }
     
 
@@ -314,7 +312,7 @@ if ($("#dashboard").hasClass("loggedIn")) {
 	function buttonCheck(property,editbox){
 	    if($(property).find("div.button").length < 1 && $(property).children("a.add").length > 0 ) {
     		var link = $(property).children("a.toggler").attr("href");
-            $(editbox).append('<div class="button"><button type="button" onClick="window.location=\'' + link + '\'">add new</button></div>');
+            $(editbox).append('<div class="button"><button type="button" onClick="window.location=\'' + link + '\'">add</button></div>');
         }
 	}
 
@@ -355,17 +353,76 @@ if ($("#dashboard").hasClass("loggedIn")) {
         tinyMCE.execCommand('mceRemoveControl', false, id); 
     }
     
-    var MAX_DUMP_DEPTH = 10;
     var loadingImg = "<img style='border:0' class='img-center' src='themes/vivo/site_icons/loading.gif' alt=''/>";
     var thisPage = window.location.toString();
     
     makeTogglers();
-    makeTogglers("#links, #keywords");
+    makeTogglers("#links:has(ul), #keywords:has(ul)");
     makeEditBoxes();
     makeEditBoxes("#links, #keywords","extras");
     checkPropType();
     checkPropType("#links, #keywords");
     
+    // $("ul#propGroupNav li a").click(function(){
+    //     var thisGroupID = $(this).attr("href").substring(1);
+    //     if($(this).attr("id") == "currentCat"){
+    //         switchPropertyGroup(thisGroupID, "off")
+    //     } else {
+    //         switchPropertyGroup(thisGroupID, "on")
+    //     }
+    //     $(this).blur();
+    //     return false;
+    // })
+
+    function changeUrlFragment(targetGroup) {
+        document.location.hash = "#" + targetGroup + "_tab";
+    }
+
+    var initialGroup = null;
+
+    // grab the property parameter from the URL if present using the getURLParam jQuery plugin (/js/jquery_plugins/getURLParam.js)
+    var parameter = $.getURLParam("property");
+    var fragment = document.location.hash;
+
+    // if there's a fragment identifier present (directly after a parameter), don't use the parameter at all
+    if (parameter != null && parameter.indexOf("#") > 0) {
+        parameter = null;
+    }
+
+    // if the property parameter is present, let's show the parent grouping for the requested property
+    if ( parameter != null ) {
+        var propertyID = "#" + parameter;
+        var paramGroupID = "#" + $(propertyID).parent().parent().attr("id");
+        // scrollToHighlight(propertyID);
+        initialGroup = paramGroupID;
+        // initialGroup = propertyID;
+    }
+
+    // if there's a fragment identifier present, switch to that group
+    // fragment should have "_tab" on the end
+    if ( fragment.indexOf("_") > 1 ) {
+        var fragmentID = fragment.substring(1,fragment.indexOf("_")); 
+        initialGroup = fragmentID;
+    }
+    
+    // scrollTo(initialGroup,"0");
+    
+        // switchPropertyGroup(initialGroup);
+    //     
+    //     
+    // 
+    // // click handlers
+    // 
+    //     $("ul#propGroupNav li a").click(function(){
+    //         var thisGroupID = $(this).attr("href").substring(1);
+    //         switchPropertyGroup(thisGroupID);
+    //         changeUrlFragment(thisGroupID);
+    //         removeHighlighting();
+    //         $(this).blur();
+    //         return false;
+    //     });
+
+    var MAX_DUMP_DEPTH = 10;
     function dumpObj(obj, name, indent, depth) {
            if (depth > MAX_DUMP_DEPTH) {
                   return indent + name + ": <Maximum Depth Reached>\n";
@@ -392,64 +449,7 @@ if ($("#dashboard").hasClass("loggedIn")) {
                   return obj;
            }
     }
-    
 
-    // $("ul#propGroupNav li a").click(function(){
-    //     var thisGroupID = $(this).attr("href").substring(1);
-    //     if($(this).attr("id") == "currentCat"){
-    //         switchPropertyGroup(thisGroupID, "off")
-    //     } else {
-    //         switchPropertyGroup(thisGroupID, "on")
-    //     }
-    //     $(this).blur();
-    //     return false;
-    // })
-
-
-
-
-    // // do the following after the page initially loads
-    // 
-    //     var initialGroup = $("ul#propGroupNav a#currentCat").attr("href").substring(1);
-    // 
-    //     // grab the property parameter from the URL if present using the getURLParam jQuery plugin (/js/jquery_plugins/getURLParam.js)
-    //     var parameter = $.getURLParam("property");
-    //     var fragment = document.location.hash;
-    // 
-    //     // if there's a fragment identifier present (directly after a parameter), don't use the parameter at all
-    //     if (parameter != null && parameter.indexOf("#") > 0) {
-    //         parameter = null;
-    //     }
-    // 
-    //     // if the property parameter is present, let's show the parent grouping for the requested property and hide all others
-    //     if ( parameter != null ) {
-    //         var propertyID = "#" + parameter;
-    //         var paramGroupID = $(propertyID).parent("div").attr("id");
-    //         scrollToHighlight(propertyID);
-    //         initialGroup = paramGroupID;
-    //     }
-    // 
-    //     // if there's a fragment identifier present, switch to that group
-    //     // fragment should have "_tab" on the end
-    //     if ( fragment.indexOf("_") > 1 ) {
-    //         var fragmentID = fragment.substring(1,fragment.indexOf("_")); 
-    //         initialGroup = fragmentID;
-    //     }
-    // 
-    //     // switchPropertyGroup(initialGroup);
-    //     
-    //     
-    // 
-    // // click handlers
-    // 
-    //     $("ul#propGroupNav li a").click(function(){
-    //         var thisGroupID = $(this).attr("href").substring(1);
-    //         switchPropertyGroup(thisGroupID);
-    //         changeUrlFragment(thisGroupID);
-    //         removeHighlighting();
-    //         $(this).blur();
-    //         return false;
-    //     });
         
 }
 });
