@@ -9,6 +9,10 @@
 <%@ page import="edu.cornell.mannlib.vitro.webapp.controller.VitroRequest"%>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.filters.VitroRequestPrep" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.auth.identifier.FakeSelfEditingIdentifierFactory"%>
+<%@ page import="edu.cornell.mannlib.vitro.webapp.auth.identifier.Identifier" %>
+<%@ page import="edu.cornell.mannlib.vitro.webapp.auth.identifier.IdentifierBundle" %>
+<%@ page import="edu.cornell.mannlib.vitro.webapp.auth.identifier.ServletIdentifierBundleFactory" %>
+<%@ page import="edu.cornell.mannlib.vitro.webapp.auth.identifier.SelfEditingIdentifierFactory"%>
 <%@ page import="org.apache.commons.logging.Log" %>
 <%@ page import="org.apache.commons.logging.LogFactory" %>
 <%@ page import="java.text.Collator" %>
@@ -37,6 +41,19 @@ if (netid != null) {
 }
 
 if (VitroRequestPrep.isSelfEditing(request) /* || LoginFormBean.loggedIn(request, LoginFormBean.EDITOR)*/) {
+    // attempt to tell whether a person is editing his or her own page, to control messages
+    IdentifierBundle ids =
+        ServletIdentifierBundleFactory.getIdBundleForRequest(request,session,pageContext.getServletContext());
+    
+    //get the selfEditingId
+    SelfEditingIdentifierFactory.SelfEditing selfEditingId =
+        SelfEditingIdentifierFactory.getSelfEditingIdentifier(ids);
+    
+    if( selfEditingId != null ){
+        if (entity.getURI().equals(selfEditingId.getValue())) {
+        	request.setAttribute("editingOwnPage",Boolean.TRUE);
+        }
+    }
     request.setAttribute("showSelfEdits",Boolean.TRUE);
 }
 %>
@@ -162,7 +179,7 @@ if (VitroRequestPrep.isSelfEditing(request) /* || LoginFormBean.loggedIn(request
             		    ${overviewStatementData}
                    	    <c:if test="${showSelfEdits || showCuratorEdits}"><edLnk:editLinks item="${overviewStatement}" icons="false"/></c:if>
                     </c:when>
-                    <c:when test="${showSelfEdits}">
+                    <c:when test="${(showSelfEdits && editingOwnPage) || showCuratorEdits}">
                     	<em>Note: this page lacks an overview statement.</em><edLnk:editLinks item="${overviewDataProperty}" icons='false'/>
                     </c:when>
                 </c:choose>
