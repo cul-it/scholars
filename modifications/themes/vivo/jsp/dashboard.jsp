@@ -141,19 +141,35 @@ if (keywordStmts.size()>1) { // now sort the keywords, which do not retain an in
                 </ul>
             </div>
 
-            <c:if test="${!empty keywordStatements}">
-                <div id="keywords">
-                <h3>Keywords</h3><edLnk:editLinks item="${keywordDataProperty}" icons="false"/>
-                    <ul class="keywords">
-        	            <c:forEach items="${keywordStatements}" var="dataPropertyStmt">
-            	            <li>
-            	                <c:if test="${showSelfEdits || showCuratorEdits}"><edLnk:editLinks item="${dataPropertyStmt}" icons="false"/></c:if>
-            	                ${dataPropertyStmt.data}
-            	            </li>
-                        </c:forEach>
-                    </ul>
-                </div>
-            </c:if>    
-        </div><!-- dashboardExtras -->
+            <c:choose>
+            	<c:when test="${showSelfEdits || showCuratorEdits}">
+                    <div id="keywords">
+                        <h3>Keywords</h3><edLnk:editLinks item="${keywordDataProperty}" icons="false"/>
+                        <c:if test="${!empty keywordStatements}">
+                            <ul class="keywords">
+        	                    <c:forEach items="${keywordStatements}" var="dataPropertyStmt">
+            	                    <li>
+            	                        <c:if test="${showSelfEdits || showCuratorEdits}"><edLnk:editLinks item="${dataPropertyStmt}" icons="false"/></c:if>
+            	                        ${dataPropertyStmt.data}
+            	                    </li>
+                                </c:forEach>
+                            </ul>
+                       </c:if>    
+                    </div>
+                </c:when>
+                <c:otherwise>
+                    <c:if test="${!empty keywordStatements}">
+                        <div id="keywords">
+                            <h3>Keywords</h3>
+                            <ul class="keywords">
+        	                    <c:forEach items="${keywordStatements}" var="dataPropertyStmt">
+            	                    <li>${dataPropertyStmt.data}</li>
+                                </c:forEach>
+                            </ul>
+                        </div>
+                    </c:if>
+                </c:otherwise>
+            </c:choose>
+         </div><!-- dashboardExtras -->
     </c:if>
 </div><!-- dashboard -->
