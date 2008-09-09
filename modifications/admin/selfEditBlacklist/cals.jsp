@@ -20,7 +20,9 @@
         <h2>CALS Administration has requested that you edit your profile only through the CALS annual reporting process</h2>
         <p style="text-align:center;">The next reporting period begins in January, 2009. Changes you make then will be propagated to VIVO and the CALS
             Research Portals.</p>
-	    <h4>Please contact <a href="mailto:lad23@cornell.edu?subject=request to change CALS research/VIVO profile">CALS</a> with any questions or with corrections you wish to make before January.</h4> 
+	    <h4>Please contact <a href="mailto:AcademicReportingContact-L@cornell.edu?subject=request to change CALS research/VIVO profile">CALS</a>
+	        with any questions or with corrections you wish to make before January.
+	    </h4> 
     </div>
     <p/>
 <%  if( selfEditingId.getValue() != null ) { %>   
