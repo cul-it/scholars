@@ -1,8 +1,7 @@
 <%@ page import="edu.cornell.mannlib.vitro.webapp.auth.identifier.IdentifierBundle" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.auth.identifier.ServletIdentifierBundleFactory" %>
-<%@page import="edu.cornell.mannlib.vitro.webapp.auth.identifier.SelfEditingUriFactory"%>
+<%@page import="edu.cornell.mannlib.vitro.webapp.auth.identifier.SelfEditingIdentifierFactory"%>
 <%@page import="edu.cornell.mannlib.vitro.webapp.auth.identifier.Identifier"%>
-<%@page import="edu.cornell.mannlib.vitro.webapp.auth.identifier.NetIdIdentifierFactory"%>
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
 <%@ page errorPage="/error.jsp"%>
 
@@ -15,11 +14,11 @@
 
     IdentifierBundle ids =
         ServletIdentifierBundleFactory.getIdBundleForRequest(request,session,pageContext.getServletContext());    
-    SelfEditingUriFactory.SelfEditing selfEditingId =
-        SelfEditingUriFactory.getSelfEditingIdentifier(ids);
+SelfEditingIdentifierFactory.SelfEditing selfEditingId =
+    SelfEditingIdentifierFactory.getSelfEditingIdentifier(ids);
     
     if( selfEditingId != null && 
-        selfEditingId.getBlacklisted() == SelfEditingUriFactory.NOT_BLACKLISTED &&
+        selfEditingId.getBlacklisted() == SelfEditingIdentifierFactory.NOT_BLACKLISTED &&
         selfEditingId.getValue() != null ){
         %>
         <c:redirect url="/entity">       
@@ -36,16 +35,9 @@
         %><jsp:forward page="/admin/selfEditBlacklist/che.jsp"/><%
         return;
     }
-    
-  //get the netId
-    String netid = null;
-    if( ids != null ){
-        for(Identifier id : ids){
-            if( id instanceof NetIdIdentifierFactory.NetId){
-                netid = ((NetIdIdentifierFactory.NetId)id).getValue();
-            }
-        }
-    }
+    String netid = "unknown";
+    if(request.getHeader("REMOTE_USER") != null )
+        netid = request.getHeader("REMOTE_USER");
 %>
 
 
