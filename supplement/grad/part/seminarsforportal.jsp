@@ -65,7 +65,7 @@
             <c:forEach  items="${rs.rows}" var="talk" begin="0" varStatus="status">
                 <fmt:parseDate var="seminarTimekey" value="${talk.timekey.string}" pattern="yyyy-MM-dd'T'HH:mm:ss" />
                 <fmt:formatDate var="seminarDate" value="${seminarTimekey}" pattern="EEEE', 'MMM'. 'd" />
-                <fmt:formatDate var="calendarStart" value="${seminarTimekey}" pattern="yyyyMMdd'T'HHmm'-0500'" />
+                <fmt:formatDate var="calendarStart" value="${seminarTimekey}" pattern="yyyyMMdd'T'HHmm' -0500'" />
                 <fmt:formatDate var="calendarEnd" value="${seminarTimekey}" pattern="yyyyMMdd" />
                 
                 <c:url var="seminarLink" value="http://vivo.cornell.edu/entity"><c:param name="uri" value="${talk.talkUri}"/></c:url>
