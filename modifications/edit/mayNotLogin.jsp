@@ -28,10 +28,10 @@ SelfEditingIdentifierFactory.SelfEditing selfEditingId =
         return;        
     }
 
-    if( CALS_URI.equals(selfEditingId.getBlacklisted()) ){
+    if( CALS_UNIT_CODE.equals(selfEditingId.getBlacklisted()) ){
         %><jsp:forward page="/admin/selfEditBlacklist/cals.jsp"/><%
         return;
-    }else if( CHE_URI.equals(selfEditingId.getBlacklisted() )){
+    }else if( CHE_UNIT_CODE.equals(selfEditingId.getBlacklisted() )){
         %><jsp:forward page="/admin/selfEditBlacklist/che.jsp"/><%
         return;
     }
@@ -72,7 +72,7 @@ SelfEditingIdentifierFactory.SelfEditing selfEditingId =
 <jsp:include page="formSuffix.jsp"/>
 
 <%!
-private static final String CALS_URI = "http://vivo.library.cornell.edu/ns/0.1#individual134";
-private static final String CHE_URI =  "http://vivo.library.cornell.edu/ns/0.1#individual251";
+private static final String CALS_UNIT_CODE = "AG";
+private static final String CHE_UNIT_CODE =  "HE";
 
 %>

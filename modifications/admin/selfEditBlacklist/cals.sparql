@@ -1,23 +1,21 @@
-# sparql query to detect if an individual is a member of CALS
+# SPARQL query to detect if an individual is a member of CALS
 # The variable ?individualURI will be replaced by the individual's
 # URI before the is query is run.
 # The variable ?cause will be the value that is used as the token to 
-# indicate why the individaul was blacklisted and select a web page
-# explaning the reason for blacklisting.
+# indicate why the individual was blacklisted and select a web page
+# explaining the reason for blacklisting.
 # see NetIdIdentifierFactory.java for the code that runs this query
 # and clones/modifications/edit/login.jsp for the code that selects
 # a page to return when a blacklisted self-editor attempts to log in.
 
-# vivo:individual134 is CALS
+# "AG" is the human resources code for CALS
 
-PREFIX vivo:  <http://vivo.library.cornell.edu/ns/0.1#>
+PREFIX vivo:     <http://vivo.library.cornell.edu/ns/0.1#>
+PREFIX hrdata: <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#>
 
 SELECT ?cause
 WHERE {
- {  ?individualURI vivo:holdFacultyAppointmentIn _:dept .
-  _:dept vivo:departmentOrDivisionWithin ?cause .  }
- UNION
-  { ?individualURI vivo:holdFacultyAppointmentIn ?cause }
- filter( ?cause = vivo:individual134 )
+     ?individualURI   hrdata:primaryUnitCode   ?cause     
+     filter( STR(?cause) = "AG"  )
 }
 limit 1
