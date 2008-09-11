@@ -71,6 +71,10 @@ form dd {
 	margin: 0 0 20px 0;
 }
 
+form input#submit {
+	color: #000;
+}
+
 form.editForm input#submit {
 	color: #209ae0;
 /*	color: #000;*/

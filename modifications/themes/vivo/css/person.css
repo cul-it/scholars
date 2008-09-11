@@ -510,8 +510,8 @@ a.backToTop:visited {
 
 #personWrap div.propsCategory div.highlighted {
 /*	background: #faf8f3 url(../site_icons/layout/bg_propsItem_highlighted.gif) left top repeat-y;*/
-/*	border-top-color: #faf8f3;*/
-	border-top-color: #F0EDE4;
+	border-top-color: #faf8f3;
+/*	border-top-color: #F0EDE4;*/
 	border-bottom-color: #faf8f3;
 /*	border-top: 1px solid #F0EDE4;*/
 	margin-left: -16px;
