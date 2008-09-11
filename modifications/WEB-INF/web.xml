@@ -37,6 +37,13 @@
 
 <!-- Listeners ****************************************************** -->
 
+	<!-- set the default portal to ALL (65525) -->
+	<listener>
+		<listener-class>
+			edu.cornell.mannlib.vitro.webapp.servlet.setup.Portal65535Default
+		</listener-class>
+	</listener>
+
     <!-- experimental ModelMaker for ingest workflows - BJL 2008-06-01 -->
     <listener>
         <listener-class>
