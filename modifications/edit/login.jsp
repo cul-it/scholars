@@ -5,6 +5,9 @@
 <%@ page import="edu.cornell.mannlib.vitro.webapp.filters.VitroRequestPrep" %>
 <%@page import="edu.cornell.mannlib.vitro.webapp.dao.WebappDaoFactory"%>
 <%@page import="edu.cornell.mannlib.vitro.webapp.auth.identifier.SelfEditingIdentifierFactory"%>
+<%@page import="com.hp.hpl.jena.ontology.OntModel"%>
+<%@page import="edu.cornell.mannlib.vitro.webapp.dao.jena.LoginEvent"%>
+<%@page import="edu.cornell.mannlib.vitro.webapp.controller.edit.Authenticate"%>
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
 <%@ page errorPage="/error.jsp"%>
 
@@ -20,18 +23,25 @@
     if( selfEditingId != null ){        
         if( selfEditingId.getBlacklisted() == SelfEditingIdentifierFactory.NOT_BLACKLISTED &&
             selfEditingId.getValue() != null ){               
-		VitroRequestPrep.forceToSelfEditing(request);
-                //This puts the user into the all portal when the log into 
-                //self editing.  The reason for this is to avoid confusion
-                //created by individuals that are hidden by portal filtering
-                //but visible when logged in to self editing.
-                %>
-                <c:set var="personUri"><%= selfEditingId.getValue() %></c:set>
-                <c:redirect url="/all/entity">       
-                    <c:param name="uri" value="${personUri}"/>
-                </c:redirect>
-                <%
-                return;        
+    		VitroRequestPrep.forceToSelfEditing(request);
+            
+            //write who logged in to the audit log.
+            Authenticate.sendLoginNotifiyEvent(
+                    new LoginEvent(selfEditingId.getValue()), 
+                    application,
+                    session);
+            
+            //This puts the user into the all portal when the log into 
+            //self editing.  The reason for this is to avoid confusion
+            //created by individuals that are hidden by portal filtering
+            //but visible when logged in to self editing.
+            %>
+            <c:set var="personUri"><%= selfEditingId.getValue() %></c:set>
+            <c:redirect url="/all/entity">       
+                <c:param name="uri" value="${personUri}"/>
+            </c:redirect>
+            <%
+            return;        
        } else {
           // Conditions that deny a user self-editing:
           // no netid from CUWebAuth, not really logged in
