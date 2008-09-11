@@ -53,5 +53,4 @@
 		</div><!--END 'secondaryTabMenu'--><% 
 	}%>
 </div><!-- END 'menu' -->
-<div id="breadcrumbs"><%=BreadCrumbsUtil.getBreadCrumbsDiv(request)%></div>
 <!-- ************************ END menu.jsp ************************ -->

@@ -61,8 +61,7 @@
         <!-- include primary menu list elements from TabMenu.java -->
         <%=TabMenu.getPrimaryTabMenu(vreq)%>
     </div> <!-- menu -->
-    <div id="secondaryMenu">
-    <%=BreadCrumbsUtil.getBreadCrumbsDiv(request)%>
+    <div id="secondaryMenu">    
     <!-- now render the standard Index, About, and Contact Us navigation  --> 
         <ul id="otherMenu">
 <%          if ("browse".equalsIgnoreCase(fixedTabStr)) {%>
