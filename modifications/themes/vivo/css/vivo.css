@@ -846,12 +846,16 @@ a:link.vivoLogo, a:visited.vivoLogo, a:hover.vivoLogo {
 /*	height: 1%;*/
 }
 
-a:link.login, a:visited.login, a:hover.login {
+a:link.login, a:visited.login, a:hover.login, a:link.logout, a:visited.logout, a:hover.logout {
 /*  float: right;*/
     position: absolute;
     top: 0;
     right: 0;
 	margin-right: 15px;
+}
+
+a:link.logout, a:visited.logout, a:hover.logout {
+    right: 148px;
 }
 
 ul#profileCats li a {

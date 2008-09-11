@@ -42,13 +42,13 @@
     //nac26 2008-09-10
     //decomissioned this test...we're goin live (see revision 3123 or earlier if you want it back)    
         if ( VitroRequestPrep.isSelfEditing( request )) { %>
-				<a class="image login" href="<c:url value="/edit/logout.jsp" />" title="Logout of Editing"><img src="<c:url value="/themes/vivo/site_icons/logout.gif"/>" alt="Logout of Editing Your Profile" /></a>
+				<a class="image logout" href="<c:url value="/edit/logout.jsp" />" title="Logout of Editing"><img src="<c:url value="/themes/vivo/site_icons/logout.gif"/>" alt="Logout of Editing Your Profile" /></a>
 				<a class="image login" href="<c:url value="/edit/login.jsp" />" title="Manage Your Profile"><img src="<c:url value="/themes/vivo/site_icons/manage.gif"/>" alt="Edit Your Profile" /></a>
         <% } else { %>
              	<a class="image login" href="<c:url value="/edit/login.jsp" />" title="Edit Your Profile"><img src="<c:url value="/themes/vivo/site_icons/login.gif"/>" alt="Edit Your Profile" /></a>
         <% } %>
       
-    <a class="image vivoLogo" href="<c:url value="/index.jsp"><c:param name="home" value="${portalBean.portalId}"/></c:url>" title="Home"><img src="<c:url value="/themes/vivo/site_icons/vivo_logo.gif"/>" alt="VIVO: Virtual Life Sciences Library" /></a>
+    <a class="image vivoLogo" href="<c:url value="/index.jsp"><c:param name="home" value="${portalBean.portalId}"/></c:url>" title="Home"><img src="<c:url value="/themes/vivo/site_icons/vivo_logo.gif"/>" alt="VIVO" /></a>
        
     <em class="portal"><%=portal.getShortHand()%></em>
     
