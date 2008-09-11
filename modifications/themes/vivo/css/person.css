@@ -220,6 +220,10 @@ Updated:	August 19, 2008
     list-style-type: disc;
 }
 
+#personWrap div.datatypeProperties ul.datatypePropertyValue {
+    padding-left: 0;
+}
+
 /* multi-item data properties should not have initial bullets */
 #personWrap div.datatypeProperties ul.datatypePropertyValue li {
     list-style-type: none;
@@ -506,7 +510,7 @@ a.backToTop:visited {
 
 #personWrap div.propsCategory div.highlighted {
 /*	background: #faf8f3 url(../site_icons/layout/bg_propsItem_highlighted.gif) left top repeat-y;*/
-	border-top: 0;
+	border-top-color: #faf8f3;
 /*	border-top: 1px solid #F0EDE4;*/
 	margin-left: -16px;
 	padding-left: 16px;

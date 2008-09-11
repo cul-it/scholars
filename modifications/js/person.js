@@ -114,15 +114,20 @@ if ($("#dashboard").hasClass("loggedIn")) {
                 }
                 propHandlers(this,"3");
 			}
-
-            // 4: single-statement data property, populated
-            else if ($(this).hasClass("dataItem") == true && $(this).find("div.datatypeProperties").length > 0) {
-                // propHandlers(this,"4");
+			
+			// 4: single-statement data property, populated, allows additions
+            else if ($(this).hasClass("addable") == true) {
+                propHandlers(this,"4");
 			}
 
-            // 5: data property, empty
-            else if ($(this).hasClass("dataItem") == true && $(this).find("div.datatypeProperties").length < 1) {
+            // 5: single-statement data property, populated
+            else if ($(this).hasClass("dataItem") == true && $(this).find("div.datatypeProperties").length > 0) {
                 // propHandlers(this,"5");
+			}
+
+            // 6: data property, empty
+            else if ($(this).hasClass("dataItem") == true && $(this).find("div.datatypeProperties").length < 1) {
+                // propHandlers(this,"6");
 			}
 			
 			// 0: properties outside groupings
@@ -195,7 +200,25 @@ if ($("#dashboard").hasClass("loggedIn")) {
 			})
 		}
 		
-		if (type == 4) { // single data populated
+		if (type == 4) { // single data populated (allows additions)
+			$(property).children("a.toggler").text("edit").attr("title","edit these items").unbind().bind("click", function(){
+				$(this).blur();
+				var editbox = $(this).parent("div.propsItem").children("div.editBox");
+				var ajaxbox = $(property).find("div.ajaxBox");
+				$(editbox).toggleClass("editMode");
+				if($(editbox).hasClass("editMode")) { 
+                    // $(this).text("close").css("font-weight","bold");
+                    togglerText("close",this);
+				} else {
+                    // $(this).text("edit").css("font-weight","normal");
+                    togglerText("edit-multi",this);
+				}
+                buttonCheck(property,editbox);
+				return false;
+			})
+		}
+		
+		if (type == 5) { // single data populated
 			$(property).children("a.toggler").unbind().bind("click", function(){
 				$(this).blur();
 				var propID = "#" + $(property).attr("id");
@@ -243,7 +266,7 @@ if ($("#dashboard").hasClass("loggedIn")) {
 			})
 		}
 		
-		if (type == 5) { // data empty
+		if (type == 6) { // data empty
 			$(property).children("a.toggler").unbind().bind("click", function(){
 				$(this).blur();
 				var propID = "#" + $(property).attr("id");
@@ -400,7 +423,7 @@ if ($("#dashboard").hasClass("loggedIn")) {
                 }, 1200);
         }
 		if(toggle=="off"){
-			$(property).removeClass("highlighted");
+			$(property).removeClass("highlighted").css("background-color","#faf8f3");
 		}
     }
 
@@ -420,6 +443,9 @@ if ($("#dashboard").hasClass("loggedIn")) {
 		highlight(hash,"on");
     }
 
+    $("body").click(function(){
+        highlight("div.highlighted","off");
+    })
 
     // var initialGroup = null;
     // 
