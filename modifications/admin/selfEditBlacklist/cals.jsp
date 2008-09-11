@@ -25,7 +25,7 @@
 	    </h4> 
     </div>
     <p/>
-<%  if( selfEditingId.getValue() != null ) { %>   
+<%  if( selfEditingId != null && selfEditingId.getValue() != null ) { %>   
         <c:url value="/entity" var="siteRoot">
             <c:param name="uri"><%=selfEditingId.getValue() %></c:param>
         </c:url>

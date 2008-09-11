@@ -23,7 +23,7 @@
 	        with any questions or with corrections you wish to make in VIVO before January.
 	    </h4> 
  
-    <% if( selfEditingId.getValue() != null ) { %>   
+    <% if( selfEditingId != null && selfEditingId.getValue() != null ) { %>   
        <c:url value="/entity" var="siteRoot">
           <c:param name="uri"><%=selfEditingId.getValue() %></c:param>
        </c:url>
