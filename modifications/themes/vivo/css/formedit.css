@@ -13,6 +13,16 @@ Updated:	June 18, 2008
 #content.full { width: 100%; margin-top: 40px; }
 #dashboard { display: none; }
 
+#content.form {
+	width: auto;
+	min-height: 400px;
+/*	border: 1px solid red;*/
+	clear: both;
+}
+
+#content.form h2 {
+	font-size: 2em;
+}
 
 div#header a.manage, div#header a.logout {display: block; float: right; margin-right: 15px;}
 /*div#header a.image img {display: block;}*/
@@ -46,3 +56,12 @@ form dl {
 form dl dt, form dl dd {
 	padding-top: 15px;
 }
+
+form dd {
+	margin: 20px 0 16px 0;
+}
+
+form input#submit {
+	color: #209ae0;
+}
+

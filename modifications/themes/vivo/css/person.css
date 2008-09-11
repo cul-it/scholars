@@ -162,6 +162,7 @@ Updated:	August 19, 2008
     border-top: 1px solid #fff;
 /*    border-bottom: 1px solid #F2EFE5;*/
     border-bottom: 1px solid #f0ede4;
+	background: #faf8f3;
 }
 
 /* temporary patch - can't reliably apply class of first to some properties */
@@ -392,6 +393,11 @@ ul.keywords li {
     padding: 0;
 }
 
+#personWrap div.propsCategory div.highlighted a.add,
+#personWrap div.propsCategory div.highlighted a.edit {
+    right: 15px;
+}
+
 #personWrap div.dataItem a.delete {
     display: none;
 }
@@ -496,6 +502,16 @@ a.backToTop {
 a.backToTop:link, 
 a.backToTop:visited {
 /* color: #118855;   */
+}
+
+#personWrap div.propsCategory div.highlighted {
+/*	background: #faf8f3 url(../site_icons/layout/bg_propsItem_highlighted.gif) left top repeat-y;*/
+	border-top: 0;
+/*	border-top: 1px solid #F0EDE4;*/
+	margin-left: -16px;
+	padding-left: 16px;
+	margin-right: -15px;
+	padding-right: 15px;
 }
 
 /* ----------------- Colors ---------------- 

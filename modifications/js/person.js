@@ -378,35 +378,78 @@ if ($("#dashboard").hasClass("loggedIn")) {
         document.location.hash = "#" + targetGroup + "_tab";
     }
 
-    var initialGroup = null;
-
-    // grab the property parameter from the URL if present using the getURLParam jQuery plugin (/js/jquery_plugins/getURLParam.js)
-    var parameter = $.getURLParam("property");
-    var fragment = document.location.hash;
-
-    // if there's a fragment identifier present (directly after a parameter), don't use the parameter at all
-    if (parameter != null && parameter.indexOf("#") > 0) {
-        parameter = null;
+    function getViewportHeight() {
+        if (typeof window.innerHeight != 'undefined'){
+            viewportheight = window.innerHeight
+        }
+        else if (typeof document.documentElement != 'undefined' 
+                && typeof document.documentElement.clientHeight != 'undefined' 
+                && document.documentElement.clientHeight != 0) {
+            viewportheight = document.documentElement.clientHeight
+        }
+       return viewportheight;
     }
 
-    // if the property parameter is present, let's show the parent grouping for the requested property
-    if ( parameter != null ) {
-        var propertyID = "#" + parameter;
-        var paramGroupID = "#" + $(propertyID).parent().parent().attr("id");
-        // scrollToHighlight(propertyID);
-        initialGroup = paramGroupID;
-        // initialGroup = propertyID;
+    function highlight(property,toggle) {
+		if(toggle=="on"){
+			$("div.highlighted").removeClass("highlighted");
+			$(property).addClass("highlighted");
+            bgColor = "#fffbcf";
+            $(property).animate({ 
+                backgroundColor: bgColor
+                }, 1200);
+        }
+		if(toggle=="off"){
+			$(property).removeClass("highlighted");
+		}
     }
 
-    // if there's a fragment identifier present, switch to that group
-    // fragment should have "_tab" on the end
-    if ( fragment.indexOf("_") > 1 ) {
-        var fragmentID = fragment.substring(1,fragment.indexOf("_")); 
-        initialGroup = fragmentID;
+    var hash = document.location.hash;
+
+    if(hash!=null ){
+        var viewport = getViewportHeight();
+        if(viewport > 0){  
+			var offset = viewport/3; 
+		} else {
+			var offset = "50";
+		}
+		// alert(propertyID + " " + offset);
+		// document.location.hash = initialGroup
+		// alert(hash);
+        scrollTo(hash,"200",offset);
+		highlight(hash,"on");
     }
+
+
+    // var initialGroup = null;
+    // 
+    // // grab the property parameter from the URL if present using the getURLParam jQuery plugin (/js/jquery_plugins/getURLParam.js)
+    // var parameter = $.getURLParam("property");
+    // var propertyID = null;
+    // var hash = document.location.hash;
+    // 
+    // // if there's a fragment identifier present (directly after a parameter), don't use the parameter at all
+    // if (parameter != null && parameter.indexOf("#") > 0) {
+    //     parameter = null;
+    // }
+    // 
+    // // if the property parameter is present, let's show the parent grouping for the requested property
+    // if ( parameter != null ) {
+    // 	    var propertyID = "#" + parameter;
+    //     var initialGroup = "#" + $(propertyID).parent().parent().attr("id");
+    // }
+    // 
+    // // if there's a fragment identifier present, switch to that group
+    // // fragment should have "_tab" on the end
+    // if ( hash.indexOf("_") > 1 ) {
+    //     var hashID = fragment.substring(1,hash.indexOf("_")); 
+    //     initialGroup = hashID;
+    // }
     
-    // scrollTo(initialGroup,"0");
     
+    
+    // document.location.hash = initialGroup
+
         // switchPropertyGroup(initialGroup);
     //     
     //     
