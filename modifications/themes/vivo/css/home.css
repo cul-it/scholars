@@ -7,8 +7,75 @@
 /*
 Title:		VIVO styles for ALL home
 Authors:	nac26@cornell.edu
-Updated:	September 8, 2008
+Updated:	September 11, 2008
 */
+
+#content {
+/*    border: solid 1px #f00;*/
+}
+
+.contents {
+/*    border: solid 1px #ff0;*/
+}
+
+#contentwrap {
+    padding-left: 0;
+}
+
+#header a.vivoLogo {
+    margin-left: 16px;
+}
+
+em.portal {
+    left: 163px;
+}
+
+#personWrap {
+    float: left;
+    display: inline-block;
+    margin: 0;
+/*    margin-left: -16px;*/
+    padding-top: 0;
+    padding-left: 16px;
+/*    padding-left: 6px;*/
+}
+
+#content {
+    padding-left: 16px;
+    width: 97%;
+}
+
+#personWrap #dashboard.home {
+    padding-top: 20px;
+    padding-bottom: 16px;
+    min-height: 0;
+}
+
+#personWrap #dashboard.home #login {
+    margin-left: 14px;
+    padding: 12px;
+    width: 200px;
+    background: #e6e6e6;
+    border: solid 1px #ccc;
+}
+
+#personWrap #dashboard.home #login p {
+    clear: left;
+    margin-bottom: 0;
+    font-size: 1.0em;
+}
+
+#personWrap #dashboard.home #login img {
+    margin-top: 10px;
+}
+
+#personWrap #dashboard.home #seminars {
+    margin: 0 14px;
+}
+
+#contentwrap .contents.home {
+    min-height: 400px;
+}
 
 #contentwrap .home h2 {
     margin-top: 0;
@@ -19,6 +86,148 @@ Updated:	September 8, 2008
 
 p.intro {
     font-size: 1.4em;
-/*    font-weight: bold;*/
     color: #aaa;
+}
+
+#contentwrap .home h3 {
+    float: left;
+/*    display: inline-block;*/
+    font-family: georgia, serif;
+    font-weight: normal;
+/*    color: #185;*/
+    color: #5291ac;
+}
+
+#contentwrap #dashboard.home #login h3 {
+    float: none;
+    margin: 0;
+    font-family: arial, sans-serif;
+    font-size: 1.3em;
+    font-weight: bold;
+    color: #333;
+}
+
+#contentwrap #dashboard.home #seminars h3 {
+    color: #5291ac;
+}
+
+.home #news ul, #contentwrap #dashboard.home #seminars h5 {
+    clear: left;
+}
+
+#contentwrap #dashboard.home #seminars h5 {
+    margin-bottom: 3px;
+    font-size: 1.1em;
+}
+
+#contentwrap #dashboard.home #seminars span.abbrStart abbr {
+    float: left;
+    padding: 2px;
+    margin: 0 4px 0 0;
+    font-size: 0.8em;
+    font-weight: bold;
+    border: none;
+    color: #fff;
+    background: #5291ac;
+}
+
+#contentwrap #dashboard.home #seminars p {
+    float: left;
+    display: inline-block;
+    position: relative;
+    left: 2px;
+    width: 170px;
+    font-size: 1.0em;
+    line-height: 1.2em;
+}
+
+#contentwrap .home h3 span.viewAll {
+    margin: 0 0 0 10px;
+    font-family: arial, sans-serif;
+    font-size: 0.6em;
+}
+
+#contentwrap .home span.viewAll a:link, #contentwrap .home span.viewAll a:visited, #contentwrap #dashboard.home span.viewAll a:link, #contentwrap #dashboard.home span.viewAll a:visited {
+    padding: 3px;
+    color: #333;
+    background: #fe9;
+    border: solid 1px #f2f2c2;
+}
+
+#contentwrap .home span.viewAll a:hover, #contentwrap #dashboard.home span.viewAll a:hover {
+    color: #5291ac;
+}
+
+form#searchHome {
+    width: 500px;
+    margin-bottom: 25px;
+}
+
+form#searchHome label {
+    /* specify font size first for IE, then let all other browsers just inherit */
+    font-size: 1.0em;
+    font-size: inherit;
+    color: #000;
+}
+
+form#searchHome input#searchInput {
+    margin-right: 6px;
+    width: 75%;
+    font-size: 1.7em;
+}
+
+.home #news {
+    display: inline;
+    margin-bottom: 35px;
+    width: 100%;
+}
+
+.home #news li.newsitem {
+    float: left;
+/*    display: inline-block;*/
+    width: 47%;
+/*    width: 35%;*/
+}
+
+.home #news li.first {
+    padding-right: 30px;
+}
+
+.home #news li.newsitem img {
+    float: left;
+    margin: 0 5px 120px 0;
+    border: 1px solid #666;
+}
+
+.home #news li.newsitem h4 {
+    margin-top: 0;
+    font-family: arial, sans-serif;
+    font-size: 1.3em;
+}
+
+.home #news li.newsitem h4 a:link, #news .home li.newsitem h4 a:visited {
+    border: none;
+}
+
+.home #news li.newsitem p {
+    margin: 3px 0 0 0;
+    font-size: 0.9em;
+/*    line-height: 1.2em;*/
+    color: #333;
+}
+
+.home #news li.newsitem em {
+    margin-right: 4px;
+    padding: 1px 4px;
+    color: #5291ac;
+    background: #f1f1f1;
+    border: solid 1px #5291ac;
+    font-size: 0.9em;
+    font-style: normal;
+    font-weight: bold;
+}
+
+span.clear {
+    display: block;
+    margin-bottom: 35px;
 }
