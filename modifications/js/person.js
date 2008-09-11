@@ -417,7 +417,7 @@ if ($("#dashboard").hasClass("loggedIn")) {
 		if(toggle=="on"){
 			$("div.highlighted").removeClass("highlighted");
 			$(property).addClass("highlighted");
-            bgColor = "#fffbcf";
+            bgColor = "#fffedb";
             $(property).animate({ 
                 backgroundColor: bgColor
                 }, 1200);

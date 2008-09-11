@@ -510,7 +510,9 @@ a.backToTop:visited {
 
 #personWrap div.propsCategory div.highlighted {
 /*	background: #faf8f3 url(../site_icons/layout/bg_propsItem_highlighted.gif) left top repeat-y;*/
-	border-top-color: #faf8f3;
+/*	border-top-color: #faf8f3;*/
+	border-top-color: #F0EDE4;
+	border-bottom-color: #faf8f3;
 /*	border-top: 1px solid #F0EDE4;*/
 	margin-left: -16px;
 	padding-left: 16px;
@@ -522,7 +524,7 @@ a.backToTop:visited {
 
 Light Blue (edit links): #209ae0
 Bright Orange (link hover): #FF8811
-
+Dark Green (links): #118855
 */
 
 /* fixes IE double top-padding bug, discussed at: http://exscale.se/archives/2007/06/13/ie-double-padding-bug/ 

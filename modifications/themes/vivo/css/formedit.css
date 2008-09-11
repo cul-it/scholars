@@ -18,10 +18,19 @@ Updated:	June 18, 2008
 	min-height: 400px;
 /*	border: 1px solid red;*/
 	clear: both;
+	padding: 50px 10px 20px 10px;
 }
 
 #content.form h2 {
-	font-size: 2em;
+	margin-top: 0;
+/*	margin-bottom: 15px;*/
+	font-size: 1.8em;
+	font-weight: normal;
+}
+
+#content.form h2 em {
+	font-style: normal;
+	font-weight: bold;
 }
 
 div#header a.manage, div#header a.logout {display: block; float: right; margin-right: 15px;}
@@ -58,10 +67,83 @@ form dl dt, form dl dd {
 }
 
 form dd {
-	margin: 20px 0 16px 0;
+	margin: 12px 0 20px 0;
+	margin: 0 0 20px 0;
 }
 
-form input#submit {
+form.editForm input#submit {
 	color: #209ae0;
+/*	color: #000;*/
 }
 
+form input#delete {
+	color: #000;
+	font-weight: normal;
+}
+
+
+form.editForm {
+	margin-bottom: 60px;
+	margin-right: 14px;
+	margin-top: 10px;
+	border: 2px solid #e4edf2;
+/*	background: #F8F8F8;*/
+	background: #f0f9ff;
+	padding: 30px 20px;
+}
+
+form.editForm p {
+	color: #439CBD;
+	font-size: 1.2em;
+	font-style: italic;
+}
+
+form.editForm select {
+	font-size: 1.2em;
+}
+
+div.toBeDeleted {
+	color: #8f7026;
+	font-size: 1.2em;
+	font-style: italic;
+}
+
+div.toBeDeleted,
+form.deleteForm {
+	padding: 10px 20px;
+	background: #fff0cc;
+	border: 2px solid #eddfbe;
+/*	text-align: center;*/
+	width: 22em;
+}
+
+form.deleteForm h3 {
+	display: inline;
+	font-weight: normal;
+	font-size: 1.4em;
+	color: #000;
+	padding-right: 10px;
+}
+
+div.toBeDeleted {
+	margin: 15px 14px 20px 0;
+	padding: 20px;
+	width: auto;
+}
+
+div.toBeDeleted.objProp {
+	color: #118855;
+	font-weight: bold;
+	font-style: normal;
+}
+
+div.toBeDeleted p,
+div.toBeDeleted ul,
+div.toBeDeleted ol {
+	font-size: 1em;
+}
+
+p.propEntryHelpText {
+	line-height: 1.3em;
+	margin-top: 0;
+}
