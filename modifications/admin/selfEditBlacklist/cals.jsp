@@ -1,3 +1,5 @@
+<%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.auth.identifier.IdentifierBundle" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.auth.identifier.ServletIdentifierBundleFactory" %>
 <%@page import="edu.cornell.mannlib.vitro.webapp.auth.identifier.SelfEditingUriFactory"%>
@@ -16,13 +18,22 @@
 <jsp:include page="/edit/formPrefix.jsp"/>
 
 <div id="content" class="full">
-    <div align="center">
-        <h2>CALS Administration has requested that you edit your profile only through the CALS annual reporting process</h2>
-        <p style="text-align:center;">The next reporting period begins in January, 2009. Changes you make then will be propagated to VIVO and the CALS
-            Research Portals.</p>
-	    <h4>Please contact <a href="mailto:AcademicReportingContact-L@cornell.edu?subject=request to change CALS research/VIVO profile">CALS</a>
-	        with any questions or with corrections you wish to make before January.
-	    </h4> 
+	<div class="vivo message" align="center">
+		<h4>As a College of Agriculture and Life Sciences faculty or staff member, you are receiving the following notice
+		   in lieu of updating your VIVO profile directly:</h4>
+	</div>
+    <div class="college message" align="center">
+        <h3>College of Agriculture and Life Sciences Notice</h3>
+        <p/>
+        <p>The College of Agriculture and Life Sciences (Ithaca and Geneva locations) has an internal application,
+            Faculty Data Collection, that we use to update the information displayed in VIVO annually. Beginning in
+            January, 2009, CALS is targeting to use a new application called Activity Insight to update the information
+            displayed in VIVO on a more frequent basis.</p>
+        <p>If you wish to make more urgent changes to your VIVO profile, please complete the
+            <a href="<c:url value="/correctionForm.jsp"/>">VIVO correction form</a> and include any questions, comments or suggestions.</p>
+        <p>If you have any questions about the CALS annual faculty data collection process, please contact
+            <a href="mailto:lad23@cornell.edu">Lynn Benedetto</a> at lad23@cornell.edu.</p>
+        <h4>Thank you</h4>
     </div>
     <p/>
 <%  if( selfEditingId != null && selfEditingId.getValue() != null ) { %>   
