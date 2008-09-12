@@ -34,11 +34,8 @@
           rdfs:label ?label .
 
           OPTIONAL{
-          ?talkUri vivo:eventHasHostPerson ?person .
-       
           ?talkUri vivo:eventHeldInFacility ?place .
 
-          ?person rdfs:label ?hostname .
 
           ?place rdfs:label ?location .
 
