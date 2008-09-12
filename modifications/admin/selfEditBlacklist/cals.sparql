@@ -24,11 +24,11 @@ WHERE {
       }
       optional { 
         vivo:individual19589 ?someJobAtMann vivo:individual1 .
-        filter( ?someJobAtMann =  vivo:Non-AcademicEmployeeOtherParticipantInOrganizedEndeavor>)   
+        filter( ?someJobAtMann =  vivo:Non-AcademicEmployeeOtherParticipantInOrganizedEndeavor)   
       }
       optional { 
         vivo:individual19589 ?someJobAtMann vivo:individual1 .
-        filter( ?someJobAtMann =  vivo:personLeadParticipantForCornellOrganizedEndeavor> )   
+        filter( ?someJobAtMann =  vivo:personLeadParticipantForCornellOrganizedEndeavor )   
       }      
      filter( STR(?cause) = "AG" && !bound(?someJobAtMann) )
 }
