@@ -37,7 +37,7 @@
 
  Map results = (Map) request.getAttribute("collatedResultsLists");
 
- out.println("<h2>Search Results</h2> <div class='contentsBrowseGroup'>");
+ out.println("<div id='content'><h2>Search Results</h2> <div class='contentsBrowseGroup'>");
 
  //do classgroup toc
  Iterator it = results.keySet().iterator();
@@ -158,3 +158,4 @@
 } // END while it.hasNext()
 %>
 </div><!--contentsBrowseGroup-->
+</div><!--content-->
