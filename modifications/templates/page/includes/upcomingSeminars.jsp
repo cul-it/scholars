@@ -41,7 +41,7 @@
           ?place rdfs:label ?location .
 
          }
-         FILTER( xsd:dateTime(?now) >= xsd:dateTime(?sunrise) && "2008-09-11T08:25:00"^^xsd:dateTime <= xsd:dateTime(?timekey) )
+         FILTER( xsd:dateTime(?now) >= xsd:dateTime(?sunrise) && "2008-09-11T13:26:00"^^xsd:dateTime <= xsd:dateTime(?timekey) )
         }
         ORDER BY ?timekey
         LIMIT 5

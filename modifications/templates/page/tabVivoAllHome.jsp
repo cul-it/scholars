@@ -55,6 +55,7 @@
             <div id="news">
                 <h3>Making Headlines<span class="viewAll"><a title="View all news" href="<c:url value="/index.jsp?home=65535&amp;collection=864"/>">View all &raquo;</a></span></h3>
                 <jsp:include page="includes/news.jsp" />
+                <div class="clear"></div>
             </div>
         </div><!-- contents home -->
     </div><!-- content -->
