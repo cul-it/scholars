@@ -3,12 +3,14 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ page import="org.joda.time.DateTime" %>
+<%@ page import="org.joda.time.Period" %>
 <%@ page import="java.util.Date" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 
 <%
   DateTime now = new DateTime();
-  request.setAttribute("now", "\"" + now.toDateTimeISO().toString() + "\"" );
+  DateTime almostNow = now.minus(Period.hours(1));
+  request.setAttribute("now", "\"" + almostNow.toString("yyyy-MM-dd'T'HH:mm:ss") + "\"" );
   request.setAttribute("now2", new Date());
 %>
 
@@ -41,7 +43,7 @@
           ?place rdfs:label ?location .
 
          }
-         FILTER( xsd:dateTime(?now) >= xsd:dateTime(?sunrise) && "2008-09-11T13:26:00"^^xsd:dateTime <= xsd:dateTime(?timekey) )
+         FILTER( xsd:dateTime(?now) >= xsd:dateTime(?sunrise) && xsd:dateTime(?now) <= xsd:dateTime(?timekey) )
         }
         ORDER BY ?timekey
         LIMIT 5
@@ -79,7 +81,7 @@
         </c:if>       
         
         <li class="vevent ${cleanClass}">
-            <span class="abbrStart"><abbr title="${calendarStart}" class="dtstart">${seminarTime}</abbr></span>
+            <abbr title="${calendarStart}" class="dtstart"><span class="abbrStart">${seminarTime}</span></abbr>
             <!-- <span class="abbrEnd"><abbr title="${calendarEnd}" class="dtend"> &amp;ndash; &amp;#63;</abbr></span> -->
             <p class="summary"><a href="${seminarLink}" class="url">${talk.label.string}</a></p> 
        </li>
