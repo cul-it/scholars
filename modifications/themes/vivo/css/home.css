@@ -119,6 +119,10 @@ p.intro {
     font-size: 1.1em;
 }
 
+#contentwrap #dashboard.home #seminars ul li {
+    clear: left;
+}
+
 #contentwrap #dashboard.home #seminars span.abbrStart {
     float: left;
     padding: 2px;

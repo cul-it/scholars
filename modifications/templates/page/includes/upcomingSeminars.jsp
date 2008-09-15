@@ -59,8 +59,6 @@
         <fmt:formatDate var="calendarEnd" value="${seminarTimekey}" pattern="yyyyMMdd" />
         
         <c:url var="seminarLink" value="http://vivo.cornell.edu/entity"><c:param name="uri" value="${talk.talkUri}"/></c:url>
-
-        <c:set var="cleanClass"><c:if test="${status.count == 2}">clean</c:if></c:set>
         
         <c:if test="${prevDate != seminarDate}">
             <c:if test="${status.count != 1}">
@@ -77,7 +75,7 @@
                 <ul>
         </c:if>       
         
-        <li class="vevent ${cleanClass}">
+        <li class="vevent">
             <abbr title="${calendarStart}" class="dtstart"><span class="abbrStart">${seminarTime}</span></abbr>
             <!-- <span class="abbrEnd"><abbr title="${calendarEnd}" class="dtend"> &amp;ndash; &amp;#63;</abbr></span> -->
             <p class="summary"><a href="${seminarLink}" class="url">${talk.label.string}</a></p> 
