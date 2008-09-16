@@ -194,6 +194,34 @@
 
 
 <!-- Servlets ********************************************************** -->
+
+    <!--  special servlet for dealing with cuwebauth issue VITRO-385 -->
+     <servlet>
+        <servlet-name>CuwalRedirector</servlet-name>
+        <servlet-class>edu.cornell.mannlib.vitro.webapp.controller.CuwalRedirector</servlet-class>
+    </servlet>
+        <servlet-mapping>
+        <servlet-name>CuwalRedirector</servlet-name>
+        <url-pattern>/edit/cuwal0.c0ntinue</url-pattern>
+    </servlet-mapping>       
+    <servlet-mapping>
+        <servlet-name>CuwalRedirector</servlet-name>
+        <url-pattern>/edit/cuwal1.c0ntinue</url-pattern>
+    </servlet-mapping>       
+    <servlet-mapping>
+        <servlet-name>CuwalRedirector</servlet-name>
+        <url-pattern>/edit/cuwal2.c0ntinue</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CuwalRedirector</servlet-name>
+        <url-pattern>/edit/cuwal3.c0ntinue</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CuwalRedirector</servlet-name>
+        <url-pattern>/edit/cuwal4.c0ntinue</url-pattern>
+    </servlet-mapping>
+
+    
     <servlet>  <!--adding only trimSpaces param to defaults to clean up html output-->
         <servlet-name>jsp</servlet-name>
         <servlet-class>org.apache.jasper.servlet.JspServlet</servlet-class>
@@ -228,9 +256,8 @@
 	<servlet-mapping>
 		<servlet-name>TestController</servlet-name>
 		<url-pattern>/test</url-pattern>
-	</servlet-mapping>
-
-
+	</servlet-mapping>   
+    
 	<servlet>
 		<servlet-name>fetch</servlet-name>
 		<servlet-class>edu.cornell.mannlib.vitro.webapp.QueryServlet</servlet-class>
