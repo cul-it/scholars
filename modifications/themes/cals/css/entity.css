@@ -101,6 +101,10 @@ p.caption {
 	font-style:italic;
 }
 
+div#entity img {
+    display: none; /* hiding the image that's not in the dashboard */
+}
+
 /****** Entity Property Lists *********/
 
 ul.externalLinks {
@@ -179,6 +183,15 @@ div.datatypeProperties li {
 div.datatypeProperties ul,
 div.datatypeProperties ol {
     padding-left: 1.4em;
+}
+
+/*Temporary fixes for missing ul tags*/
+div.datatypeProperties li {
+list-style-type:none;
+}
+
+div.datatypeProperties ul li {
+list-style-type:disc;
 }
 
 ul.datatypeProperties {
