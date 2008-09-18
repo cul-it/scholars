@@ -48,6 +48,7 @@
 		<input type="hidden" name="RequiredFieldsNames" value="Email address,Name,Comments"/>
 		<input type="hidden" name="EmailFields" value="webuseremail"/>
 		<input type="hidden" name="EmailFieldsNames" value="emailaddress"/>
+		<input type="hidden" name="DeliveryType" value="comment"/>
 		
 		<p class="normal">My email address (e.g., abc1<b>@cornell.edu</b>) is:</p>
 		<input style="width:25%;" type="text" name="webuseremail" maxlength="255"/><br/><br/>
