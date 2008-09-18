@@ -198,7 +198,7 @@
         <h3>Departments</h3>
         <p>with faculty in this Field</p>
         
-            <sparql:lock>
+            <sparql:lock model="${applicationScope.jenaOntModel}">
             <sparql:sparql>
                 <sparql:select model="${applicationScope.jenaOntModel}" var="rs" field="<${param.uri}>">
                     PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>

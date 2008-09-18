@@ -149,7 +149,7 @@
                         <a href="#Z">Z</a>
                     </div>
                     
-                    <sparql:lock>
+                    <sparql:lock model="${applicationScope.jenaOntModel}">
                     <sparql:sparql>
                     <sparql:select model="${applicationScope.jenaOntModel}" var="rs">
                           PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>

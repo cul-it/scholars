@@ -121,7 +121,7 @@
 
         <h3>Associated Graduate Fields</h3>
         <!-- <em>Select a Field to highlight participating faculty</em> -->
-            <sparql:lock>
+            <sparql:lock model="${applicationScope.jenaOntModel}">
             <sparql:sparql>
                 <sparql:select model="${applicationScope.jenaOntModel}" var="rs" dept="<${param.uri}>">
                   PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>

@@ -20,7 +20,7 @@
                request.setAttribute("now", "\"" + now.toDateTimeISO().toString() + "\"" );
         </jsp:scriptlet>
         
-        <sparql:lock>
+        <sparql:lock model="${applicationScope.jenaOntModel}">
         <sparql:sparql>
         <sparql:select model="${applicationScope.jenaOntModel}" var="rs" now="${now}" >
 

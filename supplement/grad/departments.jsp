@@ -51,7 +51,7 @@
                 </c:when>
             
                 <c:otherwise>
-                    <sparql:lock>
+                    <sparql:lock model="${applicationScope.jenaOntModel}">
                     <sparql:sparql>
 				    <sparql:select model="${applicationScope.jenaOntModel}" var="rs">
 
