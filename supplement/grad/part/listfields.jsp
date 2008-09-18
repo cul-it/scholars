@@ -38,19 +38,10 @@
           ]]>
     </sparql:select>
 
-    <!-- UL tags being added elsewhere -->
-      <c:forEach  items="${rs.rows}" var="gradfield">
-        <c:set var="classForField" value="${fn:substringAfter(gradfield.field,'#')}"/>
-        <c:set var="classForGroup" value="${fn:substringAfter(param.uri,'#')}"/>
+      <c:forEach items="${rs.rows}" var="row">
+        <c:set var="classForField" value="${fn:substringAfter(row.field,'#')}"/>
             <li class="${classForField}">
-                <c:url var="fieldhref" value="fields.jsp">
-                    <c:param name="uri" value="${gradfield.field}"/>
-                    <c:param name="fieldLabel" value="${gradfield.fieldLabel.string}"/>
-                    <c:param name="groupUri" value="${param.uri}"/>
-                    <c:param name="groupLabel" value="${gradfield.groupLabel.string}"/>
-                    <c:param name="groupClass" value="${classForGroup}"/>       
-                </c:url>
-                <a href="${fn:escapeXml(fieldhref)}">${gradfield.fieldLabel.string}</a>
+                <a href="/fields/${classForField}">${row.fieldLabel.string}</a>
             </li>
       </c:forEach>
 

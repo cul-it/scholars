@@ -3,17 +3,20 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
-<c:set var="searchParam" value=" Results: ${param.querytext}"/>
+<c:set var="pageTitle">
+    <c:if test="${!empty param.querytext}">Search Results: ${param.querytext}</c:if>
+    <c:if test="${empty param.querytext}">Search</c:if>
+</c:set>
 
 <jsp:include page="header.jsp">
     <jsp:param name="bodyID" value="search"/>
-    <jsp:param name="titleText" value="Search${searchParam}"/>
+    <jsp:param name="titleText" value="${pageTitle}"/>
 </jsp:include>
         
         <div id="contentWrap">
             <div id="content">
                 
-                <form action="search.jsp" method="get" name="search-form" id="search-form"> 
+                <form action="/search/" method="get" name="search-form" id="search-form"> 
                     <h2><label for="search-form-query">Search</label></h2>
                     <input type="text" id="search-form-query" name="querytext" value="${param.querytext}" size="30" />
                     <button type="submit" id="search-form-submit" name="submit"/>go</button>
@@ -28,34 +31,28 @@
                     </c:otherwise>
                 </c:choose>
 
-                <%-- <c:import var="rss" url="http://zoe.mannlib.cornell.edu:8080/nutch/opensearch?"> --%>
-                <c:import var="rss" url="http://localhost:8080/nutch/opensearch">
+                <c:import var="rss" url="http://nutch.mannlib.cornell.edu/nutch/opensearch">
+                <%-- <c:import var="rss" url="http://localhost:8080/nutch/opensearch"> --%>
                     <c:param name="query" value="${param.querytext}"/>
                     <c:param name="lang" value="en"/>
                     <c:param name="start" value="${start}"/>
                     <c:param name="hitsPerPage" value="10"/>
                     <c:param name="hitsPerSite" value="0"/>
                 </c:import>
+
                 
                 <x:parse var="results" doc="${rss}"/>
                 
                 <c:set var="total">
                     <x:out select="$results//*[local-name()='totalResults']"/>
                 </c:set>
-                
+               
                 <jsp:useBean id="total" type="java.lang.String" />
                 
                 <c:set var="totalPages">
                     <c:if test="${(total mod 10) == 0}"><% int t = Integer.parseInt(total) / 10; %><%=t%></c:if>
                     <c:if test="${(total mod 10) != 0}"><% int t = Integer.parseInt(total) / 10 + 1; %><%=t%></c:if>
                 </c:set>
-                
-                <%-- ${total},${totalPages} --%>
-                
-                <%-- <c:set var="firstResult">
-                    <c:if test="${param.offset}">${param.offset}</c:if>
-                    <c:if test="${!param.offset}">0</c:if>
-                </c:set> --%>
                 
                 <div id="searchResults">
                     <x:choose>
@@ -104,7 +101,7 @@
                 <div id="pagination">
                 <c:if test="${totalPages > 1}">
                     <c:if test="${!empty param.page && param.page > 1}">
-                        <c:url var="pageHref" value="search.jsp">
+                        <c:url var="pageHref" value="/search/">
                             <c:param name="querytext" value="${param.querytext}"/>
                             <c:param name="page" value="${param.page - 1}"/>
                         </c:url>
@@ -121,7 +118,7 @@
                                 <span>${pageNum}</span>
                             </c:when>
                             <c:otherwise>
-                                <c:url var="pageHref" value="search.jsp">
+                                <c:url var="pageHref" value="/search/">
                                     <c:param name="querytext" value="${param.querytext}"/>
                                     <c:param name="page" value="${pageNum}"/>
                                 </c:url>
@@ -156,7 +153,7 @@
                                 <span>${pageNum}</span>
                             </c:when>
                             <c:otherwise>
-                                <c:url var="pageHref" value="search.jsp">
+                                <c:url var="pageHref" value="/search/">
                                     <c:param name="querytext" value="${param.querytext}"/>
                                     <c:param name="page" value="${pageNum}"/>
                                 </c:url>
@@ -169,7 +166,7 @@
                 </c:if>
                 
                 <c:if test="${totalPages > 1 && param.page != totalPages}">
-                    <c:url var="pageHref" value="search.jsp">
+                    <c:url var="pageHref" value="/search/">
                         <c:param name="querytext" value="${param.querytext}"/>
                         <c:if test="${empty param.page}"><c:param name="page" value="2"/></c:if>
                         <c:if test="${!empty param.page}"><c:param name="page" value="${param.page + 1}"/></c:if>

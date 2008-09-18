@@ -7,37 +7,31 @@
   <jsp:directive.page contentType="text/xml; charset=UTF-8" />
   <jsp:directive.page session="false" />
 
-  <sparql:sparql>
-    <sparql:select model="${applicationScope.jenaOntModel}" var="rs">
-      <![CDATA[
+	 <sparql:sparql>
+	   <sparql:select model="${applicationScope.jenaOntModel}" var="rs">
+	     <![CDATA[
 
-              PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-              PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-              PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
-              SELECT ?fieldClusterUri ?clusterLabel
-              WHERE
-              {
-              ?fieldClusterUri rdf:type vivo:fieldCluster
-              OPTIONAL { ?fieldClusterUri rdfs:label ?clusterLabel }
-              }
-              ORDER BY ?clusterLabel
-              LIMIT 200
+	             PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+	             PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+	             PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
+	             SELECT ?fieldClusterUri ?clusterLabel
+	             WHERE
+	             {
+	             ?fieldClusterUri rdf:type vivo:fieldCluster
+	             OPTIONAL { ?fieldClusterUri rdfs:label ?clusterLabel }
+	             }
+	             ORDER BY ?clusterLabel
+	             LIMIT 200
 
-          ]]>
-    </sparql:select>
-    
-    <ul class="groupings">
-        <c:forEach  items="${rs.rows}" var="row">
-            <c:set var="classForGrouping" value="${fn:substringAfter(row.fieldClusterUri,'#')}"/>
-	        <c:url var="gradhref" value="groups.jsp">
-                <c:param name="uri" value="${row.fieldClusterUri}"/>
-                <c:param name="label" value="${row.clusterLabel.string}"/>
-                <c:param name="class" value="${classForGrouping}"/>
-            </c:url>
-          
-            <li class="${fn:escapeXml(classForGrouping)}"><a href="${gradhref}">${row.clusterLabel.string}</a></li>
-      </c:forEach>
-    </ul>
+	         ]]>
+	   </sparql:select>
+   
+	<c:forEach  items="${rs.rows}" var="row">
+		<c:if test="${row.fieldClusterUri != param.uri}"><!-- providing the ability to omit a group -->
+           <c:set var="areaID" value="${fn:substringAfter(row.fieldClusterUri,'#')}"/>
+           <li class="${areaID}"><a href="/areas/${areaID}">${row.clusterLabel.string}</a></li>
+		</c:if>
+	</c:forEach>
         
   </sparql:sparql>  
 </jsp:root>

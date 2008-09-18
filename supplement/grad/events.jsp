@@ -169,7 +169,7 @@
                         <fmt:formatDate var="calendarEnd" value="${seminarTimekey}" pattern="yyyyMMdd" />
 
                         <c:url var="seminarLink" value="http://vivo.cornell.edu/entity"><c:param name="uri" value="${talk.talkUri}"/></c:url>
-                        <c:url var="seminarHostLink" value="faculty.jsp"><c:param name="uri" value="${talk.person}"/><c:param name="name" value="${talk.hostname.string}"/></c:url>
+                        <c:url var="seminarHostLink" value="http://vivo.cornell.edu/entity"><c:param name="uri" value="${talk.person}"/><c:param name="name" value="${talk.hostname.string}"/></c:url>
                         <c:set var="firstName" value="${fn:substringAfter(talk.hostname.string,',')}"/>
                         <c:set var="lastName" value="${fn:substringBefore(talk.hostname.string,',')}"/>
 

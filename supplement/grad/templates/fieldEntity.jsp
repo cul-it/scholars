@@ -86,29 +86,18 @@
                 <c:if test="${emeritusStatus != true}">
                     <c:set var="facultyID" value="${fn:substringAfter(Faculty.object.URI,'#')}"/>
                     <li id="${facultyID}">
-                        <c:url var="href" value="faculty.jsp">
-                            <c:param name="uri" value="${Faculty.object.URI}"/>
-                            <c:param name="name" value="${Faculty.object.name}"/>
-                            <c:param name="fieldUri" value="${param.uri}"/>
-                            <c:param name="fieldLabel" value="${param.fieldLabel}"/>
-                            <c:if test="${!empty param.groupLabel}">
-                                <c:param name="groupUri" value="${param.groupUri}"/>
-                                <c:param name="groupLabel" value="${param.groupLabel}"/>
-                                <c:param name="groupClass" value="${param.groupClass}"/>
-                            </c:if>
-                        </c:url>
                         <c:choose>
                             <c:when test="${!empty Faculty.object.imageThumb}">
                                 <c:url var="cluetipHref" value="data/facultyProfile.jsp">
                                     <c:param name="uri" value="${Faculty.object.URI}"/>
                                 </c:url>
-                                <a href="${href}" title="view profile" rel="${cluetipHref}"><img width="44px" alt="" src="${imageDir}${Faculty.object.imageThumb}"/></a>
+                                <a href="/faculty/${facultyID}" title="view profile"><img width="44px" alt="" src="${imageDir}${Faculty.object.imageThumb}"/></a>
                             </c:when>
                             <c:otherwise>
-                                <a href="${href}" title="view profile" rel="${cluetipHref}"><img width="44px" alt="" src="resources/images/profile_missing.gif"/></a>
+                                <a href="/faculty/${facultyID}" title="view profile"><img width="44px" alt="" src="/resources/images/profile_missing.gif"/></a>
                             </c:otherwise>
                         </c:choose>
-                        <strong><a href="${href}" title="view profile" rel="${cluetipHref}">${Faculty.object.name}</a></strong>
+                        <strong><a href="/faculty/${facultyID}" title="view profile">${Faculty.object.name}</a></strong>
                         <em>${Faculty.object.moniker}</em>
                     </li>
                 </c:if>
@@ -121,26 +110,15 @@
                 <c:if test="${emeritusStatus != true}">
                     <c:set var="facultyID" value="${fn:substringAfter(Faculty.object.URI,'#')}"/>
                     <li id="${facultyID}">
-                        <c:url var="href" value="faculty.jsp">
-                            <c:param name="uri" value="${Faculty.object.URI}"/>
-                            <c:param name="name" value="${Faculty.object.name}"/>
-                            <c:param name="fieldUri" value="${param.uri}"/>
-                            <c:param name="fieldLabel" value="${param.fieldLabel}"/>
-                            <c:if test="${!empty param.groupLabel}">
-                                <c:param name="groupUri" value="${param.groupUri}"/>
-                                <c:param name="groupLabel" value="${param.groupLabel}"/>
-                                <c:param name="groupClass" value="${param.groupClass}"/>
-                            </c:if>
-                        </c:url>
                         <c:choose>
                             <c:when test="${!empty Faculty.object.imageThumb}">
-                                <a href="${href}" title="view profile"><img width="44px" alt="" src="${imageDir}${Faculty.object.imageThumb}"/></a>
+                                <a href="/faculty/${facultyID}" title="view profile"><img width="44px" alt="" src="${imageDir}${Faculty.object.imageThumb}"/></a>
                             </c:when>
                             <c:otherwise>
-                                <a href="${href}" title="view profile"><img width="44px" alt="" src="resources/images/profile_missing.gif"/></a>
+                                <a href="/faculty/${facultyID}" title="view profile"><img width="44px" alt="" src="/resources/images/profile_missing.gif"/></a>
                             </c:otherwise>
                         </c:choose>
-                        <strong><a href="${href}" title="view profile">${Faculty.object.name}</a></strong>
+                        <strong><a href="/faculty/${facultyID}" title="view profile">${Faculty.object.name}</a></strong>
                         <em>${Faculty.object.moniker}</em>
                     </li>
                 </c:if>
@@ -176,24 +154,15 @@
                 
                 <c:set var="spotlight" value="${entity.objectPropertyMap[facultyMembersPropUri].objectPropertyStatements[chosenFaculty].object}"/>
                 
-                <c:url var="href" value="faculty.jsp">
-                    <c:param name="uri" value="${spotlight.URI}"/>
-                    <c:param name="name" value="${spotlight.name}"/>
-                    <c:param name="fieldUri" value="${param.uri}"/>
-                    <c:param name="fieldLabel" value="${param.fieldLabel}"/>
-                    <c:if test="${!empty param.groupLabel}">
-                        <c:param name="groupUri" value="${param.groupUri}"/>
-                        <c:param name="groupLabel" value="${param.groupLabel}"/>
-                        <c:param name="groupClass" value="${param.groupClass}"/>
-                    </c:if>
-                </c:url>
+                <c:set var="spotlightID" value="${fn:substringAfter(spotlight.URI,'#')}"/>
+
                 <c:url var="thumbSrc" value='${imageDir}${spotlight.imageThumb}'/>
-                <c:if test="${empty spotlight.imageThumb}"><c:url var="thumbSrc" value='resources/images/profile_missing.gif'/></c:if>
+                <c:if test="${empty spotlight.imageThumb}"><c:url var="thumbSrc" value='/resources/images/profile_missing.gif'/></c:if>
                 <c:set var="firstName" value="${fn:substringAfter(spotlight.name,',')}"/>
                 <c:set var="lastName" value="${fn:substringBefore(spotlight.name,',')}"/>
                 
-                    <a href="${href}" title="view faculty profile"><img alt="${lastName} photo" src="${thumbSrc}"/></a>
-                    <h4><a href="${href}" title="view faculty profile">${fn:trim(firstName)}&nbsp;${lastName}</a></h4>
+                    <a href="/faculty/${spotlightID}" title="view faculty profile"><img alt="${lastName} photo" src="${thumbSrc}"/></a>
+                    <h4><a href="/faculty/${spotlightID}" title="view faculty profile">${fn:trim(firstName)}&nbsp;${lastName}</a></h4>
                     <em>${entity.objectPropertyMap[facultyMembersPropUri].objectPropertyStatements[chosenFaculty].object.moniker}</em>
                     
                     <c:set var="researchFocus" value="${spotlight.dataPropertyMap[researchFocusURI].dataPropertyStatements[0].data}"/>
@@ -226,9 +195,6 @@
     
     <div id="fieldDepartments">
     
-        <%-- Estimating size of Overview column --%>
-        <c:set var="counter" value="0"/>
-
         <h3>Departments</h3>
         <p>with faculty in this Field</p>
             <sparql:sparql>
@@ -257,11 +223,9 @@
                     LIMIT 2000
                 </sparql:select>
                     <ul>
-                        <c:forEach  items="${rs.rows}" var="departments" varStatus="itemCount">
-                            <c:if test="${itemCount.last == true}">
-                                <c:set var="counter">${counter + itemCount.index}</c:set>
-                            </c:if>
-                            <li><c:url var="href" value="departments.jsp"><c:param name="uri" value="${departments.deptUri}"/><c:param name="deptLabel" value="${departments.deptLabel.string}"/></c:url><a href="${href}" title="">${departments.deptLabel.string}</a></li>
+                        <c:forEach  items="${rs.rows}" var="row">
+                            <c:set var="deptID" value="${fn:substringAfter(row.deptUri,'#')}"/>
+			                <li><a href="/departments/${deptID}" title="">${row.deptLabel.string}</a></li>
                         </c:forEach>
                     </ul>
             </sparql:sparql>

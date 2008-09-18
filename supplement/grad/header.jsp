@@ -17,6 +17,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
 <!--noindex-->
+
+	<%-- the following meta value is used by javascript --%>
+	<c:if test="${not empty param.metaURI}">
+		<meta name="uri" content="${param.metaURI}"/>
+	</c:if>
+
 	<title>
 	    <c:choose>
             <c:when test="${!empty param.titleText}">${param.titleText}</c:when>
@@ -24,26 +30,25 @@
 	    </c:choose>
 	</title>
 	
-	<c:url var="faviconLoc" value="resources/images/icons/favicon.ico"/>
 	<link rel="shortcut icon" href="${faviconLoc}"/>
-	<link rel="stylesheet" href="resources/css/screen.css" type="text/css" />
+	<link rel="stylesheet" href="/resources/css/screen.css" type="text/css" />
     <link rel="stylesheet" href="${jsDir}/niftyCorners.css" type="text/css" />
     <script type="text/javascript" src="${jsDir}/niftycube.js"></script>
-    <script type="text/javascript" src="resources/js/niftyConfig.js"></script>
+    <script type="text/javascript" src="/resources/js/niftyConfig.js"></script>
     <script type="text/javascript" src="${jsDir}/jquery.js"></script>
     <script type="text/javascript" src="${jsDir}/jquery_plugins/getURLParam.js"></script>
     <script type="text/javascript" src="${jsDir}/jquery_plugins/jquery.hoverIntent.minified.js"></script>
 
     <%-- <c:if test="${fn:contains(pageContext.request.servletPath, 'faculty.jsp')}">
-        <script type="text/javascript" src="resources/js/jquery_plugins/jquery.cluetip.js"></script>
-        <script type="text/javascript" src="resources/js/jquery_plugins/jquery.dimensions.js"></script>
-        <script type="text/javascript" src="resources/js/jquery_plugins/jquery.hoverIntent.js"></script>
-        <link rel="stylesheet" href="resources/css/jquery.cluetip.css" type="text/css" />
+        <script type="text/javascript" src="/resources/js/jquery_plugins/jquery.cluetip.js"></script>
+        <script type="text/javascript" src="/resources/js/jquery_plugins/jquery.dimensions.js"></script>
+        <script type="text/javascript" src="/resources/js/jquery_plugins/jquery.hoverIntent.js"></script>
+        <link rel="stylesheet" href="/resources/css/jquery.cluetip.css" type="text/css" />
     </c:if> --%>
         
     <c:if test="${fn:contains(pageContext.request.servletPath, 'departments.jsp')}">
-        <link rel="stylesheet" href="resources/css/websnapr.css" type="text/css" />
-        <script src="resources/js/websnapr.js" type="text/javascript"></script>
+        <link rel="stylesheet" href="/resources/css/websnapr.css" type="text/css" />
+        <script src="/resources/js/websnapr.js" type="text/javascript"></script>
     </c:if>
 
     <c:if test="${fn:contains(pageContext.request.servletPath, 'feedback.jsp')}">
@@ -52,7 +57,7 @@
         <script type="text/javascript" src="${jsDir}/jquery_plugins/jquery.delegate.js"></script>
     </c:if>
     
-    <script type="text/javascript" src="resources/js/lifescigrad.js"></script>
+    <script type="text/javascript" src="/resources/js/lifescigrad.js"></script>
 </head>
 
 <body <c:if test="${not empty param.bodyID}">id="${param.bodyID}"</c:if>>
@@ -65,7 +70,7 @@
 		<!-- The following div contains the Cornell University logo with unit signature -->
 		<div id="cu-identity"> 
 			<div id="cu-logo">
-				<a href="http://www.cornell.edu/" title="Cornell University"><img src="images/cu_logo_unstyled.gif" alt="Cornell University" width="180" height="45" /></a>
+				<a href="http://www.cornell.edu/" title="Cornell University"><img src="/resources/images/cu_logo_unstyled.gif" alt="Cornell University" border="0" /></a>
 			</div><!-- cu-logo -->
 			<div id="cu-search">
 				<a href="http://www.cornell.edu/search/" title="Search Cornell University">Search Cornell</a>
@@ -78,16 +83,16 @@
 			<h1>Graduate Programs in the Life Sciences</h1>
 			<div id="navigation">
 				<ul>
-					<li id="homeTab" <c:if test="${fn:contains(pageContext.request.servletPath, 'index.jsp')}">class="currentTab"</c:if>><a href="index.jsp" title="Home">Home</a></li>
+					<li id="homeTab" <c:if test="${fn:contains(pageContext.request.servletPath, '/index.jsp')}">class="currentTab"</c:if>><a href="/" title="Home">Home</a></li>
 					<li <c:choose>
-					            <c:when test="${fn:contains(pageContext.request.servletPath, 'gradfieldsIndex.jsp')}">class="currentTab"</c:when>
-					            <c:when test="${fn:contains(pageContext.request.servletPath, 'groups.jsp')}">class="currentTab"</c:when>
+					            <c:when test="${fn:contains(pageContext.request.servletPath, 'fieldsindex.jsp')}">class="currentTab"</c:when>
+					            <c:when test="${fn:contains(pageContext.request.servletPath, 'areas.jsp')}">class="currentTab"</c:when>
 					            <c:when test="${fn:contains(pageContext.request.servletPath, 'fields.jsp')}">class="currentTab"</c:when>
-					        </c:choose>><a href="gradfieldsIndex.jsp" title="an index of graduate fields">Graduate Fields</a></li>
-					<li <c:if test="${fn:contains(pageContext.request.servletPath, 'faculty.jsp')}">class="currentTab" </c:if>><a href="faculty.jsp" title="index of graduate faculty">Faculty</a></li>
-					<li <c:if test="${fn:contains(pageContext.request.servletPath, 'departments.jsp')}">class="currentTab" </c:if>><a href="departments.jsp" title="an index of departments">Departments</a></li>
-					<li <c:if test="${fn:contains(pageContext.request.servletPath, 'facilities.jsp')}">class="currentTab" </c:if>><a href="facilities.jsp" title="life science research facilities">Research Facilities</a></li>
-					<li <c:if test="${fn:contains(pageContext.request.servletPath, 'search.jsp')}">class="currentTab" </c:if>><a href="search.jsp" title="search this site">Search</a></li>
+					        </c:choose>><a href="/fieldsindex/" title="an index of graduate fields">Graduate Fields</a></li>
+					<li <c:if test="${fn:contains(pageContext.request.servletPath, 'faculty.jsp')}">class="currentTab" </c:if>><a href="/faculty/" title="index of graduate faculty">Faculty</a></li>
+					<li <c:if test="${fn:contains(pageContext.request.servletPath, 'departments.jsp')}">class="currentTab" </c:if>><a href="/departments/" title="an index of departments">Departments</a></li>
+					<li <c:if test="${fn:contains(pageContext.request.servletPath, 'facilities.jsp')}">class="currentTab" </c:if>><a href="/facilities/" title="life science research facilities">Research Facilities</a></li>
+					<li <c:if test="${fn:contains(pageContext.request.servletPath, 'search.jsp')}">class="currentTab" </c:if>><a href="/search/" title="search this site">Search</a></li>
 				</ul>
 			</div><!-- navigation -->
 			

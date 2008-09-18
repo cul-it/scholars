@@ -78,7 +78,7 @@ body {
     min-height: 400px;
 }
 
-body#groups #content {  
+body#areas #content {  
     width: 890px; margin-right: 20px;
 }
 
@@ -135,7 +135,7 @@ body#feedback #content {
     color: #fff;
 }
 
-body#groups #sidebar { 
+body#areas #sidebar { 
 /*    width: 365px;*/
 }
 
@@ -350,11 +350,11 @@ body#groupindex h3 {
     padding-left: 45px;
 }
 
-body#groups h2 {
+body#areas h2 {
 /*    margin-top: -10px;*/
 }
 
-body#groups h3.floatLeft {
+body#areas h3.floatLeft {
     margin-left: 45px;
     display: inline;
 }
@@ -486,7 +486,7 @@ body#eventindex dt {
     line-height: 1.3em;
 }
 
-body#groups div#hoverBox {
+body#areas div#hoverBox {
     float: right;
     display: none;
     width: 435px;
@@ -497,54 +497,54 @@ body#groups div#hoverBox {
     color: #EFECCA;
 }
 
-body#groups div#fieldDepartments {
+body#areas div#fieldDepartments {
     background: transparent url(../images/layout/hoverbox-top.gif) no-repeat bottom center;
     min-height: 50px;
 }
 
-body#groups div#fieldDescription,
-body#groups div#fieldDepartments ul {
+body#areas div#fieldDescription,
+body#areas div#fieldDepartments ul {
     font-size: 1.2em;
     list-style-position: inside;
 }
 
-body#groups div#fieldDepartments ul li {
+body#areas div#fieldDepartments ul li {
     margin-left: 4px;
     list-style-type: disc;
 }
 
-body#groups div#fieldDescription,
-body#groups div#fieldDepartments {
+body#areas div#fieldDescription,
+body#areas div#fieldDepartments {
     margin: 0 20px 20px 20px;
 /*    background: #5a5651;*/
 }
 
-body#groups div#fieldDescription p {
+body#areas div#fieldDescription p {
     margin-top: 0;
 }
 
-body#groups div#fieldDescription ul {
+body#areas div#fieldDescription ul {
     margin: 1em 0;
 }
 
-body#groups div#fieldDescription li {
+body#areas div#fieldDescription li {
     list-style-type: disc;
 }
 
-body#groups div#hoverBox h4,
-body#groups div#hoverBox h5 {
+body#areas div#hoverBox h4,
+body#areas div#hoverBox h5 {
 /*    font-weight: bold;*/
     margin: 20px 20px 0 20px;
 }
 
-body#groups div#hoverBox h4 {
+body#areas div#hoverBox h4 {
     font-weight: bold;
     font-size: 1.6em;
     line-height: 1.2em;
     margin-bottom: .5em;
 }
 
-body#groups div#fieldDescription p:first-child {
+body#areas div#fieldDescription p:first-child {
     margin-top: 0;
 }
 
@@ -1475,7 +1475,7 @@ span.toggleLink:hover {
     cursor: pointer;
 }
 
-body#groups p a {
+body#areas p a {
     border-bottom: 1px dotted #7a9899;
 }
 
@@ -1519,11 +1519,11 @@ ul.fields {
     margin: .4em 0 1.5em 0;
 }
 
-body#groups ul.groupings {
+body#areas ul.groupings {
     margin: 0;
 }
 
-body#groups ul.groupings li {
+body#areas ul.groupings li {
     padding-left: 27px;
     line-height: 1.1em;
     font-weight: bold;
@@ -1531,17 +1531,17 @@ body#groups ul.groupings li {
     margin-bottom: -12px; 
 }
 
-body#groups ul.fields {
+body#areas ul.fields {
     width: 445px;
     margin-bottom: 4em;
 }
 
-body#groups ul.fields li {
+body#areas ul.fields li {
     margin: .3em 0 .5em 0;
     padding-left: 30px;
 }
 
-body#groups ul.fields a {
+body#areas ul.fields a {
 /*    display: block;*/
 /*    border: 0;*/
 /*    text-decoration: underline;*/
@@ -1551,19 +1551,19 @@ body#groups ul.fields a {
 /*    margin-left: -24px;*/
 }
 
-body#groups ul.fields a:hover {
+body#areas ul.fields a:hover {
     color: #fff;
 }
 
-body#groups ul.fields a:visited:hover {
+body#areas ul.fields a:visited:hover {
     color: #B8B8B8;
 }
 
-body#groups ul.fields a.selected:hover {
+body#areas ul.fields a.selected:hover {
     color: #F4EA7C;
 }
 
-body#groups ul.fields a.selected {
+body#areas ul.fields a.selected {
     color: #f4ea7c;
     border-color: #f4ea7c;
 /*    background: #5a5651;*/
@@ -1583,7 +1583,7 @@ body#groupindex div.gradEducation p {
     font-size: 1.2em;
 }
 
-body#groups div.gradEducation {
+body#areas div.gradEducation {
     clear: left;
     width: 350px;
     padding: 12px;
@@ -1592,34 +1592,34 @@ body#groups div.gradEducation {
     background: #183F40;  /*lighter green*/
 }
 
-body#groups div.gradEducation p {
+body#areas div.gradEducation p {
     font-size: 1.1em;
 }
 
-body#groups ul.related a {
+body#areas ul.related a {
    font-size: 1.1em;	
 }
 
-body#groups ul.related li {
+body#areas ul.related li {
    margin-bottom: .5em;
 }
 
-body#groups div.gradEducation p:first-child {
+body#areas div.gradEducation p:first-child {
     margin-top: .5em;
 }
 
-body#groups div.small ul {
+body#areas div.small ul {
     font-size: 1.1em;
 }
 
-body#groups h3 {
+body#areas h3 {
 /*    font-weight: bold;*/
     margin-left: 30px;
     margin-top: 8px;
 }
 
-body#groups div.gradEducation h3,
-body#groups div.small h3  {
+body#areas div.gradEducation h3,
+body#areas div.small h3  {
 /*    font-weight: normal;*/
     font-size: 1.6em;
     margin: 0 0 6px 0;
@@ -1982,7 +1982,7 @@ table roll call
 
 /* Fix for IE6 3-pixel indent bug, described at: http://www.positioniseverything.net/explorer/threepxtest.html */ 
 /* Hide from IE5-mac. Only IE-win sees this. \*/
-/** html body#groups #content ul {  height: 1%;  margin: 0; padding: .4em 0 0 1em;  }*/
+/** html body#areas #content ul {  height: 1%;  margin: 0; padding: .4em 0 0 1em;  }*/
 /* End hide from IE5/mac */
 
 

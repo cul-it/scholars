@@ -30,22 +30,12 @@
 <c:set var="authorOf" value="${entity.objectPropertyMap['http://vivo.library.cornell.edu/ns/0.1#authorOf'].objectPropertyStatements}"/>
 <c:set var="teaches" value="${entity.objectPropertyMap['http://vivo.library.cornell.edu/ns/0.1#PersonTeacherOfSemesterCourse'].objectPropertyStatements}"/>
 
-<%-- <c:forEach var="id" items="${entity.externalIds}">
-    <c:if test="${id.uri == 'http://vivo.library.cornell.edu/ns/0.1#CornellemailnetId'}">
-        <c:set var="email" value="${id.value.string}"/>
-    </c:if>
-</c:forEach> --%>
-<%-- <c:set var="email" value="${entity.externalIds['[0].data.dataPropertyStatements[0].data'].dataPropertyStatements[].data}"/> --%>
 <c:set var="gradFields" value="${entity.objectPropertyMap['http://vivo.library.cornell.edu/ns/0.1#AcademicEmployeeOtherParticipantAsFieldMemberInAcademicInitiative'].objectPropertyStatements}"/>
 <c:set var="departments" value="${entity.objectPropertyMap['http://vivo.library.cornell.edu/ns/0.1#holdFacultyAppointmentIn'].objectPropertyStatements}"/>
 <c:set var="education" value="${entity.dataPropertyMap['http://vivo.library.cornell.edu/ns/0.1#educationalBackground'].dataPropertyStatements[0].data}"/>
 <c:set var="awards" value="${entity.dataPropertyMap['http://vivo.library.cornell.edu/ns/0.1#awardsAndDistinctions'].dataPropertyStatements[0].data}"/>
 
-<%-- <c:set var='coInvestigator' value='http://vivo.library.cornell.edu/ns/0.1#PersonCoInvestigatorOfFinancialAward'/> --%>
-<%-- <c:set var='featuredIn' value='http://vivo.library.cornell.edu/ns/0.1#featuredPersonIn2'/> --%>
-<%-- <c:set var='headOf' value='http://vivo.library.cornell.edu/ns/0.1#personLeadParticipantForCornellOrganizedEndeavor'/> --%>
-
-<c:set var='imageDir' value='../images/' scope="page"/>
+<c:set var='imageDir' value='../images' scope="page"/>
 
 <sparql:sparql>
 <listsparql:select model="${applicationScope.jenaOntModel}" var="rs" person="<${param.uri}>">
@@ -75,7 +65,7 @@
             </c:if>
         </c:when>
         <c:otherwise>
-            <img src="resources/images/profile_missing.gif" title="photo unavailable" alt="photo unavailable" width="150"/>
+            <img src="/resources/images/profile_missing.gif" title="photo unavailable" alt="photo unavailable" width="150"/>
         </c:otherwise>
     </c:choose>
     <c:set var="firstName" value="${fn:substringAfter(entity.name,',')}"/>
@@ -218,16 +208,14 @@
           ORDER BY ?fieldLabel
           LIMIT 100
         </listsparql:select>
+
             <c:if test="${fn:length(gradfields) > 0}">
                 <h3>Graduate Fields</h3>
                 <ul id="facultyFields">
                 <c:forEach items="${gradfields}" var="fields">
+		            <c:set var="fieldID" value="${fn:substringAfter(fields.fieldUri,'#')}"/>
                         <li>
-                            <c:url var="href" value="fields.jsp">
-                                <c:param name="uri" value="${fields.fieldUri}"/>
-                                <c:param name="fieldLabel" value="${fields.fieldLabel.string}"/>
-                            </c:url>
-                            <a href="${href}" title="more about this field">${fields.fieldLabel.string}</a>
+                            <a href="/fields/${fieldID}" title="more about this field">${fields.fieldLabel.string}</a>
                         </li>
                 </c:forEach>
                 </ul>
@@ -254,12 +242,9 @@
     <h3>Departments</h3>        
     <ul id="facultyDepts">
         <c:forEach var="dept" items="${departments}">
-        <c:url var="deptHref" value="departments.jsp">
-            <c:param name="uri" value="${dept.object.URI}"/>
-            <c:param name="deptLabel" value="${dept.object.name}"/>
-        </c:url>    
             <li>
-                <a title="more about this department" href="${deptHref}">${dept.object.name}</a>
+                <c:set var="deptID" value="${fn:substringAfter(dept.object.URI,'#')}"/>
+	            <a title="more about this department" href="/departments/${deptID}">${dept.object.name}</a>
             </li>
         </c:forEach>
     </ul>

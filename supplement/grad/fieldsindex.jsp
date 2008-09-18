@@ -14,7 +14,7 @@
                 </div>		
 				
 				<h2>Life Sciences Graduate Fields <span>(grouped by subject area)</span></h2>
-				<jsp:include page="part/listgroupswithfields.jsp" />
+				<jsp:include page="part/list-groups-with-fields.jsp" />
 						
 			</div><!-- content -->
 		

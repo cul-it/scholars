@@ -3,9 +3,24 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://jakarta.apache.org/taglibs/string-1.1" prefix="str" %>
+<%@ include file="part/resources.jsp" %>
+
+<c:choose>
+<c:when test="${fn:contains(param.uri,'person') && !empty param.uri}">
+	<c:set var="URI">${namespace_hri2}${param.uri}</c:set>
+</c:when>
+<c:otherwise>
+	<c:set var="URI">${namespace}${param.uri}</c:set>
+</c:otherwise>
+</c:choose> 
+
+<c:set var="encodedURI"><str:encodeUrl>${URI}</str:encodeUrl></c:set>
+<c:set var="facultyName">
+	<c:import url="part/getlabel.jsp"><c:param name="uri" value="${URI}"/></c:import>
+</c:set>
 
 <c:set var="pageTitle">
-    <c:if test="${!empty param.uri}">${param.name} | Cornell University</c:if>
+    <c:if test="${!empty param.uri}">${facultyName} | Cornell University</c:if>
     <c:if test="${empty param.uri}">Index of Faculty | Cornell University</c:if>
 </c:set>
 
@@ -18,15 +33,15 @@
             
             <c:choose>
                 <c:when test="${not empty param.uri}">
-                    <div id="breadcrumbs" class="small">
+                    <%-- <div id="breadcrumbs" class="small">
                         <ol>
                             <li class="first"><a class="first" href="index.jsp">Home</a></li>
                             <c:choose>
                             
-                                <%-- arriving from vanilla graduate field--%>
+                                -- arriving from vanilla graduate field--
                                 <c:when test="${!empty param.groupLabel}">
                                 <li class="second">
-                                    <c:url var="groupHref" value="groups.jsp">
+                                    <c:url var="groupHref" value="areas.jsp">
                                         <c:param name="uri" value="${param.groupUri}"/>
                                         <c:param name="label" value="${param.groupLabel}"/>
                                         <c:param name="class" value="${param.groupClass}"/>
@@ -48,10 +63,10 @@
                                 </li>
                                 </c:when>
                                 
-                                <%-- arriving from vanilla graduate field--%>
+                                -- arriving from vanilla graduate field--
                                 <c:when test="${empty param.groupLabel && !empty param.fieldLabel}">
                                 <li class="second">
-                                    <a class="second" href="gradfieldsIndex.jsp">Graduate Fields</a>
+                                    <a class="second" href="/fieldsindex/">Graduate Fields</a>
                                 </li>
                                 <li class="third">
                                     <c:url var="fieldHref" value="fields.jsp">
@@ -65,7 +80,7 @@
                                 </li>
                                 </c:when>
                                 
-                                <%-- arriving from search,faculty index or other --%>
+                                -- arriving from search,faculty index or other --
                                 <c:otherwise>
                                 <li class="second">
                                     <a class="second" href="faculty.jsp">Faculty</a>
@@ -76,17 +91,16 @@
                                 </c:otherwise>
                             </c:choose>
                         </ol>
-                    </div> <!-- breadcrumbs -->
+                    </div> --%> <!-- breadcrumbs -->
                     
                 
                     <div id="content">
                     
                         <c:import url="/entity">
                             <c:param name="portal" value="1" />
-                            <c:param name="uri" value="${param.uri}" />
-                            <c:param name="view" value="grad/templates/personEntity.jsp" />
+                            <c:param name="uri" value="${URI}" />
+                            <c:param name="view" value="/grad/templates/personEntity.jsp" />
                         </c:import>
-                    
                     
                     </c:when>
                     <c:otherwise>
@@ -176,7 +190,8 @@
                                 <c:forEach  items="${rs.rows}" var="person" varStatus="counter">
                                     <c:set var="facultyName" value="${person.personLabel.string}"/>
                                     <c:set var="facultyUri" value="${person.person}"/>
-                                    <c:url var="facultyHref" value="faculty.jsp"><c:param name="uri" value="${person.person}"/><c:param name="name" value="${person.personLabel.string}"/></c:url>
+						            <c:set var="facultyID" value="${fn:substringAfter(person.person,'#')}"/>
+									<c:set var="facultyHref" value="/faculty/${facultyID}"/>
                                     <c:url var="cluetipHref" value="data/facultyProfile.jsp"><c:param name="uri" value="${person.person}"/></c:url>
                                     <c:set var="cornellEmail" value="${person.netid.string}"/>
                                     <c:set var="nonCornellEmail" value="${person.otherid.string}"/>
@@ -211,6 +226,7 @@
 
                                             <c:set var="prevFacultyName" value="${facultyName}"/>
                                             <c:set var="prevFacultyUri" value="${facultyUri}"/>
+                                            <c:set var="prevFacultyID" value="${facultyID}"/>
                                             <c:set var="prevFacultyHref" value="${facultyHref}"/>
                                             <c:set var="prevCluetipHref" value="${cluetipHref}"/>
                                             <c:set var="prevCornellEmail" value="${cornellEmail}"/>
@@ -236,4 +252,4 @@
             
         </div> <!-- contentWrap -->
 
-<jsp:include page="footer.jsp" />
+<jsp:include page="footer.jsp"></jsp:include>

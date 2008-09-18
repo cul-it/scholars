@@ -10,8 +10,9 @@ if ($("body").attr("id") == "fields") {
     });
 
     // Highlighting faculty members by research rrea
-    var parameter = $.getURLParam("uri");
-    var jsonLink = "data/researchAreas.jsp" + "?uri=" + parameter;
+    // var parameter = $.getURLParam("uri");
+	var parameter = $("meta[name='uri']").attr("content");
+    var jsonLink = "/data/researchAreas.jsp" + "?uri=" + parameter;
 
     $.getJSON(jsonLink, function(json) {
         $("ul.researchAreaList li a").click(function(){
@@ -99,10 +100,17 @@ if ($("body").attr("id") == "faculty") {
 
 // Graduate group pages
 $(document).ready(function() {
-if ($("body").attr("id") == "groups") {
+if ($("body").attr("id") == "areas") {
 
-        var parameter = $.getURLParam("uri");
-        var jsonLink = "data/fieldsHoverData.jsp" + "?uri=" + parameter;
+		// Detecting Firefox 2 and below to eliminate flickering glitch described at: www.nabble.com/Need-help-on-jQuery.browser.version-td17052906s27240.html
+		if( $.browser.mozilla  &&  $.browser.version.substr(0,3) < 1.9 ){
+	        $("body").css("opacity",".9999");
+	 	}
+
+        // var parameter = $.getURLParam("uri");
+		// var parameter = $("h2.groupLabel").attr("id");
+		var parameter = $("meta[name='uri']").attr("content");
+        var jsonLink = "/data/fieldsHoverData.jsp" + "?uri=" + parameter;
         var hoverDivs = '<div id="hoverBox"><h4></h4><div id="fieldDescription"></div><h5>Departments with faculty in this Field</h5><div id="fieldDepartments"></div></div>';
         var height = null;
         $("h2.groupLabel").after(hoverDivs);

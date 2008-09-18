@@ -76,11 +76,8 @@
             <ul>
                 <c:forEach items='${entity.objectPropertyMap[deptHeadPropUri].objectPropertyStatements}' var="headPerson" varStatus="itemCount">
                     <c:if test="${itemCount.last == true}"><c:set var="counter">${counter + itemCount.index + 3}</c:set></c:if>
-                    <c:url var="href" value="faculty.jsp">
-                        <c:param name="uri" value="${headPerson.object.URI}"/>
-                        <c:param name="name" value="${headPerson.object.name}"/>
-                    </c:url>
-                    <li><a href="${href}" title="view profile in VIVO">${headPerson.object.name}</a></li>
+		            <c:set var="headID" value="${fn:substringAfter(headPerson.object.URI,'#')}"/>
+                    <li><a href="/faculty/${headID}" title="view profile in VIVO">${headPerson.object.name}</a></li>
                 </c:forEach>
             </ul>
         </c:if>
@@ -151,7 +148,8 @@
                             <c:if test="${itemCount.last == true}">
                                 <c:set var="counter">${counter + itemCount.index + 2}</c:set>
                             </c:if>
-                            <li><c:url var="href" value="fields.jsp"><c:param name="uri" value="${fields.fieldUri}"/><c:param name="fieldLabel" value="${fields.fieldLabel.string}"/></c:url><a href="${href}" title="more about this field">${fields.fieldLabel.string}</a></li>
+				            <c:set var="fieldID" value="${fn:substringAfter(fields.fieldUri,'#')}"/>
+                            <li><a href="/fields/${fieldID}" title="more about this field">${fields.fieldLabel.string}</a></li>
                         </c:forEach>
                     </ul>
             </sparql:sparql>
@@ -231,16 +229,13 @@
             <ul class="colOne">
                     <c:forEach items='${facultyInDept}' var="Faculty" varStatus="facultyCount" begin="0" end="${facultyColumnSize - 1}">
                         <li>
-                            <c:url var="href" value="faculty.jsp">
-                                <c:param name="uri" value="${Faculty.person}"/>
-                                <c:param name="name" value="${Faculty.personLabel.string}"/>
-                            </c:url>
+				            <c:set var="facultyID" value="${fn:substringAfter(Faculty.person,'#')}"/>
                             <c:choose>
                                 <c:when test="${empty Faculty.moniker}">
                                     ${Faculty.personLabel.string}
                                 </c:when>
                                 <c:otherwise>
-                                    <a href="${href}" title="view profile">${Faculty.personLabel.string}</a>
+                                    <a href="/faculty/${facultyID}" title="view profile">${Faculty.personLabel.string}</a>
                                 </c:otherwise>
                             </c:choose>
                         </li>
@@ -251,16 +246,13 @@
                 <ul class="colTwo">
                     <c:forEach items='${facultyInDept}' var="Faculty" begin="${facultyColumnSize}" end="${facultyColumnSize * 2 - 1}">
                         <li>
-                            <c:url var="href" value="faculty.jsp">
-                                <c:param name="uri" value="${Faculty.person}"/>
-                                <c:param name="name" value="${Faculty.personLabel.string}"/>
-                            </c:url>
+				            <c:set var="facultyID" value="${fn:substringAfter(Faculty.person,'#')}"/>
                             <c:choose>
                                 <c:when test="${empty Faculty.moniker}">
                                     ${Faculty.personLabel.string}
                                 </c:when>
                                 <c:otherwise>
-                                    <a href="${href}" title="view profile">${Faculty.personLabel.string}</a>
+                                    <a href="/faculty/${facultyID}" title="view profile">${Faculty.personLabel.string}</a>
                                 </c:otherwise>
                             </c:choose>
                         </li>
@@ -272,16 +264,13 @@
                 <ul class="colThree">
                      <c:forEach items='${facultyInDept}' var="Faculty" varStatus="facultyCount" begin="${facultyColumnSize * 2 }">
                         <li>
-                            <c:url var="href" value="faculty.jsp">
-                                <c:param name="uri" value="${Faculty.person}"/>
-                                <c:param name="name" value="${Faculty.personLabel.string}"/>
-                            </c:url>
+				            <c:set var="facultyID" value="${fn:substringAfter(Faculty.person,'#')}"/>
                             <c:choose>
                                 <c:when test="${empty Faculty.moniker}">
                                     ${Faculty.personLabel.string}
                                 </c:when>
                                 <c:otherwise>
-                                    <a href="${href}" title="view profile">${Faculty.personLabel.string}</a>
+                                    <a href="/faculty/${facultyID}" title="view profile">${Faculty.personLabel.string}</a>
                                 </c:otherwise>
                             </c:choose>
                         </li>

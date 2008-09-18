@@ -45,7 +45,7 @@
                 <textarea id="fmessage" name="message" cols="22" class="required" tabindex="4"></textarea>
                 
                 <label for="captcha">Please verify the code shown here: <em>*</em></label>
-                <img id="captchaImage" src="forms/captcha.jsp" alt="captcha image"/>
+                <img id="captchaImage" src="/forms/captcha.jsp" alt="captcha image"/>
                 <em class="notice">If you cannot read this image, <a title="change code" href="#captchaImage">click here</a> to use a new one</em>
                 <input id="captcha" name="captcha" size="25" class="text required" tabindex="5" />
                 

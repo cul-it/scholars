@@ -7,13 +7,15 @@
             <div id="content">
                 <h2 class="initial">Explore Graduate Fields in these areas</h2>
                 
-                <jsp:include page="part/listgroups.jsp"/>
+				<ul class="groupings">
+	                <jsp:include page="part/listgroups.jsp"></jsp:include>
+				</ul>
                 
                 <p class="sevenUnit">On campus, a biorevolution has transformed research. Biology is no longer just being done by biologists. Scientists and scholars from traditionally separate disciplines pursue biological questions and work with biological systems and biologists.</p>
                 
                 <div id="apply">
                     <p>Begin the process of studying in one of the world's most exciting and diverse academic environments.</p>
-                    <a href="http://www.gradschool.cornell.edu/?p=1" id="applyButton" title="Apply"><img src="resources/images/layout/button_apply.gif" alt="Apply Button"/></a>
+                    <a href="http://www.gradschool.cornell.edu/?p=1" id="applyButton" title="Apply"><img src="/resources/images/layout/button_apply.gif" alt="Apply Button"/></a>
                 </div>
                 
             </div><!-- content -->
@@ -21,8 +23,8 @@
             <div id="sidebar">
                 <div id="news">
                     <h2>Life Sciences News</h2>
-                    <jsp:include page="part/newsforportal.jsp" />
-                    <span class="moreLink"><a title="more Life Sciences news" href="news.jsp">more news &raquo;</a></span>
+                    <jsp:include page="part/newsforportal.jsp"></jsp:include>
+                    <span class="moreLink"><a title="more Life Sciences news" href="/news/">more news &raquo;</a></span>
                 </div>
                 <div id="searchBox">
                     <form name="findresearch" action="search.jsp" method="get"> 
@@ -33,10 +35,10 @@
                 </div>
                 <div id="seminars">
                     <h2>Life Sciences Seminars</h2>
-                    <jsp:include page="part/seminarsforportal.jsp" />
-                    <span class="moreLink"><a title="more Life Sciences events" href="events.jsp">more events &raquo;</a></span>
+                    <jsp:include page="part/seminarsforportal.jsp"></jsp:include>
+                    <span class="moreLink"><a title="more Life Sciences events" href="/events/">more events &raquo;</a></span>
                 </div>
             </div> <!-- sidebar -->
         </div> <!-- contentWrap -->
 
-<jsp:include page="footer.jsp" />
+<jsp:include page="footer.jsp"></jsp:include>
