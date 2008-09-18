@@ -14,6 +14,15 @@
 </c:otherwise>
 </c:choose>
 
+<c:if test="${!empty param.uri}">
+    <c:set var="metaDescription">
+    	<c:import url="part/getmetadescription.jsp">
+    	    <c:param name="uri" value="${URI}"/>
+    	    <c:param name="type" value="department"/>
+    	</c:import>
+    </c:set>
+</c:if>
+
 <c:set var="deptName">
 	<c:import url="part/getlabel.jsp"><c:param name="uri" value="${URI}"/></c:import>
 </c:set>
@@ -26,6 +35,7 @@
 <jsp:include page="header.jsp">
     <jsp:param name="bodyID" value="departments"/>
     <jsp:param name="titleText" value="${pageTitle}"/>
+    <jsp:param name="metaDescription" value="${metaDescription}"/>
 </jsp:include>
         
         <div id="contentWrap">
@@ -41,6 +51,7 @@
                 </c:when>
             
                 <c:otherwise>
+                    <sparql:lock>
                     <sparql:sparql>
 				    <sparql:select model="${applicationScope.jenaOntModel}" var="rs">
 
@@ -102,6 +113,7 @@
 				    </table>
 
 				    </sparql:sparql>
+				    </sparql:lock>
                 </c:otherwise>
             </c:choose>
                     

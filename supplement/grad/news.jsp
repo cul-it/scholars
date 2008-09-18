@@ -20,6 +20,7 @@
                request.setAttribute("now", "\"" + now.toDateTimeISO().toString() + "\"" );
         </jsp:scriptlet>
         
+        <sparql:lock>
         <sparql:sparql>
         <sparql:select model="${applicationScope.jenaOntModel}" var="rs" now="${now}" >
 
@@ -63,7 +64,7 @@
                      LIMIT 40
 
            </sparql:select>
-
+           
            <h2>Cornell Life Sciences News</h2>
                <ul>
                    <c:forEach  items="${rs.rows}" var="item" varStatus="count">
@@ -82,6 +83,7 @@
                </ul>
 
            </sparql:sparql>
+           </sparql:lock>
       
 	</div> <!-- content -->
 </div> <!-- contentWrap -->

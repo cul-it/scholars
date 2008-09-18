@@ -17,10 +17,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
 <!--noindex-->
-
 	<%-- the following meta value is used by javascript --%>
 	<c:if test="${not empty param.metaURI}">
 		<meta name="uri" content="${param.metaURI}"/>
+	</c:if>
+	
+	<c:if test="${not empty param.metaDescription && param.metaDescription != ''}">
+		<meta name="Description" content="${param.metaDescription}"/>
 	</c:if>
 
 	<title>
@@ -30,7 +33,7 @@
 	    </c:choose>
 	</title>
 	
-	<link rel="shortcut icon" href="${faviconLoc}"/>
+	<link rel="shortcut icon" href="/favicon.ico"/>
 	<link rel="stylesheet" href="/resources/css/screen.css" type="text/css" />
     <link rel="stylesheet" href="${jsDir}/niftyCorners.css" type="text/css" />
     <script type="text/javascript" src="${jsDir}/niftycube.js"></script>

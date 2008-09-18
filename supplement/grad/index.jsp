@@ -1,6 +1,7 @@
 <jsp:include page="header.jsp">
     <jsp:param name="bodyID" value="home"/>
     <jsp:param name="titleText" value="Graduate Programs in the Life Sciences | Cornell University"/>
+    <jsp:param name="metaDescription" value="Education is changing. Faculty across Cornell are incorporating new tools, new data, and new thinking into new and current curricula, which also examine the social and ethical issues that this new research raises. A new generation of scholars and scientists is being trained in a more collaborative, interdisciplinary environment."/>
 </jsp:include>
         
         <div id="contentWrap">

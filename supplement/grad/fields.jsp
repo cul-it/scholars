@@ -8,12 +8,22 @@
 	<c:import url="part/getlabel.jsp"><c:param name="uri" value="${URI}"/></c:import>
 </c:set>
 
+<c:if test="${!empty param.uri}">
+    <c:set var="metaDescription">
+    	<c:import url="part/getmetadescription.jsp">
+    	    <c:param name="uri" value="${URI}"/>
+    	    <c:param name="type" value="field"/>
+    	</c:import>
+    </c:set>
+</c:if>
+
 <!-- <c:set var="groupName"><%=session.getAttribute("groupName")%></c:set> -->
 <!-- <c:set var="groupID"><%=session.getAttribute("groupID")%></c:set> -->
 
 <jsp:include page="header.jsp">
     <jsp:param name="bodyID" value="fields"/>
     <jsp:param name="metaURI" value="${encodedURI}"/>
+    <jsp:param name="metaDescription" value="${metaDescription}"/>
     <jsp:param name="titleText" value="Graduate Field of ${fieldName} - Life Sciences Graduate Programs at Cornell"/>
 </jsp:include>
 

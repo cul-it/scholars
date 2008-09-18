@@ -19,6 +19,15 @@
 	<c:import url="part/getlabel.jsp"><c:param name="uri" value="${URI}"/></c:import>
 </c:set>
 
+<c:if test="${!empty param.uri}">
+    <c:set var="metaDescription">
+    	<c:import url="part/getmetadescription.jsp">
+    	    <c:param name="uri" value="${URI}"/>
+    	    <c:param name="type" value="faculty"/>
+    	</c:import>
+    </c:set>
+</c:if>
+
 <c:set var="pageTitle">
     <c:if test="${!empty param.uri}">${facultyName} | Cornell University</c:if>
     <c:if test="${empty param.uri}">Index of Faculty | Cornell University</c:if>
@@ -27,6 +36,7 @@
 <jsp:include page="header.jsp">
     <jsp:param name="bodyID" value="faculty"/>
     <jsp:param name="titleText" value="${pageTitle}"/>
+    <jsp:param name="metaDescription" value="${metaDescription}"/>
 </jsp:include>
 
         <div id="contentWrap">
@@ -138,7 +148,8 @@
                         <a href="#Y">Y</a>
                         <a href="#Z">Z</a>
                     </div>
-                
+                    
+                    <sparql:lock>
                     <sparql:sparql>
                     <sparql:select model="${applicationScope.jenaOntModel}" var="rs">
                           PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -244,6 +255,8 @@
                         </table>
                     
                     </sparql:sparql>
+                    </sparql:lock>
+                    
                 </div><!-- content -->
                 <!--/noindex-->
                 </c:otherwise>

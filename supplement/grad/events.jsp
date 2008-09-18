@@ -26,7 +26,7 @@
                DateTime future = now.plusDays(90);
                request.setAttribute("future", "\"" + future.toDateTimeISO().toString() + "\"" );
         </jsp:scriptlet>
-
+        
         <sparql:sparql>
           <listsparql:select model="${applicationScope.jenaOntModel}" var="upcomingEvents" now="${now}" future="${future}" >
                 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
