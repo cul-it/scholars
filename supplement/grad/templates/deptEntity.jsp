@@ -35,6 +35,7 @@
         <c:param name="deptLink" value="${entity.url}" />
     </c:import> --%>
     
+    <%-- <c:url var="webSnaprUrl" value="http://mannlib.websnapr.com/"> --%>
     <c:url var="webSnaprUrl" value="http://images.websnapr.com/">
         <c:param name="url" value="${entity.url}"/>
         <c:param name="size" value="s"/>

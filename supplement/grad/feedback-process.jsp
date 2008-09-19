@@ -15,10 +15,10 @@
 <div id="contentWrap">
 	<div id="content">
 
-
+<%-- 
     String captchaKey = session.getAttribute("captcha").toString(); 
     String requestedValue = request.getParameter("captcha");
-
+--%>
 <%
     DateTime now = new DateTime();
     request.setAttribute("now", "\"" + now.toDateTime().toString() + "\"" );
@@ -29,11 +29,11 @@
 
 %>
 
-        <c:set var="captchaKey" value="<%=captchaKey%>"/>
-        <c:set var="requestKey" value="<%=requestedValue%>"/>
+        <%-- <c:set var="captchaKey" value="<%=captchaKey%>"/>
+        <c:set var="requestKey" value="<%=requestedValue%>"/> --%>
         
         <%-- only run this if the entered key is correct --%>
-        <c:if test="${captchaKey == requestKey}">
+        <%-- <c:if test="${captchaKey == requestKey}"> --%>
         
             <h2>Got it!</h2>
             <p>Thanks for taking the time to send us feedback.</p>
@@ -119,13 +119,13 @@ ${fbMessage}
 
             </mt:mail>
         
-        </c:if>
+        <%-- </c:if> --%>
         
         <%-- wrong key entered --%>
-        <c:if test="${captchaKey != requestKey}">
+        <%-- <c:if test="${captchaKey != requestKey}">
            <h2>Sorry, there was a problem...</h2>
            <p>It looks like the code you entered was incorrect. Hit your back button to try again.</p>
-        </c:if>
+        </c:if> --%>
         
 	</div> <!-- content -->
 </div> <!-- contentWrap -->

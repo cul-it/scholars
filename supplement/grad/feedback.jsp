@@ -23,7 +23,7 @@
 	        <p>We appreciate any comments or suggestions you would like to share. Your name and email address will not be used for any purpose other than responding to the comments or questions submitted.</p>
             <p><em>*</em> indicates required fields</p>
             
-            <form class="cmxform" id="feedbackForm" method="get" action="feedback-process.jsp">
+            <form class="cmxform" id="feedbackForm" method="get" action="/feedback-process.jsp">
                 
                 <label for="fname">My full name:</label>
                 <input id="fname" name="name" size="25" class="text" tabindex="1" />
@@ -44,10 +44,10 @@
                 <label for="fmessage">My comments, suggestions, questions: <em>*</em></label>
                 <textarea id="fmessage" name="message" cols="22" class="required" tabindex="4"></textarea>
                 
-                <label for="captcha">Please verify the code shown here: <em>*</em></label>
+                <%-- <label for="captcha">Please verify the code shown here: <em>*</em></label>
                 <img id="captchaImage" src="/forms/captcha.jsp" alt="captcha image"/>
                 <em class="notice">If you cannot read this image, <a title="change code" href="#captchaImage">click here</a> to use a new one</em>
-                <input id="captcha" name="captcha" size="25" class="text required" tabindex="5" />
+                <input id="captcha" name="captcha" size="25" class="text required" tabindex="5" /> --%>
                 
                 <input class="submit" type="submit" value="Submit" tabindex="6" />
 

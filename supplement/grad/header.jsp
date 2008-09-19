@@ -61,6 +61,7 @@
     </c:if>
     
     <script type="text/javascript" src="/resources/js/lifescigrad.js"></script>
+    <!-- <script src="http://vivostats.mannlib.cornell.edu/grad/?js" type="text/javascript"></script> -->
 </head>
 
 <body <c:if test="${not empty param.bodyID}">id="${param.bodyID}"</c:if>>
