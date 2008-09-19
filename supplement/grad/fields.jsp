@@ -24,7 +24,7 @@
     <jsp:param name="bodyID" value="fields"/>
     <jsp:param name="metaURI" value="${encodedURI}"/>
     <jsp:param name="metaDescription" value="${metaDescription}"/>
-    <jsp:param name="titleText" value="Graduate Field of ${fieldName} - Life Sciences Graduate Programs at Cornell"/>
+    <jsp:param name="titleText" value="Graduate Field of ${fieldName} | Cornell University  "/>
 </jsp:include>
 
 <div id="contentWrap">

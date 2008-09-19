@@ -1,6 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-
 <%@ page import="edu.cornell.mannlib.vitro.webapp.web.*" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.controller.VitroRequest" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.dao.WebappDaoFactory" %>
@@ -17,6 +16,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
 <!--noindex-->
+    <%-- <meta name="y_key" content="5425523197242be4" /> --%>
+	
 	<%-- the following meta value is used by javascript --%>
 	<c:if test="${not empty param.metaURI}">
 		<meta name="uri" content="${param.metaURI}"/>
@@ -61,7 +62,6 @@
     </c:if>
     
     <script type="text/javascript" src="/resources/js/lifescigrad.js"></script>
-    <!-- <script src="http://vivostats.mannlib.cornell.edu/grad/?js" type="text/javascript"></script> -->
 </head>
 
 <body <c:if test="${not empty param.bodyID}">id="${param.bodyID}"</c:if>>
