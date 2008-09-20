@@ -19,6 +19,9 @@
 	<c:import url="part/getlabel.jsp"><c:param name="uri" value="${URI}"/></c:import>
 </c:set>
 
+<c:set var="firstName" value="${fn:substringAfter(facultyName,',')}"/>
+<c:set var="lastName" value="${fn:substringBefore(facultyName,',')}"/>
+
 <c:if test="${!empty param.uri}">
     <c:set var="metaDescription">
     	<c:import url="part/getmetadescription.jsp">
@@ -29,7 +32,7 @@
 </c:if>
 
 <c:set var="pageTitle">
-    <c:if test="${!empty param.uri}">${facultyName} | Cornell University</c:if>
+    <c:if test="${!empty param.uri}">${firstName}${' '}${lastName} | Cornell University</c:if>
     <c:if test="${empty param.uri}">Index of Faculty | Cornell University</c:if>
 </c:set>
 

@@ -88,6 +88,8 @@
 <c:if test="${!empty authorOf}">
 <div id="faculty-publications">
     <h3>Publications</h3>
+    <c:set var="firstInitial" value="${fn:substring(firstName,0,2)}"/>
+    <c:set var="middleInitial" value="${fn:substringBefore(firstName,'.')}"/>
     <c:url var="pubmedHref" value="http://www.ncbi.nlm.nih.gov/sites/entrez">
         <c:param name="db" value="pubmed"/>
         <c:param name="cmd" value="Search"/>
