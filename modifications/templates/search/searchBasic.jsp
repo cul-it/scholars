@@ -3,6 +3,7 @@
 <%@ page import="edu.cornell.mannlib.vitro.webapp.beans.*" %>
 
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %><%/* this odd thing points to something in web.xml */ %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jstl/functions" %>
 <%@ page errorPage="/error.jsp"%>
 <%
 /***********************************************
@@ -98,12 +99,42 @@
                 if (ent.getMoniker() != null && ent.getMoniker().length() > 0) {
                     out.println(" | " + ent.getMoniker().replaceAll("&","&amp;"));
 				}
+	            
+                // For now, custom search views just add additional information to the name and moniker
+	            String searchViewPrefix = "/templates/search/";
+                String customSearchView = null;
+                for (VClass type : ent.getVClasses(true)) { // first get directly asserted class(es)
+                    if (type!=null) {
+                        customSearchView = type.getCustomSearchView();
+                        if (customSearchView!=null && customSearchView.length()>0 ) {
+                            request.setAttribute("individual",ent); %>
+                            <jsp:include page="<%=searchViewPrefix+type.getCustomSearchView()%>"/>
+<%							request.removeAttribute("individual");
+							// TODO: figure out which of the directly asserted classes should have precedence; for now, just take the 1st
+							break; // have to break because otherwise customSearchView may get reset to null and trigger more evaluation
+						}
+                    }
+                }
+                if (customSearchView == null ) { // try inferred classes, too
+                    for (VClass type : ent.getVClasses()) {
+                        if (type!=null) {
+                            customSearchView = type.getCustomSearchView();
+                            if (customSearchView!=null && customSearchView.length()>0 ) {
+                            	request.setAttribute("individual",ent); %>
+                                <jsp:include page="<%=searchViewPrefix+type.getCustomSearchView()%>"/>
+<%								request.removeAttribute("individual");
+								//TODO: figure out which of the inferred classes should have precedence; for now, just take the 1st
+								break;
+							}
+                        }
+                    }
+                }
                 if (portal.getPortalId() == 6) { //show anchors in impact portal for submitter's name
                     if (ent.getAnchor() != null && ent.getAnchor().length() > 0) {
-                         out.println(" | <span class='externalLink'>" + ent.getAnchor() + "</span>");
-                 	}
-				}
-    		/*	if (portal.getAppName().equalsIgnoreCase("VIVO") || portal.getAppName().equalsIgnoreCase("Research")) {
+                        out.println(" | <span class='externalLink'>" + ent.getAnchor() + "</span>");
+                    }
+                }
+/*     			if (portal.getAppName().equalsIgnoreCase("VIVO") || portal.getAppName().equalsIgnoreCase("Research")) {
                     //Medha's desired display
                     if (ent.getUrl() != null && ent.getUrl().length() > 0) {
                         out.println(" | <a class='externalLink' href='"
