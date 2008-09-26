@@ -17,17 +17,17 @@ PREFIX hrdata: <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#>
 
 SELECT ?cause
 WHERE {
-     vivo:individual19589  hrdata:primaryUnitCode   ?cause
+     ?individualURI  hrdata:primaryUnitCode   ?cause
      optional { 
-        vivo:individual19589 ?someJobAtMann vivo:individual1 .
+        ?individualURI ?someJobAtMann vivo:individual1 .
         filter( ?someJobAtMann = <http://vivo.cornell.edu/ns/mannadditions/0.1#CornellLibrarianForOrganizedEndeavor> )   
       }
       optional { 
-        vivo:individual19589 ?someJobAtMann vivo:individual1 .
+        ?individualURI ?someJobAtMann vivo:individual1 .
         filter( ?someJobAtMann =  vivo:Non-AcademicEmployeeOtherParticipantInOrganizedEndeavor)   
       }
       optional { 
-        vivo:individual19589 ?someJobAtMann vivo:individual1 .
+        ?individualURI ?someJobAtMann vivo:individual1 .
         filter( ?someJobAtMann =  vivo:personLeadParticipantForCornellOrganizedEndeavor )   
       }      
      filter( STR(?cause) = "AG" && !bound(?someJobAtMann) )

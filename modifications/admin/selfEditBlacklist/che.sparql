@@ -13,7 +13,7 @@
 PREFIX vivo:     <http://vivo.library.cornell.edu/ns/0.1#>
 PREFIX hrdata: <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#>
 
-SELECT ?college
+SELECT ?cause
 WHERE {
      ?individualURI   hrdata:primaryUnitCode   ?cause     
      filter( STR(?cause) = "HE"  )
