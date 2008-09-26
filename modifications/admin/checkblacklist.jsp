@@ -14,7 +14,6 @@
 <%@ page errorPage="/error.jsp"%>
 
 <jsp:include page="../edit/formPrefix.jsp"/>
-<div id="content" class="full">
 
 <h3>Check Blacklist</h3>
 
@@ -77,5 +76,4 @@ any other parts of the Authentication system.  </p>
         %><p>Self Editing and logging in via CUWebAuth is not enabled on this system.</p><%
     }    
 %>   
-</div>
 <jsp:include page="../edit/formSuffix.jsp"/>
