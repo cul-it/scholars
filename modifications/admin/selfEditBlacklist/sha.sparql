@@ -1,0 +1,21 @@
+# SPARQL query to detect if an individual is a member of the School of Hotel Administration
+# The variable ?individualURI will be replaced by the individual's
+# URI before the is query is run.
+# The variable ?cause will be the value that is used as the token to 
+# indicate why the individual was blacklisted and select a web page
+# explaining the reason for blacklisting.
+# see NetIdIdentifierFactory.java for the code that runs this query
+# and clones/modifications/edit/login.jsp for the code that selects
+# a page to return when a blacklisted self-editor attempts to log in.
+
+# "HE" is the human resources unit code for the College of Human Ecology
+
+PREFIX vivo:     <http://vivo.library.cornell.edu/ns/0.1#>
+PREFIX hrdata: <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#>
+
+SELECT ?cause
+WHERE {
+     ?individualURI   hrdata:primaryUnitCode   ?cause     
+     filter( STR(?cause) = "HA"  )
+}
+limit 1
