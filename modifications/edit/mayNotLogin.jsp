@@ -34,6 +34,9 @@ SelfEditingIdentifierFactory.SelfEditing selfEditingId =
     }else if( CHE_UNIT_CODE.equals(selfEditingId.getBlacklisted() )){
         %><jsp:forward page="/admin/selfEditBlacklist/che.jsp"/><%
         return;
+    }else if( SHA_UNIT_CODE.equals(selfEditingId.getBlacklisted() )){
+        %><jsp:forward page="/admin/selfEditBlacklist/sha.jsp"/><%
+        return;
     }
     String netid = "unknown";
     if(request.getHeader("REMOTE_USER") != null )
@@ -74,5 +77,6 @@ SelfEditingIdentifierFactory.SelfEditing selfEditingId =
 <%!
 private static final String CALS_UNIT_CODE = "AG";
 private static final String CHE_UNIT_CODE =  "HE";
+private static final String SHA_UNIT_CODE =  "HA"; //School of Hotel Administration
 
 %>
