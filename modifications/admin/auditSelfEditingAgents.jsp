@@ -23,7 +23,6 @@ public static Log log = LogFactory.getLog("edu.cornell.mannlib.vitro.webapp.jsp.
     OntModel combinedModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_DL_MEM);
     combinedModel.addSubModel(auditModel);
     combinedModel.addSubModel(mainModel);
-    log.warn("combined audit and ont models put into request");
     request.setAttribute("combinedModel",combinedModel);
 %>
 <%
