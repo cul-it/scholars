@@ -16,15 +16,22 @@
 <%@ page import="edu.cornell.mannlib.vitro.webapp.filters.VitroRequestPrep" %>
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c"%>
 
+<%! 
+public static Log log = LogFactory.getLog("edu.cornell.mannlib.vitro.webapp.jsp.templates.page.tabVivoAllHome.jsp");
+%>
+
 <%
     VitroRequest vreq = new VitroRequest(request);
     ApplicationBean appBean = vreq.getAppBean();
+    if (appBean==null) { log.error("appBean returned null from VitroRequest"); }
     Portal portal = vreq.getPortal();
+    if (portal==null) { log.error("portal returned null from VitroRequest"); }
     PortalWebUtil.populateSearchOptions(portal, appBean, vreq.getWebappDaoFactory().getPortalDao());
     PortalWebUtil.populateNavigationChoices(portal, request, appBean, vreq.getWebappDaoFactory().getPortalDao());
-    String fixedTabStr=(fixedTabStr=request.getParameter("fixed"))==null?null:fixedTabStr.equals("")?null:fixedTabStr;
+    //String fixedTabStr=(fixedTabStr=request.getParameter("fixed"))==null?null:fixedTabStr.equals("")?null:fixedTabStr;
 %>
 
+<c:catch var="myException">
 <c:set var="portal" value="${requestScope.portalBean}"/>
 <c:set var="appBean" value="${requestScope.appBean}"/>
 
@@ -60,3 +67,7 @@
         </div><!-- contents home -->
     </div><!-- content -->
 </div>
+</c:catch>
+<c:if test="${myException!=null}">
+	<c:redirect url="/edit/login.jsp"/>
+</c:if>
