@@ -29,8 +29,6 @@
           rdf:type vivo:LectureSeminarOrColloquium ;
           rdf:type vitro:Flag1Value1Thing ;
           vitro:timekey ?timekey ;
-          vitro:sunrise ?sunrise ;
-          vitro:blurb   ?blurb ;
           rdfs:label ?label .
 
           OPTIONAL{
@@ -40,7 +38,7 @@
           ?place rdfs:label ?location .
 
          }
-         FILTER( xsd:dateTime(?now) >= xsd:dateTime(?sunrise) && xsd:dateTime(?now) <= xsd:dateTime(?timekey) )
+         FILTER( xsd:dateTime(?now) <= xsd:dateTime(?timekey) )
         }
         ORDER BY ?timekey
         LIMIT 5
