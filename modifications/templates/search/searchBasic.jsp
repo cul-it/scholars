@@ -7,8 +7,7 @@
 <%@ page errorPage="/error.jsp"%>
 <%
 /***********************************************
- Display a}x9n;:[
- Search Results
+ Display Search Results
 
  request.attributes:
  a Map object with the name "collatedResultsLists"
