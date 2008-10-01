@@ -15,8 +15,10 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <!--noindex-->
     <%-- <meta name="y_key" content="5425523197242be4" /> --%>
+    <%-- <meta name="verify-v1" content="4XK+UAmAAnehQLCcloWFrzEAn6rMIDMHJGXrnNRnH4M=" /> --%>
 	
 	<%-- the following meta value is used by javascript --%>
 	<c:if test="${not empty param.metaURI}">

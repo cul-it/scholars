@@ -6,7 +6,7 @@
 <%@ include file="part/resources.jsp" %>
 
 <c:choose>
-<c:when test="${fn:contains(param.uri,'person') && !empty param.uri}">
+<c:when test="${fn:contains(param.uri,'org') && !empty param.uri}">
 	<c:set var="URI">${namespace_hri2}${param.uri}</c:set>
 </c:when>
 <c:otherwise>

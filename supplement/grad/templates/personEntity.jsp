@@ -240,13 +240,37 @@
     </ul>
 </c:if> --%>
 
-<c:if test="${!empty departments}">
+<sparql:sparql>
+    <listsparql:select model="${applicationScope.jenaOntModel}" var="deptRS" person="<${param.uri}>">
+        PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+        PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+        PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
+        SELECT DISTINCT ?deptUri ?deptLabel
+        WHERE
+        {
+
+        ?person
+        vivo:holdFacultyAppointmentIn
+        ?deptUri .
+
+        ?deptUri
+         rdf:type
+         vivo:AcademicDepartment .
+
+        OPTIONAL { ?deptUri rdfs:label ?deptLabel }
+        }
+        ORDER BY ?deptLabel
+        LIMIT 20
+    </listsparql:select>
+</sparql:sparql>
+
+<c:if test="${!empty deptRS}">
     <h3>Departments</h3>        
     <ul id="facultyDepts">
-        <c:forEach var="dept" items="${departments}">
+        <c:forEach var="dept" items="${deptRS}">
             <li>
-                <c:set var="deptID" value="${fn:substringAfter(dept.object.URI,'#')}"/>
-	            <a title="more about this department" href="/departments/${deptID}">${dept.object.name}</a>
+                <c:set var="deptID" value="${fn:substringAfter(dept.deptUri,'#')}"/>
+	            <a title="more about this department" href="/departments/${deptID}">${dept.deptLabel.string}</a>
             </li>
         </c:forEach>
     </ul>
