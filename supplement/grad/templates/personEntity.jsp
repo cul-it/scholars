@@ -38,19 +38,22 @@
 <c:set var='imageDir' value='../images' scope="page"/>
 
 <sparql:sparql>
-<listsparql:select model="${applicationScope.jenaOntModel}" var="rs" person="<${param.uri}>">
+<listsparql:select model="${applicationScope.jenaOntModel}" var="contact" person="<${param.uri}>">
       PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
-      SELECT DISTINCT ?netid
+      PREFIX hr: <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#>
+      SELECT DISTINCT ?netid ?phone ?address
       WHERE
       {
       ?person vivo:CornellemailnetId ?netid . 
       OPTIONAL { ?person vivo:nonCornellemail ?otherid }
+      OPTIONAL { ?person hr:CampusPhone ?phone }
+      OPTIONAL { ?person hr:Address1 ?address }
       }
-      LIMIT 10
+      LIMIT 1
 </listsparql:select>
 </sparql:sparql>
 
-<c:forEach items="${rs}" var="faculty" begin="0" end="0">
+<c:forEach items="${contact}" var="faculty" begin="0" end="0">
     <c:set var="cornellEmail" value="${faculty.netid.string}"/>
     <c:set var="otherEmail" value="${faculty.otherid.string}"/>
 </c:forEach>
@@ -180,6 +183,18 @@
                     </c:choose>
                 </td>
             </tr>
+            <c:if test="${!empty contact[0].phone.string}">
+                <tr>
+                    <th>Phone:</th>
+                    <td>${contact[0].phone.string}</td>
+                </tr>
+            </c:if>
+            <c:if test="${!empty contact[0].address.string}">
+                <tr>
+                    <th>Address:</th>
+                    <td>${contact[0].address.string}</td>
+                </tr>
+            </c:if>
         </table>
         <c:if test="${!empty entity.linksList}">
             <ul id="profileLinks">

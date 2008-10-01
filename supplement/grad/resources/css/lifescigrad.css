@@ -661,6 +661,7 @@ body#departments div#deptPageScreenshot img {
 body#departments div#deptPageScreenshot a {
     display: block;
     width: 200px;
+    color: #9de2e2;
 }
 
 body#departments div#deptPageScreenshot a:hover {
@@ -679,11 +680,28 @@ body#departments div#deptPageScreenshot a:hover {
     font-weight: bold;
 }
 
+body#fields ul.linkList {
+}
+
+body#fields div#fieldDescription ul.linkList li {
+    background: url(../images/icons/yellowarrow.gif) left center no-repeat;
+    list-style-type: none;
+    padding-left: 14px;
+    margin-left: 0;
+    margin-bottom: 1em;
+}
+
 body#fields div#fieldDescription a.fieldLink {
     border-bottom: 1px dotted #7a9899;
+    color: #89cece;
 /*    text-decoration: underline;*/
     font-size: 1.3em;
     margin: 1em 0;
+/*    font-weight: bold;*/
+}
+
+body#fields div#fieldDescription {
+    margin-top: 11px;
 }
 
 body#fields div#fieldDescription div.description,
@@ -702,7 +720,7 @@ body#departments div#deptDescription ul li {
 }
 
 body#fields div#fieldFaculty {
-    margin-top: 3em;
+    margin-top: 4em;
     clear: right;
 }
 
@@ -1161,12 +1179,13 @@ body#faculty #contactInfo table {
     width: 90%;
     margin: 10px 10px 0 12px;
     padding-bottom: 10px;
-    color: #efecca;
+/*    color: #efecca;*/
+    color: #fff;
     font-size: 1.1em;
 }
 
 body#faculty #contactInfo th {
-    width: 20%;
+    width: 30%;
     color: #fff;
     font-weight: bold;
 }

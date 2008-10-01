@@ -189,7 +189,7 @@ if ($("body").attr("id") == "facilities") {
         $("li#" + initialGroup + " h3:first").addClass("expanded");
     }
     // Open all the tabs when referrer is the search page
-    else if (document.referrer.indexOf("search.jsp") > 0) {
+    else if (document.referrer.indexOf("/search") > 0) {
         $("ul.facilityList").show();
         $("li h3:first").addClass("expanded");
     }

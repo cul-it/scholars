@@ -34,10 +34,23 @@
         ${entity.description}
     </div>
     <c:if test="${!empty entity.linksList }">
-        <c:forEach items="${entity.linksList}" var='link' begin="0" end="0">
-            <c:url var="linkUrl" value="${link.url}" />
-            <a class="fieldLink" title="go to the ${entity.name} web page" href="<c:out value="${linkUrl}"/>">Official ${entity.name} Web page</a>
+        <c:set var="listLength" value="${fn:length(entity.linksList)}"/>
+        <c:if test="${!empty entity.primaryLink}"><c:set var="listLength" value="${listLength+1}"/></c:if>
+        <c:if test="${listLength > 1}"><ul class="linkList"></c:if>
+        <c:forEach items="${entity.linksList}" var='link' varStatus="count">
+            <c:if test="${listLength > 1}"><li></c:if>
+                <c:url var="linkUrl" value="${link.url}" />
+                <a class="fieldLink" title="go to the ${entity.name} web page" href="<c:out value="${linkUrl}"/>">
+                    <c:if test="${count.first}">Official ${entity.name} web page</c:if>
+                    <c:if test="${!count.first}">${link.anchor}</c:if>
+                </a>
+            <c:if test="${listLength > 1}"></li></c:if>
         </c:forEach>
+        <c:if test="${!empty entity.primaryLink}">
+            <c:url var="linkUrl" value="${entity.url}" />
+            <li><a class="fieldLink" title="go to the ${entity.anchor}" href="<c:out value="${linkUrl}"/>">${entity.anchor}</a></li>
+        </c:if>
+        <c:if test="${listLength > 1}"></ul></c:if>
     </c:if>
 
 </div><!-- fieldDescription -->

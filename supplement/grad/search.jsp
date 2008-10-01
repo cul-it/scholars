@@ -43,6 +43,7 @@
                         <c:param name="oe" value="ISO-8859-1" />
                         <c:param name="start" value="${start}" />
                         <c:param name="num" value="10" />
+                        <c:param name="filter" value="0" />
                         <c:param name="site" value="default_collection" />
                         <c:param name="sitesearch" value="http://gradeducation.lifesciences.cornell.edu" />
                     </c:import>
