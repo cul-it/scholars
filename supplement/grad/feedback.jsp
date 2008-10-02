@@ -12,14 +12,15 @@
     <c:import var="captcha" url="forms/captcha.jsp"/>
 </c:catch>
 
+<c:if test="${empty captchaError}">
+    <% session.setAttribute("status","ok"); %>
+    <c:set var="captchaStatus" value="ok"/>
+</c:if>
 
-<style type="text/css">
-    img {
-        display: block;
-    }
-    
-</style>
-
+<c:if test="${not empty captchaError}">
+    <% session.setAttribute("status","error"); %>
+    <c:set var="captchaStatus" value="error"/>
+</c:if>
 
 <div id="contentWrap">
 	<div id="content">
@@ -48,7 +49,7 @@
                 <textarea id="fmessage" name="message" cols="22" class="required" tabindex="4"></textarea>
                 
 
-                <c:if test="${empty captchaError}">
+                <c:if test="${captchaStatus=='ok'}">
                     <label for="captcha">Please verify the code shown here: <em>*</em></label>
                     <img id="captchaImage" src="/forms/captcha.jsp" alt="captcha image"/>
                     <em class="notice">If you cannot read this image, <a title="change code" href="#captchaImage">click here</a> to use a new one</em>

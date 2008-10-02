@@ -29,11 +29,12 @@
 We're catching errors and submitting the form even if the captcha fails to load
 then sending a notification email that the captcha is not loading properly. --%>
 
-<c:catch var="captchaError">
-    <c:import var="captcha" url="forms/captcha.jsp"/>
-</c:catch>
+<c:set var="captchaStatus">
+    <% String status = session.getAttribute("status").toString(); %>
+    <%=status%>
+</c:set>
 
-<c:if test="${empty captchaError}">
+<c:if test="${captchaStatus=='ok'}">
     <% 
     String captchaKey = session.getAttribute("captcha").toString(); 
     String requestedValue = request.getParameter("captcha");
@@ -42,7 +43,9 @@ then sending a notification email that the captcha is not loading properly. --%>
     <c:set var="requestKey" value="<%=requestedValue%>"/>
 </c:if>
 
-            <c:if test="${(captchaKey==requestKey) || !empty captchaError}">
+        <c:if test="${(captchaKey==requestKey) || (captchaStatus=='error')}">
+            
+            <% session.setAttribute("captcha","xxxxxx"); %>
         
             <h2>Got it!</h2>
             <p>Thanks for taking the time to send us feedback.</p>
@@ -95,25 +98,25 @@ ${fbMessage}
             <mt:mail>
                 <c:choose>
                     <c:when test="${param.type == 'content'}">
-                        <mt:setrecipient type="to">wlk5@cornell.edu</mt:setrecipient>
-                       <mt:setrecipient type="cc">mw542@cornell.edu</mt:setrecipient>
-                       <mt:setrecipient type="cc">nac26@cornell.edu</mt:setrecipient>
+                        <%-- <mt:setrecipient type="to">wlk5@cornell.edu</mt:setrecipient> --%>
+                       <mt:setrecipient type="to">mw542@cornell.edu</mt:setrecipient>
+                       <%-- <mt:setrecipient type="cc">nac26@cornell.edu</mt:setrecipient> --%>
                        <mt:subject>Life Science Graduate Portal - Feedback Received (content-related)</mt:subject>
                     </c:when>
                     <c:when test="${param.type == 'technical'}">
                         <mt:setrecipient type="to">mw542@cornell.edu</mt:setrecipient>
-                        <mt:setrecipient type="cc">nac26@cornell.edu</mt:setrecipient>
+                        <%-- <mt:setrecipient type="cc">nac26@cornell.edu</mt:setrecipient> --%>
                         <mt:subject>Life Science Graduate Portal - Feedback Received (technical issues)</mt:subject>
                     </c:when>
                     <c:when test="${param.type == 'other'}">
-                        <mt:setrecipient type="to">wlk5@cornell.edu</mt:setrecipient>
-                        <mt:setrecipient type="cc">mw542@cornell.edu</mt:setrecipient>
-                        <mt:setrecipient type="cc">nac26@cornell.edu</mt:setrecipient>
+                        <%-- <mt:setrecipient type="to">wlk5@cornell.edu</mt:setrecipient> --%>
+                        <mt:setrecipient type="to">mw542@cornell.edu</mt:setrecipient>
+                        <%-- <mt:setrecipient type="cc">nac26@cornell.edu</mt:setrecipient> --%>
                         <mt:subject>Life Science Graduate Portal - Feedback Received (other)</mt:subject>
                     </c:when>
                 </c:choose>
                 
-                <mt:from>site-feedback@grad.lifesciences.cornell.edu</mt:from>
+                <mt:from>site-feedback@gradeducation.lifesciences.cornell.edu</mt:from>
 
                 <mt:message>${emailBody}</mt:message>
                 
@@ -130,17 +133,20 @@ ${fbMessage}
             </c:if>
         
             <%-- wrong key entered --%>
-            <c:if test="${(captchaKey != requestKey) && empty captchaError}">
+            <c:if test="${(captchaKey != requestKey) && (captchaStatus=='ok')}">
                <h2>Sorry, there was a problem...</h2>
-               <p>It looks like the code you entered was incorrect. Hit your back button to try again.</p>
+               <p>Either the code you entered was incorrect or you tried to submit the form more than once. Hit your back button to try again.</p>
             </c:if>
             
-            <c:if test="${!empty captchaError}">
+            <c:if test="${captchaStatus=='error'}">
                 <mt:mail>
                     <mt:setrecipient type="to">mw542@cornell.edu</mt:setrecipient>
-                    <mt:subject>Grad site captcha is broken</mt:subject>
-                    <mt:from>site-feedback@grad.lifesciences.cornell.edu</mt:from>
-                    <mt:message>could not load the captcha JSP when a user submitted a feedback form</mt:message>
+                    <mt:subject>Grad Site Notice: captcha on feedback form is broken</mt:subject>
+                    <mt:from>site-feedback@gradeducation.lifesciences.cornell.edu</mt:from>
+                    <mt:message>
+                    *** This is an automated message ***
+                    Tomcat could not load the captcha JSP when a user submitted the feedback form
+                    </mt:message>
                     <mt:send>
                         <p>The following errors occured<br/><br/>
                         <mt:error id="err">
