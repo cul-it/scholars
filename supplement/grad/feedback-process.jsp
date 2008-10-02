@@ -98,20 +98,20 @@ ${fbMessage}
             <mt:mail>
                 <c:choose>
                     <c:when test="${param.type == 'content'}">
-                        <%-- <mt:setrecipient type="to">wlk5@cornell.edu</mt:setrecipient> --%>
-                       <mt:setrecipient type="to">mw542@cornell.edu</mt:setrecipient>
-                       <%-- <mt:setrecipient type="cc">nac26@cornell.edu</mt:setrecipient> --%>
+                        <mt:setrecipient type="to">wlk5@cornell.edu</mt:setrecipient>
+                       <mt:setrecipient type="cc">mw542@cornell.edu</mt:setrecipient>
+                       <mt:setrecipient type="cc">nac26@cornell.edu</mt:setrecipient>
                        <mt:subject>Life Science Graduate Portal - Feedback Received (content-related)</mt:subject>
                     </c:when>
                     <c:when test="${param.type == 'technical'}">
                         <mt:setrecipient type="to">mw542@cornell.edu</mt:setrecipient>
-                        <%-- <mt:setrecipient type="cc">nac26@cornell.edu</mt:setrecipient> --%>
+                        <mt:setrecipient type="cc">nac26@cornell.edu</mt:setrecipient>
                         <mt:subject>Life Science Graduate Portal - Feedback Received (technical issues)</mt:subject>
                     </c:when>
                     <c:when test="${param.type == 'other'}">
-                        <%-- <mt:setrecipient type="to">wlk5@cornell.edu</mt:setrecipient> --%>
-                        <mt:setrecipient type="to">mw542@cornell.edu</mt:setrecipient>
-                        <%-- <mt:setrecipient type="cc">nac26@cornell.edu</mt:setrecipient> --%>
+                        <mt:setrecipient type="to">wlk5@cornell.edu</mt:setrecipient>
+                        <mt:setrecipient type="cc">mw542@cornell.edu</mt:setrecipient>
+                        <mt:setrecipient type="cc">nac26@cornell.edu</mt:setrecipient>
                         <mt:subject>Life Science Graduate Portal - Feedback Received (other)</mt:subject>
                     </c:when>
                 </c:choose>
