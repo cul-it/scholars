@@ -259,7 +259,7 @@ if ($("body").attr("id") == "seark") {
 
 // Feedback form
 $(document).ready(function() {
-if ($("body").attr("id") == "feedback") {
+if ($("body").attr("id") == "feedback" && $("#captchaImage").length) {
     
     var captchaSrc = $("#captchaImage").attr("src");
     
@@ -278,8 +278,8 @@ if ($("body").attr("id") == "feedback") {
             rules: { 
                 type: "required",
                 captcha: {
-    				required: false,
-    				remote: "forms/sessionkey.jsp"
+    				required: true,
+    				remote: "/forms/sessionkey.jsp"
     			}
             }, 
     		messages: {

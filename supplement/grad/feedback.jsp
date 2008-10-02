@@ -8,6 +8,11 @@
     <jsp:param name="titleText" value="Feedback | Cornell University"/>
 </jsp:include>
 
+<c:catch var="captchaError">
+    <c:import var="captcha" url="forms/captcha.jsp"/>
+</c:catch>
+
+
 <style type="text/css">
     img {
         display: block;
@@ -31,7 +36,6 @@
                 <label for="femail">My email address:</label>
                 <input id="femail" name="email" size="25" class="text email" tabindex="2" />
                 
-
                 <label for="type">I'm writing in regard to: <em>*</em></label>
                 <select id="ftype" name="type" tabindex="3">
                     <option value="">&nbsp;--- select an item ---&nbsp;</option>
@@ -40,14 +44,16 @@
                     <option value="other">Other</option>
                 </select>
                 
-
                 <label for="fmessage">My comments, suggestions, questions: <em>*</em></label>
                 <textarea id="fmessage" name="message" cols="22" class="required" tabindex="4"></textarea>
                 
-                <%-- <label for="captcha">Please verify the code shown here: <em>*</em></label>
-                <img id="captchaImage" src="/forms/captcha.jsp" alt="captcha image"/>
-                <em class="notice">If you cannot read this image, <a title="change code" href="#captchaImage">click here</a> to use a new one</em>
-                <input id="captcha" name="captcha" size="25" class="text required" tabindex="5" /> --%>
+
+                <c:if test="${empty captchaError}">
+                    <label for="captcha">Please verify the code shown here: <em>*</em></label>
+                    <img id="captchaImage" src="/forms/captcha.jsp" alt="captcha image"/>
+                    <em class="notice">If you cannot read this image, <a title="change code" href="#captchaImage">click here</a> to use a new one</em>
+                    <input id="captcha" name="captcha" size="25" class="text required" tabindex="5" />
+                </c:if>
                 
                 <input class="submit" type="submit" value="Submit" tabindex="6" />
 

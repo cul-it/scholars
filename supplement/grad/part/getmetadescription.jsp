@@ -7,12 +7,13 @@
 <c:if test="${param.type == 'faculty'}">
     <sparql:sparql>
       <listsparql:select model="${applicationScope.jenaOntModel}" var="rs" uri="<${param.uri}>">
-        PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
-        SELECT ?statement ?focus
-        WHERE { ?uri vivo:overviewStatement ?statement 
-        OPTIONAL { ?uri vivo:researchFocus ?focus }
-        }
-        LIMIT 1
+          PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
+          SELECT ?statement ?focus
+          WHERE { 
+          OPTIONAL { ?uri vivo:overviewStatement ?statement }
+          OPTIONAL { ?uri vivo:researchFocus ?focus }
+          }
+          LIMIT 1
       </listsparql:select>
     </sparql:sparql>
     

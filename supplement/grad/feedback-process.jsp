@@ -12,13 +12,6 @@
     <jsp:param name="titleText" value="Feedback | Cornell University"/>
 </jsp:include>
 
-<div id="contentWrap">
-	<div id="content">
-
-<%-- 
-    String captchaKey = session.getAttribute("captcha").toString(); 
-    String requestedValue = request.getParameter("captcha");
---%>
 <%
     DateTime now = new DateTime();
     request.setAttribute("now", "\"" + now.toDateTime().toString() + "\"" );
@@ -29,11 +22,27 @@
 
 %>
 
-        <%-- <c:set var="captchaKey" value="<%=captchaKey%>"/>
-        <c:set var="requestKey" value="<%=requestedValue%>"/> --%>
-        
-        <%-- only run this if the entered key is correct --%>
-        <%-- <c:if test="${captchaKey == requestKey}"> --%>
+<div id="contentWrap">
+	<div id="content">
+
+<%-- The captcha JSP requires a Java AWT library has been unavailable in the past. 
+We're catching errors and submitting the form even if the captcha fails to load
+then sending a notification email that the captcha is not loading properly. --%>
+
+<c:catch var="captchaError">
+    <c:import var="captcha" url="forms/captcha.jsp"/>
+</c:catch>
+
+<c:if test="${empty captchaError}">
+    <% 
+    String captchaKey = session.getAttribute("captcha").toString(); 
+    String requestedValue = request.getParameter("captcha");
+    %>
+    <c:set var="captchaKey" value="<%=captchaKey%>"/>
+    <c:set var="requestKey" value="<%=requestedValue%>"/>
+</c:if>
+
+            <c:if test="${(captchaKey==requestKey) || !empty captchaError}">
         
             <h2>Got it!</h2>
             <p>Thanks for taking the time to send us feedback.</p>
@@ -84,23 +93,22 @@ Message:
 ${fbMessage}
 </c:set>
             <mt:mail>
-
                 <c:choose>
                     <c:when test="${param.type == 'content'}">
-                       <mt:setrecipient type="to">mw542@cornell.edu</mt:setrecipient>
-                       <%-- <mt:setrecipient type="cc">nac26@cornell.edu</mt:setrecipient> --%>
-                       <%-- <mt:setrecipient type="cc">wlk5@cornell.edu</mt:setrecipient> --%>
+                        <mt:setrecipient type="to">wlk5@cornell.edu</mt:setrecipient>
+                       <mt:setrecipient type="cc">mw542@cornell.edu</mt:setrecipient>
+                       <mt:setrecipient type="cc">nac26@cornell.edu</mt:setrecipient>
                        <mt:subject>Life Science Graduate Portal - Feedback Received (content-related)</mt:subject>
                     </c:when>
                     <c:when test="${param.type == 'technical'}">
                         <mt:setrecipient type="to">mw542@cornell.edu</mt:setrecipient>
-                        <%-- <mt:setrecipient type="cc">nac26@cornell.edu</mt:setrecipient> --%>
+                        <mt:setrecipient type="cc">nac26@cornell.edu</mt:setrecipient>
                         <mt:subject>Life Science Graduate Portal - Feedback Received (technical issues)</mt:subject>
                     </c:when>
                     <c:when test="${param.type == 'other'}">
-                        <mt:setrecipient type="to">mw542@cornell.edu</mt:setrecipient>
-                        <%-- <mt:setrecipient type="cc">nac26@cornell.edu</mt:setrecipient> --%>
-                        <%-- <mt:setrecipient type="cc">wlk5@cornell.edu</mt:setrecipient> --%>
+                        <mt:setrecipient type="to">wlk5@cornell.edu</mt:setrecipient>
+                        <mt:setrecipient type="cc">mw542@cornell.edu</mt:setrecipient>
+                        <mt:setrecipient type="cc">nac26@cornell.edu</mt:setrecipient>
                         <mt:subject>Life Science Graduate Portal - Feedback Received (other)</mt:subject>
                     </c:when>
                 </c:choose>
@@ -119,13 +127,30 @@ ${fbMessage}
 
             </mt:mail>
         
-        <%-- </c:if> --%>
+            </c:if>
         
-        <%-- wrong key entered --%>
-        <%-- <c:if test="${captchaKey != requestKey}">
-           <h2>Sorry, there was a problem...</h2>
-           <p>It looks like the code you entered was incorrect. Hit your back button to try again.</p>
-        </c:if> --%>
+            <%-- wrong key entered --%>
+            <c:if test="${(captchaKey != requestKey) && empty captchaError}">
+               <h2>Sorry, there was a problem...</h2>
+               <p>It looks like the code you entered was incorrect. Hit your back button to try again.</p>
+            </c:if>
+            
+            <c:if test="${!empty captchaError}">
+                <mt:mail>
+                    <mt:setrecipient type="to">mw542@cornell.edu</mt:setrecipient>
+                    <mt:subject>Grad site captcha is broken</mt:subject>
+                    <mt:from>site-feedback@grad.lifesciences.cornell.edu</mt:from>
+                    <mt:message>could not load the captcha JSP when a user submitted a feedback form</mt:message>
+                    <mt:send>
+                        <p>The following errors occured<br/><br/>
+                        <mt:error id="err">
+                            <jsp:getProperty name="err" property="error"/><br/>
+                        </mt:error>
+                        <br/>Please back up a page, fix the error and resubmit.</p>
+                    </mt:send>
+                </mt:mail>
+            </c:if>
+
         
 	</div> <!-- content -->
 </div> <!-- contentWrap -->

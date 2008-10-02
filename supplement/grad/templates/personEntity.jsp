@@ -24,6 +24,7 @@
 <fmt:setLocale value="en_US"/>    
 
 <c:set var="researchFocus" value="${entity.dataPropertyMap['http://vivo.library.cornell.edu/ns/0.1#researchFocus'].dataPropertyStatements[0].data}"/>
+<c:set var="overviewStatement" value="${entity.dataPropertyMap['http://vivo.library.cornell.edu/ns/0.1#overviewStatement'].dataPropertyStatements[0].data}"/>
 <c:set var="selectedPubs" value="${entity.dataPropertyMap['http://vivo.library.cornell.edu/ns/0.1#publications'].dataPropertyStatements[0].data}"/>
 <c:set var="researchAreas" value="${entity.objectPropertyMap['http://vivo.library.cornell.edu/ns/0.1#PersonHasResearchArea'].objectPropertyStatements}"/>
 <c:set var="primaryInvestigator" value="${entity.objectPropertyMap['http://vivo.library.cornell.edu/ns/0.1#PersonPrimaryInvestigatorOfFinancialAward'].objectPropertyStatements}"/>
@@ -76,16 +77,21 @@
     <h2>${firstName}&nbsp;${lastName}</h2>
     <em>${entity.moniker}</em>
     <p class="clear">
-        <c:if test="${!empty researchAreas}">
-            <strong>Primary Interests: </strong> 
-            <c:forEach var="areas" items="${researchAreas}" varStatus="count">
-                <c:if test="${count.last == false}">${areas.object.name}; </c:if>
-                <c:if test="${count.last == true}">${areas.object.name}</c:if>
-            </c:forEach>
+        <c:if test="${!empty overviewStatement}">
+            <div class="description">${overviewStatement}</div>
         </c:if>
-    <c:if test="${!empty researchFocus}">
-        <div class="description"><h4>Research Focus:</h4>${researchFocus}</div>
-    </c:if>
+        <c:if test="${!empty researchAreas}">
+            <div class="description">
+                <strong>Primary Interests:</strong> 
+                <c:forEach var="areas" items="${researchAreas}" varStatus="count">
+                    <c:if test="${count.last == false}">${areas.object.name}; </c:if>
+                    <c:if test="${count.last == true}">${areas.object.name}</c:if>
+                </c:forEach>
+            </div>
+        </c:if>
+        <c:if test="${!empty researchFocus}">
+            <div class="description"><h4>Research Focus:</h4>${researchFocus}</div>
+        </c:if>
 </div>
 
 <c:if test="${!empty authorOf}">
