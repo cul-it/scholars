@@ -97,15 +97,31 @@
 <c:if test="${!empty authorOf}">
 <div id="faculty-publications">
     <h3>Publications</h3>
-    <c:set var="firstInitial" value="${fn:substring(firstName,0,2)}"/>
-    <c:set var="middleInitial" value="${fn:substringBefore(firstName,'.')}"/>
+    <c:set var="firstName" value="${fn:trim(firstName)}"/>
+    <c:if test="${fn:contains(lastName,' ')}">
+        <c:set var="lastName" value="${fn:substringBefore(lastName,' ')}"/>
+    </c:if>
+    <c:set var="firstInitial" value="${fn:substring(firstName,0,1)}"/>
+    <c:if test="${fn:contains(firstName,' ')}">
+        
+        <c:set var="mindex" value="${fn:indexOf(firstName,' ')+1}"/>
+        <c:set var="middleInitial" value="${fn:substring(firstName,mindex,mindex+1)}"/>
+    </c:if>
     <c:url var="pubmedHref" value="http://www.ncbi.nlm.nih.gov/sites/entrez">
         <c:param name="db" value="pubmed"/>
         <c:param name="cmd" value="Search"/>
         <c:param name="itool" value="pubmed_AbstractPlus"/>
-        <c:param name="term" value="${entity.name}"/>
+        <c:param name="term" value="${lastName} ${firstInitial}${middleInitial}"/>
     </c:url>
-    <a id="pubmedLink" href="${pubmedHref}">Full PubMed listing</a>
+    
+    <c:url var="pubmedHref2" value="http://www.ncbi.nlm.nih.gov/pubmed">
+        <c:param name="db" value="pubmed"/>
+        <c:param name="cmd" value="Search"/>
+        <c:param name="itool" value="pubmed_AbstractPlus"/>
+        <c:param name="term" value='"${lastName} ${firstInitial}${middleInitial}" [au]'/>
+    </c:url>
+    
+    <a id="pubmedLink" href="${pubmedHref2}">Full PubMed results</a>
     <ul>
         <c:forEach var="publications" items="${authorOf}">
             <sparql:sparql>
@@ -202,12 +218,18 @@
                 </tr>
             </c:if>
         </table>
-        <c:if test="${!empty entity.linksList}">
+        <c:if test="${!empty entity.linksList || !empty entity.primaryLink}">
             <ul id="profileLinks">
-                <c:forEach items="${entity.linksList}" var='link'>
-                    <c:url var="linkUrl" value="${link.url}" />
-                    <li><a title="visit this site" href="<c:out value="${linkUrl}"/>">${link.anchor}</a></li>
-                </c:forEach>
+                <c:if test="${!empty entity.primaryLink}">
+                    <c:url var="linkUrl" value="${entity.url}" />
+                    <li><a title="visit this site" href="<c:out value="${linkUrl}"/>">${entity.anchor}</a></li>
+                </c:if>
+                <c:if test="${!empty entity.linksList}">
+                    <c:forEach items="${entity.linksList}" var='link'>
+                        <c:url var="linkUrl" value="${link.url}" />
+                        <li><a title="visit this site" href="<c:out value="${linkUrl}"/>">${link.anchor}</a></li>
+                    </c:forEach>
+                </c:if>
             </ul>
         </c:if>
     </div><!-- contactinfo -->
