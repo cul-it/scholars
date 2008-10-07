@@ -39,7 +39,8 @@
                     <li>
                         <c:url var="linkUrl" value="${link.url}" />
                         <a class="fieldLink" title="go to the ${entity.name} web page" href="<c:out value="${linkUrl}"/>">
-                            <c:if test="${count.first}">Official ${entity.name} web page</c:if>
+                            <%-- <c:if test="${count.first}">Official ${entity.name} web page</c:if> --%>
+                            <c:if test="${count.first}">${link.anchor}</c:if>
                             <c:if test="${!count.first}">${link.anchor}</c:if>
                         </a>
                     </li>

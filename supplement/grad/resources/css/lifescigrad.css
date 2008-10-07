@@ -693,11 +693,15 @@ body#fields div#fieldDescription ul.linkList li {
 
 body#fields div#fieldDescription a.fieldLink {
     border-bottom: 1px dotted #7a9899;
-    color: #89cece;
+    color: #73DAD8;
 /*    text-decoration: underline;*/
     font-size: 1.3em;
     margin: 1em 0;
 /*    font-weight: bold;*/
+}
+
+body#fields div#fieldDescription a.fieldLink:visited {
+    color: #7CA2A2;
 }
 
 body#fields div#fieldDescription {
