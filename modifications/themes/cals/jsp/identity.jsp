@@ -46,15 +46,17 @@
 
 <table id="head"><tr>
 
+	<c:url var="themePath" value="/themes/cals/"/>
+
     <td id="LogotypeArea">
     	<table><tr>
     	<td>
         <a target="_new" href="http://www.cornell.edu">
         
-        <img class="closecrop" src="themes/cals/site_icons/cu_insignia_bw.gif" alt="Cornell University"/></a>      	
+        <img class="closecrop" src="${themePath}site_icons/cu_insignia_bw.gif" alt="Cornell University"/></a>      	
         </td><td>
         <a target="_new" href="http://www.cals.cornell.edu/cals/research/index.cfm">
-            <img class="closecrop" src="themes/cals/site_icons/cals_logotype.gif"
+            <img class="closecrop" src="${themePath}site_icons/cals_logotype.gif"
                      width="430" height="76"
                      alt="CALS Impact"/></a>
         </td>
@@ -65,7 +67,8 @@
         <td id="SearchArea" align="right">
 <table align="center"><tr><td>
         		<div class="searchForm">
-        		<form action="search" >
+				<c:url var="searchPath" value="/search"/>
+        		<form action="${searchPath}" >
                 	<input type="hidden" name="home" value="6" />
                 	<input type="hidden" name="appname" value="CALS Impact" />
                 	<input type="hidden" name="searchmethod" value="fulltext" /><table><tr>
@@ -94,7 +97,7 @@
 
 	                </tr></table>
         		</form>
-        		<a class="formlink" style="color:white;" href="search?home=6">Advanced Search | Search Tips</a>                
+        		<a class="formlink" style="color:white;" href="${searchPath}?home=6">Advanced Search | Search Tips</a>                
                 </div>
         		</td></tr></table>
 </td>
@@ -107,7 +110,7 @@
     <table id="CALS_Research_Head">
     <tr>
         <td id="logotypeArea">
-            <a target="_new" href="<%=portal.getRootBreadCrumbURL()%>"><img class="closecrop" src="<%=portal.getThemeDir()%>site_icons/<%=portal.getLogotypeImage()%>" width="<%=portal.getLogotypeWidth()%>" height="<%=portal.getLogotypeHeight()%>" alt="<%=portal.getAppName()%>"/></a>
+            <a target="_new" href="<%=portal.getRootBreadCrumbURL()%>"><img class="closecrop" src="<%=getServletContext().getContextPath()+"/"+portal.getThemeDir()%>site_icons/<%=portal.getLogotypeImage()%>" width="<%=portal.getLogotypeWidth()%>" height="<%=portal.getLogotypeHeight()%>" alt="<%=portal.getAppName()%>"/></a>
         </td>
 <%		String[] bannerImgName = new String[25];
         bannerImgName[0] = "16.reduced.jpg";
@@ -145,7 +148,8 @@
         } else {
             bannerImageName = bannerImgName[bannersForPortal[portal.getPortalId()-2][rand.nextInt(bannersForPortal[portal.getPortalId()-2].length)]];
 		}%>
-        <td class="plainBannerAreaRight" align="right"><img src="${portal.themeDir}site_icons/<%=bannerImageName%>" align="right" alt="<%=portal.getAppName()%>"/></td>
+		<c:url var="themePath" value="/${portal.themeDir}"/>
+        <td class="plainBannerAreaRight" align="right"><img src="${themePath}site_icons/<%=bannerImageName%>" align="right" alt="<%=portal.getAppName()%>"/></td>
     </tr>
     <tr>
     	<td id="shadedSearchBox">
@@ -153,7 +157,8 @@
 <%      if (fixedTabStr != null && fixedTabStr.equalsIgnoreCase("Search")) { %>
             &nbsp;
 <%      } else {%>
-            <form action="search" >
+			<c:url var="searchPath" value="/search"/>
+            <form action="${searchPath}" >
         	<div class="searchForm">
             	<input type="hidden" name="home" value="<%=portal.getPortalId()%>" />
             	<input type="hidden" name="appname" value="<%=portal.getAppName()%>" />
@@ -178,7 +183,7 @@
             	<input class="search-form-button" name="submit" type="submit"  value="Go" /><br/>
               </td>
             </tr></table>
-            	<a class="formlink" href="search?home=<%=portal.getPortalId()%>">Advanced Search | Search Tips</a>
+            	<a class="formlink" href="${searchPath}?home=<%=portal.getPortalId()%>">Advanced Search | Search Tips</a>
         	</div>
         	</form>
 <%      }%>
