@@ -142,7 +142,8 @@ if (VitroRequestPrep.isSelfEditing(request) /* || LoginFormBean.loggedIn(request
 <c:set var='portal' value='${currentPortalId}'/>
 <c:set var='portalBean' value='${currentPortal}'/>
 <c:set var="themeDir"><c:out value="${portalBean.themeDir}" default="themes/vivo/"/></c:set>
-  <script type="text/javascript" src="js/person.js"></script>
+  <c:url var="personJs" value="/js/person.js.jsp"/>
+  <script type="text/javascript" src="${personJs}"></script>
 
     <div id="personWrap">
 

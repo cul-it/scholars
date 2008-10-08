@@ -1,3 +1,9 @@
+<%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
+
+<% /* 2008-10-08 BJL23 changed this to a JSP so we can build absolute paths properly */ %>
+
+<c:url var="themePath" value="/themes/vivo/"/>
+
 tinyMCE.init({
      theme : "advanced",
      mode : "none",
@@ -18,7 +24,7 @@ $(document).ready(function() {
 if ($("ul#propGroupNav").length) {
 
     $("head").append('<style type="text/css"> \
-    					div#contentwrap {background: #fff url(themes/vivo/site_icons/layout/bg_page_person.gif) no-repeat right top;} \
+    					div#contentwrap {background: #fff url(${themePath}site_icons/layout/bg_page_person.gif) no-repeat right top;} \
     					</style>'); 
 
 
@@ -42,7 +48,7 @@ if ($("ul#propGroupNav").length) {
 if ($("#dashboard").hasClass("loggedIn")) {
      
      $("head").append('<style type="text/css"> \
-    						#contentwrap {background: #fff url(themes/vivo/site_icons/layout/bg_page_person.gif) no-repeat right top;} \
+    						#contentwrap {background: #fff url(${themePath}site_icons/layout/bg_page_person.gif) no-repeat right top;} \
     						.editBox a.edit, \
     						    .editBox a.delete, \
     						    #personWrap div.editBox a.delete {display:none} \
