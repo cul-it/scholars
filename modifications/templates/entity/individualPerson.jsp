@@ -72,7 +72,7 @@ if (VitroRequestPrep.isSelfEditing(request) /* || LoginFormBean.loggedIn(request
         entity.getImageFile().indexOf("http:")==0) {
         imageUrl =  entity.getImageFile();
     } else {
-        imageUrl = response.encodeURL( "images/" + entity.getImageFile() );                     
+        imageUrl = response.encodeURL( "/images/" + entity.getImageFile() );                     
     }
 
     // here we look for a property specific to VIVO and retrieve it's value
@@ -154,10 +154,10 @@ if (VitroRequestPrep.isSelfEditing(request) /* || LoginFormBean.loggedIn(request
        		    
        		    <c:if test="${!empty entity.imageThumb}">
                     <c:if test="${!empty entity.imageFile}">
-                        <c:url var="imageUrl" value="${imageDir}/${entity.imageFile}" />
+                        <c:url var="imageUrl" value="/${imageDir}/${entity.imageFile}" />
                         <a class="image" href="${imageUrl}">
                     </c:if>
-                    <c:url var="imageSrc" value='${imageDir}/${entity.imageThumb}'/>
+                    <c:url var="imageSrc" value='/${imageDir}/${entity.imageThumb}'/>
                     <c:if test="${!empty entity.citation}"><div id="profileImage"></c:if>
                     <img class="headshot" src="<c:out value="${imageSrc}"/>" title="click to view larger image in new window" alt="" width="150"/>
                     <c:if test="${!empty entity.imageFile}"></a></c:if>

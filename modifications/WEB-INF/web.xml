@@ -162,7 +162,14 @@
         <filter-name>JSession Strip Filter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
-
+    <filter>
+        <filter-name>URL Rewriter Filter</filter-name>
+        <filter-class>edu.cornell.mannlib.vitro.webapp.filters.URLRewriterFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>URL Rewriter Filter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
 	<filter>
 		<filter-name>Request Logger Filter</filter-name>
 		<filter-class>edu.cornell.mannlib.vitro.webapp.filters.RequestLoggerFilter</filter-class>
@@ -415,7 +422,16 @@
       <servlet-name>Classes2ClassesOperationController</servlet-name>
       <url-pattern>/classes2ClassesOp</url-pattern>
     </servlet-mapping>
-    
+   
+    <servlet>
+        <servlet-name>NamespacePrefixOperationController</servlet-name>
+        <servlet-class>edu.cornell.mannlib.vitro.webapp.controller.edit.NamespacePrefixOperationController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>NamespacePrefixOperationController</servlet-name>
+        <url-pattern>/namespacePrefixOp</url-pattern>
+    </servlet-mapping>
+ 
     <servlet>
       <servlet-name>RefactorOperationController</servlet-name>   
       <servlet-class>edu.cornell.mannlib.vitro.webapp.controller.edit.RefactorOperationController</servlet-class>    	
@@ -587,7 +603,17 @@
       <servlet-name>OntologiesListingController</servlet-name>
       <url-pattern>/listOntologies</url-pattern>
     </servlet-mapping>
-    
+   
+  <servlet>
+      <servlet-name>NamespacesListingController</servlet-name>
+      <servlet-class>edu.cornell.mannlib.vitro.webapp.controller.edit.listing.jena.NamespacesListingController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+      <servlet-name>NamespacesListingController</servlet-name>
+      <url-pattern>/listNamespaces</url-pattern>
+    </servlet-mapping>
+
+ 
     <servlet>
       <servlet-name>RestrictionsListingController</servlet-name>   
       <servlet-class>edu.cornell.mannlib.vitro.webapp.controller.edit.listing.jena.RestrictionsListingController</servlet-class>    	
@@ -962,6 +988,10 @@
 	<servlet-mapping>
 		<servlet-name>entity</servlet-name>
 		<url-pattern>/entity</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>entity</servlet-name>
+		<url-pattern>/individual/*</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>updateEntityFlags</servlet-name>
