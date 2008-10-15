@@ -631,6 +631,15 @@
       <servlet-name>RestrictionOperationController</servlet-name>
       <url-pattern>/addRestriction</url-pattern>
     </servlet-mapping>
+    
+    <servlet>
+    	<servlet-name>PortalsListingController</servlet-name>
+    	<servlet-class>edu.cornell.mannlib.vitro.webapp.controller.edit.listing.PortalsListingController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+    	<servlet-name>PortalsListingController</servlet-name>
+    	<url-pattern>/listPortals</url-pattern>
+    </servlet-mapping>
 
     <servlet>
       <servlet-name>UsersListingController</servlet-name>  
