@@ -74,7 +74,7 @@ if (VitroRequestPrep.isSelfEditing(request) || LoginFormBean.loggedIn(request, L
                             <li class="first">
                                 <a class="externalLink" href="<c:out value="${entityUrl}"/>">
                                     <img class="screenshot" alt="page screenshot" src="${webSnaprUrl}"/>
-                                    <p:process>Entity: ${entity.anchor}</p:process>
+                                    <p:process>${entity.anchor}</p:process>
                                 </a>
                             </li>
                         </c:when>
@@ -93,7 +93,7 @@ if (VitroRequestPrep.isSelfEditing(request) || LoginFormBean.loggedIn(request, L
                         <li>
                             <a class="externalLink" href="<c:out value="${linkUrl}"/>">
                                 <img class="screenshot" alt="page screenshot" src="${webSnaprUrl2}"/>
-                                <p:process>Links: ${link.anchor}</p:process>
+                                <p:process>${link.anchor}</p:process>
                             </a>
                         </li>
                     </c:forEach>
