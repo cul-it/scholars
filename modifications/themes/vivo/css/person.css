@@ -44,7 +44,7 @@ Updated:	August 19, 2008
 /* ------ duplicate styles for department pages ----- */
 
 #deptWrap div.admin {
-    display: none;
+/*    display: none;*/
 }
 
 #deptWrap #content {
