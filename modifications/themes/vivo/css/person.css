@@ -10,6 +10,8 @@ Authors:	mw542@cornell.edu
 Updated:	August 19, 2008
 */
 
+@import url("thickbox.css");
+
 #personWrap div.admin {
 /*    display: none;*/
 }
@@ -28,14 +30,82 @@ Updated:	August 19, 2008
 }
 
 #personWrap #contentwrap {
-	background: #fff url(../site_icons/layout/bg_page_person.gif) no-repeat right top;
+/*  background: #fff url(../site_icons/layout/bg_page_person.gif) no-repeat right top;*/
 }
 
 #personWrap {
 	background: #fff url(../site_icons/layout/bg_innerwrap_person.gif) repeat-y right top;
     padding-top: 20px;
+/*    margin-top: 25px;*/
     clear: both;
 }
+
+
+/* ------ duplicate styles for department pages ----- */
+
+#deptWrap div.admin {
+    display: none;
+}
+
+#deptWrap #content {
+/*    padding: 0 0 20px 4px;*/
+    padding-top: 0;
+/*    width: 69%;*/
+    width: auto;
+    min-width: 600px;
+    margin-right: 280px;
+}
+
+#deptWrap {
+	background: #fff url(../site_icons/layout/bg_innerwrap_person.gif) repeat-y right top;
+    padding-top: 26px;
+    clear: both;
+}
+
+#deptWrap #dashboard {
+    padding: 0 0 100px 0;
+    display: inline-block; /* fixes IE double top-padding bug, discussed at: http://exscale.se/archives/2007/06/13/ie-double-padding-bug/ */
+    background: none;
+    text-align: left;
+    width: 255px;
+}
+
+#deptWrap em.moniker {
+    color: #888888;
+}
+
+#deptWrap div.description {
+    font-size: 1.1em;
+}
+
+#deptWrap div.description p,
+#deptWrap div.description li {
+    font-size: 1em;
+}
+
+#deptWrap img.screenshot {
+    display: block;
+    border: 4px solid #d2d2d2;
+}
+
+#deptWrap #dashboard a:link {
+    color: #55AABB;
+    border-color: #55AABB;
+}
+
+#deptWrap ul.externalLinks {
+    padding-left: 21px;
+    padding-right: 20px;
+}
+
+#deptWrap ul.externalLinks li {
+    display: block;
+    margin-bottom: 21px;
+    padding-left: 0;
+    border: 0;
+}
+
+/* ------------------------------------------------- */
 
 #personWrap #entity {
     clear: left;
