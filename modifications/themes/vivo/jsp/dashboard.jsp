@@ -108,8 +108,8 @@ if (keywordStmts.size()>1) { // now sort the keywords, which do not retain an in
     <c:if test="${(!empty entity.anchor) || (!empty entity.linksList) || showSelfEdits || showCuratorEdits}">
         <div id="dashboardExtras">
             <div id="links">
-            <h3>Links</h3>
             <c:if test="${showSelfEdits || showCuratorEdits}">
+                <h3>Links</h3>
                 <edLnk:editLinks item="${additionalLinkObjectProperty}" icons="false"/>
             </c:if>
                 <c:if test="${!empty entity.anchor}">
@@ -117,12 +117,28 @@ if (keywordStmts.size()>1) { // now sort the keywords, which do not retain an in
                         <c:choose>
                             <c:when test="${!empty entity.url}">
                                 <c:url var="entityUrl" value="${entity.url}" />
-                                <li>
+                                <c:url var="webSnaprUrl" value="http://mannlib.websnapr.com/">
+                                    <c:param name="size" value="S"/>
+                                    <c:param name="url" value="${entityUrl}"/>
+                                </c:url>
+                                <li class="first">
+                                    <a class="externalLink" href="<c:out value="${entityUrl}"/>">
+                                        <img class="screenshot" alt="page screenshot" src="${webSnaprUrl}"/>
+                                        <p:process>${entity.anchor}</p:process>
+                                    </a>
                                     <c:if test="${showSelfEdits || showCuratorEdits}">
                                     	<edLnk:editLinks item="${entity.primaryLink.objectPropertyStatement}" icons="false"/>
                                     </c:if>
-                                    <a class="externalLink" href="<c:out value="${entityUrl}"/>">${entity.anchor}</a>
                                 </li>
+                                <%--                            
+                                <c:url var="entityUrl" value="${entity.url}" />
+                                <li>
+                                    <a class="externalLink" href="<c:out value="${entityUrl}"/>">${entity.anchor}</a>
+                                    <c:if test="${showSelfEdits || showCuratorEdits}">
+                                    	<edLnk:editLinks item="${entity.primaryLink.objectPropertyStatement}" icons="false"/>
+                                    </c:if>
+                                </li>
+                                --%>
                             </c:when>
                             <c:otherwise><li>${entity.anchor}</li></c:otherwise>
                         </c:choose>
@@ -130,12 +146,27 @@ if (keywordStmts.size()>1) { // now sort the keywords, which do not retain an in
                     <c:if test="${!empty entity.linksList }">
                         <c:forEach items="${entity.linksList}" var='link'>
                             <c:url var="linkUrl" value="${link.url}" />
+                            <c:url var="webSnaprUrl2" value="http://mannlib.websnapr.com/">
+                                <c:param name="size" value="S"/>
+                                <c:param name="url" value="${link.url}"/>
+                            </c:url>
+                            <li>
+                                <a class="externalLink" href="<c:out value="${entityUrl}"/>">
+                                    <img class="screenshot" alt="page screenshot" src="${webSnaprUrl2}"/>
+                                    <p:process>${link.anchor}</p:process>
+                                </a>
+                                <c:if test="${showSelfEdits || showCuratorEdits}">
+                                    <edLnk:editLinks item="${link.objectPropertyStatement}" icons="false"/>
+                                </c:if>
+                            </li>
+                            <%--
                             <li>
                                 <c:if test="${showSelfEdits || showCuratorEdits}">
                                     <edLnk:editLinks item="${link.objectPropertyStatement}" icons="false"/>
                                 </c:if>
                                 <a class="externalLink" href="<c:out value="${linkUrl}"/>">${link.anchor}</a>
                             </li>
+                            --%>
                         </c:forEach>
                     </ul>
                 </c:if>
