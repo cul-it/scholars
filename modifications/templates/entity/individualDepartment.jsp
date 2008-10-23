@@ -72,8 +72,10 @@ if (VitroRequestPrep.isSelfEditing(request) || LoginFormBean.loggedIn(request, L
                                 <c:param name="url" value="${entityUrl}"/>
                             </c:url>
                             <li class="first">
-                                <a class="externalLink" href="<c:out value="${entityUrl}"/>">
+                                <a href="<c:out value="${entityUrl}"/>">
                                     <img class="screenshot" alt="page screenshot" src="${webSnaprUrl}"/>
+                                </a>
+                                <a class="externalLink" href="<c:out value="${entityUrl}"/>">
                                     <p:process>${entity.anchor}</p:process>
                                 </a>
                             </li>
@@ -91,9 +93,11 @@ if (VitroRequestPrep.isSelfEditing(request) || LoginFormBean.loggedIn(request, L
                             <c:param name="url" value="${linkUrl}"/>
                         </c:url>
                         <li>
-                            <a class="externalLink" href="<c:out value="${linkUrl}"/>">
+                            <a href="<c:out value="${entityUrl}"/>">
                                 <img class="screenshot" alt="page screenshot" src="${webSnaprUrl2}"/>
-                                <p:process>${link.anchor}</p:process>
+                            </a>
+                            <a class="externalLink" href="<c:out value="${entityUrl}"/>">
+                                <p:process>${entity.anchor}</p:process>
                             </a>
                         </li>
                     </c:forEach>

@@ -84,6 +84,7 @@ if (keywordStmts.size()>1) { // now sort the keywords, which do not retain an in
 <c:set var='portal' value='${currentPortalId}'/>
 <c:set var='portalBean' value='${currentPortal}'/>
 <c:set var='imageDir' value='images' />
+<c:set var="thumbnailSize" value="S"/>
 <div id="dashboard"<c:if test="${showCuratorEdits || showSelfEdits}"> class="loggedIn"</c:if>>
    
     <c:choose>
@@ -111,6 +112,7 @@ if (keywordStmts.size()>1) { // now sort the keywords, which do not retain an in
             <c:if test="${showSelfEdits || showCuratorEdits}">
                 <h3>Links</h3>
                 <edLnk:editLinks item="${additionalLinkObjectProperty}" icons="false"/>
+                <c:set var="thumbnailSize" value="T"/>
             </c:if>
                 <c:if test="${!empty entity.anchor}">
                     <ul class="profileLinks">
@@ -118,12 +120,14 @@ if (keywordStmts.size()>1) { // now sort the keywords, which do not retain an in
                             <c:when test="${!empty entity.url}">
                                 <c:url var="entityUrl" value="${entity.url}" />
                                 <c:url var="webSnaprUrl" value="http://mannlib.websnapr.com/">
-                                    <c:param name="size" value="S"/>
+                                    <c:param name="size" value="${thumbnailSize}"/>
                                     <c:param name="url" value="${entityUrl}"/>
                                 </c:url>
                                 <li class="first">
-                                    <a class="externalLink" href="<c:out value="${entityUrl}"/>">
+                                    <a href="<c:out value="${entityUrl}"/>">
                                         <img class="screenshot" alt="page screenshot" src="${webSnaprUrl}"/>
+                                    </a>
+                                    <a class="externalLink" href="<c:out value="${entityUrl}"/>">
                                         <p:process>${entity.anchor}</p:process>
                                     </a>
                                     <c:if test="${showSelfEdits || showCuratorEdits}">
@@ -147,12 +151,14 @@ if (keywordStmts.size()>1) { // now sort the keywords, which do not retain an in
                         <c:forEach items="${entity.linksList}" var='link'>
                             <c:url var="linkUrl" value="${link.url}" />
                             <c:url var="webSnaprUrl2" value="http://mannlib.websnapr.com/">
-                                <c:param name="size" value="S"/>
+                                <c:param name="size" value="${thumbnailSize}"/>
                                 <c:param name="url" value="${link.url}"/>
                             </c:url>
                             <li>
-                                <a class="externalLink" href="<c:out value="${entityUrl}"/>">
+                                <a href="<c:out value="${entityUrl}"/>">
                                     <img class="screenshot" alt="page screenshot" src="${webSnaprUrl2}"/>
+                                </a>
+                                <a class="externalLink" href="<c:out value="${entityUrl}"/>">
                                     <p:process>${link.anchor}</p:process>
                                 </a>
                                 <c:if test="${showSelfEdits || showCuratorEdits}">

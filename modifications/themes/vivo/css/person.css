@@ -389,7 +389,15 @@ Updated:	August 19, 2008
     display: inline;
     font-size: 1em;
     line-height: 1.5em;
-    margin: 0 0 .3em 0;
+    margin: 0 0 .5em 0;
+}
+
+#personWrap #dashboardExtras a img {
+    border: 1px solid #d6d6d6;
+    display: block;
+    width: auto;
+    margin: 4px 0 0 0;
+    text-decoration: none;
 }
 
 #personWrap ul.profileLinks {
@@ -399,6 +407,7 @@ Updated:	August 19, 2008
 
 #personWrap ul.profileLinks li {
     padding-left: 0;
+    margin-bottom: 10px;
     background: none;
 }
 
