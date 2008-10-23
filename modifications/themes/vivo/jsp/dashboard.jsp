@@ -155,10 +155,10 @@ if (keywordStmts.size()>1) { // now sort the keywords, which do not retain an in
                                 <c:param name="url" value="${link.url}"/>
                             </c:url>
                             <li>
-                                <a href="<c:out value="${entityUrl}"/>">
+                                <a href="<c:out value="${link.url}"/>">
                                     <img class="screenshot" alt="page screenshot" src="${webSnaprUrl2}"/>
                                 </a>
-                                <a class="externalLink" href="<c:out value="${entityUrl}"/>">
+                                <a class="externalLink" href="<c:out value="${link.url}"/>">
                                     <p:process>${link.anchor}</p:process>
                                 </a>
                                 <c:if test="${showSelfEdits || showCuratorEdits}">
