@@ -42,13 +42,14 @@
 <listsparql:select model="${applicationScope.jenaOntModel}" var="contact" person="<${param.uri}>">
       PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
       PREFIX hr: <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#>
-      SELECT DISTINCT ?netid ?phone ?address
+      SELECT DISTINCT ?netid ?phone ?address ?HRnetID
       WHERE
       {
       ?person vivo:CornellemailnetId ?netid . 
       OPTIONAL { ?person vivo:nonCornellemail ?otherid }
       OPTIONAL { ?person hr:CampusPhone ?phone }
       OPTIONAL { ?person hr:Address1 ?address }
+      OPTIONAL { ?person hr:netId ?HRnetID }
       }
       LIMIT 1
 </listsparql:select>
@@ -195,43 +196,41 @@
     
     <div id="contactInfo">
     <h3>Contact Information</h3>        
-        <table>
-            <tr>
-                <th>Email:</th>
-                <td>
-                    <c:choose>
-                        <c:when test="${!empty cornellEmail}"><a title="" href="mailto:${cornellEmail}">${cornellEmail}</a></c:when>
-                        <c:otherwise><a title="" href="mailto:${otherEmail}">${otherEmail}</a></c:otherwise>
-                    </c:choose>
-                </td>
-            </tr>
-            <c:if test="${!empty contact[0].phone.string}">
-                <tr>
-                    <th>Phone:</th>
-                    <td>${contact[0].phone.string}</td>
-                </tr>
-            </c:if>
-            <c:if test="${!empty contact[0].address.string}">
-                <tr>
-                    <th>Address:</th>
-                    <td>${contact[0].address.string}</td>
-                </tr>
-            </c:if>
-        </table>
-        <c:if test="${!empty entity.linksList || !empty entity.primaryLink}">
-            <ul id="profileLinks">
+
+        <ul id="profileLinks">
+            
+            <li>
+                <strong>Email:</strong>
+                <c:choose>
+                    <c:when test="${!empty cornellEmail}"><a title="" href="mailto:${cornellEmail}">${cornellEmail}</a></c:when>
+                    <c:otherwise><a title="" href="mailto:${otherEmail}">${otherEmail}</a></c:otherwise>
+                </c:choose>
+            </li>
+            
+            <c:if test="${!empty contact[0].HRnetID.string}">
+                <li>
+                    <c:url var="contactUrl" value="http://www.cornell.edu/search/">
+                        <c:param name="tab" value="people"/>
+                        <c:param name="netid" value="${contact[0].HRnetID.string}"/>
+                    </c:url>
+                    <a title="Full Cornell.edu Listing" href="${contactUrl}"><strong>Complete contact info at Cornell.edu</strong></a>
+                </li>
+            </c:if>            
+            
+            <c:if test="${!empty entity.linksList || !empty entity.primaryLink}">
                 <c:if test="${!empty entity.primaryLink}">
                     <c:url var="linkUrl" value="${entity.url}" />
-                    <li><a title="visit this site" href="<c:out value="${linkUrl}"/>">${entity.anchor}</a></li>
+                    <li class="external"><a title="visit this site" href="<c:out value="${linkUrl}"/>">${entity.anchor}</a></li>
                 </c:if>
                 <c:if test="${!empty entity.linksList}">
                     <c:forEach items="${entity.linksList}" var='link'>
                         <c:url var="linkUrl" value="${link.url}" />
-                        <li><a title="visit this site" href="<c:out value="${linkUrl}"/>">${link.anchor}</a></li>
+                        <li class="external"><a title="visit this site" href="<c:out value="${linkUrl}"/>">${link.anchor}</a></li>
                     </c:forEach>
                 </c:if>
-            </ul>
-        </c:if>
+            </c:if>
+        </ul>
+            
     </div><!-- contactinfo -->
 
     <sparql:sparql>

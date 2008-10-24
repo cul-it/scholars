@@ -36,23 +36,24 @@
 
 <?xml version="1.0" encoding="UTF-8" ?> 
 
-    <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-        <channel>
-            <atom:link href="http://worthington.mannlib.cornell.edu/grad/data/dapperRSS.jsp" rel="self" type="application/rss+xml" />
-              <title>List of IDs for Field Details Dapp</title>
-              <link>http://worthington.mannlib.cornell.edu/grad/data/dapperRSS.jsp</link>
-              <description>IDs for a Dapp that scrapes the Graduate School site</description>
-              <language>en</language>
-            
-            <c:forEach items="${allFields}" var="field">
-                <c:set var="localname" value="${fn:substringAfter(field.fieldUri,'#')}"/>
-                <item>
-                    <title>${field.fieldLabel.string}</title>
-                    <description>${field.id.string}</description>
-                    <link>http://gradeducation.lifesciences.cornell.edu/fields/${localname}</link>
-                    <guid>${field.fieldUri}</guid>
-                </item>
-            </c:forEach>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <atom:link href="http://gradeducation.lifesciences.cornell.edu/data/gradschool_field_IDs_RSS.jsp" rel="self" type="application/rss+xml" />
+          <title>List of IDs for Graduate School website</title>
+          <link>http://gradeducation.lifesciences.cornell.edu/data/gradschool_field_IDs_RSS.jsp</link>
+          <description>IDs used for Yahoo Pipes and for a Dapp that scrapes the Graduate School site</description>
+          <language>en</language>
+
+        <c:forEach items="${allFields}" var="field">
+            <c:set var="localname" value="${fn:substringAfter(field.fieldUri,'#')}"/>
+            <item>
+                <title><c:out escapeXml="true" value="${field.fieldLabel.string}"/></title>
+                <description>${field.id.string}</description>
+                <link>http://gradeducation.lifesciences.cornell.edu/fields/${localname}</link>
+                <guid>${field.fieldUri}</guid>
+            </item>
+        </c:forEach>
+
 
         </channel>
     </rss>

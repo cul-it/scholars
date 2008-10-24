@@ -1202,14 +1202,19 @@ body#faculty ul#profileLinks {
 }
 
 body#faculty ul#profileLinks li {
-    padding: 1px 0 3px 18px;
-    background: url(../images/icons/external_profile.gif) no-repeat left top;
+    padding: 1px 0 3px 0;
     line-height: 1.1em;
+    margin-bottom: 1em;
+}
+
+body#faculty ul#profileLinks li.external {
+    padding-left: 18px;
+    background: url(../images/icons/external_profile.gif) no-repeat left top;
     margin-bottom: .5em;
 }
 
 body#faculty ul#profileLinks li a {
-    border: 0;
+/*    border: 0;*/
 }
 
 
