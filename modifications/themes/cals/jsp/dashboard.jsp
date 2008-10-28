@@ -5,6 +5,7 @@
 <%@ page import="edu.cornell.mannlib.vitro.webapp.filters.VitroRequestPrep" %>
 <%@ page import="java.util.List" %>
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ page errorPage="/error.jsp"%>
 <%
 if (VitroRequestPrep.isSelfEditing(request)) {
@@ -32,7 +33,35 @@ if (VitroRequestPrep.isSelfEditing(request)) {
         <c:if test="${!empty entity.imageFile}"></a></c:if>
         <c:if test="${!empty entity.citation}"><div class="citation">${entity.citation}</div></c:if>
     </c:if>
-       
+    
+    <c:choose>
+        <c:when test="${!empty entity.dataPropertyMap['http://vivo.library.cornell.edu/ns/0.1#CornellemailnetId'].dataPropertyStatements[0].data}">
+            <c:set var="emailAddress" value="${entity.dataPropertyMap['http://vivo.library.cornell.edu/ns/0.1#CornellemailnetId'].dataPropertyStatements[0].data}"/>
+            <c:set var="netId" value="${fn:substringBefore(emailAddress,'@')}"/>
+            <div id="currentContactInfo">
+            	<c:url var="CUSearchUrl" value="http://www.cornell.edu/search/index.cfm">
+            		<c:param name="tab" value="people"/>
+            		<c:param name="netid" value="${netId}"/>
+            	</c:url>
+            	<a class="externalLink" href="${CUSearchUrl}">Current Contact Info</a>
+           	</div>
+        </c:when>
+        <c:otherwise>
+            <c:if test="${!empty entity.dataPropertyMap['http://vivo.library.cornell.edu/ns/0.1#nonCornellemail'].dataPropertyStatements[0].data}">
+                <c:set var="emailAddress" value="${entity.dataPropertyMap['http://vivo.library.cornell.edu/ns/0.1#nonCornellemail'].dataPropertyStatements[0].data}"/>
+                <c:if test="${fn:containsIgnoreCase(emailAddress,'@med.cornell.edu')}">
+          	        <div id="currentContactInfo">
+            	        <c:url var="CUMedSearchUrl" value="http://www.cornell.edu/search/index.cfm">
+            		        <c:param name="tab" value="people"/>
+            		        <c:param name="q" value="${emailAddress}"/>
+            	        </c:url>
+            	        <a class="externalLink" href="${CUMedSearchUrl}">Current Contact Info</a>
+          	        </div>
+                </c:if>
+            </c:if>
+        </c:otherwise>
+    </c:choose>
+    
     <ul class="profileLinks">
         <c:if test="${!empty entity.anchor}">
             <c:choose>
