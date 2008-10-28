@@ -8,6 +8,7 @@
 <%@ taglib uri="http://mannlib.cornell.edu/vitro/ListSparqlTag/0.1/" prefix="listsparql" %>
 <%@ taglib uri="http://jakarta.apache.org/taglibs/string-1.1" prefix="str" %>
 <%@ taglib uri="http://jakarta.apache.org/taglibs/random-1.0" prefix="rand" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/xml" prefix="x" %>
 
 <%@ page errorPage="/error.jsp"%>
 <%  /***********************************************
@@ -43,6 +44,20 @@
     </listsparql:select>
 </sparql:sparql>
 
+<sparql:sparql>
+    <listsparql:select model="${applicationScope.jenaOntModel}" var="gradschool" field="<${param.uri}>">
+        PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
+        SELECT DISTINCT ?gsid
+        WHERE { ?field vivo:gradschoolID ?gsid }
+        LIMIT 1
+    </listsparql:select>
+</sparql:sparql>
+
+<c:set var="gradschoolID" value="${gradschool[0].gsid.string}"/>
+<c:catch var="RSSerror">
+    <c:import var="gradschoolRSS" url="http://feeds.feedburner.com/CornellGradFieldDeadlines" charEncoding="UTF-8" />
+    <x:parse var="gs" doc="${gradschoolRSS}"/>
+</c:catch>
 
 <div id="fieldDescription">
     <h2>Graduate Field of <span class="sectionLabel">${entity.name}</span></h2>
@@ -56,7 +71,22 @@
             <p>
         </c:if>
         ${entity.description}
+        <c:if test="${empty RSSerror}">
+            <x:forEach var="field" select="$gs//channel/item">
+                <c:set var="currentID"><x:out select="guid" /></c:set>
+                <%-- note: the field parameter below is only there to track outbound clicks --%>
+                <c:url var="applyLink" value="http://www.gradschool.cornell.edu/">
+                    <c:param name="p" value="1"/>
+                    <c:param name="field" value="${entity.name}"/>
+                </c:url>
+                <c:if test="${currentID == gradschoolID}">
+                    <p>Application deadline: <x:out select="description" /> &mdash; <a title="Graduate School application page" href="${applyLink}"><strong>Apply Now</strong></a></p>
+                </c:if>
+            </x:forEach>
+        </c:if>
     </div>
+    
+
     
     <c:if test="${!empty entity.linksList || !empty entity.primaryLink}">
         <ul class="linkList">
