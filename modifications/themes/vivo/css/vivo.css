@@ -220,7 +220,7 @@ content roll call
 }
 
 .citation {
-	clear: both;
+/*  clear: both;*/
 	padding-top: 25px;
 }
 
@@ -279,7 +279,7 @@ a:hover.externalLink {
 
 .thumbnail {
 	float: left;
-	clear: both;
+/*  clear: both;*/
 	margin-bottom: 20px;
 }
 
