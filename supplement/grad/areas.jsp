@@ -60,4 +60,6 @@
 
         </div> <!-- contentWrap -->
 
-<jsp:include page="footer.jsp" />
+<jsp:include page="footer.jsp">
+    <jsp:param name="uri" value="${URI}"/>
+</jsp:include>

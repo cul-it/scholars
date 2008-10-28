@@ -2,7 +2,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/xml" prefix="x" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<%@ page contentType="text/html; charset=ISO-8859-1" %> 
 
 <c:set var="pageTitle">
     <c:if test="${!empty param.querytext}">Search Results: ${param.querytext}</c:if>
@@ -34,13 +33,13 @@
                 
                 <c:if test="${!empty param.querytext && param.querytext != ''}">
                 
-                    <c:import var="gs" url="http://web.search.cornell.edu/search">
+                    <c:import var="gs" url="http://web.search.cornell.edu/search" charEncoding="UTF-8">
                         <c:param name="q" value="${param.querytext}"/>
                         <c:param name="output" value="xml_no_dtd" />
                         <c:param name="sort" value="date:D:L:d1" />
-                        <c:param name="ie" value="ISO-8859-1" />
+                        <c:param name="ie" value="UTF-8" />
                         <c:param name="client" value="default_frontend" />
-                        <c:param name="oe" value="ISO-8859-1" />
+                        <c:param name="oe" value="UTF-8" />
                         <c:param name="start" value="${start}" />
                         <c:param name="num" value="10" />
                         <c:param name="filter" value="0" />

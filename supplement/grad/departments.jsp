@@ -121,4 +121,6 @@
         
         </div> <!-- contentWrap -->
 
-<jsp:include page="footer.jsp"></jsp:include>
+<jsp:include page="footer.jsp">
+    <jsp:param name="uri" value="${URI}"/>
+</jsp:include>

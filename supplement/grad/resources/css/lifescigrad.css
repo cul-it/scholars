@@ -164,6 +164,7 @@ body#fields #sidebar {
     height: 6em;
     color: #fff;
     background: #000;
+    position: relative;
 }
 
 div.push {
@@ -380,6 +381,7 @@ body#groupindex h3.groupLabel {
 .sectionLabel {
     display: block;
     margin-top: .3em;
+    margin-bottom: 1em;
     color: #fff;
     font-weight: bold;
     font-size: 1.2em;
@@ -681,6 +683,7 @@ body#departments div#deptPageScreenshot a:hover {
 }
 
 body#fields ul.linkList {
+    margin-top: 1.5em;
 }
 
 body#fields div#fieldDescription ul.linkList li {
@@ -1307,6 +1310,20 @@ footer roll call
 #footer a:hover {
     color: #91ced9;
     border-bottom: 1px solid #91ced9;
+}
+
+#footer a.vivoLink:link, #footer a.vivoLink:visited {
+    color: #000;
+    border: 0;
+    position: absolute;
+    bottom: 3px;
+    display: block;
+    margin: 0 auto;
+}
+
+#footer a.vivoLink:hover {
+    color: yellow;
+    border: 0;
 }
 
 /****************************************************************

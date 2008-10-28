@@ -24,13 +24,39 @@
 <c:set var='departmentsPropUri' value='http://vivo.library.cornell.edu/ns/0.1#OrganizedEndeavorHasAffiliatedOrganizedEndeavor' scope="page"/>
 <c:set var='facultyMembersPropUri' value='http://vivo.library.cornell.edu/ns/0.1#AcademicInitiativeHasOtherParticipantAcademicEmployeeAsFieldMember' scope="page"/>
 <c:set var='researchFocusURI' value='http://vivo.library.cornell.edu/ns/0.1#researchFocus'/>
+
 <c:set var='imageDir' value='../images/' scope="page"/>
 <fmt:setLocale value="en_US"/>    
+
+<sparql:sparql>
+    <listsparql:select model="${applicationScope.jenaOntModel}" var="degrees" field="<${param.uri}>">
+        PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+        PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
+        SELECT DISTINCT ?uri ?label ?abbr
+        WHERE {
+            ?field vivo:offersAcademicDegree ?uri .
+            OPTIONAL { ?uri rdfs:label ?label }
+            OPTIONAL { ?uri vivo:degreeAbbreviation ?abbr }
+        }
+        ORDER BY Desc(?label)
+        LIMIT 10
+    </listsparql:select>
+</sparql:sparql>
 
 
 <div id="fieldDescription">
     <h2>Graduate Field of <span class="sectionLabel">${entity.name}</span></h2>
-    <div class="description">${entity.description}</div>
+    
+    <div class="description">
+        <c:if test="${!empty degrees}">
+            <p><strong>Degrees offered: </strong>
+            <c:forEach items="${degrees}" var="degree" varStatus="count">
+               ${degree.abbr.string}<c:if test="${count.last!=true}">, </c:if>
+            </c:forEach>
+            <p>
+        </c:if>
+        ${entity.description}
+    </div>
     
     <c:if test="${!empty entity.linksList || !empty entity.primaryLink}">
         <ul class="linkList">
