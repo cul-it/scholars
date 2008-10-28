@@ -112,24 +112,24 @@ if (keywordStmts.size()>1) { // now sort the keywords, which do not retain an in
         		<c:when test="${!empty entity.dataPropertyMap['http://vivo.library.cornell.edu/ns/0.1#CornellemailnetId'].dataPropertyStatements[0].data}">
                     <c:set var="emailAddress" value="${entity.dataPropertyMap['http://vivo.library.cornell.edu/ns/0.1#CornellemailnetId'].dataPropertyStatements[0].data}"/>
                     <c:set var="netId" value="${fn:substringBefore(emailAddress,'@')}"/>
-            	    <div id="currentContactInfo">
-            	    	<form method="get" action="http://www.cornell.edu/search/index.cfm">
-            	    	    <input type="hidden" name="tab" value="people"/>
-            	    	    <input type="hidden" name="netid" value="${netId}"/>
-            	    		<input type="submit" name="contact" value="current contact info"/>
-            		    </form>
-            	    </div>
+                    <div id="currentContactInfo">
+            	        <c:url var="CUSearchUrl" value="http://www.cornell.edu/search/index.cfm">
+            		        <c:param name="tab" value="people"/>
+            		        <c:param name="netid" value="${netId}"/>
+            	        </c:url>
+            	        <a class="externalLink" href="${CUSearchUrl}">current contact info</a>
+           	        </div>
                 </c:when>
                 <c:otherwise>
                  	<c:if test="${!empty entity.dataPropertyMap['http://vivo.library.cornell.edu/ns/0.1#nonCornellemail'].dataPropertyStatements[0].data}">
                     	<c:set var="emailAddress" value="${entity.dataPropertyMap['http://vivo.library.cornell.edu/ns/0.1#nonCornellemail'].dataPropertyStatements[0].data}"/>
                     	<c:if test="${fn:containsIgnoreCase(emailAddress,'@med.cornell.edu')}">
             	            <div id="currentContactInfo">
-            	    	        <form method="get" action="http://www.cornell.edu/search/index.cfm">
-            	    	        	<input type="hidden" name="tab" value="people"/>
-            	    	        	<input type="hidden" name="q" value="${emailAddress}"/>
-            	    		        <input type="submit" name="contact" value="current contact info"/>
-            		            </form>
+             	                <c:url var="CUMedSearchUrl" value="http://www.cornell.edu/search/index.cfm">
+            		                <c:param name="tab" value="people"/>
+            		                <c:param name="q" value="${emailAddress}"/>
+            	                </c:url>
+            	                <a class="externalLink" href="${CUMedSearchUrl}">current contact info</a>
             	            </div>
                     	</c:if>
                 	</c:if>
