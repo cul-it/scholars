@@ -108,6 +108,34 @@ if (keywordStmts.size()>1) { // now sort the keywords, which do not retain an in
     
     <c:if test="${(!empty entity.anchor) || (!empty entity.linksList) || showSelfEdits || showCuratorEdits}">
         <div id="dashboardExtras">
+        	<c:choose>
+        		<c:when test="${!empty entity.dataPropertyMap['http://vivo.library.cornell.edu/ns/0.1#CornellemailnetId'].dataPropertyStatements[0].data}">
+                    <c:set var="emailAddress" value="${entity.dataPropertyMap['http://vivo.library.cornell.edu/ns/0.1#CornellemailnetId'].dataPropertyStatements[0].data}"/>
+                    <c:set var="netId" value="${fn:substringBefore(emailAddress,'@')}"/>
+            	    <div id="currentContactInfo">
+            	    	<form type="post" action="http://www.cornell.edu/search/index.cfm">
+            	    	    <input type="hidden" name="tab" value="people"/>
+            	    	    <input type="hidden" name="netid" value="${netId}"/>
+            	    		<input type="submit" name="contact" value="current contact info"/>
+            		    </form>
+            	    </div>
+                </c:when>
+                <c:otherwise>
+                 	<c:if test="${!empty entity.dataPropertyMap['http://vivo.library.cornell.edu/ns/0.1#nonCornellemail'].dataPropertyStatements[0].data}">
+                    	<c:set var="emailAddress" value="${entity.dataPropertyMap['http://vivo.library.cornell.edu/ns/0.1#nonCornellemail'].dataPropertyStatements[0].data}"/>
+                    	<c:if test="${fn:containsIgnoreCase(emailAddress,'@med.cornell.edu')}">
+            	            <div id="currentContactInfo">
+            	    	        <form type="post" action="http://www.cornell.edu/search/index.cfm">
+            	    	        	<input type="hidden" name="tab" value="people"/>
+            	    	        	<input type="hidden" name="q" value="${emailAddress}"/>
+            	    		        <input type="submit" name="contact" value="current contact info"/>
+            		            </form>
+            	            </div>
+                    	</c:if>
+                	</c:if>
+                 </c:otherwise>
+            </c:choose>
+
             <div id="links">
             <c:if test="${showSelfEdits || showCuratorEdits}">
                 <h3>Links</h3>
@@ -177,7 +205,7 @@ if (keywordStmts.size()>1) { // now sort the keywords, which do not retain an in
                     </ul>
                 </c:if>
             </div>
-
+                        
             <c:choose>
             	<c:when test="${showSelfEdits || showCuratorEdits}">
                     <div id="keywords">
