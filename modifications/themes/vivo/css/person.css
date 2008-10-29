@@ -376,6 +376,16 @@ Updated:	August 19, 2008
     background: #b3a37c;
 }
 
+#personWrap #dashboard strong.contactLink {
+    padding-left: 22px;
+    margin-left: 14px;
+    margin-bottom: 2em;
+    margin-top: 2em;
+    background: url(../site_icons/contactinfo.gif) left center no-repeat;
+    font-weight: bold;
+    display: block;
+}
+
 #personWrap #dashboardExtras {
     position: relative;
     height: 1%;

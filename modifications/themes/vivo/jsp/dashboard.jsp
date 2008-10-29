@@ -1,6 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
 <%@ taglib uri="http://vitro.mannlib.cornell.edu/vitro/tags/PropertyEditLink" prefix="edLnk" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://vitro.mannlib.cornell.edu/vitro/tags/StringProcessorTag" prefix="p" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.beans.Link" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.dao.WebappDaoFactory" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.beans.ObjectProperty" %>
@@ -107,34 +108,36 @@ if (keywordStmts.size()>1) { // now sort the keywords, which do not retain an in
     </c:choose>
     
     <c:if test="${(!empty entity.anchor) || (!empty entity.linksList) || showSelfEdits || showCuratorEdits}">
-        <div id="dashboardExtras">
-        	<c:choose>
-        		<c:when test="${!empty entity.dataPropertyMap['http://vivo.library.cornell.edu/ns/0.1#CornellemailnetId'].dataPropertyStatements[0].data}">
-                    <c:set var="emailAddress" value="${entity.dataPropertyMap['http://vivo.library.cornell.edu/ns/0.1#CornellemailnetId'].dataPropertyStatements[0].data}"/>
-                    <c:set var="netId" value="${fn:substringBefore(emailAddress,'@')}"/>
-                    <div id="currentContactInfo">
-            	        <c:url var="CUSearchUrl" value="http://www.cornell.edu/search/index.cfm">
-            		        <c:param name="tab" value="people"/>
-            		        <c:param name="netid" value="${netId}"/>
-            	        </c:url>
-            	        <a class="externalLink" href="${CUSearchUrl}">current contact info</a>
-           	        </div>
-                </c:when>
-                <c:otherwise>
-                 	<c:if test="${!empty entity.dataPropertyMap['http://vivo.library.cornell.edu/ns/0.1#nonCornellemail'].dataPropertyStatements[0].data}">
-                    	<c:set var="emailAddress" value="${entity.dataPropertyMap['http://vivo.library.cornell.edu/ns/0.1#nonCornellemail'].dataPropertyStatements[0].data}"/>
-                    	<c:if test="${fn:containsIgnoreCase(emailAddress,'@med.cornell.edu')}">
-            	            <div id="currentContactInfo">
-             	                <c:url var="CUMedSearchUrl" value="http://www.cornell.edu/search/index.cfm">
-            		                <c:param name="tab" value="people"/>
-            		                <c:param name="q" value="${emailAddress}"/>
-            	                </c:url>
-            	                <a class="externalLink" href="${CUMedSearchUrl}">current contact info</a>
-            	            </div>
-                    	</c:if>
+    
+        <c:choose>
+    		<c:when test="${!empty entity.dataPropertyMap['http://vivo.library.cornell.edu/ns/0.1#CornellemailnetId'].dataPropertyStatements[0].data}">
+                <c:set var="emailAddress" value="${entity.dataPropertyMap['http://vivo.library.cornell.edu/ns/0.1#CornellemailnetId'].dataPropertyStatements[0].data}"/>
+                <c:set var="netId" value="${fn:substringBefore(emailAddress,'@')}"/>
+                <div id="currentContactInfo">
+        	        <c:url var="CUSearchUrl" value="http://www.cornell.edu/search/index.cfm">
+        		        <c:param name="tab" value="people"/>
+        		        <c:param name="netid" value="${netId}"/>
+        	        </c:url>
+        	        <strong class="contactLink"><a title="contact info at cornell.edu" href="${CUSearchUrl}">current contact information</a></strong>
+       	        </div>
+            </c:when>
+            <c:otherwise>
+             	<c:if test="${!empty entity.dataPropertyMap['http://vivo.library.cornell.edu/ns/0.1#nonCornellemail'].dataPropertyStatements[0].data}">
+                	<c:set var="emailAddress" value="${entity.dataPropertyMap['http://vivo.library.cornell.edu/ns/0.1#nonCornellemail'].dataPropertyStatements[0].data}"/>
+                	<c:if test="${fn:containsIgnoreCase(emailAddress,'@med.cornell.edu')}">
+        	            <div id="currentContactInfo">
+         	                <c:url var="CUMedSearchUrl" value="http://www.cornell.edu/search/index.cfm">
+        		                <c:param name="tab" value="people"/>
+        		                <c:param name="q" value="${emailAddress}"/>
+        	                </c:url>
+        	                <strong class="contactLink"><a title="contact info at cornell.edu" href="${CUMedSearchUrl}">current contact information</a></strong>
+        	            </div>
                 	</c:if>
-                 </c:otherwise>
-            </c:choose>
+            	</c:if>
+             </c:otherwise>
+        </c:choose>
+    
+        <div id="dashboardExtras">
 
             <div id="links">
             <c:if test="${showSelfEdits || showCuratorEdits}">
