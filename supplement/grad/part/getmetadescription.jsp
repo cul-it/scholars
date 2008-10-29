@@ -22,10 +22,10 @@
     
     <%-- if either the research focus or overview statement is a list it's probably not useful as a meta description --%>
     <c:choose>
-    <c:when test="${!empty statement && fn:length(statement) > 40 && !fn:contains(rs[0].statement.string, '<li>')}">
+    <c:when test="${!empty statement && fn:length(statement) > 40}">
         <c:set var="description" value="${statement}"/>
     </c:when>
-    <c:when test="${!empty focus && fn:length(focus) > 40 && !fn:contains(rs[0].focus.string, '<li>')}">
+    <c:when test="${!empty focus && fn:length(focus) > 40}">
         <c:set var="description" value="${focus}"/>
     </c:when>
     <c:otherwise>
@@ -33,7 +33,7 @@
     </c:otherwise>
     </c:choose>
     
-    ${description}
+    <str:removeXml>${description}</str:removeXml>
     
 </c:if>
 
