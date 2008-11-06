@@ -43,7 +43,7 @@
 
 <%
 
-	//return; /* safety latch: REMOVE ME TO RUN */
+	return; /* safety latch: REMOVE ME TO RUN */
 
     VitroJenaModelMaker modelMaker = (VitroJenaModelMaker) request.getSession().getAttribute("vitroJenaModelMaker");
     modelMaker = (modelMaker == null) ? (VitroJenaModelMaker) getServletContext().getAttribute("vitroJenaModelMaker") : modelMaker;
