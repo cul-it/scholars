@@ -1,5 +1,10 @@
 HR CUMULATIVE PROCESS NOTES
 
+Additional automation notes:
+Ideally, a human should only have to 
+
+
+
 1. Two named graphs: "tank" (temporary workspace) and "store" (cumulative data store)
 	Named graph URIs:
 	tank:	http://vivo.cornell.edu/ns/hrcumulative/graph/tank/
