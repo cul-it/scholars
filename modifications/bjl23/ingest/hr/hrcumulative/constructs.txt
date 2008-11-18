@@ -1,0 +1,41 @@
+TIMESTAMP ---
+
+
+
+
+-------------
+
+OBJECT PROPERTIES
+
+PREFIX rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX hr: <http://vitro.mannlib.cornell.edu/ns/bjl23/hr/1#>
+PREFIX hr2: <http://vitro.mannlib.cornell.edu/ns/bjl23/hr/rules1#>
+
+CONSTRUCT {
+    ?person hr2:hasDegree ?degree .
+    ?person hr2:hasEmeritus ?emeritus .
+    ?person hr2:hasJob ?job .
+    ?person hr2:hasLeave ?leave .
+    ?person hr2:hasSeparation ?separation .
+    ?person hr2:hasBillingReserve ?billingReserve .
+} WHERE {
+   { ?person hr:person_Emplid ?emplid .
+     ?degree hr:degree_Emplid ?emplid 
+   } UNION 
+   { ?person hr:person_Emplid ?emplid .
+     ?emeritus hr:emeritus_Emplid ?emplid 
+   } UNION 
+   { ?person hr:person_Emplid ?emplid .
+     ?job hr:job_Emplid ?emplid 
+   } UNION 
+   { ?person hr:person_Emplid ?emplid .
+     ?leave hr:leave_Emplid ?emplid 
+   } UNION 
+   { ?person hr:person_Emplid ?emplid .
+     ?separation hr:separation_Emplid ?emplid 
+   } UNION
+   { ?person hr:person_Emplid ?emplid .
+     ?billingReserve hr:billingreserve_Emplid ?emplid 
+   }
+}

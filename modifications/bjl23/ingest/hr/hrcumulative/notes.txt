@@ -1,0 +1,32 @@
+HR CUMULATIVE PROCESS NOTES
+
+1. Two named graphs: "tank" (temporary workspace) and "store" (cumulative data store)
+	Named graph URIs:
+	tank:	http://vivo.cornell.edu/ns/hrcumulative/graph/tank/
+	store:	http://vivo.cornell.edu/ns/hrcumulative/graph/store/
+
+	Store grows only monotonically.
+
+2.  Tank operations for new HR ingest:
+	A. Each spreadsheet is read into tank using CSV converter.
+		Namespace in which to generate resources:
+			http://vitro.mannlib.cornell.edu/ns/hr/hrcumulative/YYYY-MM-DD/
+		Namespace in which to generate class and properties:
+			http://vitro.mannlib.cornell.edu/ns/bjl23/hr/1#
+		Destination model:
+			tank
+		Destination model for TBox:
+			none
+
+	B. SPARQL CONSTRUCT is run to tag each resource with a timestamp.
+
+	C. SPARQL CONSTRUCT is run to create object properties between resources.
+
+	D. for each person in tank:
+			Get Emplid.
+			If a resource with Emplid exists in store, get latest version of each related object 
+				(including person)
+			If person is different, copy all new objects into store.
+	`		If version in tank is different, copy that object to the store.  Remove "latest" marker from old store object.  Add to new store object.
+		
+	
