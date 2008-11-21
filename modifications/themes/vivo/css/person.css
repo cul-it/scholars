@@ -12,10 +12,6 @@ Updated:	August 19, 2008
 
 @import url("thickbox.css");
 
-#personWrap div.admin {
-/*    display: none;*/
-}
-
 #personWrap #vitroPropertyGroupname {
 /*    display: none;*/
 }
@@ -526,8 +522,8 @@ div.editBox.editMode.editing {
 }
 
 
-div.editing ul.properties,
-div.editing div.datatypeProperties {
+#personWrap div.editing ul.properties,
+#personWrap div.editing div.datatypeProperties {
     color: #888;
     display: none;
 }
