@@ -85,7 +85,7 @@ WHERE {
     ?dept <http://vivo.library.cornell.edu/ns/0.1#departmentOrDivisionWithin> <http://vivo.library.cornell.edu/ns/0.1#individual192> .
 }
 
---- gonepeople
+--- gonefaculty
 
 PREFIX rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
@@ -113,7 +113,6 @@ WHERE
     ?person <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#emplId> ?emplid
  }
  FILTER (!bound(?label))
- FILTER (?sunset < afn:now())
+ FILTER ( (!bound(?sunset)) || (?sunset > afn:now()) )
  FILTER (!bound(?emplid))
 }
-
