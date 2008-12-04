@@ -176,7 +176,7 @@
                 </jsp:include>
             </c:catch>
             <c:if test="${!empty includeError}">
-                <td><p>There was a problem loading the content for this page.</p></td>
+                <td><p>There was a problem loading the content for this page. Contact <a href="mailto:mw542@cornell.edu">Miles Worthington</a> if this continues.</p></td>
                 <% System.out.println("Error loading about_collabArea.jsp in about_body.jsp: " + pageContext.getAttribute("includeError")); %>
             </c:if>
        </c:when>

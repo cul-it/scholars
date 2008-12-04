@@ -15,7 +15,7 @@
 <%-- All the basecamp-related stuff here relies on VIVO usernames matching basecamp usernames (mw542) --%>
 
 <c:set var="vivoUser" value="${param.user}"/>
-<%-- <c:set var="vivoUser" value="brian"/> --%>
+<%-- <c:set var="vivoUser" value="miles"/> --%>
 <c:set var="vivoLevel" value="${param.level}"/>
 <%-- <c:set var="vivoLevel" value="50"/> --%>
 
@@ -155,8 +155,15 @@ try {
     
     <c:if test="${!empty bcAllTodoTest}">
         <%-- check to see if one of the todo lists has a name that matches the current user's name --%>
-        <x:set var="bcTodo" select="$bcAllTodo//todo-list[name=$pageScope:bcFullname]"/>
-        <c:set var="personalListID"><x:out escapeXml="false" select="$bcTodo/id"/></c:set>
+        <%-- <x:set var="bcTodo" select="$bcAllTodo//todo-list[name=$pageScope:bcFullname]"/> --%>
+        <c:set var="personalListID" value=""/>
+        <x:forEach var="list" select="$bcAllTodo//todo-list">
+            <c:set var="thisName"><x:out select="name"/></c:set>
+            <c:if test="${fn:contains(thisName,bcFullname)}">
+                <c:set var="personalListID"><x:out escapeXml="false" select="id"/></c:set>
+            </c:if>
+        </x:forEach>
+        <%-- <c:set var="personalListID"><x:out escapeXml="false" select="$bcTodo/id"/></c:set> --%>
     </c:if>
 
     <% // get items for current user's personal todo list (if it exists)
@@ -262,10 +269,7 @@ try {
             </c:if>
             
             <c:if test="${empty bcTodoPersonalTest && empty bcTodoAssignedTest}">
-                <ul>
-                    <li>You don't have anything to do.</li>
-                    <li>Read about <a href="http://mannits.projectpath.com/projects/1313498/posts/17995341/">how these lists work</a>.</li>
-                </ul>
+                <p style="margin-left: 12px; font-size: 1.1em;">You don't have anything to do.<br/><br/>Read about <a href="http://mannits.projectpath.com/projects/1313498/posts/17995341/">how these lists work</a>.</p>
             </c:if>
         </div>
         </td>
