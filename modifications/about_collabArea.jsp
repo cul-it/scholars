@@ -251,20 +251,24 @@ try {
             <c:if test="${!empty bcTodoPersonalTest}">
                 <h3><a title="open personal to-do list" href="http://mannits.projectpath.com/projects/1313498/todo_lists/${personalListID}/?responsible_party=">personal</a></h3>
                 <ul><x:forEach select="$bcTodoPersonal//todo-item">
-                    <c:set var="listID"><x:out escapeXml="false" select="todo-list-id" /></c:set>
-                    <c:set var="itemContent"><x:out escapeXml="true" select="content" /></c:set>
-                    <c:set var="listUrl" value="http://mannits.projectpath.com/projects/1313498/todo_lists/${listID}/?responsible_party="/>
-                    <li><a title="open this in basecamp" href="${listUrl}">${itemContent}</a></li>
+                    <x:if select="completed != 'true'">
+                        <c:set var="listID"><x:out escapeXml="false" select="todo-list-id" /></c:set>
+                        <c:set var="itemContent"><x:out escapeXml="true" select="content" /></c:set>
+                        <c:set var="listUrl" value="http://mannits.projectpath.com/projects/1313498/todo_lists/${listID}/?responsible_party="/>
+                        <li><a title="open this in basecamp" href="${listUrl}">${itemContent}</a></li>
+                    </x:if>
                 </x:forEach></ul>
             </c:if>
 
             <c:if test="${!empty bcTodoAssignedTest}">
                 <h3><a title="open assigned to-do list" href="http://mannits.projectpath.com/projects/1313498/todo_lists?responsible_party=${bcID}">assigned</h3>
                 <ul><x:forEach select="$bcTodoAssigned//todo-item">
-                    <c:set var="listID"><x:out escapeXml="false" select="../../id" /></c:set>
-                    <c:set var="itemContent"><x:out escapeXml="true" select="content" /></c:set>
-                    <c:set var="listUrl2" value="http://mannits.projectpath.com/projects/1313498/todo_lists/${listID}?responsible_party="/>
-                    <li><a title="open this in basecamp" href="${listUrl2}">${itemContent}</a></li>
+                    <x:if select="completed != 'true'">
+                        <c:set var="listID"><x:out escapeXml="false" select="../../id" /></c:set>
+                        <c:set var="itemContent"><x:out escapeXml="true" select="content" /></c:set>
+                        <c:set var="listUrl2" value="http://mannits.projectpath.com/projects/1313498/todo_lists/${listID}?responsible_party="/>
+                        <li><a title="open this in basecamp" href="${listUrl2}">${itemContent}</a></li>
+                    </x:if>
                 </x:forEach></ul>
             </c:if>
             
