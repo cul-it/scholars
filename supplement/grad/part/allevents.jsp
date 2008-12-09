@@ -12,6 +12,7 @@
   request.setAttribute("now", "\"" + now.toDateTimeISO().toString() + "\"" );
 </jsp:scriptlet>
 
+<sparql:lock model="${applicationScope.jenaOntModel}" >
 <sparql:sparql>
   <sparql:select model="${applicationScope.jenaOntModel}" var="rs" now="${now}" through='"2008-05-24T13:26:51.363-04:00"'>
 
@@ -125,4 +126,4 @@ LIMIT 200
         </table>
 
     </sparql:sparql>
-
+    </sparql:lock>

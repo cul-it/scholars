@@ -27,6 +27,7 @@
                request.setAttribute("future", "\"" + future.toDateTimeISO().toString() + "\"" );
         </jsp:scriptlet>
         
+        <sparql:lock model="${applicationScope.jenaOntModel}" >
         <sparql:sparql>
           <listsparql:select model="${applicationScope.jenaOntModel}" var="upcomingEvents" now="${now}" future="${future}" >
                 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -68,7 +69,11 @@
                 ORDER BY ?timekey
                 LIMIT 15
             </listsparql:select>
+            </sparql:sparql>
+            </sparql:lock>
               
+            <sparql:lock model="${applicationScope.jenaOntModel}" >
+            <sparql:sparql>
             <listsparql:select model="${applicationScope.jenaOntModel}" var="pastEvents" now="${now}" past="${past}" >
                   PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
                   PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
@@ -109,6 +114,8 @@
                   ORDER BY DESC(?timekey)
                   LIMIT 15
               </listsparql:select>
+              </sparql:sparql>
+              </sparql:lock>
               
             <fmt:setLocale value="en_US"/>
             <h2>Cornell Life Sciences Events</h2>
@@ -194,7 +201,6 @@
 
                     </c:forEach>
                 </ul>
-            </sparql:sparql>
       
 	</div> <!-- content -->
 </div> <!-- contentWrap -->

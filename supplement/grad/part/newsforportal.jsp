@@ -36,6 +36,7 @@
         request.setAttribute("now", "\"" + now.toDateTimeISO().toString() + "\"" );
     </jsp:scriptlet>
 
+ <sparql:lock model="${applicationScope.jenaOntModel}" >
  <sparql:sparql>
    <listsparql:select model="${applicationScope.jenaOntModel}" var="rs" now="${now}" >
      <![CDATA[
@@ -82,8 +83,8 @@
           ]]>
           
     </listsparql:select>
-    
-        
+    </sparql:sparql>
+    </sparql:lock>        
 
         <rand:number id="random1" range="0-39"/>
         <c:set var="random1"><jsp:getProperty name="random1" property="random"/></c:set>
@@ -120,8 +121,6 @@
                   <a href="${item.sourceLink.string}"><img width="128" src="${image}" alt="${item.newsLabel.string}"/></a><a title="full ${item.moniker.string}" href="${item.sourceLink.string}">${item.newsLabel.string}</a>
                 </li>
             </c:forEach>
-        </ul>
-
-    </sparql:sparql>
+        </ul>    
 
 </jsp:root>

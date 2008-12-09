@@ -17,6 +17,7 @@
                 <em class="subhead">A selection of the various equipment, services and labs that support Life Sciences research at Cornell</em>
                 
                 <%-- querying for individuals here (without selecting) to leave out tabs with no individuals --%>
+                <sparql:lock model="${applicationScope.jenaOntModel}" >
                 <sparql:sparql>
                   <listsparql:select model="${applicationScope.jenaOntModel}" var="facilitiesTab">
                     PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
@@ -43,7 +44,7 @@
                     LIMIT 200
                   </listsparql:select>
                  </sparql:sparql>
-                
+                 </sparql:lock>
                 
                     <ul>
                         <c:forEach  items="${facilitiesTab}" var="rs">

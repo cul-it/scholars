@@ -19,6 +19,7 @@
 <%@page import="com.hp.hpl.jena.rdf.model.Literal"%>
 
 <%@page import="edu.cornell.mannlib.vitro.webapp.beans.Individual"%>
+<sparql:lock model="${applicationScope.jenaOntModel}" >
 <sparql:sparql>
     <listsparql:select model="${applicationScope.jenaOntModel}" var="reportingSupport" person="<${param.uri}>">
         PREFIX rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -50,6 +51,7 @@
 		ORDER BY ASC( ?person )
     </listsparql:select>
 </sparql:sparql>
+</sparql:lock>
 
 <c:set var="questionResult" scope="request" value="${reportingSupport}" />
 

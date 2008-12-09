@@ -38,6 +38,7 @@
 
 <c:set var='imageDir' value='../images' scope="page"/>
 
+<sparql:lock model="${applicationScope.jenaOntModel}" >
 <sparql:sparql>
 <listsparql:select model="${applicationScope.jenaOntModel}" var="contact" person="<${param.uri}>">
       PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
@@ -54,6 +55,7 @@
       LIMIT 1
 </listsparql:select>
 </sparql:sparql>
+</sparql:lock>
 
 <c:forEach items="${contact}" var="faculty" begin="0" end="0">
     <c:set var="cornellEmail" value="${faculty.netid.string}"/>
@@ -125,6 +127,7 @@
     <a id="pubmedLink" href="${pubmedHref2}">Full PubMed results</a>
     <ul>
         <c:forEach var="publications" items="${authorOf}">
+            <sparql:lock model="${applicationScope.jenaOntModel}" >
             <sparql:sparql>
             <listsparql:select model="${applicationScope.jenaOntModel}" var="publicationLinks" publication="<${publications.object.URI}>">
                   PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
@@ -137,7 +140,7 @@
                   LIMIT 10
             </listsparql:select>
             </sparql:sparql>
-        
+            </sparql:lock>
 
             <c:choose>
                 <c:when test="${!empty publicationLinks}">
@@ -232,7 +235,7 @@
         </ul>
             
     </div><!-- contactinfo -->
-
+    <sparql:lock model="${applicationScope.jenaOntModel}" >
     <sparql:sparql>
         <listsparql:select model="${applicationScope.jenaOntModel}" var="gradfields" person="<${param.uri}>">
           PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -265,7 +268,7 @@
                 </ul>
             </c:if>
     </sparql:sparql>
-
+    </sparql:lock>
 
 <%-- <c:if test="${!empty gradFields}">
     <h3>Graduate Fields</h3>
@@ -282,6 +285,7 @@
     </ul>
 </c:if> --%>
 
+<sparql:lock model="${applicationScope.jenaOntModel}" >
 <sparql:sparql>
     <listsparql:select model="${applicationScope.jenaOntModel}" var="deptRS" person="<${param.uri}>">
         PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -305,6 +309,7 @@
         LIMIT 20
     </listsparql:select>
 </sparql:sparql>
+</sparql:lock>
 
 <c:if test="${!empty deptRS}">
     <h3>Departments</h3>        

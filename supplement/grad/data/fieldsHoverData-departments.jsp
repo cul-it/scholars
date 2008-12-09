@@ -3,6 +3,7 @@
 <%@ taglib uri="http://mannlib.cornell.edu/vitro/ListSparqlTag/0.1/" prefix="listsparql" %>
 <%@ taglib uri="http://www.atg.com/taglibs/json" prefix="json" %>
 
+<sparql:lock model="${applicationScope.jenaOntModel}" >
 <sparql:sparql>
     <listsparql:select model="${applicationScope.jenaOntModel}" var="deptsInField" field="<${param.uri}>">
         PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -27,6 +28,7 @@
         LIMIT 2000
     </listsparql:select>
 </sparql:sparql>
+</sparql:lock>
 
 <json:array name="Departments">
 

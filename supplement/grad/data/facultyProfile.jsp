@@ -5,6 +5,7 @@
 <%@ taglib uri="http://mannlib.cornell.edu/vitro/ListSparqlTag/0.1/" prefix="listsparql" %>
 <%@ taglib uri="http://www.atg.com/taglibs/json" prefix="json" %>
 
+<sparql:lock model="${applicationScope.jenaOntModel}" >
 <sparql:sparql>
     <listsparql:select model="${applicationScope.jenaOntModel}" var="faculty" person="<${param.uri}>">
         PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -24,6 +25,7 @@
         LIMIT 1
     </listsparql:select>
 </sparql:sparql>
+</sparql:lock>
 
 <c:forEach var="person" items="${faculty}" begin="0" end="0">
     <c:url var="imageSrc" value="../images/${person.image.string}"/>

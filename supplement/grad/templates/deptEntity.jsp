@@ -169,7 +169,7 @@
         </jsp:scriptlet>
         
         <%-- We're getting the moniker in this query to use as a flag in differentiating faculty. It's used in a test below to leave non-grad-portal faculty unlinked. Those with monikers in the results are those who participate in life sciences graduate fields. --%>
-             
+            <sparql:lock model="${applicationScope.jenaOntModel}" >
             <sparql:sparql>
                 <listsparql:select model="${applicationScope.jenaOntModel}" var="facultyInDept" dept="<${param.uri}>" now="${now}">
                     PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -205,6 +205,7 @@
                     LIMIT 200
                 </listsparql:select>
             </sparql:sparql>
+            </sparql:lock>
             
             <h3>Faculty</h3>     
             

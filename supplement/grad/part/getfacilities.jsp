@@ -5,6 +5,7 @@
 <%@ taglib uri="http://mannlib.cornell.edu/vitro/ListSparqlTag/0.1/" prefix="listsparql" %>
 <%@ taglib uri="http://jakarta.apache.org/taglibs/string-1.1" prefix="str" %>
 
+<sparql:lock model="${applicationScope.jenaOntModel}" >
 <sparql:sparql>
   <listsparql:select model="${applicationScope.jenaOntModel}" var="facilities" group="<${param.group}>">
     PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -31,7 +32,8 @@
     LIMIT 400
   </listsparql:select>
  </sparql:sparql>
-         
+ </sparql:lock>
+          
 <ul class="facilityList">
 <c:forEach  items="${facilities}" var="facility" varStatus="count">
     <li>

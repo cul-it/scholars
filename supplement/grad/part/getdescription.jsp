@@ -7,8 +7,8 @@
   <jsp:directive.page contentType="text/xml; charset=UTF-8" />
   <jsp:directive.page session="false" />
     
-
-    <sparql:sparql>
+    <sparql:lock model="${applicationScope.jenaOntModel}" >
+    <sparql:sparql>    
     <sparql:select model="${applicationScope.jenaOntModel}" var="rs" gradfield="&lt;${param.uri}&gt;">
                 <![CDATA[
 
@@ -31,5 +31,6 @@
                   <c:forEach  items="${rs.rows}" var="gradfield">${gradfield.gradFieldDescription.string}</c:forEach>
 
   </sparql:sparql>
+  </sparql:lock>
 </jsp:root>
 

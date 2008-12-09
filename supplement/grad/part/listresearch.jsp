@@ -6,6 +6,7 @@
   <jsp:directive.page contentType="text/xml; charset=UTF-8" />
   <jsp:directive.page session="false" />
 
+    <sparql:lock model="${applicationScope.jenaOntModel}" >
     <sparql:sparql>
     <sparql:select model="${applicationScope.jenaOntModel}" var="rs"
             field="&lt;${param.uri}&gt;">
@@ -40,5 +41,6 @@
             </c:forEach>
 
     </sparql:sparql>
+    </sparql:lock>
 
 </jsp:root>

@@ -28,7 +28,7 @@
 
 <c:set var='imageDir' value='../images/' scope="page"/>
 <fmt:setLocale value="en_US"/>    
-
+<sparql:lock model="${applicationScope.jenaOntModel}" >
 <sparql:sparql>
     <listsparql:select model="${applicationScope.jenaOntModel}" var="degrees" field="<${param.uri}>">
         PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
@@ -43,7 +43,9 @@
         LIMIT 10
     </listsparql:select>
 </sparql:sparql>
+</sparql:lock>
 
+<sparql:lock model="${applicationScope.jenaOntModel}" >
 <sparql:sparql>
     <listsparql:select model="${applicationScope.jenaOntModel}" var="gradschool" field="<${param.uri}>">
         PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
@@ -52,6 +54,7 @@
         LIMIT 1
     </listsparql:select>
 </sparql:sparql>
+</sparql:lock>
 
 <c:set var="gradschoolID" value="${gradschool[0].gsid.string}"/>
 <c:catch var="RSSerror">
@@ -306,6 +309,7 @@
 
     <!--noindex-->
     <div id="researchAreas">
+            <sparql:lock model="${applicationScope.jenaOntModel}" >
             <sparql:sparql>
                 <listsparql:select model="${applicationScope.jenaOntModel}" var="researchResults" field="<${param.uri}>">
                     PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -328,6 +332,7 @@
                     LIMIT 300
                 </listsparql:select>
             </sparql:sparql>
+            </sparql:lock>
 
             <c:set var="researchTotal" value="${fn:length(researchResults)}"/>
 

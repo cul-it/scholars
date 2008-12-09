@@ -7,7 +7,7 @@
 <%@ taglib uri="http://jakarta.apache.org/taglibs/string-1.1" prefix="str" %>
 <%@ page contentType="text/xml" %>
 
-
+<sparql:lock model="${applicationScope.jenaOntModel}" >
 <sparql:sparql>
 <listsparql:select model="${applicationScope.jenaOntModel}" var="allFields">
     PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -33,6 +33,7 @@
     LIMIT 100
 </listsparql:select>
 </sparql:sparql>
+</sparql:lock>
 
 <?xml version="1.0" encoding="UTF-8" ?> 
 

@@ -5,6 +5,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <c:if test="${param.type == 'faculty'}">
+    <sparql:lock model="${applicationScope.jenaOntModel}" >
     <sparql:sparql>
       <listsparql:select model="${applicationScope.jenaOntModel}" var="rs" uri="<${param.uri}>">
           PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
@@ -16,6 +17,7 @@
           LIMIT 1
       </listsparql:select>
     </sparql:sparql>
+    </sparql:lock>
     
     <c:set var="statement"><str:truncateNicely lower="0" upper="180">${rs[0].statement.string}</str:truncateNicely></c:set>
     <c:set var="focus"><str:truncateNicely lower="0" upper="180">${rs[0].focus.string}</str:truncateNicely></c:set>
@@ -38,6 +40,7 @@
 </c:if>
 
 <c:if test="${param.type == ('department' || 'field')}">
+    <sparql:lock model="${applicationScope.jenaOntModel}" >
     <sparql:sparql>
       <listsparql:select model="${applicationScope.jenaOntModel}" var="rs" uri="<${param.uri}>">
         PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
@@ -46,7 +49,7 @@
         LIMIT 1
       </listsparql:select>
     </sparql:sparql>
-
+    </sparql:lock>
     <str:truncateNicely lower="0" upper="180"><str:removeXml>${rs[0].description.string}</str:removeXml></str:truncateNicely>
 </c:if>
 
