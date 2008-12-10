@@ -21,11 +21,11 @@
         throw new JspException("deptEntity.jsp expects that request attribute 'entity' be set to the Entity object to display.");
 %>
 
-<c:set var='financialAwardPropUri' value='http://vivo.library.cornell.edu/ns/0.1#OrganizedEndeavorAdministersFinancialAward' scope="page" />
+<c:set var='financialAwardPropUri' value='http://vivo.library.cornell.edu/ns/0.1#administersFinancialAward' scope="page" />
 <c:set var='deptHeadPropUri' value='http://vivo.library.cornell.edu/ns/0.1#cornellOrganizedEndeavorHasLeadParticipantPerson' scope="page"/>
-<c:set var='locationPropUri' value='http://vivo.library.cornell.edu/ns/0.1#OrganizedEndeavorLocatedInFacility' scope="page"/>
-<c:set var='locatedOnCampus' value='http://vivo.library.cornell.edu/ns/0.1#OrganizedEndeavorLocatedOnCampus' scope="page"/>
-<c:set var='sponsorsSeriesPropUri' value='http://vivo.library.cornell.edu/ns/0.1#OrganizedEndeavorSponsorOfAssociatedEnumeratedSet' scope="page"/>
+<c:set var='locationPropUri' value='http://vivo.library.cornell.edu/ns/0.1#locatedInFacility' scope="page"/>
+<c:set var='locatedOnCampus' value='http://vivo.library.cornell.edu/ns/0.1#locatedOnCampus' scope="page"/>
+<c:set var='sponsorsSeriesPropUri' value='http://vivo.library.cornell.edu/ns/0.1#sponsorsSeries' scope="page"/>
 <c:set var='facultyMembersPropUri' value='http://vivo.library.cornell.edu/ns/0.1#hasAppointedFaculty' scope="page"/>
 <c:set var='hasCoursePropUri' value='' scope="page"/>
 <fmt:setLocale value="en_US"/>    
