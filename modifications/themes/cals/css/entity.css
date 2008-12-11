@@ -15,6 +15,7 @@
 .entity{
 	margin-left:0.4em;
 	margin-top:2em;
+	padding-top: 15px;
 	font-size:1em;
 	line-height:1.5em;
 }
@@ -32,12 +33,21 @@
     font-size: 1.1em;
 }
 
+.propsItem {
+    margin: 1em 0;
+}
+
+.propsCategory {
+    margin-top: 3em;
+    margin-bottom: 4em;
+}
+
 .propsCategory h3 {
     border-bottom: 1px solid #e0e0e0;
-    font-size: 1em;
+    font-size: 1.1em;
     margin-bottom: 1.5em;
     text-transform: uppercase;
-    width: 68%;
+/*    width: 68%;*/
 }
 
 .propsCategory h4 {
@@ -50,6 +60,10 @@ em.moniker {
     color: #888;
 }
 
+div#overview {
+    margin: 1em 0;
+}
+
 .description{
  	line-height:2.7ex;
  	margin-left:0em;
@@ -58,7 +72,8 @@ em.moniker {
     margin-top: 2em;
  	margin-bottom:1.2ex; 
  	padding-right:1.5em;
- 	clear: both;
+/*  clear: both;*/
+    clear: left;
 }
 
 .description ul{
@@ -127,6 +142,22 @@ ul.externalLinks li.first {
     border: 0;
 }
 
+#dashboard ul.externalLinks {
+    margin-left: 0;
+}
+
+#dashboard ul.externalLinks li {
+    margin-left: 0;
+    margin-bottom: 16px;
+    padding-left: 0;
+    display: block;
+    border: 0;
+}
+
+#dashboard ul.externalLinks li img {
+    display: block;
+}
+
 ul.externalLinks span {
     display: none;
 }
@@ -137,6 +168,7 @@ ul.properties {
 	padding-left:0;
 	margin-top: .3em;
 	margin-bottom: 0;
+	color: #888;
 }
 
 ul.properties li{
@@ -173,6 +205,7 @@ ul.propertyLinks li{
 div.datatypeProperties p,
 div.datatypeProperties ul {
     margin-top: 0;
+    margin-left: 0;
 }
 
 /* jc55 added 2008-08-12 */
@@ -323,6 +356,10 @@ ul#profileCats li a:link#currentCat, ul#profileCats li a:visited#currentCat {
 /*  border-color: #000;*/
 }
 
-ul.profileLinks li a:link {
-/*  color: #b31b1b;*/
+#dashboard ul.profileLinks {
+    margin-left: 0;
+}
+
+#dashboard ul.profileLinks {
+    list-style-position: outside;
 }

@@ -31,6 +31,11 @@
 	table-layout:fixed; 
 }
 
+#contents .depth1 h2 {
+    font-weight: bold;
+    margin-top: 30px;
+}
+
 /*
 
 .tab.depth2 {

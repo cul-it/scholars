@@ -97,6 +97,7 @@ a.externalLink{
 	font-style:italic;
 	font-size: .9em;
 	text-decoration: underline;
+	color: #7E9131;
 }
 
 /*************************** forms ****************************/
@@ -589,6 +590,7 @@ div.content {
 	padding-bottom:1ex;
 	background-color:white;
 	color:black;
+	min-height: 400px;
 }
 
 #contentwrap img { /* jc55 was #main img */
@@ -603,7 +605,7 @@ div.content {
 
 #content,
 .contents {
-    margin: 12px;
+    margin: 20px;
 }
 
 #dashboard {
@@ -612,11 +614,12 @@ div.content {
     background: #f0f0f0;
     margin: 0 20px 12px 12px;
     padding: 12px;
+    border-left: 30px solid #fff;
+    border-bottom: 30px solid #fff;
 }
 
 .contents{
-/*  padding-left:1em;*/
-/*  padding-right:1.5em;*/
+    margin-right: 0;
 }
 
 .float-hack{
@@ -702,9 +705,12 @@ div.content {
 .contentsBrowseGroup h3{
 	margin-top: 2em;
 	text-transform: uppercase;
-	border-bottom: 1px solid #ccc;
+      border: 1px solid #ccc;
+    background: #eee;
 	color: #999;
-	padding-bottom: 3px;
+/*  padding-bottom: 3px;*/
+    padding: 5px 9px;
+    margin-left: -1px;
 }
 
 .contentsBrowseGroup h4{

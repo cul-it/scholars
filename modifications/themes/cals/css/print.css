@@ -24,6 +24,7 @@ body {
 
 span.entityMoreSpan,
 div#header, 
+div#menu,
 div#cu-identity,
 div#dashboard,
 div#dashboard img {
@@ -46,13 +47,15 @@ div#wrap div#contentwrap {
 -------------------------------------------------------------- */
 h1{font-size:19pt;}
 h2{font-size:17pt;}
-h3{font-size:15pt;}
-h4,h5,h6{font-size:13pt;}
+h3{font-size:14pt;}
+h4,h5,h6{font-size:12pt;}
 
 h1,h2,h3,h4,h5,h6 { font-family: "Helvetica Neue", Arial, "Lucida Grande", sans-serif; clear: left; }
 
-#propsCategory h3 {
-    text-transform: uppercase;
+div.propsCategory h3 {
+    text-transform: uppercase !important;
+    border-bottom: 1px solid #000;
+    margin-top: 2em;
 }
 
 /* Links and Images
