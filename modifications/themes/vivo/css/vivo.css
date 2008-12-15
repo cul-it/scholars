@@ -313,6 +313,14 @@ div.admin {
 /*    display: none;*/
 }
 
+p#notice { /* blue notice that appears at the top of a person's profile */
+    color: #337291;
+    background: #D4EAF9;
+    padding: 5px 20px;
+    margin-left: -20px;
+    margin-bottom: 20px
+}
+
 ul.datatypePropertyValue li {
     margin-bottom: .5em;
 }
