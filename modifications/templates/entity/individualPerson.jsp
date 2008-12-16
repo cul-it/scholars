@@ -147,8 +147,8 @@ if (VitroRequestPrep.isSelfEditing(request) /* || LoginFormBean.loggedIn(request
 
     <jsp:include page="/${themeDir}jsp/dashboard.jsp" flush="true" />
     <div id="content" class="person"><!-- from templates/entity/individualPerson.jsp -->
-        <c:if test="${showSelfEdits}">
-            <p id="notice">Not sure where to start? Watch a short <a target="_blank" href="http://vivo.cornell.edu/documents/tutorials/selfediting_tutorial.htm">video tutorial</a> on how to edit your VIVO profile.</p>
+        <c:if test="${editingOwnPage}">
+            <p id="notice">Not sure where to start? Watch a short <a target="_blank" href="http://vivo.dev/documents/tutorials/selfediting_tutorial.htm">video tutorial</a> on how to edit your VIVO profile.</p>
         </c:if>
         <div class='contents entity'>
        		<div id="entity">
