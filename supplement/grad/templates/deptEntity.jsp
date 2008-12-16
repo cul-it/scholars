@@ -131,7 +131,7 @@
                   SELECT DISTINCT ?fieldUri ?fieldLabel
                   WHERE
                   {
-                  ?person vivo:holdFacultyAppointmentIn ?dept .
+                  ?person vivo:employeeOfAsAcademicFacultyMember ?dept .
 
                   ?person vivo:AcademicEmployeeOtherParticipantAsFieldMemberInAcademicInitiative ?fieldUri .
 
@@ -182,7 +182,7 @@
                     WHERE {
 
                     ?person
-                    vivo:holdFacultyAppointmentIn ?dept ;
+                    vivo:employeeOfAsAcademicFacultyMember ?dept ;
                     rdfs:label ?personLabel .
 
                     OPTIONAL {
