@@ -158,7 +158,7 @@
             <li><a title="more about this publication" href="${pubHref}">${publications.object.name}</a></li>
 
         </c:forEach>
-        <div>${selectedPubs}</div>
+        <c:if test="${!empty selectedPubs}"><div>${selectedPubs}</div></c:if>
     </ul>
 </div>
 </c:if>

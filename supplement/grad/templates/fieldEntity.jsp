@@ -163,10 +163,10 @@
                                 <c:url var="cluetipHref" value="data/facultyProfile.jsp">
                                     <c:param name="uri" value="${Faculty.object.URI}"/>
                                 </c:url>
-                                <a href="/faculty/${facultyID}" title="view profile"><img width="44px" alt="" src="${imageDir}${Faculty.object.imageThumb}"/></a>
+                                <a href="/faculty/${facultyID}" title="view profile"><img width="44" alt="" src="${imageDir}${Faculty.object.imageThumb}"/></a>
                             </c:when>
                             <c:otherwise>
-                                <a href="/faculty/${facultyID}" title="view profile"><img width="44px" alt="" src="/resources/images/profile_missing.gif"/></a>
+                                <a href="/faculty/${facultyID}" title="view profile"><img width="44" alt="" src="/resources/images/profile_missing.gif"/></a>
                             </c:otherwise>
                         </c:choose>
                         <strong><a href="/faculty/${facultyID}" title="view profile">${Faculty.object.name}</a></strong>
@@ -184,10 +184,10 @@
                     <li id="${facultyID}">
                         <c:choose>
                             <c:when test="${!empty Faculty.object.imageThumb}">
-                                <a href="/faculty/${facultyID}" title="view profile"><img width="44px" alt="" src="${imageDir}${Faculty.object.imageThumb}"/></a>
+                                <a href="/faculty/${facultyID}" title="view profile"><img width="44" alt="" src="${imageDir}${Faculty.object.imageThumb}"/></a>
                             </c:when>
                             <c:otherwise>
-                                <a href="/faculty/${facultyID}" title="view profile"><img width="44px" alt="" src="/resources/images/profile_missing.gif"/></a>
+                                <a href="/faculty/${facultyID}" title="view profile"><img width="44" alt="" src="/resources/images/profile_missing.gif"/></a>
                             </c:otherwise>
                         </c:choose>
                         <strong><a href="/faculty/${facultyID}" title="view profile">${Faculty.object.name}</a></strong>

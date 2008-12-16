@@ -36,7 +36,7 @@
 	    </c:choose>
 	</title>
 	
-	<link rel="shortcut icon" href="/favicon.ico"/>
+	<link rel="shortcut icon" href="resources/images/icons/favicon.ico"/>
 	<link rel="stylesheet" href="/resources/css/screen.css" type="text/css" />
     <link rel="stylesheet" href="${jsDir}/niftyCorners.css" type="text/css" />
     <script type="text/javascript" src="${jsDir}/niftycube.js"></script>
@@ -55,6 +55,12 @@
     <c:if test="${fn:contains(pageContext.request.servletPath, 'departments.jsp')}">
         <link rel="stylesheet" href="/resources/css/websnapr.css" type="text/css" />
         <script src="/resources/js/websnapr.js" type="text/javascript"></script>
+    </c:if>
+    
+    <c:if test="${fn:contains(pageContext.request.servletPath, 'exhibit.jsp')}">
+        <link rel="exhibit/data" href="data/exhibitData.jsp" type="application/json" />
+        <link rel="stylesheet" href="/resources/css/exhibit.css" type="text/css" />
+        <script src="exhibit/src/webapp/api/exhibit-api.js" type="text/javascript"></script>
     </c:if>
 
     <c:if test="${fn:contains(pageContext.request.servletPath, 'feedback.jsp')}">
