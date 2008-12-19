@@ -7,7 +7,7 @@
 /*
 Title:		VIVO basic print styles
 Authors:	mw542@cornell.edu
-Updated:	December 2, 2008
+Updated:	December 19, 2008
 */
 
 
@@ -24,7 +24,6 @@ body {
 
 span.entityMoreSpan,
 div#header, 
-div#menu,
 div#cu-identity,
 div#dashboard,
 div#dashboard img {
@@ -35,6 +34,17 @@ div#wrap div#contentwrap {
     background: none !important;
 }
 
+a.edit, a.delete, a.add, a.backToTop {
+    display: none !important;
+}
+
+div.empty {
+    display: none !important;
+}
+
+div.propsCategory h3 {
+    text-transform: uppercase;
+}
 
 /* Show hidden content
 -------------------------------------------------------------- */
@@ -47,15 +57,13 @@ div#wrap div#contentwrap {
 -------------------------------------------------------------- */
 h1{font-size:19pt;}
 h2{font-size:17pt;}
-h3{font-size:14pt;}
-h4,h5,h6{font-size:12pt;}
+h3{font-size:15pt;}
+h4,h5,h6{font-size:13pt;}
 
 h1,h2,h3,h4,h5,h6 { font-family: "Helvetica Neue", Arial, "Lucida Grande", sans-serif; clear: left; }
 
-div.propsCategory h3 {
-    text-transform: uppercase !important;
-    border-bottom: 1px solid #000;
-    margin-top: 2em;
+#propsCategory h3 {
+    text-transform: uppercase;
 }
 
 /* Links and Images
