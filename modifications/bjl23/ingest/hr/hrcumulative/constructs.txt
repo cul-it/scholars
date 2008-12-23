@@ -116,3 +116,73 @@ WHERE
  FILTER ( (!bound(?sunset)) || (?sunset > afn:now()) )
  FILTER (!bound(?emplid))
 }
+
+
+---- emeritus assertions (requires outputPlainNetids to be attached)
+PREFIX rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
+PREFIX vivo:  <http://vivo.library.cornell.edu/ns/0.1#>
+PREFIX vivot: <temp://vivo.library.cornell.edu/ns/0.1#>
+PREFIX mann:  <http://vivo.cornell.edu/ns/mannadditions/0.1#>
+PREFIX hr1: <http://vitro.mannlib.cornell.edu/ns/bjl23/hr/1#>
+PREFIX hr2: <http://vitro.mannlib.cornell.edu/ns/bjl23/hr/rules1#>
+
+#
+# This query gets all range entities labels and types of a person
+# A query like this could be used to get enough info to create a display
+# page for an entity.
+#
+CONSTRUCT {
+    ?person rdf:type <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#CornellEmeritusProfessor> .
+    ?person vitro:moniker "Professor Emeritus/a"@en-US .
+    ?person <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#emeritusProfessorIn> ?dept .
+    ?dept <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#hasEmeritusProfessor> ?person
+} WHERE {
+    ?emeritusData hr1:emeritus_Netid ?netid .
+    ?person vivot:CornellemailnetId ?netid 
+    OPTIONAL {
+        ?person vivo:employeeOfAsAcademicFacultyMember ?dept .
+        ?dept vivo:hasEmployeeAcademicFacultyMember ?person 
+    }
+}
+
+-----
+emeritus assertions (run query after emeritus assertions, but execute retraction first)
+-----
+PREFIX rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
+PREFIX vivo:  <http://vivo.library.cornell.edu/ns/0.1#>
+PREFIX vivot: <temp://vivo.library.cornell.edu/ns/0.1#>
+PREFIX mann:  <http://vivo.cornell.edu/ns/mannadditions/0.1#>
+PREFIX hr1: <http://vitro.mannlib.cornell.edu/ns/bjl23/hr/1#>
+PREFIX hr2: <http://vitro.mannlib.cornell.edu/ns/bjl23/hr/rules1#>
+
+#
+# This query gets all range entities labels and types of a person
+# A query like this could be used to get enough info to create a display
+# page for an entity.
+#
+CONSTRUCT {
+    ?person rdf:type ?type .
+    ?person vitro:moniker ?moniker .
+    ?person vivo:employeeOfAsAcademicFacultyMember ?dept .
+    ?dept vivo:hasEmployeeAcademicFacultyMember ?person 
+} WHERE {
+    ?emeritusData hr1:emeritus_Netid ?netid .
+    ?person vivot:CornellemailnetId ?netid 
+    OPTIONAL {
+        ?person vivo:employeeOfAsAcademicFacultyMember ?dept .
+        ?dept vivo:hasEmployeeAcademicFacultyMember ?person 
+    }
+    ?person rdf:type ?type 
+    FILTER (!regex(str(?type),"0.7#Flag"))
+    ?person vitro:moniker ?moniker
+}
+
+
+
+
+    
+    
