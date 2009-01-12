@@ -23,7 +23,7 @@
 %>
 
 <c:set var='departmentsPropUri' value='http://vivo.library.cornell.edu/ns/0.1#OrganizedEndeavorHasAffiliatedOrganizedEndeavor' scope="page"/>
-<c:set var='facultyMembersPropUri' value='http://vivo.library.cornell.edu/ns/0.1#AcademicInitiativeHasOtherParticipantAcademicEmployeeAsFieldMember' scope="page"/>
+<c:set var='facultyMembersPropUri' value='http://vivo.library.cornell.edu/ns/0.1#hasFieldMember' scope="page"/>
 <c:set var='researchFocusURI' value='http://vivo.library.cornell.edu/ns/0.1#researchFocus'/>
 
 <c:set var='imageDir' value='../images/' scope="page"/>
@@ -280,7 +280,7 @@
                     WHERE
                     {
                     ?person
-                    vivo:AcademicEmployeeOtherParticipantAsFieldMemberInAcademicInitiative
+                    vivo:memberOfGraduateField
                     ?field .
 
                     ?person
@@ -319,7 +319,7 @@
                     WHERE
                     {
                     ?person
-                    vivo:AcademicEmployeeOtherParticipantAsFieldMemberInAcademicInitiative
+                    vivo:memberOfGraduateField
                     ?field .
 
                     ?areaUri

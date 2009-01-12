@@ -16,10 +16,10 @@
         WHERE {
 
         ?group 
-        rdf:type vivo:fieldCluster ; 
+        rdf:type vivo:fieldCluster ;  d                                s
         vivo:hasAssociated ?field .
 
-        ?field vivo:AcademicInitiativeHasOtherParticipantAcademicEmployeeAsFieldMember ?person .
+        ?field vivo:hasFieldMember ?person .
 
         OPTIONAL { ?field vitro:description ?fieldDescription }
         OPTIONAL { ?field rdfs:label ?fieldLabel }

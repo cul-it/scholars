@@ -43,7 +43,7 @@
 
           ?person rdfs:label ?hostname .
       
-          ?person vivo:AcademicEmployeeOtherParticipantAsFieldMemberInAcademicInitiative ?field .
+          ?person vivo:memberOfGraduateField ?field .
 
           ?field rdf:type vivo:GraduateField .
       

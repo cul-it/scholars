@@ -36,7 +36,7 @@ vivo:hasAssociated
 ?field .
 
 ?field
-vivo:AcademicInitiativeHasOtherParticipantAcademicEmployeeAsFieldMember
+vivo:hasFieldMember
 ?person .
 
 { ?person vivo:holdFacultyAppointmentIn ?sponsor } UNION { ?person vivo:CornellFacultyMemberInOrganizedEndeavor ?sponsor }

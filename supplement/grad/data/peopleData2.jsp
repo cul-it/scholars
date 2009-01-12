@@ -46,7 +46,7 @@
             "?fieldClusterUri . \n"+
             " \n"+
             "?personUri \n"+
-            "vivo:AcademicEmployeeOtherParticipantAsFieldMemberInAcademicInitiative \n"+
+            "vivo:memberOfGraduateField \n"+
             "?gradfieldUri . \n"+
             " \n"+
             "OPTIONAL { ?personUri rdfs:label ?personLabel } \n"+
@@ -112,7 +112,7 @@
             "?fieldClusterUri . \n"+
             " \n"+
             "?personUri \n"+
-            "vivo:AcademicEmployeeOtherParticipantAsFieldMemberInAcademicInitiative \n"+
+            "vivo:memberOfGraduateField \n"+
             "?gradfieldUri . \n"+
             " \n"+
             "?areaUri \n"+

@@ -22,7 +22,7 @@
     vivo:hasAssociated ?fieldUri .
 
     ?fieldUri
-    vivo:AcademicInitiativeHasOtherParticipantAcademicEmployeeAsFieldMember
+    vivo:hasFieldMember
     ?person .
     
     ?fieldUri vivo:gradschoolID ?id .

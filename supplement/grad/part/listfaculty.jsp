@@ -19,7 +19,7 @@
               SELECT DISTINCT ?person ?personLabel
               WHERE
               {
-              ?person vivo:AcademicEmployeeOtherParticipantAsFieldMemberInAcademicInitiative ?field
+              ?person vivo:memberOfGraduateField ?field
               OPTIONAL { ?person rdfs:label ?personLabel }
               }
               ORDER BY ?personLabel

@@ -15,7 +15,7 @@
     WHERE 
     { 
     ?personUri 
-    vivo:AcademicEmployeeOtherParticipantAsFieldMemberInAcademicInitiative 
+    vivo:memberOfGraduateField 
     ?field . 
      
     ?areaUri 

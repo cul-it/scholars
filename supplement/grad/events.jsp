@@ -49,7 +49,7 @@
                   OPTIONAL { 
                    ?talkUri vivo:eventHasHostPerson ?person .
                    ?person rdfs:label ?hostname .
-                   ?person vivo:AcademicEmployeeOtherParticipantAsFieldMemberInAcademicInitiative ?field .
+                   ?person vivo:memberOfGraduateField ?field .
                    ?field rdf:type vivo:GraduateField .
                    ?field vivo:associatedWith ?group . 
                    ?group rdf:type vivo:fieldCluster .
@@ -94,7 +94,7 @@
                    OPTIONAL { 
                     ?talkUri vivo:eventHasHostPerson ?person .
                     ?person rdfs:label ?hostname .
-                    ?person vivo:AcademicEmployeeOtherParticipantAsFieldMemberInAcademicInitiative ?field .
+                    ?person vivo:memberOfGraduateField ?field .
                     ?field rdf:type vivo:GraduateField .
                     ?field vivo:associatedWith ?group . 
                     ?group rdf:type vivo:fieldCluster .

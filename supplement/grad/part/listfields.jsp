@@ -26,7 +26,7 @@
           ?field .
 
           ?field
-          vivo:AcademicInitiativeHasOtherParticipantAcademicEmployeeAsFieldMember
+          vivo:hasFieldMember
           ?person .
 
           OPTIONAL { ?field rdfs:label ?fieldLabel }

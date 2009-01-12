@@ -42,7 +42,7 @@
                      ?field .
 
                      ?field
-                     vivo:AcademicInitiativeHasOtherParticipantAcademicEmployeeAsFieldMember
+                     vivo:hasFieldMember
                      ?person .
 
                      ?news

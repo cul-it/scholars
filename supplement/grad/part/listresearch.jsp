@@ -18,7 +18,7 @@
               WHERE
               {
               ?person
-              <http://vivo.library.cornell.edu/ns/0.1#AcademicEmployeeOtherParticipantAsFieldMemberInAcademicInitiative>
+              <http://vivo.library.cornell.edu/ns/0.1#memberOfGraduateField>
               ?field .
 
               ?areaUri

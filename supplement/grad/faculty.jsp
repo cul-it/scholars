@@ -171,7 +171,7 @@
                             ?field .
 
                             ?person
-                            vivo:AcademicEmployeeOtherParticipantAsFieldMemberInAcademicInitiative
+                            vivo:memberOfGraduateField
                             ?field .
                                                         
                             ?person

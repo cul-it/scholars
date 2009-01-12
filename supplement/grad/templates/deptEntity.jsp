@@ -133,7 +133,7 @@
                   {
                   ?person vivo:employeeOfAsAcademicFacultyMember ?dept .
 
-                  ?person vivo:AcademicEmployeeOtherParticipantAsFieldMemberInAcademicInitiative ?fieldUri .
+                  ?person vivo:memberOfGraduateField ?fieldUri .
 
                   ?fieldUri rdf:type vivo:GraduateField .
                   
@@ -187,7 +187,7 @@
 
                     OPTIONAL {
 
-                        ?person vivo:AcademicEmployeeOtherParticipantAsFieldMemberInAcademicInitiative ?field .
+                        ?person vivo:memberOfGraduateField ?field .
 
                         ?group 
                         vivo:hasAssociated ?field ;

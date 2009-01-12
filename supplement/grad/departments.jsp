@@ -66,16 +66,16 @@
 
 				                  ?group vivo:hasAssociated ?field .
 
-				                  ?person vivo:AcademicEmployeeOtherParticipantAsFieldMemberInAcademicInitiative ?field .
+				                  ?person vivo:memberOfGraduateField ?field .
 
 				                  ?person vivo:holdFacultyAppointmentIn ?deptUri .
 
 				                  ?deptUri rdf:type vivo:AcademicDepartment .
 
 				              OPTIONAL { ?deptUri rdfs:label ?deptLabel }
-				              OPTIONAL { ?deptUri vivo:OrganizedEndeavorLocatedInFacility ?deptLocation . ?deptLocation rdfs:label ?deptLocationLabel . ?deptLocation vitro:primaryLink ?deptLocationLink . ?deptLocationLink vitro:linkURL ?deptLocationUrl }
+				              OPTIONAL { ?deptUri vivo:locatedInFacility ?deptLocation . ?deptLocation rdfs:label ?deptLocationLabel . ?deptLocation vitro:primaryLink ?deptLocationLink . ?deptLocationLink vitro:linkURL ?deptLocationUrl }
 				              OPTIONAL { ?deptUri vitro:primaryLink ?deptLinksUri . ?deptLinksUri vitro:linkURL ?deptPageUrl }
-				              OPTIONAL { ?deptUri vivo:OrganizedEndeavorLocatedOnCampus ?campus . ?campus rdfs:label ?campusLabel }
+				              OPTIONAL { ?deptUri vivo:locatedOnCampus ?campus . ?campus rdfs:label ?campusLabel }
 				              }
 				              ORDER BY ?deptLabel
 				              LIMIT 2000

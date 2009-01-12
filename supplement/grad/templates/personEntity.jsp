@@ -31,7 +31,7 @@
 <c:set var="authorOf" value="${entity.objectPropertyMap['http://vivo.library.cornell.edu/ns/0.1#authorOf'].objectPropertyStatements}"/>
 <c:set var="teaches" value="${entity.objectPropertyMap['http://vivo.library.cornell.edu/ns/0.1#PersonTeacherOfSemesterCourse'].objectPropertyStatements}"/>
 
-<c:set var="gradFields" value="${entity.objectPropertyMap['http://vivo.library.cornell.edu/ns/0.1#AcademicEmployeeOtherParticipantAsFieldMemberInAcademicInitiative'].objectPropertyStatements}"/>
+<c:set var="gradFields" value="${entity.objectPropertyMap['http://vivo.library.cornell.edu/ns/0.1#memberOfGraduateField'].objectPropertyStatements}"/>
 <c:set var="departments" value="${entity.objectPropertyMap['http://vivo.library.cornell.edu/ns/0.1#holdFacultyAppointmentIn'].objectPropertyStatements}"/>
 <c:set var="education" value="${entity.dataPropertyMap['http://vivo.library.cornell.edu/ns/0.1#educationalBackground'].dataPropertyStatements[0].data}"/>
 <c:set var="awards" value="${entity.dataPropertyMap['http://vivo.library.cornell.edu/ns/0.1#awardsAndDistinctions'].dataPropertyStatements[0].data}"/>
@@ -244,7 +244,7 @@
           SELECT DISTINCT ?fieldUri ?fieldLabel
           WHERE
           {
-          ?person vivo:AcademicEmployeeOtherParticipantAsFieldMemberInAcademicInitiative ?fieldUri .
+          ?person vivo:memberOfGraduateField ?fieldUri .
 
           ?fieldUri rdf:type vivo:GraduateField ;
           rdfs:label ?fieldLabel .
