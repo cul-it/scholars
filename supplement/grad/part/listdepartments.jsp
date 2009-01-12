@@ -23,7 +23,7 @@
               ?field .
 
               ?person
-              vivo:holdFacultyAppointmentIn
+              vivo:employeeOfAsAcademicFacultyMember
               ?deptUri .
 
               ?deptUri

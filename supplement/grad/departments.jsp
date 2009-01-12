@@ -68,7 +68,7 @@
 
 				                  ?person vivo:memberOfGraduateField ?field .
 
-				                  ?person vivo:holdFacultyAppointmentIn ?deptUri .
+				                  ?person vivo:employeeOfAsAcademicFacultyMember ?deptUri .
 
 				                  ?deptUri rdf:type vivo:AcademicDepartment .
 

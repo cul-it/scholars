@@ -32,7 +32,7 @@
 <c:set var="teaches" value="${entity.objectPropertyMap['http://vivo.library.cornell.edu/ns/0.1#PersonTeacherOfSemesterCourse'].objectPropertyStatements}"/>
 
 <c:set var="gradFields" value="${entity.objectPropertyMap['http://vivo.library.cornell.edu/ns/0.1#memberOfGraduateField'].objectPropertyStatements}"/>
-<c:set var="departments" value="${entity.objectPropertyMap['http://vivo.library.cornell.edu/ns/0.1#holdFacultyAppointmentIn'].objectPropertyStatements}"/>
+<c:set var="departments" value="${entity.objectPropertyMap['http://vivo.library.cornell.edu/ns/0.1#employeeOfAsAcademicFacultyMember'].objectPropertyStatements}"/>
 <c:set var="education" value="${entity.dataPropertyMap['http://vivo.library.cornell.edu/ns/0.1#educationalBackground'].dataPropertyStatements[0].data}"/>
 <c:set var="awards" value="${entity.dataPropertyMap['http://vivo.library.cornell.edu/ns/0.1#awardsAndDistinctions'].dataPropertyStatements[0].data}"/>
 
@@ -296,7 +296,7 @@
         {
 
         ?person
-        vivo:holdFacultyAppointmentIn
+        vivo:employeeOfAsAcademicFacultyMember
         ?deptUri .
 
         ?deptUri

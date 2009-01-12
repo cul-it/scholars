@@ -39,7 +39,9 @@ vivo:hasAssociated
 vivo:hasFieldMember
 ?person .
 
-{ ?person vivo:holdFacultyAppointmentIn ?sponsor } UNION { ?person vivo:CornellFacultyMemberInOrganizedEndeavor ?sponsor }
+?person
+vivo:employeeOfAsAcademicFacultyMember
+?sponsor .
 
 ?sponsor
 vivo:OrganizedEndeavorSponsorOfAssociatedEnumeratedSet 
