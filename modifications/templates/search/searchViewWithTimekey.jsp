@@ -4,10 +4,25 @@
 
 <c:choose>
 	<c:when test="${!empty individual}">
-		<c:if test="${!empty individual.timekey}">		    
-            <fmt:parseDate  var="eventTimekey" value="${individual.timekey}" pattern="EEE MMM dd HH:mm:ss zzz yyyy" />
-            <fmt:formatDate var="eventDateTime" value="${eventTimekey}" pattern="EEE' 'M'/'d'/'yy' 'h:mm' 'a" />
-            | ${eventDateTime}
+		| <%-- will be something to render, so put in the pipe --%>
+	    <c:if test="${!empty individualURL}">
+	        <%-- NOTE not the individual.url; explicitly set in the including file to control whether to render as a link --%>
+  			<c:url var="entUrl" value="${individualURL}" />
+  			<a class="externalLink" href='<c:out value="${entUrl}"/>'>
+        </c:if>
+        <c:choose>
+	        <c:when test="${!empty individual.timekey}">		    
+                <fmt:parseDate  var="eventTimekey" value="${individual.timekey}" pattern="EEE MMM dd HH:mm:ss zzz yyyy" />
+                <%-- <fmt:formatDate var="eventDateTime" value="${eventTimekey}" pattern="EEE' 'M'/'d'/'yy' 'h:mm' 'a" /> --%>
+                <fmt:formatDate var="eventDateTime" value="${eventTimekey}" type="both" dateStyle="short" timeStyle="short" />
+                ${eventDateTime}
+            </c:when>
+            <c:otherwise>
+            	${individual.anchor}
+            </c:otherwise>
+        </c:choose>
+        <c:if test="${!empty individualUrl}">
+           	</a>
         </c:if>
 	</c:when>
 	<c:otherwise>
