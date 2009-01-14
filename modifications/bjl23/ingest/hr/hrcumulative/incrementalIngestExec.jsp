@@ -64,27 +64,27 @@
 			"}" ;
 
 	String SEPARATION_CONSTRUCT = 
-		"# CONSTRUCT to link separations to jobs separated" +
+		"# CONSTRUCT to link separations to jobs separated \n" +
 
-		"PREFIX rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#>" +
-		"PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>" +
-		"PREFIX hr1: <http://vitro.mannlib.cornell.edu/ns/bjl23/hr/1#> " +
-		"PREFIX hr2: <http://vitro.mannlib.cornell.edu/ns/bjl23/hr/rules1#> " +
+		"PREFIX rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> \n" +
+		"PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#> \n" +
+		"PREFIX hr1: <http://vitro.mannlib.cornell.edu/ns/bjl23/hr/1#> \n" +
+		"PREFIX hr2: <http://vitro.mannlib.cornell.edu/ns/bjl23/hr/rules1#> \n" +
 
-		"CONSTRUCT {" +
-		    "?job hr2:separatedBy ?separation ." +
-		    "?separation hr2:separates ?job" +
+		"CONSTRUCT { \n" +
+		    "?job hr2:separatedBy ?separation . \n" +
+		    "?separation hr2:separates ?job \n" +
 		"} WHERE {" +
-		    "?separation hr1:separation_PositionNbr ?positionNbr ." +
-		    "?separation hr1:separation_Emplid ?emplid ." +
-		    "?job hr1:job_PositionNbr ?positionNbr ." +
-		    "?job hr1:job_Emplid ?emplid ." +
-		    "OPTIONAL {" +
-		    	"?job hr2:separatedBy ?existingSeparation ." +
-		    "}" +
-		    "FILTER(!bound(?existingSeparation))" +
-		"# FILTER so we don't re-separate jobs that have already been separated!" +
-		"# makes this non-SWRLizable possibly, unless we can do something with date built-ins" +
+		    "?separation hr1:separation_PositionNbr ?positionNbr . \n" +
+		    "?separation hr1:separation_Emplid ?emplid . \n" +
+		    "?job hr1:job_PositionNbr ?positionNbr . \n" +
+		    "?job hr1:job_Emplid ?emplid . \n" +
+		    "OPTIONAL { \n" +
+		    	"?job hr2:separatedBy ?existingSeparation . \n" +
+		    "} \n" +
+		    "FILTER(!bound(?existingSeparation)) \n" +
+		"# FILTER so we don't re-separate jobs that have already been separated! \n" +
+		"# makes this non-SWRLizable possibly, unless we can do something with date built-ins \n" +
 		"}" ; 
 
 %>
@@ -167,8 +167,22 @@
 					if (lit.getLexicalForm().contains("-")) {
 						retractionsModel.add(stmt);
 						String[] badLexParts = lit.getLexicalForm().split("-");
-						String alphaPart = badLexParts[1].toLowerCase();
-						String numericPart = badLexParts[0];
+						String alphaPart = "";
+						String numericPart = "";
+						try {
+							Integer.decode(badLexParts[0]);
+							alphaPart = badLexParts[1].toLowerCase();
+							numericPart = badLexParts[0];
+						} catch (NumberFormatException nfe) {
+							try {
+								Integer.decode(badLexParts[1]);
+								alphaPart = badLexParts[0].toLowerCase();
+								numericPart = badLexParts[1];
+							} catch (NumberFormatException nfee) {
+								throw new Error("Unable to repair "+lit.getLexicalForm());
+							}
+						}
+						
 						String newLexicalForm = alphaPart + numericPart;
 						Literal newLit = model.createLiteral(newLexicalForm);
 						System.out.println("Changed "+lit.getLexicalForm()+" to "+newLexicalForm);
@@ -225,8 +239,11 @@
 				}
 			}
 		}
+		System.out.println("data loaded");
 		makeAbstractPersons(tank);	
+		System.out.println("abstract persons made");
 		applyObjectPropertyConstruct(tank);
+		System.out.println("object properties constructed");
 	}
 	
 	/**
@@ -283,6 +300,8 @@
 							if (!newDataIsRedundant) {
 								storeOntModel.add(personDataStmt);
 								storeOntModel.add(newDataObject.listProperties() );
+							} else {
+								// TODO: mark existing data as current as of today's date 
 							}
 						}
 					}
@@ -302,6 +321,7 @@
 				storePersonIt.close();
 			}
 		}
+		System.out.println("about to apply separations");
 		applySeparationConstruct(store);
 	}
 
@@ -322,8 +342,8 @@
 	}
 	
 	try {
-		VitroJenaModelMaker modelMaker = (VitroJenaModelMaker) request.getSession().getAttribute("vitroJenaModelMaker");
-	    modelMaker = (modelMaker == null) ? (VitroJenaModelMaker) getServletContext().getAttribute("vitroJenaModelMaker") : modelMaker;
+		ModelMaker modelMaker = (ModelMaker) request.getSession().getAttribute("vitroJenaModelMaker");
+	    modelMaker = (modelMaker == null) ? (ModelMaker) getServletContext().getAttribute("vitroJenaModelMaker") : modelMaker;
 	    modelMaker = new VitroJenaModelMaker(modelMaker, request);
 	    Model tank = modelMaker.createModel(this.MODEL_NAME);
 		runCsvIngest(csvDir, tank);
@@ -372,7 +392,8 @@
 <%@page import="com.hp.hpl.jena.ontology.OntModel"%>
 <%@page import="com.hp.hpl.jena.ontology.Individual"%>
 <%@page import="com.hp.hpl.jena.util.iterator.ClosableIterator"%>
-<%@page import="java.util.HashSet"%><html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<%@page import="java.util.HashSet"%>
+<%@page import="com.hp.hpl.jena.rdf.model.ModelMaker"%><html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 
 <head>
 	<title>Incremental HR Ingest Completed</title>

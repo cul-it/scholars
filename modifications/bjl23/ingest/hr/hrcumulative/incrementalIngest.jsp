@@ -11,6 +11,8 @@
 <body>
 	<h1>Incremental HR Ingest</h1>
 
+	<p><strong>Note: </strong> You must connect to the hrcumulative database first using the ingest menu.</p>
+
 	<c:if test="${!empty param.errorMsg}">
 		<p><strong style="color:red;">${param.errorMsg}</strong></p>
 	</c:if>
@@ -18,7 +20,7 @@
 	<label for="pathInput">Path to CSV files (on localhost):</label><br/>
 	<form action="./incrementalIngestExec.jsp" method="post">
 		<input type="text" size="40" id="pathInput" name="csvPath"/>
-		<input type="submit" action="submit" value="Ingest data"/>
+		<input type="submit" id="submit" value="Ingest data"/>
 	</form>
 
 </body>
