@@ -407,6 +407,10 @@ div.indent, ul.datatypeProperties li.datatypeProperty p, div.blurb {
 	font-size: 0.99em;
 }
 
+div.blurb {
+	font-size: 1.25em;
+}
+
 div.description {
     clear: left;
     /* float: left; */
