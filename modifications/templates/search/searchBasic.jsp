@@ -106,8 +106,12 @@
                     if (type!=null) {
                         customSearchView = type.getCustomSearchView();
                         if (customSearchView!=null && customSearchView.length()>0 ) {
+                            // NOTE we are NOT putting "individualURL" in the request scope
+                            // An included custom search view jsp can optionally implement a test for "individualURL"
+                            // as a way to optionally render additional text as a link
+                            // SEE entityList.jsp and searchViewWithTimekey.jsp as an example
                             request.setAttribute("individual",ent); %>
-                            <jsp:include page="<%=searchViewPrefix+type.getCustomSearchView()%>"/>
+                            | <jsp:include page="<%=searchViewPrefix+type.getCustomSearchView()%>"/>
 <%							request.removeAttribute("individual");
 							// TODO: figure out which of the directly asserted classes should have precedence; for now, just take the 1st
 							break; // have to break because otherwise customSearchView may get reset to null and trigger more evaluation
@@ -119,6 +123,7 @@
                         if (type!=null) {
                             customSearchView = type.getCustomSearchView();
                             if (customSearchView!=null && customSearchView.length()>0 ) {
+                                // SEE NOTE just above
                             	request.setAttribute("individual",ent); %>
                                 <jsp:include page="<%=searchViewPrefix+type.getCustomSearchView()%>"/>
 <%								request.removeAttribute("individual");
