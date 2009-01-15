@@ -11,7 +11,8 @@
   			<a class="externalLink" href='<c:out value="${entUrl}"/>'>
         </c:if>
         <c:choose>
-	        <c:when test="${!empty individual.timekey}">		    
+	        <c:when test="${!empty individual.timekey}">
+	        	<fmt:setLocale value="en_US"/>		    
                 <fmt:parseDate  var="eventTimekey" value="${individual.timekey}" pattern="EEE MMM dd HH:mm:ss zzz yyyy" />
                 <%-- <fmt:formatDate var="eventDateTime" value="${eventTimekey}" pattern="EEE' 'M'/'d'/'yy' 'h:mm' 'a" /> --%>
                 <fmt:formatDate var="eventDateTime" value="${eventTimekey}" type="both" dateStyle="short" timeStyle="short" />
