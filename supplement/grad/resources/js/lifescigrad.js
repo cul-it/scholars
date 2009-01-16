@@ -13,16 +13,17 @@ if ($("body").attr("id") == "fields") {
     // var parameter = $.getURLParam("uri");
 	var parameter = $("meta[name='uri']").attr("content");
     var jsonLink = "/data/researchAreas.jsp" + "?uri=" + parameter;
-
+    
     $.getJSON(jsonLink, function(json) {
-        $("ul.researchAreaList li a").click(function(){
+        $("#scrollBox li a").click(function(){
             if ($(this).hasClass("selected")) {
-                $("div#researchAreas li a").removeClass("selected");
-                $("div#fieldFaculty li").blur().removeClass("selected");
+                $("#scrollBox li a").removeClass("selected");
+                $("ul.facultyList li").blur().removeClass("selected");
+                $(this).blur();
             }
             else {
-                $("div#researchAreas li a").removeClass("selected");
-                $("div#fieldFaculty li").removeClass("selected");
+                $("#scrollBox li a").removeClass("selected");
+                $("ul.facultyList li").removeClass("selected");
                 $(this).blur().addClass("selected");
                 var selectedID = $(this).parent().attr("id");
                 $.each(json.research, function(i, area) {
@@ -61,21 +62,31 @@ if ($("body").attr("id") == "faculty") {
      // Pagination functions
      var origCount = $("tfoot td").text();
      
-     $("#indexNav").append('<a id="showAll" href="#">show all<\/a>');
+     $("#indexNav").append('<a style="display:none" id="showAll" href="#">show all<\/a>');
      
      $("#indexNav a#showAll").click(function(){
+         $("#indexNav a.selected").removeClass("selected");
          $("tbody").show();
          $("tfoot td").text("Total: " + origCount);
-         $(this).blur();
+         $(this).blur().hide();
          return false;
      });
-     $("#indexNav a").not("#showAll").click(function(){
+     $("#indexNav a").not("#showAll, a.selected").click(function(){
          var tbodyID = "#" + $(this).text();
          var count = $("tbody"+ tbodyID + " tr").length;
+         $("#indexNav a.selected").removeClass("selected");
+         $(this).addClass("selected");
          $("tbody").not(tbodyID).hide();
-         $("tbody").filter(tbodyID).show().each(function(){
-             $(this).children("tr").children("td:first").css("padding-top", "12px");
-         });
+         $("tbody").filter(tbodyID).show();
+         $("a.selected").bind("click", function(){
+              // $("#indexNav a.selected").removeClass("selected");
+              // $("tbody").show();
+              // $("tfoot td").text("Total: " + origCount);
+              // $("#indexNav a#showAll").hide();
+              // $(this).blur();
+              // return false;
+         })
+         $("#indexNav a#showAll").show();
          $("tfoot td").empty().text("Total: " + count);
          $(this).blur();
          return false;
@@ -100,7 +111,7 @@ if ($("body").attr("id") == "faculty") {
 
 // Graduate group pages
 $(document).ready(function() {
-if ($("body").attr("id") == "areas") {
+if ($("body").attr("id") == "Xareas") {
 
 		// Detecting Firefox 2 and below to eliminate flickering glitch described at: www.nabble.com/Need-help-on-jQuery.browser.version-td17052906s27240.html
 		if( $.browser.mozilla  &&  $.browser.version.substr(0,3) < 1.9 ){
@@ -180,25 +191,23 @@ if ($("body").attr("id") == "areas") {
 $(document).ready(function() {
 if ($("body").attr("id") == "facilities") {
     
-    // Fragment identifiers inserted to allow 'return-to-group' when hitting back button
+    // Fragment identifiers added to address bar to allow 'return-to-group' when hitting back button
     
     $("h3 + ul").hide();
     initialGroup = document.location.hash.substring(5);
     if (initialGroup != "") {
-        $("li#" + initialGroup + " ul").show();
-        $("li#" + initialGroup + " h3:first").addClass("expanded");
+        $("#" + initialGroup + "_list").show();
+        $("h3#" + initialGroup).addClass("expanded");
     }
     // Open all the tabs when referrer is the search page
     else if (document.referrer.indexOf("/search") > 0) {
         $("ul.facilityList").show();
-        $("li h3:first").addClass("expanded");
+        $("h3.facilityGroup").addClass("expanded");
     }
-   
-    
-    // alert(document.referrer.indexOf("search.jsp"));
     
     $("h3.facilityGroup").css("cursor", "pointer").click( function(){
-        $(this).parent().children("ul").slideToggle("medium");
+        thisID = $(this).attr("id");
+        $("ul#" + thisID + "_list").slideToggle("medium");
         if ($(this).hasClass("expanded")) { 
             $(this).removeClass("expanded");
         }
@@ -207,8 +216,10 @@ if ($("body").attr("id") == "facilities") {
         }
     });
     
+    // When an external link gets clicked its facility group is added to the address bar
     $("a.facilityPage").click( function(){
-        groupID = $(this).parents("ul.facilityList").parent().attr("id");
+        groupID = $(this).parents("ul.facilityList").attr("id");
+        groupID = groupID.substring(0,groupID.indexOf('_'));
         document.location.hash = "Tab-" + groupID;
         // alert(groupID);
         // return false;
@@ -263,7 +274,7 @@ if ($("body").attr("id") == "feedback" && $("#captchaImage").length) {
     
     var captchaSrc = $("#captchaImage").attr("src");
     
-    $("#captchaImage, em.notice a").click(function(){
+    $("#captchaImage, em.note a").click(function(){
         // This just adds a random parameter to get the image to reload - the parameter is ignored
         var randomParam = Math.floor(Math.random()*777);
         var newSrc = captchaSrc + "?reload=" + randomParam;

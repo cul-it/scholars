@@ -11,12 +11,12 @@
 </jsp:include>
         
         <div id="contentWrap">
-            <div id="content">
+            <div id="content" class="span-23">
 
                 <h2>Research Facilities</h2>
-                <em class="subhead">A selection of the various equipment, services and labs that support Life Sciences research at Cornell</em>
+                <p>A selection of the various equipment, services and labs that support Life Sciences research at Cornell</p>
                 
-                <%-- querying for individuals here (without selecting) to leave out tabs with no individuals --%>
+                <%-- querying for individuals here (?facility) only to omit tabs that don't contain individuals --%>
                 <sparql:lock model="${applicationScope.jenaOntModel}" >
                 <sparql:sparql>
                   <listsparql:select model="${applicationScope.jenaOntModel}" var="facilitiesTab">
@@ -46,22 +46,21 @@
                  </sparql:sparql>
                  </sparql:lock>
                 
-                    <ul>
-                        <c:forEach  items="${facilitiesTab}" var="rs">
-                        <str:replace replace="/" with="" var="className">${rs.facGroupLabel.string}</str:replace>
-                        <str:replace replace=" " with="" var="className">${className}</str:replace>
-                        <str:replace replace="," with="" var="className">${className}</str:replace>
-                        <li id="${className}">
-                            <h3 class="facilityGroup">${rs.facGroupLabel.string}</h3>
-                                <c:import url="part/getfacilities.jsp">
-                                    <c:param name="group" value="${rs.facGroup}"/>
-                                </c:import>
-                        </li>
-                        </c:forEach>
-                    </ul>
+                    <c:forEach  items="${facilitiesTab}" var="rs">
+                    <str:replace replace="/" with="" var="className">${rs.facGroupLabel.string}</str:replace>
+                    <str:replace replace=" " with="" var="className">${className}</str:replace>
+                    <str:replace replace="," with="" var="className">${className}</str:replace>
+                        <h3 id="${className}" class="facilityGroup">${rs.facGroupLabel.string}</h3>
+                        <ul id="${className}_list" class="facilityList">
+                            <c:import url="part/facilities_list.jsp">
+                                <c:param name="group" value="${rs.facGroup}"/>
+                            </c:import>
+                        </ul>
+                    </c:forEach>
                           
             </div><!-- content -->
 
         </div> <!-- contentWrap -->
-
+        
+<hr/>
 <jsp:include page="footer.jsp" />

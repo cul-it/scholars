@@ -2,6 +2,8 @@
 <%@ taglib uri="http://djpowell.net/tmp/sparql-tag/0.1/" prefix="sparql" %>
 <%@ taglib uri="http://mannlib.cornell.edu/vitro/ListSparqlTag/0.1/" prefix="listsparql" %>
 
+<%-- Given a URI, get a single label for that entity --%>
+
 <sparql:lock model="${applicationScope.jenaOntModel}" >
 <sparql:sparql>
   <listsparql:select model="${applicationScope.jenaOntModel}" var="rs" uri="<${param.uri}>">

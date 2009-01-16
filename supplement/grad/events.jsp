@@ -205,4 +205,5 @@
 	</div> <!-- content -->
 </div> <!-- contentWrap -->
 
+<hr/>
 <jsp:include page="footer.jsp" />

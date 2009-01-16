@@ -1,10 +1,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
 
-<% 
+<%-- Used by Javascript for captcha validation --%>
 
+<% 
 String captchaKey = session.getAttribute("captcha").toString(); 
 String requestedValue = request.getParameter("captcha");
-
 %>
 
 <c:set var="captchaKey" value="<%=captchaKey%>"/>

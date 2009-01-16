@@ -12,45 +12,40 @@
     <jsp:param name="titleText" value="Feedback | Cornell University"/>
 </jsp:include>
 
-<%
-    DateTime now = new DateTime();
+<%  DateTime now = new DateTime();
     request.setAttribute("now", "\"" + now.toDateTime().toString() + "\"" );
 
     DateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd-HH:mm:ss");
     java.util.Date date = new java.util.Date();
-    String d = dateformat.format(date);
-
-%>
+    String d = dateformat.format(date); %>
 
 <div id="contentWrap">
 	<div id="content">
 
-<%-- The captcha JSP requires a Java AWT library has been unavailable in the past. 
-We're catching errors and submitting the form even if the captcha fails to load
-then sending a notification email that the captcha is not loading properly. --%>
-
+<%-- get the captcha status from the session --%>
 <c:set var="captchaStatus">
     <% String status = session.getAttribute("status").toString(); %>
     <%=status%>
 </c:set>
 
+<%-- if all is well, grab the keys from the session --%>
 <c:if test="${captchaStatus=='ok'}">
-    <% 
-    String captchaKey = session.getAttribute("captcha").toString(); 
-    String requestedValue = request.getParameter("captcha");
-    %>
-    <c:set var="captchaKey" value="<%=captchaKey%>"/>
-    <c:set var="requestKey" value="<%=requestedValue%>"/>
+    <% String captchaKey = session.getAttribute("captcha").toString(); 
+       String requestedValue = request.getParameter("captcha"); %>
+    <c:set var="captchaKey" value="<%=captchaKey%>"/> <%-- key set by captcha.jsp --%>
+    <c:set var="requestKey" value="<%=requestedValue%>"/> <%-- key set by the user sending feedback --%>
 </c:if>
 
+        <%-- proceed with mailing feedback if: the keys match OR there's a problem loading captcha.jsp --%>
         <c:if test="${(captchaKey==requestKey) || (captchaStatus=='error')}">
             
+            <%-- wipe out the session's key so that page reloads won't re-submit the form --%>
             <% session.setAttribute("captcha","xxxxxx"); %>
         
             <h2>Got it!</h2>
             <p>Thanks for taking the time to send us feedback.</p>
 
-            <%-- Build the email body here before sending --%>
+            <%-- build the email body here before sending --%>
             <fmt:parseDate var="now" value="<%=d%>" pattern="yyyy-MM-dd-HH:mm:ss" />
             <fmt:formatDate var="dateTime" value="${now}" type="both" pattern="EEEE, MMMM d @ hh:mm a"  />
             
@@ -90,7 +85,6 @@ then sending a notification email that the captcha is not loading properly. --%>
 Received: ${dateTime}
 From: ${fbName}
 Email: ${fbEmail}
-<%-- Regarding: ${fbRegarding} --%>
 
 Message:
 ${fbMessage}
@@ -132,12 +126,13 @@ ${fbMessage}
         
             </c:if>
         
-            <%-- wrong key entered --%>
+            <%-- wrong key entered but the captcha is loading properly --%>
             <c:if test="${(captchaKey != requestKey) && (captchaStatus=='ok')}">
                <h2>Sorry, there was a problem...</h2>
                <p>Either the code you entered was incorrect or you tried to submit the form more than once. Hit your back button to try again.</p>
             </c:if>
             
+            <%-- mail the following recipient and notify them of a problem with the captcha --%>
             <c:if test="${captchaStatus=='error'}">
                 <mt:mail>
                     <mt:setrecipient type="to">mw542@cornell.edu</mt:setrecipient>
@@ -152,7 +147,7 @@ ${fbMessage}
                         <mt:error id="err">
                             <jsp:getProperty name="err" property="error"/><br/>
                         </mt:error>
-                        <br/>Please back up a page, fix the error and resubmit.</p>
+                        </p>
                     </mt:send>
                 </mt:mail>
             </c:if>
@@ -161,4 +156,5 @@ ${fbMessage}
 	</div> <!-- content -->
 </div> <!-- contentWrap -->
 
+<hr/>
 <jsp:include page="footer.jsp" />

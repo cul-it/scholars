@@ -1,6 +1,3 @@
-<%@ page import="com.thoughtworks.xstream.XStream" %>
-<%@ page import="com.thoughtworks.xstream.io.xml.DomDriver" %>
-<%@ page import="edu.cornell.mannlib.vitro.webapp.beans.Individual" %>
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
 <%@ taglib uri="http://djpowell.net/tmp/sparql-tag/0.1/" prefix="sparql" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
@@ -9,338 +6,283 @@
 <%@ taglib uri="http://jakarta.apache.org/taglibs/string-1.1" prefix="str" %>
 <%@ taglib uri="http://jakarta.apache.org/taglibs/random-1.0" prefix="rand" %>
 
-<%@ page errorPage="/error.jsp"%>
-<%  /***********************************************
-     Display a single Person Entity for the grad portal.
-
-     request.attributes:
-     an Entity object with the name "entity"
-     **********************************************/
-    Individual entity = (Individual)request.getAttribute("entity");
-    if (entity == null)
-        throw new JspException("personEntity.jsp expects that request attribute 'entity' be set to the Entity object to display.");
-%>
-
-<fmt:setLocale value="en_US"/>    
-
-<c:set var="researchFocus" value="${entity.dataPropertyMap['http://vivo.library.cornell.edu/ns/0.1#researchFocus'].dataPropertyStatements[0].data}"/>
-<c:set var="overviewStatement" value="${entity.dataPropertyMap['http://vivo.library.cornell.edu/ns/0.1#overviewStatement'].dataPropertyStatements[0].data}"/>
-<c:set var="selectedPubs" value="${entity.dataPropertyMap['http://vivo.library.cornell.edu/ns/0.1#publications'].dataPropertyStatements[0].data}"/>
-<c:set var="researchAreas" value="${entity.objectPropertyMap['http://vivo.library.cornell.edu/ns/0.1#PersonHasResearchArea'].objectPropertyStatements}"/>
-<c:set var="primaryInvestigator" value="${entity.objectPropertyMap['http://vivo.library.cornell.edu/ns/0.1#PersonPrimaryInvestigatorOfFinancialAward'].objectPropertyStatements}"/>
-<c:set var="authorOf" value="${entity.objectPropertyMap['http://vivo.library.cornell.edu/ns/0.1#authorOf'].objectPropertyStatements}"/>
-<c:set var="teaches" value="${entity.objectPropertyMap['http://vivo.library.cornell.edu/ns/0.1#PersonTeacherOfSemesterCourse'].objectPropertyStatements}"/>
-
-<c:set var="gradFields" value="${entity.objectPropertyMap['http://vivo.library.cornell.edu/ns/0.1#memberOfGraduateField'].objectPropertyStatements}"/>
-<c:set var="departments" value="${entity.objectPropertyMap['http://vivo.library.cornell.edu/ns/0.1#employeeOfAsAcademicFacultyMember'].objectPropertyStatements}"/>
-<c:set var="education" value="${entity.dataPropertyMap['http://vivo.library.cornell.edu/ns/0.1#educationalBackground'].dataPropertyStatements[0].data}"/>
-<c:set var="awards" value="${entity.dataPropertyMap['http://vivo.library.cornell.edu/ns/0.1#awardsAndDistinctions'].dataPropertyStatements[0].data}"/>
-
-<c:set var='imageDir' value='../images' scope="page"/>
-
 <sparql:lock model="${applicationScope.jenaOntModel}" >
 <sparql:sparql>
-<listsparql:select model="${applicationScope.jenaOntModel}" var="contact" person="<${param.uri}>">
-      PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
-      PREFIX hr: <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#>
-      SELECT DISTINCT ?netid ?phone ?address ?HRnetID
-      WHERE
-      {
-      ?person vivo:CornellemailnetId ?netid . 
-      OPTIONAL { ?person vivo:nonCornellemail ?otherid }
-      OPTIONAL { ?person hr:CampusPhone ?phone }
-      OPTIONAL { ?person hr:Address1 ?address }
-      OPTIONAL { ?person hr:netId ?HRnetID }
-      }
-      LIMIT 1
-</listsparql:select>
-</sparql:sparql>
-</sparql:lock>
-
-<c:forEach items="${contact}" var="faculty" begin="0" end="0">
-    <c:set var="cornellEmail" value="${faculty.netid.string}"/>
-    <c:set var="otherEmail" value="${faculty.otherid.string}"/>
-</c:forEach>
-
-<div id="overview">
-    <c:choose>
-        <c:when test="${!empty entity.imageThumb}">
-            <c:url var="imageSrc" value='${imageDir}/${entity.imageThumb}'/>
-            <img src="<c:out value="${imageSrc}"/>" alt="profile photo" width="150"/>
-            <c:if test="${!empty entity.citation}">
-                <%-- <div class="citation">${entity.citation}</div>--%>
-            </c:if>
-        </c:when>
-        <c:otherwise>
-            <img src="/resources/images/profile_missing.gif" title="photo unavailable" alt="photo unavailable" width="150"/>
-        </c:otherwise>
-    </c:choose>
-    <c:set var="firstName" value="${fn:substringAfter(entity.name,',')}"/>
-    <c:set var="lastName" value="${fn:substringBefore(entity.name,',')}"/>
-    <h2>${firstName}&nbsp;${lastName}</h2>
-    <em>${entity.moniker}</em>
-    <p class="clear">
-        <c:if test="${!empty overviewStatement}">
-            <div class="description">${overviewStatement}</div>
-        </c:if>
-        <c:if test="${!empty researchAreas}">
-            <div class="description">
-                <strong>Primary Interests:</strong> 
-                <c:forEach var="areas" items="${researchAreas}" varStatus="count">
-                    <c:if test="${count.last == false}">${areas.object.name}; </c:if>
-                    <c:if test="${count.last == true}">${areas.object.name}</c:if>
-                </c:forEach>
-            </div>
-        </c:if>
-        <c:if test="${!empty researchFocus}">
-            <div class="description"><h4>Research Focus:</h4>${researchFocus}</div>
-        </c:if>
-</div>
-
-<c:if test="${!empty authorOf}">
-<div id="faculty-publications">
-    <h3>Publications</h3>
-    <c:set var="firstName" value="${fn:trim(firstName)}"/>
-    <c:if test="${fn:contains(lastName,' ')}">
-        <c:set var="lastName" value="${fn:substringBefore(lastName,' ')}"/>
-    </c:if>
-    <c:set var="firstInitial" value="${fn:substring(firstName,0,1)}"/>
-    <c:if test="${fn:contains(firstName,' ')}">
-        
-        <c:set var="mindex" value="${fn:indexOf(firstName,' ')+1}"/>
-        <c:set var="middleInitial" value="${fn:substring(firstName,mindex,mindex+1)}"/>
-    </c:if>
-    <c:url var="pubmedHref" value="http://www.ncbi.nlm.nih.gov/sites/entrez">
-        <c:param name="db" value="pubmed"/>
-        <c:param name="cmd" value="Search"/>
-        <c:param name="itool" value="pubmed_AbstractPlus"/>
-        <c:param name="term" value="${lastName} ${firstInitial}${middleInitial}"/>
-    </c:url>
-    
-    <c:url var="pubmedHref2" value="http://www.ncbi.nlm.nih.gov/pubmed">
-        <c:param name="db" value="pubmed"/>
-        <c:param name="cmd" value="Search"/>
-        <c:param name="itool" value="pubmed_AbstractPlus"/>
-        <c:param name="term" value='"${lastName} ${firstInitial}${middleInitial}" [au]'/>
-    </c:url>
-    
-    <a id="pubmedLink" href="${pubmedHref2}">Full PubMed results</a>
-    <ul>
-        <c:forEach var="publications" items="${authorOf}">
-            <sparql:lock model="${applicationScope.jenaOntModel}" >
-            <sparql:sparql>
-            <listsparql:select model="${applicationScope.jenaOntModel}" var="publicationLinks" publication="<${publications.object.URI}>">
-                  PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
-                  SELECT DISTINCT ?linkUrl
-                  WHERE
-                  {
-                  ?publication vitro:additionalLink ?links . 
-                  OPTIONAL { ?links vitro:linkURL ?linkUrl }
-                  }
-                  LIMIT 10
-            </listsparql:select>
-            </sparql:sparql>
-            </sparql:lock>
-
-            <c:choose>
-                <c:when test="${!empty publicationLinks}">
-                    <c:set var="pubHref">
-                        <c:forEach var="pub" items="${publicationLinks}" begin="0" end="0"><str:decodeUrl>${pub.linkUrl.string}</str:decodeUrl></c:forEach>
-                    </c:set>
-                </c:when>
-                <c:otherwise>
-                    <c:url var="pubHref" value="http://vivo.cornell.edu/entity">
-                        <c:param name="uri" value="${publications.object.URI}"/>
-                    </c:url>
-                </c:otherwise>
-            </c:choose>
-            
-            <li><a title="more about this publication" href="${pubHref}">${publications.object.name}</a></li>
-
-        </c:forEach>
-        <c:if test="${!empty selectedPubs}"><div>${selectedPubs}</div></c:if>
-    </ul>
-</div>
-</c:if>
-
-<c:if test="${!empty primaryInvestigator}">
-<div id="faculty-research">
-    <h3>Research Grants</h3>
-    <ul>
-        <c:forEach var="research" items="${primaryInvestigator}">
-        <c:url var="grantHref" value="http://vivo.cornell.edu/entity">
-            <c:param name="uri" value="${research.object.URI}"/>
-        </c:url>    
-            <li><a title="more about this in VIVO" href="${grantHref}">${research.object.name}</a></li>
-        </c:forEach>
-    </ul>
-</div>
-</c:if>
-
-<c:if test="${!empty teaches}">
-<div id="faculty-teaching">
-    <h3>Teaching</h3>
-    <ul>
-        <c:forEach var="courses" items="${teaches}">
-        <c:url var="courseHref" value="http://vivo.cornell.edu/entity">
-            <c:param name="uri" value="${courses.object.URI}"/>
-        </c:url>    
-            <li><a title="more about this in VIVO" href="${courseHref}">${courses.object.name}</a>
-                <p>${courses.object.description}</p>
-            </li>
-        </c:forEach>
-    </ul>
-</div>
-</c:if>
-
-</div> <!-- content -->
-
-<div id="sidebar">
-    
-    <div id="contactInfo">
-    <h3>Contact Information</h3>        
-
-        <ul id="profileLinks">
-            
-            <li>
-                <strong>Email:</strong>
-                <c:choose>
-                    <c:when test="${!empty cornellEmail}"><a title="" href="mailto:${cornellEmail}">${cornellEmail}</a></c:when>
-                    <c:otherwise><a title="" href="mailto:${otherEmail}">${otherEmail}</a></c:otherwise>
-                </c:choose>
-            </li>
-            
-            <c:if test="${!empty contact[0].HRnetID.string}">
-                <li>
-                    <c:url var="contactUrl" value="http://www.cornell.edu/search/">
-                        <c:param name="tab" value="people"/>
-                        <c:param name="netid" value="${contact[0].HRnetID.string}"/>
-                    </c:url>
-                    <a title="Full Cornell.edu Listing" href="${contactUrl}"><strong>Complete contact info at Cornell.edu</strong></a>
-                </li>
-            </c:if>            
-            
-            <c:if test="${!empty entity.linksList || !empty entity.primaryLink}">
-                <c:if test="${!empty entity.primaryLink}">
-                    <c:url var="linkUrl" value="${entity.url}" />
-                    <li class="external"><a title="visit this site" href="<c:out value="${linkUrl}"/>">${entity.anchor}</a></li>
-                </c:if>
-                <c:if test="${!empty entity.linksList}">
-                    <c:forEach items="${entity.linksList}" var='link'>
-                        <c:url var="linkUrl" value="${link.url}" />
-                        <li class="external"><a title="visit this site" href="<c:out value="${linkUrl}"/>">${link.anchor}</a></li>
-                    </c:forEach>
-                </c:if>
-            </c:if>
-        </ul>
-            
-    </div><!-- contactinfo -->
-    <sparql:lock model="${applicationScope.jenaOntModel}" >
-    <sparql:sparql>
-        <listsparql:select model="${applicationScope.jenaOntModel}" var="gradfields" person="<${param.uri}>">
+    <listsparql:select model="${applicationScope.jenaOntModel}" var="faculty" personUri="<${param.uri}>">
           PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
           PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
           PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
-          SELECT DISTINCT ?fieldUri ?fieldLabel
-          WHERE
-          {
-          ?person vivo:memberOfGraduateField ?fieldUri .
-
-          ?fieldUri rdf:type vivo:GraduateField ;
-          rdfs:label ?fieldLabel .
-          
-          ?group vivo:hasAssociated ?fieldUri ;
-          rdf:type vivo:fieldCluster .
+          PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
+          PREFIX hr: <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#>
+          SELECT DISTINCT ?personLabel ?prefName ?moniker ?overviewStatement ?researchFocus ?background ?publications ?image ?cornellEmail ?otherEmail ?netid 
+                          ?primaryLinkAnchor ?primaryLinkURL ?otherLinkAnchor ?otherLinkURL
+          WHERE {
+              ?personUri rdfs:label ?personLabel .
+                  OPTIONAL { ?personUri vivo:overviewStatement ?overviewStatement }
+                  OPTIONAL { ?personUri vivo:researchFocus ?researchFocus }
+                  OPTIONAL { ?personUri vivo:educationalBackground ?background }
+                  OPTIONAL { ?personUri vivo:publications ?publications }
+                  OPTIONAL { ?personUri vitro:imageThumb ?image }
+                  OPTIONAL { ?personUri vitro:moniker ?moniker }
+                  OPTIONAL { ?personUri vitro:primaryLink ?primaryLink. ?primaryLink vitro:linkAnchor ?primaryLinkAnchor . ?primaryLink vitro:linkURL ?primaryLinkURL }
+                  OPTIONAL { ?personUri vitro:additionalLink ?otherLink . ?otherLink vitro:linkAnchor ?otherLinkAnchor . ?otherLink vitro:linkURL ?otherLinkURL }
+                  OPTIONAL { ?personUri vivo:CornellemailnetId ?cornellEmail }
+                  OPTIONAL { ?personUri vivo:nonCornellemail ?otherEmail }
+                  OPTIONAL { ?personUri hr:PrefName ?prefName }
+                  OPTIONAL { ?personUri hr:netId ?netid }
           }
-          ORDER BY ?fieldLabel
-          LIMIT 100
-        </listsparql:select>
-
-            <c:if test="${fn:length(gradfields) > 0}">
-                <h3>Graduate Fields</h3>
-                <ul id="facultyFields">
-                <c:forEach items="${gradfields}" var="fields">
-		            <c:set var="fieldID" value="${fn:substringAfter(fields.fieldUri,'#')}"/>
-                        <li>
-                            <a href="/fields/${fieldID}" title="more about this field">${fields.fieldLabel.string}</a>
-                        </li>
-                </c:forEach>
-                </ul>
-            </c:if>
-    </sparql:sparql>
-    </sparql:lock>
-
-<%-- <c:if test="${!empty gradFields}">
-    <h3>Graduate Fields</h3>
-    <ul id="facultyFields">
-        <c:forEach var="fields" items="${gradFields}">
-        <c:url var="fieldHref" value="fields.jsp">
-            <c:param name="uri" value="${fields.object.URI}"/>
-            <c:param name="fieldLabel" value="${fields.object.name}"/>
-        </c:url>    
-            <li>
-                <a title="more about this field" href="${fieldHref}">${fields.object.name}</a>
-            </li>
-        </c:forEach>
-    </ul>
-</c:if> --%>
-
-<sparql:lock model="${applicationScope.jenaOntModel}" >
-<sparql:sparql>
-    <listsparql:select model="${applicationScope.jenaOntModel}" var="deptRS" person="<${param.uri}>">
-        PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-        PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-        PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
-        SELECT DISTINCT ?deptUri ?deptLabel
-        WHERE
-        {
-
-        ?person
-        vivo:employeeOfAsAcademicFacultyMember
-        ?deptUri .
-
-        ?deptUri
-         rdf:type
-         vivo:AcademicDepartment .
-
-        OPTIONAL { ?deptUri rdfs:label ?deptLabel }
-        }
-        ORDER BY ?deptLabel
-        LIMIT 20
+          LIMIT 50
+    </listsparql:select>
+    
+    <listsparql:select model="${applicationScope.jenaOntModel}" var="grants" personUri="<${param.uri}>">
+          PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+          PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
+          SELECT DISTINCT ?grantLabel ?grantUri 
+          WHERE {
+              ?personUri vivo:PersonPrimaryInvestigatorOfFinancialAward ?grantUri .
+              ?grantUri rdfs:label ?grantLabel .
+          }
+          LIMIT 50
+    </listsparql:select>
+    
+    <listsparql:select model="${applicationScope.jenaOntModel}" var="pubs" personUri="<${param.uri}>">
+          PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+          PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
+          PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
+          SELECT DISTINCT ?pubUri ?pubLabel ?pubLinkAnchor ?pubLinkURL
+          WHERE {
+              ?personUri vivo:authorOf ?pubUri .
+              ?pubUri rdfs:label ?pubLabel .
+              OPTIONAL { ?pubUri vitro:additionalLink ?pubLink . ?pubLink vitro:linkURL ?pubLinkURL . ?pubLink vitro:linkAnchor ?pubLinkAnchor }
+          }
+          LIMIT 50
     </listsparql:select>
 </sparql:sparql>
 </sparql:lock>
 
-<c:if test="${!empty deptRS}">
-    <h3>Departments</h3>        
-    <ul id="facultyDepts">
-        <c:forEach var="dept" items="${deptRS}">
-            <li>
-                <c:set var="deptID" value="${fn:substringAfter(dept.deptUri,'#')}"/>
-	            <a title="more about this department" href="/departments/${deptID}">${dept.deptLabel.string}</a>
-            </li>
+<c:set var="imageDir" value="../images/" />
+<c:set var="netid" value="${faculty[0].netid.string}"/>
+<c:set var="cornellEmail" value="${faculty[0].cornellEmail.string}"/>
+<c:set var="otherEmail" value="${faculty[0].otherEmail.string}"/>
+<c:set var="profileImage" value="${faculty[0].image.string}"/>
+<c:set var="primaryURL"><str:decodeUrl>${faculty[0].primaryLinkURL.string}</str:decodeUrl></c:set>
+<c:set var="primaryAnchor" value="${faculty[0].primaryLinkAnchor.string}"/>
+<%-- <c:set var="fullName" value="${faculty[0].prefName.string}"/> --%>
+<c:set var="fullName" value="${faculty[0].personLabel.string}"/>
+<c:set var="moniker" value="${faculty[0].moniker.string}"/>
+<c:set var="overviewStatement" value="${faculty[0].overviewStatement.string}"/>
+<c:set var="researchFocus" value="${faculty[0].researchFocus.string}"/>
+<c:set var="background" value="${faculty[0].background.string}"/>
+<c:set var="selectedPubs" value="${faculty[0].publications.string}"/>
+
+
+<div id="overview" class="span-15">
+    <c:choose>
+        <c:when test="${!empty profileImage}">
+            <c:url var="imageSrc" value="${imageDir}${profileImage}"/>
+            <img class="profile" src="${imageSrc}" alt="profile photo" width="150"/>
+        </c:when>
+        <c:otherwise>
+            <img class="profile" src="/resources/images/profile_missing.gif" title="photo unavailable" alt="photo unavailable" width="150"/>
+        </c:otherwise>
+    </c:choose>
+    
+    <c:choose>
+        <c:when test="${fn:contains(fullName, ',')}">
+            <c:set var="firstName" value="${fn:substringAfter(fullName,',')}"/>
+            <c:set var="lastName" value="${fn:substringBefore(fullName,',')}"/>
+            <h2 class="label">${firstName}${" "}${lastName}</h2>
+        </c:when>
+        <c:otherwise>
+            <h2 class="label">${fullName}</h2>
+        </c:otherwise>
+    </c:choose>
+    
+    <em>${moniker}</em>
+    
+    
+    <p class="clear">
+        <%-- <c:if test="${!empty overviewStatement}">
+            <div class="description">${overviewStatement}</div>
+        </c:if> --%>
+        
+        <%---------- RESEARCH AREAS ----------%>
+        <c:import var="researchAreas" url="part/researchareas_list.jsp">
+            <c:param name="uri" value="${param.uri}"/>
+            <c:param name="type" value="faculty"/>
+        </c:import>
+        
+        <c:if test="${!empty researchAreas}">
+            <h3>Primary Research Areas</h3> 
+            <ul>${researchAreas}</ul>
+        </c:if>
+        
+        <c:if test="${!empty researchFocus}">
+            <h3>Research Focus</h3> ${researchFocus}
+        </c:if>
+        
+        <c:if test="${empty researchFocus && !empty overviewStatement}">
+            ${overviewStatement}
+        </c:if>
+        
+        <%-- <c:if test="${!empty background}">
+            <div class="description"><h4>Educational Background:</h4>${background}</div>
+        </c:if> --%>
+        
+        <%---------- GRADUATE FIELDS ----------%>
+        <c:import var="gradFields" url="part/fields_list.jsp">
+            <c:param name="uri" value="${param.uri}"/>
+            <c:param name="type" value="faculty"/>
+        </c:import>
+
+        <h3>Graduate Fields</h3>
+        <ul class="fields">${gradFields}</ul>
+        
+</div><!-- overview -->
+
+<div id="sidebar" class="resourceBar span-8 last">
+    
+    <h3>Other Pages</h3>
+    
+    <%---------- EXTERNAL LINKS ----------%>
+    <ul class="externalLinks">
+        <li><%-- first build the lone primary link --%>
+            <%-- <c:url var="webSnaprUrl" value="http://mannlib.websnapr.com/"> --%>
+            <c:url var="webSnaprUrl" value="http://images.websnapr.com/">
+                <c:param name="url" value="${primaryURL}"/>
+                <c:param name="size" value="t"/>
+            </c:url>
+            <a title="graduate school web page" href="${primaryURL}">
+                <img class="left" src="${webSnaprUrl}" alt="page"/>
+                <span class="left span-4">${primaryAnchor}</span>
+            </a>
+        </li>
+        
+        <%-- then go through each additional link --%>
+        <c:forEach var="row" items="${rs}">
+        
+            <%-- testing that this link hasn't already been generated already since the result set could have multiple rows with the same links --%>
+            <c:if test="${prevLink != row.otherLinkURL}">
+            
+                <c:set var="otherLinkUrl"><str:decodeUrl>${row.otherLinkURL.string}</str:decodeUrl></c:set>
+                <c:set var="otherLinkAnchor">${row.otherLinkAnchor.string}</c:set>
+                <li>
+                    <c:url var="webSnaprUrl" value="http://images.websnapr.com/">
+                        <c:param name="url" value="${otherLinkUrl}"/>
+                        <c:param name="size" value="t"/>
+                    </c:url>
+                    <a title="graduate school web page" href="${otherLinkUrl}">
+                        <img class="left" src="${webSnaprUrl}" alt="page"/>
+                        <span class="left span-4">${otherLinkAnchor}</span>
+                    </a>
+                </li>
+            </c:if>
+            <c:set var="prevLink" value="${row.otherLinkURL}"/>
         </c:forEach>
     </ul>
-</c:if>
-
-<c:if test="${!empty education}">
-    <h3>Education</h3>
-    <div id="education">${education}</div>
-</c:if>
-
-<c:if test="${!empty awards}">
-    <h3>Awards</h3>
-    <div id="awards">${awards}</div>
-</c:if>
+    
+    <div id="contact" class="resourceBar-item" >
+        <c:choose>
+            <c:when test="${!empty netid}"><c:set var="emailAddress">${netid}${'@cornell.edu'}</c:set></c:when>
+            <c:when test="${!empty cornellEmail}"><c:set var="emailAddress">${cornellEmail}</c:set></c:when>
+            <c:when test="${!empty nonCornellEmail}"><c:set var="emailAddress">${nonCornellEmail}</c:set></c:when>
+        </c:choose>
+        <c:if test="${!empty (netid || cornellEmail || nonCornellEmail)}">
+            <p class="separator"><strong class="heading">Email:</strong> <a href="mailto:${emailAddress}">${emailAddress}</a></p>
+            <c:if test="${!empty netid}">
+                <c:url var="contactHref" value="http://www.cornell.edu/search/">
+                    <c:param name="tab" value="people"/>
+                    <c:param name="netid" value="${netid}"/>
+                </c:url>
+                <%-- <p id="cornellContact">Complete contact information available <a title="cornell people page" href="${contactHref}">here</a></p> --%>
+            </c:if>
+        </c:if>
+    </div>
+    
+    <%---------- DEPARTMENTS ----------%>
+    <div id="departments" class="resourceBar-item last-item">
+        <c:import var="deptList" url="part/departments_list.jsp">
+            <c:param name="uri" value="${param.uri}"/>
+            <c:param name="type" value="person"/>
+        </c:import>
+        <c:if test="${!empty deptList}">
+            <h3 class="separator">Departments</h3>
+            <ul id="deptList">${deptList}</ul>
+        </c:if>
+    </div>
+    
+    <div class="bottom"></div> <%-- this div is necessary to cap the bottom of the sidebar --%>
 
 </div> <!-- sidebar -->
 
-<%!
-        private void dump(String name, Object fff){
-        XStream xstream = new XStream(new DomDriver());
-        System.out.println( "*******************************************************************" );
-        System.out.println( name );
-        System.out.println(xstream.toXML( fff ));
-    }
 
-%>
+<%---------- RESEARCH GRANTS ----------%>
+<c:if test="${!empty grants}">
+<div id="grants" class="researchBox span-23 clear">
+    <h3>Research Grants</h3>
+    <ul id="grantsList">
+        <c:forEach var="grant" items="${grants}">
+            <li>${grant.grantLabel.string}</li>
+        </c:forEach>
+    </ul>
+</div>
+</c:if>
+
+<%---------- PUBLICATIONS ----------%>
+<c:if test="${!empty selectedPubs}">
+    <div id="publications" class="researchBox span-23">
+        
+        <h3>Selected Publications</h3>
+        
+        <%-- Here we're parsing the person's name into something more digestable for PubMed's search engine
+             firstName and lastName should have already been parsed out above when possible --%>
+        <c:choose>
+            <c:when test="${!empty firstName && !empty lastName}">
+                <c:set var="firstName" value="${fn:trim(firstName)}"/>
+                <c:if test="${fn:contains(lastName,' ')}">
+                    <c:set var="lastName" value="${fn:substringBefore(lastName,' ')}"/>
+                </c:if>
+                <c:set var="firstInitial" value="${fn:substring(firstName,0,1)}"/>
+                <c:if test="${fn:contains(firstName,' ')}">
+                    <c:set var="mindex" value="${fn:indexOf(firstName,' ')+1}"/>
+                    <c:set var="middleInitial" value="${fn:substring(firstName,mindex,mindex+1)}"/>
+                </c:if>
+                <c:set var="authorTerm" value='"${lastName} ${firstInitial}${middleInitial}" [au]'/>
+            </c:when>
+            <c:otherwise><c:set var="authorTerm" value='"${fullName}" [au]'/></c:otherwise>
+        </c:choose>
+        <c:url var="pubmedHref" value="http://www.ncbi.nlm.nih.gov/pubmed">
+            <c:param name="db" value="pubmed"/>
+            <c:param name="cmd" value="Search"/>
+            <c:param name="itool" value="pubmed_AbstractPlus"/>
+            <c:param name="term" value="${authorTerm}"/>
+        </c:url>
+        <a id="pubmedLink" href="${pubmedHref}">PubMed Listings</a>
+        
+        <%---------- LINKED PUBLICATIONS ----------%>
+        <%-- <ul id="linkedPubs">
+            <c:forEach var="pub" items="${pubs}">
+                <c:if test="${thisPub != pub.pubUri}">
+                    <c:set var="thisPub" value="${pub.pubUri}"/>
+                    <c:choose>
+                        <c:when test="${!empty pub.pubLinkURL}">
+                            <c:set var="pubHref"><str:decodeUrl>${pub.pubLinkURL.string}</str:decodeUrl></c:set>
+                        </c:when>
+                        <c:otherwise>
+                            <c:url var="pubHref" value="http://vivo.cornell.edu/entity">
+                                <c:param name="uri" value="${pub.pubUri}"/>
+                            </c:url>
+                        </c:otherwise>
+                    </c:choose>
+                <li><a title="more about this publication" href="${pubHref}">${pub.pubLabel.string}</a></li>
+            </c:if>
+            </c:forEach>
+        </ul> --%>
+        
+        <%---------- SELECTED PUBLICATIONS ----------%>
+        <c:if test="${!empty selectedPubs}">
+            <div id="selectedPubs">${selectedPubs}</div>
+        </c:if>
+    </div>
+</c:if>
+</div> <!-- content -->

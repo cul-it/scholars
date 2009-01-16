@@ -6,60 +6,133 @@
 <%@ taglib uri="http://jakarta.apache.org/taglibs/string-1.1" prefix="str" %>
 <%@ include file="part/resources.jsp" %>
 
+<%-- Based on the uri parameter, this JSP will either: 
+    1) forward to fieldsindex 
+    2) render fields in a grouping 
+    3) render a whole list of fields 
+--%>
+
 <c:if test="${empty param.uri}">
     <c:redirect url="/fieldsindex/"/>
 </c:if>
 
-<c:set var="URI">${namespace}${param.uri}</c:set>
-<c:set var="encodedURI"><str:encodeUrl>${URI}</str:encodeUrl></c:set>
-<c:set var="areaID" scope="session">${param.uri}</c:set>
-<c:set var="areaName" scope="session">
-	<c:import url="part/getlabel.jsp"><c:param name="uri" value="${URI}"/></c:import>
-</c:set>
+<%-- For a particular field grouping, use this query --%>
+<c:if test="${param.uri != 'allfields'}">
+    <c:set var="URI">${namespace}${param.uri}</c:set>
+    <c:set var="encodedURI"><str:encodeUrl>${URI}</str:encodeUrl></c:set>
+    <c:set var="areaID">${param.uri}</c:set>
+    <c:set var="areaName">
+    	<c:import url="part/label.jsp"><c:param name="uri" value="${URI}"/></c:import>
+    </c:set>
+
+    <sparql:lock model="${applicationScope.jenaOntModel}" >
+        <sparql:sparql>
+            <listsparql:select model="${applicationScope.jenaOntModel}" var="rs" group="<${URI}>">
+              PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+              PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+              PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
+              SELECT DISTINCT ?fieldUri ?fieldLabel
+              WHERE {
+                  ?group vivo:hasAssociated ?fieldUri .
+                  ?fieldUri vivo:hasFieldMember ?person .
+                      OPTIONAL { ?fieldUri rdfs:label ?fieldLabel }
+              } ORDER BY ?fieldLabel
+              LIMIT 100
+            </listsparql:select>
+        </sparql:sparql>
+    </sparql:lock>
+</c:if>
+
+<%-- For the entire list of fields use this query --%>
+<c:if test="${param.uri == 'allfields'}">
+    <c:set var="areaName" value="Life Sciences Graduate Fields"/>
+
+    <sparql:lock model="${applicationScope.jenaOntModel}" >
+        <sparql:sparql>
+            <listsparql:select model="${applicationScope.jenaOntModel}" var="rs">
+              PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+              PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+              PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
+              SELECT DISTINCT ?fieldUri ?fieldLabel
+              WHERE {
+                  ?group rdf:type vivo:fieldCluster .
+                  ?group vivo:hasAssociated ?fieldUri .
+                  ?fieldUri vivo:hasFieldMember ?person .
+                      OPTIONAL { ?fieldUri rdfs:label ?fieldLabel }
+              } ORDER BY ?fieldLabel
+              LIMIT 100
+            </listsparql:select>
+        </sparql:sparql>
+    </sparql:lock>
+</c:if>
 
 <jsp:include page="header.jsp">
     <jsp:param name="bodyID" value="areas"/>
-    <jsp:param name="metaURI" value="${encodedURI}"/>
     <jsp:param name="titleText" value="${areaName} | Cornell University"/>
 </jsp:include>
 
         <div id="contentWrap">
-
             <div id="content">
 
-                <h2 class="groupLabel ${areaID}">${areaName}</h2>
+                <c:if test="${param.uri != 'allfields'}"><h2 class="${areaID} big">Graduate Fields related to <span>${areaName}</span></h2></c:if>
+                <c:if test="${param.uri == 'allfields'}"><h2>All Life Sciences Graduate Fields</h2></c:if>
 				
-                <h3>Graduate Fields in this Area</h3>
-                <ul class="fields">
-                    <jsp:include page="part/listfields.jsp">
-                        <jsp:param name="uri" value="${URI}"/>
-                    </jsp:include>  
-                </ul>
-                    
-				<jsp:include page="part/programs-in-group.jsp">
-                    <jsp:param name="uri" value="${URI}"/>
-                </jsp:include>
-                    
-                <div class="gradEducation small">
-                    <h3>Other Areas</h3>
-					<ul class="groupings">
-					<jsp:include page="part/listgroups.jsp">
-	                    <jsp:param name="uri" value="${URI}"/>
-	                </jsp:include>
-					</ul>
-				</div>
-
-                  <div class="gradEducation">
-                      <h3>What are Graduate Fields?</h3>
-                      <p>Graduate education at Cornell is organized by Fields, which group faculty by common academic interest.  Almost all Fields have an administrative home in a department.  In some cases the faculty comprising the Field are virtually the same as those comprising the department.  In other cases not all the departmental faculty are members of a Field with a home in that department, and many outside-departmental faculty are members.  Generally each Field acts independently in graduate student admissions, e.g. recruiting, selecting, financing, and interviewing prospective students who visit Cornell, although in some cases Fields recruit together.</p>
-                      <%-- <p><strong>The first step in applying to Cornell's Graduate School is identifying which Field most closely matches your goals.</strong></p> --%>
-                      <p>For more information visit the <a title="Cornell Graduate School Web site" href="http://www.gradschool.cornell.edu/index.php?p=9">Graduate School Web site</a></p>
-                  </div>
+				<c:if test="${param.uri != 'allfields'}"><table cellpadding="3" cellspacing="0"="0" border="1"></c:if>
+                <c:if test="${param.uri == 'allfields'}"><table class="complete" cellpadding="3" cellspacing="0" border="1"></c:if>
+                    <thead>
+                        <tr>
+                            <th class="col-1">Field</th>
+                            <th class="col-2">Degrees Offered</th>
+                            <th class="col-3">Top Research Areas</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <c:forEach items="${rs}" var="field" varStatus="count">
+                            <c:set var="classForField" value="${fn:substringAfter(field.fieldUri,'#')}"/>
+                            <c:import var="degrees" url="part/degrees_list.jsp">
+                                <c:param name="uri" value="${field.fieldUri}"/>
+                            </c:import>
+                            <c:import var="topResearchAreas" url="part/researchareas_list.jsp">
+                                <c:param name="uri" value="${field.fieldUri}"/>
+                                <c:param name="type" value="field-ranked"/>
+                            </c:import>
+                            <c:choose>
+                                <c:when test="${count.first == true}"><tr class="first"></c:when>
+                                <c:when test="${count.last == true}"><tr class="last"></c:when>
+                                <c:otherwise><tr></c:otherwise>
+                            </c:choose>
+                                    <td class="fields"><a href="/fields/${classForField}">${field.fieldLabel.string}</a></td>
+                                    <td>${degrees}</td>
+                                    <td>${topResearchAreas}</td>
+                                </tr>
+                        </c:forEach>
+                    </tbody>
+                </table>
+                
+                <%-- <c:import var="programList" url="part/programs_list.jsp">
+                    <c:param name="uri" value="${URI}"/>
+                </c:import>
+                <c:if test="{!empty programList}">
+                    <div class="gradEducation">
+                        <h3>Related Programs</h3>
+                        <ul class="related">${programList}</ul>
+                    </div>
+                </c:if> --%>
+                
+                <c:if test="${param.uri != 'allfields'}">
+                    <h3>Don't see what you're looking for?</h3>
+                    <p>Try a different subject area below, or see a <a href="/allfields">complete list</a> of Fields instead</p>
+    				<ul class="groupings small">
+    					<jsp:include page="part/groups_list.jsp">
+    	                    <jsp:param name="uri" value="${URI}"/>
+    	                </jsp:include>
+    				</ul>
+				</c:if>
 
             </div><!-- content -->
-
         </div> <!-- contentWrap -->
 
+<hr/>
 <jsp:include page="footer.jsp">
     <jsp:param name="uri" value="${URI}"/>
 </jsp:include>

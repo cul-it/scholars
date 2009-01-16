@@ -1,9 +1,9 @@
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
 <%@ taglib uri="http://djpowell.net/tmp/sparql-tag/0.1/" prefix="sparql" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://mannlib.cornell.edu/vitro/ListSparqlTag/0.1/" prefix="listsparql" %>
 <%@ taglib uri="http://jakarta.apache.org/taglibs/string-1.1" prefix="str" %>
+
+<%-- Given a facilities tab URI, get the list of facilities in that tab --%>
 
 <sparql:lock model="${applicationScope.jenaOntModel}" >
 <sparql:sparql>
@@ -34,15 +34,12 @@
  </sparql:sparql>
  </sparql:lock>
           
-<ul class="facilityList">
 <c:forEach  items="${facilities}" var="facility" varStatus="count">
     <li>
-        <h4 class="facilityName">
-            <a class="facilityPage" title="visit the ${facility.anchor.string}" href="<str:decodeUrl>${facility.url.string}</str:decodeUrl>">${facility.label.string}</a></h4>
+        <h4 class="facilityName"><a class="facilityPage" title="visit the ${facility.anchor.string}" href="<str:decodeUrl>${facility.url.string}</str:decodeUrl>">${facility.label.string}</a></h4>
         <div class="description">
             <c:if test="${empty facility.description.string}">${facility.blurb.string}</c:if>
             ${facility.description.string}
         </div>
     </li>
 </c:forEach>
-</ul>

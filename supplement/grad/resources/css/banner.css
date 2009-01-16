@@ -38,7 +38,8 @@ Updated:	October 31, 2007
 	padding: 0;
 	width: 265px;
 	height: 45px;
-	background: url(../images/layout/cu_logo.gif) no-repeat 12px top;	
+/*  background: url(../images/layout/cu_logo.gif) no-repeat 12px top;   */
+	background: url(../images/layout/cu_logo.gif) no-repeat left top;	
 }
 
 #cu-logo a {
@@ -67,7 +68,7 @@ Updated:	October 31, 2007
 #cu-search a {
 	float: right;
 	padding: 5px 15px;
-	font-size: 1.1em;
+/*  font-size: 1.1em;*/
 	color: #fff;
 	text-decoration: none;
 	border: none;

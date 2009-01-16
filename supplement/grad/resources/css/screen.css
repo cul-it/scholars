@@ -11,7 +11,9 @@ Author:		nac26@cornell.edu
  
 /* Import styles
 ------------------------------*/
-@import url("reset.css");
+/*@import url("reset.css");*/
+@import url("../blueprint/blueprint.css");
+@import url("../blueprint/ie.css");
 @import url("banner.css");
 @import url("lifescigrad.css");
 

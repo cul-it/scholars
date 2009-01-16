@@ -4,8 +4,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <c:set var="pageTitle">
-    <c:if test="${!empty param.querytext}">Search Results: ${param.querytext}</c:if>
-    <c:if test="${empty param.querytext}">Search</c:if>
+    <c:if test="${!empty param.query}">Search Results: ${param.query}</c:if>
+    <c:if test="${empty param.query}">Search</c:if>
 </c:set>
 
 <jsp:include page="header.jsp">
@@ -17,9 +17,9 @@
             <div id="content">
                 
                 <form action="/search/" method="get" name="search-form" id="search-form"> 
-                    <h2><label for="search-form-query">Search</label></h2>
-                    <input type="text" id="search-form-query" name="querytext" value="${param.querytext}" size="30" />
-                    <button type="submit" id="search-form-submit" name="submit" value="go" />go</button>
+                    <h2><label for="search-form-query">Search this site</label></h2>
+                    <input type="text" id="search-form-query" name="query" value="${param.query}" size="30" />
+                    <input type="submit" id="search-form-submit" name="submit" value="go" />
                 </form>
 
                 <c:choose>
@@ -31,10 +31,12 @@
                     </c:otherwise>
                 </c:choose>
                 
-                <c:if test="${!empty param.querytext && param.querytext != ''}">
+                
+                <%-- when there's a query parameter present, deliver some results --%>
+                <c:if test="${!empty param.query && param.query != ''}">
                 
                     <c:import var="gs" url="http://web.search.cornell.edu/search" charEncoding="UTF-8">
-                        <c:param name="q" value="${param.querytext}"/>
+                        <c:param name="q" value="${param.query}"/>
                         <c:param name="output" value="xml_no_dtd" />
                         <c:param name="sort" value="date:D:L:d1" />
                         <c:param name="ie" value="UTF-8" />
@@ -84,7 +86,9 @@
                                         </x:forEach>
                                     </p>
                                 </x:if>
+                                <ul class="results">
                                 <x:forEach var="result" select="$google//R">
+                                    <li>
                                     <c:set var="resultTitle">
                                         <x:out escapeXml="false" select="T"/>
                                     </c:set>
@@ -104,13 +108,18 @@
                                         </a>
                                     </h3>
                                     <p><x:out escapeXml="false" select="S"/></p>
+                                    </strong>
+                                    </li>
                                 </x:forEach>
-                            </x:when><%-- end search results output --%>
+                                </ul>
+                            </x:when>
+                            
+                            <%-- end search results output --%>
                     
                             <x:otherwise>
                                 <c:choose>
-                                    <c:when test="${!empty param.querytext}">
-                                        <p>Your search - <strong>${param.querytext}</strong> - did not return any results.</p>   
+                                    <c:when test="${!empty param.query}">
+                                        <p>Your search - <strong>${param.query}</strong> - did not return any results.</p>   
                                     </c:when>
                                     <c:otherwise>&nbsp;</c:otherwise>
                                 </c:choose>
@@ -119,7 +128,7 @@
                                         <x:forEach select="$google//Spelling/Suggestion">
                                             <c:set var="altQuery"><x:out select="@q" /></c:set>
                                             <c:url var="pageHref" value="/search/">
-                                                <c:param name="querytext" value="${altQuery}"/>
+                                                <c:param name="query" value="${altQuery}"/>
                                             </c:url>
                                             <strong><a href="${pageHref}"><x:out select="@q" /></a>&nbsp;</strong>
                                         </x:forEach>
@@ -130,12 +139,12 @@
                     </div>
                 
                 
-                    <%-------- PAGING CONTROLS ---------%>
+                    <%-------- pagination controls ---------%>
                     <div id="pagination">
                         <x:choose>
                             <x:when select="$google//PU">
                                 <c:url var="pageHref" value="/search/">
-                                    <c:param name="querytext" value="${param.querytext}"/>
+                                    <c:param name="query" value="${param.query}"/>
                                     <c:param name="start" value="${param.start - 10}"/>
                                 </c:url>
                                 <a href="${pageHref}">&lt; Prev</a>
@@ -147,7 +156,7 @@
                         <x:choose>
                             <x:when select="$google//NU">
                                 <c:url var="pageHref" value="/search/">
-                                    <c:param name="querytext" value="${param.querytext}"/>
+                                    <c:param name="query" value="${param.query}"/>
                                     <c:param name="start" value="${param.start + 10}"/>
                                 </c:url>
                                 <a href="${pageHref}"> Next &gt;</a>
@@ -157,28 +166,10 @@
                         </x:choose>
                     </div><!-- pagination -->
                 
-                </c:if><%-- if querytext is not empty --%>
-                
-                <%--<div id="vivoResults">
-                    <c:url var="vivoQuery" value="search">
-                        <c:param name="home" value="1"/>
-                        <c:param name="appname" value="VIVO"/>
-                        <c:param name="flag1" value="1"/>
-                        <c:param name="submit" value="go"/>
-                        <c:param name="sitesearch" value="vivo.cornell.edu"/>
-                        <c:param name="querytext" value="biology"/>
-                    </c:url>
-                    <c:out value="${vivoQuery}"/>
-                    <c:import var="vivo" url="/${vivoQuery}"/>
-                    <c:set var="startIndex" value="${fn:indexOf(vivo, 'contentsBrowseGroup')}"/>
-                    <c:set var="endIndex" value="${fn:indexOf(vivo, '--contentsBrowseGroup--')}"/>
-                    <c:set var="trimmed" value="${fn:substring(vivo, startIndex+22, endIndex-8)}"/>
-                    <c:out escapeXml="false" value="${trimmed}"/>
-                </div> --%>
-            
+                </c:if><%-- if query is not empty --%>
             
             </div><!-- content -->
-        
         </div> <!-- contentWrap -->
 
+<hr/>
 <jsp:include page="footer.jsp" />

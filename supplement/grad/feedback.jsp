@@ -8,15 +8,21 @@
     <jsp:param name="titleText" value="Feedback | Cornell University"/>
 </jsp:include>
 
+
+<%-- The captcha JSP used here requires a Java AWT library that's not always loaded correctly 
+We're catching errors and submitting the form even if the captcha fails to load,
+then sending a notification email saying the captcha is not loading properly. --%>
+
+<%-- get the status of the captcha --%>
 <c:catch var="captchaError">
     <c:import var="captcha" url="forms/captcha.jsp"/>
 </c:catch>
 
+<%-- set the status in the session --%>
 <c:if test="${empty captchaError}">
     <% session.setAttribute("status","ok"); %>
     <c:set var="captchaStatus" value="ok"/>
 </c:if>
-
 <c:if test="${not empty captchaError}">
     <% session.setAttribute("status","error"); %>
     <c:set var="captchaStatus" value="error"/>
@@ -29,7 +35,7 @@
 	        <p>We appreciate any comments or suggestions you would like to share. Your name and email address will not be used for any purpose other than responding to the comments or questions submitted.</p>
             <p><em>*</em> indicates required fields</p>
             
-            <form class="cmxform" id="feedbackForm" method="get" action="/feedback-process.jsp">
+            <form class="cmxform" id="feedbackForm" method="get" action="/feedback-submit.jsp">
                 
                 <label for="fname">My full name:</label>
                 <input id="fname" name="name" size="25" class="text" tabindex="1" />
@@ -52,7 +58,7 @@
                 <c:if test="${captchaStatus=='ok'}">
                     <label for="captcha">Please verify the code shown here: <em>*</em></label>
                     <img id="captchaImage" src="/forms/captcha.jsp" alt="captcha image"/>
-                    <em class="notice">If you cannot read this image, <a title="change code" href="#captchaImage">click here</a> to use a new one</em>
+                    <em class="note">If you cannot read this image, <a title="change code" href="#captchaImage">click here</a> to use a new one</em>
                     <input id="captcha" name="captcha" size="25" class="text required" tabindex="5" />
                 </c:if>
                 
@@ -64,4 +70,5 @@
 	</div> <!-- content -->
 </div> <!-- contentWrap -->
 
+<hr/>
 <jsp:include page="footer.jsp" />
