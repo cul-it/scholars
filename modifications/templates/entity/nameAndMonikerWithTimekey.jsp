@@ -10,7 +10,7 @@
             <p:process><c:out value="| ${individual.moniker}"/></p:process>
         </c:if>
 		<c:if test="${!empty individual.timekey}">		    
-            <fmt:parseDate  var="eventTimekey" value="${individual.timekey}" pattern="EEE MMM dd HH:mm:ss zzz yyyy" />
+            <fmt:parseDate  var="eventTimekey" value="${individual.timekey}" pattern="EEE MMM dd HH:mm:ss zzz yyyy" parseLocale="en-US" />
             <fmt:formatDate var="eventDate" value="${eventTimekey}" pattern="MMM'. 'd', 'yyyy" />
             <fmt:formatDate var="eventTime" value="${eventTimekey}" pattern="h:mm a" />
             | ${eventDate} | ${eventTime}
