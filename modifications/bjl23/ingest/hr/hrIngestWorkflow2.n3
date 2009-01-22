@@ -61,7 +61,7 @@ hrw:ExistingPeoplePreAssertionsConstructQuery
 		   PREFIX owl: <http://www.w3.org/2002/07/owl#>
 		   PREFIX hr: <http://vitro.mannlib.cornell.edu/ns/bjl23/hr/1#>
 		   PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-		   PREFIX hrb: <http://vitro.mannlib.cornell.edu/nseles/bjl23/hr/rules1#>
+		   PREFIX hrb: <http://vitro.mannlib.cornell.edu/ns/bjl23/hr/rules1#>
 		   CONSTRUCT {
 		   	     ?existingPerson ?p ?o .
 			     ?oo ?pp ?existingPerson
@@ -180,8 +180,11 @@ hrw:CornellemailnetIdConstructQuery
 		PREFIX hr: <http://vitro.mannlib.cornell.edu/ns/bjl23/hr/1#>
         PREFIX hrb: <http://vitro.mannlib.cornell.edu/ns/bjl23/hr/rules1#>
 		PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
+		PREFIX fn: <http://www.w3.org/2005/xpath-functions#>
 		CONSTRUCT  { ?ap vivo:CornellemailnetId ?netid }
-		WHERE { ?person hr:person_Netid ?netid .
+		WHERE { 
+		    ?person hr:person_Netid ?rawNetid .
+		    LET (?netid := fn:lower-case(?rawNetid))
 			?ap hrb:hasPerson ?person
 		 }
     " .
