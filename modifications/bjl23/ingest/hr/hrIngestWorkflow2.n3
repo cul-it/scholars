@@ -71,13 +71,13 @@ hrw:ExistingPeoplePreAssertionsConstructQuery
 			     ?s ?p ?o .
                  OPTIONAL {
 			         ?oo ?pp ?s .
+			         FILTER (!regex(str(?pp),\"http://vitro.mannlib.cornell.edu/ns/bjl23/hr/rules1#\"))
+			         FILTER (!regex(str(?pp),\"http://vitro.mannlib.cornell.edu/ns/bjl23/hr/1#\"))
                  }
 			     FILTER (!regex(str(?p),\"http://www.w3.org/2002/07/owl#\"))
 			     FILTER (!regex(str(?p),\"rdf-schema\"))
 			     FILTER (!regex(str(?p),\"http://vitro.mannlib.cornell.edu/ns/bjl23/hr/1#\"))
-			     FILTER (!regex(str(?pp),\"http://vitro.mannlib.cornell.edu/ns/bjl23/hr/1#\"))
 			     FILTER (!regex(str(?p),\"http://vitro.mannlib.cornell.edu/ns/bjl23/hr/rules1#\"))
-			     FILTER (!regex(str(?pp),\"http://vitro.mannlib.cornell.edu/ns/bjl23/hr/rules1#\"))
 			     FILTER (!regex(str(?o),\"http://vitro.mannlib.cornell.edu/ns/bjl23/hr/1#\"))
 			     FILTER (!regex(str(?o),\"http://vitro.mannlib.cornell.edu/ns/bjl23/hr/rules1#\"))
 		   }
