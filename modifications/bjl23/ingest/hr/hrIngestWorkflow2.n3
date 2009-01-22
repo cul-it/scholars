@@ -201,16 +201,18 @@ hrw:facultyMemberInConstructQuery
 			?p vivo:employeeOfAsAcademicFacultyMember ?dept .
 			?dept vivo:hasEmployeeAcademicFacultyMember ?p. }
 		WHERE { 
+		{
 			?j hr:job_JobFamilyLdesc \"Professorial\" .
         	?p hrb:hasJob ?j .
 			?j hr:job_Deptid ?code .
-		OPTIONAL {
 			?dept vivo:departmentHRcode ?code 
-		}	 
-		OPTIONAL {
+		} UNION
+			?j hr:job_JobFamilyLdesc \"Professorial\" .
+        	?p hrb:hasJob ?j .
+			?j hr:job_Deptid ?code .		
 			?dept vivo:activityHRcode ?code 
 		}
-		FILTER (bound(?dept))
+		
 		}
     " .
 
@@ -230,16 +232,18 @@ hrw:facultyAdminMemberInConstructQuery
 	     	 ?p rdf:type mann:CornellFaculty
 		}		
 		WHERE { 
-			?j hr:job_JobFamilyLdesc \"Academic Administrative\" .
-			?p hrb:hasJob ?j .
-			?j hr:job_Deptid ?code . 
-			OPTIONAL {
+		    {
+				?j hr:job_JobFamilyLdesc \"Academic Administrative\" .
+				?p hrb:hasJob ?j .
+				?j hr:job_Deptid ?code . 
 				?dept vivo:departmentHRcode ?code .
-			}	
-			OPTIONAL {
+			} UNION {
+				?j hr:job_JobFamilyLdesc \"Academic Administrative\" .
+				?p hrb:hasJob ?j .
+				?j hr:job_Deptid ?code . 
 				?dept vivo:activityHRcode ?code .
 			}
-			FILTER (bound(?dept))
+			
         } 
 
 	" .
@@ -304,16 +308,18 @@ CONSTRUCT  { ?p mann:employeeOfAsLibrarian ?dept .
              ?dept mann:hasEmployeeLibrarian ?p .
 	     ?p rdf:type mann:CornellLibrarian  		
 }
-WHERE { ?j hr:job_JobFamilyLdesc \"Library - Academic\" .
-	OPTIONAL {
+WHERE { 
+	{
+	    ?j hr:job_JobFamilyLdesc \"Library - Academic\" .
+	    ?p hrb:hasJob ?j .
+		?j hr:job_Deptid ?code .
 		?dept vivo:departmentHRcode ?code .
-	} 
-	OPTIONAL {
+	} UNION {
+	    ?j hr:job_JobFamilyLdesc \"Library - Academic\" .
+	    ?p hrb:hasJob ?j .
+		?j hr:job_Deptid ?code .
 		?dept vivo:activityHRcode ?code .
-	}
-	FILTER (bound(?dept))
-        ?p hrb:hasJob ?j .
-	?j hr:job_Deptid ?code . 
+	} 
 }
 	" .
 
