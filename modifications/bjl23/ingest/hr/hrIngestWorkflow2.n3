@@ -206,7 +206,7 @@ hrw:facultyMemberInConstructQuery
         	?p hrb:hasJob ?j .
 			?j hr:job_Deptid ?code .
 			?dept vivo:departmentHRcode ?code 
-		} UNION
+		} UNION {
 			?j hr:job_JobFamilyLdesc \"Professorial\" .
         	?p hrb:hasJob ?j .
 			?j hr:job_Deptid ?code .		
