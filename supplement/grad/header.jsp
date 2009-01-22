@@ -47,6 +47,10 @@
         <script src="/resources/js/websnapr.js" type="text/javascript"></script>
     </c:if>
     
+    <%-- <c:if test="${fn:contains(pageContext.request.servletPath, 'researchareas.jsp')}">
+        <script src="/resources/js/researchAreas.js" type="text/javascript"></script>
+    </c:if> --%>
+    
     <c:if test="${fn:contains(pageContext.request.servletPath, 'exhibit.jsp')}">
         <link rel="exhibit/data" href="data/exhibitData.jsp" type="application/json" />
         <link rel="stylesheet" href="/resources/css/exhibit.css" type="text/css" />
@@ -84,14 +88,15 @@
 				<ul id="navigation">
 					<li id="homeTab" <c:if test="${fn:contains(pageContext.request.servletPath, '/index.jsp')}">class="currentTab"</c:if>><a href="/" title="Home">Home</a></li>
 					<li <c:choose>
-					            <c:when test="${fn:contains(pageContext.request.servletPath, 'fieldsindex.jsp')}">class="currentTab"</c:when>
-					            <c:when test="${fn:contains(pageContext.request.servletPath, 'areas.jsp')}">class="currentTab"</c:when>
-					            <c:when test="${fn:contains(pageContext.request.servletPath, 'fields.jsp')}">class="currentTab"</c:when>
+					            <c:when test="${fn:contains(pageContext.request.servletPath, '/fieldsindex.jsp')}">class="currentTab"</c:when>
+					            <c:when test="${fn:contains(pageContext.request.servletPath, '/areas.jsp')}">class="currentTab"</c:when>
+					            <c:when test="${fn:contains(pageContext.request.servletPath, '/fields.jsp')}">class="currentTab"</c:when>
 					        </c:choose>><a href="/fieldsindex/" title="an index of graduate fields">Graduate Fields</a></li>
+                    <%-- <li <c:if test="${fn:contains(pageContext.request.servletPath, 'researchareas.jsp')}">class="currentTab" </c:if>><a href="/researchareas/" title="search by research area">Research Areas</a></li> --%>
 					<li <c:if test="${fn:contains(pageContext.request.servletPath, 'faculty.jsp')}">class="currentTab" </c:if>><a href="/faculty/" title="index of graduate faculty">Faculty</a></li>
                     <%-- <li <c:if test="${fn:contains(pageContext.request.servletPath, 'departments.jsp')}">class="currentTab" </c:if>><a href="/departments/" title="an index of departments">Departments</a></li> --%>
 					<li <c:if test="${fn:contains(pageContext.request.servletPath, 'facilities.jsp')}">class="currentTab" </c:if>><a href="/facilities/" title="life science research facilities">Research Facilities</a></li>
-					<li <c:if test="${fn:contains(pageContext.request.servletPath, 'search.jsp')}">class="currentTab" </c:if>><a href="/search/" title="search this site">Search</a></li>
+				    <li <c:if test="${fn:contains(pageContext.request.servletPath, 'search.jsp')}">class="currentTab" </c:if>><a href="/search/" title="search this site">Search</a></li>
 				</ul>
 		</div><!-- header -->
 		

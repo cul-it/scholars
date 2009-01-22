@@ -130,7 +130,6 @@
           WHERE {
               ?dept vivo:hasEmployeeAcademicFacultyMember ?personUri .
               ?personUri rdfs:label ?personLabel .
-
                   OPTIONAL { ?personUri vivo:memberOfGraduateField ?fieldUri . ?fieldUri rdf:type vivo:GraduateField . ?fieldUri vivo:associatedWith ?grouping . ?grouping rdf:type vivo:fieldCluster }
                   OPTIONAL { ?personUri vitro:imageThumb ?image }
                   OPTIONAL { ?personUri vitro:moniker ?moniker }
@@ -180,6 +179,11 @@
                                     <c:set var="linkTitle">${row.otherAnchor.string}</c:set>
                                     <c:set var="externalLinkClass" value='class="external"'/>
                                 </c:when>
+                                <c:when test="${empty row.grouping && empty row.otherURL && empty row.personLinkURL}">
+                                    <c:set var="personHref"></c:set>
+                                    <c:set var="linkTitle"></c:set>
+                                    <c:set var="externalLinkClass" value='class="external"'/>
+                                </c:when>
                                 <c:otherwise>
                                     <c:set var="facultyID" value="${fn:substringAfter(row.personUri,'#')}"/>
                                     <c:set var="personHref">
@@ -191,11 +195,25 @@
                             </c:choose>
                             
                             <c:choose>
-                                <c:when test="${!empty row.image.string}"><a href="${personHref}" title="${linkTitle}"><img width="25" alt="" src="${imageDir}${row.image.string}"/></a></c:when>
-                                <c:otherwise><a href="${personHref}" title="${linkTitle}"><img width="30" alt="" src="/resources/images/profile_missing.gif"/></a></c:otherwise>
+                                <c:when test="${!empty row.image.string && !empty personHref}">
+                                    <a href="${personHref}" title="${linkTitle}"><img width="30" alt="" src="${imageDir}${row.image.string}"/></a>
+                                    <a ${externalLinkClass} href="${personHref}" title="${linkTitle}">${row.personLabel.string}</a>
+                                </c:when>
+                                <c:when test="${empty row.image.string && !empty personHref}">
+                                    <a href="${personHref}" title="${linkTitle}"><img width="30" alt="" src="/resources/images/profile_missing.gif"/></a>
+                                    <a ${externalLinkClass} href="${personHref}" title="${linkTitle}">${row.personLabel.string}</a>
+                                </c:when>
+                                <c:when test="${!empty row.image.string && empty personHref}">
+                                    <img width="30" alt="" src="/resources/images/profile_missing.gif"/>
+                                    <span>${row.personLabel.string}</span>
+                                </c:when>
+                                <c:otherwise>
+                                    <img width="30" alt="" src="/resources/images/profile_missing.gif"/>
+                                    <span>${row.personLabel.string}</span>
+                                </c:otherwise>
                             </c:choose>
                             
-                            <a ${externalLinkClass} href="${personHref}" title="${linkTitle}">${row.personLabel.string}</a>
+                            
                             <%-- <c:if test="${row.personUri == param.deptHead}"> <em>&mdash; Dept Head</em></c:if> --%>
                             
                         </li>

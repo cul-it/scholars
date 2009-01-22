@@ -9,7 +9,7 @@
             <div id="content" class="span-15">
                 
                 <p>Graduate programs at Cornell are organized by Fields. The first step in applying is identifying a Field that best matches your academic goals.</p>
-                <p class="span-11">With over 30 Fields to choose from, let's narrow it down by selecting a broad interest...</p>
+                <p class="span-13">With over 30 Fields to choose from in the Life Sciences, let's narrow it down by selecting a broad interest...</p>
             
 				<ul class="groupings">
 	                <jsp:include page="part/groups_list.jsp"></jsp:include>

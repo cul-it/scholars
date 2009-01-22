@@ -159,10 +159,10 @@
         </li>
         
         <%-- then go through each additional link --%>
-        <c:forEach var="row" items="${rs}">
-        
+        <c:forEach var="row" items="${faculty}">
+            
             <%-- testing that this link hasn't already been generated already since the result set could have multiple rows with the same links --%>
-            <c:if test="${prevLink != row.otherLinkURL}">
+            <c:if test="${prevLink != row.otherLinkURL.string}">
             
                 <c:set var="otherLinkUrl"><str:decodeUrl>${row.otherLinkURL.string}</str:decodeUrl></c:set>
                 <c:set var="otherLinkAnchor">${row.otherLinkAnchor.string}</c:set>
@@ -177,7 +177,7 @@
                     </a>
                 </li>
             </c:if>
-            <c:set var="prevLink" value="${row.otherLinkURL}"/>
+            <c:set var="prevLink" value="${row.otherLinkURL.string}"/>
         </c:forEach>
     </ul>
     
@@ -185,7 +185,7 @@
         <c:choose>
             <c:when test="${!empty netid}"><c:set var="emailAddress">${netid}${'@cornell.edu'}</c:set></c:when>
             <c:when test="${!empty cornellEmail}"><c:set var="emailAddress">${cornellEmail}</c:set></c:when>
-            <c:when test="${!empty nonCornellEmail}"><c:set var="emailAddress">${nonCornellEmail}</c:set></c:when>
+            <c:when test="${!empty otherEmail}"><c:set var="emailAddress">${otherEmail}</c:set></c:when>
         </c:choose>
         <c:if test="${!empty (netid || cornellEmail || nonCornellEmail)}">
             <p class="separator"><strong class="heading">Email:</strong> <a href="mailto:${emailAddress}">${emailAddress}</a></p>
@@ -200,18 +200,18 @@
     </div>
     
     <%---------- DEPARTMENTS ----------%>
+    <c:import var="deptList" url="part/departments_list.jsp">
+        <c:param name="uri" value="${param.uri}"/>
+        <c:param name="type" value="person"/>
+    </c:import>
+    <c:if test="${!empty deptList}">
     <div id="departments" class="resourceBar-item last-item">
-        <c:import var="deptList" url="part/departments_list.jsp">
-            <c:param name="uri" value="${param.uri}"/>
-            <c:param name="type" value="person"/>
-        </c:import>
-        <c:if test="${!empty deptList}">
-            <h3 class="separator">Departments</h3>
-            <ul id="deptList">${deptList}</ul>
-        </c:if>
+        <h3 class="separator">Departments</h3>
+        <ul id="deptList">${deptList}</ul>
     </div>
+    </c:if>
     
-    <div class="bottom"></div> <%-- this div is necessary to cap the bottom of the sidebar --%>
+    <div class="bottom"></div> <%-- this empty div is necessary to cap the bottom of the sidebar --%>
 
 </div> <!-- sidebar -->
 
