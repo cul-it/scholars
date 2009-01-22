@@ -61,26 +61,25 @@ hrw:ExistingPeoplePreAssertionsConstructQuery
 		   PREFIX owl: <http://www.w3.org/2002/07/owl#>
 		   PREFIX hr: <http://vitro.mannlib.cornell.edu/ns/bjl23/hr/1#>
 		   PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-		   PREFIX hrb: <http://vitro.mannlib.cornell.edu/ns/bjl23/hr/rules1#>
+		   PREFIX hrb: <http://vitro.mannlib.cornell.edu/nseles/bjl23/hr/rules1#>
 		   CONSTRUCT {
 		   	     ?existingPerson ?p ?o .
 			     ?oo ?pp ?existingPerson
 		   } WHERE {
-		     	     ?s rdf:type hrb:Person .
+		     	 ?s rdf:type hrb:Person .
+		     	 ?s owl:sameAs ?existingPerson .
 			     ?s ?p ?o .
-                             OPTIONAL {
-			     ?oo ?pp ?s .
-                             }
-			     OPTIONAL {
-			     	      ?s owl:sameAs ?existingPerson
-			     }
-			     FILTER (bound(?existingPerson))
+                 OPTIONAL {
+			         ?oo ?pp ?s .
+                 }
 			     FILTER (!regex(str(?p),\"http://www.w3.org/2002/07/owl#\"))
+			     FILTER (!regex(str(?p),\"rdf-schema\"))
 			     FILTER (!regex(str(?p),\"http://vitro.mannlib.cornell.edu/ns/bjl23/hr/1#\"))
 			     FILTER (!regex(str(?pp),\"http://vitro.mannlib.cornell.edu/ns/bjl23/hr/1#\"))
 			     FILTER (!regex(str(?p),\"http://vitro.mannlib.cornell.edu/ns/bjl23/hr/rules1#\"))
 			     FILTER (!regex(str(?pp),\"http://vitro.mannlib.cornell.edu/ns/bjl23/hr/rules1#\"))
 			     FILTER (!regex(str(?o),\"http://vitro.mannlib.cornell.edu/ns/bjl23/hr/1#\"))
+			     FILTER (!regex(str(?o),\"http://vitro.mannlib.cornell.edu/ns/bjl23/hr/rules1#\"))
 		   }
 	" .
 
@@ -93,7 +92,7 @@ hrw:ExistingPeoplePreRetractionsConstruct1Query
 		   CONSTRUCT {
 		   	     ?existingPerson ?p ?o .
 			     ?existingPerson vitro:moniker ?moniker .
-				 ?existingPerson rdfs:label ?label
+				 #?existingPerson rdfs:label ?label
 		   } WHERE {
 		     	   ?s owl:sameAs ?existingPerson .
 			   OPTIONAL {
@@ -606,6 +605,7 @@ PREFIX hr: <http://vitro.mannlib.cornell.edu/ns/bjl23/hr/1#>
 PREFIX hrb: <http://vitro.mannlib.cornell.edu/ns/bjl23/hr/rules1#>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX chr: <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#>
+PREFIX fn: <http://www.w3.org/2005/xpath-functions#>
 
 CONSTRUCT  { 
 	?ap chr:emplId ?emplId .
@@ -629,7 +629,8 @@ WHERE {
 		?p hr:person_Emplid ?emplId 		
 	} 
 	OPTIONAL {
-		?p hr:person_Netid ?netId 
+		?p hr:person_Netid ?rawNetId .
+		LET (?netId := fn:lower-case(?rawNetId)) 
 	}
 	OPTIONAL {
 		?p hr:person_LastName ?lastName
