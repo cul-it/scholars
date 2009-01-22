@@ -195,7 +195,7 @@
 		model.add(additionsModel);
 	}
 
-	void runCsvIngest(File csvDir, Model tank) throws IOException, ParseException {
+	String runCsvIngest(File csvDir, Model tank) throws IOException, ParseException {
 		if (tank.supportsTransactions()) {
 			try {
 				tank.begin();
@@ -207,6 +207,7 @@
 			tank.removeAll((Resource)null,(Property)null,(RDFNode)null);
 		}
 		File[] filesInDir = csvDir.listFiles();
+		String dateStr = null;
 		for (int file=0; file<filesInDir.length; file++) {
 			File currentFile = filesInDir[file];
 			String filename = currentFile.getName();
@@ -219,7 +220,7 @@
 					String className = preextensionParts[preextensionParts.length-1];
 					// there's got to be a better way of using the regex pattern to extract the date.
 					String[] findDate = DATE_PATTERN.split(preextension);
-					String dateStr = preextension.substring(findDate[0].length(),findDate[0].length()+10);
+					dateStr = preextension.substring(findDate[0].length(),findDate[0].length()+10);
 					char[] quoteChars = {'"'};
 					Csv2Rdf csv2rdf = new Csv2Rdf(quoteChars, ABOX_NAMESPACE+dateStr+"/", TBOX_NAMESPACE, className);
 					FileInputStream fis = new FileInputStream(currentFile);
@@ -244,6 +245,7 @@
 		System.out.println("abstract persons made");
 		applyObjectPropertyConstruct(tank);
 		System.out.println("object properties constructed");
+		return dateStr;
 	}
 	
 	/**
@@ -261,14 +263,14 @@
 		StmtIterator stmtIt = res.listProperties();
 		while (stmtIt.hasNext()) {
 			Statement stmt = stmtIt.nextStatement();
-			if (!(stmt.getPredicate().getURI().equals(this.TBOX_NAMESPACE+"timestamp"))) {
-				tmp.add(stmt);
+			if ( (!(stmt.getPredicate().getURI().equals(this.TBOX_NAMESPACE+"timestamp"))) && (!(stmt.getPredicate().getURI().equals(this.TBOX_NAMESPACE+"currentAsOf"))) ) {
+				tmp.add(tmp.getResource("fake://forComparison/"),stmt.getPredicate(),stmt.getObject());
 			}
 		}
 		return tmp;
 	}
 	
-	private void tank2store(Model tank, Model store) {
+	private void tank2store(Model tank, Model store, String dateStr) throws ParseException {
 		// Iterate through all individuals in tank
 		OntModel tankOntModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM,tank);
 		OntModel storeOntModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM,store);
@@ -290,18 +292,25 @@
 							// only look at object properties
 							Resource newDataObject = (Resource) personDataStmt.getObject();
 							boolean newDataIsRedundant = false;
-							Iterator existingValuesIt = personInd.listPropertyValues(personDataStmt.getPredicate());
+							Resource redundantExistingResource = null;
+							Iterator existingValuesIt = storePerson.listPropertyValues(personDataStmt.getPredicate());
 							while (existingValuesIt.hasNext()) {
 								Resource existingDataObject = (Resource) existingValuesIt.next();  	 
 								if (similarResource(newDataObject,existingDataObject)) {
 									newDataIsRedundant = true;
+									redundantExistingResource = existingDataObject;
 								}
 							}
 							if (!newDataIsRedundant) {
 								storeOntModel.add(personDataStmt);
 								storeOntModel.add(newDataObject.listProperties() );
 							} else {
-								// TODO: mark existing data as current as of today's date 
+								Property currentAsOf = storeOntModel.getProperty(TBOX_NAMESPACE+"currentAsOf");
+								storeOntModel.removeAll(redundantExistingResource, currentAsOf, null);
+								Date date = xsdDateFormat.parse(dateStr);
+								String dateTimeLexicalForm = xsdDateTimeFormat.format(date);
+								storeOntModel.add(redundantExistingResource, currentAsOf, dateStr, XSDDatatype.XSDdateTime);
+								// mark existing data as current as of today's date 
 							}
 						}
 					}
@@ -314,6 +323,12 @@
 						if (personStmt.getObject().isResource()) {
 							Resource objRes = (Resource) personStmt.getObject();
 							storeOntModel.add(objRes.listProperties());
+							// stamp currentAsOf
+							Property currentAsOf = storeOntModel.getProperty(TBOX_NAMESPACE+"currentAsOf");
+							Date date = xsdDateFormat.parse(dateStr);
+							String dateTimeLexicalForm = xsdDateTimeFormat.format(date);
+							storeOntModel.add(objRes, currentAsOf, dateStr, XSDDatatype.XSDdateTime);
+							
 						}
 					}
 				}
@@ -328,6 +343,8 @@
 %>
 
 <%
+
+	System.out.println("incrementalIngestExec");
 
 	String retryPath = "./incrementalIngest.jsp";
 
@@ -346,9 +363,9 @@
 	    modelMaker = (modelMaker == null) ? (ModelMaker) getServletContext().getAttribute("vitroJenaModelMaker") : modelMaker;
 	    modelMaker = new VitroJenaModelMaker(modelMaker, request);
 	    Model tank = modelMaker.createModel(this.MODEL_NAME);
-		runCsvIngest(csvDir, tank);
+		String dateStr = runCsvIngest(csvDir, tank);
 		Model store = modelMaker.createModel(this.STORE_NAME);
-		tank2store(tank,store);
+		tank2store(tank,store,dateStr);
 	} catch (Exception e) {
 		response.sendRedirect(retryPath+"?errorMsg="+URLEncoder.encode(e.toString(),"UTF-8"));
 		return;
