@@ -194,7 +194,7 @@
                     <c:param name="tab" value="people"/>
                     <c:param name="netid" value="${netid}"/>
                 </c:url>
-                <%-- <p id="cornellContact">Complete contact information available <a title="cornell people page" href="${contactHref}">here</a></p> --%>
+                <p id="cornellContact"><a title="cornell people page" href="${contactHref}">Complete contact information</a></p>
             </c:if>
         </c:if>
     </div>

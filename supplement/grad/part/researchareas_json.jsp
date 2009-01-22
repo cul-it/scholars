@@ -12,20 +12,12 @@
     PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
     PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#> 
     SELECT DISTINCT ?areaUri ?areaLabel ?personUri ?personLabel
-    WHERE 
-    { 
-    ?personUri 
-    vivo:memberOfGraduateField 
-    ?field . 
-     
-    ?areaUri 
-    vivo:ResearchAreaOfPerson 
-    ?personUri . 
-     
-    OPTIONAL { ?areaUri rdfs:label ?areaLabel }
-    OPTIONAL { ?personUri rdfs:label ?personLabel }  
-    } 
-    ORDER BY ?areaLabel 
+    WHERE { 
+    ?personUri vivo:memberOfGraduateField ?field . 
+    ?areaUri vivo:ResearchAreaOfPerson ?personUri . 
+        OPTIONAL { ?areaUri rdfs:label ?areaLabel }
+        OPTIONAL { ?personUri rdfs:label ?personLabel }  
+    } ORDER BY ?areaLabel 
     LIMIT 2000
     </listsparql:select>
 </sparql:sparql>

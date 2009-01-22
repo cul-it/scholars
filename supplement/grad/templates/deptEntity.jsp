@@ -71,7 +71,7 @@
  </div>
  
 <div id="fields" class="section">
-    <h3>Fields where these faculty work:</h3>
+    <h3>Life Sciences Fields where these faculty work:</h3>
     <ul class="fields">
         <c:import url="part/fields_list.jsp">
             <c:param name="type" value="department"/>

@@ -6,6 +6,37 @@
 <%-- Given a faculty or field URI, get associated research areas --%>
 <%-- or given a field URI, get top 4 ranked research areas --%>
 
+<c:if test="${param.type == 'all'}">
+    <sparql:lock model="${applicationScope.jenaOntModel}">
+    <sparql:sparql>
+        <listsparql:select model="${applicationScope.jenaOntModel}" var="rs">
+          PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+          PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+          PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
+          SELECT DISTINCT ?areaUri ?areaLabel
+          WHERE {
+              ?group rdf:type vivo:fieldCluster .
+              ?group vivo:hasAssociated ?field .
+              ?field vivo:hasFieldMember ?personUri .
+              ?personUri vivo:PersonHasResearchArea ?areaUri .
+              ?areaUri rdfs:label ?areaLabel .
+          } ORDER BY ?areaLabel
+          LIMIT 1000
+        </listsparql:select>
+        
+            <c:set var="total" value="${fn:length(rs)}"/>
+        
+            <c:forEach items="${rs}" var="row">
+                <c:set var="areaID" value="${fn:substringAfter(row.areaUri,'#')}"/>
+                
+                <li><a href="${'#'}${areaID}">${row.areaLabel.string}</a></li>
+            </c:forEach>
+            
+            <li>Total: ${total}</li>
+    </sparql:sparql>
+    </sparql:lock>
+</c:if>
+
 <c:if test="${param.type == 'faculty'}">
     <sparql:lock model="${applicationScope.jenaOntModel}">
     <sparql:sparql>

@@ -5,29 +5,53 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://jakarta.apache.org/taglibs/string-1.1" prefix="str" %>
 
-<%-- Given a field or department URI, get a 3-column faculty list with thumbnails --%>
+<%-- Given a field, department, or field+researcharea URI, get a multi-column faculty list with thumbnails --%>
 
-<c:set var="imageDir" value="../images/" />
+<c:set var="imageDir" value="/../images/" />
 
 <c:if test="${param.type == 'field'}">
     <sparql:lock model="${applicationScope.jenaOntModel}">
     <sparql:sparql>
-        <listsparql:select model="${applicationScope.jenaOntModel}" var="rs" fieldUri="<${param.uri}>">
-          PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-          PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-          PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
-          PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
-          SELECT DISTINCT ?personUri ?personLabel ?image ?moniker
-          WHERE {
-              ?fieldUri vivo:hasFieldMember ?personUri .
-              ?personUri rdfs:label ?personLabel .
-                  OPTIONAL { ?personUri vitro:imageThumb ?image }
-                  OPTIONAL { ?personUri vitro:moniker ?moniker }
-        
-          FILTER (!regex(?moniker, "emeritus", "i"))
-          } ORDER BY ?personLabel
-          LIMIT 1000
-        </listsparql:select>
+    
+        <c:choose>
+            <c:when test="${param.filter == 'singleArea'}">
+                <listsparql:select model="${applicationScope.jenaOntModel}" var="rs" fieldUri="<${param.uri}>" areaUri="<${param.areaUri}>">
+                  PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+                  PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+                  PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
+                  PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
+                  SELECT DISTINCT ?personUri ?personLabel ?image ?moniker
+                  WHERE {
+                      ?fieldUri vivo:hasFieldMember ?personUri .
+                      ?personUri vivo:PersonHasResearchArea ?areaUri .
+                      ?personUri rdfs:label ?personLabel .
+                      ?personUri rdf:type vivo:FacultyMember .
+                          OPTIONAL { ?personUri vitro:imageThumb ?image }
+                          OPTIONAL { ?personUri vitro:moniker ?moniker }
+                  FILTER (!regex(?moniker, "emeritus", "i"))
+                  } ORDER BY ?personLabel
+                  LIMIT 1000
+                </listsparql:select>
+            </c:when>
+            <c:otherwise>
+                <listsparql:select model="${applicationScope.jenaOntModel}" var="rs" fieldUri="<${param.uri}>">
+                  PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+                  PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+                  PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
+                  PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
+                  SELECT DISTINCT ?personUri ?personLabel ?image ?moniker
+                  WHERE {
+                      ?fieldUri vivo:hasFieldMember ?personUri .
+                      ?personUri rdfs:label ?personLabel .
+                      ?personUri rdf:type vivo:FacultyMember .
+                          OPTIONAL { ?personUri vitro:imageThumb ?image }
+                          OPTIONAL { ?personUri vitro:moniker ?moniker }
+                  FILTER (!regex(?moniker, "emeritus", "i"))
+                  } ORDER BY ?personLabel
+                  LIMIT 1000
+                </listsparql:select>
+            </c:otherwise>
+        </c:choose>
 
         <c:set var="facultyTotal" value='${fn:length(rs)}' />
 
@@ -43,7 +67,10 @@
             </c:otherwise>
         </c:choose>
         
-        <ul class="facultyList span-7">
+        <c:if test="${param.visibility == 'show'}"><c:remove var="hiddenClass"/></c:if>
+        <c:if test="${param.visibility == 'hide'}"><c:set var="hiddenClass" value="hide"/></c:if>
+        
+        <ul class="facultyList span-7 ${hiddenClass}">
             <c:forEach items='${rs}' var="Faculty" begin="0" end="${colSize-1}">
                 <c:set var="facultyID" value="${fn:substringAfter(Faculty.personUri,'#')}"/>
                 <c:set var="facultyHref">
@@ -64,7 +91,7 @@
             </c:forEach>
         </ul>
     
-        <ul class="facultyList span-7">
+        <ul class="facultyList span-7 ${hiddenClass}">
             <c:forEach items='${rs}' var="Faculty" begin="${colSize}">
                 <c:set var="facultyID" value="${fn:substringAfter(Faculty.personUri,'#')}"/>
                 <c:set var="facultyHref">
@@ -179,25 +206,53 @@
                 </c:forEach>
             </ul>
             
-            <%----- COLUMN TWO -----%>
-            <%-- <c:if test="${(facultyTotal-(colSize-1)) gt 0 && facultyTotal gt 6}">
-                <ul class="facultyList span-7 last">
-                    <c:forEach items="${rs}" var="row" begin="${colSize}">
-                        <li>
-                            <c:choose>
-                                <c:when test="${!empty row.image.string}"><a href="/faculty/${facultyID}" title="view profile"><img width="25" alt="" src="${imageDir}${row.image.string}"/></a></c:when>
-                                <c:otherwise><a href="/faculty/${facultyID}" title="view profile"><img width="25" alt="" src="/resources/images/profile_missing.gif"/></a></c:otherwise>
-                            </c:choose>
-                            <c:set var="facultyID" value="${fn:substringAfter(row.personUri,'#')}"/>
-                            <a href="/faculty/${facultyID}" title="view profile">${row.personLabel.string}</a>
-                            <c:if test="${row.personUri == param.deptHead}"> (Department Head)</c:if>
-                        </li>
-                    </c:forEach>
-                </ul>
-            </c:if> --%>
-        
+    </sparql:sparql>
+    </sparql:lock>
+</c:if>
 
-            
+<c:if test="${param.type == 'researchare'}">
+    <sparql:lock model="${applicationScope.jenaOntModel}">
+    <sparql:sparql>
+    
+        <listsparql:select model="${applicationScope.jenaOntModel}" var="rs" fieldUri="<${param.uri}>" areaUri="<${param.areaUri}>">
+          PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+          PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+          PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
+          PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
+          SELECT DISTINCT ?personUri ?personLabel ?image ?moniker
+          WHERE {
+              ?fieldUri vivo:hasFieldMember ?personUri .
+              ?personUri vivo:PersonHasResearchArea ?areaUri .
+              ?personUri rdfs:label ?personLabel .
+                  OPTIONAL { ?personUri vitro:imageThumb ?image }
+                  OPTIONAL { ?personUri vitro:moniker ?moniker }
+          FILTER (!regex(?moniker, "emeritus", "i"))
+          } ORDER BY ?personLabel
+          LIMIT 1000
+        </listsparql:select>
+
+
+        <ul class="facultyList span-14 ${hiddenClass}">
+            <c:forEach items='${rs}' var="Faculty">
+                <c:set var="facultyID" value="${fn:substringAfter(Faculty.personUri,'#')}"/>
+                <c:set var="facultyHref">
+	                <c:import url="part/build_person_href.jsp"><c:param name="uri" value="${Faculty.personUri}"/></c:import>
+	            </c:set>
+                <li id="${facultyID}">
+                    <c:choose>
+                        <c:when test="${!empty Faculty.image.string}">
+                            <a href="${facultyHref}" title="view profile"><img width="44" alt="" src="${imageDir}${Faculty.image.string}"/></a>
+                        </c:when>
+                        <c:otherwise>
+                            <a href="${facultyHref}" title="view profile"><img width="44" alt="" src="/resources/images/profile_missing.gif"/></a>
+                        </c:otherwise>
+                    </c:choose>
+                    <strong><a href="${facultyHref}" title="view profile">${Faculty.personLabel.string}</a></strong>
+                    <em>${Faculty.moniker.string}</em>
+                </li>
+            </c:forEach>
+        </ul>
+
     </sparql:sparql>
     </sparql:lock>
 </c:if>

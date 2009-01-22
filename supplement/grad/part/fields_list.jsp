@@ -123,20 +123,31 @@
                 </c:otherwise>
             </c:choose>
             
-            <ul class="fields ungrouped">
-                <c:forEach items="${rs}" var="row" begin="0" end="${colSize - 1}">
-                    <c:set var="classForField" value="${fn:substringAfter(row.field,'#')}"/>
-                    <li><a href="/fields/${classForField}">${row.fieldLabel.string}</a></li>
-                </c:forEach>
-            </ul>
-            
-            <ul class="fields ungrouped">
-                <c:forEach items="${rs}" var="row" begin="${colSize}">
-                    <c:set var="classForField" value="${fn:substringAfter(row.field,'#')}"/>
-                    <li><a href="/fields/${classForField}">${row.fieldLabel.string}</a></li>
-                </c:forEach>
-            </ul>
-            
+            <c:choose>
+                <c:when test="${param.columns == 'yes'}">
+                    <ul class="fields ungrouped">
+                        <c:forEach items="${rs}" var="row" begin="0" end="${colSize - 1}">
+                            <c:set var="classForField" value="${fn:substringAfter(row.field,'#')}"/>
+                            <li><a href="/fields/${classForField}">${row.fieldLabel.string}</a></li>
+                        </c:forEach>
+                    </ul>
+                    <ul class="fields ungrouped">
+                        <c:forEach items="${rs}" var="row" begin="${colSize}">
+                            <c:set var="classForField" value="${fn:substringAfter(row.field,'#')}"/>
+                            <li><a href="/fields/${classForField}">${row.fieldLabel.string}</a></li>
+                        </c:forEach>
+                    </ul>
+                </c:when>
+                <c:otherwise>
+                <ul class="fields">
+                    <c:forEach items="${rs}" var="row">
+                        <c:set var="fieldID" value="${fn:substringAfter(row.field,'#')}"/>
+                        <li id="${fieldID}"><a href="/fields/${fieldID}">${row.fieldLabel.string}</a></li>
+                    </c:forEach>
+                </ul>
+                </c:otherwise>
+            </c:choose>
+     
     </sparql:sparql>
     </sparql:lock>
 </c:if>

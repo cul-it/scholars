@@ -58,8 +58,8 @@
                 <c:choose>
                     <c:when test="${param.list == 'alphabetical' || sorting == 'alphabetical'}">
                         <c:import url="part/fields_list.jsp">
-                            <c:param name="uri" value="${row.fieldClusterUri}"/>
                             <c:param name="type" value="all"/>
+                            <c:param name="columns" value="yes"/>
                         </c:import>
                     </c:when>
                     <c:otherwise>

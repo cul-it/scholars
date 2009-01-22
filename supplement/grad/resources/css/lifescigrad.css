@@ -78,7 +78,8 @@ body {
 .left {float: left;}
 .right {float: right;}
 
-
+#swapBox,
+#listBox {display:none;} /* these are divs used for JS to temporarily hold content*/
 
 /****************************************************************
 Global Properties
@@ -337,9 +338,54 @@ td.fields {
     margin-left: 50px;
 }
 
-#scrollBox a {color:#fff;}
+#scrollBox {
+    height: 40em;
+    background: #365253;
+    overflow-y: auto; 
+    overflow-x: hidden; 
+    margin-top: 0;
+    margin-right: 20px;
+    padding: 10px 0;
+}
 
-#scrollBox a.selected {color:#e3a8e5;}
+#scrollBox a {
+    display: block;
+    padding: 1px 20px;
+    color:#fff;
+}
+
+#scrollBox a.selected,
+#scrollBox a:hover  {background:#7C697D;}
+/*#scrollBox a:hover  {background:#e3a8e5;}*/
+
+#scrollBox ul {margin: 0;}
+
+#scrollBox li {list-style-type: none;}
+
+#statusBox {
+    padding: 10px;
+    margin-bottom: 30px;
+    background: #1A3E3F;
+}
+
+#statusBox p {margin: 0;}
+
+#toggleBox, #statusBox li, #statusBox li a:link, #statusBox li a:visited {color: #a3b4b5;}
+
+#statusBox a:hover, #statusBox a:active {color: #fff;}
+
+#statusBox a {text-decoration: underline;}
+
+#toggleBox {
+    clear: left;
+    color: #a3b4b5;
+    background: #1A3E3F;
+}
+
+#toggleBox p {
+    margin: 20px 0 0 0;
+    padding: 10px;
+}
 
 .facultyList li.selected {background: #735574;}
 
@@ -529,18 +575,15 @@ p#fullList a {font-weight: bold;}
     margin: 0 20px 10px 20px;
 }
 
-#fields #scrollBox {
+/*#fields #scrollBox {
     height: 40em;
     background: #365253;
     overflow: auto; 
     margin-top: 0;
     margin-right: 20px;
     padding: 10px 0;
-}
+}*/
 
-#fields #scrollBox ul {margin-left: 20px;}
-
-#fields #scrollBox li {list-style-type: none;}
 
 /*________ DEPARTMENTS ________*/
 
@@ -658,6 +701,27 @@ p#fullList a {font-weight: bold;}
     top: 10px;
     right: 20px;
 }
+
+#cornellContact {margin-top: 1em;}
+
+/*________ RESEARCH AREAS ________*/
+
+#researchareas .facultyList {
+    float: left;
+}
+
+#researchareas li {list-style-type: none;}
+
+#researchareas ul.fieldList {margin: 0;}
+
+
+#researchareas ul.selectedAreas {margin: .5em 0 0 0;}
+
+#researchareas ul.selectedAreas strong {color: #e3a8e5;}
+
+
+
+
 
 
 /*________ RESEARCH FACILITIES ________*/
@@ -891,7 +955,7 @@ Footer area
 #footer {
     clear: both;
 /*    height: 6em;*/
-    height: 70px;
+    height: 100px;
     color: #fff;
     background: #000;
     position: relative;
@@ -904,7 +968,7 @@ div.push {
 }
 
 #footer div {
-    width: 930px;
+    width: 954px;
     margin: 0 auto;
     color: #989898;
 }
