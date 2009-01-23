@@ -993,7 +993,7 @@ hrw:facultyAdminAppointmentConstruct
 	w:action [
 		 a w:SPARQLCONSTRUCTAction ;
 		 w:sourceModel hrw:WorkModel ;
-		 w:sourceModrl hrw:JenaOntModel ;
+		 w:sourceModel hrw:JenaOntModel ;
 		 w:destinationModel hrw:WorkModel ;
 		 w:sparqlQuery hrw:facultyAdminMemberInConstructQuery
 	] ;
