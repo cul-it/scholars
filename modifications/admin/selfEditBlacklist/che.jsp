@@ -1,18 +1,17 @@
 <%@ page import="edu.cornell.mannlib.vitro.webapp.auth.identifier.IdentifierBundle" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.auth.identifier.ServletIdentifierBundleFactory" %>
-<%@page import="edu.cornell.mannlib.vitro.webapp.auth.identifier.SelfEditingUriFactory"%>
+<%@page import="edu.cornell.mannlib.vitro.webapp.auth.identifier.SelfEditingIdentifierFactory"%>
 <%@page import="edu.cornell.mannlib.vitro.webapp.auth.identifier.Identifier"%>
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<%@page import="edu.cornell.mannlib.vitro.webapp.auth.identifier.NetIdIdentifierFactory"%>
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
 <%@ page errorPage="/error.jsp"%>
 
 <%
   IdentifierBundle ids =
         ServletIdentifierBundleFactory.getIdBundleForRequest(request,session,pageContext.getServletContext());    
-    SelfEditingUriFactory.SelfEditing selfEditingId =
-        SelfEditingUriFactory.getSelfEditingIdentifier(ids);
+    SelfEditingIdentifierFactory.SelfEditing selfEditingId =
+        SelfEditingIdentifierFactory.getSelfEditingIdentifier(ids);
 %>
 
 <jsp:include page="/edit/formPrefix.jsp"/>
