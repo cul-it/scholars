@@ -43,14 +43,14 @@
                 <p>Graduate education at Cornell is organized by Fields, which group faculty by common academic interest.  Almost all Fields have an administrative home in a department.  In some cases the faculty comprising the Field are virtually the same as those comprising the department. Generally each Field acts independently in graduate student admissions, e.g. recruiting, selecting, financing, and interviewing prospective students who visit Cornell, although in some cases Fields recruit together.</p>
                 <p>For more information visit the <a title="Cornell Graduate School Web site" href="http://www.gradschool.cornell.edu/index.php?p=9">Graduate School Web site</a></p>
 				
-				<div id="indexHeading">
+				<div class="headingBox">
     				<h2>Life Sciences Graduate Fields</h2>
     				<c:choose>
         				<c:when test="${param.list == 'alphabetical' || sorting == 'alphabetical'}">
-        				    <p>Listed alphabetically &mdash; show <a href="/fieldsindex/?list=grouped">grouped by subject area</a> instead</p>
+        				    <p>Listed alphabetically &mdash; show <a class="toggle" href="/fieldsindex/?list=grouped">grouped by subject area</a> instead</p>
         				</c:when>
         				<c:otherwise>
-        				    <p>Grouped by subject area &mdash; show <a href="/fieldsindex/?list=alphabetical">alphabetical list</a> instead</p>
+        				    <p>Grouped by subject area &mdash; show <a class="toggle" href="/fieldsindex/?list=alphabetical">alphabetical list</a> instead</p>
         				</c:otherwise>
     				</c:choose>
 				</div>

@@ -10,17 +10,19 @@
     <sparql:lock model="${applicationScope.jenaOntModel}">
     <sparql:sparql>
         <listsparql:select model="${applicationScope.jenaOntModel}" var="rs">
+          PREFIX fn:  <http://www.w3.org/2005/xpath-functions#>
           PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
           PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
           PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
           SELECT DISTINCT ?areaUri ?areaLabel
           WHERE {
-              ?group rdf:type vivo:fieldCluster .
-              ?group vivo:hasAssociated ?field .
-              ?field vivo:hasFieldMember ?personUri .
-              ?personUri vivo:PersonHasResearchArea ?areaUri .
-              ?areaUri rdfs:label ?areaLabel .
-          } ORDER BY ?areaLabel
+                  ?group rdf:type vivo:fieldCluster .
+                  ?group vivo:hasAssociated ?field .
+                  ?field vivo:hasFieldMember ?personUri .
+                  ?personUri vivo:PersonHasResearchArea ?areaUri .
+                  ?areaUri rdfs:label ?areaLabelRaw .
+                  LET (?areaLabel := str(?areaLabelRaw))
+              } ORDER BY fn:lower-case(?areaLabel)
           LIMIT 1000
         </listsparql:select>
         
@@ -29,10 +31,39 @@
             <c:forEach items="${rs}" var="row">
                 <c:set var="areaID" value="${fn:substringAfter(row.areaUri,'#')}"/>
                 
-                <li><a href="${'#'}${areaID}">${row.areaLabel.string}</a></li>
+                <li><a href="/researchareas/${areaID}">${row.areaLabel.string}</a></li>
             </c:forEach>
             
             <li>Total: ${total}</li>
+    </sparql:sparql>
+    </sparql:lock>
+</c:if>
+
+<c:if test="${param.type == 'all-menu'}">
+    <sparql:lock model="${applicationScope.jenaOntModel}">
+    <sparql:sparql>
+        <listsparql:select model="${applicationScope.jenaOntModel}" var="rs">
+          PREFIX fn:  <http://www.w3.org/2005/xpath-functions#>
+          PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+          PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+          PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
+          SELECT DISTINCT ?areaUri ?areaLabel
+          WHERE {
+                  ?group rdf:type vivo:fieldCluster .
+                  ?group vivo:hasAssociated ?field .
+                  ?field vivo:hasFieldMember ?personUri .
+                  ?personUri vivo:PersonHasResearchArea ?areaUri .
+                  ?areaUri rdfs:label ?areaLabelRaw .
+                  LET (?areaLabel := str(?areaLabelRaw))
+              } ORDER BY fn:lower-case(?areaLabel)
+          LIMIT 1000
+        </listsparql:select>
+        
+            <c:forEach items="${rs}" var="row">
+                <c:set var="areaID" value="${fn:substringAfter(row.areaUri,'#')}"/>
+                <option value="${areaID}">${row.areaLabel.string}</option>
+            </c:forEach>
+            
     </sparql:sparql>
     </sparql:lock>
 </c:if>
@@ -63,20 +94,22 @@
     <sparql:lock model="${applicationScope.jenaOntModel}">
     <sparql:sparql>
         <listsparql:select model="${applicationScope.jenaOntModel}" var="rs" fieldUri="<${param.uri}>">
+          PREFIX fn:  <http://www.w3.org/2005/xpath-functions#>
           PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
           PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
           SELECT DISTINCT ?areaUri ?areaLabel
           WHERE {
               ?fieldUri vivo:hasFieldMember ?facultyUri .
               ?facultyUri vivo:PersonHasResearchArea ?areaUri .
-              ?areaUri rdfs:label ?areaLabel .
-          } ORDER BY ?areaLabel
+              ?areaUri rdfs:label ?areaLabelRaw .
+              LET (?areaLabel := str(?areaLabelRaw))
+              } ORDER BY fn:lower-case(?areaLabel)
           LIMIT 200
         </listsparql:select>
 
             <c:forEach items="${rs}" var="row">
                 <c:set var="areaID" value="${fn:substringAfter(row.areaUri,'#')}"/>
-                <li id="${areaID}"><a href="#">${row.areaLabel.string}</a></li>
+                <li id="${areaID}"><a href="/researchareas/${areaID}">${row.areaLabel.string}</a></li>
             </c:forEach>
         
     </sparql:sparql>

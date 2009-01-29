@@ -31,32 +31,24 @@
 	    </c:choose>
 	</title>
 	
-	<link rel="shortcut icon" href="resources/images/icons/favicon.ico"/>
+	<link rel="shortcut icon" href="/resources/images/icons/favicon.ico"/>
 	<link rel="stylesheet" href="/resources/css/screen.css" type="text/css" media="screen" />
     <%-- <link rel="stylesheet" href="/resources/blueprint/print.css" type="text/css" media="print" /> --%>
 	
-    <%-- <link rel="stylesheet" href="/js/niftyCorners.css" type="text/css" /> --%>
-    <%-- <script type="text/javascript" src="/js/niftycube.js"></script>
-    <script type="text/javascript" src="/resources/js/niftyConfig.js"></script>--%>
     <script type="text/javascript" src="/js/jquery.js"></script>
-    <script type="text/javascript" src="/js/jquery_plugins/getURLParam.js"></script>
-    <script type="text/javascript" src="/js/jquery_plugins/jquery.hoverIntent.minified.js"></script>
 
     <c:if test="${fn:contains(pageContext.request.servletPath, 'departments.jsp')}">
         <link rel="stylesheet" href="/resources/css/websnapr.css" type="text/css" />
         <script src="/resources/js/websnapr.js" type="text/javascript"></script>
     </c:if>
     
-    <%-- <c:if test="${fn:contains(pageContext.request.servletPath, 'researchareas.jsp')}">
+    <c:if test="${fn:contains(pageContext.request.servletPath, 'researchareas.jsp')}">
+        <script type="text/javascript" src="/js/jquery_plugins/jquery.cluetip.js"></script>
+        <script type="text/javascript" src="/js/jquery_plugins/jquery.hoverIntent.minified.js"></script>
         <script src="/resources/js/researchAreas.js" type="text/javascript"></script>
-    </c:if> --%>
-    
-    <c:if test="${fn:contains(pageContext.request.servletPath, 'exhibit.jsp')}">
-        <link rel="exhibit/data" href="data/exhibitData.jsp" type="application/json" />
-        <link rel="stylesheet" href="/resources/css/exhibit.css" type="text/css" />
-        <script src="exhibit/src/webapp/api/exhibit-api.js" type="text/javascript"></script>
+        <link rel="stylesheet" href="/resources/css/jquery.cluetip.css" type="text/css" />
     </c:if>
-
+    
     <c:if test="${fn:contains(pageContext.request.servletPath, 'feedback.jsp')}">
         <script type="text/javascript" src="/js/jquery_plugins/jquery.validate.min.js"></script> <%-- IE6 was giving errors with the packed version of this plugin --%>
         <script type="text/javascript" src="/js/jquery_plugins/jquery.form.js"></script>
@@ -92,10 +84,10 @@
 					            <c:when test="${fn:contains(pageContext.request.servletPath, '/areas.jsp')}">class="currentTab"</c:when>
 					            <c:when test="${fn:contains(pageContext.request.servletPath, '/fields.jsp')}">class="currentTab"</c:when>
 					        </c:choose>><a href="/fieldsindex/" title="an index of graduate fields">Graduate Fields</a></li>
-                    <%-- <li <c:if test="${fn:contains(pageContext.request.servletPath, 'researchareas.jsp')}">class="currentTab" </c:if>><a href="/researchareas/" title="search by research area">Research Areas</a></li> --%>
+                    <li <c:if test="${fn:contains(pageContext.request.servletPath, 'researchareas.jsp')}">class="currentTab" </c:if>><a href="/researchareas/" title="browse by research area">Research Areas</a></li>
 					<li <c:if test="${fn:contains(pageContext.request.servletPath, 'faculty.jsp')}">class="currentTab" </c:if>><a href="/faculty/" title="index of graduate faculty">Faculty</a></li>
                     <%-- <li <c:if test="${fn:contains(pageContext.request.servletPath, 'departments.jsp')}">class="currentTab" </c:if>><a href="/departments/" title="an index of departments">Departments</a></li> --%>
-					<li <c:if test="${fn:contains(pageContext.request.servletPath, 'facilities.jsp')}">class="currentTab" </c:if>><a href="/facilities/" title="life science research facilities">Research Facilities</a></li>
+					<li <c:if test="${fn:contains(pageContext.request.servletPath, 'facilities.jsp')}">class="currentTab" </c:if>><a href="/facilities/" title="life science research facilities">Facilities</a></li>
 				    <li <c:if test="${fn:contains(pageContext.request.servletPath, 'search.jsp')}">class="currentTab" </c:if>><a href="/search/" title="search this site">Search</a></li>
 				</ul>
 		</div><!-- header -->

@@ -113,12 +113,27 @@
         </c:import>
         
         <c:if test="${!empty researchAreas}">
+            <div class="span-7">
             <h3>Primary Research Areas</h3> 
             <ul>${researchAreas}</ul>
+            </div>
         </c:if>
         
+        <%---------- GRADUATE FIELDS ----------%>
+        <c:import var="gradFields" url="part/fields_list.jsp">
+            <c:param name="uri" value="${param.uri}"/>
+            <c:param name="type" value="faculty"/>
+        </c:import>
+        
+        <div class="span-7">
+            <h3>Graduate Fields</h3>
+            <ul class="fields">${gradFields}</ul>
+        </div>
+        
         <c:if test="${!empty researchFocus}">
-            <h3>Research Focus</h3> ${researchFocus}
+            <div class="clear">
+                <h3>Research Focus</h3> ${researchFocus}
+            </div>
         </c:if>
         
         <c:if test="${empty researchFocus && !empty overviewStatement}">
@@ -129,14 +144,7 @@
             <div class="description"><h4>Educational Background:</h4>${background}</div>
         </c:if> --%>
         
-        <%---------- GRADUATE FIELDS ----------%>
-        <c:import var="gradFields" url="part/fields_list.jsp">
-            <c:param name="uri" value="${param.uri}"/>
-            <c:param name="type" value="faculty"/>
-        </c:import>
 
-        <h3>Graduate Fields</h3>
-        <ul class="fields">${gradFields}</ul>
         
 </div><!-- overview -->
 

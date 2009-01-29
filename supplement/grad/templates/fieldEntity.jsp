@@ -159,13 +159,13 @@
         ${facultyList}
         
             <%---------- RESEARCH AREAS ----------%>   
-            <div id="researchAreas" class="span-8 last">
+            <div id="areaList" class="span-8 last">
                  <c:import var="researchAreas" url="part/researchareas_list.jsp">
                     <c:param name="uri" value="${param.uri}"/>
                     <c:param name="type" value="field"/>
                 </c:import>
                 <h3>Research Areas</h3>
-                <em>Select areas to highlight participating faculty</em>
+                <p><em class="hide">Select areas to highlight participating faculty</em></p>
                 <div id="scrollBox">
                     <c:if test="${!empty researchAreas}">
                         <ul class="researchAreaList">${researchAreas}</ul>

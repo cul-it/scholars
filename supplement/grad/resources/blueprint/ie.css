@@ -38,8 +38,7 @@ fieldset {padding-top:0;}
 * +html .section {padding-top:20px;}
 
 /*since IE6 won't support min-height*/
-/** html #helpfulPages {height: 350px;}*/
-* html #helpfulPages {height: 500px;}
+* html #helpfulPages {height: 380px;}
 
 
 * html h2.individual31915 { background: url(../images/icons/big/bigicon-applied_bio.gif) no-repeat left top !important;}
@@ -48,3 +47,16 @@ fieldset {padding-top:0;}
 * html h2.individual31917 { background: url(../images/icons/big/bigicon-genetics.gif) no-repeat left top !important; }
 * html h2.individual31916 { background: url(../images/icons/big/bigicon-molecbio.gif) no-repeat left top !important; }
 * html h2.individual31920 { background: url(../images/icons/big/bigicon-physchem.gif) no-repeat left top !important; }
+
+* html #researchareas #areaList {
+    margin-left: 0;
+    position: relative;
+    left: -20px;
+    padding-bottom: 30px;
+}
+
+* html #researchareas #scrollBox,
+* html #researchareas #statusBox {margin-right: 20px; position:relative;}
+
+* html #researchareas div.bottom {display: none;}
+* html #researchareas a.toggle {color: #a3b4b5;}

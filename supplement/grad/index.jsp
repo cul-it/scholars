@@ -23,23 +23,22 @@
       
             <div id="sidebar" class="span-8 last">
                 
-                <%-- <div id="researchAreas">
+                <div id="researchAreas">
                     <h2>Have a research area in mind?</h2>
-                    <select id="research-areas">
-                        <option value="">agroforestry</option>
-                        <option value="">agroforestry</option>
-                        <option value="">agroforestry</option>
-                        <option value="">agroforestry</option>
-                        <option value="">agroforestry</option>
-                        <option value="">agroforestry</option>
-                        <option value="">agroforestry</option>
-                        <option value="">agroforestry</option>
-                    </select>
-                    <input type="submit" id="research-area-submit" name="submit" value="go" />
-                </div> --%>
+                    <form name="findresearch" action="/researchareas/" method="get"> 
+                        <select id="research-areas-menu" name="uri">
+                            <option>--- try one ---</option>
+                                <jsp:include page="part/researchareas_list.jsp">
+                                    <jsp:param name="type" value="all-menu"/>
+                                </jsp:include>
+                        </select>
+                        <input type="hidden" name="home" value="true"/>
+                        <input type="submit" id="research-area-submit" value="go" />
+                    </form>
+                </div>
 				
                 <div id="searchBox">
-                    <form name="findresearch" action="search.jsp" method="get"> 
+                    <form name="findresearch" action="/search/" method="get"> 
                         <h2><label for="search-form-query">Search this site</label></h2>
                         <input type="text" id="search-form-query" name="query" value="" size="26" />
                         <input type="submit" id="search-form-submit" name="submit" value="go" />

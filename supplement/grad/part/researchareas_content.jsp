@@ -19,7 +19,7 @@
 <c:if test="${param.showfaculty == 'yes'}"><c:set var="facultyVisibility" value="show"/></c:if>
 <c:if test="${param.showfaculty == 'no'}"><c:set var="facultyVisibility" value="hide"/></c:if>
 
-<c:if test="${param.type == 'singleArea' && !empty fullURI}">
+<c:if test="${!empty fullURI}">
 <c:catch var="pageError">
 
     <sparql:lock model="${applicationScope.jenaOntModel}">
@@ -29,47 +29,55 @@
               PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
               PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
               PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
-              SELECT DISTINCT ?fieldUri ?fieldLabel ?personUri ?personLabel
+              SELECT DISTINCT ?fieldUri ?fieldLabel (count(DISTINCT ?personUri) AS ?count)
               WHERE {
                   ?areaUri vivo:ResearchAreaOfPerson ?personUri .
                   ?personUri vivo:memberOfGraduateField ?fieldUri .
+                  ?personUri rdf:type vivo:FacultyMember .
                   ?fieldUri vivo:associatedWith ?groupUri .
                   ?groupUri rdf:type vivo:fieldCluster .
-                      OPTIONAL { ?areaUri rdfs:label ?areaLabel }
                       OPTIONAL { ?fieldUri rdfs:label ?fieldLabel }
-                      OPTIONAL { ?personUri rdfs:label ?personLabel }
-              } ORDER BY ?fieldLabel ?personLabel
+                      OPTIONAL { ?personUri vitro:moniker ?moniker }
+                  FILTER (!regex(?moniker, "emeritus", "i"))
+              }
+              GROUP BY ?fieldUri ?fieldLabel
+              ORDER BY desc(?count)
               LIMIT 1000
             </listsparql:select>
-            
-    <h3>Applicable Fields</h3>
+    
+    <div class="headingBox">
+        <h3>Applicable Graduate Fields</h3>
+        <c:if test="${facultyVisibility == 'hide'}">
+            <p><a class="toggle showThem" href="/researchareas/${param.id}/showfaculty">Show faculty</a></p>
+        </c:if>
+        <c:if test="${facultyVisibility == 'show'}">
+            <p><a class="toggle hideThem" href="/researchareas/${param.id}">Hide faculty</a></p>
+        </c:if>
+    </div>
     
     <ul class="fieldList">
         <c:forEach items="${rs}" var="row">
-            <c:if test="${row.fieldUri != thisField}">
                 <c:set var="thisField" value="${row.fieldUri}"/>
                     <c:set var="fieldID" value="${fn:substringAfter(row.fieldUri,'#')}"/>
                     <li class="${fieldID}">
-                        <h3 class="fields clear"><a href="/fields/${fieldID}">${row.fieldLabel.string}</a></h3>
+                        <h4 class="fields"><a href="/fields/${fieldID}">${row.fieldLabel.string}</a></h4>
                         <c:import url="part/faculty_list.jsp">
-                            <c:param name="type" value="field"/>
-                            <c:param name="uri" value="${row.fieldUri}"/>
-                            <c:param name="filter" value="singleArea"/>
+                            <c:param name="type" value="singleArea"/>
+                            <c:param name="field" value="${row.fieldUri}"/>
                             <c:param name="areaUri" value="${fullURI}"/>
                             <c:param name="visibility" value="${facultyVisibility}"/>
                         </c:import>
                     </li>
-            </c:if>
         </c:forEach>
     </ul>
-    <div id="toggleBox">
+    <%-- <div id="toggleBox">
         <c:if test="${facultyVisibility == 'hide'}">
             <p><a class="showThem" href="/researchareas/${param.id}/showfaculty">Show the faculty</a> in each Field who focus on this type of research</p>
         </c:if>
         <c:if test="${facultyVisibility == 'show'}">
             <p><a class="hideThem" href="/researchareas/${param.id}">Hide the faculty lists</a></p>
         </c:if>
-    </div>
+    </div> --%>
     </sparql:sparql>
     </sparql:lock>
     

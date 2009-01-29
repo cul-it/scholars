@@ -2,6 +2,8 @@
 $(document).ready(function() {
 if ($("body").attr("id") == "fields") {
         
+    $("#areaList em.hide").show(); // text describing shift-click functions
+    
     // Toggle Links
     $("body#fields span.toggleLink").click(function () {
         $("div.readMore").slideToggle("medium");
@@ -12,7 +14,7 @@ if ($("body").attr("id") == "fields") {
     // Highlighting faculty members by research rrea
     // var parameter = $.getURLParam("uri");
 	var parameter = $("meta[name='uri']").attr("content");
-    var jsonLink = "/data/researchAreas.jsp" + "?uri=" + parameter;
+    var jsonLink = "/data/researchareas_json.jsp" + "?uri=" + parameter;
     
     $.getJSON(jsonLink, function(json) {
         $("#scrollBox li a").click(function(){

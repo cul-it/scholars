@@ -7,7 +7,7 @@
 /*
 Title:      Life Sciences Graduate Portal screen styles
 Author:     mw542@cornell.edu
-Updated:    June 6, 2008
+Updated:    January 29, 2009
 */
 
 
@@ -235,13 +235,18 @@ td.fields {
     padding-top: 40px;
 }
 
+.bump {
+    clear: left;
+    padding-top: 20px;
+}
+
 #content div.resourceBar,
-#fields div#researchAreas {float:right;} /* overriding blueprint floats */
+#fields div#areaList {float:right;} /* overriding blueprint floats */
 
 .resourceBar {
     padding-top: 25px;
 /*    margin-left: 20px;*/
-    background: url(../images/layout/bg_sidebar_rounded-top.gif) top left no-repeat;
+    background: url(../images/layout/bg_sidebar_right-top.gif) top left no-repeat;
 }
 
 .resourceBar h3 {
@@ -297,7 +302,7 @@ td.fields {
 
 .bottom { /* this div controls the bottom cap on the sidebar */
     clear: left;
-    background: url(../images/layout/bg_sidebar_rounded-bottom.gif) bottom left no-repeat;
+    background: url(../images/layout/bg_sidebar_right-bottom.gif) bottom left no-repeat;
 /*    margin-bottom: -12px;*/
     position: relative;
     bottom: -12px;
@@ -336,11 +341,26 @@ td.fields {
 .facultyList li em {
     display: block;
     margin-left: 50px;
+    font-size: 0.917em;
+    line-height: 1.2em;
 }
 
+.fieldList {margin: 0;}
+
+.fieldList h4 {
+    clear: left;
+    padding-top: .6em;
+    margin-bottom: .5em;
+    font-size: 1.333em;
+/*    font-size: 1.167em;*/
+}
+
+.fieldList li {margin-bottom: 5px;}
+
 #scrollBox {
-    height: 40em;
+    height: 35em;
     background: #365253;
+    overflow: hidden;
     overflow-y: auto; 
     overflow-x: hidden; 
     margin-top: 0;
@@ -348,33 +368,60 @@ td.fields {
     padding: 10px 0;
 }
 
-#scrollBox a {
-    display: block;
-    padding: 1px 20px;
-    color:#fff;
+a.toggle {
+/*    font-weight: bold;*/
+    text-decoration: underline;
+    color: #a3b4b5;
 }
 
+a.toggle:hover, a.toggle:active { color: #C6E2E3; }
+
+#scrollBox a {
+    display: block;
+    padding: 4px 20px;
+    color:#fff;
+/*    text-indent: -2px;*/
+    line-height: 1.1em;
+}
+
+#scrollBox a:hover {background:#4A5B5B;}
+
 #scrollBox a.selected,
-#scrollBox a:hover  {background:#7C697D;}
+#scrollBox a.selected:hover {background:#7C697D;}
 /*#scrollBox a:hover  {background:#e3a8e5;}*/
 
 #scrollBox ul {margin: 0;}
 
-#scrollBox li {list-style-type: none;}
-
-#statusBox {
-    padding: 10px;
-    margin-bottom: 30px;
-    background: #1A3E3F;
+#scrollBox li {
+    list-style-type: none;
+    display:inline;
+/*    margin-bottom: .4em;*/
 }
 
-#statusBox p {margin: 0;}
+#statusBox {
+    padding: 12px 20px 10px 18px;
+/*    margin-bottom: 30px;*/
+/*    background: #1A3E3F;*/
+    background: #183A3B;
+    color: #a3b4b5;
+    border: 1px solid #365253;
+    border-bottom: 0;
+}
 
-#toggleBox, #statusBox li, #statusBox li a:link, #statusBox li a:visited {color: #a3b4b5;}
+#statusBox a.toggle {font-size: 0.917em;}
 
-#statusBox a:hover, #statusBox a:active {color: #fff;}
+#statusBox p {margin: 0 0 .3em 0;}
 
-#statusBox a {text-decoration: underline;}
+#statusBox li {
+    line-height: 1.2em;
+    margin-bottom: .4em;
+}
+
+#statusBox.empty {
+    display:none;
+/*    background: none;*/
+/*    border: 0;*/
+}
 
 #toggleBox {
     clear: left;
@@ -387,7 +434,30 @@ td.fields {
     padding: 10px;
 }
 
-.facultyList li.selected {background: #735574;}
+.headingBox {
+    clear: left;
+    height: 2em;
+    margin: 20px 0;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #2e4849;
+}
+
+.headingBox h2,
+.headingBox h3 {
+    float: left;
+    line-height: 1.5em;
+}
+
+.headingBox p { 
+    margin-top: 0.5em;
+    margin-bottom: 0;
+    float: right;
+    color: #a3b4b5;
+/*    font-size: 0.917em;*/
+}
+
+
+.facultyList li.selected {background: #7C697D;}
 
 .deptList {
     color: #A3B4B5;
@@ -430,6 +500,17 @@ img.profile {
     margin-bottom: 1em;
 }
 
+.loading {
+    padding: 50px 100px;
+    text-align: center;
+}
+
+.undo {
+/*    font-weight: bold;*/
+    text-decoration: underline;
+}
+
+
 /****************************************************************
 Page-specific Properties      (usually in order of appearance)
 ****************************************************************/
@@ -447,8 +528,7 @@ Page-specific Properties      (usually in order of appearance)
 }
 
 #home div#helpfulPages {
-/*    min-height: 290px;*/
-    min-height: 435px; /* temporary for page missing research areas box */
+    min-height: 290px;
     margin-bottom: 0;
 }
 
@@ -490,21 +570,12 @@ p#fullList a {font-weight: bold;}
     border: 0;
 }
 
+#home select {
+    width: 190px;
+}
+
 /*________ FIELDS INDEX ________*/
-#indexHeading {
-    height: 2em;
-    margin: 40px 0 20px 0;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #2e4849;
-}
 
-#indexHeading h2 {float: left;}
-
-#indexHeading p { 
-    margin-top: 0.5em;
-    margin-bottom: 0;
-    float: right;
-}
 
 #fieldsindex h3 {
     line-height: 1.5em;
@@ -555,21 +626,21 @@ p#fullList a {font-weight: bold;}
     border-bottom: 3px solid #224647;
 }
 
-#fields #researchAreas {
+#fields #areaList {
     background: #224647;
     margin-top: -1.5em;
 /*    margin-left: 10px;*/
 /*    margin-left: 60px;*/
-    background: url(../images/layout/bg_sidebar_rounded-middle.gif) top left repeat-y;
+    background: url(../images/layout/bg_sidebar_right-middle.gif) top left repeat-y;
 }
 
-#fields #researchAreas h3 {
+#fields #areaList h3 {
     border: 0;
     color: #a3b4b5;
     margin: 20px 20px 5px 20px;
 }
 
-#fields #researchAreas em {
+#fields #areaList em {
     display: block;
     color: #a3b4b5;
     margin: 0 20px 10px 20px;
@@ -683,7 +754,8 @@ p#fullList a {font-weight: bold;}
 
 #faculty #overview h3 {
     font-size: 1.143em;
-    margin: 2em 0 .5em 0;
+    margin: 0 0 .5em 0;
+    padding-top: 1em;
 }
 
 #faculty ul.fields {font-weight:bold;}
@@ -706,23 +778,130 @@ p#fullList a {font-weight: bold;}
 
 /*________ RESEARCH AREAS ________*/
 
-#researchareas .facultyList {
-    float: left;
-}
+#researchareas #fields {padding-top: 22px;}
 
 #researchareas li {list-style-type: none;}
 
-#researchareas ul.fieldList {margin: 0;}
-
-
-#researchareas ul.selectedAreas {margin: .5em 0 0 0;}
+#researchareas ul.selectedAreas {margin: .1em 0 0 0;}
 
 #researchareas ul.selectedAreas strong {color: #e3a8e5;}
 
+#researchareas div.headingBox {
+    padding-bottom: 6px;
+    margin-top: 32px;
+}
 
+#researchareas ul.facultyList {
+    float: left;
+    margin-bottom: 10px;
+}
 
+#researchareas ul.facultyList img {
+    border: 0;
+    margin: 0;
+    padding:0;
+    float:none;
+}
 
+#researchareas ul.facultyList a.img {
+    border: 1px solid #A3B4B5;
+    background: #000;
+    display: block;
+    height: 43px;
+    width: 43px;
+    padding: 0;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
 
+#researchareas ul.facultyList li {
+    width: 260px;
+    height: 50px;
+    float: left;
+    margin-right: 10px;
+    clear: none;
+    position: relative;
+}
+
+#researchareas ul.facultyList strong,
+#researchareas ul.facultyList em { margin-left: 54px; }
+
+#researchareas #statusBox,
+#researchareas #scrollBox {margin-right: 40px;}
+
+#researchareas #areaList {
+    background: #224647;
+    margin: 0 10px 0 -20px;
+    padding: 20px 0 0 20px;
+    min-height: 400px;
+    background: url(../images/layout/bg_sidebar_left-top.gif) top left repeat-y;
+}
+
+#researchareas #areaList em.hide {
+    display: block;
+    margin: -1.5em 0 1.5em 0;
+    color:#A3B4B5;
+}
+
+#researchareas div.bottom {
+    background: url(../images/layout/bg_sidebar_left-bottom.gif) bottom left no-repeat;
+    margin-left: -20px;
+}
+
+#researchareas ul.fields li {
+    font-family: "Trebuchet MS", Helvetica, Arial, sans-serif;
+    font-weight: bold;
+/*    padding-top: .75em;*/
+    margin-bottom: .5em;
+    font-size: 1.333em;
+}
+
+#researchareas .description {
+    font-size: 1.167em;
+}
+
+/*#researchareas .description.short {
+    background: #224647;
+    padding: 20px;
+}
+*/
+#researchareas .description.short p {margin: 0;}
+
+#researchareas .cluetip-default {background-color: #365253;}
+
+#researchareas .cluetip-default img {
+    border: 1px solid #A3B4B5;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+#researchareas .cluetip-default h5 {
+    font-size: 1.333em;
+    margin-bottom: 1em;
+}
+
+#researchareas .cluetip-default strong {display: block; margin: 0 0 .5em 120px;}
+
+#researchareas .cluetip-default ul {margin-left: 135px;}
+
+#researchareas .cluetip-default li {list-style-type: disc;}
+
+#researchareas .cluetip-default #cluetip-outer {
+    background-color: #365253;
+    border: 2px solid #416365;
+}
+
+#researchareas .clueTipWrap {
+    position: relative;
+    min-height: 115px;
+}
+
+#researchareas .cluetip-default #cluetip-inner {
+  padding: 10px;
+}
 
 /*________ RESEARCH FACILITIES ________*/
 
@@ -955,7 +1134,7 @@ Footer area
 #footer {
     clear: both;
 /*    height: 6em;*/
-    height: 100px;
+    height: 70px;
     color: #fff;
     background: #000;
     position: relative;
@@ -1009,9 +1188,9 @@ Forms
 ****************************************************************/
 
 
-input#search-form-query, select#research-areas {background: #dedede;}
+input#search-form-query, select#research-areas-menu {background: #dedede;}
 
-select#research-areas {margin-bottom: 0;}
+select#research-areas-menu {margin-bottom: 0;}
 
 input#search-form-submit {line-height: 1.333em;}
 
