@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<project name="skel" default="defaultMessage" basedir=".">
+    
+    <target name="cloneTasks" >
+      <!-- This task is intended for clone specific code compliation or clone specific tasks. -->
+	</target>
+
+    <target name="defaultMessage">
+      <echo>
+        
+      </echo>
+    </target>
+</project>
