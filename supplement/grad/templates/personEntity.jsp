@@ -131,20 +131,23 @@
         </div>
         
         <c:if test="${!empty researchFocus}">
-            <div class="clear">
+            <div class="bump">
                 <h3>Research Focus</h3> ${researchFocus}
             </div>
         </c:if>
         
         <c:if test="${empty researchFocus && !empty overviewStatement}">
-            ${overviewStatement}
+            <div class="bump">
+                ${overviewStatement}
+            </div>
         </c:if>
         
-        <%-- <c:if test="${!empty background}">
-            <div class="description"><h4>Educational Background:</h4>${background}</div>
-        </c:if> --%>
+        <c:if test="${!empty background}">
+            <div class="bump">
+                <h3>Educational Background</h3> ${background}
+            </div>
+        </c:if>
         
-
         
 </div><!-- overview -->
 

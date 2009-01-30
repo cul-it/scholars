@@ -32,7 +32,7 @@
 
 <jsp:include page="header.jsp">
     <jsp:param name="bodyID" value="fieldsindex"/>
-    <jsp:param name="titleText" value="Index of Graduate Fields | Cornell University"/>
+    <jsp:param name="titleText" value="Life Sciences Graduate Fields | Cornell University"/>
 </jsp:include>
 		
 		<div id="contentWrap">

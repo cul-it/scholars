@@ -1,6 +1,6 @@
 // Graduate field pages
 $(document).ready(function() {
-if ($("body").attr("id") == "fields") {
+if ($("body").attr("id") == "XXXfields") {
         
     $("#areaList em.hide").show(); // text describing shift-click functions
     

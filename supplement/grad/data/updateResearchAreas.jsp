@@ -5,20 +5,10 @@
 <%@ taglib uri="http://mannlib.cornell.edu/vitro/ListSparqlTag/0.1/" prefix="listsparql" %>
 <%@ include file="../part/resources.jsp" %>
 
-<%@ page import="com.hp.hpl.jena.query.*" %>
-<%@ page import="com.hp.hpl.jena.rdf.model.Literal" %>
-<%@ page import="com.hp.hpl.jena.rdf.model.Model" %>
-<%@ page import="com.hp.hpl.jena.rdf.model.Resource" %>
-
-
 <c:catch var="pageError">
 
 <c:if test="${param.showall == 'true'}">
-    <%-- <h3>All Life Sciences Fields</h3>
-    <c:import url="../part/fields_list.jsp">
-        <c:param name="type" value="all"/>
-        <c:param name="columns" value="no"/>
-    </c:import> --%>
+
     <div class="description span-14">
         <p>This page lets you identify Graduate Fields that involve specific types of research. You can also find out which faculty are conducting that research.</p>
         <p>Try selecting an area from the list. Select more than one to find faculty conducting unique combinations of research.</p>
@@ -29,12 +19,6 @@
 
 <c:if test="${param.showall != 'true' && !empty param.areas}">
 
-    <%-- genomics, genetics,molecular biology, molecular genetics, ? --%>
-    <%-- <c:set var="areaParams" value="individual26133,individual26175,individual26176,individual26174,individual31543"/> --%>
-    <c:set var="imageDir" value="/images/" />
-
-    <%-- <h4>${param.areas}</h4> --%>
-    <%-- <c:set var="areaParams" value="individual26133,individual26175,individual26176,individual26174"/> --%>
     <c:set var="areaParams" value="${param.areas}"/>
     <c:set var="areaParams" value="${param.areas}"/>
     
@@ -64,18 +48,6 @@
         <c:when test="${!empty areaList[5]}"><c:set var="area6" value="${namespace}${areaList[5]}"/></c:when>
         <c:otherwise><c:set var="area6" value="${area1}"/></c:otherwise>
     </c:choose>
-
-    <%-- <h3>${areaList[0]}</h3>
-    <h3>${areaList[1]}</h3>
-    <h3>${areaList[2]}</h3>
-    <h3>${areaList[3]}</h3>
-    <h3>${areaList[4]}</h3>
-
-    <p>${area1}</p>
-    <p>${area2}</p>
-    <p>${area3}</p>
-    <p>${area4}</p>
-    <p>${area5}</p> --%>
 
         <sparql:lock model="${applicationScope.jenaOntModel}">
          <sparql:sparql>

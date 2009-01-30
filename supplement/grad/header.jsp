@@ -42,7 +42,7 @@
         <script src="/resources/js/websnapr.js" type="text/javascript"></script>
     </c:if>
     
-    <c:if test="${fn:contains(pageContext.request.servletPath, 'researchareas.jsp')}">
+    <c:if test="${fn:contains(pageContext.request.servletPath, 'researchareas.jsp') || fn:contains(pageContext.request.servletPath, 'fields.jsp')}">
         <script type="text/javascript" src="/js/jquery_plugins/jquery.cluetip.js"></script>
         <script type="text/javascript" src="/js/jquery_plugins/jquery.hoverIntent.minified.js"></script>
         <script src="/resources/js/researchAreas.js" type="text/javascript"></script>

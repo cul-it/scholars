@@ -28,8 +28,7 @@
               SELECT DISTINCT ?personLabel ?areaUri ?areaLabel ?image ?moniker
               WHERE {
                   ?personUri rdfs:label ?personLabel .
-                  ?personUri vivo:PersonHasResearchArea ?areaUri .
-                  ?areaUri rdfs:label ?areaLabel .
+                  OPTIONAL {?personUri vivo:PersonHasResearchArea ?areaUri . ?areaUri rdfs:label ?areaLabel }
                       OPTIONAL { ?personUri vitro:imageThumb ?image }
                       OPTIONAL { ?personUri vitro:moniker ?moniker }
               } ORDER BY ?areaLabel
@@ -55,13 +54,15 @@
             </c:otherwise>
         </c:choose>
     
-    <strong>Research Areas</strong>
-    <ul>
-        <c:forEach items='${rs}' var="row">
-            <c:set var="facultyID" value="${param.id}"/>
-            <li>${row.areaLabel.string}</li>
-        </c:forEach>
-    </ul>
+    <c:if test="${!empty rs[0].areaUri}">
+        <strong>Research Areas</strong>
+        <ul>
+            <c:forEach items='${rs}' var="row">
+                <c:set var="facultyID" value="${param.id}"/>
+                <li>${row.areaLabel.string}</li>
+            </c:forEach>
+        </ul>
+    </c:if>
     </div>
     </sparql:sparql>
     </sparql:lock>

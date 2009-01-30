@@ -97,12 +97,15 @@
           PREFIX fn:  <http://www.w3.org/2005/xpath-functions#>
           PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
           PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
+          PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
           SELECT DISTINCT ?areaUri ?areaLabel
           WHERE {
               ?fieldUri vivo:hasFieldMember ?facultyUri .
               ?facultyUri vivo:PersonHasResearchArea ?areaUri .
               ?areaUri rdfs:label ?areaLabelRaw .
+              OPTIONAL { ?facultyUri vitro:moniker ?moniker }
               LET (?areaLabel := str(?areaLabelRaw))
+              FILTER (!regex(?moniker, "emeritus", "i"))
               } ORDER BY fn:lower-case(?areaLabel)
           LIMIT 200
         </listsparql:select>

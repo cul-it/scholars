@@ -58,7 +58,8 @@
                     <div id="areaList" class="span-8 last">
                         
                         <h2>Research Areas</h2>
-                        <em class="hide">Hold shift to select multiple</em>
+                        <em>Hold shift to select multiple</em>
+                        <noscript><em>NOTE: You need to enable JavaScript in your browser to select multiple</em></noscript>
                         
                         <div>
                             <c:choose>

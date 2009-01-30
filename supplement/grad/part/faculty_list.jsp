@@ -4,6 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://jakarta.apache.org/taglibs/string-1.1" prefix="str" %>
+<%@ include file="resources.jsp" %>
 
 <%-- Given a field, department, or field+researcharea URI, get a multi-column faculty list with thumbnails --%>
 
@@ -26,6 +27,7 @@
                       ?personUri rdf:type vivo:FacultyMember .
                           OPTIONAL { ?personUri vitro:imageThumb ?image }
                           OPTIONAL { ?personUri vitro:moniker ?moniker }
+                  FILTER (!regex(?moniker, "emeritus", "i"))
                   } ORDER BY ?personLabel
                   LIMIT 1000
                 </listsparql:select>
@@ -51,47 +53,67 @@
         </c:choose>
         
         
-        <ul class="facultyList span-7 ${hiddenClass}">
-            <c:forEach items='${rs}' var="row" begin="0" end="${colSize-1}">
+        <ul class="facultyList span-15 ${hiddenClass}">
+            <c:forEach items='${rs}' var="row">
                 <c:set var="facultyID" value="${fn:substringAfter(row.personUri,'#')}"/>
                 <c:set var="facultyHref">
-	                <c:import url="part/build_person_href.jsp"><c:param name="uri" value="${row.personUri}"/></c:import>
+	                <c:choose>
+                        <c:when test="${fn:contains(row.personUri, namespace_hri3)}">
+                            <c:out value="/faculty/HRI3${fn:substringAfter(row.personUri,'#')}"/>
+                        </c:when>
+                        <c:when test="${fn:contains(row.personUri, namespace_hri2)}">
+                            <c:out value="/faculty/HRI2${fn:substringAfter(row.personUri,'#')}"/>
+                        </c:when>
+                        <c:otherwise>
+                            <c:out value="/faculty/${fn:substringAfter(row.personUri,'#')}"/>
+                        </c:otherwise>
+                    </c:choose>
 	            </c:set>
 	            <li id="${facultyID}">
                     <c:choose>
                         <c:when test="${!empty row.image.string}">
-                            <a class="img" href="${facultyHref}" title="view profile"><img width="44" alt="" src="${imageDir}${row.image.string}"/></a>
+                            <a class="img" href="${facultyHref}" rel="/data/facultyCluetip.jsp?id=${facultyID}"><img width="44" alt="" src="${imageDir}${row.image.string}"/></a>
                         </c:when>
                         <c:otherwise>
-                            <a class="img"href="${facultyHref}" title="view profile"><img width="44" alt="" src="/resources/images/profile_missing.gif"/></a>
+                            <a class="img"href="${facultyHref}" rel="/data/facultyCluetip.jsp?id=${facultyID}"><img width="44" alt="" src="/resources/images/profile_missing.gif"/></a>
                         </c:otherwise>
                     </c:choose>
-                    <strong><a href="${facultyHref}" title="view profile">${row.personLabel.string}</a></strong>
+                    <strong><a href="${facultyHref}" rel="/data/facultyCluetip.jsp?id=${facultyID}">${row.personLabel.string}</a></strong>
                     <em>${row.moniker.string}</em>
                 </li>
             </c:forEach>
         </ul>
     
-        <ul class="facultyList span-7 ${hiddenClass}">
-            <c:forEach items='${rs}' var="row" begin="${colSize}">
-                <c:set var="facultyID" value="${fn:substringAfter(row.personUri,'#')}"/>
-                <c:set var="facultyHref">
-	                <c:import url="part/build_person_href.jsp"><c:param name="uri" value="${row.personUri}"/></c:import>
-	            </c:set>
-	            <li id="${facultyID}">
-                    <c:choose>
-                        <c:when test="${!empty row.image.string}">
-                            <a class="img" href="${facultyHref}" title="view profile"><img width="44" alt="" src="${imageDir}${row.image.string}"/></a>
-                        </c:when>
-                        <c:otherwise>
-                            <a class="img" href="${facultyHref}" title="view profile"><img width="44" alt="" src="/resources/images/profile_missing.gif"/></a>
-                        </c:otherwise>
-                    </c:choose>
-                    <strong><a href="${facultyHref}" title="view profile">${row.personLabel.string}</a></strong>
-                    <em>${row.moniker.string}</em>
-                </li>
-            </c:forEach>
-        </ul>
+        <%-- <ul class="facultyList span-7 ${hiddenClass}">
+                    <c:forEach items='${rs}' var="row" begin="${colSize}">
+                        <c:set var="facultyID" value="${fn:substringAfter(row.personUri,'#')}"/>
+                        <c:set var="facultyHref">
+                            <c:choose>
+                                <c:when test="${fn:contains(row.personUri, namespace_hri3)}">
+                                    <c:out value="/faculty/HRI3${fn:substringAfter(row.personUri,'#')}"/>
+                                </c:when>
+                                <c:when test="${fn:contains(row.personUri, namespace_hri2)}">
+                                    <c:out value="/faculty/HRI2${fn:substringAfter(row.personUri,'#')}"/>
+                                </c:when>
+                                <c:otherwise>
+                                    <c:out value="/faculty/${fn:substringAfter(row.personUri,'#')}"/>
+                                </c:otherwise>
+                            </c:choose>
+                        </c:set>
+                        <li id="${facultyID}">
+                            <c:choose>
+                                <c:when test="${!empty row.image.string}">
+                                    <a class="img" href="${facultyHref}" title="view profile"><img width="44" alt="" src="${imageDir}${row.image.string}"/></a>
+                                </c:when>
+                                <c:otherwise>
+                                    <a class="img" href="${facultyHref}" title="view profile"><img width="44" alt="" src="/resources/images/profile_missing.gif"/></a>
+                                </c:otherwise>
+                            </c:choose>
+                            <strong><a href="${facultyHref}" title="view profile">${row.personLabel.string}</a></strong>
+                            <em>${row.moniker.string}</em>
+                        </li>
+                    </c:forEach>
+                </ul> --%>
         
 </c:catch>
 ${pageError}
@@ -109,7 +131,7 @@ ${pageError}
           PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
           SELECT DISTINCT ?personUri ?personLabel ?image ?grouping ?personLinkAnchor ?personLinkURL ?otherAnchor ?otherURL
           WHERE {
-              ?dept vivo:hasEmployeeAcademicrowMember ?personUri .
+              ?dept vivo:hasEmployeeAcademicFacultyMember ?personUri .
               ?personUri rdfs:label ?personLabel .
                   OPTIONAL { ?personUri vivo:memberOfGraduateField ?fieldUri . ?fieldUri rdf:type vivo:GraduateField . ?fieldUri vivo:associatedWith ?grouping . ?grouping rdf:type vivo:fieldCluster }
                   OPTIONAL { ?personUri vitro:imageThumb ?image }
@@ -177,19 +199,19 @@ ${pageError}
                             
                             <c:choose>
                                 <c:when test="${!empty row.image.string && !empty personHref}">
-                                    <a href="${personHref}" title="${linkTitle}"><img width="30" alt="" src="${imageDir}${row.image.string}"/></a>
-                                    <a ${externalLinkClass} href="${personHref}" title="${linkTitle}">${row.personLabel.string}</a>
+                                    <a class="img" href="${personHref}" title="${linkTitle}"><img width="30" alt="" src="${imageDir}${row.image.string}"/></a>
+                                    <a ${externalLinkClass} href="${personHref}" title="${linkTitle}"><strong>${row.personLabel.string}</strong></a>
                                 </c:when>
                                 <c:when test="${empty row.image.string && !empty personHref}">
-                                    <a href="${personHref}" title="${linkTitle}"><img width="30" alt="" src="/resources/images/profile_missing.gif"/></a>
-                                    <a ${externalLinkClass} href="${personHref}" title="${linkTitle}">${row.personLabel.string}</a>
+                                    <a class="img" href="${personHref}" title="${linkTitle}"><img width="30" alt="" src="/resources/images/profile_missing.gif"/></a>
+                                    <a ${externalLinkClass} href="${personHref}" title="${linkTitle}"><strong>${row.personLabel.string}</strong></a>
                                 </c:when>
                                 <c:when test="${!empty row.image.string && empty personHref}">
-                                    <img width="30" alt="" src="/resources/images/profile_missing.gif"/>
+                                    <span class="img"><img width="30" alt="" src="${imageDir}${row.image.string}"/></span>
                                     <span>${row.personLabel.string}</span>
                                 </c:when>
                                 <c:otherwise>
-                                    <img width="30" alt="" src="/resources/images/profile_missing.gif"/>
+                                    <span class="img"><img width="30" alt="" src="/resources/images/profile_missing.gif"/></span>
                                     <span>${row.personLabel.string}</span>
                                 </c:otherwise>
                             </c:choose>

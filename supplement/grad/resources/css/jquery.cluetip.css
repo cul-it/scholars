@@ -225,6 +225,45 @@
   width: 22px;
 }
 
+/* ------------------------------------------------
+OVERRIDES AND ADDITIONS
+---------------------------------------------------*/
+
+.cluetip-default {background-color: #365253;}
+
+.cluetip-default img {
+    border: 1px solid #A3B4B5;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.cluetip-default h5 {
+    font-size: 1.333em;
+    margin-bottom: 1em;
+}
+
+.cluetip-default strong {display: block; margin: 0 0 .5em 120px;}
+
+.cluetip-default ul {margin-left: 135px;}
+
+.cluetip-default li {list-style-type: disc;}
+
+.cluetip-default #cluetip-outer {
+    background-color: #365253;
+    border: 2px solid #416365;
+}
+
+.clueTipWrap {
+    position: relative;
+    min-height: 115px;
+}
+
+#researchareas .cluetip-default #cluetip-inner {
+  padding: 10px;
+}
+
+
 
 
 /* stupid IE6 HasLayout hack */

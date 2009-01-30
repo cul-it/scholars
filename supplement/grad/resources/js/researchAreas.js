@@ -1,5 +1,6 @@
 $(document).ready(function() {
-    if ($("body").attr("id") == "researchareas") {
+    var bodyID = $("body").attr("id");
+    if (bodyID=="researchareas" || bodyID=="fields") {
     
         clueTipSettings = {
            arrows: true, 
@@ -28,9 +29,8 @@ $(document).ready(function() {
         var loadingBox = "<div class='loading'><img src='/resources/images/ajax-loader4.gif'/></div>";
         var deselectLink = "(<a href='#' class='toggle remove'>remove</a>)";
         // urls and params for ajax calls
-        var allFieldURL = "/data/updateResearchAreas.jsp?showall=true";
-        var baseURL = "/data/updateResearchAreas.jsp";
-        var baseParamName = "?areas="
+        var areaParamName = "?areas="
+        var fieldParamName = "&field=";
         var facultyParamName = "&showfaculty=";
         // global vars
         var lastSelected = "";
@@ -38,7 +38,20 @@ $(document).ready(function() {
         var facultyHash = "";
         var showFaculty = false;
         var hash = document.location.hash;
-
+        if (bodyID=="fields"){ 
+            var targetDiv="div#people"; 
+            var baseURL = "/data/updateFacultyList.jsp";
+            var fieldParam = $("meta[name='uri']").attr("content");
+            var allFieldURL = baseURL+"?showall=true&field="+fieldParam;
+            var activeStatusText = "showing only faculty involved with:";
+        }
+        if (bodyID=="researchareas"){ 
+            var targetDiv="div#fields"; 
+            var baseURL = "/data/updateResearchAreas.jsp";
+            var allFieldURL = baseURL+"?showall=true";
+            var activeStatusText = "currently selected:";
+        }
+        
         // DO THIS STUFF ON PAGE LOAD
 
             $("em.hide").show(); // text describing shift-click functions
@@ -71,10 +84,8 @@ $(document).ready(function() {
                     areas = hash.substring(1,amp).split(",");
                     if (areas.length >= 1) {
                         $("#scrollBox a.selected").removeClass("selected");
-                        i=0;
-                        while(i<areas.length) {
+                        for (var i=0; i<areas.length; i++){
                             $("#scrollBox li#"+areas[i]+" a").addClass("selected");
-                            i++; 
                         }
                         checkAreas();
                     }
@@ -137,7 +148,7 @@ $(document).ready(function() {
     
             // When clicking "undo", remove the last area selected
             function undoLink(){
-                $("div#fields a.undo").unbind().click(function(){
+                $(targetDiv + " a.undo").unbind().click(function(){
                     $("li#"+lastSelected+" a").removeClass("selected");
                     checkAreas();
                     return false;
@@ -146,10 +157,11 @@ $(document).ready(function() {
 
             // Capture all clicks to Field and Faculty pages and update the hash for back-button functionality
             function bindExitLinks(){
-                $("#fields ul.fieldList a").unbind().click(function(){ 
-                    updateHash(); 
+                $(targetDiv + " ul a").unbind().click(function(){ 
+                    if (bodyID=='fields'){ updateHash(bodyID) }
+                    else { updateHash(); } 
                 });
-                $("#fields ul.facultyList a").cluetip(clueTipSettings);
+                $(targetDiv + " ul.facultyList a").cluetip(clueTipSettings);
             }
 
 
@@ -178,13 +190,17 @@ $(document).ready(function() {
                     areaParam = areaParam + "," + areaList[i]["id"];
                     i++;
                 }
-                if (showFaculty==true) { 
-                    url = baseURL+baseParamName+areaParam+facultyParamName+"yes";
+                if (bodyID=="fields") {
+                    url = baseURL+areaParamName+areaParam+fieldParamName+fieldParam;
+                    areaHash = areaParam;
+                }
+                else if (showFaculty==true) { 
+                    url = baseURL+areaParamName+areaParam+facultyParamName+"yes";
                     areaHash = areaParam;
                     facultyHash = "&showfaculty";
                 }
-                if (showFaculty==false) {
-                    url = baseURL+baseParamName+areaParam+facultyParamName+"no";
+                else if (showFaculty==false) {
+                    url = baseURL+areaParamName+areaParam+facultyParamName+"no";
                     areaHash = areaParam;
                     facultyHash = "&hidefaculty";
                 }
@@ -197,7 +213,7 @@ $(document).ready(function() {
                     var dataURL = buildURL(areaList);
                     $("#swapBox").empty().load(dataURL,function(){
                         var newContent = $("#swapBox").html();
-                        $("div#fields").empty().append(newContent);
+                        $(targetDiv).empty().append(newContent);
                         bindExitLinks();
                         undoLink();
                         updateToggler(); // the order these run seems to be important
@@ -206,10 +222,12 @@ $(document).ready(function() {
                 // load a full list of Fields into the listBox and keep it for reuse
                 else if (areaList.length == 0) {
                     if ($("#listBox ul").length > 0) {
-                        $("div#fields").empty().append($("#listBox").html());
+                        $(targetDiv).empty().append($("#listBox").html());
+                        bindExitLinks();
                     } else {
                         $("#listBox").empty().load(allFieldURL,function(){
-                            $("div#fields").empty().html($("#listBox").html());
+                            $(targetDiv).empty().html($("#listBox").html());
+                            bindExitLinks();
                         });
                     }
                 }
@@ -246,17 +264,20 @@ $(document).ready(function() {
     
             // Just the little swirly loading image, gets wiped when content is finally loaded
             function loadBox(target) {
-                $("div#fields ul").empty();
-                $("div#fields").append(loadingBox);
+                $(targetDiv + " ul").empty();
+                $(targetDiv).append(loadingBox);
             }
 
             // Updates the fragment identifier to allow for back-button functionality
-            function updateHash() {
-                if (showFaculty == true){
+            function updateHash(type) {
+                if (type=="fields") {
+                    document.location.hash = areaHash+"&";
+                } 
+                else if (showFaculty == true){
                     facultyHash = "&showfaculty";
                     document.location.hash = areaHash+facultyHash;
                 }
-                if (showFaculty == false){
+                else if (showFaculty == false){
                     facultyHash = "&hidefaculty";
                     document.location.hash = areaHash+facultyHash;
                 }
@@ -267,6 +288,6 @@ $(document).ready(function() {
         updateToggler();
         updateRemoveLinks();
         bindExitLinks();    
-        $("#fields ul.facultyList a").cluetip(clueTipSettings);
+        $(targetDiv + " ul.facultyList a").cluetip(clueTipSettings);
     }
 });

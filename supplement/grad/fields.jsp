@@ -27,7 +27,7 @@
 
 <div id="contentWrap">
 	<div id="content">
-        
+        <p>${pageContext.request.contextPath}</p>
         <c:choose>
             <%------ INDIVIDUAL FIELD PAGE ------%>
             <c:when test="${not empty param.uri}">

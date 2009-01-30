@@ -148,15 +148,18 @@
         </div>
     
         <%---------- FACULTY ----------%>    
-        <div id="faculty" class="section">
+        <div id="meetTheFaculty" class="section">
             <h3>Meet the Faculty</h3>
-            
-            <c:import var="facultyList" url="part/faculty_list.jsp">
-                <c:param name="uri" value="${param.uri}"/>
-                <c:param name="type" value="field"/>
-            </c:import>
-        
-        ${facultyList}
+            <div class="span-15">
+                <div id="statusBox" class="empty"><p></p></div>
+                <div id="people" >
+                    <c:import var="facultyList" url="part/faculty_list.jsp">
+                        <c:param name="uri" value="${param.uri}"/>
+                        <c:param name="type" value="field"/>
+                    </c:import>
+                    ${facultyList}
+                </div>
+            </div>
         
             <%---------- RESEARCH AREAS ----------%>   
             <div id="areaList" class="span-8 last">
@@ -165,7 +168,8 @@
                     <c:param name="type" value="field"/>
                 </c:import>
                 <h3>Research Areas</h3>
-                <p><em class="hide">Select areas to highlight participating faculty</em></p>
+                <p><em>Select areas to see participating faculty<br/> Hold shift to select multiple</em></p>
+                <noscript><em>NOTE: You need to enable JavaScript in your browser to select multiple</em></noscript>
                 <div id="scrollBox">
                     <c:if test="${!empty researchAreas}">
                         <ul class="researchAreaList">${researchAreas}</ul>
@@ -183,7 +187,7 @@
         </c:import>
         <div id="departments" class="span-15 section">
             <c:if test="${!empty deptList}">
-                <h3>Departments where these faculty are based</h3>
+                <h3>Departments where faculty are based</h3>
                 <ul class="deptList">${deptList}</ul>
             </c:if>
         </div>
