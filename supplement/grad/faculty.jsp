@@ -52,6 +52,7 @@
 <sparql:lock model="${applicationScope.jenaOntModel}">
 <sparql:sparql>
     <sparql:select model="${applicationScope.jenaOntModel}" var="rs">
+          PREFIX fn:  <http://www.w3.org/2005/xpath-functions#>
           PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
           PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
           PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
@@ -64,15 +65,17 @@
 
             ?field vivo:hasFieldMember ?personUri .
                                 
-              OPTIONAL { ?personUri rdfs:label ?personLabel }
+              OPTIONAL { ?personUri rdfs:label ?personLabelRow }
               OPTIONAL { ?personUri owl:netId ?netid }
               OPTIONAL { ?personUri vivo:CornellemailnetId ?cornellEmail }
               OPTIONAL { ?personUri vivo:nonCornellemail ?nonCornellEmail }
               OPTIONAL { ?personUri vitro:moniker ?moniker }
               
+          LET (?personLabel := str(?personLabelRow))
           FILTER (!regex(?moniker, "emeritus", "i"))
-          } ORDER BY ?personLabel
-          LIMIT 3000
+          } GROUP BY ?personLabel ?personUri ?netid ?cornellEmail ?nonCornellEmail ?moniker
+          ORDER BY fn:lower-case(?personLabel)
+          LIMIT 5000
     </sparql:select>
 
         <div id="contentWrap">
