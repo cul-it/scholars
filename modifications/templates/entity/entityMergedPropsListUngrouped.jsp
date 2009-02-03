@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://vitro.mannlib.cornell.edu/vitro/tags/StringProcessorTag" prefix="p" %>
 <%@ taglib uri="http://vitro.mannlib.cornell.edu/vitro/tags/PropertyEditLink" prefix="edLnk" %>
+<%@ page import="edu.cornell.mannlib.vitro.webapp.beans.Portal" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.beans.Individual" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.controller.VitroRequest" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.dao.WebappDaoFactory" %>
@@ -53,6 +54,13 @@ public static Log log = LogFactory.getLog("edu.cornell.mannlib.vitro.webapp.jsp.
 	// Nick wants not to use explicit parameters to trigger visibility of a div, but for now we don't just want to always show the 1st one
 	String openingGroupLocalName = (String) request.getParameter("curgroup");
     VitroRequest vreq = new VitroRequest(request);
+    // added to permit distinguishing links outside the current portal
+    int currentPortalId = -1;
+    Portal currentPortal = vreq.getPortal();
+    if (currentPortal!=null) {
+    	currentPortalId = currentPortal.getPortalId();
+    }
+
     WebappDaoFactory wdf = vreq.getWebappDaoFactory();
 	PropertyGroupDao pgDao = wdf.getPropertyGroupDao();
     ArrayList<Property> propsList = (ArrayList) request.getAttribute("mergedList");
@@ -75,6 +83,16 @@ public static Log log = LogFactory.getLog("edu.cornell.mannlib.vitro.webapp.jsp.
 				<div class="propsItem" id="${objProp.localName}">
 					<h3 class="propertyName">${objProp.editLabel}</h3>
 		    		<c:if test="${showSelfEdits || showCuratorEdits}"><edLnk:editLinks item="${objProp}" icons="true" /></c:if>
+		    		<c:if test="${showCuratorEdits}">
+		    			<c:choose>
+		    				<c:when test="${!empty objProp.groupURI}">
+		    					<c:if test="${!empty objProp.domainDisplayTier}"><span style="color: grey; font-size: 0.75em;"> tier ${objProp.domainDisplayTier} within group</span></c:if>
+		    				</c:when>
+		    				<c:otherwise>
+		    				    <c:if test="${!empty objProp.domainDisplayTier}"><span style="color: grey; font-size: 0.75em;"> tier ${objProp.domainDisplayTier}</span></c:if>
+		    				</c:otherwise>
+		    			</c:choose>
+		    		</c:if>
   					<c:set var="displayLimit" value="${objProp.domainDisplayLimit}"/>
   					<c:if test="${displayLimit<0}">
   					    <c:set var="displayLimit" value="32"/> <% /* arbitrary limit if value is unset, i.e. -1 */ %>
@@ -101,10 +119,22 @@ public static Log log = LogFactory.getLog("edu.cornell.mannlib.vitro.webapp.jsp.
               				<ul class="properties">
 						</c:if>
      					<li>
+     					<c:set var="opStmt" value="${objPropertyStmt}" scope="request"/>
            				<c:url var="propertyLink" value="/entity">
                				<c:param name="home" value="${portal.portalId}"/>
                				<c:param name="uri" value="${objPropertyStmt.object.URI}"/>
+               				<%--
+<%							ObjectPropertyStatement oStmt = (ObjectPropertyStatement)request.getAttribute("opStmt");
+							if (oStmt!=null) {
+								Individual obj= (Individual)oStmt.getObject();
+								if (obj != null) {
+									if (!obj.doesFlag1Match(currentPortalId)) {%>
+										<c:param name="jump" value="true"/>
+<%									}
+								}
+							}%> --%>
            				</c:url>
+						<c:remove var="opStmt" scope="request"/>
          				<c:forEach items="${objPropertyStmt.object.VClasses}" var="type">
          					<c:if test="${!empty type.customShortView}">
          						<c:set var="altRenderJsp" value="${type.customShortView}"/>
@@ -138,10 +168,19 @@ public static Log log = LogFactory.getLog("edu.cornell.mannlib.vitro.webapp.jsp.
  			<c:set var="dataRows" value="${fn:length(dataProp.dataPropertyStatements)}"/>
 		    <c:set var="dataStyle" value="display: block;"/>
 		    <c:if test="${dataRows==0}"><c:set var="dataStyle" value="display: block;"/></c:if>
-			<div id="${dataProp.localName}" style="${dataStyle}">
+			<div class="propsItem" id="${dataProp.localName}" style="${dataStyle}">
 				<h3 class="propertyName">${dataProp.editLabel}</h3>
 		    	<c:if test="${showSelfEdits || showCuratorEdits}"><edLnk:editLinks item="${dataProp}" icons="true"/></c:if>
-
+				<c:if test="${showCuratorEdits}">
+		    		<c:choose>
+		    			<c:when test="${!empty dataProp.groupURI}">
+				    		<c:if test="${!empty dataProp.displayTier}"><span style="color: grey; font-size: 0.75em;"> tier ${dataProp.displayTier} within group</span></c:if>
+				    	</c:when>
+				    	<c:otherwise>
+				    		<c:if test="${!empty dataProp.displayTier}"><span style="color: grey; font-size: 0.75em;"> tier ${dataProp.displayTier}</span></c:if>
+				    	</c:otherwise>
+				    </c:choose>
+				</c:if>
 				<c:set var="displayLimit" value="${dataProp.displayLimit}"/>
 				<c:if test="${displayLimit<0}">
 				    <c:set var="displayLimit" value="32"/> <% /* arbitrary limit if value is unset, i.e. -1 */ %>
