@@ -97,7 +97,7 @@
 
 	                </tr></table>
         		</form>
-        		<a class="formlink" style="color:white;" href="${searchPath}?home=6">Advanced Search | Search Tips</a>                
+        		<a class="formlink" style="color:white;" href="${searchPath}?home=6">Search Tips</a>                
                 </div>
         		</td></tr></table>
 </td>
@@ -183,7 +183,7 @@
             	<input class="search-form-button" name="submit" type="submit"  value="Go" /><br/>
               </td>
             </tr></table>
-            	<a class="formlink" href="${searchPath}?home=<%=portal.getPortalId()%>">Advanced Search | Search Tips</a>
+            	<a class="formlink" href="${searchPath}?home=<%=portal.getPortalId()%>">Search Tips</a>
         	</div>
         	</form>
 <%      }%>
