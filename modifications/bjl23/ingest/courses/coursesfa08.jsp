@@ -33,7 +33,7 @@
       have a nice way of compiling clone-specific Java classes */ %>
 
 <%! 
-	String SEMESTER = "2009sp";
+	String SEMESTER = "2009sp2";
 	String RAW_DATA_MODEL = "classes"+SEMESTER+" - raw";
 	String RAW_INSTRUCTORS_MODEL = "classes"+SEMESTER+" - instructors - raw";
 	String WORK_MODEL = "Courses - Work Model";
@@ -43,9 +43,9 @@
 
 <%
 
-	return; /* safety latch: REMOVE ME TO RUN */
+	//return; /* safety latch: REMOVE ME TO RUN */
 
-    VitroJenaModelMaker modelMaker = (VitroJenaModelMaker) request.getSession().getAttribute("vitroJenaModelMaker");
+    ModelMaker modelMaker = (ModelMaker) request.getSession().getAttribute("vitroJenaModelMaker");
     modelMaker = (modelMaker == null) ? (VitroJenaModelMaker) getServletContext().getAttribute("vitroJenaModelMaker") : modelMaker;
     modelMaker = new VitroJenaModelMaker(modelMaker, request);
 
@@ -403,7 +403,8 @@
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="edu.cornell.mannlib.vitro.webapp.dao.VitroVocabulary"%>
 <%@page import="com.hp.hpl.jena.util.iterator.ClosableIterator"%>
-<%@page import="com.hp.hpl.jena.vocabulary.RDF"%><html>
+<%@page import="com.hp.hpl.jena.vocabulary.RDF"%>
+<%@page import="com.hp.hpl.jena.rdf.model.ModelMaker"%><html>
     <head>
 		<title>TEST</title>
 	</head>

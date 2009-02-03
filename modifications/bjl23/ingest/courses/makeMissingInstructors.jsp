@@ -113,7 +113,8 @@
     			} else {
     				System.out.println("Created "+instructorRes.getURI());
     			}
-    			Resource actualClassRes = ResourceFactory.createResource(NEW_RES_NS+stmt.getSubject().getLocalName());
+    			Resource actualClassRes = stmt.getSubject();
+    			//Resource actualClassRes = ResourceFactory.createResource(NEW_RES_NS+stmt.getSubject().getLocalName());
     			workModel.add(actualClassRes,this.TAUGHT_BY_PROP,instructorRes);
     			workModel.add(instructorRes,this.TEACHES_CLASS_PROP,actualClassRes);
     			modTimeModel.add(actualClassRes,MODTIME,"2009-01-11T17:00:00",XSDDatatype.XSDdateTime);
