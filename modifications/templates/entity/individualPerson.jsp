@@ -35,6 +35,19 @@ if (entity == null){
     throw new JspException(e);
 }
 
+VitroRequest vreq = new VitroRequest(request);
+WebappDaoFactory wdf = vreq.getWebappDaoFactory();
+
+//DataProperty monikerDataProp = wdf.getDataPropertyDao().getDataPropertyByURI("http://vitro.mannlib.cornell.edu/ns/vitro/0.7#moniker");
+//if (monikerDataProp != null) {
+//	List <DataPropertyStatement> monikerList = wdf.getDataPropertyStatementDao().getDataPropertyStatements(monikerDataProp);
+//	if (monikerList!=null && monikerList.size()>0) {
+//		for (DataPropertyStatement dp : monikerList) {%>
+<%--		    <c:set var="monikerDataPropertyStmt" value="<%=dp%>"/>  --%>
+<%//		}
+//    }
+//}
+
 String netid = (String)session.getAttribute(FakeSelfEditingIdentifierFactory.FAKE_SELF_EDIT_NETID);
 if (netid != null) {
     request.setAttribute("amIFaking",Boolean.TRUE);
@@ -89,8 +102,6 @@ if (VitroRequestPrep.isSelfEditing(request) /* || LoginFormBean.loggedIn(request
         }
     }
     if (!foundOverview) {
-        VitroRequest vreq = new VitroRequest(request);
-        WebappDaoFactory wdf = vreq.getWebappDaoFactory();
         DataProperty overviewDataProp = wdf.getDataPropertyDao().getDataPropertyByURI("http://vivo.library.cornell.edu/ns/0.1#overviewStatement");
         if (overviewDataProp == null) {
         	log.error("Error: cannot find overview statement data property \"http://vivo.library.cornell.edu/ns/0.1#overviewStatement\" for \"add\" link");
@@ -168,6 +179,9 @@ if (VitroRequestPrep.isSelfEditing(request) /* || LoginFormBean.loggedIn(request
                 <h2><p:process>${entity.name}</p:process></h2> 
                 <c:if test="${!empty entity.moniker}">
                     <p:process><em class="moniker">${entity.moniker}</em></p:process>
+<%--    			<c:if test="${showSelfEdits || showCuratorEdits}">
+				    	<edLnk:editLinks item="${monikerDataPropertyStmt}" icons="false"/>                                                       
+	        		</c:if> --%>
                 </c:if>
             
             <c:if test="${showCuratorEdits || showSelfEdits}">
