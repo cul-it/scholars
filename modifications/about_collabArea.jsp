@@ -20,7 +20,7 @@
     <c:if test="${loginStatus == 'authenticated'}">
     <% String password = "ce135a8d1b2af5c4478128c7cef22432";
     Cookie thinmint = new Cookie ("MintAuth",password);
-    thinmint.setMaxAge(10);
+    thinmint.setMaxAge(30);
     thinmint.setDomain(".cornell.edu");
     thinmint.setPath("/");
     response.addCookie(thinmint);
