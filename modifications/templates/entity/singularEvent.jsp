@@ -18,10 +18,10 @@
 
 <%@ page errorPage="/error.jsp"%>
 <%! 
-public static Log log = LogFactory.getLog("edu.cornell.mannlib.vitro.webapp.jsp.templates.entity.entityBasic.jsp");
+public static Log log = LogFactory.getLog("edu.cornell.mannlib.vitro.webapp.jsp.templates.entity.singularEvent.jsp");
 %>
 <%
-log.debug("Starting entityBasic.jsp");
+log.debug("Starting singularEvent.jsp");
 Individual entity = (Individual)request.getAttribute("entity");
 
 VitroRequest vreq = new VitroRequest(request);
@@ -33,7 +33,7 @@ WebappDaoFactory wdf = vreq.getWebappDaoFactory();
 <%
 	try {
 		entity = wdf.getIndividualDao().getIndividualByURI((String)request.getAttribute("myEntityURI"));
-		System.out.println("entityBasic rendering "+entity.getURI());
+		System.out.println("singularEvent rendering "+entity.getURI());
 	} catch (Exception e) {
 		e.printStackTrace();
 	}
@@ -43,7 +43,7 @@ WebappDaoFactory wdf = vreq.getWebappDaoFactory();
 <% 
 
 if (entity == null){
-    String e="entityBasic.jsp expects that request attribute 'entity' be set to the Entity object to display.";
+    String e="singularEvent.jsp expects that request attribute 'entity' be set to the Entity object to display.";
     throw new JspException(e);
 }
 
@@ -51,15 +51,15 @@ if (VitroRequestPrep.isSelfEditing(request) || LoginFormBean.loggedIn(request, L
     request.setAttribute("showSelfEdits",Boolean.TRUE);
 }
 
-DataProperty monikerDataProp = wdf.getDataPropertyDao().getDataPropertyByURI("http://vitro.mannlib.cornell.edu/ns/vitro/0.7#moniker");
-if (monikerDataProp != null) {
-	List <DataPropertyStatement> monikerList = wdf.getDataPropertyStatementDao().getDataPropertyStatements(monikerDataProp);
-	if (monikerList!=null && monikerList.size()>0) {
-		for (DataPropertyStatement dp : monikerList) {%>
-		    <c:set var="monikerDataPropertyStmt" value="<%=dp%>"/>
-<%		}
-    }
-}
+//DataProperty monikerDataProp = wdf.getDataPropertyDao().getDataPropertyByURI("http://vitro.mannlib.cornell.edu/ns/vitro/0.7#moniker");
+//if (monikerDataProp != null) {
+//    List <DataPropertyStatement> monikerList = wdf.getDataPropertyStatementDao().getDataPropertyStatements(monikerDataProp);
+//    if (monikerList!=null && monikerList.size()>0) {
+//        for (DataPropertyStatement dp : monikerList) {%>
+<%--          <c:set var="monikerDataPropertyStmt" value="<%=dp%>"/> --%>
+<%//	  }
+//    }
+//}
 %>
 <c:if test="${sessionScope.loginHandler != null &&
               sessionScope.loginHandler.loginStatus == 'authenticated' &&
@@ -96,12 +96,12 @@ if (monikerDataProp != null) {
         
         <div class='contents entity'>
        		<div id="label">
-                <h2><p:process>${entity.name}</p:process></h2> 
+                <h2><p:process>${entity.name}</p:process></h2>
                 <c:if test="${!empty entity.moniker}">
                     <p:process><em class="moniker">${entity.moniker}</em></p:process>
-    				<c:if test="${showSelfEdits || showCuratorEdits}">
+<%--    			<c:if test="${showSelfEdits || showCuratorEdits}">
 				    	<edLnk:editLinks item="${monikerDataPropertyStmt}" icons="false"/>                                                       
-	        		</c:if>
+	        		</c:if> --%>
                 </c:if>
             </div><!-- entity label -->
             <c:choose>
