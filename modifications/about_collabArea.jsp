@@ -335,7 +335,7 @@ try {
                         </x:forEach></ul>
                     </c:if>
                 </c:if>
-            <div id="mintLink"><a href="${thisContext}/about_collabArea.jsp?redirect=true">View VIVO Statistics</a></div>
+            <div id="mintLink" style="margin: 40px 2px 0 2px; padding: 4px 0; border-top: 2px solid #B6CED9;"><a href="${thisContext}/about_collabArea.jsp?redirect=true">View VIVO Statistics</a></div>
     	</div>
         </td>
     </c:when>
