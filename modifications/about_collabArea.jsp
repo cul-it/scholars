@@ -12,12 +12,32 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
+<c:choose>
+<c:when test="${!empty param.redirect}">
+    <%-- this weird redirect lets authenticated VIVO users access Mint stats with this homemade cookie --%>
+    <jsp:useBean id="loginHandler" class="edu.cornell.mannlib.vedit.beans.LoginFormBean" scope="session" />
+    <c:set var="loginStatus" value="<%=loginHandler.getLoginStatus()%>"/>
+    <c:if test="${loginStatus == 'authenticated'}">
+    <% String password = "ce135a8d1b2af5c4478128c7cef22432";
+    Cookie thinmint = new Cookie ("MintAuth",password);
+    thinmint.setMaxAge(10);
+    thinmint.setDomain(".cornell.edu");
+    thinmint.setPath("/");
+    response.addCookie(thinmint);
+    %>
+    <c:redirect url="http://vivostats.mannlib.cornell.edu"/>
+    </c:if>
+</c:when>
+
+<c:when test="${!empty param.level && !empty param.user}">
+
 <%-- All the basecamp-related stuff here relies on VIVO usernames matching basecamp usernames (mw542) --%>
 
 <c:set var="vivoUser" value="${param.user}"/>
 <%-- <c:set var="vivoUser" value="miles"/> --%>
 <c:set var="vivoLevel" value="${param.level}"/>
 <%-- <c:set var="vivoLevel" value="50"/> --%>
+<c:set var="thisContext" value="<%=request.getContextPath()%>"/>
 
 <%
   DateTime now = new DateTime();
@@ -275,6 +295,7 @@ try {
             <c:if test="${empty bcTodoPersonalTest && empty bcTodoAssignedTest}">
                 <p style="margin-left: 12px; font-size: 1.1em;">You don't have anything to do.<br/><br/>Read about <a href="http://mannits.projectpath.com/projects/1313498/posts/17995341/">how these lists work</a>.</p>
             </c:if>
+        <div id="mintLink" style="margin: 40px 2px 0 2px; padding: 4px 0; border-top: 2px solid #B6CED9;"><a href="${thisContext}/about_collabArea.jsp?redirect=true">View VIVO Statistics</a></div>
         </div>
         </td>
     </c:when>
@@ -314,6 +335,7 @@ try {
                         </x:forEach></ul>
                     </c:if>
                 </c:if>
+            <div id="mintLink"><a href="${thisContext}/about_collabArea.jsp?redirect=true">View VIVO Statistics</a></div>
     	</div>
         </td>
     </c:when>
@@ -407,7 +429,6 @@ try {
         </td>
     </c:otherwise>
 </c:choose>
-
 <%-- <c:if test='${!empty msgError}'>Error retrieving basecamp messages<br/></c:if>
 <c:if test='${!empty msError}'>Error retrieving basecamp milestones<br/></c:if>
 <c:if test='${!empty pplError}'>Error retrieving basecamp people<br/></c:if>
@@ -416,5 +437,6 @@ try {
 <c:if test='${!empty todoPersonalError}'>Error retrieving basecamp personal todo list<br/></c:if>
 <c:if test='${!empty todoPersonalError}'>Error retrieving jira vitro list<br/></c:if>
 <c:if test='${!empty todoPersonalError}'>Error retrieving jira vivo list<br/></c:if> --%>
-
+</c:when>
+</c:choose>
 
