@@ -18,14 +18,22 @@
     <jsp:useBean id="loginHandler" class="edu.cornell.mannlib.vedit.beans.LoginFormBean" scope="session" />
     <c:set var="loginStatus" value="<%=loginHandler.getLoginStatus()%>"/>
     <c:if test="${loginStatus == 'authenticated'}">
-    <% String password = "ce135a8d1b2af5c4478128c7cef22432";
-    Cookie thinmint = new Cookie ("MintAuth",password);
-    thinmint.setMaxAge(30);
-    thinmint.setDomain(".cornell.edu");
-    thinmint.setPath("/");
-    response.addCookie(thinmint);
-    %>
-    <c:redirect url="http://vivostats.mannlib.cornell.edu"/>
+        <% String password = "ce135a8d1b2af5c4478128c7cef22432";
+        Cookie thinmint = new Cookie ("MintAuth",password);
+        thinmint.setMaxAge(15*60);
+        thinmint.setDomain(".cornell.edu");
+        thinmint.setPath("/");
+        response.addCookie(thinmint);
+        %>
+        <c:redirect url="http://vivostats.mannlib.cornell.edu"/>
+    </c:if>
+    <c:if test="${loginStatus != 'authenticated'}">
+        <html>
+        <head><title></title></head>
+        <body>
+            <p>You must be logged in to VIVO to view the stats.</p>
+        </body>
+        </html>
     </c:if>
 </c:when>
 
