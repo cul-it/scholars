@@ -84,18 +84,28 @@ public static Log log = LogFactory.getLog("edu.cornell.mannlib.vitro.webapp.jsp.
 					<h3 class="propertyName">${objProp.editLabel}</h3>
 		    		<c:if test="${showSelfEdits || showCuratorEdits}"><edLnk:editLinks item="${objProp}" icons="true" /></c:if>
 		    		<c:if test="${showCuratorEdits}">
+						<c:choose>
+							<c:when test="${!empty objProp.hiddenFromDisplayBelowRoleLevel.label}"><c:set var="displayCue" value="${objProp.hiddenFromDisplayBelowRoleLevel.label}"/></c:when>
+							<c:otherwise><c:set var="displayCue" value="unspecified"/></c:otherwise>
+						</c:choose>
+						<c:choose>
+							<c:when test="${!empty objProp.prohibitedFromUpdateBelowRoleLevel.label}"><c:set var="updateCue" value="${objProp.prohibitedFromUpdateBelowRoleLevel.label}"/></c:when>
+							<c:otherwise><c:set var="updateCue" value="unspecified"/></c:otherwise>
+						</c:choose>
 		    			<c:choose>
 		    				<c:when test="${!empty objProp.groupURI}">
 		    			        <c:if test="${!empty objProp.domainDisplayTier}">
 <%		    				        PropertyGroup pg = pgDao.getGroupByURI(op.getGroupURI());
 		    					    if (pg!=null && pg.getName()!=null) {
 		    					    	request.setAttribute("groupName",pg.getName());%>
-		    					        <span style="color: grey; font-size: 0.75em;"> tier ${objProp.domainDisplayTier} within group ${groupName}</span>
+		    					        <span style="color: grey; font-size: 0.75em;"> ${objProp.localNameWithPrefix} (object property); display tier ${objProp.domainDisplayTier} within group ${groupName}; display level: ${displayCue}; update level: ${updateCue}</span>
 <%                                  }%>
                                 </c:if>
 		    				</c:when>
 		    				<c:otherwise>
-		    				    <c:if test="${!empty objProp.domainDisplayTier}"><span style="color: grey; font-size: 0.75em;"> tier ${objProp.domainDisplayTier}</span></c:if>
+		    				    <c:if test="${!empty objProp.domainDisplayTier}">
+		    				        <span style="color: grey; font-size: 0.75em;"> ${objProp.localNameWithPrefix} (object property); display tier ${objProp.domainDisplayTier}; display level: ${displayCue}; update level: ${updateCue}</span>
+		    					</c:if>
 		    				</c:otherwise>
 		    			</c:choose>
 		    		</c:if>
@@ -178,21 +188,26 @@ public static Log log = LogFactory.getLog("edu.cornell.mannlib.vitro.webapp.jsp.
 				<h3 class="propertyName">${dataProp.editLabel}</h3>
 		    	<c:if test="${showSelfEdits || showCuratorEdits}"><edLnk:editLinks item="${dataProp}" icons="true"/></c:if>
 				<c:if test="${showCuratorEdits}">
+					<c:choose>
+						<c:when test="${!empty dataProp.hiddenFromDisplayBelowRoleLevel.label}"><c:set var="displayCue" value="${dataProp.hiddenFromDisplayBelowRoleLevel.label}"/></c:when>
+						<c:otherwise><c:set var="displayCue" value="unspecified"/></c:otherwise>
+					</c:choose>
+					<c:choose>
+						<c:when test="${!empty dataProp.prohibitedFromUpdateBelowRoleLevel.label}"><c:set var="updateCue" value="${dataProp.prohibitedFromUpdateBelowRoleLevel.label}"/></c:when>
+						<c:otherwise><c:set var="updateCue" value="unspecified"/></c:otherwise>
+					</c:choose>
 		    		<c:choose>
 		    		    <c:when test="${!empty dataProp.groupURI}">
 		    			    <c:if test="${!empty dataProp.displayTier}">
 <%		    				    PropertyGroup pg = pgDao.getGroupByURI(dp.getGroupURI());
 		    					if (pg!=null && pg.getName()!=null) {
 		    					    request.setAttribute("groupName",pg.getName());%>
-		    					    <span style="color: grey; font-size: 0.75em;"> tier ${dataProp.displayTier} within group ${groupName}</span>
+		    					    <span style="color: grey; font-size: 0.75em;"> ${dataProp.localNameWithPrefix} (data property); display tier ${dataProp.displayTier} within group ${groupName}; display level: ${displayCue}; update level: ${updateCue}</span>
 <%                              }%>
                             </c:if>
 		    		    </c:when>
-		    			<c:when test="${!empty dataProp.groupURI}">
-				    		<c:if test="${!empty dataProp.displayTier}"><span style="color: grey; font-size: 0.75em;"> tier ${dataProp.displayTier} within group</span></c:if>
-				    	</c:when>
 				    	<c:otherwise>
-				    		<c:if test="${!empty dataProp.displayTier}"><span style="color: grey; font-size: 0.75em;"> tier ${dataProp.displayTier}</span></c:if>
+				    		<c:if test="${!empty dataProp.displayTier}"><span style="color: grey; font-size: 0.75em;"> ${dataProp.localNameWithPrefix} (data property); display tier ${dataProp.displayTier}; display level: ${displayCue}; update level: ${updateCue}</span></c:if>
 				    	</c:otherwise>
 				    </c:choose>
 				</c:if>
