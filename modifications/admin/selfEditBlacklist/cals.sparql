@@ -20,16 +20,20 @@ WHERE {
      ?individualURI  hrdata:primaryUnitCode   ?cause
      optional { 
         ?individualURI ?someJobAtMann vivo:individual1 .
-        filter( ?someJobAtMann = <http://vivo.cornell.edu/ns/mannadditions/0.1#CornellLibrarianForOrganizedEndeavor> )   
+        filter( ?someJobAtMann = <http://vivo.cornell.edu/ns/mannadditions/0.1#employeeOfAsLibrarian> )   
       }
       optional { 
         ?individualURI ?someJobAtMann vivo:individual1 .
-        filter( ?someJobAtMann =  vivo:Non-AcademicEmployeeOtherParticipantInOrganizedEndeavor)   
+        filter( ?someJobAtMann =  vivo:employeeOfAsNonAcademicStaffMember )   
       }
       optional { 
         ?individualURI ?someJobAtMann vivo:individual1 .
         filter( ?someJobAtMann =  vivo:personLeadParticipantForCornellOrganizedEndeavor )   
       }      
+      optional {
+        ?individualURI ?someJobAtMann "mls5"^^<http://www.w3.org/2001/XMLSchema#string> 
+        filter( ?someJobAtMann = hrdata:netId )
+     }
      filter( STR(?cause) = "AG" && !bound(?someJobAtMann) )
 }
 limit 1
