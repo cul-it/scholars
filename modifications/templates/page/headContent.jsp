@@ -24,6 +24,9 @@
 %>
 <c:if test="${!empty scripts}"><jsp:include page="${scripts}"/></c:if>
 
+<%-- 
+mw542 021009: Brian C said this was ignoring the catch tags throwing exceptions. we should find a better way to include css/js anyway
+
 <c:set var="customJsp"><c:out value="${requestScope.bodyJsp}" default="/debug.jsp"/></c:set>
 <c:set var="customHeadJsp">
     <c:if test="${fn:substringAfter(customJsp,'.jsp') == ''}">${fn:substringBefore(customJsp,'.jsp')}${"Head.jsp"}</c:if>
@@ -32,6 +35,7 @@
     <c:catch var="fileCheck">
         <c:import url="${customHeadJsp}"/>
     </c:catch>
-</c:if>
+</c:if> 
+--%>
 
 <!-- end headContent.jsp -->

@@ -78,6 +78,7 @@ if (VitroRequestPrep.isSelfEditing(request) /* || LoginFormBean.loggedIn(request
 </c:if>
 <c:set var="imageDir" value="images" />
 <c:set var="themeDir"><c:out value="${portalBean.themeDir}" default="themes/vivo/"/></c:set>
+
 <%
     //here we build up the url for the larger image.
     String imageUrl = null;
@@ -234,3 +235,7 @@ if (VitroRequestPrep.isSelfEditing(request) /* || LoginFormBean.loggedIn(request
     </div> <!-- content -->
     <div class="clear"></div>
     </div> <!-- innerwrap -->
+    
+    <script type="text/javascript" src="/js/person.js.jsp"></script>
+    <script language="javascript" type="text/javascript" src="/js/jquery_plugins/thickbox/thickbox-compressed.js"></script>
+    
