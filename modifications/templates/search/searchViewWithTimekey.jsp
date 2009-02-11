@@ -21,7 +21,7 @@
             	${individual.anchor}
             </c:otherwise>
         </c:choose>
-        <c:if test="${!empty individualUrl}">
+        <c:if test="${!empty individualURL}">
            	</a>
         </c:if>
 	</c:when>
