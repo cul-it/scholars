@@ -83,7 +83,7 @@ public static Log log = LogFactory.getLog("edu.cornell.mannlib.vitro.webapp.jsp.
 				<div class="propsItem" id="${objProp.localName}">
 					<h3 class="propertyName">${objProp.editLabel}</h3>
 		    		<c:if test="${showSelfEdits || showCuratorEdits}"><edLnk:editLinks item="${objProp}" icons="true" /></c:if>
-		    		<c:if test="${showCuratorEdits}">
+		    		<c:if test="${showCuratorEdits && verbosePropertyListing}">
 						<c:choose>
 							<c:when test="${!empty objProp.hiddenFromDisplayBelowRoleLevel.label}"><c:set var="displayCue" value="${objProp.hiddenFromDisplayBelowRoleLevel.label}"/></c:when>
 							<c:otherwise><c:set var="displayCue" value="unspecified"/></c:otherwise>
@@ -187,7 +187,7 @@ public static Log log = LogFactory.getLog("edu.cornell.mannlib.vitro.webapp.jsp.
 			<div class="propsItem" id="${dataProp.localName}" style="${dataStyle}">
 				<h3 class="propertyName">${dataProp.editLabel}</h3>
 		    	<c:if test="${showSelfEdits || showCuratorEdits}"><edLnk:editLinks item="${dataProp}" icons="true"/></c:if>
-				<c:if test="${showCuratorEdits}">
+				<c:if test="${showCuratorEdits && verbosePropertyListing}">
 					<c:choose>
 						<c:when test="${!empty dataProp.hiddenFromDisplayBelowRoleLevel.label}"><c:set var="displayCue" value="${dataProp.hiddenFromDisplayBelowRoleLevel.label}"/></c:when>
 						<c:otherwise><c:set var="displayCue" value="unspecified"/></c:otherwise>
