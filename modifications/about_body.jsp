@@ -3,7 +3,8 @@
 <%@ page import="edu.cornell.mannlib.vitro.webapp.beans.Portal" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.dao.WebappDaoFactory" %>
 
-<%@page import="edu.cornell.mannlib.vitro.webapp.dao.jena.pellet.PelletListener"%><jsp:useBean id="loginHandler" class="edu.cornell.mannlib.vedit.beans.LoginFormBean" scope="session" />
+<%@page import="edu.cornell.mannlib.vitro.webapp.dao.jena.pellet.PelletListener"%>
+<jsp:useBean id="loginHandler" class="edu.cornell.mannlib.vedit.beans.LoginFormBean" scope="session" />
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %><%/* this odd thing points to something in web.xml */ %>
 <%@ page errorPage="/error.jsp"%>
 <%
@@ -73,7 +74,7 @@
                 <h4><a href="listPropertyGroups?home=<%=portal.getPortalId()%>">Property groups</a></h4>
                 <h4><a href="showClassHierarchy?home=<%=portal.getPortalId()%>">Root classes</a></h4>
                 <h4><a href="showObjectPropertyHierarchy?home=${portalBean.portalId}&amp;iffRoot=true">Root object properties</a></h4>
-                <h4><a href="listDatatypeProperties?home=<%=portal.getPortalId()%>">Root data properties</a></h4>
+                <h4><a href="showDataPropertyHierarchy?home=<%=portal.getPortalId()%>">Root data properties</a></h4>
                 <h4><a href="listOntologies?home=<%=portal.getPortalId()%>">Ontologies</a></h4>
                 <form class="old-global-form" action="editForm" method="get">
                     <select id="VClassURI" name="VClassURI" class="form-item">
@@ -90,6 +91,12 @@
                 if (securityLevel>=5) { %>
                     <h4><a href="listUsers?home=<%=portal.getPortalId()%>">Administer User Accounts</a></h4>
                     <h4><a href="admin/auditSelfEditingAgents.jsp?home=<%=portal.getPortalId()%>">Recent Self-Editors</a></h4>
+                    <c:if test="${verbosePropertyListing == true}">
+                        <h4><a href="about?verbose=false">Turn off Verbose Property Display</a></h4>
+                    </c:if>
+                    <c:if test="${empty verbosePropertyListing || verbosePropertyListing == false}">
+                        <h4><a href="about?verbose=true">Turn on Verbose Property Display</a></h4>
+                    </c:if>                    
 <%              }       
                 if (securityLevel>=50) { %>
                     <h4><a href="uploadRDFForm?home=<%=portal.getPortalId()%>">Add/Remove RDF Data</a></h4>
