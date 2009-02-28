@@ -110,6 +110,7 @@ if (keywordStmts.size()>1) { // now sort the keywords, which do not retain an in
     <c:if test="${(!empty entity.anchor) || (!empty entity.linksList) || showSelfEdits || showCuratorEdits}">
     
         <c:choose>
+            <%-- for this to work, the vivo:CornellemailnetId data property must be publicly visible (but not in a property group, to avoid direct display) --%>
     		<c:when test="${!empty entity.dataPropertyMap['http://vivo.library.cornell.edu/ns/0.1#CornellemailnetId'].dataPropertyStatements[0].data}">
                 <c:set var="emailAddress" value="${entity.dataPropertyMap['http://vivo.library.cornell.edu/ns/0.1#CornellemailnetId'].dataPropertyStatements[0].data}"/>
                 <c:set var="netId" value="${fn:substringBefore(emailAddress,'@')}"/>
