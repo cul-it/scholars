@@ -24,14 +24,12 @@
                   WHERE {
                       ?fieldUri vivo:hasFieldMember ?personUri .
                       ?personUri rdfs:label ?personLabel .
-                      ?personUri rdf:type vivo:FacultyMember .
                           OPTIONAL { ?personUri vitro:imageThumb ?image }
                           OPTIONAL { ?personUri vitro:moniker ?moniker }
                   FILTER (!regex(?moniker, "emeritus", "i"))
                   } ORDER BY ?personLabel
                   LIMIT 1000
                 </listsparql:select>
-                
     </sparql:sparql>
     </sparql:lock>
 
