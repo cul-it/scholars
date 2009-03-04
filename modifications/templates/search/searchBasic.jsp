@@ -93,7 +93,7 @@
 				}
 				out.println("<li>");
 				out.println("<a href='"
-                    		 + response.encodeURL(getServletContext().getContextPath()+"/entity?uri=" + escapedURIStr + "&amp;home=" + portalId)
+                    		 + response.encodeURL(request.getContextPath()+"/entity?uri=" + escapedURIStr + "&amp;home=" + portalId)
                     		 + "'>" + ent.getName().replaceAll("&","&amp;") + "</a>");
                 if (ent.getMoniker() != null && ent.getMoniker().length() > 0) {
                     out.println(" | " + ent.getMoniker().replaceAll("&","&amp;"));

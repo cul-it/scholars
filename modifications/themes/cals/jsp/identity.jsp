@@ -110,7 +110,7 @@
     <table id="CALS_Research_Head">
     <tr>
         <td id="logotypeArea">
-            <a target="_new" href="<%=portal.getRootBreadCrumbURL()%>"><img class="closecrop" src="<%=getServletContext().getContextPath()+"/"+portal.getThemeDir()%>site_icons/<%=portal.getLogotypeImage()%>" width="<%=portal.getLogotypeWidth()%>" height="<%=portal.getLogotypeHeight()%>" alt="<%=portal.getAppName()%>"/></a>
+            <a target="_new" href="<%=portal.getRootBreadCrumbURL()%>"><img class="closecrop" src="<%=request.getContextPath()+"/"+portal.getThemeDir()%>site_icons/<%=portal.getLogotypeImage()%>" width="<%=portal.getLogotypeWidth()%>" height="<%=portal.getLogotypeHeight()%>" alt="<%=portal.getAppName()%>"/></a>
         </td>
 <%		String[] bannerImgName = new String[25];
         bannerImgName[0] = "16.reduced.jpg";
