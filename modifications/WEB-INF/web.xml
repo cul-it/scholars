@@ -659,6 +659,14 @@
       <url-pattern>/statementHistory</url-pattern>
     </servlet-mapping>
 
+   <servlet>
+      <servlet-name>WriteOutChangesController</servlet-name>
+      <servlet-class>edu.cornell.mannlib.vitro.webapp.controller.edit.listing.jena.WriteOutChangesController</servlet-class>
+    </servlet>  
+    <servlet-mapping>
+      <servlet-name>WriteOutChangesController</servlet-name>
+      <url-pattern>/writeOutChanges</url-pattern>
+    </servlet-mapping>
     
     <servlet>
       <servlet-name>VClassWebappsListingController</servlet-name>   
@@ -696,7 +704,15 @@
       <servlet-name>ObjectPropertyHierarchyListingController</servlet-name>
       <url-pattern>/showObjectPropertyHierarchy</url-pattern>
     </servlet-mapping>
-    
+
+    <servlet>
+      <servlet-name>DataPropertyHierarchyListingController</servlet-name>   
+      <servlet-class>edu.cornell.mannlib.vitro.webapp.controller.edit.listing.DataPropertyHierarchyListingController</servlet-class>    	
+    </servlet>    
+    <servlet-mapping>
+      <servlet-name>DataPropertyHierarchyListingController</servlet-name>
+      <url-pattern>/showDataPropertyHierarchy</url-pattern>
+    </servlet-mapping>
     
     <servlet>
       <servlet-name>PropertyWebappsListingController</servlet-name>   
@@ -997,6 +1013,10 @@
 	<servlet-mapping>
 		<servlet-name>entity</servlet-name>
 		<url-pattern>/entity</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>entity</servlet-name>
+		<url-pattern>/entity/*</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>entity</servlet-name>
