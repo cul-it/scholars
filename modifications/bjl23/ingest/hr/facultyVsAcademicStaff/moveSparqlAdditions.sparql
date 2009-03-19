@@ -22,7 +22,7 @@ CONSTRUCT {
      ( str(?job) = "Prof Visiting" ) ||
      ( str(?job) = "Prof Adj" ) ||
      ( str(?job) = "Prof Asst Visit" ) ||
-     ( str(?job) = "Prof Assoc Visit" ) 
+     ( str(?job) = "Prof Assoc Vis" ) 
  )
 }
 
