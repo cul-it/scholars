@@ -99,6 +99,7 @@
                     out.println(" | " + ent.getMoniker().replaceAll("&","&amp;"));
 				}
 	            
+            if (1==0) { // BJL temporarily disabling to boost performance 
                 // For now, custom search views just add additional information to the name and moniker
 	            String searchViewPrefix = "/templates/search/";
                 String customSearchView = null;
@@ -133,6 +134,7 @@
                         }
                     }
                 }
+            } // end BJL disabling
                 if (portal.getPortalId() == 6) { //show anchors in impact portal for submitter's name
                     if (ent.getAnchor() != null && ent.getAnchor().length() > 0) {
                         out.println(" | <span class='externalLink'>" + ent.getAnchor() + "</span>");
