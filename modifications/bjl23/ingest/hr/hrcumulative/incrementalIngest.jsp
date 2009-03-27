@@ -19,8 +19,9 @@
 
 	<label for="pathInput">Path to CSV files (on localhost):</label><br/>
 	<form action="./incrementalIngestExec.jsp" method="post">
-		<input type="text" size="40" id="pathInput" name="csvPath"/>
-		<input type="submit" id="submit" value="Ingest data"/>
+		<p><input type="text" size="40" id="pathInput" name="csvPath"/>
+		<input type="submit" id="submit" value="Ingest data"/></p>
+        <p><input type="checkbox" name="tank2store" value="tank2store"/>merge new data into cumulative store</p>
 	</form>
 
 </body>

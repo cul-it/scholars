@@ -5,24 +5,26 @@
 @prefix s:	     <http://vitro.mannlib.cornell.edu/ns/vitro/0.7/sparql#> .
 @prefix vitro:   <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#> .
 
-##YOU MUST CHANGE THE FOLLOWING QUERY EACH TIME YOU RUN THE INGEST!
-## [Put spreadsheet loading and URI picking instructions here ]
-##increment hriNN
-## replace the namespaces like this: 2009-01-08
-
 hrw:sameAsConstructQuery
 	a s:SPARQLCONSTRUCTQuery ;
 	s:queryStr "
 		   PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
 		   PREFIX owl: <http://www.w3.org/2002/07/owl#>
 		   PREFIX chr: <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#>
+		   PREFIX hrw: <http://vitro.mannlib.cornell.edu/ns/ingest/HRIngestWorkflow#>
 		   CONSTRUCT {
-    		   	     ?p owl:sameAs ?q
+    		   	     ?p hrw:sameAs ?q
 		    } WHERE {
 				  ?p chr:emplId ?id .
        			  ?q chr:emplId ?id
-				  FILTER(regex(str(?p),\"2009-01-08\"))
-				  FILTER(!regex(str(?q),\"2009-01-08\"))
+                  OPTIONAL {
+                      ?p ?typep <http://vitro.mannlib.cornell.edu/ns/bjl23/hr/1#Person>
+                  } 
+                  OPTIONAL {
+                      ?q ?typeq <http://vitro.mannlib.cornell.edu/ns/bjl23/hr/1#Person>
+                  }
+				  FILTER(bound(?typep))
+				  FILTER(!bound(?typeq))
        		    }
 	" .
 
@@ -33,6 +35,7 @@ hrw:NewPeopleAssertionsConstructQuery
 		   PREFIX hr: <http://vitro.mannlib.cornell.edu/ns/bjl23/hr/1#>
 		   PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 		   PREFIX hrb: <http://vitro.mannlib.cornell.edu/ns/bjl23/hr/rules1#>
+		   PREFIX hrw: <http://vitro.mannlib.cornell.edu/ns/ingest/HRIngestWorkflow#>
 		   CONSTRUCT {
 		   	     ?s ?p ?o .
 			     ?oo ?pp ?s
@@ -43,7 +46,7 @@ hrw:NewPeopleAssertionsConstructQuery
 			     ?oo ?pp ?s .
                              }
 			     OPTIONAL {
-			     	      ?s owl:sameAs ?existingPerson
+			     	      ?s hrw:sameAs ?existingPerson
 			     }
 			     FILTER (!bound(?existingPerson))
 			     FILTER (!regex(str(?p),\"http://www.w3.org/2002/07/owl#\"))
@@ -62,12 +65,13 @@ hrw:ExistingPeoplePreAssertionsConstructQuery
 		   PREFIX hr: <http://vitro.mannlib.cornell.edu/ns/bjl23/hr/1#>
 		   PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 		   PREFIX hrb: <http://vitro.mannlib.cornell.edu/ns/bjl23/hr/rules1#>
+		   PREFIX hrw: <http://vitro.mannlib.cornell.edu/ns/ingest/HRIngestWorkflow#>
 		   CONSTRUCT {
 		   	     ?existingPerson ?p ?o .
 			     ?oo ?pp ?existingPerson
 		   } WHERE {
 		     	 ?s rdf:type hrb:Person .
-		     	 ?s owl:sameAs ?existingPerson .
+		     	 ?s hrw:sameAs ?existingPerson .
 			     ?s ?p ?o .
                  OPTIONAL {
 			         ?oo ?pp ?s .
@@ -76,6 +80,7 @@ hrw:ExistingPeoplePreAssertionsConstructQuery
                  }
 			     FILTER (!regex(str(?p),\"http://www.w3.org/2002/07/owl#\"))
 			     FILTER (!regex(str(?p),\"rdf-schema\"))
+				 FILTER (!regex(str(?p),\"sameAs\"))
 			     FILTER (!regex(str(?p),\"http://vitro.mannlib.cornell.edu/ns/bjl23/hr/1#\"))
 			     FILTER (!regex(str(?p),\"http://vitro.mannlib.cornell.edu/ns/bjl23/hr/rules1#\"))
 			     FILTER (!regex(str(?o),\"http://vitro.mannlib.cornell.edu/ns/bjl23/hr/1#\"))
@@ -89,16 +94,20 @@ hrw:ExistingPeoplePreRetractionsConstruct1Query
 		   PREFIX owl: <http://www.w3.org/2002/07/owl#>
 		   PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 		   PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
+		   PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
+		   PREFIX hrw: <http://vitro.mannlib.cornell.edu/ns/ingest/HRIngestWorkflow#>
 		   CONSTRUCT {
 		   	     ?existingPerson ?p ?o .
 			     ?existingPerson vitro:moniker ?moniker .
+				 ?existingPerson vivo:CornellemailnetId ?emailNetid .
 				 #?existingPerson rdfs:label ?label
 		   } WHERE {
-		     	   ?s owl:sameAs ?existingPerson .
+		     	   ?s hrw:sameAs ?existingPerson .
 			   OPTIONAL {
 			   	    ?existingPerson vitro:moniker ?moniker
-			   }
-			   OPTIONAL {
+			   } OPTIONAL {
+					?existingPerson vivo:CornellemailnetId ?emailNetid 
+			   } OPTIONAL {
 					?existingPerson rdfs:label ?label
 			   }
 			   OPTIONAL {
@@ -113,12 +122,14 @@ hrw:ExistingPeoplePreRetractionsConstruct2Query
 	s:queryStr "
 		   PREFIX owl: <http://www.w3.org/2002/07/owl#>
 		   PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+		   PREFIX hrw: <http://vitro.mannlib.cornell.edu/ns/ingest/HRIngestWorkflow#>
 		   CONSTRUCT {
 		   	     ?existingPerson rdf:type ?type
 		   } WHERE {
-		     	   ?s owl:sameAs ?existingPerson .
+		     	   ?s hrw:sameAs ?existingPerson .
 			   { ?existingPerson rdf:type ?type
-                             FILTER (regex(str(?type),\"http://vivo.cornell.edu/ns/mannadditions/0.1#CornellFaculty\"))
+                             FILTER (regex(str(?type),\"http://vivo.cornell.edu/ns/mann
+				 FILTER (!regex(str(?p),\"sameAs\"))additions/0.1#CornellFaculty\"))
                            } UNION {
 			     ?existingPerson rdf:type ?type
                              FILTER (regex(str(?type),\"http://vivo.cornell.edu/ns/mannadditions/0.1#CornellLibrarian\"))
@@ -140,11 +151,12 @@ hrw:ExistingPeoplePreRetractionsConstruct3Query
 	s:queryStr "
 		   PREFIX owl: <http://www.w3.org/2002/07/owl#>
 		   PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+		   PREFIX hrw: <http://vitro.mannlib.cornell.edu/ns/ingest/HRIngestWorkflow#>
 		   CONSTRUCT {
 		   	     ?existingPerson ?p ?o .
 			     ?oo ?pp ?existingPerson
 		   } WHERE {
-		     	     ?s owl:sameAs ?existingPerson
+		     	     ?s hrw:sameAs ?existingPerson
 			     { 
 			       ?existingPerson ?p ?o .
 			       ?oo ?pp ?existingPerson 
@@ -211,7 +223,108 @@ hrw:facultyMemberInConstructQuery
         	?p hrb:hasJob ?j .
 			?j hr:job_Deptid ?code .		
 			?dept vivo:activityHRcode ?code 
-		}
+		} UNION {
+            ?j hr:job_Jobcode \"11100\" . # Professor Assistant Courtesy
+            ?p hrb:hasJob ?j .
+            ?j hr:job_Deptid ?code .        
+            ?dept vivo:departmentHRcode ?code 		  
+		} UNION {
+            ?j hr:job_Jobcode \"11100\" . # Professor Assistant Courtesy
+            ?p hrb:hasJob ?j .
+            ?j hr:job_Deptid ?code .        
+            ?dept vivo:activityHRcode ?code           
+        } UNION {
+            ?j hr:job_Jobcode \"11099\" . # Professor Associate Courtesy
+            ?p hrb:hasJob ?j .
+            ?j hr:job_Deptid ?code .        
+            ?dept vivo:departmentHRcode ?code         
+        } UNION {
+            ?j hr:job_Jobcode \"11099\" . # Professor Associate Courtesy
+            ?p hrb:hasJob ?j .
+            ?j hr:job_Deptid ?code .        
+            ?dept vivo:activityHRcode ?code           
+        } UNION {
+            ?j hr:job_Jobcode \"10737\" . # Prof Courtesy
+            ?p hrb:hasJob ?j .
+            ?j hr:job_Deptid ?code .        
+            ?dept vivo:departmentHRcode ?code         
+        } UNION {
+            ?j hr:job_Jobcode \"10737\" . # Prof Courtesy
+            ?p hrb:hasJob ?j .
+            ?j hr:job_Deptid ?code .        
+            ?dept vivo:activityHRcode ?code           
+        } UNION {
+            ?j hr:job_Jobcode \"10732\" . # Prof Adj Asst
+            ?p hrb:hasJob ?j .
+            ?j hr:job_Deptid ?code .        
+            ?dept vivo:departmentHRcode ?code         
+        } UNION {
+            ?j hr:job_Jobcode \"10732\" . # Prof Adj Asst
+            ?p hrb:hasJob ?j .
+            ?j hr:job_Deptid ?code .        
+            ?dept vivo:activityHRcode ?code           
+        } UNION {
+            ?j hr:job_Jobcode \"10731\" . # Prof Adj Assoc
+            ?p hrb:hasJob ?j .
+            ?j hr:job_Deptid ?code .        
+            ?dept vivo:departmentHRcode ?code         
+        } UNION {
+            ?j hr:job_Jobcode \"10731\" . # Prof Adj Assoc
+            ?p hrb:hasJob ?j .
+            ?j hr:job_Deptid ?code .        
+            ?dept vivo:activityHRcode ?code           
+        } UNION {
+            ?j hr:job_Jobcode \"10730\" . # Prof Adj
+            ?p hrb:hasJob ?j .
+            ?j hr:job_Deptid ?code .        
+            ?dept vivo:departmentHRcode ?code         
+        } UNION {
+            ?j hr:job_Jobcode \"10730\" . # Prof Adj
+            ?p hrb:hasJob ?j .
+            ?j hr:job_Deptid ?code .        
+            ?dept vivo:activityHRcode ?code           
+        } UNION {
+            ?j hr:job_Jobcode \"10741\" . # Prof Visiting
+            ?p hrb:hasJob ?j .
+            ?j hr:job_Deptid ?code .        
+            ?dept vivo:departmentHRcode ?code         
+        } UNION {
+            ?j hr:job_Jobcode \"10741\" . # Prof Visiting
+            ?p hrb:hasJob ?j .
+            ?j hr:job_Deptid ?code .        
+            ?dept vivo:activityHRcode ?code           
+        } UNION {
+            ?j hr:job_Jobcode \"10736\" . # Prof Asst Visit
+            ?p hrb:hasJob ?j .
+            ?j hr:job_Deptid ?code .        
+            ?dept vivo:departmentHRcode ?code         
+        } UNION {
+            ?j hr:job_Jobcode \"10736\" . # Prof Asst Visit
+            ?p hrb:hasJob ?j .
+            ?j hr:job_Deptid ?code .        
+            ?dept vivo:activityHRcode ?code           
+        } UNION {
+            ?j hr:job_Jobcode \"10734\" . # Prof Assoc Vis
+            ?p hrb:hasJob ?j .
+            ?j hr:job_Deptid ?code .        
+            ?dept vivo:departmentHRcode ?code         
+        } UNION {
+            ?j hr:job_Jobcode \"10734\" . # Prof Assoc Vis
+            ?p hrb:hasJob ?j .
+            ?j hr:job_Deptid ?code .        
+            ?dept vivo:activityHRcode ?code           
+        } UNION {
+            ?j hr:job_Jobcode \"10726\" . # Andrew D. White Prof-At-Large
+            ?p hrb:hasJob ?j .
+            ?j hr:job_Deptid ?code .        
+            ?dept vivo:departmentHRcode ?code         
+        } UNION {
+            ?j hr:job_Jobcode \"10726\" . # Andrew D. White Prof-At-Large
+            ?p hrb:hasJob ?j .
+            ?j hr:job_Deptid ?code .        
+            ?dept vivo:activityHRcode ?code           
+        }
+
 		
 		}
     " .
@@ -264,34 +377,50 @@ hrw:academicStaffInConstructQuery
 		{
             ?dept vivo:departmentHRcode ?code .
 		    ?j hr:job_JobFamilyLdesc \"Academic Other\" .
+		    ?j hr:job_Jobcode ?jobcode .
 		    ?p hrb:hasJob ?j .
 		    ?j hr:job_Deptid ?code .
 		} UNION {
             ?dept vivo:departmentHRcode ?code .
 		    ?p hrb:hasJob ?j .
 		    ?j hr:job_Deptid ?code .
-		    ?j hr:job_JobFamilyLdesc \"Research/Extension\" 
+		    ?j hr:job_JobFamilyLdesc \"Research/Extension\" .
+		    ?j hr:job_Jobcode ?jobcode . 
 		} UNION {
-                    ?dept vivo:departmentHRcode ?code .
+            ?dept vivo:departmentHRcode ?code .
 		    ?p hrb:hasJob ?j .
-       		    ?j hr:job_Deptid ?code .
+       		?j hr:job_Deptid ?code .
 		    ?j hr:job_JobFamilyLdesc \"Teaching\" .
+		    ?j hr:job_Jobcode ?jobcode .
 		} UNION {
 		    ?j hr:job_JobFamilyLdesc \"Academic Other\" .
 		    ?p hrb:hasJob ?j .
 		    ?j hr:job_Deptid ?code .
-                    ?dept vivo:activityHRcode ?code
+            ?dept vivo:activityHRcode ?code .
+            ?j hr:job_Jobcode ?jobcode .
 		} UNION {
 		    ?p hrb:hasJob ?j .
 		    ?j hr:job_Deptid ?code .
 		    ?j hr:job_JobFamilyLdesc \"Research/Extension\" .
-                    ?dept vivo:activityHRcode ?code 
+            ?dept vivo:activityHRcode ?code . 
+            ?j hr:job_Jobcode ?jobcode . 
 		} UNION {
 		    ?p hrb:hasJob ?j .
-       		    ?j hr:job_Deptid ?code .
+       		?j hr:job_Deptid ?code .
 		    ?j hr:job_JobFamilyLdesc \"Teaching\" .
-                    ?dept vivo:activityHRcode ?code
+            ?dept vivo:activityHRcode ?code .
+            ?j hr:job_Jobcode ?jobcode .
 		}
+		FILTER (?jobcode != \"11100\")
+		FILTER (?jobcode != \"11099\")
+		FILTER (?jobcode != \"10737\")
+		FILTER (?jobcode != \"10732\")
+		FILTER (?jobcode != \"10731\")
+		FILTER (?jobcode != \"10730\")
+		FILTER (?jobcode != \"10741\")
+		FILTER (?jobcode != \"10736\")
+		FILTER (?jobcode != \"10734\")
+		FILTER (?jobcode != \"10726\")
 	  }
 	" . 
 

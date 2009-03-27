@@ -365,7 +365,9 @@
 	    Model tank = modelMaker.createModel(this.MODEL_NAME);
 		String dateStr = runCsvIngest(csvDir, tank);
 		Model store = modelMaker.createModel(this.STORE_NAME);
-		tank2store(tank,store,dateStr);
+		if (request.getParameter("tank2store") != null) {
+			tank2store(tank,store,dateStr);	
+		}
 	} catch (Exception e) {
 		response.sendRedirect(retryPath+"?errorMsg="+URLEncoder.encode(e.toString(),"UTF-8"));
 		return;

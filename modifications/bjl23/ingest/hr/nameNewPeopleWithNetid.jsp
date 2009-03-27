@@ -1,4 +1,5 @@
 
+<%@page import="com.hp.hpl.jena.rdf.model.RDFNode"%>
 <%@page import="com.hp.hpl.jena.rdf.model.Literal"%>
 <%@page import="com.hp.hpl.jena.rdf.model.Statement"%>
 <%@page import="com.hp.hpl.jena.util.ResourceUtils"%>
@@ -27,13 +28,15 @@
 	Model newPeopleModel = modelMaker.getModel("new people assertions");
 	Model outputModel = ModelFactory.createDefaultModel();
 	
-	outputModel.add(newPeopleModel);
+	//outputModel.add(newPeopleModel);
 	
 	List<String> oldURIs = new ArrayList<String>();
 	Iterator resIt = newPeopleModel.listSubjectsWithProperty(NETID);
 	while (resIt.hasNext()) {
 		Resource res = (Resource) resIt.next();
 		oldURIs.add(res.getURI());	
+		outputModel.add(newPeopleModel.listStatements((Resource)res, null, (RDFNode)null));
+		outputModel.add(newPeopleModel.listStatements((Resource)null, null, res));
 	}
 	
 	Iterator<String> oldURIit = oldURIs.iterator();
