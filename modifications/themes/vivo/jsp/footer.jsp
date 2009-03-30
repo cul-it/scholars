@@ -26,3 +26,23 @@
     </div><!-- END div 'copyright' -->
 </div><!-- footer -->
 
+<%--
+// nac26 080424: the following line should only be uncommented for PHILLIPS (vivo.cornell.edu) to ensure we're only tracking stats on the live site
+<script type="text/javascript" src="http://vivostats.mannlib.cornell.edu/?js"></script>
+--%>
+
+<%--
+// mw542 033009: the following block for Google Analytics should also only be uncommented for PHILLIPS 
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-5164622-5");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+--%>
+
+
+

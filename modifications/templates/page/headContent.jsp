@@ -19,8 +19,7 @@
 <c:out value="${requestScope.css}" escapeXml="false"/>
 <title><c:out value="${requestScope.title}"/></title>
 <%
-// nac26 080424: the following line should only be uncommented for PHILLIPS (vivo.cornell.edu) to ensure we're only tracking stats on the live site
-// <script type="text/javascript" src="http://vivostats.mannlib.cornell.edu/?js"></script>
+// mw542 033009: moved the Mint javascript include to footer.jsp
 %>
 <c:if test="${!empty scripts}"><jsp:include page="${scripts}"/></c:if>
 
