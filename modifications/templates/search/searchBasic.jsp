@@ -99,7 +99,7 @@
                     out.println(" | " + ent.getMoniker().replaceAll("&","&amp;"));
 				}
 	            
-            if (1==0) { // BJL temporarily disabling to boost performance 
+            if (1==1) { // BJL temporarily re-enabling for a demo 
                 // For now, custom search views just add additional information to the name and moniker
 	            String searchViewPrefix = "/templates/search/";
                 String customSearchView = null;
