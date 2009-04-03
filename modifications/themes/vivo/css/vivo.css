@@ -422,15 +422,20 @@ search roll call
 ****************************************************************/
 
 .searchTOC {
-    padding: 7px 0;
-    font-size: 1.2em;   
+	float: left;
+	padding: 7px 0;
+	font-size: 1.2em;
+}
+
+.searchTOC a {
+  float: left;
+  margin: .5em .3em 0 0;
 }
 
 .searchTOC a:link, .searchTOC a:visited {
-    color: #f81;
-    line-height: 1.6em;
-    margin-left: .8em;
-    border: dotted 1px #333;
+	padding: 5px;
+	color: #f81;
+	border: dotted 1px #333;
 }
 
 .searchTOC a:hover {
@@ -442,28 +447,21 @@ search roll call
 	padding-top: 10px;
 }
 
-.searchhits {
-    margin-top: 6px;
+.contentsBrowseGroup ul.searchhits {
+  clear: left;
+  padding-top: 1em;
 }
 
-.searchhits li {
-    margin-bottom: 6px;
-    margin-top: 6px;
-    font-size: 1.2em;
+.contentsBrowseGroup ul li {
+	margin-bottom: 6px;
+	font-size: 1.2em;
 }
 
-.searchFragment {
-       margin-left: 30px;
-       margin-right: 30px;
-       font-size: 0.86em;
-       color: #888;
+.contentsBrowseGroup ul li div {
+	font-size: 0.86em;
+	color: #888;
 }
 
-.searchpages  {
-   margin-top: 6px;
-   font-weight: bold;
-   font-size: 1.4em;
-}
 
 /****************************************************************
 admin roll call
