@@ -758,28 +758,37 @@
       <servlet-name>EntityListController</servlet-name>
       <url-pattern>/entitylist</url-pattern>
     </servlet-mapping>    
-    
-        <servlet>
+ 
+    <servlet>
       <servlet-name>SearchController</servlet-name>      
       <servlet-class>edu.cornell.mannlib.vitro.webapp.search.controller.SearchController</servlet-class>
     </servlet>    
     <servlet-mapping>
-      <servlet-name>SearchController</servlet-name>
+        <servlet-name>SearchController</servlet-name>
+	<url-pattern>/oldsearch</url-pattern>
+    </servlet-mapping>
+ 
+    <servlet>
+      <servlet-name>PagedSearchController</servlet-name>      
+      <servlet-class>edu.cornell.mannlib.vitro.webapp.search.controller.PagedSearchController</servlet-class>
+    </servlet>    
+    <servlet-mapping>
+      <servlet-name>PagedSearchController</servlet-name>
       <url-pattern>/search</url-pattern>
     </servlet-mapping>   
     <!-- for now, need to make sure the links on CALS' site doesn't break -->
     <servlet-mapping>
-      <servlet-name>SearchController</servlet-name>
+      <servlet-name>PagedSearchController</servlet-name>
       <url-pattern>/search.jsp</url-pattern>    
     </servlet-mapping>  
     <servlet-mapping>
-      <servlet-name>SearchController</servlet-name>
+      <servlet-name>PagedSearchController</servlet-name>
       <url-pattern>/fedsearch</url-pattern>    
     </servlet-mapping>
     <servlet-mapping>
-		<servlet-name>SearchController</servlet-name>
-		<url-pattern>/searchcontroller</url-pattern>
-	</servlet-mapping>
+      <servlet-name>PagedSearchController</servlet-name>
+      <url-pattern>/searchcontroller</url-pattern>
+    </servlet-mapping>
     
     <servlet>
       <servlet-name>AdminController</servlet-name>      
