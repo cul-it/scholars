@@ -435,7 +435,8 @@ search roll call
 .searchTOC a:link, .searchTOC a:visited {
 	padding: 5px;
 	color: #f81;
-	border: dotted 1px #333;
+/*  border: dotted 1px #333;*/
+	border: dotted 1px #999;
 }
 
 .searchTOC a:hover {
@@ -452,14 +453,22 @@ search roll call
   padding-top: 1em;
 }
 
+.contentsBrowseGroup ul.searchhits li {
+  margin-bottom: 1.5em;
+}
+
 .contentsBrowseGroup ul li {
-	margin-bottom: 6px;
+/*  margin-bottom: 6px;*/
 	font-size: 1.2em;
 }
 
 .contentsBrowseGroup ul li div {
 	font-size: 0.86em;
 	color: #888;
+}
+
+span.jumpText {
+  display: block;
 }
 
 
