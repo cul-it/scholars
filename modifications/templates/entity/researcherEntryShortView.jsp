@@ -7,13 +7,13 @@
 		<c:choose>
 			<c:when test="${!empty predicateUri}">
 			    <c:choose>
-				    <c:when test="${predicateUri == 'http://vitro.mannlib.cornell.edu/ns/reporting#linkedCollaboratingOnResearch'}"><%-- SUBJECT is a Person --%>
-					    <c:set var="objName" value="${individual.objectPropertyMap['http://vitro.mannlib.cornell.edu/ns/reporting#linkedResearcher'].objectPropertyStatements[0].object.name}"/>
-					    <c:set var="objUri" value="${individual.objectPropertyMap['http://vitro.mannlib.cornell.edu/ns/reporting#linkedResearcher'].objectPropertyStatements[0].object.URI}"/>
+				    <c:when test="${predicateUri == 'http://vitro.mannlib.cornell.edu/ns/reporting#linkedCollaboratingOnResearch'}"><%-- SUBJECT is a Person, show the research --%>
+					    <c:set var="objName" value="${individual.objectPropertyMap['http://vitro.mannlib.cornell.edu/ns/reporting#researchCollaboratingOn'].objectPropertyStatements[0].object.name}"/>
+					    <c:set var="objUri" value="${individual.objectPropertyMap['http://vitro.mannlib.cornell.edu/ns/reporting#researchCollaboratingOn'].objectPropertyStatements[0].object.URI}"/>
 				    </c:when>
-				    <c:when test="${predicateUri == 'http://vitro.mannlib.cornell.edu/ns/reporting#hasResearchCollaborator'}"><%-- SUBJECT is a Contract/Grant/Research in Progress --%>
+				    <c:when test="${predicateUri == 'http://vitro.mannlib.cornell.edu/ns/reporting#hasResearchCollaborator'}"><%-- SUBJECT is a Contract/Grant/Research in Progress, show the person --%>
 				    	<c:choose>
-				    		<c:when test="${!empty individual.objectPropertyMap['http://vivo.library.cornell.edu/ns/0.1#linkedResearcher']}">
+				    		<c:when test="${!empty individual.objectPropertyMap['http://vitro.mannlib.cornell.edu/ns/reporting#linkedResearcher']}">
 					    		<c:set var="objName" value="${individual.objectPropertyMap['http://vitro.mannlib.cornell.edu/ns/reporting#linkedResearcher'].objectPropertyStatements[0].object.name}"/>
 					    		<c:set var="objUri" value="${individual.objectPropertyMap['http://vitro.mannlib.cornell.edu/ns/reporting#linkedResearcher'].objectPropertyStatements[0].object.URI}"/>
 					    	</c:when>
