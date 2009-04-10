@@ -14,11 +14,11 @@
 				    <c:when test="${predicateUri == 'http://vivo.library.cornell.edu/ns/0.1#hasAuthorEntry'}"><%-- SUBJECT is a Publication --%>
 				    	<c:choose>
 				    		<c:when test="${!empty individual.objectPropertyMap['http://vivo.library.cornell.edu/ns/0.1#linksInPerson']}">
-					    		<c:set var="objName" value="${individual.objectPropertyMap['http://vivo.library.cornell.edu/ns/0.1#linksInPerson'].objectPropertyStatements[0].object.name}"/>
-					    		<c:set var="objUri" value="${individual.objectPropertyMap['http://vivo.library.cornell.edu/ns/0.1#linksInPerson'].objectPropertyStatements[0].object.URI}"/>
+					    		<c:set var="objName" value="${individual.objectPropertyMap['http://vivo.library.cornell.edu/ns/0.1#linksInAuthor'].objectPropertyStatements[0].object.name}"/>
+					    		<c:set var="objUri" value="${individual.objectPropertyMap['http://vivo.library.cornell.edu/ns/0.1#linksInAuthor'].objectPropertyStatements[0].object.URI}"/>
 					    	</c:when>
 					    	<c:otherwise>
-					    		<c:set var="objName" value="${individual.dataPropertyMap['http://vivo.library.cornell.edu/ns/0.1#personName'].dataPropertyStatements[0].data}"/>
+					    		<c:set var="objName" value="${individual.name}"/>
 					    	</c:otherwise>
 					    </c:choose>
 				    </c:when>
