@@ -8,18 +8,22 @@
 			<c:when test="${!empty predicateUri}">
 			    <c:choose>
 				    <c:when test="${predicateUri == 'http://vitro.mannlib.cornell.edu/ns/reporting#linkedMakingAPresentation'}"><%-- SUBJECT is a Person, show the research --%>
+				        <c:set var="objSort" value="${individual.objectPropertyMap['http://vitro.mannlib.cornell.edu/ns/reporting#presentingOf'].objectPropertyStatements[0].object.dataPropertyMap['http://vitro.mannlib.cornell.edu/ns/reporting#yearOfDate'].dataPropertyStatements[0].data}"/>
 					    <c:set var="objName" value="${individual.objectPropertyMap['http://vitro.mannlib.cornell.edu/ns/reporting#presentingOf'].objectPropertyStatements[0].object.name}"/>
-					    <c:set var="objLabel" value="${individual.dataPropertyMap['http://vitro.mannlib.cornell.edu/ns/reporting#responseInternalType'].dataPropertyStatements[0].data}"/>
+					    <%-- c:set var="objLabel" value="${individual.dataPropertyMap['http://vitro.mannlib.cornell.edu/ns/reporting#responseInternalType'].dataPropertyStatements[0].data}"/ --%>
+					    <c:set var="objLabel" value="${individual.objectPropertyMap['http://vitro.mannlib.cornell.edu/ns/reporting#presentingOf'].objectPropertyStatements[0].object.dataPropertyMap['http://vitro.mannlib.cornell.edu/ns/reporting#responseInternalType'].dataPropertyStatements[0].data}"/>
 					    <c:set var="objUri" value="${individual.objectPropertyMap['http://vitro.mannlib.cornell.edu/ns/reporting#presentingOf'].objectPropertyStatements[0].object.URI}"/>
 				    </c:when>
 				    <c:when test="${predicateUri == 'http://vitro.mannlib.cornell.edu/ns/reporting#hasPresenting'}"><%-- SUBJECT is a Contract/Grant/Research in Progress, show the person --%>
 				    	<c:choose>
 				    		<c:when test="${!empty individual.objectPropertyMap['http://vitro.mannlib.cornell.edu/ns/reporting#linkedPresenter']}">
+				    		    <c:set var="objSort" value=""/>
 					    		<c:set var="objName" value="${individual.objectPropertyMap['http://vitro.mannlib.cornell.edu/ns/reporting#linkedPresenter'].objectPropertyStatements[0].object.name}"/>
 					    		<c:set var="objLabel" value="${individual.dataPropertyMap['http://vitro.mannlib.cornell.edu/ns/reporting#responseInternalType'].dataPropertyStatements[0].data}"/>
 					    		<c:set var="objUri" value="${individual.objectPropertyMap['http://vitro.mannlib.cornell.edu/ns/reporting#linkedPresenter'].objectPropertyStatements[0].object.URI}"/>
 					    	</c:when>
 					    	<c:otherwise>
+					    	    <c:set var="objSort" value=""/>
 					    		<c:set var="objName" value="${individual.name}"/>
 					    		<c:set var="objLabel" value="${individual.moniker}"/>
 					    		<c:set var="objUri" value="${individual.URI}"/>
@@ -35,10 +39,10 @@
 			    <c:choose>
 			    	<c:when test="${!empty objUri}">
 			            <c:url var="objLink" value="/entity"><c:param name="uri" value="${objUri}"/></c:url>
-		                <a href="<c:out value="${objLink}"/>"><p:process>${objName}</p:process></a> | ${objLabel}
+		                ${objSort} <a href="<c:out value="${objLink}"/>"><p:process>${objName}</p:process></a> | ${objLabel}
 		            </c:when>
 		            <c:otherwise>
-		                <p:process>${objName} | ${objLabel}</p:process>
+		                <p:process>${objSort} ${objName} | ${objLabel}</p:process>
 		            </c:otherwise>
 		        </c:choose>
 			</c:when>
