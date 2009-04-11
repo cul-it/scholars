@@ -39,7 +39,7 @@
 			    <c:choose>
 			    	<c:when test="${!empty objUri}">
 			            <c:url var="objLink" value="/entity"><c:param name="uri" value="${objUri}"/></c:url>
-		                ${objSort} <a href="<c:out value="${objLink}"/>"><p:process>${objName}</p:process></a> | ${objLabel}
+		                ${objSort}&nbsp;<a href="<c:out value="${objLink}"/>"><p:process>${objName}</p:process></a> | ${objLabel}
 		            </c:when>
 		            <c:otherwise>
 		                <p:process>${objSort} ${objName} | ${objLabel}</p:process>
