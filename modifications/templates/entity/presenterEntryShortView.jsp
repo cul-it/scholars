@@ -22,6 +22,7 @@
 					    	<c:otherwise>
 					    		<c:set var="objName" value="${individual.name}"/>
 					    		<c:set var="objLabel" value="${individual.moniker}"/>
+					    		<c:set var="objUri" value="${individual.URI}"/>
 					    	</c:otherwise>
 					    </c:choose>
 				    </c:when>
