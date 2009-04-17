@@ -3,11 +3,11 @@
 <%@ taglib uri="http://vitro.mannlib.cornell.edu/vitro/tags/StringProcessorTag" prefix="p" %>
 
 <c:choose>
-	<c:when test="${!empty individual}"><%-- individual is the OBJECT of the property referenced -- the AuthorEntry, not the Person or Publication --%>
+	<c:when test="${!empty individual}"><%-- individual is the OBJECT of the property referenced -- the AuthoringAPublication, not the Person or Publication --%>
 		<c:choose>
 			<c:when test="${!empty predicateUri}">
 			    <c:choose>
-				    <c:when test="${predicateUri == 'http://vivo.library.cornell.edu/ns/0.1#linkedToPersonEntry'}"><%-- SUBJECT is a Person --%>
+				    <c:when test="${predicateUri == 'http://vivo.library.cornell.edu/ns/0.1#linkedAuthoringAPublication'}"><%-- SUBJECT is a Person --%>
 					    <c:set var="objName" value="${individual.objectPropertyMap['http://vivo.library.cornell.edu/ns/0.1#authorEntryFor'].objectPropertyStatements[0].object.name}"/>
 					    <c:set var="objUri" value="${individual.objectPropertyMap['http://vivo.library.cornell.edu/ns/0.1#authorEntryFor'].objectPropertyStatements[0].object.URI}"/>
 				    </c:when>
