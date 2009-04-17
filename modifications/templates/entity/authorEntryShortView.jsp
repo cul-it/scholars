@@ -9,12 +9,14 @@
 			    <c:choose>
 				    <c:when test="${predicateUri == 'http://vivo.library.cornell.edu/ns/0.1#linkedAuthoringAPublication'}"><%-- SUBJECT is a Person --%>
 					    <c:set var="objName" value="${individual.objectPropertyMap['http://vivo.library.cornell.edu/ns/0.1#authorEntryFor'].objectPropertyStatements[0].object.name}"/>
+					    <c:set var="objLabel" value="${individual.objectPropertyMap['http://vivo.library.cornell.edu/ns/0.1#authorEntryFor'].objectPropertyStatements[0].object.moniker}"/>
 					    <c:set var="objUri" value="${individual.objectPropertyMap['http://vivo.library.cornell.edu/ns/0.1#authorEntryFor'].objectPropertyStatements[0].object.URI}"/>
 				    </c:when>
 				    <c:when test="${predicateUri == 'http://vivo.library.cornell.edu/ns/0.1#hasAuthorEntry'}"><%-- SUBJECT is a Publication --%>
 				    	<c:choose>
 				    		<c:when test="${!empty individual.objectPropertyMap['http://vivo.library.cornell.edu/ns/0.1#linksInAuthor']}">
 					    		<c:set var="objName" value="${individual.objectPropertyMap['http://vivo.library.cornell.edu/ns/0.1#linksInAuthor'].objectPropertyStatements[0].object.name}"/>
+					    		<c:set var="objLabel" value="${individual.objectPropertyMap['http://vivo.library.cornell.edu/ns/0.1#linksInAuthor'].objectPropertyStatements[0].object.moniker}"/>
 					    		<c:set var="objUri" value="${individual.objectPropertyMap['http://vivo.library.cornell.edu/ns/0.1#linksInAuthor'].objectPropertyStatements[0].object.URI}"/>
 					    	</c:when>
 					    	<c:otherwise>
