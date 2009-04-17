@@ -32,7 +32,7 @@
 			    </c:choose>
 			    <c:choose>
 			    	<c:when test="${!empty objUri}">
-			    	    <c:if test="{!empty pubYear}">${pubYear}: </c:if>
+			    	    <c:if test="${!empty pubYear}">${pubYear}: </c:if>
 			            <c:url var="objLink" value="/entity"><c:param name="uri" value="${objUri}"/></c:url>
 		                <a href="<c:out value="${objLink}"/>"><p:process>${objName}</p:process></a> | <p:process>${objLabel}</p:process>
 		            </c:when>
