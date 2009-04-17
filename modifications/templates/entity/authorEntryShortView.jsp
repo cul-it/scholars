@@ -10,7 +10,7 @@
 				    <c:when test="${predicateUri == 'http://vivo.library.cornell.edu/ns/0.1#linkedAuthoringAPublication'}"><%-- SUBJECT is a Person --%>
 					    <c:set var="objName" value="${individual.objectPropertyMap['http://vivo.library.cornell.edu/ns/0.1#authorEntryFor'].objectPropertyStatements[0].object.name}"/>
 					    <c:set var="objLabel" value="${individual.objectPropertyMap['http://vivo.library.cornell.edu/ns/0.1#authorEntryFor'].objectPropertyStatements[0].object.moniker}"/>
-					    <c:set var="objLabel" value="${individual.objectPropertyMap['http://vivo.library.cornell.edu/ns/0.1#authorEntryFor'].objectPropertyStatements[0].object.dataPropertyMap['http://vivo.mannlib.cornell.edu/ns/ThomsonWOS/0.1#bib_issue_year'].dataPropertyStatements[0].data}"/>
+					    <c:set var="pubYear" value="${individual.objectPropertyMap['http://vivo.library.cornell.edu/ns/0.1#authorEntryFor'].objectPropertyStatements[0].object.dataPropertyMap['http://vivo.mannlib.cornell.edu/ns/ThomsonWOS/0.1#bib_issue_year'].dataPropertyStatements[0].data}"/>
 					    <c:set var="objUri" value="${individual.objectPropertyMap['http://vivo.library.cornell.edu/ns/0.1#authorEntryFor'].objectPropertyStatements[0].object.URI}"/>
 				    </c:when>
 				    <c:when test="${predicateUri == 'http://vivo.library.cornell.edu/ns/0.1#hasAuthorEntry'}"><%-- SUBJECT is a Publication --%>
