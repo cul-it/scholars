@@ -1146,6 +1146,7 @@ form em {
 	font-size: 1.4em;*/
 	font-style: normal;
 	line-height: 1.0em;
+	display: inline;
 }
 
 p.note em {
@@ -1158,6 +1159,11 @@ form label em, form.equipment-reservation li em, form.equipment-reservation p em
 	display: block;
 	color: #888;
 	font-size: 0.8em;
+}
+
+form h2 em {
+  display: inline;
+  font-size: inherit;
 }
 
 em.subtle {
@@ -1441,4 +1447,93 @@ caption {
 
 #tabContent td {
   padding:0.4em;
+}
+
+
+/****************************************************************
+temporary tab changes
+****************************************************************/
+
+Xdiv.tab-image { /* images were being individually wrapped with tables, this is an alternative */
+  margin: .5em 0 1em 0;
+}
+
+
+/*Research Tab*/
+#Xtab874 span.tab-extLink,
+#Xtab874 span.tab-moniker,
+#Xtab874 a.externalLink,
+#Xtab874 a.image,
+#Xtab874 div.blurb {
+  display: none;
+}
+
+#Xtab874 div.tab li {
+  list-style-type: none;
+  margin-left: 0;
+}
+
+/*Seminars -> Seminar Series Tab*/
+#Xtab857 #tab867 span.tab-extLink,
+#Xtab857 #tab867 span.tab-moniker,
+#Xtab857 #tab867 a.externalLink,
+#Xtab857 #tab867 a.image,
+#Xtab857 #tab867 div.blurb {
+  display: none;
+}
+
+#Xtab857 #tab867 li {
+  list-style-type: none;
+  margin-left: 0;
+}
+
+/*Academic Units*/
+#Xtab818 .tab span.tab-extLink,
+#Xtab818 .tab span.tab-moniker,
+#Xtab818 .tab a.externalLink,
+#Xtab818 .tab a.image,
+#Xtab818 .tab div.blurb {
+  display: none;
+}
+
+#Xtab818 ul li {
+  list-style-type: none;
+  margin-left: 0;
+}
+
+/*People Tab*/
+#Xtab814 div.tab-image {
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  overflow: hidden;
+  height: 75px;
+  width: 75px;
+/*  display: block;*/
+/*  float: right;*/
+}
+
+#Xtab814 ul li {
+  position: relative;
+  clear: both;
+  list-style-type: none;
+  margin-left: 0;
+  margin-bottom: 20px;
+  padding-left: 82px;
+  padding-right: 16px;
+  min-height: 75px;
+  height: auto !important;
+  height: 75px;
+}
+
+#Xtab814 .tab-item {
+  padding-left: 83px;
+}
+
+#Xtab814 div.blurb,
+#Xtab814 a.externalLink {
+  display: none;
 }
