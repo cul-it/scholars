@@ -1454,55 +1454,58 @@ caption {
 temporary tab changes
 ****************************************************************/
 
-Xdiv.tab-image { /* images were being individually wrapped with tables, this is an alternative */
+div.tab-image { /* images were being individually wrapped with tables, this is an alternative */
   margin: .5em 0 1em 0;
 }
 
 
 /*Research Tab*/
-#Xtab874 span.tab-extLink,
-#Xtab874 span.tab-moniker,
-#Xtab874 a.externalLink,
-#Xtab874 a.image,
-#Xtab874 div.blurb {
+#tab874 span.tab-extLink,
+#tab874 span.tab-moniker,
+#tab874 a.externalLink,
+#tab874 a.image,
+#tab874 div.blurb {
   display: none;
 }
 
-#Xtab874 div.tab li {
+#tab874 div.tab li {
   list-style-type: none;
   margin-left: 0;
 }
 
 /*Seminars -> Seminar Series Tab*/
-#Xtab857 #tab867 span.tab-extLink,
-#Xtab857 #tab867 span.tab-moniker,
-#Xtab857 #tab867 a.externalLink,
-#Xtab857 #tab867 a.image,
-#Xtab857 #tab867 div.blurb {
+#tab857 #tab867 span.tab-extLink,
+#tab857 #tab867 span.tab-moniker,
+#tab857 #tab867 a.externalLink,
+#tab857 #tab867 a.image,
+#tab857 #tab867 div.blurb {
   display: none;
 }
 
-#Xtab857 #tab867 li {
+#tab857 #tab867 li {
   list-style-type: none;
   margin-left: 0;
 }
 
 /*Academic Units*/
-#Xtab818 .tab span.tab-extLink,
-#Xtab818 .tab span.tab-moniker,
-#Xtab818 .tab a.externalLink,
-#Xtab818 .tab a.image,
-#Xtab818 .tab div.blurb {
+#tab818 .tabEntities span.tab-extLink,
+#tab818 .tabEntities span.tab-moniker,
+#tab818 .tab span.tab-extLink,
+#tab818 .tab span.tab-moniker,
+#tab818 .tab a.externalLink,
+#tab818 .tab a.image,
+#tab818 .tab div.blurb,
+#tab818 .tab div.tab-image {
   display: none;
 }
 
-#Xtab818 ul li {
+#tab818 ul li {
   list-style-type: none;
   margin-left: 0;
 }
 
 /*People Tab*/
-#Xtab814 div.tab-image {
+#tab814 div.tab-image {
   margin: 0;
   padding: 0;
   position: absolute;
@@ -1516,7 +1519,7 @@ Xdiv.tab-image { /* images were being individually wrapped with tables, this is 
 /*  float: right;*/
 }
 
-#Xtab814 ul li {
+#tab814 ul li {
   position: relative;
   clear: both;
   list-style-type: none;
@@ -1529,11 +1532,11 @@ Xdiv.tab-image { /* images were being individually wrapped with tables, this is 
   height: 75px;
 }
 
-#Xtab814 .tab-item {
+#tab814 .tab-item {
   padding-left: 83px;
 }
 
-#Xtab814 div.blurb,
-#Xtab814 a.externalLink {
+#tab814 div.blurb,
+#tab814 a.externalLink {
   display: none;
 }
