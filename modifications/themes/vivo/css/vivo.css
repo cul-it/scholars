@@ -1464,13 +1464,14 @@ div.tab-image { /* images were being individually wrapped with tables, this is a
 #tab874 span.tab-moniker,
 #tab874 a.externalLink,
 #tab874 a.image,
-#tab874 div.blurb {
+#tab874 div.blurb,
+#tab874 div.tab-image {
   display: none;
 }
 
 #tab874 div.tab li {
   list-style-type: none;
-  margin-left: 0;
+  margin: 0 0 4px 0;
 }
 
 /*Seminars -> Seminar Series Tab*/
@@ -1484,7 +1485,7 @@ div.tab-image { /* images were being individually wrapped with tables, this is a
 
 #tab857 #tab867 li {
   list-style-type: none;
-  margin-left: 0;
+  margin: 0 0 4px 0;
 }
 
 /*Academic Units*/
@@ -1501,7 +1502,7 @@ div.tab-image { /* images were being individually wrapped with tables, this is a
 
 #tab818 ul li {
   list-style-type: none;
-  margin-left: 0;
+  margin: 0 0 4px 0;
 }
 
 /*People Tab*/
@@ -1524,7 +1525,7 @@ div.tab-image { /* images were being individually wrapped with tables, this is a
   clear: both;
   list-style-type: none;
   margin-left: 0;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   padding-left: 82px;
   padding-right: 16px;
   min-height: 75px;
@@ -1537,6 +1538,7 @@ div.tab-image { /* images were being individually wrapped with tables, this is a
 }
 
 #tab814 div.blurb,
-#tab814 a.externalLink {
+#tab814 a.externalLink,
+#tab814 span.tab-extLink {
   display: none;
 }
