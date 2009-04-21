@@ -15,6 +15,10 @@ Linklint - urlfailX.html
   a.redirect {
     color: #c88400;
   }
+  a.toggler {
+    color: #999;
+    font-size: small;
+  }
   li h2 {
     margin-left: -40px;
   }
@@ -33,6 +37,9 @@ Linklint - urlfailX.html
   li.disabled a {
     color: #A1BFD2;
   }
+  li.disabled a.toggler {
+    color: #c0c0c0;
+  }
   a.redirect {
     color: #DCBB7D;
   }
@@ -45,21 +52,24 @@ Linklint - urlfailX.html
 $(document).ready(function() {
   var i = 1;
   var hash = document.location.hash.substring(5);
-  $("li").each(function(){
+  $("li:not(.heading)").each(function(){
     $(this).attr("id",i);
     if(i <= hash) {
       // $(this).addClass("disabled");
     }
+    $(this).children("a:first").after("&nbsp;&nbsp;&nbsp;<a class='toggler' href='#'>(fixed!)</a>");
     i++;
   })
-  $("li").click(function(){
-    if($(this).hasClass("disabled")) {
-      $(this).removeClass("disabled");
+  $("a.toggler").click(function(){
+    if($(this).parent().hasClass("disabled")) {
+      $(this).parent().removeClass("disabled");
+      $(this).text("(fixed!)");
     }
     else {
-      $(this).addClass("disabled");
+      $(this).parent().addClass("disabled");
+      $(this).text("(restore)");
     }
-    document.location.hash = "item"+$(this).attr("id");
+    document.location.hash = "item"+$(this).parent().attr("id");
     return false;
   })
 })
