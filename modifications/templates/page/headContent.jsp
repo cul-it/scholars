@@ -22,8 +22,8 @@
 // mw542 033009: moved the Mint javascript include to footer.jsp
 %>
 
-<c:url var="jqueryPath" value="/js/jquery.js"/>
-<script type="text/javascript" src="${jqueryPath}"></script>
+<%-- <c:url var="jqueryPath" value="/js/jquery.js"/>
+<script type="text/javascript" src="${jqueryPath}"></script> --%>
 
 <c:if test="${!empty scripts}"><jsp:include page="${scripts}"/></c:if>
 
