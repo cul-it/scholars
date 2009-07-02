@@ -84,6 +84,10 @@ public static Log log = LogFactory.getLog("edu.cornell.mannlib.vitro.webapp.jsp.
 					<h3 class="propertyName">${objProp.editLabel}</h3>
 		    		<c:if test="${showSelfEdits || showCuratorEdits}"><edLnk:editLinks item="${objProp}" icons="true" /></c:if>
 		    		<c:if test="${showCuratorEdits && verbosePropertyListing}">
+                        <c:url var="propertyEditLink" value="/propertyEdit">
+                            <c:param name="home" value="${portal.portalId}"/>
+                            <c:param name="uri" value="${objProp.URI}"/>
+                        </c:url>
 						<c:choose>
 							<c:when test="${!empty objProp.hiddenFromDisplayBelowRoleLevel.label}"><c:set var="displayCue" value="${objProp.hiddenFromDisplayBelowRoleLevel.label}"/></c:when>
 							<c:otherwise><c:set var="displayCue" value="unspecified"/></c:otherwise>
@@ -98,13 +102,13 @@ public static Log log = LogFactory.getLog("edu.cornell.mannlib.vitro.webapp.jsp.
 <%		    				        PropertyGroup pg = pgDao.getGroupByURI(op.getGroupURI());
 		    					    if (pg!=null && pg.getName()!=null) {
 		    					    	request.setAttribute("groupName",pg.getName());%>
-		    					        <span style="color: grey; font-size: 0.75em;"> ${objProp.localNameWithPrefix} (object property); display tier ${objProp.domainDisplayTier} within group ${groupName}; display level: ${displayCue}; update level: ${updateCue}</span>
+		    					        <span style="color: grey; font-size: 0.75em;"><a class="propertyLink" href="${propertyEditLink}"/>${objProp.localNameWithPrefix}</a> (object property); display tier ${objProp.domainDisplayTier} within group ${groupName}; display level: ${displayCue}; update level: ${updateCue}</span>
 <%                                  }%>
                                 </c:if>
 		    				</c:when>
 		    				<c:otherwise>
 		    				    <c:if test="${!empty objProp.domainDisplayTier}">
-		    				        <span style="color: grey; font-size: 0.75em;"> ${objProp.localNameWithPrefix} (object property); display tier ${objProp.domainDisplayTier}; display level: ${displayCue}; update level: ${updateCue}</span>
+		    				        <span style="color: grey; font-size: 0.75em;"><a class="propertyLink" href="${propertyEditLink}"/>${objProp.localNameWithPrefix}</a> (object property); display tier ${objProp.domainDisplayTier}; display level: ${displayCue}; update level: ${updateCue}</span>
 		    					</c:if>
 		    				</c:otherwise>
 		    			</c:choose>
@@ -188,6 +192,10 @@ public static Log log = LogFactory.getLog("edu.cornell.mannlib.vitro.webapp.jsp.
 				<h3 class="propertyName">${dataProp.editLabel}</h3>
 		    	<c:if test="${showSelfEdits || showCuratorEdits}"><edLnk:editLinks item="${dataProp}" icons="true"/></c:if>
 				<c:if test="${showCuratorEdits && verbosePropertyListing}">
+                    <c:url var="propertyEditLink" value="/datapropEdit">
+                        <c:param name="home" value="${portal.portalId}"/>
+                        <c:param name="uri" value="${dataProp.URI}"/>
+                    </c:url>
 					<c:choose>
 						<c:when test="${!empty dataProp.hiddenFromDisplayBelowRoleLevel.label}"><c:set var="displayCue" value="${dataProp.hiddenFromDisplayBelowRoleLevel.label}"/></c:when>
 						<c:otherwise><c:set var="displayCue" value="unspecified"/></c:otherwise>
@@ -202,12 +210,12 @@ public static Log log = LogFactory.getLog("edu.cornell.mannlib.vitro.webapp.jsp.
 <%		    				    PropertyGroup pg = pgDao.getGroupByURI(dp.getGroupURI());
 		    					if (pg!=null && pg.getName()!=null) {
 		    					    request.setAttribute("groupName",pg.getName());%>
-		    					    <span style="color: grey; font-size: 0.75em;"> ${dataProp.localNameWithPrefix} (data property); display tier ${dataProp.displayTier} within group ${groupName}; display level: ${displayCue}; update level: ${updateCue}</span>
+		    					    <span style="color: grey; font-size: 0.75em;"><a class="propertyLink" href="${propertyEditLink}"/>${dataProp.localNameWithPrefix}</a> (data property); display tier ${dataProp.displayTier} within group ${groupName}; display level: ${displayCue}; update level: ${updateCue}</span>
 <%                              }%>
                             </c:if>
 		    		    </c:when>
 				    	<c:otherwise>
-				    		<c:if test="${!empty dataProp.displayTier}"><span style="color: grey; font-size: 0.75em;"> ${dataProp.localNameWithPrefix} (data property); display tier ${dataProp.displayTier}; display level: ${displayCue}; update level: ${updateCue}</span></c:if>
+				    		<c:if test="${!empty dataProp.displayTier}"><span style="color: grey; font-size: 0.75em;"><a class="propertyLink" href="${propertyEditLink}"/>${dataProp.localNameWithPrefix}</a> (data property); display tier ${dataProp.displayTier}; display level: ${displayCue}; update level: ${updateCue}</span></c:if>
 				    	</c:otherwise>
 				    </c:choose>
 				</c:if>
