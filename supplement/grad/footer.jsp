@@ -6,7 +6,7 @@
 <div id="footer">
 	<div>
 	    <a class="siteFeedback" href="/feedback/" title="Send Us Feedback">Site Feedback</a>
-	    <p>&#169; 2008 <a href="http://lifesciences.cornell.edu" title="home"><strong>Life Sciences</strong></a> <a href="http://www.cornell.edu" title="Cornell University">Cornell University</a> Ithaca, NY 14853</p>
+	    <p>&#169; 2009 <a href="http://lifesciences.cornell.edu" title="home"><strong>Life Sciences</strong></a> <a href="http://www.cornell.edu" title="Cornell University">Cornell University</a> Ithaca, NY 14853</p>
 	    
         <%-- secret VIVO link, ssshhh... --%>
 	    <c:if test="${!empty param.uri && param.uri !=''}">
