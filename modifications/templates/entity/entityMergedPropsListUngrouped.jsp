@@ -80,7 +80,8 @@ public static Log log = LogFactory.getLog("edu.cornell.mannlib.vitro.webapp.jsp.
 	    	<c:set var="objRows" value="${fn:length(objProp.objectPropertyStatements)}"/>
 	    	<c:if test="${objRows==0}"><c:set var="objStyle" value="display: block;"/></c:if>
 	    	<c:if test="${editableInSomeWay || objRows>0}">
-				<div class="propsItem" id="${objProp.localName}">
+                <c:set var="uniqueOpropDivName" value="${fn:replace(objProp.localNameWithPrefix,':','-')}"/>
+                <div class="propsItem" id="${'oprop-'}${uniqueOpropDivName}">
 					<h3 class="propertyName">${objProp.editLabel}</h3>
 		    		<c:if test="${showSelfEdits || showCuratorEdits}"><edLnk:editLinks item="${objProp}" icons="true" /></c:if>
 		    		<c:if test="${showCuratorEdits && verbosePropertyListing}">
@@ -180,7 +181,7 @@ public static Log log = LogFactory.getLog("edu.cornell.mannlib.vitro.webapp.jsp.
 					</c:forEach>
 					<c:if test="${objRows > 0}"></ul></c:if>
    					<c:if test="${stmtCounter > displayLimit}"></div></c:if>
- 				</div><!-- ${objProp.localName} -->
+ 				</div><!-- ${objProp.localNameWithPrefix} -->
  			</c:if>
 <%		} else if (p instanceof DataProperty) {
   			DataProperty dp = (DataProperty)p;%>
@@ -188,7 +189,8 @@ public static Log log = LogFactory.getLog("edu.cornell.mannlib.vitro.webapp.jsp.
  			<c:set var="dataRows" value="${fn:length(dataProp.dataPropertyStatements)}"/>
 		    <c:set var="dataStyle" value="display: block;"/>
 		    <c:if test="${dataRows==0}"><c:set var="dataStyle" value="display: block;"/></c:if>
-			<div class="propsItem" id="${dataProp.localName}" style="${dataStyle}">
+            <c:set var="uniqueDpropDivName" value="${fn:replace(dataProp.localNameWithPrefix,':','-')}"/>
+            <div id="${'dprop-'}${uniqueDpropDivName}" class="propsItem" style="${dataStyle}">
 				<h3 class="propertyName">${dataProp.editLabel}</h3>
 		    	<c:if test="${showSelfEdits || showCuratorEdits}"><edLnk:editLinks item="${dataProp}" icons="true"/></c:if>
 				<c:if test="${showCuratorEdits && verbosePropertyListing}">
@@ -258,7 +260,7 @@ public static Log log = LogFactory.getLog("edu.cornell.mannlib.vitro.webapp.jsp.
 					</c:forEach>
 					<c:if test="${stmtCounter > displayLimit}"></div></c:if>
                 </div><!-- datatypeProperties -->
-			</div><!-- ${dataProp.localName} -->		
+			</div><!-- ${dataProp.localNameWithPrefix} -->		
 <%		} else { // keyword property -- ignore
 		    if (p instanceof KeywordProperty) {%>
 				<p>Not expecting keyword properties here.</p>
