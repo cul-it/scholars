@@ -26,7 +26,7 @@
     		VitroRequestPrep.forceToSelfEditing(request);
             
             //write who logged in to the audit log.
-            Authenticate.sendLoginNotifiyEvent(
+            Authenticate.sendLoginNotifyEvent(
                     new LoginEvent(selfEditingId.getValue()), 
                     application,
                     session);
