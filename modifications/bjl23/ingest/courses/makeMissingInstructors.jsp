@@ -48,7 +48,7 @@
 	Resource PERSON_CLASS = ResourceFactory.createResource("http://www.aktors.org/ontology/portal#Person");
 	Property CORNELL_EMAIL_NETID = ResourceFactory.createProperty("http://vivo.library.cornell.edu/ns/0.1#CornellemailnetId");
 	
-	String NEW_RES_NS = "http://vivo.cornell.edu/resource/classes/2009sp/update2/";
+	String NEW_RES_NS = "http://vivo.cornell.edu/resource/classes/2009fa/";
 	
 %>
 

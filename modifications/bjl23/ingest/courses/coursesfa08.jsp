@@ -33,7 +33,7 @@
       have a nice way of compiling clone-specific Java classes */ %>
 
 <%! 
-	String SEMESTER = "2009sp2";
+	String SEMESTER = "2009fa";
 	String RAW_DATA_MODEL = "classes"+SEMESTER+" - raw";
 	String RAW_INSTRUCTORS_MODEL = "classes"+SEMESTER+" - instructors - raw";
 	String WORK_MODEL = "Courses - Work Model";

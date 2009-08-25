@@ -11,6 +11,8 @@
 <body>
 	<h1>Incremental HR Ingest</h1>
 
+    <p><strong>Check that ad20 was excluded from update</strong></p>
+
 	<p><strong>Note: </strong> You must connect to the hrcumulative database first using the ingest menu.</p>
 
 	<c:if test="${!empty param.errorMsg}">

@@ -159,12 +159,16 @@ private String ldapResult2String(LDAPSearchResults res, String orgName,String ld
 
 
 <%
-
+if (request.getParameter("netId") != null) {
  //   String filter = makeLdapSearchFilter("Lowe, Brian");
-	String filter = "(&(!(type=student*))(cornelledunetid=bjl23))";
+    String netId = request.getParameter("netId");
+    //String filter = "(&(!(type=student*))(cornelledudeptid1="+netId+"))";
+	String filter = "(&(!(type=student*))(cornelledunetid="+netId+"))";
 	out.print(filter+"\n\n");
 	LDAPSearchResults results = searchLdap(filter);
-	while (results.hasMoreElements()) {
+	if (!results.hasMoreElements()) {
+		out.write("Not found!");
+	} else while (results.hasMoreElements()) {
 		LDAPEntry entry = (LDAPEntry) results.next();
 		LDAPAttributeSet las = entry.getAttributeSet();
 		Enumeration lasEnumeration = las.getAttributes();
@@ -178,5 +182,24 @@ private String ldapResult2String(LDAPSearchResults res, String orgName,String ld
 	//String resultStr = ldapResult2String(results, "test", filter);
 	//out.write(resultStr);
 	out.flush();
+	return;
+}
 
 %>
+
+<html>
+<head>
+    <title>Query LDAP for Netid</title>
+</head>
+<body>
+    <h1>Query LDAP for Netid</h1>
+    <form action="" method="post">
+        <input name="netId"/>
+        <input type="submit" value="Query"/>
+    </form>
+</body>
+</html>
+
+
+
+

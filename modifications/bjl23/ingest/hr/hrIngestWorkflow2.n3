@@ -15,8 +15,13 @@ hrw:sameAsConstructQuery
 		   CONSTRUCT {
     		   	     ?p hrw:sameAs ?q
 		    } WHERE {
-				  ?p chr:emplId ?id .
-       			  ?q chr:emplId ?id
+				  {
+					?p chr:emplId ?id .
+       			  	?q chr:emplId ?id
+				  } UNION {
+					?p vivo:CornellemailnetId ?emailNetid .
+					?q vivo:CornellemailnetId ?emailNetid
+				  }
                   OPTIONAL {
                       ?p ?typep <http://vitro.mannlib.cornell.edu/ns/bjl23/hr/rules1#Person>
                   } 
@@ -72,6 +77,10 @@ hrw:ExistingPeoplePreAssertionsConstructQuery
 		   } WHERE {
 		     	 ?s rdf:type hrb:Person .
 		     	 ?s hrw:sameAs ?existingPerson .
+		     	 OPTIONAL {
+		     	    ?existingPerson ?rdftype vivo:HiddenCornellEmployee
+		     	 } 
+		     	 FILTER (!bound(?rdftype))
 			     ?s ?p ?o .
                  OPTIONAL {
 			         ?oo ?pp ?s .
