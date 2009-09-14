@@ -1,0 +1,7 @@
+<cross-domain-policy>
+
+   <allow-access-from domain="confluence.cornell.edu" secure="true" />
+   <allow-access-from domain="mannlib.cornell.edu" />
+   <allow-access-from domain="vivo.cornell.edu" />
+   
+</cross-domain-policy>
