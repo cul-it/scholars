@@ -351,6 +351,15 @@
       <url-pattern>/ingest</url-pattern>
     </servlet-mapping>
 
+    <servlet>      
+      <servlet-name>JenaExportController</servlet-name>
+      <servlet-class>edu.cornell.mannlib.vitro.webapp.controller.jena.JenaExportController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+      <servlet-name>JenaExportController</servlet-name>
+      <url-pattern>/export/*</url-pattern>
+    </servlet-mapping>
+
     <servlet>
       <servlet-name>OwlImportController</servlet-name>   
       <servlet-class>edu.cornell.mannlib.vitro.webapp.owl.OwlImportController</servlet-class>    	
@@ -422,7 +431,16 @@
       <servlet-name>Classes2ClassesOperationController</servlet-name>
       <url-pattern>/classes2ClassesOp</url-pattern>
     </servlet-mapping>
-   
+  
+    <servlet>
+        <servlet-name>Properties2PropertiesOperationController</servlet-name>
+        <servlet-class>edu.cornell.mannlib.vitro.webapp.controller.edit.Properties2PropertiesOperationController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Properties2PropertiesOperationController</servlet-name>
+         <url-pattern>/props2PropsOp</url-pattern>
+    </servlet-mapping>
+ 
     <servlet>
         <servlet-name>NamespacePrefixOperationController</servlet-name>
         <servlet-class>edu.cornell.mannlib.vitro.webapp.controller.edit.NamespacePrefixOperationController</servlet-class>
