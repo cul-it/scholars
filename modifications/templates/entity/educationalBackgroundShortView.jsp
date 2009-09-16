@@ -3,6 +3,7 @@
 
 <c:choose>
 	<c:when test="${!empty individual}">
+        <span style="color:black;"> <% /* TODO: Un-kluge this. For some reason this short view was showing up gray */ %>
 		<c:set var="gradyear" value="${individual.dataPropertyMap['http://vivo.library.cornell.edu/ns/0.1#yearDegreeAwarded'].dataPropertyStatements[0].data}"/>
 		<c:set var="degree" value="${individual.dataPropertyMap['http://vivo.library.cornell.edu/ns/0.1#preferredDegreeAbbreviation'].dataPropertyStatements[0].data}"/>
 		<c:set var="institution" value="${individual.dataPropertyMap['http://vivo.library.cornell.edu/ns/0.1#institutionAwardingDegree'].dataPropertyStatements[0].data}"/>
@@ -11,6 +12,7 @@
 		<c:out value="${degree}"/>
 		<c:if test="${!empty institution }"><c:out value=", ${institution}"/></c:if>
 		<c:if test="${!empty major }"><c:out value=", ${major}"/></c:if>
+        </span>
 	</c:when>
 	<c:otherwise>
 		<c:out value="Got nothing to draw here ..."/>
