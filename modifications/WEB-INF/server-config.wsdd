@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<deployment xmlns="http://xml.apache.org/axis/wsdd/" xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+ <globalConfiguration>
+  <parameter name="sendMultiRefs" value="true"/>
+  <parameter name="disablePrettyXML" value="true"/>
+  <parameter name="adminPassword" value="admin"/>
+  <parameter name="attachments.Directory" value="/usr/local/tomcat6.0.14/webapps/vivo/WEB-INF/attachments"/>
+  <parameter name="dotNetSoapEncFix" value="true"/>
+  <parameter name="enableNamespacePrefixOptimization" value="false"/>
+  <parameter name="sendXMLDeclaration" value="true"/>
+  <parameter name="sendXsiTypes" value="true"/>
+  <parameter name="attachments.implementation" value="org.apache.axis.attachments.AttachmentsImpl"/>
+  <requestFlow>
+   <handler type="java:org.apache.axis.handlers.JWSHandler">
+    <parameter name="scope" value="session"/>
+   </handler>
+   <handler type="java:org.apache.axis.handlers.JWSHandler">
+    <parameter name="scope" value="request"/>
+    <parameter name="extension" value=".jwr"/>
+   </handler>
+  </requestFlow>
+ </globalConfiguration>
+ <handler name="URLMapper" type="java:org.apache.axis.handlers.http.URLMapper"/>
+ <handler name="LocalResponder" type="java:org.apache.axis.transport.local.LocalResponder"/>
+ <handler name="Authenticate" type="java:org.apache.axis.handlers.SimpleAuthenticationHandler"/>
+ <service name="VitroWs3" provider="java:RPC">
+  <parameter name="allowedMethods" value="getFullTab,getTabsForPortal,getFullEntityById"/>
+  <parameter name="scope" value="application"/>
+  <parameter name="className" value="edu.cornell.mannlib.vitro.webservices.VitroWs"/>
+  <parameter name="sendMultiRefs" value="false"/>
+  <typeMapping deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" qname="ns1:Entity" serializer="edu.cornell.mannlib.vitro.webservices.serializers.EntitySerFactory" type="java:edu.cornell.mannlib.vitro.webapp.beans.Individual" xmlns:ns1="urn:edu.cornell.mannlib.vitro"/>
+  <typeMapping deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" qname="ns2:Ents2Ents" serializer="edu.cornell.mannlib.vitro.webservices.serializers.Ents2EntsSerFactory" type="java:edu.cornell.mannlib.vitro.webapp.beans.ObjectPropertyStatement" xmlns:ns2="urn:edu.cornell.mannlib.vitro"/>
+  <typeMapping deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" qname="ns3:Property" serializer="edu.cornell.mannlib.vitro.webservices.serializers.EshipRetroObjectPropertySerFactory" type="java:edu.cornell.mannlib.vitro.webapp.beans.ObjectProperty" xmlns:ns3="urn:edu.cornell.mannlib.vitro"/>
+    <typeMapping qname="ns3:Tab" xmlns:ns3="urn:edu.cornell.mannlib.vitro"
+                 type="java:edu.cornell.mannlib.vitro.webapp.beans.Tab"
+                 serializer="edu.cornell.mannlib.vitro.webservices.serializers.TabSerFactory"                 
+                 encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+
+  <beanMapping languageSpecificType="java:edu.cornell.mannlib.vitro.webapp.beans.VClass" qname="ns4:VClass" xmlns:ns4="urn:edu.cornell.mannlib.vitro"/>
+  <beanMapping languageSpecificType="java:edu.cornell.mannlib.vitro.webapp.beans.PropertyInstance" qname="ns5:PropertyInstance" xmlns:ns5="urn:edu.cornell.mannlib.vitro"/>
+<!--  <beanMapping languageSpecificType="java:edu.cornell.mannlib.vitro.webapp.beans.Tab" qname="ns6:Tab" xmlns:ns6="urn:edu.cornell.mannlib.vitro"/> -->
+  <beanMapping languageSpecificType="java:edu.cornell.mannlib.vitro.webapp.beans.Link" qname="ns7:Link" xmlns:ns7="urn:edu.cornell.mannlib.vitro"/>
+ </service>
+ <service name="AdminService" provider="java:MSG">
+  <parameter name="allowedMethods" value="AdminService"/>
+  <parameter name="enableRemoteAdmin" value="true"/>
+  <parameter name="className" value="org.apache.axis.utils.Admin"/>
+  <namespace>http://xml.apache.org/axis/wsdd/</namespace>
+  <namespace>http://xml.apache.org/axis/wsdd/</namespace>
+ </service>
+ <service name="Version" provider="java:RPC">
+  <parameter name="allowedMethods" value="getVersion"/>
+  <parameter name="className" value="org.apache.axis.Version"/>
+ </service>
+ <transport name="http">
+  <requestFlow>
+   <handler type="URLMapper"/>
+   <handler type="java:org.apache.axis.handlers.http.HTTPAuthHandler"/>
+  </requestFlow>
+  <parameter name="qs:list" value="org.apache.axis.transport.http.QSListHandler"/>
+  <parameter name="qs:wsdl" value="org.apache.axis.transport.http.QSWSDLHandler"/>
+  <parameter name="qs.list" value="org.apache.axis.transport.http.QSListHandler"/>
+  <parameter name="qs.method" value="org.apache.axis.transport.http.QSMethodHandler"/>
+  <parameter name="qs:method" value="org.apache.axis.transport.http.QSMethodHandler"/>
+  <parameter name="qs.wsdl" value="org.apache.axis.transport.http.QSWSDLHandler"/>
+ </transport>
+ <transport name="local">
+  <responseFlow>
+   <handler type="LocalResponder"/>
+  </responseFlow>
+ </transport>
+</deployment>
