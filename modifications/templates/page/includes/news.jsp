@@ -48,7 +48,8 @@
          PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
          PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
          PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
-         SELECT DISTINCT ?news ?newsLabel ?blurb ?sourceLink ?newsThumb ?moniker ?sunrise
+         PREFIX hr: <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#>
+         SELECT DISTINCT ?news ?newsLabel ?blurb ?sourceLink ?newsThumb ?moniker ?sunrise ?featured ?featuredLabel ?firstName ?lastName
          WHERE
          {
 
@@ -64,10 +65,19 @@
           OPTIONAL { ?news vitro:imageThumb ?newsThumb }
       
           OPTIONAL { ?news vitro:moniker ?moniker }
-      
+          
+          OPTIONAL { 
+            ?news vivo:featuresPerson2 ?featured . 
+            ?featured rdfs:label ?featuredLabel .
+            OPTIONAL {
+              ?featured hr:FirstName ?firstName .
+              ?featured hr:LastName ?lastName
+            }
+          }
+                
           FILTER( xsd:dateTime(?now) > ?sunrise )
          }
-         ORDER BY DESC(?sunrise)
+         ORDER BY ?news DESC(?sunrise)
          LIMIT 15
 
           ]]>
@@ -88,7 +98,8 @@
         </c:forEach>
         
         <c:forEach begin="0" end="100">
-            <c:if test="${rs[random2].newsThumb.string == null || random1 == random2 }">
+            <!-- mw542 (9-15-2009): news items can now appear on multiple rows in the result set since multiple people can be featured. testing for this below -->
+            <c:if test="${rs[random2].newsThumb.string == null || random1 == random2 || rs[random1].news == rs[random2].news}">
                 <rand:number id="random2" range="0-14"/>
                 <c:set var="random2"><jsp:getProperty name="random2" property="random"/></c:set>
             </c:if>
@@ -99,16 +110,50 @@
                <fmt:parseDate var="publishDateTimekey" value="${item.sunrise.string}" pattern="yyyy-MM-dd'T'HH:mm:ss" />
                <fmt:formatDate var="publishDate" value="${publishDateTimekey}" pattern="MMM'. 'd" />
                 <li class="newsitem first">
- 					<c:url var="image" value="/images/${item.newsThumb.string}"/>
-                  <a class="image" href="${item.sourceLink.string}"><img width="128" src="${image}" alt="${item.newsLabel.string}"/></a><h4><a title="full ${item.moniker.string}" href="${item.sourceLink.string}">${item.newsLabel.string}</a></h4><p><em>${publishDate}</em>${item.blurb.string}</p>
+ 					        <c:url var="image" value="/images/${item.newsThumb.string}"/>
+                  <a class="image" href="${item.sourceLink.string}"><img width="128" src="${image}" alt="${item.newsLabel.string}"/></a>
+                  <h4><a class="externalLink" title="full ${item.moniker.string}" href="${item.sourceLink.string}">${item.newsLabel.string}</a></h4><p>${item.blurb.string}</p>
+                  <p class="features">
+                    <c:if test="${!empty item.featured}">
+                      Features: 
+                      <c:url var="entityLink" value="/entity">
+                        <c:param name="uri" value="${item.featured}"/>
+                      </c:url>
+                      <c:choose>
+                        <c:when test="${!empty item.firstName.string and !empty item.lastName.string}">
+                          <c:set var="featuredName" value="${item.firstName.string} ${item.lastName.string}"/>
+                        </c:when>
+                        <c:otherwise><c:set var="featuredName" value="${item.featuredLabel.string}"/></c:otherwise>
+                      </c:choose>
+                      <a href="${entityLink}" title="view profile">${featuredName}</a>
+                    </c:if>
+                    <em>${publishDate}</em>
+                  </p>
                 </li>
             </c:forEach>
             <c:forEach  items="${rs}" var="item" begin="${random2}" end="${random2}">
                 <fmt:parseDate var="publishDateTimekey" value="${item.sunrise.string}" pattern="yyyy-MM-dd'T'HH:mm:ss" />
                 <fmt:formatDate var="publishDate" value="${publishDateTimekey}" pattern="MMM'. 'd" />
                 <li class="newsitem clean">
- 					<c:url var="image" value="/images/${item.newsThumb.string}"/>
-                  <a class="image" href="${item.sourceLink.string}"><img width="128" src="${image}" alt="${item.newsLabel.string}"/></a><h4><a title="full ${item.moniker.string}" href="${item.sourceLink.string}">${item.newsLabel.string}</a></h4><p><em>${publishDate}</em>${item.blurb.string}</p>
+ 					        <c:url var="image" value="/images/${item.newsThumb.string}"/>
+                  <a class="image" href="${item.sourceLink.string}"><img width="128" src="${image}" alt="${item.newsLabel.string}"/></a>
+                  <h4><a class="externalLink" title="full ${item.moniker.string}" href="${item.sourceLink.string}">${item.newsLabel.string}</a></h4><p>${item.blurb.string}</p>
+                  <p class="features">
+                    <c:if test="${!empty item.featured}">
+                      Features: 
+                      <c:url var="entityLink" value="/entity">
+                        <c:param name="uri" value="${item.featured}"/>
+                      </c:url>
+                      <c:choose>
+                        <c:when test="${!empty item.firstName.string and !empty item.lastName.string}">
+                          <c:set var="featuredName" value="${item.firstName.string} ${item.lastName.string}"/>
+                        </c:when>
+                        <c:otherwise><c:set var="featuredName" value="${item.featuredLabel.string}"/></c:otherwise>
+                      </c:choose>
+                      <a href="${entityLink}" title="view profile">${featuredName}</a>
+                    </c:if>
+                    <em>${publishDate}</em>
+                  </p>
                 </li>
             </c:forEach>
         </ul>

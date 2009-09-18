@@ -136,7 +136,7 @@ div.toBeDeleted {
 }
 
 div.toBeDeleted.objProp {
-	color: #118855;
+/*  color: #118855;*/
 	font-weight: bold;
 	font-style: normal;
 }

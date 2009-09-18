@@ -9,7 +9,7 @@
 
 <%
   DateTime now = new DateTime();
-  DateTime almostNow = now.minus(Period.minutes(15));
+  DateTime almostNow = now.minus(Period.days(90));
   request.setAttribute("now", "\"" + almostNow.toString("yyyy-MM-dd'T'HH:mm:ss") + "\"" );
   request.setAttribute("now2", new Date());
 %>

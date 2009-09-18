@@ -60,7 +60,7 @@ if (VitroRequestPrep.isSelfEditing(request) || LoginFormBean.loggedIn(request, L
         <jsp:include page="entityAdmin.jsp"/> 
         
         <div class='contents entity'>
-       		<div id="entity label" style="overflow:auto;">
+       		<div id="entity label">
                 <h2><p:process>${entity.name}</p:process></h2> 
                 <c:if test="${!empty entity.moniker}">
                     <p:process><em class="moniker">${entity.moniker}</em></p:process>

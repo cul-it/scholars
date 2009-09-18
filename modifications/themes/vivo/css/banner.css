@@ -7,7 +7,7 @@
 /*
 Title:		VIVO - CU Banner
 Author:		nac26@cornell.edu
-Updated:	November 19, 2007
+Updated:	September 4, 2009
 */
 
 /****************************************
@@ -26,10 +26,10 @@ Updated:	November 19, 2007
 */
 #cu-identity {
 	font-family: verdana, arial, helvetica, sans-serif;
-	color: #000;
+	color: #fff;
 	height: 75px;
 	text-align: left;
-	background: #fff;
+	background: #b31b1b;
 	}
 
 #cu-logo {
@@ -37,7 +37,7 @@ Updated:	November 19, 2007
 	padding: 0;
 	width: 265px;
 	height: 75px;
-	background: url(../site_icons/layout/cu_library_logo.gif) no-repeat 12px top;
+	background: url(../site_icons/layout/cu_logo-red.gif) no-repeat 12px top;
 }
 
 #cu-logo a {
@@ -105,7 +105,7 @@ Updated:	November 19, 2007
 #search-form {
 	float: right;
 	display: inline; /* To adress IE Win Doubled Float-Margin Bug as described at http://www.positioniseverything.net/explorer/doubled-margin.html */
-	margin: 18px 14px 0 0;
+	margin: 18px 0 0 0;
 	padding: 0;
 	}
 	
@@ -116,7 +116,7 @@ Updated:	November 19, 2007
 	}
 	
 #search-form label {
-	color: #000;
+	color: #fff;
 	font-size: 1.0em;
 	}
 	
@@ -127,7 +127,7 @@ Updated:	November 19, 2007
 	font-family: verdana, arial, helvetica, sans-serif;
 	font-size: 1.0em;
 	font-weight: bold;
-	color: #185;
+	color: #000;
 	background: #f3f3f3 url(../site_icons/layout/bg_search_field.gif) no-repeat top left;
 	vertical-align: middle;
 	}
@@ -138,6 +138,7 @@ Updated:	November 19, 2007
 	border-left: 1px solid #e5e5e5;
 	border-right: 1px solid #b3b3b3;
 	border-bottom: 1px solid #b3b3b3;
+  border-color:#bf6060 #400606 #400606 #bf6060;
 /*	border-top: 1px solid #a6a295;
 	border-left: 1px solid #a6a295;
 	border-right: 1px solid #403000;
@@ -145,8 +146,8 @@ Updated:	November 19, 2007
 	font-family: verdana, arial, helvetica, sans-serif;
 	font-size: 1.0em;
 	font-weight: bold;
-	color: #333;
-	background: #f2f2f2;
+	color: #fff;
+	background: #990000;
 /*	color: #fff;
 	background: #59544b;*/
 	vertical-align: middle;

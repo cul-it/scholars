@@ -119,7 +119,7 @@ if (keywordStmts.size()>1) { // now sort the keywords, which do not retain an in
         		        <c:param name="tab" value="people"/>
         		        <c:param name="netid" value="${netId}"/>
         	        </c:url>
-        	        <strong class="contactLink"><a title="contact info at cornell.edu" href="${CUSearchUrl}">current contact information</a></strong>
+        	        <strong class="contactLink"><a class="externalLink" title="contact info at cornell.edu" href="${CUSearchUrl}">current contact information</a></strong>
        	        </div>
             </c:when>
             <c:otherwise>
@@ -131,7 +131,7 @@ if (keywordStmts.size()>1) { // now sort the keywords, which do not retain an in
         		                <c:param name="tab" value="people"/>
         		                <c:param name="q" value="${emailAddress}"/>
         	                </c:url>
-        	                <strong class="contactLink"><a title="contact info at cornell.edu" href="${CUMedSearchUrl}">current contact information</a></strong>
+        	                <strong class="contactLink"><a class="externalLink" title="contact info at cornell.edu" href="${CUMedSearchUrl}">current contact information</a></strong>
         	            </div>
                 	</c:if>
             	</c:if>

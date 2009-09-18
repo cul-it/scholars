@@ -47,41 +47,34 @@
         <% } else { %>
              	<a class="image login" href="<c:url value="/edit/login.jsp" />" title="Edit Your Profile"><img src="<c:url value="/themes/vivo/site_icons/login.gif"/>" alt="Edit Your Profile" /></a>
         <% } %>
-      
+
     <a class="image vivoLogo" href="<c:url value="/index.jsp"><c:param name="home" value="${portalBean.portalId}"/></c:url>" title="Home"><img src="<c:url value="/themes/vivo/site_icons/vivo_logo.gif"/>" alt="VIVO" /></a>
        
-    <em class="portal"><%=portal.getShortHand()%></em>
+    <!-- <em class="portal"><%// =portal.getShortHand()%></em> -->
     
     <!-- ************************ Navigation ********************** generated in menu.jsp **** -->
     <div id="menu">
 <%      VitroRequest vreq = new VitroRequest(request);%>
         <!-- include primary menu list elements from TabMenu.java -->
         <%=TabMenu.getPrimaryTabMenu(vreq)%>
+		<!-- now render the standard Index, About, and Contact Us navigation  --> 
+	        <ul id="secondary">
+				<% if ("browse".equalsIgnoreCase(fixedTabStr)) {%>
+	                <li class="activeTab"><a href="<c:url value="/browsecontroller"/>" title="list all contents by type">Index</a></li>
+				<%} else {%>
+	                <li><a href="<c:url value="/browsecontroller"><c:param name="home" value="${portalBean.portalId}"/></c:url>" title="list all contents by type">Index</a></li>
+				<%}
+	            if ("about".equalsIgnoreCase(fixedTabStr)) {%>
+	                <li><a class="activeTab" href="<c:url value="/about"><c:param name="home" value="${portalBean.portalId}"/><c:param name="login" value="none"/></c:url>" title="more about this web site">About</a></li>
+				<%} else {%>
+	                <li><a href="<c:url value="/about"><c:param name="home" value="${portalBean.portalId}"/></c:url>" title="more about this web site">About</a></li>
+				<%}
+				if ("comments".equalsIgnoreCase(fixedTabStr)) {%>
+	                <li class="activeTab"><a href="<c:url value="/comments"><c:param name="home" value="${portalBean.portalId }"/></c:url>">Contact Us</a></li>
+				<%} else {%>
+	                <li><a href="<c:url value="/comments"><c:param name="home" value="${portalBean.portalId }"/></c:url>">Contact Us</a></li>
+				<%}%>
+	        </ul>
     </div> <!-- menu -->
-    <div id="secondaryMenu">
-    <%
-    //nac26 2008-09-11
-    //disabling breadcrumbs
-    //=BreadCrumbsUtil.getBreadCrumbsDiv(request)
-    %>
-    <!-- now render the standard Index, About, and Contact Us navigation  --> 
-        <ul id="otherMenu">
-<%          if ("browse".equalsIgnoreCase(fixedTabStr)) {%>
-                <li class="activeTab"><a href="<c:url value="/browsecontroller"/>" title="list all contents by type">Index</a></li>
-<%          } else {%>
-                <li><a href="<c:url value="/browsecontroller"><c:param name="home" value="${portalBean.portalId}"/></c:url>" title="list all contents by type">Index</a></li>
-<%          }
-            if ("about".equalsIgnoreCase(fixedTabStr)) {%>
-                <li><a class="activeTab" href="<c:url value="/about"><c:param name="home" value="${portalBean.portalId}"/><c:param name="login" value="none"/></c:url>" title="more about this web site">About</a></li>
-<%          } else {%>
-                <li><a href="<c:url value="/about"><c:param name="home" value="${portalBean.portalId}"/></c:url>" title="more about this web site">About</a></li>
-<%          }                                                    %>
-<%          if ("comments".equalsIgnoreCase(fixedTabStr)) { %>
-                <li class="activeTab"><a href="<c:url value="/comments"><c:param name="home" value="${portalBean.portalId }"/></c:url>">Contact Us</a></li>
-<%          } else {%>
-                <li><a href="<c:url value="/comments"><c:param name="home" value="${portalBean.portalId }"/></c:url>">Contact Us</a></li>
-<%          }%>
-        </ul>
-    </div> <!-- secondaryMenu -->
 </div> <!-- header -->
 <!-- ********** END menu.jsp FROM /themes/vivo/jsp/ ************* -->

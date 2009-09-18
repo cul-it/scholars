@@ -62,9 +62,14 @@
     <jsp:include page="/${themeDir}jsp/identity.jsp" flush="true"/>
     <div id="contentwrap">
         <jsp:include page="/${themeDir}jsp/menu.jsp" flush="true"/>
-        <c:import url="${bodyJsp}"/>
+        <div class="pagecontent">
+          <c:import url="${bodyJsp}"/>
+        </div>
     </div> <!-- contentwrap -->
-    <jsp:include page="/${themeDir}jsp/footer.jsp" flush="true"/>
+  <div class="push"></div>
 </div> <!-- wrap -->
+<div id="footer-wrap">
+	<jsp:include page="/${themeDir}jsp/footer.jsp" flush="true"/>
+</div> <!-- footer-wrap -->
 </body>
 </html>

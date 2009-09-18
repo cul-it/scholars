@@ -134,7 +134,7 @@ function onMouseOutHeading( tagToUnHighlight ) {
 	//if (tagToUnHighlight == null ) // leave in for Mozilla diagnostics
 	//	return;
 	//tagToUnHighlight.style.textDecoration = 'none';
-	tagToUnHighlight.style.color = "#185" //"#6A5ACD"; // <a>
+	tagToUnHighlight.style.color = "#000" //"#6A5ACD"; // <a>
 	tagToUnHighlight.style.cursor="pointer";
 }
 

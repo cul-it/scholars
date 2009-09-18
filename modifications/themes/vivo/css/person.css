@@ -17,7 +17,7 @@ Updated:	August 19, 2008
 }
 
 #personWrap #content.person {
-    padding: 0 0 20px 4px;
+    padding: 30px 0 20px 4px;
 /*    width: 69%;*/
     width: auto;
     min-width: 600px;
@@ -30,12 +30,15 @@ Updated:	August 19, 2008
 }
 
 #personWrap {
-	background: #fff url(../site_icons/layout/bg_innerwrap_person.gif) repeat-y right top;
+	background: url(../site_icons/layout/bg_innerwrap_person.gif) repeat-y right top;
     padding-top: 20px;
 /*    margin-top: 25px;*/
     clear: both;
 }
 
+#personWrap .entity {
+  padding-top: 0;
+}
 
 /* ------ duplicate styles for department pages ----- */
 
@@ -53,7 +56,7 @@ Updated:	August 19, 2008
 }
 
 #deptWrap {
-	background: #fff url(../site_icons/layout/bg_innerwrap_person.gif) repeat-y right top;
+	background: url(../site_icons/layout/bg_innerwrap_person.gif) repeat-y right top;
     padding-top: 26px;
     clear: both;
 }
@@ -71,22 +74,23 @@ Updated:	August 19, 2008
 }
 
 #deptWrap div.description {
-    font-size: 1.1em;
+/*    font-size: 1.2em;*/
 }
 
 #deptWrap div.description p,
 #deptWrap div.description li {
-    font-size: 1em;
+/*    font-size: 1em;*/
 }
 
-#deptWrap img.screenshot {
+img.screenshot {
     display: block;
-    border: 4px solid #d2d2d2;
+    margin: 4px 0;
+    border: 3px solid #C7C3BB;
 }
 
 #deptWrap #dashboard a:link {
-    color: #55AABB;
-    border-color: #55AABB;
+/*    color: #55AABB;*/
+/*    border-color: #55AABB;*/
 }
 
 #deptWrap ul.externalLinks {
@@ -124,9 +128,11 @@ Updated:	August 19, 2008
     padding-top: 10px;
 }
 
-#personWrap #entity em.moniker {
+#personWrap em.moniker {
+    float: left;
+    clear: none;
+    display: inline-block;
     padding: 2px 0 0 0;
-    font-size: 1.4em;
 }
 
 #personWrap div#profileImage {
@@ -172,7 +178,7 @@ Updated:	August 19, 2008
 #personWrap #content ol li,
 #personWrap #content ul li {
     padding-left: 0;
-    font-size: 1em;
+/*    font-size: 1em;*/
 }
 
 #personWrap div.propsCategory h3 {
@@ -181,7 +187,7 @@ Updated:	August 19, 2008
     height: 24px;
     margin: 0 0 0 -1px;
     padding: 0 0 0 12px;
-    font-size: 1.19em;
+    font-size: 1.08em;
     color: #fff;
     background: url(../site_icons/layout/h3_tab_left.gif) left top no-repeat;
     border: 0;
@@ -197,11 +203,11 @@ Updated:	August 19, 2008
 
 #personWrap div.propsCategory {
     clear: left;
-    background: #FAF8F3 url(../site_icons/layout/bg_propsCategory.gif) right top no-repeat;
+    background: #fff url(../site_icons/layout/bg_propsCategory.gif) right top no-repeat;
 /*    border-left: 1px solid #d9d9d9;*/
-    border-left: 1px solid #eae2d2;
+    border-left: 1px solid #dedede;
 /*    border-bottom: 1px solid #d9d9d9;*/
-    border-bottom: 1px solid #eae2d2;
+    border-bottom: 1px solid #dedede;
 /*    margin-bottom: 30px;*/
     margin: 25px 0;
 }
@@ -225,10 +231,10 @@ Updated:	August 19, 2008
 }
 
 #personWrap div.propsCategory div.propsItem { /* being more specific here to leave borders off ungrouped (single) properties */
-    border-top: 1px solid #fff;
-/*    border-bottom: 1px solid #F2EFE5;*/
-    border-bottom: 1px solid #f0ede4;
-	background: #faf8f3;
+/*    border-top: 1px solid #fff;*/
+/*    border-bottom: 1px solid #f0ede4;*/
+    border-bottom: 1px solid #f2f2f2;
+/*  background: #faf8f3;*/
 }
 
 /* temporary patch - can't reliably apply class of first to some properties */
@@ -256,18 +262,18 @@ Updated:	August 19, 2008
 }
 
 #personWrap ul.properties {
-    font-size: 1.1em;
+/*    font-size: 1.2em;*/
     padding-left: 0;
     color: #888;
 }
 
 #personWrap div.datatypeProperties {
-    font-size: 1.1em;
+/*    font-size: 1.2em;*/
 }
 
 #personWrap div.datatypeProperties p, /* resetting font sizes for html inside data props */
 #personWrap div.datatypeProperties ul {
-    font-size: 1em;
+/*    font-size: 1em;*/
     line-height: 1.5em;
 }
 
@@ -306,32 +312,34 @@ Updated:	August 19, 2008
 
 #personWrap div.datatypeProperties ul ol,
 #personWrap div.datatypeProperties ul ul {
-    padding-left: 1.5em;
-    list-style-position: outside; /* resetting from vivo.css */
+    margin-left: 1.5em;
+    list-style-position: inside; /* resetting from vivo.css */
 }
+
 
 /* ----------------- Dashboard ---------------- */
 
 #personWrap #dashboard {
-    padding: 0 0 100px 0;
+    padding: 32px 0 100px 0;
     display: inline-block; /* fixes IE double top-padding bug, discussed at: http://exscale.se/archives/2007/06/13/ie-double-padding-bug/ */
     background: none;
     text-align: left;
-    width: 255px;
+    width: 256px;
 }
 
-#personWrap #dashboard a:link,
-#personWrap #dashboard a:visited {
-    color: #118855;
+#personWrap #dashboard li {
+  list-style-type: none;
 }
 
-#personWrap #dashboard a:hover,
-#personWrap #dashboard a:active {
-    color: #FF8811;
+#personWrap #dashboard a {
+/*  color: #B31B1B;*/
 }
 
 #personWrap #propGroupNav  {
     margin-bottom: 20px;
+    border: 2px solid #F0EEE4;
+    border-left: 0;
+    border-right: 0;
 }
 
 #personWrap #propGroupNav li {
@@ -349,7 +357,7 @@ Updated:	August 19, 2008
 
 #personWrap #dashboard #propGroupNav h2 a {
     display: block;
-    padding: 4px 14px 5px 14px;
+    padding: 5px 14px 5px 14px;
     border: 0;
     color: #fff;
 /*    background: #6d8e80;*/
@@ -386,9 +394,9 @@ Updated:	August 19, 2008
     position: relative;
     height: 1%;
     margin: 10px 14px;
-    padding: 10px;
-    border: 1px solid #CBCBCB;
-    background: #e6e6e6;
+/*    padding: 10px;*/
+/*    border: 1px solid #CBCBCB;*/
+/*    background: #e6e6e6;*/
 }
 
 #personWrap #dashboardExtras h3 {
@@ -399,11 +407,11 @@ Updated:	August 19, 2008
 }
 
 #personWrap #dashboardExtras a img {
-    border: 1px solid #d6d6d6;
-    display: block;
-    width: auto;
-    margin: 4px 0 0 0;
-    text-decoration: none;
+/*    border: 1px solid #ccc;*/
+/*    display: block;*/
+/*    width: auto;*/
+/*    margin: 4px 0 0 0;*/
+/*    text-decoration: none;*/
 }
 
 #personWrap ul.profileLinks {
@@ -418,7 +426,7 @@ Updated:	August 19, 2008
 }
 
 ul.keywords li {
-    font-size: 1em;
+    font-size: 0.9em;
 }
 
 #personWrap #links,
@@ -505,7 +513,7 @@ ul.keywords li {
 
 div.editBox.editMode {
     border: 2px solid #b5d6e8;
-    background: #fff;
+    background: #FFFEDB;
 /*    padding: 12px 10px;*/
     padding: 12px 10px;
     margin-top: 3px;

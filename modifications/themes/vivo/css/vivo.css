@@ -7,20 +7,26 @@
 /*
 Title:		VIVO screen styles
 Authors:	nac26@cornell.edu, mw542@cornell.edu
-Updated:	April 29, 2008
+Updated:	September 17, 2009
 */
 
 * {
 	margin: 0;
 	padding: 0;
 }
+
+html, body {
+  /* needed for sticky footer */
+	height: 100%;
+}
  
 body {
-	font-family: Verdana, sans-serif;
+	font-family: Arial, sans-serif;
 	font-size: 63.125%;		/* translate 1.0em to 10px, 1.5em to 15px, etc. */
+	line-height: 1.5em;
 	text-align: left;
 	color: #333;
-	background: #4d5155;
+	background: #f0eee4 url(../site_icons/layout/bg_body.jpg) no-repeat left top;
 }
 
 .clear {
@@ -31,40 +37,44 @@ body {
 	margin: 0 auto;
 	text-align: left;
 	width: 85%;
-	min-width: 917px;
+  min-width: 917px;
 }
 
-#contentwrap {
-	margin-bottom: 4px;
-	padding: 12px 0 1px 16px; /* right padding taken care of within dashboard (to allow centering of profile image) */
-	/*padding: 12px 0 1px 16px;*/ /* right padding taken care of within dashboard (to allow centering of profile image) */
-	background: #fff url(../site_icons/layout/bg_page.gif) no-repeat right top;
+#wrap {
+  /* these styles are for the sticky footer */
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+  margin: 0 auto -75px; /* the bottom margin is the negative value of the footer's height */
 }
 
 #header {
-    position: relative;
-/*	margin-bottom: 19px;*/
+/*  margin: 1.8em 0 0 16px;*/
+  margin-top: 18px;
+  display: inline-block;
+  width: 100%;
+/*  height: 186px;*/
 /*  display: inline; /* nac26: added 080307 so dasboard will sit up at the top of the page, touching the bottom of the header */
 }
 
 #menu {
-/*  float: right;*/
-/*  display: inline;*/
-	clear: both;
-/*  margin-top: 1px;*/
-	margin-right: 262px;
-}
-
-#secondaryMenu {
-	display: inline-block;
-	clear: both;
-	width: 100%;
+/*  margin-top: 2.6em;*/
+  margin-top: 20px;
+  float: left;
+  clear: both;
+  width: 100%;
 }
 
 #content {
+  clear: left;
 	width: 100%;
-	padding: 16px 2px 10px 0;
-/*	padding: 16px 16px 10px 0;*/
+	padding: 24px 2px 10px 0;
+}
+
+/* This is a global container applied by basicPage.jsp */
+div.pagecontent {
+  clear: left;
+  font-size: 1.2em;
 }
 
 * html #content.person {
@@ -72,18 +82,10 @@ body {
 }
 
 #content.person {
-/*	float: left;*/
-/*	clear: both;*/
-	margin-top: 8px;
+/*  margin-top: 8px;*/
 	min-width: 640px;
 	width: 70%;
-/*	min-width: 640px;*/
 }
-
-/*#content.full {
-	float: none;
-	width: 100%;
-}*/
 
 #dashboard {
 	float: right;
@@ -99,19 +101,35 @@ body {
 
 #footer {
 	clear: both;
-	color: #fff;
+	margin: 0 auto;
+	padding-left: 36px;
+	padding-top: 1.5em;
+	width: 85%;
+	color: #575752;
+	background: #aeaea6;
+	font-size: 1.2em;
 }
+
+#footer-wrap {
+  position: relative;
+  clear: both;
+  height: 75px;
+  background: #aeaea6;
+/*  margin-top: -72px;*/
+}
+
+.footer, .push {
+	height: 75px; /* .push must be the same height as .footer */
+}
+
 
 /****************************************************************
 head roll call
 ****************************************************************/
 em.portal {
-/*    display: inline;*/
     position: absolute;
     top: 0;
     left: 147px;
-/*    vertical-align: top;*/
-/*    padding-left: 7px;*/
     font-size: 1.4em;
     font-family: Arial, Helvetica, sans-serif;
     font-style: normal;
@@ -122,74 +140,95 @@ em.portal {
 menu roll call
 ****************************************************************/
 ul#primary {
-	float: right;
+	float: left;
 	display: inline-block;
-    height: 2em;
-/*    margin-top: 11px;*/
-    margin-top: 49px;
+/*  height: 26px;*/
 }
 
-ul#otherMenu {
+ul#secondary {
 	float: right;
 	display: inline-block;
-	margin: 3px 16px 0 0;
+/*  margin: 3px 0 0 0;*/
 	padding: 0;
 }
 
-ul#primary li, ul#otherMenu li {
-	display: inline;
-	margin-left: 5px;
-    padding: 5px 2px 5px 2px;
-	font-size: 1.2em;
-/*	border: solid 1px #f81;*/
+ul#primary, ul#secondary {
+/*  padding-top: 7px;*/
+}
+
+ul#primary li, ul#secondary li {
+/*  display: inline;*/
+  float: left;
+/*  padding: 5px 2px 5px 2px;*/
+	font-size: 1.4em;
+  height: 29px;
 }
 
 ul#primary li {
-    height: 2em;
+  margin-right: 6px;
 }
 
-ul#otherMenu li {
-	font-size: 1.0em;
+ul#secondary li {
+  margin-left: 6px;
+  font-size: 1.2em;
+	font-weight: bold;
 }
 
-ul#primary li a:link, ul#primary li a:visited, ul#otherMenu li a:link, ul#otherMenu li a:visited {
-    padding: 5px 2px 5px 2px;
-	color: #a8c1ca;
-/*	color: #999;*/
+ul#primary li a, ul#secondary li a {
+  display: block;
+  padding: 8px 4px 9px 4px;
+}
+
+ul#primary li a:link, ul#primary li a:visited {
+/*  padding: 8px 3px 12px 3px;*/
+	color: #fff;
 	border: none;
+/*  height: 2.5em;*/
+/*  height: 30px;*/
 }
 
-ul#primary li a:hover, ul#otherMenu li a:hover {
-	color: #185;
-/*	border-bottom: solid 1px #fff;*/
+ul#primary li a:hover, ul#primary li a:active {
+	color: #FF9663;
+}
+
+ul#secondary li a:link, ul#secondary li a:visited {
+  border: none;
+}
+
+ul#secondary li a:link, ul#secondary li a:visited, ul#primary li a:hover, ul#primary li a:active {
+  color: #89c9d9;
+}
+
+ul#secondary li a:hover {
+	color: #fff;
 }
 
 ul#primary li a:link.activePrimaryTab, ul#primary a:visited.activePrimaryTab {
-	color: #f81;
-	background: transparent url(../site_icons/layout/bg_li_activetab_small.gif) no-repeat 50% bottom;
+	color: #fff;
+	background: transparent url(../site_icons/layout/bg_li_activetab.gif) no-repeat 50% bottom;
 }
 
 li.activeTab {
-	display: inline;
-	margin: 10px 0;
-	font-size: 1.2em;
+/*  display: inline;*/
+/*  margin: 10px 0;*/
+/*  font-size: 1.2em;*/
 }
 
 li.activePrimaryTab {
-	display: inline;
+/*  display: inline;*/
 /*	margin: 10px 0;*/
-	color: #185;
+/*  color: #185;*/
 }
 
 .breadCrumbs {
 	float: left;
 	padding-left: 1px;
 	margin: 3px 0 0 1px;
-	color: #999;
+	color: #888;
 }
 
 .breadCrumbs a:link, .breadCrumbs a:visited {
-	color: #999;
+	color: #888;
 }
 
 .breadCrumbs a:hover {
@@ -199,18 +238,28 @@ li.activePrimaryTab {
 /****************************************************************
 content roll call
 ****************************************************************/
+
+#content .tabContents {
+  margin-top: 3.5em;
+  padding-top: 3.5em;
+}
+
 .admin {
-	margin: 10px 0;
-	padding: 10px;
-	background-color: #8ac;
+	margin: -10px 0 20px -10px;
+	padding: 10px 10px 5px 10px;
+/*  background-color: #8ac;*/
+/*  background-color: #C1D5D5;*/
+  background-color: #CCC;
+/*  border: 1px solid #b9b9b9;*/
 }
 
 .admin a:link, .admin a:visited {
-	color: #fff;
+  text-decoration: underline;
 }
 
-.admin a:hover {
-	color: #203e48;
+.admin a:hover, .admin a:active {
+/*  color: #203e48;*/
+  border: 0;
 }
 
 .entityValues {
@@ -221,7 +270,7 @@ content roll call
 
 .citation {
 /*  clear: both;*/
-	padding-top: 25px;
+/*  padding-top: 25px;*/
 }
 
 span.SearchTerm, h1 span.SearchTerm, a:link span.SearchTerm, a:visited span.SearchTerm {
@@ -230,27 +279,25 @@ span.SearchTerm, h1 span.SearchTerm, a:link span.SearchTerm, a:visited span.Sear
 
 .entity {
 	margin-top: 0;
-	padding-top: 0;
-/*  padding-right: 16px;*/
+	padding-top: 12px;
 }
 
 .entity em.moniker {
-	float: left;
-	display: inline-block;
-	padding-top: 12px;
-	padding-left: 16px;
-	font-size: 1.2em;
+  clear: left;
+  display: block;
+  font-size: 1.3em;
+  color: #888;
 }
 
 ul.externalLinks {
 	clear: left;
-	margin-bottom: 20px;
-	padding-left: 2px;
+	margin: 20px 0;
 }
 
 ul.externalLinks li {
 	display: inline;
-	padding-left: 4px;
+	padding-left: 8px;
+	padding-right: 4px;
 	border-left: solid 1px #ccc;
 }
 
@@ -259,44 +306,27 @@ ul.externalLinks li.first {
 	border-left: none;
 }
 
-a:link.propertyLink, a:visited.propertyLink {
-	font-weight: bold;
-}
-
-a:link.externalLink, a:visited.externalLink {
-	color: #5ab;
-	font-size: 0.9em;
-/*	border: none;*/
-}
-
-a:visited.externalLink {
-	color: #666;
-}
-
-a:hover.externalLink {
-	color: #f81;
-}
-
 .thumbnail {
 	float: left;
-/*  clear: both;*/
 	margin-bottom: 20px;
+	margin-right: 10px;
 }
 
-ul.properties {
-/*  clear: left;*/
-}
 
 /********* ADDED *********/
 
 div.propsItem {
     clear: left;
     margin: 1.7em 0;
-    padding: 10px 8px 8px 0;
-/*    background: #f5f5f5;*/
-/*    border: 2px solid #f0f0f0;*/
-    border: 1px solid #fff;
+    padding: 14px 12px;
+    border: 1px solid #dedede;
     background: #fff;
+    color: #a1a1a1;
+}
+
+div.propsItem div,
+div.propsItem p {
+/*  color: #555;*/
 }
 
 div.highlighted {
@@ -306,11 +336,7 @@ div.highlighted {
 
 div.datatypeProperties,
 ul.properties {
-    margin-top: 4px;
-}
-
-div.admin {
-/*    display: none;*/
+    margin-top: 8px;
 }
 
 p#notice { /* blue notice that appears at the top of a person's profile */
@@ -328,22 +354,32 @@ ul.datatypePropertyValue li {
 ul.datatypePropertyValue ul {
     display: inline;
     list-style-position: inside;
+    margin-left: 0;
 }
 
 ul.datatypePropertyValue ul li {
     margin: 0;
 }
 
+.datatypePropertyValue {
+  color: #555;
+}
+
 
 /***********************/
 
 a:link.add, a:visited.add {
-/*  float: left;*/
 	margin: 25px 0 0 6px;
 }
 
+a.add, #content a.add, #dashboard a.add,
+a.edit, #content a.edit, #dashboard a.edit,
+a.delete, #content a.delete, #dashboard a.delete,
+a.image, #content a.image, #dashboard a.image {
+  border-bottom: 0;
+}
+
 a.add img {
-/*    margin-top: .5em;*/
     margin-bottom: -2px;
 }
 
@@ -368,49 +404,59 @@ li.property a.edit {
 
 ul.tabEntities {
 	margin-top: 25px;
+	color: #888;
+	font-weight: normal;
+}
+
+ul.tabEntities .blurb {
+  color: #333;
+}
+
+ul.tabEntities a {
+  font-weight: bold;
+}
+
+ul.tabEntities a.externalLink {
+/*  color: #333;*/
+/*  border-color: #c9c9c9;*/
+  font-weight: normal;
 }
 
 .datatypeProperties ul ul {
 	margin-left: 10px;
 	list-style-position: inside;
-    font-size: 0.9em;
 }
 
 .datatypeProperties ol {
     margin-left: 18px;
 }
 
+ul.properties li {
+  margin-bottom: 0.2em;
+}
+
 ul.properties li.property, ul.datatypeProperties li.datatypeProperty, ul.tabEntities li {
 	margin-top: 7px;
-	font-size: 1.1em;
-	font-weight: bold;
 }
 
 ul.datatypeProperties li.datatypeProperty span, span.entityMoreSpan span.resultsMoreSpan {
 	font-weight: normal;
-	color: #185;
 }
 
 ul.datatypeProperties li.datatypeProperty span:hover, span:hover.entityMoreSpan span:hover.resultsMoreSpan {
-	color: #f81;
+/*  color: #f81;*/
 }
 
 ul.properties li.property ul, ul.datatypeProperties li.datatypeProperty ul, div.indent, div.blurb {
 	margin-top: 4px;
-/*	margin: 4px 0 0 8px;*/
-	font-size: 0.9em;
 	font-weight: normal;
 	line-height: 1.5em;
 }
 
-div.indent, ul.datatypeProperties li.datatypeProperty p, div.blurb {
-	font-size: 0.99em;
-}
-
 div.description {
     clear: left;
-    /* float: left; */
     margin-top: 16px;
+    font-size: 1.1em;
 }
 
 div.description ol {
@@ -436,7 +482,7 @@ search roll call
 	padding: 5px;
 	color: #f81;
 /*  border: dotted 1px #333;*/
-	border: dotted 1px #999;
+	border: dotted 1px #888;
 }
 
 .searchTOC a:hover {
@@ -457,13 +503,7 @@ search roll call
   margin-bottom: 1.5em;
 }
 
-.contentsBrowseGroup ul li {
-/*  margin-bottom: 6px;*/
-	font-size: 1.2em;
-}
-
 .contentsBrowseGroup ul li div {
-	font-size: 0.86em;
 	color: #888;
 }
 
@@ -476,11 +516,9 @@ span.jumpText {
 admin roll call
 ****************************************************************/
 select#search-form-qualifier {
-/*	padding: 3px 0 3px 3px;*/
-	font-family: verdana, arial, helvetica, sans-serif;
+	font-family: arial, helvetica, sans-serif;
 	font-size: 1.0em;
 	font-weight: bold;
-	color: #185;
 	border: none;
 	background: #f3f3f3 url(../site_icons/layout/bg_search_field.gif) no-repeat top left;
 }
@@ -533,11 +571,9 @@ td.collabArea h2 a {
 }
 
 td.collabArea h2 a:hover {
-/*    color: #2883b8;*/
     color: #fff;
     background: #89c6ea;
     text-decoration: none;
-/*    background: #90c8e0;*/
 }
 
 td.collabArea h3 {
@@ -558,7 +594,7 @@ td.collabArea h3 a:hover {
 }
 
 td.collabArea p {
-    font-size: 1em;
+/*    font-size: 1em;*/
     margin: 0;
 }
 
@@ -585,7 +621,7 @@ td#leftColumn ul li a {
 
 td.collabArea li span {
     color: #a0a0a0;
-    font-size: .9em;
+/*    font-size: .9em;*/
 }
 
 /****************************************************************
@@ -600,24 +636,16 @@ dashboard roll call
 
 #dashboard.loggedIn img {
 	display: block;
-	margin: 20px 0 16px 16px;
+/*  margin: 20px 0 16px 16px;*/
 	padding: 0;
 	width: 100px;
-	border: 2px solid #e1e1e1;
-}
-
-#dashboard a:link, #dashboard a:visited {
-	color: #4d5155;
-}
-
-#dashboard a:hover, #dashboard a:active {
-	color: #f81;
+/*  border: 2px solid #e1e1e1;*/
 }
 
 ul#dashboardNavigation li h2 {
 	margin: 3px 0 0 0;
 	padding: 7px 8px 6px 8px;
-  font-size: 1.1em;
+  font-size: 1.2em;
 	background: #f2f6f7;
 	color: #A7B9BD;
 	text-transform: uppercase;
@@ -643,6 +671,7 @@ footer roll call
 ****************************************************************/
 #footer p.siteFeedback {
 	float: right;
+	margin-right: 16px;
 }
 
 /****************************************************************
@@ -660,33 +689,31 @@ div.pm-indicators {
 }
 
 p {
-	margin: 0 0 10px 0;
+	margin: 0 0 1em 0;
 	padding: 0;
-	font-size: 1.1em;
-	line-height: 1.5em;
 	text-align: left;
 }
+
+h1,h2,h3,h4,h5,h6 { line-height: 1; }
 
 h1 {
 	margin: 7px 0 2px 0;
 	font-size: 2.3em;
-	font-family: Verdana, Helvetica, sans-serif;
 	color: #fff;
 }
 
 h2 {
-	margin: 20px 0 2px 0;
-	font-size: 2.3em;
-	font-family: Verdana, Helvetica, sans-serif;
+	margin: 20px 0 10px 0;
+	font-size: 2em;
 	color: #000;
 	height: 1%; /* fixing IE6 peekaboo bug */
 }
 
 .entity h2 {
 	margin: 7px 0 2px 0;
-	font-size: 2.3em;
-	font-family: Verdana, Helvetica, sans-serif;
+	font-size: 2em;
 	color: #000;
+	padding-right: 16px;
 }
 
 .entity h2 em {
@@ -714,7 +741,7 @@ span.h2 {
 
 h2.primary {
 	margin-top: 10px;
-	font-family: Georgia, Verdana, sans-serif;
+	font-family: Georgia, Arial, sans-serif;
 	font-size: 1.8em;
 	font-weight: normal;
 	color: #630;
@@ -729,15 +756,9 @@ h3 {
 	margin: 30px 0 4px 0;
 	font-size: 1.7em;
 	line-height: 1.3em;
-	font-family: Verdana, Helvetica, sans-serif;
+	font-family: Arial, sans-serif;
 	color: #203e48;
 }
-
-/*h3 {
-    margin-top: 25px;
-    font-size: 1.0em;
-    color: #087;
-}*/
 
 h3 a:link, h3 a:visited {
 	color: #134;
@@ -745,22 +766,18 @@ h3 a:link, h3 a:visited {
 }
 
 h3 a:hover {
-	color: #f81;
+/*  color: #f81;*/
 }
 
 h3.propertyName, .propsCategory h4 {
     display: inline;
-/*  clear: left;*/
-/*  float: left;*/
-	margin: 30px 0 3px 0;
+	margin: 30px 0 8px 0;
 	padding: 0;
-	font-size: 1.2em;
+  font-size: 1.1em;
 	color: #000;
 }
 
 .propsCategory h3 {
-/*  clear: left;*/
-/*  float: left;*/
     margin: 2em 0 1em 0;
     padding-bottom: 3px;
     border-bottom: 2px solid #EDF1F2;
@@ -774,6 +791,7 @@ h3.centered {
 }
 
 .admin h3 {
+  font-size: 1.4em;
 	margin-top: 0;
 }
 
@@ -798,17 +816,12 @@ h4.targeted { background: yellow; }
 h4.compapp-ref {
 	padding: 10px;
 	font-size: 1.2em;
-	color: #777;
+	color: #888;
 	background: #ded5b3;
 }
 
-h4 a:link, h4 a:visited {
-	color: #087;
-	border-color: #087;
-}
-
 h4 a:hover {
-	color: #f81;
+/*  color: #f81;*/
 }
 
 h4.first, .contentsBrowseGroup h4.first {
@@ -833,7 +846,7 @@ h6 a {
 }
 
 h6 a:hover {
-	background: #054;
+/*  background: #054;*/
 }
 
 #tags h6 {
@@ -858,13 +871,13 @@ img.right {
 	float: right;
 	margin: 4px 0px 4px 20px;
 	padding: 4px;
-	border: solid 1px #999;
+	border: solid 1px #888;
 }
 
 img.img-right, img.img-left, img.img-left-wrap, img.img-center {
 	margin: 4px 0px 4px 20px;
 	/* padding: 4px; */
-	border: solid 1px #999;
+	border: solid 1px #888;
 }
 
 img.img-right {
@@ -937,19 +950,55 @@ img.pad-right {
 /****************************************************************
 anchor roll call
 ****************************************************************/
-a:link, a:visited {
-	color: #185;
-	border-bottom: solid 1px #bacec5;
+
+a {
+  text-decoration: none;
+}
+
+a:link {
+  color: #35889e;
+  color: #00768F;
+	border-bottom: solid 1px #BCCECC;
 	text-decoration: none;
 }
 
 a:visited {
-	color: #666;
+/*  color: #82ACAF;*/
+  color: #006B80;
+	border-bottom: 1px solid #B8C9C9;
 }
 
 a:hover {
-	color: #f81;
-/*	background: #d9e5e0;*/
+/*  color: #293a3f;*/
+  color: #D8641E;
+/*  color: #31AAB5;*/
+/*  border-bottom: 1px solid #293a3f;*/
+  border-bottom: 1px solid #D8641E;
+/*  border-bottom: 1px solid #6DB5B9;*/
+}
+
+a:link.externalLink,
+ul.profileLinks a:link,
+ul.externalLinks a:link {
+	color: #b31b1b;
+	border-bottom: 1px solid #E5CFCF;
+}
+
+a:visited.externalLink,
+ul.profileLinks a:visited,
+ul.externalLinks a:visited {
+	color: #B65E61;
+	border-bottom: 1px solid #CEA5A7;
+}
+
+a:hover.externalLink,
+a:active.externalLink,
+ul.profileLinks a:hover,
+ul.profileLinks a:active,
+ul.externalLinks a:hover,
+ul.externalLinks a:active {
+	color: #FF0000;
+	border-bottom: 1px solid #FF0000;
 }
 
 a:link.clean, a:visited.clean, a:hover.clean {
@@ -966,24 +1015,19 @@ a:link.spotty, a:visited.spotty, a:hover.spotty {
 }
 
 a:link.vivoLogo, a:visited.vivoLogo, a:hover.vivoLogo {
-    position: absolute;
-    top: 0;
-    left: 0;
-/*	float: left;*/
-/*  display: inline;*/
-/*	height: 1%;*/
+  float: left;
 }
 
 a:link.login, a:visited.login, a:hover.login, a:link.logout, a:visited.logout, a:hover.logout {
-/*  float: right;*/
-    position: absolute;
-    top: 0;
-    right: 0;
-	margin-right: 15px;
+  float: right;
 }
 
 a:link.logout, a:visited.logout, a:hover.logout {
     right: 148px;
+}
+
+a.propertyLink {
+  font-weight: bold;
 }
 
 ul#profileCats li a {
@@ -993,10 +1037,7 @@ ul#profileCats li a {
 ul#profileCats li a:link, ul#profileCats li a:visited {
 	margin-right: 8px;
 	padding: 6px 6px 4px;
-/*	padding: 10px 10px 8px;*/
 	border: none;
-/*  font-family: Arial, sans-serif;*/
-/*	font-family: Helvetica, Verdana, sans-serif;*/
 	font-weight: bold;
 	color: #a7b9bd;
 	background: #f2f6f7;
@@ -1018,10 +1059,6 @@ ul.dataProperties li em a:link {
 	color: #5ca2ba;
 }
 
-ul.profileLinks li a:link {
-	color: #b31b1b;
-}
-
 .propsCategory h2 {
 /*  float:none;*/
 	display:inline;
@@ -1035,12 +1072,13 @@ ul.profileLinks li a:link {
 }
 
 #footer a:link, #footer a:visited {
-	color: #bacec5;
+	color: #555;
+	border-color: #555;
 }
 
 #footer a:hover {
-	color: #fff;
-	border-color: #fff;
+	color: #333;
+	border-color: #333;
 }
 
 /****************************************************************
@@ -1050,7 +1088,7 @@ ul li {
 	padding: 0 0 4px 0;
 	list-style-type: none;
 	background: transparent url(../site_icons/layout/bg_li_bullet.gif) no-repeat 4px 5px;
-	font-size: 1.1em;
+/*  font-size: 1.2em;*/
 }
 
 table ul {
@@ -1062,11 +1100,8 @@ table ul li {
 	list-style-type: disc;
 }
 
-/* end jc55 added */
-
 ul#profileCats {
 	clear: left;
-/*	margin: 20px 0;*/
 }
 
 /* Filter to stop IE6 jump on hover -- filter required because otherwise Safari does not clear left */
@@ -1076,15 +1111,12 @@ ul#profileCats {
 
 ul#profileCats li {
 	display: inline;
-/*	margin: 20px 0;*/
-	font-size: 1.0em;
-/*	font-size: 1.2em;*/
 	line-height: 3.3em;
 	text-transform: uppercase;
 }
 
 ul.dataProperties li em {
-	font-size: 0.9em;
+/*  font-size: 0.9em;*/
 	font-style: normal;
 }
 
@@ -1096,6 +1128,7 @@ ul.profileLinks {
 
 ul.profileLinks li {
 	padding-left: 14px;
+	padding-bottom: 14px;
 	background: transparent url(../site_icons/layout/bg_li_profileLinks.gif) no-repeat left 3px;
 }
 
@@ -1137,13 +1170,10 @@ form h3 {
 }
 
 form label {
-	font-size: 1.3em;
 	font-weight: normal;
 }
 
 form em {
-/*	color: #f00;
-	font-size: 1.4em;*/
 	font-style: normal;
 	line-height: 1.0em;
 	display: inline;
@@ -1151,14 +1181,7 @@ form em {
 
 p.note em {
 	color: #f00;
-	font-size: 1.2em;
 	font-style: normal;
-}
-
-form label em, form.equipment-reservation li em, form.equipment-reservation p em {
-	display: block;
-	color: #888;
-	font-size: 0.8em;
 }
 
 form h2 em {
@@ -1173,7 +1196,7 @@ em.subtle {
 
 form input, form textarea {
 	padding: 3px;
-	color: #393;
+	color: #5291ac;
 	font-weight: bold;
 }
 
@@ -1223,22 +1246,6 @@ form dt {
 	width: 140px;
 }
 
-form.suggestions dt, form.feedback-staff dt {
-	width: 110px;
-}
-
-form.instruction dt, form.consultation-request dt {
-	width: 180px;
-}
-
-form.computing-apply dt, form.course-reserves dt {
-	width: 220px;
-}
-
-form.equipment-reservation dt {
-	width: 160px;
-}
-
 form dl.reference dt {
 	width: 150px;
 }
@@ -1261,19 +1268,6 @@ form dl#blockified dt {
 
 form dl#blockified dd {
 	margin-bottom: 20px;
-}
-
-form.computing-apply table {
-	margin-bottom: 30px;
-	font-size: 1.2em;
-}
-
-form.computing-apply table td {
-	text-align: center;
-}
-
-form.computing-apply table td.textb {
-	text-align: left;
 }
 
 /* need to compensate above table selectors for all of the commonspot forms (ie. manage pages for custom FAQ elements) */
@@ -1308,24 +1302,11 @@ form li {
 	margin-right: 14px;
 	padding-bottom: 4px;
 	list-style-type: none;
-	font-size: 1.2em;
+/*  font-size: 1.2em;*/
 }
 
 #submit {
 	padding: 2px 5px;
-}
-
-/* increasing the font size of the text for selected date/time in calendar fields */
-#hours-manage span.CS_Form_Text {	
-	padding: 0 2px 0 5px;
-	font-size: 1.6em;
-	font-weight: bold;
-	background: #FFF;
-}
-
-/* and hiding the "clear" buttons that follow each date/time entry field to avoid clutter and mass hysteria */
-#hours-manage input.CS_Form_Button {
-	display: none;
 }
 
 #form-alert {
@@ -1342,7 +1323,7 @@ form li {
 #form-alert ul {
 	color: #f00;
 	list-style-type: none;
-	font-size: 1.2em;
+/*  font-size: 1.2em;*/
 }
 
 #thank-you {
@@ -1360,7 +1341,20 @@ form li {
 #thank-you p {
 	color: #277;
 	list-style-type: none;
-	font-size: 1.2em;
+/*  font-size: 1.2em;*/
+}
+
+div.feedbackForm h2 {
+  font-size: 1.8em;
+  margin-bottom: 1em;
+}
+
+div.feedbackForm h3 {
+  font-size: 1.2em;
+}
+
+div.feedbackForm p {
+  font-size: 1.2em;
 }
 
 /****************************************************************
@@ -1372,51 +1366,11 @@ table td {
 	vertical-align: top;
 }
 
-table#staff-list, table#staff-list tr, table#staff-list th, table#staff-list td, table.equipment-reserves, table.equipment-reserves tr, table.equipment-reserves th, table.equipment-reserves td, table.rooms, table.rooms tr, table.rooms th, table.rooms td {
-	border: 0;
-	font-size: 1.1em;
-	text-align: left;
-}
-	
-table#staff-list, table.equipment-reserves {
-	margin: 15px 0;
-	caption-side: bottom;
-}
-
-table.rooms {
-	border-top: solid 2px #d2c595;
-	border-right: solid 2px #a98;
-	border-bottom: solid 1px #a98;
-	border-left: solid 1px #d2c595;
-}
-
-table.staff-view {
-	font-size: 0.9em;
-}
-
-/*
-table.rooms {
-	margin-bottom: 4px;
-}
-
-table.rooms tr.row1, table.rooms tr.row1 td {
-	background: transparent;
-}
-*/
-	
-table#staff-list th, table.equipment-reserves th {
-	padding: 3px 15px 5px 15px;
-	font-weight: bold;
-	text-align: left;
-	background: #630;
-	color: #fff;
-}
-	
 caption {
 	margin: 0 0 15px 0;
 	text-align: left;
 	color: #888;
-	font-size: 1.1em;
+/*  font-size: 1.2em;*/
 }
 
 .tab.depth1 table {	
@@ -1433,7 +1387,6 @@ caption {
 
 #content td{
 	vertical-align: top;
-	/* font-family: "Lucida Grande",Verdana,Lucida,Arial,Helvetica,sans-serif; */
 	padding:0.2em;
 }
 
@@ -1446,7 +1399,7 @@ caption {
 }
 
 #tabContent td {
-  padding:0.4em;
+  padding: .4em 2em .4em 0;
 }
 
 
@@ -1516,8 +1469,6 @@ div.tab-image { /* images were being individually wrapped with tables, this is a
   overflow: hidden;
   height: 75px;
   width: 75px;
-/*  display: block;*/
-/*  float: right;*/
 }
 
 #tab814 ul li {

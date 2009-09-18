@@ -23,12 +23,7 @@ $(document).ready(function() {
 // Do this stuff for all people pages
 if ($("ul#propGroupNav").length) {
 
-    $("head").append('<style type="text/css"> \
-    					div#contentwrap {background: #fff url(${themePath}site_icons/layout/bg_page_person.gif) no-repeat right top;} \
-    					</style>'); 
-
-
-    function scrollTo(id,ms,offset) {
+        function scrollTo(id,ms,offset) {
         if(ms==null){ ms = 500 };
         if(offset==null){ offset = 40 };
         var position = $(id).offset({scroll:false}).top;
@@ -48,7 +43,7 @@ if ($("ul#propGroupNav").length) {
 if ($("#dashboard").hasClass("loggedIn")) {
      
      $("head").append('<style type="text/css"> \
-    						#contentwrap {background: #fff url(${themePath}site_icons/layout/bg_page_person.gif) no-repeat right top;} \
+    						/* #contentwrap {background: #fff url(${themePath}site_icons/layout/bg_page_person.gif) no-repeat right top;} */ \
     						.editBox a.edit, \
     						    .editBox a.delete, \
     						    #personWrap div.editBox a.delete {display:none} \
@@ -429,7 +424,7 @@ if ($("#dashboard").hasClass("loggedIn")) {
                 }, 1200);
         }
 		if(toggle=="off"){
-			$(property).removeClass("highlighted").css("background-color","#faf8f3");
+			$(property).removeClass("highlighted").css("background-color","#fff");
 		}
     }
 
