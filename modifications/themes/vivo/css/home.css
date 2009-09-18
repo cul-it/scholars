@@ -115,6 +115,10 @@ p.intro {
   margin: 3.4em 0 0.3em 0;
   font-size: 1em;
   font-weight: normal;
+  border-bottom: dotted 1px #c2c2b8;
+  padding-bottom: 3px;
+/*  color: #666;*/
+/*  background: #ccc;*/
 }
 
 #contentwrap #dashboard.home #seminars ul li {
@@ -123,12 +127,12 @@ p.intro {
 
 #contentwrap #dashboard.home #seminars span.abbrStart {
   float: left;
-  padding: 1px 4px;
+  padding: 2px 4px;
   margin: 0 4px 0 0;
   font-weight: bold;
-  border: solid 1px #c2c2b8;
+/*  border: solid 1px #c2c2b8;
   color: #666;
-  background: #ccc;
+  background: #ccc;*/
 }
 
 #contentwrap #dashboard.home #seminars p {

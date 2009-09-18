@@ -102,7 +102,7 @@ div.pagecontent {
 #footer {
 	clear: both;
 	margin: 0 auto;
-	padding-left: 36px;
+/*  padding-left: 36px;*/
 	padding-top: 1.5em;
 	width: 85%;
 	color: #575752;
@@ -274,7 +274,9 @@ content roll call
 }
 
 span.SearchTerm, h1 span.SearchTerm, a:link span.SearchTerm, a:visited span.SearchTerm {
-	background: #ffb;
+/*  background: #ffb;*/
+  font-weight: bold;
+  color: #7D7D7D;
 }
 
 .entity {
@@ -467,31 +469,61 @@ div.description ol {
 search roll call
 ****************************************************************/
 
-.searchTOC {
-	float: left;
-	padding: 7px 0;
-	font-size: 1.2em;
+/*.searchTOC {
+  float: left;
+  padding: 7px 0;
+  font-size: 1.2em;
 }
 
 .searchTOC a {
   float: left;
   margin: .5em .3em 0 0;
 }
+*/
+.searchTOC a {
+  padding: 5px 8px;
+  display: block;
+  font-size: 1.1em;
+}
 
 .searchTOC a:link, .searchTOC a:visited {
-	padding: 5px;
-	color: #f81;
-/*  border: dotted 1px #333;*/
-	border: dotted 1px #888;
+  color: #FA6B1B;
+/*  border: dotted 1px #888;*/
+  border: 0;
 }
 
 .searchTOC a:hover {
-	background: #f81;
-	color: #fff;
+  background: #f81;
+  color: #fff;
+}
+
+.searchTOC {
+  float: right;
+  width: 20%;
+  background: #fff;
+  padding: 20px;
+  margin-left: 20px;
+  margin-bottom: 5px;
+}
+
+span.jumpText {
+  display: block;
+  margin-bottom: 1em;
 }
 
 .contentsBrowseGroup {
 	padding-top: 10px;
+}
+
+.searchpages {
+  font-size: 1.2em;
+  padding: 10px 0 30px 0;
+  margin-top: 30px;
+  border-top: 1px dotted #c2c2b8;
+}
+
+.searchpages a {
+  font-weight: bold;
 }
 
 .contentsBrowseGroup ul.searchhits {
@@ -501,10 +533,23 @@ search roll call
 
 .contentsBrowseGroup ul.searchhits li {
   margin-bottom: 1.5em;
+  color: #222;
+/*  color: #999;*/
+}
+
+.contentsBrowseGroup ul.searchhits li a {
+/*  margin-bottom: 1.5em;*/
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.contentsBrowseGroup ul.searchhits .searchFragment {
+  color: #888;
+  margin-top: 4px;
 }
 
 .contentsBrowseGroup ul li div {
-	color: #888;
+/*  color: #888;*/
 }
 
 span.jumpText {
