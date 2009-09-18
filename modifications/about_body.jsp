@@ -103,6 +103,7 @@
                     <%-- <h4><a href="refactorOp?home=<%=portal.getPortalId()%>&amp;modeStr=fixDataTypes">Realign Datatype Literals</a></h4> --%> 
                     <h4><a href="admin/sparqlquery">SPARQL Query</a></h4>
                     <h4><a href="ingest">Ingest Tools</a></h4>
+                    <h4><a href="admin/retractIndividualsByDateTime.jsp">Delete Old Individuals</a></h4>
 <%              } %>
                 <form class="old-global-form" name="logout" action="login_process.jsp" method="post">
                     <input type="hidden" name="home" value="\<\%=portal.getPortalId()\%\>" />
