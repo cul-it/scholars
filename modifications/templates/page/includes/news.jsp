@@ -1,6 +1,6 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
-          xmlns:sparql="http://djpowell.net/tmp/sparql-tag/0.1/"
+          xmlns:sparql="http://djpowell.net/tmp/sparql-tag/0.1/" 
           xmlns:listsparql="http://mannlib.cornell.edu/vitro/ListSparqlTag/0.1/"
           xmlns:rand="http://jakarta.apache.org/taglibs/random-1.0"
           xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
@@ -35,12 +35,14 @@
 
     <jsp:scriptlet>
         DateTime now = new DateTime();
-        request.setAttribute("now", "\"" + now.toDateTimeISO().toString() + "\"" );
+        request.setAttribute("now", "\"" + now.toString("yyyy-MM-dd'T'HH:mm:ss") + "\"" ); // was toDateTimeISO().toString()
+        DateTime thirtyDaysAgo = new DateTime(now.minusDays(30));
+        request.setAttribute("thirtyDaysAgo", "\"" + thirtyDaysAgo.toString("yyyy-MM-dd'T'HH:mm:ss"));
     </jsp:scriptlet>
 
 <sparql:lock model="${applicationScope.jenaOntModel}" > 
  <sparql:sparql>
-   <listsparql:select model="${applicationScope.jenaOntModel}" var="rs" now="${now}" >
+   <listsparql:select model="${applicationScope.jenaOntModel}" var="rs" now="${now}" thirtyDaysAgo="${thirtyDaysAgo}" >
      <![CDATA[
 
          PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -76,6 +78,7 @@
           }
                 
           FILTER( xsd:dateTime(?now) > ?sunrise )
+          FILTER( xsd:dateTime(?thirtyDaysAgo) < ?sunrise )
          }
          ORDER BY ?news DESC(?sunrise)
          LIMIT 15
