@@ -35,9 +35,9 @@
 
     <jsp:scriptlet>
         DateTime now = new DateTime();
-        request.setAttribute("now", "\"" + now.toString("yyyy-MM-dd'T'HH:mm:ss") + "\"" ); // was toDateTimeISO().toString()
+        request.setAttribute("now", "\"" + now.toDateTimeISO().toString() + "\""); //tried toString("yyyy-MM-dd'T'HH:mm:ss") + "\"" );
         DateTime thirtyDaysAgo = new DateTime(now.minusDays(30));
-        request.setAttribute("thirtyDaysAgo", "\"" + thirtyDaysAgo.toString("yyyy-MM-dd'T'HH:mm:ss"));
+        request.setAttribute("thirtyDaysAgo", "\"" + thirtyDaysAgo.toDateTimeISO().toString() + "\"");
     </jsp:scriptlet>
 
 <sparql:lock model="${applicationScope.jenaOntModel}" > 
