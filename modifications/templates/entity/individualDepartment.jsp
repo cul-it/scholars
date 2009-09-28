@@ -58,53 +58,9 @@ if (VitroRequestPrep.isSelfEditing(request) || LoginFormBean.loggedIn(request, L
 
 <c:set var='themeDir'><c:out value='${portalBean.themeDir}' default='themes/vivo/'/></c:set>
 
-<div id="deptWrap">
+<div id="personWrap">
     
-    <div id="dashboard">
-        <c:if test="${ (!empty entity.anchor) || (!empty entity.linksList) }">
-            <ul class="externalLinks">
-                <c:if test="${!empty entity.anchor}">
-                    <c:choose>
-                        <c:when test="${!empty entity.url}">
-                            <c:url var="entityUrl" value="${entity.url}" />
-                            <c:url var="webSnaprUrl" value="http://mannlib.websnapr.com/">
-                                <c:param name="size" value="S"/>
-                                <c:param name="url" value="${entityUrl}"/>
-                            </c:url>
-                            <li class="first">
-                                <a href="<c:out value="${entityUrl}"/>">
-                                    <img class="screenshot" alt="page screenshot" src="${webSnaprUrl}"/>
-                                </a>
-                                <a class="externalLink" href="<c:out value="${entityUrl}"/>">
-                                    <p:process>${entity.anchor}</p:process>
-                                </a>
-                            </li>
-                        </c:when>
-                        <c:otherwise>
-                            <li class="first"><span class="externalLink"><p:process>${entity.anchor}</p:process></span></li>
-                        </c:otherwise>
-                    </c:choose>
-                </c:if>
-                <c:if test="${!empty entity.linksList }">
-                    <c:forEach items="${entity.linksList}" var='link'>
-                        <c:url var="linkUrl" value="${link.url}" />
-                        <c:url var="webSnaprUrl2" value="http://mannlib.websnapr.com/">
-                            <c:param name="size" value="S"/>
-                            <c:param name="url" value="${linkUrl}"/>
-                        </c:url>
-                        <li>
-                            <a href="<c:out value="${linkUrl}"/>">
-                                <img class="screenshot" alt="page screenshot" src="${webSnaprUrl2}"/>
-                            </a>
-                            <a class="externalLink" href="<c:out value="${linkUrl}"/>">
-                                <p:process>${link.anchor}</p:process>
-                            </a>
-                        </li>
-                    </c:forEach>
-                </c:if>
-            </ul>
-        </c:if>
-    </div> <!-- dashboard -->
+    <jsp:include page="/${themeDir}jsp/dashboard.jsp" flush="true" />
     
     <div id="content">
         <jsp:include page="entityAdmin.jsp"/> 
@@ -167,4 +123,4 @@ if (VitroRequestPrep.isSelfEditing(request) || LoginFormBean.loggedIn(request, L
             ${requestScope.servletButtons}
         </div>
     </div> <!-- content -->
-</div> <!-- deptWrap -->
+</div> <!-- personWrap -->
