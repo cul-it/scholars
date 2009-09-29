@@ -487,13 +487,13 @@ search roll call
 }
 
 .searchTOC a:link, .searchTOC a:visited {
-  color: #FA6B1B;
+  color: #b31b1b;
 /*  border: dotted 1px #888;*/
   border: 0;
 }
 
 .searchTOC a:hover {
-  background: #f81;
+  background: #b31b1b;
   color: #fff;
 }
 
