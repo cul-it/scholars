@@ -27,7 +27,6 @@
         {
         ?talkUri
           rdf:type vivo:LectureSeminarOrColloquium ;
-          rdf:type vitro:Flag1Value1Thing ;
           vitro:timekey ?timekey ;
           rdfs:label ?label .
 
