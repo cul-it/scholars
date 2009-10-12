@@ -81,7 +81,7 @@
         <div id="sidebar" class="resourceBar span-8 last right">
             <h3>Pages you need to visit</h3>
             
-            <c:url var="webSnaprUrl" value="http://images.websnapr.com/">
+            <c:url var="webSnaprUrl" value="http://mannlib.websnapr.com/">
                 <c:param name="url" value="${linkURL}"/>
                 <c:param name="size" value="s"/>
             </c:url>
@@ -89,7 +89,7 @@
             <%-- EXTERNAL LINKS --%>
             <ul class="externalLinks">
                 <li><%-- first build the lone primary link --%>
-                    <c:url var="webSnaprUrl" value="http://images.websnapr.com/">
+                    <c:url var="webSnaprUrl" value="http://mannlib.websnapr.com/">
                         <c:param name="url" value="${primaryURL}"/>
                         <c:param name="size" value="t"/>
                     </c:url>
@@ -115,8 +115,7 @@
                         <c:set var="otherLinkUrl"><str:decodeUrl>${row.otherLinkURL.string}</str:decodeUrl></c:set>
                         <c:set var="otherLinkAnchor">${row.otherLinkAnchor.string}</c:set>
                         <li>
-                            <%-- <c:url var="webSnaprUrl" value="http://mannlib.websnapr.com/"> --%>
-                            <c:url var="webSnaprUrl" value="http://images.websnapr.com/">
+                            <c:url var="webSnaprUrl" value="http://mannlib.websnapr.com/">
                                 <c:param name="url" value="${otherLinkUrl}"/>
                                 <c:param name="size" value="t"/>
                             </c:url>
