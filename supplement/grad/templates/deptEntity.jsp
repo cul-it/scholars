@@ -59,8 +59,7 @@
  
  <div id="sidebar" class="resourceBar span-8 last">
      <h3>Official Web Page</h3>
-     <%-- <c:url var="webSnaprUrl" value="http://mannlib.websnapr.com/"> --%>
-     <c:url var="webSnaprUrl" value="http://images.websnapr.com/">
+     <c:url var="webSnaprUrl" value="http://mannlib.websnapr.com/">
          <c:param name="url" value="${linkURL}"/>
          <c:param name="size" value="s"/>
      </c:url>
