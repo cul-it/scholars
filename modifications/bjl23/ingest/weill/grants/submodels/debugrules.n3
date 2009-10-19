@@ -1,0 +1,41 @@
+@prefix swrl:    <http://www.w3.org/2003/11/swrl#> .
+@prefix ruleml:  <http://www.w3.org/2003/11/swrl#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:     <http://www.w3.org/2002/07/owl#> .
+@prefix eg:      <http://example.org/example-ont#> .
+@prefix vitro:   <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#> .
+@prefix vivo:    <http://vivo.library.cornell.edu/ns/0.1#> .
+@prefix mann:    <http://vivo.cornell.edu/ns/mannadditions/0.1#> .
+@prefix hr:      <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#> .
+@prefix xtor:    <http://ingest.mannlib.cornell.edu/generalizedXMLtoRDF/0.1/> .
+@prefix rules: <http://vitro.mannlib.cornell.edu/ns/reporting/weillgrants2vivo-rules#> .
+@prefix swrlb: <http://www.w3.org/2003/11/swrlb#> .
+
+# rule 1 : create investigator relationships
+
+rules:grant-1      a       swrl:Variable .
+rules:investigatorsNode-1        a       swrl:Variable .
+rules:investigator-1        a       swrl:Variable .
+   
+# rules:rule-1    a       swrl:Imp ;
+#      swrl:body (
+#                 [ a       swrl:IndividualPropertyAtom ;
+#                  swrl:propertyPredicate xtor:AWARD_INVESTIGATORS ;
+#                  swrl:argument1 rules:grant-1 ;
+#                  swrl:argument2 rules:investigatorsNode-1 ;
+#                 ] 
+#                 [ a       swrl:IndividualPropertyAtom ;
+#                  swrl:propertyPredicate xtor:AWARD_INVESTIGATORS_ROW ;
+#                  swrl:argument1 rules:investigatorsNode-1 ;
+#                  swrl:argument2 rules:investigator-1 ;
+#                 ]
+#                 ) ;
+#      swrl:head (
+#                [ a       swrl:IndividualPropertyAtom ;
+#                  swrl:propertyPredicate vivo:FinancialAwardHasPrimaryInvestigatorPerson ;
+#                  swrl:argument1 rules:grant-1 ;
+#                  swrl:argument2 rules:investigator-1 ;
+#                ]
+#                ) .
+##

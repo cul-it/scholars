@@ -1,0 +1,16 @@
+PREFIX rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
+PREFIX vivo:  <http://vivo.library.cornell.edu/ns/0.1#>
+PREFIX mann:  <http://vivo.cornell.edu/ns/mannadditions/0.1#>
+PREFIX xtor: <http://ingest.mannlib.cornell.edu/generalizedXMLtoRDF/0.1/> 
+
+CONSTRUCT {
+    ?grant vivo:fundedBy _:fundingAgency .
+    _:fundingAgency rdf:type vivo:grantFundingAgent .
+    _:fundingAgency vitro:label ?label .
+    _:fundingAgency vivo:weillFundingAgencyCode ?agencyCode .
+} WHERE {
+    ?grant xtor:AGENCY_CODE ?agencyCode .
+    ?grant xtor:AGENCY_NAME ?label .
+}
