@@ -12,6 +12,9 @@
   DateTime almostNow = now.minus(Period.minutes(15));
   request.setAttribute("now", "\"" + almostNow.toString("yyyy-MM-dd'T'HH:mm:ss") + "\"" );
   request.setAttribute("now2", new Date());
+
+  System.out.println("seminars begin");
+
 %>
 
 <sparql:lock model="${applicationScope.jenaOntModel}" > 
@@ -87,3 +90,5 @@
     </c:forEach>
 </sparql:sparql>
 </sparql:lock>
+
+<% System.out.println("Seminars end"); %>

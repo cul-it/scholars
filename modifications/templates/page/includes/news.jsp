@@ -45,63 +45,43 @@
    <listsparql:select model="${applicationScope.jenaOntModel}" var="rs" now="${now}" thirtyDaysAgo="${thirtyDaysAgo}" >
      <![CDATA[
 
-       PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-       PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-       PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-       PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
-       PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
-       PREFIX hr: <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#>
-       SELECT DISTINCT ?news ?newsLabel ?blurb ?sourceLink ?newsThumb ?moniker ?sunrise ?featured ?featuredLabel ?firstName ?lastName
-       WHERE
-       {
-        {  ?news
+         PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+         PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+         PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+         PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
+         PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
+         PREFIX hr: <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#>
+         SELECT DISTINCT ?news ?newsLabel ?blurb ?sourceLink ?newsThumb ?moniker ?sunrise ?featured ?featuredLabel ?firstName ?lastName
+         WHERE
+         {
+
+         ?news
            rdf:type vivo:NewsRelease ;
            vitro:sunrise ?sunrise ;
            vitro:primaryLink ?link ;
            vitro:blurb ?blurb ;
            rdfs:label ?newsLabel .
+
            ?link vitro:linkURL ?sourceLink .
 
-           ?news vitro:imageThumb ?newsThumb  .
-           ?news vitro:moniker ?moniker .
-        } union  {
-           ?news
-           rdf:type vivo:NewsRelease ;
-           vitro:sunrise ?sunrise ;
-           vitro:primaryLink ?link ;
-           vitro:blurb ?blurb ;
-           rdfs:label ?newsLabel .
-           ?link vitro:linkURL ?sourceLink .
-
-           ?news vitro:imageThumb ?newsThumb .
-           ?news vitro:moniker ?moniker .
-
-          ?news vivo:featuresPerson2 ?featured . 
-          ?featured rdfs:label ?featuredLabel .
-
-        } union   {
-           ?news
-           rdf:type vivo:NewsRelease ;
-           vitro:sunrise ?sunrise ;
-           vitro:primaryLink ?link ;
-           vitro:blurb ?blurb ;
-           rdfs:label ?newsLabel .
-           ?link vitro:linkURL ?sourceLink .
-
-           ?news vitro:imageThumb ?newsThumb  .
-           ?news vitro:moniker ?moniker .
-
-          ?news vivo:featuresPerson2 ?featured . 
-          ?featured rdfs:label ?featuredLabel .
-          ?featured hr:FirstName ?firstName .
-          ?featured hr:LastName ?lastName
-        }
+           OPTIONAL { ?news vitro:imageThumb ?newsThumb }
+      
+           OPTIONAL { ?news vitro:moniker ?moniker }
           
-        FILTER( xsd:dateTime(?now) > ?sunrise )
-        FILTER( xsd:dateTime(?thirtyDaysAgo) < ?sunrise )
-       }
-       ORDER BY ?news DESC(?sunrise)
-       LIMIT 15
+           OPTIONAL { 
+             ?news vivo:featuresPerson2 ?featured . 
+             ?featured rdfs:label ?featuredLabel .
+             OPTIONAL {
+               ?featured hr:FirstName ?firstName .
+               ?featured hr:LastName ?lastName
+             }
+           }
+                
+          FILTER( xsd:dateTime(?now) > ?sunrise )
+          FILTER( xsd:dateTime(?thirtyDaysAgo) < ?sunrise )
+         }
+         ORDER BY ?news DESC(?sunrise)
+         LIMIT 15
 
           ]]>
           
