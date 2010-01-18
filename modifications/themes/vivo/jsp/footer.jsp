@@ -27,12 +27,13 @@
 </div><!-- footer -->
 
 <%--
-// nac26 080424: the following line should only be uncommented for PHILLIPS (vivo.cornell.edu) to ensure we're only tracking stats on the live site
+// nac26 080424: the following line should only be uncommented for JANET (vivo.cornell.edu) to ensure we're only tracking stats on the live site
 <script type="text/javascript" src="http://vivostats.mannlib.cornell.edu/?js"></script>
 --%>
 
 <%--
-// mw542 033009: the following block for Google Analytics should also only be uncommented for PHILLIPS 
+// mw542 033009: the following block for Google Analytics should also only be uncommented for JANET
+// nac26 011810: updated GA tracking code to incoporate rollup account set up by Elly in prep for initial NIH release
 <c:if test="${sessionScope.loginHandler.loginStatus != 'authenticated'}">
   <script type="text/javascript">
     var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
@@ -41,7 +42,13 @@
   <script type="text/javascript">
     try {
     var pageTracker = _gat._getTracker("UA-5164622-5");
-    pageTracker._trackPageview();
+    pageTracker._setDomainName("vivo.cornell.edu");
+    pageTracker._setAllowLinker(true);
+    pageTracker._trackPageview(); 
+    var rollupTracker = _gat._getTracker("UA-12531954-1");
+    rollupTracker._setDomainName("none"); 
+    rollupTracker._setAllowLinker(true);
+    rollupTracker._trackPageview(location.host+location.pathname);    
     } catch(err) {}
   </script>
 </c:if>
