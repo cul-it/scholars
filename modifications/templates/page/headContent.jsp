@@ -16,7 +16,7 @@
 <!-- headContent.jsp -->
 <link rel="stylesheet" type="text/css" href="<%=themeDir%>css/screen.css" media="screen"/>
 <link rel="stylesheet" type="text/css" href="<%=themeDir%>css/print.css" media="print"/>
-<c:out value="${requestScope.css}" escapeXml="false"/>
+<link rel="stylesheet" type="text/css" href="<%=themeDir%>css/edit.css"/>
 <title><c:out value="${requestScope.title}"/></title>
 <%
 // mw542 033009: moved the Mint javascript include to footer.jsp
