@@ -8,6 +8,8 @@
 <%@ page import="edu.cornell.mannlib.vitro.webapp.filters.VitroRequestPrep" %>
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c"%>
 
+<%@page import="edu.cornell.mannlib.vitro.webapp.dao.jena.pellet.PelletListener"%>
+<jsp:useBean id="loginHandler" class="edu.cornell.mannlib.vedit.beans.LoginFormBean" scope="session" />
 <%
     /***********************************************
     Include the theme logo and navigation, which want to live in one div element
@@ -25,6 +27,17 @@
         portalId=1;
     } else {
         portalId=portal.getPortalId();
+    }
+    
+    final int FILTER_SECURITY_LEVEL = 4;
+
+    HttpSession currentSession = request.getSession();
+    String currentSessionIdStr = currentSession.getId();
+    int securityLevel = -1;
+    String loginName = null;
+    if (loginHandler.testSessionLevel(request) > -1) {
+        securityLevel = Integer.parseInt(loginHandler.getLoginRole());
+        loginName = loginHandler.getLoginName();
     }
 
     String fixedTabStr=(fixedTabStr=request.getParameter("fixed"))==null?null:fixedTabStr.equals("")? null:fixedTabStr;    
@@ -59,10 +72,18 @@
         <%=TabMenu.getPrimaryTabMenu(vreq)%>
 		<!-- now render the standard Index, About, and Contact Us navigation  --> 
 	        <ul id="secondary">
+	      <%  if (loginHandler.getLoginStatus().equals("authenticated")) { %>
+                  <li>
+                      Logged in as <strong><%=loginName%></strong> (<a href="<c:url value="/login_process.jsp"><c:param name="loginSubmitMode" value="Log Out"/></c:url>">Log out</a>)
+                  </li>                                        
+                  <li><a href="<c:url value="/siteAdmin"/>">Site Admin</a></li>
+        <%} else {%>
+                  <li><a title="log in to manage this site" href="<c:url value="/siteAdmin"/>">Log in</a></li>
+        <%  } %>
 				<% if ("browse".equalsIgnoreCase(fixedTabStr)) {%>
-	                <li class="activeTab"><a href="<c:url value="/browsecontroller"/>" title="list all contents by type">Index</a></li>
+	                <li class="activeTab"><a href="<c:url value="/browse"/>" title="list all contents by type">Index</a></li>
 				<%} else {%>
-	                <li><a href="<c:url value="/browsecontroller"><c:param name="home" value="${portalBean.portalId}"/></c:url>" title="list all contents by type">Index</a></li>
+	                <li><a href="<c:url value="/browse"><c:param name="home" value="${portalBean.portalId}"/></c:url>" title="list all contents by type">Index</a></li>
 				<%}
 	            if ("about".equalsIgnoreCase(fixedTabStr)) {%>
 	                <li><a class="activeTab" href="<c:url value="/about"><c:param name="home" value="${portalBean.portalId}"/><c:param name="login" value="none"/></c:url>" title="more about this web site">About</a></li>
@@ -72,7 +93,7 @@
 				if ("comments".equalsIgnoreCase(fixedTabStr)) {%>
 	                <li class="activeTab"><a href="<c:url value="/comments"><c:param name="home" value="${portalBean.portalId }"/></c:url>">Contact Us</a></li>
 				<%} else {%>
-	                <li><a href="<c:url value="/comments"><c:param name="home" value="${portalBean.portalId }"/></c:url>">Contact Us</a></li>
+	                <li><a href="<c:url value="/contact"><c:param name="home" value="${portalBean.portalId }"/></c:url>">Contact Us</a></li>
 				<%}%>
 	        </ul>
     </div> <!-- menu -->
