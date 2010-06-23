@@ -60,6 +60,7 @@ body {
 #menu {
 /*  margin-top: 2.6em;*/
   margin-top: 20px;
+  margin-bottom: -8px;
   float: left;
   clear: both;
   width: 100%;
@@ -177,6 +178,17 @@ ul#secondary li {
 ul#primary li a, ul#secondary li a {
   display: block;
   padding: 8px 4px 9px 4px;
+}
+
+ul#secondary li a.logoutMenu {
+  display: inline;
+  padding: 0;
+}
+
+ul#secondary li.first {
+  color: #c1e9f3;
+/*  padding: 8px 4px 9px 4px;*/
+  padding-top: 8px;
 }
 
 ul#primary li a:link, ul#primary li a:visited {
