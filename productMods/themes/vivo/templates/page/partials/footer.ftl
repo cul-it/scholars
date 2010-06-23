@@ -8,17 +8,15 @@
         <img class="footerLogo" src="${urls.bannerImage}" alt="${tagline!}" />
     </#if>
     
-    <div class="footerLinks">
-        <ul class="otherNav">  
-            <@l.firstLastList> 
-                <#include "subMenuLinks.ftl">
-            </@l.firstLastList>
-        </ul>
-    </div>
-  
+    <p class="siteFeedback">
+      <#if urls.contact??>
+          <a href="${urls.contact}">Contact Us</a>
+      </#if>
+    </p>
+    
     <#include "copyright.ftl">
 
     All Rights Reserved. <a href="${urls.termsOfUse}">Terms of Use</a>
 
-</div>
+</div><!-- footer -->
 

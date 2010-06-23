@@ -21,8 +21,9 @@
       <div class="push"></div>
     </div> <!-- wrap -->  
     <div id="footer-wrap">
-     <#include "partials/scripts.ftl">
+      <#include "partials/footer.ftl">
     </div> <!-- footer-wrap -->
+    <#include "partials/scripts.ftl">
 </body>
 </html>
 
