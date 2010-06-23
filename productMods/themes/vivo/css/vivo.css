@@ -7,7 +7,7 @@
 /*
 Title:		VIVO screen styles
 Authors:	nac26@cornell.edu, mw542@cornell.edu
-Updated:	September 17, 2009
+Updated:	June 23, 2010
 */
 
 * {
@@ -60,7 +60,7 @@ body {
 #menu {
 /*  margin-top: 2.6em;*/
   margin-top: 20px;
-  margin-bottom: -8px;
+/*  margin-bottom: -8px;*/
   float: left;
   clear: both;
   width: 100%;
@@ -188,7 +188,7 @@ ul#secondary li a.logoutMenu {
 ul#secondary li.first {
   color: #c1e9f3;
 /*  padding: 8px 4px 9px 4px;*/
-  padding-top: 8px;
+/*  padding-top: 8px;*/
 }
 
 ul#primary li a:link, ul#primary li a:visited {
