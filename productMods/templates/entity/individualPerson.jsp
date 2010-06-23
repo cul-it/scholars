@@ -76,18 +76,11 @@ if (VitroRequestPrep.isSelfEditing(request) /* || LoginFormBean.loggedIn(request
 	<c:set var="showCuratorEdits" value="${true}"/>
 	<c:set var="showKeywordEdits" value="${true}"/>
 </c:if>
-<c:set var="imageDir" value="images" />
+
 <c:set var="themeDir"><c:out value="${portalBean.themeDir}" default="themes/vivo/"/></c:set>
 
 <%
-    //here we build up the url for the larger image.
-    String imageUrl = null;
-    if (entity.getImageFile() != null && 
-        entity.getImageFile().indexOf("http:")==0) {
-        imageUrl =  entity.getImageFile();
-    } else {
-        imageUrl = response.encodeURL( "/images/" + entity.getImageFile() );                     
-    }
+
 
     // here we look for a property specific to VIVO and retrieve it's value
     boolean foundOverview = false;
@@ -164,18 +157,7 @@ if (VitroRequestPrep.isSelfEditing(request) /* || LoginFormBean.loggedIn(request
         </c:if>
         <div class='contents entity'>
        		<div id="entity">
-       		    <c:if test="${showCuratorEdits and !amIFaking}"><jsp:include page="entityAdmin.jsp"/></c:if>
-       		    <c:if test="${!empty entity.imageThumb}">
-                    <c:if test="${!empty entity.imageFile}">
-                        <c:url var="imageUrl" value="/${imageDir}/${entity.imageFile}" />
-                        <a class="image" href="${imageUrl}">
-                    </c:if>
-                    <c:url var="imageSrc" value='/${imageDir}/${entity.imageThumb}'/>
-                    <c:if test="${!empty entity.citation}"><div id="profileImage"></c:if>
-                    <img class="headshot" src="<c:out value="${imageSrc}"/>" title="click to view larger image in new window" alt="" width="150"/>
-                    <c:if test="${!empty entity.imageFile}"></a></c:if>
-                    <c:if test="${!empty entity.citation}"><div class="citation"><p:process>${entity.citation}</p:process></div></div><!-- profileImage --></c:if>
-                </c:if>
+       		   
        		    
                 <h2><p:process>${entity.name}</p:process></h2> 
                 <c:if test="${!empty entity.moniker}">
