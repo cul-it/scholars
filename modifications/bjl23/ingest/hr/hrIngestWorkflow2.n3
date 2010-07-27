@@ -7,7 +7,7 @@
 
 hrw:sameAsConstructQuery
 	a s:SPARQLCONSTRUCTQuery ;
-	s:queryStr "
+	s:queryStr """
 		   PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
 		   PREFIX owl: <http://www.w3.org/2002/07/owl#>
 		   PREFIX chr: <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#>
@@ -31,11 +31,11 @@ hrw:sameAsConstructQuery
 				  FILTER(bound(?typep))
 				  FILTER(!bound(?typeq))
        		    }
-	" .
+	""" .
 
 hrw:NewPeopleAssertionsConstructQuery
 	a s:SPARQLCONSTRUCTQuery ;
-	s:queryStr "
+	s:queryStr """
 		   PREFIX owl: <http://www.w3.org/2002/07/owl#>
 		   PREFIX hr: <http://vitro.mannlib.cornell.edu/ns/bjl23/hr/1#>
 		   PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -60,17 +60,19 @@ hrw:NewPeopleAssertionsConstructQuery
 			     FILTER (!regex(str(?p),\"http://vitro.mannlib.cornell.edu/ns/bjl23/hr/rules1#\"))
 			     FILTER (!regex(str(?pp),\"http://vitro.mannlib.cornell.edu/ns/bjl23/hr/rules1#\"))
 			     FILTER (!regex(str(?o),\"http://vitro.mannlib.cornell.edu/ns/bjl23/hr/1#\"))
+			     FILTER (!regex(str(?o),\"http://vitro.mannlib.cornell.edu/ns/bjl23/hr/rules1#\"))
 		   }
-	" .
+	""" .
 
 hrw:ExistingPeoplePreAssertionsConstructQuery
 	a s:SPARQLCONSTRUCTQuery ;
-	s:queryStr "
+	s:queryStr """
 		   PREFIX owl: <http://www.w3.org/2002/07/owl#>
 		   PREFIX hr: <http://vitro.mannlib.cornell.edu/ns/bjl23/hr/1#>
 		   PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 		   PREFIX hrb: <http://vitro.mannlib.cornell.edu/ns/bjl23/hr/rules1#>
 		   PREFIX hrw: <http://vitro.mannlib.cornell.edu/ns/ingest/HRIngestWorkflow#>
+           PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
 		   CONSTRUCT {
 		   	     ?existingPerson ?p ?o .
 			     ?oo ?pp ?existingPerson
@@ -95,11 +97,11 @@ hrw:ExistingPeoplePreAssertionsConstructQuery
 			     FILTER (!regex(str(?o),\"http://vitro.mannlib.cornell.edu/ns/bjl23/hr/1#\"))
 			     FILTER (!regex(str(?o),\"http://vitro.mannlib.cornell.edu/ns/bjl23/hr/rules1#\"))
 		   }
-	" .
+	""" .
 
 hrw:ExistingPeoplePreRetractionsConstruct1Query
 	a s:SPARQLCONSTRUCTQuery ;
-	s:queryStr "
+	s:queryStr """
 		   PREFIX owl: <http://www.w3.org/2002/07/owl#>
 		   PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 		   PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
@@ -124,11 +126,11 @@ hrw:ExistingPeoplePreRetractionsConstruct1Query
 			   	    FILTER (regex(str(?p),\"http://vivo.cornell.edu/ns/hr/0.9/hr.owl#\"))
 			   }
 		   }
-	" .
+	""" .
 
 hrw:ExistingPeoplePreRetractionsConstruct2Query
 	a s:SPARQLCONSTRUCTQuery ;
-	s:queryStr "
+	s:queryStr """
 		   PREFIX owl: <http://www.w3.org/2002/07/owl#>
 		   PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 		   PREFIX hrw: <http://vitro.mannlib.cornell.edu/ns/ingest/HRIngestWorkflow#>
@@ -152,11 +154,11 @@ hrw:ExistingPeoplePreRetractionsConstruct2Query
 			     FILTER (regex(str(?collegeFlag),\"http://vitro.mannlib.cornell.edu/ns/vitro/0.7#Flag2Value\"))
 			   }
 		   }
-	" .
+	""" .
 
 hrw:ExistingPeoplePreRetractionsConstruct3Query
 	a s:SPARQLCONSTRUCTQuery ;
-	s:queryStr "
+	s:queryStr """
 		   PREFIX owl: <http://www.w3.org/2002/07/owl#>
 		   PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 		   PREFIX hrw: <http://vitro.mannlib.cornell.edu/ns/ingest/HRIngestWorkflow#>
@@ -192,11 +194,11 @@ hrw:ExistingPeoplePreRetractionsConstruct3Query
 			       FILTER (regex(str(?pp),\"http://vivo.library.cornell.edu/ns/0.1#hasEmployeeNonAcademicStaffMember\"))
 			     }
 		   }
-	" .
+	""" .
 
 hrw:CornellemailnetIdConstructQuery
 	a s:SPARQLCONSTRUCTQuery ;
-	s:queryStr "
+	s:queryStr """
 		PREFIX hr: <http://vitro.mannlib.cornell.edu/ns/bjl23/hr/1#>
         PREFIX hrb: <http://vitro.mannlib.cornell.edu/ns/bjl23/hr/rules1#>
 		PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
@@ -207,11 +209,11 @@ hrw:CornellemailnetIdConstructQuery
 		    LET (?netid := fn:lower-case(?rawNetid))
 			?ap hrb:hasPerson ?person
 		 }
-    " .
+    """ .
 
 hrw:facultyMemberInConstructQuery
     a s:SPARQLCONSTRUCTQuery ;
-    s:queryStr "
+    s:queryStr """
 		PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
 		PREFIX mann: <http://vivo.cornell.edu/ns/mannadditions/0.1#>
 		PREFIX hr: <http://vitro.mannlib.cornell.edu/ns/bjl23/hr/1#>
@@ -335,12 +337,12 @@ hrw:facultyMemberInConstructQuery
 
 		
 		}
-    " .
+    """ .
 
 
 hrw:facultyAdminMemberInConstructQuery 
 	a s:SPARQLCONSTRUCTQuery ;
-	s:queryStr "
+	s:queryStr """
 		PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
 		PREFIX mann: <http://vivo.cornell.edu/ns/mannadditions/0.1#>
 		PREFIX hr: <http://vitro.mannlib.cornell.edu/ns/bjl23/hr/1#>
@@ -367,11 +369,11 @@ hrw:facultyAdminMemberInConstructQuery
 			
         } 
 
-	" .
+	""" .
 
 hrw:academicStaffInConstructQuery
 	a s:SPARQLCONSTRUCTQuery ;
-	s:queryStr "
+	s:queryStr """
 	    PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
 	    PREFIX mann: <http://vivo.cornell.edu/ns/mannadditions/0.1#>
 	    PREFIX hr: <http://vitro.mannlib.cornell.edu/ns/bjl23/hr/1#>
@@ -430,11 +432,11 @@ hrw:academicStaffInConstructQuery
 		FILTER (?jobcode != \"10734\")
 		FILTER (?jobcode != \"10726\")
 	  }
-	" . 
+	""" . 
 
 hrw:librarianInConstructQuery
 	a s:SPARQLCONSTRUCTQuery ;
-	s:queryStr "
+	s:queryStr """
 PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
 PREFIX mann: <http://vivo.cornell.edu/ns/mannadditions/0.1#>
 PREFIX hr: <http://vitro.mannlib.cornell.edu/ns/bjl23/hr/1#>
@@ -458,11 +460,11 @@ WHERE {
 		?dept vivo:activityHRcode ?code .
 	} 
 }
-	" .
+	""" .
 
 hrw:nonAcademicStaffInConstructQuery
 	a s:SPARQLCONSTRUCTQuery ;
-	s:queryStr "
+	s:queryStr """
 	    PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
 	    PREFIX mann: <http://vivo.cornell.edu/ns/mannadditions/0.1#>
 	    PREFIX hr: <http://vitro.mannlib.cornell.edu/ns/bjl23/hr/1#>
@@ -632,21 +634,21 @@ hrw:nonAcademicStaffInConstructQuery
 
 	    } 
 
-	" .
+	""" .
 
 hrw:CampusPhoneConstructQuery
 	a s:SPARQLCONSTRUCTQuery ;
-	s:queryStr "
+	s:queryStr """
             CONSTRUCT {
 	    	      ?p <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#CampusPhone> ?o
 	    } WHERE {
 	      	      ?p <http://vitro.mannlib.cornell.edu/ns/bjl23/hr/1#person_CampusPhone> ?o
             }
-	" .
+	""" .
 
 hrw:primaryUnitCodeConstructQuery
 	a s:SPARQLCONSTRUCTQuery ;
-	s:queryStr "
+	s:queryStr """
 		   CONSTRUCT {
 		   	     ?p <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#primaryUnitCode> ?code
 		   } WHERE {
@@ -654,11 +656,11 @@ hrw:primaryUnitCodeConstructQuery
 		     	     ?p <http://vitro.mannlib.cornell.edu/ns/bjl23/hr/rules1#hasJob> ?job .
 			     ?job <http://vitro.mannlib.cornell.edu/ns/bjl23/hr/1#job_Unitid> ?code
 		   }
-	" .
+	""" .
 
 hrw:FacultyTypeConstructQuery
 	a s:SPARQLCONSTRUCTQuery ;
-	s:queryStr "
+	s:queryStr """
 	PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
 	PREFIX mann: <http://vivo.cornell.edu/ns/mannadditions/0.1#>
 	PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -668,11 +670,11 @@ hrw:FacultyTypeConstructQuery
 	} WHERE {
     	?person vivo:employeeOfAsAcademicFacultyMember ?something
 	}
-	" .
+	""" .
 
 hrw:AcademicStaffTypeConstructQuery
 	a s:SPARQLCONSTRUCTQuery ;
-	s:queryStr "
+	s:queryStr """
 		PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
 		PREFIX mann: <http://vivo.cornell.edu/ns/mannadditions/0.1#>
 		PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -686,11 +688,11 @@ hrw:AcademicStaffTypeConstructQuery
     	} 
     	FILTER (!bound(?somethingElse))
 	}
-    " .
+    """ .
 
 hrw:LibrarianTypeConstructQuery
 	a s:SPARQLCONSTRUCTQuery ;
-	s:queryStr "
+	s:queryStr """
 PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
 PREFIX mann: <http://vivo.cornell.edu/ns/mannadditions/0.1#>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -700,10 +702,10 @@ CONSTRUCT {
 } WHERE {
     ?person mann:employeeOfAsLibrarian ?something
 }
-	" .
+	""" .
 hrw:NonAcademicStaffTypeConstructQuery 
 	a s:SPARQLCONSTRUCTQuery ;
-	s:queryStr "
+	s:queryStr """
 		PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
 		PREFIX mann: <http://vivo.cornell.edu/ns/mannadditions/0.1#>
 		PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -726,11 +728,11 @@ hrw:NonAcademicStaffTypeConstructQuery
     	FILTER (!bound(?librarianOrg))
 	}
 
-	" .
+	""" .
 
 hrw:MonikerConstructQuery
 	a s:SPARQLCONSTRUCTQuery ;
-	s:queryStr "
+	s:queryStr """
 		PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
 		PREFIX hr: <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#>
 		CONSTRUCT {	
@@ -739,11 +741,11 @@ hrw:MonikerConstructQuery
     		?p hr:WorkingTitle ?workingTitle
 		}
 
-    " .
+    """ .
 
 hrw:PeoplePropsConstructQuery 
 	a s:SPARQLCONSTRUCTQuery ;
-	s:queryStr "
+	s:queryStr """
 PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
 PREFIX mann: <http://vivo.cornell.edu/ns/mannadditions/0.1#>
 
@@ -817,11 +819,11 @@ WHERE {
 	}
 } 
 
-	" .
+	""" .
 
 hrw:LabelConstructQuery
 	a s:SPARQLCONSTRUCTQuery ;
-	s:queryStr "
+	s:queryStr """
 		PREFIX hr: <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#>
 		PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 
@@ -830,11 +832,11 @@ hrw:LabelConstructQuery
 	} WHERE {
     	?p hr:PrefName ?label
 	}
-	" .
+	""" .
 
 hrw:AAPCollegeFlagConstructQuery
 	a s:SPARQLCONSTRUCTQuery ;
-	s:queryStr "
+	s:queryStr """
 		PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 		PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
 		PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
@@ -845,11 +847,11 @@ hrw:AAPCollegeFlagConstructQuery
 		} WHERE {
     		?person chr:Unitid \"AR\".
 		}
-	" .
+	""" .
 
 hrw:ASCollegeFlagConstructQuery
 	a s:SPARQLCONSTRUCTQuery ;
-	s:queryStr "
+	s:queryStr """
 		PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 		PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
 		PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
@@ -860,11 +862,11 @@ hrw:ASCollegeFlagConstructQuery
 		} WHERE {
     		?person chr:Unitid \"AS\".
 		}
-	" .
+	""" .
 
 hrw:CALSCollegeFlagConstructQuery
 	a s:SPARQLCONSTRUCTQuery ;
-	s:queryStr "
+	s:queryStr """
 		PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 		PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
 		PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
@@ -875,11 +877,11 @@ hrw:CALSCollegeFlagConstructQuery
 		} WHERE {
     		?person chr:Unitid \"AG\".
 		}
-	" .
+	""" .
 
 hrw:EngineeringCollegeFlagConstructQuery
 	a s:SPARQLCONSTRUCTQuery ;
-	s:queryStr "
+	s:queryStr """
 		PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 		PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
 		PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
@@ -890,11 +892,11 @@ hrw:EngineeringCollegeFlagConstructQuery
 		} WHERE {
     		?person chr:Unitid \"EN\".
 		}
-	" .
+	""" .
 
 hrw:HotelCollegeFlagConstructQuery
 	a s:SPARQLCONSTRUCTQuery ;
-	s:queryStr "
+	s:queryStr """
 		PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 		PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
 		PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
@@ -905,11 +907,11 @@ hrw:HotelCollegeFlagConstructQuery
 		} WHERE {
     		?person chr:Unitid \"HA\".
 		}
-	" .
+	""" .
 
 hrw:HumanEcologyCollegeFlagConstructQuery
 	a s:SPARQLCONSTRUCTQuery ;
-	s:queryStr "
+	s:queryStr """
 		PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 		PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
 		PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
@@ -920,11 +922,11 @@ hrw:HumanEcologyCollegeFlagConstructQuery
 		} WHERE {
     		?person chr:Unitid \"HE\".
 		}
-	" .
+	""" .
 
 hrw:ILRCollegeFlagConstructQuery
 	a s:SPARQLCONSTRUCTQuery ;
-	s:queryStr "
+	s:queryStr """
 		PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 		PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
 		PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
@@ -935,11 +937,11 @@ hrw:ILRCollegeFlagConstructQuery
 		} WHERE {
     		?person chr:Unitid \"IL\".
 		}
-	" .
+	""" .
 
 hrw:JohnsonCollegeFlagConstructQuery
 	a s:SPARQLCONSTRUCTQuery ;
-	s:queryStr "
+	s:queryStr """
 		PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 		PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
 		PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
@@ -950,11 +952,11 @@ hrw:JohnsonCollegeFlagConstructQuery
 		} WHERE {
     		?person chr:Unitid \"GM\".
 		}
-	" .
+	""" .
 
 hrw:LawCollegeFlagConstructQuery
 	a s:SPARQLCONSTRUCTQuery ;
-	s:queryStr "
+	s:queryStr """
 		PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 		PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
 		PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
@@ -965,11 +967,11 @@ hrw:LawCollegeFlagConstructQuery
 		} WHERE {
     		?person chr:Unitid \"LA\".
 		}
-	" .
+	""" .
 
 hrw:VetCollegeFlagConstructQuery
 	a s:SPARQLCONSTRUCTQuery ;
-	s:queryStr "
+	s:queryStr """
 		PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 		PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
 		PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
@@ -980,13 +982,13 @@ hrw:VetCollegeFlagConstructQuery
 		} WHERE {
     		?person chr:Unitid \"VM\".
 		}
-	" .
+	""" .
 
 
 
 hrw:CALSPortalFlagConstructQuery
 	a s:SPARQLCONSTRUCTQuery ;
-	s:queryStr "
+	s:queryStr """
 	    PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 	    PREFIX akt: <http://www.aktors.org/ontology/portal#>
 	    PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
@@ -1008,11 +1010,11 @@ hrw:CALSPortalFlagConstructQuery
 		FILTER (!regex(str(?flag),\"http://vitro.mannlib.cornell.edu/ns/vitro/0.7#Flag1Value8\"))
 		FILTER (!regex(str(?flag),\"http://vitro.mannlib.cornell.edu/ns/vitro/0.7#Flag1Value9\"))
 		FILTER (!regex(str(?flag),\"http://vitro.mannlib.cornell.edu/ns/vitro/0.7#Flag1Value6\"))
-	    } " .
+	    } """ .
 
 hrw:OtherPortalFlagConstructQuery
 	a s:SPARQLCONSTRUCTQuery ;
-	s:queryStr "
+	s:queryStr """
 	    PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 	    PREFIX akt: <http://www.aktors.org/ontology/portal#>
 	    PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
@@ -1035,7 +1037,7 @@ hrw:OtherPortalFlagConstructQuery
 		FILTER (!regex(str(?flag),\"http://vitro.mannlib.cornell.edu/ns/vitro/0.7#Flag1Value5\"))
 		FILTER (!regex(str(?flag),\"http://vitro.mannlib.cornell.edu/ns/vitro/0.7#Flag1Value6\"))
   	    	FILTER (!regex(str(?flag),\"http://vitro.mannlib.cornell.edu/ns/vitro/0.7#Flag1Value7\"))
-	    } " .
+	    } """ .
 
 
 hrw:RawDataModel
