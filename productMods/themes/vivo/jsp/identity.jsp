@@ -2,9 +2,9 @@
 
 <%-- DO NOT MODIFY THIS FILE. IT IS NOT USED IN THEME CUSTOMIZATION. --%>
 
-<%@ page import="edu.cornell.mannlib.vitro.webapp.controller.freemarker.FreeMarkerHttpServlet" %>
+<%@ page import="edu.cornell.mannlib.vitro.webapp.controller.freemarker.FreemarkerHttpServlet" %>
 <% 
-FreeMarkerHttpServlet.getFreeMarkerComponentsForJsp(request, response);
+FreemarkerHttpServlet.getFreemarkerComponentsForJsp(request, response);
 %>
 
 ${ftl_identity}
