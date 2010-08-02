@@ -8,8 +8,9 @@
     // since it's the first jsp we hit.
     String footer = (String) request.getAttribute("ftl_footer");
     if (footer == null) {
-        FreemarkerHttpServlet.getFreemarkerComponentsForJsp(request, response);
+        FreemarkerHttpServlet.getFreemarkerComponentsForJsp(request);
     } 
 %>
 
 ${ftl_footer}
+${ftl_googleAnalytics}
