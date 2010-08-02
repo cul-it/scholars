@@ -4,7 +4,7 @@
 
 <div id="header">
   
-  <a class="image vivoLogo" href="${urls.home}" title="Home"><img src="${siteIconPath}/vivo_logo.gif" alt="VIVO" /></a>
+  <a class="image vivoLogo" href="${urls.home}" title="Home"><img src="${url.siteIcons}/vivo_logo.gif" alt="VIVO" /></a>
   
   <div id="menu">
     <ul id="primary">
