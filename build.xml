@@ -1,13 +1,50 @@
 <?xml version="1.0"?>
-<project name="skel" default="defaultMessage" basedir=".">
-    
-    <target name="cloneTasks" >
-      <!-- This task is intended for clone specific code compliation or clone specific tasks. -->
-	</target>
 
-    <target name="defaultMessage">
-      <echo>
-        
-      </echo>
-    </target>
+<!-- $This file is distributed under the terms of the license in /doc/license.txt$ -->
+
+<!-- ====================================================================== 
+	 Build script for the NIH VIVO product.
+	 
+	 The deploy.properties file contains both build properties and runtime 
+	 properties.
+	     
+	 The required build properties are:
+	 	vitroCore.dir
+	    tomcat.home
+	    webapp.name
+	     ====================================================================== -->
+<project name="vivoCornell" default="describe">
+
+	<!--
+		Load the properties from deploy.properties.
+	-->
+	<property name="deploy.properties.file" location="deploy.properties" />
+	<fail message="You must create a &quot;${deploy.properties.file}&quot; file.">
+		<condition>
+			<not>
+				<available file="${deploy.properties.file}" />
+			</not>
+		</condition>
+	</fail>
+	<property file="${deploy.properties.file}" />
+	<fail unless="vitro.core.dir"
+	      message="${deploy.properties.file} must contain a value for vitro.core.dir" />
+	<fail unless="nihvivo.dir"
+	      message="${deploy.properties.file} must contain a value for nihvivo.dir" />
+
+	<!--
+		Locate the core script in terms that the product script requires.
+	-->
+	<property name="inner.basedir" location="${nihvivo.dir}" />
+
+	<!--
+		Override the default location for project modifications.
+	-->
+	<property name="product.modifications.dir" location="./productMods" />
+
+	<!--
+		Now get the standard product-build file.
+	-->
+	<import file="${vitro.core.dir}/webapp/product-build.xml" />
+
 </project>
