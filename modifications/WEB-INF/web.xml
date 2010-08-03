@@ -38,7 +38,7 @@
 
 <!-- Listeners ****************************************************** -->
 
-	<!-- set the default portal to ALL (65525) -->
+	<!-- set the default portal to ALL (65535) -->
 	<listener>
 		<listener-class>
 			edu.cornell.mannlib.vitro.webapp.servlet.setup.Portal65535Default
