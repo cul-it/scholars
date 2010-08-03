@@ -3,13 +3,14 @@
 <!-- $This file is distributed under the terms of the license in /doc/license.txt$ -->
 
 <!-- ====================================================================== 
-	 Build script for the NIH VIVO product.
+	 Build script for the VIVO-Cornell product.
 	 
 	 The deploy.properties file contains both build properties and runtime 
 	 properties.
 	     
 	 The required build properties are:
-	 	vitroCore.dir
+	 	vitro.core.dir
+	 	nihvivo.dir
 	    tomcat.home
 	    webapp.name
 	     ====================================================================== -->
