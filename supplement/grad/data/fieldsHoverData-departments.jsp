@@ -9,20 +9,14 @@
         PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
         PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
         PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
+        PREFIX core: <http://vivoweb.org/ontology/core#>
         SELECT DISTINCT ?deptUri ?deptLabel
-        WHERE
-        {
-        ?person
-        vivo:memberOfGraduateField
-        ?field .
-
-        ?person
-        vivo:employeeOfAsAcademicFacultyMember
-        ?deptUri .
-
-        ?deptUri
-        rdf:type vivo:AcademicDepartment ;
-        rdfs:label ?deptLabel .
+        WHERE {
+          ?person vivo:memberOfGraduateField ?field .
+          ?person core:personInPosition ?facultyPosition .
+            ?facultyPosition core:positionInOrganization ?deptUri .
+          ?deptUri rdf:type core:AcademicDepartment ;
+            rdfs:label ?deptLabel .
         }
         ORDER BY ?deptLabel
         LIMIT 2000

@@ -12,15 +12,16 @@
              PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
              PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
              PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
+             PREFIX core: <http://vivoweb.org/ontology/core#>
              SELECT DISTINCT ?countryUri ?name ?personUri ?personLabel ?image ?moniker ?deptLabel
              WHERE {
-              ?countryUri rdf:type vivo:Country .
+              ?countryUri rdf:type core:Country .
               ?countryUri rdfs:label ?name .
               ?countryUri vivo:internationalResearchAreaFor ?personUri .
               ?personUri rdfs:label ?personLabel .
-                OPTIONAL { ?personUri vitro:imageThumb ?image }
-                OPTIONAL { ?personUri vitro:moniker ?moniker }
-              }
+              OPTIONAL { ?personUri vitro:imageThumb ?image }
+              OPTIONAL { ?personUri vitro:moniker ?moniker }
+             }
               ORDER BY ?personLabel
               LIMIT 1000
            </listsparql:select>

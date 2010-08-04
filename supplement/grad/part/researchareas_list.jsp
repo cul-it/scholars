@@ -14,6 +14,7 @@
           PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
           PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
           PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
+          PREFIX core: <http://vivoweb.org/ontology/core#>
           SELECT DISTINCT ?areaUri ?areaLabel
           WHERE {
                   ?group rdf:type vivo:fieldCluster .
@@ -47,6 +48,7 @@
           PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
           PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
           PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
+          PREFIX core: <http://vivoweb.org/ontology/core#>
           SELECT DISTINCT ?areaUri ?areaLabel
           WHERE {
                   ?group rdf:type vivo:fieldCluster .
@@ -74,6 +76,7 @@
         <listsparql:select model="${applicationScope.jenaOntModel}" var="rs" facultyUri="<${param.uri}>">
           PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
           PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
+          PREFIX core: <http://vivoweb.org/ontology/core#>
           SELECT DISTINCT ?areaUri ?areaLabel
           WHERE {
               ?facultyUri vivo:PersonHasResearchArea ?areaUri .
@@ -98,6 +101,7 @@
           PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
           PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
           PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
+          PREFIX core: <http://vivoweb.org/ontology/core#>
           SELECT DISTINCT ?areaUri ?areaLabel
           WHERE {
               ?fieldUri vivo:hasFieldMember ?facultyUri .
@@ -125,6 +129,7 @@
         <listsparql:select model="${applicationScope.jenaOntModel}" var="rs" fieldUri="<${param.uri}>">
           PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
           PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
+          PREFIX core: <http://vivoweb.org/ontology/core#>
           SELECT ?areaLabel ?areaUri ?facultyLabel ?facultyUri
           WHERE {
               ?fieldUri vivo:hasFieldMember ?facultyUri .

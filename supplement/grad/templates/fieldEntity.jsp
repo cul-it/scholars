@@ -13,14 +13,15 @@
       PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
       PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
       PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
+      PREFIX core: <http://vivoweb.org/ontology/core#>
       SELECT DISTINCT ?fieldLabel ?description ?primaryLinkAnchor ?primaryLinkURL ?otherLinkAnchor ?otherLinkURL ?gsid ?degree ?degreeLabel ?degreeAbbr
       WHERE {
-          ?fieldUri rdfs:label ?fieldLabel .
-            OPTIONAL { ?fieldUri vitro:description ?description }
-            OPTIONAL { ?fieldUri vitro:primaryLink ?primaryLink. ?primaryLink vitro:linkAnchor ?primaryLinkAnchor . ?primaryLink vitro:linkURL ?primaryLinkURL }
-            OPTIONAL { ?fieldUri vitro:additionalLink ?otherLink. ?otherLink vitro:linkAnchor ?otherLinkAnchor . ?otherLink vitro:linkURL ?otherLinkURL }
-            OPTIONAL { ?fieldUri vivo:gradschoolID ?gsid }
-            OPTIONAL { ?fieldUri vivo:offersAcademicDegree ?degree . ?degree rdfs:label ?degreeLabel . ?degree vivo:degreeAbbreviation ?degreeAbbr }
+        ?fieldUri rdfs:label ?fieldLabel .
+        OPTIONAL { ?fieldUri vitro:description ?description }
+        OPTIONAL { ?fieldUri vitro:primaryLink ?primaryLink. ?primaryLink vitro:linkAnchor ?primaryLinkAnchor . ?primaryLink vitro:linkURL ?primaryLinkURL }
+        OPTIONAL { ?fieldUri vitro:additionalLink ?otherLink. ?otherLink vitro:linkAnchor ?otherLinkAnchor . ?otherLink vitro:linkURL ?otherLinkURL }
+        OPTIONAL { ?fieldUri vivo:gradschoolID ?gsid }
+        OPTIONAL { ?fieldUri vivo:offersAcademicDegree ?degree . ?degree rdfs:label ?degreeLabel . ?degree core:degreeAbbreviation ?degreeAbbr }
       }
       LIMIT 50
     </listsparql:select>

@@ -8,15 +8,16 @@
 <sparql:lock model="${applicationScope.jenaOntModel}" >
 <sparql:sparql>
     <listsparql:select model="${applicationScope.jenaOntModel}" var="researchResults" field="<${param.uri}>">
-    PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
-    PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
-    PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#> 
+    PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+    PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+    PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
+    PREFIX core: <http://vivoweb.org/ontology/core#>
     SELECT DISTINCT ?areaUri ?areaLabel ?personUri ?personLabel
     WHERE { 
-    ?personUri vivo:memberOfGraduateField ?field . 
-    ?areaUri vivo:ResearchAreaOfPerson ?personUri . 
-        OPTIONAL { ?areaUri rdfs:label ?areaLabel }
-        OPTIONAL { ?personUri rdfs:label ?personLabel }  
+      ?personUri vivo:memberOfGraduateField ?field . 
+      ?areaUri core:researchAreaOf ?personUri . 
+      OPTIONAL { ?areaUri rdfs:label ?areaLabel }
+      OPTIONAL { ?personUri rdfs:label ?personLabel }  
     } ORDER BY ?areaLabel 
     LIMIT 2000
     </listsparql:select>

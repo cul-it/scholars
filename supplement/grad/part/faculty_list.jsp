@@ -20,13 +20,14 @@
                   PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
                   PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
                   PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
+                  PREFIX core: <http://vivoweb.org/ontology/core#>
                   SELECT DISTINCT ?personUri ?personLabel ?image ?moniker
                   WHERE {
-                      ?fieldUri vivo:hasFieldMember ?personUri .
-                      ?personUri rdfs:label ?personLabel .
-                          OPTIONAL { ?personUri vitro:imageThumb ?image }
-                          OPTIONAL { ?personUri vitro:moniker ?moniker }
-                  FILTER (!regex(?moniker, "emeritus", "i"))
+                    ?fieldUri vivo:hasFieldMember ?personUri .
+                    ?personUri rdfs:label ?personLabel .
+                    OPTIONAL { ?personUri vitro:imageThumb ?image }
+                    OPTIONAL { ?personUri vitro:moniker ?moniker }
+                    FILTER (!regex(?moniker, "emeritus", "i"))
                   } ORDER BY ?personLabel
                   LIMIT 1000
                 </listsparql:select>
@@ -127,16 +128,17 @@ ${pageError}
           PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
           PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
           PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
+          PREFIX core: <http://vivoweb.org/ontology/core#>
           SELECT DISTINCT ?personUri ?personLabel ?image ?grouping ?personLinkAnchor ?personLinkURL ?otherAnchor ?otherURL
           WHERE {
-              ?dept vivo:hasEmployeeAcademicFacultyMember ?personUri .
-              ?personUri rdfs:label ?personLabel .
-                  OPTIONAL { ?personUri vivo:memberOfGraduateField ?fieldUri . ?fieldUri rdf:type vivo:GraduateField . ?fieldUri vivo:associatedWith ?grouping . ?grouping rdf:type vivo:fieldCluster }
-                  OPTIONAL { ?personUri vitro:imageThumb ?image }
-                  OPTIONAL { ?personUri vitro:moniker ?moniker }
-                  OPTIONAL { ?personUri vitro:primaryLink ?primaryLink. ?primaryLink vitro:linkAnchor ?personLinkAnchor . ?primaryLink vitro:linkURL ?personLinkURL }
-                  OPTIONAL { ?personUri vitro:additionalLink ?additionalLink. ?additionalLink vitro:linkAnchor ?otherAnchor . ?additionalLink vitro:linkURL ?otherURL }
-          FILTER (!regex(?moniker, "emeritus", "i"))
+            ?dept vivo:hasEmployeeAcademicFacultyMember ?personUri .
+            ?personUri rdfs:label ?personLabel .
+            OPTIONAL { ?personUri vivo:memberOfGraduateField ?fieldUri . ?fieldUri rdf:type vivo:GraduateField . ?fieldUri vivo:associatedWith ?grouping . ?grouping rdf:type vivo:fieldCluster }
+            OPTIONAL { ?personUri vitro:imageThumb ?image }
+            OPTIONAL { ?personUri vitro:moniker ?moniker }
+            OPTIONAL { ?personUri vitro:primaryLink ?primaryLink. ?primaryLink vitro:linkAnchor ?personLinkAnchor . ?primaryLink vitro:linkURL ?personLinkURL }
+            OPTIONAL { ?personUri vitro:additionalLink ?additionalLink. ?additionalLink vitro:linkAnchor ?otherAnchor . ?additionalLink vitro:linkURL ?otherURL }
+            FILTER (!regex(?moniker, "emeritus", "i"))
           } ORDER BY ?personLabel
           LIMIT 2000
         </listsparql:select>
@@ -238,14 +240,15 @@ ${pageError}
               PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
               PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
               PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
+              PREFIX core: <http://vivoweb.org/ontology/core#>
               SELECT DISTINCT ?personUri ?personLabel ?image ?moniker
               WHERE {
-                  ?fieldUri vivo:hasFieldMember ?personUri .
-                  ?personUri vivo:PersonHasResearchArea ?areaUri .
-                  ?personUri rdfs:label ?personLabel .
-                      OPTIONAL { ?personUri vitro:imageThumb ?image }
-                      OPTIONAL { ?personUri vitro:moniker ?moniker }
-              FILTER (!regex(?moniker, "emeritus", "i"))
+                ?fieldUri vivo:hasFieldMember ?personUri .
+                ?personUri core:hasResearchArea ?areaUri .
+                ?personUri rdfs:label ?personLabel .
+                OPTIONAL { ?personUri vitro:imageThumb ?image }
+                OPTIONAL { ?personUri vitro:moniker ?moniker }
+                FILTER (!regex(?moniker, "emeritus", "i"))
               } ORDER BY ?personLabel
               LIMIT 1000
             </listsparql:select>
@@ -288,21 +291,22 @@ ${pageError}
                PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
                PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
                PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
+               PREFIX core: <http://vivoweb.org/ontology/core#>
                SELECT DISTINCT ?personUri ?personLabel ?image ?moniker
                WHERE {
-                   ?fieldUri vivo:hasFieldMember ?personUri .
-                   ?personUri vivo:PersonHasResearchArea ?area1 .
-                   ?personUri vivo:PersonHasResearchArea ?area2 .
-                   ?personUri vivo:PersonHasResearchArea ?area3 .
-                   ?personUri vivo:PersonHasResearchArea ?area4 .
-                   ?personUri vivo:PersonHasResearchArea ?area5 .
-                   ?personUri vivo:PersonHasResearchArea ?area6 .
-                   ?fieldUri vivo:associatedWith ?groupUri .
-                   ?groupUri rdf:type vivo:fieldCluster .
-                       OPTIONAL { ?personUri rdfs:label ?personLabel }
-                       OPTIONAL { ?personUri vitro:imageThumb ?image }
-                       OPTIONAL { ?personUri vitro:moniker ?moniker }
-               FILTER (!regex(?moniker, "emeritus", "i"))
+                ?fieldUri vivo:hasFieldMember ?personUri .
+                ?personUri core:hasResearchArea ?area1 .
+                ?personUri core:hasResearchArea ?area2 .
+                ?personUri core:hasResearchArea ?area3 .
+                ?personUri core:hasResearchArea ?area4 .
+                ?personUri core:hasResearchArea ?area5 .
+                ?personUri core:hasResearchArea ?area6 .
+                ?fieldUri vivo:associatedWith ?groupUri .
+                ?groupUri rdf:type vivo:fieldCluster .
+                OPTIONAL { ?personUri rdfs:label ?personLabel }
+                OPTIONAL { ?personUri vitro:imageThumb ?image }
+                OPTIONAL { ?personUri vitro:moniker ?moniker }
+                FILTER (!regex(?moniker, "emeritus", "i"))
                } ORDER BY ?personLabel
                LIMIT 1000
              </listsparql:select>

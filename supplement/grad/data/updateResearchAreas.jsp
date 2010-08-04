@@ -56,21 +56,22 @@
                    PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
                    PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
                    PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
+                   PREFIX core: <http://vivoweb.org/ontology/core#>
                    SELECT DISTINCT ?fieldUri ?fieldLabel (count(DISTINCT ?personUri) AS ?count)
                    WHERE {
-                    ?area1 vivo:ResearchAreaOfPerson ?personUri .
-                    ?personUri vivo:PersonHasResearchArea ?area2 .
-                    ?personUri vivo:PersonHasResearchArea ?area3 .
-                    ?personUri vivo:PersonHasResearchArea ?area4 .
-                    ?personUri vivo:PersonHasResearchArea ?area5 .
-                    ?personUri vivo:PersonHasResearchArea ?area6 .
+                    ?area1 core:researchAreaOf ?personUri .
+                    ?personUri core:hasResearchArea ?area2 .
+                    ?personUri core:hasResearchArea ?area3 .
+                    ?personUri core:hasResearchArea ?area4 .
+                    ?personUri core:hasResearchArea ?area5 .
+                    ?personUri core:hasResearchArea ?area6 .
                     ?personUri vivo:memberOfGraduateField ?fieldUri .
                     ?fieldUri vivo:associatedWith ?groupUri .
                     ?groupUri rdf:type vivo:fieldCluster .
-                        OPTIONAL { ?fieldUri rdfs:label ?fieldLabel }
-                        OPTIONAL { ?personUri vitro:moniker ?moniker }
-                        FILTER (!regex(?moniker, "emeritus", "i"))
-                    }
+                     OPTIONAL { ?fieldUri rdfs:label ?fieldLabel }
+                     OPTIONAL { ?personUri vitro:moniker ?moniker }
+                     FILTER (!regex(?moniker, "emeritus", "i"))
+                   }
                     GROUP BY ?fieldUri ?fieldLabel
                     ORDER BY desc(?count)
                     LIMIT 1000

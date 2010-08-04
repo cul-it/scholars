@@ -11,11 +11,11 @@
              PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
              PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
              PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
+             PREFIX core: <http://vivoweb.org/ontology/core#>
              SELECT ?groupUri ?groupLabel
-             WHERE
-             {
-             ?groupUri rdf:type vivo:fieldCluster
-             OPTIONAL { ?groupUri rdfs:label ?groupLabel }
+             WHERE {
+              ?groupUri rdf:type vivo:fieldCluster
+              OPTIONAL { ?groupUri rdfs:label ?groupLabel }
              }
              ORDER BY ?groupLabel
              LIMIT 200

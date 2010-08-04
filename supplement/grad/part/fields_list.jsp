@@ -13,12 +13,13 @@
           PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
           PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
           PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
+          PREFIX core: <http://vivoweb.org/ontology/core#>
           SELECT DISTINCT ?field ?fieldLabel ?groupLabel
           WHERE {
-              ?group vivo:hasAssociated ?field .
-              ?field vivo:hasFieldMember ?person .
-                  OPTIONAL { ?field rdfs:label ?fieldLabel }
-                  OPTIONAL { ?group rdfs:label ?groupLabel }
+            ?group vivo:hasAssociated ?field .
+            ?field vivo:hasFieldMember ?person .
+            OPTIONAL { ?field rdfs:label ?fieldLabel }
+            OPTIONAL { ?group rdfs:label ?groupLabel }
           } ORDER BY ?fieldLabel
           LIMIT 100
         </sparql:select>
@@ -39,15 +40,16 @@
           PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
           PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
           PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
+          PREFIX core: <http://vivoweb.org/ontology/core#>
           SELECT DISTINCT ?fieldUri ?fieldLabel
           WHERE {
-              ?dept vivo:hasEmployeeAcademicFacultyMember ?personUri .
-              ?personUri vivo:memberOfGraduateField ?fieldUri .
-              ?fieldUri rdf:type vivo:GraduateField ;
-                        rdfs:label ?fieldLabel ;
-                        vivo:associatedWith ?grouping .
-              ?grouping rdf:type vivo:fieldCluster .
-          } ORDER BY ?fieldLabel
+            ?dept vivo:hasEmployeeAcademicFacultyMember ?personUri .
+            ?personUri vivo:memberOfGraduateField ?fieldUri .
+            ?fieldUri rdf:type vivo:GraduateField ;
+              rdfs:label ?fieldLabel ;
+              vivo:associatedWith ?grouping .
+            ?grouping rdf:type vivo:fieldCluster .
+          } BY ?fieldLabel
           LIMIT 100
         </listsparql:select>
 
@@ -70,13 +72,14 @@
           PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
           PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
           PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
+          PREFIX core: <http://vivoweb.org/ontology/core#>
           SELECT DISTINCT ?fieldUri ?fieldLabel
           WHERE {
-              ?facultyUri vivo:memberOfGraduateField ?fieldUri .
-              ?fieldUri rdf:type vivo:GraduateField ;
-                        rdfs:label ?fieldLabel ;
-                        vivo:associatedWith ?grouping .
-              ?grouping rdf:type vivo:fieldCluster .
+            ?facultyUri vivo:memberOfGraduateField ?fieldUri .
+            ?fieldUri rdf:type vivo:GraduateField ;
+              rdfs:label ?fieldLabel ;
+              vivo:associatedWith ?grouping .
+            ?grouping rdf:type vivo:fieldCluster .
           } ORDER BY ?fieldLabel
           LIMIT 100
         </listsparql:select>
@@ -99,13 +102,14 @@
           PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
           PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
           PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
+          PREFIX core: <http://vivoweb.org/ontology/core#>
           SELECT DISTINCT ?field ?fieldLabel
           WHERE {
-              ?group rdf:type vivo:fieldCluster .
-              ?group vivo:hasAssociated ?field .
-              ?field vivo:hasFieldMember ?person .
-                  OPTIONAL { ?field rdfs:label ?fieldLabel }
-                  OPTIONAL { ?group rdfs:label ?groupLabel }
+            ?group rdf:type vivo:fieldCluster .
+            ?group vivo:hasAssociated ?field .
+            ?field vivo:hasFieldMember ?person .
+            OPTIONAL { ?field rdfs:label ?fieldLabel }
+            OPTIONAL { ?group rdfs:label ?groupLabel }
           } ORDER BY ?fieldLabel
           LIMIT 100
         </listsparql:select>

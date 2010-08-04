@@ -29,36 +29,26 @@
                      PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
                      PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
                      PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
+                     PREFIX core: <http://vivoweb.org/ontology/core#>
                      SELECT DISTINCT ?news ?newsLabel ?blurb ?sourceLink ?newsThumb ?moniker ?sunrise
-                     WHERE
-                     {
+                     WHERE {
+                      ?group rdf:type vivo:fieldCluster .
+                      ?group vivo:hasAssociated ?field .
+                      ?field vivo:hasFieldMember ?person .
 
-                     ?group
-                     rdf:type
-                     vivo:fieldCluster .
+                      ?news
+                        vivo:featuresPerson2 ?person ;
+                        vitro:sunrise ?sunrise ;
+                        vitro:primaryLink ?link ;
+                        vitro:blurb ?blurb ;
+                        rdfs:label ?newsLabel .
 
-                     ?group
-                     vivo:hasAssociated
-                     ?field .
-
-                     ?field
-                     vivo:hasFieldMember
-                     ?person .
-
-                     ?news
-                       vivo:featuresPerson2 ?person ;
-                       vitro:sunrise ?sunrise ;
-                       vitro:primaryLink ?link ;
-                       vitro:blurb ?blurb ;
-                       rdfs:label ?newsLabel .
-
-                       ?link vitro:linkURL ?sourceLink .
+                      ?link vitro:linkURL ?sourceLink .
 
                       OPTIONAL { ?news vitro:imageThumb ?newsThumb }
-                      
                       OPTIONAL { ?news vitro:moniker ?moniker }
-                      
-                      FILTER( xsd:dateTime(?now) > ?sunrise )
+
+                     FILTER( xsd:dateTime(?now) > ?sunrise )
                      }
                      ORDER BY DESC(?sunrise)
                      LIMIT 40

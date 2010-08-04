@@ -10,10 +10,11 @@
           PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
           PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
           PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
+          PREFIX core: <http://vivoweb.org/ontology/core#>
           SELECT ?fieldClusterUri ?clusterLabel
           WHERE {
-              ?fieldClusterUri rdf:type vivo:fieldCluster
-              OPTIONAL { ?fieldClusterUri rdfs:label ?clusterLabel }
+            ?fieldClusterUri rdf:type vivo:fieldCluster
+            OPTIONAL { ?fieldClusterUri rdfs:label ?clusterLabel }
           } ORDER BY ?clusterLabel
           LIMIT 200
     </listsparql:select>

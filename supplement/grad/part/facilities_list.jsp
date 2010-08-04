@@ -12,21 +12,15 @@
     PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
     PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
     PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
+    PREFIX core: <http://vivoweb.org/ontology/core#>
     SELECT ?uri ?label ?url ?anchor ?blurb ?description 
-    WHERE
-    {
-    ?tabConnector
-    vitro:involvesTab
-    ?group .
-    
-    ?tabConnector
-    vitro:involvesIndividual
-    ?uri .
-
-    OPTIONAL { ?uri rdfs:label ?label }
-    OPTIONAL { ?uri vitro:blurb ?blurb }
-    OPTIONAL { ?uri vitro:description ?description }
-    OPTIONAL { ?uri vitro:primaryLink ?facilityLinks . ?facilityLinks vitro:linkURL ?url . ?facilityLinks vitro:linkAnchor ?anchor }
+    WHERE {
+      ?tabConnector vitro:involvesTab ?group .
+      ?tabConnector vitro:involvesIndividual ?uri .
+      OPTIONAL { ?uri rdfs:label ?label }
+      OPTIONAL { ?uri vitro:blurb ?blurb }
+      OPTIONAL { ?uri vitro:description ?description }
+      OPTIONAL { ?uri vitro:primaryLink ?facilityLinks . ?facilityLinks vitro:linkURL ?url . ?facilityLinks vitro:linkAnchor ?anchor }
     }
     ORDER BY ?label
     LIMIT 400

@@ -12,11 +12,12 @@
       PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
       PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
       PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
+      PREFIX core: <http://vivoweb.org/ontology/core#>
       SELECT DISTINCT ?degreeAbbr
       WHERE {
-          ?fieldUri vivo:offersAcademicDegree ?degree . 
-          ?degree rdfs:label ?degreeLabel ;
-                  vivo:degreeAbbreviation ?degreeAbbr .
+        ?fieldUri vivo:offersAcademicDegree ?degree . 
+        ?degree rdfs:label ?degreeLabel ;
+          core:degreeAbbreviation ?degreeAbbr .
       } ORDER BY DESC(?degreeAbbr)
       LIMIT 10
     </sparql:select>

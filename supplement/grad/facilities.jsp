@@ -23,22 +23,13 @@
                     PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
                     PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
                     PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
+                    PREFIX core: <http://vivoweb.org/ontology/core#>
                     SELECT DISTINCT ?facGroup ?facGroupLabel
-                    WHERE
-                    {
-                    ?facGroup
-                    vitro:subTabOf
-                    vivo:tab1441173947 . 
-
-                    ?tabConnector
-                    vitro:involvesTab
-                    ?facGroup .
-
-                    ?tabConnector
-                    vitro:involvesIndividual
-                    ?facility .
-
-                    OPTIONAL { ?facGroup rdfs:label ?facGroupLabel }
+                    WHERE {
+                      ?facGroup vitro:subTabOf vivo:tab1441173947 . 
+                      ?tabConnector vitro:involvesTab ?facGroup .
+                      ?tabConnector vitro:involvesIndividual ?facility .
+                      OPTIONAL { ?facGroup rdfs:label ?facGroupLabel }
                     }
                     ORDER BY ?facGroupLabel
                     LIMIT 200

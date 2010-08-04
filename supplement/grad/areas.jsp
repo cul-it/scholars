@@ -31,11 +31,12 @@
               PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
               PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
               PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
+              PREFIX core: <http://vivoweb.org/ontology/core#>
               SELECT DISTINCT ?fieldUri ?fieldLabel
               WHERE {
-                  ?group vivo:hasAssociated ?fieldUri .
-                  ?fieldUri vivo:hasFieldMember ?person .
-                      OPTIONAL { ?fieldUri rdfs:label ?fieldLabel }
+                ?group vivo:hasAssociated ?fieldUri .
+                ?fieldUri vivo:hasFieldMember ?person .
+                OPTIONAL { ?fieldUri rdfs:label ?fieldLabel }
               } ORDER BY ?fieldLabel
               LIMIT 100
             </listsparql:select>
@@ -53,12 +54,13 @@
               PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
               PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
               PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
+              PREFIX core: <http://vivoweb.org/ontology/core#>
               SELECT DISTINCT ?fieldUri ?fieldLabel
               WHERE {
-                  ?group rdf:type vivo:fieldCluster .
-                  ?group vivo:hasAssociated ?fieldUri .
-                  ?fieldUri vivo:hasFieldMember ?person .
-                      OPTIONAL { ?fieldUri rdfs:label ?fieldLabel }
+                ?group rdf:type vivo:fieldCluster .
+                ?group vivo:hasAssociated ?fieldUri .
+                ?fieldUri vivo:hasFieldMember ?person .
+                OPTIONAL { ?fieldUri rdfs:label ?fieldLabel }
               } ORDER BY ?fieldLabel
               LIMIT 100
             </listsparql:select>

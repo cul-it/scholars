@@ -14,22 +14,23 @@
           PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
           PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
           PREFIX hr: <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#>
-          SELECT DISTINCT ?personLabel ?prefName ?moniker ?overviewStatement ?researchFocus ?background ?publications ?image ?cornellEmail ?otherEmail ?netid 
-                          ?primaryLinkAnchor ?primaryLinkURL ?otherLinkAnchor ?otherLinkURL
+          PREFIX core: <http://vivoweb.org/ontology/core#>
+          SELECT DISTINCT ?personLabel ?prefName ?moniker ?overviewStatement ?researchFocus ?background ?publications ?image ?cornellEmail ?otherEmail ?netid ?primaryLinkAnchor ?primaryLinkURL ?otherLinkAnchor ?otherLinkURL
           WHERE {
-              ?personUri rdfs:label ?personLabel .
-                  OPTIONAL { ?personUri vivo:overviewStatement ?overviewStatement }
-                  OPTIONAL { ?personUri vivo:researchFocus ?researchFocus }
-                  OPTIONAL { ?personUri vivo:educationalBackground ?background }
-                  OPTIONAL { ?personUri vivo:publications ?publications }
-                  OPTIONAL { ?personUri vitro:imageThumb ?image }
-                  OPTIONAL { ?personUri vitro:moniker ?moniker }
-                  OPTIONAL { ?personUri vitro:primaryLink ?primaryLink. ?primaryLink vitro:linkAnchor ?primaryLinkAnchor . ?primaryLink vitro:linkURL ?primaryLinkURL }
-                  OPTIONAL { ?personUri vitro:additionalLink ?otherLink . ?otherLink vitro:linkAnchor ?otherLinkAnchor . ?otherLink vitro:linkURL ?otherLinkURL }
-                  OPTIONAL { ?personUri vivo:CornellemailnetId ?cornellEmail }
-                  OPTIONAL { ?personUri vivo:nonCornellemail ?otherEmail }
-                  OPTIONAL { ?personUri hr:PrefName ?prefName }
-                  OPTIONAL { ?personUri hr:netId ?netid }
+            ?personUri rdfs:label ?personLabel .
+            OPTIONAL { ?personUri core:overview ?overviewStatement }
+            OPTIONAL { ?personUri core:hasResearchActivity ?researchActivity .
+                           ?researchActivity vitro:description ?researchFocus .}
+            OPTIONAL { ?personUri vivo:educationalBackground ?background }
+            OPTIONAL { ?personUri vivo:publications ?publications }
+            OPTIONAL { ?personUri vitro:imageThumb ?image }
+            OPTIONAL { ?personUri vitro:moniker ?moniker }
+            OPTIONAL { ?personUri vitro:primaryLink ?primaryLink. ?primaryLink vitro:linkAnchor ?primaryLinkAnchor . ?primaryLink vitro:linkURL ?primaryLinkURL }
+            OPTIONAL { ?personUri vitro:additionalLink ?otherLink . ?otherLink vitro:linkAnchor ?otherLinkAnchor . ?otherLink vitro:linkURL ?otherLinkURL }
+            OPTIONAL { ?personUri vivo:CornellemailnetId ?cornellEmail }
+            OPTIONAL { ?personUri vivo:nonCornellemail ?otherEmail }
+            OPTIONAL { ?personUri hr:PrefName ?prefName }
+            OPTIONAL { ?personUri hr:netId ?netid }
           }
           LIMIT 50
     </listsparql:select>
@@ -37,10 +38,11 @@
     <listsparql:select model="${applicationScope.jenaOntModel}" var="grants" personUri="<${param.uri}>">
           PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
           PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
+          PREFIX core: <http://vivoweb.org/ontology/core#>
           SELECT DISTINCT ?grantLabel ?grantUri 
           WHERE {
-              ?personUri vivo:PersonPrimaryInvestigatorOfFinancialAward ?grantUri .
-              ?grantUri rdfs:label ?grantLabel .
+            ?personUri core:principalInvestigatorOn ?grantUri .
+            ?grantUri rdfs:label ?grantLabel .
           }
           LIMIT 50
     </listsparql:select>
@@ -49,11 +51,13 @@
           PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
           PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
           PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
+          PREFIX core: <http://vivoweb.org/ontology/core#>
           SELECT DISTINCT ?pubUri ?pubLabel ?pubLinkAnchor ?pubLinkURL
           WHERE {
-              ?personUri vivo:authorOf ?pubUri .
-              ?pubUri rdfs:label ?pubLabel .
-              OPTIONAL { ?pubUri vitro:additionalLink ?pubLink . ?pubLink vitro:linkURL ?pubLinkURL . ?pubLink vitro:linkAnchor ?pubLinkAnchor }
+            ?personUri core:authorInAuthorship ?authorship .
+                  ?authorship core:linkedInformationResource ?pubUri .
+            ?pubUri rdfs:label ?pubLabel .
+            OPTIONAL { ?pubUri vitro:additionalLink ?pubLink . ?pubLink vitro:linkURL ?pubLinkURL . ?pubLink vitro:linkAnchor ?pubLinkAnchor }
           }
           LIMIT 50
     </listsparql:select>

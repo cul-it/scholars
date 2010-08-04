@@ -11,10 +11,12 @@
         <sparql:sparql>
           <listsparql:select model="${applicationScope.jenaOntModel}" var="rs" uri="<${param.uri}>">
               PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
+              PREFIX core: <http://vivoweb.org/ontology/core#>
               SELECT ?statement ?focus
               WHERE { 
-              OPTIONAL { ?uri vivo:overviewStatement ?statement }
-              OPTIONAL { ?uri vivo:researchFocus ?focus }
+                OPTIONAL { ?uri core:overview ?statement }
+                OPTIONAL { ?person core:hasResearchActivity ?researchActivity 
+                              ?researchActivity vitro:description ?focus }
               }
               LIMIT 1
           </listsparql:select>
@@ -44,6 +46,7 @@
         <sparql:sparql>
           <listsparql:select model="${applicationScope.jenaOntModel}" var="rs" uri="<${param.uri}>">
             PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
+            PREFIX core: <http://vivoweb.org/ontology/core#>
             SELECT ?description
             WHERE { ?uri vitro:description ?description }
             LIMIT 1

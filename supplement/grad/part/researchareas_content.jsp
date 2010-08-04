@@ -29,16 +29,17 @@
               PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
               PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
               PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
+              PREFIX core: <http://vivoweb.org/ontology/core#>
               SELECT DISTINCT ?fieldUri ?fieldLabel (count(DISTINCT ?personUri) AS ?count)
               WHERE {
-                  ?areaUri vivo:ResearchAreaOfPerson ?personUri .
-                  ?personUri vivo:memberOfGraduateField ?fieldUri .
-                  ?personUri rdf:type vivo:FacultyMember .
-                  ?fieldUri vivo:associatedWith ?groupUri .
-                  ?groupUri rdf:type vivo:fieldCluster .
-                      OPTIONAL { ?fieldUri rdfs:label ?fieldLabel }
-                      OPTIONAL { ?personUri vitro:moniker ?moniker }
-                  FILTER (!regex(?moniker, "emeritus", "i"))
+                ?areaUri core:researchAreaOf ?personUri .
+                ?personUri vivo:memberOfGraduateField ?fieldUri .
+                ?personUri rdf:type core:FacultyMember .
+                ?fieldUri vivo:associatedWith ?groupUri .
+                ?groupUri rdf:type vivo:fieldCluster .
+                OPTIONAL { ?fieldUri rdfs:label ?fieldLabel }
+                OPTIONAL { ?personUri vitro:moniker ?moniker }
+              FILTER (!regex(?moniker, "emeritus", "i"))
               }
               GROUP BY ?fieldUri ?fieldLabel
               ORDER BY desc(?count)
