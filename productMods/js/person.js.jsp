@@ -21,14 +21,17 @@ tinyMCE.init({
 $(document).ready(function() {
     
 // Do this stuff for all people pages
-if ($("ul#propGroupNav").length) {
 
-        function scrollTo(id,ms,offset) {
-        if(ms==null){ ms = 500 };
-        if(offset==null){ offset = 40 };
-        var position = $(id).offset({scroll:false}).top;
-        $('html,body').animate({scrollTop: position - offset},ms);    
-    }
+function scrollTo(id,ms,offset) {
+  if(ms==null){ ms = 500 };
+  if(offset==null){ offset = 40 };
+  var position = $(id).offset();
+  if(position!=null) {
+    $('html,body').animate({scrollTop: position.top - offset},ms);
+  };
+}
+
+if ($("ul#propGroupNav").length) {
 
     $("ul#propGroupNav h2 a").click(function(){
         $(this).blur();
@@ -415,33 +418,37 @@ if ($("#dashboard").hasClass("loggedIn")) {
     }
 
     function highlight(property,toggle) {
-		if(toggle=="on"){
-			$("div.highlighted").removeClass("highlighted");
-			$(property).addClass("highlighted");
-            bgColor = "#fffedb";
-            $(property).animate({ 
-                backgroundColor: bgColor
-                }, 1200);
+      if(toggle=="on"){
+        $("div.highlighted").removeClass("highlighted");
+        $(property).addClass("highlighted");
+              bgColor = "#fffedb";
+              $(property).animate({ 
+                  backgroundColor: bgColor
+                  }, 1200);
+          }
+        if(toggle=="off"){
+          $(property).removeClass("highlighted").css("background-color","#fff");
         }
-		if(toggle=="off"){
-			$(property).removeClass("highlighted").css("background-color","#fff");
-		}
-    }
-
-    var hash = document.location.hash;
-
-    if(hash!=null ){
+      }
+ 
+      var hash = document.location.hash;
+ 
+      if(hash!=null ){
         var viewport = getViewportHeight();
         if(viewport > 0){  
-			var offset = viewport/3; 
-		} else {
-			var offset = "50";
-		}
-		// alert(propertyID + " " + offset);
-		// document.location.hash = initialGroup
-		// alert(hash);
+          var offset = viewport/3;
+        } 
+      else {
+        var offset = "50";
+      }
+      // alert(propertyID + " " + offset);
+      // document.location.hash = initialGroup
+      // alert(hash);
+
+      if(hash!="#wrap") {
         scrollTo(hash,"200",offset);
-		highlight(hash,"on");
+        highlight(hash,"on");
+      }
     }
 
     $("body").click(function(){

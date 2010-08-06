@@ -36,6 +36,10 @@ Updated:	August 19, 2008
     clear: both;
 }
 
+#personWrap.default {
+  background-image: none;
+}
+
 #personWrap .entity {
   padding-top: 0;
 }
@@ -128,6 +132,18 @@ img.screenshot {
     padding-top: 10px;
 }
 
+#personWrap #entity h2.label {
+  display: inline;
+}
+
+div.datatypeProperties.person {
+  margin: 0 0 0.8em 0;
+}
+
+#moniker.datatypePropertyValue {
+/*  clear:left;*/
+}
+
 #personWrap em.moniker {
     float: left;
     clear: none;
@@ -138,6 +154,14 @@ img.screenshot {
 #personWrap div#profileImage {
     width: 87px;
     float: left;
+}
+
+#personWrap div.thumbnail span.editLinks {
+  display: block !important;
+}
+
+#personWrap div.thumbnail span.editLinks a {
+  display: inline !important;
 }
 
 #personWrap img.headshot,
@@ -508,6 +532,7 @@ ul.keywords li {
 #personWrap #content .datatypeProperties a.delete {
     position: static; /* reset for edit links for property statements */
     padding-right: 2px;
+    padding-left: 6px;
 }
 
 div.editBox.editMode {
@@ -532,7 +557,7 @@ div.editBox.editMode.editing {
 #personWrap div.editing ul.properties,
 #personWrap div.editing div.datatypeProperties {
     color: #888;
-    display: none;
+/*    display: none;*/
 }
 
 div.button {
