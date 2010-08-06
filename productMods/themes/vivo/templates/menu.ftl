@@ -9,13 +9,19 @@
   <div id="menu">
     <ul id="primary">
         <#list tabMenu.items as item>
-            <li>
-                <a href="${item.url}" <#if item.active> class="activeTab" </#if>>
-                    ${item.linkText}
-                </a>
-            </li>
+           <#if item.linkText !="Index">
+              <li>
+                  <a href="${item.url}" <#if item.active> class="activeTab" </#if>>
+                      ${item.linkText}
+                  </a>
+              </li>
+            </#if>
         </#list>
     </ul>
+    <#assign rootpath = "">
+    <#if urls.home != "/">
+      <#assign rootpath = urls.home>
+    </#if>
     <ul id="secondary">
         <@l.firstLastList>
             <#if loginName??>
@@ -25,7 +31,7 @@
                 <li><a title="log in to manage this site" href="${urls.login}">Log in</a></li>
             </#if> 
             
-                <li><a href="browse">Index</a></li>
+                <li><a href="${rootpath}/browse">Index</a></li>
             
                 <li><a href="${urls.about}">About</a></li>
             <#if urls.contact??>
