@@ -21,7 +21,7 @@
         OPTIONAL { ?fieldUri vitro:primaryLink ?primaryLink. ?primaryLink vitro:linkAnchor ?primaryLinkAnchor . ?primaryLink vitro:linkURL ?primaryLinkURL }
         OPTIONAL { ?fieldUri vitro:additionalLink ?otherLink. ?otherLink vitro:linkAnchor ?otherLinkAnchor . ?otherLink vitro:linkURL ?otherLinkURL }
         OPTIONAL { ?fieldUri vivo:gradschoolID ?gsid }
-        OPTIONAL { ?fieldUri vivo:offersAcademicDegree ?degree . ?degree rdfs:label ?degreeLabel . ?degree core:degreeAbbreviation ?degreeAbbr }
+        OPTIONAL { ?fieldUri core:offersDegree ?degree . ?degree rdfs:label ?degreeLabel . ?degree core:abbreviation ?degreeAbbr }
       }
       LIMIT 50
     </listsparql:select>
