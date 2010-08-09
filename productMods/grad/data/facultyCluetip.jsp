@@ -14,8 +14,6 @@
     </c:otherwise>
 </c:choose>
 
-<c:set var="imageDir" value="/images/" />
-
 <c:if test="${!empty fullURI}">
     <sparql:lock model="${applicationScope.jenaOntModel}">
     <sparql:sparql>
@@ -25,12 +23,18 @@
               PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
               PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
               PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
+              PREFIX vitropublic: <http://vitro.mannlib.cornell.edu/ns/vitro/public#>
               PREFIX core: <http://vivoweb.org/ontology/core#>
               SELECT DISTINCT ?personLabel ?areaUri ?areaLabel ?image ?moniker
               WHERE {
                 ?personUri rdfs:label ?personLabel .
                 OPTIONAL { ?personUri core:hasResearchArea ?areaUri . ?areaUri rdfs:label ?areaLabel }
-                OPTIONAL { ?personUri vitro:imageThumb ?image }
+                OPTIONAL {
+                   ?personUri vitropublic:mainImage ?mainImage .
+                   ?mainImage vitropublic:thumbnailImage ?thumbnail .
+                   ?thumbnail vitropublic:downloadLocation ?downloadLocation .
+                   LET (?image := str(?downloadLocation))
+                }
                 OPTIONAL { ?personUri vitro:moniker ?moniker }
               } ORDER BY ?areaLabel
               LIMIT 1000
@@ -48,7 +52,7 @@
     <div class="clueTipWrap">
         <c:choose>
             <c:when test="${!empty rs[0].image.string}">
-                <img width="100" alt="" src="${imageDir}${rs[0].image.string}"/>
+                <img width="100" alt="" src="${rs[0].image.string}"/>
             </c:when>
             <c:otherwise>
                 <img width="100" alt="" src="/resources/images/profile_missing.gif"/>
