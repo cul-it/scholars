@@ -8,8 +8,6 @@
 
 <%-- Given a field, department, or field+researcharea URI, get a multi-column faculty list with thumbnails --%>
 
-<c:set var="imageDir" value="/images/" />
-
 <c:if test="${param.type == 'field'}">
 <c:catch var="pageError">
     <sparql:lock model="${applicationScope.jenaOntModel}">
@@ -71,7 +69,7 @@
 	            <li id="${facultyID}">
                     <c:choose>
                         <c:when test="${!empty row.image.string}">
-                            <a class="img" href="${facultyHref}" rel="/data/facultyCluetip.jsp?id=${facultyID}"><img width="44" alt="" src="${imageDir}${row.image.string}"/></a>
+                            <a class="img" href="${facultyHref}" rel="/data/facultyCluetip.jsp?id=${facultyID}"><img width="44" alt="" src="${row.image.string}"/></a>
                         </c:when>
                         <c:otherwise>
                             <a class="img"href="${facultyHref}" rel="/data/facultyCluetip.jsp?id=${facultyID}"><img width="44" alt="" src="/resources/images/profile_missing.gif"/></a>
@@ -291,6 +289,7 @@ ${pageError}
                PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
                PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
                PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
+               PREFIX vitropublic: <http://vitro.mannlib.cornell.edu/ns/vitro/public#>
                PREFIX core: <http://vivoweb.org/ontology/core#>
                SELECT DISTINCT ?personUri ?personLabel ?image ?moniker
                WHERE {
@@ -304,7 +303,12 @@ ${pageError}
                 ?fieldUri vivo:associatedWith ?groupUri .
                 ?groupUri rdf:type vivo:fieldCluster .
                 OPTIONAL { ?personUri rdfs:label ?personLabel }
-                OPTIONAL { ?personUri vitro:imageThumb ?image }
+                OPTIONAL {
+                   ?personUri vitropublic:mainImage ?mainImage .
+                   ?mainImage vitropublic:thumbnailImage ?thumbnail .
+                   ?thumbnail vitropublic:downloadLocation ?downloadLocation .
+                   LET (?image := str(?downloadLocation))
+                }
                 OPTIONAL { ?personUri vitro:moniker ?moniker }
                 FILTER (!regex(?moniker, "emeritus", "i"))
                } ORDER BY ?personLabel

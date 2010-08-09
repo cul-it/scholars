@@ -13,17 +13,23 @@
           PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
           PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
           PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
+          PREFIX vitropublic: <http://vitro.mannlib.cornell.edu/ns/vitro/public#>
           PREFIX hr: <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#>
           PREFIX core: <http://vivoweb.org/ontology/core#>
           SELECT DISTINCT ?personLabel ?prefName ?moniker ?overviewStatement ?researchFocus ?background ?publications ?image ?cornellEmail ?otherEmail ?netid ?primaryLinkAnchor ?primaryLinkURL ?otherLinkAnchor ?otherLinkURL
           WHERE {
             ?personUri rdfs:label ?personLabel .
             OPTIONAL { ?personUri core:overview ?overviewStatement }
-            OPTIONAL { ?personUri core:hasResearchActivity ?researchActivity .
+            OPTIONAL { ?personUri core:hasResearcherRole ?researchActivity .
                            ?researchActivity core:description ?researchFocus .}
             OPTIONAL { ?personUri vivo:educationalBackground ?background }
             OPTIONAL { ?personUri vivo:publications ?publications }
-            OPTIONAL { ?personUri vitro:imageThumb ?image }
+            OPTIONAL {
+               ?personUri vitropublic:mainImage ?mainImage .
+               ?mainImage vitropublic:thumbnailImage ?thumbnail .
+               ?thumbnail vitropublic:downloadLocation ?downloadLocation .
+               LET (?image := str(?downloadLocation))
+            }
             OPTIONAL { ?personUri vitro:moniker ?moniker }
             OPTIONAL { ?personUri vitro:primaryLink ?primaryLink. ?primaryLink vitro:linkAnchor ?primaryLinkAnchor . ?primaryLink vitro:linkURL ?primaryLinkURL }
             OPTIONAL { ?personUri vitro:additionalLink ?otherLink . ?otherLink vitro:linkAnchor ?otherLinkAnchor . ?otherLink vitro:linkURL ?otherLinkURL }
@@ -64,7 +70,6 @@
 </sparql:sparql>
 </sparql:lock>
 
-<c:set var="imageDir" value="../images/" />
 <c:set var="netid" value="${faculty[0].netid.string}"/>
 <c:set var="cornellEmail" value="${faculty[0].cornellEmail.string}"/>
 <c:set var="otherEmail" value="${faculty[0].otherEmail.string}"/>
@@ -83,7 +88,7 @@
 <div id="overview" class="span-15">
     <c:choose>
         <c:when test="${!empty profileImage}">
-            <c:url var="imageSrc" value="${imageDir}${profileImage}"/>
+            <c:url var="imageSrc" value="${profileImage}"/>
             <img class="profile" src="${imageSrc}" alt="profile photo" width="150"/>
         </c:when>
         <c:otherwise>

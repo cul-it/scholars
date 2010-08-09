@@ -15,7 +15,7 @@
               SELECT ?statement ?focus
               WHERE { 
                 OPTIONAL { ?uri core:overview ?statement }
-                OPTIONAL { ?person core:hasResearchActivity ?researchActivity 
+                OPTIONAL { ?person core:hasResearcherRole ?researchActivity .
                               ?researchActivity core:description ?focus }
               }
               LIMIT 1

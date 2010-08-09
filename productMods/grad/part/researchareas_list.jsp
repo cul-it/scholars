@@ -20,7 +20,7 @@
                   ?group rdf:type vivo:fieldCluster .
                   ?group vivo:hasAssociated ?field .
                   ?field vivo:hasFieldMember ?personUri .
-                  ?personUri vivo:PersonHasResearchArea ?areaUri .
+                  ?personUri core:hasResearchArea ?areaUri .
                   ?areaUri rdfs:label ?areaLabelRaw .
                   LET (?areaLabel := str(?areaLabelRaw))
               } ORDER BY fn:lower-case(?areaLabel)
@@ -54,7 +54,7 @@
                   ?group rdf:type vivo:fieldCluster .
                   ?group vivo:hasAssociated ?field .
                   ?field vivo:hasFieldMember ?personUri .
-                  ?personUri vivo:PersonHasResearchArea ?areaUri .
+                  ?personUri core:hasResearchArea ?areaUri .
                   ?areaUri rdfs:label ?areaLabelRaw .
                   LET (?areaLabel := str(?areaLabelRaw))
               } ORDER BY fn:lower-case(?areaLabel)
@@ -79,7 +79,7 @@
           PREFIX core: <http://vivoweb.org/ontology/core#>
           SELECT DISTINCT ?areaUri ?areaLabel
           WHERE {
-              ?facultyUri vivo:PersonHasResearchArea ?areaUri .
+              ?facultyUri core:hasResearchArea ?areaUri .
               ?areaUri rdfs:label ?areaLabel .
           } ORDER BY ?areaLabel
           LIMIT 200
@@ -105,7 +105,7 @@
           SELECT DISTINCT ?areaUri ?areaLabel
           WHERE {
               ?fieldUri vivo:hasFieldMember ?facultyUri .
-              ?facultyUri vivo:PersonHasResearchArea ?areaUri .
+              ?facultyUri core:hasResearchArea ?areaUri .
               ?areaUri rdfs:label ?areaLabelRaw .
               OPTIONAL { ?facultyUri vitro:moniker ?moniker }
               LET (?areaLabel := str(?areaLabelRaw))
@@ -133,7 +133,7 @@
           SELECT ?areaLabel ?areaUri ?facultyLabel ?facultyUri
           WHERE {
               ?fieldUri vivo:hasFieldMember ?facultyUri .
-              ?facultyUri vivo:PersonHasResearchArea ?areaUri .
+              ?facultyUri core:hasResearchArea ?areaUri .
               ?areaUri rdfs:label ?areaLabel .
               OPTIONAL { ?facultyUri rdfs:label ?facultyLabel }
           } ORDER BY ?areaLabel ?facultyLabel
