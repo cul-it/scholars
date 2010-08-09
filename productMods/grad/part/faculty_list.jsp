@@ -126,13 +126,19 @@ ${pageError}
           PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
           PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
           PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
+          PREFIX vitropublic: <http://vitro.mannlib.cornell.edu/ns/vitro/public#>
           PREFIX core: <http://vivoweb.org/ontology/core#>
           SELECT DISTINCT ?personUri ?personLabel ?image ?grouping ?personLinkAnchor ?personLinkURL ?otherAnchor ?otherURL
           WHERE {
             ?dept vivo:hasEmployeeAcademicFacultyMember ?personUri .
             ?personUri rdfs:label ?personLabel .
             OPTIONAL { ?personUri vivo:memberOfGraduateField ?fieldUri . ?fieldUri rdf:type vivo:GraduateField . ?fieldUri vivo:associatedWith ?grouping . ?grouping rdf:type vivo:fieldCluster }
-            OPTIONAL { ?personUri vitro:imageThumb ?image }
+            OPTIONAL {
+               ?personUri vitropublic:mainImage ?mainImage .
+               ?mainImage vitropublic:thumbnailImage ?thumbnail .
+               ?thumbnail vitropublic:downloadLocation ?downloadLocation .
+               LET (?image := str(?downloadLocation))
+            }
             OPTIONAL { ?personUri vitro:moniker ?moniker }
             OPTIONAL { ?personUri vitro:primaryLink ?primaryLink. ?primaryLink vitro:linkAnchor ?personLinkAnchor . ?primaryLink vitro:linkURL ?personLinkURL }
             OPTIONAL { ?personUri vitro:additionalLink ?additionalLink. ?additionalLink vitro:linkAnchor ?otherAnchor . ?additionalLink vitro:linkURL ?otherURL }
