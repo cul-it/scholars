@@ -30,7 +30,7 @@
             <c:set var="total" value="${fn:length(rs)}"/>
         
             <c:forEach items="${rs}" var="row">
-                <c:set var="areaID" value="${fn:substringAfter(row.areaUri,'#')}"/>
+                <c:set var="areaID" value="${fn:substringAfter(row.areaUri,'/individual/')}"/>
                 
                 <li><a href="/researchareas/${areaID}">${row.areaLabel.string}</a></li>
             </c:forEach>
@@ -62,7 +62,7 @@
         </listsparql:select>
         
             <c:forEach items="${rs}" var="row">
-                <c:set var="areaID" value="${fn:substringAfter(row.areaUri,'#')}"/>
+                <c:set var="areaID" value="${fn:substringAfter(row.areaUri,'/individual/')}"/>
                 <option value="${areaID}">${row.areaLabel.string}</option>
             </c:forEach>
             
@@ -115,7 +115,7 @@
         </listsparql:select>
 
             <c:forEach items="${rs}" var="row">
-                <c:set var="areaID" value="${fn:substringAfter(row.areaUri,'#')}"/>
+                <c:set var="areaID" value="${fn:substringAfter(row.areaUri,'/individual/')}"/>
                 <li id="${areaID}"><a href="/researchareas/${areaID}">${row.areaLabel.string}</a></li>
             </c:forEach>
         

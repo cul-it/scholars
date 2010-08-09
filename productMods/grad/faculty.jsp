@@ -143,7 +143,7 @@
                                     <c:forEach items="${rs.rows}" var="row" varStatus="counter">
                                         <c:set var="facultyName" value="${row.personLabel.string}"/>
                                         <c:set var="facultyUri" value="${row.personUri}"/>
-                                        <%-- <c:set var="facultyHref" value="/faculty/${fn:substringAfter(row.personUri,'#')}"/> --%>
+                                        <%-- <c:set var="facultyHref" value="/faculty/${fn:substringAfter(row.personUri,'/individual/')}"/> --%>
     						            <c:set var="facultyHref">
     						                <c:import url="part/build_person_href.jsp"><c:param name="uri" value="${facultyUri}"/></c:import>
     						            </c:set>

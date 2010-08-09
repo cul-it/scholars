@@ -7,12 +7,12 @@
 
 <c:choose>
     <c:when test="${fn:contains(param.uri, namespace_hri3)}">
-        <c:out value="/faculty/HRI3${fn:substringAfter(param.uri,'#')}"/>
+        <c:out value="/faculty/HRI3${fn:substringAfter(param.uri,'/individual/')}"/>
     </c:when>
     <c:when test="${fn:contains(param.uri, namespace_hri2)}">
-        <c:out value="/faculty/HRI2${fn:substringAfter(param.uri,'#')}"/>
+        <c:out value="/faculty/HRI2${fn:substringAfter(param.uri,'/individual/')}"/>
     </c:when>
     <c:otherwise>
-        <c:out value="/faculty/${fn:substringAfter(param.uri,'#')}"/>
+        <c:out value="/faculty/${fn:substringAfter(param.uri,'/individual/')}"/>
     </c:otherwise>
 </c:choose>

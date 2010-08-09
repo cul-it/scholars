@@ -39,7 +39,7 @@
           <language>en</language>
 
         <c:forEach items="${allFields}" var="field">
-            <c:set var="localname" value="${fn:substringAfter(field.fieldUri,'#')}"/>
+            <c:set var="localname" value="${fn:substringAfter(field.fieldUri,'/individual/')}"/>
             <item>
                 <title><c:out escapeXml="true" value="${field.fieldLabel.string}"/></title>
                 <description>${field.id.string}</description>

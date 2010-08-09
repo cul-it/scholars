@@ -32,12 +32,12 @@
         <c:if test="${research.areaUri != previousUri}">
             <c:set var="activeUri" value="${research.areaUri}"/>
              <json:object>
-                 <json:property name="ID" value="${fn:substringAfter(research.areaUri,'#')}"/>
+                 <json:property name="ID" value="${fn:substringAfter(research.areaUri,'/individual/')}"/>
                  <json:property name="Label" value="${research.areaLabel.string}"/>
                  <json:property name="URI" value="${research.areaUri}"/>
                  <json:array name="Faculty">
                     <c:forEach items="${researchResults}" var="faculty">
-                        <c:set var="facultyID" value="${fn:substringAfter(faculty.personUri,'#')}"/>
+                        <c:set var="facultyID" value="${fn:substringAfter(faculty.personUri,'/individual/')}"/>
                         <c:if test="${faculty.areaUri == activeUri}">
                             <json:property value="${facultyID}"/>
                         </c:if>

@@ -32,7 +32,7 @@
 <c:forEach items="${groupFields}" var="group">
 
          <json:object>
-             <json:property name="ID" value="${fn:substringAfter(group.field,'#')}"/>
+             <json:property name="ID" value="${fn:substringAfter(group.field,'/individual/')}"/>
              <json:property name="Label" value="${group.fieldLabel.string}"/>
              <json:property name="URI" value="${group.field}"/>
              <json:property name="Description" value="${group.fieldDescription.string}" escapeXml="false"/>

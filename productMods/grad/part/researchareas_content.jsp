@@ -59,7 +59,7 @@
     <ul class="fieldList">
         <c:forEach items="${rs}" var="row">
                 <c:set var="thisField" value="${row.fieldUri}"/>
-                    <c:set var="fieldID" value="${fn:substringAfter(row.fieldUri,'#')}"/>
+                    <c:set var="fieldID" value="${fn:substringAfter(row.fieldUri,'/individual/')}"/>
                     <li class="${fieldID}">
                         <h4 class="fields"><a href="/fields/${fieldID}">${row.fieldLabel.string}</a></h4>
                         <c:import url="part/faculty_list.jsp">

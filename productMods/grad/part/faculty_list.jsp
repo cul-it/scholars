@@ -54,17 +54,17 @@
         
         <ul class="facultyList span-15 ${hiddenClass}">
             <c:forEach items='${rs}' var="row">
-                <c:set var="facultyID" value="${fn:substringAfter(row.personUri,'#')}"/>
+                <c:set var="facultyID" value="${fn:substringAfter(row.personUri,'/individual/')}"/>
                 <c:set var="facultyHref">
 	                <c:choose>
                         <c:when test="${fn:contains(row.personUri, namespace_hri3)}">
-                            <c:out value="/faculty/HRI3${fn:substringAfter(row.personUri,'#')}"/>
+                            <c:out value="/faculty/HRI3${fn:substringAfter(row.personUri,'/individual/')}"/>
                         </c:when>
                         <c:when test="${fn:contains(row.personUri, namespace_hri2)}">
-                            <c:out value="/faculty/HRI2${fn:substringAfter(row.personUri,'#')}"/>
+                            <c:out value="/faculty/HRI2${fn:substringAfter(row.personUri,'/individual/')}"/>
                         </c:when>
                         <c:otherwise>
-                            <c:out value="/faculty/${fn:substringAfter(row.personUri,'#')}"/>
+                            <c:out value="/faculty/${fn:substringAfter(row.personUri,'/individual/')}"/>
                         </c:otherwise>
                     </c:choose>
 	            </c:set>
@@ -85,17 +85,17 @@
     
         <%-- <ul class="facultyList span-7 ${hiddenClass}">
                     <c:forEach items='${rs}' var="row" begin="${colSize}">
-                        <c:set var="facultyID" value="${fn:substringAfter(row.personUri,'#')}"/>
+                        <c:set var="facultyID" value="${fn:substringAfter(row.personUri,'/individual/')}"/>
                         <c:set var="facultyHref">
                             <c:choose>
                                 <c:when test="${fn:contains(row.personUri, namespace_hri3)}">
-                                    <c:out value="/faculty/HRI3${fn:substringAfter(row.personUri,'#')}"/>
+                                    <c:out value="/faculty/HRI3${fn:substringAfter(row.personUri,'/individual/')}"/>
                                 </c:when>
                                 <c:when test="${fn:contains(row.personUri, namespace_hri2)}">
-                                    <c:out value="/faculty/HRI2${fn:substringAfter(row.personUri,'#')}"/>
+                                    <c:out value="/faculty/HRI2${fn:substringAfter(row.personUri,'/individual/')}"/>
                                 </c:when>
                                 <c:otherwise>
-                                    <c:out value="/faculty/${fn:substringAfter(row.personUri,'#')}"/>
+                                    <c:out value="/faculty/${fn:substringAfter(row.personUri,'/individual/')}"/>
                                 </c:otherwise>
                             </c:choose>
                         </c:set>
@@ -188,7 +188,7 @@ ${pageError}
                                     <c:set var="externalLinkClass" value='class="external"'/>
                                 </c:when>
                                 <c:otherwise>
-                                    <c:set var="facultyID" value="${fn:substringAfter(row.personUri,'#')}"/>
+                                    <c:set var="facultyID" value="${fn:substringAfter(row.personUri,'/individual/')}"/>
                                     <c:set var="personHref">
 						                <c:import url="part/build_person_href.jsp"><c:param name="uri" value="${row.personUri}"/></c:import>
 						            </c:set>
@@ -258,7 +258,7 @@ ${pageError}
     
     <ul class="facultyList ${hiddenClass}">
         <c:forEach items='${rs}' var="row">
-            <c:set var="facultyID" value="${fn:substringAfter(row.personUri,'#')}"/>
+            <c:set var="facultyID" value="${fn:substringAfter(row.personUri,'/individual/')}"/>
             <c:set var="facultyHref">
                 <c:import url="part/build_person_href.jsp"><c:param name="uri" value="${row.personUri}"/></c:import>
             </c:set>
@@ -319,7 +319,7 @@ ${pageError}
     
     <ul class="facultyList ${hiddenClass}">
         <c:forEach items='${rs}' var="row">
-            <c:set var="facultyID" value="${fn:substringAfter(row.personUri,'#')}"/>
+            <c:set var="facultyID" value="${fn:substringAfter(row.personUri,'/individual/')}"/>
             <c:set var="facultyHref">
                 <c:import url="../part/build_person_href.jsp"><c:param name="uri" value="${row.personUri}"/></c:import>
             </c:set>

@@ -81,7 +81,7 @@
                                 <%-- <c:set var="total" value="${fn:length(rs)}"/> --%>
                                 <ul>
                                     <c:forEach items="${rs.rows}" var="row">
-                                        <c:set var="areaID" value="${fn:substringAfter(row.areaUri,'#')}"/>
+                                        <c:set var="areaID" value="${fn:substringAfter(row.areaUri,'/individual/')}"/>
                                         <c:if test="${param.options == 'showfaculty'}"><c:set var="facultyVisibilityParameter" value="showfaculty"/></c:if>
                                         <li id="${areaID}">
                                         <c:choose>

@@ -89,7 +89,7 @@
     				        <tbody>
     				            <c:forEach  items="${rs.rows}" var="dept" varStatus="counter">
     				                <c:url var="deptLocationHref" value="http://vivo.cornell.edu/entity"><c:param name="uri" value="${dept.deptLocation}"/></c:url>
-    					            <c:set var="deptID" value="${fn:substringAfter(dept.deptUri,'#')}"/>
+    					            <c:set var="deptID" value="${fn:substringAfter(dept.deptUri,'/individual/')}"/>
     				                <c:set var="deptPageLink" value="${dept.deptPageUrl.string}"/>
 				                    <tr>
 				                        <td><a href="/departments/${deptID}" title="more about this department">${dept.deptLabel.string}</a></td>

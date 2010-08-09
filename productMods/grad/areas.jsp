@@ -90,7 +90,7 @@
                     </thead>
                     <tbody>
                         <c:forEach items="${rs}" var="field" varStatus="count">
-                            <c:set var="classForField" value="${fn:substringAfter(field.fieldUri,'#')}"/>
+                            <c:set var="classForField" value="${fn:substringAfter(field.fieldUri,'/individual/')}"/>
                             <c:import var="degrees" url="part/degrees_list.jsp">
                                 <c:param name="uri" value="${field.fieldUri}"/>
                             </c:import>

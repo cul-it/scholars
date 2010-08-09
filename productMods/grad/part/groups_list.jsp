@@ -23,11 +23,10 @@
 
     <c:forEach  items="${rs}" var="row">
         <c:if test="${row.groupUri != param.uri}"><!-- providing the ability to omit a group -->
-           <c:set var="areaID" value="${fn:substringAfter(row.groupUri,'#')}"/>
+           <c:set var="areaID" value="${fn:substringAfter(row.groupUri,'/individual/')}"/>
            <li class="${areaID}"><a href="/areas/${areaID}">${row.groupLabel.string}</a></li>
         </c:if>
     </c:forEach>
 
     </sparql:sparql>  
 </sparql:lock>
-

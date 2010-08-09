@@ -32,7 +32,7 @@
                     <c:forEach  items="${rs}" var="people">
                         <c:if test="${thisDept == people.deptUri}"><c:set var="counter" value="${counter+1}"/></c:if>
                     </c:forEach>
-                    <c:set var="deptID" value="${fn:substringAfter(row.deptUri,'#')}"/>
+                    <c:set var="deptID" value="${fn:substringAfter(row.deptUri,'/individual/')}"/>
                     <li><a href="/departments/${deptID}" title="">${row.deptLabel.string}</a> <%-- <em>&mdash; ${counter} faculty from this department</em> --%></li>
                 </c:if>
             </c:forEach>
@@ -60,7 +60,7 @@
         </listsparql:select>
     
             <c:forEach  items="${rs}" var="row">
-                <c:set var="deptID" value="${fn:substringAfter(row.deptUri,'#')}"/>
+                <c:set var="deptID" value="${fn:substringAfter(row.deptUri,'/individual/')}"/>
                 <li><a href="/departments/${deptID}" title="">${row.deptLabel.string}</a></li>
             </c:forEach>
             

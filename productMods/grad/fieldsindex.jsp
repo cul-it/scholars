@@ -67,7 +67,7 @@
                         <%-- go through each grouping and import a list of fields --%>
         				<div class="span-11 clear">
                             <c:forEach items="${rs}" var="row" begin="0" end="2" step="1">
-                                <c:set var="groupID" value="${fn:substringAfter(row.fieldClusterUri,'#')}"/>
+                                <c:set var="groupID" value="${fn:substringAfter(row.fieldClusterUri,'/individual/')}"/>
                                 <h3 class="${groupID}"><a href="/areas/${groupID}">${row.clusterLabel.string}</a></h3>
                                 <ul class="fields">   
                                     <c:import url="part/fields_list.jsp">
@@ -79,7 +79,7 @@
                         </div>
                         <div class="span-12 last">
                             <c:forEach items="${rs}" var="row" begin="3" step="1">
-                              <c:set var="groupID" value="${fn:substringAfter(row.fieldClusterUri,'#')}"/>
+                              <c:set var="groupID" value="${fn:substringAfter(row.fieldClusterUri,'/individual/')}"/>
                               <h3 class="${groupID}"><a href="/areas/${groupID}">${row.clusterLabel.string}</a></h3>
                               <ul class="fields">   
                                   <c:import url="part/fields_list.jsp">
