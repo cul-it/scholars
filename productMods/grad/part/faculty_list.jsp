@@ -100,7 +100,7 @@
                         <li id="${facultyID}">
                             <c:choose>
                                 <c:when test="${!empty row.image.string}">
-                                    <a class="img" href="${facultyHref}" title="view profile"><img width="44" alt="" src="${imageDir}${row.image.string}"/></a>
+                                    <a class="img" href="${facultyHref}" title="view profile"><img width="44" alt="" src="${row.image.string}"/></a>
                                 </c:when>
                                 <c:otherwise>
                                     <a class="img" href="${facultyHref}" title="view profile"><img width="44" alt="" src="/resources/images/profile_missing.gif"/></a>
@@ -197,7 +197,7 @@ ${pageError}
                             
                             <c:choose>
                                 <c:when test="${!empty row.image.string && !empty personHref}">
-                                    <a class="img" href="${personHref}" title="${linkTitle}"><img width="30" alt="" src="${imageDir}${row.image.string}"/></a>
+                                    <a class="img" href="${personHref}" title="${linkTitle}"><img width="30" alt="" src="${row.image.string}"/></a>
                                     <a ${externalLinkClass} href="${personHref}" title="${linkTitle}"><strong>${row.personLabel.string}</strong></a>
                                 </c:when>
                                 <c:when test="${empty row.image.string && !empty personHref}">
@@ -205,7 +205,7 @@ ${pageError}
                                     <a ${externalLinkClass} href="${personHref}" title="${linkTitle}"><strong>${row.personLabel.string}</strong></a>
                                 </c:when>
                                 <c:when test="${!empty row.image.string && empty personHref}">
-                                    <span class="img"><img width="30" alt="" src="${imageDir}${row.image.string}"/></span>
+                                    <span class="img"><img width="30" alt="" src="${row.image.string}"/></span>
                                     <span>${row.personLabel.string}</span>
                                 </c:when>
                                 <c:otherwise>
@@ -264,7 +264,7 @@ ${pageError}
             <li>
                 <c:choose>
                     <c:when test="${!empty row.image.string}">
-                        <a class="img" href="${facultyHref}" rel="/data/facultyCluetip.jsp?id=${facultyID}"><img width="44" alt="" src="${imageDir}${row.image.string}"/></a>
+                        <a class="img" href="${facultyHref}" rel="/data/facultyCluetip.jsp?id=${facultyID}"><img width="44" alt="" src="${row.image.string}"/></a>
                     </c:when>
                     <c:otherwise>
                         <a class="img" href="${facultyHref}" rel="/data/facultyCluetip.jsp?id=${facultyID}"><img width="44" alt="" src="/resources/images/profile_missing.gif"/></a>
@@ -330,7 +330,7 @@ ${pageError}
             <li>
                 <c:choose>
                     <c:when test="${!empty row.image.string}">
-                        <a class="img" href="${facultyHref}" rel="/data/facultyCluetip.jsp?id=${facultyID}"><img width="44" alt="" src="${imageDir}${row.image.string}"/></a>
+                        <a class="img" href="${facultyHref}" rel="/data/facultyCluetip.jsp?id=${facultyID}"><img width="44" alt="" src="${row.image.string}"/></a>
                     </c:when>
                     <c:otherwise>
                         <a class="img"href="${facultyHref}" rel="/data/facultyCluetip.jsp?id=${facultyID}"><img width="44" alt="" src="/resources/images/profile_missing.gif"/></a>
