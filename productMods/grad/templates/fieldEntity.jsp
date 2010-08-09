@@ -17,7 +17,7 @@
       SELECT DISTINCT ?fieldLabel ?description ?primaryLinkAnchor ?primaryLinkURL ?otherLinkAnchor ?otherLinkURL ?gsid ?degree ?degreeLabel ?degreeAbbr
       WHERE {
         ?fieldUri rdfs:label ?fieldLabel .
-        OPTIONAL { ?fieldUri vitro:description ?description }
+        OPTIONAL { ?fieldUri core:description ?description }
         OPTIONAL { ?fieldUri vitro:primaryLink ?primaryLink. ?primaryLink vitro:linkAnchor ?primaryLinkAnchor . ?primaryLink vitro:linkURL ?primaryLinkURL }
         OPTIONAL { ?fieldUri vitro:additionalLink ?otherLink. ?otherLink vitro:linkAnchor ?otherLinkAnchor . ?otherLink vitro:linkURL ?otherLinkURL }
         OPTIONAL { ?fieldUri vivo:gradschoolID ?gsid }

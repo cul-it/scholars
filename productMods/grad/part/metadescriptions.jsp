@@ -16,7 +16,7 @@
               WHERE { 
                 OPTIONAL { ?uri core:overview ?statement }
                 OPTIONAL { ?person core:hasResearchActivity ?researchActivity 
-                              ?researchActivity vitro:description ?focus }
+                              ?researchActivity core:description ?focus }
               }
               LIMIT 1
           </listsparql:select>
@@ -48,7 +48,7 @@
             PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
             PREFIX core: <http://vivoweb.org/ontology/core#>
             SELECT ?description
-            WHERE { ?uri vitro:description ?description }
+            WHERE { ?uri core:description ?description }
             LIMIT 1
           </listsparql:select>
         </sparql:sparql>

@@ -20,7 +20,7 @@
             ?personUri rdfs:label ?personLabel .
             OPTIONAL { ?personUri core:overview ?overviewStatement }
             OPTIONAL { ?personUri core:hasResearchActivity ?researchActivity .
-                           ?researchActivity vitro:description ?researchFocus .}
+                           ?researchActivity core:description ?researchFocus .}
             OPTIONAL { ?personUri vivo:educationalBackground ?background }
             OPTIONAL { ?personUri vivo:publications ?publications }
             OPTIONAL { ?personUri vitro:imageThumb ?image }

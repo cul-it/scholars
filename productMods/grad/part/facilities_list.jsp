@@ -19,7 +19,7 @@
       ?tabConnector vitro:involvesIndividual ?uri .
       OPTIONAL { ?uri rdfs:label ?label }
       OPTIONAL { ?uri vitro:blurb ?blurb }
-      OPTIONAL { ?uri vitro:description ?description }
+      OPTIONAL { ?uri core:description ?description }
       OPTIONAL { ?uri vitro:primaryLink ?facilityLinks . ?facilityLinks vitro:linkURL ?url . ?facilityLinks vitro:linkAnchor ?anchor }
     }
     ORDER BY ?label

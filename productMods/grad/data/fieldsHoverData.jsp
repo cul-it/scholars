@@ -18,7 +18,7 @@
           ?group rdf:type vivo:fieldCluster ;
             vivo:hasAssociated ?field .
           ?field vivo:hasFieldMember ?person .
-          OPTIONAL { ?field vitro:description ?fieldDescription }
+          OPTIONAL { ?field core:description ?fieldDescription }
           OPTIONAL { ?field rdfs:label ?fieldLabel }
         }
         ORDER BY ?fieldLabel
