@@ -48,8 +48,8 @@
             ?fieldUri rdf:type vivo:GraduateField ;
               rdfs:label ?fieldLabel ;
               vivo:associatedWith ?grouping .
-            ?grouping rdf:type vivo:fieldCluster .
-          } BY ?fieldLabel
+            ?grouping rdf:type vivo:fieldCluster
+          } ORDER BY ?fieldLabel
           LIMIT 100
         </listsparql:select>
 

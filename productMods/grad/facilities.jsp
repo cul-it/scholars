@@ -21,7 +21,7 @@
                 <sparql:sparql>
                   <listsparql:select model="${applicationScope.jenaOntModel}" var="facilitiesTab">
                     PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-                    PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
+                    PREFIX vivo: <http://vivo.cornell.edu/individual/>
                     PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
                     PREFIX core: <http://vivoweb.org/ontology/core#>
                     SELECT DISTINCT ?facGroup ?facGroupLabel

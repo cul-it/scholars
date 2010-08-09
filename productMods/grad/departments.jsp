@@ -66,7 +66,8 @@
                             ?group rdf:type vivo:fieldCluster .
                             ?group vivo:hasAssociated ?field .
                             ?person vivo:memberOfGraduateField ?field .
-                            ?person vivo:employeeOfAsAcademicFacultyMember ?deptUri .
+                            ?person core:personInPosition ?facultyPosition .
+                            ?facultyPosition core:positionInOrganization ?deptUri .
                             ?deptUri rdf:type core:AcademicDepartment .
                             OPTIONAL { ?deptUri rdfs:label ?deptLabel }
                             OPTIONAL { ?deptUri vivo:locatedOnCampus ?campus . ?campus rdfs:label ?campusLabel }
