@@ -50,38 +50,50 @@
          PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
          PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
          PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
+         PREFIX vitropublic: <http://vitro.mannlib.cornell.edu/ns/vitro/public#>
          PREFIX hr: <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#>
-         SELECT DISTINCT ?news ?newsLabel ?blurb ?sourceLink ?newsThumb ?moniker ?sunrise ?featured ?featuredLabel ?firstName ?lastName
+         PREFIX core: <http://vivoweb.org/ontology/core#>
+
+         SELECT DISTINCT ?news ?newsLabel ?blurb ?sourceLink ?newsThumb
+         ?moniker ?sunrise ?featured ?featuredLabel ?firstName ?lastName
          WHERE
          {
 
          ?news
-           rdf:type vivo:NewsRelease ;
-           vitro:sunrise ?sunrise ;
-           vitro:primaryLink ?link ;
-           vitro:blurb ?blurb ;
-           rdfs:label ?newsLabel .
+          rdf:type core:NewsRelease ;
+          vitro:sunrise ?sunrise ;
+          vitro:blurb ?blurb ;
+          rdfs:label ?newsLabel .
 
+         OPTIONAL {
+           ?news vitro:primaryLink ?link .
            ?link vitro:linkURL ?sourceLink .
+          }
 
-           OPTIONAL { ?news vitro:imageThumb ?newsThumb }
-      
-           OPTIONAL { ?news vitro:moniker ?moniker }
-          
-           OPTIONAL { 
-             ?news vivo:featuresPerson2 ?featured . 
-             ?featured rdfs:label ?featuredLabel .
-             OPTIONAL {
-               ?featured hr:FirstName ?firstName .
-               ?featured hr:LastName ?lastName
-             }
-           }
-                
+          OPTIONAL {
+             ?news vitropublic:mainImage ?mainImage .
+             ?mainImage vitropublic:thumbnailImage ?thumbnail .
+             ?thumbnail vitropublic:downloadLocation ?downloadLocation .
+             LET (?newsThumb := str(?downloadLocation))
+          }
+
+          OPTIONAL { ?news vitro:moniker ?moniker }
+
+          OPTIONAL {
+            ?news core:features ?featured .
+
+            ?featured rdfs:label ?featuredLabel .
+            OPTIONAL {
+              ?featured hr:FirstName ?firstName .
+              ?featured hr:LastName ?lastName
+            }
+          }
           FILTER( xsd:dateTime(?now) > ?sunrise )
           FILTER( xsd:dateTime(?thirtyDaysAgo) < ?sunrise )
          }
          ORDER BY ?news DESC(?sunrise)
          LIMIT 15
+         
 
           ]]>
           
@@ -113,7 +125,7 @@
                <fmt:parseDate var="publishDateTimekey" value="${item.sunrise.string}" pattern="yyyy-MM-dd'T'HH:mm:ss" />
                <fmt:formatDate var="publishDate" value="${publishDateTimekey}" pattern="MMM'. 'd" />
                 <li class="newsitem first">
- 					        <c:url var="image" value="/images/${item.newsThumb.string}"/>
+ 					        <c:url var="image" value="${item.newsThumb.string}"/>
                   <a class="image" href="${item.sourceLink.string}"><img width="128" src="${image}" alt="${item.newsLabel.string}"/></a>
                   <h4><a class="externalLink" title="full ${item.moniker.string}" href="${item.sourceLink.string}">${item.newsLabel.string}</a></h4><p>${item.blurb.string}</p>
                   <p class="features">
@@ -138,7 +150,7 @@
                 <fmt:parseDate var="publishDateTimekey" value="${item.sunrise.string}" pattern="yyyy-MM-dd'T'HH:mm:ss" />
                 <fmt:formatDate var="publishDate" value="${publishDateTimekey}" pattern="MMM'. 'd" />
                 <li class="newsitem clean">
- 					        <c:url var="image" value="/images/${item.newsThumb.string}"/>
+ 					        <c:url var="image" value="${item.newsThumb.string}"/>
                   <a class="image" href="${item.sourceLink.string}"><img width="128" src="${image}" alt="${item.newsLabel.string}"/></a>
                   <h4><a class="externalLink" title="full ${item.moniker.string}" href="${item.sourceLink.string}">${item.newsLabel.string}</a></h4><p>${item.blurb.string}</p>
                   <p class="features">
