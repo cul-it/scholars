@@ -123,9 +123,11 @@ if (VitroRequestPrep.isSelfEditing(request) || LoginFormBean.loggedIn(request, L
                 </c:choose>
             </div> <!-- end labelAndMoniker -->
             
+            <%-- nac26 2010-08-16: commenting out visualization for now
             <!-- START Sparkline Visualization -->
             <jsp:include page="sparklineVisualization.jsp"/>
             <!-- END Sparkline Visualization -->
+            --%>
             
             <%-- Thumbnail  --%>
             <c:set var="isPerson" value='<%= entity.isVClass("http://xmlns.com/foaf/0.1/Person") %>' />

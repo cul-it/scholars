@@ -173,10 +173,11 @@ if (VitroRequestPrep.isSelfEditing(request) || LoginFormBean.loggedIn(request, L
                  </div>
              </c:if>
 
-            
+            <%-- nac26 2010-08-16: commenting out visualization for now
             <!-- START Sparkline Visualization -->
             <jsp:include page="sparklineVisualization.jsp"/>
             <!-- END Sparkline Visualization -->
+            --%>
             
             <%-- Links --%>                                                                                       
             <c:if test="${ showEdits || !empty entity.url || !empty entity.linksList }"> 
