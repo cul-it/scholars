@@ -39,7 +39,7 @@ public static Log log = LogFactory.getLog("edu.cornell.mannlib.vitro.webapp.jsp.
     <div id="dashboard" class="home">
         <div id="login">
             <h3>Faculty and Staff</h3>
-            <p>Log in now to manage your page <a class="image" href="<c:url value="/edit/login.jsp"/>" title="Login Now"><button id="managePage" name="manage" type="button">Manage your page</button></a></p>
+            <p>Log in now to manage your page <a class="managePage" href="<c:url value="/edit/login.jsp"/>" title="Login Now">Manage your page</a></p>
         </div><!-- login -->
         <div id="seminars">
             <h3>Upcoming Seminars<span class="viewAll"><a title="View all seminars" href="<c:url value="index.jsp?home=65535&amp;collection=871"/>">view all &raquo;</a></span></h3>

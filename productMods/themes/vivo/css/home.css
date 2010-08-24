@@ -54,7 +54,7 @@ em.portal {
   color: #777;
 }
 
-button#managePage, button.search {
+button#managePage, button.search, a.managePage {
   border: 0;
   margin: 0;
   padding: 0;
@@ -68,8 +68,12 @@ a.managePage {
   width: 147px;
   height: 27px;
   background: url(../site_icons/layout/bg_manageyourpage_button.gif) top left no-repeat;
+  display: inline-block;
 }
 
+a:link.managePage, a:visited.managePage, a:hover.managePage {
+	border: none;
+}
 
 #personWrap #dashboard.home #login img {
   margin-top: 10px;
