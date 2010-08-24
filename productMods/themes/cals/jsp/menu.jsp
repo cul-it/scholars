@@ -41,9 +41,9 @@
                 <li><a href="<c:url value="/about"><c:param name="home" value="${portalBean.portalId}"/><c:param name="login" value="none"/></c:url>" title="more about this web site">About</a></li>
 <%          }                                                    %>
 <%          if ("comments".equalsIgnoreCase(fixedTabStr)) { %>
-                <li class="activeTab"><a href="<c:url value="/comments"><c:param name="home" value="${portalBean.portalId }"/></c:url>">Contact Us</a></li>
+                <li class="activeTab"><a href="<c:url value="/contact"><c:param name="home" value="${portalBean.portalId }"/></c:url>">Contact Us</a></li>
 <%          } else {%>
-                <li><a href="<c:url value="/comments"><c:param name="home" value="${portalBean.portalId }"/></c:url>">Contact Us</a></li>
+                <li><a href="<c:url value="/contact"><c:param name="home" value="${portalBean.portalId }"/></c:url>">Contact Us</a></li>
 <%          }%>        
     	</ul>
 	</div><!-- END 'primaryAndOther'-->
