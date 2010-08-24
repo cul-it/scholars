@@ -62,7 +62,8 @@ button#managePage, button.search {
   cursor: pointer;
 }
 
-button#managePage {
+button#managePage,
+a.managePage {
   margin-top: 1.2em;
   width: 147px;
   height: 27px;
