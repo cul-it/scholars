@@ -1,0 +1,1552 @@
+/****************************************
+ * Albert R. Mann Library 
+ * Cornell University
+ * Ithaca, NY 14853
+ ****************************************/
+
+/*
+Title:		VIVO screen styles
+Authors:	nac26@cornell.edu, mw542@cornell.edu
+Updated:	June 23, 2010
+*/
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+html, body {
+  /* needed for sticky footer */
+	height: 100%;
+}
+ 
+body {
+	font-family: Arial, sans-serif;
+	font-size: 63.125%;		/* translate 1.0em to 10px, 1.5em to 15px, etc. */
+	line-height: 1.5em;
+	text-align: left;
+	color: #333;
+	background: #f0eee4 url(../site_icons/layout/bg_body.jpg) no-repeat left top;
+}
+
+.clear {
+	clear: both;
+}
+
+#wrap {
+	margin: 0 auto;
+	text-align: left;
+	width: 85%;
+  min-width: 917px;
+}
+
+#wrap {
+  /* these styles are for the sticky footer */
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+  margin: 0 auto -75px; /* the bottom margin is the negative value of the footer's height */
+}
+
+#header {
+/*  margin: 1.8em 0 0 16px;*/
+  margin-top: 18px;
+  display: inline-block;
+  width: 100%;
+/*  height: 186px;*/
+/*  display: inline; /* nac26: added 080307 so dasboard will sit up at the top of the page, touching the bottom of the header */
+}
+
+#menu {
+/*  margin-top: 2.6em;*/
+  margin-top: 20px;
+/*  margin-bottom: -8px;*/
+  float: left;
+  clear: both;
+  width: 100%;
+}
+
+#content {
+  clear: left;
+	width: 100%;
+	padding: 24px 2px 10px 0;
+}
+
+/* This is a global container applied by basicPage.jsp */
+div.pagecontent {
+  clear: left;
+  font-size: 1.2em;
+}
+
+* html #content.person {
+	width: 60%; /* shrunk this down due to Windows machines with OS DPI set to large (120dpi) -- causing main content to be pushed below dashboard. 67% appears to be threshold */
+}
+
+#content.person {
+/*  margin-top: 8px;*/
+	min-width: 640px;
+	width: 70%;
+}
+
+#dashboard {
+	float: right;
+	clear: right;
+/*	display: inline;*/
+	width: 256px;
+	min-height: 600px;
+	padding-bottom: 40px;
+	padding-top: 12px;
+	background: transparent url(../site_icons/layout/bg_dashboard.gif) no-repeat left 4px;
+	text-align: center;
+}
+
+#footer {
+	clear: both;
+	margin: 0 auto;
+/*  padding-left: 36px;*/
+	padding-top: 1.5em;
+	width: 85%;
+	color: #575752;
+	background: #aeaea6;
+	font-size: 1.2em;
+}
+
+#footer-wrap {
+  position: relative;
+  clear: both;
+  height: 75px;
+  background: #aeaea6;
+/*  margin-top: -72px;*/
+}
+
+.footer, .push {
+	height: 75px; /* .push must be the same height as .footer */
+}
+
+
+/****************************************************************
+head roll call
+****************************************************************/
+em.portal {
+    position: absolute;
+    top: 0;
+    left: 147px;
+    font-size: 1.4em;
+    font-family: Arial, Helvetica, sans-serif;
+    font-style: normal;
+    color: #ccc;
+}
+
+/****************************************************************
+menu roll call
+****************************************************************/
+ul#primary {
+	float: left;
+	display: inline-block;
+/*  height: 26px;*/
+}
+
+ul#secondary {
+	float: right;
+	display: inline-block;
+/*  margin: 3px 0 0 0;*/
+	padding: 0;
+}
+
+ul#primary, ul#secondary {
+/*  padding-top: 7px;*/
+}
+
+ul#primary li, ul#secondary li {
+/*  display: inline;*/
+  float: left;
+/*  padding: 5px 2px 5px 2px;*/
+	font-size: 1.4em;
+  height: 29px;
+}
+
+ul#primary li {
+  margin-right: 6px;
+}
+
+ul#secondary li {
+  margin-left: 6px;
+  font-size: 1.2em;
+	font-weight: bold;
+}
+
+ul#primary li a, ul#secondary li a {
+  display: block;
+  padding: 8px 4px 9px 4px;
+}
+
+ul#secondary li a.logoutMenu {
+  display: inline;
+  padding: 0;
+}
+
+ul#secondary li.first {
+  color: #c1e9f3;
+/*  padding: 8px 4px 9px 4px;*/
+/*  padding-top: 8px;*/
+}
+
+ul#primary li a:link, ul#primary li a:visited {
+/*  padding: 8px 3px 12px 3px;*/
+	color: #fff;
+	border: none;
+/*  height: 2.5em;*/
+/*  height: 30px;*/
+}
+
+ul#primary li a:hover, ul#primary li a:active {
+	color: #FF9663;
+}
+
+ul#secondary li a:link, ul#secondary li a:visited {
+  border: none;
+}
+
+ul#secondary li a:link, ul#secondary li a:visited, ul#primary li a:hover, ul#primary li a:active {
+  color: #89c9d9;
+}
+
+ul#secondary li a:hover {
+	color: #fff;
+}
+
+ul#primary li a:link.activePrimaryTab, ul#primary a:visited.activePrimaryTab {
+	color: #fff;
+	background: transparent url(../site_icons/layout/bg_li_activetab.gif) no-repeat 50% bottom;
+}
+
+li.activeTab {
+/*  display: inline;*/
+/*  margin: 10px 0;*/
+/*  font-size: 1.2em;*/
+}
+
+li.activePrimaryTab {
+/*  display: inline;*/
+/*	margin: 10px 0;*/
+/*  color: #185;*/
+}
+
+.breadCrumbs {
+	float: left;
+	padding-left: 1px;
+	margin: 3px 0 0 1px;
+	color: #888;
+}
+
+.breadCrumbs a:link, .breadCrumbs a:visited {
+	color: #888;
+}
+
+.breadCrumbs a:hover {
+	color: #f81;
+}
+
+/****************************************************************
+content roll call
+****************************************************************/
+
+#content .tabContents {
+  margin-top: 3.5em;
+  padding-top: 3.5em;
+}
+
+.admin {
+	margin: -10px 0 20px -10px;
+	padding: 10px 10px 5px 10px;
+/*  background-color: #8ac;*/
+/*  background-color: #C1D5D5;*/
+  background-color: #CCC;
+/*  border: 1px solid #b9b9b9;*/
+}
+
+.admin a:link, .admin a:visited {
+  text-decoration: underline;
+}
+
+.admin a:hover, .admin a:active {
+/*  color: #203e48;*/
+  border: 0;
+}
+
+.entityValues {
+	color: #555;
+	font-size: 0.9em;
+	line-height: 0.9em;
+}
+
+.citation {
+/*  clear: both;*/
+/*  padding-top: 25px;*/
+}
+
+span.SearchTerm, h1 span.SearchTerm, a:link span.SearchTerm, a:visited span.SearchTerm {
+/*  background: #ffb;*/
+  font-weight: bold;
+  color: #7D7D7D;
+}
+
+.entity {
+	margin-top: 0;
+	padding-top: 12px;
+}
+
+.entity em.moniker {
+  clear: left;
+  display: block;
+  font-size: 1.3em;
+  color: #888;
+}
+
+ul.externalLinks {
+	clear: left;
+	margin: 20px 0;
+}
+
+ul.externalLinks li {
+	display: inline;
+	padding-left: 8px;
+	padding-right: 4px;
+	border-left: solid 1px #ccc;
+}
+
+ul.externalLinks li.first {
+	padding-left: 0;
+	border-left: none;
+}
+
+.thumbnail {
+	float: left;
+	margin-bottom: 20px;
+	margin-right: 10px;
+}
+
+
+/********* ADDED *********/
+
+div.propsItem {
+    clear: left;
+    margin: 1.7em 0;
+    padding: 14px 12px;
+    border: 1px solid #dedede;
+    background: #fff;
+    color: #a1a1a1;
+}
+
+div.propsItem div,
+div.propsItem p {
+/*  color: #555;*/
+}
+
+div.highlighted {
+    margin-left: -8px;
+    padding: 10px 8px 8px 8px;
+}
+
+div.datatypeProperties,
+ul.properties {
+    margin-top: 8px;
+}
+
+p#notice { /* blue notice that appears at the top of a person's profile */
+    color: #337291;
+    background: #D4EAF9;
+    padding: 5px 20px;
+    margin-left: -20px;
+    margin-bottom: 20px
+}
+
+ul.datatypePropertyValue li {
+    margin-bottom: .5em;
+}
+
+ul.datatypePropertyValue ul {
+    display: inline;
+    list-style-position: inside;
+    margin-left: 0;
+}
+
+ul.datatypePropertyValue ul li {
+    margin: 0;
+}
+
+.datatypePropertyValue {
+  color: #555;
+}
+
+
+/***********************/
+
+a:link.add, a:visited.add {
+	margin: 25px 0 0 6px;
+}
+
+a.add, #content a.add, #dashboard a.add,
+a.edit, #content a.edit, #dashboard a.edit,
+a.delete, #content a.delete, #dashboard a.delete,
+a.image, #content a.image, #dashboard a.image {
+  border-bottom: 0;
+}
+
+a.add img {
+    margin-bottom: -2px;
+}
+
+a.edit img, a.delete img {
+	margin-left: 10px;
+	vertical-align: bottom;
+}
+
+a.edit img {
+	margin-right: -5px; /* tighten space between edit and delete icons */
+}
+
+
+li.property {
+	color: #bbb;
+	padding-top: 20px;
+}
+
+li.property a.edit {
+	padding: 6px;
+}
+
+ul.tabEntities {
+	margin-top: 25px;
+	color: #888;
+	font-weight: normal;
+}
+
+ul.tabEntities .blurb {
+  color: #333;
+}
+
+ul.tabEntities a {
+  font-weight: bold;
+}
+
+ul.tabEntities a.externalLink {
+/*  color: #333;*/
+/*  border-color: #c9c9c9;*/
+  font-weight: normal;
+}
+
+.datatypeProperties ul ul {
+	margin-left: 10px;
+	list-style-position: inside;
+}
+
+.datatypeProperties ol {
+    margin-left: 18px;
+}
+
+ul.properties li {
+  margin-bottom: 0.2em;
+}
+
+ul.properties li.property, ul.datatypeProperties li.datatypeProperty, ul.tabEntities li {
+	margin-top: 7px;
+}
+
+ul.datatypeProperties li.datatypeProperty span, span.entityMoreSpan span.resultsMoreSpan {
+	font-weight: normal;
+}
+
+ul.datatypeProperties li.datatypeProperty span:hover, span:hover.entityMoreSpan span:hover.resultsMoreSpan {
+/*  color: #f81;*/
+}
+
+ul.properties li.property ul, ul.datatypeProperties li.datatypeProperty ul, div.indent, div.blurb {
+	margin-top: 4px;
+	font-weight: normal;
+	line-height: 1.5em;
+}
+
+div.description {
+    clear: left;
+    margin-top: 16px;
+    font-size: 1.1em;
+}
+
+div.description ol {
+	margin-left: 18px;
+}
+
+/****************************************************************
+search roll call
+****************************************************************/
+
+/*.searchTOC {
+  float: left;
+  padding: 7px 0;
+  font-size: 1.2em;
+}
+
+.searchTOC a {
+  float: left;
+  margin: .5em .3em 0 0;
+}
+*/
+.searchTOC a {
+  padding: 5px 8px;
+  display: block;
+  font-size: 1.1em;
+}
+
+.searchTOC a:link, .searchTOC a:visited {
+  color: #b31b1b;
+/*  border: dotted 1px #888;*/
+  border: 0;
+}
+
+.searchTOC a:hover {
+  background: #b31b1b;
+  color: #fff;
+}
+
+.searchTOC {
+  float: right;
+  width: 20%;
+  background: #fff;
+  padding: 20px;
+  margin-left: 20px;
+  margin-bottom: 5px;
+}
+
+span.jumpText {
+  display: block;
+  margin-bottom: 1em;
+}
+
+.contentsBrowseGroup {
+	padding-top: 10px;
+}
+
+.searchpages {
+  font-size: 1.2em;
+  padding: 10px 0 30px 0;
+  margin-top: 30px;
+  border-top: 1px dotted #c2c2b8;
+}
+
+.searchpages a {
+  font-weight: bold;
+}
+
+.contentsBrowseGroup ul.searchhits {
+  clear: left;
+  padding-top: 1em;
+}
+
+.contentsBrowseGroup ul.searchhits li {
+  margin-bottom: 1.5em;
+  color: #222;
+/*  color: #999;*/
+}
+
+.contentsBrowseGroup ul.searchhits li a {
+/*  margin-bottom: 1.5em;*/
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.contentsBrowseGroup ul.searchhits .searchFragment {
+  color: #888;
+  margin-top: 4px;
+}
+
+.contentsBrowseGroup ul li div {
+/*  color: #888;*/
+}
+
+span.jumpText {
+  display: block;
+}
+
+
+/****************************************************************
+admin roll call
+****************************************************************/
+select#search-form-qualifier {
+	font-family: arial, helvetica, sans-serif;
+	font-size: 1.0em;
+	font-weight: bold;
+	border: none;
+	background: #f3f3f3 url(../site_icons/layout/bg_search_field.gif) no-repeat top left;
+}
+
+#search-input select option {
+	padding-right: 6px;
+}
+
+/****************************************************************
+about page roll call
+****************************************************************/
+
+select#VClassURI {
+    width: 200px;
+}
+
+td#leftColumn {
+    background: url(../site_icons/aboutpage-shadowrule.gif) top left no-repeat;
+    width: 40%;
+}
+
+div#collabLeft {
+    padding: 0 4px 0 37px;
+}
+
+td.collabArea a {
+    color: #2883b8;
+    border: 0;
+    font-weight: bold;
+    line-height: 1.2em;
+}
+
+td.collabArea a:hover {
+    color: #2cb1fe;
+    text-decoration: underline;
+}
+
+td.collabArea h2 {
+    font-size: 1em;
+}
+
+td.collabArea h2 a {
+    display: block;
+    font-size: 1.6em;
+    color: #fff;
+    background: #b6ced9;
+    border: 0;
+    padding: 4px 12px 5px 12px;
+    margin: 0 0 14px 0;
+}
+
+td.collabArea h2 a:hover {
+    color: #fff;
+    background: #89c6ea;
+    text-decoration: none;
+}
+
+td.collabArea h3 {
+    font-size: 1em;
+    margin: 0 0 12px 12px;
+    padding: 0;
+}
+
+td.collabArea h3 a {
+    color: #000;
+    font-size: 1.2em;
+    border: 0;
+    font-weight: normal;
+}
+
+td.collabArea h3 a:hover {
+    color: #1897e0;
+}
+
+td.collabArea p {
+/*    font-size: 1em;*/
+    margin: 0;
+}
+
+td.collabArea ul {
+    margin: 0 10px 16px 0;
+}
+
+td.collabArea li {
+    list-style-type: none;
+    margin-bottom: .8em;
+}
+
+td#leftColumn ul {
+    padding-left: 16px;
+}
+
+td#leftColumn ul li {
+    list-style-type: disc;
+}
+
+td#leftColumn ul li a {
+    font-weight: normal;
+}
+
+td.collabArea li span {
+    color: #a0a0a0;
+/*    font-size: .9em;*/
+}
+
+/****************************************************************
+dashboard roll call
+****************************************************************/
+#dashboard.loggedIn {
+	border-left: 1px solid #e1e1e1;
+	text-align: left;
+	background-image: none;
+	background-position: top left;
+}
+
+#dashboard.loggedIn img {
+	display: block;
+/*  margin: 20px 0 16px 16px;*/
+	padding: 0;
+	width: 100px;
+/*  border: 2px solid #e1e1e1;*/
+}
+
+ul#dashboardNavigation li h2 {
+	margin: 3px 0 0 0;
+	padding: 7px 8px 6px 8px;
+  font-size: 1.2em;
+	background: #f2f6f7;
+	color: #A7B9BD;
+	text-transform: uppercase;
+}
+
+ul#dashboardNavigation li h2:hover { cursor: pointer; }
+ul#dashboardNavigation li h2.active { color: #fff; background: #2E515C; }
+
+ul#dashboardNavigation a {
+    padding: 0 3px;
+	border: 0;
+}
+
+ul#dashboardNavigation a.highlighted {
+    background: #FFFBCC;
+}
+
+ul.dashboardCategories { padding: 4px 8px 12px 0; }
+ul.dashboardCategories li { list-style-type: disc; font-size: 1em; padding: 0; margin-left: 23px; }
+
+/****************************************************************
+footer roll call
+****************************************************************/
+#footer p.siteFeedback {
+	float: right;
+	margin-right: 16px;
+}
+
+/****************************************************************
+basics roll call
+****************************************************************/
+/* Disable the deprecated HTML <font> tag. Reduces need to zoom.) */
+font {
+  font-family: inherit !important;
+  font-size: inherit !important;
+  color: inherit !important;
+}
+
+div.pm-indicators {
+	font-size: 2.8em !important;
+}
+
+p {
+	margin: 0 0 1em 0;
+	padding: 0;
+	text-align: left;
+}
+
+h1,h2,h3,h4,h5,h6 { line-height: 1; }
+
+h1 {
+	margin: 7px 0 2px 0;
+	font-size: 2.3em;
+	color: #fff;
+}
+
+h2 {
+	margin: 20px 0 10px 0;
+	font-size: 2em;
+	color: #000;
+	height: 1%; /* fixing IE6 peekaboo bug */
+}
+
+.entity h2 {
+	margin: 7px 0 2px 0;
+	font-size: 2em;
+	color: #000;
+	padding-right: 16px;
+}
+
+.entity h2 em {
+	padding: 1.5em 0 2em 0;
+	font-size: 0.55em;
+	font-weight: normal;
+	font-style: normal;
+	color: #397382;
+}
+
+.entity h2 {
+	float: left;
+	margin-top: 0;
+	margin-bottom: 10px;
+	padding-top: 0;
+}
+
+span.h2 {
+	display: block;
+	margin: 15px 0 4px 0;
+	font-size: 1.5em;
+	font-weight: bold;
+	color: #054;
+}
+
+h2.primary {
+	margin-top: 10px;
+	font-family: Georgia, Arial, sans-serif;
+	font-size: 1.8em;
+	font-weight: normal;
+	color: #630;
+}
+
+.siteMap h2  {
+    font-size: 1.7em;
+    color: #203E48;
+}
+
+h3 {
+	margin: 30px 0 4px 0;
+	font-size: 1.7em;
+	line-height: 1.3em;
+	font-family: Arial, sans-serif;
+	color: #203e48;
+}
+
+h3 a:link, h3 a:visited {
+	color: #134;
+	border-color: #134;
+}
+
+h3 a:hover {
+/*  color: #f81;*/
+}
+
+h3.propertyName, .propsCategory h4 {
+    display: inline;
+	margin: 30px 0 8px 0;
+	padding: 0;
+  font-size: 1.1em;
+	color: #000;
+}
+
+.propsCategory h3 {
+    margin: 2em 0 1em 0;
+    padding-bottom: 3px;
+    border-bottom: 2px solid #EDF1F2;
+	color: #2E515C;
+	text-transform: uppercase;
+}
+
+h3.centered {
+	margin-top: 10px;
+	font-size: 1.2em;
+}
+
+.admin h3 {
+  font-size: 1.4em;
+	margin-top: 0;
+}
+
+.contentsBrowseGroup h3 {
+	clear: both;
+	margin-top: 20px;
+	font-size: 2.0em;
+	color: #f81;
+}
+
+#loginarea h3 {
+	margin-top: 10px;
+}
+
+h4 {
+	margin-top: 10px;
+	font-size: 1.0em;
+}
+
+h4.targeted { background: yellow; }
+
+h4.compapp-ref {
+	padding: 10px;
+	font-size: 1.2em;
+	color: #888;
+	background: #ded5b3;
+}
+
+h4 a:hover {
+/*  color: #f81;*/
+}
+
+h4.first, .contentsBrowseGroup h4.first {
+	margin-top: 4px;
+}
+
+.contentsBrowseGroup h4 {
+	margin-top: 12px;
+	margin-bottom: 4px;
+	font-size: 1.2em;
+}
+
+h6 {
+	margin-top: 2px;
+	font-size: 1.0em;
+	font-weight: normal;
+}
+
+h6 a {
+	color: #054;
+	border-bottom-color: #054;
+}
+
+h6 a:hover {
+/*  background: #054;*/
+}
+
+#tags h6 {
+	float: left;
+	margin: 0 4px 0 0;
+	font-weight: bold;
+}
+
+address {
+	float: left;
+	margin: 10px 0 0 16px;
+	width: 40%;
+	text-align: left;
+	font-style: normal;
+	line-height: 1.3em;
+}
+
+/****************************************************************
+image roll call
+****************************************************************/
+img.right {
+	float: right;
+	margin: 4px 0px 4px 20px;
+	padding: 4px;
+	border: solid 1px #888;
+}
+
+img.img-right, img.img-left, img.img-left-wrap, img.img-center {
+	margin: 4px 0px 4px 20px;
+	/* padding: 4px; */
+	border: solid 1px #888;
+}
+
+img.img-right {
+	float: right;
+}
+
+img.img-left {
+	margin-left: 0;
+}
+
+img.img-left-wrap {
+	float: left;
+	display: inline;
+	margin: 4px 10px 4px 0px;
+}
+
+img.img-center {
+	display: block;
+	margin: 0 auto;
+}
+
+img.clean {
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+
+a.image img, a.equipCal img {
+	border: 0;
+}
+
+.clear-left {
+	clear: left;
+}
+
+img.headshot {
+	margin: 20px 0 8px;
+	border: solid 1px #333;
+}
+
+img.manageProfile {
+	float: right;
+}
+
+img.border-free {
+	border: 0;
+}
+
+img.pad-right {
+	margin-right: 8px
+}
+
+.pm-indicators {
+	font-size: 2.4em;
+}
+
+.photo {
+	float: right;
+	margin: 4px 0px 4px 20px;
+}
+
+.photo p {
+	padding-top: 4px;
+	color: #666;
+	font-size: 0.9em;
+	text-align: center;
+}
+
+
+/****************************************************************
+anchor roll call
+****************************************************************/
+
+a {
+  text-decoration: none;
+}
+
+a:link {
+  color: #35889e;
+  color: #00768F;
+	border-bottom: solid 1px #BCCECC;
+	text-decoration: none;
+}
+
+a:visited {
+/*  color: #82ACAF;*/
+  color: #006B80;
+	border-bottom: 1px solid #B8C9C9;
+}
+
+a:hover {
+/*  color: #293a3f;*/
+  color: #D8641E;
+/*  color: #31AAB5;*/
+/*  border-bottom: 1px solid #293a3f;*/
+  border-bottom: 1px solid #D8641E;
+/*  border-bottom: 1px solid #6DB5B9;*/
+}
+
+a:link.externalLink,
+ul.profileLinks a:link,
+ul.externalLinks a:link {
+	color: #b31b1b;
+	border-bottom: 1px solid #E5CFCF;
+}
+
+a:visited.externalLink,
+ul.profileLinks a:visited,
+ul.externalLinks a:visited {
+	color: #B65E61;
+	border-bottom: 1px solid #CEA5A7;
+}
+
+a:hover.externalLink,
+a:active.externalLink,
+ul.profileLinks a:hover,
+ul.profileLinks a:active,
+ul.externalLinks a:hover,
+ul.externalLinks a:active {
+	color: #FF0000;
+	border-bottom: 1px solid #FF0000;
+}
+
+a:link.clean, a:visited.clean, a:hover.clean {
+	background: transparent;
+}
+
+a:link.image, a:visited.image, a:hover.image {
+	border: none;
+	background: transparent;
+}
+
+a:link.spotty, a:visited.spotty, a:hover.spotty {
+	float: left;
+}
+
+a:link.vivoLogo, a:visited.vivoLogo, a:hover.vivoLogo {
+  float: left;
+}
+
+a:link.login, a:visited.login, a:hover.login, a:link.logout, a:visited.logout, a:hover.logout {
+  float: right;
+}
+
+a:link.logout, a:visited.logout, a:hover.logout {
+    right: 148px;
+}
+
+a.propertyLink {
+  font-weight: bold;
+}
+
+ul#profileCats li a {
+    white-space: nowrap;
+}
+
+ul#profileCats li a:link, ul#profileCats li a:visited {
+	margin-right: 8px;
+	padding: 6px 6px 4px;
+	border: none;
+	font-weight: bold;
+	color: #a7b9bd;
+	background: #f2f6f7;
+	border: 1px solid #edf1f2;
+}
+
+ul#profileCats li a:hover {
+	color: #f2f6f7;
+	background: #a7b9bd;
+}
+
+ul#profileCats li a:link#currentCat, ul#profileCats li a:visited#currentCat {
+	color: #fff;
+	background: #2e515c;
+	border-color: #000;
+}
+
+ul.dataProperties li em a:link {
+	color: #5ca2ba;
+}
+
+.propsCategory h2 {
+/*  float:none;*/
+	display:inline;
+	font-size:1.8em;
+	font-weight:500;
+	color:black;
+	background-color:#E4E4C8;
+	padding-left:0.2em;
+	padding-top:0.2em;
+	padding-bottom:0.1em;
+}
+
+#footer a:link, #footer a:visited {
+	color: #555;
+	border-color: #555;
+}
+
+#footer a:hover {
+	color: #333;
+	border-color: #333;
+}
+
+/****************************************************************
+list roll call
+****************************************************************/
+ul li {
+	padding: 0 0 4px 0;
+	list-style-type: none;
+	background: transparent url(../site_icons/layout/bg_li_bullet.gif) no-repeat 4px 5px;
+/*  font-size: 1.2em;*/
+}
+
+table ul {
+	margin-top: 10px;
+}
+
+table ul li {
+	margin-left: 12px;
+	list-style-type: disc;
+}
+
+ul#profileCats {
+	clear: left;
+}
+
+/* Filter to stop IE6 jump on hover -- filter required because otherwise Safari does not clear left */
+* html ul#profileCats {
+    display: inline-block;
+}
+
+ul#profileCats li {
+	display: inline;
+	line-height: 3.3em;
+	text-transform: uppercase;
+}
+
+ul.dataProperties li em {
+/*  font-size: 0.9em;*/
+	font-style: normal;
+}
+
+ul.profileLinks {
+	margin-left: 10px;
+	margin-bottom: 16px;
+	text-align: left;
+}
+
+ul.profileLinks li {
+	padding-left: 14px;
+	padding-bottom: 14px;
+	background: transparent url(../site_icons/layout/bg_li_profileLinks.gif) no-repeat left 3px;
+}
+
+#tags ul {
+	margin-bottom: 10px;
+	height: 1.2em;
+}
+
+/* The following 4 selectors are derived from http://annevankesteren.nl/test/examples/css/comma-separated.html */
+#tags ul li {
+	display: block;
+	float: left;
+	_display: inline;
+	_float: none;
+}
+
+#tags ul li::before {
+	content: ", ";
+	white-space: pre;
+}
+
+#tags ul li:first-child::before {
+	content: "";
+}
+
+#tags ul + * {
+	clear: left;
+}
+
+/****************************************************************
+form roll call
+****************************************************************/
+.hidden {
+	display: none;
+}
+
+form h3 {
+	margin-bottom: 5px;
+}
+
+form label {
+	font-weight: normal;
+}
+
+form em {
+	font-style: normal;
+	line-height: 1.0em;
+	display: inline;
+}
+
+p.note em {
+	color: #f00;
+	font-style: normal;
+}
+
+form h2 em {
+  display: inline;
+  font-size: inherit;
+}
+
+em.subtle {
+	color: #888;
+	font-size: 0.9em;
+}
+
+form input, form textarea {
+	padding: 3px;
+	color: #5291ac;
+	font-weight: bold;
+}
+
+form input#submit {
+	color: #054;
+}
+
+form input#hoursperweek {
+	margin-top: 3px;
+}
+
+form select#category {
+	margin-top: 16px;
+	width: 127px;
+}
+
+form dd.reserves select#category {
+	margin: 0;
+}
+
+form select#participantnumber {
+	width: 90px;
+}
+
+form select#year {
+	width: 110px;
+}
+
+form select#location {
+	width: 120px;
+}
+
+form textarea#referrer {
+	color: #666;
+	font-weight: normal;
+}
+
+form textarea {
+	width: 95%;
+}
+
+form dt {
+	float: left;
+	clear: left;
+	text-align: right;
+	margin: 5px 10px 0 0;
+	width: 140px;
+}
+
+form dl.reference dt {
+	width: 150px;
+}
+
+form dl.reference {
+	background: #ded5b3;
+}
+
+form dd {
+	padding-top: 3px;
+	margin-bottom: 2px;
+}
+
+form dl#blockified dt {
+	float: none;
+	margin-bottom: 3px;
+	width: 510px;
+	text-align: left;
+}
+
+form dl#blockified dd {
+	margin-bottom: 20px;
+}
+
+/* need to compensate above table selectors for all of the commonspot forms (ie. manage pages for custom FAQ elements) */
+div.simform-faq form table {
+	margin-bottom: 0;
+	font-size: 1.0em;
+}
+
+div.simform-faq form table td {
+	text-align: left;
+}
+
+form ul {
+	padding: 10px 0;
+	display: table; /*inline-block is perfect for this, but FireFox doesn't support it, so we go with a display of table*/
+}
+
+/* and then since IE doesn't know what to do with display: table, we need to use a filter to send it the inline-block display (http://www.pupinc.com/files/test/float.html)*/
+*html form ul {
+	display: inline-block;
+}
+
+/* original method using XBL hack from Bugzilla, https://bugzilla.mozilla.org/show_bug.cgi?id=9458
+form ul {
+	padding: 10px 0;
+	display: inline-block;
+	-moz-binding: url(http://bugzilla.mozilla.org/attachment.cgi?id=135946&action=view#inlineblock);
+}
+*/
+
+form li {
+	margin-right: 14px;
+	padding-bottom: 4px;
+	list-style-type: none;
+/*  font-size: 1.2em;*/
+}
+
+#submit {
+	padding: 2px 5px;
+}
+
+#form-alert {
+	padding: 10px;
+	border: solid 1px #f00;
+	background: #fdc;
+}
+
+#form-alert h4 {
+	margin-top: 0;
+	font-size: 1.8em;
+}
+
+#form-alert ul {
+	color: #f00;
+	list-style-type: none;
+/*  font-size: 1.2em;*/
+}
+
+#thank-you {
+	margin: 40px 0 240px 0;
+	padding: 10px;
+	border: solid 1px #054;
+	background: #aed;
+}
+
+#thank-you h2 {
+	margin-top: 0;
+	font-size: 1.8em;
+}
+
+#thank-you p {
+	color: #277;
+	list-style-type: none;
+/*  font-size: 1.2em;*/
+}
+
+div.feedbackForm h2 {
+  font-size: 1.8em;
+  margin-bottom: 1em;
+}
+
+div.feedbackForm h3 {
+  font-size: 1.2em;
+}
+
+div.feedbackForm p {
+  font-size: 1.2em;
+}
+
+/****************************************************************
+table roll call
+****************************************************************/
+
+table td {
+	padding: 5px 5px 0 5px;
+	vertical-align: top;
+}
+
+caption {
+	margin: 0 0 15px 0;
+	text-align: left;
+	color: #888;
+/*  font-size: 1.2em;*/
+}
+
+.tab.depth1 table {	
+	table-layout:fixed; 
+}
+
+.tab.depth2 table {
+	table-layout:fixed;
+}
+
+.tabBody table{
+	table-layout:auto;
+}
+
+#content td{
+	vertical-align: top;
+	padding:0.2em;
+}
+
+.subtabs table{
+	 width: 100%;
+}
+
+#tabContent table{
+	width: 100%;
+}
+
+#tabContent td {
+  padding: .4em 2em .4em 0;
+}
+
+
+/****************************************************************
+temporary tab changes
+****************************************************************/
+
+div.tab-image { /* images were being individually wrapped with tables, this is an alternative */
+  margin: .5em 0 1em 0;
+}
+
+
+/*Research Tab*/
+#tab874 span.tab-extLink,
+#tab874 span.tab-moniker,
+#tab874 a.externalLink,
+#tab874 a.image,
+#tab874 div.blurb,
+#tab874 div.tab-image {
+  display: none;
+}
+
+#tab874 div.tab li {
+  list-style-type: none;
+  margin: 0 0 4px 0;
+}
+
+/*Seminars -> Seminar Series Tab*/
+#tab857 #tab867 span.tab-extLink,
+#tab857 #tab867 span.tab-moniker,
+#tab857 #tab867 a.externalLink,
+#tab857 #tab867 a.image,
+#tab857 #tab867 div.blurb {
+  display: none;
+}
+
+#tab857 #tab867 li {
+  list-style-type: none;
+  margin: 0 0 4px 0;
+}
+
+/*Academic Units*/
+#tab818 .tabEntities span.tab-extLink,
+#tab818 .tabEntities span.tab-moniker,
+#tab818 .tab span.tab-extLink,
+#tab818 .tab span.tab-moniker,
+#tab818 .tab a.externalLink,
+#tab818 .tab a.image,
+#tab818 .tab div.blurb,
+#tab818 .tab div.tab-image {
+  display: none;
+}
+
+#tab818 ul li {
+  list-style-type: none;
+  margin: 0 0 4px 0;
+}
+
+/*People Tab*/
+#tab814 div.tab-image {
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  overflow: hidden;
+  height: 75px;
+  width: 75px;
+}
+
+#tab814 ul li {
+  position: relative;
+  clear: both;
+  list-style-type: none;
+  margin-left: 0;
+  margin-bottom: 10px;
+  padding-left: 82px;
+  padding-right: 16px;
+  min-height: 75px;
+  height: auto !important;
+  height: 75px;
+}
+
+#tab814 .tab-item {
+  padding-left: 83px;
+}
+
+#tab814 div.blurb,
+#tab814 a.externalLink,
+#tab814 span.tab-extLink {
+  display: none;
+}
