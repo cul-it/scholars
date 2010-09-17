@@ -15,9 +15,9 @@
 
 %>
 
-<sparql:lock model="${applicationScope.jenaOntModel}" > 
+<sparql:lock model="${applicationScope.baseOntModel}" > 
 <sparql:sparql>
-    <sparql:select model="${applicationScope.jenaOntModel}" var="rs" now="${now}" >
+    <sparql:select model="${applicationScope.baseOntModel}" var="rs" now="${now}" >
         PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
         PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
         PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
