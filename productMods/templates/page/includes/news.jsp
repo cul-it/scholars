@@ -40,9 +40,9 @@
         request.setAttribute("thirtyDaysAgo", "\"" + thirtyDaysAgo.toDateTimeISO().toString() + "\"");
     </jsp:scriptlet>
 
-<sparql:lock model="${applicationScope.jenaOntModel}" > 
+<sparql:lock model="${applicationScope.baseOntModel}" > 
  <sparql:sparql>
-   <listsparql:select model="${applicationScope.jenaOntModel}" var="rs" now="${now}" thirtyDaysAgo="${thirtyDaysAgo}" >
+   <listsparql:select model="${applicationScope.baseOntModel}" var="rs" now="${now}" thirtyDaysAgo="${thirtyDaysAgo}" >
      <![CDATA[
 
          PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -59,16 +59,19 @@
          WHERE
          {
 
-         ?news
-          rdf:type core:NewsRelease ;
-          vitro:sunrise ?sunrise ;
-          vitro:blurb ?blurb ;
-          rdfs:label ?newsLabel .
+           ?news
+           rdf:type core:NewsRelease ;
+           vitro:sunrise ?sunrise ;
+           vitro:blurb ?blurb ;
+           rdfs:label ?newsLabel .
 
-         OPTIONAL {
-           ?news vitro:primaryLink ?link .
-           ?link vitro:linkURL ?sourceLink .
-          }
+           FILTER( xsd:dateTime(?now) > ?sunrise )
+           FILTER( xsd:dateTime(?thirtyDaysAgo) < ?sunrise )
+         
+           OPTIONAL {
+            ?news vitro:primaryLink ?link .
+            ?link vitro:linkURL ?sourceLink .
+           }
 
           OPTIONAL {
              ?news vitropublic:mainImage ?mainImage .
@@ -88,8 +91,7 @@
               ?featured hr:LastName ?lastName
             }
           }
-          FILTER( xsd:dateTime(?now) > ?sunrise )
-          FILTER( xsd:dateTime(?thirtyDaysAgo) < ?sunrise )
+         
          }
          ORDER BY ?news DESC(?sunrise)
          LIMIT 15
