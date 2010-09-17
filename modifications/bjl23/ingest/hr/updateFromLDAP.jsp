@@ -22,9 +22,14 @@
 <%@page import="com.novell.ldap.LDAPConnection"%>
 <%@page import="com.novell.ldap.LDAPException"%>
 <%@page import="com.novell.ldap.LDAPSearchResults"%>
-<%
-	// code copied from CheckFacultyInLdap.java
+
+
+<%!
+    private static final String RETRACTIONS_OUTPUT_FILE = "/tmp/ldapretractions.n3";
+    private static final String ADDITIONS_OUTPUT_FILE = "/tmp/ldapadditions.n3";
+    private static final String NEW_PEOPLE_OUTPUT_FILE = "/tmp/ldapnewpeople.n3";
 %>
+
 
 <%!
 
@@ -547,11 +552,11 @@ for (String deptURI : dept2id.keySet()) {
     
 }
 
-FileOutputStream retOut = new FileOutputStream(new File("/Users/bjl23/Desktop/ldapretractions.n3"));
+FileOutputStream retOut = new FileOutputStream(new File(RETRACTIONS_OUTPUT_FILE));
 retractions.write(retOut, "N3");
-FileOutputStream addOut = new FileOutputStream(new File("/Users/bjl23/Desktop/ldapadditions.n3"));
+FileOutputStream addOut = new FileOutputStream(new File(ADDITIONS_OUTPUT_FILE));
 additions.write(addOut, "N3");
-FileOutputStream newOut = new FileOutputStream(new File("/Users/bjl23/Desktop/ldapnewpeople.n3"));
+FileOutputStream newOut = new FileOutputStream(new File(NEW_PEOPLE_OUTPUT_FILE));
 newPeople.write(newOut, "N3");
 
 System.out.println("Unrecognized titles");
