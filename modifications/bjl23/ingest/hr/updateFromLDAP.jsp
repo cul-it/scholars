@@ -188,6 +188,14 @@ private String ldapResult2String(LDAPSearchResults res, String orgName,String ld
    
    private static final Property MONIKER = ResourceFactory.createProperty("http://vitro.mannlib.cornell.edu/ns/vitro/0.7#moniker");
    
+   private static final Property HR_LASTNAME = ResourceFactory.createProperty("http://vivo.cornell.edu/ns/hr/0.9/hr.owl#LastName");
+   private static final Property HR_FIRSTNAME = ResourceFactory.createProperty("http://vivo.cornell.edu/ns/hr/0.9/hr.owl#FirstName");
+   private static final Property CORE_MIDDLENAME = ResourceFactory.createProperty("http://vivoweb.org/ontology/core#middleName");
+   private static final Property HR_NETID = ResourceFactory.createProperty("http://vivo.cornell.edu/ns/hr/0.9/hr.owl#netId"); 
+   private static final Property HR_WORKINGTITLE = ResourceFactory.createProperty("http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WorkingTitle");
+   private static final Property HR_PRIMARYJOBCODELDESC = ResourceFactory.createProperty("http://vivo.cornell.edu/ns/hr/0.9/hr.owl#primaryJobcodeLdesc");
+   private static final Property HR_ADDRESS1 = ResourceFactory.createProperty("http://vivo.cornell.edu/ns/hr/0.9/hr.owl#Address1");
+   
    private static final Resource FACULTY_ADMINISTRATIVE_POSITION = ResourceFactory.createResource("http://vivoweb.org/ontology/core#FacultyAdministrativePosition");
    private static final Resource FACULTY_POSITION = ResourceFactory.createResource("http://vivoweb.org/ontology/core#FacultyPosition");
    private static final Resource LIBRARIAN_POSITION = ResourceFactory.createResource("http://vivoweb.org/ontology/core#LibrarianPosition");
@@ -435,6 +443,56 @@ private String ldapResult2String(LDAPSearchResults res, String orgName,String ld
         return blankedModel;
     }
 
+
+    private Model getExistingAttributes(Resource personRes) {
+    	Model existingAttributes = ModelFactory.createDefaultModel();
+    	existingAttributes.add(personRes.listProperties(HR_LASTNAME));
+    	existingAttributes.add(personRes.listProperties(FOAF_LASTNAME));
+        existingAttributes.add(personRes.listProperties(HR_FIRSTNAME));
+        existingAttributes.add(personRes.listProperties(FOAF_FIRSTNAME));
+        existingAttributes.add(personRes.listProperties(CORE_MIDDLENAME));
+        existingAttributes.add(personRes.listProperties(HR_NETID));
+        existingAttributes.add(personRes.listProperties(HR_WORKINGTITLE));
+        existingAttributes.add(personRes.listProperties(HR_PRIMARYJOBCODELDESC));
+        existingAttributes.add(personRes.listProperties(HR_ADDRESS1));
+    	return existingAttributes;
+    }
+    
+    private Model makeCurrentAttributes(Resource personRes, LDAPEntry personEntry) {
+        Model currentAttributes = ModelFactory.createDefaultModel();
+        LDAPAttribute lastNameAttr = personEntry.getAttribute("sn");
+        if (lastNameAttr != null) {
+            currentAttributes.add(personRes, HR_LASTNAME, lastNameAttr.getStringValue());
+            currentAttributes.add(personRes, FOAF_LASTNAME, lastNameAttr.getStringValue());
+        }
+        LDAPAttribute firstNameAttr = personEntry.getAttribute("givenName");
+        if (firstNameAttr != null) {
+            currentAttributes.add(personRes, HR_FIRSTNAME, firstNameAttr.getStringValue());
+            currentAttributes.add(personRes, FOAF_FIRSTNAME, firstNameAttr.getStringValue());
+        }
+        LDAPAttribute middleNameAttr = personEntry.getAttribute("cornelledumiddlename");
+        if (middleNameAttr != null) {
+            currentAttributes.add(personRes, CORE_MIDDLENAME, middleNameAttr.getStringValue());
+        }
+        LDAPAttribute netIdAttr = personEntry.getAttribute("uid");
+        if (netIdAttr != null) {
+            currentAttributes.add(personRes, HR_NETID, netIdAttr.getStringValue());
+        }
+        LDAPAttribute workingTitleAttr = personEntry.getAttribute("cornelleduwrkngtitle1");
+        if (workingTitleAttr != null) {
+            currentAttributes.add(personRes, HR_WORKINGTITLE, workingTitleAttr.getStringValue());
+        }
+        LDAPAttribute primaryJobcodeAttr = personEntry.getAttribute("cornelleduunivtitle1");
+        if (primaryJobcodeAttr != null) {
+            currentAttributes.add(personRes, HR_PRIMARYJOBCODELDESC, primaryJobcodeAttr.getStringValue());
+        }
+        LDAPAttribute addressAttr = personEntry.getAttribute("cornelleducampusaddress");
+        if (addressAttr != null) {
+            currentAttributes.add(personRes, HR_ADDRESS1, addressAttr.getStringValue());
+        }
+        return currentAttributes;
+    }
+
 %>
 
 <%
@@ -476,7 +534,8 @@ for (String deptURI : dept2id.keySet()) {
 	} else while (results.hasMoreElements()) {
 		LDAPEntry personEntry = (LDAPEntry) results.next();
 		LDAPAttribute emailnetidAtt = personEntry.getAttribute("eduPersonPrincipalName");
-		if (emailnetidAtt == null) continue;
+        LDAPAttribute lastNameAttr = personEntry.getAttribute("sn");
+		if (emailnetidAtt == null || lastNameAttr == null) continue;
 		String emailnetid = emailnetidAtt.getStringValue();
 		m.enterCriticalSection(Lock.WRITE);
 		try {
@@ -512,8 +571,10 @@ for (String deptURI : dept2id.keySet()) {
 						additions.add(stmt.getSubject(), MONIKER, stmt.getObject());
 					}
 				}
-				//retractions.add(oldAttributes);
-				//additions.add(currentAttributes);
+				Model existingAttributes = getExistingAttributes(personRes);
+				Model currentAttributes = makeCurrentAttributes(personRes, personEntry);
+				retractions.add(existingAttributes.difference(currentAttributes));
+				additions.add(currentAttributes.difference(existingAttributes));
 			} else if (newPerson && currentPositions.size() > 0) {
 				newPeople.add(currentPositions);
 				newPeople.add(personRes, NETID, emailnetid);
@@ -522,7 +583,6 @@ for (String deptURI : dept2id.keySet()) {
                     Statement stmt = stmtIt.nextStatement();
                     newPeople.add(stmt.getSubject(), MONIKER, stmt.getObject());
                 }
-                LDAPAttribute lastNameAttr = personEntry.getAttribute("sn");
                 String lastName = (lastNameAttr != null) ? lastNameAttr.getStringValue() : "";
                 LDAPAttribute firstNameAttr = personEntry.getAttribute("givenName");
                 String firstName = (firstNameAttr != null) ? firstNameAttr.getStringValue() : "";
