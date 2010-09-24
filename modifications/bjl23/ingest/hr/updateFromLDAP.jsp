@@ -572,21 +572,25 @@ for (String deptURI : dept2id.keySet()) {
 			//System.out.println("currentBlank");
             //currentBlank.write(System.out, "N3");
 			
-			if (!newPerson && !existingBlank.isIsomorphicWith(currentBlank)) {
-				retractions.add(existingPositions);
-				additions.add(currentPositions);
-				if (currentPositions.difference(existingPositions).contains((Resource) null, this.PRIMARY_JOBCODE_LDESC, (RDFNode) null)) {
-					retractions.add(m.listStatements(personRes, MONIKER, (RDFNode) null));
-					StmtIterator stmtIt = currentPositions.listStatements(personRes, this.PRIMARY_WORKING_TITLE, (RDFNode) null);
-					while (stmtIt.hasNext()) {
-						Statement stmt = stmtIt.nextStatement();
-						additions.add(stmt.getSubject(), MONIKER, stmt.getObject());
+			if (!newPerson) {
+                Model existingAttributes = getExistingAttributes(personRes);
+                Model currentAttributes = makeCurrentAttributes(personRes, personEntry);
+                retractions.add(existingAttributes.difference(currentAttributes));
+                additions.add(currentAttributes.difference(existingAttributes));
+			
+				if (!existingBlank.isIsomorphicWith(currentBlank)) {
+					retractions.add(existingPositions);
+					additions.add(currentPositions);
+					if (currentPositions.difference(existingPositions).contains((Resource) null, this.PRIMARY_JOBCODE_LDESC, (RDFNode) null)) {
+						retractions.add(m.listStatements(personRes, MONIKER, (RDFNode) null));
+						StmtIterator stmtIt = currentPositions.listStatements(personRes, this.PRIMARY_WORKING_TITLE, (RDFNode) null);
+						while (stmtIt.hasNext()) {
+							Statement stmt = stmtIt.nextStatement();
+							additions.add(stmt.getSubject(), MONIKER, stmt.getObject());
+						}
 					}
 				}
-				Model existingAttributes = getExistingAttributes(personRes);
-				Model currentAttributes = makeCurrentAttributes(personRes, personEntry);
-				retractions.add(existingAttributes.difference(currentAttributes));
-				additions.add(currentAttributes.difference(existingAttributes));
+
 			} else if (newPerson && currentPositions.size() > 0) {
 				newPeople.add(currentPositions);
 				newPeople.add(personRes, NETID, emailnetid);
