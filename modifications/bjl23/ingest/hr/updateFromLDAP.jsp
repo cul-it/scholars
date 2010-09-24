@@ -96,6 +96,8 @@ private String makeLdapSearchFilter(String fullname){
 */
 public LDAPSearchResults searchLdap(String searchFilter)throws LDAPException{
 
+	int WAIT_LIMIT = 6000; // ms
+	int HOP_LIMIT = 10;
 	int ldapPort = LDAPConnection.DEFAULT_PORT;
 	int searchScope = LDAPConnection.SCOPE_SUB;
 	int ldapVersion  = LDAPConnection.LDAP_V3;        
@@ -111,7 +113,7 @@ public LDAPSearchResults searchLdap(String searchFilter)throws LDAPException{
 	try {
 		lc.connect( ldapHost, ldapPort );
 
-		LDAPConstraints constraints = new LDAPConstraints(0,true,null,0);
+		LDAPConstraints constraints = new LDAPConstraints(WAIT_LIMIT,true,null,HOP_LIMIT);
 		lc.bind( ldapVersion, loginDN, password, constraints );
 
 		thisResult = lc.search(  searchBase, searchScope, searchFilter, attributes, false);
@@ -121,6 +123,8 @@ public LDAPSearchResults searchLdap(String searchFilter)throws LDAPException{
 		if( (serverError = e.getLDAPErrorMessage()) != null) 
 			System.out.println("Server: " + serverError);
 		return null;
+	} finally {
+		lc.disconnect();
 	}
 	return thisResult;
 }
@@ -387,7 +391,7 @@ private String ldapResult2String(LDAPSearchResults res, String orgName,String ld
 
 <%!
 
-   private Model getExistingPositions(OntResource personRes) {
+   private Model getExistingPositions(OntResource personRes, Map<String,String> titleMap) {
 	   Model m = ModelFactory.createDefaultModel();
 	   String personURI = personRes.getURI();
 	   String positionConstruct = "CONSTRUCT { ?s ?p ?position . \n" +
@@ -409,6 +413,16 @@ private String ldapResult2String(LDAPSearchResults res, String orgName,String ld
 	   Query q = QueryFactory.create(positionConstruct);
 	   QueryExecution qe = QueryExecutionFactory.create(q, personRes.getModel());
 	   qe.execConstruct(m);
+	
+// need to exclude hand-entered non-exempt positions	   
+//	   List<Statement> posTitleList = m.listStatementsWithProperty(RDF.type, (RDFNode) null).toList();
+//	   for (Resource pos : posList) {
+//		   if (getPositionType(pos, titleMap) == null) {
+//			   m.remove(pos, null, null);
+//			   m.remove(null, null, pos);
+//		   }
+//	   }
+	   
 	   return m;
    }
 
@@ -458,38 +472,29 @@ private String ldapResult2String(LDAPSearchResults res, String orgName,String ld
     	return existingAttributes;
     }
     
+    private void addCurrentAttribute(Model model, Resource person, Property prop, LDAPEntry ldapEntry, String attrName) {
+    	LDAPAttribute attr = ldapEntry.getAttribute("sn");
+    	if (attr != null) {
+    		String attrValue = attr.getStringValue().trim();
+    		if (attrValue.length() > 0) {    	
+    			   	model.add(person, prop, attrValue);
+    	    }
+    	}
+    }
+    
     private Model makeCurrentAttributes(Resource personRes, LDAPEntry personEntry) {
         Model currentAttributes = ModelFactory.createDefaultModel();
-        LDAPAttribute lastNameAttr = personEntry.getAttribute("sn");
-        if (lastNameAttr != null) {
-            currentAttributes.add(personRes, HR_LASTNAME, lastNameAttr.getStringValue());
-            currentAttributes.add(personRes, FOAF_LASTNAME, lastNameAttr.getStringValue());
-        }
-        LDAPAttribute firstNameAttr = personEntry.getAttribute("givenName");
-        if (firstNameAttr != null) {
-            currentAttributes.add(personRes, HR_FIRSTNAME, firstNameAttr.getStringValue());
-            currentAttributes.add(personRes, FOAF_FIRSTNAME, firstNameAttr.getStringValue());
-        }
-        LDAPAttribute middleNameAttr = personEntry.getAttribute("cornelledumiddlename");
-        if (middleNameAttr != null) {
-            currentAttributes.add(personRes, CORE_MIDDLENAME, middleNameAttr.getStringValue());
-        }
-        LDAPAttribute netIdAttr = personEntry.getAttribute("uid");
-        if (netIdAttr != null) {
-            currentAttributes.add(personRes, HR_NETID, netIdAttr.getStringValue());
-        }
-        LDAPAttribute workingTitleAttr = personEntry.getAttribute("cornelleduwrkngtitle1");
-        if (workingTitleAttr != null) {
-            currentAttributes.add(personRes, HR_WORKINGTITLE, workingTitleAttr.getStringValue());
-        }
-        LDAPAttribute primaryJobcodeAttr = personEntry.getAttribute("cornelleduunivtitle1");
-        if (primaryJobcodeAttr != null) {
-            currentAttributes.add(personRes, HR_PRIMARYJOBCODELDESC, primaryJobcodeAttr.getStringValue());
-        }
-        LDAPAttribute addressAttr = personEntry.getAttribute("cornelleducampusaddress");
-        if (addressAttr != null) {
-            currentAttributes.add(personRes, HR_ADDRESS1, addressAttr.getStringValue());
-        }
+        
+        addCurrentAttribute(currentAttributes, personRes, HR_LASTNAME, personEntry, "sn");
+        addCurrentAttribute(currentAttributes, personRes, FOAF_LASTNAME, personEntry, "sn");
+        addCurrentAttribute(currentAttributes, personRes, HR_FIRSTNAME, personEntry, "givenName");
+        addCurrentAttribute(currentAttributes, personRes, FOAF_FIRSTNAME, personEntry, "givenName");
+        addCurrentAttribute(currentAttributes, personRes, CORE_MIDDLENAME, personEntry, "cornelledumiddlename");
+        addCurrentAttribute(currentAttributes, personRes, HR_NETID, personEntry, "uid");
+        addCurrentAttribute(currentAttributes, personRes, HR_WORKINGTITLE, personEntry, "cornelleduwrkngtitle1");
+        addCurrentAttribute(currentAttributes, personRes, HR_PRIMARYJOBCODELDESC, personEntry, "cornelleduunivtitle1");
+        addCurrentAttribute(currentAttributes, personRes, HR_ADDRESS1, personEntry, "cornelleducampusaddress");
+        
         return currentAttributes;
     }
 
@@ -535,7 +540,9 @@ for (String deptURI : dept2id.keySet()) {
 		LDAPEntry personEntry = (LDAPEntry) results.next();
 		LDAPAttribute emailnetidAtt = personEntry.getAttribute("eduPersonPrincipalName");
         LDAPAttribute lastNameAttr = personEntry.getAttribute("sn");
-		if (emailnetidAtt == null || lastNameAttr == null) continue;
+		if (emailnetidAtt == null || emailnetidAtt.getStringValue().trim().length() == 0 
+				|| lastNameAttr == null || lastNameAttr.getStringValue().trim().length() == 0) 
+			        continue;
 		String emailnetid = emailnetidAtt.getStringValue();
 		m.enterCriticalSection(Lock.WRITE);
 		try {
@@ -545,7 +552,12 @@ for (String deptURI : dept2id.keySet()) {
 				personRes = m.createOntResource("http://vivo.cornell.edu/individual/" + emailnetid.split("@")[0]);
 				newPerson = true;
 			}
-			Model existingPositions = getExistingPositions(personRes);
+			Model existingPositions = getExistingPositions(personRes, title2family);
+			LDAPAttribute personTypeAttr = personEntry.getAttribute("cornelledutype");
+            if (personTypeAttr != null && "retiree".equals(personTypeAttr.getStringValue())) {
+                retractions.add(existingPositions);
+                continue;
+            }
 			//System.out.println("existingPositions " + existingPositions.size());
 			Model currentPositions = makeCurrentPositions(personEntry, personRes, wadf, title2family, prettyTitles);
 			//System.out.println("currentPositions  "  + currentPositions.size());
