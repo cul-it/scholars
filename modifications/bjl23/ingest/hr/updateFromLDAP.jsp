@@ -540,9 +540,11 @@ for (String deptURI : dept2id.keySet()) {
 		LDAPEntry personEntry = (LDAPEntry) results.next();
 		LDAPAttribute emailnetidAtt = personEntry.getAttribute("eduPersonPrincipalName");
         LDAPAttribute lastNameAttr = personEntry.getAttribute("sn");
+        boolean ignore = false;
 		if (emailnetidAtt == null || emailnetidAtt.getStringValue().trim().length() == 0 
-				|| lastNameAttr == null || lastNameAttr.getStringValue().trim().length() == 0) 
-			        continue;
+				|| lastNameAttr == null || lastNameAttr.getStringValue().trim().length() == 0) { 
+			        ignore = true;
+		}
 		String emailnetid = emailnetidAtt.getStringValue();
 		m.enterCriticalSection(Lock.WRITE);
 		try {
@@ -554,10 +556,9 @@ for (String deptURI : dept2id.keySet()) {
 			}
 			Model existingPositions = getExistingPositions(personRes, title2family);
 			LDAPAttribute personTypeAttr = personEntry.getAttribute("cornelledutype");
-			boolean retiree = false;
             if (personTypeAttr != null && "retiree".equals(personTypeAttr.getStringValue())) {
                 retractions.add(existingPositions);
-                retiree = true;
+                ignore = true;
             }
 			//System.out.println("existingPositions " + existingPositions.size());
 			Model currentPositions = makeCurrentPositions(personEntry, personRes, wadf, title2family, prettyTitles);
@@ -573,7 +574,7 @@ for (String deptURI : dept2id.keySet()) {
 			//System.out.println("currentBlank");
             //currentBlank.write(System.out, "N3");
 			
-			if (!retiree && !newPerson) {
+			if (!ignore && !newPerson) {
                 Model existingAttributes = getExistingAttributes(personRes);
                 Model currentAttributes = makeCurrentAttributes(personRes, personEntry);
                 retractions.add(existingAttributes.difference(currentAttributes));
@@ -592,7 +593,7 @@ for (String deptURI : dept2id.keySet()) {
 					}
 				}
 
-			} else if (!retiree && newPerson && currentPositions.size() > 0) {
+			} else if (!ignore && newPerson && currentPositions.size() > 0) {
 				newPeople.add(currentPositions);
 				newPeople.add(personRes, NETID, emailnetid);
 				StmtIterator stmtIt = currentPositions.listStatements(personRes, this.PRIMARY_WORKING_TITLE, (RDFNode) null);
