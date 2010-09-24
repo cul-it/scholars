@@ -473,7 +473,7 @@ private String ldapResult2String(LDAPSearchResults res, String orgName,String ld
     }
     
     private void addCurrentAttribute(Model model, Resource person, Property prop, LDAPEntry ldapEntry, String attrName) {
-    	LDAPAttribute attr = ldapEntry.getAttribute("sn");
+    	LDAPAttribute attr = ldapEntry.getAttribute(attrName);
     	if (attr != null) {
     		String attrValue = attr.getStringValue().trim();
     		if (attrValue.length() > 0) {    	
