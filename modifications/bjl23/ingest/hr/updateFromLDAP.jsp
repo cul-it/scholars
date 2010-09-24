@@ -97,7 +97,7 @@ private String makeLdapSearchFilter(String fullname){
 public LDAPSearchResults searchLdap(String searchFilter)throws LDAPException{
 
 	int WAIT_LIMIT = 6000; // ms
-	int HOP_LIMIT = 10;
+	int HOP_LIMIT = 0;  // no limit
 	int ldapPort = LDAPConnection.DEFAULT_PORT;
 	int searchScope = LDAPConnection.SCOPE_SUB;
 	int ldapVersion  = LDAPConnection.LDAP_V3;        
@@ -124,7 +124,7 @@ public LDAPSearchResults searchLdap(String searchFilter)throws LDAPException{
 			System.out.println("Server: " + serverError);
 		return null;
 	} finally {
-		lc.disconnect();
+		//lc.disconnect();  // can't disconnect before results are read 
 	}
 	return thisResult;
 }
@@ -543,7 +543,7 @@ for (String deptURI : dept2id.keySet()) {
         boolean ignore = false;
 		if (emailnetidAtt == null || emailnetidAtt.getStringValue().trim().length() == 0 
 				|| lastNameAttr == null || lastNameAttr.getStringValue().trim().length() == 0) { 
-			        ignore = true;
+			        continue;
 		}
 		String emailnetid = emailnetidAtt.getStringValue();
 		m.enterCriticalSection(Lock.WRITE);
