@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE rdf:RDF [
+<!ENTITY owl "http://www.w3.org/2002/07/owl#" >
+<!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+<!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+<!ENTITY display "http://vitro.mannlib.cornell.edu/ontologies/display/1.1#" >
+]>
+
+<rdf:RDF xmlns="http://vitro.mannlib.cornell.edu/ontologies/display/1.1#"
+    xml:base="http://vitro.mannlib.cornell.edu/ontologies/display/1.1"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:display="http://vitro.mannlib.cornell.edu/ontologies/display/1.1#">
+    <owl:Ontology rdf:about="http://vitro.mannlib.cornell.edu/ontologies/display/1.1/">
+        <rdfs:label>Vitro display ontology</rdfs:label>
+        <owl:versionInfo>1.1</owl:versionInfo>
+    </owl:Ontology>
+    
+    <!-- http://vitro.mannlib.cornell.edu/ontologies/display/1.1#weillCornellNamespace -->
+    
+    <owl:NamedIndividual rdf:about="&display;weillCornellNamespace">
+        <rdf:type rdf:resource="&display;ExternallyLinkedNamespace" />
+        <linkedNamespace>http://vivo.med.cornell.edu/individual</linkedNamespace>
+    </owl:NamedIndividual>
+    
+</rdf:RDF>
+
+
+
