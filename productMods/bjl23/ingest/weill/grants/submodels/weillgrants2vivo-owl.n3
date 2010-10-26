@@ -1,0 +1,37 @@
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:     <http://www.w3.org/2002/07/owl#> .
+@prefix eg:      <http://example.org/example-ont#> .
+@prefix vitro:   <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#> .
+@prefix vivo:    <http://vivo.library.cornell.edu/ns/0.1#> .
+@prefix hr:      <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#> .
+@prefix reporting: <http://vitro.mannlib.cornell.edu/ns/reporting#> .
+@prefix rules: <http://vitro.mannlib.cornell.edu/ns/reporting/weillgrants2vivo-rules#> .
+@prefix xtor: <http://ingest.mannlib.cornell.edu/generalizedXMLtoRDF/0.1/> .
+
+xtor:Award-Data rdfs:range vivo:ResearchGrant ;
+                rdf:type owl:ObjectProperty .
+xtor:AWARD_INVESTIGATORS rdf:type owl:ObjectProperty .
+xtor:AWARD_INVESTIGATORS_ROW rdfs:range <http://www.aktors.org/ontology/portal#Person> ;
+                rdf:type owl:ObjectProperty .
+xtor:TITLE rdfs:subPropertyOf vitro:label ;
+                rdf:type owl:DatatypeProperty .
+xtor:CWID owl:equivalentProperty <http://vitro.mannlib.cornell.edu/ns/wcmc/people/person_CWID> ;
+                rdf:type owl:DatatypeProperty .
+xtor:PRINCIPAL_INVESTIGATOR rdf:type owl:DatatypeProperty .
+xtor:RASP_AWARD_ID rdf:type owl:DatatypeProperty .
+
+xtor:PERSON_NAME rdfs:subPropertyOf vitro:label .
+
+vivo:weillFundingAgencyCode rdf:type owl:DatatypeProperty .
+
+vivo:raspAwardId rdf:type owl:DatatypeProperty ;
+    owl:equivalentProperty <http://ingest.mannlib.cornell.edu/generalizedXMLtoRDF/0.1/RASP_AWARD_ID> .
+
+vivo:weillGrantCurrentFundEffectiveDate rdf:type owl:DatatypeProperty ;
+	owl:equivalentProperty <http://ingest.mannlib.cornell.edu/generalizedXMLtoRDF/0.1/CURRENT_FUND_EFFECTIVE_DATE> .
+
+vivo:weillGrantFinalExpirationDate rdf:type owl:DatatypeProperty ;
+	owl:equivalentProperty <http://ingest.mannlib.cornell.edu/generalizedXMLtoRDF/0.1/FINAL_EXPIRATION_DATE> .
+
+

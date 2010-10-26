@@ -1,0 +1,33 @@
+PREFIX rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
+PREFIX vivo:  <http://vivo.library.cornell.edu/ns/0.1#>
+PREFIX mann:  <http://vivo.cornell.edu/ns/mannadditions/0.1#>
+#
+# This query gets all range entities labels and types of a person
+# A query like this could be used to get enough info to create a display
+# page for an entity.
+#
+CONSTRUCT {
+    ?person rdf:type mann:CornellFaculty .
+    ?person vivo:employeeOfAsAcademicFacultyMember ?dept .
+    ?dept vivo:hasEmployeeAcademicFacultyMember ?person
+} WHERE {
+  ?person rdf:type vivo:CornellAcademicStaff .
+  ?person vivo:employeeOfAsAcademicStaffMember ?dept .
+  ?dept vivo:hasEmployeeAcademicStaffMember ?person .
+ ?person <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#primaryJobcodeLdesc> ?job
+ FILTER (
+     ( str(?job) = "Professor Assistant Courtesy" ) ||
+     ( str(?job) = "Professor Associate Courtesy" ) ||
+     ( str(?job) = "Prof Courtesy" ) ||
+     ( str(?job) = "Prof Adj Asst" ) ||
+     ( str(?job) = "Prof Adj Assoc" ) ||
+     ( str(?job) = "Prof Visiting" ) ||
+     ( str(?job) = "Prof Adj" ) ||
+     ( str(?job) = "Prof Asst Visit" ) ||
+     ( str(?job) = "Prof Assoc Vis" ) 
+ )
+}
+
+
