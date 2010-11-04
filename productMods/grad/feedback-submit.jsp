@@ -92,23 +92,18 @@ ${fbMessage}
             <mt:mail>
                 <c:choose>
                     <c:when test="${param.type == 'content'}">
-                        <mt:setrecipient type="to">wlk5@cornell.edu</mt:setrecipient>
-                       <mt:setrecipient type="cc">mw542@cornell.edu</mt:setrecipient>
-                       <mt:addrecipient type="cc">nac26@cornell.edu</mt:addrecipient>
-                       <mt:subject>Life Science Graduate Portal - Feedback Received (content-related)</mt:subject>
+                        <mt:subject>Graduate Programs in the Life Sciences - Feedback Received (content-related)</mt:subject>
                     </c:when>
                     <c:when test="${param.type == 'technical'}">
-                        <mt:setrecipient type="to">mw542@cornell.edu</mt:setrecipient>
-                        <mt:setrecipient type="cc">nac26@cornell.edu</mt:setrecipient>
-                        <mt:subject>Life Science Graduate Portal - Feedback Received (technical issues)</mt:subject>
+                        <mt:subject>Graduate Programs in the Life Sciences - Feedback Received (technical issues)</mt:subject>
                     </c:when>
                     <c:when test="${param.type == 'other'}">
-                        <mt:setrecipient type="to">wlk5@cornell.edu</mt:setrecipient>
-                        <mt:setrecipient type="cc">mw542@cornell.edu</mt:setrecipient>
-                        <mt:addrecipient type="cc">nac26@cornell.edu</mt:addrecipient>
-                        <mt:subject>Life Science Graduate Portal - Feedback Received (other)</mt:subject>
+                        <mt:subject>Graduate Programs in the Life Sciences - Feedback Received (other)</mt:subject>
                     </c:when>
                 </c:choose>
+                
+                <mt:setrecipient type="to">vivo-contact-l@cornell.edu</mt:setrecipient>
+                <mt:setrecipient type="cc">mw542@cornell.edu</mt:setrecipient>
                 
                 <mt:from>site-feedback@gradeducation.lifesciences.cornell.edu</mt:from>
 
@@ -136,6 +131,7 @@ ${fbMessage}
             <c:if test="${captchaStatus=='error'}">
                 <mt:mail>
                     <mt:setrecipient type="to">mw542@cornell.edu</mt:setrecipient>
+                    <mt:setrecipient type="cc">nick.cappadona@cornell.edu</mt:setrecipient>
                     <mt:subject>Grad Site Notice: captcha on feedback form is broken</mt:subject>
                     <mt:from>site-feedback@gradeducation.lifesciences.cornell.edu</mt:from>
                     <mt:message>
