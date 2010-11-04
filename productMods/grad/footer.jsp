@@ -3,7 +3,7 @@
 
 <%
   DateTime now = new DateTime();
-  request.setAttribute("year", now.toString("yyyy") );
+  request.setAttribute("year", now.toString("yyyy") + " " );
 %>
 
 	</div> <!-- wrap -->
