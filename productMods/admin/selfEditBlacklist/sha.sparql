@@ -4,7 +4,7 @@
 # The variable ?cause will be the value that is used as the token to 
 # indicate why the individual was blacklisted and select a web page
 # explaining the reason for blacklisting.
-# see NetIdIdentifierFactory.java for the code that runs this query
+# see SelfEditingIdentifierFactory.java for the code that runs this query
 # and clones/modifications/edit/login.jsp for the code that selects
 # a page to return when a blacklisted self-editor attempts to log in.
 
