@@ -4,7 +4,7 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 
 <%
-    VitroRequestPrep.forceOutOfSelfEditing(request);
+    session.invalidate();
 %>
         <c:redirect url="/"/>
 <%

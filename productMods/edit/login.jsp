@@ -23,7 +23,6 @@
     if( selfEditingId != null ){        
         if( selfEditingId.getBlacklisted() == SelfEditingIdentifierFactory.NOT_BLACKLISTED &&
             selfEditingId.getValue() != null ){               
-    		VitroRequestPrep.forceToSelfEditing(request);
             
             //write who logged in to the audit log.
             Authenticate.sendLoginNotifyEvent(
@@ -86,8 +85,7 @@
         errorMsg = DEFAULT_ERROR_MSG;
     }    
 
-    VitroRequestPrep.forceOutOfSelfEditing(request);
-    //continue on to JSP error page bellow
+    //continue on to JSP error page below
     request.setAttribute("title","there was a problem accessing your profile");
     request.setAttribute("errorMsg",errorMsg);
 %>
