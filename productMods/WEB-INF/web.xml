@@ -167,7 +167,7 @@
  
   <listener>
     <listener-class>
-        edu.cornell.mannlib.vitro.webapp.controller.freemarker.FreeMarkerSetup
+        edu.cornell.mannlib.vitro.webapp.controller.freemarker.FreemarkerSetup
     </listener-class>
   </listener>
 
@@ -348,6 +348,15 @@
   <servlet-mapping>
     <servlet-name>AboutController</servlet-name>
     <url-pattern>/about</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>HomePageController</servlet-name>
+    <servlet-class>edu.cornell.mannlib.vitro.webapp.controller.freemarker.HomePageController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>HomePageController</servlet-name>
+    <url-pattern>/home</url-pattern>
   </servlet-mapping>
   
   <servlet>
