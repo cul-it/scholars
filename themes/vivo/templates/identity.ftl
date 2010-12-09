@@ -33,3 +33,4 @@
         </form>
     </div> <!-- search-form -->
 </div> <!-- cu-identity -->
+<#include "infomaki.ftl">
