@@ -38,7 +38,7 @@ ${scripts.add("/js/SOTCAnimator.js")}
         <table>
           <tr>
             <td class="yesTD" nowrap>
-	          <a id="yesHref" href="http://www.vivo-usability.mannlib.cornell.edu/about/agree" >Yes, I'd like to help!</a>
+	          <a id="yesHref" href="http://www.vivo-usability.mannlib.cornell.edu/about/agree/?source=cornell" >Yes, I'd like to help!</a>
 	        </td> <td>&nbsp;</td>
             <td class="noTD" style="text-align:center">
 	          <a id="noHref" href="javascript:slideDiagonally('hiddenPanel', document.getElementById('panelHeader'));">No thanks, not right now.</a>
