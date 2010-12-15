@@ -198,6 +198,10 @@
   <listener>
     <listener-class>edu.cornell.mannlib.vitro.webapp.servlet.setup.VivoMergedListFilteringSetup</listener-class>
   </listener>  
+
+<listener>
+   <listener-class>edu.cornell.mannlib.vitro.webapp.servlet.setup.HeapDefragement</listener-class>
+</listener>
   
   <!-- Filters ********************************************************** -->
   <!-- in 2.4 spec, filter chain order is first by filter-mapping <url-pattern> order in web.xml,
