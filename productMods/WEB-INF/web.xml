@@ -201,9 +201,11 @@
   
   <!-- from brian c: Heap defragment runs a gc right after startup on sisler -->
   <!-- from nick: This should probably be commented out for now in any dev instance -->
-  <listener>
+  <!-- from brian c: Commenting this out since the code is not in the branch (nihvivo-rel-1.1.1) that vivocorell is being deployed against.
+       this is less important now that there is a nightly GC.  -->
+<!--  <listener>
     <listener-class>edu.cornell.mannlib.vitro.webapp.servlet.setup.HeapDefragement</listener-class>
-  </listener>
+  </listener> -->
   
   <!-- Filters ********************************************************** -->
   <!-- in 2.4 spec, filter chain order is first by filter-mapping <url-pattern> order in web.xml,
