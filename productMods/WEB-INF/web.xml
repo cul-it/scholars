@@ -194,14 +194,16 @@
     </listener>
 -->
 
-  <!--  vivo specific -->
+  <!-- vivo specific -->
   <listener>
     <listener-class>edu.cornell.mannlib.vitro.webapp.servlet.setup.VivoMergedListFilteringSetup</listener-class>
   </listener>  
-
-<listener>
-   <listener-class>edu.cornell.mannlib.vitro.webapp.servlet.setup.HeapDefragement</listener-class>
-</listener>
+  
+  <!-- from brian c: Heap defragment runs a gc right after startup on sisler -->
+  <!-- from nick: This should probably be commented out for now in any dev instance -->
+  <listener>
+    <listener-class>edu.cornell.mannlib.vitro.webapp.servlet.setup.HeapDefragement</listener-class>
+  </listener>
   
   <!-- Filters ********************************************************** -->
   <!-- in 2.4 spec, filter chain order is first by filter-mapping <url-pattern> order in web.xml,
