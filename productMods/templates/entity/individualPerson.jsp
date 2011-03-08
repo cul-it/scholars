@@ -10,7 +10,7 @@
 <%@ page import="edu.cornell.mannlib.vitro.webapp.auth.identifier.FakeSelfEditingIdentifierFactory"%>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.auth.identifier.Identifier" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.auth.identifier.IdentifierBundle" %>
-<%@ page import="edu.cornell.mannlib.vitro.webapp.auth.identifier.ServletIdentifierBundleFactory" %>
+<%@ page import="edu.cornell.mannlib.vitro.webapp.auth.identifier.RequestIdentifiers" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.auth.identifier.SelfEditingIdentifierFactory"%>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.dao.VitroVocabulary" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.beans.Link" %>
@@ -58,8 +58,7 @@ if (entity == null){
 
 if (VitroRequestPrep.isSelfEditing(request) || LoginFormBean.loggedIn(request, LoginFormBean.NON_EDITOR) /* minimum level*/) {
     // attempt to tell whether a person is editing his or her own page, to control messages
-    IdentifierBundle ids =
-        ServletIdentifierBundleFactory.getIdBundleForRequest(request,session,pageContext.getServletContext());
+    IdentifierBundle ids = RequestIdentifiers.getIdBundleForRequest(request);
     
     //get the selfEditingId
     SelfEditingIdentifierFactory.SelfEditing selfEditingId =

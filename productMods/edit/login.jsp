@@ -1,6 +1,6 @@
 <%@ page import="edu.cornell.mannlib.vitro.webapp.auth.identifier.Identifier" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.auth.identifier.IdentifierBundle" %>
-<%@ page import="edu.cornell.mannlib.vitro.webapp.auth.identifier.ServletIdentifierBundleFactory" %>
+<%@ page import="edu.cornell.mannlib.vitro.webapp.auth.identifier.RequestIdentifiers" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.beans.Individual" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.filters.VitroRequestPrep" %>
 <%@page import="edu.cornell.mannlib.vitro.webapp.dao.WebappDaoFactory"%>
@@ -13,8 +13,7 @@
 
 <%
     String errorMsg = "";
-    IdentifierBundle ids =
-        ServletIdentifierBundleFactory.getIdBundleForRequest(request,session,pageContext.getServletContext());
+    IdentifierBundle ids = RequestIdentifiers.getIdBundleForRequest(request);
     
     //get the selfEditingId
     SelfEditingIdentifierFactory.SelfEditing selfEditingId =
@@ -53,11 +52,9 @@
     
     //get the netId
     String netid = null;
-    if( ids != null ){
-        for(Identifier id : ids){
-            if( id instanceof SelfEditingIdentifierFactory.NetId){
-                netid = ((SelfEditingIdentifierFactory.NetId)id).getValue();
-            }
+    for(Identifier id : ids){
+        if( id instanceof SelfEditingIdentifierFactory.NetId){
+            netid = ((SelfEditingIdentifierFactory.NetId)id).getValue();
         }
     }
 

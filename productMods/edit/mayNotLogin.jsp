@@ -1,5 +1,5 @@
 <%@ page import="edu.cornell.mannlib.vitro.webapp.auth.identifier.IdentifierBundle" %>
-<%@ page import="edu.cornell.mannlib.vitro.webapp.auth.identifier.ServletIdentifierBundleFactory" %>
+<%@ page import="edu.cornell.mannlib.vitro.webapp.auth.identifier.RequestIdentifiers" %>
 <%@page import="edu.cornell.mannlib.vitro.webapp.auth.identifier.SelfEditingIdentifierFactory"%>
 <%@page import="edu.cornell.mannlib.vitro.webapp.auth.identifier.Identifier"%>
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
@@ -12,8 +12,7 @@
 // This page will check the SelfEditingId and send the user to a page
 // describing why they are not allowed to login and self edit.
 
-    IdentifierBundle ids =
-        ServletIdentifierBundleFactory.getIdBundleForRequest(request,session,pageContext.getServletContext());    
+    IdentifierBundle ids = RequestIdentifiers.getIdBundleForRequest(request);    
 SelfEditingIdentifierFactory.SelfEditing selfEditingId =
     SelfEditingIdentifierFactory.getSelfEditingIdentifier(ids);
     
