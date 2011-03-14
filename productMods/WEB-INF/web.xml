@@ -199,9 +199,6 @@
 -->
 
   <!-- vivo specific -->
-  <listener>
-    <listener-class>edu.cornell.mannlib.vitro.webapp.servlet.setup.VivoMergedListFilteringSetup</listener-class>
-  </listener>  
   
   <!-- from brian c: Heap defragment runs a gc right after startup on sisler -->
   <!-- from nick: This should probably be commented out for now in any dev instance -->
