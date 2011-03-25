@@ -353,6 +353,20 @@ private String ldapResult2String(LDAPSearchResults res, String orgName,String ld
        
    }
 
+   private boolean isEmeritus(LDAPEntry personEntry) {
+		 LDAPAttribute univTitleAttr = personEntry.getAttribute("cornelleduunivtitle1");
+		 String univtitle = (univTitleAttr != null) ? univTitleAttr.getStringValue() : null;
+		 LDAPAttribute workingtitleAttr = personEntry.getAttribute("cornelleduwrkngtitle1");
+		 String workingtitle = (workingtitleAttr != null) ? workingtitleAttr.getStringValue() : null;
+         if (univtitle != null && univtitle.trim().equals("Prof Emeritus") {
+             return true;
+         } else if (workingtitle != null && (workingTitle.contains("Emeritus") || workingtitle.contains("emeritus"))) {
+             return true;
+         } else {
+             return false;
+         }
+   }
+
    private Model makeCurrentPositions(LDAPEntry personEntry, OntResource personRes, WebappDaoFactory wadf, Map<String,String> titleMap, Model prettyTitles) {
 	   Model currentPositions = ModelFactory.createDefaultModel();
 	   for (int i=1; i<=2; i++) {
@@ -572,7 +586,7 @@ for (String deptURI : dept2id.keySet()) {
 			}
 			Model existingPositions = getExistingPositions(personRes, title2family);
 			LDAPAttribute personTypeAttr = personEntry.getAttribute("cornelledutype");
-            if (personTypeAttr != null && "retiree".equals(personTypeAttr.getStringValue())) {
+            if (personTypeAttr != null && "retiree".equals(personTypeAttr.getStringValue()) && !isEmeritus(personEntry)) {
                 retractions.add(existingPositions);
                 ignore = true;
             }
