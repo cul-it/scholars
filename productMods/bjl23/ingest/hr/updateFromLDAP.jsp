@@ -358,9 +358,9 @@ private String ldapResult2String(LDAPSearchResults res, String orgName,String ld
 		 String univtitle = (univTitleAttr != null) ? univTitleAttr.getStringValue() : null;
 		 LDAPAttribute workingtitleAttr = personEntry.getAttribute("cornelleduwrkngtitle1");
 		 String workingtitle = (workingtitleAttr != null) ? workingtitleAttr.getStringValue() : null;
-         if (univtitle != null && univtitle.trim().equals("Prof Emeritus") {
+         if (univtitle != null && univtitle.trim().equals("Prof Emeritus")) {
              return true;
-         } else if (workingtitle != null && (workingTitle.contains("Emeritus") || workingtitle.contains("emeritus"))) {
+         } else if (workingtitle != null && (workingtitle.contains("Emeritus") || workingtitle.contains("emeritus"))) {
              return true;
          } else {
              return false;
