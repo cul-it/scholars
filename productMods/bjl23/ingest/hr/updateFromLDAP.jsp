@@ -427,6 +427,8 @@ private String ldapResult2String(LDAPSearchResults res, String orgName,String ld
                                               "    OPTIONAL { ?position <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#LDAPJobNumber> ?jobNumber } \n" +
 			                      "    OPTIONAL { <" + personURI + "> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#primaryJobcodeLdesc> ?primaryJobcodeLdesc } \n" +
                                   "    OPTIONAL { <" + personURI + "> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#primaryWorkingTitle> ?primaryWorkingTitle } \n" +
+                                  "    OPTIONAL { ?position ?manualPositionTest <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#ManuallyCuratedPosition> } \n" +
+                                  "    FILTER (!bound(?manualPositionTest)) \n" +
                                   "    FILTER (?o != <http://www.w3.org/2002/07/owl#Thing>) \n" +
                                   "    FILTER (?o != <http://vivoweb.org/ontology/core#DependentResource>) \n" +
                                   "    FILTER (?o != <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#DependentResource>) \n" +
