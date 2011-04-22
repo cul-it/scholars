@@ -27,7 +27,7 @@ body {
     margin: 0 auto;
 }
 body {
-   background: #f4f2eb url(../images/header-background.png) center 45px no-repeat; 
+   background: #f8f7f2 url(../images/header-background.png) center 45px no-repeat; 
 }
 a:hover {
     text-decoration: none;
@@ -645,8 +645,8 @@ body.login #login {
     -webkit-border-radius: 5px;     
 }
 #login-form input.text-field:focus {
-    border: 1px solid rgba(57, 138, 172, .5);  
-    background-color: rgba(57, 138, 172, .1);   
+    border: 1px solid rgba(224, 215, 172, .8);  
+    background-color: rgba(224, 215, 172, .4);   
 }
 #login-form p.submit {
     width: 100px;
