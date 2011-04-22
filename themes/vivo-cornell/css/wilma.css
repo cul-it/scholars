@@ -107,7 +107,7 @@ a.cu-search {
     position: absolute;
     top: 6px; 
     right: 7px;
-    width: 82px;
+    width: 86px;
     padding: 3px 5px;
     font-size: 1.1em;
     color: #fff;
@@ -458,7 +458,7 @@ ul#header-nav li {
     display: block;
     padding-left: 10px;
     padding-right: 10px;
-    border-right: 1px solid #7c7d7f;
+    border-right: 1px solid #d98077;
     font-size: .7em;
     color: #fff;
 }
@@ -1127,7 +1127,7 @@ ul#alpha-browse-individuals .count-classes {
 }
 /* BROWSE INDIVIDUALS------>  */
 #individuals-in-class {
-    width: 630px;
+    width: 629px;
     border: 1px solid #dde4e3;
     background-color: #fff;
 }
