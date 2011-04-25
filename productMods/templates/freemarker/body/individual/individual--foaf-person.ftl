@@ -23,10 +23,12 @@
 
         <div id="photo-wrapper">${individualImage}</div>
         
-        <#-- CU directory link -->    
-        <#assign netid  = propertyGroups.getPropertyAndRemoveFromList("http://vivo.library.cornell.edu/ns/0.1#CornellemailnetId")!>
-            <p class="contact-information"><img class="middle" src="${urls.images}/individual/contactInformationIcon.gif" alt="Contact information icon" /><a href="http://www.cornell.edu/search/?tab=people&netid=${netid}" target="_blank">Contact information</a></p>
-
+        <#-- CU directory link -->
+        <#assign netid = propertyGroups.getProperty("http://vivo.cornell.edu/ns/hr/0.9/hr.owl#netId").firstValue!>
+            <#if netid?has_content>
+                <p class="contact-information"><img class="middle" src="${urls.images}/individual/contactInformationIcon.gif" alt="Contact information icon" /><a href="http://www.cornell.edu/search/?tab=people&netid=${netid}" title="Cornell University directory entry for ${netid}" target="_blank">Contact information</a></p>
+            </#if>
+            
         <nav role="navigation">
             <ul id ="individual-tools-people" role="list">
                 <li role="listitem"><img title="${individual.uri}" class="middle" src="${urls.images}/individual/uriIcon.gif" alt="uri icon" /></li>
