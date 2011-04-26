@@ -5,7 +5,6 @@
 <%@ page import="org.apache.commons.logging.Log" %>
 <%@ page import="org.apache.commons.logging.LogFactory" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<%@page import="edu.cornell.mannlib.vitro.webapp.auth.identifier.FakeSelfEditingIdentifierFactory;"%>
 <%
 	/***********************************************
     Include the theme logo and navigation, which want to live in one div element
@@ -35,12 +34,10 @@
 <div id="header">
 	<!-- ************************ Theme logo ********************** generated in menu.jsp **** -->
 	<% if (VitroRequestPrep.isSelfEditing(request) ){ %>
-    <!-- <c:url value="/edit/logout.jsp" var="editLogout" /> -->
+    <c:url value="/edit/logout.jsp" var="editLogout" />
     <%-- nac26: 080422 - changed logout url to handle temporary login via self editing for CAS demo --%>
-    <c:url value="/admin/temporaryLogin.jsp?stopfaking=1" var="editLogout" />
-    <!-- <c:url value="/edit/login.jsp" var="editManage" /> -->
-    <%-- nac26: 080422 - changed manage url to handle temporary login via self editing for CAS demo --%>
-    <% String netid = (String)session.getAttribute(FakeSelfEditingIdentifierFactory.FAKE_SELF_EDIT_NETID); %>
+    <c:url value="/edit/login.jsp" var="editManage" />
+    <% String netid = null; %>
 	<c:url value="/entity" var="editManage">
 	    <c:param name="netid" value="<%=netid%>" />
 	</c:url>
