@@ -1629,12 +1629,6 @@
  -->
 
   <!-- ==================== VIVO Cornell Additions ================================ -->
-  <!-- set the default portal to ALL (65535) -->
-  <!-- <listener>
-    <listener-class>
-      edu.cornell.mannlib.vitro.webapp.servlet.setup.Portal65535Default
-    </listener-class>
-  </listener> -->
 
   <!--  special servlet for dealing with cuwebauth issue VITRO-385 -->
   <servlet>
