@@ -39,6 +39,11 @@
 
   <!-- Listeners ****************************************************** -->
 
+  <!-- Reads deploy.properties. Needs to run before almost all other listeners. -->
+  <listener>
+    <listener-class>edu.cornell.mannlib.vitro.webapp.config.ConfigurationPropertiesSetup</listener-class>
+  </listener>
+
   <listener>
     <listener-class>edu.cornell.mannlib.vitro.webapp.config.RevisionInfoSetup</listener-class>
   </listener>
@@ -126,6 +131,11 @@
     </listener-class>
   </listener>
 
+  <listener>
+    <listener-class> edu.cornell.mannlib.vitro.webapp.auth.policy.specialrelationships.SelfEditorRelationshipPolicy$Setup
+    </listener-class>
+  </listener>
+
   <!-- The Lucene index uses a "public" filter, so the PropertyRestrictionPolicyHelper must already be set up. -->
   <listener>
     <listener-class> edu.cornell.mannlib.vitro.webapp.search.lucene.LuceneSetup </listener-class>
@@ -140,10 +150,6 @@
 	<listener-class> edu.cornell.mannlib.vitro.webapp.auth.policy.setup.SelfEditingPolicySetup</listener-class>
   </listener>
   
-  <listener>
-    <listener-class> edu.cornell.mannlib.vitro.webapp.auth.policy.setup.InformationResourceEditingPolicySetup</listener-class>
-  </listener>
-    
     <listener>
         <listener-class>
             edu.cornell.mannlib.vitro.webapp.auth.identifier.UserToIndIdentifierFactorySetup
@@ -275,15 +281,6 @@
     <dispatcher>forward</dispatcher>
   </filter-mapping>
   
-  <!--filter>
-        <filter-name>AuthSetupForRequest</filter-name>
-        <filter-class>edu.cornell.mannlib.vitro.webapp.auth.filters.AuthSetupForRequest</filter-class>
-  </filter>
-  <filter-mapping>
-        <filter-name>AuthSetupForRequest</filter-name>
-        <url-pattern>/*</url-pattern>
-  </filter-mapping-->
-
   <filter>
     <filter-name>PageRoutingFilter</filter-name>
     <filter-class>edu.cornell.mannlib.vitro.webapp.filters.PageRoutingFilter</filter-class>
