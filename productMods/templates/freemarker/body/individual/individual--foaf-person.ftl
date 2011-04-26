@@ -24,10 +24,13 @@
         <div id="photo-wrapper">${individualImage}</div>
         
         <#-- CU directory link -->
-        <#assign netid = propertyGroups.getProperty("http://vivo.cornell.edu/ns/hr/0.9/hr.owl#netId").firstValue!>
-            <#if netid?has_content>
-                <p class="contact-information"><img class="middle" src="${urls.images}/individual/contactInformationIcon.gif" alt="Contact information icon" /><a href="http://www.cornell.edu/search/?tab=people&netid=${netid}" title="Cornell University directory entry for ${netid}" target="_blank">Contact information</a></p>
-            </#if>
+        <#assign netid = individual.selfEditingId!>
+        <#if netid?has_content>
+            <p class="contact-information">
+                <img class="middle" src="${urls.images}/individual/contactInformationIcon.gif" alt="Contact information icon" />
+                <a href="http://www.cornell.edu/search/?tab=people&netid=${netid}" title="Cornell University directory entry for ${netid}" target="_blank">Contact information</a>
+            </p>
+        </#if>
             
         <nav role="navigation">
             <ul id ="individual-tools-people" role="list">
