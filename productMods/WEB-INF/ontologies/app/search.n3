@@ -6,6 +6,7 @@
 @prefix core: <http://vivoweb.org/ontology/core#> .
 @prefix localNav: <http://vitro.mannlib.cornell.edu/ns/localnav#> .
 @prefix bibo: <http://purl.org/ontology/bibo/> .
+@prefix vivo: <http://vivo.library.cornell.edu/ns/0.1#> .
 
 # All instances of a class can be excluded from the lucene 
 # index by adding a vitroDisplay:excludeClass property between 
