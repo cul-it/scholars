@@ -28,7 +28,10 @@
 	vitroDisplay:excludeClass acti:PartnerRole ;
 	vitroDisplay:excludeClass acti:UnknownPerson ;
 	vitroDisplay:excludeClass acti:UntitledPresentation ;
+	vitroDisplay:excludeClass core:CoPrincipalInvestigatorRole ;
+	vitroDisplay:excludeClass core:InvestigatorRole ;
 	vitroDisplay:excludeClass core:PresenterRole ;
+	vitroDisplay:excludeClass core:PrincipalInvestigatorRole ;
 	vitroDisplay:excludeClass core:ResearcherRole ;
 	vitroDisplay:excludeClass core:ServiceProviderRole ;
 	vitroDisplay:excludeClass vivo:UnknownPerson .
