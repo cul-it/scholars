@@ -8,14 +8,15 @@
 # and clones/modifications/edit/login.jsp for the code that selects
 # a page to return when a blacklisted self-editor attempts to log in.
 
-# "HE" is the human resources unit code for the College of Human Ecology
+# vivo:individual1 is Mann library
 
-PREFIX vivo:     <http://vivo.library.cornell.edu/ns/0.1#>
+
+PREFIX vivo:   <http://vivo.cornell.edu/individual/>
 PREFIX hrdata: <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#>
+PREFIX acti: <http://vivoweb.org/ontology/activity-insight#>
 
 SELECT ?cause
 WHERE {
-     ?individualURI   hrdata:primaryUnitCode   ?cause     
-     filter( STR(?cause) = "HE"  )
+     ?individualURI acti:aiUser ?cause.
 }
 limit 1
