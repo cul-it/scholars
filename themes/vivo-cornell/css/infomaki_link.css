@@ -1,0 +1,118 @@
+/****************************************
+ * Albert R. Mann Library 
+ * Cornell University
+ * Ithaca, NY 14853
+ ****************************************/
+
+/*
+These styles are needed for the slide panel that appears on the VIVOweb.org home page and
+that provides a link to the VIVO usability Infomaki application.
+*/
+
+
+.panelContainer {
+	position:absolute;
+	width:98px;
+	height:56px;
+	top:206px;
+	right:0px;
+	overflow:hidden;
+}
+
+#yesHref {
+	color:#1887b6;
+	text-decoration:none;
+	border:none;
+}
+
+#noHref {
+	color:#666;
+	text-decoration:none;
+	border-bottom-width:0px;
+}
+
+#yesHref:hover {
+	color:#1887b6;
+	text-decoration:underline;
+	border-bottom-width:0px;
+}
+
+#noHref:hover {
+	color:#666;
+	text-decoration:underline;
+	border-bottom-width:0px;
+}
+
+.infomaki {
+	margin-top:70px;
+	margin-left:25px;
+	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	font-size:8px;
+} 
+
+.imSpanOne {
+	font-size: 30px;
+	font-weight:100; 
+	color: #1887b6;
+}
+
+.imSpanTwo {
+	font-size: 24px;
+	font-weight:100; 
+	color: #1887b6;
+	padding-top:20px;
+}
+
+.imSpanThree {
+	font-size: 16px;
+}
+
+.tableDiv{
+	font-size:18px;
+	margin-top:40px;
+	margin-left:32px;
+	width:100%;
+}
+
+.yesTD {
+	background:white;
+	border: 1px solid #cc6;
+	font-weight:bold;
+	text-align:center;
+	vertical-align:middle;
+	padding-bottom:4px;
+	height: 42px;
+	width: 260px;
+}
+
+.noTD {
+	text-align:center;
+	vertical-align:middle;
+	padding-bottom:4px;
+	height: 42px;
+	width: 260px;
+}
+
+#panelHeader {
+	z-index:2;
+    position:absolute;
+    width:98px;
+    height:56px;
+    top:0px;
+    right:0px;
+    background:#b41b1d;
+    text-align:left;
+    color:#FFFFFF;
+	font-size:14px;
+	border-bottom-left-radius: 5px;
+	border-top-left-radius: 5px;
+	-moz-border-radius-bottomleft: 5px;
+	-moz-border-radius-topleft: 5px;
+	-webkit-border-bottom-left-radius: 5px;
+	-webkit-border-top-left-radius: 5px;
+}
+#internalDiv li {
+    color:#FFFFFF;
+    text-align:center;
+    line-height:18px;
+}
