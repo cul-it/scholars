@@ -724,6 +724,32 @@ p.password-note {
     margin-right:-10px;
     height:34px;
 }
+p.external-auth {
+    width: 150px;
+    margin: 0 auto;
+}
+p.external-auth a.blue,
+p.external-auth a.blue:visited {
+     background-color: #5e6363;
+     width: 120px;
+     margin-bottom: 17px;
+     line-height: 1.3em;
+     padding-top: 10px;
+}
+p.external-auth a.blue:hover {
+    background-color: #AAACAC;
+    color: #fff;
+}
+.or-auth {
+    background-image: url("../images/login-or.png");
+    background-position: 0 0;
+    height: 33px;
+    margin-bottom: 0;
+    margin-left: 36px;
+    padding-left: 117px;
+    padding-top: 4px;
+    width: 247px;
+}
 /* HOME SEARCH ------>  */
 #search-home {
     float: left;
@@ -1524,3 +1550,4 @@ h2#personInPosition .verbosePropertyListing,
 h2#hasResearchArea .verbosePropertyListing {
     display: block;
 }
+
