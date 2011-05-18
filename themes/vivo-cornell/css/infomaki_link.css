@@ -14,7 +14,7 @@ that provides a link to the VIVO usability Infomaki application.
 	position:absolute;
 	width:98px;
 	height:56px;
-	top:206px;
+	top:218px;
 	right:0px;
 	overflow:hidden;
 }
@@ -76,7 +76,7 @@ that provides a link to the VIVO usability Infomaki application.
 
 .yesTD {
 	background:white;
-	border: 1px solid #cc6;
+	border: 1px solid #CED9D8;
 	font-weight:bold;
 	text-align:center;
 	vertical-align:middle;
