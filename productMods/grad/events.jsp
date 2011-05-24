@@ -38,31 +38,33 @@
                 PREFIX core: <http://vivoweb.org/ontology/core#>
                 SELECT DISTINCT ?talkUri ?blurb ?label ?timekey ?hostname ?location ?person ?linkUrl
                 WHERE {
-                  ?talkUri
-                  rdf:type vivo:LectureSeminarOrColloquium ;
-                  rdf:type vitro:Flag1Value1Thing ;
-                  vitro:timekey ?timekey ;
-                  vitro:sunrise ?sunrise ;
-                  vitro:blurb   ?blurb ;
-                  rdfs:label ?label .
+                  SERVICE <http://sisler.mannlib.cornell.edu:8081/openrdf-sesame/repositories/courses2> {
+                    ?talkUri
+                    rdf:type vivo:LectureSeminarOrColloquium ;
+                    rdf:type vitro:Flag1Value1Thing ;
+                    vitro:timekey ?timekey ;
+                    vitro:sunrise ?sunrise ;
+                    vitro:blurb   ?blurb ;
+                    rdfs:label ?label .
                 
-                  OPTIONAL { 
-                    ?talkUri vivo:eventHasHostPerson ?person .
-                    ?person rdfs:label ?hostname .
-                    ?person vivo:memberOfGraduateField ?field .
-                    ?field rdf:type vivo:GraduateField .
-                    ?field vivo:associatedWith ?group . 
-                    ?group rdf:type vivo:fieldCluster .
-                  }
+                    OPTIONAL { 
+                      ?talkUri vivo:eventHasHostPerson ?person .
+                      ?person rdfs:label ?hostname .
+                      ?person vivo:memberOfGraduateField ?field .
+                      ?field rdf:type vivo:GraduateField .
+                      ?field vivo:associatedWith ?group . 
+                      ?group rdf:type vivo:fieldCluster .
+                    } 
                 
-                  OPTIONAL {
-                    ?talkUri vivo:eventHeldInFacility ?place .
-                    ?place rdfs:label ?location .
-                  }
+                    OPTIONAL {
+                      ?talkUri vivo:eventHeldInFacility ?place .
+                      ?place rdfs:label ?location .
+                    }
                 
-                  OPTIONAL {
-                    ?talkUri vitro:primaryLink ?link . 
-                    ?link vitro:linkURL ?linkUrl .
+                    OPTIONAL {
+                      ?talkUri vitro:primaryLink ?link . 
+                      ?link vitro:linkURL ?linkUrl .
+                    }
                   }
                 FILTER( xsd:dateTime(?now) > ?sunrise && xsd:dateTime(?now) < ?timekey )
                 }
@@ -83,33 +85,35 @@
                   PREFIX core: <http://vivoweb.org/ontology/core#>
                   SELECT DISTINCT ?talkUri ?blurb ?label ?timekey ?hostname ?location ?person ?linkUrl
                   WHERE {
-                    ?talkUri
-                    rdf:type vivo:LectureSeminarOrColloquium ;
-                    rdf:type vitro:Flag1Value1Thing ;
-                    vitro:timekey ?timekey ;
-                    vitro:sunrise ?sunrise ;
-                    vitro:blurb   ?blurb ;
-                    rdfs:label ?label .
+                    SERVICE <http://sisler.mannlib.cornell.edu:8081/openrdf-sesame/repositories/courses2> {
+                      ?talkUri
+                      rdf:type vivo:LectureSeminarOrColloquium ;
+                      rdf:type vitro:Flag1Value1Thing ;
+                      vitro:timekey ?timekey ;
+                      vitro:sunrise ?sunrise ;
+                      vitro:blurb   ?blurb ;
+                      rdfs:label ?label .
 
-                    OPTIONAL { 
-                      ?talkUri vivo:eventHasHostPerson ?person .
-                      ?person rdfs:label ?hostname .
-                      ?person vivo:memberOfGraduateField ?field .
-                      ?field rdf:type vivo:GraduateField .
-                      ?field vivo:associatedWith ?group . 
-                      ?group rdf:type vivo:fieldCluster .
-                    }
+                      OPTIONAL { 
+                        ?talkUri vivo:eventHasHostPerson ?person .
+                        ?person rdfs:label ?hostname .
+                        ?person vivo:memberOfGraduateField ?field .
+                        ?field rdf:type vivo:GraduateField .
+                        ?field vivo:associatedWith ?group . 
+                        ?group rdf:type vivo:fieldCluster .
+                      }
 
-                    OPTIONAL {
-                      ?talkUri vivo:eventHeldInFacility ?place .
-                      ?place rdfs:label ?location .
-                    }
+                      OPTIONAL {
+                        ?talkUri vivo:eventHeldInFacility ?place .
+                        ?place rdfs:label ?location .
+                      }
 
-                    OPTIONAL {
-                      ?talkUri vitro:primaryLink ?link . 
-                      ?link vitro:linkURL ?linkUrl .
+                      OPTIONAL {
+                        ?talkUri vitro:primaryLink ?link . 
+                        ?link vitro:linkURL ?linkUrl .
+                      }
                     }
-                  FILTER( xsd:dateTime(?now) > ?timekey  && xsd:dateTime(?past) < ?timekey )
+                    FILTER( xsd:dateTime(?now) > ?timekey  && xsd:dateTime(?past) < ?timekey )
                   }
                   ORDER BY DESC(?timekey)
                   LIMIT 15

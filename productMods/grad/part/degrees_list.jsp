@@ -15,9 +15,11 @@
       PREFIX core: <http://vivoweb.org/ontology/core#>
       SELECT DISTINCT ?degreeAbbr
       WHERE {
-        ?fieldUri vivo:offersAcademicDegree ?degree . 
-        ?degree rdfs:label ?degreeLabel ;
-          core:degreeAbbreviation ?degreeAbbr .
+        SERVICE <http://sisler.mannlib.cornell.edu:8081/openrdf-sesame/repositories/courses2> {
+          ?fieldUri vivo:offersAcademicDegree ?degree . 
+          ?degree rdfs:label ?degreeLabel ;
+            core:degreeAbbreviation ?degreeAbbr .
+        }
       } ORDER BY DESC(?degreeAbbr)
       LIMIT 10
     </sparql:select>

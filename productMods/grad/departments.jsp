@@ -63,15 +63,17 @@
         		              PREFIX core: <http://vivoweb.org/ontology/core#>
         		              SELECT DISTINCT ?deptUri ?deptLabel ?deptPageUrl ?deptPageAnchor ?campus ?campusLabel
                           WHERE {
-                            ?group rdf:type vivo:fieldCluster .
-                            ?group vivo:hasAssociated ?field .
-                            ?person vivo:memberOfGraduateField ?field .
-                            ?person core:personInPosition ?facultyPosition .
-                            ?facultyPosition core:positionInOrganization ?deptUri .
-                            ?deptUri rdf:type core:AcademicDepartment .
-                            OPTIONAL { ?deptUri rdfs:label ?deptLabel }
-                            OPTIONAL { ?deptUri vivo:locatedOnCampus ?campus . ?campus rdfs:label ?campusLabel }
-                            OPTIONAL { ?deptUri vitro:primaryLink ?deptLinksUri . ?deptLinksUri vitro:linkURL ?deptPageUrl . ?deptLinksUri vitro:linkAnchor ?deptPageAnchor }
+                            SERVICE <http://sisler.mannlib.cornell.edu:8081/openrdf-sesame/repositories/courses2> {
+                              ?group rdf:type vivo:fieldCluster .
+                              ?group vivo:hasAssociated ?field .
+                              ?person vivo:memberOfGraduateField ?field .
+                              ?person core:personInPosition ?facultyPosition .
+                              ?facultyPosition core:positionInOrganization ?deptUri .
+                              ?deptUri rdf:type core:AcademicDepartment .
+                              OPTIONAL { ?deptUri rdfs:label ?deptLabel }
+                              OPTIONAL { ?deptUri vivo:locatedOnCampus ?campus . ?campus rdfs:label ?campusLabel }
+                              OPTIONAL { ?deptUri vitro:primaryLink ?deptLinksUri . ?deptLinksUri vitro:linkURL ?deptPageUrl . ?deptLinksUri vitro:linkAnchor ?deptPageAnchor }
+                            }
                           } ORDER BY ?deptLabel
         		              LIMIT 1000
     				    </sparql:select>

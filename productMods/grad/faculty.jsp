@@ -61,17 +61,18 @@
           PREFIX core: <http://vivoweb.org/ontology/core#>
           SELECT DISTINCT ?personUri ?personLabel ?netid ?cornellEmail ?nonCornellEmail ?moniker
           WHERE {
-            ?group rdf:type vivo:fieldCluster .
-            ?group vivo:hasAssociated ?field .
+            SERVICE <http://sisler.mannlib.cornell.edu:8081/openrdf-sesame/repositories/courses2> {
+              ?group rdf:type vivo:fieldCluster .
+              ?group vivo:hasAssociated ?field .
             
-            ?field vivo:hasFieldMember ?personUri .
+              ?field vivo:hasFieldMember ?personUri .
             
-            OPTIONAL { ?personUri rdfs:label ?personLabelRow }
-            OPTIONAL { ?personUri owl:netId ?netid }
-            OPTIONAL { ?personUri vivo:CornellemailnetId ?cornellEmail }
-            OPTIONAL { ?personUri vivo:nonCornellemail ?nonCornellEmail }
-            OPTIONAL { ?personUri vitro:moniker ?moniker }
-            
+              OPTIONAL { ?personUri rdfs:label ?personLabelRow }
+              OPTIONAL { ?personUri owl:netId ?netid }
+              OPTIONAL { ?personUri vivo:CornellemailnetId ?cornellEmail }
+              OPTIONAL { ?personUri vivo:nonCornellemail ?nonCornellEmail }
+              OPTIONAL { ?personUri vitro:moniker ?moniker }
+            }
           LET (?personLabel := str(?personLabelRow))
           FILTER (!regex(?moniker, "emeritus", "i"))
           } GROUP BY ?personLabel ?personUri ?netid ?cornellEmail ?nonCornellEmail ?moniker

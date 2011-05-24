@@ -15,12 +15,14 @@
     PREFIX core: <http://vivoweb.org/ontology/core#>
     SELECT ?uri ?label ?url ?anchor ?blurb ?description 
     WHERE {
-      ?tabConnector vitro:involvesTab ?group .
-      ?tabConnector vitro:involvesIndividual ?uri .
-      OPTIONAL { ?uri rdfs:label ?label }
-      OPTIONAL { ?uri vitro:blurb ?blurb }
-      OPTIONAL { ?uri core:description ?description }
-      OPTIONAL { ?uri vitro:primaryLink ?facilityLinks . ?facilityLinks vitro:linkURL ?url . ?facilityLinks vitro:linkAnchor ?anchor }
+      SERVICE <http://sisler.mannlib.cornell.edu:8081/openrdf-sesame/repositories/courses2> {
+        ?tabConnector vitro:involvesTab ?group .
+        ?tabConnector vitro:involvesIndividual ?uri .
+        OPTIONAL { ?uri rdfs:label ?label }
+        OPTIONAL { ?uri vitro:blurb ?blurb }
+        OPTIONAL { ?uri core:description ?description }
+        OPTIONAL { ?uri vitro:primaryLink ?facilityLinks . ?facilityLinks vitro:linkURL ?url . ?facilityLinks vitro:linkAnchor ?anchor }
+      }
     }
     ORDER BY ?label
     LIMIT 400

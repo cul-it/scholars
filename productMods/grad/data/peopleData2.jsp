@@ -35,7 +35,7 @@
 
     String queryParam=
             "SELECT ?personLabel ?personUri ?gradfieldLabel\n"+
-            "WHERE { \n"+
+            "WHERE { SERVICE <http://sisler.mannlib.cornell.edu:8081/openrdf-sesame/repositories/courses2> { \n"+
             " \n"+
             "?fieldClusterUri  \n"+
             "rdf:type  \n"+
@@ -50,7 +50,7 @@
             "?gradfieldUri . \n"+
             " \n"+
             "OPTIONAL { ?personUri rdfs:label ?personLabel } \n"+
-            "OPTIONAL { ?gradfieldUri rdfs:label ?gradfieldLabel } \n"+
+            "OPTIONAL { ?gradfieldUri rdfs:label ?gradfieldLabel } } \n"+
             "} \n"+
             "LIMIT 20000";
 
@@ -101,7 +101,7 @@
 
    String queryParamForResearchAreas=
             "SELECT ?personUri ?areaLabel \n"+
-            "WHERE { \n"+
+            "WHERE { SERVICE <http://sisler.mannlib.cornell.edu:8081/openrdf-sesame/repositories/courses2> { \n"+
             " \n"+
             "?fieldClusterUri  \n"+
             "rdf:type  \n"+
@@ -119,7 +119,7 @@
             "vivo:ResearchAreaOfPerson   \n"+
             "?personUri . \n"+
             " \n"+
-            "OPTIONAL { ?areaUri rdfs:label ?areaLabel } \n"+
+            "OPTIONAL { ?areaUri rdfs:label ?areaLabel } } \n"+
             "} \n"+
             "LIMIT 20000";
 

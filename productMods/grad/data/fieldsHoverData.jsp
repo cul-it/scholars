@@ -15,11 +15,13 @@
         PREFIX core: <http://vivoweb.org/ontology/core#>
         SELECT DISTINCT ?field ?fieldLabel ?fieldDescription
         WHERE {
-          ?group rdf:type vivo:fieldCluster ;
-            vivo:hasAssociated ?field .
-          ?field vivo:hasFieldMember ?person .
-          OPTIONAL { ?field core:description ?fieldDescription }
-          OPTIONAL { ?field rdfs:label ?fieldLabel }
+          SERVICE <http://sisler.mannlib.cornell.edu:8081/openrdf-sesame/repositories/courses2> {
+            ?group rdf:type vivo:fieldCluster ;
+              vivo:hasAssociated ?field .
+            ?field vivo:hasFieldMember ?person .
+            OPTIONAL { ?field core:description ?fieldDescription }
+            OPTIONAL { ?field rdfs:label ?fieldLabel }
+          }
         }
         ORDER BY ?fieldLabel
         LIMIT 2000

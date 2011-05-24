@@ -13,8 +13,10 @@
           PREFIX core: <http://vivoweb.org/ontology/core#>
           SELECT ?fieldClusterUri ?clusterLabel
           WHERE {
-            ?fieldClusterUri rdf:type vivo:fieldCluster
-            OPTIONAL { ?fieldClusterUri rdfs:label ?clusterLabel }
+            SERVICE <http://sisler.mannlib.cornell.edu:8081/openrdf-sesame/repositories/courses2> {
+              ?fieldClusterUri rdf:type vivo:fieldCluster
+              OPTIONAL { ?fieldClusterUri rdfs:label ?clusterLabel }
+            }
           } ORDER BY ?clusterLabel
           LIMIT 200
     </listsparql:select>

@@ -22,15 +22,23 @@
                   PREFIX core: <http://vivoweb.org/ontology/core#>
                   SELECT DISTINCT ?personUri ?personLabel ?image ?moniker
                   WHERE {
-                    ?fieldUri vivo:hasFieldMember ?personUri .
-                    ?personUri rdfs:label ?personLabel .
+                    SERVICE <http://sisler.mannlib.cornell.edu:8081/openrdf-sesame/repositories/courses2> {
+                      ?fieldUri vivo:hasFieldMember ?personUri .
+                      ?personUri rdfs:label ?personLabel .
+                    }
                     OPTIONAL {
-                       ?personUri vitropublic:mainImage ?mainImage .
-                       ?mainImage vitropublic:thumbnailImage ?thumbnail .
-                       ?thumbnail vitropublic:downloadLocation ?downloadLocation .
+                       SERVICE <http://sisler.mannlib.cornell.edu:8081/openrdf-sesame/repositories/courses2> {
+                         ?personUri vitropublic:mainImage ?mainImage .
+                         ?mainImage vitropublic:thumbnailImage ?thumbnail .
+                         ?thumbnail vitropublic:downloadLocation ?downloadLocation .
+                       }
                        LET (?image := str(?downloadLocation))
                     }
-                    OPTIONAL { ?personUri vitro:moniker ?moniker }
+                    OPTIONAL {
+                      SERVICE <http://sisler.mannlib.cornell.edu:8081/openrdf-sesame/repositories/courses2> {
+                        ?personUri vitro:moniker ?moniker 
+                      }
+                    }
                     FILTER (!regex(?moniker, "emeritus", "i"))
                   } ORDER BY ?personLabel
                   LIMIT 1000
@@ -136,18 +144,24 @@ ${pageError}
           PREFIX core: <http://vivoweb.org/ontology/core#>
           SELECT DISTINCT ?personUri ?personLabel ?image ?grouping ?personLinkAnchor ?personLinkURL ?otherAnchor ?otherURL
           WHERE {
-            ?dept vivo:hasEmployeeAcademicFacultyMember ?personUri .
-            ?personUri rdfs:label ?personLabel .
-            OPTIONAL { ?personUri vivo:memberOfGraduateField ?fieldUri . ?fieldUri rdf:type vivo:GraduateField . ?fieldUri vivo:associatedWith ?grouping . ?grouping rdf:type vivo:fieldCluster }
+            SERVICE <http://sisler.mannlib.cornell.edu:8081/openrdf-sesame/repositories/courses2> {
+              ?dept vivo:hasEmployeeAcademicFacultyMember ?personUri .
+              ?personUri rdfs:label ?personLabel .
+              OPTIONAL { ?personUri vivo:memberOfGraduateField ?fieldUri . ?fieldUri rdf:type vivo:GraduateField . ?fieldUri vivo:associatedWith ?grouping . ?grouping rdf:type vivo:fieldCluster } 
+            }
             OPTIONAL {
-               ?personUri vitropublic:mainImage ?mainImage .
-               ?mainImage vitropublic:thumbnailImage ?thumbnail .
-               ?thumbnail vitropublic:downloadLocation ?downloadLocation .
+               SERVICE <http://sisler.mannlib.cornell.edu:8081/openrdf-sesame/repositories/courses2> {
+                 ?personUri vitropublic:mainImage ?mainImage .
+                 ?mainImage vitropublic:thumbnailImage ?thumbnail .
+                 ?thumbnail vitropublic:downloadLocation ?downloadLocation .
+               }
                LET (?image := str(?downloadLocation))
             }
-            OPTIONAL { ?personUri vitro:moniker ?moniker }
-            OPTIONAL { ?personUri vitro:primaryLink ?primaryLink. ?primaryLink vitro:linkAnchor ?personLinkAnchor . ?primaryLink vitro:linkURL ?personLinkURL }
-            OPTIONAL { ?personUri vitro:additionalLink ?additionalLink. ?additionalLink vitro:linkAnchor ?otherAnchor . ?additionalLink vitro:linkURL ?otherURL }
+            SERVICE <http://sisler.mannlib.cornell.edu:8081/openrdf-sesame/repositories/courses2> {
+              OPTIONAL { ?personUri vitro:moniker ?moniker }
+              OPTIONAL { ?personUri vitro:primaryLink ?primaryLink. ?primaryLink vitro:linkAnchor ?personLinkAnchor . ?primaryLink vitro:linkURL ?personLinkURL }
+              OPTIONAL { ?personUri vitro:additionalLink ?additionalLink. ?additionalLink vitro:linkAnchor ?otherAnchor . ?additionalLink vitro:linkURL ?otherURL }
+            }
             FILTER (!regex(?moniker, "emeritus", "i"))
           } ORDER BY ?personLabel
           LIMIT 2000
@@ -254,16 +268,22 @@ ${pageError}
               PREFIX core: <http://vivoweb.org/ontology/core#>
               SELECT DISTINCT ?personUri ?personLabel ?image ?moniker
               WHERE {
-                ?fieldUri vivo:hasFieldMember ?personUri .
-                ?personUri core:hasResearchArea ?areaUri .
-                ?personUri rdfs:label ?personLabel .
+                SERVICE <http://sisler.mannlib.cornell.edu:8081/openrdf-sesame/repositories/courses2> {
+                  ?fieldUri vivo:hasFieldMember ?personUri .
+                  ?personUri core:hasResearchArea ?areaUri .
+                  ?personUri rdfs:label ?personLabel .
+                }
                 OPTIONAL {
-                   ?personUri vitropublic:mainImage ?mainImage .
-                   ?mainImage vitropublic:thumbnailImage ?thumbnail .
-                   ?thumbnail vitropublic:downloadLocation ?downloadLocation .
+                   SERVICE <http://sisler.mannlib.cornell.edu:8081/openrdf-sesame/repositories/courses2> {
+                     ?personUri vitropublic:mainImage ?mainImage .
+                     ?mainImage vitropublic:thumbnailImage ?thumbnail .
+                     ?thumbnail vitropublic:downloadLocation ?downloadLocation .
+                   }
                    LET (?image := str(?downloadLocation))
                 }
-                OPTIONAL { ?personUri vitro:moniker ?moniker }
+                SERVICE <http://sisler.mannlib.cornell.edu:8081/openrdf-sesame/repositories/courses2> {
+                  OPTIONAL { ?personUri vitro:moniker ?moniker }
+                }
                 FILTER (!regex(?moniker, "emeritus", "i"))
               } ORDER BY ?personLabel
               LIMIT 1000
@@ -311,23 +331,25 @@ ${pageError}
                PREFIX core: <http://vivoweb.org/ontology/core#>
                SELECT DISTINCT ?personUri ?personLabel ?image ?moniker
                WHERE {
-                ?fieldUri vivo:hasFieldMember ?personUri .
-                ?personUri core:hasResearchArea ?area1 .
-                ?personUri core:hasResearchArea ?area2 .
-                ?personUri core:hasResearchArea ?area3 .
-                ?personUri core:hasResearchArea ?area4 .
-                ?personUri core:hasResearchArea ?area5 .
-                ?personUri core:hasResearchArea ?area6 .
-                ?fieldUri vivo:associatedWith ?groupUri .
-                ?groupUri rdf:type vivo:fieldCluster .
-                OPTIONAL { ?personUri rdfs:label ?personLabel }
-                OPTIONAL {
-                   ?personUri vitropublic:mainImage ?mainImage .
-                   ?mainImage vitropublic:thumbnailImage ?thumbnail .
-                   ?thumbnail vitropublic:downloadLocation ?downloadLocation .
-                   LET (?image := str(?downloadLocation))
+                SERVICE <http://sisler.mannlib.cornell.edu:8081/openrdf-sesame/repositories/courses2> {
+                  ?fieldUri vivo:hasFieldMember ?personUri .
+                  ?personUri core:hasResearchArea ?area1 .
+                  ?personUri core:hasResearchArea ?area2 .
+                  ?personUri core:hasResearchArea ?area3 .
+                  ?personUri core:hasResearchArea ?area4 .
+                  ?personUri core:hasResearchArea ?area5 .
+                  ?personUri core:hasResearchArea ?area6 .
+                  ?fieldUri vivo:associatedWith ?groupUri .
+                  ?groupUri rdf:type vivo:fieldCluster .
+                  OPTIONAL { ?personUri rdfs:label ?personLabel }
+                  OPTIONAL {
+                     ?personUri vitropublic:mainImage ?mainImage .
+                     ?mainImage vitropublic:thumbnailImage ?thumbnail .
+                     ?thumbnail vitropublic:downloadLocation ?downloadLocation .
+                  }
+                  OPTIONAL { ?personUri vitro:moniker ?moniker }
                 }
-                OPTIONAL { ?personUri vitro:moniker ?moniker }
+                LET (?image := str(?downloadLocation))
                 FILTER (!regex(?moniker, "emeritus", "i"))
                } ORDER BY ?personLabel
                LIMIT 1000
