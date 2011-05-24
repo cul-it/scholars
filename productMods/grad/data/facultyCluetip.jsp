@@ -27,15 +27,23 @@
               PREFIX core: <http://vivoweb.org/ontology/core#>
               SELECT DISTINCT ?personLabel ?areaUri ?areaLabel ?image ?moniker
               WHERE {
-                ?personUri rdfs:label ?personLabel .
-                OPTIONAL { ?personUri core:hasResearchArea ?areaUri . ?areaUri rdfs:label ?areaLabel }
+                SERVICE <http://sisler.mannlib.cornell.edu:8081/openrdf-sesame/repositories/courses2> {
+                  ?personUri rdfs:label ?personLabel .
+                  OPTIONAL { ?personUri core:hasResearchArea ?areaUri . ?areaUri rdfs:label ?areaLabel }
+                }
                 OPTIONAL {
-                   ?personUri vitropublic:mainImage ?mainImage .
-                   ?mainImage vitropublic:thumbnailImage ?thumbnail .
-                   ?thumbnail vitropublic:downloadLocation ?downloadLocation .
+                   SERVICE <http://sisler.mannlib.cornell.edu:8081/openrdf-sesame/repositories/courses2> {
+                     ?personUri vitropublic:mainImage ?mainImage .
+                     ?mainImage vitropublic:thumbnailImage ?thumbnail .
+                     ?thumbnail vitropublic:downloadLocation ?downloadLocation .
+                   }
                    LET (?image := str(?downloadLocation))
                 }
-                OPTIONAL { ?personUri vitro:moniker ?moniker }
+                OPTIONAL {
+                  SERVICE <http://sisler.mannlib.cornell.edu:8081/openrdf-sesame/repositories/courses2> {
+                    ?personUri vitro:moniker ?moniker 
+                  }
+                }
               } ORDER BY ?areaLabel
               LIMIT 1000
             </listsparql:select>

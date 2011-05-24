@@ -34,9 +34,11 @@
               PREFIX core: <http://vivoweb.org/ontology/core#>
               SELECT DISTINCT ?fieldUri ?fieldLabel
               WHERE {
-                ?group vivo:hasAssociated ?fieldUri .
-                ?fieldUri vivo:hasFieldMember ?person .
-                OPTIONAL { ?fieldUri rdfs:label ?fieldLabel }
+                SERVICE <http://sisler.mannlib.cornell.edu:8081/openrdf-sesame/repositories/courses2> {
+                  ?group vivo:hasAssociated ?fieldUri .
+                  ?fieldUri vivo:hasFieldMember ?person .
+                  OPTIONAL { ?fieldUri rdfs:label ?fieldLabel }
+                }
               } ORDER BY ?fieldLabel
               LIMIT 100
             </listsparql:select>
@@ -57,10 +59,12 @@
               PREFIX core: <http://vivoweb.org/ontology/core#>
               SELECT DISTINCT ?fieldUri ?fieldLabel
               WHERE {
-                ?group rdf:type vivo:fieldCluster .
-                ?group vivo:hasAssociated ?fieldUri .
-                ?fieldUri vivo:hasFieldMember ?person .
-                OPTIONAL { ?fieldUri rdfs:label ?fieldLabel }
+                SERVICE <http://sisler.mannlib.cornell.edu:8081/openrdf-sesame/repositories/courses2> {
+                  ?group rdf:type vivo:fieldCluster .
+                  ?group vivo:hasAssociated ?fieldUri .
+                  ?fieldUri vivo:hasFieldMember ?person .
+                  OPTIONAL { ?fieldUri rdfs:label ?fieldLabel }
+                }
               } ORDER BY ?fieldLabel
               LIMIT 100
             </listsparql:select>

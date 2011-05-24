@@ -15,14 +15,16 @@
           PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
           PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
           PREFIX core: <http://vivoweb.org/ontology/core#>
-          SELECT DISTINCT ?areaUri ?areaLabel
+          SELECT DISTINCT ?areaUri ?areaLabel 
           WHERE {
+                SERVICE <http://sisler.mannlib.cornell.edu:8081/openrdf-sesame/repositories/courses2> {
                   ?group rdf:type vivo:fieldCluster .
                   ?group vivo:hasAssociated ?field .
                   ?field vivo:hasFieldMember ?personUri .
                   ?personUri core:hasResearchArea ?areaUri .
                   ?areaUri rdfs:label ?areaLabelRaw .
-                  LET (?areaLabel := str(?areaLabelRaw))
+                }
+                LET (?areaLabel := str(?areaLabelRaw))
               } ORDER BY fn:lower-case(?areaLabel)
           LIMIT 1000
         </listsparql:select>
@@ -51,11 +53,13 @@
           PREFIX core: <http://vivoweb.org/ontology/core#>
           SELECT DISTINCT ?areaUri ?areaLabel
           WHERE {
-                  ?group rdf:type vivo:fieldCluster .
-                  ?group vivo:hasAssociated ?field .
-                  ?field vivo:hasFieldMember ?personUri .
-                  ?personUri core:hasResearchArea ?areaUri .
-                  ?areaUri rdfs:label ?areaLabelRaw .
+                  SERVICE <http://sisler.mannlib.cornell.edu:8081/openrdf-sesame/repositories/courses2> {
+                    ?group rdf:type vivo:fieldCluster .
+                    ?group vivo:hasAssociated ?field .
+                    ?field vivo:hasFieldMember ?personUri .
+                    ?personUri core:hasResearchArea ?areaUri .
+                    ?areaUri rdfs:label ?areaLabelRaw .
+                  }
                   LET (?areaLabel := str(?areaLabelRaw))
               } ORDER BY fn:lower-case(?areaLabel)
           LIMIT 1000
@@ -79,8 +83,10 @@
           PREFIX core: <http://vivoweb.org/ontology/core#>
           SELECT DISTINCT ?areaUri ?areaLabel
           WHERE {
+            SERVICE <http://sisler.mannlib.cornell.edu:8081/openrdf-sesame/repositories/courses2> {
               ?facultyUri core:hasResearchArea ?areaUri .
               ?areaUri rdfs:label ?areaLabel .
+            }
           } ORDER BY ?areaLabel
           LIMIT 200
         </listsparql:select>
@@ -104,10 +110,12 @@
           PREFIX core: <http://vivoweb.org/ontology/core#>
           SELECT DISTINCT ?areaUri ?areaLabel
           WHERE {
-              ?fieldUri vivo:hasFieldMember ?facultyUri .
-              ?facultyUri core:hasResearchArea ?areaUri .
-              ?areaUri rdfs:label ?areaLabelRaw .
-              OPTIONAL { ?facultyUri vitro:moniker ?moniker }
+              SERVICE <http://sisler.mannlib.cornell.edu:8081/openrdf-sesame/repositories/courses2> {
+                ?fieldUri vivo:hasFieldMember ?facultyUri .
+                ?facultyUri core:hasResearchArea ?areaUri .
+                ?areaUri rdfs:label ?areaLabelRaw .
+                OPTIONAL { ?facultyUri vitro:moniker ?moniker }
+              }
               LET (?areaLabel := str(?areaLabelRaw))
               FILTER (!regex(?moniker, "emeritus", "i"))
               } ORDER BY fn:lower-case(?areaLabel)
@@ -132,10 +140,12 @@
           PREFIX core: <http://vivoweb.org/ontology/core#>
           SELECT ?areaLabel ?areaUri ?facultyLabel ?facultyUri
           WHERE {
-              ?fieldUri vivo:hasFieldMember ?facultyUri .
-              ?facultyUri core:hasResearchArea ?areaUri .
-              ?areaUri rdfs:label ?areaLabel .
-              OPTIONAL { ?facultyUri rdfs:label ?facultyLabel }
+              SERVICE <http://sisler.mannlib.cornell.edu:8081/openrdf-sesame/repositories/courses2> {
+                ?fieldUri vivo:hasFieldMember ?facultyUri .
+                ?facultyUri core:hasResearchArea ?areaUri .
+                ?areaUri rdfs:label ?areaLabel .
+                OPTIONAL { ?facultyUri rdfs:label ?facultyLabel }
+              }
           } ORDER BY ?areaLabel ?facultyLabel
           LIMIT 2000
         </listsparql:select>

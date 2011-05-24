@@ -9,8 +9,12 @@
   <listsparql:select model="${applicationScope.jenaOntModel}" var="rs" uri="<${param.uri}>">
     PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
     SELECT ?label
-    WHERE { ?uri rdfs:label ?label }
-    LIMIT 1
+    WHERE { 
+        # SERVICE <http://sisler.mannlib.cornell.edu:8081/openrdf-sesame/repositories/courses2> { 
+            ?uri rdfs:label ?label  
+        # }
+    }
+    LIMIT `1
   </listsparql:select>
 </sparql:sparql>
 </sparql:lock>

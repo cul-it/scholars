@@ -40,11 +40,13 @@
       PREFIX core: <http://vivoweb.org/ontology/core#>
       SELECT DISTINCT ?areaUri ?areaLabel
       WHERE {
-        ?group rdf:type vivo:fieldCluster .
-        ?group vivo:hasAssociated ?field .
-        ?field vivo:hasFieldMember ?personUri .
-        ?personUri core:hasResearchArea ?areaUri .
-        ?areaUri rdfs:label ?areaLabelRaw .
+        SERVICE <http://sisler.mannlib.cornell.edu:8081/openrdf-sesame/repositories/courses2> {
+          ?group rdf:type vivo:fieldCluster .
+          ?group vivo:hasAssociated ?field .
+          ?field vivo:hasFieldMember ?personUri .
+          ?personUri core:hasResearchArea ?areaUri .
+          ?areaUri rdfs:label ?areaLabelRaw .
+        }
       LET (?areaLabel := str(?areaLabelRaw))
       } ORDER BY fn:lower-case(?areaLabel)
       LIMIT 1000

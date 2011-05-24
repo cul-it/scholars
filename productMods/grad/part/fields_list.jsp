@@ -16,10 +16,12 @@
           PREFIX core: <http://vivoweb.org/ontology/core#>
           SELECT DISTINCT ?field ?fieldLabel ?groupLabel
           WHERE {
-            ?group vivo:hasAssociated ?field .
-            ?field vivo:hasFieldMember ?person .
-            OPTIONAL { ?field rdfs:label ?fieldLabel }
-            OPTIONAL { ?group rdfs:label ?groupLabel }
+            SERVICE <http://sisler.mannlib.cornell.edu:8081/openrdf-sesame/repositories/courses2> {
+              ?group vivo:hasAssociated ?field .
+              ?field vivo:hasFieldMember ?person .
+              OPTIONAL { ?field rdfs:label ?fieldLabel }
+              OPTIONAL { ?group rdfs:label ?groupLabel }
+            }
           } ORDER BY ?fieldLabel
           LIMIT 100
         </sparql:select>
@@ -43,12 +45,14 @@
           PREFIX core: <http://vivoweb.org/ontology/core#>
           SELECT DISTINCT ?fieldUri ?fieldLabel
           WHERE {
-            ?dept vivo:hasEmployeeAcademicFacultyMember ?personUri .
-            ?personUri vivo:memberOfGraduateField ?fieldUri .
-            ?fieldUri rdf:type vivo:GraduateField ;
-              rdfs:label ?fieldLabel ;
-              vivo:associatedWith ?grouping .
-            ?grouping rdf:type vivo:fieldCluster
+            SERVICE <http://sisler.mannlib.cornell.edu:8081/openrdf-sesame/repositories/courses2> {
+              ?dept vivo:hasEmployeeAcademicFacultyMember ?personUri .
+              ?personUri vivo:memberOfGraduateField ?fieldUri .
+              ?fieldUri rdf:type vivo:GraduateField ;
+                rdfs:label ?fieldLabel ;
+                vivo:associatedWith ?grouping .
+              ?grouping rdf:type vivo:fieldCluster
+            }
           } ORDER BY ?fieldLabel
           LIMIT 100
         </listsparql:select>
@@ -75,11 +79,13 @@
           PREFIX core: <http://vivoweb.org/ontology/core#>
           SELECT DISTINCT ?fieldUri ?fieldLabel
           WHERE {
-            ?facultyUri vivo:memberOfGraduateField ?fieldUri .
-            ?fieldUri rdf:type vivo:GraduateField ;
-              rdfs:label ?fieldLabel ;
-              vivo:associatedWith ?grouping .
-            ?grouping rdf:type vivo:fieldCluster .
+            SERVICE <http://sisler.mannlib.cornell.edu:8081/openrdf-sesame/repositories/courses2> {
+              ?facultyUri vivo:memberOfGraduateField ?fieldUri .
+              ?fieldUri rdf:type vivo:GraduateField ;
+                rdfs:label ?fieldLabel ;
+                vivo:associatedWith ?grouping .
+              ?grouping rdf:type vivo:fieldCluster .
+            }
           } ORDER BY ?fieldLabel
           LIMIT 100
         </listsparql:select>
@@ -105,11 +111,13 @@
           PREFIX core: <http://vivoweb.org/ontology/core#>
           SELECT DISTINCT ?field ?fieldLabel
           WHERE {
-            ?group rdf:type vivo:fieldCluster .
-            ?group vivo:hasAssociated ?field .
-            ?field vivo:hasFieldMember ?person .
-            OPTIONAL { ?field rdfs:label ?fieldLabel }
-            OPTIONAL { ?group rdfs:label ?groupLabel }
+              SERVICE <http://sisler.mannlib.cornell.edu:8081/openrdf-sesame/repositories/courses2> {
+              ?group rdf:type vivo:fieldCluster .
+              ?group vivo:hasAssociated ?field .
+              ?field vivo:hasFieldMember ?person .
+              OPTIONAL { ?field rdfs:label ?fieldLabel }
+              OPTIONAL { ?group rdfs:label ?groupLabel }
+            }
           } ORDER BY ?fieldLabel
           LIMIT 100
         </listsparql:select>

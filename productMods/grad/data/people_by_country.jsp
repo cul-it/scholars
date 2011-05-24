@@ -15,12 +15,14 @@
              PREFIX core: <http://vivoweb.org/ontology/core#>
              SELECT DISTINCT ?countryUri ?name ?personUri ?personLabel ?image ?moniker ?deptLabel
              WHERE {
-              ?countryUri rdf:type core:Country .
-              ?countryUri rdfs:label ?name .
-              ?countryUri vivo:internationalResearchAreaFor ?personUri .
-              ?personUri rdfs:label ?personLabel .
-              OPTIONAL { ?personUri vitro:imageThumb ?image }
-              OPTIONAL { ?personUri vitro:moniker ?moniker }
+               SERVICE <http://sisler.mannlib.cornell.edu:8081/openrdf-sesame/repositories/courses2> {
+                 ?countryUri rdf:type core:Country .
+                 ?countryUri rdfs:label ?name .
+                 ?countryUri vivo:internationalResearchAreaFor ?personUri .
+                 ?personUri rdfs:label ?personLabel .
+                 OPTIONAL { ?personUri vitro:imageThumb ?image }
+                 OPTIONAL { ?personUri vitro:moniker ?moniker }
+               }
              }
               ORDER BY ?personLabel
               LIMIT 1000
