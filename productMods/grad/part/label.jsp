@@ -14,7 +14,7 @@
             ?uri rdfs:label ?label  
         # }
     }
-    LIMIT `1
+    LIMIT 1
   </listsparql:select>
 </sparql:sparql>
 </sparql:lock>
