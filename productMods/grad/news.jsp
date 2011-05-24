@@ -32,22 +32,23 @@
                      PREFIX core: <http://vivoweb.org/ontology/core#>
                      SELECT DISTINCT ?news ?newsLabel ?blurb ?sourceLink ?newsThumb ?moniker ?sunrise
                      WHERE {
-                      ?group rdf:type vivo:fieldCluster .
-                      ?group vivo:hasAssociated ?field .
-                      ?field vivo:hasFieldMember ?person .
+                      SERVICE <http://sisler.mannlib.cornell.edu:8081/openrdf-sesame/repositories/courses2> {
+                        ?group rdf:type vivo:fieldCluster .
+                        ?group vivo:hasAssociated ?field .
+                        ?field vivo:hasFieldMember ?person .
 
-                      ?news
-                        vivo:featuresPerson2 ?person ;
-                        vitro:sunrise ?sunrise ;
-                        vitro:primaryLink ?link ;
-                        vitro:blurb ?blurb ;
-                        rdfs:label ?newsLabel .
+                        ?news
+                          vivo:featuresPerson2 ?person ;
+                          vitro:sunrise ?sunrise ;
+                          vitro:primaryLink ?link ;
+                          vitro:blurb ?blurb ;
+                          rdfs:label ?newsLabel .
 
-                      ?link vitro:linkURL ?sourceLink .
+                        ?link vitro:linkURL ?sourceLink .
 
-                      OPTIONAL { ?news vitro:imageThumb ?newsThumb }
-                      OPTIONAL { ?news vitro:moniker ?moniker }
-
+                        OPTIONAL { ?news vitro:imageThumb ?newsThumb }
+                        OPTIONAL { ?news vitro:moniker ?moniker }
+                      }
                      FILTER( xsd:dateTime(?now) > ?sunrise )
                      }
                      ORDER BY DESC(?sunrise)

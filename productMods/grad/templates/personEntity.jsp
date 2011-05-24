@@ -18,25 +18,27 @@
           PREFIX core: <http://vivoweb.org/ontology/core#>
           SELECT DISTINCT ?personLabel ?prefName ?moniker ?overviewStatement ?researchFocus ?background ?publications ?image ?cornellEmail ?otherEmail ?netid ?primaryLinkAnchor ?primaryLinkURL ?otherLinkAnchor ?otherLinkURL
           WHERE {
-            ?personUri rdfs:label ?personLabel .
-            OPTIONAL { ?personUri core:overview ?overviewStatement }
-            OPTIONAL { ?personUri core:hasResearcherRole ?researchActivity .
-                           ?researchActivity core:description ?researchFocus .}
-            OPTIONAL { ?personUri vivo:educationalBackground ?background }
-            OPTIONAL { ?personUri vivo:publications ?publications }
-            OPTIONAL {
-               ?personUri vitropublic:mainImage ?mainImage .
-               ?mainImage vitropublic:thumbnailImage ?thumbnail .
-               ?thumbnail vitropublic:downloadLocation ?downloadLocation .
-               LET (?image := str(?downloadLocation))
+            SERVICE <http://sisler.mannlib.cornell.edu:8081/openrdf-sesame/repositories/courses2> {
+              ?personUri rdfs:label ?personLabel .
+              OPTIONAL { ?personUri core:overview ?overviewStatement }
+              OPTIONAL { ?personUri core:hasResearcherRole ?researchActivity .
+                             ?researchActivity core:description ?researchFocus .}
+              OPTIONAL { ?personUri vivo:educationalBackground ?background }
+              OPTIONAL { ?personUri vivo:publications ?publications }
+              OPTIONAL {
+                   ?personUri vitropublic:mainImage ?mainImage .
+                   ?mainImage vitropublic:thumbnailImage ?thumbnail .
+                   ?thumbnail vitropublic:downloadLocation ?downloadLocation .
+              }
+              OPTIONAL { ?personUri vitro:moniker ?moniker }
+              OPTIONAL { ?personUri vitro:primaryLink ?primaryLink. ?primaryLink vitro:linkAnchor ?primaryLinkAnchor . ?primaryLink vitro:linkURL ?primaryLinkURL }
+              OPTIONAL { ?personUri vitro:additionalLink ?otherLink . ?otherLink vitro:linkAnchor ?otherLinkAnchor . ?otherLink vitro:linkURL ?otherLinkURL }
+              OPTIONAL { ?personUri vivo:CornellemailnetId ?cornellEmail }
+              OPTIONAL { ?personUri vivo:nonCornellemail ?otherEmail }
+              OPTIONAL { ?personUri hr:PrefName ?prefName }
+              OPTIONAL { ?personUri hr:netId ?netid }
             }
-            OPTIONAL { ?personUri vitro:moniker ?moniker }
-            OPTIONAL { ?personUri vitro:primaryLink ?primaryLink. ?primaryLink vitro:linkAnchor ?primaryLinkAnchor . ?primaryLink vitro:linkURL ?primaryLinkURL }
-            OPTIONAL { ?personUri vitro:additionalLink ?otherLink . ?otherLink vitro:linkAnchor ?otherLinkAnchor . ?otherLink vitro:linkURL ?otherLinkURL }
-            OPTIONAL { ?personUri vivo:CornellemailnetId ?cornellEmail }
-            OPTIONAL { ?personUri vivo:nonCornellemail ?otherEmail }
-            OPTIONAL { ?personUri hr:PrefName ?prefName }
-            OPTIONAL { ?personUri hr:netId ?netid }
+            LET (?image := str(?downloadLocation))
           }
           LIMIT 50
     </listsparql:select>
@@ -47,8 +49,10 @@
           PREFIX core: <http://vivoweb.org/ontology/core#>
           SELECT DISTINCT ?grantLabel ?grantUri 
           WHERE {
-            ?personUri core:principalInvestigatorOn ?grantUri .
-            ?grantUri rdfs:label ?grantLabel .
+            SERVICE <http://sisler.mannlib.cornell.edu:8081/openrdf-sesame/repositories/courses2> {
+              ?personUri core:principalInvestigatorOn ?grantUri .
+              ?grantUri rdfs:label ?grantLabel .
+            }
           }
           LIMIT 50
     </listsparql:select>
@@ -60,10 +64,12 @@
           PREFIX core: <http://vivoweb.org/ontology/core#>
           SELECT DISTINCT ?pubUri ?pubLabel ?pubLinkAnchor ?pubLinkURL
           WHERE {
-            ?personUri core:authorInAuthorship ?authorship .
-                  ?authorship core:linkedInformationResource ?pubUri .
-            ?pubUri rdfs:label ?pubLabel .
-            OPTIONAL { ?pubUri vitro:additionalLink ?pubLink . ?pubLink vitro:linkURL ?pubLinkURL . ?pubLink vitro:linkAnchor ?pubLinkAnchor }
+            SERVICE <http://sisler.mannlib.cornell.edu:8081/openrdf-sesame/repositories/courses2> {
+              ?personUri core:authorInAuthorship ?authorship .
+                    ?authorship core:linkedInformationResource ?pubUri .
+              ?pubUri rdfs:label ?pubLabel .
+              OPTIONAL { ?pubUri vitro:additionalLink ?pubLink . ?pubLink vitro:linkURL ?pubLinkURL . ?pubLink vitro:linkAnchor ?pubLinkAnchor }
+            }
           }
           LIMIT 50
     </listsparql:select>

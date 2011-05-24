@@ -15,12 +15,14 @@
       PREFIX core: <http://vivoweb.org/ontology/core#>
       SELECT DISTINCT ?deptLabel ?description ?primaryLinkAnchor ?primaryLinkURL ?deptHeadLabel ?deptHeadUri ?campus
       WHERE {
-        ?dept rdfs:label ?deptLabel ;
-          rdf:type core:AcademicDepartment .
-        OPTIONAL { ?dept core:description ?description }
-        OPTIONAL { ?dept vitro:primaryLink ?primaryLink. ?primaryLink vitro:linkAnchor ?primaryLinkAnchor . ?primaryLink vitro:linkURL ?primaryLinkURL }
-        OPTIONAL { ?dept vivo:cornellOrganizedEndeavorHasLeadParticipantPerson ?deptHeadUri . ?deptHeadUri rdfs:label ?deptHeadLabel }
-        OPTIONAL { ?dept vivo:locatedOnCampus ?campusUri . ?campusUri rdfs:label ?campus }
+        SERVICE <http://sisler.mannlib.cornell.edu:8081/openrdf-sesame/repositories/courses2> {
+          ?dept rdfs:label ?deptLabel ;
+            rdf:type core:AcademicDepartment .
+          OPTIONAL { ?dept core:description ?description }
+          OPTIONAL { ?dept vitro:primaryLink ?primaryLink. ?primaryLink vitro:linkAnchor ?primaryLinkAnchor . ?primaryLink vitro:linkURL ?primaryLinkURL }
+          OPTIONAL { ?dept vivo:cornellOrganizedEndeavorHasLeadParticipantPerson ?deptHeadUri . ?deptHeadUri rdfs:label ?deptHeadLabel }
+          OPTIONAL { ?dept vivo:locatedOnCampus ?campusUri . ?campusUri rdfs:label ?campus }
+        }
       }
       LIMIT 20
     </listsparql:select>
