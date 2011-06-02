@@ -47,12 +47,12 @@
  
 %>
 
+<%@taglib prefix="vitro" uri="/WEB-INF/tlds/VitroUtils.tld" %>
+<%@page import="edu.cornell.mannlib.vitro.webapp.auth.requestedAction.usepages.UseMiscellaneousCuratorPages" %>
+<% request.setAttribute("requestedActions", new UseMiscellaneousCuratorPages()); %>
+<vitro:confirmAuthorization />
+
 <%
-
-	if(session == null || !LoginFormBean.loggedIn(request, LoginFormBean.CURATOR)) {
-	    %><c:redirect url="/about"></c:redirect><%
-	}
-
     VitroRequest vreq = new VitroRequest(request);
 
     //WebappDaoFactory wadf = vreq.getWebappDaoFactory();    fitering == very SLOOOOOW

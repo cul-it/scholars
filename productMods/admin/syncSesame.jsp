@@ -14,6 +14,10 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
 
+<%@taglib prefix="vitro" uri="/WEB-INF/tlds/VitroUtils.tld" %>
+<%@page import="edu.cornell.mannlib.vitro.webapp.auth.requestedAction.usepages.UseMiscellaneousAdminPages" %>
+<% request.setAttribute("requestedActions", new UseMiscellaneousAdminPages()); %>
+<vitro:confirmAuthorization />
 
 <%!
 
@@ -32,13 +36,6 @@
 %>
 
 <%
-
-	if(false && (session == null || !LoginFormBean.loggedIn(request, LoginFormBean.DBA))) {
-	    %>
-        <c:redirect url="<%= Controllers.LOGIN %>" />
-        <%
-	}
-
     long startTime = System.currentTimeMillis();
 
     Properties sesameProperties = new Properties();

@@ -15,9 +15,13 @@
 <%! 
 public static Log log = LogFactory.getLog("edu.cornell.mannlib.vitro.webapp.jsp.admin.auditSelfEditingAgents.jsp");
 %>
-<%  if(session == null || !LoginFormBean.loggedIn(request, LoginFormBean.CURATOR)) {
-        %><c:redirect url="/about"></c:redirect><%
-    }
+
+<%@taglib prefix="vitro" uri="/WEB-INF/tlds/VitroUtils.tld" %>
+<%@page import="edu.cornell.mannlib.vitro.webapp.auth.requestedAction.usepages.UseMiscellaneousCuratorPages" %>
+<% request.setAttribute("requestedActions", new UseMiscellaneousCuratorPages()); %>
+<vitro:confirmAuthorization />
+
+<%
 	Model auditModel = (Model)getServletContext().getAttribute("jenaAuditModel");
     Model mainModel = (Model)getServletContext().getAttribute("jenaOntModel");
     OntModel combinedModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_DL_MEM);
