@@ -17,6 +17,6 @@ PREFIX acti: <http://vivoweb.org/ontology/activity-insight#>
 
 SELECT ?cause
 WHERE {
-     ?individualURI acti:aiUser ?cause.
+     ?individualURI acti:ActivityInsightReporter ?cause.
 }
 limit 1
