@@ -78,20 +78,24 @@
                     <#-- Label -->
                     <@p.label individual editable />
                         
-                    <#-- Moniker / Preferred Title -->
-                    <#-- Use Preferred Title over Moniker if it is populated -->
-                    <#assign title = (propertyGroups.getProperty("${core}preferredTitle").firstValue)! />
-                    <#if ! title?has_content>
-                        <#assign title = individual.moniker>
+                    <#--  Display preferredTitle if it exists; otherwise mostSpecificTypes -->
+                    <#assign title = propertyGroups.pullProperty("${core}preferredTitle")!>
+                    <#if title?has_content> <#-- true when the property is in the list, even if not populated (when editing) -->
+                        <@p.addLinkWithLabel title editable />
+                        <#list title.statements as statement>
+                            <span class="display-title">${statement.value}</span>
+                            <@p.editingLinks "${title.name}" statement editable />
+                        </#list>
                     </#if>
-                    <#if title?has_content>
-                        <span class="preferred-title">${title}</span>
-                    </#if>
+                    <#-- If preferredTitle is unpopulated, display mostSpecificTypes -->
+                    <#if ! (title.statements)?has_content>
+                        <@p.mostSpecificTypes individual />
+                    </#if>  
                 </h1>
             </#if>
                
             <#-- Positions -->
-            <#assign positions = propertyGroups.getPropertyAndRemoveFromList("${core}personInPosition")!>
+            <#assign positions = propertyGroups.pullProperty("${core}personInPosition")!>
             <#if positions?has_content> <#-- true when the property is in the list, even if not populated (when editing) -->
                 <@p.objectPropertyListing positions editable />
             </#if> 
@@ -101,7 +105,7 @@
         <#include "individual-overview.ftl">
         
         <#-- Research Areas -->
-        <#assign researchAreas = propertyGroups.getPropertyAndRemoveFromList("${core}hasResearchArea")!> 
+        <#assign researchAreas = propertyGroups.pullProperty("${core}hasResearchArea")!> 
         <#if researchAreas?has_content> <#-- true when the property is in the list, even if not populated (when editing) -->
             <@p.objectPropertyListing researchAreas editable />
         </#if>   
