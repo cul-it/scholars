@@ -1,19 +1,19 @@
 <p>
-Thank you for your interest in VIVO, 
-a resource provided by Cornell University Libraries to help individuals 
-connect to research activities and people at Cornell.
+Thank you for your interest in updating your information presented in VIVO. 
+</p>
+Faculty who submit information through Activity Insight annual reporting 
+may not edit their profile information directly in VIVO to prevent over-writing 
+of information imported from Activity Insight.  This was done as a result of 
+preferences expressed by faculty campus wide for a "single point of entry."
 </p>
 <p>
-Our records indicate you are an Activity Insight user. 
-Activity Insight faculty and staff may not edit their profile information directly in VIVO. 
-For help editing your Activity Insight information, 
-please contact your college's Activity Insight coordinator. 
-If you wish to have urgent changes to your VIVO profile or provide feedback, 
-please send the VIVO team a message via the <a href="contact">Contact Form</a>.
+VIVO profiles are updated incrementally from Activity Insight on a weekly 
+basis based on your choice of "yes"" on the public flag question on each record.  
+If you want data in a particular record to be updated into VIVO, please enter it 
+via Activity Insight and mark the public flag "yes." 
 </p>
 <p>
-VIVO profiles are updated incrementally from Activity Insight on a weekly basis. 
-In addition to Activity Insight, 
-we pull data from the other university data sources such as the Office of Human Resources, 
-the Office of Sponsored Programs, and the University Registrar. 
+You may contact the VIVO team for an urgent change to your profile via the 
+<a href="contact">Contact Form</a>.  If you have questions regarding Activity 
+Insight, please contact your college's Activity Insight administrator. 
 </p>
