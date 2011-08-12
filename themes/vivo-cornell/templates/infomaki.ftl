@@ -1,7 +1,7 @@
 <#-- $This file is distributed under the terms of the license in /doc/license.txt$ -->
 
 <!-- BEGIN div elements for special usability testing slide out panel -->
-${scripts.add("/js/SOTCAnimator.js")}
+${scripts.add('<script type="text/javascript" src="${urls.base}/js/SOTCAnimator.js"></script>')}
 
 <div id="panelContainer" class="panelContainer">
   <div id="panelHeader" onclick="slideDiagonally('hiddenPanel', this, 'panelContainer');" onmouseover="this.style.cursor='pointer'">

@@ -1125,10 +1125,7 @@ ul#browse-classes .count-classes {
 }
 /* ALPHA BROWSE------>  */
 ul#alpha-browse-individuals {
-    border: 1px solid #dde4e3;
     background-color: #fff;
-    border-left: 1px solid #dde4e3;
-    border-bottom: none;
 }
 ul#alpha-browse-individuals li {
     font-size: .8em;
@@ -1139,10 +1136,10 @@ ul#alpha-browse-individuals a {
 }
 ul#alpha-browse-individuals a:hover {
     background: url(../images/arrowSmall.gif) -3px 7px no-repeat;
-    color: #1483a4;
+    color: #2ea0cf;
 }
 ul#alpha-browse-individuals a.selected {
-    color: #1483a4;
+    color: #2ea0cf;
     background: url(../images/arrowSmall.gif) -3px 7px no-repeat;
     margin-right: 3px;
     margin-left: 5px;

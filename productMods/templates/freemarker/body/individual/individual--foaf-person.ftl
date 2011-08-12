@@ -3,6 +3,7 @@
 <#-- Individual profile page template for foaf:Person individuals -->
 
 <#include "individual-setup.ftl">
+<#import "lib-vivo-properties.ftl" as vp>
     
 <section id="individual-intro" class="vcard person" role="region">
 
@@ -44,7 +45,7 @@
         </nav>
                   
         <#-- Links -->  
-        <@p.vitroLinks propertyGroups namespaces editable "individual-urls-people" />
+        <@vp.webpages propertyGroups editable "individual-urls-people" />
     </section>
 
     <section id="individual-info" ${infoClass!} role="region">

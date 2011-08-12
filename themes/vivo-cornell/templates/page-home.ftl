@@ -25,17 +25,9 @@
                     
                     <fieldset>
                         <legend>Search form</legend>
-                        <form id="search-home-vivo" action="${urls.search}" method="post" name="search-home" role="search">
-                            <#if user.showFlag1SearchField>
-                                <select id="search-form-modifier" name="flag1" class="form-item" >
-                                    <option value="nofiltering" selected="selected">entire database (${user.loginName})</option>
-                                    <option value="${portalId}">${siteTagline!}</option>
-                                </select>
-                            <#else>
-                                <input type="hidden" name="flag1" value="${portalId}" />
-                           </#if> 
-                            <div id="search-home-field">
-                                <input type="text" name="querytext" class="search-home-vivo" value="${querytext!}" />
+                        <form id="search-form" action="${urls.search}" name="search" role="search"> 
+                            <div id="search-field">
+                                <input type="text" name="querytext" class="search-vivo" value="${querytext!}" autocapitalize="off" />
                                 <input type="submit" value="Search" class="search">
                             </div>
                         </form>
