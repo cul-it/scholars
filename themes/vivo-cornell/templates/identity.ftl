@@ -52,3 +52,4 @@
         </fieldset>
     </section>
 </header>
+<#include "infomaki.ftl">
