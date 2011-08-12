@@ -10,13 +10,22 @@
 
 # vivo:individual1 is Mann library
 
-
 PREFIX vivo:   <http://vivo.cornell.edu/individual/>
 PREFIX hrdata: <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#>
 PREFIX acti: <http://vivoweb.org/ontology/activity-insight#>
 
 SELECT ?cause
 WHERE {
-     ?individualURI acti:aiUser ?cause.
+     ?individualURI a ?cause .
+    filter ( sameTerm( ?cause, acti:ActivityInsightReporter ) )
 }
-limit 1
+ 
+#IX vivo:   <http://vivo.cornell.edu/individual/>
+#PREFIX hrdata: <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#>
+#PREFIX acti: <http://vivoweb.org/ontology/activity-insight#>
+
+#SELECT ?cause
+#WHERE {
+#     ?individualURI acti:ActivityInsightReporter ?cause.
+#}
+#limit 1

@@ -6,7 +6,6 @@ import static edu.cornell.mannlib.vitro.webapp.controller.authenticate.LoginExte
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
@@ -115,9 +114,7 @@ public class LoginExternalAuthReturn extends BaseLoginServlet {
 
 	private String getBlacklistMessage(HttpServletRequest req, String black) {
 		try {
-			ServletContext context = req.getSession().getServletContext();
-			String realPath = context.getRealPath("/admin/selfEditBlacklist");
-			File messageFile = new File(realPath, "activityInsight.txt");
+			File messageFile = selectBlacklistFile(req, black);
 			InputStream stream = new FileInputStream(messageFile);
 			byte[] buffer = new byte[stream.available()];
 			stream.read(buffer);
@@ -126,6 +123,22 @@ public class LoginExternalAuthReturn extends BaseLoginServlet {
 			log.error(e, e);
 		}
 		return "A problem occurred while accessing your account.";
+	}
+
+	/**
+	 * Can we find a message file with a name that matches the blacklist code?
+	 * If not, use the default message file.
+	 */
+	private File selectBlacklistFile(HttpServletRequest req, String black) {
+		ServletContext context = req.getSession().getServletContext();
+		String realPath = context.getRealPath("/admin/selfEditBlacklist");
+		
+		File customFile = new File(realPath, "message_" + black + ".txt");
+		if (customFile.exists()) {
+			return customFile;
+		}
+		
+		return new File(realPath, "message_default.txt");
 	}
 
 	private void removeLoginProcessArtifacts(HttpServletRequest req) {
