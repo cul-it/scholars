@@ -14,10 +14,10 @@ ${scripts.add("/js/SOTCAnimator.js")}
     height:0px;
     top:0px;
 	left:649px;
-    background:#ffd;
+    background:#F4F3EB;
 	overflow:hidden;
 	border-style:solid;
-	border-color:#9db841;
+	border-color:#CED9D8;
 	border-width:0px;
  	border-bottom-left-radius: 15px;
 	border-top-left-radius: 15px;

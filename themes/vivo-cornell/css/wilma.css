@@ -711,6 +711,8 @@ p.password-note {
     background-color: #FFF9D7;
     padding: .5em;  
     margin-bottom: 10px;
+    margin-left:23px;
+    margin-right:23px;    
 }
 #welcome-message {
     border: 1px dotted #E2C822;
