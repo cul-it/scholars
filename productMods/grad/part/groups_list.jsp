@@ -14,10 +14,8 @@
              PREFIX core: <http://vivoweb.org/ontology/core#>
              SELECT ?groupUri ?groupLabel
              WHERE {
-              SERVICE <http://sisler.mannlib.cornell.edu:8081/openrdf-sesame/repositories/courses2> {
                 ?groupUri rdf:type vivo:fieldCluster
                 OPTIONAL { ?groupUri rdfs:label ?groupLabel }
-              }
              }
              ORDER BY ?groupLabel
              LIMIT 200

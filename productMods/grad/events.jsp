@@ -38,7 +38,6 @@
                 PREFIX core: <http://vivoweb.org/ontology/core#>
                 SELECT DISTINCT ?talkUri ?blurb ?label ?timekey ?hostname ?location ?person ?linkUrl
                 WHERE {
-                  SERVICE <http://sisler.mannlib.cornell.edu:8081/openrdf-sesame/repositories/courses2> {
                     ?talkUri
                     rdf:type vivo:LectureSeminarOrColloquium ;
                     rdf:type vitro:Flag1Value1Thing ;
@@ -65,7 +64,6 @@
                       ?talkUri vitro:primaryLink ?link . 
                       ?link vitro:linkURL ?linkUrl .
                     }
-                  }
                 FILTER( xsd:dateTime(?now) > ?sunrise && xsd:dateTime(?now) < ?timekey )
                 }
                 ORDER BY ?timekey
@@ -85,7 +83,6 @@
                   PREFIX core: <http://vivoweb.org/ontology/core#>
                   SELECT DISTINCT ?talkUri ?blurb ?label ?timekey ?hostname ?location ?person ?linkUrl
                   WHERE {
-                    SERVICE <http://sisler.mannlib.cornell.edu:8081/openrdf-sesame/repositories/courses2> {
                       ?talkUri
                       rdf:type vivo:LectureSeminarOrColloquium ;
                       rdf:type vitro:Flag1Value1Thing ;
@@ -112,7 +109,6 @@
                         ?talkUri vitro:primaryLink ?link . 
                         ?link vitro:linkURL ?linkUrl .
                       }
-                    }
                     FILTER( xsd:dateTime(?now) > ?timekey  && xsd:dateTime(?past) < ?timekey )
                   }
                   ORDER BY DESC(?timekey)

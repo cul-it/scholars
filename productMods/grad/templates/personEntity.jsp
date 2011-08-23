@@ -18,7 +18,6 @@
           PREFIX core: <http://vivoweb.org/ontology/core#>
           SELECT DISTINCT ?personLabel ?prefName ?moniker ?overviewStatement ?researchFocus ?background ?publications ?image ?cornellEmail ?otherEmail ?netid ?primaryLinkAnchor ?primaryLinkURL ?otherLinkAnchor ?otherLinkURL
           WHERE {
-            SERVICE <http://sisler.mannlib.cornell.edu:8081/openrdf-sesame/repositories/courses2> {
               ?personUri rdfs:label ?personLabel .
               OPTIONAL { ?personUri core:overview ?overviewStatement }
               OPTIONAL { ?personUri core:hasResearcherRole ?researchActivity .
@@ -37,7 +36,6 @@
               OPTIONAL { ?personUri vivo:nonCornellemail ?otherEmail }
               OPTIONAL { ?personUri hr:PrefName ?prefName }
               OPTIONAL { ?personUri hr:netId ?netid }
-            }
             LET (?image := str(?downloadLocation))
           }
           LIMIT 50
@@ -49,10 +47,8 @@
           PREFIX core: <http://vivoweb.org/ontology/core#>
           SELECT DISTINCT ?grantLabel ?grantUri 
           WHERE {
-            SERVICE <http://sisler.mannlib.cornell.edu:8081/openrdf-sesame/repositories/courses2> {
               ?personUri core:principalInvestigatorOn ?grantUri .
               ?grantUri rdfs:label ?grantLabel .
-            }
           }
           LIMIT 50
     </listsparql:select>
@@ -64,12 +60,10 @@
           PREFIX core: <http://vivoweb.org/ontology/core#>
           SELECT DISTINCT ?pubUri ?pubLabel ?pubLinkAnchor ?pubLinkURL
           WHERE {
-            SERVICE <http://sisler.mannlib.cornell.edu:8081/openrdf-sesame/repositories/courses2> {
               ?personUri core:authorInAuthorship ?authorship .
                     ?authorship core:linkedInformationResource ?pubUri .
               ?pubUri rdfs:label ?pubLabel .
               OPTIONAL { ?pubUri vitro:additionalLink ?pubLink . ?pubLink vitro:linkURL ?pubLinkURL . ?pubLink vitro:linkAnchor ?pubLinkAnchor }
-            }
           }
           LIMIT 50
     </listsparql:select>

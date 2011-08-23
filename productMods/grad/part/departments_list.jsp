@@ -13,14 +13,12 @@
             PREFIX core: <http://vivoweb.org/ontology/core#>
             SELECT DISTINCT ?deptUri ?deptLabel ?personUri
             WHERE {
-              SERVICE <http://sisler.mannlib.cornell.edu:8081/openrdf-sesame/repositories/courses2> {
                 ?fieldUri vivo:hasFieldMember ?personUri .
                 ?personUri core:personInPosition ?facultyPosition .
                       ?facultyPosition core:positionInOrganization ?deptUri .
                 OPTIONAL {?personUri rdfs:label ?personLabel}
                 ?deptUri rdf:type core:AcademicDepartment ;
                   rdfs:label ?deptLabel .
-              }
             } ORDER BY ?deptLabel ?personLabel
             LIMIT 1000
         </listsparql:select>
@@ -53,12 +51,10 @@
             PREFIX core: <http://vivoweb.org/ontology/core#>
             SELECT DISTINCT ?deptUri ?deptLabel
             WHERE {
-              SERVICE <http://sisler.mannlib.cornell.edu:8081/openrdf-sesame/repositories/courses2> {
                 ?personUri core:personInPosition ?facultyPosition .
                       ?facultyPosition core:positionInOrganization ?deptUri .
                 ?deptUri rdf:type core:AcademicDepartment ;
                   rdfs:label ?deptLabel .
-              }
             } ORDER BY ?deptLabel
             LIMIT 200
         </listsparql:select>

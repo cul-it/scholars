@@ -26,12 +26,10 @@
                     PREFIX core: <http://vivoweb.org/ontology/core#>
                     SELECT DISTINCT ?facGroup ?facGroupLabel
                     WHERE {
-                      SERVICE <http://sisler.mannlib.cornell.edu:8081/openrdf-sesame/repositories/courses2> {
                         ?facGroup vitro:subTabOf vivo:tab1441173947 . 
                         ?tabConnector vitro:involvesTab ?facGroup .
                         ?tabConnector vitro:involvesIndividual ?facility .
                         OPTIONAL { ?facGroup rdfs:label ?facGroupLabel }
-                      }
                     }
                     ORDER BY ?facGroupLabel
                     LIMIT 200

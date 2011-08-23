@@ -14,11 +14,9 @@
               PREFIX core: <http://vivoweb.org/ontology/core#>
               SELECT ?statement ?focus
               WHERE { 
-                SERVICE <http://sisler.mannlib.cornell.edu:8081/openrdf-sesame/repositories/courses2> {
                   { ?uri core:overview ?statement }
                   UNION { ?person core:hasResearcherRole ?researchActivity .
                                 ?researchActivity core:description ?focus }
-                }
               }
               LIMIT 1
           </listsparql:select>
@@ -51,9 +49,7 @@
             PREFIX core: <http://vivoweb.org/ontology/core#>
             SELECT ?description
             WHERE { 
-              SERVICE <http://sisler.mannlib.cornell.edu:8081/openrdf-sesame/repositories/courses2> { 
                 ?uri core:description ?description 
-              }
             }
             LIMIT 1
           </listsparql:select>
