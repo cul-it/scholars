@@ -16,6 +16,13 @@
 	     ====================================================================== -->
 <project name="vivoCornell" default="describe">
 
+	<!-- 
+		The build directory goes in the product directory. 
+		Everything else hangs from the build directory. 
+	-->
+	<property name="build.dir" location="./.build" />
+	<property name="appbase.dir" location="${build.dir}/appBase" />
+
 	<!--
 		Load the properties from deploy.properties.
 	-->
@@ -34,14 +41,19 @@
 	      message="${deploy.properties.file} must contain a value for nihvivo.dir" />
 
 	<!--
-		Now get the standard product-build file.
+		Base it all on the core build file. 
 	-->
-	<import file="${vitro.core.dir}/webapp/product-build.xml" />
+	<import file="${vitro.core.dir}/webapp/build.xml" />
+
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: prepare
+          
+          Override the core version, so we can merge the three levels before building.                      
+         - - - - - - - - - - - - - - - - - -->
+	<target name="prepare" depends="compileUtilities,product-prepare,vitroCore.prepare" />
 
 	<!-- - - - - - - - - - - - - - - - - - 
           target: product-prepare
-          
-          Merge the three levels before building.                      
          - - - - - - - - - - - - - - - - - -->
 	<target name="product-prepare">
 		<mkdir dir="${appbase.dir}" />
@@ -93,12 +105,10 @@
 		</copy>
 	</target>
 
-	<import file="${vivoProduct.basedir}/build.xml" />
-
 	<!-- ================================= 
 	      target: revisionInfo 
 	     
-	      We need to override the one from product-build, to get the 3-level effect.                      
+	      Override the core version, to get the 3-level effect.                      
 	     ================================= -->
 	<target name="revisionInfo"
 	        depends="vitroCore.revisionInfo"
