@@ -34,11 +34,6 @@
 	      message="${deploy.properties.file} must contain a value for nihvivo.dir" />
 
 	<!--
-		Override the default location for project modifications.
-	-->
-	<property name="product.modifications.dir" location="./productMods" />
-
-	<!--
 		Now get the standard product-build file.
 	-->
 	<import file="${vitro.core.dir}/webapp/product-build.xml" />
@@ -46,7 +41,7 @@
 	<!-- - - - - - - - - - - - - - - - - - 
           target: product-prepare
           
-          We need to override the one from product-build, to get the 3-level effect.                      
+          Merge the three levels before building.                      
          - - - - - - - - - - - - - - - - - -->
 	<target name="product-prepare">
 		<mkdir dir="${appbase.dir}" />
@@ -56,49 +51,44 @@
 			<dirDifference dir="${corebase.dir}/web">
 				<blockingPath>
 					<pathelement location="${nihvivo.dir}/productMods" />
-					<pathelement location="${product.modifications.dir}" />
+					<pathelement location="./productMods" />
 				</blockingPath>
 			</dirDifference>
 			<dirDifference dir="${nihvivo.dir}/productMods">
 				<blockingPath>
-					<pathelement location="${product.modifications.dir}" />
+					<pathelement location="./productMods" />
 				</blockingPath>
 			</dirDifference>
-			<fileset dir="${product.modifications.dir}" />
+			<fileset dir="./productMods" />
 		</copy>
+
+		<patternset id="appbase.patterns">
+			<include name="src/**/*" />
+			<include name="lib/**/*" />
+			<include name="test/**/*" />
+			<include name="themes/**/*" />
+			<include name="config/*.properties" />
+			<include name="config/solr/*" />
+			<include name="context.xml" />
+		</patternset>
 
 		<copy todir="${appbase.dir}" includeemptydirs="true">
 			<dirDifference dir="${corebase.dir}">
-				<include name="src/**/*" />
-				<include name="lib/**/*" />
-				<include name="test/**/*" />
-				<include name="themes/**/*" />
-				<include name="config/*.properties" />
-				<include name="config/solr/*" />
-				<include name="context.xml" />
+				<patternset refid="appbase.patterns" />
+				<exclude name="themes/**/*/" />
 				<blockingPath>
 					<pathelement location="${nihvivo.dir}" />
 					<pathelement location="." />
 				</blockingPath>
-				<exclude name="themes/**/*/" />
 			</dirDifference>
 			<dirDifference dir="${nihvivo.dir}">
-				<include name="src/**/*" />
-				<include name="lib/**/*" />
-				<include name="test/**/*" />
-				<include name="themes/**/*" />
-				<include name="config/*.properties" />
-				<include name="context.xml" />
+				<patternset refid="appbase.patterns" />
 				<blockingPath>
 					<pathelement location="." />
 				</blockingPath>
 			</dirDifference>
 			<fileset dir=".">
-				<include name="src/**/*" />
-				<include name="lib/**/*" />
-				<include name="test/**/*" />
-				<include name="themes/**/*" />
-				<include name="context.xml" />
+				<patternset refid="appbase.patterns" />
 			</fileset>
 		</copy>
 	</target>
