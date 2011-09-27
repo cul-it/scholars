@@ -16,6 +16,13 @@
 	     ====================================================================== -->
 <project name="vivoCornell" default="describe">
 
+	<!-- 
+		The build directory goes in the product directory. 
+		Everything else hangs from the build directory. 
+	-->
+	<property name="build.dir" location="./.build" />
+	<property name="appbase.dir" location="${build.dir}/appBase" />
+
 	<!--
 		Load the properties from deploy.properties.
 	-->
@@ -34,18 +41,81 @@
 	      message="${deploy.properties.file} must contain a value for nihvivo.dir" />
 
 	<!--
-		Locate the core script in terms that the product script requires.
+		Base it all on the core build file. 
 	-->
-	<property name="inner.basedir" location="${nihvivo.dir}" />
+	<import file="${vitro.core.dir}/webapp/build.xml" />
 
-	<!--
-		Override the default location for project modifications.
-	-->
-	<property name="product.modifications.dir" location="./productMods" />
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: prepare
+          
+          Override the core version, so we can merge the three levels before building.                      
+         - - - - - - - - - - - - - - - - - -->
+	<target name="prepare" depends="compileUtilities,product-prepare,vitroCore.prepare" />
 
-	<!--
-		Now get the standard product-build file.
-	-->
-	<import file="${vitro.core.dir}/webapp/product-build.xml" />
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: product-prepare
+         - - - - - - - - - - - - - - - - - -->
+	<target name="product-prepare">
+		<mkdir dir="${appbase.dir}" />
+		<mkdir dir="${appbase.dir}/web" />
+
+		<copy todir="${appbase.dir}/web" includeemptydirs="true">
+			<dirDifference dir="${corebase.dir}/web">
+				<blockingPath>
+					<pathelement location="${nihvivo.dir}/productMods" />
+					<pathelement location="./productMods" />
+				</blockingPath>
+			</dirDifference>
+			<dirDifference dir="${nihvivo.dir}/productMods">
+				<blockingPath>
+					<pathelement location="./productMods" />
+				</blockingPath>
+			</dirDifference>
+			<fileset dir="./productMods" />
+		</copy>
+
+		<patternset id="appbase.patterns">
+			<include name="src/**/*" />
+			<include name="lib/**/*" />
+			<include name="test/**/*" />
+			<include name="themes/**/*" />
+			<include name="config/*.properties" />
+			<include name="config/*.txt" />
+			<include name="config/solr/*" />
+			<include name="context.xml" />
+		</patternset>
+
+		<copy todir="${appbase.dir}" includeemptydirs="true">
+			<dirDifference dir="${corebase.dir}">
+				<patternset refid="appbase.patterns" />
+				<exclude name="themes/**/*/" />
+				<blockingPath>
+					<pathelement location="${nihvivo.dir}" />
+					<pathelement location="." />
+				</blockingPath>
+			</dirDifference>
+			<dirDifference dir="${nihvivo.dir}">
+				<patternset refid="appbase.patterns" />
+				<blockingPath>
+					<pathelement location="." />
+				</blockingPath>
+			</dirDifference>
+			<fileset dir=".">
+				<patternset refid="appbase.patterns" />
+			</fileset>
+		</copy>
+	</target>
+
+	<!-- ================================= 
+	      target: revisionInfo 
+	     
+	      Override the core version, to get the 3-level effect.                      
+	     ================================= -->
+	<target name="revisionInfo"
+	        depends="vitroCore.revisionInfo"
+	        description="--> Store revision info in build">
+		<addRevisionInfoLine productName="nihvivo" productCheckoutDir="${nihvivo.dir}" />
+		<addRevisionInfoLine productName="${ant.project.name}" productCheckoutDir="${basedir}" />
+	</target>
 
 </project>
