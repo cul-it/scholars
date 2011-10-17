@@ -3,8 +3,9 @@
 <#-- Individual profile page template for foaf:Person individuals -->
 
 <#include "individual-setup.ftl">
+<#import "individual-qrCodeGenerator.ftl" as qr>
 <#import "lib-vivo-properties.ftl" as vp>
-    
+
 <section id="individual-intro" class="vcard person" role="region">
 
     <section id="share-contact" role="region"> 
@@ -23,7 +24,6 @@
         </#if>
 
         <div id="photo-wrapper">${individualImage}</div>
-        
         <#-- CU directory link -->
         <#assign netid = individual.selfEditingId!>
         <#if netid?has_content>
@@ -32,18 +32,23 @@
                 <a href="http://www.cornell.edu/search/?tab=people&netid=${netid}" title="Cornell University directory entry for ${netid}" target="_blank">Contact information</a>
             </p>
         </#if>
-            
+    
         <nav role="navigation">
+        
             <ul id ="individual-tools-people" role="list">
-                <li role="listitem"><img title="${individual.uri}" class="middle" src="${urls.images}/individual/uriIcon.gif" alt="uri icon" /></li>
+                <li role="listitem"><img id="uriIcon" title="${individual.uri}" class="middle" src="${urls.images}/individual/uriIcon.gif" alt="uri icon"/></li>
     
                 <#assign rdfUrl = individual.rdfUrl>
                 <#if rdfUrl??>
                     <li role="listitem"><a title="View this individual in RDF format" class="icon-rdf" href="${rdfUrl}">RDF</a></li>
                 </#if>
+                
+                <@qr.renderCode />
             </ul>
         </nav>
-                  
+            
+            <#include "individual-contactInfo.ftl">  
+                
         <#-- Links -->  
         <@vp.webpages propertyGroups editable "individual-urls-people" />
     </section>
@@ -66,9 +71,7 @@
         </section>
         -->
         
-        <#if individual.showAdminPanel>
-            <#include "individual-adminPanel.ftl">
-        </#if>
+        <#include "individual-adminPanel.ftl">
         
         <header>
             <#if relatedSubject??>
@@ -78,7 +81,7 @@
                 <h1 class="fn foaf-person">
                     <#-- Label -->
                     <@p.label individual editable />
-                        
+
                     <#--  Display preferredTitle if it exists; otherwise mostSpecificTypes -->
                     <#assign title = propertyGroups.pullProperty("${core}preferredTitle")!>
                     <#if title?has_content> <#-- true when the property is in the list, even if not populated (when editing) -->
@@ -91,7 +94,7 @@
                     <#-- If preferredTitle is unpopulated, display mostSpecificTypes -->
                     <#if ! (title.statements)?has_content>
                         <@p.mostSpecificTypes individual />
-                    </#if>  
+                    </#if>                        
                 </h1>
             </#if>
                
@@ -113,6 +116,7 @@
     </section>
     
 </section>
+
 <#assign nameForOtherGroup = "other"> <#-- used by both individual-propertyGroupMenu.ftl and individual-properties.ftl -->
 
 <#-- Property group menu -->
@@ -121,18 +125,12 @@
 <#-- Ontology properties -->
 <#include "individual-properties.ftl">
 
-
 ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/individual/individual.css" />',
-                  '<link rel="stylesheet" href="${urls.base}/js/jquery-ui/css/smoothness/jquery-ui-1.8.9.custom.css" />',
-                  '<link rel="stylesheet" href="${urls.base}/css/individual/individual-vivo.css" />')}
+                  '<link rel="stylesheet" href="${urls.base}/css/individual/individual-vivo.css" />',
+                  '<link rel="stylesheet" href="${urls.base}/js/jquery-ui/css/smoothness/jquery-ui-1.8.9.custom.css" />')}
 
-${headScripts.add('<script type="text/javascript" src="${urls.base}/js/jquery_plugins/getURLParam.js"></script>',
-                  '<script type="text/javascript" src="${urls.base}/js/jquery_plugins/colorAnimations.js"></script>',
-                  '<script type="text/javascript" src="${urls.base}/js/jquery_plugins/jquery.form.js"></script>',
-                  '<script type="text/javascript" src="${urls.base}/js/tiny_mce/tiny_mce.js"></script>',
-                  '<script type="text/javascript" src="${urls.base}/js/controls.js"></script>',
+${headScripts.add('<script type="text/javascript" src="${urls.base}/js/tiny_mce/tiny_mce.js"></script>',
                   '<script type="text/javascript" src="${urls.base}/js/jquery_plugins/qtip/jquery.qtip-1.0.0-rc3.min.js"></script>',
-                  '<script type="text/javascript" src="${urls.base}/js/toggle.js"></script>',
                   '<script type="text/javascript" src="${urls.base}/js/jquery_plugins/jquery.truncator.js"></script>')}
 
 ${scripts.add('<script type="text/javascript" src="${urls.base}/js/imageUpload/imageUploadUtils.js"></script>',
