@@ -213,11 +213,6 @@ $(document).ready(function(){
             
             <#assign displayTable = false />
             
-            <#assign sparklineVO = egoPubSparklineVO />
-            <div id="publication-count-sparkline-include"><#include "personPublicationSparklineContent.ftl"></div>
-    
-            <#assign sparklineVO = uniqueCoauthorsSparklineVO />
-            <div id="coauthor-count-sparkline-include"><#include "coAuthorshipSparklineContent.ftl"></div>
         </div>  
     
         <div class="vis_stats">
