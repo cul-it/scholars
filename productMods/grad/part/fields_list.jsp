@@ -7,7 +7,7 @@
 <!-- Given a grouping/department/faculty URI, produce a list of graduate fields -->
 
 <c:if test="${param.type == 'group'}">
-    <sparql:lock model="${applicationScope.jenaOntModel}" >
+
     <sparql:sparql>
         <sparql:select model="${applicationScope.jenaOntModel}" var="rs" group="<${param.uri}>">
           PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -16,10 +16,12 @@
           PREFIX core: <http://vivoweb.org/ontology/core#>
           SELECT DISTINCT ?field ?fieldLabel ?groupLabel
           WHERE {
+          SERVICE <http://vivoprod01.library.cornell.edu:2020/sparql> {
               ?group vivo:hasAssociated ?field .
-              ?field vivo:hasFieldMember ?person .
+#              ?field vivo:hasFieldMember ?person .
               OPTIONAL { ?field rdfs:label ?fieldLabel }
               OPTIONAL { ?group rdfs:label ?groupLabel }
+            }
           } ORDER BY ?fieldLabel
           LIMIT 100
         </sparql:select>
@@ -30,11 +32,11 @@
             </c:forEach>
 
     </sparql:sparql>
-    </sparql:lock>
+
 </c:if>
 
 <c:if test="${param.type == 'department'}">
-    <sparql:lock model="${applicationScope.jenaOntModel}">
+
     <sparql:sparql>
         <listsparql:select model="${applicationScope.jenaOntModel}" var="rs" dept="<${param.uri}>">
           PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -43,12 +45,14 @@
           PREFIX core: <http://vivoweb.org/ontology/core#>
           SELECT DISTINCT ?fieldUri ?fieldLabel
           WHERE {
+          SERVICE <http://vivoprod01.library.cornell.edu:2020/sparql> {
               ?dept vivo:hasEmployeeAcademicFacultyMember ?personUri .
               ?personUri vivo:memberOfGraduateField ?fieldUri .
               ?fieldUri rdf:type vivo:GraduateField ;
                 rdfs:label ?fieldLabel ;
                 vivo:associatedWith ?grouping .
               ?grouping rdf:type vivo:fieldCluster
+            }
           } ORDER BY ?fieldLabel
           LIMIT 100
         </listsparql:select>
@@ -61,12 +65,12 @@
             </c:forEach>
             
     </sparql:sparql>
-    </sparql:lock>
+
 </c:if>
 
 
 <c:if test="${param.type == 'faculty'}">
-    <sparql:lock model="${applicationScope.jenaOntModel}">
+
     <sparql:sparql>
         <listsparql:select model="${applicationScope.jenaOntModel}" var="rs" facultyUri="<${param.uri}>">
           PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -75,11 +79,13 @@
           PREFIX core: <http://vivoweb.org/ontology/core#>
           SELECT DISTINCT ?fieldUri ?fieldLabel
           WHERE {
+          SERVICE <http://vivoprod01.library.cornell.edu:2020/sparql> {
               ?facultyUri vivo:memberOfGraduateField ?fieldUri .
               ?fieldUri rdf:type vivo:GraduateField ;
                 rdfs:label ?fieldLabel ;
                 vivo:associatedWith ?grouping .
               ?grouping rdf:type vivo:fieldCluster .
+            }
           } ORDER BY ?fieldLabel
           LIMIT 100
         </listsparql:select>
@@ -92,11 +98,11 @@
             </c:forEach>
             
     </sparql:sparql>
-    </sparql:lock>
+
 </c:if>
 
 <c:if test="${param.type == 'all'}">
-    <sparql:lock model="${applicationScope.jenaOntModel}" >
+
     <sparql:sparql>
         <listsparql:select model="${applicationScope.jenaOntModel}" var="rs">
           PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -105,11 +111,13 @@
           PREFIX core: <http://vivoweb.org/ontology/core#>
           SELECT DISTINCT ?field ?fieldLabel
           WHERE {
+          SERVICE <http://vivoprod01.library.cornell.edu:2020/sparql> {
               ?group rdf:type vivo:fieldCluster .
               ?group vivo:hasAssociated ?field .
-              ?field vivo:hasFieldMember ?person .
+#              ?field vivo:hasFieldMember ?person .
               OPTIONAL { ?field rdfs:label ?fieldLabel }
               OPTIONAL { ?group rdfs:label ?groupLabel }
+              }
           } ORDER BY ?fieldLabel
           LIMIT 100
         </listsparql:select>
@@ -153,5 +161,5 @@
             </c:choose>
      
     </sparql:sparql>
-    </sparql:lock>
+
 </c:if>

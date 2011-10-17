@@ -5,7 +5,7 @@
 
 <%-- Get a list of all existing field groupings -- if a group's URI is sent as a parameter, omit that group from the list --%>
 
-<sparql:lock model="${applicationScope.jenaOntModel}" >
+
     <sparql:sparql>
     <listsparql:select model="${applicationScope.jenaOntModel}" var="rs">
              PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -14,8 +14,10 @@
              PREFIX core: <http://vivoweb.org/ontology/core#>
              SELECT ?groupUri ?groupLabel
              WHERE {
+              SERVICE <http://vivoprod01.library.cornell.edu:2020/sparql> {
                 ?groupUri rdf:type vivo:fieldCluster
                 OPTIONAL { ?groupUri rdfs:label ?groupLabel }
+              }
              }
              ORDER BY ?groupLabel
              LIMIT 200
@@ -29,4 +31,4 @@
     </c:forEach>
 
     </sparql:sparql>  
-</sparql:lock>
+

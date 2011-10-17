@@ -10,7 +10,7 @@
 
 <c:if test="${param.type == 'field'}">
 <c:catch var="pageError">
-    <sparql:lock model="${applicationScope.jenaOntModel}">
+
     <sparql:sparql>
     
                 <listsparql:select model="${applicationScope.jenaOntModel}" var="rs" fieldUri="<${param.uri}>">
@@ -22,6 +22,7 @@
                   PREFIX core: <http://vivoweb.org/ontology/core#>
                   SELECT DISTINCT ?personUri ?personLabel ?image ?moniker
                   WHERE {
+                    SERVICE <http://vivoprod01.library.cornell.edu:2020/sparql> {                    
                       ?fieldUri vivo:hasFieldMember ?personUri .
                       ?personUri rdfs:label ?personLabel .
                     OPTIONAL {
@@ -34,11 +35,12 @@
                         ?personUri vitro:moniker ?moniker 
                     }
                     FILTER (!regex(?moniker, "emeritus", "i"))
+                  }
                   } ORDER BY ?personLabel
                   LIMIT 1000
                 </listsparql:select>
     </sparql:sparql>
-    </sparql:lock>
+
 
         <c:set var="facultyTotal" value='${fn:length(rs)}' />
 
@@ -127,7 +129,7 @@ ${pageError}
 <%-----------------------------------------------------------------------------%>
 
 <c:if test="${param.type == 'department'}">
-    <sparql:lock model="${applicationScope.jenaOntModel}">
+
     <sparql:sparql>
         <listsparql:select model="${applicationScope.jenaOntModel}" var="rs" dept="<${param.uri}>">
           PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -138,6 +140,7 @@ ${pageError}
           PREFIX core: <http://vivoweb.org/ontology/core#>
           SELECT DISTINCT ?personUri ?personLabel ?image ?grouping ?personLinkAnchor ?personLinkURL ?otherAnchor ?otherURL
           WHERE {
+          SERVICE <http://vivoprod01.library.cornell.edu:2020/sparql> {
               ?dept vivo:hasEmployeeAcademicFacultyMember ?personUri .
               ?personUri rdfs:label ?personLabel .
               OPTIONAL { ?personUri vivo:memberOfGraduateField ?fieldUri . ?fieldUri rdf:type vivo:GraduateField . ?fieldUri vivo:associatedWith ?grouping . ?grouping rdf:type vivo:fieldCluster } 
@@ -151,6 +154,7 @@ ${pageError}
               OPTIONAL { ?personUri vitro:primaryLink ?primaryLink. ?primaryLink vitro:linkAnchor ?personLinkAnchor . ?primaryLink vitro:linkURL ?personLinkURL }
               OPTIONAL { ?personUri vitro:additionalLink ?additionalLink. ?additionalLink vitro:linkAnchor ?otherAnchor . ?additionalLink vitro:linkURL ?otherURL }
             FILTER (!regex(?moniker, "emeritus", "i"))
+           }
           } ORDER BY ?personLabel
           LIMIT 2000
         </listsparql:select>
@@ -240,11 +244,11 @@ ${pageError}
             </ul>
             
     </sparql:sparql>
-    </sparql:lock>
+
 </c:if>
 
 <c:if test="${param.type == 'singleArea'}">
-    <sparql:lock model="${applicationScope.jenaOntModel}">
+
     <sparql:sparql>
     
             <listsparql:select model="${applicationScope.jenaOntModel}" var="rs" fieldUri="<${param.field}>" areaUri="<${param.areaUri}>">
@@ -256,6 +260,7 @@ ${pageError}
               PREFIX core: <http://vivoweb.org/ontology/core#>
               SELECT DISTINCT ?personUri ?personLabel ?image ?moniker
               WHERE {
+                SERVICE <http://vivoprod01.library.cornell.edu:2020/sparql> {
                   ?fieldUri vivo:hasFieldMember ?personUri .
                   ?personUri core:hasResearchArea ?areaUri .
                   ?personUri rdfs:label ?personLabel .
@@ -267,6 +272,7 @@ ${pageError}
                 }
                   OPTIONAL { ?personUri vitro:moniker ?moniker }
                 FILTER (!regex(?moniker, "emeritus", "i"))
+               }
               } ORDER BY ?personLabel
               LIMIT 1000
             </listsparql:select>
@@ -297,12 +303,12 @@ ${pageError}
     </ul>
 
     </sparql:sparql>
-    </sparql:lock>
+
 </c:if>
 
 <c:if test="${param.type == 'multiArea'}">
 <c:catch var="pageError">
-    <sparql:lock model="${applicationScope.jenaOntModel}">
+
      <sparql:sparql>
              <listsparql:select model="${applicationScope.jenaOntModel}" var="rs" fieldUri="<${param.field}>" area1="<${param.area1}>" area2="<${param.area2}>" area3="<${param.area3}>" area4="<${param.area4}>" area5="<${param.area5}>" area6="<${param.area6}>">
                PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
@@ -313,6 +319,7 @@ ${pageError}
                PREFIX core: <http://vivoweb.org/ontology/core#>
                SELECT DISTINCT ?personUri ?personLabel ?image ?moniker
                WHERE {
+                SERVICE <http://vivoprod01.library.cornell.edu:2020/sparql> {
                   ?fieldUri vivo:hasFieldMember ?personUri .
                   ?personUri core:hasResearchArea ?area1 .
                   ?personUri core:hasResearchArea ?area2 .
@@ -331,11 +338,12 @@ ${pageError}
                   OPTIONAL { ?personUri vitro:moniker ?moniker }
                 LET (?image := str(?downloadLocation))
                 FILTER (!regex(?moniker, "emeritus", "i"))
+               }
                } ORDER BY ?personLabel
                LIMIT 1000
              </listsparql:select>
      </sparql:sparql>
-     </sparql:lock>
+
 
     <c:set var="hiddenClass" value="hide"/>
     <c:if test="${param.visibility == 'show'}"><c:remove var="hiddenClass"/></c:if>

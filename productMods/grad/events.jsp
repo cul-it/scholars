@@ -27,7 +27,7 @@
                request.setAttribute("future", "\"" + future.toDateTimeISO().toString() + "\"" );
         </jsp:scriptlet>
         
-        <sparql:lock model="${applicationScope.jenaOntModel}" >
+<!--         <sparql:lock model="${applicationScope.jenaOntModel}" > -->
         <sparql:sparql>
           <listsparql:select model="${applicationScope.jenaOntModel}" var="upcomingEvents" now="${now}" future="${future}" >
                 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -38,6 +38,7 @@
                 PREFIX core: <http://vivoweb.org/ontology/core#>
                 SELECT DISTINCT ?talkUri ?blurb ?label ?timekey ?hostname ?location ?person ?linkUrl
                 WHERE {
+                  SERVICE <http://vivoprod01.library.cornell.edu:2020/sparql> {
                     ?talkUri
                     rdf:type vivo:LectureSeminarOrColloquium ;
                     rdf:type vitro:Flag1Value1Thing ;
@@ -64,15 +65,17 @@
                       ?talkUri vitro:primaryLink ?link . 
                       ?link vitro:linkURL ?linkUrl .
                     }
+                  }
                 FILTER( xsd:dateTime(?now) > ?sunrise && xsd:dateTime(?now) < ?timekey )
                 }
                 ORDER BY ?timekey
                 LIMIT 15
             </listsparql:select>
             </sparql:sparql>
-            </sparql:lock>
+<!--             </sparql:lock> -->
               
-            <sparql:lock model="${applicationScope.jenaOntModel}" >
+<!--             <sparql:lock model="${applicationScope.jenaOntModel}"
+            > -->
             <sparql:sparql>
             <listsparql:select model="${applicationScope.jenaOntModel}" var="pastEvents" now="${now}" past="${past}" >
                   PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -83,6 +86,7 @@
                   PREFIX core: <http://vivoweb.org/ontology/core#>
                   SELECT DISTINCT ?talkUri ?blurb ?label ?timekey ?hostname ?location ?person ?linkUrl
                   WHERE {
+                    SERVICE <http://vivoprod01.library.cornell.edu:2020/sparql> {
                       ?talkUri
                       rdf:type vivo:LectureSeminarOrColloquium ;
                       rdf:type vitro:Flag1Value1Thing ;
@@ -109,13 +113,14 @@
                         ?talkUri vitro:primaryLink ?link . 
                         ?link vitro:linkURL ?linkUrl .
                       }
+                    }
                     FILTER( xsd:dateTime(?now) > ?timekey  && xsd:dateTime(?past) < ?timekey )
                   }
                   ORDER BY DESC(?timekey)
                   LIMIT 15
               </listsparql:select>
               </sparql:sparql>
-              </sparql:lock>
+<!--               </sparql:lock> -->
               
             <fmt:setLocale value="en_US"/>
             <h2>Cornell Life Sciences Events</h2>

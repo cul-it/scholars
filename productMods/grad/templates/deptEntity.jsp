@@ -5,7 +5,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://jakarta.apache.org/taglibs/string-1.1" prefix="str" %>
 
-<sparql:lock model="${applicationScope.jenaOntModel}">
+<!-- <sparql:lock model="${applicationScope.jenaOntModel}"> -->
 <sparql:sparql>
     <listsparql:select model="${applicationScope.jenaOntModel}" var="dept" dept="<${param.uri}>">
       PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -15,6 +15,7 @@
       PREFIX core: <http://vivoweb.org/ontology/core#>
       SELECT DISTINCT ?deptLabel ?description ?primaryLinkAnchor ?primaryLinkURL ?deptHeadLabel ?deptHeadUri ?campus
       WHERE {
+          SERVICE <http://vivoprod01.library.cornell.edu:2020/sparql> {
           ?dept rdfs:label ?deptLabel ;
             rdf:type core:AcademicDepartment .
           OPTIONAL { ?dept core:description ?description }
@@ -22,10 +23,11 @@
           OPTIONAL { ?dept vivo:cornellOrganizedEndeavorHasLeadParticipantPerson ?deptHeadUri . ?deptHeadUri rdfs:label ?deptHeadLabel }
           OPTIONAL { ?dept vivo:locatedOnCampus ?campusUri . ?campusUri rdfs:label ?campus }
       }
+      }
       LIMIT 20
     </listsparql:select>
 </sparql:sparql>
-</sparql:lock>
+<!-- </sparql:lock> -->
 
 <c:set var="deptUri" value="${param.uri}"/>
 <c:set var="deptDescription" value="${dept[0].description.string}"/>

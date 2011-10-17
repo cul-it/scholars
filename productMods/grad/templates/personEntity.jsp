@@ -6,7 +6,6 @@
 <%@ taglib uri="http://jakarta.apache.org/taglibs/string-1.1" prefix="str" %>
 <%@ taglib uri="http://jakarta.apache.org/taglibs/random-1.0" prefix="rand" %>
 
-<sparql:lock model="${applicationScope.jenaOntModel}" >
 <sparql:sparql>
     <listsparql:select model="${applicationScope.jenaOntModel}" var="faculty" personUri="<${param.uri}>">
           PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -18,6 +17,7 @@
           PREFIX core: <http://vivoweb.org/ontology/core#>
           SELECT DISTINCT ?personLabel ?prefName ?moniker ?overviewStatement ?researchFocus ?background ?publications ?image ?cornellEmail ?otherEmail ?netid ?primaryLinkAnchor ?primaryLinkURL ?otherLinkAnchor ?otherLinkURL
           WHERE {
+          SERVICE <http://vivoprod01.library.cornell.edu:2020/sparql> {
               ?personUri rdfs:label ?personLabel .
               OPTIONAL { ?personUri core:overview ?overviewStatement }
               OPTIONAL { ?personUri core:hasResearcherRole ?researchActivity .
@@ -36,6 +36,7 @@
               OPTIONAL { ?personUri vivo:nonCornellemail ?otherEmail }
               OPTIONAL { ?personUri hr:PrefName ?prefName }
               OPTIONAL { ?personUri hr:netId ?netid }
+            }             
             LET (?image := str(?downloadLocation))
           }
           LIMIT 50
@@ -60,15 +61,16 @@
           PREFIX core: <http://vivoweb.org/ontology/core#>
           SELECT DISTINCT ?pubUri ?pubLabel ?pubLinkAnchor ?pubLinkURL
           WHERE {
+          SERVICE <http://vivoprod01.library.cornell.edu:2020/sparql> {
               ?personUri core:authorInAuthorship ?authorship .
                     ?authorship core:linkedInformationResource ?pubUri .
               ?pubUri rdfs:label ?pubLabel .
               OPTIONAL { ?pubUri vitro:additionalLink ?pubLink . ?pubLink vitro:linkURL ?pubLinkURL . ?pubLink vitro:linkAnchor ?pubLinkAnchor }
+              }
           }
           LIMIT 50
     </listsparql:select>
 </sparql:sparql>
-</sparql:lock>
 
 <c:set var="netid" value="${faculty[0].netid.string}"/>
 <c:set var="cornellEmail" value="${faculty[0].cornellEmail.string}"/>

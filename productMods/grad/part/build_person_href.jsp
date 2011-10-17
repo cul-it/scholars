@@ -13,6 +13,6 @@
         <c:out value="/faculty/HRI2${fn:substringAfter(param.uri,'/individual/')}"/>
     </c:when>
     <c:otherwise>
-        <c:out value="/faculty/${fn:substringAfter(param.uri,'/individual/')}"/>
+        <c:out value="/faculty/${fn:substringAfter(param.uri,'/individual/')}"/> 
     </c:otherwise>
 </c:choose>

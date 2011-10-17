@@ -4,7 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <%-- first get a list of groupings --%>
-<sparql:lock model="${applicationScope.jenaOntModel}" >
+<!-- <sparql:lock model="${applicationScope.jenaOntModel}" > -->
 <sparql:sparql>
     <listsparql:select model="${applicationScope.jenaOntModel}" var="rs">
           PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -13,13 +13,15 @@
           PREFIX core: <http://vivoweb.org/ontology/core#>
           SELECT ?fieldClusterUri ?clusterLabel
           WHERE {
+          SERVICE <http://vivoprod01.library.cornell.edu:2020/sparql> {
               ?fieldClusterUri rdf:type vivo:fieldCluster
               OPTIONAL { ?fieldClusterUri rdfs:label ?clusterLabel }
+              }
           } ORDER BY ?clusterLabel
           LIMIT 200
     </listsparql:select>
 </sparql:sparql>
-</sparql:lock>
+<!-- </sparql:lock> -->
 
 <%-- when a sorting parameter is present, set a session variable to mark it as a preference --%>
 <c:choose>

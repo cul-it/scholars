@@ -6,7 +6,6 @@
 
 <!-- Given a field URI, produce a list of degrees offered -->
 
-<sparql:lock model="${applicationScope.jenaOntModel}" >
 <sparql:sparql>
     <sparql:select model="${applicationScope.jenaOntModel}" var="rs" fieldUri="<${param.uri}>">
       PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -15,11 +14,11 @@
       PREFIX core: <http://vivoweb.org/ontology/core#>
       SELECT DISTINCT ?degreeAbbr
       WHERE {
-        SERVICE <http://sisler.mannlib.cornell.edu:8081/openrdf-sesame/repositories/courses2> {
+          SERVICE <http://vivoprod01.library.cornell.edu:2020/sparql> {
           ?fieldUri vivo:offersAcademicDegree ?degree . 
           ?degree rdfs:label ?degreeLabel ;
             core:degreeAbbreviation ?degreeAbbr .
-        }
+         }
       } ORDER BY DESC(?degreeAbbr)
       LIMIT 10
     </sparql:select>
@@ -29,4 +28,4 @@
         </c:forEach>
 
 </sparql:sparql>
-</sparql:lock>
+

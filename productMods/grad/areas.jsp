@@ -25,7 +25,7 @@
     	<c:import url="part/label.jsp"><c:param name="uri" value="${URI}"/></c:import>
     </c:set>
 
-    <sparql:lock model="${applicationScope.jenaOntModel}" >
+<!--     <sparql:lock model="${applicationScope.jenaOntModel}" > -->
         <sparql:sparql>
             <listsparql:select model="${applicationScope.jenaOntModel}" var="rs" group="<${URI}>">
               PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -34,21 +34,23 @@
               PREFIX core: <http://vivoweb.org/ontology/core#>
               SELECT DISTINCT ?fieldUri ?fieldLabel
               WHERE {
+                 SERVICE <http://vivoprod01.library.cornell.edu:2020/sparql> {
                   ?group vivo:hasAssociated ?fieldUri .
                   ?fieldUri vivo:hasFieldMember ?person .
                   OPTIONAL { ?fieldUri rdfs:label ?fieldLabel }
+                  }
               } ORDER BY ?fieldLabel
               LIMIT 100
             </listsparql:select>
         </sparql:sparql>
-    </sparql:lock>
+<!--     </sparql:lock> -->
 </c:if>
 
 <%-- For the entire list of fields use this query --%>
 <c:if test="${param.uri == 'allfields'}">
     <c:set var="areaName" value="Life Sciences Graduate Fields"/>
 
-    <sparql:lock model="${applicationScope.jenaOntModel}" >
+<!--     <sparql:lock model="${applicationScope.jenaOntModel}" > -->
         <sparql:sparql>
             <listsparql:select model="${applicationScope.jenaOntModel}" var="rs">
               PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -57,15 +59,17 @@
               PREFIX core: <http://vivoweb.org/ontology/core#>
               SELECT DISTINCT ?fieldUri ?fieldLabel
               WHERE {
+                SERVICE <http://vivoprod01.library.cornell.edu:2020/sparql> {
                   ?group rdf:type vivo:fieldCluster .
                   ?group vivo:hasAssociated ?fieldUri .
                   ?fieldUri vivo:hasFieldMember ?person .
                   OPTIONAL { ?fieldUri rdfs:label ?fieldLabel }
+                }
               } ORDER BY ?fieldLabel
               LIMIT 100
             </listsparql:select>
         </sparql:sparql>
-    </sparql:lock>
+<!--     </sparql:lock> -->
 </c:if>
 
 <jsp:include page="header.jsp">
