@@ -13,7 +13,9 @@
     	<c:set var="URI">${namespace_hri2}${fn:substringAfter(param.uri,'HRI2')}</c:set>
     </c:when>
     <c:otherwise>
-	<c:redirect url="http://vivo.cornell.edu/individual/${param.uri}"/>
+	<c:if test="${!empty param.uri}">
+ 		<c:redirect url="http://vivo.cornell.edu/individual/${param.uri}"/>
+	</c:if>
     	<%-- <c:set var="URI">${namespace}${param.uri}</c:set> --%>
     </c:otherwise>
 </c:choose> 
