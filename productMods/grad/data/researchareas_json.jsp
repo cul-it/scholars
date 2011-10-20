@@ -14,12 +14,10 @@
     PREFIX core: <http://vivoweb.org/ontology/core#>
     SELECT DISTINCT ?areaUri ?areaLabel ?personUri ?personLabel
     WHERE { 
-      SERVICE <http://sisler.mannlib.cornell.edu:8081/openrdf-sesame/repositories/courses2> {
         ?personUri vivo:memberOfGraduateField ?field . 
         ?areaUri core:researchAreaOf ?personUri . 
         OPTIONAL { ?areaUri rdfs:label ?areaLabel }
         OPTIONAL { ?personUri rdfs:label ?personLabel }  
-      }
     } ORDER BY ?areaLabel 
     LIMIT 2000
     </listsparql:select>

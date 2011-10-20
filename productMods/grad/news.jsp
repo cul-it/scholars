@@ -20,7 +20,7 @@
                request.setAttribute("now", "\"" + now.toDateTimeISO().toString() + "\"" );
         </jsp:scriptlet>
         
-        <sparql:lock model="${applicationScope.jenaOntModel}">
+<!--         <sparql:lock model="${applicationScope.jenaOntModel}"> -->
         <sparql:sparql>
         <sparql:select model="${applicationScope.jenaOntModel}" var="rs" now="${now}" >
 
@@ -32,7 +32,7 @@
                      PREFIX core: <http://vivoweb.org/ontology/core#>
                      SELECT DISTINCT ?news ?newsLabel ?blurb ?sourceLink ?newsThumb ?moniker ?sunrise
                      WHERE {
-                      SERVICE <http://sisler.mannlib.cornell.edu:8081/openrdf-sesame/repositories/courses2> {
+                      SERVICE <http://vivoprod01.library.cornell.edu:2020/sparql> {
                         ?group rdf:type vivo:fieldCluster .
                         ?group vivo:hasAssociated ?field .
                         ?field vivo:hasFieldMember ?person .
@@ -49,7 +49,7 @@
                         OPTIONAL { ?news vitro:imageThumb ?newsThumb }
                         OPTIONAL { ?news vitro:moniker ?moniker }
                       }
-                     FILTER( xsd:dateTime(?now) > ?sunrise )
+                     FILTER( xsd:dateTime(?now) > ?sunrise ) 
                      }
                      ORDER BY DESC(?sunrise)
                      LIMIT 40
@@ -74,7 +74,7 @@
                </ul>
 
            </sparql:sparql>
-           </sparql:lock>
+<!--            </sparql:lock> -->
       
 	</div> <!-- content -->
 </div> <!-- contentWrap -->

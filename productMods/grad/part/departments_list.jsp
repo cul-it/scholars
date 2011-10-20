@@ -4,7 +4,6 @@
 <%@ taglib uri="http://mannlib.cornell.edu/vitro/ListSparqlTag/0.1/" prefix="listsparql" %>
 
 <c:if test="${param.type == 'field'}">
-    <sparql:lock model="${applicationScope.jenaOntModel}">
     <sparql:sparql>
         <listsparql:select model="${applicationScope.jenaOntModel}" var="rs" fieldUri="<${param.uri}>">
             PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -13,7 +12,7 @@
             PREFIX core: <http://vivoweb.org/ontology/core#>
             SELECT DISTINCT ?deptUri ?deptLabel ?personUri
             WHERE {
-              SERVICE <http://sisler.mannlib.cornell.edu:8081/openrdf-sesame/repositories/courses2> {
+          SERVICE <http://vivoprod01.library.cornell.edu:2020/sparql> {
                 ?fieldUri vivo:hasFieldMember ?personUri .
                 ?personUri core:personInPosition ?facultyPosition .
                       ?facultyPosition core:positionInOrganization ?deptUri .
@@ -40,11 +39,10 @@
             </c:forEach>
             
     </sparql:sparql>
-    </sparql:lock>
+
 </c:if>
 
 <c:if test="${param.type == 'person'}">
-    <sparql:lock model="${applicationScope.jenaOntModel}">
     <sparql:sparql>
         <listsparql:select model="${applicationScope.jenaOntModel}" var="rs" personUri="<${param.uri}>">
             PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -53,7 +51,7 @@
             PREFIX core: <http://vivoweb.org/ontology/core#>
             SELECT DISTINCT ?deptUri ?deptLabel
             WHERE {
-              SERVICE <http://sisler.mannlib.cornell.edu:8081/openrdf-sesame/repositories/courses2> {
+              SERVICE <http://vivoprod01.library.cornell.edu:2020/sparql> {
                 ?personUri core:personInPosition ?facultyPosition .
                       ?facultyPosition core:positionInOrganization ?deptUri .
                 ?deptUri rdf:type core:AcademicDepartment ;
@@ -69,5 +67,5 @@
             </c:forEach>
             
     </sparql:sparql>
-    </sparql:lock>
+
 </c:if>

@@ -6,7 +6,7 @@
 <%@ taglib uri="http://jakarta.apache.org/taglibs/string-1.1" prefix="str" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/xml" prefix="x" %>
 
-<sparql:lock model="${applicationScope.jenaOntModel}">
+<!-- <sparql:lock model="${applicationScope.jenaOntModel}"> -->
 <sparql:sparql>
     <listsparql:select model="${applicationScope.jenaOntModel}" var="field" fieldUri="<${param.uri}>">
       PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -16,19 +16,19 @@
       PREFIX core: <http://vivoweb.org/ontology/core#>
       SELECT DISTINCT ?fieldLabel ?description ?primaryLinkAnchor ?primaryLinkURL ?otherLinkAnchor ?otherLinkURL ?gsid ?degree ?degreeLabel ?degreeAbbr
       WHERE {
-        SERVICE <http://sisler.mannlib.cornell.edu:8081/openrdf-sesame/repositories/courses2> {
+          SERVICE <http://vivoprod01.library.cornell.edu:2020/sparql> {
           ?fieldUri rdfs:label ?fieldLabel .
           OPTIONAL { ?fieldUri core:description ?description }
           OPTIONAL { ?fieldUri vitro:primaryLink ?primaryLink. ?primaryLink vitro:linkAnchor ?primaryLinkAnchor . ?primaryLink vitro:linkURL ?primaryLinkURL }
           OPTIONAL { ?fieldUri vitro:additionalLink ?otherLink. ?otherLink vitro:linkAnchor ?otherLinkAnchor . ?otherLink vitro:linkURL ?otherLinkURL }
           OPTIONAL { ?fieldUri vivo:gradschoolID ?gsid }
           OPTIONAL { ?fieldUri core:offersDegree ?degree . ?degree rdfs:label ?degreeLabel . ?degree core:abbreviation ?degreeAbbr }
-        }
+      }
       }
       LIMIT 50
     </listsparql:select>
 </sparql:sparql>
-</sparql:lock>
+<!-- </sparql:lock> -->
 
 <c:set var="fieldName" value="${field[0].fieldLabel.string}"/>
 <c:set var="description" value="${field[0].description.string}"/>

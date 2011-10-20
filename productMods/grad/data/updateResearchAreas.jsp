@@ -59,7 +59,6 @@
                    PREFIX core: <http://vivoweb.org/ontology/core#>
                    SELECT DISTINCT ?fieldUri ?fieldLabel (count(DISTINCT ?personUri) AS ?count)
                    WHERE {
-                    SERVICE <http://sisler.mannlib.cornell.edu:8081/openrdf-sesame/repositories/courses2> {
                      ?area1 core:researchAreaOf ?personUri .
                      ?personUri core:hasResearchArea ?area2 .
                      ?personUri core:hasResearchArea ?area3 .
@@ -71,7 +70,6 @@
                      ?groupUri rdf:type vivo:fieldCluster .
                      OPTIONAL { ?fieldUri rdfs:label ?fieldLabel }
                      OPTIONAL { ?personUri vitro:moniker ?moniker }
-                    }
                     FILTER (!regex(?moniker, "emeritus", "i"))
                    }
                     GROUP BY ?fieldUri ?fieldLabel
