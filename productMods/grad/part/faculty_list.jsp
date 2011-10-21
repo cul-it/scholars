@@ -150,13 +150,13 @@ ${pageError}
                  ?personUri vitropublic:mainImage ?mainImage .
                  ?mainImage vitropublic:thumbnailImage ?thumbnail .
                  ?thumbnail vitropublic:downloadLocation ?downloadLocation .
-               LET (?image := str(?downloadLocation))
             }
               OPTIONAL { ?personUri vitro:moniker ?moniker }
               OPTIONAL { ?personUri vitro:primaryLink ?primaryLink. ?primaryLink vitro:linkAnchor ?personLinkAnchor . ?primaryLink vitro:linkURL ?personLinkURL }
               OPTIONAL { ?personUri vitro:additionalLink ?additionalLink. ?additionalLink vitro:linkAnchor ?otherAnchor . ?additionalLink vitro:linkURL ?otherURL }
             FILTER (!regex(?moniker, "emeritus", "i"))
            }
+               LET (?image := str(?downloadLocation))
           } ORDER BY ?personLabel
           LIMIT 2000
         </listsparql:select>
