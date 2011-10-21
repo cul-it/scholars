@@ -22,20 +22,20 @@
                   PREFIX core: <http://vivoweb.org/ontology/core#>
                   SELECT DISTINCT ?personUri ?personLabel ?image ?moniker
                   WHERE {
-                    SERVICE <http://vivoprod01.library.cornell.edu:2020/sparql> {                    
+                   SERVICE <http://vivoprod01.library.cornell.edu:2020/sparql> {                    
                       ?fieldUri vivo:hasFieldMember ?personUri .
                       ?personUri rdfs:label ?personLabel .
                     OPTIONAL {
                          ?personUri vitropublic:mainImage ?mainImage .
                          ?mainImage vitropublic:thumbnailImage ?thumbnail .
                          ?thumbnail vitropublic:downloadLocation ?downloadLocation .
-                       LET (?image := str(?downloadLocation))
                     }
                     OPTIONAL {
                         ?personUri vitro:moniker ?moniker 
                     }
+                   }
+                    LET (?image := str(?downloadLocation))
                     FILTER (!regex(?moniker, "emeritus", "i"))
-                  }
                   } ORDER BY ?personLabel
                   LIMIT 1000
                 </listsparql:select>
@@ -338,9 +338,9 @@ ${pageError}
                      ?thumbnail vitropublic:downloadLocation ?downloadLocation .
                   }
                   OPTIONAL { ?personUri vitro:moniker ?moniker }
+                }
                 LET (?image := str(?downloadLocation))
                 FILTER (!regex(?moniker, "emeritus", "i"))
-               }
                } ORDER BY ?personLabel
                LIMIT 1000
              </listsparql:select>

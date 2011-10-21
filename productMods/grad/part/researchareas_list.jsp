@@ -146,9 +146,9 @@
                 ?fieldUri vivo:hasFieldMember ?facultyUri .
                 ?facultyUri core:hasResearchArea ?areaUri .
                 ?areaUri rdfs:label ?areaLabel .
-                OPTIONAL { ?facultyUri rdfs:label ?facultyLabel }
+#                OPTIONAL { ?facultyUri rdfs:label ?facultyLabel }
             }
-          } ORDER BY ?areaLabel ?facultyLabel
+          } ORDER BY ?areaLabel # ?facultyLabel
           LIMIT 2000
         </listsparql:select>
 

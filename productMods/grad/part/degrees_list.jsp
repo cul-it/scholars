@@ -15,9 +15,9 @@
       SELECT DISTINCT ?degreeAbbr
       WHERE {
           SERVICE <http://vivoprod01.library.cornell.edu:2020/sparql> {
-          ?fieldUri vivo:offersAcademicDegree ?degree . 
+          ?fieldUri core:offersDegree ?degree . 
           ?degree rdfs:label ?degreeLabel ;
-            core:degreeAbbreviation ?degreeAbbr .
+            core:abbreviation ?degreeAbbr .
          }
       } ORDER BY DESC(?degreeAbbr)
       LIMIT 10
