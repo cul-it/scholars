@@ -48,6 +48,8 @@
         <c:choose>
             <c:when test="${(facultyTotal mod 2) == 0}"><%--For lists that will have even column lengths--%>
                 <c:set var="colSize" value="${(facultyTotal div 2)}" />
+
+		<fmt:setLocale value="en-US"/>
                 <fmt:parseNumber var="colSize" value="${colSize}" type="number" integerOnly="true" />
             </c:when>
             <c:when test="${facultyTotal > 4 && (facultyTotal mod 2) != 0}"><%--For uneven columns--%>
