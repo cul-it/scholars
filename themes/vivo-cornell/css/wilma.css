@@ -1313,6 +1313,9 @@ ul.individual-urls-people li a {
 #individual-info {
     color: #5e6363;
 }
+#individual-info nav {
+    width: 72%;
+}
 #individual-info h1.fn {
     font-size: 1.375em;
     color: #167093;
@@ -1550,3 +1553,40 @@ h2#hasResearchArea .verbosePropertyListing {
     display: block;
 }
 
+/* ------------------------------------------------->  */
+/* THUMBNAIL ORGANIZATIONS  ------------------------>  */
+/* ------------------------------------------------->  */
+ul#webpages-withThumbnails {
+    list-style-image: none;
+}
+ul#webpages-withThumbnails li {
+    list-style-type: none;
+    margin-right: 10px;
+    float: left;
+    background-color: #b1aa9d;
+}
+ul#webpages-withThumbnails li:first-child {
+    width: 402px;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    margin-right: 20px;
+}
+ul#webpages-withThumbnails li:not(:first-child) {
+    width: 204px;
+    margin-bottom: 15px;
+    padding-bottom: 8px;
+}
+ul#webpages-withThumbnails li:first-child img.org-webThumbnail {
+    width: 400px;
+    height: 300px;
+    border: 1px solid #b1aa9d;
+}
+ul#webpages-withThumbnails li:not(:first-child) img.org-webThumbnail {
+    width: 202px;
+    height: 152px;
+    border: 1px solid #b1aa9d;
+}
+ul#webpages-withThumbnails  li a.org-url {
+    color: #fff;
+    padding-left: 10px;
+}
