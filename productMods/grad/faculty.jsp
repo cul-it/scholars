@@ -13,7 +13,10 @@
     	<c:set var="URI">${namespace_hri2}${fn:substringAfter(param.uri,'HRI2')}</c:set>
     </c:when>
     <c:otherwise>
-    	<c:set var="URI">${namespace}${param.uri}</c:set>
+	<c:if test="${!empty param.uri}">
+ 		<c:redirect url="http://vivo.cornell.edu/individual/${param.uri}"/>
+	</c:if>
+    	<%-- <c:set var="URI">${namespace}${param.uri}</c:set> --%>
     </c:otherwise>
 </c:choose> 
 
@@ -49,7 +52,7 @@
 </jsp:include>
 
 <%-- get a list of all faculty in life sciences fields --%>
-<sparql:lock model="${applicationScope.jenaOntModel}">
+
 <sparql:sparql>
     <sparql:select model="${applicationScope.jenaOntModel}" var="rs">
           PREFIX fn:  <http://www.w3.org/2005/xpath-functions#>
@@ -59,11 +62,11 @@
           PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
           PREFIX owl: <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#>
           PREFIX core: <http://vivoweb.org/ontology/core#>
-          SELECT DISTINCT ?personUri ?personLabel ?netid ?cornellEmail ?nonCornellEmail ?moniker
+
+          SELECT DISTINCT ?personUri ?personLabel ?netid ?cornellEmail ?nonCornellEmail 
+
           WHERE {
-            SERVICE <http://sisler.mannlib.cornell.edu:8081/openrdf-sesame/repositories/courses2> {
-              ?group rdf:type vivo:fieldCluster .
-              ?group vivo:hasAssociated ?field .
+          SERVICE <http://vivoprod01.library.cornell.edu:2020/sparql> {
             
               ?field vivo:hasFieldMember ?personUri .
             
@@ -71,11 +74,10 @@
               OPTIONAL { ?personUri owl:netId ?netid }
               OPTIONAL { ?personUri vivo:CornellemailnetId ?cornellEmail }
               OPTIONAL { ?personUri vivo:nonCornellemail ?nonCornellEmail }
-              OPTIONAL { ?personUri vitro:moniker ?moniker }
             }
-          LET (?personLabel := str(?personLabelRow))
-          FILTER (!regex(?moniker, "emeritus", "i"))
-          } GROUP BY ?personLabel ?personUri ?netid ?cornellEmail ?nonCornellEmail ?moniker
+            LET (?personLabel := str(?personLabelRow))
+           
+          } GROUP BY ?personLabel ?personUri ?netid ?cornellEmail ?nonCornellEmail 
           ORDER BY fn:lower-case(?personLabel)
           LIMIT 5000
     </sparql:select>
@@ -197,7 +199,6 @@
         </div> <!-- contentWrap -->
       
 </sparql:sparql>
-</sparql:lock>
       
 <hr/>
 <jsp:include page="footer.jsp">

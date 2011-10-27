@@ -6,8 +6,10 @@
 <%-- Given a faculty or field URI, get associated research areas --%>
 <%-- or given a field URI, get top 4 ranked research areas --%>
 
+
+
 <c:if test="${param.type == 'all'}">
-    <sparql:lock model="${applicationScope.jenaOntModel}">
+
     <sparql:sparql>
         <listsparql:select model="${applicationScope.jenaOntModel}" var="rs">
           PREFIX fn:  <http://www.w3.org/2005/xpath-functions#>
@@ -17,15 +19,15 @@
           PREFIX core: <http://vivoweb.org/ontology/core#>
           SELECT DISTINCT ?areaUri ?areaLabel 
           WHERE {
-                SERVICE <http://sisler.mannlib.cornell.edu:8081/openrdf-sesame/repositories/courses2> {
+            SERVICE <http://vivoprod01.library.cornell.edu:2020/sparql> {
                   ?group rdf:type vivo:fieldCluster .
                   ?group vivo:hasAssociated ?field .
                   ?field vivo:hasFieldMember ?personUri .
                   ?personUri core:hasResearchArea ?areaUri .
                   ?areaUri rdfs:label ?areaLabelRaw .
-                }
+            }
                 LET (?areaLabel := str(?areaLabelRaw))
-              } ORDER BY fn:lower-case(?areaLabel)
+          } ORDER BY fn:lower-case(?areaLabel)
           LIMIT 1000
         </listsparql:select>
         
@@ -39,11 +41,11 @@
             
             <li>Total: ${total}</li>
     </sparql:sparql>
-    </sparql:lock>
+
 </c:if>
 
 <c:if test="${param.type == 'all-menu'}">
-    <sparql:lock model="${applicationScope.jenaOntModel}">
+
     <sparql:sparql>
         <listsparql:select model="${applicationScope.jenaOntModel}" var="rs">
           PREFIX fn:  <http://www.w3.org/2005/xpath-functions#>
@@ -53,15 +55,15 @@
           PREFIX core: <http://vivoweb.org/ontology/core#>
           SELECT DISTINCT ?areaUri ?areaLabel
           WHERE {
-                  SERVICE <http://sisler.mannlib.cornell.edu:8081/openrdf-sesame/repositories/courses2> {
+            SERVICE <http://vivoprod01.library.cornell.edu:2020/sparql> {
                     ?group rdf:type vivo:fieldCluster .
                     ?group vivo:hasAssociated ?field .
                     ?field vivo:hasFieldMember ?personUri .
                     ?personUri core:hasResearchArea ?areaUri .
                     ?areaUri rdfs:label ?areaLabelRaw .
-                  }
+            }
                   LET (?areaLabel := str(?areaLabelRaw))
-              } ORDER BY fn:lower-case(?areaLabel)
+          } ORDER BY fn:lower-case(?areaLabel)
           LIMIT 1000
         </listsparql:select>
         
@@ -71,11 +73,11 @@
             </c:forEach>
             
     </sparql:sparql>
-    </sparql:lock>
+
 </c:if>
 
 <c:if test="${param.type == 'faculty'}">
-    <sparql:lock model="${applicationScope.jenaOntModel}">
+
     <sparql:sparql>
         <listsparql:select model="${applicationScope.jenaOntModel}" var="rs" facultyUri="<${param.uri}>">
           PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
@@ -83,7 +85,7 @@
           PREFIX core: <http://vivoweb.org/ontology/core#>
           SELECT DISTINCT ?areaUri ?areaLabel
           WHERE {
-            SERVICE <http://sisler.mannlib.cornell.edu:8081/openrdf-sesame/repositories/courses2> {
+            SERVICE <http://vivoprod01.library.cornell.edu:2020/sparql> {
               ?facultyUri core:hasResearchArea ?areaUri .
               ?areaUri rdfs:label ?areaLabel .
             }
@@ -96,11 +98,11 @@
             </c:forEach>
         
     </sparql:sparql>
-    </sparql:lock>
+
 </c:if>
 
 <c:if test="${param.type == 'field'}">
-    <sparql:lock model="${applicationScope.jenaOntModel}">
+
     <sparql:sparql>
         <listsparql:select model="${applicationScope.jenaOntModel}" var="rs" fieldUri="<${param.uri}>">
           PREFIX fn:  <http://www.w3.org/2005/xpath-functions#>
@@ -110,15 +112,15 @@
           PREFIX core: <http://vivoweb.org/ontology/core#>
           SELECT DISTINCT ?areaUri ?areaLabel
           WHERE {
-              SERVICE <http://sisler.mannlib.cornell.edu:8081/openrdf-sesame/repositories/courses2> {
+            SERVICE <http://vivoprod01.library.cornell.edu:2020/sparql> {
                 ?fieldUri vivo:hasFieldMember ?facultyUri .
                 ?facultyUri core:hasResearchArea ?areaUri .
                 ?areaUri rdfs:label ?areaLabelRaw .
                 OPTIONAL { ?facultyUri vitro:moniker ?moniker }
-              }
+            }
               LET (?areaLabel := str(?areaLabelRaw))
               FILTER (!regex(?moniker, "emeritus", "i"))
-              } ORDER BY fn:lower-case(?areaLabel)
+          } ORDER BY fn:lower-case(?areaLabel)
           LIMIT 200
         </listsparql:select>
 
@@ -128,11 +130,11 @@
             </c:forEach>
         
     </sparql:sparql>
-    </sparql:lock>
+
 </c:if>
 
 <c:if test="${param.type == 'field-ranked'}">
-    <sparql:lock model="${applicationScope.jenaOntModel}">
+
     <sparql:sparql>
         <listsparql:select model="${applicationScope.jenaOntModel}" var="rs" fieldUri="<${param.uri}>">
           PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
@@ -140,13 +142,13 @@
           PREFIX core: <http://vivoweb.org/ontology/core#>
           SELECT ?areaLabel ?areaUri ?facultyLabel ?facultyUri
           WHERE {
-              SERVICE <http://sisler.mannlib.cornell.edu:8081/openrdf-sesame/repositories/courses2> {
+            SERVICE <http://vivoprod01.library.cornell.edu:2020/sparql> {
                 ?fieldUri vivo:hasFieldMember ?facultyUri .
                 ?facultyUri core:hasResearchArea ?areaUri .
                 ?areaUri rdfs:label ?areaLabel .
-                OPTIONAL { ?facultyUri rdfs:label ?facultyLabel }
-              }
-          } ORDER BY ?areaLabel ?facultyLabel
+#                OPTIONAL { ?facultyUri rdfs:label ?facultyLabel }
+            }
+          } ORDER BY ?areaLabel # ?facultyLabel
           LIMIT 2000
         </listsparql:select>
 
@@ -228,5 +230,7 @@
         <c:if test="${topArea4count > min}"><li>${topArea4label}(${topArea4count})</li></c:if> --%>
         
     </sparql:sparql>
-    </sparql:lock>
+
 </c:if>
+
+

@@ -15,7 +15,7 @@
 # vitroDisplay:PrimaryLuceneIndex and the URI of the class 
 # that you would like to exclude.
 
-vitroDisplay:PrimaryLuceneIndex
+vitroDisplay:SearchIndex
 	rdf:type owl:Thing ;
 	vitroDisplay:excludeClass core:Role ;
 	vitroDisplay:excludeClass core:AdvisingRelationship ;

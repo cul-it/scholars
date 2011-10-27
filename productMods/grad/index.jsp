@@ -22,20 +22,7 @@
   	        </div><!-- content -->
       
             <div id="sidebar" class="span-8 last">
-                
-                <div id="researchAreas">
-                    <h2>Have a research area in mind?</h2>
-                    <form name="findresearch" action="/researchareas/" method="get"> 
-                        <select id="research-areas-menu" name="uri">
-                            <option>--- try one ---</option>
-                                <jsp:include page="part/researchareas_list.jsp">
-                                    <jsp:param name="type" value="all-menu"/>
-                                </jsp:include>
-                        </select>
-                        <input type="hidden" name="home" value="true"/>
-                        <input type="submit" id="research-area-submit" value="go" />
-                    </form>
-                </div>
+               
 				
                 <div id="searchBox">
                     <form name="findresearch" action="/search/" method="get"> 
@@ -61,3 +48,4 @@
 
 <hr/>
 <jsp:include page="footer.jsp"></jsp:include>
+

@@ -53,7 +53,8 @@
             
                 <%-- or render a department index page --%>
                 <c:otherwise>
-                    <sparql:lock model="${applicationScope.jenaOntModel}">
+<!--                     <sparql:lock
+                model="${applicationScope.jenaOntModel}"> -->
                     <sparql:sparql>
     				    <sparql:select model="${applicationScope.jenaOntModel}" var="rs">
         		              PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -63,7 +64,7 @@
         		              PREFIX core: <http://vivoweb.org/ontology/core#>
         		              SELECT DISTINCT ?deptUri ?deptLabel ?deptPageUrl ?deptPageAnchor ?campus ?campusLabel
                           WHERE {
-                            SERVICE <http://sisler.mannlib.cornell.edu:8081/openrdf-sesame/repositories/courses2> {
+                            SERVICE <http://vivoprod01.library.cornell.edu:2020/sparql> {
                               ?group rdf:type vivo:fieldCluster .
                               ?group vivo:hasAssociated ?field .
                               ?person vivo:memberOfGraduateField ?field .
@@ -74,7 +75,8 @@
                               OPTIONAL { ?deptUri vivo:locatedOnCampus ?campus . ?campus rdfs:label ?campusLabel }
                               OPTIONAL { ?deptUri vitro:primaryLink ?deptLinksUri . ?deptLinksUri vitro:linkURL ?deptPageUrl . ?deptLinksUri vitro:linkAnchor ?deptPageAnchor }
                             }
-                          } ORDER BY ?deptLabel
+                          }
+                          ORDER BY ?deptLabel
         		              LIMIT 1000
     				    </sparql:select>
 
@@ -114,7 +116,7 @@
     				    </table>
 
 				    </sparql:sparql>
-				    </sparql:lock>
+<!-- 				    </sparql:lock> -->
                 </c:otherwise>
             </c:choose>
                     

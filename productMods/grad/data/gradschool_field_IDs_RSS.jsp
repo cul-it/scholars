@@ -16,13 +16,11 @@
     PREFIX core: <http://vivoweb.org/ontology/core#>
     SELECT DISTINCT ?fieldUri ?fieldLabel ?id
     WHERE {
-      SERVICE <http://sisler.mannlib.cornell.edu:8081/openrdf-sesame/repositories/courses2> {
         ?group rdf:type vivo:fieldCluster ;
           vivo:hasAssociated ?fieldUri .
         ?fieldUri vivo:hasFieldMember ?person .
         ?fieldUri vivo:gradschoolID ?id .
         OPTIONAL { ?fieldUri rdfs:label ?fieldLabel }
-      }
     }
     ORDER BY ?fieldLabel
     LIMIT 100

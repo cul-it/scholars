@@ -5,7 +5,7 @@
 
 <%-- Given a facilities tab URI, get the list of facilities in that tab --%>
 
-<sparql:lock model="${applicationScope.jenaOntModel}" >
+
 <sparql:sparql>
   <listsparql:select model="${applicationScope.jenaOntModel}" var="facilities" group="<${param.group}>">
     PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -15,7 +15,7 @@
     PREFIX core: <http://vivoweb.org/ontology/core#>
     SELECT ?uri ?label ?url ?anchor ?blurb ?description 
     WHERE {
-      SERVICE <http://sisler.mannlib.cornell.edu:8081/openrdf-sesame/repositories/courses2> {
+       SERVICE <http://vivoprod01.library.cornell.edu:2020/sparql> {
         ?tabConnector vitro:involvesTab ?group .
         ?tabConnector vitro:involvesIndividual ?uri .
         OPTIONAL { ?uri rdfs:label ?label }
@@ -28,7 +28,7 @@
     LIMIT 400
   </listsparql:select>
  </sparql:sparql>
- </sparql:lock>
+
           
 <c:forEach  items="${facilities}" var="facility" varStatus="count">
     <li>
