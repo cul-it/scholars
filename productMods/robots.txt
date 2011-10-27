@@ -1,4 +1,5 @@
 User-agent: *
+Disallow: /vis/
 Disallow: /admin/
 Disallow: /help/
 Disallow: /images/
@@ -15,5 +16,6 @@ Disallow: /coauthors/
 Disallow: /pubsbyorg/
 Disallow: /fedsearch/
 Disallow: /comments.jsp
-Disallow: /visualization
-Disallow: /visualizationData
+Disallow: /visualization/
+Disallow: /visualizationData/
+Disallow: /dataservice/
