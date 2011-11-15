@@ -10,6 +10,3 @@
         <a href="http://www.cornell.edu/search/?tab=people&netid=${netid}" title="Cornell University directory entry for ${netid}" target="_blank">Contact information</a>
     </p>
 </#if>
-          
-<#-- Links -->  
-<@p.vitroLinks propertyGroups namespaces editable "individual-urls-people" />
