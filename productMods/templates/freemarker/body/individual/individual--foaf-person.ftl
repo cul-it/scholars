@@ -25,13 +25,7 @@
 
         <div id="photo-wrapper">${individualImage}</div>
         <#-- CU directory link -->
-        <#assign netid = individual.selfEditingId!>
-        <#if netid?has_content>
-            <p class="contact-information">
-                <img class="middle" src="${urls.images}/individual/contactInformationIcon.gif" alt="Contact information icon" />
-                <a href="http://www.cornell.edu/search/?tab=people&netid=${netid}" title="Cornell University directory entry for ${netid}" target="_blank">Contact information</a>
-            </p>
-        </#if>
+        <#include "individual-contactInfo.ftl"> 
     
         <nav role="navigation">
         
