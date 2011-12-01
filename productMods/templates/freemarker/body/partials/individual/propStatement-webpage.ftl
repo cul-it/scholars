@@ -27,6 +27,6 @@
             <a href="${statement.url}">${linkText}</a>
         </#if>
     <#else>
-        <a href="${profileUrl(statement.link)}">${statement.linkName}</a> (no url provided for link)
+        <a href="${profileUrl(statement.uri("link"))}">${statement.linkName}</a> (no url provided for link)
     </#if>
 </#macro>
