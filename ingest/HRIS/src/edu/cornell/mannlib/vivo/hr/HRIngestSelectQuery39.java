@@ -362,13 +362,13 @@ public class HRIngestSelectQuery39 {
 		 */
 		PropertyConfigurator.configure(fileQryPath + "loggercfg.txt");
 		logger.info("Entering application.");
-				
+		
+		if (args.length == 2) {
 		fileRDFPath = args[0];
 		fileQryPath = args[1];
-        
-		if {
-			
 		}
+
+
 		boolean ReadFromFile = false;
 		Model mdlAllHRIS = CreateAllHRIS(ReadFromFile);
 
