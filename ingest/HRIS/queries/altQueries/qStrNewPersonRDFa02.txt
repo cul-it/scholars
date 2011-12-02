@@ -1,0 +1,21 @@
+PREFIX hr: <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#>  
+PREFIX cuvivo: <http://vivo.cornell.edu/individual/> 
+PREFIX foaf: <http://xmlns.com/foaf/0.1/> 
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+PREFIX core: <http://vivoweb.org/ontology/core#> 
+PREFIX titlemap: <http://vivo.library.cornell.edu/ns/hr/titleMapping#> 
+PREFIX newhr: <http://vivoweb.org/ontology/newhr#>
+
+CONSTRUCT { 
+  ?hrperson rdfs:label ?hrlabel .
+  ?hrperson hr:netId ?hrnetId .
+  ?hrperson hr:emplId ?hremplId .
+  ?hrperson hr:WorkingTitle ?prettyTitle .
+  ?hrperson newhr:uriDataProp ?newURI .
+  #?hrperson titlemap:PrettyTitle ?prettyTitle .
+  }   
+WHERE {
+  SERVICE <http://bailey.mannlib.cornell.edu:2020/sparql>
+    {
+	?hrperson hr:emplId "

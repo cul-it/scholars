@@ -1,0 +1,9 @@
+>) .
+     ?person core:personInPosition ?position .
+     ?position rdf:type core:position .
+     ?position rdfs:label ?positionLabel .
+     ?position hr:LDAPJobNumber ?jobNumber .
+     ?position core:hrJobTitle ?jobTitle .
+     ?position core:positionForPerson ?person .
+  } 
+}

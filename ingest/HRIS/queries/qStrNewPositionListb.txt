@@ -1,0 +1,5 @@
+" .
+    OPTIONAL {?hrperson core:personInPosition ?position .}
+     ?position rdf:type core:position .
+  } 
+}

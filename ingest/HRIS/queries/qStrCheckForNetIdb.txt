@@ -1,0 +1,25 @@
+" .
+    ?hrperson rdfs:label ?hrlabel .
+    ?hrperson hr:netId ?hrnetId .
+    ?hrperson hr:emplId ?hremplId .	
+    ?hrperson hr:WorkingTitle ?wtitle .
+    ?hrperson newhr:uriDataProp ?newURI .
+  } 
+SERVICE <http://bailey.mannlib.cornell.edu:7070/sesame/repositories/titlemapping>
+  {
+    #?titleMap rdf:type <http://vivo.library.cornell.edu/ns/hr/titleMapping#TitleMapping> 
+    ?titleMap titlemap:titlemapping_originalTitleStr ?wtitle .
+    ?titleMap titlemap:titlemapping_modifiedTitleStr ?prettyTitle .  
+  }
+
+  SERVICE <http://vivoprod01.library.cornell.edu:2020/sparql>
+    {
+          ?vivoperson hr:netId ?hrnetId .
+	  ?vivoperson hr:netId ?vivonetId .
+          OPTIONAL {?vivoperson hr:emplId ?vivoemplId }
+    }  
+
+# emplID in HRIS, HRIS netId matches VIVO netID, no vivo emplid
+
+FILTER ((?vivonetId = ?hrnetId) && (!BOUND(?vivoemplId)))
+}

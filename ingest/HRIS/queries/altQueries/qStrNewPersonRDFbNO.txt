@@ -1,0 +1,20 @@
+" .
+    ?hrperson rdfs:label ?hrlabel .
+    ?hrperson hr:netId ?hrnetId .
+    ?hrperson hr:emplId ?hremplId .	
+    ?hrperson hr:WorkingTitle ?wtitle .
+    ?hrperson newhr:uriDataProp ?newURI .
+    OPTIONAL { ?hrperson core:email ?email }
+    #OPTIONAL { ?hrperson hr:PrefName ?prefname }
+    #OPTIONAL { ?hrperson bibo:prefixName ?prefixName }
+    #OPTIONAL { ?hrperson bibo:suffixName ?suffixName }
+    }
+
+  } 
+SERVICE <http://bailey.mannlib.cornell.edu:7070/sesame/repositories/titlemapping>
+  {
+    #?titleMap rdf:type <http://vivo.library.cornell.edu/ns/hr/titleMapping#TitleMapping> 
+    ?titleMap titlemap:titlemapping_originalTitleStr ?wtitle .
+    ?titleMap titlemap:titlemapping_modifiedTitleStr ?prettyTitle .  
+  }
+}

@@ -1,0 +1,5 @@
+>) .
+
+     ?position core:positionInOrganization ?org .
+  } 
+}
