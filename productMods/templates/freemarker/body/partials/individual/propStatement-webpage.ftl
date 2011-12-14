@@ -20,7 +20,7 @@
     </#local>
 
     <#if statement.url?has_content>
-       <#if individual?? && individual.organization>
+       <#if individual?? && individual.organization()>
             <a title="official page for ${statement.url}" href="${statement.url}"><img class="org-webThumbnail" src="http://mannlib.websnapr.com/?url=${statement.url}&size=m" alt="screenshot of webpage ${statement.url}"/></a>
             <a class="org-url" href="${statement.url}">${linkText}</a>      
         <#else>

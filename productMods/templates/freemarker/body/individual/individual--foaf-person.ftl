@@ -24,8 +24,6 @@
         </#if>
 
         <div id="photo-wrapper">${individualImage}</div>
-        <#-- CU directory link -->
-        <#include "individual-contactInfo.ftl"> 
     
         <nav role="navigation">
         

@@ -3,7 +3,7 @@
 <#-- Contact info on individual profile page -->
 
 <#-- CU directory link -->
-<#assign netid = individual.selfEditingId!>
+<#assign netid = individual.selfEditingId()!>
 <#if netid?has_content>
     <p class="contact-information">
         <img class="middle" src="${urls.images}/individual/contactInformationIcon.gif" alt="Contact information icon" />
