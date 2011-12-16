@@ -17,8 +17,8 @@
     
     <section id="visualization" role="region">
         <#if isAuthor>
-            <#assign coAuthorIcon = "${urls.images}/visualization/co_author_icon.png">
-            <#assign mapOfScienceIcon = "${urls.images}/visualization/mapofscience/vivo-scimap.png">
+            <#assign coAuthorIcon = "${urls.images}/visualization/coauthorship/co_author_icon.png">
+            <#assign mapOfScienceIcon = "${urls.images}/visualization/mapofscience/scimap_icon.png">
             <#assign coAuthorVisUrl = individual.coAuthorVisUrl()>
             <#assign mapOfScienceVisUrl = individual.mapOfScienceUrl()>
             
@@ -33,18 +33,18 @@
             
             <div id="coauthorship_link_container" class="collaboratorship-link-container">
 				<div class="collaboratorship-icon">
-                    <a href="${coAuthorVisUrl}"><img src="${coAuthorIcon}" alt="Co-author network icon" width="30px" height="30px" /></a>
+                    <a href="${coAuthorVisUrl}" title="co-author"><img src="${coAuthorIcon}" alt="Co-author network icon" width="30px" height="30px" /></a>
                 </div>
-                <div class="collaboratorship-link"><a href="${coAuthorVisUrl}">Co-Author Network</a></div>
+                <div class="collaboratorship-link"><a href="${coAuthorVisUrl}" title="co-author network">Co-Author Network</a></div>
             </div>
             
             <div class="collaboratorship-link-separator"></div>
             
   	      	<div id="mapofscience_link_container" class="collaboratorship-link-container">
             	<div class="collaboratorship-icon">	
-                    <a href="${mapOfScienceVisUrl}"><img src="${mapOfScienceIcon}" alt="Map Of Science icon" width="30px" height="30px" /></a>
+                    <a href="${mapOfScienceVisUrl}" title="map of science"><img src="${mapOfScienceIcon}" alt="Map Of Science icon" width="30px" height="30px" /></a>
                 </div>
-                <div class="collaboratorship-link"><a href="${mapOfScienceVisUrl}">Map Of Science</a></div>
+                <div class="collaboratorship-link"><a href="${mapOfScienceVisUrl}" title="map of science">Map Of Science</a></div>
             </div>
             
             ${scripts.add('<script type="text/javascript" src="${googleJSAPI}"></script>',
@@ -65,13 +65,13 @@
         
         <#if isInvestigator>
             <#assign coInvestigatorVisUrl = individual.coInvestigatorVisUrl()>
-            <#assign coInvestigatorIcon = "${urls.images}/visualization/co_investigator_icon.png">
+            <#assign coInvestigatorIcon = "${urls.images}/visualization/coauthorship/co_investigator_icon.png">
             
             <div id="coinvestigator_link_container" class="collaboratorship-link-container">
                 <div class="collaboratorship-icon">
-                    <a href="${coInvestigatorVisUrl}"><img src="${coInvestigatorIcon}" alt="Co-investigator network icon" width="30px" height="30px" /></a>
+                    <a href="${coInvestigatorVisUrl}" title="co-investigator network"><img src="${coInvestigatorIcon}" alt="Co-investigator network icon" width="30px" height="30px" /></a>
                 </div>
-                <div class="collaboratorship-link"><a href="${coInvestigatorVisUrl}">Co-Investigator Network</a></div>
+                <div class="collaboratorship-link"><a href="${coInvestigatorVisUrl}" title="co-investigator network">Co-Investigator Network</a></div>
             </div>
         </#if>
     </section>
