@@ -181,8 +181,9 @@ public class HRIngestSelectQuery39 {
 	public static Model CreateAllHRIS(boolean readFromFile) throws Exception {
 		Model mdlAllHRIS = ModelFactory.createDefaultModel();
 		if (readFromFile) {
-			// create separate logic for reading RDF from existing files instead of querying services.
-			// example read: create mdlHRISMatch from existing nt file
+			// optional functionality :create separate logic for reading RDF from existing files 
+			// instead of querying services.  Useful?  Maybe when services are down...
+			// following commented code is an example read: create mdlHRISMatch from existing nt file
 			/*
 			String HRISMatchfilename = fileRDFPath + "hrisMatchEmplId.nt";
 			String readnamespace  = "http://vivo.cornell.edu/";
@@ -398,6 +399,7 @@ public class HRIngestSelectQuery39 {
 			
 			// create models to hold the generated lists of positions and orgs as we go
 			Model mdlAllNewPositionList = ModelFactory.createDefaultModel();
+			Model mdlAllPositionLinks = ModelFactory.createDefaultModel();
 			Model mdlAllNewOrgList = ModelFactory.createDefaultModel();
 
 			// iterate through list of new emplIds
@@ -413,6 +415,9 @@ public class HRIngestSelectQuery39 {
 				
 				String[] strs1 = {"qStrNewPositionLista.txt", NewPersonId, "qStrNewPositionListb.txt"};
 				String qStrNewPositionList = ConcatQueryString(strs1); 
+				
+				String[] strs1a = {"qStrPositionRelationshipsa.txt", NewPersonId, "qStrPositionRelationshipsb.txt"};
+				String qStrPositionLinks = ConcatQueryString(strs1a); 
 
 				System.out.print(qStrNewPositionList);
 
@@ -428,6 +433,14 @@ public class HRIngestSelectQuery39 {
 					Model mdlNewPersonRDF = MakeNewModelCONSTRUCT(qStrNewPersonRDF);    
 					logger.info("person RDF query complete.");
 
+					// execute queries and populate model for position relationship RDF
+					logger.debug("generating position links for " + NewPersonId + " , adding to output model");
+					System.out.print(qStrNewPersonRDF);
+					Model mdlPositionLinks = MakeNewModelCONSTRUCT(qStrPositionLinks);    
+					logger.info("person RDF query complete.");
+					
+					
+					
 					// create model with position uri(s)
 					logger.debug("finding positions for " + NewPersonId + "...");
 					logger.debug(qStrNewPositionList);
@@ -511,6 +524,10 @@ public class HRIngestSelectQuery39 {
 						logger.debug("found position for " + NewPersonId + " , adding to output model");
 						mdlAllNewPositionList.add(mdlNewPositionList);
 						logger.debug("done writing to position output model");
+						
+						// add all position relationship data to the master list
+						mdlAllPositionLinks.add(mdlPositionLinks);
+						logger.debug("done writing to positionlink output model");
 
 					} catch (Exception e)   {
 						logger.error("exception writing New Person RDF!  Error" + e);
@@ -532,6 +549,10 @@ public class HRIngestSelectQuery39 {
 			// write allNewPositionList model to file
 			String allNewHRISPositionListFileName  = fileRDFPath + "allNewPositionList.n3";
 			WriteRdf(allNewHRISPositionListFileName, mdlAllNewPositionList, "N-TRIPLE");
+			
+			// write mdlAllPositionLinks to file
+			String allPositionLinksFileName  = fileRDFPath + "allPositionRelationships.n3";
+			WriteRdf(allPositionLinksFileName, mdlAllPositionLinks, "N-TRIPLE");
 
 			// now that all relevant person nodes have been processed, setup try for creating position RDF
 			//   declaring mdlAllNewPositionRDF outside the try...
@@ -546,7 +567,6 @@ public class HRIngestSelectQuery39 {
 					//with every position Id in the list, generate appropriate RDF
 					logger.debug("constructing RDF for " + NewPositionId + "...");
 					String[] strs4 = {"qStrNewPositionRDFa.txt", NewPositionId, "qStrNewPositionRDFb.txt"};
-					logger.debug(strs4);
 					String qStrNewPositionRDF = ConcatQueryString(strs4); 
 					//remove when working
 					logger.debug(qStrNewPositionRDF);
@@ -614,7 +634,7 @@ public class HRIngestSelectQuery39 {
 					// compare orgId to VIVO, match up URIs
 					// statement iterator goes here
 					orgCount++;
-					logger.debug("processed " + orgCount + "distinct (?) records of " + orgTotal);
+					logger.debug("processed " + orgCount + " distinct(?) records of " + orgTotal);
 				}  // end while for position node iterator
 
 				//Remove after testing: 

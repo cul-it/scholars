@@ -1,0 +1,31 @@
+PREFIX hr: <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#>  
+PREFIX cuvivo: <http://vivo.cornell.edu/individual/> 
+PREFIX foaf: <http://xmlns.com/foaf/0.1/> 
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+PREFIX core: <http://vivoweb.org/ontology/core#> 
+PREFIX newhr: <http://vivoweb.org/ontology/newhr#>
+PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
+PREFIX titlemap: <http://vivo.library.cornell.edu/ns/hr/titleMapping#> 
+
+CONSTRUCT { 
+  ?hrperson core:personInPosition ?position .
+  ?position core:organizationForPosition ?vivoorg .
+  ?vivoorg vivo:departmentHRcode ?hrDeptID .
+  ?org newhr:DeptID ?hrDeptID  .
+  }   
+WHERE {
+  SERVICE <http://bailey.mannlib.cornell.edu:2020/sparql>
+    {
+    ?hrperson hr:emplId "VARVALUE" .
+    OPTIONAL {?hrperson core:personInPosition ?position .}
+    OPTIONAL {?position core:positionInOrganization ?org .}
+    OPTIONAL {?org newhr:DeptID ?hrDeptID  .}
+
+  } 
+  SERVICE <VIVOSERV>
+    {
+      OPTIONAL {?vivoorg vivo:departmentHRcode ?hrDeptID }
+      FILTER (BOUND(?vivoorg))
+    }  
+}

@@ -1,0 +1,93 @@
+		// logic for making changes: 
+		
+		// compare VIVO foaf:lastName and HRIS foaf:lastName
+		// if lexically equal, no action needed
+		//   if VIVO foaf:lastName has diacritic characters, do not update
+        //	   if no diacritics in VIVO and not lexically equal, then retract VIVO foaf:lastName and add HRIS foaf:lastName 
+
+		// compare VIVO foaf:firstName and HRIS foaf:firstName
+		// if lexically equal, no action needed
+		//   if VIVO foaf:firstName has diacritic characters, do not update
+		//      if no diacritics in VIVO and not lexically equal, then retract VIVO foaf:firstName and add HRIS foaf:firstName 
+
+		// compare VIVO core:middleName and HRIS core:middleName
+		// if lexically equal, no action needed
+		//   if VIVO core:middleName has diacritic characters, do not update
+		//	    if no diacritics and not lexically equal, then retract VIVO core:middleName and add HRIS core:middleName 
+
+		// any time we change a name, 
+		//  should we consider changing the label?
+		//	  - we could concatenate name parts and compare to label
+		//	  - but if HR lists me as Timothy and I have edited my label to Tim then an automated change would be trouble
+		//  but we should output any name change to a log for human review.
+
+		// hr:workingTitle is a property of foaf:Person
+		// working title comes from HRIS data via prettyTitles mapping
+		// if lexically = to VIVO hr:workingTitle:
+		//   do nothing, else always use HRIS working title by way of map:prettyTitle
+		//  HRIS job code ldesc and LDAP working title should agree?  
+		//    if not, log it, but always use data from HRIS, not LDAP?
+
+		// should we migrate anything from vitro:moniker or should it all get cleaned out?
+
+		// vivo:employeeOf seems to be inconsistently populated among Cornell employees
+		//  should we consider populating this person property in our automated ingest?
+		//  also, get disposition on how vivo:PersonAffiliatedWithOrganizedEndeavor is populated
+		// consider that emeritus may not have vivo:employeeOf and should have vivo:emeritusProfessorIn instead?
+		//   - but only if retired and not currently an employee...
+
+		//  we now link persons to department via position (via core:positionInOrganization)  
+		//   Is there duplication on department pages when we also link via employeeOf and emeritusProfessorIn?
+		//    (ref Johnson School emeritus concerns)
+		
+		
+		// use HRIS emeritus list to create and manage retired emeritus profiles
+		// according to data from the vivoemeritus HRIS table, emeritus designation is tied to foaf:Person (via netId)
+		// is there a need to transfer emeritus status to position ?
+		//   no, because position has core:hrJobTitle which should be "Prof Emeritus"
+		// see individual22731 - it's possible to have 
+		//   Working Title and Primary Working Title set to "Prof Emeritus"
+		//   Preferred Title set to  "Cornell Emeritus Professor"
+		//   PrimaryJobCodeLDesc set to "A W Olin Professor of Accounting"
+		//   but PrimaryJobCodeLDesc does not appear in profile!
+		
+		//  question of emeritus types - which should we set with ingest?
+		//    hr:Cornell Emeritus Professor
+		//    vivo:Faculty Member Emeritus
+		//    vivo:Professor Emeritus
+		//  (are there others?)
+		//  in D2R, if netId exists in vivoemeritus table, then assert one of these
+		//  AND pass vivoemeritus title to hr:workingTitle via prettyTitle
+		//  (you can be a Staff Emeritus)
+		
+		// if *retired emeritus*, create and set core:manuallyCurated as class for Person
+		//   emeritus may be "active" and have a second (or third?) appointment that requires update
+        // can you be "retired emeritus" from one appointment and still be an active employee in another?		
+		
+		
+		// positions always get updated unless manually curated or emeritus
+        // our new URI structure means that ALL positions in VIVO will get replaced?
+		//  do we need a lexical comparison?  NO, because we are using isomorphic comparison
+		//  consider if we need "prettyPosition" table to expand ugly/truncated JobCodeLDesc
+		//  HRIS is *always* better source than LDAP for position data
+		//  should we check LDAP and report if different?
+		//  should we attempt to align position numbers/URIs?
+		//  Still need Primary position logic  
+		//    if only one position,  then it's primary (don't create secondary position RDF!) ?
+		//    if two positions, then need to 
+		//        pass P and S from HRIS D2R
+		//        ensure that correct position gets into PrimaryJobCodeDesc and SecondaryJobCodeDesc?
+		//        what about three positions?  one is primary, and both of the remaining are secondary?
+		
+		
+		   
+		
+
+// non-academic? faculty? 
+
+
+
+
+
+// changing positions
+

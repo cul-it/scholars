@@ -1,0 +1,31 @@
+(&(!(type=student*))(cn=Donald*Turcotte))http://vivo.cornell.edu/individual/JudithHealey
+2049077
+Healey, Judith Ann
+(&(!(type=student*))(cn=Judith*Ann*Healey))http://vivo.cornell.edu/individual/PeterEnns
+2015392
+Enns, Peter
+(&(!(type=student*))(cn=Peter*Enns))http://vivo.cornell.edu/individual/jfb13
+
+
+name lacks a comma: nullhttp://vivo.cornell.edu/individual/individual25655
+1855430
+Khessina, Olga M
+(&(!(type=student*))(cn=Olga*M*Khessina))http://vivo.cornell.edu/individual/JulieNucci
+1008488
+Nucci, Julie
+(&(!(type=student*))(cn=Julie*Nucci))http://vivo.cornell.edu/individual/TamaraShollenberger
+1006184
+Shollenberger, Tamara M
+(&(!(type=student*))(cn=Tamara*M*Shollenberger))http://vivo.cornell.edu/individual/BenjaminMcHugh
+
+
+name lacks a comma: nullhttp://vivo.cornell.edu/individual/BarbaraBatley
+1298057
+Batley, Barbara
+(&(!(type=student*))(cn=Barbara*Batley))http://vivo.cornell.edu/individual/ShanVarma
+1778460
+Varma, Shan
+(&(!(type=student*))(cn=Shan*Varma))http://vivo.cornell.edu/individual/mm2443
+
+
+name lacks a comma: null

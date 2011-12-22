@@ -13,7 +13,7 @@ WHERE {
     {
 	?hrisperson hr:emplId ?hrisemplId .
     } 
-  SERVICE <http://vivoprod01.library.cornell.edu:2020/sparql>
+  SERVICE <VIVOSERV>
     {
       ?vivoperson hr:emplId ?hrisemplId .
     }  

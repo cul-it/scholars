@@ -10,7 +10,7 @@ PREFIX titlemap: <http://vivo.library.cornell.edu/ns/hr/titleMapping#>
     ?vivoperson hr:netId ?vivonetId .
   } 
   WHERE {
-  SERVICE <http://vivoprod01.library.cornell.edu:2020/sparql>
+  SERVICE <VIVOSERV>
     {
         ?vivoperson hr:emplId ?vivoemplId .
         ?vivoperson hr:netId ?vivonetId .

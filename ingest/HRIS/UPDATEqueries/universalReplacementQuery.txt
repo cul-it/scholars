@@ -1,0 +1,55 @@
+<PREFIXES GO HERE>
+ 
+# note: comment and uncomment CONSTRUCT statements to add and subtract related statements
+# LET statements allow input of ?badAuthorURI and ?articleURI
+#  (with room for future statement for ?goodAuthorURI) 
+# default config returns RDF about ArticleURI, AuthorshipURI and AuthorURI
+ 
+CONSTRUCT {
+  ?s1 ?p1 ?o1 .
+  ?ss1 ?pp1 ?s1 . 
+#  ?o1 ?ppp1 ?oo1 .
+?s2 ?p2 ?o2 .
+?ss2 ?pp2 ?s2 . 
+# ?o2 ?ppp2 ?oo2 .
+#  ?s3 ?p3 ?o3 .
+#  ?ss3 ?pp3 ?s3 .
+#  ?o3 ?ppp3 ?oo3 .
+ 
+}
+WHERE {
+# Terry Acree article example
+LET (?badAuthorURI := <http://vivo.cornell.edu/individual/AI-ICIAR-01FADAE880800010D0D>)
+LET (?resourceURI := <http://vivo.cornell.edu/individual/AI-24373116929>)
+LET (?predicate1 := core:linkedAuthor)
+LET (?predicate2 := core:linkedInformationResource)
+ 
+#Liu, H article example
+#LET (?badAuthorURI := <http://vivo.cornell.edu/individual/AI-PICAR-01FADAE8808000315D2>)
+#LET (?resourceURI := <http://vivo.cornell.edu/individual/AI-17994616833>)
+#LET (?predicate1 := core:linkedAuthor)
+#LET (?predicate2 := core:linkedInformationResource)
+ 
+#Abawi, George Impact example
+#looking for AI-12020959232-CI-5
+#LET (?badAuthorURI := <http://vivo.cornell.edu/individual/AI-ISIR-01FADAE880800015C96>)
+#LET (?resourceURI := <http://vivo.cornell.edu/individual/AI-12020959232>)
+#LET (?predvar1 := core:researcherRoleOf)
+#LET (?predvar2 := core:roleIn)
+ 
+ 
+?s1 ?predvar1 ?badAuthorURI .
+?s1 ?p1 ?resourceURI .
+ 
+?s1 ?p1 ?o1 .
+?ss1 ?pp1 ?s1 .
+?o1 ?ppp1 ?oo1 .
+ 
+?s2 ?predvar2 ?resourceURI .
+?s2 ?p2 ?badAuthorURI .
+ 
+?s2 ?p2 ?o2 .
+?ss2 ?pp2 ?s2 .
+?o2 ?ppp2 ?oo2 .
+ 
+}

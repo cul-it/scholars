@@ -1,0 +1,18 @@
+/** HRIS Ingest Test v10
+* methods to create RDF for HRIS adds and changes
+* cmw48  Oct 2011
+*  TODO:
+*  
+*   build netId match to find HRIS that should already be in VIVO
+*   lots of work in ConstructHRISRDFData
+*   implement log4j
+*    
+*    Learn how to pass Jena models between methods, or make them available to multiple methods
+*      current workaround is to query from services and writing RDF to files
+*      read files into model whenever they are needed
+*      - allows re-use of RDF files for different tasks
+*      - provides a baseline history for the state of add/retract based on emplId iso at time of ingest
+*/    
+
+
+package edu.cornell.mannlib.vivo.hr;

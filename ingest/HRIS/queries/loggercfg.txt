@@ -11,7 +11,7 @@ log4j.appender.A1.layout=org.apache.log4j.PatternLayout
 log4j.appender.A1.layout.ConversionPattern=%d %-5p %c - %m%n
 
 log4j.appender.R=org.apache.log4j.RollingFileAppender
-log4j.appender.R.File=C:\\Users\\cmw48\\workspace\\newhringest\\hringest01.log
+log4j.appender.R.File=C:\\Users\\cmw48\\workspace\\vivocornell\\ingest\\HRIS\\hringest01.log
 
 # R uses PatternLayout.
 log4j.appender.R.layout=org.apache.log4j.PatternLayout

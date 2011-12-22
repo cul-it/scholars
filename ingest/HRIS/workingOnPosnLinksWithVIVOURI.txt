@@ -1,0 +1,99 @@
+PREFIX hr: <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#>  
+PREFIX cuvivo: <http://vivo.cornell.edu/individual/> 
+PREFIX foaf: <http://xmlns.com/foaf/0.1/> 
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+PREFIX core: <http://vivoweb.org/ontology/core#> 
+PREFIX newhr: <http://vivoweb.org/ontology/newhr#>
+PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
+
+CONSTRUCT { 
+      ?position core:positionInOrganization ?vivoorg . 
+      ?vivoorg core:organizationForPosition ?position .
+      ?vivoorg vivo:departmentHRcode ?hrDeptID .
+      ?vivoorg newhr:UnitID ?hrUnitID .
+      ?vivoorg newhr:altlabel ?hrorglabel .
+      ?vivoorg newhr:UnitID_Ldesc ?hrUnitIDLdesc .
+      ?position core:positionForPerson ?vivoperson .
+      #?person hr:emplId ?emplId .
+      #?vivoperson hr:emplId ?emplId .
+  }   
+WHERE {
+  SERVICE <http://bailey.mannlib.cornell.edu:2020/sparql>
+    {
+      ?org newhr:uriDataProp "http://vivo.cornell.edu/individual/unitCOMEDRL-deptCMR-ADM" .
+      ?position core:positionInOrganization ?org .
+      ?org newhr:DeptID ?hrDeptID  .
+      OPTIONAL {?org newhr:UnitID ?hrUnitID }
+      OPTIONAL {?org rdf:label ?hrorglabel }
+      OPTIONAL {?org newhr:UnitID_Ldesc ?hrUnitIDLdesc }
+      OPTIONAL {?position core:positionForPerson ?person }
+      OPTIONAL {?person hr:emplId ?emplId }         
+     } 
+  SERVICE <http://vivoprod01.library.cornell.edu:2020/sparql>
+    {
+      OPTIONAL {?vivoorg vivo:departmentHRcode ?hrDeptID }
+      #making this optional includes ggc9-position1
+      OPTIONAL {?vivoperson hr:emplId ?emplId }
+      #FILTER (BOUND(?emplId))
+    }
+}
+
+---
+
+@prefix afn:     <http://jena.hpl.hp.com/ARQ/function#> .
+@prefix :        <http://vitro.mannlib.cornell.edu/ns/vitro/public#> .
+@prefix hr:      <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#> .
+@prefix cuvivo:  <http://vivo.cornell.edu/individual/> .
+@prefix vann:    <http://purl.org/vocab/vann/> .
+@prefix owl2:    <http://www.w3.org/2006/12/owl2-xml#> .
+@prefix dcterms:  <http://purl.org/dc/terms/> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix swrl:    <http://www.w3.org/2003/11/swrl#> .
+@prefix vitro:   <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#> .
+@prefix event:   <http://purl.org/NET/c4dm/event.owl#> .
+@prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix swvs:    <http://www.w3.org/2003/06/sw-vocab-status/ns#> .
+@prefix vivo:    <http://vivo.library.cornell.edu/ns/0.1#> .
+@prefix dcelem:  <http://purl.org/dc/elements/1.1/> .
+@prefix newhr:   <http://vivoweb.org/ontology/newhr#> .
+@prefix dc:      <http://purl.org/dc/elements/1.1/> .
+@prefix geo:     <http://aims.fao.org/aos/geopolitical.owl#> .
+@prefix foaf:    <http://xmlns.com/foaf/0.1/> .
+@prefix skco:    <http://www.w3.org/2004/02/skos/core#> .
+@prefix bibo:    <http://purl.org/ontology/bibo/> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl:     <http://www.w3.org/2002/07/owl#> .
+@prefix swrlb:   <http://www.w3.org/2003/11/swrlb#> .
+@prefix core:    <http://vivoweb.org/ontology/core#> .
+@prefix skos:    <http://www.w3.org/2008/05/skos#> .
+
+cuvivo:individual21844
+      vivo:departmentHRcode
+              "CMR-ADM" ;
+      core:organizationForPosition
+              cuvivo:ffp1-position0 , cuvivo:ggc9-position1 , cuvivo:twb22-position1 , cuvivo:kak243-position0 ;
+      newhr:UnitID "COMEDRL" ;
+      newhr:UnitID_Ldesc "University Communications" .
+
+cuvivo:ffp1-position0
+      core:positionForPerson
+              cuvivo:individual22541 ;
+      core:positionInOrganization
+              cuvivo:individual21844 .
+
+cuvivo:ggc9-position1
+      core:positionInOrganization
+              cuvivo:individual21844 .
+
+cuvivo:twb22-position1
+      core:positionForPerson
+              cuvivo:individual25955 ;
+      core:positionInOrganization
+              cuvivo:individual21844 .
+
+cuvivo:kak243-position0
+      core:positionForPerson
+              cuvivo:KyleKubick ;
+      core:positionInOrganization
+              cuvivo:individual21844 .

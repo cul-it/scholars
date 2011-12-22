@@ -7,7 +7,10 @@ PREFIX core: <http://vivoweb.org/ontology/core#>
 PREFIX newhr: <http://vivoweb.org/ontology/newhr#>
 PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
 
+
 CONSTRUCT { 
+      ?position core:positionInOrganization ?vivoorg . 
+      ?vivoorg core:organizationForPosition ?position .
       ?vivoorg vivo:departmentHRcode ?hrDeptID .
       ?vivoorg newhr:UnitID ?hrUnitID .
       ?vivoorg newhr:altlabel ?hrorglabel .
@@ -17,6 +20,7 @@ WHERE {
   SERVICE <http://bailey.mannlib.cornell.edu:2020/sparql>
     {
       ?org newhr:uriDataProp "**VALUE**" .
+      ?position core:positionInOrganization ?org .
       ?org newhr:DeptID ?hrDeptID  .
       OPTIONAL {?org newhr:UnitID ?hrUnitID }
       OPTIONAL {?org rdf:label ?hrorglabel }
@@ -26,8 +30,6 @@ WHERE {
   SERVICE <http://vivoprod01.library.cornell.edu:2020/sparql>
     {
       OPTIONAL {?vivoorg vivo:departmentHRcode ?hrDeptID }
-
      #FILTER (!BOUND(?vivoorg))
     }  
-
 }

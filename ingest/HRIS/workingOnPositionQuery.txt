@@ -1,0 +1,22 @@
+CONSTRUCT { ?s ?p ?position .
+   ?position ?pp ?o .
+   <http://vivo.cornell.edu/individual/individual5320> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#primaryJobcodeLdesc> ?primaryJobcodeLdesc .
+   <http://vivo.cornell.edu/individual/individual5320> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#primaryWorkingTitle> ?primaryWorkingTitle .
+                ?position <http://vivoweb.org/ontology/core#hrJobTitle> ?hrJobTitle . 
+                ?position <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#LDAPJobNumber> ?jobNumber 
+} WHERE {
+    <http://vivo.cornell.edu/individual/individual5320> <http://vivoweb.org/ontology/core#personInPosition> ?position .
+   ?s ?p ?position .
+   ?position ?pp ?o .
+                OPTIONAL { ?position <http://vivoweb.org/ontology/core#hrJobTitle> ?hrJobTitle . }
+                OPTIONAL { ?position <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#LDAPJobNumber> ?jobNumber }
+   OPTIONAL { <http://vivo.cornell.edu/individual/individual5320> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#primaryJobcodeLdesc> ?primaryJobcodeLdesc }
+    OPTIONAL { <http://vivo.cornell.edu/individual/individual5320> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#primaryWorkingTitle> ?primaryWorkingTitle }
+    OPTIONAL { ?position ?manualPositionTest <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#ManuallyCuratedPosition> }
+    FILTER (!bound(?manualPositionTest))
+    FILTER (?o != <http://www.w3.org/2002/07/owl#Thing>)
+    FILTER (?o != <http://vivoweb.org/ontology/core#DependentResource>)
+    FILTER (?o != <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#DependentResource>)
+    FILTER (?o != <http://vivoweb.org/ontology/core#Position>)
+    FILTER (!bound(?jobNumber) || ?jobNumber < \"3\"^^<http://www.w3.org/2001/XMLSchema#int>)
+}
