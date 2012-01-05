@@ -41,7 +41,10 @@
 
   <!-- Listeners ****************************************************** -->
 
-  <!-- StartupManager instantiates and runs the listeners from startup_listeners.txt -->
+  <!-- 
+      StartupManager instantiates and runs the listeners from startup_listeners.txt
+      All ServletContextListeners should be listed there, not here. 
+  -->
   <listener>
     <listener-class>edu.cornell.mannlib.vitro.webapp.startup.StartupManager</listener-class>
   </listener>
@@ -50,6 +53,15 @@
   <!-- Filters ********************************************************** -->
   <!-- in 2.4 spec, filter chain order is first by filter-mapping <url-pattern> order in web.xml,
 	 then filter-mapping <servlet-name> order in web.xml -->
+
+  <filter>
+    <filter-name>Startup Status Display Filter</filter-name>
+    <filter-class>edu.cornell.mannlib.vitro.webapp.filters.StartupStatusDisplayFilter</filter-class>
+  </filter>
+    <filter-mapping>
+      <filter-name>Startup Status Display Filter</filter-name>
+      <url-pattern>/*</url-pattern>
+  </filter-mapping>
 
   <filter>
     <filter-name>Session Timeout Limiting Filter</filter-name>
@@ -229,6 +241,24 @@
   </servlet-mapping>
   
    <servlet>
+    <servlet-name>DeletePropertyController</servlet-name>
+    <servlet-class>edu.cornell.mannlib.vitro.webapp.controller.freemarker.DeletePropertyController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DeletePropertyController</servlet-name>
+    <url-pattern>/deletePropertyController</url-pattern>
+  </servlet-mapping>
+  
+   <servlet>
+    <servlet-name>PostEditCleanupController</servlet-name>
+    <servlet-class>edu.cornell.mannlib.vitro.webapp.edit.n3editing.controller.PostEditCleanupController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PostEditCleanupController</servlet-name>
+    <url-pattern>/postEditCleanupController</url-pattern>
+  </servlet-mapping>
+  
+   <servlet>
     <servlet-name>MenuManagementController</servlet-name>
     <servlet-class>edu.cornell.mannlib.vitro.webapp.controller.freemarker.MenuManagementController</servlet-class>
   </servlet>
@@ -332,11 +362,11 @@
   </servlet-mapping>
 
   <servlet>
-    <servlet-name>EmptyController</servlet-name>
-    <servlet-class>edu.cornell.mannlib.vitro.webapp.controller.freemarker.EmptyController</servlet-class>
+    <servlet-name>StaticPageController</servlet-name>
+    <servlet-class>edu.cornell.mannlib.vitro.webapp.controller.freemarker.StaticPageController</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>EmptyController</servlet-name>
+    <servlet-name>StaticPageController</servlet-name>
     <url-pattern>/login</url-pattern>
   </servlet-mapping>
       
@@ -712,6 +742,15 @@
   </servlet-mapping>
 
   <servlet>
+    <servlet-name>StartupStatus</servlet-name>
+    <servlet-class>edu.cornell.mannlib.vitro.webapp.controller.admin.StartupStatusController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>StartupStatus</servlet-name>
+    <url-pattern>/startupStatus</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
     <servlet-name>StatementChangeListingController</servlet-name>
     <servlet-class>edu.cornell.mannlib.vitro.webapp.controller.edit.listing.jena.StatementChangeListingController</servlet-class>
   </servlet>
@@ -909,6 +948,33 @@
   <servlet-mapping>
     <servlet-name>JSON Service</servlet-name>
     <url-pattern>/dataservice</url-pattern>
+  </servlet-mapping>
+
+   <servlet>
+    <servlet-name>UMLSTerminology</servlet-name>
+    <servlet-class>edu.cornell.mannlib.vitro.webapp.servlet.UMLSTerminologyAnnotation</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UMLSTerminology</servlet-name>
+    <url-pattern>/UMLSTermsRetrieval</url-pattern>
+  </servlet-mapping>
+  
+    <servlet>
+    <servlet-name>ConceptSearchService</servlet-name>
+    <servlet-class>edu.cornell.mannlib.vitro.webapp.servlet.ConceptSearchServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ConceptSearchService</servlet-name>
+    <url-pattern>/conceptSearchService</url-pattern>
+  </servlet-mapping>
+  
+   <servlet>
+    <servlet-name>ProcessTerminologyAnnotation</servlet-name>
+    <servlet-class>edu.cornell.mannlib.vitro.webapp.servlet.ProcessTerminologyController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ProcessTerminologyAnnotation</servlet-name>
+    <url-pattern>/edit/processTerminologyAnnotation</url-pattern>
   </servlet-mapping>
 
   <!-- Google Refine servlets begins -->
@@ -1407,6 +1473,15 @@
   <servlet-mapping>
     <servlet-name>GetObjectClasses</servlet-name>
     <url-pattern>/admin/getObjectClasses</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>SmokeTestController</servlet-name>
+    <servlet-class>edu.cornell.mannlib.vitro.webapp.controller.freemarker.SmokeTestController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SmokeTestController</servlet-name>
+    <url-pattern>/smoketest</url-pattern>
   </servlet-mapping>
 
   <!-- ==================== tag libraries ============================== -->
