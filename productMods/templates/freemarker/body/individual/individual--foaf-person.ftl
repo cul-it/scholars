@@ -25,6 +25,8 @@
 
         <div id="photo-wrapper">${individualImage}</div>
     
+        <#include "individual-contactInfo.ftl">
+        
         <nav role="navigation">
         
             <ul id ="individual-tools-people" role="list">
@@ -33,9 +35,7 @@
                 <@qr.renderCode />
             </ul>
         </nav>
-            
-            <#include "individual-contactInfo.ftl">  
-                
+
         <#-- Links -->  
         <@vp.webpages propertyGroups editable "individual-urls-people" />
     </section>
