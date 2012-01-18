@@ -56,12 +56,16 @@ import org.skife.csv.CSVReader;
 import org.skife.csv.SimpleReader;
 import com.hp.hpl.jena.rdf.model.AnonId; 
 
+import java.nio.charset.Charset;
+import java.nio.charset.CharsetEncoder;
+
 
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 
 
-public class HRUpdateTest03 {
+
+public class HRUpdateTest04 {
 
 	//set up constants for fileIO
 
@@ -76,7 +80,7 @@ public class HRUpdateTest03 {
 	   public static final Property AIUSER = ResourceFactory.createProperty("http://vivoweb.org/ontology/activity-insight#aiUser");	   
 
 	//set up logging
-	static final Logger logger = Logger.getLogger(HRUpdateTest03.class);
+	static final Logger logger = Logger.getLogger(HRUpdateTest04.class);
 
 
 	//methods for creating models, file i/o, etc
@@ -97,7 +101,7 @@ public class HRUpdateTest03 {
 			Query qryNewQuery = QueryFactory.create(strQueryString, Syntax.syntaxARQ);
 			QueryExecution qexecNewQuery = QueryExecutionFactory.create(qryNewQuery, mdlNewModel);
 			try {
-				logger.debug("querying source and populating Model...");
+				//logger.debug("querying source and populating Model...");
 
 				//query VIVOsource for emplId and populate Model
 				// execute queries and populate model
@@ -118,11 +122,27 @@ public class HRUpdateTest03 {
 			logger.error("exception creating the VIVO model!  Error" + e);
 
 		} finally {
-			logger.debug("created new model...");
+			//logger.debug("created new model...");
 		}
 		return mdlNewModel;
 	}
 
+	public static void LogRDF(Model model, String RDFFormat) throws IOException  {
+		//now, use RDFWriter to write the VIVO emplIDs to N-TRIPLES file
+
+		try {
+
+			logger.debug(model);
+		} catch (Exception e) { 
+			// do we have file exists/overwrite/backup logic to insert here?
+			logger.error("problem with write process?, Error" + e);
+
+		} finally {
+
+		}
+	}
+
+	
 	public static void WriteRdf(String filename, Model model, String RDFFormat) throws IOException  {
 		//now, use RDFWriter to write the VIVO emplIDs to N-TRIPLES file
 		FileOutputStream fstream = null;
@@ -196,10 +216,7 @@ public class HRUpdateTest03 {
 				String [] replArgs = {queryString, "VIVOSERV", serviceVIVO };
 				modifiedString = ReplaceRegex(replArgs);
 				queryString = modifiedString;
-				logger.debug("query modified.");
-			} else {
-                logger.debug("query not modified.");
-			}
+			} 
 
 		} catch (Exception e) {
 			logger.error("whoops.  What happened?  " + e);
@@ -310,11 +327,11 @@ public class HRUpdateTest03 {
 			 */
 		} else {	
 			try {
-			//  gather ALL HRIS emplIds in a model 
+			//  gather ALL VIVO person (with either netId or emplId) in a model 
 			String qStrAllVIVOPerson=  ReadQueryString(fileQryPath + "qStrAllVIVOPerson.txt");
 			String allVIVOFileName = fileRDFPath + "allVIVOPersonURI.nt";
-			logger.debug("creating model with ALL VIVO URIs...");
-			logger.debug(qStrAllVIVOPerson);
+			logger.info("creating VIVO model...");
+			logger.debug("using this query: \n" + qStrAllVIVOPerson);
 			mdlAllVIVOPerson = MakeNewModelCONSTRUCT(qStrAllVIVOPerson);                            
 			WriteRdf(allVIVOFileName, mdlAllVIVOPerson, "N-TRIPLE");
 			logger.debug("querying VIVOsource and populating Model mdlAllVIVOPerson...");
@@ -568,7 +585,8 @@ public class HRUpdateTest03 {
         return blankedModel;
     }
 	
-	
+
+
 	public static void main(String[] args) throws Exception {
 		// setup logging
 		PropertyConfigurator.configure(fileQryPath + "loggercfg.txt");
@@ -579,20 +597,22 @@ public class HRUpdateTest03 {
 		Model mdlAllVIVOPerson = ModelFactory.createDefaultModel();
 		mdlAllVIVOPerson = CreateAllVIVOPersonList(readFromFile);
 		logger.info("generated a model of all VIVO uris that have either netId or HR emplId");
-		logger.info("found a total of " + mdlAllVIVOPerson.size() + "statements.");
+		logger.info("found a total of " + mdlAllVIVOPerson.size() + " statements.");
 		
 		Model allRetractions = ModelFactory.createDefaultModel();
 		String allRetractionsFileName = fileRDFPath + "allRetractions.nt";
 		Model allAdditions = ModelFactory.createDefaultModel();
 		String allAdditionsFileName = fileRDFPath + "allAdditions.nt";
+		Model allNoHRISDataException = ModelFactory.createDefaultModel();
+		  String noHRISdataExFile = fileRDFPath + "noHRISdataEXCEPTION.nt";
+		Model blankVIVOEmplIdException = ModelFactory.createDefaultModel();
+		  String blankVIVOEmplIdExFile = fileRDFPath + "blankVIVOEmplIdEXCEPTION.nt";
 		
 		// setup query for grabbing VIVO rdf
 		String VIVORDFBaseQuery = ReadQueryString(fileQryPath + "qStrOnePersonVIVORDF.txt");
 		String HRISRDFBaseQuery = ReadQueryString(fileQryPath + "qStrOnePersonHRISRDF.txt");
-		
-		// variables for main
-		String VIVOworkingTitle = "";
-		String HRISworkingTitle = "";
+		Resource VIVOmatchURI = null;
+
 		
 		logger.info("VIVO query complete.  Iterating through results...");
 		try {
@@ -606,18 +626,20 @@ public class HRUpdateTest03 {
 				Model additionsForPerson = ModelFactory.createDefaultModel();
 				// use Person URI to generate all relevant Person RDF via query
 				String PersonId = personiter.next(  ).toString(  );
-				logger.debug("\n" + "\n");
-				logger.debug("gathering data for " + PersonId + "\n");
-				logger.debug("constructing VIVO RDF for " + PersonId + "...");
+				logger.debug("\n\n constructing VIVO RDF for " + PersonId + "...");
 				String[] VIVOqueryArgs = {VIVORDFBaseQuery, "VARVALUE", PersonId};
 				String qStrOnePersonVIVORDF = ModifyQuery(VIVOqueryArgs);
 				Model mdlOnePersonVIVORDF = MakeNewModelCONSTRUCT(qStrOnePersonVIVORDF); 
 				Model CorrectedVIVOPersonRDF = ModelFactory.createDefaultModel();		
 				Model CorrectedHRISPersonRDF = ModelFactory.createDefaultModel();	
-				logger.info("VIVOPerson");
+
+				// variables for main
+				String VIVOworkingTitle = "";
+				String HRISworkingTitle = "";
+				
 				//mdlOnePersonVIVORDF.write(System.out, "N-TRIPLE");
 				// look at model (Resource hasProperty?) to: 
-				logger.info("entering statement iterator for VIVOPerson");
+				logger.info("entering statement iterator for VIVOPerson " + PersonId );
 				
 	        
 
@@ -647,30 +669,44 @@ public class HRUpdateTest03 {
 
 						// check to see if we have a manually curated flag set for this node
 
+						// we need the Subject of this node later for the renameResource
+
+					    VIVOmatchURI = mdlOnePersonVIVORDF.getResource(subject.toString());
 						// this one puts the working title in a variable to check against the HRIS working title
-						
+												
 						if ((strPredicate).equals("http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WorkingTitle")) {
 								VIVOworkingTitle = strObject;
 					    }
-						
-						
-						// this one fixes space in label 
-
+						/*
+						boolean hasDiacritic = isPureAscii(strObject);
+						if (hasDiacritic) {
+							logger.debug("diacritic in " + strObject);
+						}						
+						*/
+						//tried to do it with regex
+						//boolean hasEscapedChar = strObject.matches("(?i).*\'X*");
+						//if (hasEscapedChar) {
+						//	logger.debug("escaped character in" + strObject);
+						//}			
+						// this one fixes space in label, but, since this won't happen in VIVO, repurpose this for JR SR III logic?
+                        
 						if ((strPredicate).equals("http://www.w3.org/2000/01/rdf-schema#label")) {
-
+						
 							String delimiter = "\\,";
 							String[] labelParts;
 							String newLabel = "";
 							labelParts = strObject.split(delimiter);
 							if (labelParts[1].substring(0,1).equals(" ")) {
 								newLabel = labelParts[0] + "," + labelParts[1];			
-								logger.info("Already had a space in it.");
+								logger.debug("no change to label.");
 								
 							} else {
 								newLabel = labelParts[0] + ", " + labelParts[1];
-								logger.info("Added the space.");
+								logger.debug("Added space in label.");
 								
 							}
+							
+						
 							//System.out.print(strSubject);
 							//System.out.print(" " + strPredicate + " ");
 							//System.out.print(" \"" + newLabel + "\"");
@@ -679,10 +715,11 @@ public class HRUpdateTest03 {
 							//CorrectedVIVOPersonRDF.remove(subject, predicate, object);
 							
 							// put the new value back in the model after modification  
-							logger.info("Here's where we would update the VIVO person model with stmt.changeObject, but that didn't work.");
+							//logger.debug("Here's where we would update the VIVO person model with stmt.changeObject, but that didn't work.");
 							//stmt.changeObject(newLabel);
 
 						} else { 		
+						  // add this unchanged statement to the corrected VIVO model
 						  CorrectedVIVOPersonRDF.add(subject, predicate, object);
 						}// end if 
 						testiter.close();
@@ -700,16 +737,19 @@ public class HRUpdateTest03 {
 				NodeIterator emplIditer = mdlOnePersonVIVORDF.listObjectsOfProperty(HR_EMPLID);
 				String VIVOPersonEmplId = "";
 				while (emplIditer.hasNext(  )) {		
-					VIVOPersonEmplId = emplIditer.next(  ).toString(  );
+					VIVOPersonEmplId = emplIditer.next(  ).toString(  );		  
 				}   //end while for empliditer
-
-				logger.debug(VIVOPersonEmplId + "\n");		    
-				// pass VIVO emplId to HRIS query to get HRIS RDF
-				logger.debug("constructing HRIS RDF for " + PersonId + "...");
-				String[] HRISqueryArgs = {HRISRDFBaseQuery, "VARVALUE", VIVOPersonEmplId};
-				String qStrOnePersonHRISRDF = ModifyQuery(HRISqueryArgs);
-				Model mdlOnePersonHRISRDF = MakeNewModelCONSTRUCT(qStrOnePersonHRISRDF); 						
 				
+				logger.debug(VIVOPersonEmplId + "\n");
+				if (!VIVOPersonEmplId.isEmpty()) {
+				  		    
+				  // pass VIVO emplId to HRIS query to get HRIS RDF
+				  logger.debug("constructing HRIS RDF for " + PersonId + "...");
+				  String[] HRISqueryArgs = {HRISRDFBaseQuery, "VARVALUE", VIVOPersonEmplId};
+				  String qStrOnePersonHRISRDF = ModifyQuery(HRISqueryArgs);
+				  //logger.debug(qStrOnePersonHRISRDF);
+				  Model mdlOnePersonHRISRDF = MakeNewModelCONSTRUCT(qStrOnePersonHRISRDF); 						
+							
                 try {
 					StmtIterator testiter2 = mdlOnePersonHRISRDF.listStatements();
 
@@ -736,7 +776,7 @@ public class HRUpdateTest03 {
 
 						// check to see if we have a manually curated flag set for this node
 						
-						// compare VIVO working title to HIRS 
+						// compare VIVO working title to HRIS 
 						if ((strPredicate).equals("http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WorkingTitle")) {
 							HRISworkingTitle = strObject;
 							if ((VIVOworkingTitle).equals(HRISworkingTitle)){
@@ -765,25 +805,47 @@ public class HRUpdateTest03 {
 							//System.out.print(" \"" + newLabel + "\"");
 							//System.out.print("\n\n");
 							//System.out.print(" \"" + strObject + "\"");
-
-							CorrectedHRISPersonRDF.add(subject, predicate, newLabel);
-							CorrectedHRISPersonRDF.remove(subject, predicate, object);
-							
+                            try {
+							  CorrectedHRISPersonRDF.add(VIVOmatchURI, predicate, newLabel);
+							  CorrectedHRISPersonRDF.remove(subject, predicate, object);
+                            } catch ( Exception e ) {
+                            	
+                            } finally {
+                            	
+                            }
+                            
 							// put the new value back in the model after modification  
-							logger.info("Here's where we would update the VIVO person model with stmt.changeObject, but that didn't work.");
+							//logger.info("Here's where we would update the VIVO person model with stmt.changeObject, but that didn't work.");
 							//stmt.changeObject(newLabel);
 
 						} else { 		
-						  CorrectedHRISPersonRDF.add(subject, predicate, object);
+							// add this unchanged statement to the corrected HRIS model
+						  CorrectedHRISPersonRDF.add(VIVOmatchURI, predicate, object);
 						}// end if  
 						testiter2.close();
 
+                        // all statements: 
+						//Resource renameIt = CorrectedHRISPersonRDF.getResource(subject.toString());
+						//ResourceUtils.renameResource( renameIt, VIVOmatchURI);
 					}  // end while for HRIS person rdf statement iteration
 				} catch  ( Exception e ) {
 					logger.error("Rats.  Something happened while looking at HRIS person statements. Error" + e + "\n");
 				} finally {
 					logger.debug("done with statements for " + PersonId + ".");
 				}
+				} else {
+					  logger.debug("WARNING: blank VIVO emplID for " + VIVOmatchURI + " does not exist in HRIS data.");
+					  blankVIVOEmplIdException.add(CorrectedVIVOPersonRDF);
+				}
+				WriteRdf(blankVIVOEmplIdExFile, blankVIVOEmplIdException, "N3");
+				LogRDF(CorrectedVIVOPersonRDF, "N3");
+				LogRDF(CorrectedHRISPersonRDF, "N3");
+				Long numHRStatements = CorrectedHRISPersonRDF.size();
+				if (numHRStatements < 1) {
+					logger.info("No statements in HRIS for "+ VIVOmatchURI + ".  Does this person belong in VIVO?");
+					  allNoHRISDataException.add(CorrectedVIVOPersonRDF);
+				}
+				WriteRdf(noHRISdataExFile, allNoHRISDataException, "N3");
 				//Property VIVO_EMPL = ResourceFactory.createProperty("http://vivo.library.cornell.edu/ns/0.1#employeeOf"); 
 				//boolean isEmeritus = personVIVOResource.hasProperty(VIVO_EMPL);
 				//logger.debug(isEmeritus);
@@ -802,33 +864,35 @@ public class HRUpdateTest03 {
 				//mdlOnePersonHRISRDF.write(System.out, "N-TRIPLE");
 
 				
-				// testing blankify
+				/* testing blankify
 			    Model BlankPersonVIVORDF = blankify(mdlOnePersonVIVORDF);
 				logger.info("******");
 			    logger.info("BlankVIVOPerson");
 				try {
-					BlankPersonVIVORDF.write(System.out,  "N-TRIPLE");
+					
+				LogRDF(BlankPersonVIVORDF, "N-TRIPLE");
+				
 				} catch  ( Exception e ) {
 					logger.error("Rats.  Something happened while writing the blankified model. Error" + e + "\n");
 				} finally {
-					logger.debug("done with VIVO blankify. " + PersonId + ".");
+					//logger.debug("done with VIVO blankify. " + PersonId + ".");
 				}
-				
+				*/
 				// check to see if we have a manually curated flag set for this node
 				boolean isManuallyCurated = mdlOnePersonVIVORDF.contains(null, AIUSER);
 				logger.info("is this an AI user? " + isManuallyCurated);
 				
 				
-				// testing blankify
+				/* testing blankify
 			    Model BlankPersonHRISRDF = blankify(mdlOnePersonHRISRDF);
 				logger.info("******");
 			    logger.info("BlankHRISPerson");
 				try {
-					BlankPersonHRISRDF.write(System.out, "N-TRIPLE");
+					LogRDF(BlankPersonVIVORDF, "N-TRIPLE");
 				} catch  ( Exception e ) {
 					logger.error("Rats.  Something happened while writing the blankified model. Error" + e + "\n");
 				} finally {
-					logger.debug("done with HRIS blankify. " + PersonId + ".");
+					//logger.debug("done with HRIS blankify. " + PersonId + ".");
 				}
 				
 				// testing blankify
@@ -836,11 +900,12 @@ public class HRUpdateTest03 {
 				logger.info("******");
 			    logger.info("BlankCorrectedVIVOPerson");
 				try {
+					LogRDF(BlankCorrectedVIVOPersonRDF, "N-TRIPLE");
 					BlankCorrectedVIVOPersonRDF.write(System.out, "N-TRIPLE");
 				} catch  ( Exception e ) {
 					logger.error("Rats.  Something happened while writing the blankified model. Error" + e + "\n");
 				} finally {
-					logger.debug("done with Corrected VIVO blankify. " + PersonId + ".");
+					//logger.debug("done with Corrected VIVO blankify. " + PersonId + ".");
 				}				
 				
 				// testing blankify
@@ -848,18 +913,20 @@ public class HRUpdateTest03 {
 				logger.info("******");
 			    logger.info("BlankCorrectedHRISPerson");
 				try {
+					LogRDF(BlankCorrectedHRISPersonRDF, "N-TRIPLE");
 					BlankCorrectedHRISPersonRDF.write(System.out, "N-TRIPLE");
 				} catch  ( Exception e ) {
 					logger.error("Rats.  Something happened while writing the blankified model. Error" + e + "\n");
 				} finally {
-					logger.debug("done with Corrected HRIS blankify. " + PersonId + ".");
+					//logger.debug("done with Corrected HRIS blankify. " + PersonId + ".");
 				}				
-								
+				*/
+				
 				// testing retractions and additions
 				try {
 					logger.info("***This is the retract/add section***");  
-					if (!BlankCorrectedVIVOPersonRDF.isIsomorphicWith(BlankCorrectedHRISPersonRDF)) {
-						logger.info("VIVO is NOT isomorphic with HRIS.");
+					if (!CorrectedVIVOPersonRDF.isIsomorphicWith(CorrectedHRISPersonRDF)) {
+						logger.info("Corrected VIVO is NOT isomorphic with Corrected HRIS.");
 						// do work to figure out what's different between models and act accordingly with non-blanknode statements.
 						// take the difference between current and existing positions
 						// if that .contains((Resource) null, this.PRIMARY_JOBCODE_LDESC, (RDFNode) null)) 
@@ -869,22 +936,21 @@ public class HRUpdateTest03 {
 						//		Statement stmt = stmtIt.nextStatement();
 						//		additions.add(stmt.getSubject(), MONIKER, stmt.getObject());
 
-						retractionsForPerson.add(BlankPersonVIVORDF.difference(BlankPersonHRISRDF));  
+						retractionsForPerson.add(CorrectedVIVOPersonRDF.difference(CorrectedHRISPersonRDF));  
 						if(retractionsForPerson.size() > 0) {
-							logger.info("***" + retractionsForPerson.size() + "RETRACTIONS ***");  
+							logger.info("***" + retractionsForPerson.size() + " RETRACTIONS ***");  
 							retractionsForPerson.write(System.out, "N3");
 							
 						}
-						additionsForPerson.add(BlankPersonHRISRDF.difference(BlankPersonVIVORDF));
+						additionsForPerson.add(CorrectedHRISPersonRDF.difference(CorrectedVIVOPersonRDF));
 						if(additionsForPerson.size() > 0) {
-							logger.info(additionsForPerson.size());
-							logger.info("***ADDITIONS***");  
+							logger.info("*** " + additionsForPerson.size() + " ADDITIONS ***");  
 							additionsForPerson.write(System.out, "N3");                
 						}
                    
 					} else {
 						logger.info("");
-						logger.info("VIVO is totally isomorphic with HRIS - so no change necessary - unless there is...");
+						logger.info("VIVO is totally isomorphic with HRIS - so, no change necessary (?)");
 						logger.info("");
 					}
 
@@ -938,7 +1004,7 @@ public class HRUpdateTest03 {
 				String searchFilter = "";
 				//rebuild serach filter to look at netID = uid first
 				searchFilter = makeLdapSearchFilter(VIVOPersonlabel);
-				logger.debug(searchFilter + "\n");
+				logger.debug(searchFilter);
 				/** turn this back on when LDAP is working
 				LDAPSearchResults thisResult = searchLdap(searchFilter);
 				String orgName = "orgName";
@@ -946,13 +1012,13 @@ public class HRUpdateTest03 {
 				logger.debug(resultString);
 				*/
 				allRetractions.add(retractionsForPerson);
-				WriteRdf(allRetractionsFileName, retractionsForPerson, "N-TRIPLE");
+				WriteRdf(allRetractionsFileName, allRetractions, "N-TRIPLE");
 				allAdditions.add(additionsForPerson);
-				WriteRdf(allAdditionsFileName, additionsForPerson, "N-TRIPLE");
+				WriteRdf(allAdditionsFileName, allAdditions, "N-TRIPLE");
 				additionsForPerson.close();
 				retractionsForPerson.close();
 			} //end while for person iter
-
+			logger.debug("finished with person. \n");
 			personiter.close();
 		} catch ( Exception e ){
 			logger.error("Something got messed up while iterating through the person list.  Error" + e + "\n");
@@ -967,6 +1033,13 @@ public class HRUpdateTest03 {
 		// if strings are equal, no action needed
 		//   if VIVO foaf:lastName has diacritic characters, do not update
         //	   if no diacritics in VIVO and not strings are not equal, then retract VIVO foaf:lastName and add HRIS foaf:lastName 
+		
+		// /^[a-zA-Z\-_ ’'‘ÆÐƎƏƐƔĲŊŒẞÞǷȜæðǝəɛɣĳŋœĸſßþƿȝĄƁÇĐƊĘĦĮƘŁØƠŞȘŢȚŦŲƯY̨Ƴąɓçđɗęħįƙłøơşșţțŧųưy̨ƴÁÀÂÄǍĂĀÃÅǺĄÆǼǢƁĆĊĈČÇĎḌĐƊÐÉÈĖÊËĚĔĒĘẸƎƏƐĠĜǦĞĢƔáàâäǎăāãåǻąæǽǣɓćċĉčçďḍđɗðéèėêëěĕēęẹǝəɛġĝǧğģɣĤḤĦIÍÌİÎÏǏĬĪĨĮỊĲĴĶƘĹĻŁĽĿʼNŃN̈ŇÑŅŊÓÒÔÖǑŎŌÕŐỌØǾƠŒĥḥħıíìiîïǐĭīĩįịĳĵķƙĸĺļłľŀŉńn̈ňñņŋóòôöǒŏōõőọøǿơœŔŘŖŚŜŠŞȘṢẞŤŢṬŦÞÚÙÛÜǓŬŪŨŰŮŲỤƯẂẀŴẄǷÝỲŶŸȲỸƳŹŻŽẒŕřŗſśŝšşșṣßťţṭŧþúùûüǔŭūũűůųụưẃẁŵẅƿýỳŷÿȳỹƴźżžẓ]$/.test(myString)
+        // /^[a-zA-Zéüöêåø]*$/.test(myString);
+		// or, normalize: http://docs.oracle.com/javase/6/docs/api/java/text/Normalizer.html
+		// string = Normalizer.normalize(string, Form.NFD).replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
+		// boolean valid = string.matches("[ÆÐƎƏƐƔĲŊŒẞÞǷȜæðǝəɛɣĳŋœĸſßþƿȝĄƁÇĐƊĘĦĮƘŁØƠŞȘŢȚŦŲƯY̨Ƴąɓçđɗęħįƙłøơşșţțŧųưy̨ƴÁÀÂÄǍĂĀÃÅǺĄÆǼǢƁĆĊĈČÇĎḌĐƊÐÉÈĖÊËĚĔĒĘẸƎƏƐĠĜǦĞĢƔáàâäǎăāãåǻąæǽǣɓćċĉčçďḍđɗðéèėêëěĕēęẹǝəɛġĝǧğģɣĤḤĦIÍÌİÎÏǏĬĪĨĮỊĲĴĶƘĹĻŁĽĿʼNŃN̈ŇÑŅŊÓÒÔÖǑŎŌÕŐỌØǾƠŒĥḥħıíìiîïǐĭīĩįịĳĵķƙĸĺļłľŀŉńn̈ňñņŋóòôöǒŏōõőọøǿơœŔŘŖŚŜŠŞȘṢẞŤŢṬŦÞÚÙÛÜǓŬŪŨŰŮŲỤƯẂẀŴẄǷÝỲŶŸȲỸƳŹŻŽẒŕřŗſśŝšşșṣßťţṭŧþúùûüǔŭūũűůųụưẃẁŵẅƿýỳŷÿȳỹƴźżžẓ]+");
+		
 
 		// compare VIVO foaf:firstName and HRIS foaf:firstName
 		// if strings are equal, no action needed

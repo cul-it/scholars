@@ -620,6 +620,7 @@ public class HRIngestSelectQuery40 {
 					logger.debug("generating RDF for " + NewPersonId + " , adding to output model");
 					//System.out.print(qStrNewPersonRDF);
 					Model mdlNewPersonRDF = MakeNewModelCONSTRUCT(qStrNewPersonRDF);    
+					
 					logger.info("person RDF query complete.");
 
 					// execute queries and populate model for position relationship RDF
@@ -677,6 +678,7 @@ public class HRIngestSelectQuery40 {
 								System.out.print(" \"" + newLabel + "\"");
 								System.out.print("\n\n");
 								// put the new value back in the model after modification  
+								//stmt.changeObject(newLabel);
 								mdlNewPersonRDF.remove(subject, predicate, object);
 								mdlNewPersonRDF.add(subject, predicate, newLabel);
 							}    		
@@ -685,7 +687,7 @@ public class HRIngestSelectQuery40 {
 						}  // end while for person rdf statement iteration
 
 					} catch ( Exception e ) {
-
+						logger.error("Hey.  Something happened while looking at person statements. Error" + e + "\n");
 					} finally {
 						logger.debug("done manipulating statments.");
 					}	
