@@ -77,6 +77,15 @@ h5 {
 }
 
 /* ------------------------------------------------->  */
+/* for user accounts to align profile selection field  */
+/* ------------------------------------------------->  */
+#associateProfileBackgroundThree {
+margin-top: -112px;
+}
+#associateProfileBackgroundFour {
+margin-top: 0px;
+}
+/* ------------------------------------------------->  */
 /* CORNELL IDENTITY -------------------------------->  */
 /* ------------------------------------------------->  */
 #cu-identity {
