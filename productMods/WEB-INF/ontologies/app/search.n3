@@ -29,6 +29,7 @@ vitroDisplay:PrimaryLuceneIndex
 	vitroDisplay:excludeClass acti:PartnerRole ;
 	vitroDisplay:excludeClass acti:UnknownPerson ;
 	vitroDisplay:excludeClass acti:UntitledPresentation ;
+    vitroDisplay:excludeClass acti:UnknownOrganization ;
 	vitroDisplay:excludeClass core:CoPrincipalInvestigatorRole ;
 	vitroDisplay:excludeClass core:InvestigatorRole ;
 	vitroDisplay:excludeClass core:PresenterRole ;
@@ -37,5 +38,6 @@ vitroDisplay:PrimaryLuceneIndex
 	vitroDisplay:excludeClass core:ServiceProviderRole ;
 	vitroDisplay:excludeClass core:TeacherRole ;
 	vitroDisplay:excludeClass vivo:UnknownPerson ;
+	vitroDisplay:excludeClass vivo:UnknownOrganization ;
 	vitroDisplay:excludeClass vpc:File ;
 	vitroDisplay:excludeClass vpc:FileByteStream .
