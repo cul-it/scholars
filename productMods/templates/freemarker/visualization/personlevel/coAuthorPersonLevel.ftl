@@ -129,7 +129,7 @@ $(document).ready(function(){
         <div id="coinvestigator_link_container" class="collaboratorship-link-container">
             <div class="collaboratorship-icon"><a href="${coprincipalinvestigatorURL}" title="co-investigator"><img src="${coInvestigatorIcon}" /></a></div>
             <div class="collaboratorship-link">
-                <h3><a href="${coprincipalinvestigatorURL} title="co-investigator"">Co-Investigator Network</a></h3>
+                <h3><a href="${coprincipalinvestigatorURL}" title="co-investigator">Co-Investigator Network</a></h3>
             </div>
         </div>
     </div>
