@@ -30,8 +30,8 @@
                    ?thumbnail vitropublic:downloadLocation ?downloadLocation .
               }
               OPTIONAL { ?personUri vitro:moniker ?moniker }
-              OPTIONAL { ?personUri vitro:primaryLink ?primaryLink. ?primaryLink vitro:linkAnchor ?primaryLinkAnchor . ?primaryLink vitro:linkURL ?primaryLinkURL }
-              OPTIONAL { ?personUri vitro:additionalLink ?otherLink . ?otherLink vitro:linkAnchor ?otherLinkAnchor . ?otherLink vitro:linkURL ?otherLinkURL }
+#              OPTIONAL { ?personUri vitro:primaryLink ?primaryLink. ?primaryLink vitro:linkAnchor ?primaryLinkAnchor . ?primaryLink vitro:linkURL ?primaryLinkURL }
+              OPTIONAL { ?personUri core:webpage ?otherLink . ?otherLink core:linkAnchorText ?otherLinkAnchor . ?otherLink core:linkURI ?otherLinkURL }
               OPTIONAL { ?personUri vivo:CornellemailnetId ?cornellEmail }
               OPTIONAL { ?personUri vivo:nonCornellemail ?otherEmail }
               OPTIONAL { ?personUri hr:PrefName ?prefName }

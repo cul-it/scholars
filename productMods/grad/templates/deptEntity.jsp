@@ -19,7 +19,7 @@
           ?dept rdfs:label ?deptLabel ;
             rdf:type core:AcademicDepartment .
           OPTIONAL { ?dept core:description ?description }
-          OPTIONAL { ?dept vitro:primaryLink ?primaryLink. ?primaryLink vitro:linkAnchor ?primaryLinkAnchor . ?primaryLink vitro:linkURL ?primaryLinkURL }
+          OPTIONAL { ?dept core:webpage ?primaryLink. ?primaryLink core:linkAnchorText ?primaryLinkAnchor . ?primaryLink core:linkURI ?primaryLinkURL }
           OPTIONAL { ?dept vivo:cornellOrganizedEndeavorHasLeadParticipantPerson ?deptHeadUri . ?deptHeadUri rdfs:label ?deptHeadLabel }
           OPTIONAL { ?dept vivo:locatedOnCampus ?campusUri . ?campusUri rdfs:label ?campus }
       }

@@ -19,8 +19,8 @@
           SERVICE <http://vivoprod01.library.cornell.edu:2020/sparql> {
           ?fieldUri rdfs:label ?fieldLabel .
           OPTIONAL { ?fieldUri core:description ?description }
-          OPTIONAL { ?fieldUri vitro:primaryLink ?primaryLink. ?primaryLink vitro:linkAnchor ?primaryLinkAnchor . ?primaryLink vitro:linkURL ?primaryLinkURL }
-          OPTIONAL { ?fieldUri vitro:additionalLink ?otherLink. ?otherLink vitro:linkAnchor ?otherLinkAnchor . ?otherLink vitro:linkURL ?otherLinkURL }
+#          OPTIONAL { ?fieldUri core:webpage ?primaryLink. ?primaryLink core:linkAnchorText ?primaryLinkAnchor . ?primaryLink core:linkURI ?primaryLinkURL }
+          OPTIONAL { ?fieldUri core:webpage ?otherLink. ?otherLink core:linkAnchorText ?otherLinkAnchor . ?otherLink core:linkURI ?otherLinkURL }
           OPTIONAL { ?fieldUri vivo:gradschoolID ?gsid }
           OPTIONAL { ?fieldUri core:offersDegree ?degree . ?degree rdfs:label ?degreeLabel . ?degree core:abbreviation ?degreeAbbr }
       }
