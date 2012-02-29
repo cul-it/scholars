@@ -29,7 +29,6 @@
 <!-- <script src="http://vivostats.mannlib.cornell.edu/grad/?js" type="text/javascript"></script> -->
 --%>
 <%-- GOOGLE ANALYTICS (disabled by default -- uncomment on production machine only!)--%>
-<%--
 <script type="text/javascript">
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', 'UA-5164622-4']);
@@ -41,6 +40,5 @@
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
 </script>
---%>
 </body>
 </html>
