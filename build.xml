@@ -60,17 +60,19 @@
 		<mkdir dir="${appbase.dir}/web" />
 
 		<copy todir="${appbase.dir}/web" includeemptydirs="true">
-			<dirDifference dir="${corebase.dir}/web">
-				<blockingPath>
-					<pathelement location="${nihvivo.dir}/productMods" />
-					<pathelement location="./productMods" />
-				</blockingPath>
-			</dirDifference>
-			<dirDifference dir="${nihvivo.dir}/productMods">
-				<blockingPath>
-					<pathelement location="./productMods" />
-				</blockingPath>
-			</dirDifference>
+			<fileset dir="${corebase.dir}/web">
+				<not>
+					<present targetdir="${nihvivo.dir}/productMods" />
+				</not>
+				<not>
+					<present targetdir="./productMods" />
+				</not>
+			</fileset>
+			<fileset dir="${nihvivo.dir}/productMods">
+				<not>
+					<present targetdir="./productMods" />
+				</not>
+			</fileset>
 			<fileset dir="./productMods" />
 		</copy>
 
@@ -86,20 +88,22 @@
 		</patternset>
 
 		<copy todir="${appbase.dir}" includeemptydirs="true">
-			<dirDifference dir="${corebase.dir}">
+			<fileset dir="${corebase.dir}">
 				<patternset refid="appbase.patterns" />
 				<exclude name="themes/**/*/" />
-				<blockingPath>
-					<pathelement location="${nihvivo.dir}" />
-					<pathelement location="." />
-				</blockingPath>
-			</dirDifference>
-			<dirDifference dir="${nihvivo.dir}">
+				<not>
+					<present targetdir="${nihvivo.dir}" />
+				</not>
+				<not>
+					<present targetdir="." />
+				</not>
+			</fileset>
+			<fileset dir="${nihvivo.dir}">
 				<patternset refid="appbase.patterns" />
-				<blockingPath>
-					<pathelement location="." />
-				</blockingPath>
-			</dirDifference>
+				<not>
+					<present targetdir="." />
+				</not>
+			</fileset>
 			<fileset dir=".">
 				<patternset refid="appbase.patterns" />
 			</fileset>
