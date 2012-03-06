@@ -12,6 +12,7 @@ WHERE {
 SERVICE <http://bailey.mannlib.cornell.edu:2520/sparql>
   {  
     #?vivoperson rdf:type foaf:Person .
+    ?vivoperson core:hrJobTitle ?jobtitle .
     OPTIONAL {
       { ?vivoperson hr:netId ?netId } UNION { ?vivoperson hr:emplId ?emplId }
     }

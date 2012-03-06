@@ -7,6 +7,7 @@ PREFIX core: <http://vivoweb.org/ontology/core#>
 PREFIX newhr: <http://vivoweb.org/ontology/newhr#>
 PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
 PREFIX titlemap: <http://vivo.library.cornell.edu/ns/hr/titleMapping#> 
+PREFIX acti: <http://vivoweb.org/ontology/activity-insight#>
 
 CONSTRUCT { 
   <VARVALUE> hr:emplId ?vivoemplId .
@@ -19,6 +20,7 @@ CONSTRUCT {
   <VARVALUE> core:phoneNumber ?vivophone .
   <VARVALUE> foaf:firstName ?vivofirstName .
   <VARVALUE> foaf:lastName ?vivolastName .
+  #<VARVALUE> acti:aiUser ?aiUser .
   }   
 WHERE {
   SERVICE <http://bailey.mannlib.cornell.edu:2520/sparql>
@@ -28,12 +30,15 @@ WHERE {
     OPTIONAL { <VARVALUE> rdfs:label ?vivolabel .}
     OPTIONAL { <VARVALUE> hr:netId ?vivonetId .}
     OPTIONAL { <VARVALUE> hr:emplId ?vivoemplId .}	
-    OPTIONAL { <VARVALUE> hr:WorkingTitle ?vivowtitle .}
+    OPTIONAL {
+        { <VARVALUE> hr:primaryWorkingTitle ?vivowtitle .} UNION { <VARVALUE> hr:WorkingTitle ?vivowtitle .}
+    }
     OPTIONAL { <VARVALUE> core:email ?vivoemail .}
     OPTIONAL { <VARVALUE> core:mailingAddress ?vivomailaddr .}
     OPTIONAL { <VARVALUE> core:phoneNumber ?vivophone .}
     OPTIONAL { <VARVALUE> foaf:firstName ?vivofirstName .}
     OPTIONAL { <VARVALUE> foaf:lastName ?vivolastName .}
+    #OPTIONAL { <VARVALUE> acti:aiUser ?aiUser .}
 
   } 
 }

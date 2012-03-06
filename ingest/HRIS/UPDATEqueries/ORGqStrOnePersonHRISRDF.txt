@@ -14,8 +14,7 @@ CONSTRUCT {
   ?hrisperson hr:netId ?hrisnetId .
   ?hrisperson hr:emplId ?hrisemplId .
   ?hrisperson hr:WorkingTitle ?hriswtitle .
-  ?hrisperson hr:WorkingTitle ?prettyTitle .
-  #?hrisperson core:email ?hrisemail .
+  ?hrisperson core:email ?hrisemail .
   ?hrisperson core:mailingAddress ?hrismailaddr .
   ?hrisperson core:phoneNumber ?hrisphone .
   ?hrisperson foaf:firstName ?hrisfirstName .
@@ -25,15 +24,16 @@ WHERE {
   SERVICE <http://bailey.mannlib.cornell.edu:2020/sparql>
     {
 
-    #?hrisperson rdf:type foaf:Person .
+    ?hrisperson rdf:type foaf:Person .
     ?hrisperson hr:emplId "VARVALUE" .
     OPTIONAL { ?hrisperson rdfs:label ?hrislabel .}
     OPTIONAL { ?hrisperson hr:netId ?hrisnetId .}
-    OPTIONAL { ?hrisperson hr:WorkingTitle ?hriswtitle . }
-    #OPTIONAL { ?hrisperson core:email ?hrisemail .}
+    OPTIONAL { ?hrisperson hr:WorkingTitle ?hriswtitle .}
+    OPTIONAL { ?hrisperson core:email ?hrisemail .}
     OPTIONAL { ?hrisperson  core:mailingAddress ?hrismailaddr .}
     OPTIONAL { ?hrisperson core:phoneNumber ?hrisphone .}
     OPTIONAL { ?hrisperson foaf:firstName ?hrisfirstName .}
     OPTIONAL { ?hrisperson foaf:lastName ?hrislastName .}
-    } 
+
+  } 
 }

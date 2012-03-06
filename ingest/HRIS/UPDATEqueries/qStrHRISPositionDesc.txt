@@ -1,0 +1,35 @@
+PREFIX hr: <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#>  
+PREFIX newhr:   <http://vivoweb.org/ontology/newhr#> 
+PREFIX cuvivo: <http://vivo.cornell.edu/individual/> 
+PREFIX foaf: <http://xmlns.com/foaf/0.1/> 
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+PREFIX core: <http://vivoweb.org/ontology/core#> 
+PREFIX titlemap: <http://vivo.library.cornell.edu/ns/hr/titleMapping#> 
+
+CONSTRUCT {
+    VARVALUE  <http://vivoweb.org/ontology/core#personInPosition> ?position .
+      ?position rdfs:label ?hrposnlabel . 
+      ?position hr:LDAPJobNumber ?hrPosnJobNo .
+      ?position core:hrJobTitle ?hrposnJobTitle .
+      ?position core:positionForPerson ?hrposnPersonLink .
+      #?position core:positionInOrganization ?hrPosnOrgLink .
+      ?position newhr:company ?hrPosnCompany .
+      ?position newhr:headInd ?hrPosnHeadInd .
+      ?position rdf:type core:Position .
+}
+WHERE
+{
+  SERVICE <http://bailey.mannlib.cornell.edu:2020/sparql>
+  # querying HRIS D2R on 2020
+    {
+      VARVALUE  <http://vivoweb.org/ontology/core#personInPosition> ?position .
+      OPTIONAL {?position rdfs:label ?hrposnlabel . }
+      OPTIONAL {?position hr:LDAPJobNumber ?hrPosnJobNo . }
+      OPTIONAL {?position core:hrJobTitle ?hrposnJobTitle . }
+      OPTIONAL {?position core:positionForPerson ?hrposnPersonLink . }
+      #OPTIONAL {?position core:positionInOrganization ?hrPosnOrgLink . }
+      OPTIONAL {?position newhr:company ?hrPosnCompany . }
+      OPTIONAL {?position newhr:headInd ?hrPosnHeadInd . }
+     } 
+}

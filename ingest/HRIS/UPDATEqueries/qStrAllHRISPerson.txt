@@ -6,15 +6,11 @@ PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX core: <http://vivoweb.org/ontology/core#>
 PREFIX titlemap: <http://vivo.library.cornell.edu/ns/hr/titleMapping#>
 CONSTRUCT { 
-  ?vivoperson rdf:type foaf:Person .
+  ?hrisperson rdf:type foaf:Person .
     } 
 WHERE {
-SERVICE <http://bailey.mannlib.cornell.edu:2520/sparql>
+SERVICE <http://bailey.mannlib.cornell.edu:2020/sparql>
   {  
-    #?vivoperson rdf:type foaf:Person .
-    OPTIONAL {
-      { ?vivoperson hr:netId ?netId } UNION { ?vivoperson hr:emplId ?emplId }
-    }
-    FILTER ((BOUND(?netId)) || (BOUND(?emplId)))
+    ?hrisperson rdf:type foaf:Person .
   } 
 }
