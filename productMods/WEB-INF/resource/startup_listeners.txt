@@ -23,11 +23,6 @@ edu.cornell.mannlib.vitro.webapp.servlet.setup.JenaDataSourceSetup
 
 edu.cornell.mannlib.vitro.webapp.filestorage.backend.FileStorageSetup
 
-# Invokes a process to move any uploaded files into the new file storage system.
-# Needs to run after FileStorageSetup and JenaDataSourceSetup.
-# Should run before Pellet is set up.
-edu.cornell.mannlib.vitro.webapp.servlet.setup.UpdateUploadedFiles
- 
 # Invokes process to perform knowledge base updates to align with ontology changes if needed
 edu.cornell.mannlib.vitro.webapp.servlet.setup.UpdateKnowledgeBase
   
