@@ -28,9 +28,6 @@ edu.cornell.mannlib.vitro.webapp.filestorage.backend.FileStorageSetup
 # Should run before Pellet is set up.
 edu.cornell.mannlib.vitro.webapp.servlet.setup.UpdateUploadedFiles
  
-# Update to the new UserAccounts model (1.3). Needs to run after JenaDataSourceSetup.
-edu.cornell.mannlib.vitro.webapp.servlet.setup.UpdateUserAccounts
-
 # Invokes process to perform knowledge base updates to align with ontology changes if needed
 edu.cornell.mannlib.vitro.webapp.servlet.setup.UpdateKnowledgeBase
   
