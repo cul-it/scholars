@@ -15,8 +15,7 @@
                       propertyGroups=propertyGroups 
                       namespaces=namespaces 
                       editable=editable 
-                      showPlaceholder="always" 
-                      placeholder="${urls.images}/placeholders/person.thumbnail.jpg" />
+                      showPlaceholder="always" />
         </#assign>
 
         <#if ( individualImage?contains('<img class="individual-photo"') )>
