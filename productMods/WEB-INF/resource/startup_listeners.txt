@@ -23,6 +23,8 @@ edu.cornell.mannlib.vitro.webapp.servlet.setup.JenaDataSourceSetup
 
 edu.cornell.mannlib.vitro.webapp.filestorage.backend.FileStorageSetup
 
+edu.cornell.mannlib.vitro.webapp.web.images.PlaceholderUtil$Setup
+
 # Invokes process to perform knowledge base updates to align with ontology changes if needed
 edu.cornell.mannlib.vitro.webapp.servlet.setup.UpdateKnowledgeBase
   
