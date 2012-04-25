@@ -1,0 +1,17 @@
+PREFIX vivo: <http://vivoweb.org/ontology/core#> 
+
+# qStrVivoPosnForOnePerson.txt
+# verified 1204024
+# This query returns all VIVO positions for a person
+
+CONSTRUCT {
+    VARVALUE  vivo:personInPosition ?position .
+}
+WHERE
+{
+  SERVICE <http://bailey.mannlib.cornell.edu:2520/sparql>
+  # querying VIVO Joseki on 2520
+    {
+      VARVALUE vivo:personInPosition ?position .
+     } 
+}

@@ -1,0 +1,1106 @@
+<http://vivo.cornell.edu/individual/empl2968370-position0> <http://vivoweb.org/ontology/core#positionForPerson> <http://vivo.cornell.edu/individual/trs227> .
+<http://vivo.cornell.edu/individual/empl2968370-position0> <http://vivoweb.org/ontology/core#positionForPerson> <http://vivo.cornell.edu/individual/CRW-trs227> .
+<http://vivo.cornell.edu/individual/empl1004950-position1> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAS-deptFGSS> .
+<http://vivo.cornell.edu/individual/mg575> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WorkingTitle> "Postdoctoral Associate" .
+<http://vivo.cornell.edu/individual/CRW-hl834> <http://www.w3.org/2000/01/rdf-schema#label> "Louis, Henock" .
+<http://vivo.cornell.edu/individual/rlc273> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WorkingTitle> "Project Leader, YardMap Netwrk" .
+<http://vivo.cornell.edu/individual/empl1752842-position1> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAAD-deptDEVNEC> .
+<http://vivo.cornell.edu/individual/empl1006171-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitFS-deptFSENGIN> .
+<http://vivo.cornell.edu/individual/unitAAD-deptC-UAAP> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl2061864-position0> .
+<http://vivo.cornell.edu/individual/kkr25> <http://www.w3.org/2000/01/rdf-schema#label> "Rohr, Karen"@en-US .
+<http://vivo.cornell.edu/individual/individual23234> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WorkingTitle> "Public Affairs Officer IV" .
+<http://vivo.cornell.edu/individual/empl2268754-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitIP-deptSAP> .
+<http://vivo.cornell.edu/individual/empl1121729-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.library.cornell.edu/ns/abox/hri2#org-661763898> .
+<http://vivo.cornell.edu/individual/empl1006041-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitCIO-deptCIO-ADM> .
+<http://vivo.cornell.edu/individual/unitAS-deptFGSS> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1004950-position1> .
+<http://vivo.cornell.edu/individual/unitAS-deptFGSS> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1005386-position1> .
+<http://vivo.cornell.edu/individual/unitAS-deptFGSS> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1016534-position0> .
+<http://vivo.cornell.edu/individual/unitAS-deptFGSS> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1020238-position0> .
+<http://vivo.cornell.edu/individual/individual21077> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WorkingTitle> "Senior Research Associate" .
+<http://vivo.cornell.edu/individual/empl2557746-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitHA-deptHTL-KITCH> .
+<http://vivo.cornell.edu/individual/empl1008025-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.library.cornell.edu/ns/abox/hri2#org59219031> .
+<http://vivo.cornell.edu/individual/unitAAD-deptADMITSG> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1782680-position1> .
+<http://vivo.cornell.edu/individual/mlc328> <http://vivoweb.org/ontology/core#personInPosition> <http://vivo.cornell.edu/individual/mlc328-position0> .
+<http://vivo.cornell.edu/individual/mlc328> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WorkingTitle> "Prof Assoc Vis" .
+<http://vivo.cornell.edu/individual/empl1171467-position1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivoweb.org/ontology/core#FacultyAdministrativePosition> .
+<http://vivo.cornell.edu/individual/empl2296373-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAR-deptAAPNYC> .
+<http://vivo.cornell.edu/individual/empl1007446-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitIL-deptE-EMPLW> .
+<http://vivo.cornell.edu/individual/unitFS-deptFSADM> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1553713-position1> .
+<http://vivo.cornell.edu/individual/unitFS-deptFSADM> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1008661-position0> .
+<http://vivo.cornell.edu/individual/unitFS-deptFSADM> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1005525-position0> .
+<http://vivo.cornell.edu/individual/unitFS-deptFSADM> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1014631-position0> .
+<http://vivo.cornell.edu/individual/unitFS-deptFSADM> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1011751-position0> .
+<http://vivo.cornell.edu/individual/unitFS-deptFSADM> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1009246-position0> .
+<http://vivo.cornell.edu/individual/unitFS-deptFSADM> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1008006-position0> .
+<http://vivo.cornell.edu/individual/unitFS-deptFSADM> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1015785-position0> .
+<http://vivo.cornell.edu/individual/unitFS-deptFSADM> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1297750-position0> .
+<http://vivo.cornell.edu/individual/empl3128414-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitIP-deptEASIA> .
+<http://vivo.cornell.edu/individual/unitFS-deptSUSTAIN> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1297658-position0> .
+<http://vivo.cornell.edu/individual/unitFS-deptSUSTAIN> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1009045-position0> .
+<http://vivo.cornell.edu/individual/unitFS-deptSUSTAIN> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1757018-position3> .
+<http://vivo.cornell.edu/individual/unitFS-deptSUSTAIN> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1007945-position0> .
+<http://vivo.cornell.edu/individual/unitFS-deptSUSTAIN> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1022254-position0> .
+<http://vivo.cornell.edu/individual/JamesAvery> <http://vivoweb.org/ontology/core#mailingAddress> "118 Computing & Comm Center, Ithaca" .
+<http://vivo.cornell.edu/individual/unitCIO-deptCIO-ASC> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1311909-position0> .
+<http://vivo.cornell.edu/individual/unitCIO-deptCIO-ASC> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1769737-position1> .
+<http://vivo.cornell.edu/individual/unitCIO-deptCIO-ASC> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1016543-position1> .
+<http://vivo.cornell.edu/individual/empl2054151-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitGR-deptGR-PAL> .
+<http://vivo.cornell.edu/individual/empl1000087-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.library.cornell.edu/ns/abox/hri2#org-661763898> .
+<http://vivo.cornell.edu/individual/empl2307185-position1> <http://vivoweb.org/ontology/core#positionForPerson> <http://vivo.cornell.edu/individual/elr75> .
+<http://vivo.cornell.edu/individual/empl2307185-position1> <http://vivoweb.org/ontology/core#positionForPerson> <http://vivo.cornell.edu/individual/CRW-elr75> .
+<http://vivo.cornell.edu/individual/unitAPI-deptNAVS> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl2691395-position0> .
+<http://vivo.cornell.edu/individual/unitAPI-deptNAVS> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl2665753-position0> .
+<http://vivo.cornell.edu/individual/unitAPI-deptNAVS> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl2807894-position0> .
+<http://vivo.cornell.edu/individual/unitAPI-deptNAVS> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl2653028-position0> .
+<http://vivo.cornell.edu/individual/unitAPI-deptNAVS> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl2628203-position0> .
+<http://vivo.cornell.edu/individual/unitAPI-deptNAVS> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl2250401-position0> .
+<http://vivo.cornell.edu/individual/CRW-cmh284> <http://www.w3.org/2000/01/rdf-schema#label> "Howard, Christian" .
+<http://vivo.cornell.edu/individual/empl2999363-position0> <http://vivoweb.org/ontology/core#positionForPerson> <http://vivo.cornell.edu/individual/ss2835> .
+<http://vivo.cornell.edu/individual/empl2999363-position0> <http://vivoweb.org/ontology/core#positionForPerson> <http://vivo.cornell.edu/individual/CRW-ss2835> .
+<http://vivo.cornell.edu/individual/unitIP-deptLASP> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1010372-position1> .
+<http://vivo.library.cornell.edu/ns/abox/hri2#org-2120101866> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1005002-position0> .
+<http://vivo.cornell.edu/individual/empl2996144-position0> <http://vivoweb.org/ontology/core#positionForPerson> <http://vivo.cornell.edu/individual/CRW-ahr75> .
+<http://vivo.cornell.edu/individual/empl2996144-position0> <http://vivoweb.org/ontology/core#positionForPerson> <http://vivo.cornell.edu/individual/ahr75> .
+<http://vivo.cornell.edu/individual/individual8779> <http://www.w3.org/2000/01/rdf-schema#label> "McCue, Janet A."@en-US .
+<http://vivo.cornell.edu/individual/empl1297658-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitFS-deptSUSTAIN> .
+<http://vivo.cornell.edu/individual/empl1012056-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/individual7096> .
+<http://vivo.cornell.edu/individual/empl1755614-position1> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitLIBRARY-deptDSPS> .
+<http://vivo.cornell.edu/individual/individual293> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/individual23063-position1> .
+<http://vivo.cornell.edu/individual/empl1098559-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitCIO-deptCIT-INF> .
+<http://vivo.cornell.edu/individual/empl1004041-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitCE-deptCU-WASH> .
+<http://vivo.cornell.edu/individual/empl2676710-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAAD-deptDEVMG> .
+<http://vivo.cornell.edu/individual/KentRoss> <http://vivoweb.org/ontology/core#mailingAddress> "710 Rhodes Hall, Ithaca" .
+<http://vivo.cornell.edu/individual/empl2996024-position0> <http://vivoweb.org/ontology/core#positionForPerson> <http://vivo.cornell.edu/individual/CRW-amr373> .
+<http://vivo.cornell.edu/individual/empl2996024-position0> <http://vivoweb.org/ontology/core#positionForPerson> <http://vivo.cornell.edu/individual/amr373> .
+<http://vivo.cornell.edu/individual/empl2041920-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAPI-deptREST> .
+<http://vivo.cornell.edu/individual/empl1012046-position1> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitIP-deptPSP> .
+<http://vivo.cornell.edu/individual/empl1019540-position1> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAS-deptAMST> .
+<http://vivo.cornell.edu/individual/empl2995264-position0> <http://vivoweb.org/ontology/core#positionForPerson> <http://vivo.cornell.edu/individual/CRW-cr443> .
+<http://vivo.cornell.edu/individual/empl2995264-position0> <http://vivoweb.org/ontology/core#positionForPerson> <http://vivo.cornell.edu/individual/cr443> .
+<http://vivo.cornell.edu/individual/empl1309776-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.library.cornell.edu/ns/abox/hri2#org994200468> .
+<http://vivo.cornell.edu/individual/empl2819961-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitHE-deptCIPA> .
+<http://vivo.cornell.edu/individual/CRW-jaa72> <http://www.w3.org/2000/01/rdf-schema#label> "Anema, J" .
+<http://vivo.cornell.edu/individual/empl1015762-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitFS-deptFMPSG> .
+<http://vivo.cornell.edu/individual/empl2268823-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitHR-CUP-EHS-deptAHR> .
+<http://vivo.cornell.edu/individual/empl1753147-position1> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitFS-deptFSENGIN> .
+<http://vivo.cornell.edu/individual/empl1009649-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitIL-deptEXTDEPT> .
+<http://vivo.cornell.edu/individual/empl1135378-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitCE-deptCE-PROFL> .
+<http://vivo.cornell.edu/individual/empl2972546-position0> <http://vivoweb.org/ontology/core#positionForPerson> <http://vivo.cornell.edu/individual/wbs56> .
+<http://vivo.cornell.edu/individual/empl2972546-position0> <http://vivoweb.org/ontology/core#positionForPerson> <http://vivo.cornell.edu/individual/CRW-wbs56> .
+<http://vivo.cornell.edu/individual/empl1011873-position1> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAG-deptIP-CALS> .
+<http://vivo.cornell.edu/individual/individual22102> <http://vivoweb.org/ontology/core#mailingAddress> "314 Day Hall, Ithaca" .
+<http://vivo.cornell.edu/individual/empl1096932-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAPI-deptREST> .
+<http://vivo.cornell.edu/individual/unitEN-deptEN-OIRS> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1105366-position0> .
+<http://vivo.cornell.edu/individual/empl1318636-position1> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitFS-deptFSENGIN> .
+<http://vivo.cornell.edu/individual/empl1075098-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.library.cornell.edu/ns/abox/hri2#org994200468> .
+<http://vivo.cornell.edu/individual/empl1842423-position1> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAAD-deptADMSERV> .
+<http://vivo.library.cornell.edu/ns/abox/hri2#org59219031> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1008025-position0> .
+<http://vivo.cornell.edu/individual/unitAPI-deptAEROSPACE> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl2554472-position0> .
+<http://vivo.cornell.edu/individual/unitAPI-deptAEROSPACE> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl2355265-position0> .
+<http://vivo.cornell.edu/individual/unitAPI-deptAEROSPACE> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl2660147-position0> .
+<http://vivo.cornell.edu/individual/empl2972135-position0> <http://vivoweb.org/ontology/core#positionForPerson> <http://vivo.cornell.edu/individual/CRW-mkm253> .
+<http://vivo.cornell.edu/individual/empl2972135-position0> <http://vivoweb.org/ontology/core#positionForPerson> <http://vivo.cornell.edu/individual/mkm253> .
+<http://vivo.cornell.edu/individual/DavidLieb> <http://vivoweb.org/ontology/core#phoneNumber> "607-255-4628" .
+<http://vivo.cornell.edu/individual/JanetSnoyer> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WorkingTitle> "Assistant Director, Health Car" .
+<http://vivo.cornell.edu/individual/empl2564310-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitIP-deptSEAP> .
+<http://vivo.cornell.edu/individual/empl1017649-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAG-deptIP-CALS> .
+<http://vivo.cornell.edu/individual/unitPROVST-DR-deptUNIVPROFS> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1010490-position0> .
+<http://vivo.cornell.edu/individual/RobertOsborn> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WorkingTitle> "Director of Facilities II" .
+<http://vivo.cornell.edu/individual/RichardAnderson> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WorkingTitle> "Asst Director, Dining Services" .
+<http://vivo.cornell.edu/individual/empl1013671-position1> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAG-deptAG-ACADPRG> .
+<http://vivo.cornell.edu/individual/empl1824716-position5> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAS-deptWRIT> .
+<http://vivo.cornell.edu/individual/DanielRobertson> <http://vivoweb.org/ontology/core#phoneNumber> "607-255-9642" .
+<http://vivo.cornell.edu/individual/DanielRobertson> <http://vivoweb.org/ontology/core#mailingAddress> "440 Day Hall, Ithaca" .
+<http://vivo.cornell.edu/individual/AlfonsoGonzalez> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WorkingTitle> "Communication Manager I" .
+<http://vivo.cornell.edu/individual/unitPBR-deptSPCPLAN> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1019857-position0> .
+<http://vivo.cornell.edu/individual/empl1013561-position1> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAS-deptSHUM> .
+<http://vivo.cornell.edu/individual/empl1013490-position2> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAS-deptAMST> .
+<http://vivo.cornell.edu/individual/empl3123644-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitIP-deptSAP> .
+<http://vivo.cornell.edu/individual/empl2665753-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAPI-deptNAVS> .
+<http://vivo.cornell.edu/individual/empl2998753-position0> <http://vivoweb.org/ontology/core#positionForPerson> <http://vivo.cornell.edu/individual/CRW-nrz2> .
+<http://vivo.cornell.edu/individual/empl2998753-position0> <http://vivoweb.org/ontology/core#positionForPerson> <http://vivo.cornell.edu/individual/nrz2> .
+<http://vivo.cornell.edu/individual/unitAG-deptAIP> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl2097566-position0> .
+<http://vivo.cornell.edu/individual/unitAG-deptAIP> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1860289-position1> .
+<http://vivo.cornell.edu/individual/empl1015790-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAAD-deptC-UATH> .
+<http://vivo.cornell.edu/individual/empl1005525-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitFS-deptFSADM> .
+<http://vivo.cornell.edu/individual/cd379> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WorkingTitle> "Counselor Therapist I" .
+<http://vivo.cornell.edu/individual/empl1306148-position4> <http://vivoweb.org/ontology/core#positionForPerson> <http://vivo.cornell.edu/individual/CRW-tjm37> .
+<http://vivo.cornell.edu/individual/empl1306148-position4> <http://vivoweb.org/ontology/core#positionForPerson> <http://vivo.cornell.edu/individual/tjm37> .
+<http://vivo.cornell.edu/individual/empl1286111-position1> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAAD-deptDEVTRST> .
+<http://vivo.cornell.edu/individual/empl1297982-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitEN-deptEN-COMM> .
+<http://vivo.cornell.edu/individual/individual15559> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1003893-position1> .
+<http://vivo.cornell.edu/individual/empl1843170-position1> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAAD-deptADMSERV> .
+<http://vivo.cornell.edu/individual/empl3000074-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAG-deptIP-CALS> .
+<http://vivo.cornell.edu/individual/CRW-arp259> <http://www.w3.org/2000/01/rdf-schema#label> "Pissarra Pires, A" .
+<http://vivo.cornell.edu/individual/empl1015670-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitHR-CUP-EHS-deptAHR> .
+<http://vivo.cornell.edu/individual/empl3000084-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAG-deptIP-CALS> .
+<http://vivo.cornell.edu/individual/IleneLambiase> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WorkingTitle> "Finance Manager I" .
+<http://vivo.cornell.edu/individual/empl1002781-position1> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAAD-deptDEVSERV> .
+<http://vivo.cornell.edu/individual/IIKiefer> <http://vivoweb.org/ontology/core#mailingAddress> "110-114 Maple Ave, Ithaca" .
+<http://vivo.cornell.edu/individual/empl2968366-position0> <http://vivoweb.org/ontology/core#positionForPerson> <http://vivo.cornell.edu/individual/CRW-jen68> .
+<http://vivo.cornell.edu/individual/empl2968366-position0> <http://vivoweb.org/ontology/core#positionForPerson> <http://vivo.cornell.edu/individual/jen68> .
+<http://vivo.cornell.edu/individual/empl2036778-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitCOMEDRL-deptMKTG> .
+<http://vivo.cornell.edu/individual/empl1773131-position1> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitCE-deptCE-PROFL> .
+<http://vivo.cornell.edu/individual/unitFS-deptFMPSG> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1015762-position0> .
+<http://vivo.cornell.edu/individual/tmk88> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WorkingTitle> "Dir, Information Technologies" .
+<http://vivo.cornell.edu/individual/unitRESEARCH-deptCAM> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1009559-position2> .
+<http://vivo.cornell.edu/individual/empl2278309-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitGR-deptGR-PAL> .
+<http://vivo.cornell.edu/individual/empl1009246-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitFS-deptFSADM> .
+<http://vivo.cornell.edu/individual/empl1009256-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitCOMEDRL-deptMKTG> .
+<http://vivo.cornell.edu/individual/empl2832259-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitCOMEDRL-deptMKTG> .
+<http://vivo.cornell.edu/individual/edm29> <http://vivoweb.org/ontology/core#phoneNumber> "607/255-3530" .
+<http://vivo.cornell.edu/individual/PatrickWashburn> <http://vivoweb.org/ontology/core#mailingAddress> "200 Computing & Comm Center, Ithaca" .
+<http://vivo.library.cornell.edu/ns/abox/hri2#org1746121429> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl2250397-position0> .
+<http://vivo.cornell.edu/individual/empl1274236-position1> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAS-deptSHUM> .
+<http://vivo.cornell.edu/individual/empl1837624-position1> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAAD-deptADMADV> .
+<http://vivo.cornell.edu/individual/ebg44> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WorkingTitle> "Website and Content Manager" .
+<http://vivo.cornell.edu/individual/CRW-tps1> <http://xmlns.com/foaf/0.1/firstName> "T" .
+<http://vivo.cornell.edu/individual/empl2969231-position0> <http://vivoweb.org/ontology/core#positionForPerson> <http://vivo.cornell.edu/individual/jem482> .
+<http://vivo.cornell.edu/individual/empl2969231-position0> <http://vivoweb.org/ontology/core#positionForPerson> <http://vivo.cornell.edu/individual/CRW-jem482> .
+<http://vivo.cornell.edu/individual/empl1757118-position1> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitLIBRARY-deptDSPS> .
+<http://vivo.cornell.edu/individual/StevenLutter> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WorkingTitle> "Assistant Director IS, Custom" .
+<http://vivo.cornell.edu/individual/empl2191493-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitHR-CUP-EHS-deptWDI-ADM> .
+<http://vivo.cornell.edu/individual/MindyStevenson> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WorkingTitle> "Events Management   Event Coor" .
+<http://vivo.cornell.edu/individual/fe53-position1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivoweb.org/ontology/core#NonFacultyAcademicPosition> .
+<http://vivo.cornell.edu/individual/fe53-position1> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#LDAPJobNumber> "1"^^<http://www.w3.org/2001/XMLSchema#int> .
+<http://vivo.cornell.edu/individual/fe53-position1> <http://www.w3.org/2000/01/rdf-schema#label> "Visiting Fellow" .
+<http://vivo.cornell.edu/individual/fe53-position1> <http://vivoweb.org/ontology/core#hrJobTitle> "Fellow Visiting" .
+<http://vivo.cornell.edu/individual/fe53-position1> <http://vivoweb.org/ontology/core#positionForPerson> <http://vivo.cornell.edu/individual/fe53> .
+<http://vivo.cornell.edu/individual/fe53-position1> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/individual120> .
+<http://vivo.cornell.edu/individual/empl1022254-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitFS-deptSUSTAIN> .
+<http://vivo.cornell.edu/individual/empl1550494-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.library.cornell.edu/ns/abox/hri2#org994200468> .
+<http://vivo.cornell.edu/individual/empl1860289-position1> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAG-deptAIP> .
+<http://vivo.cornell.edu/individual/mc2325-position1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivoweb.org/ontology/core#NonFacultyAcademicPosition> .
+<http://vivo.cornell.edu/individual/mc2325-position1> <http://www.w3.org/2000/01/rdf-schema#label> "Visiting Scholar" .
+<http://vivo.cornell.edu/individual/mc2325-position1> <http://vivoweb.org/ontology/core#hrJobTitle> "Scholar Visit" .
+<http://vivo.cornell.edu/individual/mc2325-position1> <http://vivoweb.org/ontology/core#positionForPerson> <http://vivo.cornell.edu/individual/mc2325> .
+<http://vivo.cornell.edu/individual/mc2325-position1> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#LDAPJobNumber> "1"^^<http://www.w3.org/2001/XMLSchema#int> .
+<http://vivo.cornell.edu/individual/mc2325-position1> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.library.cornell.edu/ns/abox/hri2#org-969964872> .
+<http://vivo.cornell.edu/individual/empl2969917-position0> <http://vivoweb.org/ontology/core#positionForPerson> <http://vivo.cornell.edu/individual/CRW-tkc28> .
+<http://vivo.cornell.edu/individual/empl2969917-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitCOMPINFO-deptINFOSCI> .
+<http://vivo.cornell.edu/individual/empl2969917-position0> <http://vivoweb.org/ontology/core#positionForPerson> <http://vivo.cornell.edu/individual/tkc28> .
+<http://vivo.cornell.edu/individual/empl1839904-position1> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitSAS-DR-deptSAS-BSC> .
+<http://vivo.cornell.edu/individual/CRW-jkh224> <http://xmlns.com/foaf/0.1/lastName> "Kohler-Hausmann" .
+<http://vivo.cornell.edu/individual/empl2869782-position0> <http://vivoweb.org/ontology/core#positionForPerson> <http://vivo.cornell.edu/individual/AI-ICAR-0203DF692AC000321BF> .
+<http://vivo.cornell.edu/individual/empl2869782-position0> <http://vivoweb.org/ontology/core#positionForPerson> <http://vivo.cornell.edu/individual/mnc35> .
+<http://vivo.cornell.edu/individual/empl1064277-position0> <http://vivoweb.org/ontology/core#positionForPerson> <http://vivo.cornell.edu/individual/dgr2> .
+<http://vivo.cornell.edu/individual/empl1064277-position0> <http://vivoweb.org/ontology/core#positionForPerson> <http://vivo.cornell.edu/individual/CRW-dgr2> .
+<http://vivo.cornell.edu/individual/empl2970926-position0> <http://vivoweb.org/ontology/core#positionForPerson> <http://vivo.cornell.edu/individual/CRW-wkr23> .
+<http://vivo.cornell.edu/individual/empl2970926-position0> <http://vivoweb.org/ontology/core#positionForPerson> <http://vivo.cornell.edu/individual/wkr23> .
+<http://vivo.cornell.edu/individual/empl1861194-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitIP-deptSAP> .
+<http://vivo.cornell.edu/individual/empl3000755-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAS-deptSHUM> .
+<http://vivo.cornell.edu/individual/empl1105366-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitEN-deptEN-OIRS> .
+<http://vivo.cornell.edu/individual/empl2026682-position1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivoweb.org/ontology/core#NonFacultyAcademicPosition> .
+<http://vivo.cornell.edu/individual/empl2026682-position1> <http://vivoweb.org/ontology/newhr#company> "END" .
+<http://vivo.cornell.edu/individual/empl2026682-position1> <http://vivoweb.org/ontology/core#positionForPerson> <http://vivo.cornell.edu/individual/individual32268> .
+<http://vivo.cornell.edu/individual/empl2026682-position1> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#LDAPJobNumber> "1" .
+<http://vivo.cornell.edu/individual/empl2026682-position1> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.library.cornell.edu/ns/abox/hri2#org1454968390> .
+<http://vivo.cornell.edu/individual/empl2026682-position1> <http://vivoweb.org/ontology/newhr#headInd> "S" .
+<http://vivo.cornell.edu/individual/empl2026682-position1> <http://www.w3.org/2000/01/rdf-schema#label> "Visiting Lecturer" .
+<http://vivo.cornell.edu/individual/empl2097566-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAG-deptAIP> .
+<http://vivo.cornell.edu/individual/TimothyAnderson> <http://vivoweb.org/ontology/core#phoneNumber> "607-254-6303" .
+<http://vivo.cornell.edu/individual/eaf1> <http://vivoweb.org/ontology/core#mailingAddress> "127 Savage Hall, Ithaca" .
+<http://vivo.cornell.edu/individual/empl1000531-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitIL-deptEXTDEPT> .
+<http://vivo.cornell.edu/individual/empl1013468-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAS-deptWRIT> .
+<http://vivo.cornell.edu/individual/CRW-mp724> <http://www.w3.org/2000/01/rdf-schema#label> "Pham, M" .
+<http://vivo.cornell.edu/individual/empl2927776-position0> <http://vivoweb.org/ontology/core#positionForPerson> <http://vivo.cornell.edu/individual/CRW-st657> .
+<http://vivo.cornell.edu/individual/empl2927776-position0> <http://vivoweb.org/ontology/core#positionForPerson> <http://vivo.cornell.edu/individual/st657> .
+<http://vivo.cornell.edu/individual/individual8750> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WorkingTitle> "Arthur L. Wilson" .
+<http://vivo.cornell.edu/individual/individual23063-position1> <http://vivoweb.org/ontology/core#hrJobTitle> "Prof Adj" .
+<http://vivo.cornell.edu/individual/individual23063-position1> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/individual293> .
+<http://vivo.cornell.edu/individual/individual23063-position1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivoweb.org/ontology/core#FacultyPosition> .
+<http://vivo.cornell.edu/individual/individual23063-position1> <http://vivoweb.org/ontology/core#positionForPerson> <http://vivo.cornell.edu/individual/individual23063> .
+<http://vivo.cornell.edu/individual/individual23063-position1> <http://www.w3.org/2000/01/rdf-schema#label> "Adjunct Professor" .
+<http://vivo.cornell.edu/individual/individual23063-position1> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#LDAPJobNumber> "1"^^<http://www.w3.org/2001/XMLSchema#int> .
+<http://vivo.cornell.edu/individual/empl1287163-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAS-deptSHUM> .
+<http://vivo.cornell.edu/individual/individual24312> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WorkingTitle> "Director of Information Techno" .
+<http://vivo.cornell.edu/individual/empl1005002-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.library.cornell.edu/ns/abox/hri2#org-2120101866> .
+<http://vivo.cornell.edu/individual/empl1012598-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitCOMEDRL-deptMKTG> .
+<http://vivo.cornell.edu/individual/individual24786> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WorkingTitle> "Director, Facilities and Opera" .
+<http://vivo.cornell.edu/individual/unitCOUNSEL-deptBOARDTRST> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1000926-position0> .
+<http://vivo.cornell.edu/individual/empl1021701-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAG-deptAG-ENTREP> .
+<http://vivo.cornell.edu/individual/empl1019781-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitCE-deptCU-WASH> .
+<http://vivo.cornell.edu/individual/DonnaTaber> <http://vivoweb.org/ontology/core#mailingAddress> "120 Maple Avenue, Ithaca" .
+<http://vivo.cornell.edu/individual/empl1117812-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitFS-deptFLEET> .
+<http://vivo.cornell.edu/individual/individual22810> <http://vivoweb.org/ontology/core#phoneNumber> "607-255-2305" .
+<http://vivo.cornell.edu/individual/empl1000926-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitCOUNSEL-deptBOARDTRST> .
+<http://vivo.cornell.edu/individual/HazelHall> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WorkingTitle> "Senior Housekeeping Manager" .
+<http://vivo.cornell.edu/individual/empl2762278-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAR-deptROMEPRG> .
+<http://vivo.cornell.edu/individual/unitAS-deptARKEO> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1839609-position2> .
+<http://vivo.cornell.edu/individual/empl1010424-position2> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitCE-deptCU-WASH> .
+<http://vivo.cornell.edu/individual/unitHE-deptBLCC> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1024996-position1> .
+<http://vivo.cornell.edu/individual/unitAG-deptAG-ACADPRG> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1013671-position1> .
+<http://vivo.cornell.edu/individual/unitAG-deptAG-ACADPRG> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl2252366-position0> .
+<http://vivo.cornell.edu/individual/unitAG-deptAG-ACADPRG> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1009345-position1> .
+<http://vivo.cornell.edu/individual/empl2628203-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAPI-deptNAVS> .
+<http://vivo.cornell.edu/individual/unitLIBRARY-deptDSPS> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1013590-position0> .
+<http://vivo.cornell.edu/individual/unitLIBRARY-deptDSPS> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1007654-position0> .
+<http://vivo.cornell.edu/individual/unitLIBRARY-deptDSPS> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1310185-position0> .
+<http://vivo.cornell.edu/individual/unitLIBRARY-deptDSPS> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1757118-position1> .
+<http://vivo.cornell.edu/individual/unitLIBRARY-deptDSPS> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1861610-position0> .
+<http://vivo.cornell.edu/individual/unitLIBRARY-deptDSPS> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1298615-position0> .
+<http://vivo.cornell.edu/individual/unitLIBRARY-deptDSPS> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1755614-position1> .
+<http://vivo.cornell.edu/individual/unitLIBRARY-deptDSPS> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1028916-position0> .
+<http://vivo.cornell.edu/individual/unitLIBRARY-deptDSPS> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1018961-position0> .
+<http://vivo.cornell.edu/individual/unitLIBRARY-deptDSPS> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1915581-position0> .
+<http://vivo.cornell.edu/individual/unitLIBRARY-deptDSPS> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1014197-position0> .
+<http://vivo.cornell.edu/individual/CRW-hek5> <http://xmlns.com/foaf/0.1/firstName> "H" .
+<http://vivo.cornell.edu/individual/empl1306797-position2> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAG-deptIP-CALS> .
+<http://vivo.cornell.edu/individual/empl2996832-position0> <http://vivoweb.org/ontology/core#positionForPerson> <http://vivo.cornell.edu/individual/CRW-yc869> .
+<http://vivo.cornell.edu/individual/empl2996832-position0> <http://vivoweb.org/ontology/core#positionForPerson> <http://vivo.cornell.edu/individual/yc869> .
+<http://vivo.cornell.edu/individual/empl1298272-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAAD-deptADMSERV> .
+<http://vivo.cornell.edu/individual/RonaldParks> <http://vivoweb.org/ontology/core#mailingAddress> "314 Day Hall, Ithaca" .
+<http://vivo.cornell.edu/individual/empl1006371-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitSAS-DR-deptSAS-BSC> .
+<http://vivo.cornell.edu/individual/empl1224529-position2> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitIP-deptEASIA> .
+<http://vivo.cornell.edu/individual/empl2265534-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitIP-deptEASIA> .
+<http://vivo.cornell.edu/individual/empl1757161-position1> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitHR-CUP-EHS-deptAHR> .
+<http://vivo.cornell.edu/individual/individual22634> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WorkingTitle> "Associate Professor" .
+<http://vivo.cornell.edu/individual/empl3117969-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitIL-deptE-MGMT> .
+<http://vivo.cornell.edu/individual/empl1916595-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitIP-deptEASIA> .
+<http://vivo.cornell.edu/individual/unitAG-deptAG-ENTREP> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1021701-position0> .
+<http://vivo.cornell.edu/individual/unitAS-deptSHUM> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl2972133-position0> .
+<http://vivo.cornell.edu/individual/unitAS-deptSHUM> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl3000755-position0> .
+<http://vivo.cornell.edu/individual/unitAS-deptSHUM> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl2672317-position0> .
+<http://vivo.cornell.edu/individual/unitAS-deptSHUM> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl3000274-position0> .
+<http://vivo.cornell.edu/individual/unitAS-deptSHUM> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl2972131-position0> .
+<http://vivo.cornell.edu/individual/unitAS-deptSHUM> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1010946-position2> .
+<http://vivo.cornell.edu/individual/unitAS-deptSHUM> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1287163-position0> .
+<http://vivo.cornell.edu/individual/unitAS-deptSHUM> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl2673878-position0> .
+<http://vivo.cornell.edu/individual/unitAS-deptSHUM> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1010657-position0> .
+<http://vivo.cornell.edu/individual/unitAS-deptSHUM> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1167123-position0> .
+<http://vivo.cornell.edu/individual/unitAS-deptSHUM> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl2672319-position0> .
+<http://vivo.cornell.edu/individual/unitAS-deptSHUM> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl2972154-position0> .
+<http://vivo.cornell.edu/individual/unitAS-deptSHUM> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl2972124-position0> .
+<http://vivo.cornell.edu/individual/unitAS-deptSHUM> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1008549-position0> .
+<http://vivo.cornell.edu/individual/unitAS-deptSHUM> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl2972134-position0> .
+<http://vivo.cornell.edu/individual/unitAS-deptSHUM> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl2972957-position0> .
+<http://vivo.cornell.edu/individual/unitAS-deptSHUM> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1274236-position1> .
+<http://vivo.cornell.edu/individual/unitAS-deptSHUM> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl3042089-position0> .
+<http://vivo.cornell.edu/individual/unitAS-deptSHUM> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1013561-position1> .
+<http://vivo.cornell.edu/individual/unitAS-deptSHUM> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl2972951-position0> .
+<http://vivo.cornell.edu/individual/unitAS-deptSHUM> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl2972961-position0> .
+<http://vivo.cornell.edu/individual/unitAS-deptSHUM> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl2695325-position0> .
+<http://vivo.cornell.edu/individual/empl1276778-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.library.cornell.edu/ns/abox/hri2#org-2145033085> .
+<http://vivo.cornell.edu/individual/empl2964260-position1> <http://vivoweb.org/ontology/core#positionForPerson> <http://vivo.cornell.edu/individual/nt266> .
+<http://vivo.cornell.edu/individual/empl2964260-position1> <http://vivoweb.org/ontology/core#positionForPerson> <http://vivo.cornell.edu/individual/CRW-nt266> .
+<http://vivo.cornell.edu/individual/MaikeRahn> <http://vivoweb.org/ontology/core#mailingAddress> "127 Savage Hall, Ithaca" .
+<http://vivo.cornell.edu/individual/individual24781> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WorkingTitle> "Assoc VP for Faculty Div & Dev" .
+<http://vivo.cornell.edu/individual/empl1028916-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitLIBRARY-deptDSPS> .
+<http://vivo.library.cornell.edu/ns/abox/hri2#org-661763898> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1756654-position1> .
+<http://vivo.library.cornell.edu/ns/abox/hri2#org-661763898> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1000087-position0> .
+<http://vivo.library.cornell.edu/ns/abox/hri2#org-661763898> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1286249-position0> .
+<http://vivo.library.cornell.edu/ns/abox/hri2#org-661763898> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1121729-position0> .
+<http://vivo.library.cornell.edu/ns/abox/hri2#org-661763898> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1861293-position0> .
+<http://vivo.library.cornell.edu/ns/abox/hri2#org-661763898> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1009003-position0> .
+<http://vivo.cornell.edu/individual/empl1022386-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAAD-deptADMSERV> .
+<http://vivo.cornell.edu/individual/empl1008549-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAS-deptSHUM> .
+<http://vivo.cornell.edu/individual/empl3000071-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAG-deptIP-CALS> .
+<http://vivo.cornell.edu/individual/empl1834075-position1> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAAD-deptADMSERV> .
+<http://vivo.cornell.edu/individual/fe53> <http://vivoweb.org/ontology/core#personInPosition> <http://vivo.cornell.edu/individual/fe53-position1> .
+<http://vivo.cornell.edu/individual/fe53> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WorkingTitle> "Fellow Visiting" .
+<http://vivo.cornell.edu/individual/empl3000081-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAG-deptIP-CALS> .
+<http://vivo.cornell.edu/individual/KolodziejSuzanne> <http://vivoweb.org/ontology/core#phoneNumber> "255-8366" .
+<http://vivo.cornell.edu/individual/KolodziejSuzanne> <http://vivoweb.org/ontology/core#mailingAddress> "170 Uris Hall, Ithaca" .
+<http://vivo.cornell.edu/individual/empl1001864-position0> <http://www.w3.org/2000/01/rdf-schema#label> "Administrator V" .
+<http://vivo.cornell.edu/individual/unitAAD-deptDEVSERV> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1002781-position1> .
+<http://vivo.cornell.edu/individual/unitAAD-deptDEVSERV> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1262409-position0> .
+<http://vivo.cornell.edu/individual/empl1009373-position0> <http://www.w3.org/2000/01/rdf-schema#label> "Associate Professor" .
+<http://vivo.cornell.edu/individual/AI-ICAR-0203DF692AC0003221A> <http://www.w3.org/2000/01/rdf-schema#label> "Davis, Andrew M"@en-US .
+<http://vivo.cornell.edu/individual/empl2999704-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAS-deptAMST> .
+<http://vivo.cornell.edu/individual/empl1861610-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitLIBRARY-deptDSPS> .
+<http://vivo.cornell.edu/individual/unitIL-deptEXTDEPT> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1009649-position0> .
+<http://vivo.cornell.edu/individual/unitIL-deptEXTDEPT> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1000531-position0> .
+<http://vivo.cornell.edu/individual/unitIL-deptEXTDEPT> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1013089-position0> .
+<http://vivo.cornell.edu/individual/unitIL-deptEXTDEPT> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1010719-position0> .
+<http://vivo.cornell.edu/individual/empl1273238-position1> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitHR-CUP-EHS-deptAHR> .
+<http://vivo.cornell.edu/individual/empl3132329-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitGR-deptGR-PAL> .
+<http://vivo.cornell.edu/individual/unitIP-deptPSP> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1011243-position0> .
+<http://vivo.cornell.edu/individual/unitIP-deptPSP> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1023879-position2> .
+<http://vivo.cornell.edu/individual/unitIP-deptPSP> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1012046-position1> .
+<http://vivo.cornell.edu/individual/unitIP-deptPSP> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1013005-position0> .
+<http://vivo.cornell.edu/individual/individual7096> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1012056-position0> .
+<http://vivo.cornell.edu/individual/empl1774362-position1> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitCOMEDRL-deptMKTG> .
+<http://vivo.cornell.edu/individual/empl1001212-position1> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAS-deptLLC> .
+<http://vivo.cornell.edu/individual/empl1010372-position1> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitIP-deptLASP> .
+<http://vivo.cornell.edu/individual/individual7018> <http://vivoweb.org/ontology/core#mailingAddress> "122 Baker Lab, Ithaca" .
+<http://vivo.cornell.edu/individual/individual7018> <http://vivoweb.org/ontology/core#phoneNumber> "607-255-9021" .
+<http://vivo.cornell.edu/individual/empl2555564-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitGR-deptGR-PAL> .
+<http://vivo.cornell.edu/individual/empl1767035-position1> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitHA-deptHTL-KITCH> .
+<http://vivo.cornell.edu/individual/empl1008705-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.library.cornell.edu/ns/abox/hri2#org-738628847> .
+<http://vivo.cornell.edu/individual/PaulMuscente> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WorkingTitle> "Senior Operations Manager" .
+<http://vivo.cornell.edu/individual/empl1854857-position1> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitSAS-DR-deptSAS-BSC> .
+<http://vivo.cornell.edu/individual/empl1839304-position1> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAAD-deptADMSERV> .
+<http://vivo.cornell.edu/individual/unitFS-deptFLEET> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1117812-position0> .
+<http://vivo.cornell.edu/individual/individual21931> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WorkingTitle> "Temp Serv Prof Exempt" .
+<http://vivo.cornell.edu/individual/empl1004101-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitHR-CUP-EHS-deptAHR> .
+<http://vivo.cornell.edu/individual/AnnLovejoy> <http://vivoweb.org/ontology/core#mailingAddress> "120 Maple Avenue, Ithaca" .
+<http://vivo.cornell.edu/individual/empl2026615-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitCOMEDRL-deptMKTG> .
+<http://vivo.cornell.edu/individual/empl1009003-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.library.cornell.edu/ns/abox/hri2#org-661763898> .
+<http://vivo.cornell.edu/individual/empl1751493-position1> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitHR-CUP-EHS-deptWDI-ADM> .
+<http://vivo.cornell.edu/individual/individual24043> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WorkingTitle> "Associate Professor" .
+<http://vivo.cornell.edu/individual/empl2996600-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitCOMEDRL-deptMKTG> .
+<http://vivo.cornell.edu/individual/empl2140671-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitGR-deptGR-PAL> .
+<http://vivo.cornell.edu/individual/empl1262409-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAAD-deptDEVSERV> .
+<http://vivo.cornell.edu/individual/empl1001647-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAAD-deptADMSERV> .
+<http://vivo.library.cornell.edu/ns/abox/hri2#org-738628847> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1008705-position0> .
+<http://vivo.library.cornell.edu/ns/abox/hri2#org-738628847> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1012526-position0> .
+<http://vivo.library.cornell.edu/ns/abox/hri2#org-738628847> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1005892-position0> .
+<http://vivo.library.cornell.edu/ns/abox/hri2#org-738628847> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/VickyDean-position1> .
+<http://vivo.cornell.edu/individual/empl1010657-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAS-deptSHUM> .
+<http://vivo.library.cornell.edu/ns/abox/hri2#org-2145033085> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1276778-position0> .
+<http://vivo.library.cornell.edu/ns/abox/hri2#org-2145033085> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1274399-position0> .
+<http://vivo.library.cornell.edu/ns/abox/hri2#org-2145033085> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1848834-position1> .
+<http://vivo.library.cornell.edu/ns/abox/hri2#org-2145033085> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1766721-position1> .
+<http://vivo.cornell.edu/individual/empl1009708-position2> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitEN-deptEN-UGRAD> .
+<http://vivo.cornell.edu/individual/empl1014215-position0> <http://www.w3.org/2000/01/rdf-schema#label> "Director of Facilities II" .
+<http://vivo.cornell.edu/individual/empl1309204-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAG-deptIP-CALS> .
+<http://vivo.cornell.edu/individual/CRW-csl228> <http://www.w3.org/2000/01/rdf-schema#label> "Lim, S" .
+<http://vivo.cornell.edu/individual/empl1014912-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitCIO-deptCIT-APP> .
+<http://vivo.cornell.edu/individual/unitAS-deptLSP> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1837042-position2> .
+<http://vivo.cornell.edu/individual/unitAS-deptLSP> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1012228-position0> .
+<http://vivo.cornell.edu/individual/unitAS-deptLSP> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1764949-position2> .
+<http://vivo.cornell.edu/individual/empl1774466-position1> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitCIO-deptCIT-APP> .
+<http://vivo.cornell.edu/individual/unitCIO-deptCIT-SPPT> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1017698-position0> .
+<http://vivo.cornell.edu/individual/baw37> <http://vivoweb.org/ontology/core#mailingAddress> "118 Computing & Comm Center, Ithaca" .
+<http://vivo.cornell.edu/individual/unitIP-deptSEAP> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1015016-position0> .
+<http://vivo.cornell.edu/individual/unitIP-deptSEAP> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1016861-position0> .
+<http://vivo.cornell.edu/individual/unitIP-deptSEAP> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl3130153-position0> .
+<http://vivo.cornell.edu/individual/unitIP-deptSEAP> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1023988-position1> .
+<http://vivo.cornell.edu/individual/unitIP-deptSEAP> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl2564310-position0> .
+<http://vivo.cornell.edu/individual/unitHR-CUP-EHS-deptWDI-ADM> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl2191493-position0> .
+<http://vivo.cornell.edu/individual/unitHR-CUP-EHS-deptWDI-ADM> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1751493-position1> .
+<http://vivo.cornell.edu/individual/empl2972124-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAS-deptSHUM> .
+<http://vivo.cornell.edu/individual/empl1520316-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitPROVST-DR-deptRHODES56> .
+<http://vivo.cornell.edu/individual/empl2998938-position0> <http://vivoweb.org/ontology/core#positionForPerson> <http://vivo.cornell.edu/individual/CRW-mws268> .
+<http://vivo.cornell.edu/individual/empl2998938-position0> <http://vivoweb.org/ontology/core#positionForPerson> <http://vivo.cornell.edu/individual/mws268> .
+<http://vivo.cornell.edu/individual/empl2972134-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAS-deptSHUM> .
+<http://vivo.cornell.edu/individual/empl1014631-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitFS-deptFSADM> .
+<http://vivo.cornell.edu/individual/CRW-lrh62> <http://www.w3.org/2000/01/rdf-schema#label> "Hyman, Louis R" .
+<http://vivo.cornell.edu/individual/empl2245713-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAS-deptWRIT> .
+<http://vivo.cornell.edu/individual/empl1000336-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitCE-deptCU-WASH> .
+<http://vivo.cornell.edu/individual/empl1012595-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAR-deptROMEPRG> .
+<http://vivo.cornell.edu/individual/empl2983674-position0> <http://vivoweb.org/ontology/core#positionForPerson> <http://vivo.cornell.edu/individual/CRW-tpm88> .
+<http://vivo.cornell.edu/individual/empl2983674-position0> <http://vivoweb.org/ontology/core#positionForPerson> <http://vivo.cornell.edu/individual/tpm88> .
+<http://vivo.cornell.edu/individual/empl1759438-position1> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitCE-deptCU-WASH> .
+<http://vivo.cornell.edu/individual/empl1014210-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAAD-deptADMADV> .
+<http://vivo.cornell.edu/individual/empl1013590-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitLIBRARY-deptDSPS> .
+<http://vivo.cornell.edu/individual/individual23049> <http://vivoweb.org/ontology/core#phoneNumber> "607-255-6763" .
+<http://vivo.cornell.edu/individual/empl2005433-position2> <http://vivoweb.org/ontology/newhr#headInd> "P" .
+<http://vivo.cornell.edu/individual/empl1308999-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitIP-deptEASIA> .
+<http://vivo.cornell.edu/individual/empl1848834-position1> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.library.cornell.edu/ns/abox/hri2#org-2145033085> .
+<http://vivo.cornell.edu/individual/empl2049111-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitGR-deptGR-PAL> .
+<http://vivo.cornell.edu/individual/individual23063> <http://vivoweb.org/ontology/core#personInPosition> <http://vivo.cornell.edu/individual/individual23063-position1> .
+<http://vivo.cornell.edu/individual/individual23063> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WorkingTitle> "Prof Adj" .
+<http://vivo.cornell.edu/individual/empl1155396-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitFS-deptFSENGIN> .
+<http://vivo.cornell.edu/individual/empl3130153-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitIP-deptSEAP> .
+<http://vivo.cornell.edu/individual/empl1305922-position2> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAS-deptAAS> .
+<http://vivo.cornell.edu/individual/CRW-egc26> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WorkingTitle> "Visiting Lecturer" .
+<http://vivo.cornell.edu/individual/CRW-egc26> <http://www.w3.org/2000/01/rdf-schema#label> "Cogan, E"@en-US .
+<http://vivo.cornell.edu/individual/empl1286249-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.library.cornell.edu/ns/abox/hri2#org-661763898> .
+<http://vivo.cornell.edu/individual/CRW-asl22> <http://www.w3.org/2000/01/rdf-schema#label> "Levine, A" .
+<http://vivo.cornell.edu/individual/empl3000083-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAG-deptIP-CALS> .
+<http://vivo.cornell.edu/individual/MichelleReynolds> <http://vivoweb.org/ontology/core#mailingAddress> "110-114 Maple Ave, Ithaca" .
+<http://vivo.cornell.edu/individual/empl3000274-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAS-deptSHUM> .
+<http://vivo.cornell.edu/individual/empl1004815-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitCIO-deptCIT-INF> .
+<http://vivo.cornell.edu/individual/individual5334> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WorkingTitle> "Superintendent, Hudson Valley" .
+<http://vivo.cornell.edu/individual/empl2554472-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAPI-deptAEROSPACE> .
+<http://vivo.cornell.edu/individual/MarkSchrader> <http://vivoweb.org/ontology/core#mailingAddress> "245 Roberts Hall, Ithaca" .
+<http://vivo.cornell.edu/individual/MarkSchrader> <http://vivoweb.org/ontology/core#phoneNumber> "607/255-2555" .
+<http://vivo.cornell.edu/individual/unitSAS-DR-deptFACADM> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1084852-position1> .
+<http://vivo.cornell.edu/individual/empl2268859-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitIP-deptSAP> .
+<http://vivo.cornell.edu/individual/unitAAD-deptADMSERV> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1001647-position0> .
+<http://vivo.cornell.edu/individual/unitAAD-deptADMSERV> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1842423-position1> .
+<http://vivo.cornell.edu/individual/unitAAD-deptADMSERV> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1839304-position1> .
+<http://vivo.cornell.edu/individual/unitAAD-deptADMSERV> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1834075-position1> .
+<http://vivo.cornell.edu/individual/unitAAD-deptADMSERV> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1298272-position0> .
+<http://vivo.cornell.edu/individual/unitAAD-deptADMSERV> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1022386-position0> .
+<http://vivo.cornell.edu/individual/unitAAD-deptADMSERV> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1843170-position1> .
+<http://vivo.cornell.edu/individual/empl1010946-position2> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAS-deptSHUM> .
+<http://vivo.cornell.edu/individual/empl1010209-position3> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAS-deptWRIT> .
+<http://vivo.cornell.edu/individual/empl1287124-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitCIO-deptCIT-INF> .
+<http://vivo.cornell.edu/individual/JasonLowe> <http://vivoweb.org/ontology/core#mailingAddress> "710 Rhodes Hall, Ithaca" .
+<http://vivo.cornell.edu/individual/individual24535> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WorkingTitle> "Research Associate" .
+<http://vivo.cornell.edu/individual/empl1300863-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitCOMEDRL-deptMKTG> .
+<http://vivo.cornell.edu/individual/empl2287488-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitCOMPINFO-deptINFOSCI> .
+<http://vivo.cornell.edu/individual/empl2972514-position0> <http://vivoweb.org/ontology/core#positionForPerson> <http://vivo.cornell.edu/individual/jfc299> .
+<http://vivo.cornell.edu/individual/empl2972514-position0> <http://vivoweb.org/ontology/core#positionForPerson> <http://vivo.cornell.edu/individual/CRW-jfc299> .
+<http://vivo.cornell.edu/individual/empl1011751-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitFS-deptFSADM> .
+<http://vivo.cornell.edu/individual/empl1008857-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitCIO-deptCIT-APP> .
+<http://vivo.cornell.edu/individual/unitCIO-deptCIT-APP> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1774466-position1> .
+<http://vivo.cornell.edu/individual/unitCIO-deptCIT-APP> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1014912-position0> .
+<http://vivo.cornell.edu/individual/unitCIO-deptCIT-APP> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1008857-position0> .
+<http://vivo.cornell.edu/individual/unitCIO-deptCIT-APP> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1006972-position0> .
+<http://vivo.cornell.edu/individual/unitCIO-deptCIT-APP> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1277327-position0> .
+<http://vivo.cornell.edu/individual/unitCIO-deptCIT-APP> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1001701-position0> .
+<http://vivo.cornell.edu/individual/unitCIO-deptCIT-APP> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1274392-position0> .
+<http://vivo.cornell.edu/individual/empl1276755-position1> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitHA-deptHTL-KITCH> .
+<http://vivo.cornell.edu/individual/empl2062483-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAG-deptIP-CALS> .
+<http://vivo.cornell.edu/individual/empl1005386-position1> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAS-deptFGSS> .
+<http://vivo.cornell.edu/individual/empl1268698-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitCOMEDRL-deptMKTG> .
+<http://vivo.cornell.edu/individual/KathleenNewell> <http://vivoweb.org/ontology/core#mailingAddress> "118 Computing & Comm Center, Ithaca" .
+<http://vivo.cornell.edu/individual/unitSAS-DR-deptSAS-IT> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1776412-position1> .
+<http://vivo.cornell.edu/individual/unitSAS-DR-deptSAS-IT> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1015480-position0> .
+<http://vivo.cornell.edu/individual/unitAS-deptAAS> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1305922-position2> .
+<http://vivo.cornell.edu/individual/unitAS-deptAAS> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1758507-position2> .
+<http://vivo.cornell.edu/individual/empl1012674-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitCOMPINFO-deptINFOSCI> .
+<http://vivo.cornell.edu/individual/empl2851806-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitPROVST-DR-deptRHODES56> .
+<http://vivo.cornell.edu/individual/empl2876572-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitSAS-DR-deptSAS-BSC> .
+<http://vivo.cornell.edu/individual/unitAAD-deptC-UJGSM> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1014045-position0> .
+<http://vivo.cornell.edu/individual/AtulDeshpande> <http://vivoweb.org/ontology/core#mailingAddress> "118 Computing & Comm Center, Ithaca" .
+<http://vivo.cornell.edu/individual/empl1028399-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitCIO-deptCIT-INF> .
+<http://vivo.cornell.edu/individual/unitLIBRARY-deptCTS-META> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl2015390-position0> .
+<http://vivo.cornell.edu/individual/unitLIBRARY-deptCTS-META> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1119585-position0> .
+<http://vivo.cornell.edu/individual/unitLIBRARY-deptCTS-META> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl2961024-position0> .
+<http://vivo.cornell.edu/individual/ConstanceRobinson> <http://vivoweb.org/ontology/core#personInPosition> <http://vivo.cornell.edu/individual/empl1005163-position0> .
+<http://vivo.cornell.edu/individual/empl1316227-position2> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAS-deptWRIT> .
+<http://vivo.cornell.edu/individual/empl1005883-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitHR-CUP-EHS-deptAHR> .
+<http://vivo.cornell.edu/individual/empl2821549-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitCE-deptCU-WASH> .
+<http://vivo.cornell.edu/individual/empl1014207-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitCOMEDRL-deptMKTG> .
+<http://vivo.cornell.edu/individual/empl1007727-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitHE-deptCIPA> .
+<http://vivo.cornell.edu/individual/empl1009559-position2> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitRESEARCH-deptCAM> .
+<http://vivo.cornell.edu/individual/empl1006977-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.library.cornell.edu/ns/abox/hri2#org994200468> .
+<http://vivo.cornell.edu/individual/unitAS-deptWRIT> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1013561-position0> .
+<http://vivo.cornell.edu/individual/unitAS-deptWRIT> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1283953-position0> .
+<http://vivo.cornell.edu/individual/unitAS-deptWRIT> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1824608-position5> .
+<http://vivo.cornell.edu/individual/unitAS-deptWRIT> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1010209-position3> .
+<http://vivo.cornell.edu/individual/unitAS-deptWRIT> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1824716-position5> .
+<http://vivo.cornell.edu/individual/unitAS-deptWRIT> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1010285-position1> .
+<http://vivo.cornell.edu/individual/unitAS-deptWRIT> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1013468-position0> .
+<http://vivo.cornell.edu/individual/unitAS-deptWRIT> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl2245713-position0> .
+<http://vivo.cornell.edu/individual/unitAS-deptWRIT> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1020077-position0> .
+<http://vivo.cornell.edu/individual/unitAS-deptWRIT> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1009237-position0> .
+<http://vivo.cornell.edu/individual/unitAS-deptWRIT> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1010209-position0> .
+<http://vivo.cornell.edu/individual/unitAS-deptWRIT> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1316227-position2> .
+<http://vivo.cornell.edu/individual/empl1021304-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitSAS-DR-deptSAS-BSC> .
+<http://vivo.cornell.edu/individual/empl1752439-position2> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitHA-deptHASTDSV> .
+<http://vivo.cornell.edu/individual/CRW-cfn4> <http://xmlns.com/foaf/0.1/firstName> "C" .
+<http://vivo.library.cornell.edu/ns/abox/hri2#org-969964872> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/mc2325-position1> .
+<http://vivo.cornell.edu/individual/AndrewSzeto> <http://vivoweb.org/ontology/core#mailingAddress> "120 Maple Avenue, Ithaca" .
+<http://vivo.cornell.edu/individual/unitCIO-deptCIT-INF> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1028399-position0> .
+<http://vivo.cornell.edu/individual/unitCIO-deptCIT-INF> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1004815-position0> .
+<http://vivo.cornell.edu/individual/unitCIO-deptCIT-INF> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1287124-position0> .
+<http://vivo.cornell.edu/individual/unitCIO-deptCIT-INF> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1007437-position0> .
+<http://vivo.cornell.edu/individual/unitCIO-deptCIT-INF> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1006257-position0> .
+<http://vivo.cornell.edu/individual/unitCIO-deptCIT-INF> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1003546-position0> .
+<http://vivo.cornell.edu/individual/unitCIO-deptCIT-INF> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1015500-position0> .
+<http://vivo.cornell.edu/individual/unitCIO-deptCIT-INF> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1098559-position0> .
+<http://vivo.cornell.edu/individual/individual24530> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WorkingTitle> "Research Assistant" .
+<http://vivo.cornell.edu/individual/empl1782680-position1> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAAD-deptADMITSG> .
+<http://vivo.cornell.edu/individual/AndrewPage> <http://vivoweb.org/ontology/core#mailingAddress> "118 Computing & Comm Center, Ithaca" .
+<http://vivo.cornell.edu/individual/DonaldCriss> <http://vivoweb.org/ontology/core#phoneNumber> "607/254-1338" .
+<http://vivo.cornell.edu/individual/DonaldCriss> <http://vivoweb.org/ontology/core#mailingAddress> "119 Ives Hall, Ithaca" .
+<http://vivo.cornell.edu/individual/unitAPI-deptCCELR> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1031928-position4> .
+<http://vivo.cornell.edu/individual/empl1011243-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitIP-deptPSP> .
+<http://vivo.cornell.edu/individual/empl1758507-position2> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAS-deptAAS> .
+<http://vivo.cornell.edu/individual/empl1828771-position2> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAPI-deptREST> .
+<http://vivo.cornell.edu/individual/empl1860234-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitCOMEDRL-deptMKTG> .
+<http://vivo.cornell.edu/individual/unitAS-deptHUMCTR> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1003885-position0> .
+<http://vivo.cornell.edu/individual/unitAAD-deptDEVAVP> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1166407-position1> .
+<http://vivo.cornell.edu/individual/empl2461528-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitPROVST-DR-deptRHODES56> .
+<http://vivo.cornell.edu/individual/empl2983867-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitCOMPINFO-deptINFOSCI> .
+<http://vivo.cornell.edu/individual/individual23246> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WorkingTitle> "Communication Manager I" .
+<http://vivo.cornell.edu/individual/unitAAD-deptC-UATH> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1015790-position0> .
+<http://vivo.cornell.edu/individual/empl1027836-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitIL-deptE-MGMT> .
+<http://vivo.cornell.edu/individual/unitCOMPINFO-deptINFOSCI> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1669018-position0> .
+<http://vivo.cornell.edu/individual/unitCOMPINFO-deptINFOSCI> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl2287488-position0> .
+<http://vivo.cornell.edu/individual/unitCOMPINFO-deptINFOSCI> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl2969917-position0> .
+<http://vivo.cornell.edu/individual/unitCOMPINFO-deptINFOSCI> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1309415-position1> .
+<http://vivo.cornell.edu/individual/unitCOMPINFO-deptINFOSCI> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl2858782-position0> .
+<http://vivo.cornell.edu/individual/unitCOMPINFO-deptINFOSCI> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1012674-position0> .
+<http://vivo.cornell.edu/individual/unitCOMPINFO-deptINFOSCI> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl2971532-position0> .
+<http://vivo.cornell.edu/individual/unitCOMPINFO-deptINFOSCI> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl2983867-position0> .
+<http://vivo.cornell.edu/individual/unitCOMPINFO-deptINFOSCI> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1857686-position0> .
+<http://vivo.cornell.edu/individual/unitCOMPINFO-deptINFOSCI> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1299150-position0> .
+<http://vivo.cornell.edu/individual/empl1006972-position0> <http://www.w3.org/2000/01/rdf-schema#label> "Consultant/Advisor Lead" .
+<http://vivo.cornell.edu/individual/empl1006972-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitCIO-deptCIT-APP> .
+<http://vivo.cornell.edu/individual/empl1299111-position1> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitHR-CUP-EHS-deptAHR> .
+<http://vivo.library.cornell.edu/ns/abox/hri2#org1454968390> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl2026682-position1> .
+<http://vivo.cornell.edu/individual/empl2972131-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAS-deptSHUM> .
+<http://vivo.cornell.edu/individual/empl2015390-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitLIBRARY-deptCTS-META> .
+<http://vivo.cornell.edu/individual/unitGR-deptGR-PAL> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl2140671-position0> .
+<http://vivo.cornell.edu/individual/unitGR-deptGR-PAL> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl2278309-position0> .
+<http://vivo.cornell.edu/individual/unitGR-deptGR-PAL> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl2054151-position0> .
+<http://vivo.cornell.edu/individual/unitGR-deptGR-PAL> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl2703640-position0> .
+<http://vivo.cornell.edu/individual/unitGR-deptGR-PAL> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl2555564-position0> .
+<http://vivo.cornell.edu/individual/unitGR-deptGR-PAL> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl2281943-position0> .
+<http://vivo.cornell.edu/individual/unitGR-deptGR-PAL> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl2278120-position0> .
+<http://vivo.cornell.edu/individual/unitGR-deptGR-PAL> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl3139519-position0> .
+<http://vivo.cornell.edu/individual/unitGR-deptGR-PAL> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl2049111-position0> .
+<http://vivo.cornell.edu/individual/unitGR-deptGR-PAL> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl3132329-position0> .
+<http://vivo.cornell.edu/individual/unitGR-deptGR-PAL> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1915844-position0> .
+<http://vivo.cornell.edu/individual/unitGR-deptGR-PAL> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl3076625-position0> .
+<http://vivo.cornell.edu/individual/CherylCox> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WorkingTitle> "Assistant Front Office Manager" .
+<http://vivo.cornell.edu/individual/empl1239441-position4> <http://vivoweb.org/ontology/core#positionForPerson> <http://vivo.cornell.edu/individual/CRW-pro2> .
+<http://vivo.cornell.edu/individual/empl1239441-position4> <http://vivoweb.org/ontology/core#positionForPerson> <http://vivo.cornell.edu/individual/pro2> .
+<http://vivo.cornell.edu/individual/unitCE-deptCU-WASH> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1000336-position0> .
+<http://vivo.cornell.edu/individual/unitCE-deptCU-WASH> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1010424-position2> .
+<http://vivo.cornell.edu/individual/unitCE-deptCU-WASH> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1759438-position1> .
+<http://vivo.cornell.edu/individual/unitCE-deptCU-WASH> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl3097723-position0> .
+<http://vivo.cornell.edu/individual/unitCE-deptCU-WASH> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1004041-position0> .
+<http://vivo.cornell.edu/individual/unitCE-deptCU-WASH> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl3092754-position0> .
+<http://vivo.cornell.edu/individual/unitCE-deptCU-WASH> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1010009-position0> .
+<http://vivo.cornell.edu/individual/unitCE-deptCU-WASH> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl2123970-position0> .
+<http://vivo.cornell.edu/individual/unitCE-deptCU-WASH> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1019781-position0> .
+<http://vivo.cornell.edu/individual/unitCE-deptCU-WASH> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl2821549-position0> .
+<http://vivo.cornell.edu/individual/unitCE-deptCU-WASH> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1300448-position0> .
+<http://vivo.cornell.edu/individual/unitFS-deptPROJMGT> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1003766-position0> .
+<http://vivo.cornell.edu/individual/empl1013089-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitIL-deptEXTDEPT> .
+<http://vivo.cornell.edu/individual/empl1002427-position1> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAS-deptAMST> .
+<http://vivo.cornell.edu/individual/empl1018951-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitSAS-DR-deptSAS-BSC> .
+<http://vivo.cornell.edu/individual/empl1018961-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitLIBRARY-deptDSPS> .
+<http://vivo.cornell.edu/individual/empl1006380-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitHR-CUP-EHS-deptAHR> .
+<http://vivo.cornell.edu/individual/empl1287517-position1> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitIP-deptEASIA> .
+<http://vivo.cornell.edu/individual/empl2972957-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAS-deptSHUM> .
+<http://vivo.cornell.edu/individual/empl1833633-position1> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAAD-deptC-ULAW> .
+<http://vivo.cornell.edu/individual/empl1007926-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitCIO-deptCIO-ADM> .
+<http://vivo.cornell.edu/individual/empl1084852-position1> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitSAS-DR-deptFACADM> .
+<http://vivo.cornell.edu/individual/JamesReed> <http://vivoweb.org/ontology/core#mailingAddress> "710 Rhodes Hall, Ithaca" .
+<http://vivo.cornell.edu/individual/empl1280802-position2> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAG-deptBIONBUB> .
+<http://vivo.cornell.edu/individual/VickyDean> <http://vivoweb.org/ontology/core#personInPosition> <http://vivo.cornell.edu/individual/VickyDean-position1> .
+<http://vivo.cornell.edu/individual/empl1776412-position1> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitSAS-DR-deptSAS-IT> .
+<http://vivo.cornell.edu/individual/empl1262694-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitFS-deptFSOPS> .
+<http://vivo.cornell.edu/individual/unitAS-deptCOGST> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1296917-position1> .
+<http://vivo.cornell.edu/individual/unitFS-deptFSCCF> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1287056-position0> .
+<http://vivo.cornell.edu/individual/mlc328-position0> <http://vivoweb.org/ontology/core#hrJobTitle> "Prof Assoc Vis" .
+<http://vivo.cornell.edu/individual/mlc328-position0> <http://vivoweb.org/ontology/newhr#headInd> "P" .
+<http://vivo.cornell.edu/individual/mlc328-position0> <http://www.w3.org/2000/01/rdf-schema#label> "Visiting Associate Professor" .
+<http://vivo.cornell.edu/individual/mlc328-position0> <http://vivoweb.org/ontology/newhr#company> "STA" .
+<http://vivo.cornell.edu/individual/mlc328-position0> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivoweb.org/ontology/core#FacultyPosition> .
+<http://vivo.cornell.edu/individual/mlc328-position0> <http://vivoweb.org/ontology/core#positionForPerson> <http://vivo.cornell.edu/individual/mlc328> .
+<http://vivo.cornell.edu/individual/mlc328-position0> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#LDAPJobNumber> "0" .
+<http://vivo.cornell.edu/individual/mlc328-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/individual533> .
+<http://vivo.cornell.edu/individual/empl2695783-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitIP-deptEASIA> .
+<http://vivo.cornell.edu/individual/empl2355265-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAPI-deptAEROSPACE> .
+<http://vivo.cornell.edu/individual/empl1309415-position1> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitCOMPINFO-deptINFOSCI> .
+<http://vivo.cornell.edu/individual/empl3004168-position0> <http://vivoweb.org/ontology/core#positionForPerson> <http://vivo.cornell.edu/individual/CRW-bms275> .
+<http://vivo.cornell.edu/individual/empl3004168-position0> <http://vivoweb.org/ontology/core#positionForPerson> <http://vivo.cornell.edu/individual/bms275> .
+<http://vivo.cornell.edu/individual/empl1312237-position1> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAAD-deptADMADV> .
+<http://vivo.cornell.edu/individual/empl1839609-position2> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAS-deptARKEO> .
+<http://vivo.cornell.edu/individual/empl1006584-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitHR-CUP-EHS-deptAHR> .
+<http://vivo.cornell.edu/individual/wsl2> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WorkingTitle> "Administrator V" .
+<http://vivo.cornell.edu/individual/empl2971475-position0> <http://vivoweb.org/ontology/core#positionForPerson> <http://vivo.cornell.edu/individual/n39482> .
+<http://vivo.cornell.edu/individual/empl2971475-position0> <http://vivoweb.org/ontology/core#positionForPerson> <http://vivo.cornell.edu/individual/CRW-pp427> .
+<http://vivo.cornell.edu/individual/individual416> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/tmj37-position1> .
+<http://vivo.cornell.edu/individual/empl1274392-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitCIO-deptCIT-APP> .
+<http://vivo.cornell.edu/individual/JudyWilliams> <http://vivoweb.org/ontology/core#mailingAddress> "120 Maple Avenue, Ithaca" .
+<http://vivo.cornell.edu/individual/unitAAD-deptDEVTRST> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1286111-position1> .
+<http://vivo.cornell.edu/individual/empl1015785-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitFS-deptFSADM> .
+<http://vivo.cornell.edu/individual/empl1003546-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitCIO-deptCIT-INF> .
+<http://vivo.cornell.edu/individual/mc2325> <http://vivoweb.org/ontology/core#personInPosition> <http://vivo.cornell.edu/individual/mc2325-position1> .
+<http://vivo.cornell.edu/individual/NathanReimer> <http://vivoweb.org/ontology/core#mailingAddress> "120 Maple Avenue, Ithaca" .
+<http://vivo.cornell.edu/individual/empl1017598-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAG-deptIP-CALS> .
+<http://vivo.cornell.edu/individual/unitAPI-deptREST> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1284261-position1> .
+<http://vivo.cornell.edu/individual/unitAPI-deptREST> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl2041920-position0> .
+<http://vivo.cornell.edu/individual/unitAPI-deptREST> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1828771-position2> .
+<http://vivo.cornell.edu/individual/unitAPI-deptREST> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1828771-position1> .
+<http://vivo.cornell.edu/individual/unitAPI-deptREST> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1096932-position0> .
+<http://vivo.cornell.edu/individual/unitAPI-deptREST> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1784050-position5> .
+<http://vivo.cornell.edu/individual/CRW-lsl67> <http://www.w3.org/2000/01/rdf-schema#label> "Lathrop, Laurel Saunders Fargo" .
+<http://vivo.cornell.edu/individual/empl1013005-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitIP-deptPSP> .
+<http://vivo.cornell.edu/individual/unitIP-deptEASIA> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1308999-position0> .
+<http://vivo.cornell.edu/individual/unitIP-deptEASIA> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl2695783-position0> .
+<http://vivo.cornell.edu/individual/unitIP-deptEASIA> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1287517-position1> .
+<http://vivo.cornell.edu/individual/unitIP-deptEASIA> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl2999814-position0> .
+<http://vivo.cornell.edu/individual/unitIP-deptEASIA> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1297986-position0> .
+<http://vivo.cornell.edu/individual/unitIP-deptEASIA> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1224529-position1> .
+<http://vivo.cornell.edu/individual/unitIP-deptEASIA> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1916595-position0> .
+<http://vivo.cornell.edu/individual/unitIP-deptEASIA> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl3018914-position0> .
+<http://vivo.cornell.edu/individual/unitIP-deptEASIA> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1234108-position2> .
+<http://vivo.cornell.edu/individual/unitIP-deptEASIA> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1224529-position2> .
+<http://vivo.cornell.edu/individual/unitIP-deptEASIA> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl2265534-position0> .
+<http://vivo.cornell.edu/individual/unitIP-deptEASIA> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl3128414-position0> .
+<http://vivo.cornell.edu/individual/empl3000079-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAG-deptIP-CALS> .
+<http://vivo.cornell.edu/individual/individual25208> <http://vivoweb.org/ontology/core#mailingAddress> "200 Computing & Comm Center, Ithaca" .
+<http://vivo.cornell.edu/individual/empl2451727-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAG-deptIP-CALS> .
+<http://vivo.cornell.edu/individual/empl1002837-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/individual21831> .
+<http://vivo.cornell.edu/individual/empl1013561-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAS-deptWRIT> .
+<http://vivo.cornell.edu/individual/empl2673878-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAS-deptSHUM> .
+<http://vivo.cornell.edu/individual/empl1011837-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAR-deptROMEPRG> .
+<http://vivo.cornell.edu/individual/empl1020997-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitHR-CUP-EHS-deptAHR> .
+<http://vivo.cornell.edu/individual/empl2047508-position0> <http://vivoweb.org/ontology/core#positionForPerson> <http://vivo.cornell.edu/individual/CRW-cc694> .
+<http://vivo.cornell.edu/individual/empl2047508-position0> <http://vivoweb.org/ontology/core#positionForPerson> <http://vivo.cornell.edu/individual/cc694> .
+<http://vivo.cornell.edu/individual/empl2961024-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitLIBRARY-deptCTS-META> .
+<http://vivo.cornell.edu/individual/individual21872> <http://www.w3.org/2000/01/rdf-schema#label> "LeBlanc, Jim"@en-US .
+<http://vivo.cornell.edu/individual/acg79> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WorkingTitle> "Public Affairs Officer III" .
+<http://vivo.cornell.edu/individual/empl1296917-position1> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAS-deptCOGST> .
+<http://vivo.cornell.edu/individual/DiehlBerry> <http://xmlns.com/foaf/0.1/lastName> "Berry Diehl" .
+<http://vivo.cornell.edu/individual/DiehlBerry> <http://vivoweb.org/ontology/core#phoneNumber> "315/232-2485" .
+<http://vivo.cornell.edu/individual/empl1005163-position0> <http://vivoweb.org/ontology/core#positionForPerson> <http://vivo.cornell.edu/individual/ConstanceRobinson> .
+<http://vivo.cornell.edu/individual/empl1005163-position0> <http://vivoweb.org/ontology/newhr#company> "END" .
+<http://vivo.cornell.edu/individual/empl1005163-position0> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivoweb.org/ontology/core#NonAcademicPosition> .
+<http://vivo.cornell.edu/individual/empl1005163-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.library.cornell.edu/ns/abox/hri2#org-569846030> .
+<http://vivo.cornell.edu/individual/empl1005163-position0> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#LDAPJobNumber> "0" .
+<http://vivo.cornell.edu/individual/empl1005163-position0> <http://www.w3.org/2000/01/rdf-schema#label> "Administrator II" .
+<http://vivo.cornell.edu/individual/empl1005163-position0> <http://vivoweb.org/ontology/newhr#headInd> "P" .
+<http://vivo.cornell.edu/individual/individual23222> <http://vivoweb.org/ontology/core#phoneNumber> "607 2559199" .
+<http://vivo.cornell.edu/individual/MarkAnbinder> <http://vivoweb.org/ontology/core#mailingAddress> "710 Rhodes Hall, Ithaca" .
+<http://vivo.cornell.edu/individual/empl1015500-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitCIO-deptCIT-INF> .
+<http://vivo.cornell.edu/individual/empl1119585-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitLIBRARY-deptCTS-META> .
+<http://vivo.cornell.edu/individual/mdf96> <http://www.w3.org/2000/01/rdf-schema#label> "Frakes, Michael D" .
+<http://vivo.cornell.edu/individual/empl1006257-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitCIO-deptCIT-INF> .
+<http://vivo.cornell.edu/individual/empl2660147-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAPI-deptAEROSPACE> .
+<http://vivo.cornell.edu/individual/empl1669018-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitCOMPINFO-deptINFOSCI> .
+<http://vivo.cornell.edu/individual/empl1928116-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/individual21831> .
+<http://vivo.cornell.edu/individual/empl1009045-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitFS-deptSUSTAIN> .
+<http://vivo.cornell.edu/individual/empl2956633-position0> <http://vivoweb.org/ontology/core#positionForPerson> <http://vivo.cornell.edu/individual/kjm267> .
+<http://vivo.cornell.edu/individual/empl2956633-position0> <http://vivoweb.org/ontology/core#positionForPerson> <http://vivo.cornell.edu/individual/AI-EDPR-0203DF692AC00032145> .
+<http://vivo.cornell.edu/individual/empl1003885-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAS-deptHUMCTR> .
+<http://vivo.cornell.edu/individual/empl2972133-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAS-deptSHUM> .
+<http://vivo.cornell.edu/individual/empl1010235-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitCOMEDRL-deptMKTG> .
+<http://vivo.cornell.edu/individual/empl2029967-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitFS-deptFSCPP> .
+<http://vivo.cornell.edu/individual/empl1016543-position1> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitCIO-deptCIO-ASC> .
+<http://vivo.cornell.edu/individual/empl2672317-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAS-deptSHUM> .
+<http://vivo.cornell.edu/individual/empl1298615-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitLIBRARY-deptDSPS> .
+<http://vivo.cornell.edu/individual/empl1283953-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAS-deptWRIT> .
+<http://vivo.cornell.edu/individual/empl3092754-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitCE-deptCU-WASH> .
+<http://vivo.cornell.edu/individual/empl3000268-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAG-deptIP-CALS> .
+<http://vivo.cornell.edu/individual/empl1915844-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitGR-deptGR-PAL> .
+<http://vivo.cornell.edu/individual/empl2129138-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitFS-deptFSENGIN> .
+<http://vivo.cornell.edu/individual/empl1009642-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitCOMEDRL-deptMKTG> .
+<http://vivo.cornell.edu/individual/individual7627> <http://vivoweb.org/ontology/core#personInPosition> <http://vivo.cornell.edu/individual/rlc5-position0> .
+<http://vivo.cornell.edu/individual/individual7627> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WorkingTitle> "Senior Research Associate" .
+<http://vivo.cornell.edu/individual/empl1274399-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.library.cornell.edu/ns/abox/hri2#org-2145033085> .
+<http://vivo.cornell.edu/individual/empl1010490-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitPROVST-DR-deptUNIVPROFS> .
+<http://vivo.cornell.edu/individual/empl1000235-position0> <http://www.w3.org/2000/01/rdf-schema#label> "Director of Facilities II" .
+<http://vivo.cornell.edu/individual/empl2281943-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitGR-deptGR-PAL> .
+<http://vivo.cornell.edu/individual/unitHA-deptHTL-KITCH> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl2557746-position0> .
+<http://vivo.cornell.edu/individual/unitHA-deptHTL-KITCH> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1767035-position1> .
+<http://vivo.cornell.edu/individual/unitHA-deptHTL-KITCH> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1310124-position0> .
+<http://vivo.cornell.edu/individual/unitHA-deptHTL-KITCH> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1826659-position1> .
+<http://vivo.cornell.edu/individual/unitHA-deptHTL-KITCH> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1276755-position1> .
+<http://vivo.cornell.edu/individual/unitAAD-deptC-USAS> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl2665448-position0> .
+<http://vivo.cornell.edu/individual/LauraAufDerHeide> <http://www.w3.org/2000/01/rdf-schema#label> "Brashears, Laura Aufderheide"@en-US .
+<http://vivo.cornell.edu/individual/empl1009159-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitHR-CUP-EHS-deptAHR> .
+<http://vivo.cornell.edu/individual/empl1310185-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitLIBRARY-deptDSPS> .
+<http://vivo.cornell.edu/individual/individual25778> <http://vivoweb.org/ontology/core#mailingAddress> "118 Computing & Comm Center, Ithaca" .
+<http://vivo.cornell.edu/individual/krs48> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WorkingTitle> "Assistant Director" .
+<http://vivo.cornell.edu/individual/empl1010110-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitIP-deptSAP> .
+<http://vivo.cornell.edu/individual/empl1756654-position1> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.library.cornell.edu/ns/abox/hri2#org-661763898> .
+<http://vivo.cornell.edu/individual/empl1014392-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitCIO-deptCIO-ADM> .
+<http://vivo.cornell.edu/individual/empl1010209-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAS-deptWRIT> .
+<http://vivo.cornell.edu/individual/JamesBrannan> <http://vivoweb.org/ontology/core#mailingAddress> "118 Computing & Comm Center, Ithaca" .
+<http://vivo.cornell.edu/individual/JamesGibbs> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WorkingTitle> "Director of Facilities II" .
+<http://vivo.cornell.edu/individual/empl1297750-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitFS-deptFSADM> .
+<http://vivo.cornell.edu/individual/empl2691395-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAPI-deptNAVS> .
+<http://vivo.cornell.edu/individual/empl1128118-position1> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitFS-deptFSENGIN> .
+<http://vivo.cornell.edu/individual/empl1016923-position1> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/individual21096> .
+<http://vivo.cornell.edu/individual/empl1016923-position1> <http://vivoweb.org/ontology/newhr#headInd> "P" .
+<http://vivo.cornell.edu/individual/empl1016923-position1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivoweb.org/ontology/core#FacultyPosition> .
+<http://vivo.cornell.edu/individual/empl1016923-position1> <http://vivoweb.org/ontology/newhr#company> "END" .
+<http://vivo.cornell.edu/individual/empl1016923-position1> <http://vivoweb.org/ontology/core#positionForPerson> <http://vivo.cornell.edu/individual/individual23349> .
+<http://vivo.cornell.edu/individual/empl1016923-position1> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#LDAPJobNumber> "1" .
+<http://vivo.cornell.edu/individual/empl1016923-position1> <http://www.w3.org/2000/01/rdf-schema#label> "Professor" .
+<http://vivo.cornell.edu/individual/empl1016923-position1> <http://www.w3.org/2000/01/rdf-schema#label> "President Emeritus" .
+<http://vivo.cornell.edu/individual/AlexNemeth> <http://vivoweb.org/ontology/core#mailingAddress> "118 Computing & Comm Center, Ithaca" .
+<http://vivo.cornell.edu/individual/empl1003893-position1> <http://www.w3.org/2000/01/rdf-schema#label> "Director" .
+<http://vivo.cornell.edu/individual/empl1003893-position1> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#LDAPJobNumber> "1" .
+<http://vivo.cornell.edu/individual/empl1003893-position1> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/individual15559> .
+<http://vivo.cornell.edu/individual/empl1003893-position1> <http://vivoweb.org/ontology/newhr#company> "STA" .
+<http://vivo.cornell.edu/individual/empl1003893-position1> <http://vivoweb.org/ontology/core#positionForPerson> <http://vivo.cornell.edu/individual/individual18530> .
+<http://vivo.cornell.edu/individual/empl1003893-position1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivoweb.org/ontology/core#FacultyAdministrativePosition> .
+<http://vivo.cornell.edu/individual/empl1003893-position1> <http://vivoweb.org/ontology/newhr#headInd> "S" .
+<http://vivo.cornell.edu/individual/SandraDhimitri> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WorkingTitle> "Director of Human Resources" .
+<http://vivo.cornell.edu/individual/unitIL-deptE-MGMT> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl3117969-position0> .
+<http://vivo.cornell.edu/individual/unitIL-deptE-MGMT> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1027836-position0> .
+<http://vivo.cornell.edu/individual/unitIL-deptE-MGMT> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl2281837-position0> .
+<http://vivo.cornell.edu/individual/unitIL-deptE-MGMT> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1309870-position0> .
+<http://vivo.cornell.edu/individual/unitHE-deptHE-URBAN> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1124580-position0> .
+<http://vivo.cornell.edu/individual/unitHE-deptHE-URBAN> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1840488-position1> .
+<http://vivo.cornell.edu/individual/unitHE-deptHE-URBAN> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1011197-position0> .
+<http://vivo.cornell.edu/individual/ScottRoss> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WorkingTitle> "Applications Programmer II" .
+<http://vivo.cornell.edu/individual/empl1857686-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitCOMPINFO-deptINFOSCI> .
+<http://vivo.cornell.edu/individual/empl1769737-position1> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitCIO-deptCIO-ASC> .
+<http://vivo.cornell.edu/individual/empl1009014-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitHR-CUP-EHS-deptAHR> .
+<http://vivo.cornell.edu/individual/empl2995626-position0> <http://www.w3.org/2000/01/rdf-schema#label> "Info Tech Assistant Director I" .
+<http://vivo.library.cornell.edu/ns/abox/hri2#org587588149> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1004718-position0> .
+<http://vivo.cornell.edu/individual/individual5842> <http://vivoweb.org/ontology/core#mailingAddress> "E145 Corson Hall, Ithaca" .
+<http://vivo.cornell.edu/individual/individual5842> <http://vivoweb.org/ontology/core#phoneNumber> "607-254-2162" .
+<http://vivo.cornell.edu/individual/individual24135> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WorkingTitle> "Info Tech Area Manager I" .
+<http://vivo.cornell.edu/individual/empl1915581-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitLIBRARY-deptDSPS> .
+<http://vivo.cornell.edu/individual/unitLIBRARY-deptCUL-IT> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1298254-position0> .
+<http://vivo.cornell.edu/individual/unitLIBRARY-deptCUL-IT> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1009497-position0> .
+<http://vivo.cornell.edu/individual/unitAAD-deptADMADV> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1006891-position0> .
+<http://vivo.cornell.edu/individual/unitAAD-deptADMADV> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl3072055-position0> .
+<http://vivo.cornell.edu/individual/unitAAD-deptADMADV> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1837624-position1> .
+<http://vivo.cornell.edu/individual/unitAAD-deptADMADV> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1298675-position0> .
+<http://vivo.cornell.edu/individual/unitAAD-deptADMADV> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1014210-position0> .
+<http://vivo.cornell.edu/individual/unitAAD-deptADMADV> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1312237-position1> .
+<http://vivo.cornell.edu/individual/empl1022423-position1> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitLIBRARY-deptLIB-ADM> .
+<http://vivo.cornell.edu/individual/empl2627272-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAAD-deptC-UENG> .
+<http://vivo.cornell.edu/individual/individual23349> <http://vivoweb.org/ontology/core#personInPosition> <http://vivo.cornell.edu/individual/empl1016923-position1> .
+<http://vivo.cornell.edu/individual/individual23349> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#netId> "n12345" .
+<http://vivo.cornell.edu/individual/empl1224529-position1> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitIP-deptEASIA> .
+<http://vivo.cornell.edu/individual/empl3000076-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAG-deptIP-CALS> .
+<http://vivo.cornell.edu/individual/empl1005892-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.library.cornell.edu/ns/abox/hri2#org-738628847> .
+<http://vivo.cornell.edu/individual/empl1287056-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitFS-deptFSCCF> .
+<http://vivo.cornell.edu/individual/empl1014045-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAAD-deptC-UJGSM> .
+<http://vivo.cornell.edu/individual/unitIL-deptFORENSI> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1231921-position1> .
+<http://vivo.cornell.edu/individual/empl1005752-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitCIO-deptCIO-ADM> .
+<http://vivo.cornell.edu/individual/unitHR-CUP-EHS-deptAHR> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1005059-position0> .
+<http://vivo.cornell.edu/individual/unitHR-CUP-EHS-deptAHR> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1005909-position0> .
+<http://vivo.cornell.edu/individual/unitHR-CUP-EHS-deptAHR> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1273238-position1> .
+<http://vivo.cornell.edu/individual/unitHR-CUP-EHS-deptAHR> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1299111-position1> .
+<http://vivo.cornell.edu/individual/unitHR-CUP-EHS-deptAHR> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1006380-position0> .
+<http://vivo.cornell.edu/individual/unitHR-CUP-EHS-deptAHR> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl2268823-position0> .
+<http://vivo.cornell.edu/individual/unitHR-CUP-EHS-deptAHR> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1005883-position0> .
+<http://vivo.cornell.edu/individual/unitHR-CUP-EHS-deptAHR> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1757161-position1> .
+<http://vivo.cornell.edu/individual/unitHR-CUP-EHS-deptAHR> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1020997-position0> .
+<http://vivo.cornell.edu/individual/unitHR-CUP-EHS-deptAHR> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1015670-position0> .
+<http://vivo.cornell.edu/individual/unitHR-CUP-EHS-deptAHR> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1004899-position0> .
+<http://vivo.cornell.edu/individual/unitHR-CUP-EHS-deptAHR> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1006584-position0> .
+<http://vivo.cornell.edu/individual/unitHR-CUP-EHS-deptAHR> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1004101-position0> .
+<http://vivo.cornell.edu/individual/unitHR-CUP-EHS-deptAHR> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1753380-position1> .
+<http://vivo.cornell.edu/individual/unitHR-CUP-EHS-deptAHR> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1009159-position0> .
+<http://vivo.cornell.edu/individual/unitHR-CUP-EHS-deptAHR> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1009014-position0> .
+<http://vivo.cornell.edu/individual/empl3072055-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAAD-deptADMADV> .
+<http://vivo.cornell.edu/individual/empl1234108-position2> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitIP-deptEASIA> .
+<http://vivo.cornell.edu/individual/empl1286467-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAAD-deptDEVMG> .
+<http://vivo.cornell.edu/individual/empl1277327-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitCIO-deptCIT-APP> .
+<http://vivo.cornell.edu/individual/empl1010719-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitIL-deptEXTDEPT> .
+<http://vivo.cornell.edu/individual/empl3042089-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAS-deptSHUM> .
+<http://vivo.cornell.edu/individual/MatthewKlein> <http://vivoweb.org/ontology/core#mailingAddress> "118 Computing & Comm Center, Ithaca" .
+<http://vivo.cornell.edu/individual/unitCE-deptCE-PROFL> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1063398-position0> .
+<http://vivo.cornell.edu/individual/unitCE-deptCE-PROFL> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1135378-position0> .
+<http://vivo.cornell.edu/individual/unitCE-deptCE-PROFL> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1773131-position1> .
+<http://vivo.cornell.edu/individual/empl2972155-position0> <http://vivoweb.org/ontology/core#positionForPerson> <http://vivo.cornell.edu/individual/CRW-jes557> .
+<http://vivo.cornell.edu/individual/empl2972155-position0> <http://vivoweb.org/ontology/core#positionForPerson> <http://vivo.cornell.edu/individual/jes557> .
+<http://vivo.cornell.edu/individual/empl2973290-position0> <http://vivoweb.org/ontology/core#positionForPerson> <http://vivo.cornell.edu/individual/CRW-jdw277> .
+<http://vivo.cornell.edu/individual/empl2973290-position0> <http://vivoweb.org/ontology/core#positionForPerson> <http://vivo.cornell.edu/individual/jdw277> .
+<http://vivo.cornell.edu/individual/empl2250401-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAPI-deptNAVS> .
+<http://vivo.cornell.edu/individual/empl1310124-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitHA-deptHTL-KITCH> .
+<http://vivo.cornell.edu/individual/empl2672319-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAS-deptSHUM> .
+<http://vivo.cornell.edu/individual/empl1124580-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitHE-deptHE-URBAN> .
+<http://vivo.cornell.edu/individual/empl2999814-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitIP-deptEASIA> .
+<http://vivo.cornell.edu/individual/empl1854302-position1> <http://vivoweb.org/ontology/core#positionForPerson> <http://vivo.cornell.edu/individual/ler35> .
+<http://vivo.cornell.edu/individual/empl1854302-position1> <http://vivoweb.org/ontology/core#positionForPerson> <http://vivo.cornell.edu/individual/CRW-ler35> .
+<http://vivo.cornell.edu/individual/empl1016861-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitIP-deptSEAP> .
+<http://vivo.cornell.edu/individual/empl1024996-position1> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitHE-deptBLCC> .
+<http://vivo.cornell.edu/individual/unitIP-deptSAP> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1861194-position0> .
+<http://vivo.cornell.edu/individual/unitIP-deptSAP> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl3123644-position0> .
+<http://vivo.cornell.edu/individual/unitIP-deptSAP> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl2268859-position0> .
+<http://vivo.cornell.edu/individual/unitIP-deptSAP> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1105251-position0> .
+<http://vivo.cornell.edu/individual/unitIP-deptSAP> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1010110-position0> .
+<http://vivo.cornell.edu/individual/unitIP-deptSAP> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl2268754-position0> .
+<http://vivo.cornell.edu/individual/unitIP-deptSAP> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1011364-position1> .
+<http://vivo.cornell.edu/individual/empl1299150-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitCOMPINFO-deptINFOSCI> .
+<http://vivo.cornell.edu/individual/empl1001212-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAS-deptLLC> .
+<http://vivo.cornell.edu/individual/mjh88> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WorkingTitle> "Postdoctoral Fellow" .
+<http://vivo.cornell.edu/individual/empl1861176-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitCOMEDRL-deptMKTG> .
+<http://vivo.cornell.edu/individual/unitSAS-DR-deptSAS-BSC> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1021304-position0> .
+<http://vivo.cornell.edu/individual/unitSAS-DR-deptSAS-BSC> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl2876572-position0> .
+<http://vivo.cornell.edu/individual/unitSAS-DR-deptSAS-BSC> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1854857-position1> .
+<http://vivo.cornell.edu/individual/unitSAS-DR-deptSAS-BSC> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1839904-position1> .
+<http://vivo.cornell.edu/individual/unitSAS-DR-deptSAS-BSC> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1006371-position0> .
+<http://vivo.cornell.edu/individual/unitSAS-DR-deptSAS-BSC> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1018951-position0> .
+<http://vivo.cornell.edu/individual/empl1784050-position5> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAPI-deptREST> .
+<http://vivo.cornell.edu/individual/unitAAD-deptC-ULIB> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl2052438-position0> .
+<http://vivo.cornell.edu/individual/KevinKronenbitter> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WorkingTitle> "Applications Programmer IV" .
+<http://vivo.cornell.edu/individual/empl1015871-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitFS-deptFSENGIN> .
+<http://vivo.cornell.edu/individual/empl1838493-position1> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitCOMEDRL-deptMKTG> .
+<http://vivo.cornell.edu/individual/empl1300448-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitCE-deptCU-WASH> .
+<http://vivo.cornell.edu/individual/hl646> <http://vivoweb.org/ontology/core#mailingAddress> "127 Savage Hall, Ithaca" .
+<http://vivo.cornell.edu/individual/CRW-cjp226> <http://www.w3.org/2000/01/rdf-schema#label> "Pityk, C" .
+<http://vivo.cornell.edu/individual/empl3018914-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitIP-deptEASIA> .
+<http://vivo.cornell.edu/individual/empl1010997-position1> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAG-deptIP-CALS> .
+<http://vivo.cornell.edu/individual/individual533> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/mlc328-position0> .
+<http://vivo.cornell.edu/individual/empl1007945-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitFS-deptSUSTAIN> .
+<http://vivo.cornell.edu/individual/empl1009577-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitFS-deptFSOPS> .
+<http://vivo.cornell.edu/individual/KevinPelletier> <http://vivoweb.org/ontology/core#mailingAddress> "118 Computing & Comm Center, Ithaca" .
+<http://vivo.cornell.edu/individual/empl1009708-position1> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitEN-deptEN-UGRAD> .
+<http://vivo.cornell.edu/individual/empl1028667-position3> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAS-deptRELST> .
+<http://vivo.cornell.edu/individual/empl1007654-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitLIBRARY-deptDSPS> .
+<http://vivo.cornell.edu/individual/empl2278120-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitGR-deptGR-PAL> .
+<http://vivo.cornell.edu/individual/unitAS-deptRELST> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1028667-position3> .
+<http://vivo.cornell.edu/individual/empl1021351-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitFS-deptFSENGIN> .
+<http://vivo.cornell.edu/individual/unitIL-deptIL-EXED> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1563046-position2> .
+<http://vivo.cornell.edu/individual/mdf98> <http://www.w3.org/2000/01/rdf-schema#label> "Fitzpatrick, Maria" .
+<http://vivo.cornell.edu/individual/empl1298675-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAAD-deptADMADV> .
+<http://vivo.cornell.edu/individual/empl1309304-position1> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAS-deptMEDVL> .
+<http://vivo.cornell.edu/individual/empl1309870-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitIL-deptE-MGMT> .
+<http://vivo.cornell.edu/individual/RandallNegley> <http://vivoweb.org/ontology/core#mailingAddress> "120 Maple Avenue, Ithaca" .
+<http://vivo.cornell.edu/individual/empl1016534-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAS-deptFGSS> .
+<http://vivo.cornell.edu/individual/empl1010285-position1> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAS-deptWRIT> .
+<http://vivo.cornell.edu/individual/empl2954630-position0> <http://vivoweb.org/ontology/core#positionForPerson> <http://vivo.cornell.edu/individual/es744> .
+<http://vivo.cornell.edu/individual/empl2954630-position0> <http://vivoweb.org/ontology/core#positionForPerson> <http://vivo.cornell.edu/individual/CRW-es744> .
+<http://vivo.cornell.edu/individual/empl1311909-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitCIO-deptCIO-ASC> .
+<http://vivo.cornell.edu/individual/empl2123970-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitCE-deptCU-WASH> .
+<http://vivo.cornell.edu/individual/empl2807894-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAPI-deptNAVS> .
+<http://vivo.cornell.edu/individual/empl1826659-position1> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitHA-deptHTL-KITCH> .
+<http://vivo.cornell.edu/individual/empl2995638-position0> <http://vivoweb.org/ontology/core#positionForPerson> <http://vivo.cornell.edu/individual/CRW-dc738> .
+<http://vivo.cornell.edu/individual/empl2995638-position0> <http://vivoweb.org/ontology/core#positionForPerson> <http://vivo.cornell.edu/individual/dc738> .
+<http://vivo.cornell.edu/individual/empl2250397-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.library.cornell.edu/ns/abox/hri2#org1746121429> .
+<http://vivo.cornell.edu/individual/empl1862084-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitCOMEDRL-deptMKTG> .
+<http://vivo.cornell.edu/individual/empl1284261-position1> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAPI-deptREST> .
+<http://vivo.cornell.edu/individual/empl2972951-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAS-deptSHUM> .
+<http://vivo.cornell.edu/individual/unitAS-deptAMST> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1006916-position0> .
+<http://vivo.cornell.edu/individual/unitAS-deptAMST> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1309145-position1> .
+<http://vivo.cornell.edu/individual/unitAS-deptAMST> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1019540-position1> .
+<http://vivo.cornell.edu/individual/unitAS-deptAMST> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1002427-position1> .
+<http://vivo.cornell.edu/individual/unitAS-deptAMST> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1013490-position2> .
+<http://vivo.cornell.edu/individual/unitAS-deptAMST> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl2999704-position0> .
+<http://vivo.cornell.edu/individual/ShelliCross> <http://vivoweb.org/ontology/core#mailingAddress> "120 Maple Avenue, Ithaca" .
+<http://vivo.cornell.edu/individual/empl2972961-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAS-deptSHUM> .
+<http://vivo.cornell.edu/individual/empl1166407-position1> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAAD-deptDEVAVP> .
+<http://vivo.cornell.edu/individual/unitAG-deptIP-CALS> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl2062483-position0> .
+<http://vivo.cornell.edu/individual/unitAG-deptIP-CALS> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl3000079-position0> .
+<http://vivo.cornell.edu/individual/unitAG-deptIP-CALS> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl3000074-position0> .
+<http://vivo.cornell.edu/individual/unitAG-deptIP-CALS> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1011873-position1> .
+<http://vivo.cornell.edu/individual/unitAG-deptIP-CALS> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl3000076-position0> .
+<http://vivo.cornell.edu/individual/unitAG-deptIP-CALS> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl3000070-position0> .
+<http://vivo.cornell.edu/individual/unitAG-deptIP-CALS> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1006256-position0> .
+<http://vivo.cornell.edu/individual/unitAG-deptIP-CALS> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl3000081-position0> .
+<http://vivo.cornell.edu/individual/unitAG-deptIP-CALS> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl3000268-position0> .
+<http://vivo.cornell.edu/individual/unitAG-deptIP-CALS> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1010448-position1> .
+<http://vivo.cornell.edu/individual/unitAG-deptIP-CALS> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl2451727-position0> .
+<http://vivo.cornell.edu/individual/unitAG-deptIP-CALS> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl3000071-position0> .
+<http://vivo.cornell.edu/individual/unitAG-deptIP-CALS> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1017649-position0> .
+<http://vivo.cornell.edu/individual/unitAG-deptIP-CALS> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1306797-position2> .
+<http://vivo.cornell.edu/individual/unitAG-deptIP-CALS> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl3000084-position0> .
+<http://vivo.cornell.edu/individual/unitAG-deptIP-CALS> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1309204-position0> .
+<http://vivo.cornell.edu/individual/unitAG-deptIP-CALS> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl3000068-position0> .
+<http://vivo.cornell.edu/individual/unitAG-deptIP-CALS> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl3000085-position0> .
+<http://vivo.cornell.edu/individual/unitAG-deptIP-CALS> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1010997-position1> .
+<http://vivo.cornell.edu/individual/unitAG-deptIP-CALS> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1017598-position0> .
+<http://vivo.cornell.edu/individual/unitAG-deptIP-CALS> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl3000083-position0> .
+<http://vivo.cornell.edu/individual/empl1004899-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitHR-CUP-EHS-deptAHR> .
+<http://vivo.cornell.edu/individual/empl1309600-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.library.cornell.edu/ns/abox/hri2#org994200468> .
+<http://vivo.cornell.edu/individual/ak385> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WorkingTitle> "Scient Visit" .
+<http://vivo.cornell.edu/individual/individual18530> <http://vivoweb.org/ontology/core#personInPosition> <http://vivo.cornell.edu/individual/empl1003893-position1> .
+<http://vivo.cornell.edu/individual/individual32268> <http://vivoweb.org/ontology/core#personInPosition> <http://vivo.cornell.edu/individual/empl2026682-position1> .
+<http://vivo.cornell.edu/individual/empl1023879-position2> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitIP-deptPSP> .
+<http://vivo.cornell.edu/individual/empl1298254-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitLIBRARY-deptCUL-IT> .
+<http://vivo.cornell.edu/individual/unitAS-deptLLC> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1001212-position0> .
+<http://vivo.cornell.edu/individual/unitAS-deptLLC> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1001212-position1> .
+<http://vivo.cornell.edu/individual/empl1297986-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitIP-deptEASIA> .
+<http://vivo.cornell.edu/individual/empl1109406-position0> <http://vivoweb.org/ontology/core#positionForPerson> <http://vivo.cornell.edu/individual/CRW-jmv59> .
+<http://vivo.cornell.edu/individual/empl1109406-position0> <http://vivoweb.org/ontology/core#positionForPerson> <http://vivo.cornell.edu/individual/jmv59> .
+<http://vivo.cornell.edu/individual/empl3000068-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAG-deptIP-CALS> .
+<http://vivo.cornell.edu/individual/empl1837042-position2> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAS-deptLSP> .
+<http://vivo.cornell.edu/individual/empl1014197-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitLIBRARY-deptDSPS> .
+<http://vivo.cornell.edu/individual/JohnRyan> <http://vivoweb.org/ontology/core#mailingAddress> "710 Rhodes Hall, Ithaca" .
+<http://vivo.cornell.edu/individual/tmj37> <http://vivoweb.org/ontology/core#personInPosition> <http://vivo.cornell.edu/individual/tmj37-position1> .
+<http://vivo.cornell.edu/individual/tmj37> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WorkingTitle> "Prog Analyst II" .
+<http://vivo.cornell.edu/individual/individual23269> <http://vivoweb.org/ontology/core#phoneNumber> "112/309-3610" .
+<http://vivo.cornell.edu/individual/empl1008006-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitFS-deptFSADM> .
+<http://vivo.cornell.edu/individual/unitHE-deptCIPA> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1007727-position0> .
+<http://vivo.cornell.edu/individual/unitHE-deptCIPA> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl2819961-position0> .
+<http://vivo.cornell.edu/individual/tmj37-position1> <http://www.w3.org/2000/01/rdf-schema#label> "Programmer/Analyst II" .
+<http://vivo.cornell.edu/individual/tmj37-position1> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/individual416> .
+<http://vivo.cornell.edu/individual/tmj37-position1> <http://vivoweb.org/ontology/core#hrJobTitle> "Prog Analyst II" .
+<http://vivo.cornell.edu/individual/tmj37-position1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivoweb.org/ontology/core#NonAcademicPosition> .
+<http://vivo.cornell.edu/individual/tmj37-position1> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#LDAPJobNumber> "1"^^<http://www.w3.org/2001/XMLSchema#int> .
+<http://vivo.cornell.edu/individual/tmj37-position1> <http://vivoweb.org/ontology/core#positionForPerson> <http://vivo.cornell.edu/individual/tmj37> .
+<http://vivo.cornell.edu/individual/empl1007437-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitCIO-deptCIT-INF> .
+<http://vivo.cornell.edu/individual/empl1019857-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitPBR-deptSPCPLAN> .
+<http://vivo.cornell.edu/individual/empl1009089-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitLIBRARY-deptLIB-ADM> .
+<http://vivo.cornell.edu/individual/empl2252366-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAG-deptAG-ACADPRG> .
+<http://vivo.cornell.edu/individual/empl1754761-position1> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitEN-deptEN-COMM> .
+<http://vivo.cornell.edu/individual/ShelleyRuth> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WorkingTitle> "IT Business Analyst IV" .
+<http://vivo.cornell.edu/individual/empl3139519-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitGR-deptGR-PAL> .
+<http://vivo.cornell.edu/individual/empl1011415-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitLIBRARY-deptLIB-ADM> .
+<http://vivo.cornell.edu/individual/empl1001926-position1> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitEN-deptEN-COMM> .
+<http://vivo.cornell.edu/individual/unitHA-deptHASTDSV> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1752439-position2> .
+<http://vivo.cornell.edu/individual/empl1011364-position1> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitIP-deptSAP> .
+<http://vivo.cornell.edu/individual/empl2695325-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAS-deptSHUM> .
+<http://vivo.cornell.edu/individual/empl1007863-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitCIO-deptCIO-ADM> .
+<http://vivo.cornell.edu/individual/empl1010009-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitCE-deptCU-WASH> .
+<http://vivo.cornell.edu/individual/empl1006256-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAG-deptIP-CALS> .
+<http://vivo.cornell.edu/individual/empl2858782-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitCOMPINFO-deptINFOSCI> .
+<http://vivo.cornell.edu/individual/unitAAD-deptDEVMG> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl2676710-position0> .
+<http://vivo.cornell.edu/individual/unitAAD-deptDEVMG> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1286467-position0> .
+<http://vivo.cornell.edu/individual/empl2999364-position0> <http://vivoweb.org/ontology/core#positionForPerson> <http://vivo.cornell.edu/individual/CRW-av372> .
+<http://vivo.cornell.edu/individual/empl2999364-position0> <http://vivoweb.org/ontology/core#positionForPerson> <http://vivo.cornell.edu/individual/av372> .
+<http://vivo.cornell.edu/individual/empl1824608-position5> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAS-deptWRIT> .
+<http://vivo.cornell.edu/individual/empl2052438-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAAD-deptC-ULIB> .
+<http://vivo.cornell.edu/individual/empl1105251-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitIP-deptSAP> .
+<http://vivo.cornell.edu/individual/empl1847171-position1> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitGM-deptGM-EXEC> .
+<http://vivo.cornell.edu/individual/empl1009345-position1> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAG-deptAG-ACADPRG> .
+<http://vivo.cornell.edu/individual/KathleenParker> <http://vivoweb.org/ontology/core#mailingAddress> "120 Maple Avenue, Ithaca" .
+<http://vivo.cornell.edu/individual/empl1012228-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAS-deptLSP> .
+<http://vivo.cornell.edu/individual/unitAR-deptAAPNYC> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl2296373-position0> .
+<http://vivo.cornell.edu/individual/JohnParker_1> <http://vivoweb.org/ontology/core#mailingAddress> "314 Day Hall, Ithaca" .
+<http://vivo.cornell.edu/individual/empl1005909-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitHR-CUP-EHS-deptAHR> .
+<http://vivo.cornell.edu/individual/empl1023988-position1> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitIP-deptSEAP> .
+<http://vivo.cornell.edu/individual/empl1015016-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitIP-deptSEAP> .
+<http://vivo.cornell.edu/individual/empl2281837-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitIL-deptE-MGMT> .
+<http://vivo.cornell.edu/individual/unitAAD-deptDEVNEC> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1752842-position1> .
+<http://vivo.cornell.edu/individual/empl1009651-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitCOMEDRL-deptMKTG> .
+<http://vivo.cornell.edu/individual/empl2844066-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitCOMEDRL-deptMKTG> .
+<http://vivo.cornell.edu/individual/individual22257> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WorkingTitle> "Director of Finance" .
+<http://vivo.cornell.edu/individual/empl2061864-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAAD-deptC-UAAP> .
+<http://vivo.cornell.edu/individual/empl1001701-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitCIO-deptCIT-APP> .
+<http://vivo.cornell.edu/individual/CRW-msc266> <http://www.w3.org/2000/01/rdf-schema#label> "Coe, Megan Summer"@en-US .
+<http://vivo.cornell.edu/individual/empl1011197-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitHE-deptHE-URBAN> .
+<http://vivo.cornell.edu/individual/empl1861293-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.library.cornell.edu/ns/abox/hri2#org-661763898> .
+<http://vivo.cornell.edu/individual/empl1004718-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.library.cornell.edu/ns/abox/hri2#org587588149> .
+<http://vivo.cornell.edu/individual/unitAS-deptMEDVL> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1309304-position1> .
+<http://vivo.cornell.edu/individual/empl1553713-position1> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitFS-deptFSADM> .
+<http://vivo.cornell.edu/individual/CRW-apl72> <http://www.w3.org/2000/01/rdf-schema#label> "Lewandowski, Annie" .
+<http://vivo.cornell.edu/individual/empl1020238-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAS-deptFGSS> .
+<http://vivo.cornell.edu/individual/empl2972547-position0> <http://vivoweb.org/ontology/core#positionForPerson> <http://vivo.cornell.edu/individual/CRW-ps724> .
+<http://vivo.cornell.edu/individual/empl2972547-position0> <http://vivoweb.org/ontology/core#positionForPerson> <http://vivo.cornell.edu/individual/ps724> .
+<http://vivo.cornell.edu/individual/empl1020077-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAS-deptWRIT> .
+<http://vivo.cornell.edu/individual/empl2039410-position0> <http://www.w3.org/2000/01/rdf-schema#label> "Administrator II" .
+<http://vivo.cornell.edu/individual/unitCIO-deptCIO-ADM> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1006041-position0> .
+<http://vivo.cornell.edu/individual/unitCIO-deptCIO-ADM> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1007926-position0> .
+<http://vivo.cornell.edu/individual/unitCIO-deptCIO-ADM> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1007863-position0> .
+<http://vivo.cornell.edu/individual/unitCIO-deptCIO-ADM> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1005752-position0> .
+<http://vivo.cornell.edu/individual/unitCIO-deptCIO-ADM> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1014392-position0> .
+<http://vivo.cornell.edu/individual/empl1008661-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitFS-deptFSADM> .
+<http://vivo.cornell.edu/individual/empl1840488-position1> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitHE-deptHE-URBAN> .
+<http://vivo.cornell.edu/individual/MichaelSwenson> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WorkingTitle> "Assistant Director" .
+<http://vivo.cornell.edu/individual/empl1764949-position2> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAS-deptLSP> .
+<http://vivo.cornell.edu/individual/empl1309145-position1> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAS-deptAMST> .
+<http://vivo.cornell.edu/individual/empl1010448-position1> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAG-deptIP-CALS> .
+<http://vivo.cornell.edu/individual/individual365> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/rlc5-position0> .
+<http://vivo.cornell.edu/individual/empl2964260-position2> <http://vivoweb.org/ontology/core#positionForPerson> <http://vivo.cornell.edu/individual/nt266> .
+<http://vivo.cornell.edu/individual/empl2964260-position2> <http://vivoweb.org/ontology/core#positionForPerson> <http://vivo.cornell.edu/individual/CRW-nt266> .
+<http://vivo.cornell.edu/individual/empl1016546-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitFS-deptFSENGIN> .
+<http://vivo.cornell.edu/individual/empl2703640-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitGR-deptGR-PAL> .
+<http://vivo.cornell.edu/individual/CRW-mvk8> <http://www.w3.org/2000/01/rdf-schema#label> "Kiefer, M" .
+<http://vivo.cornell.edu/individual/empl1828771-position1> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAPI-deptREST> .
+<http://vivo.cornell.edu/individual/empl2665448-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAAD-deptC-USAS> .
+<http://vivo.cornell.edu/individual/empl2653028-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAPI-deptNAVS> .
+<http://vivo.cornell.edu/individual/individual24427> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WorkingTitle> "Applications Programmer IV" .
+<http://vivo.cornell.edu/individual/individual21831> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1928116-position0> .
+<http://vivo.cornell.edu/individual/individual21831> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1919627-position0> .
+<http://vivo.cornell.edu/individual/individual21831> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1002837-position0> .
+<http://vivo.cornell.edu/individual/empl1167123-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAS-deptSHUM> .
+<http://vivo.cornell.edu/individual/empl1005059-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitHR-CUP-EHS-deptAHR> .
+<http://vivo.cornell.edu/individual/empl1031928-position4> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAPI-deptCCELR> .
+<http://vivo.cornell.edu/individual/rlc5-position0> <http://vivoweb.org/ontology/core#positionForPerson> <http://vivo.cornell.edu/individual/individual7627> .
+<http://vivo.cornell.edu/individual/rlc5-position0> <http://vivoweb.org/ontology/core#hrJobTitle> "Research Associate,Sr" .
+<http://vivo.cornell.edu/individual/rlc5-position0> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivoweb.org/ontology/core#NonFacultyAcademicPosition> .
+<http://vivo.cornell.edu/individual/rlc5-position0> <http://www.w3.org/2000/01/rdf-schema#label> "Senior Research Associate" .
+<http://vivo.cornell.edu/individual/rlc5-position0> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#LDAPJobNumber> "0" .
+<http://vivo.cornell.edu/individual/rlc5-position0> <http://vivoweb.org/ontology/newhr#headInd> "P" .
+<http://vivo.cornell.edu/individual/rlc5-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/individual365> .
+<http://vivo.cornell.edu/individual/rlc5-position0> <http://vivoweb.org/ontology/newhr#company> "STA" .
+<http://vivo.cornell.edu/individual/empl1006891-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAAD-deptADMADV> .
+<http://vivo.cornell.edu/individual/empl3076625-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitGR-deptGR-PAL> .
+<http://vivo.cornell.edu/individual/empl1308581-position0> <http://www.w3.org/2000/01/rdf-schema#label> "Research Associate" .
+<http://vivo.cornell.edu/individual/empl1011878-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitCOMEDRL-deptMKTG> .
+<http://vivo.library.cornell.edu/ns/abox/hri2#org-569846030> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1005163-position0> .
+<http://vivo.cornell.edu/individual/AndrewSlusar> <http://vivoweb.org/ontology/core#mailingAddress> "200 Computing & Comm Center, Ithaca" .
+<http://vivo.cornell.edu/individual/empl1286122-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.library.cornell.edu/ns/abox/hri2#org994200468> .
+<http://vivo.cornell.edu/individual/CRW-ctc83> <http://www.w3.org/2000/01/rdf-schema#label> "Conley, Clinton T."@en-US .
+<http://vivo.cornell.edu/individual/empl2971532-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitCOMPINFO-deptINFOSCI> .
+<http://vivo.cornell.edu/individual/empl1015480-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitSAS-DR-deptSAS-IT> .
+<http://vivo.cornell.edu/individual/empl3000085-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAG-deptIP-CALS> .
+<http://vivo.cornell.edu/individual/empl1009497-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitLIBRARY-deptCUL-IT> .
+<http://vivo.cornell.edu/individual/RobertTalda> <http://vivoweb.org/ontology/core#mailingAddress> "710 Rhodes Hall, Ithaca" .
+<http://vivo.cornell.edu/individual/unitEN-deptEN-COMM> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1001926-position1> .
+<http://vivo.cornell.edu/individual/unitEN-deptEN-COMM> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1754761-position1> .
+<http://vivo.cornell.edu/individual/unitEN-deptEN-COMM> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1297982-position0> .
+<http://vivo.cornell.edu/individual/unitPROVST-DR-deptRHODES56> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1520316-position0> .
+<http://vivo.cornell.edu/individual/unitPROVST-DR-deptRHODES56> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl2461528-position0> .
+<http://vivo.cornell.edu/individual/unitPROVST-DR-deptRHODES56> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl2851806-position0> .
+<http://vivo.cornell.edu/individual/empl2625700-position0> <http://www.w3.org/2000/01/rdf-schema#label> "Counselor Therapist I" .
+<http://vivo.cornell.edu/individual/empl1149723-position1> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAAD-deptC-UART> .
+<http://vivo.cornell.edu/individual/CRW-od27> <http://www.w3.org/2000/01/rdf-schema#label> "de la Torre, Osvaldo"@en-US .
+<http://vivo.cornell.edu/individual/empl1830203-position1> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAG-deptBIONBUB> .
+<http://vivo.cornell.edu/individual/CRW-rjc292> <http://www.w3.org/2000/01/rdf-schema#label> "Coye, Rachel Jennings"@en-US .
+<http://vivo.cornell.edu/individual/unitEN-deptEN-UGRAD> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1009708-position1> .
+<http://vivo.cornell.edu/individual/unitEN-deptEN-UGRAD> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1009708-position2> .
+<http://vivo.cornell.edu/individual/empl1009237-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAS-deptWRIT> .
+<http://vivo.cornell.edu/individual/empl2028604-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitFS-deptFSENGIN> .
+<http://vivo.cornell.edu/individual/unitAG-deptBIONBUB> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1280802-position2> .
+<http://vivo.cornell.edu/individual/unitAG-deptBIONBUB> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1830203-position1> .
+<http://vivo.cornell.edu/individual/unitIL-deptE-EMPLW> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1007446-position0> .
+<http://vivo.cornell.edu/individual/empl2972154-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAS-deptSHUM> .
+<http://vivo.cornell.edu/individual/unitFS-deptFSOPS> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1009577-position0> .
+<http://vivo.cornell.edu/individual/unitFS-deptFSOPS> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1262694-position0> .
+<http://vivo.cornell.edu/individual/unitAAD-deptC-ULAW> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1833633-position1> .
+<http://vivo.cornell.edu/individual/empl1003766-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitFS-deptPROJMGT> .
+<http://vivo.cornell.edu/individual/CRW-lbc29> <http://www.w3.org/2000/01/rdf-schema#label> "Cummings, Lindsay Brooke"@en-US .
+<http://vivo.cornell.edu/individual/unitFS-deptFSENGIN> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1015871-position0> .
+<http://vivo.cornell.edu/individual/unitFS-deptFSENGIN> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1155396-position0> .
+<http://vivo.cornell.edu/individual/unitFS-deptFSENGIN> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl2028604-position0> .
+<http://vivo.cornell.edu/individual/unitFS-deptFSENGIN> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1006367-position0> .
+<http://vivo.cornell.edu/individual/unitFS-deptFSENGIN> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1318636-position1> .
+<http://vivo.cornell.edu/individual/unitFS-deptFSENGIN> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl2129138-position0> .
+<http://vivo.cornell.edu/individual/unitFS-deptFSENGIN> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1006171-position0> .
+<http://vivo.cornell.edu/individual/unitFS-deptFSENGIN> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1753147-position1> .
+<http://vivo.cornell.edu/individual/unitFS-deptFSENGIN> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1128118-position1> .
+<http://vivo.cornell.edu/individual/unitFS-deptFSENGIN> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1016546-position0> .
+<http://vivo.cornell.edu/individual/unitFS-deptFSENGIN> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1021351-position0> .
+<http://vivo.cornell.edu/individual/unitFS-deptFSCPP> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl2029967-position0> .
+<http://vivo.cornell.edu/individual/empl1764776-position4> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivoweb.org/ontology/core#NonFacultyAcademicPosition> .
+<http://vivo.cornell.edu/individual/empl1764776-position4> <http://www.w3.org/2000/01/rdf-schema#label> "Postdoctoral Fellow" .
+<http://vivo.cornell.edu/individual/kn64> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WorkingTitle> "Extension Support Specialist I" .
+<http://vivo.cornell.edu/individual/CRW-alb325> <http://www.w3.org/2000/01/rdf-schema#label> "Burrow, Anthony L" .
+<http://vivo.cornell.edu/individual/empl1006916-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAS-deptAMST> .
+<http://vivo.cornell.edu/individual/ThomasWalden> <http://vivoweb.org/ontology/core#mailingAddress> "710 Rhodes Hall, Ithaca" .
+<http://vivo.cornell.edu/individual/empl3000070-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitAG-deptIP-CALS> .
+<http://vivo.cornell.edu/individual/hj92> <http://vivoweb.org/ontology/core#mailingAddress> "127 Savage Hall, Ithaca" .
+<http://vivo.cornell.edu/individual/KarlaSharpsteen> <http://vivoweb.org/ontology/core#mailingAddress> "120 Maple Avenue, Ithaca" .
+<http://vivo.cornell.edu/individual/empl1017698-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitCIO-deptCIT-SPPT> .
+<http://vivo.cornell.edu/individual/empl1757018-position3> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitFS-deptSUSTAIN> .
+<http://vivo.cornell.edu/individual/empl1231921-position1> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitIL-deptFORENSI> .
+<http://vivo.cornell.edu/individual/empl1012526-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.library.cornell.edu/ns/abox/hri2#org-738628847> .
+<http://vivo.cornell.edu/individual/unitGM-deptGM-EXEC> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1847171-position1> .
+<http://vivo.cornell.edu/individual/unitFS-deptR5OPS> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1020546-position0> .
+<http://vivo.library.cornell.edu/ns/abox/hri2#org994200468> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1309600-position0> .
+<http://vivo.library.cornell.edu/ns/abox/hri2#org994200468> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1309776-position0> .
+<http://vivo.library.cornell.edu/ns/abox/hri2#org994200468> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1776498-position1> .
+<http://vivo.library.cornell.edu/ns/abox/hri2#org994200468> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1550494-position0> .
+<http://vivo.library.cornell.edu/ns/abox/hri2#org994200468> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1075098-position0> .
+<http://vivo.library.cornell.edu/ns/abox/hri2#org994200468> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1006977-position0> .
+<http://vivo.library.cornell.edu/ns/abox/hri2#org994200468> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1286122-position0> .
+<http://vivo.cornell.edu/individual/individual120> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/fe53-position1> .
+<http://vivo.cornell.edu/individual/wjh73> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WorkingTitle> "Applications Programmer II" .
+<http://vivo.cornell.edu/individual/hlm2> <http://www.w3.org/2000/01/rdf-schema#label> "Russell, Heather Millar"@en-US .
+<http://vivo.cornell.edu/individual/hlm2> <http://vivoweb.org/ontology/core#mailingAddress> <http://vivo.cornell.edu/individual/n61905> .
+<http://vivo.cornell.edu/individual/SebastianCarello> <http://vivoweb.org/ontology/core#mailingAddress> "118 Computing & Comm Center, Ithaca" .
+<http://vivo.cornell.edu/individual/empl1919627-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/individual21831> .
+<http://vivo.cornell.edu/individual/empl1063398-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitCE-deptCE-PROFL> .
+<http://vivo.cornell.edu/individual/individual21096> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1016923-position1> .
+<http://vivo.cornell.edu/individual/PatriciaAvery> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WorkingTitle> "Administrator V" .
+<http://vivo.cornell.edu/individual/empl3097723-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitCE-deptCU-WASH> .
+<http://vivo.cornell.edu/individual/CindyPataki> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WorkingTitle> "Consultant/Advisor Lead" .
+<http://vivo.cornell.edu/individual/empl1776498-position1> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.library.cornell.edu/ns/abox/hri2#org994200468> .
+<http://vivo.cornell.edu/individual/empl1020546-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitFS-deptR5OPS> .
+<http://vivo.cornell.edu/individual/CRW-faa7> <http://www.w3.org/2000/01/rdf-schema#label> "Akopyan, F" .
+<http://vivo.cornell.edu/individual/unitAR-deptROMEPRG> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl2762278-position0> .
+<http://vivo.cornell.edu/individual/unitAR-deptROMEPRG> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1012595-position0> .
+<http://vivo.cornell.edu/individual/unitAR-deptROMEPRG> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1011837-position0> .
+<http://vivo.cornell.edu/individual/RonaldWoodard> <http://vivoweb.org/ontology/core#mailingAddress> "120 Maple Avenue, Ithaca" .
+<http://vivo.cornell.edu/individual/unitCOMEDRL-deptMKTG> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1009256-position0> .
+<http://vivo.cornell.edu/individual/unitCOMEDRL-deptMKTG> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1862084-position0> .
+<http://vivo.cornell.edu/individual/unitCOMEDRL-deptMKTG> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1774362-position1> .
+<http://vivo.cornell.edu/individual/unitCOMEDRL-deptMKTG> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1011878-position0> .
+<http://vivo.cornell.edu/individual/unitCOMEDRL-deptMKTG> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1860234-position0> .
+<http://vivo.cornell.edu/individual/unitCOMEDRL-deptMKTG> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl2996600-position0> .
+<http://vivo.cornell.edu/individual/unitCOMEDRL-deptMKTG> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1861176-position0> .
+<http://vivo.cornell.edu/individual/unitCOMEDRL-deptMKTG> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1010235-position0> .
+<http://vivo.cornell.edu/individual/unitCOMEDRL-deptMKTG> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1012598-position0> .
+<http://vivo.cornell.edu/individual/unitCOMEDRL-deptMKTG> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl2832259-position0> .
+<http://vivo.cornell.edu/individual/unitCOMEDRL-deptMKTG> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl2036778-position0> .
+<http://vivo.cornell.edu/individual/unitCOMEDRL-deptMKTG> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1009651-position0> .
+<http://vivo.cornell.edu/individual/unitCOMEDRL-deptMKTG> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1009642-position0> .
+<http://vivo.cornell.edu/individual/unitCOMEDRL-deptMKTG> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1838493-position1> .
+<http://vivo.cornell.edu/individual/unitCOMEDRL-deptMKTG> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1300863-position0> .
+<http://vivo.cornell.edu/individual/unitCOMEDRL-deptMKTG> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1268698-position0> .
+<http://vivo.cornell.edu/individual/unitCOMEDRL-deptMKTG> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl2026615-position0> .
+<http://vivo.cornell.edu/individual/unitCOMEDRL-deptMKTG> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1014207-position0> .
+<http://vivo.cornell.edu/individual/unitCOMEDRL-deptMKTG> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl2844066-position0> .
+<http://vivo.cornell.edu/individual/empl1006367-position0> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitFS-deptFSENGIN> .
+<http://vivo.cornell.edu/individual/unitAAD-deptC-UENG> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl2627272-position0> .
+<http://vivo.cornell.edu/individual/empl1766721-position1> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.library.cornell.edu/ns/abox/hri2#org-2145033085> .
+<http://vivo.cornell.edu/individual/empl1916482-position0> <http://vivoweb.org/ontology/core#positionForPerson> <http://vivo.cornell.edu/individual/mlb333> .
+<http://vivo.cornell.edu/individual/empl1916482-position0> <http://vivoweb.org/ontology/core#positionForPerson> <http://vivo.cornell.edu/individual/AI-PCIR-0203DF692AC0000EC83> .
+<http://vivo.cornell.edu/individual/VickyDean-position1> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#LDAPJobNumber> "1"^^<http://www.w3.org/2001/XMLSchema#int> .
+<http://vivo.cornell.edu/individual/VickyDean-position1> <http://vivoweb.org/ontology/core#positionForPerson> <http://vivo.cornell.edu/individual/VickyDean> .
+<http://vivo.cornell.edu/individual/VickyDean-position1> <http://www.w3.org/2000/01/rdf-schema#label> "Assistant Director, Operations" .
+<http://vivo.cornell.edu/individual/VickyDean-position1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivoweb.org/ontology/core#NonAcademicPosition> .
+<http://vivo.cornell.edu/individual/VickyDean-position1> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.library.cornell.edu/ns/abox/hri2#org-738628847> .
+<http://vivo.cornell.edu/individual/VickyDean-position1> <http://vivoweb.org/ontology/core#hrJobTitle> "Info Tech Asst Dir II" .
+<http://vivo.cornell.edu/individual/unitLIBRARY-deptLIB-ADM> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1022423-position1> .
+<http://vivo.cornell.edu/individual/unitLIBRARY-deptLIB-ADM> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1011415-position0> .
+<http://vivo.cornell.edu/individual/unitLIBRARY-deptLIB-ADM> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1009089-position0> .
+<http://vivo.cornell.edu/individual/empl1753380-position1> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitHR-CUP-EHS-deptAHR> .
+<http://vivo.cornell.edu/individual/unitAAD-deptC-UART> <http://vivoweb.org/ontology/core#organizationForPosition> <http://vivo.cornell.edu/individual/empl1149723-position1> .
+<http://vivo.cornell.edu/individual/empl1268831-position0> <http://www.w3.org/2000/01/rdf-schema#label> "Associate Professor" .
+<http://vivo.cornell.edu/individual/LindaMikula> <http://vivoweb.org/ontology/core#mailingAddress> "245 Day Hall, Ithaca" .
+<http://vivo.cornell.edu/individual/LindaMikula> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WorkingTitle> "Communication Manager I" .
+<http://vivo.cornell.edu/individual/empl1563046-position2> <http://vivoweb.org/ontology/core#positionInOrganization> <http://vivo.cornell.edu/individual/unitIL-deptIL-EXED> .

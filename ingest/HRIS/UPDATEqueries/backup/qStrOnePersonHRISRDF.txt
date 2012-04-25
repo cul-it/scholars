@@ -1,0 +1,39 @@
+PREFIX hr: <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#>  
+PREFIX cuvivo: <http://vivo.cornell.edu/individual/> 
+PREFIX foaf: <http://xmlns.com/foaf/0.1/> 
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+PREFIX core: <http://vivoweb.org/ontology/core#> 
+PREFIX newhr: <http://vivoweb.org/ontology/newhr#>
+PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
+PREFIX titlemap: <http://vivo.library.cornell.edu/ns/hr/titleMapping#> 
+
+CONSTRUCT { 
+  ?hrisperson hr:emplId "VARVALUE" .
+  ?hrisperson rdfs:label ?hrislabel .
+  ?hrisperson hr:netId ?hrisnetId .
+  ?hrisperson hr:emplId ?hrisemplId .
+  ?hrisperson hr:WorkingTitle ?hriswtitle .
+  ?hrisperson hr:WorkingTitle ?prettyTitle .
+  #?hrisperson core:email ?hrisemail .
+  ?hrisperson core:mailingAddress ?hrismailaddr .
+  ?hrisperson core:phoneNumber ?hrisphone .
+  ?hrisperson foaf:firstName ?hrisfirstName .
+  ?hrisperson foaf:lastName ?hrislastName .
+  }   
+WHERE {
+  SERVICE <http://bailey.mannlib.cornell.edu:2020/sparql>
+    {
+
+    #?hrisperson rdf:type foaf:Person .
+    ?hrisperson hr:emplId "VARVALUE" .
+    OPTIONAL { ?hrisperson rdfs:label ?hrislabel .}
+    OPTIONAL { ?hrisperson hr:netId ?hrisnetId .}
+    OPTIONAL { ?hrisperson hr:WorkingTitle ?hriswtitle . }
+    #OPTIONAL { ?hrisperson core:email ?hrisemail .}
+    OPTIONAL { ?hrisperson  core:mailingAddress ?hrismailaddr .}
+    OPTIONAL { ?hrisperson core:phoneNumber ?hrisphone .}
+    OPTIONAL { ?hrisperson foaf:firstName ?hrisfirstName .}
+    OPTIONAL { ?hrisperson foaf:lastName ?hrislastName .}
+    } 
+}

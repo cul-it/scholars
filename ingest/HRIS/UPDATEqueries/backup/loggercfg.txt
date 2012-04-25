@@ -1,0 +1,21 @@
+# Set root logger level to INFO and its only appender to A1.
+# choose from TRACE,DEBUG,INFO,WARN,ERROR,FATAL
+log4j.rootLogger=TRACE, A1, R
+
+# A1 is set to be a ConsoleAppender.
+log4j.appender.A1=org.apache.log4j.ConsoleAppender
+
+# A1 uses PatternLayout.
+log4j.appender.A1.layout=org.apache.log4j.PatternLayout
+
+# A1 Prints the date in ISO 8601 format
+log4j.appender.A1.layout.ConversionPattern=%d %-5p %c - %m%n
+
+log4j.appender.R=org.apache.log4j.RollingFileAppender
+log4j.appender.R.File=C:\\Users\\cmw48\\workspace\\vivocornell\\ingest\\HRIS\\hringestUPDATE01.log
+
+# R uses PatternLayout.
+log4j.appender.R.layout=org.apache.log4j.PatternLayout
+
+# R Prints the date in ISO 8601 format
+log4j.appender.R.layout.ConversionPattern=%d %5p [%t] (%F:%L) - %m%n

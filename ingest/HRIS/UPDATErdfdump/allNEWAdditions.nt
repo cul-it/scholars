@@ -1,0 +1,311 @@
+<http://vivo.cornell.edu/individual/huw2> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WorkingTitle> "Visiting Scholar" .
+<http://vivo.cornell.edu/individual/huw2> <http://xmlns.com/foaf/0.1/firstName> "Hermann" .
+<http://vivo.cornell.edu/individual/huw2> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#emplId> "3145405" .
+<http://vivo.cornell.edu/individual/huw2> <http://xmlns.com/foaf/0.1/lastName> "Wirth" .
+<http://vivo.cornell.edu/individual/huw2> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#netId> "huw2" .
+<http://vivo.cornell.edu/individual/huw2> <http://www.w3.org/2000/01/rdf-schema#label> "Wirth,Hermann Uwe" .
+<http://vivo.cornell.edu/individual/huw2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivoweb.org/ontology/core#NonAcademicPosition> .
+<http://vivo.cornell.edu/individual/huw2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivoweb.org/ontology/core#NonAcademic> .
+<http://vivo.cornell.edu/individual/huw2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivo.library.cornell.edu/ns/0.1#CornellEmployee> .
+<http://vivo.cornell.edu/individual/nal73> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#netId> "nal73" .
+<http://vivo.cornell.edu/individual/nal73> <http://xmlns.com/foaf/0.1/lastName> "Leckie" .
+<http://vivo.cornell.edu/individual/nal73> <http://xmlns.com/foaf/0.1/firstName> "Nicola" .
+<http://vivo.cornell.edu/individual/nal73> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WorkingTitle> "Online Marketing Manager" .
+<http://vivo.cornell.edu/individual/nal73> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#emplId> "3139674" .
+<http://vivo.cornell.edu/individual/nal73> <http://www.w3.org/2000/01/rdf-schema#label> "Leckie,Nicola Anne" .
+<http://vivo.cornell.edu/individual/nal73> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivo.library.cornell.edu/ns/0.1#CornellEmployee> .
+<http://vivo.cornell.edu/individual/paj49> <http://xmlns.com/foaf/0.1/lastName> "Jarzabkowski" .
+<http://vivo.cornell.edu/individual/paj49> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#netId> "paj49" .
+<http://vivo.cornell.edu/individual/paj49> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WorkingTitle> "" .
+<http://vivo.cornell.edu/individual/paj49> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#emplId> "3192571" .
+<http://vivo.cornell.edu/individual/paj49> <http://xmlns.com/foaf/0.1/firstName> "Paula" .
+<http://vivo.cornell.edu/individual/paj49> <http://www.w3.org/2000/01/rdf-schema#label> "Jarzabkowski,Paula A." .
+<http://vivo.cornell.edu/individual/paj49> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivo.library.cornell.edu/ns/0.1#CornellEmployee> .
+<http://vivo.cornell.edu/individual/keg7> <http://xmlns.com/foaf/0.1/lastName> "Gutenberger" .
+<http://vivo.cornell.edu/individual/keg7> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WorkingTitle> "Manager of Real Estate" .
+<http://vivo.cornell.edu/individual/keg7> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivo.library.cornell.edu/ns/0.1#CornellEmployee> .
+<http://vivo.cornell.edu/individual/keg7> <http://xmlns.com/foaf/0.1/firstName> "Kristin" .
+<http://vivo.cornell.edu/individual/keg7> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivoweb.org/ontology/core#NonAcademic> .
+<http://vivo.cornell.edu/individual/keg7> <http://www.w3.org/2000/01/rdf-schema#label> "Gutenberger,Kristin E." .
+<http://vivo.cornell.edu/individual/keg7> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#netId> "keg7" .
+<http://vivo.cornell.edu/individual/keg7> <http://vivoweb.org/ontology/core#mailingAddress> "15 Thornwood Drive, Ithaca" .
+<http://vivo.cornell.edu/individual/keg7> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivoweb.org/ontology/core#NonAcademicPosition> .
+<http://vivo.cornell.edu/individual/keg7> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#emplId> "1054139" .
+<http://vivo.cornell.edu/individual/kf266> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WorkingTitle> "Lect Visit" .
+<http://vivo.cornell.edu/individual/kf266> <http://xmlns.com/foaf/0.1/firstName> "Khayaat" .
+<http://vivo.cornell.edu/individual/kf266> <http://xmlns.com/foaf/0.1/lastName> "Fakier" .
+<http://vivo.cornell.edu/individual/kf266> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#emplId> "3142942" .
+<http://vivo.cornell.edu/individual/kf266> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#netId> "kf266" .
+<http://vivo.cornell.edu/individual/kf266> <http://www.w3.org/2000/01/rdf-schema#label> "Fakier,Khayaat" .
+<http://vivo.cornell.edu/individual/kf266> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivo.library.cornell.edu/ns/0.1#CornellEmployee> .
+<http://vivo.cornell.edu/individual/tz243> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#netId> "tz243" .
+<http://vivo.cornell.edu/individual/tz243> <http://xmlns.com/foaf/0.1/lastName> "Zust" .
+<http://vivo.cornell.edu/individual/tz243> <http://xmlns.com/foaf/0.1/firstName> "Tobias" .
+<http://vivo.cornell.edu/individual/tz243> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WorkingTitle> "Postdoctoral Fellow" .
+<http://vivo.cornell.edu/individual/tz243> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#emplId> "3146230" .
+<http://vivo.cornell.edu/individual/tz243> <http://www.w3.org/2000/01/rdf-schema#label> "Zuest,Tobias" .
+<http://vivo.cornell.edu/individual/tz243> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivoweb.org/ontology/core#NonFacultyAcademicPosition> .
+<http://vivo.cornell.edu/individual/tz243> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivo.library.cornell.edu/ns/0.1#CornellAcademicStaff> .
+<http://vivo.cornell.edu/individual/tz243> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivo.library.cornell.edu/ns/0.1#CornellEmployee> .
+<http://vivo.cornell.edu/individual/pb462> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#emplId> "3138522" .
+<http://vivo.cornell.edu/individual/pb462> <http://xmlns.com/foaf/0.1/lastName> "Baneux" .
+<http://vivo.cornell.edu/individual/pb462> <http://xmlns.com/foaf/0.1/firstName> "Philippe" .
+<http://vivo.cornell.edu/individual/pb462> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#netId> "pb462" .
+<http://vivo.cornell.edu/individual/pb462> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WorkingTitle> "Director CARE" .
+<http://vivo.cornell.edu/individual/pb462> <http://www.w3.org/2000/01/rdf-schema#label> "Baneux,Philippe" .
+<http://vivo.cornell.edu/individual/pb462> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivoweb.org/ontology/core#NonAcademicPosition> .
+<http://vivo.cornell.edu/individual/pb462> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivoweb.org/ontology/core#NonAcademic> .
+<http://vivo.cornell.edu/individual/pb462> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivo.library.cornell.edu/ns/0.1#CornellEmployee> .
+<http://vivo.cornell.edu/individual/wr59> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#emplId> "3030746" .
+<http://vivo.cornell.edu/individual/wr59> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#netId> "wr59" .
+<http://vivo.cornell.edu/individual/wr59> <http://xmlns.com/foaf/0.1/lastName> "Ruan" .
+<http://vivo.cornell.edu/individual/wr59> <http://xmlns.com/foaf/0.1/firstName> "Wenhong" .
+<http://vivo.cornell.edu/individual/wr59> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WorkingTitle> "Visiting Professor" .
+<http://vivo.cornell.edu/individual/wr59> <http://www.w3.org/2000/01/rdf-schema#label> "Ruan,Wenhong" .
+<http://vivo.cornell.edu/individual/wr59> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivoweb.org/ontology/core#FacultyPosition> .
+<http://vivo.cornell.edu/individual/wr59> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivo.cornell.edu/ns/mannadditions/0.1#CornellFaculty> .
+<http://vivo.cornell.edu/individual/wr59> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivo.library.cornell.edu/ns/0.1#CornellEmployee> .
+<http://vivo.cornell.edu/individual/aa895> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WorkingTitle> "Visiting Fellow" .
+<http://vivo.cornell.edu/individual/aa895> <http://xmlns.com/foaf/0.1/lastName> "Alvarez del Cuvillo" .
+<http://vivo.cornell.edu/individual/aa895> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#emplId> "3148539" .
+<http://vivo.cornell.edu/individual/aa895> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#netId> "aa895" .
+<http://vivo.cornell.edu/individual/aa895> <http://xmlns.com/foaf/0.1/firstName> "Antonio" .
+<http://vivo.cornell.edu/individual/aa895> <http://www.w3.org/2000/01/rdf-schema#label> "Alvarez del Cuvillo,Antonio" .
+<http://vivo.cornell.edu/individual/aa895> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivoweb.org/ontology/core#NonFacultyAcademicPosition> .
+<http://vivo.cornell.edu/individual/aa895> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivo.library.cornell.edu/ns/0.1#CornellAcademicStaff> .
+<http://vivo.cornell.edu/individual/aa895> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivo.library.cornell.edu/ns/0.1#CornellEmployee> .
+<http://vivo.cornell.edu/individual/kmd269> <http://xmlns.com/foaf/0.1/firstName> "Kathryn" .
+<http://vivo.cornell.edu/individual/kmd269> <http://xmlns.com/foaf/0.1/lastName> "Dowgiewicz" .
+<http://vivo.cornell.edu/individual/kmd269> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#netId> "kmd269" .
+<http://vivo.cornell.edu/individual/kmd269> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#emplId> "3132187" .
+<http://vivo.cornell.edu/individual/kmd269> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WorkingTitle> "Archiv Asst" .
+<http://vivo.cornell.edu/individual/kmd269> <http://www.w3.org/2000/01/rdf-schema#label> "Dowgiewicz,Kathryn M." .
+<http://vivo.cornell.edu/individual/kmd269> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivoweb.org/ontology/core#LibrarianPosition> .
+<http://vivo.cornell.edu/individual/kmd269> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivo.cornell.edu/ns/mannadditions/0.1#CornellLibrarian> .
+<http://vivo.cornell.edu/individual/kmd269> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivo.library.cornell.edu/ns/0.1#CornellEmployee> .
+<http://vivo.cornell.edu/individual/dl725> <http://xmlns.com/foaf/0.1/firstName> "Delphine" .
+<http://vivo.cornell.edu/individual/dl725> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#emplId> "3145661" .
+<http://vivo.cornell.edu/individual/dl725> <http://xmlns.com/foaf/0.1/lastName> "Ly" .
+<http://vivo.cornell.edu/individual/dl725> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WorkingTitle> "Visiting Fellow" .
+<http://vivo.cornell.edu/individual/dl725> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#netId> "dl725" .
+<http://vivo.cornell.edu/individual/dl725> <http://www.w3.org/2000/01/rdf-schema#label> "Ly,Delphine" .
+<http://vivo.cornell.edu/individual/dl725> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivoweb.org/ontology/core#NonFacultyAcademicPosition> .
+<http://vivo.cornell.edu/individual/dl725> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivo.library.cornell.edu/ns/0.1#CornellAcademicStaff> .
+<http://vivo.cornell.edu/individual/dl725> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivo.library.cornell.edu/ns/0.1#CornellEmployee> .
+<http://vivo.cornell.edu/individual/mb2289> <http://xmlns.com/foaf/0.1/firstName> "Melissa" .
+<http://vivo.cornell.edu/individual/mb2289> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#emplId> "3143560" .
+<http://vivo.cornell.edu/individual/mb2289> <http://xmlns.com/foaf/0.1/lastName> "Batie-Smoose" .
+<http://vivo.cornell.edu/individual/mb2289> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WorkingTitle> "Head Coach, W. Volleyball" .
+<http://vivo.cornell.edu/individual/mb2289> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#netId> "mb2289" .
+<http://vivo.cornell.edu/individual/mb2289> <http://www.w3.org/2000/01/rdf-schema#label> "Batie-Smoose,Melissa" .
+<http://vivo.cornell.edu/individual/mb2289> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivo.library.cornell.edu/ns/0.1#CornellEmployee> .
+<http://vivo.cornell.edu/individual/dfh46> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WorkingTitle> "Teaching Assoc" .
+<http://vivo.cornell.edu/individual/dfh46> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#emplId> "2126678" .
+<http://vivo.cornell.edu/individual/dfh46> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#netId> "dfh46" .
+<http://vivo.cornell.edu/individual/dfh46> <http://xmlns.com/foaf/0.1/firstName> "Dorothy" .
+<http://vivo.cornell.edu/individual/dfh46> <http://xmlns.com/foaf/0.1/lastName> "Holland-Minkley" .
+<http://vivo.cornell.edu/individual/dfh46> <http://www.w3.org/2000/01/rdf-schema#label> "Holland-Minkley,Dorothy Florence" .
+<http://vivo.cornell.edu/individual/dfh46> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivo.library.cornell.edu/ns/0.1#CornellEmployee> .
+<http://vivo.cornell.edu/individual/jcs497> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#netId> "jcs497" .
+<http://vivo.cornell.edu/individual/jcs497> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#emplId> "3192565" .
+<http://vivo.cornell.edu/individual/jcs497> <http://xmlns.com/foaf/0.1/lastName> "Scott" .
+<http://vivo.cornell.edu/individual/jcs497> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WorkingTitle> "" .
+<http://vivo.cornell.edu/individual/jcs497> <http://xmlns.com/foaf/0.1/firstName> "James" .
+<http://vivo.cornell.edu/individual/jcs497> <http://www.w3.org/2000/01/rdf-schema#label> "Scott,James C" .
+<http://vivo.cornell.edu/individual/jcs497> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivo.library.cornell.edu/ns/0.1#CornellEmployee> .
+<http://vivo.cornell.edu/individual/bj226> <http://xmlns.com/foaf/0.1/lastName> "Jung" .
+<http://vivo.cornell.edu/individual/bj226> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WorkingTitle> "Postdoctoral Associate" .
+<http://vivo.cornell.edu/individual/bj226> <http://xmlns.com/foaf/0.1/firstName> "Byoungyun" .
+<http://vivo.cornell.edu/individual/bj226> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#emplId> "3142943" .
+<http://vivo.cornell.edu/individual/bj226> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#netId> "bj226" .
+<http://vivo.cornell.edu/individual/bj226> <http://www.w3.org/2000/01/rdf-schema#label> "Jung,Byoungyun" .
+<http://vivo.cornell.edu/individual/bj226> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivo.library.cornell.edu/ns/0.1#CornellEmployee> .
+<http://vivo.cornell.edu/individual/ss2863> <http://xmlns.com/foaf/0.1/firstName> "Sovichea" .
+<http://vivo.cornell.edu/individual/ss2863> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WorkingTitle> "Teaching Assoc" .
+<http://vivo.cornell.edu/individual/ss2863> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#netId> "ss2863" .
+<http://vivo.cornell.edu/individual/ss2863> <http://xmlns.com/foaf/0.1/lastName> "Srey" .
+<http://vivo.cornell.edu/individual/ss2863> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#emplId> "3131424" .
+<http://vivo.cornell.edu/individual/ss2863> <http://www.w3.org/2000/01/rdf-schema#label> "Srey,Sovichea" .
+<http://vivo.cornell.edu/individual/ss2863> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivo.library.cornell.edu/ns/0.1#CornellEmployee> .
+<http://vivo.cornell.edu/individual/rrs4> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#netId> "rrs4" .
+<http://vivo.cornell.edu/individual/rrs4> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#emplId> "1007623" .
+<http://vivo.cornell.edu/individual/rrs4> <http://xmlns.com/foaf/0.1/firstName> "Richard" .
+<http://vivo.cornell.edu/individual/rrs4> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WorkingTitle> "Teaching Support Specialist II" .
+<http://vivo.cornell.edu/individual/rrs4> <http://xmlns.com/foaf/0.1/lastName> "Schmidt" .
+<http://vivo.cornell.edu/individual/rrs4> <http://www.w3.org/2000/01/rdf-schema#label> "Schmidt,Rick" .
+<http://vivo.cornell.edu/individual/rrs4> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivoweb.org/ontology/core#NonAcademicPosition> .
+<http://vivo.cornell.edu/individual/rrs4> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivoweb.org/ontology/core#NonAcademic> .
+<http://vivo.cornell.edu/individual/rrs4> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivo.library.cornell.edu/ns/0.1#CornellEmployee> .
+<http://vivo.cornell.edu/individual/lx37> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#emplId> "1845907" .
+<http://vivo.cornell.edu/individual/lx37> <http://xmlns.com/foaf/0.1/firstName> "Lin" .
+<http://vivo.cornell.edu/individual/lx37> <http://xmlns.com/foaf/0.1/lastName> "Xu" .
+<http://vivo.cornell.edu/individual/lx37> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#netId> "lx37" .
+<http://vivo.cornell.edu/individual/lx37> <http://vivoweb.org/ontology/core#mailingAddress> "127 Savage Hall, Ithaca" .
+<http://vivo.cornell.edu/individual/lx37> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WorkingTitle> "Postdoctoral Associate" .
+<http://vivo.cornell.edu/individual/lx37> <http://www.w3.org/2000/01/rdf-schema#label> "Xu,Lin" .
+<http://vivo.cornell.edu/individual/lx37> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivo.library.cornell.edu/ns/0.1#CornellEmployee> .
+<http://vivo.cornell.edu/individual/dp472> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WorkingTitle> "" .
+<http://vivo.cornell.edu/individual/dp472> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#netId> "dp472" .
+<http://vivo.cornell.edu/individual/dp472> <http://xmlns.com/foaf/0.1/lastName> "Pohler" .
+<http://vivo.cornell.edu/individual/dp472> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#emplId> "3186790" .
+<http://vivo.cornell.edu/individual/dp472> <http://xmlns.com/foaf/0.1/firstName> "Dionne" .
+<http://vivo.cornell.edu/individual/dp472> <http://www.w3.org/2000/01/rdf-schema#label> "Pohler,Dionne" .
+<http://vivo.cornell.edu/individual/dp472> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivo.library.cornell.edu/ns/0.1#CornellEmployee> .
+<http://vivo.cornell.edu/individual/mam592> <http://xmlns.com/foaf/0.1/firstName> "Melissa" .
+<http://vivo.cornell.edu/individual/mam592> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#emplId> "2260259" .
+<http://vivo.cornell.edu/individual/mam592> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#netId> "mam592" .
+<http://vivo.cornell.edu/individual/mam592> <http://xmlns.com/foaf/0.1/lastName> "McUmber" .
+<http://vivo.cornell.edu/individual/mam592> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WorkingTitle> "Dining Manager" .
+<http://vivo.cornell.edu/individual/mam592> <http://www.w3.org/2000/01/rdf-schema#label> "McUmber,Melissa A." .
+<http://vivo.cornell.edu/individual/mam592> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivo.library.cornell.edu/ns/0.1#CornellEmployee> .
+<http://vivo.cornell.edu/individual/ca357> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#netId> "ca357" .
+<http://vivo.cornell.edu/individual/ca357> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WorkingTitle> "Visiting Fellow" .
+<http://vivo.cornell.edu/individual/ca357> <http://xmlns.com/foaf/0.1/lastName> "Alarcon-Ferrari" .
+<http://vivo.cornell.edu/individual/ca357> <http://xmlns.com/foaf/0.1/firstName> "Cristian" .
+<http://vivo.cornell.edu/individual/ca357> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#emplId> "3143212" .
+<http://vivo.cornell.edu/individual/ca357> <http://www.w3.org/2000/01/rdf-schema#label> "Alarcon-Ferrari,Cristian" .
+<http://vivo.cornell.edu/individual/ca357> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivoweb.org/ontology/core#NonFacultyAcademicPosition> .
+<http://vivo.cornell.edu/individual/ca357> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivo.library.cornell.edu/ns/0.1#CornellAcademicStaff> .
+<http://vivo.cornell.edu/individual/ca357> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivo.library.cornell.edu/ns/0.1#CornellEmployee> .
+<http://vivo.cornell.edu/individual/jr867> <http://xmlns.com/foaf/0.1/lastName> "Renato Rosa Cussiol" .
+<http://vivo.cornell.edu/individual/jr867> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#netId> "jr867" .
+<http://vivo.cornell.edu/individual/jr867> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#emplId> "3168135" .
+<http://vivo.cornell.edu/individual/jr867> <http://xmlns.com/foaf/0.1/firstName> "Jose" .
+<http://vivo.cornell.edu/individual/jr867> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WorkingTitle> "Postdoctoral Associate" .
+<http://vivo.cornell.edu/individual/jr867> <http://www.w3.org/2000/01/rdf-schema#label> "Renato Rosa Cussiol,Jose" .
+<http://vivo.cornell.edu/individual/jr867> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivo.library.cornell.edu/ns/0.1#CornellEmployee> .
+<http://vivo.cornell.edu/individual/zj52> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WorkingTitle> "Prog/ Analyst III" .
+<http://vivo.cornell.edu/individual/zj52> <http://xmlns.com/foaf/0.1/firstName> "Zachary" .
+<http://vivo.cornell.edu/individual/zj52> <http://xmlns.com/foaf/0.1/lastName> "Jacques" .
+<http://vivo.cornell.edu/individual/zj52> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#netId> "zj52" .
+<http://vivo.cornell.edu/individual/zj52> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#emplId> "3137596" .
+<http://vivo.cornell.edu/individual/zj52> <http://www.w3.org/2000/01/rdf-schema#label> "Jacques,Zachary" .
+<http://vivo.cornell.edu/individual/zj52> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivo.library.cornell.edu/ns/0.1#CornellEmployee> .
+<http://vivo.cornell.edu/individual/ksb44> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#emplId> "1044028" .
+<http://vivo.cornell.edu/individual/ksb44> <http://xmlns.com/foaf/0.1/lastName> "Blanchard" .
+<http://vivo.cornell.edu/individual/ksb44> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#netId> "ksb44" .
+<http://vivo.cornell.edu/individual/ksb44> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WorkingTitle> "Lect Visit" .
+<http://vivo.cornell.edu/individual/ksb44> <http://xmlns.com/foaf/0.1/firstName> "Kenneth" .
+<http://vivo.cornell.edu/individual/ksb44> <http://vivoweb.org/ontology/core#mailingAddress> "Statler Hotel & School of Hotel Adm, Ithaca" .
+<http://vivo.cornell.edu/individual/ksb44> <http://www.w3.org/2000/01/rdf-schema#label> "Blanchard,Kenneth Scott" .
+<http://vivo.cornell.edu/individual/ksb44> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivo.library.cornell.edu/ns/0.1#CornellEmployee> .
+<http://vivo.cornell.edu/individual/jf588> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WorkingTitle> "Major Gifts Ofcr III" .
+<http://vivo.cornell.edu/individual/jf588> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#netId> "jf588" .
+<http://vivo.cornell.edu/individual/jf588> <http://xmlns.com/foaf/0.1/lastName> "Feulner" .
+<http://vivo.cornell.edu/individual/jf588> <http://xmlns.com/foaf/0.1/firstName> "Jason" .
+<http://vivo.cornell.edu/individual/jf588> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#emplId> "3137846" .
+<http://vivo.cornell.edu/individual/jf588> <http://www.w3.org/2000/01/rdf-schema#label> "Feulner,Jason" .
+<http://vivo.cornell.edu/individual/jf588> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivoweb.org/ontology/core#NonAcademicPosition> .
+<http://vivo.cornell.edu/individual/jf588> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivoweb.org/ontology/core#NonAcademic> .
+<http://vivo.cornell.edu/individual/jf588> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivo.library.cornell.edu/ns/0.1#CornellEmployee> .
+<http://vivo.cornell.edu/individual/sh947> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#netId> "sh947" .
+<http://vivo.cornell.edu/individual/sh947> <http://xmlns.com/foaf/0.1/lastName> "Harkhu" .
+<http://vivo.cornell.edu/individual/sh947> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WorkingTitle> "Visiting Fellow" .
+<http://vivo.cornell.edu/individual/sh947> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#emplId> "3143225" .
+<http://vivo.cornell.edu/individual/sh947> <http://xmlns.com/foaf/0.1/firstName> "Shorba" .
+<http://vivo.cornell.edu/individual/sh947> <http://www.w3.org/2000/01/rdf-schema#label> "Harkhu,Shorba" .
+<http://vivo.cornell.edu/individual/sh947> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivoweb.org/ontology/core#NonFacultyAcademicPosition> .
+<http://vivo.cornell.edu/individual/sh947> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivo.library.cornell.edu/ns/0.1#CornellAcademicStaff> .
+<http://vivo.cornell.edu/individual/sh947> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivo.library.cornell.edu/ns/0.1#CornellEmployee> .
+<http://vivo.cornell.edu/individual/nk473> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WorkingTitle> "Visiting Scholar" .
+<http://vivo.cornell.edu/individual/nk473> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#netId> "nk473" .
+<http://vivo.cornell.edu/individual/nk473> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#emplId> "3143407" .
+<http://vivo.cornell.edu/individual/nk473> <http://xmlns.com/foaf/0.1/firstName> "Naoki" .
+<http://vivo.cornell.edu/individual/nk473> <http://xmlns.com/foaf/0.1/lastName> "Kasuga" .
+<http://vivo.cornell.edu/individual/nk473> <http://www.w3.org/2000/01/rdf-schema#label> "Kasuga,Naoki" .
+<http://vivo.cornell.edu/individual/nk473> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivoweb.org/ontology/core#NonAcademicPosition> .
+<http://vivo.cornell.edu/individual/nk473> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivoweb.org/ontology/core#NonAcademic> .
+<http://vivo.cornell.edu/individual/nk473> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivo.library.cornell.edu/ns/0.1#CornellEmployee> .
+<http://vivo.cornell.edu/individual/df22> <http://xmlns.com/foaf/0.1/lastName> "Frutchey" .
+<http://vivo.cornell.edu/individual/df22> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WorkingTitle> "Administrator II" .
+<http://vivo.cornell.edu/individual/df22> <http://xmlns.com/foaf/0.1/firstName> "Denise" .
+<http://vivo.cornell.edu/individual/df22> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#netId> "df22" .
+<http://vivo.cornell.edu/individual/df22> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#emplId> "1005960" .
+<http://vivo.cornell.edu/individual/df22> <http://www.w3.org/2000/01/rdf-schema#label> "Frutchey,Denise" .
+<http://vivo.cornell.edu/individual/df22> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivoweb.org/ontology/core#NonAcademicPosition> .
+<http://vivo.cornell.edu/individual/df22> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivoweb.org/ontology/core#NonAcademic> .
+<http://vivo.cornell.edu/individual/df22> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivo.library.cornell.edu/ns/0.1#CornellEmployee> .
+<http://vivo.cornell.edu/individual/rfe37> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#netId> "rfe37" .
+<http://vivo.cornell.edu/individual/rfe37> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#emplId> "2860123" .
+<http://vivo.cornell.edu/individual/rfe37> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WorkingTitle> "Annual Fund Officer II" .
+<http://vivo.cornell.edu/individual/rfe37> <http://xmlns.com/foaf/0.1/lastName> "Evancoe" .
+<http://vivo.cornell.edu/individual/rfe37> <http://xmlns.com/foaf/0.1/firstName> "Ross" .
+<http://vivo.cornell.edu/individual/rfe37> <http://www.w3.org/2000/01/rdf-schema#label> "Evancoe,Ross" .
+<http://vivo.cornell.edu/individual/rfe37> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivoweb.org/ontology/core#NonAcademicPosition> .
+<http://vivo.cornell.edu/individual/rfe37> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivoweb.org/ontology/core#NonAcademic> .
+<http://vivo.cornell.edu/individual/rfe37> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivo.library.cornell.edu/ns/0.1#CornellEmployee> .
+<http://vivo.cornell.edu/individual/mks262> <http://xmlns.com/foaf/0.1/lastName> "Sharif" .
+<http://vivo.cornell.edu/individual/mks262> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WorkingTitle> "Visiting Fellow" .
+<http://vivo.cornell.edu/individual/mks262> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#emplId> "3145412" .
+<http://vivo.cornell.edu/individual/mks262> <http://xmlns.com/foaf/0.1/firstName> "Mian" .
+<http://vivo.cornell.edu/individual/mks262> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#netId> "mks262" .
+<http://vivo.cornell.edu/individual/mks262> <http://www.w3.org/2000/01/rdf-schema#label> "Sharif,Mian Kamran" .
+<http://vivo.cornell.edu/individual/mks262> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivoweb.org/ontology/core#NonFacultyAcademicPosition> .
+<http://vivo.cornell.edu/individual/mks262> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivo.library.cornell.edu/ns/0.1#CornellAcademicStaff> .
+<http://vivo.cornell.edu/individual/mks262> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivo.library.cornell.edu/ns/0.1#CornellEmployee> .
+<http://vivo.cornell.edu/individual/mms67> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#emplId> "1752925" .
+<http://vivo.cornell.edu/individual/mms67> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#netId> "mms67" .
+<http://vivo.cornell.edu/individual/mms67> <http://xmlns.com/foaf/0.1/lastName> "Shields" .
+<http://vivo.cornell.edu/individual/mms67> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WorkingTitle> "TEC Specialist" .
+<http://vivo.cornell.edu/individual/mms67> <http://xmlns.com/foaf/0.1/firstName> "Michelle" .
+<http://vivo.cornell.edu/individual/mms67> <http://www.w3.org/2000/01/rdf-schema#label> "Shields,Michelle M" .
+<http://vivo.cornell.edu/individual/mms67> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivoweb.org/ontology/core#NonAcademicPosition> .
+<http://vivo.cornell.edu/individual/mms67> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivoweb.org/ontology/core#NonAcademic> .
+<http://vivo.cornell.edu/individual/mms67> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivo.library.cornell.edu/ns/0.1#CornellEmployee> .
+<http://vivo.cornell.edu/individual/cg496> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#netId> "cg496" .
+<http://vivo.cornell.edu/individual/cg496> <http://xmlns.com/foaf/0.1/firstName> "Christopher" .
+<http://vivo.cornell.edu/individual/cg496> <http://xmlns.com/foaf/0.1/lastName> "Gonzales" .
+<http://vivo.cornell.edu/individual/cg496> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WorkingTitle> "Staff Writer I" .
+<http://vivo.cornell.edu/individual/cg496> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#emplId> "3143028" .
+<http://vivo.cornell.edu/individual/cg496> <http://www.w3.org/2000/01/rdf-schema#label> "Gonzales,Chris" .
+<http://vivo.cornell.edu/individual/cg496> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivoweb.org/ontology/core#NonAcademicPosition> .
+<http://vivo.cornell.edu/individual/cg496> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivoweb.org/ontology/core#NonAcademic> .
+<http://vivo.cornell.edu/individual/cg496> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivo.library.cornell.edu/ns/0.1#CornellEmployee> .
+<http://vivo.cornell.edu/individual/jd693> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#emplId> "3171110" .
+<http://vivo.cornell.edu/individual/jd693> <http://xmlns.com/foaf/0.1/lastName> "Dijkstra" .
+<http://vivo.cornell.edu/individual/jd693> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WorkingTitle> "Visiting Scholar" .
+<http://vivo.cornell.edu/individual/jd693> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#netId> "jd693" .
+<http://vivo.cornell.edu/individual/jd693> <http://xmlns.com/foaf/0.1/firstName> "Jacob" .
+<http://vivo.cornell.edu/individual/jd693> <http://www.w3.org/2000/01/rdf-schema#label> "Dijkstra,Jacob" .
+<http://vivo.cornell.edu/individual/jd693> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivoweb.org/ontology/core#NonAcademicPosition> .
+<http://vivo.cornell.edu/individual/jd693> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivoweb.org/ontology/core#NonAcademic> .
+<http://vivo.cornell.edu/individual/jd693> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivo.library.cornell.edu/ns/0.1#CornellEmployee> .
+<http://vivo.cornell.edu/individual/lws2> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#emplId> "1005803" .
+<http://vivo.cornell.edu/individual/lws2> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#netId> "lws2" .
+<http://vivo.cornell.edu/individual/lws2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivo.library.cornell.edu/ns/0.1#CornellAcademicStaff> .
+<http://vivo.cornell.edu/individual/lws2> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WorkingTitle> "Extension Support Specialist I" .
+<http://vivo.cornell.edu/individual/lws2> <http://www.w3.org/2000/01/rdf-schema#label> "Madeo,Linda Wilcox" .
+<http://vivo.cornell.edu/individual/lws2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivo.library.cornell.edu/ns/0.1#CornellEmployee> .
+<http://vivo.cornell.edu/individual/lws2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivoweb.org/ontology/core#NonFacultyAcademicPosition> .
+<http://vivo.cornell.edu/individual/lws2> <http://vivoweb.org/ontology/core#mailingAddress> "379 Roberts Hall, Ithaca" .
+<http://vivo.cornell.edu/individual/lws2> <http://xmlns.com/foaf/0.1/lastName> "Madeo" .
+<http://vivo.cornell.edu/individual/lws2> <http://xmlns.com/foaf/0.1/firstName> "Linda" .
+<http://vivo.cornell.edu/individual/hh533> <http://xmlns.com/foaf/0.1/firstName> "Hyun Sook" .
+<http://vivo.cornell.edu/individual/hh533> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#netId> "hh533" .
+<http://vivo.cornell.edu/individual/hh533> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#emplId> "3145435" .
+<http://vivo.cornell.edu/individual/hh533> <http://xmlns.com/foaf/0.1/lastName> "Han" .
+<http://vivo.cornell.edu/individual/hh533> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WorkingTitle> "Postdoctoral Fellow" .
+<http://vivo.cornell.edu/individual/hh533> <http://www.w3.org/2000/01/rdf-schema#label> "Han,Hyun Sook" .
+<http://vivo.cornell.edu/individual/hh533> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivoweb.org/ontology/core#NonFacultyAcademicPosition> .
+<http://vivo.cornell.edu/individual/hh533> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivo.library.cornell.edu/ns/0.1#CornellAcademicStaff> .
+<http://vivo.cornell.edu/individual/hh533> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivo.library.cornell.edu/ns/0.1#CornellEmployee> .
+<http://vivo.cornell.edu/individual/jrm15> <http://www.w3.org/2000/01/rdf-schema#label> "Mbwana,John R" .
+<http://vivo.cornell.edu/individual/jrm15> <http://xmlns.com/foaf/0.1/firstName> "John" .
+<http://vivo.cornell.edu/individual/jrm15> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivo.library.cornell.edu/ns/0.1#CornellAcademicStaff> .
+<http://vivo.cornell.edu/individual/jrm15> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#netId> "jrm15" .
+<http://vivo.cornell.edu/individual/jrm15> <http://vivoweb.org/ontology/core#phoneNumber> "607/255-4926" .
+<http://vivo.cornell.edu/individual/jrm15> <http://xmlns.com/foaf/0.1/lastName> "Mbwana" .
+<http://vivo.cornell.edu/individual/jrm15> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#emplId> "1004557" .
+<http://vivo.cornell.edu/individual/jrm15> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WorkingTitle> "Senior Research Associate" .
+<http://vivo.cornell.edu/individual/jrm15> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivo.library.cornell.edu/ns/0.1#CornellEmployee> .
+<http://vivo.cornell.edu/individual/jrm15> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivoweb.org/ontology/core#NonFacultyAcademicPosition> .
+<http://vivo.cornell.edu/individual/jrm15> <http://vivoweb.org/ontology/core#mailingAddress> "220 Hollister Hall, Ithaca" .
+<http://vivo.cornell.edu/individual/ps763> <http://xmlns.com/foaf/0.1/firstName> "Pierri" .
+<http://vivo.cornell.edu/individual/ps763> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WorkingTitle> "Visiting Fellow" .
+<http://vivo.cornell.edu/individual/ps763> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#netId> "ps763" .
+<http://vivo.cornell.edu/individual/ps763> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#emplId> "3139700" .
+<http://vivo.cornell.edu/individual/ps763> <http://xmlns.com/foaf/0.1/lastName> "Spolti" .
+<http://vivo.cornell.edu/individual/ps763> <http://www.w3.org/2000/01/rdf-schema#label> "Spolti,Pierri" .
+<http://vivo.cornell.edu/individual/ps763> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivoweb.org/ontology/core#NonFacultyAcademicPosition> .
+<http://vivo.cornell.edu/individual/ps763> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivo.library.cornell.edu/ns/0.1#CornellAcademicStaff> .
+<http://vivo.cornell.edu/individual/ps763> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivo.library.cornell.edu/ns/0.1#CornellEmployee> .
