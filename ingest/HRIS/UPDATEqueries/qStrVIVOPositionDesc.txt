@@ -7,6 +7,11 @@ PREFIX core: <http://vivoweb.org/ontology/core#>
 PREFIX titlemap: <http://vivo.library.cornell.edu/ns/hr/titleMapping#> 
 PREFIX newhr: <http://vivoweb.org/ontology/newhr#> 
 
+# qStrVivoPositionDesc.txt
+# updated 120424
+# this query takes person Uri and returns all rdf for Vivo Position
+# note: experiment with breaking up query into two separate faster queries
+
 CONSTRUCT {
     VARVALUE  <http://vivoweb.org/ontology/core#personInPosition> ?position .
       ?position rdfs:label ?hrposnlabel . 

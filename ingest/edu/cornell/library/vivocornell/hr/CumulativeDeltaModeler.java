@@ -69,6 +69,7 @@ public class CumulativeDeltaModeler extends StatementListener {
 	@Override
 	public void addedStatement(Statement s) {
 		if (retractionsModel.contains(s)) {
+			logger.trace("cdm removed this from the retractions model: " + s);
 			retractionsModel.remove(s);
 		} else {
 			additionsModel.add(s);
@@ -78,6 +79,7 @@ public class CumulativeDeltaModeler extends StatementListener {
 	@Override
 	public void removedStatement(Statement s) {
 		if (additionsModel.contains(s)) {
+			logger.trace("cdm removed this from the additions model: " + s);
 			additionsModel.remove(s);
 		} else {
 			retractionsModel.add(s);
@@ -105,7 +107,6 @@ public class CumulativeDeltaModeler extends StatementListener {
 	}
 	
 
-	
 	public Set<String> getUnrecognizedTitles() {
 		return unrecognizedTitles;
 	}

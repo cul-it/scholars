@@ -67,15 +67,18 @@ public Model IterateThroughVivoPersonList(Model mdlAllVIVOPerson) throws Excepti
 				// add those additions to allUpdateAdditions
 				
 				cdm = uvp.processVivoperson(personId, cdm);
-				logger.info("logging retractions and additions...");
-				rw.LogRDF(cdm.getRetractions(), "N3");
-				rw.LogRDF(cdm.getAdditions(), "N3");
+				//logger.info("logging retractions and additions...");
+				//rw.LogRDF(cdm.getRetractions(), "N3");
+				//rw.LogRDF(cdm.getAdditions(), "N3");
 				// make a call to process person on return Profile Retractions
 				// add those additions to allUpdateAdditions
 
 				// write rdf to all 
 				rw.WriteRdf(allRetractionsFileName, cdm.getRetractions(), "N-TRIPLE");
 				rw.WriteRdf(allAdditionsFileName, cdm.getAdditions(), "N-TRIPLE");
+				logger.info("adding:" + cdm.getAdditions());
+				
+				
 			} //end while for person iter
 			logger.info("finished with person. \n");
 			personiter.close();

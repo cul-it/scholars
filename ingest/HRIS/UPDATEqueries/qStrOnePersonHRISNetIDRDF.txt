@@ -1,12 +1,12 @@
 PREFIX hr: <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#>  
-PREFIX cuvivo: <http://vivo.cornell.edu/individual/> 
 PREFIX foaf: <http://xmlns.com/foaf/0.1/> 
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
 PREFIX core: <http://vivoweb.org/ontology/core#> 
-PREFIX newhr: <http://vivoweb.org/ontology/newhr#>
-PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
-PREFIX titlemap: <http://vivo.library.cornell.edu/ns/hr/titleMapping#> 
+
+# qStrOnePersonHrisNetIdRdf.txt
+# updated 120424
+# this query takes an netId and returns all HRIS RDF from D2R
 
 CONSTRUCT { 
   ?hrisperson hr:netId "VARVALUE" .
@@ -14,7 +14,6 @@ CONSTRUCT {
   ?hrisperson hr:emplId ?hrisemplId .
   ?hrisperson hr:WorkingTitle ?hriswtitle .
   ?hrisperson hr:WorkingTitle ?prettyTitle .
-  #?hrisperson core:email ?hrisemail .
   ?hrisperson core:mailingAddress ?hrismailaddr .
   ?hrisperson core:phoneNumber ?hrisphone .
   ?hrisperson foaf:firstName ?hrisfirstName .
@@ -22,15 +21,16 @@ CONSTRUCT {
   }   
 WHERE {
   SERVICE <http://bailey.mannlib.cornell.edu:2020/sparql>
+  # querying HRIS D2R on 2020
     {
     ?hrisperson hr:netId "VARVALUE" .
-    OPTIONAL { ?hrisperson rdfs:label ?hrislabel .}
-    OPTIONAL { ?hrisperson hr:emplId ?hrisemplId .}
-    OPTIONAL { ?hrisperson hr:WorkingTitle ?hriswtitle .}
-    #OPTIONAL { ?hrisperson core:email ?hrisemail .}
+    ?hrisperson rdfs:label ?hrislabel .
+    ?hrisperson hr:emplId ?hrisemplId .
+    ?hrisperson hr:WorkingTitle ?hriswtitle .
+    ?hrisperson foaf:firstName ?hrisfirstName .
+    ?hrisperson foaf:lastName ?hrislastName .
     OPTIONAL { ?hrisperson  core:mailingAddress ?hrismailaddr .}
     OPTIONAL { ?hrisperson core:phoneNumber ?hrisphone .}
-    OPTIONAL { ?hrisperson foaf:firstName ?hrisfirstName .}
-    OPTIONAL { ?hrisperson foaf:lastName ?hrislastName .}
+
   }
  }

@@ -1,0 +1,38 @@
+PREFIX hr: <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#>  
+PREFIX cuvivo: <http://vivo.cornell.edu/individual/> 
+PREFIX foaf: <http://xmlns.com/foaf/0.1/> 
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+PREFIX vivo: <http://vivoweb.org/ontology/core#> 
+PREFIX newhr: <http://vivoweb.org/ontology/newhr#>
+PREFIX vivoc: <http://vivo.library.cornell.edu/ns/0.1#>
+# to be used as a query against a model
+# grab the URI from every vivo:Position in the model
+# get the orgURI from the D2R position
+# return the deptId from the D2R org (and label and UnitIdDesc if available)
+# check the orgURI against the VIVO Joseki, return optional ?vivoorg URI
+# in this case (HRIS org data) only where this orgURI does not have a
+#  pre-existing VIVO org
+# construct all org RDF with D2R HRIS ?orgURI
+
+CONSTRUCT { 
+    ?vivoorg rdf:type foaf:Organization .
+    #?vivoorg rdfs:label ?label .
+    #?vivoorg newhr:DeptID ?deptId .
+    #?vivoorg newhr:UnitID_Ldesc ?UnitID_Ldesc .
+  }   
+WHERE {
+   
+   SERVICE <http://bailey.mannlib.cornell.edu:2020/sparql>
+    {
+      #VARVALUE rdfs:label ?label .
+      VARVALUE newhr:DeptID ?deptId . 
+      #VARVALUE newhr:UnitID_Ldesc ?UnitID_Ldesc . 
+    }
+    SERVICE <http://bailey.mannlib.cornell.edu:2520/sparql>
+      {
+        ?vivoorg vivoc:departmentHRcode ?deptId .
+      }  
+
+    #FILTER (BOUND(?vivoorg)) 
+}

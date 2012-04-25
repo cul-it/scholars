@@ -30,9 +30,7 @@ WHERE {
     OPTIONAL { <VARVALUE> rdfs:label ?vivolabel .}
     OPTIONAL { <VARVALUE> hr:netId ?vivonetId .}
     OPTIONAL { <VARVALUE> hr:emplId ?vivoemplId .}	
-    OPTIONAL {
-        { <VARVALUE> hr:primaryWorkingTitle ?vivowtitle .} UNION { <VARVALUE> hr:WorkingTitle ?vivowtitle .}
-    }
+    OPTIONAL {<VARVALUE> hr:WorkingTitle ?vivowtitle .}
     OPTIONAL { <VARVALUE> core:email ?vivoemail .}
     OPTIONAL { <VARVALUE> core:mailingAddress ?vivomailaddr .}
     OPTIONAL { <VARVALUE> core:phoneNumber ?vivophone .}

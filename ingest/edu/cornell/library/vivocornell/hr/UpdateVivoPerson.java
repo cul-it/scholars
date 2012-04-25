@@ -264,22 +264,67 @@ public class UpdateVivoPerson extends IteratorMethods {
 				String vivoPersonURI = vivoIndiv.getURI();
 				// take a VIVO URI and modify query to return all position RDF (less org links)
 				String vivoPersonURIString = ("<" + vivoPersonURI + ">");
-				String vivoPosnQuery = rw.ReadQueryString(IngestMain.fileQryPath + "qStrVIVOPositionDesc.txt");
-				String[] queryArg2 = {vivoPosnQuery, "VARVALUE" , vivoPersonURIString};
-				String qStrVIVOPositionRDF = rw.ModifyQuery(queryArg2); 
-				logger.trace(qStrVIVOPositionRDF);
-				long startTime = System.currentTimeMillis();
 				
-				// now, mdlVIVOPosnRDF holds all the position information about this VIVO person
-				OntModel mdlVIVOPosnRDF = cm.MakeNewModelCONSTRUCT(qStrVIVOPositionRDF); 
-				//OntModel mdlCorrectedVIVOPosnRDF = MakeNewModelCONSTRUCT(qStrVIVOPositionRDF);
+				// fixing here
+				// get list of D2R positions for person
+                String vivoPosnQuery = rw.ReadQueryString(IngestMain.fileQryPath + "qStrVivoPosnForOnePerson.txt");
+				
+				String[] queryArg12 = {vivoPosnQuery, "VARVALUE" , vivoPersonURIString};
+				String qStrVivoPositions = rw.ModifyQuery(queryArg12); 
+				// construct model with all hris position RDF for one person
+		
+				logger.trace(qStrVivoPositions);
+				long startTime = System.currentTimeMillis();
+				OntModel mdlVivoPositions = cm.MakeNewModelCONSTRUCT(qStrVivoPositions); 	
+				logger.debug("\n*Vivo positions for " + vivoPersonURI + ":\n\n" + mdlVivoPositions);
+				rw.LogRDF(mdlVivoPositions, "N3");
+				logger.debug("\nVivoposn link query time: " + (System.currentTimeMillis() - startTime) + " \n");	
+				OntModel mdlVivoPersonInPosn = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
+				OntModel mdlVivoPosnRDF = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
 				Model mdlCorrectedVIVOposnRdf = ModelFactory.createDefaultModel();
-				logger.debug("VIVOposn link query time: " + (System.currentTimeMillis() - startTime) + " \n");		
+				List<Statement> vivoPositionList = mdlVivoPositions.listStatements().toList();
+				Integer numVivoPosn = vivoPositionList.size();
+				logger.debug("number of VIVO positions: " + numVivoPosn);
+				
+				for (Statement stmt12 : vivoPositionList ) {
+					String vivoPositionURI = stmt12.getObject().toString();
+					mdlVivoPersonInPosn.add( vivoIndiv, PERSON_IN_POSN, stmt12.getObject() );
+					logger.info("just added it: "+ mdlVivoPersonInPosn);
 
+					String vivoPosnRDFQuery = rw.ReadQueryString(IngestMain.fileQryPath + "qStrVivoGetPositionRDF.txt");
+
+					//  pass position RDF to VIVO getPositionRDF query
+
+					String vivoPosnURIString = ("<" + vivoPositionURI + ">");
+					String[] queryArg13 = {vivoPosnRDFQuery, "VARVALUE" , vivoPosnURIString};
+					String qStrVivoPosnRdf = rw.ModifyQuery(queryArg13); 
+					// construct model with all hris position RDF for one person
+
+
+					logger.trace("Here's the query for VIVO positions for " + vivoPersonURI + ":\n\n" + qStrVivoPosnRdf);
+					startTime = System.currentTimeMillis();
+
+					// now, mdlVIVOPosnRDF holds all the position information about this VIVO person
+					//mdlVivoPosnRDF = cm.MakeNewModelCONSTRUCT(qStrVivoPosnRdf); 
+					// removed in favor of mdlVivoOnePosnRdf
+					//OntModel mdlCorrectedVIVOPosnRDF = MakeNewModelCONSTRUCT(qStrVIVOPositionRDF);
+
+					logger.debug("VIVOposn link query time: " + (System.currentTimeMillis() - startTime) + " \n");		
+					logger.trace(qStrVivoPosnRdf);
+					startTime = System.currentTimeMillis();
+
+					OntModel mdlVivoOnePosnRDF = cm.MakeNewModelCONSTRUCT(qStrVivoPosnRdf); 	
+					mdlVivoPosnRDF.add(mdlVivoOnePosnRDF);
+					logger.debug("\n*Vivo position RDF before corrections*");
+					rw.LogRDF(mdlVivoOnePosnRDF, "N3");
+					logger.debug("\nVivo posnRDF link query time: " + (System.currentTimeMillis() - startTime) + " \n");	
+				} //end if for vivo posn rdf
+				mdlVivoPosnRDF.add(mdlVivoPersonInPosn);
+				//why this?
 				String vivoHRJobTitle = null;
 
 				// with each statement in VIVO position rdf that is a core:hrJobTitle, 
-				List<Statement> vivoPosnList = mdlVIVOPosnRDF.listStatements((Resource) null, JOB_TITLE, (RDFNode) null).toList();
+				List<Statement> vivoPosnList = mdlVivoPosnRDF.listStatements((Resource) null, JOB_TITLE, (RDFNode) null).toList();
 				Integer numVIVOPosn = vivoPosnList.size();
 
 				for (Statement stmt : vivoPosnList ) {
@@ -328,13 +373,13 @@ public class UpdateVivoPerson extends IteratorMethods {
 					rw.LogRDF(mdlVivoOrgRDF, "N3");
 					logger.debug("\nVIVOposn org link query time: " + (System.currentTimeMillis() - startTime) + "\n");	
 					
-					mdlVIVOPosnRDF.add(mdlVivoOrgRDF);
+					mdlVivoPosnRDF.add(mdlVivoOrgRDF);
 
 				}
 
 				// this is all existing VIVO position RDF - will be retracted!
 				logger.debug("\n*VIVO position RDF*");
-				rw.LogRDF(mdlVIVOPosnRDF, "N-TRIPLES");
+				rw.LogRDF(mdlVivoPosnRDF, "N-TRIPLES");
 
 				// TODO consider renaming to MakeNewModel, parse as describe first?
 				
@@ -358,13 +403,16 @@ public class UpdateVivoPerson extends IteratorMethods {
 				logger.debug("\n*HRIS position RDF before corrections*");
 				rw.LogRDF(mdlHRISPositions, "N3");
 				logger.debug("\nHRISposn link query time: " + (System.currentTimeMillis() - startTime) + " \n");	
-				
+				OntModel mdlHRISPersonInPosn = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
 				List<Statement> hrisPosnList = mdlHRISPositions.listStatements().toList();
 				Integer numHRISPosn = hrisPosnList.size();
 				logger.debug("number of HRIS positions: " + numHRISPosn);
+				// with list of positions in mdlHRISPositions, iterate to get all Hris Posn Rdf
 				for (Statement stmt11 : hrisPosnList ) {
 					String positionURI = stmt11.getObject().toString();
-
+					mdlHRISPersonInPosn.add(hrisURI, PERSON_IN_POSN, stmt11.getObject() );
+					logger.info("just added it: "+ mdlHRISPersonInPosn);
+								
 					String hrisPosnRDFQuery = rw.ReadQueryString(IngestMain.fileQryPath + "qStrHRISGetPositionRDF.txt");
 
 					//  pass position RDF to HRIS getPositionRDF query
@@ -376,13 +424,14 @@ public class UpdateVivoPerson extends IteratorMethods {
             
 					logger.trace(qStrHRISRdf);
 					startTime = System.currentTimeMillis();
-					mdlHRISPosnRDF = cm.MakeNewModelCONSTRUCT(qStrHRISRdf); 	
+													
+					OntModel mdlHRISOnePosnRDF = cm.MakeNewModelCONSTRUCT(qStrHRISRdf); 	
+					mdlHRISPosnRDF.add(mdlHRISOnePosnRDF);
 					logger.debug("\n*HRIS position RDF before corrections*");
-					rw.LogRDF(mdlHRISPosnRDF, "N3");
+					rw.LogRDF(mdlHRISOnePosnRDF, "N3");
 					logger.debug("\nHRISposnRDF link query time: " + (System.currentTimeMillis() - startTime) + " \n");	
-
-
-
+				} //end if for hris posn rdf
+				mdlHRISPosnRDF.add(mdlHRISPersonInPosn);
 					List<Statement> hrisPosnRdf = mdlHRISPosnRDF.listStatements((Resource) null, RDFS.label, (RDFNode) null).toList();
 					//Integer numHRISPosn = hrisPosnRdf.size();
 					//logger.debug("number of HRIS positions: " + numHRISPosn);
@@ -495,7 +544,7 @@ public class UpdateVivoPerson extends IteratorMethods {
 						} catch  ( Exception e ) {
 							logger.error("problem getting position subclass. Error", e );
 						} 					
-					} //end if for hris posn rdf
+					
 				} //end for stmt hris posn list
 
 
@@ -514,7 +563,7 @@ public class UpdateVivoPerson extends IteratorMethods {
 					// if !match, then use org generated by D2R
 					
 					logger.debug("**mdlVIVOPosnRDF:\n");
-					rw.LogRDF(mdlVIVOPosnRDF, "N3");
+					rw.LogRDF(mdlVivoPosnRDF, "N3");
 					//TODO: this depends on rdf:type Position being in the model.  FIX THIS!
 					//mdlHRISPosnRDF.add(cm.getVivoOrgLinks(mdlVIVOPosnRDF));
 					//after VIVO org addition
@@ -662,13 +711,13 @@ public class UpdateVivoPerson extends IteratorMethods {
 				} catch  ( Exception e ) {
 					logger.error("problem with making org models. Error", e );
 				} 		
-				mdlVIVOPosnRDF = removeInferredClasses(mdlVIVOPosnRDF);
+				mdlVivoPosnRDF = removeInferredClasses(mdlVivoPosnRDF);
 				mdlHRISPosnRDF = removeInferredClasses(mdlHRISPosnRDF);
 				
 				logger.debug("look for manually curated flag on VIVO position");
 				ignorePosnDiffRetract = false;
 				ignorePosnDiffAdd = false;
-				List<Statement> checkManCuratedPosn = mdlVIVOPosnRDF.listStatements((Resource) null, RDF.type, MAN_CURATED_TYPE).toList();
+				List<Statement> checkManCuratedPosn = mdlVivoPosnRDF.listStatements((Resource) null, RDF.type, MAN_CURATED_TYPE).toList();
 				logger.debug("mancurated? = " + checkManCuratedPosn.size());
 				if (checkManCuratedPosn.size() > 0) {
 					logger.info("position is manually curated.");
@@ -690,12 +739,12 @@ public class UpdateVivoPerson extends IteratorMethods {
 					logger.info("\n*HRIS position RDF BEFORE retract*");
 					rw.LogRDF(mdlHRISPosnRDF, "N-TRIPLES");
 					logger.info("\n*VIVO position RDF BEFORE retract*");
-					rw.LogRDF(mdlVIVOPosnRDF, "N-TRIPLES");					
+					rw.LogRDF(mdlVivoPosnRDF, "N-TRIPLES");					
 
 					if (ignorePosnDiffRetract) {
 						logger.info("position retract suppressed.");
 					} else {
-						retractionsForPosition.add(mdlVIVOPosnRDF.difference(mdlHRISPosnRDF));  
+						retractionsForPosition.add(mdlVivoPosnRDF.difference(mdlHRISPosnRDF));  
 						if(retractionsForPosition.size() > 0) {
 							logger.info("***" + retractionsForPosition.size() + " POSITION RETRACTIONS ***");  
 							retractionsForPosition.write(System.out, "N3");    
@@ -709,7 +758,7 @@ public class UpdateVivoPerson extends IteratorMethods {
 					if (ignorePosnDiffAdd) {
 						logger.info("position addition suppressed.");
 					} else {
-						additionsForPosition.add(mdlHRISPosnRDF.difference(mdlVIVOPosnRDF));  
+						additionsForPosition.add(mdlHRISPosnRDF.difference(mdlVivoPosnRDF));  
 						//additionsForPosition.add(mdlCorrectedVIVOposnRdf);
 						if(additionsForPosition.size() > 0) {
 							logger.info("*** " + additionsForPosition.size() + " POSITION ADDITIONS ***");  
@@ -744,9 +793,9 @@ public class UpdateVivoPerson extends IteratorMethods {
 				// this needs to change to reflect a position diff.
 
 				//allRetractions.add(retractionsForPosition);
-				cdm.retractModel(retractionsForPosition);
+				////cdm.retractModel(retractionsForPosition);
 				//allAdditions.add(additionsForPosition);
-				cdm.addModel(additionsForPosition);
+				////cdm.addModel(additionsForPosition);
 
 				additionsForPerson.close();
 				retractionsForPerson.close();
