@@ -9,7 +9,7 @@
         <#include "head.ftl">
     </head>
     
-    <body class="${bodyClasses!}">
+    <body class="${bodyClasses!}" onload="${bodyOnload!}">
         <#include "identity.ftl">
         
         <#include "menu.ftl">
@@ -25,9 +25,9 @@
                     
                     <fieldset>
                         <legend>Search form</legend>
-                        <form id="search-form" action="${urls.search}" name="search" role="search"> 
-                            <div id="search-field">
-                                <input type="text" name="querytext" class="search-vivo" value="${querytext!}" autocapitalize="off" />
+                        <form id="search-home-vivo" action="${urls.search}" name="search-home" role="search" method="post" > 
+                            <div id="search-home-field">
+                                <input type="text" name="querytext" class="search-home-vivo" value="${querytext!}" autocapitalize="off" />
                                 <input type="submit" value="Search" class="search">
                             </div>
                         </form>

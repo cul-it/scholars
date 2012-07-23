@@ -77,15 +77,6 @@ h5 {
 }
 
 /* ------------------------------------------------->  */
-/* for user accounts to align profile selection field  */
-/* ------------------------------------------------->  */
-#associateProfileBackgroundThree {
-margin-top: -112px;
-}
-#associateProfileBackgroundFour {
-margin-top: 0px;
-}
-/* ------------------------------------------------->  */
 /* CORNELL IDENTITY -------------------------------->  */
 /* ------------------------------------------------->  */
 #cu-identity {
@@ -122,6 +113,7 @@ a.cu-search {
     color: #fff;
     text-decoration: none;
     border: none;
+    white-space:nowrap;
 }
 a.cu-search:hover {
     background: #444;
@@ -428,6 +420,52 @@ a.ingestMenu:active {
     text-decoration: none;
     color: #167093;
 }
+ul.ingestMenu {
+    margin-bottom: 1.5em;
+}
+.toBeDeleted {
+    margin-bottom: 0;
+}
+/* BACK-END FORMS -------------->  */
+.display-inline {
+    display: inline-block;
+}
+.theme-dir {
+    clear: both;
+}
+tr.editformcell td input[type="text"] {
+    width: 30% !important;
+}
+tr.editformcell td input.fullWidthInput {
+    width: 70% !important;
+    margin-top: 0.7em !important;
+}
+tr.editformcell td input.shortInput {
+    width: 20% !important;
+    margin-top: 0.7em !important;
+}
+tr.editformcell td textarea.matchingInput {
+    width: 95%;
+    height:10ex;
+    margin-top:0.7em;
+    font-family: "Lucida Sans Unicode","Lucida Grande", Geneva, helvetica, sans-serif; 
+    font-size:0.95em;
+}
+hr.formDivider {
+    background-color: #3196C4;
+    border: 0 none;
+    height: 1px;
+    margin-bottom: 20px;
+    margin-top: 15px;
+    opacity: 0.3;   
+}
+tr.editformcell td select {
+    font-size: .8em;
+}
+.editingForm table {
+    width: 100%;
+    border: none;
+}
 
 /* ------------------------------------------------->  */
 /* HOMEPAGE AND INTERIOR PAGES STYLES -------------->  */
@@ -489,6 +527,9 @@ ul#header-nav a:hover,
 ul#header-nav  a:active {
     text-decoration: none;
     color: #999;
+}
+ul#header-nav a.log-out {
+    padding-left: 10px;
 }
 /* SEARCH ------>  */
 #search {
@@ -801,6 +842,10 @@ input.search-home-vivo {
     background-color: #f9fafa;
 }
 /* BROWSE ------>  */
+ul#browse-classgroups a {
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
 ul#browse-classgroups a:hover {
     background: url(../images/arrow.gif) 0 10px no-repeat;
     color: #1483a4;
@@ -851,6 +896,9 @@ footer p.copyright {
     padding-top: 10px;
     padding-left: 30px;
     width: 500px;
+}
+footer p.copyright small {
+    font-size: 1em;
 }
 ul#footer-nav {
     float: right;
@@ -1268,7 +1316,11 @@ h2#mainImage, #share-contact h2 {
 /* INDIVIDUAL INTRO - LEFT SIDE CONTENT ------>  */
 img.individual-photo {
     border: 7px solid #ebebeb;
-    margin-bottom: 15px;
+/*    margin-bottom: 15px; tlw72 1.5 */ 
+}
+.rdf-url {
+    padding-top: .8em;
+    display: block;
 }
 ul#individual-tools-people {
     border-bottom: 1px solid #e8ece9;
@@ -1396,6 +1448,12 @@ a.all-vivo-publications {
     font-size: .8em !important;
     text-decoration: underline;
 }
+/* <------ MAP O' SCIENCE  */
+#map-of-science h3 a {
+    color: #167093;
+    font-size: .8em !important;
+    text-decoration: underline;
+}
 /* COAUTHORS ------>  */
 img.co-author {
     border: 2px solid #ebebeb;
@@ -1477,6 +1535,12 @@ a {
 .middle {
     vertical-align: middle;
 }
+input[type="submit"] {
+    cursor: pointer;
+}
+.checkboxSpacer {
+    margin-left:150px;
+}
 /* EDITING DISPLAY------>  */
 .edit-individual {
     border-left: 1px dotted #B2D15A;
@@ -1503,6 +1567,12 @@ a {
   color: #5E6363;
   font-size: 1em;
   margin-left: .6em;
+  font-weight: bold;
+}
+#adminDashboard .pageBodyGroup h4 a {
+  color: #5E6363;
+  font-size: 1em;
+  margin-left: 0;
   font-weight: bold;
 }
 
@@ -1564,7 +1634,8 @@ article.property h3 {
     margin: 0;
 }
 h2#personInPosition .verbosePropertyListing,
-h2#hasResearchArea .verbosePropertyListing {
+h2#hasResearchArea .verbosePropertyListing,
+h2#preferredTitle .verbosePropertyListing {
     display: block;
 }
 
@@ -1604,4 +1675,53 @@ ul#webpages-withThumbnails li:not(:first-child) img.org-webThumbnail {
 ul#webpages-withThumbnails  li a.org-url {
     color: #fff;
     padding-left: 10px;
+}
+/* ------------------------------------------------->  */
+/* ASSOCIATE PROFILE ------------------------------->  */
+/* ------------------------------------------------->  */
+#associateProfileBackgroundThree {
+    padding:7px 94px 26px 12px; 
+    margin-top:-128px; 
+}
+#associateProfileBackgroundTwo {
+    padding:7px 94px 32px 0;
+    margin-top:-136px; 
+}
+#associateProfileBackgroundFour {
+    margin-top:-4px;
+}
+
+/* ------------------------------------------------->  */
+/* CLASS HIERARCHY  -------------------------------->  */
+/* ------------------------------------------------->  */
+span.headerSpanPlus {
+    width: 12px;
+    background: url(../../../images/vitro_plus_sign.gif) left center no-repeat;
+    cursor:default;
+}
+span.headerSpanMinus {
+    width: 12px;
+    background: url(../../../images/vitro_minus_sign.gif) left center no-repeat;
+    cursor:default;
+}
+span.subclassExpandPlus {
+    padding-right: 14px;
+    background: url(../../../images/vitro_plus_sign.gif) left center no-repeat;
+    cursor:default;
+}
+span.subclassExpandMinus {
+    padding-right: 14px;
+    background: url(../../../images/vitro_minus_sign.gif) left center no-repeat;
+    cursor:default;
+}
+/* ------------------------------------------------->  */
+/* PAGE MANAGEMENT  -------------------------------->  */
+/* ------------------------------------------------->  */
+.expandArrow {
+    background:url(../../../images/vitro_plus_sign.gif) right center no-repeat;
+    min-height:18px;
+}
+.collapseArrow {
+    background:url(../../../images/vitro_minus_sign.gif) right center no-repeat;
+    min-height:18px;
 }

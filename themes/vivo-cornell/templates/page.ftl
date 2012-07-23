@@ -8,13 +8,20 @@
         <#include "head.ftl">
     </head>
     
-    <body class="${bodyClasses!}">
+    <body class="${bodyClasses!}" onload="${bodyOnload!}">
         <#include "identity.ftl">
         
         <#include "menu.ftl">
         
+		<#-- VIVO OpenSocial Extension by UCSF -->
+		<#if openSocial??>
+			<#if openSocial.visible>
+            	<div id="gadgets-tools" class="gadgets-gadget-parent"></div>
+            </#if>	
+		</#if>	
+
         ${body}
-        </div> <!-- #wrapper-content -->
+
         <#include "footer.ftl">
     </body>
 </html>

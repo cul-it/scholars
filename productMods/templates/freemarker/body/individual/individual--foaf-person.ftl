@@ -5,7 +5,9 @@
 <#include "individual-setup.ftl">
 <#import "individual-qrCodeGenerator.ftl" as qr>
 <#import "lib-vivo-properties.ftl" as vp>
-
+<#if !labelCount??>
+    <#assign labelCount = 0 >
+</#if>
 <section id="individual-intro" class="vcard person" role="region">
 
     <section id="share-contact" role="region"> 
@@ -66,7 +68,7 @@
             <#else>                
             <h1 class="vcard foaf-person">
                 <#-- Label -->
-                <span class="fn"><@p.label individual editable /></span>
+                <span class="fn"><@p.label individual editable labelCount /></span>
 
                     <#--  Display preferredTitle if it exists; otherwise mostSpecificTypes -->
                     <#assign title = propertyGroups.pullProperty("${core}preferredTitle")!>
@@ -98,7 +100,24 @@
         <#assign researchAreas = propertyGroups.pullProperty("${core}hasResearchArea")!> 
         <#if researchAreas?has_content> <#-- true when the property is in the list, even if not populated (when editing) -->
             <@p.objectPropertyListing researchAreas editable />
-        </#if>   
+        </#if>
+        
+        <#-- VIVO OpenSocial Extension by UCSF -->
+		<#if openSocial??>
+			<#if openSocial.visible>
+			    <div id="openSocial">
+			        <h2>OpenSocial</h2>
+				    <#-- It would likely make sense to remove the #if logic as it is safe and -->
+				    <#-- arguably better to just have both divs in all conditions -->
+				    <#if editable>								  
+	            	    <div id="gadgets-edit" class="gadgets-gadget-parent"></div>
+	                <#else>
+	            	    <div id="gadgets-view" class="gadgets-gadget-parent" ></div>
+	                </#if>
+	            </div>
+            </#if>	
+		</#if>
+		
     </section>
     
 </section>
