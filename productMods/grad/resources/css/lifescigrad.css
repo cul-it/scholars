@@ -1226,3 +1226,6 @@ Icons for Groupings
 .individual31915.big, .individual31919.big, .individual31918.big, .individual31917.big, .individual31916.big, .individual31920.big {
     padding: 45px 0pt 60px 88px;
 }
+div.searchResults {
+    margin-right:20px;
+}

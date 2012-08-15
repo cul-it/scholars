@@ -27,7 +27,7 @@
                 <div id="searchBox">
                     <form name="findresearch" action="/search/" method="get"> 
                         <h2><label for="search-form-query">Search this site</label></h2>
-                        <input type="text" id="search-form-query" name="query" value="" size="26" />
+                        <input type="text" id="search-form-query" name="q" value="" size="26" />
                         <input type="submit" id="search-form-submit" name="submit" value="go" />
                     </form>
                 </div>

@@ -56,6 +56,16 @@
     </c:if>
     
     <script type="text/javascript" src="/resources/js/lifescigrad.js"></script>
+    <!-- Google Custom Search Engine -->
+    <script>
+      (function() {
+        var cx = '010948572676816654906:pgtrhljprhq';
+        var gcse = document.createElement('script'); gcse.type = 'text/javascript'; gcse.async = true;
+        gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+            '//www.google.com/cse/cse.js?cx=' + cx;
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gcse, s);
+      })();
+    </script>
 </head>
 
 <body <c:if test="${not empty param.bodyID}">id="${param.bodyID}"</c:if>>
