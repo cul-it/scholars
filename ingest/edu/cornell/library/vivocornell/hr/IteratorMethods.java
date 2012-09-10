@@ -175,4 +175,81 @@ public Model IterateThroughVivoPersonList(Model mdlAllVIVOPerson) throws Excepti
 	}
 	
 	
+	public OntModel IterateThroughHrisPositionList(Model mdlActivePosnDiff) throws Exception {
+
+		Model allActiveUrisAdded = ModelFactory.createDefaultModel();
+		Model allPersons = ModelFactory.createDefaultModel();
+		OntModel allActivePersons = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
+		
+		
+		String allActivePersonsFileName = IngestMain.fileRDFPath + "allActivePersons.nt";		
+	
+
+		long numHRISActivePersons = mdlActivePosnDiff.size(); 
+		long positionCount = 0;
+		logger.info("generated a model of all persons with Active positions.");
+		logger.info("found a total of " + numHRISActivePersons + " active positions.");
+		OntModel mdlHrisActivePerson = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
+		try {
+
+			ReadWrite rw = new ReadWrite();
+			CreateModel cw = new CreateModel();
+			CumulativeDeltaModeler cdm = new CumulativeDeltaModeler();
+			//for every active Position in HRIS D2R  
+			//return persons 
+			ResIterator positioniter = mdlActivePosnDiff.listSubjects();
+		    ProcessNewVivoPerson pnvp = new ProcessNewVivoPerson();
+
+			while (positioniter.hasNext(  )) {  
+				positionCount++; 
+				// use Position URI to return person from HRIS d
+				String positionId = positioniter.next(  ).toString(  );
+				// ont resource is representation of individual Person statement
+				// TODO: find a way to fix this workaround - seems like a cheat!
+				// we want newHRISIndiv to be an OntResource, but mdlNewHrisDiff can't do that for us
+				// clunky fix is to create an OntModel, and add the "Model" mdlNewHrisDiff to it.
+				//look- passing as Model
+				//String qStrAllHRISActivePersons =  rw.ReadQueryString(IngestMain.fileQryPath + "qStrPersonFromActivePosition.txt");
+				//logger.info(qStrAllHRISActivePersons);
+				String allHRISActivePersonsFileName = IngestMain.fileRDFPath + "allHRISActivePersonsURI.nt";
+				logger.info("creating model with ALL HRIS active persons...");
+
+				String NEWHRISActivePersonBaseQuery = rw.ReadQueryString(IngestMain.fileQryPath + "qStrPersonFromActivePosition.txt");
+
+				String hrisActivePosnURIString = ("<" + positionId + ">");
+				String[] NEWHRISActivePersonQueryArg = {NEWHRISActivePersonBaseQuery, "VARVALUE" , hrisActivePosnURIString};
+				String qStrNEWHRISActivePersonRDF = rw.ModifyQuery(NEWHRISActivePersonQueryArg); 
+				logger.info("new HRIS Active Person query string \n\n" + qStrNEWHRISActivePersonRDF );
+				
+				mdlHrisActivePerson = cw.MakeNewModelCONSTRUCT(qStrNEWHRISActivePersonRDF);                            
+				rw.WriteRdf(allHRISActivePersonsFileName, mdlHrisActivePerson, "N-TRIPLE");
+				logger.info("querying HRISsource and populating Model mdlAllHRISPerson...");
+				
+				allActivePersons.add(mdlHrisActivePerson);
+
+				logger.info("\n\n processing " + positionCount + " of " + numHRISActivePersons + "\n constructing VIVO RDF for " + positionId + "...");
+
+
+			} //end while for position iter
+			logger.info("finished with Active person. \n");
+			positioniter.close();
+			rw.WriteRdf(allActivePersonsFileName, allActivePersons, "N-TRIPLE");
+
+		//	System.out.println("Unrecognized titles");
+		//	for (String s : unrecognizedTitles) {
+		//		System.out.println(s);
+		//	}
+		} catch ( Exception e ){
+			logger.error("Something got messed up while iterating through the HRIS person list.  Error" , e );
+
+		} finally {
+
+
+		}
+		//satisfying compiler: 
+
+		return allActivePersons;		
+
+	}
+	
 }

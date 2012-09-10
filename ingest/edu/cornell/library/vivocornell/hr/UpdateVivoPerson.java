@@ -605,7 +605,7 @@ public class UpdateVivoPerson extends IteratorMethods {
 							hrisOrgUriString = "<" + hrisOrgUriString + ">";
 
 							// does this HRIS org exist in VIVO? 
-
+/////  TODO This is killing newly minted D2R orgs.  Need to fix.
 							String[] queryArg5 = {hrisOrgVivoUriQuery, "VARVALUE" , hrisOrgUriString};	
 							String qStrmdlHRISOneOrgRDF = rw.ModifyQuery(queryArg5); 
 							logger.debug("Here is the query for oneorg: \n\n" + qStrmdlHRISOneOrgRDF);

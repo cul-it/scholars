@@ -2,6 +2,7 @@ package edu.cornell.library.vivocornell.hr;
 
 import java.io.IOException;
 import java.util.Map;
+import java.util.Scanner;
 
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
@@ -46,6 +47,7 @@ public class CreateModel {
 			throw e; 
 		} finally {
 			//logger.debug("created new model...");
+		
 		}
 		return readFromFile;
 	}
@@ -59,9 +61,10 @@ public class CreateModel {
 		 *   TODO
 		 *   create functionality for SELECT
 		 */
-
+		logger.info("constructing New Model!");
 		OntModel mdlNewModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
 		try {
+			
 			// load vivo emplIDs into a model, then write RDF to file                
 			Query qryNewQuery = QueryFactory.create(strQueryString, Syntax.syntaxARQ);
 			QueryExecution qexecNewQuery = QueryExecutionFactory.create(qryNewQuery, mdlNewModel);
@@ -73,16 +76,18 @@ public class CreateModel {
 				// create CONSTRUCT rdf and push to HRIS model /
 
 				try {
+					
 					qexecNewQuery.execDescribe(mdlNewModel);
 				} catch (Exception e) {
 					qexecNewQuery.execConstruct(mdlNewModel);
 				} 
 
 			} catch (Exception e) { 
-				logger.error("problem writing the new model!  Error" + e);
+				logger.error("problem writing the new model!  Error" + e, e);
 			}  finally {
 				//close query execution
 				qexecNewQuery.close();
+				
 			}                
 		} catch (Exception e) { 
 			logger.error("exception creating the VIVO model!  Error" + e);
@@ -90,6 +95,7 @@ public class CreateModel {
 			//logger.debug("created new model...");
 		}
 		return mdlNewModel;
+		
 	}
 
 	public Model CreateAllVIVOPersonList(String filename) throws Exception {
@@ -138,6 +144,8 @@ public class CreateModel {
 		logger.info("querying HRIS service for a list of NEW persons.  wait time ~90 seconds...");
 		// generate a model of all HRIS URIs , check against VIVO model
 
+		OntModel mdlHrisAllPositions =  ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
+		OntModel mdlHrisTermPositions =  ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
 		OntModel mdlAllHRISPerson = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
 		OntModel mdlHRISAllMatch = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
 		
@@ -160,15 +168,52 @@ public class CreateModel {
 
 		//} else {
 			try {
-				//  gather ALL HRIS emplIds in a model 
-				String qStrAllHRISPerson=  rw.ReadQueryString(IngestMain.fileQryPath + "qStrAllHRISPerson.txt");
-				String allHRISFileName = IngestMain.fileRDFPath + "allHRISPersonURI.nt";
-				logger.info("creating model with ALL HRIS URIs...");
+				
+				//  gather ALL HRIS positions in a model 
+				String qStrAllHRISPositions=  rw.ReadQueryString(IngestMain.fileQryPath + "qStrAllHRISPositions.txt");
+				logger.info(qStrAllHRISPositions);
+				String allHRISPosnFileName = IngestMain.fileRDFPath + "allHRISPositionsURI.nt";
+				logger.info("creating model with ALL HRIS positions...");
 
-				mdlAllHRISPerson = MakeNewModelCONSTRUCT(qStrAllHRISPerson);                            
-				rw.WriteRdf(allHRISFileName, mdlAllHRISPerson, "N-TRIPLE");
+				mdlHrisAllPositions = MakeNewModelCONSTRUCT(qStrAllHRISPositions);                            
+				rw.WriteRdf(allHRISPosnFileName, mdlHrisAllPositions, "N-TRIPLE");
 				logger.info("querying HRISsource and populating Model mdlAllHRISPerson...");
+				
+				//  gather ALL Terminated HRIS positions in a model 
+				String qStrAllTermPositions=  rw.ReadQueryString(IngestMain.fileQryPath + "qStrAllHRISTermPositions.txt");
+				logger.info(qStrAllTermPositions);
+				String allTermHRISPosnFileName = IngestMain.fileRDFPath + "allTermHRISPositionsURI.nt";
+				logger.info("creating model with ALL Terminated HRIS positions...");
 
+				mdlHrisTermPositions = MakeNewModelCONSTRUCT(qStrAllTermPositions);                            
+				rw.WriteRdf(allTermHRISPosnFileName, mdlHrisTermPositions, "N-TRIPLE");
+				logger.info("querying HRISsource and populating Model mdlAllHRISPerson...");
+				
+				//diff AllPositions with TermPositions leaving ActivePositions
+				
+				OntModel mdlActivePosnDiff = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM, mdlHrisAllPositions.difference(mdlHrisTermPositions));
+				String allActiveFileName = IngestMain.fileRDFPath + "allActivePositionsURI.nt";
+				rw.WriteRdf(allActiveFileName, mdlActivePosnDiff, "N-TRIPLE");
+				
+				
+				//logger.info("Pausing for user input - look it over and hit ENTER..." );
+				//Scanner sc = new Scanner(System.in);
+			    //while(!sc.nextLine().equals(""));	
+
+			    
+			    
+				//  gather ALL HRIS emplIds in a model 
+				//String qStrAllHRISPerson=  rw.ReadQueryString(IngestMain.fileQryPath + "qStrAllHRISPerson.txt");
+				//String allHRISFileName = IngestMain.fileRDFPath + "allHRISPersonURI.nt";
+				//logger.info("creating model with ALL HRIS URIs...");
+
+				//mdlAllHRISPerson = MakeNewModelCONSTRUCT(qStrAllHRISPerson);                            
+				//rw.WriteRdf(allHRISFileName, mdlAllHRISPerson, "N-TRIPLE");
+				logger.info("no need to query HRISsource and populating Model mdlAllHRISPerson...");
+				IteratorMethods im = new IteratorMethods();
+				
+			    mdlAllHRISPerson = im.IterateThroughHrisPositionList(mdlActivePosnDiff);
+			    
 				// pull all HRIS emplIDs from HRIS service WHERE HRIS.emplId matches a VIVO.emplId
 				// keep original HRIS URI for diff process
 				String qStrHRISmatchVIVOEmplId = rw.ReadQueryString(IngestMain.fileQryPath + "qStrHRISmatchVIVOEmplId.txt"); 
@@ -370,5 +415,7 @@ public class CreateModel {
 		}
 		return mdlNewModel;
 	}
+	
+
 	
 }

@@ -366,7 +366,7 @@ public class CorrectHrData {
 			return null;
 		}
 		String family = titlemap.get(jobtitle);
-		if (jobtitle.contains("Dean") || "Academic Administrative".equals(family)) {
+		if (jobtitle.contains("Dean") || "Department Chairperson".equals(jobtitle) ||"Academic Administrative".equals(family)) {
 			return FACULTY_ADMINISTRATIVE_POSITION;
 		} else if ("Professorial".equals(family) || isSpecialFacultyTitle(jobtitle) 
 				|| (jobtitle.contains("Prof") && !jobtitle.contains("Temp"))

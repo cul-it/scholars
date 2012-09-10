@@ -29,6 +29,12 @@ public class IngestMain {
 	
 	// originally, we thought we could run these queries against production Joseki, let's not do that anymore
 	// public static Boolean useProductionVIVO = false;
+	// instead, we will modify the queries to take a SERVICE parameter
+	// in this case we will query VIVO data in an off-line mirror of production data
+	// Joseki on port 2520
+	//  http://bailey.mannlib.cornell.edu:2520/sparql
+	// and we will query HR data in D2R Server on port 2020
+	// http://bailey.mannlib.cornell.edu:2020/sparql
 	
 	//set up logging for this class
     private static final Logger logger = Logger.getLogger(IngestMain.class);
@@ -77,6 +83,7 @@ public class IngestMain {
 		// future development: would we ever need to work from a list of HRIS uris?
 		String HrisUriFilename = null;
 
+		
  		String allNEWAdditionsFileName = fileRDFPath + "allNEWAdditions.nt";		
        
 		// generate a model of all HRIS uris , check against VIVO model

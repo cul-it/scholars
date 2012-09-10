@@ -118,14 +118,20 @@ public class ReadWrite {
 		String baseQuery = args[0];
 
 		try {
-			if (args.length == 5) {
-				//two replacements to be done, use 3,4
-				String[] replArgs = {baseQuery, args[3], args[4]};
-				interimString = ReplaceRegex(replArgs);
-			} else {
-				// only one replacement, use 1,2
-				interimString = baseQuery;
-			}
+	        // at one point, I thought it would be nifty to pass 5 args and do two regexReplace at once.
+			// there aren't any situations where that makes sense.  This code should go away.
+			/**
+			 * if (args.length == 5) {
+			 *
+			*	//two replacements to be done, use 3,4
+			*	String[] replArgs = {baseQuery, args[3], args[4]};
+			*	interimString = ReplaceRegex(replArgs);
+			*} else {
+			*	// only one replacement, use 1,2
+			*	interimString = baseQuery;
+			*}
+			*/
+			interimString = baseQuery;
 			String[] replArgs = {interimString, args[1], args[2]};
 			String tempString = ReplaceRegex(replArgs);
 			modifiedString = tempString;
@@ -141,6 +147,7 @@ public class ReadWrite {
 	public String ReadQueryString(String filePath) throws IOException {
 		String queryString = "";
 		String serviceVIVO = "";
+		String serviceHRIS = "";
 		String modifiedString = "";
 		boolean useProductionVIVO = false;
 
@@ -155,17 +162,18 @@ public class ReadWrite {
 			reader.close();
 			queryString = fileData.toString();
 
-			// look for 
+			// determine whether we are using production endpoint or offline production mirror endpoint
+			// return value of SERVICE 
 
 			if (useProductionVIVO) {
 				serviceVIVO = "http://vivoprod01.library.cornell.edu:2020/sparql"; 
 			} else {
+				// eventually, this will be on VM, but for now it's on bailey
 				serviceVIVO = "http://bailey.mannlib.cornell.edu:2520/sparql"; 
 			}
 
-
+			//  Replace VIVOSERV where ever we find it in the query text 
 			String substring = "VIVOSERV";
-
 
 			if (queryString.contains(substring)) {
 				String [] replArgs = {queryString, "VIVOSERV", serviceVIVO };
@@ -173,6 +181,19 @@ public class ReadWrite {
 				queryString = modifiedString;
 			} 
 
+			// set a value for the HRIS D2R endpoint
+			// Replace HRISSERV where ever we find it in the query text
+			substring = "HRISSERV";
+			
+			// eventually, this will be on VM, but for now it's on bailey
+			serviceHRIS = "http://bailey.mannlib.cornell.edu:2020/sparql"; 
+			if (queryString.contains(substring)) {
+				String [] replArgs = {queryString, "HRISSERV", serviceHRIS };
+				modifiedString = ReplaceRegex(replArgs);
+				queryString = modifiedString;
+			} 
+			
+			
 		} catch (Exception e) {
 			logger.error("whoops.  What happened?  " + e);
 		} finally {
