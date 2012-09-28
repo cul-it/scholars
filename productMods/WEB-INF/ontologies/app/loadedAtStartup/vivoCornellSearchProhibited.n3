@@ -13,7 +13,7 @@
 vitroDisplay:SearchIndex
     rdf:type owl:Thing ;
 
-	vitroDisplay:excludeClass vivo:UnknownPerson ;
+#	vitroDisplay:excludeClass vivo:UnknownPerson ;
 
     vitroDisplay:excludeClass acti:EditChair ;	
 	vitroDisplay:excludeClass acti:PartnerRole ;
