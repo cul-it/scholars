@@ -48,50 +48,49 @@ def urlToFileName(url):
       return url
   
 
-basePath = "./webPageImages/" 
+basePath = "./imageCache/" 
 
-display = Display(visible=0, size=(800, 600))
-display.start()
-browser = webdriver.Firefox()
 
-# for url in sys.stdin:
-while 1:
-    #try:
-        try: 
-            url = sys.stdin.readline()
-        except KeyboardInterrupt:
-            break
-	    
-        if not url:
-            break
 
-        sys.stderr.write("web page capture url " + url)
-        saveTo = basePath + urlToFileName(url)
-        dirname = os.path.dirname(saveTo)
-        filename = os.path.basename(saveTo) 	   
-        sys.stderr.write("web page save to: " + saveTo + "\n")
-        if not os.path.exists(dirname):            
-            os.makedirs(dirname)
-        else:
-            sys.stderr.write(" dir exists")	 
-        if not os.path.exists( saveTo ):
+try:
+    url = sys.argv[1]    
+    if not url:
+        sys.stderr.write('need URL')
+        sys.exit(1)
+        
+    saveTo = basePath + urlToFileName(url)
+    dirname = os.path.dirname(saveTo)
+    filename = os.path.basename(saveTo) 	   
+    sys.stderr.write("web page save to: " + saveTo + "\n")
+    if not os.path.exists(dirname):            
+        os.makedirs(dirname)
+    else:
+        sys.stderr.write(" dir exists")	 
+    if not os.path.exists( saveTo ):
+        try:
             try:
+                display = Display(visible=0, size=(800, 600))
+                display.start()
+                browser = webdriver.Firefox()
                 browser.get( url )
             except Exception as e :
                 #the following line is causing an error
                 sys.stderr.write( e )
-              
-            browser.save_screenshot(saveTo)
-        else:
-            sys.stderr.write(" file exists")
+            try:
+                browser.save_screenshot(saveTo)
+            except Exception as e :
+                #the following line is causing an error
+                sys.stderr.write( e )        
+        finally:
+            browser.quit()
+            display.stop()
+    else:
+        sys.stderr.write(" file exists")
+    
+    # return image file contents as binary data
+    sys.stdout.write(file(saveTo, "rb").read())
+    sys.stdout.flush()
+except:
+    sys.err.write("some kind of problem")
+    
 
-	    # return image file contents as binary data
-        sys.stdout.write("Content-type: image/" + imageType + "\r\n\r\n" + 
-                         file(saveTo, "r").read())
-        sys.stdout.flush()
-        
-    #except Exception as ex:
-     # print "problem with " , url , " ", ex 
-
-browser.quit()
-display.stop()

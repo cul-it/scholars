@@ -1546,6 +1546,17 @@
     <url-pattern>/smoketest</url-pattern>
   </servlet-mapping>
 
+  <!--  Cornell specific Web image capture servlet -->
+  <servlet>
+    <servlet-name>WebImageCaptureServlet</servlet-name>
+    <servlet-class>edu.cornell.mannlib.vivo.webimagecapture.WebImageCaptureServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>WebImageCaptureServlet</servlet-name>
+    <url-pattern>/webImageCapture</url-pattern>
+  </servlet-mapping>
+
+
   <!-- ==================== tag libraries ============================== -->
   <jsp-config>
     <taglib>
