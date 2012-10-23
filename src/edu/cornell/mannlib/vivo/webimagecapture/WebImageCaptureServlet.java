@@ -41,11 +41,24 @@ public class WebImageCaptureServlet extends VitroHttpServlet{
 			if( webPageUrl == null ){
 				doNotPermited(req,resp);			
 			}else{
-				handleImageWithNewProcess(webPageUrl,resp);			
+				
+				handleImageWithNewProcess(webPageUrl,isThumbnail(req),resp);			
 			}			
 		}
 	}	
 	
+	private boolean isThumbnail(HttpServletRequest req) {
+		if( req.getParameter("thumbnail") != null ){
+			String param = req.getParameter("thumbnail");
+			if( param.equalsIgnoreCase("1") || param.equalsIgnoreCase("true") || 
+			    param.equalsIgnoreCase("yes") || param.equalsIgnoreCase("y") ||
+				param.equalsIgnoreCase("thumbnail") ){
+				return true;
+			}
+		}
+		return false;
+	}
+
 	private String URLtoGetImageOf(HttpServletRequest req) {
 		return req.getParameter("url");
 	}
@@ -53,11 +66,12 @@ public class WebImageCaptureServlet extends VitroHttpServlet{
 	/**
 	 * handle the request for the image with a new
 	 * process for each request. 
+	 * @param resp2 
 	 * @throws IOException 
 	 */
 	private void handleImageWithNewProcess(
 			String webPageUrl, 
-			HttpServletResponse resp) 
+			boolean isThumbnail, HttpServletResponse resp) 
 	throws IOException {
 		
 		ConfigurationProperties props = ConfigurationProperties.getBean(this);		
@@ -73,20 +87,13 @@ public class WebImageCaptureServlet extends VitroHttpServlet{
 		
 			WebImageCatpureProcess wicp =
 				new WebImageCatpureProcess(workingDir);
-			//wicp.startProcess();
-			wicp.returnImageV2(webPageUrl, resp);
-			//wicp.closeProcess();
-			
+			wicp.returnImageV2(webPageUrl, isThumbnail,resp);			
 		}
 	}
 	
-//	private void handleImageReuseProcess(){
-//	???	
-//	}
-	
 	
 	private void doNotPermited(HttpServletRequest req, HttpServletResponse resp) {
-		//return some placeholder image
+		//return some place holder image
 		log.debug("request for web image capture not permited");
 	}
 
