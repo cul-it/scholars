@@ -50,7 +50,7 @@
           
           Override the core version, so we can merge the three levels before building.                      
          - - - - - - - - - - - - - - - - - -->
-	<target name="prepare" depends="compileUtilities,product-prepare,vitroCore.prepare" />
+	<target name="prepare" depends="compileUtilities,product-prepare,vitroCore.prepare,deployWebImageCapture" />
 
 	<!-- - - - - - - - - - - - - - - - - - 
           target: product-prepare
@@ -121,5 +121,20 @@
 		<addRevisionInfoLine productName="nihvivo" productCheckoutDir="${nihvivo.dir}" />
 		<addRevisionInfoLine productName="${ant.project.name}" productCheckoutDir="${basedir}" />
 	</target>
-
+	
+	<!-- ================================= 
+	      target: webImageCapture 	                          
+	     ================================= -->	
+	<target name="deployWebImageCapture"
+        description="--> copy webImageCatpure script to vitro.home">
+		
+		<copy todir="${vitro.home.directory}/webImageCapture" includeemptydirs="true">
+			<fileset dir="webImageCapture"/>										
+		</copy>		
+		<chmod perm="ug+rx"
+			file="${vitro.home.directory}/webImageCapture/capture.py" />
+	
+				
+	</target>
+	
 </project>
