@@ -4,16 +4,15 @@ import os
 import re
 import time
 import sys
-import math
 
-from urllib import quote_plus
 from pyvirtualdisplay import Display
 from selenium import webdriver
-from PIL import Image
-from decimal import *
+
+from captureResize import * 
+from captureUrls import * 
 
 # make a screen shot for each URL in STDIN
-# output resulting png to STDOUT
+# output resulting .PNG file to STDOUT
 
 # ## to intall selenium:
 # sudo pip install -U selenium
@@ -23,88 +22,21 @@ from decimal import *
 # curl http://python-distribute.org/distribute_setup.py | python
 # curl -k https://raw.github.com/pypa/pip/master/contrib/get-pip.py | python
 
-# The .png or .jpg at the end of the file sufix controls 
-# the image format of the file.  
-# The tomcat servlet expects png.
-imageType = ".png"
-fileSufix = "Image" + imageType
-
-### Functions for URL to file name conversion ###
-
-def queryToPath(queryStr):
-  """Convert the query string of a URL to a path"""    
-  return "/".join(map(quote_plus, queryStr.split("&")))
-  
-def urlToFileName(url):
-  """Convert the URL and query string into a file path.
-     The returned string will not start with a slash. """
-  urlToPathAndQuery = re.compile(r"^http://([^\?]*)\?(.*)")
-  match = urlToPathAndQuery.match(url)
-  if match is not None:
-    # query found, try this:
-    return match.groups()[0] + "/" + queryToPath(match.groups()[1])
-  else:
-    urlregex = re.compile(r"^http://(.*)$")
-    match = urlregex.match(url)
-    if match is not None:
-      return match.groups()[0] + fileSufix
-    else:
-      # not sure what it is but it might be a hostname
-      return url
-
-def fileNameToThumbnailName( filename ):
-    return 'thumbnail.' + filename
-    
-def makeLargeAndThumbnail( saveTo, largeSize, thumbnailSize ):
-    ''' Makes thumbnail and then replaces saveTo with 
-        cropped and resized image.'''            
-    try:                        
-        img = Image.open(saveTo)
-    except Exception, err:
-        sys.stderr.write('ERROR: Could not open image. %s\n' % str(err))
-    
-    try:
-        dirname = os.path.dirname(saveTo)
-        filename = os.path.basename(saveTo)
-        cropAndResizeImage( img, dirname+'/'+fileNameToThumbnailName(filename), thumbnailSize)
-    except Exception, err:
-        sys.stderr.write('ERROR: Could not crop and resize image. %s\n' % str(err))
-            
-    try:         
-        cropAndResizeImage( img, saveTo, largeSize)
-    except Exception, err:
-        sys.stderr.write('ERROR: Could not crop and resize image. %s\n' % str(err))
-        
-    
-def cropAndResizeImage( orgImage, saveToFileName, size):
-    '''Crop image to get the most width of the original image and 
-       preserve the aspect ratio of the size. Then resize and save
-       as saveToFileName.
-       Parameter orgImage must be a PIL image object.
-       Parameter size must be a tuple of (width,height) ex. (800,500)  '''
-                                                    
-    img = orgImage.copy()
-            
-    orgWidth = img.size[0]
-    aspectRatio = float( size[0])/float( size[1])
-    cropHeight = int(math.ceil( float(orgWidth) / aspectRatio ))             
-    area = img.crop( (0,0, orgWidth, cropHeight ) )
-            
-    resized = area.resize( size , Image.ANTIALIAS)
-    resized.save( saveToFileName, quality=100 )        
-                                     
-
-#### main script ####
+# requires Python Imaging Library
+# http://www.pythonware.com/library/pil/handbook/index.htm
 
 largeSize = (400, 300) # width height
 thumbnailSize = (200, 150) # width height
+
 basePath = "./imageCache/"
 
 try:
-    url = sys.argv[1]    
-    if not url:
-        sys.stderr.write('need URL')
+
+    if len(sys.argv) <= 1:        
+        sys.stderr.write('Error need URL\ncapture.py URL [thumbnail]\n')
         sys.exit(1)
+        
+    url = sys.argv[1]                
         
     if len(sys.argv) >= 3 and sys.argv[2] == 'thumbnail':
         type = 'thumbnail'
