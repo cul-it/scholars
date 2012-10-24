@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python2.7
 # should be python 2.7
 import os
 import re
@@ -57,7 +57,7 @@ try:
                 browser = webdriver.Firefox()
                 browser.get( url )
             except Exception, err:
-                sys.stderr.write('ERROR: Could not open browser to page. %s\n' % str(err))                        
+                sys.stderr.write('ERROR: Could not open browser to page. %s\n' % str(err))
             try:
                 browser.save_screenshot(saveTo)
             except Exception, err:
@@ -68,14 +68,10 @@ try:
             browser.quit()
             display.stop()
         makeLargeAndThumbnail( saveTo, largeSize, thumbnailSize )
-    else:
-        sys.stderr.write(" file exists")
         
     if type == 'thumbnail' :
-        sys.stderr.write('doing thumbnail')
         fileToOutput = dirname + '/' + fileNameToThumbnailName(filename)        
     else:
-        sys.stderr.write('doing large')
         fileToOutput = saveTo
     
     # return image file contents as binary data    
