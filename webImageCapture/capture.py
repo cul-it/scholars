@@ -37,7 +37,8 @@ try:
         sys.exit(1)
         
     url = sys.argv[1]                
-        
+    sys.stderr.write('%s\n' % url )
+    
     if len(sys.argv) >= 3 and sys.argv[2] == 'thumbnail':
         type = 'thumbnail'
     else:
@@ -63,7 +64,7 @@ try:
             except Exception, err:
                 sys.stderr.write('ERROR: Could not take screenshot. %s\n' % str(err))                
         except Exception, err:
-            sys.stderr.write('ERROR: %s\n' % str(err))                        
+            sys.stderr.write('ERROR: aaa %s\n' % str(err))                        
         finally:
             browser.quit()
             display.stop()

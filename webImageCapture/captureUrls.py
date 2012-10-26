@@ -21,17 +21,23 @@ def urlToFileName(url):
      The returned string will not start with a slash. """
   urlToPathAndQuery = re.compile(r"^http://([^\?]*)\?(.*)")
   match = urlToPathAndQuery.match(url)
+  
+  filename = None
+  
   if match is not None:
     # query found, try this:
-    return match.groups()[0] + "/" + queryToPath(match.groups()[1])
+    filename = match.groups()[0] + "/" + queryToPath(match.groups()[1])
   else:
     urlregex = re.compile(r"^http://(.*)$")
     match = urlregex.match(url)
     if match is not None:
-      return match.groups()[0] + fileSufix
+      filename= match.groups()[0]
     else:
       # not sure what it is but it might be a hostname
-      return url
+      filename = url
+  
+  return filename.replace('%','_') + fileSufix
+  
 
 def fileNameToThumbnailName( filename ):
     return 'thumbnail.' + filename
