@@ -62,7 +62,7 @@
                 </#if>
                 <#-- If preferredTitle is unpopulated, display mostSpecificTypes -->
                 <#if ! (title.statements)?has_content>
-                    <@p.mostSpecificTypes individual /> 
+                    <@p.mostSpecificTypes individual editable /> 
                 </#if>
             </#if>       
         </header>

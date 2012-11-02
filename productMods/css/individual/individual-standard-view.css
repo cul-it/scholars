@@ -37,12 +37,6 @@ ul#individual-phone {
 }
 
 /* <------ INDIVIDUAL INTRO - RIGHT SIDE CONTENT */
-span.display-title {
-    border-left: none !important;
-    font-size:1.15em !important;
-    padding-left: 0 !important;
-    margin-left: 0 !important;
-}
 .display-title-not-editable {
     float-left;
     font-size:1.15em;

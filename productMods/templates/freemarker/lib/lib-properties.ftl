@@ -223,9 +223,13 @@ name will be used as the label. -->
 </#macro>
 
 <#-- Most specific types -->
-<#macro mostSpecificTypes individual>
+<#macro mostSpecificTypes individual editable=false>
     <#list individual.mostSpecificTypes as type>
-        <span class="display-title">${type}</span>
+        <#if individual.person() >
+            <span class="<#if editable>display-title-editable<#else>display-title-not-editable</#if>">${type}</span>
+        <#else>
+            <span class="display-title">${type}</span>
+        </#if>
     </#list>
 </#macro>
 
