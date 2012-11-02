@@ -5,8 +5,8 @@
     Note that this template is not used for webpage deletion, since deletion occurs from the
     Manage Webpages page, so it's okay to reference individual.
 -->
-
 <@showWebpage statement />
+
 
 <#-- Use a macro to keep variable assignments local; otherwise the values carry over to the
      next statement 
@@ -21,8 +21,10 @@
 
     <#if statement.url?has_content>
        <#if individual?? && individual.organization()>
-            <a title="official page for ${statement.url}" href="${statement.url}"><img class="org-webThumbnail" src="http://mannlib.websnapr.com/?url=${statement.url}&size=m" alt="screenshot of webpage ${statement.url}"/></a>
-            <a class="org-url" href="${statement.url}">${linkText}</a>      
+            <a title="Click to view the ${linkText} offical web page" href="${statement.url}"><img class="org-webThumbnail" src="http://vivo.cornell.edu/webImageCapture?url=${statement.url}" alt="screenshot of webpage ${statement.url}" style="float:left;margin-bottom:15px"/></a>
+            <a title="Click to view the ${linkText} offical web page" href="${statement.url}" style="float:left;margin-left:-232px;margin-top:119px">
+                <img src="${urls.images}/individual/weblinkIconLarge.png"  alt="click webpage icon"/>  
+            </a>  
         <#else>
             <a href="${statement.url}">${linkText}</a>
         </#if>
@@ -30,3 +32,4 @@
         <a href="${profileUrl(statement.uri("link"))}">${statement.linkName}</a> (no url provided for link)
     </#if>
 </#macro>
+

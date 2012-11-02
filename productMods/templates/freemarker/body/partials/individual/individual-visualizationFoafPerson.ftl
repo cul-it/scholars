@@ -23,56 +23,41 @@
             <#assign mapOfScienceVisUrl = individual.mapOfScienceUrl()>
             
             <#assign googleJSAPI = "https://www.google.com/jsapi?autoload=%7B%22modules%22%3A%5B%7B%22name%22%3A%22visualization%22%2C%22version%22%3A%221%22%2C%22packages%22%3A%5B%22imagesparkline%22%5D%7D%5D%7D"> 
-            <#-- We don't want the sparklines appearing in VIVO Cornell -->
-            <#-- <span id="sparklineHeading">Publications in VIVO</span>   --> 
+            <div class="collaboratorship-link-separator-solid"></div>
+            <span id="sparklineHeading">Publications in VIVO</span>   
+            <div id="vis_container_coauthor">&nbsp;</div>
             
-            <#-- We don't want the sparklines appearing in VIVO Cornell -->
-            <#--<div id="vis_container_coauthor">&nbsp;</div>   -->
+            <div class="collaboratorship-link-separator-solid"></div>
+            <p id="networks">Networks</p>
+                    <span id="coauthor-link" class="collaboratorship-link"><a href="${coAuthorVisUrl}" title="co-author"><img src="${coAuthorIcon}" alt="Co-author network icon" width="20px" height="20px" /></a>
+                <a href="${coAuthorVisUrl}" title="co-author network">Co-Authors</a></span><p style="margin-top:-10px"></p>
+         </#if>   
+            <#if isInvestigator>
+                <#if !isAuthor >
+                    <div class="collaboratorship-link-separator-solid"></div>
+                    <p id="networks">Networks</p>
+                </#if>
+                <#assign coInvestigatorVisUrl = individual.coInvestigatorVisUrl()>
+                <#assign coInvestigatorIcon = "${urls.images}/visualization/coauthorship/co_investigator_icon.png">
+
+                        <span class="collaboratorship-link"><a href="${coInvestigatorVisUrl}" title="co-investigator network"><img src="${coInvestigatorIcon}" alt="Co-investigator network icon" width="20px" height="20px" /></a>
+                    <a href="${coInvestigatorVisUrl}" title="co-investigator network">Co-Investigators</a></span>
+            </#if>
+            <#if isAuthor>
+            <div class="collaboratorship-link-separator-solid"></div>
             
-            <div class="collaboratorship-link-separator"></div>
-            
-            <div id="coauthorship_link_container" class="collaboratorship-link-container">
-				<div class="collaboratorship-icon">
-                    <a href="${coAuthorVisUrl}" title="co-author"><img src="${coAuthorIcon}" alt="Co-author network icon" width="30px" height="30px" /></a>
-                </div>
-                <div class="collaboratorship-link"><a href="${coAuthorVisUrl}" title="co-author network">Co-Author Network</a></div>
-            </div>
-            
-            <div class="collaboratorship-link-separator"></div>
-            
-  	      	<div id="mapofscience_link_container" class="collaboratorship-link-container">
-            	<div class="collaboratorship-icon">	
-                    <a href="${mapOfScienceVisUrl}" title="map of science"><img src="${mapOfScienceIcon}" alt="Map Of Science icon" width="30px" height="30px" /></a>
-                </div>
-                <div class="collaboratorship-link"><a href="${mapOfScienceVisUrl}" title="map of science">Map Of Science</a></div>
-            </div>
+                    <span class="collaboratorship-link"><a href="${mapOfScienceVisUrl}" title="map of science"><img src="${mapOfScienceIcon}" alt="Map Of Science icon" width="20px" height="20px" /></a>
+                <a href="${mapOfScienceVisUrl}" title="map of science">Map Of Science</a></span>
             
             ${scripts.add('<script type="text/javascript" src="${googleJSAPI}"></script>',
                           '<script type="text/javascript" src="${urls.base}/js/visualization/visualization-helper-functions.js"></script>',
                           '<script type="text/javascript" src="${urls.base}/js/visualization/sparkline.js"></script>')}           
+            </#if>
             
-            <#-- We don't want the sparklines appearing in VIVO Cornell, so setting the visualizationUrl to ''; -->
-            <#-- was ${urls.base}/visualizationAjax?uri=${individual.uri?url} -->
             <script type="text/javascript">
-                var visualizationUrl = '';
+                var visualizationUrl = '${urls.base}/visualizationAjax?uri=${individual.uri?url}';
                 var infoIconSrc = '${urls.images}/iconInfo.png';
             </script>
             
-            <#if isInvestigator>
-                <div class="collaboratorship-link-separator"></div>
-            </#if>
-        </#if>
-        
-        <#if isInvestigator>
-            <#assign coInvestigatorVisUrl = individual.coInvestigatorVisUrl()>
-            <#assign coInvestigatorIcon = "${urls.images}/visualization/coauthorship/co_investigator_icon.png">
-            
-            <div id="coinvestigator_link_container" class="collaboratorship-link-container">
-                <div class="collaboratorship-icon">
-                    <a href="${coInvestigatorVisUrl}" title="co-investigator network"><img src="${coInvestigatorIcon}" alt="Co-investigator network icon" width="30px" height="30px" /></a>
-                </div>
-                <div class="collaboratorship-link"><a href="${coInvestigatorVisUrl}" title="co-investigator network">Co-Investigator Network</a></div>
-            </div>
-        </#if>
-    </section>
+    </section> <!-- end visualization -->
 </#if>

@@ -1335,6 +1335,11 @@ h2#mainImage, #share-contact h2 {
     color: #5E6363;
 }
 /* INDIVIDUAL INTRO - LEFT SIDE CONTENT ------>  */
+#individual-intro span.display-title {
+    font-size: .825em;
+    color: #5e6363;
+    border-left: 1px solid #A6B1B0;
+}
 img.individual-photo {
     border: 7px solid #ebebeb;
 /*    margin-bottom: 15px; tlw72 1.5 */ 
