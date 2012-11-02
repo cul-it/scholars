@@ -49,7 +49,7 @@
                 </#if>
                 <#-- If preferredTitle is unpopulated, display mostSpecificTypes -->
                 <#if ! (title.statements)?has_content>
-                    <@p.mostSpecificTypes individual editable/>
+                    <@p.mostSpecificTypesPerson individual editable/>
                     </#if>
             </#if>        
             <span class="<#if editable>iconControlsEditable<#else>iconControlsNotEditable</#if>">
