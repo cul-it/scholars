@@ -231,11 +231,11 @@ name will be used as the label. -->
 
 <#macro mostSpecificTypesPerson individual editable>
     <#list individual.mostSpecificTypes as type>
-        <#if individual.person() >
-            <span class="<#if editable>display-title-editable<#else>display-title-not-editable</#if>">${type}</span>
+        <#if ( individual.name?has_content && individual.name?length > 32 ) >
+            <div id="titleContainer"><span class="<#if editable>display-title-editable<#else>display-title-not-editable</#if>">${type}</span></div>
         <#else>
-            <span class="display-title">${type}</span>
-        </#if>
+            <span class="<#if editable>display-title-editable<#else>display-title-not-editable</#if>">${type}</span>
+        </#if>        
     </#list>
 </#macro>
 

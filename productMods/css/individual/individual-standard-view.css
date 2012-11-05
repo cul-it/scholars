@@ -40,7 +40,7 @@ ul#individual-phone {
 .display-title-not-editable {
     float-left;
     font-size:1.15em;
-    padding-right:100px;
+/*    padding-right:5em; */
 }
 .display-title-editable {
     padding-left:0 !important;
@@ -48,6 +48,10 @@ ul#individual-phone {
     font-size:1em !important;
     border:none !important;
     display:inline-block;
+}
+div#titleContainer {
+    display:inline-block;
+    width:456px;
 }
 #individual-info  {
     margin-top:6px;
@@ -104,7 +108,7 @@ span.iconControlsEditable {
 span.iconControlsNotEditable {
     position:absolute;
     right:0;
-    top:3px;
+    top:3px; 
 }
 #overview {
     clear: both; /* changed for redesign, was left */

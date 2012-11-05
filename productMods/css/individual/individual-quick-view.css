@@ -42,6 +42,10 @@ section#label-title {
     border:none !important;
     display:inline-block; 
 }
+div#titleContainer {
+    display:inline-block;
+    width:525px;
+}
 section#qv-share-contact {
     width:49.1%;
     float:left;
@@ -130,7 +134,7 @@ section#individual-intro {
 #individual-intro h1.fn {
     padding-right:8px;
     height:20px; 
-    margin:-1px 8px 30px 0;
+    margin:-1px 8px 5px 0;
 }
 section.qv-individual-info {
     float:left !important;

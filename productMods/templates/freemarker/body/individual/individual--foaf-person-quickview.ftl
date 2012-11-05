@@ -56,8 +56,12 @@
                 <#if title?has_content> <#-- true when the property is in the list, even if not populated (when editing) -->
                     <@p.addLinkWithLabel title editable />
                     <#list title.statements as statement>
-                        <span class="<#if editable>display-title-editable<#else>display-title-not-editable</#if>">${statement.value}</span>
-                        <@p.editingLinks "${title.name}" statement editable />
+                        <#if !editable >
+                            <div id="titleContainer"><span class="display-title-not-editable">${statement.value}</span></div>
+                        <#else>
+                            <span class="display-title-editable">${statement.value}</span>
+                            <@p.editingLinks "${title.name}" statement editable />
+                        </#if>
                     </#list>
                 </#if>
                 <#-- If preferredTitle is unpopulated, display mostSpecificTypes -->
@@ -88,7 +92,7 @@
         left and displays across the full width of the page.
     -->
     <#if hasWebpage >
-        <section id="qv-share-contact" class="share-contact" role="region"> 
+        <section id="qv-share-contact" class="share-contact" role="region" <#if !editable>style="padding-top:12px"</#if>> 
             <img id="webpage-popout-top" src="${urls.images}/individual/webpage-popout-top.png"  alt="background top"/>
             <div id="webpage-wrapper" >
                 <#assign webpage = propertyGroups.pullProperty("${core}webpage")!>            
@@ -106,7 +110,7 @@
             <img id="webpage-popout-bottom" src="${urls.images}/individual/webpage-popout-bottom.png"  alt="background top"  <#if editable>style="margin-top:16px"</#if>/>
         </section> <!-- end share-contact -->
     </#if>
-    <section id="individual-info" class="qv-individual-info" role="region" style="<#if hasWebpage>width:53%<#else>width:100%;clear:left</#if>;">       
+    <section id="individual-info" class="qv-individual-info" role="region" style=" <#if !editable>padding-top:12px;</#if><#if hasWebpage>width:53%<#else>width:100%;clear:left</#if>;">       
         <!-- Positions -->
         <#include "individual-positions.ftl">
 

@@ -33,7 +33,6 @@
                 <h2>${relatedSubject.relatingPredicateDomainPublic} for ${relatedSubject.name}</h2>
                 <p><a href="${relatedSubject.url}" title="return to">&larr; return to ${relatedSubject.name}</a></p>
             <#else>  
-                          
                 <h1 class="vcard foaf-person fn" <#if !editable>style="float:left;border-right:1px solid #A6B1B0;"</#if>> 
                     <#-- Label -->
                     <@p.label individual editable labelCount/>
@@ -43,14 +42,18 @@
                 <#if title?has_content> <#-- true when the property is in the list, even if not populated (when editing) -->
                     <@p.addLinkWithLabel title editable />
                     <#list title.statements as statement>
-                        <span class="<#if editable>display-title-editable<#else>display-title-not-editable</#if>">${statement.value}</span>
-                        <@p.editingLinks "${title.name}" statement editable />
+                        <#if !editable >
+                            <div id="titleContainer"><span class="display-title-not-editable">${statement.value}</span></div>
+                        <#else>
+                            <span class="display-title-editable">${statement.value}</span>
+                            <@p.editingLinks "${title.name}" statement editable />
+                        </#if>
                     </#list>
                 </#if>
                 <#-- If preferredTitle is unpopulated, display mostSpecificTypes -->
                 <#if ! (title.statements)?has_content>
                     <@p.mostSpecificTypesPerson individual editable/>
-                    </#if>
+                </#if>
             </#if>        
             <span class="<#if editable>iconControlsEditable<#else>iconControlsNotEditable</#if>">
                 <#include "individual-iconControls.ftl">
