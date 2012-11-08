@@ -129,6 +129,9 @@
         var diff = total - 600;
         $('div#titleContainer').width(title - diff);
     }
+    else if ( name + title > 600 ) {
+        $('div#titleContainer').width('700');
+    }
 </script>
 </#if>
 <script>
