@@ -120,6 +120,17 @@
     </a>
 </span>
 </#if>
+<#if !editable>
+<script>
+    var title = $('div#titleContainer').width();
+    var name = $('h1.vcard').width();
+    var total = title + name;
+    if ( name < 250 && total > 600 ) {
+        var diff = total - 600;
+        $('div#titleContainer').width(title - diff);
+    }
+</script>
+</#if>
 <script>
     var individualLocalName = "${individual.localName}";
     var imagesPath = '${urls.images}';

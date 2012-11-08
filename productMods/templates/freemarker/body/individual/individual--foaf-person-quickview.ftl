@@ -163,6 +163,17 @@
         <img id="fullViewIcon" src="${urls.images}/individual/fullViewIcon.png" alt="full view icon"/>
     </a>
 </span>
+<#if !editable>
+<script>
+    var title = $('div#titleContainer').width();
+    var name = $('h1.vcard').width();
+    var total = title + name;
+    if ( name < 400 && total > 730 ) {
+        var diff = total - 730;
+        $('div#titleContainer').width(title - diff);
+    }
+</script>
+</#if>
 <script>
     var individualLocalName = "${individual.localName}";
     var imagesPath = '${urls.images}';

@@ -29,7 +29,7 @@ img.individual-photo {
 }
 section#label-title {
     float:left;
-    width:85%;
+    width:88%;
 }
 .display-title-not-editable {
     float-left;
@@ -44,7 +44,6 @@ section#label-title {
 }
 div#titleContainer {
     display:inline-block;
-    width:525px;
 }
 section#qv-share-contact {
     width:49.1%;
