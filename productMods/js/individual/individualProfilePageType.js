@@ -70,9 +70,7 @@ var profilePageType = {
                 }
             }
         });        
-
-    },
-
+    }
 };
 
 $(document).ready(function() {   

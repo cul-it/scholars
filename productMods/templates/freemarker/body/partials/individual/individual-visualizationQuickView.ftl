@@ -16,7 +16,6 @@
     <#assign coauthor = "">
     <#assign coinvestigator = "">
     <#assign mapofscience = "">
-    <section id="visualization" role="region">
     <h2 class="mainPropGroup">Networks</h2>
         <#if isAuthor>
             <#assign coAuthorIcon = "${urls.images}/visualization/coauthorship/co_author_icon.png">
@@ -44,5 +43,4 @@
                 var infoIconSrc = '${urls.images}/iconInfo.png';
             </script>
             
-    </section> <!-- end visualization -->
 </#if>

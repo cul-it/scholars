@@ -11,7 +11,7 @@
 }
 #admin h3 {
     display: inline-block;
-    padding: 3px 4px 3px 4px;
+    padding: 3px 4px 3px 4px !important;
     margin-bottom: 5px;
     font-size: 14px;
     float: left;
@@ -173,6 +173,8 @@ div#profileTypeContainer h2 {
 #visualization {
     width:100%;
     clear:both;
+    padding-top:0 !important;
+    background:red !important;
 }
 ul#individual-visualization li {
     float: left;
@@ -190,11 +192,15 @@ ul#individual-personInPosition {
     margin: 10px 0 0 0; /* added for redesign */
 }
 ul#individual-hasResearchArea li {
-    float: left;
+    float: left; 
     padding-right: 10px;
     margin-right: 10px; /* added for redesign */
     padding-left: 0;  /* padding-left: 10px; out for redesign */
-    border-right: 1px solid #5e6363;
+    border-right: 1px solid #5e6363 ;
+    white-space:nowrap !important;
+}
+ul#individual-hasResearchArea li:last-child {
+    white-space:nowrap !important;
 }
 
 ul#individual-personInPosition li {
@@ -229,8 +235,6 @@ ul#individual-personInPosition li {
 ul#individual-personInPosition li:last-child { 
     padding-bottom: 0;
 }
-
-
 #individual-info h2 {
     padding: 25px 0 10px 0; /* changed for redesign, was padding-bottom: 10px */
     clear:both; /* added for redesign */

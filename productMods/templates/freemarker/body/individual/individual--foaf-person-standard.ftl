@@ -1,6 +1,10 @@
 <#-- $This file is distributed under the terms of the license in /doc/license.txt$ -->
 
 <#-- Individual profile page template for foaf:Person individuals -->
+<!--[if IE 7]>
+<link rel="stylesheet" href="${urls.theme}/css/ie7-standard-view.css" />
+<![endif]-->
+
 <#-- <#include "individual-setup.ftl"> -->
 <#import "individual-qrCodeGenerator.ftl" as qr>
 <#import "lib-vivo-properties.ftl" as vp>

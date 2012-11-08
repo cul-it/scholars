@@ -11,6 +11,7 @@
 <#if visContainerID?upper_case == sparklineContainerID?upper_case>
     <#assign sparklineContainerID = visContainerID + "_spark"> 
 </#if>
+
 <div class="staticPageBackground">
     <div id="${visContainerID}">
         <script type="text/javascript">
@@ -94,7 +95,7 @@
                 if ($('#${sparklineContainerID}').length === 0) {
         
                     $('<div/>', {
-                        'id': '${sparklineContainerID}',
+                        'id': '${sparklineContainerID}'
                     }).prependTo('#${visContainerID}');
                     $('#${sparklineContainerID}').css('margin-top','4px').css('height','48px');
                     var table = $('<table>');
@@ -115,5 +116,3 @@
         </script>
          
             </div> <!-- Sparkline Viz -->
-
-        </div>
