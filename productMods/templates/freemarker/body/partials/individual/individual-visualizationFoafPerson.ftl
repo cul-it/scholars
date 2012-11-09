@@ -23,11 +23,13 @@
             <#assign mapOfScienceVisUrl = individual.mapOfScienceUrl()>
             
             <#assign googleJSAPI = "https://www.google.com/jsapi?autoload=%7B%22modules%22%3A%5B%7B%22name%22%3A%22visualization%22%2C%22version%22%3A%221%22%2C%22packages%22%3A%5B%22imagesparkline%22%5D%7D%5D%7D"> 
+
+<#--
             <div class="collaboratorship-link-separator-solid"></div>
             <span id="sparklineHeading">Publications in VIVO</span>   
             <div id="vis_container_coauthor">&nbsp;</div>
-            
-            <div class="collaboratorship-link-separator-solid"></div>
+-->            
+            <div class="collaboratorship-link-separator-solid">&nbsp;</div>
             <p id="networks">Networks</p>
                     <span id="coauthor-link" class="collaboratorship-link"><a href="${coAuthorVisUrl}" title="co-author"><img src="${coAuthorIcon}" alt="Co-author network icon" width="20px" height="20px" /></a>
                 <a href="${coAuthorVisUrl}" title="co-author network">Co-Authors</a></span><p style="margin-top:-10px"></p>
