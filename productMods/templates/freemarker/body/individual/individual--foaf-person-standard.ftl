@@ -124,13 +124,13 @@
 <script>
     var title = $('div#titleContainer').width();
     var name = $('h1.vcard').width();
-    var total = title + name;
+    var total = parseInt(title,10) + parseInt(name,10);
     if ( name < 280 && total > 600 ) {
         var diff = total - 600;
         $('div#titleContainer').width(title - diff);
     }
     else if ( name > 279 && name + title > 600 ) {
-        $('div#titleContainer').width('700');
+        $('div#titleContainer').width('620');
     }
 </script>
 </#if>

@@ -49,7 +49,7 @@
                 <p><a href="${relatedSubject.url}" title="return to">&larr; return to ${relatedSubject.name}</a></p>
             <#else> 
                 <#-- Image  -->
-                <div id="photo-wrapper" >${individualImage}</div>
+                <div id="photo-wrapper">${individualImage}</div>
                 <h1 class="vcard foaf-person fn" <#if !editable>style="float:left;border-right:1px solid #A6B1B0;"</#if>> 
                     <#-- Label -->
                     <@p.label individual editable labelCount/>
@@ -164,16 +164,16 @@
     </a>
 </span>
 <#if !editable>
-<script>
+<script type="text/javascript">
     var title = $('div#titleContainer').width();
     var name = $('h1.vcard').width();
-    var total = title + name;
+    var total = parseInt(title,10) + parseInt(name,10);
     if ( name < 400 && total > 730 ) {
         var diff = total - 730;
         $('div#titleContainer').width(title - diff);
     }
     else if ( name > 399 && name + title > 730 ) {
-        $('div#titleContainer').width('800');
+        $('div#titleContainer').width('720');
     }
 </script>
 </#if>
