@@ -6,9 +6,10 @@
      is also used to generate the property statement during a deletion.  
      http://mannlib.websnapr.com/?url=${statement.url}&size=${imgSize}
  -->
-<@showWebpage statement />
+<#assign count = property.statements?size!> 
+<@showWebpage statement count />
 
-<#macro showWebpage statement>
+<#macro showWebpage statement count>
 <#local linkText>
     <#if statement.anchor?has_content>${statement.anchor}<#t>
     <#elseif statement.url?has_content>${statement.url}<#t>
@@ -16,7 +17,7 @@
 </#local>
 <#local imgSize = "&thumbnail=true" >
 
-<#if (statement.rank?? && statement.rank == "1") >
+<#if (statement.rank?? && statement.rank == "1") || ( count == 1 ) >
      <#local imgSize = "" >
 </#if>
 <#if statement.url?has_content>
@@ -40,4 +41,5 @@
 <#else>
     <a href="${profileUrl(statement.uri("link"))}" title="link name">${statement.linkName}</a> (no url provided for link)
 </#if>
+
 </#macro>
