@@ -27,6 +27,13 @@ img.individual-photo {
     float: left;
     border-width:2px !important;
 }
+h2#mainImage {
+    margin-top:36px;
+    margin-left:-10px;
+    float:left;
+    font-weight:bold;
+    width:80px !important;
+}
 section#label-title {
     float:left;
     width:88%;
