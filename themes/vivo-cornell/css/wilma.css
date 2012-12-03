@@ -1668,39 +1668,30 @@ h2#preferredTitle .verbosePropertyListing {
 /* ------------------------------------------------->  */
 /* THUMBNAIL ORGANIZATIONS  ------------------------>  */
 /* ------------------------------------------------->  */
-ul#webpages-withThumbnails {
-    list-style-image: none;
-}
-ul#webpages-withThumbnails li {
-    list-style-type: none;
-    margin-right: 10px;
-    float: left;
-    background-color: #b1aa9d;
-}
-ul#webpages-withThumbnails li:first-child {
-    width: 402px;
-    margin-bottom: 20px;
-    padding-bottom: 10px;
-    margin-right: 20px;
-}
-ul#webpages-withThumbnails li:not(:first-child) {
-    width: 204px;
-    margin-bottom: 15px;
-    padding-bottom: 8px;
-}
-ul#webpages-withThumbnails li:first-child img.org-webThumbnail {
+ul.webpages-withThumbnails li:first-child img.org-webThumbnail {
+    float:left;
+    margin-right:120px;
     width: 400px;
     height: 300px;
+    border: 3px solid #b1aa9d;
+}
+ul.webpages-withThumbnails li:first-child a.weblink-icon {
+    float:left;
+    margin-left:-352px;
+    margin-top:119px;
+}
+ul.webpages-withThumbnails li:not(:first-child) img.org-webThumbnail {
+    float:left;
+    margin-top: 15px;
+    margin-right: 4px;
+    width: 200px;
+    height: 150px;
     border: 1px solid #b1aa9d;
 }
-ul#webpages-withThumbnails li:not(:first-child) img.org-webThumbnail {
-    width: 202px;
-    height: 152px;
-    border: 1px solid #b1aa9d;
-}
-ul#webpages-withThumbnails  li a.org-url {
-    color: #fff;
-    padding-left: 10px;
+ul.webpages-withThumbnails li:not(:first-child) a.weblink-icon {
+    float:left;
+    margin-left:-122px;
+    margin-top:74px;
 }
 /* ------------------------------------------------->  */
 /* ASSOCIATE PROFILE ------------------------------->  */

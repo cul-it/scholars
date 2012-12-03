@@ -248,3 +248,9 @@ a.manageLinks {
     padding-right:10px;
     display:inline;
 }
+span.webpage-indicator {
+    float:left;
+    font-size:0.825em;
+    margin-right:30px;
+    margin-top:15px
+}

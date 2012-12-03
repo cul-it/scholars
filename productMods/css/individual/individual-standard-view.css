@@ -128,7 +128,7 @@ p#networks {
 }
 .collaboratorship-link-separator-solid { /* added for redesign */
     margin-top: 10px;
-    border-top: 1px solid #a1d2e2;
+    border-top: 1px solid #DDE4E3;
     padding-top: 10px;
 }
 .sparkline_text {
@@ -286,7 +286,7 @@ a#manageLabels { /* added for redesign but will work with existing templates */
 }
 /****** FROM WILMA.CSS ******/
 #individual-info h2.mainPropGroup { 
-    border-bottom: 1px solid #a1d2e2;
+    border-bottom: 1px solid #DDE4E3;
     padding-bottom:1px;
     margin-bottom:8px;
 }

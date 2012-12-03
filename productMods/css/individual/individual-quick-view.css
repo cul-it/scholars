@@ -132,6 +132,10 @@ li.weblinkSmall {
     margin-left:-7.475em;
     margin-top:3.425em
 }
+span.webpage-indicator-qv {
+    float:left;
+    font-size:0.825em;
+}
 
 /* <------ INDIVIDUAL INTRO - RIGHT SIDE CONTENT */
 section#individual-intro {
@@ -229,7 +233,7 @@ span#fullViewLink {
 }
 /****** FROM WILMA.CSS ******/
 #individual-info h2.mainPropGroup { 
-    border-bottom: 1px solid #a1d2e2;
+    border-bottom: 1px solid #DDE4E3;
     padding-bottom:1px;
     margin-bottom:8px;
 }

@@ -6,10 +6,21 @@
      is also used to generate the property statement during a deletion.  
      http://mannlib.websnapr.com/?url=${statement.url}&size=${imgSize}
  -->
+ 
 <#assign count = property.statements?size!> 
-<@showWebpage statement count />
 
-<#macro showWebpage statement count>
+<#assign identifier>
+    <#if statement.url?has_content>
+        ${statement.url?replace(":","")?replace("/","")?replace(".","-")?replace("&amp;","")?replace("%","")?replace("?","")?replace("=","")}<#t>
+    <#else>
+        "noUrl"<#t>
+    </#if>    
+</#assign>
+
+
+<@showWebpage statement count identifier/>
+
+<#macro showWebpage statement count identifier>
 <#local linkText>
     <#if statement.anchor?has_content>${statement.anchor}<#t>
     <#elseif statement.url?has_content>${statement.url}<#t>
@@ -21,21 +32,22 @@
      <#local imgSize = "" >
 </#if>
 <#if statement.url?has_content>
+<span id="span-${identifier}" class="webpage-indicator-qv">Loading website image. . .&nbsp;&nbsp;&nbsp;<img  src="${urls.images}/indicatorWhite.gif"></span>
         <a title="Click to view the ${linkText} web page" href="${statement.url}">
-            <img class="org-webThumbnail" src="http://vivo.cornell.edu/webImageCapture?url=${statement.url}${imgSize}" alt="screenshot of webpage ${statement.url}" />
+            <img id="img-${identifier}" class="org-webThumbnail" src="http://vivo.cornell.edu/webImageCapture?url=${statement.url}${imgSize}" alt="screenshot of webpage ${statement.url}" style="display:none"/>
 
         </a>
         <#if imgSize == "" >
             </li>
             <li class="weblinkLarge">  
             <a title="Click to view the ${linkText} web page" href="${statement.url}">
-                <img src="${urls.images}/individual/weblinkIconLarge.png"  alt="click webpage icon"/>  
+                <img id="icon-${identifier}" src="${urls.images}/individual/weblinkIconLarge.png"  alt="click webpage icon" style="display:none"/>  
             </a>
         <#else>
             </li>
             <li class="weblinkSmall">  
             <a title="Click to view the ${linkText} web page" href="${statement.url}">
-                <img src="${urls.images}/individual/weblinkIconSmall.png"  alt="click webpage icon"/>  
+                <img id="icon-${identifier}" src="${urls.images}/individual/weblinkIconSmall.png"  alt="click webpage icon" style="display:none"/>  
             </a>
         </#if>
 <#else>
@@ -43,3 +55,12 @@
 </#if>
 
 </#macro>
+
+<script>
+
+$('img#img-${identifier}').load(function(){
+    $('span#span-${identifier}').hide();
+    $('img#img-${identifier}').fadeIn();
+    $('img#icon-${identifier}').fadeIn();
+});
+</script>
