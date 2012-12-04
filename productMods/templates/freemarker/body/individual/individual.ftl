@@ -29,5 +29,6 @@ ${headScripts.add('<script type="text/javascript" src="${urls.base}/js/jquery_pl
                   '<script type="text/javascript" src="${urls.base}/js/amplify/amplify.store.min.js"></script>',
                   '<script type="text/javascript" src="${urls.base}/js/json2.js"></script>')}
                   
-${scripts.add('<script type="text/javascript" src="${urls.base}/js/individual/individualUtils.js"></script>')}
+${scripts.add('<script type="text/javascript" src="${urls.base}/js/individual/individualUtils.js?vers=1.5.1"></script>',
+              '<script type="text/javascript" src="${urls.base}/js/individual/propertyGroupControls.js?vers=1.5.1"></script>')}
 

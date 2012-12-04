@@ -167,6 +167,7 @@ ${headScripts.add('<script type="text/javascript" src="${urls.base}/js/tiny_mce/
 ${scripts.add('<script type="text/javascript" src="${urls.base}/js/individual/individualUriRdf.js"></script>',
               '<script type="text/javascript" src="${urls.base}/js/individual/individualQtipBubble.js"></script>',
               '<script type="text/javascript" src="${urls.base}/js/jquery-ui/js/jquery-ui-1.8.9.custom.min.js"></script>',
-              '<script type="text/javascript" src="${urls.base}/js/individual/individualUtils.js"></script>',
+              '<script type="text/javascript" src="${urls.base}/js/individual/individualUtils.js?vers=1.5.1"></script>',
+              '<script type="text/javascript" src="${urls.base}/js/individual/propertyGroupControls.js?=1.5.1"></script>',
               '<script type="text/javascript" src="${urls.base}/js/individual/individualProfilePageType.js"></script>',
               '<script type="text/javascript" src="${urls.base}/js/imageUpload/imageUploadUtils.js"></script>')}
