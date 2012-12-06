@@ -1,0 +1,112 @@
+# $This file is distributed under the terms of the license in /doc/license.txt$ 
+
+#
+# Short View configuration
+#
+# This file allows a Vitro administrator to configure short view templates and data getters
+# for individuals of particular classes in particular contexts. This is a transitional
+# implementation, and should be replaced when the work on the Application and Display
+# Ontology is complete.
+#
+# Find out how to use this file at 
+# https://sourceforge.net/apps/mediawiki/vivo/index.php?title=Using_Short_Views_in_Release_1.5
+#
+@prefix vivo: <http://vivoweb.org/ontology/core#> .
+@prefix display: <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#> .
+@prefix datagetters: <java:edu.cornell.mannlib.vitro.webapp.utils.dataGetter.> .
+@prefix mydomain: <http://localhost:8080/individual/> .
+@prefix vivoc: <http://vivo.library.cornell.edu/ns/0.1#> .
+@prefix mann: <http://vivo.cornell.edu/ns/mannadditions/0.1#> .
+
+vivo:FacultyMember
+        display:hasCustomView mydomain:peopleSearchView ;
+        display:hasCustomView mydomain:peopleIndexView ;
+        display:hasCustomView mydomain:peopleBrowseView .
+
+vivo:Librarian
+        display:hasCustomView mydomain:peopleSearchView ;
+        display:hasCustomView mydomain:peopleIndexView ;
+        display:hasCustomView mydomain:peopleBrowseView .
+
+vivo:NonFacultyAcademic
+        display:hasCustomView mydomain:peopleSearchView ;
+        display:hasCustomView mydomain:peopleIndexView ;
+        display:hasCustomView mydomain:peopleBrowseView .
+
+vivo:NonAcademic
+        display:hasCustomView mydomain:peopleSearchView ;
+        display:hasCustomView mydomain:peopleIndexView ;
+        display:hasCustomView mydomain:peopleBrowseView .
+
+mann:CornellNonAcademicStaff
+        display:hasCustomView mydomain:peopleSearchView ;
+        display:hasCustomView mydomain:peopleIndexView ;
+        display:hasCustomView mydomain:peopleBrowseView .
+
+mann:CornellFaculty
+        display:hasCustomView mydomain:peopleSearchView ;
+        display:hasCustomView mydomain:peopleIndexView ;
+        display:hasCustomView mydomain:peopleBrowseView .
+
+mann:CornellLibrarian
+        display:hasCustomView mydomain:peopleSearchView ;
+        display:hasCustomView mydomain:peopleIndexView ;
+        display:hasCustomView mydomain:peopleBrowseView .
+
+vivoc:CornellAcademicStaff
+        display:hasCustomView mydomain:peopleSearchView ;
+        display:hasCustomView mydomain:peopleBrowseView ;
+        display:hasCustomView mydomain:peopleIndexView .
+
+mydomain:peopleSearchView
+	a display:customViewForIndividual ;
+	display:appliesToContext "SEARCH" ;
+	display:hasTemplate "view-search-custom.ftl" ;
+	display:hasDataGetter mydomain:personInPositionDG .
+
+mydomain:peopleIndexView
+	a display:customViewForIndividual ;
+	display:appliesToContext "INDEX" ;
+	display:hasTemplate "view-index-custom.ftl" ;
+	display:hasDataGetter mydomain:personInPositionDG .
+
+mydomain:peopleBrowseView
+	a display:customViewForIndividual ;
+	display:appliesToContext "BROWSE" ;
+	display:hasTemplate "view-browse-people-custom.ftl" ;
+	display:hasDataGetter mydomain:personInPositionPlusTitleDG .
+
+mydomain:personInPositionDG
+	a datagetters:SparqlQueryDataGetter ;
+	display:saveToVar "position" ;
+	display:query """
+PREFIX rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX vivo: <http://vivoweb.org/ontology/core#>
+SELECT DISTINCT ?posLabel (str(?oLabel) AS ?orgLabel)
+WHERE {    
+?individualUri vivo:personInPosition ?position .
+?position rdf:type vivo:PrimaryPosition .
+?position rdfs:label ?posLabel .
+?position vivo:positionInOrganization ?org .
+?org rdfs:label ?oLabel
+}
+	""" .
+
+mydomain:personInPositionPlusTitleDG
+	a datagetters:SparqlQueryDataGetter ;
+	display:saveToVar "position" ;
+	display:query """
+PREFIX rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX vivo: <http://vivoweb.org/ontology/core#>
+SELECT DISTINCT ?posn (str(?oLabel) as ?orgLabel) ?title
+WHERE {    
+?individualUri vivo:personInPosition ?position .
+OPTIONAL { ?individualUri vivo:preferredTitle ?title . }
+?position rdf:type vivo:PrimaryPosition .
+?position rdfs:label ?posn .
+?position vivo:positionInOrganization ?org .
+?org rdfs:label ?oLabel
+}
+	""" .
