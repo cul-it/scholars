@@ -21,7 +21,7 @@
     <#if position[0].title?? >
         <span class="title">${position[0].title}</span>
     <#else>
-        <span class="title">${position[0].posLabel}, ${position[0].orgLabel}</span>
+        <span class="title">${position[0].posn}, ${position[0].orgLabel}</span>
     </#if>
 <#else>
     <#assign cleanTypes = 'edu.cornell.mannlib.vitro.webapp.web.TemplateUtils$DropFromSequence'?new()(individual.mostSpecificTypes, vclass) />
