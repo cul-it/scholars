@@ -1567,6 +1567,10 @@ input[type="submit"] {
 .checkboxSpacer {
     margin-left:150px;
 }
+section.property-group h2 span,
+nav.scroll-up img  {
+    cursor:pointer;
+}
 /* EDITING DISPLAY------>  */
 .edit-individual {
     border-left: 1px dotted #B2D15A;
@@ -1670,14 +1674,14 @@ h2#preferredTitle .verbosePropertyListing {
 /* ------------------------------------------------->  */
 ul.webpages-withThumbnails li:first-child img.org-webThumbnail {
     float:left;
-    margin-right:120px;
+/*    margin-right:120px; */
     width: 400px;
     height: 300px;
     border: 3px solid #b1aa9d;
 }
 ul.webpages-withThumbnails li:first-child a.weblink-icon {
     float:left;
-    margin-left:-352px;
+    margin-left:-232px;
     margin-top:119px;
 }
 ul.webpages-withThumbnails li:not(:first-child) img.org-webThumbnail {

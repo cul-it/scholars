@@ -202,9 +202,9 @@ div#contactContainer {
     padding:0 21px 0 0;
 }
 div#webpagesContainer {
-    width:47%;
+    width:100%;
     float:left;
-    clear:right;
+    clear:both;
     padding:0 0 0 0;
 }
 div#contactOuterDiv {

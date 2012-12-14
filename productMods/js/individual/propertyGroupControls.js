@@ -9,6 +9,8 @@ $(document).ready(function(){
     // expands/collapses the div within each property group
     $.each($('section.property-group'), function() {
         var groupName = $(this).attr("id");
+        var $pgSection = $(this);
+        
         $(this).children("nav").children("img").click(function() {
             if ( $("div[id='" + groupName + "Group']").is(":visible") ) {
                 $("div[id='" + groupName + "Group']").slideUp(222);
@@ -18,6 +20,19 @@ $(document).ready(function(){
             else {
                 $("div[id='" + groupName + "Group']").slideDown(222);
                 $(this).attr("src", $(this).attr("src").replace("expand-prop-group","collapse-prop-group"));
+                $("section#" + groupName).children("h2").addClass("expandedPropGroupH2");
+            }
+            manageLocalStorage();
+        });
+        $(this).children("h2").children("span").click(function() {
+            if ( $("div[id='" + groupName + "Group']").is(":visible") ) {
+                $("div[id='" + groupName + "Group']").slideUp(222);
+                $pgSection.children("nav").children("img").attr("src", $pgSection.children("nav").children("img").attr("src").replace("collapse-prop-group","expand-prop-group"));
+                $("section#" + groupName).children("h2").removeClass("expandedPropGroupH2");
+            }
+            else {
+                $("div[id='" + groupName + "Group']").slideDown(222);
+                $pgSection.children("nav").children("img").attr("src", $pgSection.children("nav").children("img").attr("src").replace("expand-prop-group","collapse-prop-group"));
                 $("section#" + groupName).children("h2").addClass("expandedPropGroupH2");
             }
             manageLocalStorage();

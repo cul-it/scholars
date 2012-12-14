@@ -29,7 +29,7 @@
         </nav>
         
         <#-- Display the group heading --> 
-            <h2 id="${groupNameHtmlId}">${groupName?capitalize}</h2>
+            <h2 id="${groupNameHtmlId}"><span>${groupName?capitalize}<span></h2>
         
         <#-- List the properties in the group -->
             <div id="${groupNameHtmlId}Group" >
