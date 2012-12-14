@@ -26,7 +26,8 @@ section.property-group h2 {
     background: #fafaf9 !important; 
 }
 /* this class is referenced in java script; the important is needed to override the color in the previous selector */
-section.property-group h2.expandedPropGroupH2 {
+section.property-group h2.expandedPropGroupH2,
+section.property-group h2.expandedPropGroupH2 span  {
     background:#e4ecf3 !important;
     color:#2485ae !important;  
 }
