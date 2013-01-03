@@ -18,6 +18,9 @@ vitroDisplay:SearchIndex
     #bdc34: don't know which of these should be excluded
 	vitroDisplay:excludeClass vivocornell:UnknownPerson ;
 	vitroDisplay:excludeClass vivolocal:UnknownPerson ;
+	
+	#cmw48: added to exclude all unknown organizations
+	vitroDisplay:excludeClass vivocornell:UnknownOrganization ;
 
     vitroDisplay:excludeClass acti:EditChair ;	
 	vitroDisplay:excludeClass acti:PartnerRole ;
