@@ -7,20 +7,25 @@
 <#-- @dumpAll / -->
 <!-- start section individual-intro -->
 <section id="individual-intro" class="vcard" role="region">
-    <#-- Image -->
-    <#assign individualImage>
-        <@p.image individual=individual 
-                  propertyGroups=propertyGroups 
-                  namespaces=namespaces 
-                  editable=editable 
-                  showPlaceholder="with_add_link" />
-    </#assign>
-    
-    <#if ( individualImage?contains('<img class="individual-photo"') )>
-        <#assign infoClass = 'class="withThumb"'/>
-    </#if>
-    
-    <div id="photo-wrapper">${individualImage}</div>
+    <section id="share-contact" role="region">
+        <#-- Image -->
+        <#assign individualImage>
+        <@p.image individual=individual
+                propertyGroups=propertyGroups
+                namespaces=namespaces
+                editable=editable
+                showPlaceholder="with_add_link" />
+        </#assign>
+
+        <#if ( individualImage?contains('<img class="individual-photo"') )>
+            <#assign infoClass = 'class="withThumb"'/>
+        </#if>
+
+        <div id="photo-wrapper">${individualImage}</div>
+        <#if individual.mostSpecificTypes?seq_contains("Academic Department")>
+            <#include "individual-dept-graduate-fields.ftl">
+        </#if>
+    </section>
     <!-- start section individual-info -->
     <section id="individual-info" ${infoClass!} role="region">
         <#include "individual-adminPanel.ftl">

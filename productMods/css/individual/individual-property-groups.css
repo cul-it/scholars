@@ -5,6 +5,9 @@ span#toggleContainer {
     padding:20px 8px 0 0;
     font-size: 0.85em;
 }
+section.property-group  { 
+    padding-top: 15px 
+}
 section.property-group h2 { 
     padding: 8px 10px 4px 12px; 
 }
@@ -17,7 +20,7 @@ section.property-group h2 {
 }
 section.property-group div {
     margin-top:15px;
-    display:none;
+/*    display:none; */
 }
 section.property-group h2 {
     font-size: 1.15em !important; 

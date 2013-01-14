@@ -261,6 +261,7 @@ span#quickViewLink img {
     margin-top:35px;
 }
 /* PROPERTY GROUP------>  */
+/*
 span#toggleContainer {
     float:right;
     padding:20px 8px 0 0;
@@ -270,8 +271,8 @@ span#toggleContainer {
    position: absolute; 
    width: 21px;
    height: 30px;
-   top: 8px; /* changed for redesign, was 0 */
-   right: 12px; /* changed for redesign, was -21px;*/
+   top: 8px; 
+   right: 12px; 
 }
 section.property-group h2 { 
     padding: 8px 10px 4px 12px; 
@@ -280,6 +281,18 @@ section.property-group div {
     margin-top:15px;
     display:none;
 }
+section.property-group h2 {
+    font-size: 1.15em !important; 
+    color: #5e6363 !important; 
+    font-weight: normal !important;
+    background: #fafaf9 !important; 
+}
+
+section.property-group h2.expandedPropGroupH2 {
+    background:#e4ecf3 !important;
+    color:#2485ae !important;  
+}
+*/
 a#manageLabels { /* added for redesign but will work with existing templates */
     margin-left:20px;
     font-size:0.7em;
@@ -304,15 +317,3 @@ ul#individual-personInPosition li:last-child {
 td#totalPubs { 
     color: #2485AE;
 }
-section.property-group h2 {
-    font-size: 1.15em !important; 
-    color: #5e6363 !important; 
-    font-weight: normal !important;
-    background: #fafaf9 !important; 
-}
-/* this class is referenced in java script; the important is needed to override the color in the previous selector */
-section.property-group h2.expandedPropGroupH2 {
-    background:#e4ecf3 !important;
-    color:#2485ae !important;  
-}
-

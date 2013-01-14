@@ -1746,3 +1746,13 @@ span.subclassExpandMinus {
     background:url(../../../images/vitro_minus_sign.gif) right center no-repeat;
     min-height:18px;
 }
+/* ------------------------------------------------->  */
+/* DEPARTMENT SPECIFIC PAGES  ---------------------->  */
+/* ------------------------------------------------->  */
+.deptDetailsList {
+    font-size: 0.9em;
+}
+.deptDetailsListItem {
+    line-height:18px;
+    margin-bottom:10px
+}

@@ -10,8 +10,19 @@
     ${classSpecificExtension!}
    
     <!--PREINDIVIDUAL OVERVIEW.FTL-->
+    <#if individual.mostSpecificTypes?seq_contains("Academic Department")>
+            <div id="activeGrantsLink" style="float:right;width:200px;<#if editable>margin-top:54px<#else>margin-top:30px</#if>">
+            <img src="${urls.base}/images/individual/arrow-green.gif">
+                <a href="${urls.base}/deptGrants?individualURI=${individual.uri}">
+                    View all active grants
+                </a>    
+            </div>
+    </#if>
     <#include "individual-webpage.ftl"> 
     <#include "individual-overview.ftl">
+    <#if individual.mostSpecificTypes?seq_contains("Academic Department")>
+        <#include "individual-dept-research-areas.ftl">
+    </#if>
         </section> <!-- end section #individual-info -->
     </section> <!-- end section #individual-intro -->
     <!--postindiviudal overview.ftl-->
@@ -20,6 +31,9 @@
 <#include "individual-vitro.ftl">
 <script>
     var individualLocalName = "${individual.localName}";
+    <#if individual.mostSpecificTypes?seq_contains("Academic Department")>
+        
+    </#if>
 </script>
 
 ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/individual/individual-vivo.css" />',

@@ -6,69 +6,31 @@ $(document).ready(function(){
     
     retrieveLocalStorage();
 
-    // expands/collapses the div within each property group
-    $.each($('section.property-group'), function() {
-        var groupName = $(this).attr("id");
-        var $pgSection = $(this);
+    // controls the property group tabs
+    $.each($('li.clickable'), function() {
+        var groupName = $(this).attr("groupName");
+        var $propertyGroupLi = $(this);
         
-        $(this).children("nav").children("img").click(function() {
-            if ( $("div[id='" + groupName + "Group']").is(":visible") ) {
-                $("div[id='" + groupName + "Group']").slideUp(222);
-                $(this).attr("src", $(this).attr("src").replace("collapse-prop-group","expand-prop-group"));
-                $("section#" + groupName).children("h2").removeClass("expandedPropGroupH2");
+        $(this).click(function() {
+            if ( $propertyGroupLi.attr("class") == "nonSelectedGroupTab clickable" ) {
+                $.each($('li.selectedGroupTab'), function() {
+                    $(this).removeClass("selectedGroupTab clickable");
+                    $(this).addClass("nonSelectedGroupTab clickable");
+                });
+                $propertyGroupLi.removeClass("nonSelectedGroupTab clickable");
+                $propertyGroupLi.addClass("selectedGroupTab clickable");
             }
-            else {
-                $("div[id='" + groupName + "Group']").slideDown(222);
-                $(this).attr("src", $(this).attr("src").replace("expand-prop-group","collapse-prop-group"));
-                $("section#" + groupName).children("h2").addClass("expandedPropGroupH2");
-            }
+            var $visibleSection = $('section.property-group:visible');
+            $visibleSection.hide();
+            $('section#' + groupName).show();
             manageLocalStorage();
-        });
-        $(this).children("h2").children("span").click(function() {
-            if ( $("div[id='" + groupName + "Group']").is(":visible") ) {
-                $("div[id='" + groupName + "Group']").slideUp(222);
-                $pgSection.children("nav").children("img").attr("src", $pgSection.children("nav").children("img").attr("src").replace("collapse-prop-group","expand-prop-group"));
-                $("section#" + groupName).children("h2").removeClass("expandedPropGroupH2");
-            }
-            else {
-                $("div[id='" + groupName + "Group']").slideDown(222);
-                $pgSection.children("nav").children("img").attr("src", $pgSection.children("nav").children("img").attr("src").replace("expand-prop-group","collapse-prop-group"));
-                $("section#" + groupName).children("h2").addClass("expandedPropGroupH2");
-            }
-            manageLocalStorage();
+            return false;
         });
     });
-
-
-    // expands/collapses all property groups together
-    $.each($('a#propertyGroupsToggle'), function() {
-        $('a#propertyGroupsToggle').click(function() {
-            var anchorHtml = $(this).html();
-            if ( anchorHtml.indexOf('expand') > -1 ) {
-                $.each($('section.property-group'), function() {
-                    $("div[id='" + $(this).attr("id") + "Group']").slideDown(222);
-                    var innerSrc = $(this).children("nav").children("img").attr("src");
-                    $(this).children("nav").children("img").attr("src",innerSrc.replace("expand-prop-group","collapse-prop-group"));
-                    $(this).children("h2").addClass("expandedPropGroupH2");
-                });
-                $(this).html("collapse all");
-            }
-            else {
-                $.each($('section.property-group'), function() {
-                    $("div[id='" + $(this).attr("id") + "Group']").slideUp(222);
-                    var innerSrc = $(this).children("nav").children("img").attr("src");
-                    $(this).children("nav").children("img").attr("src",innerSrc.replace("collapse-prop-group","expand-prop-group"));
-                    $(this).children("h2").removeClass("expandedPropGroupH2");
-                });
-                $(this).html("expand all");
-            }
-            manageLocalStorage();
-        });
-   }); 
    
-    //  Next two functions --  keep track of which property group tabs have been expanded,
+    //  Next two functions --  keep track of which property group tab was selected,
     //  so if we return from a custom form or a related individual, even via the back button,
-    //  the property groups will be expanded as before.
+    //  the same property group will be selected as before.
     function manageLocalStorage() {
         var localName = this.individualLocalName;
         // is this individual already stored? If not, how many have been stored?
@@ -93,13 +55,10 @@ $(document).ready(function(){
                 amplify.store("profiles", profiles)
             }
         }
-        var groups = [];
-        $.each($('section.property-group').children("nav").children("img"), function() {
-            if ( $(this).attr('src').indexOf('collapse-prop-group') > -1 ) {
-                groups.push($(this).attr('groupName'));
-            }
-        });
-        amplify.store(localName, groups);
+        var selectedTab = [];
+        selectedTab.push($('li.selectedGroupTab').attr('groupName'));
+
+        amplify.store(localName, selectedTab);
         var checkLength = amplify.store(localName);
         if ( checkLength.length == 0 ) {
             amplify.store(localName, null);
@@ -108,23 +67,30 @@ $(document).ready(function(){
 
     function retrieveLocalStorage() {
         var localName = this.individualLocalName;
-        var groups = amplify.store(individualLocalName);
-            if ( groups != undefined ) {
-                for ( i = 0; i < groups.length; i++) {
-                    var groupName = groups[i];
-                    // unlikely, but it's possible a group that was previously opened and stored won't be displayed
-                    // because the object properties would have been deleted. So ensure that the group in local
-                    // storage has been rendered on the page. More likely, a user navigated from a quick view to a full
-                    // profile, opened a group, then navigated back to the quick view where the group isn't rendered.
-                    if ($("section#" + groupName).length ) {
-                        $("div[id='" + groupName + "Group']").slideDown(1);
-                        $("img[groupName='" + groupName + "']").attr("src", $("img[groupName='" + groupName + "']").attr("src").replace("expand-prop-group","collapse-prop-group"));
-                        $("section#" + groupName).children("h2").addClass("expandedPropGroupH2");
-                    }
-                }
-                if ( groups.length == $('section.property-group').length ) {
-                    $('a#propertyGroupsToggle').html('collapse all');
+        var selectedTab = amplify.store(individualLocalName);
+        
+        if ( selectedTab != undefined ) {
+            var groupName = selectedTab[0];
+            
+            // unlikely, but it's possible a tab that was previously selected and stored won't be displayed
+            // because the object properties would have been deleted (in non-edit mode). So ensure that the tab in local
+            // storage has been rendered on the page.     
+            if ( $("ul.propertyTabsList li[groupName='" + groupName + "']").length ) {        
+                // if the selected tab is the default first one, don't do anything
+                if ( $('li.clickable').first().attr("groupName") != groupName ) {   
+                    // deselect the default first tab
+                    var $firstTab = $('li.clickable').first();
+                    $firstTab.removeClass("selectedGroupTab clickable");
+                    $firstTab.addClass("nonSelectedGroupTab clickable");
+                    // select the stored tab
+                    $("li[groupName='" + groupName + "']").removeClass("nonSelectedGroupTab clickable");
+                    $("li[groupName='" + groupName + "']").addClass("selectedGroupTab clickable");
+                    // hide the first tab section
+                    $('section.property-group:visible').hide();
+                    // show the selected tab section
+                    $('section#' + groupName).show();
                 }
             }
         }
+    }
 });
