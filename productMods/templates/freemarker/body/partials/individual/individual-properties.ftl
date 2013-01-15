@@ -1,48 +1,6 @@
 <#-- $This file is distributed under the terms of the license in /doc/license.txt$ -->
 
 <#-- Template for property listing on individual profile page -->
-<style>
-ul.propertyTabsList  {
-    margin-left: 4px;
-    margin-top: 24px
-}
-ul.propertyTabsList li {
-    font-size: 1.0em;
-}
-ul.propertyTabsList li:first-child {
-    width: 7px;
-}
-li.nonSelectedGroupTab {
-    float:left;
-    border: 1px solid #DFE6E5;
-    background-color:#E4ECF3;
-    padding: 6px 8px 6px 8px;
-    cursor:pointer;
-    border-top-right-radius: 4px;
-    -moz-border-radius-topright: 4px;
-    -webkit-border-top-right-radius: 4px;
-    border-top-left-radius: 4px;
-    -moz-border-radius-topleft: 4px;
-    -webkit-border-top-left-radius: 4px;
-}
-li.selectedGroupTab {
-    float:left;
-    border: 1px solid #DFE6E5;
-    border-bottom-color:#fff;
-    background-color:#FFF;
-    padding: 6px 8px 6px 8px;
-    border-top-right-radius: 4px;
-    -moz-border-radius-topright: 4px;
-    -webkit-border-top-right-radius: 4px;
-    border-top-left-radius: 4px;
-    -moz-border-radius-topleft: 4px;
-    -webkit-border-top-left-radius: 4px;
-}
-li.groupTabSpacer {
-    float:left;border-bottom: 1px solid #DFE6E5;background-color:#fff;width:3px;height:37px
-}
-
-</style>
 
 <#import "lib-properties.ftl" as p>
 <#assign subjectUri = individual.controlPanelUrl()?split("=") >
@@ -70,57 +28,12 @@ li.groupTabSpacer {
 </#list>
     <li  class="groupTabSpacer">&nbsp;</li>
 </ul>
-<script>
-    var width = 0;
-    $('ul.propertyTabsList li').each(function() {
-        width += $(this).outerWidth();
-    });
-
-    if ( width < 922 ) {
-        var diff = 926-width;
-        $('ul.propertyTabsList li:last-child').css('width', diff + 'px');
-    }
-    else {
-        var diff = width-926;
-        if ( diff < 26 ) {
-            $('ul.propertyTabsList li').css('font-size', "0.96em");
-        }
-        else if ( diff > 26 && diff < 50 ) {
-            $('ul.propertyTabsList li').css('font-size', "0.92em");
-        }
-        else if ( diff > 50 && diff < 80 ) {
-            $('ul.propertyTabsList li').css('font-size', "0.9em");
-        }
-        else if ( diff > 80 && diff < 130 ) {
-            $('ul.propertyTabsList li').css('font-size', "0.84em");
-        }
-        else if ( diff > 130 && diff < 175 ) {
-            $('ul.propertyTabsList li').css('font-size', "0.8em");
-        }
-        else if ( diff > 175 && diff < 260 ) {
-            $('ul.propertyTabsList li').css('font-size', "0.73em");
-        }
-        else {
-            $('ul.propertyTabsList li').css('font-size', "0.7em");
-        }
-
-        // get the new width
-        var newWidth = 0
-        $('ul.propertyTabsList li').each(function() {
-            newWidth += $(this).outerWidth();
-        });
-        var newDiff = 926-newWidth;
-        $('ul.propertyTabsList li:last-child').css('width', newDiff + 'px');
-
-    }
-
-</script>
 
 <#list propertyGroups.all as group>
     <#assign groupName = group.getName(nameForOtherGroup)>
     <#assign groupNameHtmlId = p.createPropertyGroupHtmlId(groupName) >
     <#assign verbose = (verbosePropertySwitch.currentValue)!false>
-<section id="${groupNameHtmlId}" class="property-group" role="region" style="border-top:none;<#if (sectionCount > 1) >display:none<#else>display:block</#if>">
+<section id="${groupNameHtmlId}" class="property-group" role="region" style="<#if (sectionCount > 1) >display:none<#else>display:block</#if>">
     <#-- List the properties in the group   -->
         <div id="${groupNameHtmlId}Group" >
         <#list group.properties as property>
@@ -163,11 +76,4 @@ li.groupTabSpacer {
 </section> <!-- end property-group -->
 <#assign sectionCount = 2 >
 </#list>
-<script>
-    $.each($('section.property-group'), function() {
-        var sectionHeight = $(this).height();
-        if ( sectionHeight < 1000 ) {
-            $(this).css('margin-bottom', 1000-sectionHeight + "px");
-        }
-    });
-</script>
+

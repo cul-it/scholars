@@ -3,8 +3,17 @@
 $(document).ready(function(){
         
     $.extend(this, individualLocalName);
-    
+    adjustFontSize();
     retrieveLocalStorage();
+    
+    // ensures that shorter property group sections don't cause the page to "jump around"
+    // when the tabs are clicked
+    $.each($('section.property-group'), function() {
+        var sectionHeight = $(this).height();
+        if ( sectionHeight < 1000 ) {
+            $(this).css('margin-bottom', 1000-sectionHeight + "px");
+        }
+    });
 
     // controls the property group tabs
     $.each($('li.clickable'), function() {
@@ -91,6 +100,50 @@ $(document).ready(function(){
                     $('section#' + groupName).show();
                 }
             }
+        }
+    }
+    
+    function adjustFontSize() {
+        var width = 0;
+        $('ul.propertyTabsList li').each(function() {
+            width += $(this).outerWidth();
+        });
+
+        if ( width < 922 ) {
+            var diff = 926-width;
+            $('ul.propertyTabsList li:last-child').css('width', diff + 'px');
+        }
+        else {
+            var diff = width-926;
+            if ( diff < 26 ) {
+                $('ul.propertyTabsList li').css('font-size', "0.96em");
+            }
+            else if ( diff > 26 && diff < 50 ) {
+                $('ul.propertyTabsList li').css('font-size', "0.92em");
+            }
+            else if ( diff > 50 && diff < 80 ) {
+                $('ul.propertyTabsList li').css('font-size', "0.9em");
+            }
+            else if ( diff > 80 && diff < 130 ) {
+                $('ul.propertyTabsList li').css('font-size', "0.84em");
+            }
+            else if ( diff > 130 && diff < 175 ) {
+                $('ul.propertyTabsList li').css('font-size', "0.8em");
+            }
+            else if ( diff > 175 && diff < 260 ) {
+                $('ul.propertyTabsList li').css('font-size', "0.73em");
+            }
+            else {
+                $('ul.propertyTabsList li').css('font-size', "0.7em");
+            }
+
+            // get the new width
+            var newWidth = 0
+            $('ul.propertyTabsList li').each(function() {
+                newWidth += $(this).outerWidth();
+            });
+            var newDiff = 926-newWidth;
+            $('ul.propertyTabsList li:last-child').css('width', newDiff + 'px');
         }
     }
 });
