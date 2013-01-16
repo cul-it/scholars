@@ -5,14 +5,16 @@
 <!-- ====================================================================== 
 	 Build script for the VIVO-Cornell product.
 	 
-	 The deploy.properties file contains both build properties and runtime 
-	 properties.
-	     
+	 The build.properties file contains build properties
+	 The runtime.properties file contains runtime properties.
+
 	 The required build properties are:
-	 	vitro.core.dir
+	 	vitroCore.dir
 	 	nihvivo.dir
-	    tomcat.home
 	    webapp.name
+	 A standard tomcat deploy also requires:
+	    vitro.home
+	    tomcat.home
 	     ====================================================================== -->
 <project name="vivoCornell" default="describe">
 
@@ -26,19 +28,19 @@
 	<!--
 		Load the properties from deploy.properties.
 	-->
-	<property name="deploy.properties.file" location="deploy.properties" />
-	<fail message="You must create a &quot;${deploy.properties.file}&quot; file.">
+	<property name="build.properties.file" location="build.properties" />
+	<fail message="You must create a &quot;${build.properties.file}&quot; file.">
 		<condition>
 			<not>
-				<available file="${deploy.properties.file}" />
+				<available file="${build.properties.file}" />
 			</not>
 		</condition>
 	</fail>
-	<property file="${deploy.properties.file}" />
+	<property file="${build.properties.file}" />
 	<fail unless="vitro.core.dir"
-	      message="${deploy.properties.file} must contain a value for vitro.core.dir" />
+	      message="${build.properties.file} must contain a value for vitro.core.dir" />
 	<fail unless="nihvivo.dir"
-	      message="${deploy.properties.file} must contain a value for nihvivo.dir" />
+	      message="${build.properties.file} must contain a value for nihvivo.dir" />
 
 	<!--
 		Base it all on the core build file. 
@@ -50,7 +52,7 @@
           
           Override the core version, so we can merge the three levels before building.                      
          - - - - - - - - - - - - - - - - - -->
-	<target name="prepare" depends="compileUtilities,product-prepare,vitroCore.prepare,deployWebImageCapture" />
+	<target name="prepare" depends="product-prepare,vitroCore.prepare,deployWebImageCapture" />
 
 	<!-- - - - - - - - - - - - - - - - - - 
           target: product-prepare
@@ -128,11 +130,11 @@
 	<target name="deployWebImageCapture"
         description="--> copy webImageCatpure script to vitro.home">
 		
-		<copy todir="${vitro.home.directory}/webImageCapture" includeemptydirs="true">
+		<copy todir="${vitro.home}/webImageCapture" includeemptydirs="true">
 			<fileset dir="webImageCapture"/>										
 		</copy>		
 		<chmod perm="ug+rx"
-			file="${vitro.home.directory}/webImageCapture/capture.py" />
+			file="${vitro.home}/webImageCapture/capture.py" />
 	
 				
 	</target>

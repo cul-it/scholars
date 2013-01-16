@@ -76,7 +76,7 @@ public class WebImageCaptureServlet extends VitroHttpServlet{
 		
 		ConfigurationProperties props = ConfigurationProperties.getBean(this);		
 		File workingDir = new File( 
-				props.getProperty("vitro.home.directory") + "/webImageCapture" );
+				props.getProperty("vitro.home") + "/webImageCapture" );
 		if( !workingDir.exists() ){
 			workingDir.mkdirs();
 		}
