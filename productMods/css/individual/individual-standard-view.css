@@ -242,6 +242,7 @@ span#qrCodeImage {
     background: #fff; /* changed for redesign, was #fff */
     text-align:middle; /* added for redesign */
     overflow:visible;
+    z-index:1000;
 }
 span#qrCodeImage img {
     padding: 1.7em 1.7em 0 1.7em; /* changed for redesign, was 1.7em 1.7 em 0 1.7 em */
@@ -260,39 +261,6 @@ span#quickViewLink {
 span#quickViewLink img {
     margin-top:35px;
 }
-/* PROPERTY GROUP------>  */
-/*
-span#toggleContainer {
-    float:right;
-    padding:20px 8px 0 0;
-    font-size: 0.85em;
-}
-.scroll-up {
-   position: absolute; 
-   width: 21px;
-   height: 30px;
-   top: 8px; 
-   right: 12px; 
-}
-section.property-group h2 { 
-    padding: 8px 10px 4px 12px; 
-}
-section.property-group div {
-    margin-top:15px;
-    display:none;
-}
-section.property-group h2 {
-    font-size: 1.15em !important; 
-    color: #5e6363 !important; 
-    font-weight: normal !important;
-    background: #fafaf9 !important; 
-}
-
-section.property-group h2.expandedPropGroupH2 {
-    background:#e4ecf3 !important;
-    color:#2485ae !important;  
-}
-*/
 a#manageLabels { /* added for redesign but will work with existing templates */
     margin-left:20px;
     font-size:0.7em;
