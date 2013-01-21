@@ -31,8 +31,16 @@
 <#include "individual-vitro.ftl">
 <script>
     var individualLocalName = "${individual.localName}";
-    <#if individual.mostSpecificTypes?seq_contains("Academic Department")>
-        
+    <#if individual.organization() >
+        <#-- 
+               Academic Departments have a "view active grants link" and the css is geared to this. For other orgs,
+               adjust the margins to get the correct layout.
+        -->
+        if (!$('div#activeGrantsLink').length > 0) {
+            $('ul.webpages-withThumbnails li:nth-child(2)').find('img.org-webThumbnail').css('margin-top', '49px');
+            $('ul.webpages-withThumbnails li:nth-child(2)').find('a.weblink-icon').css('margin-top', '109px');
+        }
+
     </#if>
 </script>
 
