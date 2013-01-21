@@ -83,7 +83,7 @@ h3.primary-email {
 div#profileTypeContainer {
     position:absolute;
     right:0;
-    top:140px;
+    top:135px;
 }
 div#profileTypeContainer select {
     float:none;
