@@ -169,6 +169,7 @@ div#profileTypeContainer {
 div#profileTypeContainer select {
     float:none;
     display:inline-block;
+    padding: .5em;
     background: none repeat scroll 0 0 #FFFFFF;
     border: 1px solid #E0DFDF;
     border-radius: 5px 5px 5px 5px;
