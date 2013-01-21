@@ -104,10 +104,10 @@ display:getGraduateFieldDataGetter
               """
               PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX vivo: <http://vivoweb.org/ontology/core#>
-SELECT DISTINCT (str (?prsnLabel) AS ?personLabel) ?person (Str(?researchAreaLabel) AS ?raLabel) ?deptLabel ?raURI
+SELECT DISTINCT (str (?prsnLabel) AS ?personLabel) ?person (Str(?researchAreaLabel) AS ?raLabel) (str(?departmentLabel) AS ?deptLabel) ?raURI
 WHERE {
         ?deptURI vivo:organizationForPosition ?posn .
-        ?deptURI rdfs:label ?deptLabel .
+        ?deptURI rdfs:label ?departmentLabel .
         ?posn  vivo:positionForPerson ?person .
         ?person rdfs:label ?prsnLabel .
         ?person vivo:hasResearchArea ?raURI .
@@ -137,10 +137,10 @@ ORDER BY ?personLabel
                 """PREFIX vivoc: <http://vivo.library.cornell.edu/ns/0.1#>
                    PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
                    PREFIX vivo: <http://vivoweb.org/ontology/core#>
-                   SELECT DISTINCT (str (?prsnLabel) AS ?personLabel) ?person (str(?gradFieldLabel) AS ?gfLabel) ?deptLabel ?gfURI
+                   SELECT DISTINCT (str (?prsnLabel) AS ?personLabel) ?person (str(?gradFieldLabel) AS ?gfLabel) (str(?departmentLabel) AS ?deptLabel) ?gfURI
                    WHERE {
                            ?deptURI vivo:organizationForPosition ?posn .
-                           ?deptURI rdfs:label ?deptLabel .
+                           ?deptURI rdfs:label ?departmentLabel .
                            ?posn  vivo:positionForPerson ?person .
                            ?person rdfs:label ?prsnLabel .
                            ?person vivoc:memberOfGraduateField ?gfURI .
