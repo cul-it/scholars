@@ -64,7 +64,7 @@
             </span>
             <#if editable >
                 <div id="profileTypeContainer">
-                    <h2>Profile type</h2>
+                    <h2>Page type</h2>
                     <select id="profilePageType">
                         <option value="standard" <#if profileType == "standard" || profileType == "none">selected</#if> >Standard profile view</option>
                         <option value="quickView" <#if profileType == "quickView">selected</#if> >Quick profile view</option>

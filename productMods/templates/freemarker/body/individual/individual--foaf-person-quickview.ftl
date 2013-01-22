@@ -81,7 +81,7 @@
     </span>
     <#if editable >
         <div id="profileTypeContainer" <#if editable>style="margin-top:22px"</#if>>
-            <h2>Profile type</h2>
+            <h2>Page type</h2>
             <select id="profilePageType">
                 <option value="standard" <#if profileType == "standard" || profileType == "none">selected</#if> >Standard profile view</option>
                 <option value="quickView" <#if profileType == "quickView">selected</#if> >Quick profile view</option>
@@ -123,17 +123,23 @@
         <!-- Geographic Focus -->
         <#assign geographicFocus = propertyGroups.pullProperty("${core}geographicFocus")!> 
         <#if geographicFocus?has_content> <#-- true when the property is in the list, even if not populated (when editing) -->
-            <h2 id="webpage" class="mainPropGroup">Geographic Focus <@p.addLink geographicFocus editable ""/></h2>
+            <h2 id="geoFocus" class="mainPropGroup">Geographic Focus <@p.addLink geographicFocus editable ""/></h2>
             <@p.verboseDisplay geographicFocus />
             <#assign localName = geographicFocus.localName>
 
-            <#assign subclasses = geographicFocus.subclasses>
-            <#list subclasses as subclass>
-                <#assign subclassName = subclass.name!>
+            <#if geographicFocus.subclasses?has_content >
+                <#assign subclasses = geographicFocus.subclasses>
+                <#list subclasses as subclass>
+                    <#assign subclassName = subclass.name!>
+                    <ul id="individual-${localName}" role="list">
+                        <@p.objectPropertyList geographicFocus editable subclass.statements geographicFocus.template/>
+                    </ul>
+                </#list>
+            <#else>
                 <ul id="individual-${localName}" role="list">
-                    <@p.objectPropertyList geographicFocus editable subclass.statements geographicFocus.template/>
+                    <@p.objectProperty geographicFocus editable />
                 </ul>
-            </#list>
+            </#if>
         </#if>   
 
         <#-- If the individual does not have webpages and we're in edit mode, provide the opportunity to add webpages -->
