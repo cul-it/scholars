@@ -44,13 +44,11 @@
     </#if>
 </script>
 
-${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/individual/individual-vivo.css" />',
-                  '<link rel="stylesheet" href="${urls.base}/css/individual/individual-property-groups.css" />')}
+${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/individual/individual-vivo.css" />')}
 
 ${headScripts.add('<script type="text/javascript" src="${urls.base}/js/jquery_plugins/jquery.truncator.js"></script>',
                   '<script type="text/javascript" src="${urls.base}/js/amplify/amplify.store.min.js"></script>',
                   '<script type="text/javascript" src="${urls.base}/js/json2.js"></script>')}
                   
-${scripts.add('<script type="text/javascript" src="${urls.base}/js/individual/individualUtils.js?vers=1.5.1"></script>',
-              '<script type="text/javascript" src="${urls.base}/js/individual/propertyGroupControls.js?vers=1.5.1"></script>')}
+${scripts.add('<script type="text/javascript" src="${urls.base}/js/individual/individualUtils.js?vers=1.5.1"></script>')}
 
