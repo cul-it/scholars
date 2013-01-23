@@ -26,6 +26,7 @@
             <li class="groupTabSpacer">&nbsp;</li>
         </#if>
 </#list>
+    <li  class="nonSelectedGroupTab clickable" groupName="viewAll">View All</li>
     <li  class="groupTabSpacer">&nbsp;</li>
 </ul>
 
@@ -34,6 +35,20 @@
     <#assign groupNameHtmlId = p.createPropertyGroupHtmlId(groupName) >
     <#assign verbose = (verbosePropertySwitch.currentValue)!false>
 <section id="${groupNameHtmlId}" class="property-group" role="region" style="<#if (sectionCount > 1) >display:none<#else>display:block</#if>">
+    <nav id="scroller" class="scroll-up hidden" role="navigation">
+        <a href="#branding" title="scroll up" >
+            <img src="${urls.images}/individual/scroll-up.gif" alt="scroll to property group menus" />
+        </a>
+    </nav>
+
+    <#-- Display the group heading --> 
+    <#if groupName?has_content>
+	    <#--the function replaces spaces in the name with underscores, also called for the property group menu-->
+	    <#assign groupNameHtmlId = p.createPropertyGroupHtmlId(groupName) >
+        <h2 id="${groupNameHtmlId}" pgroup="tabs" class="hidden">${groupName?capitalize}</h2>
+    <#else>
+        <h2 id="properties" pgroup="tabs" class="hidden">Properties</h2>
+    </#if>
     <#-- List the properties in the group   -->
         <div id="${groupNameHtmlId}Group" >
         <#list group.properties as property>

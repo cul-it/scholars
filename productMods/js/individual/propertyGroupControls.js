@@ -4,16 +4,19 @@ $(document).ready(function(){
         
     $.extend(this, individualLocalName);
     adjustFontSize();
+    padSectionBottoms();
     retrieveLocalStorage();
     
     // ensures that shorter property group sections don't cause the page to "jump around"
     // when the tabs are clicked
-    $.each($('section.property-group'), function() {
-        var sectionHeight = $(this).height();
-        if ( sectionHeight < 1000 ) {
-            $(this).css('margin-bottom', 1000-sectionHeight + "px");
-        }
-    });
+    function padSectionBottoms() {
+        $.each($('section.property-group'), function() {
+            var sectionHeight = $(this).height();
+            if ( sectionHeight < 1000 ) {
+                    $(this).css('margin-bottom', 1000-sectionHeight + "px");
+            }
+        });
+    }
 
     // controls the property group tabs
     $.each($('li.clickable'), function() {
@@ -21,6 +24,7 @@ $(document).ready(function(){
         var $propertyGroupLi = $(this);
         
         $(this).click(function() {
+            
             if ( $propertyGroupLi.attr("class") == "nonSelectedGroupTab clickable" ) {
                 $.each($('li.selectedGroupTab'), function() {
                     $(this).removeClass("selectedGroupTab clickable");
@@ -29,13 +33,31 @@ $(document).ready(function(){
                 $propertyGroupLi.removeClass("nonSelectedGroupTab clickable");
                 $propertyGroupLi.addClass("selectedGroupTab clickable");
             }
-            var $visibleSection = $('section.property-group:visible');
-            $visibleSection.hide();
-            $('section#' + groupName).show();
+            if ( $propertyGroupLi.text() == "View All" ) {
+                processViewAllTab();
+            }
+            else {
+                padSectionBottoms();
+                var $visibleSection = $('section.property-group:visible');
+                $visibleSection.hide();
+                $('h2[pgroup=tabs]').addClass("hidden");
+                $('nav#scroller').addClass("hidden"); 
+                $('section#' + groupName).show();
+            }
             manageLocalStorage();
             return false;
         });
     });
+    
+    function processViewAllTab() {
+        $.each($('section.property-group'), function() {
+            $(this).css("margin-bottom", "1px");
+            $(this).children('h2').css("margin-top", "-15px").css("border-bottom","1px solid #DFEBE5").css("padding","12px 25px 10px 20px");
+            $(this).show(); 
+            $('h2[pgroup=tabs]').removeClass("hidden");
+            $('nav#scroller').removeClass("hidden"); 
+        });        
+    }
    
     //  Next two functions --  keep track of which property group tab was selected,
     //  so if we return from a custom form or a related individual, even via the back button,
@@ -66,7 +88,6 @@ $(document).ready(function(){
         }
         var selectedTab = [];
         selectedTab.push($('li.selectedGroupTab').attr('groupName'));
-
         amplify.store(localName, selectedTab);
         var checkLength = amplify.store(localName);
         if ( checkLength.length == 0 ) {
@@ -80,11 +101,11 @@ $(document).ready(function(){
         
         if ( selectedTab != undefined ) {
             var groupName = selectedTab[0];
-            
+
             // unlikely, but it's possible a tab that was previously selected and stored won't be displayed
             // because the object properties would have been deleted (in non-edit mode). So ensure that the tab in local
             // storage has been rendered on the page.     
-            if ( $("ul.propertyTabsList li[groupName='" + groupName + "']").length ) {        
+            if ( $("ul.propertyTabsList li[groupName='" + groupName + "']").length ) { 
                 // if the selected tab is the default first one, don't do anything
                 if ( $('li.clickable').first().attr("groupName") != groupName ) {   
                     // deselect the default first tab
@@ -96,13 +117,19 @@ $(document).ready(function(){
                     $("li[groupName='" + groupName + "']").addClass("selectedGroupTab clickable");
                     // hide the first tab section
                     $('section.property-group:visible').hide();
+
+                    if ( groupName == "viewAll" ) {
+                        processViewAllTab();
+                    }
+
                     // show the selected tab section
                     $('section#' + groupName).show();
                 }
             }
         }
     }
-    
+    // if there are so many tabs that they wrap to a second line, adjust the font size to 
+    //prevent wrapping
     function adjustFontSize() {
         var width = 0;
         $('ul.propertyTabsList li').each(function() {
