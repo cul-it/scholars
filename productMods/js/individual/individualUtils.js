@@ -129,4 +129,21 @@ $(document).ready(function(){
     if ( $('ul#organizationForPositionList').children('li').length < 1 && $('h3#organizationForPosition').attr('class') != "hiddenPeople" ) {
         $('a#managePeopleLink').hide();
     }
+
+    // if the person being profiled has a cornell portrait, replace the default photo-wrapper link
+    // with one to the portrait. There is separate code for the quick view and the full view. 
+    $.each($('span.webpage-indicator-qv').next('a'), function() {
+        if ( $(this).attr('href').indexOf('cornell.edu/portraits') > 0 ) {
+            var portraitHref = $(this).attr('href');
+            $('div#photo-wrapper').children('a:first').attr('href',portraitHref);
+        }
+    });
+
+    $.each($('ul#individual-webpage li').children('a'), function() {
+        if ( $(this).attr('href').indexOf('cornell.edu/portraits') > 0 ) {
+            var portraitHref = $(this).attr('href');
+            $('div#photo-wrapper').children('a:first').attr('href',portraitHref);
+        }
+    });
+
 });
