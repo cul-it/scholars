@@ -26,8 +26,10 @@
             <li class="groupTabSpacer">&nbsp;</li>
         </#if>
 </#list>
+<#if (propertyGroups.all?size > 1) >
     <li  class="nonSelectedGroupTab clickable" groupName="viewAll">View All</li>
     <li  class="groupTabSpacer">&nbsp;</li>
+</#if>
 </ul>
 
 <#list propertyGroups.all as group>
