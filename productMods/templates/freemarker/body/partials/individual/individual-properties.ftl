@@ -94,7 +94,7 @@
 <#assign sectionCount = 2 >
 </#list>
 
-${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/individual/individual-property-groups.css" />')}
+${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/individual/individual-property-groups.css?vers=1.5.1" />')}
 ${headScripts.add('<script type="text/javascript" src="${urls.base}/js/amplify/amplify.store.min.js"></script>')}
 ${scripts.add('<script type="text/javascript" src="${urls.base}/js/individual/propertyGroupControls.js?vers=1.5.1tabs"></script>')}
 

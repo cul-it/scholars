@@ -44,7 +44,7 @@
     </#if>
 </script>
 
-${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/individual/individual-vivo.css" />')}
+${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/individual/individual-vivo.css?vers=1.5.1" />')}
 
 ${headScripts.add('<script type="text/javascript" src="${urls.base}/js/jquery_plugins/jquery.truncator.js"></script>',
                   '<script type="text/javascript" src="${urls.base}/js/amplify/amplify.store.min.js"></script>',
