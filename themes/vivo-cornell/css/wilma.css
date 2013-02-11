@@ -1335,6 +1335,11 @@ h2#mainImage, #share-contact h2 {
     color: #5E6363;
 }
 /* INDIVIDUAL INTRO - LEFT SIDE CONTENT ------>  */
+#individual-intro span.display-title {
+    font-size: .825em;
+    color: #5e6363;
+    border-left: 1px solid #A6B1B0;
+}
 img.individual-photo {
     border: 7px solid #ebebeb;
 /*    margin-bottom: 15px; tlw72 1.5 */ 
@@ -1562,11 +1567,17 @@ input[type="submit"] {
 .checkboxSpacer {
     margin-left:150px;
 }
+section.property-group h2 span,
+nav.scroll-up img  {
+    cursor:pointer;
+}
 /* EDITING DISPLAY------>  */
 .edit-individual {
     border-left: 1px dotted #B2D15A;
 }
-
+div#profileTypeContainer h2:after {
+    content:"Page Type";
+}
 /* ------------------------------------------------->  */
 /* SITE ADMIN DASHBOARD ---------------------------->  */
 /* ------------------------------------------------->  */
@@ -1663,39 +1674,33 @@ h2#preferredTitle .verbosePropertyListing {
 /* ------------------------------------------------->  */
 /* THUMBNAIL ORGANIZATIONS  ------------------------>  */
 /* ------------------------------------------------->  */
-ul#webpages-withThumbnails {
-    list-style-image: none;
-}
-ul#webpages-withThumbnails li {
-    list-style-type: none;
-    margin-right: 10px;
-    float: left;
-    background-color: #b1aa9d;
-}
-ul#webpages-withThumbnails li:first-child {
-    width: 402px;
-    margin-bottom: 20px;
-    padding-bottom: 10px;
-    margin-right: 20px;
-}
-ul#webpages-withThumbnails li:not(:first-child) {
-    width: 204px;
-    margin-bottom: 15px;
-    padding-bottom: 8px;
-}
-ul#webpages-withThumbnails li:first-child img.org-webThumbnail {
+ul.webpages-withThumbnails li:first-child img.org-webThumbnail {
+    float:left;
+/*    margin-right:120px; */
     width: 400px;
     height: 300px;
+    border: 3px solid #b1aa9d;
+}
+ul.webpages-withThumbnails li:first-child a.weblink-icon {
+    float:left;
+    margin-left:-232px;
+    margin-top:119px;
+}
+ul.webpages-withThumbnails li:not(:first-child) img.org-webThumbnail {
+    float:left;
+    margin-top: 15px;
+    margin-right: 4px;
+    width: 200px;
+    height: 150px;
     border: 1px solid #b1aa9d;
 }
-ul#webpages-withThumbnails li:not(:first-child) img.org-webThumbnail {
-    width: 202px;
-    height: 152px;
-    border: 1px solid #b1aa9d;
+ul.webpages-withThumbnails li:not(:first-child) a.weblink-icon {
+    float:left;
+    margin-left:-122px;
+    margin-top:74px;
 }
-ul#webpages-withThumbnails  li a.org-url {
-    color: #fff;
-    padding-left: 10px;
+div#activeGrantsLink {
+    margin-bottom: 0;
 }
 /* ------------------------------------------------->  */
 /* ASSOCIATE PROFILE ------------------------------->  */
@@ -1745,4 +1750,14 @@ span.subclassExpandMinus {
 .collapseArrow {
     background:url(../../../images/vitro_minus_sign.gif) right center no-repeat;
     min-height:18px;
+}
+/* ------------------------------------------------->  */
+/* DEPARTMENT SPECIFIC PAGES  ---------------------->  */
+/* ------------------------------------------------->  */
+.deptDetailsList {
+    font-size: 0.9em;
+}
+.deptDetailsListItem {
+    line-height:18px;
+    margin-bottom:10px
 }

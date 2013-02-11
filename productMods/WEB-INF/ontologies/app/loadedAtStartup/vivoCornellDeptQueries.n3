@@ -1,0 +1,65 @@
+# $This file is distributed under the terms of the license in /doc/license.txt$ 
+
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix display: <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix core: <http://vivoweb.org/ontology/core#> .
+@prefix vivoweb: <http://vivoweb.org/ontology#> .
+
+ 
+
+## additional queries for departmental pages ##
+
+<http://vivoweb.org/ontology/core#AcademicDepartment> display:hasDataGetter display:getGraduateFieldDataGetter .
+
+display:getGraduateFieldDataGetter
+    a <java:edu.cornell.mannlib.vitro.webapp.utils.dataGetter.SparqlQueryDataGetter>;
+    display:saveToVar "graduateFieldResults";
+    display:query """
+    PREFIX vivoc: <http://vivo.library.cornell.edu/ns/0.1#>
+    PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+    PREFIX vivo: <http://vivoweb.org/ontology/core#>
+    SELECT DISTINCT (str(?graduateFieldLabel) AS ?gfLabel) ?gf
+    WHERE {
+            ?individualURI vivo:organizationForPosition ?posn .
+            ?posn  vivo:positionForPerson ?person .
+            ?person vivoc:memberOfGraduateField ?gf .
+            ?gf rdfs:label ?graduateFieldLabel
+    }
+    ORDER BY ?gfLabel
+    """ .
+
+## detail pages for department links ##
+
+<http://vitro.mannlib.cornell.edu/ns/default#n1835>
+    a   <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#Page> ;
+        <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#hasDataGetter>
+                <http://vitro.mannlib.cornell.edu/ns/default#n5312> ;
+        <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#requiresBodyTemplate>
+                "individual-dept-grad-field-details.ftl" ;
+        <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#title>
+                "Departmental Grad Fields" ;
+        <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#urlMapping>
+                "/deptGradFields" .
+
+<http://vitro.mannlib.cornell.edu/ns/default#n5312>
+    a   <java:edu.cornell.mannlib.vitro.webapp.utils.dataGetter.SparqlQueryDataGetter> ;
+        <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#query>
+                """PREFIX vivoc: <http://vivo.library.cornell.edu/ns/0.1#>
+                   PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+                   PREFIX vivo: <http://vivoweb.org/ontology/core#>
+                   SELECT DISTINCT (str (?prsnLabel) AS ?personLabel) ?person (str(?gradFieldLabel) AS ?gfLabel) (str(?departmentLabel) AS ?deptLabel) ?gfURI
+                   WHERE {
+                           ?deptURI vivo:organizationForPosition ?posn .
+                           ?deptURI rdfs:label ?departmentLabel .
+                           ?posn  vivo:positionForPerson ?person .
+                           ?person rdfs:label ?prsnLabel .
+                           ?person vivoc:memberOfGraduateField ?gfURI .
+                           ?gfURI rdfs:label ?gradFieldLabel
+                   }
+                   ORDER BY ?personLabel
+                """ ;
+        <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#saveToVar>
+                "deptGradFields" .
+

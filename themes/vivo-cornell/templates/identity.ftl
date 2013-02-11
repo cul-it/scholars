@@ -21,7 +21,7 @@
                             <li id="user-menu"><a href="#">${user.loginName}</a>
                                 <ul class="sub_menu">
                                      <#if user.hasProfile>
-                                         <li role="listitem"><a href="${user.profileUrl}" title="my profile">My profile</a></li>
+                                         <li role="listitem"><a href="${user.profileUrl}" title="my VIVO page">My VIVO page</a></li>
                                      </#if>
                                      <#if urls.myAccount??>
                                          <li role="listitem"><a href="${urls.myAccount}" title="my account">My account</a></li>
