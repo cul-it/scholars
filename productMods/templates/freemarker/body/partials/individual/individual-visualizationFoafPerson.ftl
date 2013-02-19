@@ -57,7 +57,7 @@
             </#if>
             
             <script type="text/javascript">
-                var visualizationUrl = '${urls.base}/visualizationAjax?uri=${individual.uri?url}';
+                var visualizationUrl = '${urls.base}/visualizationAjax?uri=${individual.uri?url}&template=${visRequestingTemplate!}';
                 var infoIconSrc = '${urls.images}/iconInfo.png';
             </script>
             
