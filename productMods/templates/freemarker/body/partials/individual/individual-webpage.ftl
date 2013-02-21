@@ -26,6 +26,18 @@
             $('ul.webpages-withThumbnails li:nth-child(2)').find('img.org-webThumbnail').css('margin-top', '49px');
             $('ul.webpages-withThumbnails li:nth-child(2)').find('a.weblink-icon').css('margin-top', '109px');
         }    
+
+        // the webpage indicator span displays an "in progress" icon until
+        // the thumbnail gets loaded. Once loaded, show/hide relevant elements 
+        $.each($('span.webpage-indicator'), function() {
+            var identifier = $(this).attr('id');
+            identifier = identifier.replace('span-','');
+            $('img#img-' + identifier).load(function(){
+                $('span#span-' + identifier).hide();
+                $('div#' + identifier).fadeIn();
+            });
+        });
+
     </#if>
 </script>
     

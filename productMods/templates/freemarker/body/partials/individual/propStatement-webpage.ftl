@@ -56,11 +56,3 @@
         <a href="${profileUrl(statement.uri("link"))}">${statement.linkName}</a> (no url provided for link)
     </#if>
 </#macro>
-<#if individual?? && individual.organization()>
-<script>
-$('img#img-${identifier}').load(function(){
-    $('span#span-${identifier}').hide();
-    $('div#${identifier}').fadeIn();
-});
-</script>
-</#if>
