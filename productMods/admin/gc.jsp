@@ -7,7 +7,7 @@
 <%@page import="org.apache.commons.logging.LogFactory"%>
 <%@page import="org.apache.commons.logging.Log"%>
 
-<%@ taglib uri="http://java.sun.com/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%-- <%@ taglib prefix="vitro" uri="/WEB-INF/tlds/VitroUtils.tld" %> --%>
 
 <%-- <vitro:confirmLoginStatus level="DBA" /> --%>

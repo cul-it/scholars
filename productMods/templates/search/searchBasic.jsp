@@ -2,8 +2,8 @@
 <%@ page import="java.net.URLEncoder"%>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.beans.*" %>
 
-<%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %><%/* this odd thing points to something in web.xml */ %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jstl/functions" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %><%/* this odd thing points to something in web.xml */ %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page errorPage="/error.jsp"%>
 <%
 /***********************************************
