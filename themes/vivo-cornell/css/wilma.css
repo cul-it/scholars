@@ -637,6 +637,7 @@ ul#main-nav {
 body.home #wrapper-content {
     background: none;
 		position: relative;
+		/*margin-top: 0;*/
 }
 #wrapper-content {
     clear: both;
@@ -645,6 +646,7 @@ body.home #wrapper-content {
     background: #fff;
     min-height: 430px;
     padding: 20px;
+		/*margin-top: 2em;*/
 }
 /* INTRO-BLURB ------>  */
 #intro {
@@ -1017,7 +1019,7 @@ a.view-all-style {
 }
 
 /* FOOTER------>  */
-body.home footer {
+/*body.home footer {
     clear: both;
     width: 100%;
     height: 100px;
@@ -1031,6 +1033,13 @@ body footer {
     height: 88px;
     background-color: #fff;
     padding-top: 1em;
+}*/
+body footer {
+    clear: both;
+    width: 100%;
+    height: 100px;
+    background-color: #fff;
+    margin-top: 3em;
 }
 footer .wrapper {
     clear: both;
