@@ -23,7 +23,7 @@ $(document).ready(function(){
             var rowStart = Math.floor((Math.random()*facultyMemberCount)+1)-1;
             var diff;
             var pageSize = 4; // the number of faculty to display on the home page
-
+            var retryCount = 0;
             // in case the random number is equal to or within 3 of the facultyMemberCount 
             if ( (rowStart + (pageSize-1)) > facultyMemberCount ) {
                 diff = (rowStart + (pageSize-1)) - facultyMemberCount;
@@ -40,12 +40,19 @@ $(document).ready(function(){
             url += "&page=" + rowStart + "&pageSize=" + pageSize;
 
             $.getJSON(url, function(results) {
-            
+
                 if ( results == null || results.individuals.length == 0 ) {
-                    individualList = "<p><li>No faculty members found.</li></p>";
-                    $('div#tempSpacing').hide();
-                    $('div#research-faculty-mbrs ul#facultyThumbs').append(individualList);
-                } 
+                    if ( retryCount < 3 ) {
+                        retryCount = retryCount + 1;
+                        getFacultyMembers();
+                    }
+                    else {
+                        individualList = "<p><li>No faculty members found.</li></p>";
+                        $('div#tempSpacing').hide();
+                        $('div#research-faculty-mbrs ul#facultyThumbs').append(individualList);
+                        $('div#research-faculty-mbrs ul#facultyThumbs').css("padding", "1.0em 0 0.825em 0.75em");
+                    }
+                }
                 else {
                     var vclassName = results.vclass.name;
                     $.each(results.individuals, function(i, item) {
