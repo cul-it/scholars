@@ -48,6 +48,6 @@ var urlsBase = "${urls.base}";
         </div>
         <div id="mapGlobal" class="mapArea"></div>
         <div id="mapUS" class="mapArea"></div>
-        <div id="mapState" class="mapArea"></div>
+        <div id="mapNY" class="mapArea"></div>
     </section>
 </#macro>
