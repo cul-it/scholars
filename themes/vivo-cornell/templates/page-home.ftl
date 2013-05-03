@@ -1,71 +1,90 @@
-<#-- $This file is distributed under the terms of the license in /doc/license.txt$ -->
+<#-- $This file is distributed under the terms of the license in /doc/license.txt$  -->
 
 <@widget name="login" include="assets" />
-<#include "browse-classgroups.ftl">
+
+<#-- 
+        With release 1.6, the home page no longer uses the "browse by" class group/classes display. 
+        If you prefer to use the "browse by" display, replace the import statement below with the
+        following include statement:
+        
+            <#include "browse-classgroups.ftl">
+            
+        Also ensure that the homePage.geoFocusMaps flag in the runtime.properties file is commented
+        out.
+-->
+<#import "lib-home-page.ftl" as lh>
+<#import "lib-vivocornell-home-page.ftl" as lvh>
 
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <#include "head.ftl">
+        <#if geoFocusMapsEnabled >
+            <#include "geoFocusMapScripts.ftl">
+        </#if>
+        <script type="text/javascript" src="${urls.base}/js/homePageUtils.js?version=x"></script>
     </head>
     
     <body class="${bodyClasses!}" onload="${bodyOnload!}">
+    <#-- supplies the faculty count to the js function that generates a random row number for the solr query -->
+        <@lh.facultyMemberCount  vClassGroups! />
         <#include "identity.ftl">
-      
+
         <#include "menu.ftl">
+
+        <section id="intro" role="region">
+        <h2>Welcome to VIVO</h2>
         
-           
-            
-            <section id="intro" role="region">
-                <h2>Welcome to VIVO</h2>
-
-                <p>VIVO is a research-focused discovery tool that enables collaboration among scientists across all disciplines.</p>
-                <p>Browse or search information on people, departments, courses, grants, and publications.</p>
-
-                <section id="search-home" role="region">
-                    <h3>Search VIVO <span class="search-filter-selected">filteredSearch</span></h3>
-
-                    <fieldset>
-                        <legend>Search form</legend>
-                        <form id="search-homepage" action="${urls.search}" name="search-home" role="search" method="post" > 
-                            <div id="search-home-field">
-                                <input type="text" name="querytext" class="search-homepage" value="${querytext!}" autocapitalize="off" />
-                                <input type="submit" value="Search" class="search" />
-                            </div>
-
-                            <a class="filter-search filter-default" href="#" title="Filter search"><span class="displace">filter search</span></a>
-
-                            <ul id="filter-search-nav">
-                                <li><a class="active" href="">All</a></li>
-                                <li><a href="">People</a></li>
-                                <li><a href="">Organizations</a></li>
-                                <li><a href="">Research</a></li>
-                                <li><a href="">Events</a></li>
-                                <li><a href="">Topics</a></li>
-                            </ul>
-                        </form>
-                    </fieldset>
-                </section> <!-- #search-home -->
-
-            </section> <!-- #intro -->
-            
-            <@widget name="login" />
-            
-            <#--<@allClassGroups vClassGroups />-->
+        <p>VIVO is a research-focused discovery tool that enables collaboration among researchers across all disciplines.</p>
+        <p>Browse or search information on people, departments, courses, grants, and publications.</p>
+        
+        <section id="search-home" role="region">
+            <h3>Search VIVO</h3>
+        
+                <fieldset>
+                    <legend>Search form</legend>
+                    <form id="search-homepage" action="${urls.search}" name="search-home" role="search" method="post" > 
+                        <div id="search-home-field">
+                            <input type="text" name="querytext" class="search-homepage" value="" autocapitalize="off" />
+                            <input type="submit" value="Search" class="search" />
+                            <input type="hidden" name="classgroup" class="search-homepage" value="" autocapitalize="off" />
+                        </div>
                 
-            <section id="home-stats">
-                <h4>Stats</h4>
+                        <a class="filter-search filter-default" href="#" title="filter search">
+                            <span class="displace">filter search</span>
+                        </a>
                 
-                <ul id="stats">
-                    <li><a href="#"><p class="stats-count">19<span>k</span></p><p class="stats-type">People</p></a></li>
-                    <li><a href="#"><p class="stats-count">128<span>k</span></p><p class="stats-type">Research</p></a></li>
-                    <li><a href="#"><p class="stats-count">22<span>k</span></p><p class="stats-type">Organizations</p></a></li>
-                    <li><a href="#"><p class="stats-count">29<span>k</span></p><p class="stats-type">Events</p></a></li>
-                    <li><a href="#"><p class="stats-count">1.9<span>k</span></p><p class="stats-type">Topics</p></a></li>
-                    <li><a href="#"><p class="stats-count">6.5<span>k</span></p><p class="stats-type">Activities</p></a></li>
-                </ul>
-            </section>
+                        <ul id="filter-search-nav">
+                            <li><a class="active" href="">All</a></li>
+                            <@lh.allClassGroupNames vClassGroups! />  
+                        </ul>
+                    </form>
+                </fieldset>
+            </section> <!-- #search-home -->
+        
+        </section> <!-- #intro -->
+        
+        <@widget name="login" />
+        
+        <!-- List of research classes: e.g., articles, books, collections, conference papers -->
+        <@lh.researchClasses />
+                
+        <!-- List of four randomly selected faculty members -->
+        <@lh.facultyMbrHtml />
+
+        <!-- List of randomly selected academic departments -->
+        <@lvh.researchFacsHtml />
+
+        <#if geoFocusMapsEnabled >
+            <!-- Map display of researchers' areas of geographic focus. Must be enabled in runtime.properties -->
+            <@lvh.geographicFocusHtml />
+        </#if>
+        
+        <!-- Statistical information relating to property groups and their classes; displayed horizontally, not vertically-->
+        <@lh.allClassGroups vClassGroups! />
+
         <#include "footer.ftl">
+        <#-- builds a json object that is used by js to render the academic departments section -->
+        <@lvh.listResearchFacilities />
     </body>
-
 </html>
