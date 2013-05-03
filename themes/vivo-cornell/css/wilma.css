@@ -1037,7 +1037,7 @@ a.view-all-style {
 }
 #home-research li:last-child {
 	text-align:right;
-	padding: 4px 16px 0 0;
+	padding: 0 16px 0 0;
 }
 #home-research li span {
 	color: #fff;
