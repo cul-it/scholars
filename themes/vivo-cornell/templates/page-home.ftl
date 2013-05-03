@@ -39,7 +39,7 @@
         <p>Browse or search information on people, departments, courses, grants, and publications.</p>
         
         <section id="search-home" role="region">
-            <h3>Search VIVO</h3>
+            <h3>Search VIVO <span class="search-filter-selected">filteredSearch</span></h3>
         
                 <fieldset>
                     <legend>Search form</legend>
