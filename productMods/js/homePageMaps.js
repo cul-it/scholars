@@ -249,6 +249,8 @@ $(document).ready(function(){
         
         if ( !nyMapBuilt ) {
             
+            // CHANGE THE setView COORDINATES SO THAT THE STATE YOU WANT TO DISPLAY IS CENTERED CORRECTLY.
+            // THE COORDINATES BELOW ARE FOR NEW YORK.
             var mapNY = L.map('mapNY').setView([42.83, -75.50], 7);
                 L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Shaded_Relief/MapServer/tile\/{z}\/{y}\/{x}.png', {
         		maxZoom: 12,
@@ -308,16 +310,27 @@ $(document).ready(function(){
                 action: "getGeoFocusLocations",
             },
             complete: function(xhr, status) {
-                var results = $.parseJSON(xhr.responseText);
                 
-                $.each(results, function() {
-                    var locale = this.properties.popupContent;
-                    this.geometry.coordinates = getLatLong(locale);
-                    this.properties.mapType = getMapType(locale);
-                    researchAreas["features"].push(this);
-                });
-                buildGlobalMap();
-                $('div#timeIndicator').hide();
+                var results = $.parseJSON(xhr.responseText);
+                if ( results.length == 0 ) {
+                    var html = "There are currently no researchers with a defined geographic focus.";
+                    $('section#home-geo-focus div#timeIndicator span').html(html);
+                    $('section#home-geo-focus').css("height","175px");
+                    $('section#home-geo-focus div#timeIndicator').css("margin-top","50px");
+                    $('section#home-geo-focus div#mapGlobal').hide();
+                    $('section#home-geo-focus div#mapUS').hide();
+                    $('section#home-geo-focus div#mapNY').hide();
+                }
+                else {
+                    $.each(results, function() {
+                        var locale = this.properties.popupContent;
+                        this.geometry.coordinates = getLatLong(locale);
+                        this.properties.mapType = getMapType(locale);
+                        researchAreas["features"].push(this);
+                    });
+                    buildGlobalMap();
+                    $('div#timeIndicator').hide();
+                }
             }
        });        
     }
@@ -343,6 +356,10 @@ $(document).ready(function(){
                 areaCount = areaCount + 1; 
             }
         });
+
+        if ( areaCount == 1 && text == " states.") {
+            text = " state.";
+        }
 
         $('div#researcherTotal').html("<font style='font-size:1.05em;color:#167093'>" 
                                         + researcherCount.toString().replace(/(\d+)(\d{3})/, '$1'+','+'$2') 
