@@ -41,7 +41,7 @@ var urlsBase = "${urls.base}";
                 <a id="nyLink" href="javascript:">New York Research</a>  
             </div>  
         <div id="researcherTotal"></div>
-        <div id="timeIndicator">
+        <div id="timeIndicatorGeo">
             <span>Loading map information . . .&nbsp;&nbsp;&nbsp;
                 <img  src="${urls.images}/indicatorWhite.gif">
             </span>
