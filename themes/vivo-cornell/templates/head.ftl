@@ -22,8 +22,6 @@
 
 <#include "headScripts.ftl">
 
-${scripts.add('<script type="text/javascript" src="${urls.base}/${themeDir}/js/homeUtils.js"></script>')}
-
 <!--[if lt IE 7]>
 <link rel="stylesheet" href="${urls.theme}/css/ie6.css" />
 <![endif]-->

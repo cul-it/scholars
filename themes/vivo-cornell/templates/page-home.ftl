@@ -22,7 +22,7 @@
         <#if geoFocusMapsEnabled >
             <#include "geoFocusMapScripts.ftl">
         </#if>
-        <script type="text/javascript" src="${urls.base}/js/homePageUtils.js?version=x"></script>
+        <#include "homeScripts.ftl">
     </head>
     
     <body class="${bodyClasses!}" onload="${bodyOnload!}">
