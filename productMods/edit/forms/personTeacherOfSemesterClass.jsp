@@ -254,7 +254,7 @@ public static Log log = LogFactory.getLog("edu.cornell.mannlib.vitro.webapp.jsp.
     }
 
     String objectUri = (String)request.getAttribute("objectUri");
-    Model model = ModelAccess.on(application).getJenaOntModel();
+    Model model = ModelAccess.on(getServletContext()).getJenaOntModel();
     if( objectUri != null ){            
         editConfig.prepareForObjPropUpdate( model);
     }else{

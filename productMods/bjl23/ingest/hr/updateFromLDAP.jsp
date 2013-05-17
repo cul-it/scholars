@@ -531,7 +531,7 @@ private String ldapResult2String(LDAPSearchResults res, String orgName,String ld
 
 // do an HR ingest from Cornell's LDAP data
 
-OntModel m = ModelAccess.on(application).getBaseOntModel();
+OntModel m = ModelAccess.on(getServletContext()).getBaseOntModel();
 WebappDaoFactory wadf = (WebappDaoFactory) getServletContext().getAttribute("webappDaoFactory");
 
 Model retractions = ModelFactory.createDefaultModel();

@@ -148,7 +148,7 @@
     modelMaker = new VitroJenaModelMaker(modelMaker, request);
 	Model storeModel = modelMaker.getModel(storeGraphURI);
     
-    OntModel jenaOntModel = ModelAccess.on(application).getBaseOntModel();
+    OntModel jenaOntModel = ModelAccess.on(getServletContext()).getBaseOntModel();
    
    	OntModel ontModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
    	ontModel.addSubModel(jenaOntModel);

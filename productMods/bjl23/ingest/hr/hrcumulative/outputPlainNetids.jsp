@@ -43,7 +43,7 @@
 
 <%
 
-   	OntModel jenaOntModel = ModelAccess.on(application).getBaseOntModel();
+   	OntModel jenaOntModel = ModelAccess.on(getServletContext()).getBaseOntModel();
    
     Model netIdModel = ModelFactory.createDefaultModel();
 	normalizeNetIds(jenaOntModel, netIdModel);

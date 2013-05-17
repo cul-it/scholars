@@ -176,7 +176,7 @@
         EditConfiguration editConfig = new EditConfiguration((String)session.getAttribute("editjson"));
         EditConfiguration.putConfigInSession(editConfig, session);
             
-    	Model model = ModelAccess.on(application).getJenaOntModel();
+    	Model model = ModelAccess.on(getServletContext()).getJenaOntModel();
         if( objectUri != null ){            
             editConfig.prepareForObjPropUpdate( model);
         }else{

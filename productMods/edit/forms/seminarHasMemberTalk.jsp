@@ -189,7 +189,7 @@
     }
 
     String objectUri = (String)request.getAttribute("objectUri");
-    OntModel model = ModelAccess.on(application).getJenaOntModel();
+    OntModel model = ModelAccess.on(getServletContext()).getJenaOntModel();
     if( objectUri != null ){            
         editConfig.prepareForObjPropUpdate( model);
     }else{

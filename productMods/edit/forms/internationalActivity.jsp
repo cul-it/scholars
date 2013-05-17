@@ -230,7 +230,7 @@
         EditConfiguration.putConfigInSession(editConfig, session);
     }
 
-    Model model = ModelAccess.on(application).getJenaOntModel();
+    Model model = ModelAccess.on(getServletContext()).getJenaOntModel();
     String objectUri = (String)request.getAttribute("objectUri");    
     if( objectUri != null ){        
         editConfig.prepareForObjPropUpdate(model);            

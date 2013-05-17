@@ -24,7 +24,7 @@
     items : [
 <%
     //get people and to JSON as items
-    Model model = ModelAccess.on(application).getJenaOntModel();
+    Model model = ModelAccess.on(getServletContext()).getJenaOntModel();
     if( model == null ) throw new Exception("could not get model from application scope");
 
     HashMap <String,JSONObject> items = new HashMap<String,JSONObject>();
