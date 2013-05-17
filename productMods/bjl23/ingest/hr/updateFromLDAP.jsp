@@ -4,6 +4,7 @@
 <%@page import="edu.cornell.mannlib.vitro.webapp.dao.InsertException"%>
 <%@page import="edu.cornell.mannlib.vitro.webapp.dao.jena.WebappDaoFactoryJena"%>
 <%@page import="edu.cornell.mannlib.vitro.webapp.dao.WebappDaoFactory"%>
+<%@page import="edu.cornell.mannlib.vitro.webapp.dao.ModelAccess"%>
 <%@page import="java.util.HashSet"%>
 <%@page import="java.util.Set"%>
 <%@page import="com.hp.hpl.jena.vocabulary.RDF"%>
@@ -530,7 +531,7 @@ private String ldapResult2String(LDAPSearchResults res, String orgName,String ld
 
 // do an HR ingest from Cornell's LDAP data
 
-OntModel m = (OntModel) getServletContext().getAttribute("baseOntModel");
+OntModel m = ModelAccess.on(application).getBaseOntModel();
 WebappDaoFactory wadf = (WebappDaoFactory) getServletContext().getAttribute("webappDaoFactory");
 
 Model retractions = ModelFactory.createDefaultModel();

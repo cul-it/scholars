@@ -6,6 +6,7 @@
 <%@page import="com.hp.hpl.jena.query.QueryFactory"%>
 <%@page import="com.hp.hpl.jena.query.Query"%>
 <%@page import="edu.cornell.mannlib.vitro.webapp.dao.jena.VitroJenaModelMaker"%>
+<%@page import="edu.cornell.mannlib.vitro.webapp.dao.ModelAccess"%>
 <%@page import="com.hp.hpl.jena.ontology.OntModelSpec"%>
 <%@page import="com.hp.hpl.jena.rdf.model.ModelFactory"%>
 <%@page import="com.hp.hpl.jena.ontology.OntModel"%>
@@ -147,7 +148,7 @@
     modelMaker = new VitroJenaModelMaker(modelMaker, request);
 	Model storeModel = modelMaker.getModel(storeGraphURI);
     
-	OntModel jenaOntModel = (OntModel) getServletContext().getAttribute("baseOntModel");
+    OntModel jenaOntModel = ModelAccess.on(application).getBaseOntModel();
    
    	OntModel ontModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
    	ontModel.addSubModel(jenaOntModel);
