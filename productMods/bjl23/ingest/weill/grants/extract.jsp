@@ -17,6 +17,7 @@
 <%@page import="com.hp.hpl.jena.vocabulary.OWL"%>
 <%@page import="edu.cornell.mannlib.vitro.webapp.utils.jena.DedupAndExtract"%>
 <%@page import="edu.cornell.mannlib.vitro.webapp.dao.jena.JenaModelUtils"%>
+<%@page import="edu.cornell.mannlib.vitro.webapp.dao.ModelAccess"%>
 <%@page import="com.hp.hpl.jena.rdf.model.Model"%>
 
 <%!
@@ -102,7 +103,7 @@
 
 <%
 
-    OntModel model = (OntModel) getServletContext().getAttribute("jenaOntModel");
+    OntModel model = ModelAccess.on(getServletContext()).getJenaOntModel();
 
     Model abox = (new JenaModelUtils()).extractABox(model);
     System.out.println(abox.size());

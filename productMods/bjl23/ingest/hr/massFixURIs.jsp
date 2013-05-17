@@ -17,8 +17,9 @@
 <%@page import="com.hp.hpl.jena.query.QueryFactory"%>
 <%@page import="com.hp.hpl.jena.query.Query"%>
 <%@page import="com.hp.hpl.jena.rdf.model.Model"%><%
+<%@page import="edu.cornell.mannlib.vitro.webapp.dao.ModelAccess"%>
 
-OntModel jenaOntModel = (OntModel) getServletContext().getAttribute("jenaOntModel");
+OntModel jenaOntModel = ModelAccess.on(getServletContext()).getJenaOntModel();
 OntModel baseOntModel = (OntModel) getServletContext().getAttribute("baseOntModel");
 
 Model retractionsModel = ModelFactory.createDefaultModel();

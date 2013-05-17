@@ -18,6 +18,7 @@
 <%@page import="com.hp.hpl.jena.rdf.model.RDFNode"%>
 <%@page import="com.hp.hpl.jena.rdf.model.Property"%>
 <%@page import="com.hp.hpl.jena.ontology.OntModel"%>
+<%@page import="edu.cornell.mannlib.vitro.webapp.dao.ModelAccess"%>
 
 <%!
     private String[] tokenizeLabel(Individual ind) {
@@ -43,7 +44,7 @@
 
 <%
 
-    OntModel m = (OntModel) getServletContext().getAttribute("jenaOntModel");
+    OntModel jenaOntModel = ModelAccess.on(getServletContext()).getJenaOntModel();
     OntModel retractionsModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
     OntModel additionsModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
 

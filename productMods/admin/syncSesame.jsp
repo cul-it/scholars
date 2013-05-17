@@ -7,9 +7,10 @@
 <%@page import="edu.cornell.mannlib.vitro.webapp.dao.jena.JenaModelUtils"%>
 <%@page import="com.hp.hpl.jena.rdf.model.Model"%>
 <%@page import="edu.cornell.mannlib.vitro.webapp.dao.jena.JenaBaseDao"%>
+<%@page import="edu.cornell.mannlib.vitro.webapp.dao.ModelAccess"%>
 <%@page import="java.io.InputStream"%>
 <%@page import="java.util.Properties"%>
-<%@ page import="edu.cornell.mannlib.vitro.webapp.controller.Controllers" %>
+<%@page import="edu.cornell.mannlib.vitro.webapp.controller.Controllers" %>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
@@ -54,7 +55,7 @@
     }
     String contextId = sesameProperties.getProperty(SESAME_CONTEXT);
     
-    Model fullModel = (Model) getServletContext().getAttribute(JenaBaseDao.JENA_ONT_MODEL_ATTRIBUTE_NAME);
+    Model fullModel = ModelAccess.on(getServletContext()).getJenaOntModel();
     // Copy the model to avoid locking the main model during sync.  Assumes enough memory.
     Model copyModel = ModelFactory.createDefaultModel();
     fullModel.enterCriticalSection(Lock.READ);

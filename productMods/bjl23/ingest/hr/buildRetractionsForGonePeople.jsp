@@ -7,6 +7,7 @@
 <%@page import="com.hp.hpl.jena.rdf.model.Resource"%>
 <%@page import="com.hp.hpl.jena.rdf.model.ResourceFactory"%>
 <%@page import="com.hp.hpl.jena.rdf.model.Property"%>
+<%@page import="edu.cornell.mannlib.vitro.webapp.dao.ModelAccess"%>
 <%@page import="java.io.BufferedReader"%>
 <%@page import="java.io.FileReader"%>
 <%@page import="com.hp.hpl.jena.rdf.model.Model"%>
@@ -21,7 +22,7 @@
    
    BufferedReader fileReader = new BufferedReader(new FileReader(inFile));
 
-   Model jenaOntModel = (Model) getServletContext().getAttribute("jenaOntModel");
+   Model jenaOntModel = ModelAccess.on(getServletContext()).getJenaOntModel();
    Model retractionsModel = ModelFactory.createDefaultModel();
    
    String line = null;

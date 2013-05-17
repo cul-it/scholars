@@ -16,6 +16,7 @@
 <%@page import="com.hp.hpl.jena.rdf.model.RDFNode"%>
 <%@page import="com.hp.hpl.jena.rdf.model.Property"%>
 <%@page import="com.hp.hpl.jena.ontology.OntModel"%>
+<%@page import="edu.cornell.mannlib.vitro.webapp.dao.ModelAccess"%>
 
 <%!
     private String[] tokenizeLabel(Individual ind) {
@@ -34,7 +35,7 @@
 
 <%
 
-	OntModel m = (OntModel) getServletContext().getAttribute("jenaOntModel");
+    OntModel m = ModelAccess.on(getServletContext()).getJenaOntModel();
 
 	Property WcmcPerson = m.getProperty("http://vitro.mannlib.cornell.edu/ns/wcmc/people/Person");
 	Property cwid = m.getProperty("http://vitro.mannlib.cornell.edu/ns/wcmc/people/person_CWID");

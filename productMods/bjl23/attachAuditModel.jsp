@@ -1,9 +1,10 @@
 <%@ page import="com.hp.hpl.jena.ontology.OntModel" %>
+<%@ page import="edu.cornell.mannlib.vitro.webapp.dao.ModelAccess"%>
 
 <%
 
 	OntModel auditModel = (OntModel) getServletContext().getAttribute("jenaAuditModel");
-	OntModel ontModel = (OntModel) getServletContext().getAttribute("jenaOntModel");
+    OntModel ontModel = ModelAccess.on(getServletContext()).getJenaOntModel();
 	ontModel.addSubModel(auditModel);
 
 %>

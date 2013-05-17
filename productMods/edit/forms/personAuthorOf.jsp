@@ -6,6 +6,7 @@
 <%@ page import="edu.cornell.mannlib.vitro.webapp.edit.n3editing.EditSubmission" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.edit.n3editing.SparqlEvaluate" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.web.MiscWebUtils" %>
+<%@ page import="edu.cornell.mannlib.vitro.webapp.dao.ModelAccess"%>
 <%@ page import="java.util.Map" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="v" uri="http://vitro.mannlib.cornell.edu/vitro/tags" %>
@@ -175,7 +176,7 @@
         EditConfiguration editConfig = new EditConfiguration((String)session.getAttribute("editjson"));
         EditConfiguration.putConfigInSession(editConfig, session);
             
-        Model model =  (Model)application.getAttribute("jenaOntModel");
+    	Model model = ModelAccess.on(application).getJenaOntModel();
         if( objectUri != null ){            
             editConfig.prepareForObjPropUpdate( model);
         }else{

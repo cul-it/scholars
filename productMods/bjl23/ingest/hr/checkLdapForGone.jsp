@@ -18,6 +18,7 @@
 <%@page import="com.novell.ldap.LDAPConnection"%>
 <%@page import="com.novell.ldap.LDAPException"%>
 <%@page import="com.novell.ldap.LDAPSearchResults"%>
+<%@page import="edu.cornell.mannlib.vitro.webapp.dao.ModelAccess"%>
 <%
     // code copied from CheckFacultyInLdap.java
 %>
@@ -171,7 +172,7 @@ private String ldapResult2String(LDAPSearchResults res, String orgName,String ld
 
 <%
 
-    Model jenaOntModel = (Model) getServletContext().getAttribute("jenaOntModel");
+    Model jenaOntModel = ModelAccess.on(getServletContext()).getJenaOntModel();
     if (jenaOntModel == null) {
     	throw new Exception("Jena model not found in 'jenaOntModel' servlet context attribute");
     }

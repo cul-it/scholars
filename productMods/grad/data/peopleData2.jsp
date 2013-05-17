@@ -8,6 +8,7 @@
 <%@ page import="java.net.URLEncoder" %>
 <%@ page import="java.util.HashMap" %>
 <%@ page import="java.util.Iterator" %>
+<%@ page import="edu.cornell.mannlib.vitro.webapp.dao.ModelAccess"%>
 <%@page contentType="text/text" %>
 {
     properties: {
@@ -23,7 +24,7 @@
     items : [
 <%
     //get people and to JSON as items
-    Model model = (Model)application.getAttribute("jenaOntModel");
+    Model model = ModelAccess.on(application).getJenaOntModel();
     if( model == null ) throw new Exception("could not get model from application scope");
 
     HashMap <String,JSONObject> items = new HashMap<String,JSONObject>();

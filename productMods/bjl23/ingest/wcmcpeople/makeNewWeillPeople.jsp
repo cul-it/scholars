@@ -18,6 +18,7 @@
 <%@page import="com.hp.hpl.jena.rdf.model.RDFNode"%>
 <%@page import="com.hp.hpl.jena.rdf.model.Property"%>
 <%@page import="com.hp.hpl.jena.ontology.OntModel"%>
+<%@page import="edu.cornell.mannlib.vitro.webapp.dao.ModelAccess"%>
 
 <%!
     private String[] tokenizeLabel(Individual ind) {
@@ -36,7 +37,7 @@
 
 <%
 
-    OntModel m = (OntModel) getServletContext().getAttribute("jenaOntModel");
+    OntModel m = ModelAccess.on(getServletContext()).getJenaOntModel();
     OntModel newPeopleModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
 
     String vivoNs = "http://vivo.library.cornell.edu/ns/0.1#";

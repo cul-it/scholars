@@ -9,6 +9,7 @@
 <%@ page import="edu.cornell.mannlib.vitro.webapp.dao.DataPropertyDao" %>
 <%@ page import="org.apache.commons.logging.Log" %>
 <%@ page import="org.apache.commons.logging.LogFactory" %>
+<%@ page import="edu.cornell.mannlib.vitro.webapp.dao.ModelAccess"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="v" uri="http://vitro.mannlib.cornell.edu/vitro/tags" %>
 <%! 
@@ -253,7 +254,7 @@ public static Log log = LogFactory.getLog("edu.cornell.mannlib.vitro.webapp.jsp.
     }
 
     String objectUri = (String)request.getAttribute("objectUri");
-    Model model =  (Model)application.getAttribute("jenaOntModel");
+    Model model = ModelAccess.on(application).getJenaOntModel();
     if( objectUri != null ){            
         editConfig.prepareForObjPropUpdate( model);
     }else{

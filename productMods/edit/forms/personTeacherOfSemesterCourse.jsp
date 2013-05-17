@@ -3,6 +3,7 @@
 <%@ page import="com.thoughtworks.xstream.io.xml.DomDriver" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.beans.Individual" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.edit.n3editing.EditConfiguration" %>
+<%@ page import="edu.cornell.mannlib.vitro.webapp.dao.ModelAccess"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="v" uri="http://vitro.mannlib.cornell.edu/vitro/tags" %>
 
@@ -190,7 +191,7 @@
     }
 
     String objectUri = (String)request.getAttribute("objectUri");
-    Model model =  (Model)application.getAttribute("jenaOntModel");
+    Model model = ModelAccess.on(application).getJenaOntModel();
     if( objectUri != null ){            
         editConfig.prepareForObjPropUpdate( model);
     }else{

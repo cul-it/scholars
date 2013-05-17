@@ -2,6 +2,7 @@
 <%@ page import="com.hp.hpl.jena.rdf.model.Model" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.beans.Individual" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.edit.n3editing.EditConfiguration" %>
+<%@ page import="edu.cornell.mannlib.vitro.webapp.dao.ModelAccess"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="v" uri="http://vitro.mannlib.cornell.edu/vitro/tags" %>
 
@@ -229,7 +230,7 @@
         EditConfiguration.putConfigInSession(editConfig, session);
     }
 
-    Model model =  (Model)application.getAttribute("jenaOntModel");
+    Model model = ModelAccess.on(application).getJenaOntModel();
     String objectUri = (String)request.getAttribute("objectUri");    
     if( objectUri != null ){        
         editConfig.prepareForObjPropUpdate(model);            
