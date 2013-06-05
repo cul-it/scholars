@@ -19,6 +19,8 @@
 
 <#include "stylesheets.ftl">
 <link rel="stylesheet" href="${urls.theme}/css/screen.css" />
+<!-- Emergency banner -->
+<script src="https://embanner.univcomm.cornell.edu/OWC-emergency-banner.js" type="text/javascript"> </script>
 
 <#include "headScripts.ftl">
 
