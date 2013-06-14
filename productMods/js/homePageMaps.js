@@ -57,6 +57,16 @@ $(document).ready(function(){
         return(mt);
     }
 
+    function getGeoClass(country) {
+        var gc = "";
+        latLongJson.map(function (json) {
+            if ( json.name == country) {
+                gc = json.data["geoClass"];
+            }
+        });
+        return(gc);
+    }
+
 	function onEachFeature(feature, layer) {
 		var popupContent = "";
         var uri = "";
@@ -112,6 +122,22 @@ $(document).ready(function(){
 		return radiusContent;
 	}
 
+	function getMarkerFillColor(feature) {
+		var geoClass = "";
+		var fillColor;
+
+		if (feature.properties && feature.properties.radius) {
+			geoClass = feature.properties.geoClass;
+		}
+		if ( geoClass == "region") {
+		    fillColor = "#abf7f8"; 
+		}
+		else {
+		    fillColor = "#fdf9cd"
+		}
+		return fillColor;
+	}
+
     function checkGlobalCoordinates(feature, layer) {
         var theLatLng = new L.LatLng(feature.geometry.coordinates[0],feature.geometry.coordinates[1]);
         var mt = feature.properties.mapType;
@@ -163,7 +189,7 @@ $(document).ready(function(){
 			    pointToLayer: function(feature, latlng) {
 		            return L.circleMarker(latlng, {
         		        radius: getMarkerRadius(feature),
-        		        fillColor: "#fdf9cd", //fdf38a", 
+        		        fillColor: getMarkerFillColor(feature), 
         		        color: "none",
         		        weight: 1,
         		        opacity: 0.8,
@@ -188,6 +214,8 @@ $(document).ready(function(){
         }
     
         getResearcherCount("global");
+        appendLegendToLeafletContainer();
+        
     } // Canvas/World_Light_Gray_Base
 
     function buildUSMap() {
@@ -367,4 +395,14 @@ $(document).ready(function(){
                                         + areaCount + "</font>" + text);
     }
     
+    function appendLegendToLeafletContainer() {
+        var htmlString = "<div class='leaflet-bottom leaflet-left' style='padding:0 0 8px 12px'><ul><li>"
+                        + "<img alt='" + i18nStrings.regionsString + "' src='" + urlsBase 
+                        + "/images/map_legend_countries.png' style='margin-right:5px'><font style='color:#555'>" 
+                        + i18nStrings.countriesString + "</font></li><li><img alt='" + i18nStrings.regionsString 
+                        + "' src='" + urlsBase 
+                        + "/images/map_legend_regions.png' style='margin-right:5px'><font style='color:#555'>" 
+                        + i18nStrings.regionsString + "</font></li></ul></div>";
+        $('div.leaflet-control-container').append(htmlString);       
+    }
 }); 
