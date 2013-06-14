@@ -354,6 +354,7 @@ $(document).ready(function(){
                         var locale = this.properties.popupContent;
                         this.geometry.coordinates = getLatLong(locale);
                         this.properties.mapType = getMapType(locale);
+                        this.properties.geoClass = getGeoClass(locale);
                         researchAreas["features"].push(this);
                     });
                     buildGlobalMap();
