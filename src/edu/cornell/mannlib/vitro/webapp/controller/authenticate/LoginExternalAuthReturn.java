@@ -7,6 +7,7 @@ import static edu.cornell.mannlib.vitro.webapp.controller.authenticate.LoginExte
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Enumeration;
 import java.io.InputStream;
 import java.util.Collection;
 
@@ -60,12 +61,25 @@ public class LoginExternalAuthReturn extends BaseLoginServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
+        if (log.isDebugEnabled()) {
+			@SuppressWarnings("unchecked")
+			Enumeration<String> names = req.getHeaderNames();
+
+			log.debug("------------request:" + req.getRequestURL());
+			while (names.hasMoreElements()) {
+				String name = names.nextElement();
+				log.debug(name + "=" + req.getHeader(name));
+			}
+		}
+
 		String externalAuthId = ExternalAuthHelper.getHelper(req)
 				.getExternalAuthId(req);
+		log.debug("externalAuthID='" + externalAuthId + "'");
+
 		if (externalAuthId == null) {
 			log.debug("No externalAuthId.");
 			complainAndReturnToReferrer(req, resp, ATTRIBUTE_REFERRER,
-					MESSAGE_LOGIN_FAILED);
+					messageLoginFailed(req));
 			return;
 		}
 
@@ -78,7 +92,7 @@ public class LoginExternalAuthReturn extends BaseLoginServlet {
 		if (!getAuthenticator(req).isUserPermittedToLogin(userAccount)) {
 			log.debug("Logins disabled for " + userAccount);
 			complainAndReturnToReferrer(req, resp, ATTRIBUTE_REFERRER,
-					MESSAGE_LOGIN_DISABLED);
+					messageLoginDisabled(req));
 			return;
 		}
 
@@ -101,19 +115,19 @@ public class LoginExternalAuthReturn extends BaseLoginServlet {
 			// should have been caught by isUserPermittedToLogin()
 			log.debug("Logins disabled for " + userAccount);
 			complainAndReturnToReferrer(req, resp, ATTRIBUTE_REFERRER,
-					MESSAGE_LOGIN_DISABLED);
+					messageLoginDisabled(req));
 			return;
 		}
 	}
 
 	@Override
-	protected void complainAndReturnToReferrer(HttpServletRequest req,
-			HttpServletResponse resp, String sessionAttributeForReferrer,
-			Message message, Object... args) throws IOException {
-		DisplayMessage.setMessage(req, message.formatMessage(args));
-		super.complainAndReturnToReferrer(req, resp,
-				sessionAttributeForReferrer, message, args);
-	}
+    	protected void complainAndReturnToReferrer(HttpServletRequest req,
+    			HttpServletResponse resp, String sessionAttributeForReferrer,
+    			Message message) throws IOException {
+    		DisplayMessage.setMessage(req, message.getText());
+    		super.complainAndReturnToReferrer(req, resp,
+    				sessionAttributeForReferrer, message);
+    	}
 
 	private void checkBlacklistAndRedirect(HttpServletRequest req,
 			HttpServletResponse resp, UserAccount userAccount,
