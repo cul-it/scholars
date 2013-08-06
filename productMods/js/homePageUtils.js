@@ -110,7 +110,7 @@ $(document).ready(function(){
         }
         else {
             for ( var i=0;i<6;i++) {
-                html += "<li><a href='${urls.base}/display" 
+                html += "<li><a href='" + urlsBase + "/individual" 
                         + researchFacilities[index].uri + "'>" 
                         + researchFacilities[index].name + "</a></li>";
                 index = Math.floor((Math.random()*researchFacilities.length)+1)-1;
