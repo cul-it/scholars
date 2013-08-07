@@ -42,7 +42,7 @@ public class GeoFocusMapLocations extends AbstractAjaxResponder {
         + "    ?location rdfs:label ?label .   \n"
         + "    ?location core:geographicFocusOf ?person .  \n"
         + "    ?person rdf:type foaf:Person . \n"
-        + "    FILTER (NOT EXISTS {?location a core:StateOrProvince} && (! regex(str(?location), \"dbpedia\")) ) \n"
+        + "    FILTER (! regex(str(?location), \"dbpedia\")) \n"
         + "} UNION {   \n"
         + "    ?location rdf:type core:GeographicRegion .  \n"
         + "    ?location core:geographicallyContains ?sublocation  . \n"

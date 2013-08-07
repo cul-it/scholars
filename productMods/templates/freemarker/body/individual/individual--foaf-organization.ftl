@@ -24,7 +24,7 @@
     </#assign>
     
     <#assign departmentalResearchAreas>
-        <#include "individual-dept-research-areas.ftl">
+        <#include "individual-affiliated-research-areas.ftl">
     </#assign>
     
     <#assign departmentalGraduateFields>
