@@ -28,6 +28,7 @@
     <body class="${bodyClasses!}" onload="${bodyOnload!}">
     <#-- supplies the faculty count to the js function that generates a random row number for the solr query -->
         <@lh.facultyMemberCount  vClassGroups! />
+
         <#include "identity.ftl">
 
         <#include "menu.ftl">
