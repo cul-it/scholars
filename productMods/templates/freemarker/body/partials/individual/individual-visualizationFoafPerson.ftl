@@ -3,19 +3,20 @@
 <#-- Template for sparkline visualization on individual profile page -->
 
 <#-- Determine whether this person is an author -->
-<#assign isAuthor = p.hasStatements(propertyGroups, "${core}authorInAuthorship") />
+<#assign isAuthor = p.hasVisualizationStatements(propertyGroups, "${core}relatedBy", "${core}Authorship") />
 
 <#-- Determine whether this person is involved in any grants -->
-<#assign isInvestigator = ( p.hasStatements(propertyGroups, "${core}hasInvestigatorRole") ||
-                            p.hasStatements(propertyGroups, "${core}hasPrincipalInvestigatorRole") || 
-                            p.hasStatements(propertyGroups, "${core}hasCo-PrincipalInvestigatorRole") ) >
+<#assign obo_RO53 = "http://purl.obolibrary.org/obo/RO_0000053">
+
+<#assign isInvestigator = ( p.hasVisualizationStatements(propertyGroups, "${obo_RO53}", "${core}InvestigatorRole") ||
+                            p.hasVisualizationStatements(propertyGroups, "${obo_RO53}", "${core}PrincipalInvestigatorRole") || 
+                            p.hasVisualizationStatements(propertyGroups, "${obo_RO53}", "${core}CoPrincipalInvestigatorRole") ) >
 
 <#if (isAuthor || isInvestigator)>
  
     ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/visualization/visualization.css" />')}
     <#assign standardVisualizationURLRoot ="/visualization">
-    
-    <section id="visualization" role="region">
+        
         <#if isAuthor>
             <#assign coAuthorIcon = "${urls.images}/visualization/coauthorship/co_author_icon.png">
             <#assign mapOfScienceIcon = "${urls.images}/visualization/mapofscience/scimap_icon.png">
@@ -23,43 +24,47 @@
             <#assign mapOfScienceVisUrl = individual.mapOfScienceUrl()>
             
             <#assign googleJSAPI = "https://www.google.com/jsapi?autoload=%7B%22modules%22%3A%5B%7B%22name%22%3A%22visualization%22%2C%22version%22%3A%221%22%2C%22packages%22%3A%5B%22imagesparkline%22%5D%7D%5D%7D"> 
-
-<#--
-            <div class="collaboratorship-link-separator-solid"></div>
-            <span id="sparklineHeading">Publications in VIVO</span>   
-            <div id="vis_container_coauthor">&nbsp;</div>
--->            
-            <div class="collaboratorship-link-separator-solid">&nbsp;</div>
+            <div class="collaboratorship-link-separator">&nbsp;</div>
             <p id="networks">Networks</p>
-                    <span id="coauthor-link" class="collaboratorship-link"><a href="${coAuthorVisUrl}" title="co-author"><img src="${coAuthorIcon}" alt="Co-author network icon" width="20px" height="20px" /></a>
-                <a href="${coAuthorVisUrl}" title="co-author network">Co-Authors</a></span><p style="margin-top:-10px"></p>
-         </#if>   
-            <#if isInvestigator>
-                <#if !isAuthor >
-                    <div class="collaboratorship-link-separator-solid"></div>
-                    <p id="networks">Networks</p>
-                </#if>
-                <#assign coInvestigatorVisUrl = individual.coInvestigatorVisUrl()>
-                <#assign coInvestigatorIcon = "${urls.images}/visualization/coauthorship/co_investigator_icon.png">
-
-                        <span class="collaboratorship-link"><a href="${coInvestigatorVisUrl}" title="co-investigator network"><img src="${coInvestigatorIcon}" alt="Co-investigator network icon" width="20px" height="20px" /></a>
-                    <a href="${coInvestigatorVisUrl}" title="co-investigator network">Co-Investigators</a></span>
-            </#if>
-            <#if isAuthor>
-            <div class="collaboratorship-link-separator-solid"></div>
+            <div id="coauthorship_link_container" class="collaboratorship-link-container">
+				<div class="collaboratorship-icon">
+                    <a href="${coAuthorVisUrl}" title="${i18n().co_author}"><img src="${coAuthorIcon}" alt="${i18n().co_author}" width="25px" height="25px" /></a>
+                </div>
+                <div class="collaboratorship-link"><a href="${coAuthorVisUrl}" title="${i18n().co_author_network}">${i18n().co_author_network}</a></div>
+            </div>
             
-                    <span class="collaboratorship-link"><a href="${mapOfScienceVisUrl}" title="map of science"><img src="${mapOfScienceIcon}" alt="Map Of Science icon" width="20px" height="20px" /></a>
-                <a href="${mapOfScienceVisUrl}" title="map of science">Map Of Science</a></span>
+            <div class="collaboratorship-link-separator"></div>
+            
+  	      	<div id="mapofscience_link_container" class="collaboratorship-link-container">
+            	<div class="collaboratorship-icon">	
+                    <a href="${mapOfScienceVisUrl}" title="${i18n().map_of_science}"><img src="${mapOfScienceIcon}" alt="${i18n().map_of_science}" width="25px" height="25px" /></a>
+                </div>
+                <div class="collaboratorship-link"><a href="${mapOfScienceVisUrl}" title="${i18n().map_of_science}">${i18n().map_of_science_capitalized}</a></div>
+            </div>
             
             ${scripts.add('<script type="text/javascript" src="${googleJSAPI}"></script>',
                           '<script type="text/javascript" src="${urls.base}/js/visualization/visualization-helper-functions.js"></script>',
                           '<script type="text/javascript" src="${urls.base}/js/visualization/sparkline.js"></script>')}           
-            </#if>
             
             <script type="text/javascript">
                 var visualizationUrl = '${urls.base}/visualizationAjax?uri=${individual.uri?url}&template=${visRequestingTemplate!}';
                 var infoIconSrc = '${urls.images}/iconInfo.png';
             </script>
             
-    </section> <!-- end visualization -->
+            <#if isInvestigator>
+                <div class="collaboratorship-link-separator"></div>
+            </#if>
+        </#if>
+        
+        <#if isInvestigator>
+            <#assign coInvestigatorVisUrl = individual.coInvestigatorVisUrl()>
+            <#assign coInvestigatorIcon = "${urls.images}/visualization/coauthorship/co_investigator_icon.png">
+            
+            <div id="coinvestigator_link_container" class="collaboratorship-link-container">
+                <div class="collaboratorship-icon">
+                    <a href="${coInvestigatorVisUrl}" title="${i18n().co_investigator_network}"><img src="${coInvestigatorIcon}" alt="${i18n().co_investigator_network}" width="25px" height="25px" /></a>
+                </div>
+                <div class="collaboratorship-link"><a href="${coInvestigatorVisUrl}" title="${i18n().co_investigator_network}">${i18n().co_investigator_network_capitalized}</a></div>
+            </div>
+        </#if>
 </#if>

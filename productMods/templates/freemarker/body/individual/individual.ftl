@@ -12,7 +12,7 @@
     <!--PREINDIVIDUAL OVERVIEW.FTL-->
     <#include "individual-webpage.ftl">
     <#include "individual-overview.ftl">
-    ${departmentalResearchAreas!}
+    ${affiliatedResearchAreas!}
         </section> <!-- #individual-info -->
     </section> <!-- #individual-intro -->
     <!--postindividual overview ftl-->
@@ -22,6 +22,14 @@
 <#include "individual-vitro.ftl">
 <script>
     var individualLocalName = "${individual.localName}";
+</script>
+<script>
+var i18nStrings = {
+    displayLess: '${i18n().display_less}',
+    displayMoreEllipsis: '${i18n().display_more_ellipsis}',
+    showMoreContent: '${i18n().show_more_content}',
+    verboseTurnOff: '${i18n().verbose_turn_off}',
+};
 </script>
 
 ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/individual/individual-vivo.css?vers=1.5.1" />')}

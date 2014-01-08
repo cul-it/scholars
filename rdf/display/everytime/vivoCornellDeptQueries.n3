@@ -20,10 +20,13 @@ display:getGraduateFieldDataGetter
     PREFIX vivoc: <http://vivo.library.cornell.edu/ns/0.1#>
     PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
     PREFIX vivo: <http://vivoweb.org/ontology/core#>
+    PREFIX foaf: <http://xmlns.com/foaf/0.1/>
     SELECT DISTINCT (str(?graduateFieldLabel) AS ?gfLabel) ?gf
     WHERE {
-            ?individualURI vivo:organizationForPosition ?posn .
-            ?posn  vivo:positionForPerson ?person .
+            ?individualURI vivo:relatedBy ?posn .
+            ?posn a vivo:Position .
+            ?posn  vivo:relates ?person .
+            ?person a foaf:Person .
             ?person vivoc:memberOfGraduateField ?gf .
             ?gf rdfs:label ?graduateFieldLabel
     }
@@ -49,14 +52,18 @@ display:getGraduateFieldDataGetter
                 """PREFIX vivoc: <http://vivo.library.cornell.edu/ns/0.1#>
                    PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
                    PREFIX vivo: <http://vivoweb.org/ontology/core#>
-                   SELECT DISTINCT (str (?prsnLabel) AS ?personLabel) ?person (str(?gradFieldLabel) AS ?gfLabel) (str(?departmentLabel) AS ?deptLabel) ?gfURI
+                   PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+                   SELECT DISTINCT (str (?prsnLabel) AS ?personLabel) ?person (str(?gradFieldLabel) AS ?gfLabel) (str(?departmentLabel) AS ?deptLabel) ?gradField
                    WHERE {
-                           ?deptURI vivo:organizationForPosition ?posn .
+                           ?deptURI vivo:relatedBy ?posn .
+                           ?posn a vivo:Position .
                            ?deptURI rdfs:label ?departmentLabel .
-                           ?posn  vivo:positionForPerson ?person .
+                           ?posn  vivo:relates ?person .
+                           ?person a foaf:Person .
                            ?person rdfs:label ?prsnLabel .
                            ?person vivoc:memberOfGraduateField ?gfURI .
                            ?gfURI rdfs:label ?gradFieldLabel
+                           BIND(?gfURI AS ?gradField)
                    }
                    ORDER BY ?personLabel
                 """ ;

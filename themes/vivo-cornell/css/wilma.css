@@ -681,9 +681,9 @@ body.loggedIn #intro {
     margin-bottom: 30px;
     overflow: hidden;
     margin-top: 20px;
-		position: absolute;
-		right: 0;
-		background-color: #fff;
+/*	position: absolute; */
+	right: 0;
+	background-color: #fff;
 }
 body.login #login {
     float: none;
@@ -1831,9 +1831,6 @@ nav.scroll-up img  {
 /* EDITING DISPLAY------>  */
 .edit-individual {
     border-left: 1px dotted #B2D15A;
-}
-div#profileTypeContainer h2:after {
-    content:"Page Type";
 }
 /* ------------------------------------------------->  */
 /* SITE ADMIN DASHBOARD ---------------------------->  */

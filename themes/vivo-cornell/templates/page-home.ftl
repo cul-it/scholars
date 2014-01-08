@@ -68,7 +68,7 @@
         <@widget name="login" />
         
         <!-- List of research classes: e.g., articles, books, collections, conference papers -->
-        <@lh.researchClasses />
+        <@lvh.researchClasses />
                 
         <!-- List of four randomly selected faculty members -->
         <@lh.facultyMbrHtml />
@@ -98,7 +98,7 @@
                 statesString: '${i18n().map_states_string}',
                 stateString: '${i18n().map_state_string}',
                 statewideLocations: '${i18n().statewide_locations}',
-                researchersInString: '${i18n().researchers_in}',
+                inString: '${i18n().in}',
                 noFacultyFound: '${i18n().no_faculty_found}',
                 placeholderImage: '${i18n().placeholder_image}',
                 viewAllFaculty: '${i18n().view_all_faculty}',

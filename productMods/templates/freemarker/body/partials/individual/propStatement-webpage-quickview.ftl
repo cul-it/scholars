@@ -11,7 +11,7 @@
 
 <#assign identifier>
     <#if statement.url?has_content>
-        ${statement.url?replace(":","")?replace("/","")?replace(".","-")?replace("&amp;","")?replace("%","")?replace("?","")?replace("=","")}<#t>
+        ${statement.url?replace("[^\\p{L}\\p{N}]","","r")}<#t>
     <#else>
         "noUrl"<#t>
     </#if>    
@@ -22,7 +22,7 @@
 
 <#macro showWebpage statement count identifier>
 <#local linkText>
-    <#if statement.anchor?has_content>${statement.anchor}<#t>
+    <#if statement.label?has_content>${statement.label}<#t>
     <#elseif statement.url?has_content>${statement.url}<#t>
     </#if>    
 </#local>

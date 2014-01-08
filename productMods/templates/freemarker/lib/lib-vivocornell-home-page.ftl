@@ -37,8 +37,8 @@ var urlsBase = "${urls.base}";
         <h4>Geographic Focus</h4>
             <div id="mapControls">
                 <a id="globalLink" class="selected" href="javascript:">Global Research</a>&nbsp;|&nbsp;
-                <a id="usLink" href="javascript:">U.S. Research</a>&nbsp;|&nbsp;
-                <a id="nyLink" href="javascript:">New York Research</a>  
+                <a id="countryLink" href="javascript:">U.S. Research</a>&nbsp;|&nbsp;
+                <a id="localLink" href="javascript:">New York Research</a>  
             </div>  
         <div id="researcherTotal"></div>
         <div id="timeIndicatorGeo">
@@ -47,32 +47,41 @@ var urlsBase = "${urls.base}";
             </span>
         </div>
         <div id="mapGlobal" class="mapArea"></div>
-        <div id="mapUS" class="mapArea"></div>
-        <div id="mapNY" class="mapArea"></div>
+        <div id="mapCountry" class="mapArea"></div>
+        <div id="mapLocal" class="mapArea"></div>
     </section>
 </#macro>
 
-<#-- WILL NEED TO ACTIVATE THIS SECTION WHEN WE GO TO RELEASE 1.6
+<#-- Renders the html for the research section on the home page. -->
+<#-- Works in conjunction with the homePageUtils.js file -->
 <#macro researchClasses classGroups=vClassGroups>
-    <#assign foundClassGroup = false />
-    <section id="home-research" class="home-sections">
-        <h4>${i18n().research_capitalized}</h4>
-        <ul>
-            <#list classGroups as group>
-                <#if (group.individualCount > 0) && group.displayName == "research" >
-                    <#assign foundClassGroup = true />
-                    <#list group.classes as class>
-                        <#if (class.name == "Academic Article" || class.name == "Book" || class.name == "Conference Paper" ||class.name == "Media Contribution" || class.name == "Report" || class.name == "Library Collection") && (class.individualCount > 0)>
-                            <li role="listitem"><span>${class.individualCount!}</span>&nbsp;<a href='${urls.base}/individuallist?vclassId=${class.uri?replace("#","%23")!}'>${class.name}s</a></li>
-                        </#if>
-                    </#list>
-                    <li><a href="${urls.base}/research" alt="${i18n().view_all_research}">${i18n().view_all}</a></li>
-                </#if>
-            </#list>
-            <#if !foundClassGroup>
-                <p><li>${i18n().no_research_content_found}</li></p> 
+<#assign foundClassGroup = false />
+<section id="home-research" class="home-sections">
+    <h4>${i18n().research_capitalized}</h4>
+    <ul>
+        <#list classGroups as group>
+            <#if (group.individualCount > 0) && group.uri?contains("publications") >
+                <#assign foundClassGroup = true />
+                <#list group.classes as class>
+                    <#if (class.individualCount > 0) && (class.uri?contains("AcademicArticle") || class.uri?contains("Book") || class.uri?contains("ConferencePaper") || class.uri?contains("LibraryCollection") || class.uri?contains("MediaContribution")) >
+                        <li role="listitem">
+                            <span>${class.individualCount!}</span>&nbsp;
+                            <a href='${urls.base}/individuallist?vclassId=${class.uri?replace("#","%23")!}'>
+                                <#if class.name?substring(class.name?length-1) == "s">
+                                    ${class.name}
+                                <#else>
+                                    ${class.name}s 
+                                </#if>
+                            </a>
+                        </li>
+                    </#if>
+                </#list>
+                <li><a href="${urls.base}/research" alt="${i18n().view_all_research}">${i18n().view_all}</a></li>
             </#if>
-        </ul>
-    </section>
+        </#list>
+        <#if !foundClassGroup>
+            <p><li style='padding-left:1.2em'>${i18n().no_research_content_found}</li></p> 
+        </#if>
+    </ul>
+</section>
 </#macro>
--->
