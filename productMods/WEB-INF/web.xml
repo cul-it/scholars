@@ -655,6 +655,15 @@
   </servlet-mapping>
 
   <servlet>
+    <servlet-name>ShowConfiguration</servlet-name>
+    <servlet-class>edu.cornell.mannlib.vitro.webapp.controller.admin.ShowConfiguration</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ShowConfiguration</servlet-name>
+    <url-pattern>/admin/showConfiguration</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
     <servlet-name>StartupStatus</servlet-name>
     <servlet-class>edu.cornell.mannlib.vitro.webapp.controller.admin.StartupStatusController</servlet-class>
   </servlet>
@@ -1100,12 +1109,22 @@
 
   <servlet>
     <servlet-name>SparqlQuery</servlet-name>
-    <servlet-class>edu.cornell.mannlib.vitro.webapp.controller.SparqlQueryServlet</servlet-class>
+    <servlet-class>edu.cornell.mannlib.vitro.webapp.controller.admin.SparqlQueryController</servlet-class>
   </servlet>
 
   <servlet-mapping>
     <servlet-name>SparqlQuery</servlet-name>
     <url-pattern>/admin/sparqlquery</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>SparqlUpdateApi</servlet-name>
+    <servlet-class>edu.cornell.mannlib.vitro.webapp.controller.api.SparqlUpdateApiController</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>SparqlUpdateApi</servlet-name>
+    <url-pattern>/api/sparqlUpdate</url-pattern>
   </servlet-mapping>
   
    <servlet>
@@ -1338,15 +1357,6 @@
   <servlet-mapping>
     <servlet-name>GetObjectClasses</servlet-name>
     <url-pattern>/admin/getObjectClasses</url-pattern>
-  </servlet-mapping>
-
-  <servlet>
-    <servlet-name>SmokeTestController</servlet-name>
-    <servlet-class>edu.cornell.mannlib.vitro.webapp.controller.freemarker.SmokeTestController</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>SmokeTestController</servlet-name>
-    <url-pattern>/smoketest</url-pattern>
   </servlet-mapping>
 
   <!--  Cornell specific Web image capture servlet -->
