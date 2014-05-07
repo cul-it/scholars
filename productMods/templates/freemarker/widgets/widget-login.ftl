@@ -49,7 +49,7 @@
             
                 <p class="external-auth"><a class="blue button" href="${externalAuthUrl}" title="${i18n().external_auth_name}">Log in using Cornell NetID</a></p>
                 <!--<p class="or-auth">or</p>-->
-                <h3 class="internal-auth"><!--Log in using your--> <b>or</b> your VIVO account</h3>
+                <h3 class="internal-auth <#if urls.currentPage?contains("/home")>hidden</#if>"><b>or</b> your VIVO account</h3>
                 
             </#if>
             
