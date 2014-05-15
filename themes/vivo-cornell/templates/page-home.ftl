@@ -7,7 +7,7 @@
         If you prefer to use the "browse by" display, replace the import statement below with the
         following include statement:
         
-            <#include "browse-classgroups.ftl">
+          <#include "browse-classgroups.ftl">
             
         Also ensure that the homePage.geoFocusMaps flag in the runtime.properties file is commented
         out.
