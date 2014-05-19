@@ -87,7 +87,7 @@ $(document).ready(function(){
                     });
                     var viewMore = "<ul id='viewMoreFac'><li><a href='"
                                 + urlsBase
-                                + "/people#http://vivoweb.org/ontology/core%23FacultyMember' alt='" 
+                                + "/people#http://vivo.cornell.edu/ns/mannadditions/0.1#CornellFaculty ' alt='" 
                                 + i18nStrings.viewAllFaculty + "'>"
                                 + i18nStrings.viewAllString + "</a></li?</ul>";
                     $('div#research-faculty-mbrs').append(viewMore);
