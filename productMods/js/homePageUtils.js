@@ -155,7 +155,7 @@ $(document).ready(function(){
             html += "</ul><ul style='list-style:none'>"
                     + "<li style='font-size:0.9em;text-align:right;padding: 6px 16px 0 0'><a href='" 
                     + urlsBase 
-                    + "/organizations/%23http://vivoweb.org/ontology/core%23AcademicDepartment' alt='" 
+                    + "/organizations/%23http://vivoweb.org/ontology/core%23AcademicDepartment%23http://vivo.library.cornell.edu/ns/0.1%23ServiceLaboratory ' alt='" 
                     + "view all research facilities'>" 
                     + i18nStrings.viewAllString + "</a></li></ul>";
         }
