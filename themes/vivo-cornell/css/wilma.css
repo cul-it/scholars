@@ -1123,11 +1123,15 @@ div#adjImgHeight {
 	clear: both;
 	display: inline-block; 
     margin-top: 35px;
-    height: 632px;
+    height: 652px; 
     width: 921px;
 }
 #home-geo-focus h4 {
 	width: 172px; 
+}
+#home-geo-focus-caveat {
+    font-size: .8em;
+    margin: -16px 0 10px 16px;
 }
 #home-geo-focus div#timeIndicatorGeo {
     text-align:center;
