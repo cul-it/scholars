@@ -49,7 +49,7 @@ var urlsBase = "${urls.base}";
         <div id="mapGlobal" class="mapArea"></div>
         <div id="mapCountry" class="mapArea"></div>
         <div id="mapLocal" class="mapArea"></div>
-        <div id="home-geo-focus-caveat">Map locations based on VIVO researchers' areas of geographical focus.</div>
+        <div id="home-geo-focus-caveat">Map locations based on VIVO researchers' reported areas of geographical focus.</div>
     </section>
 </#macro>
 
