@@ -18,7 +18,7 @@
 </#if>	
 
 <#include "stylesheets.ftl">
-<link rel="stylesheet" href="${urls.theme}/css/screen.css" />
+<link rel="stylesheet" href="${urls.theme}/css/screen.css?version=16" />
 <!-- Emergency banner -->
 <script src="https://embanner.univcomm.cornell.edu/OWC-emergency-banner.js" type="text/javascript"> </script>
 
