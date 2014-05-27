@@ -85,10 +85,12 @@ PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX vivo: <http://vivoweb.org/ontology/core#>
 SELECT DISTINCT ?posLabel (str(?oLabel) AS ?orgLabel)
 WHERE {    
-?individualUri vivo:personInPosition ?position .
+?individualUri vivo:relatedBy ?position .
+?position a vivo:Position .
 ?position rdf:type vivo:PrimaryPosition .
 ?position rdfs:label ?posLabel .
-?position vivo:positionInOrganization ?org .
+?position vivo:relates ?org .
+?org a foaf:Organization .
 ?org rdfs:label ?oLabel
 }
 	""" .
@@ -102,11 +104,13 @@ PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX vivo: <http://vivoweb.org/ontology/core#>
 SELECT DISTINCT ?posn (str(?oLabel) as ?orgLabel) ?title
 WHERE {    
-?individualUri vivo:personInPosition ?position .
+?individualUri vivo:relatedBy ?position .
+?position a vivo:Position .
 OPTIONAL { ?individualUri vivo:preferredTitle ?title . }
 ?position rdf:type vivo:PrimaryPosition .
 ?position rdfs:label ?posn .
-?position vivo:positionInOrganization ?org .
+?position vivo:relates ?org .
+?org a foaf:Organization .
 ?org rdfs:label ?oLabel
 }
 	""" .
