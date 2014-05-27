@@ -5,7 +5,7 @@
         <#list deptGradFields as firstRow>
         <div class="tab">
             <h2>${firstRow["gfLabel"]}</h2>
-            <p>Here are the faculty in the ${firstRow["deptLabel"]} department who are members of this graduate field. <a href="${urls.base}/display${firstRow["?gradField"]?substring(firstRow["?gradField"]?last_index_of("/"))}" title="view all cornell faculty">View all Cornell faculty who are members of this field.</a></p>
+            <p>Here are the faculty in the ${firstRow["deptLabel"]} department who are members of this graduate field. <a href="${urls.base}/display${firstRow["gradField"]?substring(firstRow["gradField"]?last_index_of("/"))}" title="view all cornell faculty">View all Cornell faculty who are members of this field.</a></p>
         </div>
         <#break>
         </#list>
