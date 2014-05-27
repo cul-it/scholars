@@ -83,6 +83,7 @@ mydomain:personInPositionDG
 PREFIX rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX vivo: <http://vivoweb.org/ontology/core#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
 SELECT DISTINCT ?posLabel (str(?oLabel) AS ?orgLabel)
 WHERE {    
 ?individualUri vivo:relatedBy ?position .
@@ -102,6 +103,7 @@ mydomain:personInPositionPlusTitleDG
 PREFIX rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX vivo: <http://vivoweb.org/ontology/core#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
 SELECT DISTINCT ?posn (str(?oLabel) as ?orgLabel) ?title
 WHERE {    
 ?individualUri vivo:relatedBy ?position .
