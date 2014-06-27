@@ -48,7 +48,7 @@ $(document).ready(function(){
                 rowStart = 0;
             }
 
-            var dataServiceUrl = urlsBase + "/dataservice?getRandomSolrIndividualsByVClass=1&vclassId=";
+            var dataServiceUrl = urlsBase + "/dataservice?getRandomSearchIndividualsByVClass=1&vclassId=";
             var url = dataServiceUrl + encodeURIComponent("http://vivo.cornell.edu/ns/mannadditions/0.1#CornellFaculty");
             url += "&page=" + rowStart + "&pageSize=" + pageSize;
 
