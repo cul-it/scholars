@@ -32,21 +32,15 @@
             OPTIONAL { ?role vitro:mostSpecificType ?subclass .
                        ?subclass rdfs:label ?roleTypeLabel 
             }
-            OPTIONAL { ?role &lt;http://purl.obolibrary.org/obo/RO_0000052&gt; ?indivInRole }
-            OPTIONAL { ?role &lt;http://purl.obolibrary.org/obo/RO_0000052&gt; ?indivInRole .
-                       ?indivInRole rdfs:label ?indivLabel 
-            }
-            OPTIONAL { ?role &lt;http://purl.obolibrary.org/obo/BFO_0000054&gt; ?indivInRole .
-            }
-            OPTIONAL { ?role &lt;http://purl.obolibrary.org/obo/BFO_0000054&gt; ?indivInRole .
-                       ?indivInRole rdfs:label ?indivLabel 
+            OPTIONAL { ?role &lt;http://purl.obolibrary.org/obo/RO_0000052&gt; ?indivInRole 
+                       OPTIONAL { ?indivInRole rdfs:label ?indivLabel }
             }
             OPTIONAL { ?role &lt;http://vivoweb.org/ontology/activity-insight#partnerRoleOf&gt; ?indivInRole .
+                       OPTIONAL { ?indivInRole rdfs:label ?indivLabel }
             }
-            OPTIONAL { ?role &lt;http://vivoweb.org/ontology/activity-insight#partnerRoleOf&gt; ?indivInRole .
-                       ?indivInRole rdfs:label ?indivLabel 
+            OPTIONAL { ?role &lt;http://purl.obolibrary.org/obo/BFO_0000054&gt; ?indivInRole .
+                       OPTIONAL { ?indivInRole rdfs:label ?indivLabel }
             }
-
             OPTIONAL { ?role core:dateTimeInterval ?dateTimeInterval .
                        ?dateTimeInterval core:start ?dateTimeStartValue .                    
                        ?dateTimeStartValue core:dateTime ?dateTimeStart 
