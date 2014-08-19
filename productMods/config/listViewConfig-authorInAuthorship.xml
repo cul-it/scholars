@@ -11,6 +11,7 @@
         PREFIX bibo: &lt;http://purl.org/ontology/bibo/&gt; 
         PREFIX vitro: &lt;http://vitro.mannlib.cornell.edu/ns/vitro/0.7#&gt;
         PREFIX foaf: &lt;http://xmlns.com/foaf/0.1/&gt;
+        PREFIX vivoc: &lt;http://vivo.library.cornell.edu/ns/0.1#&gt;
               
         SELECT DISTINCT ?subclass 
                         ?authorship
@@ -143,6 +144,7 @@
         PREFIX rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt;    
         PREFIX bibo: &lt;http://purl.org/ontology/bibo/&gt; 
         PREFIX foaf: &lt;http://xmlns.com/foaf/0.1/&gt;
+		PREFIX vivoc: &lt;http://vivo.library.cornell.edu/ns/0.1#&gt;
         CONSTRUCT { 
             ?subject ?property ?authorship .  
             ?authorship a core:Authorship .
@@ -153,6 +155,7 @@
             ?infoResource bibo:reproducedIn ?appearsInObj .
             ?infoResource core:publisher ?publisherObj .
             ?infoResource core:relatedBy ?editorship .
+            ?infoResource vivoc:inLanguage ?language .
             ?editorship a core:Editorship .
             ?editorship core:relates ?editorObj .
             ?editorObj a foaf:Person .
@@ -160,6 +163,7 @@
             ?appearsInObj rdfs:label ?appearsIn .
             ?publisherObj rdfs:label ?publisher .
             ?editorObj rdfs:label ?editor .
+            ?language rdfs:label ?languageLabel .
             ?partOfObj rdfs:label ?partOf
         } WHERE {
             {
