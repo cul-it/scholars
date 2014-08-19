@@ -116,6 +116,6 @@
 		</#if>
 	</#local>
 	
-    ${resourceTitle} ${citationDetails} ${language!} <@dt.yearSpan "${statement.dateTime!}" /> 
+    ${resourceTitle} ${citationDetails} <@dt.yearSpan "${statement.dateTime!}"/>  ${language!} 
 </#if>
 </#macro>
