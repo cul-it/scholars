@@ -110,7 +110,12 @@
             <a href="${profileUrl(statement.uri("authorship"))}" title="${i18n().missing_info_resource}">${i18n().missing_info_resource}</a>
         </#if>
     </#local>
-
-    ${resourceTitle} ${citationDetails} (${statement.languageLabel!}) <@dt.yearSpan "${statement.dateTime!}" /> 
+	<#local language>
+		<#if statement.languageLabel??>
+			(${statement.languageLabel!})
+		</#if>
+	</#local>
+	
+    ${resourceTitle} ${citationDetails} ${language!} <@dt.yearSpan "${statement.dateTime!}" /> 
 </#if>
 </#macro>
