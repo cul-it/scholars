@@ -81,6 +81,16 @@
     <url-pattern>/*</url-pattern>
   </filter-mapping>
 
+  <filter>
+    <description>Override the Locale in the HttpRequest, if appropriate.</description>
+    <filter-name>Locale selection filter</filter-name>
+    <filter-class>edu.cornell.mannlib.vitro.webapp.i18n.selection.LocaleSelectionFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>Locale selection filter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+
   <!-- If language support is enabled, this must not precede the LocaleSelectionFilter -->
   <filter>
     <description>Recognize conditional requests, and generate Cache-Control headers.</description>
@@ -188,6 +198,15 @@
   <servlet-mapping>
   	<servlet-name>EditRequestDispatch</servlet-name>
   	<url-pattern>/editRequestDispatch</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>EditRequestAJAX</servlet-name>
+  	<servlet-class>edu.cornell.mannlib.vitro.webapp.edit.n3editing.controller.EditRequestAJAXController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>EditRequestAJAX</servlet-name>
+  	<url-pattern>/editRequestAJAX</url-pattern>
   </servlet-mapping>
   
   <servlet>
@@ -400,6 +419,15 @@
   <servlet-mapping>
     <servlet-name>JenaAdminServlet</servlet-name>
     <url-pattern>/jenaAdmin</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>DumpRestoreController</servlet-name>
+    <servlet-class>edu.cornell.mannlib.vitro.webapp.controller.datatools.dumprestore.DumpRestoreController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DumpRestoreController</servlet-name>
+    <url-pattern>/dumpRestore/*</url-pattern>
   </servlet-mapping>
 
   <servlet>
@@ -1122,6 +1150,11 @@
     <servlet-class>edu.cornell.mannlib.vitro.webapp.controller.api.SparqlQueryApiController</servlet-class>
   </servlet>
 
+  <servlet-mapping>
+    <servlet-name>SparqlQueryApi</servlet-name>
+    <url-pattern>/api/sparqlQuery</url-pattern>
+  </servlet-mapping>
+
   <servlet>
     <servlet-name>SparqlUpdateApi</servlet-name>
     <servlet-class>edu.cornell.mannlib.vitro.webapp.controller.api.SparqlUpdateApiController</servlet-class>
@@ -1246,6 +1279,17 @@
     <url-pattern>/orng/*</url-pattern>
   </servlet-mapping>
 
+  <servlet>
+    <description>Multiple-language support. Allows user to select his preferred langauge</description>
+    <servlet-name>LocaleSelectionController</servlet-name>
+    <servlet-class>edu.cornell.mannlib.vitro.webapp.i18n.selection.LocaleSelectionController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LocaleSelectionController</servlet-name>
+    <url-pattern>/selectLocale</url-pattern>
+  </servlet-mapping>
+
+
   <!-- ============================== servlet-mappings ======================== -->
    <servlet-mapping>
     <servlet-name>mailusers</servlet-name>
@@ -1364,6 +1408,24 @@
     <url-pattern>/admin/getObjectClasses</url-pattern>
   </servlet-mapping>
 
+  <servlet>
+    <servlet-name>SearchServiceController</servlet-name>
+    <servlet-class>edu.cornell.mannlib.vitro.webapp.search.controller.SearchServiceController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SearchServiceController</servlet-name>
+    <url-pattern>/searchService/*</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>OrcidIntegrationController</servlet-name>
+    <servlet-class>edu.cornell.mannlib.vivo.orcid.controller.OrcidIntegrationController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>OrcidIntegrationController</servlet-name>
+    <url-pattern>/orcid/*</url-pattern>
+  </servlet-mapping>
+  
   <!--  Cornell specific Web image capture servlet -->
   <servlet>
     <servlet-name>WebImageCaptureServlet</servlet-name>
@@ -1373,7 +1435,6 @@
     <servlet-name>WebImageCaptureServlet</servlet-name>
     <url-pattern>/webImageCapture</url-pattern>
   </servlet-mapping>
-
 
   <!-- ==================== tag libraries ============================== -->
   <jsp-config>
