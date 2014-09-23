@@ -33,6 +33,27 @@ display:getGraduateFieldDataGetter
     ORDER BY ?gfLabel
     """ .
 
+<http://vivo.library.cornell.edu/ns/0.1#GraduateField> display:hasDataGetter display:getGFDepartmentDataGetter .
+
+display:getGFDepartmentDataGetter
+	    a <java:edu.cornell.mannlib.vitro.webapp.utils.dataGetter.SparqlQueryDataGetter>;
+	    display:saveToVar "gfDepartmentResults";
+	    display:query """
+	    PREFIX vivoc: <http://vivo.library.cornell.edu/ns/0.1#>
+	    PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+	    PREFIX vivo: <http://vivoweb.org/ontology/core#>
+	    SELECT DISTINCT (str(?departmentLabel) AS ?deptLabel) ?dept
+	    WHERE {
+	            ?individualURI vivoc:hasFieldMember ?person .
+	            ?person vivo:relatedBy ?posn .
+	            ?posn a vivo:Position .
+	            ?posn vivo:relates ?dept .
+	            ?dept a vivo:AcademicDepartment .
+	            ?dept rdfs:label ?departmentLabel
+	    }
+	    ORDER BY ?deptLabel
+	    """ .
+
 ## detail pages for department links ##
 
 <http://vitro.mannlib.cornell.edu/ns/default#n1835>
