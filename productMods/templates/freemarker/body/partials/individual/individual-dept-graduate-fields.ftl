@@ -13,8 +13,22 @@
 		        </li>
             </#list>
         </ul>
-    
     </section>
+<#elseif gfDepartmentResults?has_content>
+<section id="deptGraduateFields">
+    <h2>Affiliated Departments</h2>
+    <#assign numberRows = gfDepartmentResults?size/>
+    <ul role="list" class="deptDetailsList">
+        <#list gfDepartmentResults as resultRow>
+			<#assign departmentURI = resultRow["dept"]?substring(resultRow["dept"]?last_index_of("/"))/>
+	        <li class="deptDetailsListItem">
+	            <a class="gfLink" href="${urls.base}/display${departmentURI}">
+	                ${resultRow["deptLabel"]}
+	            </a>
+	        </li>
+        </#list>
+    </ul>
+</section>
 </#if>
 
 
