@@ -13,6 +13,7 @@
     <#include "individual-webpage.ftl">
     <#include "individual-overview.ftl">
     ${affiliatedResearchAreas!}
+	${graduateFieldDepartments!}
         </section> <!-- #individual-info -->
     </section> <!-- #individual-intro -->
     <!--postindividual overview ftl-->

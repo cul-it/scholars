@@ -1,5 +1,5 @@
 <#-- $This file is distributed under the terms of the license in /doc/license.txt$ -->
-<!-- yo, mama: ${individual.mostSpecificTypes} -->
+
 <#if graduateFieldResults?has_content>
     <section id="deptGraduateFields">
         <h2>Faculty Graduate Fields</h2>
@@ -15,14 +15,14 @@
         </ul>
     </section>
 <#elseif gfDepartmentResults?has_content>
-<section id="deptGraduateFields">
+<section id="graduateFieldDepts" style="clear:left">
     <h2>Affiliated Departments</h2>
     <#assign numberRows = gfDepartmentResults?size/>
-    <ul role="list" class="deptDetailsList">
+    <ul id="individual-hasResearchArea" role="list">
         <#list gfDepartmentResults as resultRow>
 			<#assign departmentURI = resultRow["dept"]?substring(resultRow["dept"]?last_index_of("/"))/>
-	        <li class="deptDetailsListItem">
-	            <a class="gfLink" href="${urls.base}/display${departmentURI}">
+	        <li class="raLink">
+	            <a class="raLink" href="${urls.base}/display${departmentURI}">
 	                ${resultRow["deptLabel"]}
 	            </a>
 	        </li>
