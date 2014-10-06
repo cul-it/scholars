@@ -4,7 +4,12 @@
 <#-- CU directory link -->
 <#assign netid = individual.selfEditingId()!>
 <img id="uriIcon" title="${individual.uri}" src="${urls.images}/individual/share-uri-icon.png" alt="share the uri" />
-<@qr.renderCode "qr-code-icon.png"/>
+<#if checkNamesResult?has_content >
+	<img id="qrIcon"  src="${urls.images}/individual/qr-code-icon.png" alt="${i18n().qr_icon}" />
+	<span id="qrCodeImage" class="hidden">${qrCodeLinkedImage!} 
+		<a class="qrCloseLink" href="#"  title="${i18n().qr_code}">${i18n().close_capitalized}</a>
+	</span>
+</#if>
 <#if netid?has_content>
     <a href="http://www.cornell.edu/search/?tab=people&netid=${netid}" title="Cornell University directory entry for ${netid}" target="_blank">
         <img src="${urls.images}/individual/contact-info-icon.png"  title="view additional contact information" alt="contact info" />
