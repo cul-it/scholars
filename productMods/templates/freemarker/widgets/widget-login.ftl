@@ -15,7 +15,7 @@
 </#macro>
 
 <#macro loginForm>
-  <#assign freezeLogins = true />
+  <#assign freezeLogins = false />
 
   <#if freezeLogins >
 	<section id="login" class="hidden">
