@@ -15,6 +15,13 @@
 </#macro>
 
 <#macro loginForm>
+  <#assign freezeLogins = false />
+
+  <#if freezeLogins >
+	<section id="login" class="hidden">
+		<h2>Due to a system upgrade, VIVO is currently closed to editing. However, all VIVO pages are available for browsing.</h2>
+	</section>
+  <#else> 
     <#assign infoClassHide = ''/>
     <#assign infoClassShow = ''/>
 
@@ -74,6 +81,7 @@
         </form>
 
     </section><!-- #log-in -->
+  </#if>
 </#macro> 
 
 <#macro forcePasswordChange>
