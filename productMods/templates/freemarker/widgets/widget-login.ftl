@@ -19,7 +19,7 @@
 
   <#if freezeLogins >
 	<section id="login" class="hidden">
-		<h2>Due to a system upgrade, VIVO is closed to editing through January 19, 2015. However, all VIVO pages are available for browsing.</h2>
+		<h2>Due to a system upgrade, VIVO is currently closed to editing. However, all VIVO pages are available for browsing.</h2>
 	</section>
   <#else> 
     <#assign infoClassHide = ''/>
