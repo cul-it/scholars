@@ -38,7 +38,7 @@
                  OPTIONAL { ?position core:hrJobTitle ?hrJobTitle }
                  OPTIONAL { ?position core:rank ?rank }
         } 
-        ORDER BY ?personName ?type
+        ORDER BY (fn:lower-case(?personName)) ?type
     </query-select>
 
     <query-construct>

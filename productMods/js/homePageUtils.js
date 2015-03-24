@@ -23,7 +23,7 @@ $(document).ready(function(){
         var individualList = "";
 
         if ( facultyMemberCount > 0 ) {        
-            // determine the row at which to start the solr query
+            // determine the row at which to start the search query
             var rowStart = Math.floor((Math.random()*facultyMemberCount));
             var diff;
             var pageSize = 4; // the number of faculty to display on the home page
@@ -34,7 +34,7 @@ $(document).ready(function(){
             }
 
             // in case the random number is equal to or within 3 of the facultyMemberCount 
-            // subtract 1 from the facultyMemberCount because the Solr rows begin at 0, not 1
+            // subtract 1 from the facultyMemberCount because the search rows begin at 0, not 1
             if ( (rowStart + (pageSize-1)) > (facultyMemberCount-1) ) {
                 diff = (rowStart + (pageSize-1)) - (facultyMemberCount-1);
                 if ( diff == 0 ) {
@@ -55,12 +55,12 @@ $(document).ready(function(){
             $.getJSON(url, function(results) {
             
                 if ( results == null || results.individuals.length == 0 ) {
-                    if ( retryCount < 3 ) {
+                    if ( retryCount < 5 ) {
                         retryCount = retryCount + 1;
                         getFacultyMembers();
                     }
                     else {
-                        individualList = "<p><li>" + i18nStrings.noFacultyFound + "</li></p>";
+                        individualList = "<p><li style='padding-left:1.2em'>" + i18nStrings.noFacultyFound + "</li></p>";
                         $('div#tempSpacing').hide();
                         $('div#research-faculty-mbrs ul#facultyThumbs').append(individualList);
                     }
@@ -95,7 +95,7 @@ $(document).ready(function(){
             });
        }
        else {
-           individualList = "<p><li>" + i18nStrings.noFacultyFound + "</li></p>";
+           individualList = "<p><li style='padding-left:1.2em'>" + i18nStrings.noFacultyFound + "</li></p>";
            $('div#tempSpacing').hide();
            $('div#research-faculty-mbrs ul#facultyThumbs').append(individualList);
            $('div#research-faculty-mbrs ul#facultyThumbs').css("padding", "1.0em 0 0.825em 0.75em");
@@ -134,7 +134,7 @@ $(document).ready(function(){
                 //Check to see if this index hasn't already been employed
                 if(!indexFound) {
                 	//if this index hasn't already been employed then utilize it
-                	 html += "<li><a href='" + urlsBase + "/individual" 
+                	 html += "<li><a href='" + urlsBase + "/individual?uri=" 
                      + researchFacilities[index].uri + "'>" 
                      + researchFacilities[index].name + "</a></li>";
                 	 //add this index to the set of already used indices
@@ -146,7 +146,7 @@ $(document).ready(function(){
         }
         else {
             for ( var i=0;i<facNbr;i++) {
-                html += "<li><a href='" + urlsBase + "/individual" 
+                html += "<li><a href='" + urlsBase + "/individual?uri=" 
                         + researchFacilities[i].uri + "'>" 
                         + researchFacilities[i].name + "</a></li>";
             }
