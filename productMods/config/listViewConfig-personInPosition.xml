@@ -83,10 +83,12 @@
         PREFIX hr: &lt;http://vivo.cornell.edu/ns/hr/0.9/hr.owl#&gt;
         PREFIX obo:   &lt;http://purl.obolibrary.org/obo/&gt;
         PREFIX foaf: &lt;http://xmlns.com/foaf/0.1/&gt;
-
         CONSTRUCT { 
             ?subject ?property ?position .
-            ?position ?positionProperty ?positionValue .
+			?position rdfs:label ?positionTitle . 
+			?position core:hrJobTitle ?hrJobTitle .
+			?position core:rank ?rank .
+			?position core:relates ?org .
             ?org rdfs:label ?orgName .
             ?org obo:BFO_0000050 ?middleOrg .
             ?middleOrg rdfs:label ?middleOrgName .
@@ -102,7 +104,11 @@
             } UNION {
                ?subject ?property ?position .
                ?position a core:Position .
-               ?position ?positionProperty ?positionValue 
+               ?position rdfs:label ?positionTitle .
+            } UNION {
+               ?subject ?property ?position .
+               ?position a core:Position .
+               ?position core:hrJobTitle ?hrJobTitle . 
             } UNION {
                ?subject ?property ?position .
                ?position a core:Position .
