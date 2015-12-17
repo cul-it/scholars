@@ -1,0 +1,282 @@
+<?xml version="1.0"?>
+
+
+<!DOCTYPE rdf:RDF [
+    <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+]>
+
+
+<rdf:RDF xmlns="http://scholars.cornell.edu/ontology/vivoc.owl#"
+     xml:base="http://scholars.cornell.edu/ontology/vivoc.owl"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+    <owl:Ontology rdf:about="http://scholars.cornell.edu/ontology/vivoc.owl"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://scholars.cornell.edu/ontology/vivoc.owl#courseAttributeFor -->
+
+    <owl:ObjectProperty rdf:about="http://scholars.cornell.edu/ontology/vivoc.owl#courseAttributeFor">
+        <rdfs:label xml:lang="en">course attribute for</rdfs:label>
+        <rdfs:domain rdf:resource="http://scholars.cornell.edu/ontology/vivoc.owl#CourseAttribute"/>
+        <owl:inverseOf rdf:resource="http://scholars.cornell.edu/ontology/vivoc.owl#hasCourseAttribute"/>
+        <rdfs:range rdf:resource="http://vivoweb.org/ontology/core#Course"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://scholars.cornell.edu/ontology/vivoc.owl#hasCourseAttribute -->
+
+    <owl:ObjectProperty rdf:about="http://scholars.cornell.edu/ontology/vivoc.owl#hasCourseAttribute">
+        <rdfs:label xml:lang="en">has course attribute</rdfs:label>
+        <rdfs:range rdf:resource="http://scholars.cornell.edu/ontology/vivoc.owl#CourseAttribute"/>
+        <rdfs:domain rdf:resource="http://vivoweb.org/ontology/core#Course"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://scholars.cornell.edu/ontology/vivoc.owl#hasRegistrarSubjectArea -->
+
+    <owl:ObjectProperty rdf:about="http://scholars.cornell.edu/ontology/vivoc.owl#hasRegistrarSubjectArea">
+        <rdfs:label xml:lang="en">registrar-listed subject area</rdfs:label>
+        <rdfs:range rdf:resource="http://scholars.cornell.edu/ontology/vivoc.owl#RegistrarSubjectArea"/>
+        <rdfs:domain rdf:resource="http://vivoweb.org/ontology/core#Course"/>
+        <rdfs:subPropertyOf rdf:resource="http://vivoweb.org/ontology/core#hasSubjectArea"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://scholars.cornell.edu/ontology/vivoc.owl#registrarSubjectAreaFor -->
+
+    <owl:ObjectProperty rdf:about="http://scholars.cornell.edu/ontology/vivoc.owl#registrarSubjectAreaFor">
+        <rdfs:label xml:lang="en">registrar-listed subject area for course</rdfs:label>
+        <rdfs:domain rdf:resource="http://scholars.cornell.edu/ontology/vivoc.owl#RegistrarSubjectArea"/>
+        <owl:inverseOf rdf:resource="http://scholars.cornell.edu/ontology/vivoc.owl#hasRegistrarSubjectArea"/>
+        <rdfs:range rdf:resource="http://vivoweb.org/ontology/core#Course"/>
+        <rdfs:subPropertyOf rdf:resource="http://vivoweb.org/ontology/core#subjectAreaFor"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://vivoweb.org/ontology/core#hasSubjectArea -->
+
+    <owl:ObjectProperty rdf:about="http://vivoweb.org/ontology/core#hasSubjectArea"/>
+    
+
+
+    <!-- http://vivoweb.org/ontology/core#subjectAreaFor -->
+
+    <owl:ObjectProperty rdf:about="http://vivoweb.org/ontology/core#subjectAreaFor">
+        <owl:inverseOf rdf:resource="http://vivoweb.org/ontology/core#hasSubjectArea"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://scholars.cornell.edu/ontology/vivoc.owl#classYearAndSemester -->
+
+    <owl:DatatypeProperty rdf:about="http://scholars.cornell.edu/ontology/vivoc.owl#classYearAndSemester">
+        <rdfs:label xml:lang="en">class year and semester</rdfs:label>
+        <rdfs:comment xml:lang="en">A property that will allow us to sort semester classes temporally.  Takes the form YYYY-S-xxxx where YYYY is the year the class was taught, S is a semester code (1=spring, 2=summer, 3=fall), and xxxx is an optional human mnemonic.</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://scholars.cornell.edu/ontology/vivoc.owl#deptName -->
+
+    <owl:DatatypeProperty rdf:about="http://scholars.cornell.edu/ontology/vivoc.owl#deptName"/>
+    
+
+
+    <!-- http://scholars.cornell.edu/ontology/vivoc.owl#hasCourseOutcome -->
+
+    <owl:DatatypeProperty rdf:about="http://scholars.cornell.edu/ontology/vivoc.owl#hasCourseOutcome">
+        <rdfs:label xml:lang="en">course outcome</rdfs:label>
+        <rdfs:comment xml:lang="en">A course outcome is knowledge or a skill a student can expect to gain from taking a course</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://scholars.cornell.edu/ontology/vivoc.owl#orgCode -->
+
+    <owl:DatatypeProperty rdf:about="http://scholars.cornell.edu/ontology/vivoc.owl#orgCode"/>
+    
+
+
+    <!-- http://scholars.cornell.edu/ontology/vivoc.owl#registrarSubjectCode -->
+
+    <owl:DatatypeProperty rdf:about="http://scholars.cornell.edu/ontology/vivoc.owl#registrarSubjectCode">
+        <rdfs:label xml:lang="en">Registrar Subject Code</rdfs:label>
+        <rdfs:comment xml:lang="en">A code from the Cornell Registrar&apos;s office applied to courses and academic units. For example AAS, ENGL.</rdfs:comment>
+        <rdfs:domain rdf:resource="http://scholars.cornell.edu/ontology/vivoc.owl#RegistrarSubjectArea"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://scholars.cornell.edu/ontology/vivoc.owl#AcademicUnit -->
+
+    <owl:Class rdf:about="http://scholars.cornell.edu/ontology/vivoc.owl#AcademicUnit">
+        <rdfs:label>Academic Unit</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://xmlns.com/foaf/0.1/Organization"/>
+    </owl:Class>
+    
+
+
+    <!-- http://scholars.cornell.edu/ontology/vivoc.owl#AdministrativeUnit -->
+
+    <owl:Class rdf:about="http://scholars.cornell.edu/ontology/vivoc.owl#AdministrativeUnit">
+        <rdfs:label>Administrative Unit</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://xmlns.com/foaf/0.1/Organization"/>
+    </owl:Class>
+    
+
+
+    <!-- http://scholars.cornell.edu/ontology/vivoc.owl#Cinema -->
+
+    <owl:Class rdf:about="http://scholars.cornell.edu/ontology/vivoc.owl#Cinema">
+        <rdfs:label>Cinema</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://xmlns.com/foaf/0.1/Organization"/>
+    </owl:Class>
+    
+
+
+    <!-- http://scholars.cornell.edu/ontology/vivoc.owl#CourseAttribute -->
+
+    <owl:Class rdf:about="http://scholars.cornell.edu/ontology/vivoc.owl#CourseAttribute">
+        <rdfs:label xml:lang="en">Course Attribute</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://scholars.cornell.edu/ontology/vivoc.owl#ExtensionUnit -->
+
+    <owl:Class rdf:about="http://scholars.cornell.edu/ontology/vivoc.owl#ExtensionUnit">
+        <rdfs:label>Extension Unit</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://xmlns.com/foaf/0.1/Organization"/>
+    </owl:Class>
+    
+
+
+    <!-- http://scholars.cornell.edu/ontology/vivoc.owl#RegistrarSubjectArea -->
+
+    <owl:Class rdf:about="http://scholars.cornell.edu/ontology/vivoc.owl#RegistrarSubjectArea">
+        <rdfs:label xml:lang="en">Registrar Subject Area</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+        <rdfs:comment xml:lang="en">At Cornell, the designated subject areas that individual courses are assigned to, as distinct from departments. For example AAS (Asian American Studies), ENGL (English)</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://scholars.cornell.edu/ontology/vivoc.owl#Section -->
+
+    <owl:Class rdf:about="http://scholars.cornell.edu/ontology/vivoc.owl#Section">
+        <rdfs:subClassOf rdf:resource="http://xmlns.com/foaf/0.1/Organization"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vivoweb.org/ontology/core#Course -->
+
+    <owl:Class rdf:about="http://vivoweb.org/ontology/core#Course"/>
+    
+
+
+    <!-- http://www.w3.org/2004/02/skos/core#Concept -->
+
+    <owl:Class rdf:about="http://www.w3.org/2004/02/skos/core#Concept"/>
+    
+
+
+    <!-- http://xmlns.com/foaf/0.1/Organization -->
+
+    <owl:Class rdf:about="http://xmlns.com/foaf/0.1/Organization"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://scholars.cornell.edu/individual/CRW-CU-CEL -->
+
+    <owl:NamedIndividual rdf:about="http://scholars.cornell.edu/individual/CRW-CU-CEL">
+        <rdf:type rdf:resource="http://scholars.cornell.edu/ontology/vivoc.owl#CourseAttribute"/>
+        <rdfs:label xml:lang="en">Community Engaged Learning Course (CU-CEL)</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://scholars.cornell.edu/individual/CRW-CU-ITL -->
+
+    <owl:NamedIndividual rdf:about="http://scholars.cornell.edu/individual/CRW-CU-ITL">
+        <rdf:type rdf:resource="http://scholars.cornell.edu/ontology/vivoc.owl#CourseAttribute"/>
+        <rdfs:label xml:lang="en">International Experience Course (CU-ITL)</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://scholars.cornell.edu/individual/CRW-CU-SBY -->
+
+    <owl:NamedIndividual rdf:about="http://scholars.cornell.edu/individual/CRW-CU-SBY">
+        <rdf:type rdf:resource="http://scholars.cornell.edu/ontology/vivoc.owl#CourseAttribute"/>
+        <rdfs:label xml:lang="en">Sustainability Course (CU-SBY)</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://scholars.cornell.edu/individual/CRW-CU-UGR -->
+
+    <owl:NamedIndividual rdf:about="http://scholars.cornell.edu/individual/CRW-CU-UGR">
+        <rdf:type rdf:resource="http://scholars.cornell.edu/ontology/vivoc.owl#CourseAttribute"/>
+        <rdfs:label xml:lang="en">Undergraduate Research Course (CU-UGR)</rdfs:label>
+    </owl:NamedIndividual>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 3.4.2) http://owlapi.sourceforge.net -->
+

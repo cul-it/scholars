@@ -3,7 +3,7 @@
 <#include "cu-identity.ftl">
 
 <header id="branding" role="banner">
-    <h1 class="vivo-logo"><a title="VIVO | enabling national networking of scientists" href="${urls.home}"><span class="displace">${siteName}</span></a></h1>
+<h1 class="vivo-logo"><a title="Research and Scholarship across Cornell" href="${urls.home}"><span class="displace">${siteName}</span></a></h1>
     <#-- Since we are using a graphic text for the tagline, we won't render ${siteTagline}
     <#if siteTagline?has_content>
         <em>${siteTagline}</em>
