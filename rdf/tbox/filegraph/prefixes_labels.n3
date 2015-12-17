@@ -1,4 +1,5 @@
 @prefix vitro:   <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
 
 <http://scholars.cornell.edu/ontology/hr.owl#>
       rdfs:label "Cornell Human Resources"@en-US ;
