@@ -2,15 +2,15 @@
 @prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
 
-<http://scholars.cornell.edu/ontology/hr.owl#>
+<http://scholars.cornell.edu/ontology/hr.owl>
       rdfs:label "Cornell Human Resources"@en-US ;
       vitro:ontologyPrefixAnnot "hr"^^xsd:string .
 
-<http://scholars.cornell.edu/ontology/ospcu.owl#>
+<http://scholars.cornell.edu/ontology/ospcu.owl>
       rdfs:label "OSP Cornell"@en-US ;
       vitro:ontologyPrefixAnnot "ospcu"^^xsd:string .
 
-<http://scholars.cornell.edu/ontology/vivoc.owl#>
+<http://scholars.cornell.edu/ontology/vivoc.owl>
       rdfs:label "Scholars@Cornell Ontology"@en-US ;
       vitro:ontologyPrefixAnnot "vivoc"^^xsd:string .
 
