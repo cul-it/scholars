@@ -49,7 +49,7 @@ $(document).ready(function(){
             }
 
             var dataServiceUrl = urlsBase + "/dataservice?getRandomSearchIndividualsByVClass=1&vclassId=";
-            var url = dataServiceUrl + encodeURIComponent("http://vivo.cornell.edu/ns/mannadditions/0.1#CornellFaculty");
+            var url = dataServiceUrl + encodeURIComponent("http://vivoweb.org/ontology/core#FacultyMember");
             url += "&page=" + rowStart + "&pageSize=" + pageSize;
 
             $.getJSON(url, function(results) {
