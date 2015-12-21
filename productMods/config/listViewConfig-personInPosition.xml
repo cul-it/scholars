@@ -94,9 +94,8 @@
             ?middleOrg rdfs:label ?middleOrgName .
             ?middleOrg obo:BFO_0000050 ?outerOrg .
             ?outerOrg rdfs:label ?outerOrgName .
-            ?position hr:positionInUnit ?posMiddleOrg .
-            ?posMiddleOrg obo:BFO_0000050 ?posOuterOrg .
-            ?posOuterOrg rdfs:label ?posOuterOrgName
+            ?position hr:positionInUnit ?middleOrg .
+            ?middleOrg rdfs:label ?middleOrgName .
         } WHERE {
             {
                ?subject ?property ?position .
@@ -150,9 +149,8 @@
             } UNION {
                 ?subject ?property ?position .
                 ?position a core:Position .
-                ?position hr:positionInUnit ?posMiddleOrg .
-                ?posMiddleOrg obo:BFO_0000050 ?posOuterOrg .
-                ?posOuterOrg rdfs:label ?posOuterOrgName
+                ?position hr:positionInUnit ?middleOrg .
+                ?middleOrg rdfs:label ?middleOrgName
             }
 
         } 
