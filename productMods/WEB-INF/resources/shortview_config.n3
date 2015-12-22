@@ -15,8 +15,6 @@
 @prefix display: <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#> .
 @prefix datagetters: <java:edu.cornell.mannlib.vitro.webapp.utils.dataGetter.> .
 @prefix mydomain: <http://localhost:8080/individual/> .
-@prefix vivoc: <http://vivo.library.cornell.edu/ns/0.1#> .
-@prefix mann: <http://vivo.cornell.edu/ns/mannadditions/0.1#> .
 
 vivo:FacultyMember
         display:hasCustomView mydomain:peopleSearchView ;
@@ -38,25 +36,6 @@ vivo:NonAcademic
         display:hasCustomView mydomain:peopleIndexView ;
         display:hasCustomView mydomain:peopleBrowseView .
 
-mann:CornellNonAcademicStaff
-        display:hasCustomView mydomain:peopleSearchView ;
-        display:hasCustomView mydomain:peopleIndexView ;
-        display:hasCustomView mydomain:peopleBrowseView .
-
-mann:CornellFaculty
-        display:hasCustomView mydomain:peopleSearchView ;
-        display:hasCustomView mydomain:peopleIndexView ;
-        display:hasCustomView mydomain:peopleBrowseView .
-
-mann:CornellLibrarian
-        display:hasCustomView mydomain:peopleSearchView ;
-        display:hasCustomView mydomain:peopleIndexView ;
-        display:hasCustomView mydomain:peopleBrowseView .
-
-vivoc:CornellAcademicStaff
-        display:hasCustomView mydomain:peopleSearchView ;
-        display:hasCustomView mydomain:peopleBrowseView ;
-        display:hasCustomView mydomain:peopleIndexView .
 
 mydomain:peopleSearchView
 	a display:customViewForIndividual ;

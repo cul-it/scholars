@@ -11,7 +11,7 @@ Please see documentation at https://confluence.cornell.edu/display/ennsrd/Google
 <script type="text/javascript">  
     try { 
         var pageTracker = _gat._getTracker("UA-5164622-5");
-        pageTracker._setDomainName("vivo.cornell.edu");
+        pageTracker._setDomainName("scholars.cornell.edu");
         pageTracker._setAllowLinker(true);
         pageTracker._trackPageview();
          
