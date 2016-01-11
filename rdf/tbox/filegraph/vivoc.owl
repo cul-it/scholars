@@ -168,28 +168,10 @@
     
 
 
-    <!-- http://scholars.cornell.edu/ontology/vivoc.owl#Cinema -->
-
-    <owl:Class rdf:about="http://scholars.cornell.edu/ontology/vivoc.owl#Cinema">
-        <rdfs:label>Cinema</rdfs:label>
-        <rdfs:subClassOf rdf:resource="http://xmlns.com/foaf/0.1/Organization"/>
-    </owl:Class>
-    
-
-
     <!-- http://scholars.cornell.edu/ontology/vivoc.owl#CourseAttribute -->
 
     <owl:Class rdf:about="http://scholars.cornell.edu/ontology/vivoc.owl#CourseAttribute">
         <rdfs:label xml:lang="en">Course Attribute</rdfs:label>
-    </owl:Class>
-    
-
-
-    <!-- http://scholars.cornell.edu/ontology/vivoc.owl#ExtensionUnit -->
-
-    <owl:Class rdf:about="http://scholars.cornell.edu/ontology/vivoc.owl#ExtensionUnit">
-        <rdfs:label>Extension Unit</rdfs:label>
-        <rdfs:subClassOf rdf:resource="http://xmlns.com/foaf/0.1/Organization"/>
     </owl:Class>
     
 
