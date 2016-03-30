@@ -517,7 +517,7 @@ h1.vivo-logo {
     height: 64px;
     top: 15px;
     left: 0;
-    background: url(../images/scholars_logo.png) 0 0 no-repeat;
+   /* background: url(../images/bell_tower.png) 0 0 no-repeat; */
 }
 h1.vivo-logo a {
     display: block;
@@ -2018,4 +2018,8 @@ span.subclassExpandMinus {
 .deptDetailsListItem {
     line-height:18px;
     margin-bottom:10px
+}
+/* SCHOLARS OVERRIDE */
+div#profileTypeContainer {
+	top: 120px !important;
 }
