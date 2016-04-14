@@ -36,6 +36,10 @@ vivo:NonAcademic
         display:hasCustomView mydomain:peopleIndexView ;
         display:hasCustomView mydomain:peopleBrowseView .
 
+vivo:EmeritusFaculty
+        display:hasCustomView mydomain:peopleSearchView ;
+        display:hasCustomView mydomain:peopleIndexView ;
+        display:hasCustomView mydomain:peopleBrowseView .
 
 mydomain:peopleSearchView
 	a display:customViewForIndividual ;
