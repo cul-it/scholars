@@ -98,6 +98,8 @@
     </section> <!-- end individual-info -->
 </section> <!-- end individual-intro -->
 
+<#include "individual-wordcloud.ftl">
+
 <#assign nameForOtherGroup = "${i18n().other}">
 <#if !editable>
 	<#-- We don't want to see the first name and last name unless we might edit them. -->
