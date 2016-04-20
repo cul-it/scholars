@@ -27,13 +27,14 @@
  }
  </style>
 
-<div id="person_word_cloud"><h1>URI: ${individual.uri}</h1></div>
+<div id="person_word_cloud"></div>
 
 <script>
-word_cloud_data_uri = "${urls.base}/mls50.csv"
+word_cloud_data_uri = "${urls.base}/api/distributeRdf?action=person_word_cloud&person=${individual.uri?url}"
 </script>
 
 ${scripts.add('<script type="text/javascript" src="${urls.theme}/js/visualizations/d3.min.js"></script>',
               '<script type="text/javascript" src="${urls.theme}/js/visualizations/d3.layout.cloud.js"></script>',
               '<script type="text/javascript" src="${urls.theme}/js/visualizations/d3-tip.js"></script>',
+              '<script type="text/javascript" src="${urls.theme}/js/visualizations/rdflib.js"></script>',
               '<script type="text/javascript" src="${urls.theme}/js/visualizations/person-word-cloud.js"></script>')}

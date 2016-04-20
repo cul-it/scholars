@@ -1201,6 +1201,16 @@
     <url-pattern>/api/sparqlUpdate</url-pattern>
   </servlet-mapping>
   
+  <servlet>
+    <servlet-name>DistributeRdfApi</servlet-name>
+    <servlet-class>edu.cornell.mannlib.vitro.webapp.controller.api.DistributeRdfApiController</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>DistributeRdfApi</servlet-name>
+    <url-pattern>/api/distributeRdf</url-pattern>
+  </servlet-mapping>
+  
    <servlet>
     <servlet-name>StandardVisualizationController</servlet-name>
     <servlet-class>edu.cornell.mannlib.vitro.webapp.controller.visualization.StandardVisualizationController</servlet-class>

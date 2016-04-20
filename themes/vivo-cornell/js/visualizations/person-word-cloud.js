@@ -3,7 +3,7 @@ function PersonWordCloud(uri) {
 	var height = 700;
 	var fill = d3.scale.category20();
 	
-	d3.csv(uri, receiveData);
+	d3.text(uri, receiveData);
 
 	function receiveData(data) {
 		var keywords = transformData(data);
@@ -11,22 +11,57 @@ function PersonWordCloud(uri) {
 		doTheLayout(keywords, keywordScale);
 
 		function transformData(data) {
-			return data.filter(dataFilter).map(dataMapper).sort(dataSorter)
-					.slice(0, 30);
+			var VIVO = $rdf.Namespace("http://vivoweb.org/ontology/core#");
+			var RDFS = $rdf.Namespace("http://www.w3.org/2000/01/rdf-schema#");
+			var graph = $rdf.graph();
 
-			function dataFilter(d) {
-				return +d.count > 1;
+			try {
+			    $rdf.parse(data, graph, "http://graph.name", "text/turtle");
+			    var keywordSet = buildKeywordSet();
+			    var keywordArray = populateKeywordArray(keywordSet);
+			    return sortAndSlice(keywordArray);
+			} catch (err) {
+    			console.log(err)
+    			return []
+			}
+
+			function buildKeywordSet() {
+				var stmts = graph.statementsMatching(undefined, VIVO('freetextKeyword'));
+				var set = new Set();
+				for (let stmt of stmts) {
+					set.add(stmt.object.toString());
+				}
+				return set;
 			}
 			
-			function dataMapper(d) {
-				return {
-					text : d.keyword,
-					size : +d.count,
-				};
+			function populateKeywordArray(keywordSet) {
+			    var keywordArray = [];
+			    for (let keyword of keywordSet) {
+			    	keywordArray.push(gatherKeywordInfo(keyword));
+			    }
+			    return keywordArray;
+			}
+
+			function gatherKeywordInfo(keyword) {
+				var linkInfo = []
+				var stmts = graph.statementsMatching(undefined, undefined, keyword);
+				for (let stmt of stmts) {
+					linkInfo.push(getLinkInfo(stmt.subject))
+				}
+				return {text: keyword, size: stmts.length, links: linkInfo}
+			
+				function getLinkInfo(subject) {
+					var label = graph.any(subject, RDFS("label"))
+					return {uri: subject.uri, label: label.toString()}
+				}
 			}
 			
-			function dataSorter(a, b) {
-				return d3.descending(a.size, b.size);
+			function sortAndSlice(keywordArray) {
+				return keywordArray.sort(compareSizes).slice(0, 30);
+				
+				function compareSizes(a, b) {
+					return b.size - a.size;
+				}
 			}
 		}
 
@@ -42,7 +77,6 @@ function PersonWordCloud(uri) {
 		}
 		
 		function doTheLayout(keywords, keywordScale) {
-
 			d3.layout.cloud().size([ width, height ]).words(keywords).rotate(
 					wordAngle).font("Impact").fontSize(scaledSize).on("end",
 					draw).start();
