@@ -1,127 +1,152 @@
-function createPersonWordCloud(turtle, selector) {
-    var width = $(window).width() * 0.6;
-    var height = $(window).height() * 0.6;
-	var fill = d3.scale.category20();
-	
-	var keywords = turtleToJson(turtle);
-	var keywordScale = createScale(keywords); 
-	doTheLayout(keywords, keywordScale);
-	adjustPositionAndSize()
-
-	function turtleToJson(turtle) {
+ function transform_word_cloud_data(graph) {
 		var VIVO = $rdf.Namespace("http://vivoweb.org/ontology/core#");
 		var RDFS = $rdf.Namespace("http://www.w3.org/2000/01/rdf-schema#");
-		var graph = $rdf.graph();
 
-		try {
-		    $rdf.parse(turtle, graph, "http://graph.name", "text/turtle");
-		    var keywordSet = buildKeywordSet();
-		    var keywordArray = populateKeywordArray(keywordSet);
-		    return sortAndSlice(keywordArray);
-		} catch (err) {
-			console.log(err)
-			return []
-		}
+	    var keywordSet = buildKeywordSet();
+	    var keywordArray = populateKeywordArray(keywordSet);
+	    return sortAndSlice(keywordArray);
 
 		function buildKeywordSet() {
 			var stmts = graph.statementsMatching(undefined, VIVO('freetextKeyword'));
-			var set = new Set();
-			for (let stmt of stmts) {
-				set.add(stmt.object.toString());
+			return new Set(stmts.map(getObjectValue));
+			
+			function getObjectValue(stmt) {
+				return stmt.object.value
 			}
-			return set;
 		}
 		
 		function populateKeywordArray(keywordSet) {
-		    var keywordArray = [];
-		    for (let keyword of keywordSet) {
-		    	keywordArray.push(gatherKeywordInfo(keyword));
-		    }
-		    return keywordArray;
+			return Array.from(keywordSet).map(gatherKeywordInfo)
 		}
 
 		function gatherKeywordInfo(keyword) {
-			var linkInfo = []
 			var stmts = graph.statementsMatching(undefined, undefined, keyword);
-			for (let stmt of stmts) {
-				linkInfo.push(getLinkInfo(stmt.subject))
-			}
-			return {text: keyword, size: stmts.length, links: linkInfo}
+			return {
+				text: keyword, 
+				size: stmts.length, 
+				entities: stmts.map(getEntityInfo)}
 		
-			function getLinkInfo(subject) {
-				var label = graph.any(subject, RDFS("label"))
-				return {uri: subject.uri, label: label.toString()}
+			function getEntityInfo(stmt) {
+				return {
+					uri: stmt.subject.uri, 
+					text: graph.any(stmt.subject, RDFS("label")).value
+					};
 			}
 		}
 		
 		function sortAndSlice(keywordArray) {
-			return keywordArray.sort(compareSizes).slice(0, 30);
+			return keywordArray.sort(compareSizes).slice(0, 50);
 			
 			function compareSizes(a, b) {
 				return b.size - a.size;
 			}
 		}
-	}
+ }
+ 
+ function draw_word_cloud(keywords, targetSelector, width, height) {
+	 if (keywords.length == 0) {
+		 $(targetSelector).html("<div>No Research Keywords</div>");
+		 return;
+	 }
 
-	function createScale(keywords) {
-		var keywordScale = d3.scale.linear().range([ 10, 60 ]);
-		keywordScale.domain([ d3.min(keywords, getSize),
-				d3.max(keywords, getSize) ]);
-		return keywordScale;
+	var fill = d3.scale.category20();
+    
+    var keywordScale = d3.scale.linear().range([10,60]);
+      
+    var tip = d3.tip().attr('class', 'd3-tip choices triangle-isosceles').html(function(d) { 
+      var repr = "";
+      for(var i = 0; i < d.entities.length; i++) {
+        repr += "<div class='hoverable'><a href='" + d.entities[i].uri + "'>" + d.entities[i].text + "</a></div>";
+      }
+      return repr; 
+    });
 
-		function getSize(d) {
-			return d.size;
-		}
-	}
-	
-	function doTheLayout(keywords, keywordScale) {
-		d3.layout.cloud().size([ width, height ]).words(keywords).rotate(
-				wordAngle).font("Impact").fontSize(scaledSize).on("end",
-				draw).start();
+    keywordScale.domain([
+                         d3.min(keywords, function(d) { return d.size; }),
+                         d3.max(keywords, function(d) { return d.size; })
+                         ]);
 
-		function wordAngle() {
-			return ~~(Math.random() * 2) * 90;
-		}
+    var wordsToFills = {};
+    
+    d3.layout.cloud().size([width, height])
+    	.words(keywords)
+    	.rotate(function() { return ~~(Math.random() * 2) * 90; })
+    	.font("Impact")
+    	.fontSize(function(d) {
+    		return keywordScale(d.size);
+    	})
+    	.on("end", draw)
+    	.start();
 
-		function scaledSize(d) {
-			return keywordScale(d.size);
-		}
 
-		function draw(words) {
-		    $(selector).empty()
-			d3.select(selector).append("svg").attr("width",
-					width).attr("height", height).append("g").attr(
-					"transform",
-					"translate(" + (width / 2) + "," + (height / 2) + ")")
-					.selectAll("text").data(words).enter().append("text")
-					.style("font-size", sizer).style("font-family",
-							"Impact").style("fill", filler).attr(
-							"text-anchor", "middle").attr("transform",
-							transformer).text(getText);
+    // RGB utility functions
 
-			function sizer(d) {
-				return d.size + "px";
-			}
+    function parseRgb(rgbString) {
+    	var commaString = rgbString.substring(4, rgbString.length - 1);
+    	var numberStrings = commaString.split(",");
+    	var nums = [];
+    	for(var i = 0; i < numberStrings.length; i++) {
+    		nums.push(parseInt(numberStrings[i]));
+    	}
+    	return nums;
+    }
 
-			function transformer(d) {
-				return "translate(" + [ d.x, d.y ] + ")rotate(" + d.rotate
-						+ ")";
-			}
+    function brighten(rgbs, p) {
+    	var result = [];
+    	for(var i = 0; i < rgbs.length; i++) {
+    		if(rgbs[i] + 20 <= 255) {
+    			result.push(rgbs[i] + p);
+    		}
+    		else {
+    			result.push(255);
+    		}
+    	}
+    	return result;
+    }
 
-			function filler(d, i) {
-				return fill(i);
-			}
+    function toRgbString(rgbs) {
+    	return "rgb(" + rgbs[0] + "," + rgbs[1] + "," + rgbs[2] + ")";
+    }
 
-			function getText(d) {
-				return d.text;
-			}
-		}
-	}
-	
-	function adjustPositionAndSize() {
-        $(selector).width(width)
-        $(selector).height(height)
-        $(selector).css('margin-left', -(width/2))
-	}
-}
+    function draw(words) {
+    	d3.select(targetSelector)
+    	.append("svg")
+   		.attr("width", width)
+   		.attr("height", height)
+   		.attr("id", "stage")
+    	.append("g")
+   		.attr("transform", "translate("+(width/2)+","+(height/2)+")")
+    	.selectAll("text")
+    	.data(words)
+    	.enter().append("text")
+    	.style("font-size", function(d) { return d.size + "px"; })
+    	.style("font-family", "Impact")
+    	.style("fill", function(d, i) {
+    		var wordFill = fill(i);
+    		wordsToFills[d.text] = wordFill;
+    		return wordFill;
+    	})
+    	.attr("text-anchor", "middle")
+    	.attr("transform", function(d) {
+    		return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
+    	})
+    	.text(function(d) { return d.text; }).call(tip)
+    	.on('click', tip.show) 
+    	.on('mouseover', function(d) {
+    		d3.select(this).style("cursor", "pointer");
+    		var currentColor = d3.select(this).style("fill");
+    		var rgbs = parseRgb(currentColor);
+    		var brighterFill = toRgbString(brighten(rgbs, 40));
+    		d3.select(this).style("fill", brighterFill);
+    	}).on('mouseout', function(d) {
+    		d3.select(this).style("fill", wordsToFills[d.text]);
+    	});
+    }
 
+    $(document).click(function(e) {
+    	if(!$(e.target).closest('#stage').length && !$(e.target).is('#stage')) {
+    		tip.hide();
+    	}
+    });
+ };
+ 
