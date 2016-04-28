@@ -1,0 +1,13 @@
+@prefix : <http://vitro.mannlib.cornell.edu/ns/vitro/ApplicationSetup#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+#
+# configure the DistributeRdfApiController.
+#
+
+:rdf_distribution_person_word_cloud
+    a   <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.RdfDistributor> ,
+        <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.PersonWordCloudDistributor> ;
+    :actionName "person_word_cloud" .
+
