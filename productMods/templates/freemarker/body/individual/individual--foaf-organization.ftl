@@ -17,6 +17,10 @@
     <#include "individual-affiliated-research-areas.ftl">
 </#assign>
 
+<#assign visualizationContent>
+    <#include "organization-research-areas.ftl">
+</#assign>
+
 <#if individual.mostSpecificTypes?seq_contains("Academic Department") >
     <#if getGrantResults?has_content >
         <#assign departmentalGrantsExtension>    
