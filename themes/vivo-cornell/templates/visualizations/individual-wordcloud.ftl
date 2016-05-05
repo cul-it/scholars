@@ -27,9 +27,25 @@
  }
  </style>
  
-<div id="person_word_cloud"></div>
+<div id="person_word_cloud">BOGUS ONE</div>
 
 <a href="#" id="word_cloud_trigger">WordCloud</a>
+
+<script>
+$().ready(function() {
+  loadVisualization({
+    modal : true, 
+    target : '#person_word_cloud',
+    trigger : '#word_cloud_trigger',
+    url : "${urls.base}/api/distributeRdf?action=person_word_cloud&person=${individual.uri?url}",
+    parse : 'turtle',
+    transform : transform_word_cloud_data,
+    display : draw_word_cloud,
+    height : 0.75,
+    width : 0.75
+  });
+});
+</script>
 
 ${stylesheets.add('<link rel="stylesheet" href="${urls.theme}/css/visualizations/jqModal.css" />')}
 
@@ -37,18 +53,7 @@ ${scripts.add('<script type="text/javascript" src="${urls.theme}/js/visualizatio
               '<script type="text/javascript" src="${urls.theme}/js/visualizations/d3.layout.cloud.js"></script>',
               '<script type="text/javascript" src="${urls.theme}/js/visualizations/d3-tip.js"></script>',
               '<script type="text/javascript" src="${urls.theme}/js/visualizations/jqModal.js"></script>',
-              '<script type="text/javascript" src="${urls.theme}/js/visualizations/popup-rdf.js"></script>',
+              '<script type="text/javascript" src="${urls.theme}/js/visualizations/visualization-loader.js"></script>',
               '<script type="text/javascript" src="${urls.theme}/js/visualizations/rdflib.js"></script>',
               '<script type="text/javascript" src="${urls.theme}/js/visualizations/person-word-cloud.js"></script>')}
 
-<script>
-$().ready(function() {
-  popupRdf({
-    target : '#person_word_cloud',
-    trigger : '#word_cloud_trigger',
-    url : "${urls.base}/api/distributeRdf?action=person_word_cloud&person=${individual.uri?url}",
-    transform : transform_word_cloud_data,
-    display : draw_word_cloud
-  });
-});
-</script>

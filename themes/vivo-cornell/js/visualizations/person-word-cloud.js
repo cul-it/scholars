@@ -1,51 +1,56 @@
- function transform_word_cloud_data(graph) {
-		var VIVO = $rdf.Namespace("http://vivoweb.org/ontology/core#");
-		var RDFS = $rdf.Namespace("http://www.w3.org/2000/01/rdf-schema#");
+function transform_word_cloud_data(graph) {
+	var VIVO = $rdf.Namespace("http://vivoweb.org/ontology/core#");
+	var RDFS = $rdf.Namespace("http://www.w3.org/2000/01/rdf-schema#");
 
-	    var keywordSet = buildKeywordSet();
-	    var keywordArray = populateKeywordArray(keywordSet);
-	    return sortAndSlice(keywordArray);
+	var keywordSet = buildKeywordSet();
+	var keywordArray = populateKeywordArray(keywordSet);
+	return sortAndSlice(keywordArray);
 
-		function buildKeywordSet() {
-			var stmts = graph.statementsMatching(undefined, VIVO('freetextKeyword'));
-			return new Set(stmts.map(getObjectValue));
-			
-			function getObjectValue(stmt) {
-				return stmt.object.value
-			}
+	function buildKeywordSet() {
+		var stmts = graph
+				.statementsMatching(undefined, VIVO('freetextKeyword'));
+		return new Set(stmts.map(getObjectValue));
+
+		function getObjectValue(stmt) {
+			return stmt.object.value
 		}
-		
-		function populateKeywordArray(keywordSet) {
-			return Array.from(keywordSet).map(gatherKeywordInfo)
+	}
+
+	function populateKeywordArray(keywordSet) {
+		return Array.from(keywordSet).map(gatherKeywordInfo)
+	}
+
+	function gatherKeywordInfo(keyword) {
+		var stmts = graph.statementsMatching(undefined, undefined, keyword);
+		return {
+			text : keyword,
+			size : stmts.length,
+			entities : stmts.map(getEntityInfo)
 		}
 
-		function gatherKeywordInfo(keyword) {
-			var stmts = graph.statementsMatching(undefined, undefined, keyword);
+		function getEntityInfo(stmt) {
 			return {
-				text: keyword, 
-				size: stmts.length, 
-				entities: stmts.map(getEntityInfo)}
-		
-			function getEntityInfo(stmt) {
-				return {
-					uri: stmt.subject.uri, 
-					text: graph.any(stmt.subject, RDFS("label")).value
-					};
-			}
+				uri : stmt.subject.uri,
+				text : graph.any(stmt.subject, RDFS("label")).value
+			};
 		}
-		
-		function sortAndSlice(keywordArray) {
-			return keywordArray.sort(compareSizes).slice(0, 50);
-			
-			function compareSizes(a, b) {
-				return b.size - a.size;
-			}
+	}
+
+	function sortAndSlice(keywordArray) {
+		return keywordArray.sort(compareSizes).slice(0, 50);
+
+		function compareSizes(a, b) {
+			return b.size - a.size;
 		}
- }
+	}
+}
  
- function draw_word_cloud(keywords, targetSelector, width, height) {
+ function draw_word_cloud(keywords, target) {
+	 var height = $(target).height();
+	 var width = $(target).width();
+
 	 if (keywords.length == 0) {
-		 $(targetSelector).html("<div>No Research Keywords</div>");
+		 $(target).html("<div>No Research Keywords</div>");
 		 return;
 	 }
 
@@ -109,7 +114,7 @@
     }
 
     function draw(words) {
-    	d3.select(targetSelector)
+    	d3.select(target)
     	.append("svg")
    		.attr("width", width)
    		.attr("height", height)
