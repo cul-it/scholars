@@ -1,9 +1,19 @@
-<div><H1>ORGANIZATION RESEARCH AREAS!!!!!</H1></div>
+<div id="organization-research-areas">
+<div>
 
-        <div id="graph" class="conceptmap">
-        </div>
-        <div id="graph-info">
-        </div>
+<script>
+$().ready(function() {
+  loadVisualization({
+    target : '#organization-research-areas',
+    url : "${urls.base}/api/distributeRdf?action=organization_research_areas&organization=${individual.uri?url}",
+    parse : 'turtle',
+    transform : transformFlaredata,
+    display : plotConceptMap,
+    height : 0.75,
+    width : 0.75
+  });
+});
+</script>
 
 ${stylesheets.add('<link rel="stylesheet" href="${urls.theme}/css/visualizations/cbe-ra.css" />')}
 
@@ -11,4 +21,4 @@ ${scripts.add('<script type="text/javascript" src="${urls.theme}/js/visualizatio
               '<script type="text/javascript" src="${urls.theme}/js/visualizations/jqModal.js"></script>',
               '<script type="text/javascript" src="${urls.theme}/js/visualizations/visualization-loader.js"></script>',
               '<script type="text/javascript" src="${urls.theme}/js/visualizations/rdflib.js"></script>',
-              '<script type="text/javascript" src="${urls.theme}/js/visualizations/cbe-ra.js"></script>')}
+              '<script type="text/javascript" src="${urls.theme}/js/visualizations/organization-research-areas.js"></script>')}

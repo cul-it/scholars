@@ -11,3 +11,8 @@
         <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.PersonWordCloudDistributor> ;
     :actionName "person_word_cloud" .
 
+:rdf_distribution_organization_research_areas
+    a   <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.RdfDistributor> ,
+        <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.OrganizationResearchAreasDistributor> ;
+    :actionName "organization_research_areas" .
+

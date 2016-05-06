@@ -1,4 +1,97 @@
-function plotConceptMap(flaredata) {
+function transformFlaredata(graph) {
+	var BIBO = $rdf.Namespace("http://purl.org/ontology/bibo/");
+	var FOAF = $rdf.Namespace("http://xmlns.com/foaf/0.1/");
+	var RDF = $rdf.Namespace("http://www.w3.org/1999/02/22-rdf-syntax-ns#");
+	var RDFS = $rdf.Namespace("http://www.w3.org/2000/01/rdf-schema#");
+	var SCHOLARS = $rdf.Namespace("http://scholars.cornell.edu/individual/");
+	var SKOS = $rdf.Namespace("http://www.w3.org/2004/02/skos/core#");
+	var VIVO = $rdf.Namespace("http://vivoweb.org/ontology/core#");
+
+	return {
+		"ditems": figureDItems(),
+		"themes": figureThemes()
+	}
+	
+	function figureDItems() {
+		var stmts = graph.statementsMatching(undefined, RDF("type"), FOAF("Person"))
+		return stmts.map(figureDItem);
+
+		function figureDItem(stmt, index) {
+			var author = stmt.subject.uri;
+			return {
+				"type"  : "ditem",
+				"ditem" : index, 
+				"name"  : getLabel(author),
+				"url"   : author,
+				"links" : figureLinks()
+			}
+
+			function figureLinks() {
+				var authorships = findAuthorships();
+				var articles = authorships.map(findArticles).reduce(flattener, []);
+				var subjectAreas = articles.map(findSubjectAreas).reduce(flattener, []);
+				var labels = new Set(subjectAreas.map(getLabel));
+				return Array.from(labels);
+
+				function findAuthorships() {
+					var stmts = graph.statementsMatching($rdf.sym(author), VIVO("relatedBy"), undefined)
+					return stmts.map(getObjectUri);
+				}
+				
+				function findArticles(authorship) {
+					var stmts = graph.statementsMatching($rdf.sym(authorship), VIVO("relates"), undefined)
+					var uris = stmts.map(getObjectUri);
+					var authorHere = uris.indexOf(author)
+					if (authorHere >= 0) {
+						uris.splice(authorHere, 1) 
+					}
+					return uris;
+				}
+				
+				function findSubjectAreas(article) {
+					var stmts = graph.statementsMatching($rdf.sym(article), VIVO("hasSubjectArea"), undefined)
+					return stmts.map(getObjectUri);
+				}
+				
+				function flattener(array, addition) {
+					return array.concat(addition);
+				}
+			}
+		}
+	}
+	
+	function figureThemes() {
+		var stmts = graph.statementsMatching(undefined, RDF("type"), SKOS("Concept"))
+		var uris = Array.from(new Set(stmts.map(getSubjectUri)));
+		return uris.map(figureTheme);
+		
+		function figureTheme(uri) {
+			var label = getLabel(uri);
+			return {
+				"type"        : "theme",
+				"name"        : label,
+				"description" : "",
+				"slug"        : label,
+				"uri"         : uri
+			}
+		}
+	}
+	
+	function getLabel(uri) {
+		return graph.any($rdf.sym(uri), RDFS("label")).value;
+	}
+	
+	function getSubjectUri(stmt) {
+		return stmt.subject.uri;
+	}
+	
+	function getObjectUri(stmt) {
+		return stmt.object.uri;
+	}
+}
+
+function plotConceptMap(flaredata, target) {
+	
 	function addNewlines(str) {
 		var splitStr = str.split(" ");
 		var subarrays = [];
@@ -62,7 +155,7 @@ function plotConceptMap(flaredata) {
 		// Node name at Footer
 		var Nh = (c / 2) + 100;
 		var svgHeight = c + 250;
-		var d = d3.select("#" + chartElementId).append("svg").attr("width", a)
+		var d = d3.select(target).append("div").attr("class", "conceptmap").append("svg").attr("width", a)
 				.attr("height", svgHeight).append("g").attr("transform",
 						"translate(" + a / 2 + "," + Nh + ")");
 		var I = d.append("rect").attr("class", "bg").attr({
@@ -75,7 +168,7 @@ function plotConceptMap(flaredata) {
 		var B = d.append("g").attr("class", "links"), f = d.append("g").attr(
 				"class", "ditems"), E = d.append("g").attr("class", "nodes");
 
-		var Q = d3.select("#" + infoElementId);
+		var Q = d3.select(target).append("div").attr("class", "graph-info");
 
 		T = d3.map(dataJson);
 		q = d3.merge(T.values());
@@ -658,7 +751,3 @@ function plotConceptMap(flaredata) {
 		}
 	}
 };
-
-$(function() {
-	plotConceptMap(hardcodeddata);
-});
