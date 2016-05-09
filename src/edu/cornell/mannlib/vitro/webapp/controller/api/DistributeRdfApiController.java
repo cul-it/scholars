@@ -62,7 +62,7 @@ public class DistributeRdfApiController extends VitroApiServlet {
 			do400BadRequest(e.getMessage(), resp);
 		} catch (NotAuthorizedException e) {
 			do403Forbidden(resp);
-		} catch (RdfDistributorException e) {
+		} catch (Exception e) {
 			do500InternalServerError(e.getMessage(), e, resp);
 		}
 	}

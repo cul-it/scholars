@@ -13,6 +13,7 @@
 
 :rdf_distribution_organization_research_areas
     a   <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.RdfDistributor> ,
-        <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.OrganizationResearchAreasDistributor> ;
-    :actionName "organization_research_areas" .
+        <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.FileDistributor> ;
+    :actionName "organization_research_areas" ;
+    :path "fakeData/fake_organization_research_areas.ttl"
 
