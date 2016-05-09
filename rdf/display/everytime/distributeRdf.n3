@@ -18,3 +18,9 @@
     :path "fakeData/fake_organization_research_areas.ttl" ;
     :contentType "text/turtle" .
 
+:rdf_grants_page
+    a   <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.DataDistributor> ,
+        <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.FileDistributor> ;
+    :actionName "grants_bubble_chart" ;
+    :path "fakeData/fake_grants_data.json" ;
+    :contentType "application/json" .
