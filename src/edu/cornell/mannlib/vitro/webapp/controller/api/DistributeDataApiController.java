@@ -20,23 +20,23 @@ import org.apache.commons.logging.LogFactory;
 
 import com.hp.hpl.jena.rdf.model.Model;
 
-import edu.cornell.mannlib.vitro.webapp.controller.api.distribute.RdfDistributor;
-import edu.cornell.mannlib.vitro.webapp.controller.api.distribute.RdfDistributor.ActionFailedException;
-import edu.cornell.mannlib.vitro.webapp.controller.api.distribute.RdfDistributor.MissingParametersException;
-import edu.cornell.mannlib.vitro.webapp.controller.api.distribute.RdfDistributor.NoSuchActionException;
-import edu.cornell.mannlib.vitro.webapp.controller.api.distribute.RdfDistributor.NotAuthorizedException;
-import edu.cornell.mannlib.vitro.webapp.controller.api.distribute.RdfDistributor.RdfDistributorException;
+import edu.cornell.mannlib.vitro.webapp.controller.api.distribute.DataDistributor;
+import edu.cornell.mannlib.vitro.webapp.controller.api.distribute.DataDistributor.ActionFailedException;
+import edu.cornell.mannlib.vitro.webapp.controller.api.distribute.DataDistributor.DataDistributorException;
+import edu.cornell.mannlib.vitro.webapp.controller.api.distribute.DataDistributor.MissingParametersException;
+import edu.cornell.mannlib.vitro.webapp.controller.api.distribute.DataDistributor.NoSuchActionException;
+import edu.cornell.mannlib.vitro.webapp.controller.api.distribute.DataDistributor.NotAuthorizedException;
 import edu.cornell.mannlib.vitro.webapp.modelaccess.ModelAccess;
 import edu.cornell.mannlib.vitro.webapp.utils.configuration.ConfigurationBeanLoader;
 import edu.cornell.mannlib.vitro.webapp.utils.configuration.ConfigurationBeanLoaderException;
 
 /**
  * Find a distributor description for the requested action. Create an instance
- * of that distributor. Run it, and return the resulting model as a Turtle file.
+ * of that distributor. Write its data to the response.
  */
-public class DistributeRdfApiController extends VitroApiServlet {
+public class DistributeDataApiController extends VitroApiServlet {
 	private static final Log log = LogFactory
-			.getLog(DistributeRdfApiController.class);
+			.getLog(DistributeDataApiController.class);
 
 	private static final String DISTRIBUTOR_FOR_SPECIFIED_ACTION = ""
 			+ "PREFIX : <http://vitro.mannlib.cornell.edu/ns/vitro/ApplicationSetup#> \n"
@@ -53,7 +53,7 @@ public class DistributeRdfApiController extends VitroApiServlet {
 			String action = req.getParameter("action");
 
 			String uri = findDistributorForAction(action, model);
-			RdfDistributor instance = instantiateDistributor(req, uri, model);
+			DataDistributor instance = instantiateDistributor(req, uri, model);
 			runIt(req, resp, instance);
 			
 		} catch (NoSuchActionException e) {
@@ -83,37 +83,41 @@ public class DistributeRdfApiController extends VitroApiServlet {
 
 		if (uris.isEmpty()) {
 			throw new NoSuchActionException(
-					"Did not find an RdfDistributor for '" + action + "'");
+					"Did not find a DataDistributor for '" + action + "'");
 		}
 		if (uris.size() > 1) {
-			log.warn("Found more than one RdfDistributor for '" + action
+			log.warn("Found more than one DataDistributor for '" + action
 					+ "': " + uris);
 		}
 
 		return uris.get(0);
 	}
 
-	private RdfDistributor instantiateDistributor(HttpServletRequest req,
+	private DataDistributor instantiateDistributor(HttpServletRequest req,
 			String distributorUri, Model model) throws ActionFailedException {
 		try {
 			return new ConfigurationBeanLoader(model, req).loadInstance(
-					distributorUri, RdfDistributor.class);
+					distributorUri, DataDistributor.class);
 		} catch (ConfigurationBeanLoaderException e) {
 			throw new ActionFailedException(
-					"Failed to instantiate the RDF Distributor: "
+					"Failed to instantiate the DataDistributor: "
 							+ distributorUri, e);
 		}
 	}
 
 	private void runIt(HttpServletRequest req, HttpServletResponse resp,
-			RdfDistributor instance) throws IOException,
-			RdfDistributorException {
-		@SuppressWarnings("unchecked")
-		Map<String, String[]> parameters = req.getParameterMap();
-		Model result = instance.execute(parameters);
-
-		resp.setContentType("text/turtle;charset=UTF-8");
-		result.write(resp.getOutputStream(), "TTL");
+			DataDistributor instance) throws IOException,
+			DataDistributorException {
+		try {
+			@SuppressWarnings("unchecked")
+			Map<String, String[]> parameters = req.getParameterMap();
+			instance.init(parameters);
+			resp.setContentType(instance.getContentType());
+			resp.setCharacterEncoding("UTF-8");
+			instance.writeOutput(resp.getOutputStream());
+		} catch (Exception e) {
+			instance.close();
+		}
 	}
 
 	private void do400BadRequest(String message, HttpServletResponse resp)

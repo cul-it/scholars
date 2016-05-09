@@ -2,8 +2,6 @@
 
 package edu.cornell.mannlib.vitro.webapp.controller.api.distribute;
 
-import java.util.Map;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -18,18 +16,27 @@ import com.hp.hpl.jena.rdf.model.Model;
 import edu.cornell.mannlib.vitro.webapp.modelaccess.RequestModelAccess;
 import edu.cornell.mannlib.vitro.webapp.utils.configuration.Property;
 import edu.cornell.mannlib.vitro.webapp.utils.configuration.RequestModelsUser;
-import edu.cornell.mannlib.vitro.webapp.utils.configuration.Validation;
 
 /**
- * TODO
+ * An interim implementation -- this should be replaced by a generalized
+ * CONSTRUCT distributor.
  */
-public class PersonWordCloudDistributor extends RdfDistributorBase implements
-		RequestModelsUser {
+public class PersonWordCloudDistributor extends RdfDataDistributorBase
+		implements RequestModelsUser {
 	private static final Log log = LogFactory
 			.getLog(PersonWordCloudDistributor.class);
 
-	/** The name of the action request that we are responding to. */
-	private String actionName;
+	@Override
+	@Property(uri = "http://vitro.mannlib.cornell.edu/ns/vitro/ApplicationSetup#actionName")
+	public void setActionName(String action) {
+		if (actionName == null) {
+			actionName = action;
+		} else {
+			throw new IllegalStateException(
+					"Configuration includes multiple instances of actionName: "
+							+ actionName + ", and " + action);
+		}
+	}
 
 	/** The models on the current request. */
 	private RequestModelAccess models;
@@ -54,40 +61,14 @@ public class PersonWordCloudDistributor extends RdfDistributorBase implements
 			+ "  ?pub vivo:freetextKeyword ?keyword . \n " //
 			+ "}";
 
-	@Property(uri = "http://vitro.mannlib.cornell.edu/ns/vitro/ApplicationSetup#actionName")
-	public void setActionName(String action) {
-		if (actionName == null) {
-			actionName = action;
-		} else {
-			throw new IllegalStateException(
-					"Configuration includes multiple instances of actionName: "
-							+ actionName + ", and " + action);
-		}
-	}
-
-	@Validation
-	public void validate() {
-		if (actionName == null) {
-			throw new IllegalStateException(
-					"Configuration contains no action name for "
-							+ this.getClass().getSimpleName());
-		}
-	}
-
 	@Override
 	public void setRequestModels(RequestModelAccess models) {
 		this.models = models;
 	}
 
 	@Override
-	public String getActionName() {
-		return actionName;
-	}
-
-	@Override
-	public Model execute(Map<String, String[]> parameters)
-			throws RdfDistributorException {
-		String uri = getPersonUri(parameters);
+	public Model execute() throws DataDistributorException {
+		String uri = getPersonUri();
 		String queryStr = QUERY_STRING.replace("?person", "<" + uri + ">");
 
 		OntModel model = models.getOntModel();
@@ -105,8 +86,7 @@ public class PersonWordCloudDistributor extends RdfDistributorBase implements
 		}
 	}
 
-	private String getPersonUri(Map<String, String[]> parameters)
-			throws MissingParametersException {
+	private String getPersonUri() throws MissingParametersException {
 		String[] persons = parameters.get("person");
 		if (persons == null || persons.length == 0) {
 			throw new MissingParametersException(
@@ -114,6 +94,11 @@ public class PersonWordCloudDistributor extends RdfDistributorBase implements
 		} else {
 			return persons[0];
 		}
+	}
+
+	@Override
+	public void close() throws DataDistributorException {
+		// Nothing to do.
 	}
 
 }

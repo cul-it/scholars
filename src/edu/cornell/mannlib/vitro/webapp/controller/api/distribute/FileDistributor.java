@@ -4,34 +4,35 @@ package edu.cornell.mannlib.vitro.webapp.controller.api.distribute;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Map;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
-import com.hp.hpl.jena.rdf.model.Model;
-import com.hp.hpl.jena.rdf.model.ModelFactory;
 
 import edu.cornell.mannlib.vitro.webapp.application.ApplicationUtils;
 import edu.cornell.mannlib.vitro.webapp.utils.configuration.Property;
 import edu.cornell.mannlib.vitro.webapp.utils.configuration.Validation;
 
 /**
- * TODO
+ * A generalize mocking data distributor (although it could have legitimate
+ * uses).
+ * 
+ * Provide a path to the file, relative to the Vitro home directory. Provide the
+ * content type.
  */
-public class FileDistributor extends RdfDistributorBase {
+public class FileDistributor extends DataDistributorBase {
 	private static final Log log = LogFactory.getLog(FileDistributor.class);
-	
-	
-
-	/** The name of the action request that we are responding to. */
-	private String actionName;
 
 	/** The path to the data file, relative to the Vitro home directory. */
 	private String datapath;
 
+	/** The content type to attach to the file. */
+	private String contentType;
+
+	@Override
 	@Property(uri = "http://vitro.mannlib.cornell.edu/ns/vitro/ApplicationSetup#actionName")
 	public void setActionName(String action) {
 		if (actionName == null) {
@@ -54,41 +55,52 @@ public class FileDistributor extends RdfDistributorBase {
 		}
 	}
 
+	@Property(uri = "http://vitro.mannlib.cornell.edu/ns/vitro/ApplicationSetup#contentType")
+	public void setContentType(String cType) {
+		if (contentType == null) {
+			contentType = cType;
+		} else {
+			throw new IllegalStateException(
+					"Configuration includes multiple instances of contentType: "
+							+ contentType + ", and " + cType);
+		}
+	}
+
 	@Validation
 	public void validate() {
-		if (actionName == null) {
-			throw new IllegalStateException(
-					"Configuration contains no action name for "
-							+ this.getClass().getSimpleName());
-		}
 		if (datapath == null) {
 			throw new IllegalStateException(
 					"Configuration contains no data path for "
 							+ this.getClass().getSimpleName());
 		}
+		if (contentType == null) {
+			throw new IllegalStateException(
+					"Configuration contains no content type for "
+							+ this.getClass().getSimpleName());
+		}
 	}
 
 	@Override
-	public String getActionName() {
-		return actionName;
+	public String getContentType() throws DataDistributorException {
+		return contentType;
 	}
 
-	/**
-	 * Right now, this assumes a file of TTL and returns a model. Generalize it.
-	 */
 	@Override
-	public Model execute(Map<String, String[]> parameters)
-			throws RdfDistributorException {
+	public void writeOutput(OutputStream output)
+			throws DataDistributorException {
 		Path home = ApplicationUtils.instance().getHomeDirectory().getPath();
-		log.debug("home directory is at: " + home);
 		Path datafile = home.resolve(datapath);
-		try (InputStream stream = Files.newInputStream(datafile)) {
-			Model model = ModelFactory.createDefaultModel();
-			model.read(stream, null, "TTL");
-			return model;
+		log.debug("data file is at: " + datapath);
+		try (InputStream input = Files.newInputStream(datafile)) {
+			IOUtils.copy(input, output);
 		} catch (IOException e) {
 			throw new ActionFailedException(e);
 		}
+	}
+
+	@Override
+	public void close() throws DataDistributorException {
+		// Nothing to close.
 	}
 
 }

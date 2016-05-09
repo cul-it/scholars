@@ -3,17 +3,18 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 #
-# configure the DistributeRdfApiController.
+# configure the DistributeDataApiController.
 #
 
 :rdf_distribution_person_word_cloud
-    a   <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.RdfDistributor> ,
+    a   <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.DataDistributor> ,
         <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.PersonWordCloudDistributor> ;
     :actionName "person_word_cloud" .
 
 :rdf_distribution_organization_research_areas
-    a   <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.RdfDistributor> ,
+    a   <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.DataDistributor> ,
         <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.FileDistributor> ;
     :actionName "organization_research_areas" ;
-    :path "fakeData/fake_organization_research_areas.ttl"
+    :path "fakeData/fake_organization_research_areas.ttl" ;
+    :contentType "text/turtle" .
 
