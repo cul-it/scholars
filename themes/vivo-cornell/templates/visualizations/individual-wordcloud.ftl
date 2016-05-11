@@ -52,11 +52,10 @@ $().ready(function() {
 
 ${stylesheets.add('<link rel="stylesheet" href="${urls.theme}/css/visualizations/jqModal.css" />')}
 
-${scripts.add('<script type="text/javascript" src="${urls.theme}/js/visualizations/d3.min.js"></script>',
-              '<script type="text/javascript" src="${urls.theme}/js/visualizations/d3.layout.cloud.js"></script>',
-              '<script type="text/javascript" src="${urls.theme}/js/visualizations/d3-tip.js"></script>',
+${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></script>',
               '<script type="text/javascript" src="${urls.theme}/js/visualizations/jqModal.js"></script>',
               '<script type="text/javascript" src="${urls.theme}/js/visualizations/visualization-loader.js"></script>',
               '<script type="text/javascript" src="${urls.theme}/js/visualizations/rdflib.js"></script>',
-              '<script type="text/javascript" src="${urls.theme}/js/visualizations/person-word-cloud.js"></script>')}
-
+              '<script type="text/javascript" src="${urls.theme}/js/visualizations/d3/d3-tip.js"></script>',
+              '<script type="text/javascript" src="${urls.theme}/js/visualizations/d3/d3.layout.cloud.js"></script>',
+              '<script type="text/javascript" src="${urls.theme}/js/visualizations/wordcloud/person-word-cloud.js"></script>')}

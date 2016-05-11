@@ -15,10 +15,10 @@ $().ready(function() {
 });
 </script>
 
-${stylesheets.add('<link rel="stylesheet" href="${urls.theme}/css/visualizations/cbe-ra.css" />')}
+${stylesheets.add('<link rel="stylesheet" href="${urls.theme}/css/visualizations/org-research-areas/ra.css" />')}
 
-${scripts.add('<script type="text/javascript" src="${urls.theme}/js/visualizations/d3.min.js"></script>',
+${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></script>',
               '<script type="text/javascript" src="${urls.theme}/js/visualizations/jqModal.js"></script>',
               '<script type="text/javascript" src="${urls.theme}/js/visualizations/visualization-loader.js"></script>',
               '<script type="text/javascript" src="${urls.theme}/js/visualizations/rdflib.js"></script>',
-              '<script type="text/javascript" src="${urls.theme}/js/visualizations/organization-research-areas.js"></script>')}
+              '<script type="text/javascript" src="${urls.theme}/js/visualizations/org-research-areas/organization-research-areas.js"></script>')}
