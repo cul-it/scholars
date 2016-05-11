@@ -1,0 +1,63 @@
+circle, path {
+	cursor: pointer;
+}
+
+circle {
+	fill: none;
+	pointer-events: all;
+}
+
+#tooltip {
+	background-color: rgba(60, 60, 60, 0.7);
+	color: #EFEFEF;
+	padding: 3px 5px;
+	font-family: Arial;
+	text-align: center;
+	font-family: 12px;
+}
+
+.choices {
+	background-color: rgba(50, 50, 50, 0.8);
+	color: #EFEFEF;
+	font-family: Arial;
+	cursor: pointer;
+	font-family: 12px;
+	border: 2px solid #000000;
+	z-index: 10;
+}
+
+.choices a {
+	color: #EFEFEF;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-right: 5px;
+	padding-left: 2px;
+}
+
+.choices a:hover {
+	background-color: rgba(80, 210, 210, 0.6);
+}
+
+.triangle-isosceles {
+	position: relative;
+	padding: 15px;
+	margin: 1em 10em 3em;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+}
+
+.hoverable {
+	width: 100%;
+	padding: 5px;
+}
+
+.hoverable a {
+	color: white;
+	text-decoration: none;
+}
+
+.hoverable:hover {
+	background-color: rgba(50, 150, 200, 0.8);
+}

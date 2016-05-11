@@ -83,6 +83,8 @@
         
         <!-- Statistical information relating to property groups and their classes; displayed horizontally, not vertically-->
         <@lh.allClassGroups vClassGroups! />
+        
+        <#include "collaborations.ftl">
 
         <#include "footer.ftl">
         <#-- builds a json object that is used by js to render the academic departments section -->

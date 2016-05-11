@@ -6,21 +6,28 @@
 # configure the DistributeDataApiController.
 #
 
-:rdf_distribution_person_word_cloud
+:data_distributor_person_word_cloud
     a   <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.DataDistributor> ,
         <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.PersonWordCloudDistributor> ;
     :actionName "person_word_cloud" .
 
-:rdf_distribution_organization_research_areas
+:data_distributor_organization_research_areas
     a   <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.DataDistributor> ,
         <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.FileDistributor> ;
     :actionName "organization_research_areas" ;
     :path "fakeData/fake_organization_research_areas.ttl" ;
     :contentType "text/turtle" .
 
-:rdf_grants_page
+:data_distributor_grants_page
     a   <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.DataDistributor> ,
         <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.FileDistributor> ;
     :actionName "grants_bubble_chart" ;
     :path "fakeData/fake_grants_data.json" ;
+    :contentType "application/json" .
+
+:data_distributor_collaborations
+    a   <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.DataDistributor> ,
+        <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.FileDistributor> ;
+    :actionName "collaboration_sunburst" ;
+    :path "fakeData/fake_collab_data.json" ;
     :contentType "application/json" .
