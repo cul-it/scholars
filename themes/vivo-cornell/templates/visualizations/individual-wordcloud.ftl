@@ -25,9 +25,12 @@
  .hoverable:hover {
     background-color:rgba(50, 150, 200, 0.8);
  }
+ .d3-tip {
+     z-index: 4;
+ }
  </style>
  
-<div id="person_word_cloud">BOGUS ONE</div>
+<div id="person_word_cloud" style="z-index: 3">BOGUS ONE</div>
 
 <a href="#" id="word_cloud_trigger">WordCloud</a>
 
