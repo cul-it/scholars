@@ -42,6 +42,8 @@
     </footer>
   </div> <!--! end of #container -->
 
+${stylesheets.add('<link rel="stylesheet" href="${urls.theme}/css/visualizations/grants/style.css" />')}
+
 ${scripts.add('<script type="text/javascript" src="${urls.theme}/js/visualizations/d3.min.js"></script>',
               '<script type="text/javascript" src="${urls.theme}/js/visualizations/grants/plugins.js"></script>',
               '<script type="text/javascript" src="${urls.theme}/js/visualizations/grants/script.js"></script>',
