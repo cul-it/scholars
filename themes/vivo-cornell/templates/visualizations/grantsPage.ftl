@@ -1,10 +1,3 @@
-<#--
-  <link rel="stylesheet" href="css/reset.css">
-  <link rel="stylesheet" href="css/bootstrap.min.css">
-  <link rel="stylesheet" href="css/style.css">
-  <script src="js/libs/modernizr-2.0.6.min.js"></script>
--->
-
   <div class="container">
     <div id="main" role="main">
       <div id="view_selection" class="btn-group">

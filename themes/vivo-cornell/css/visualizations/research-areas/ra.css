@@ -1,0 +1,70 @@
+.bubbleChart2 {
+	margin: 0 auto;
+	float: left;
+}
+
+.sortContainer {
+	font-family: Arial;
+}
+
+.bubbleChart svg {
+	/*background: #FCF3CF;*/
+	
+}
+
+.d3-tip-item {
+	font-size: 12px;
+	-webkit-border-radius: 5px;
+	margin: 10px;
+	padding-top: 5px;
+	padding-left: 2px;
+	padding-bottom: 5px;
+	padding-right: 5px;
+}
+
+.d3-tip a {
+	font-family: Arial;
+	font-weight: normal;
+	color: #FEFEFE;
+}
+
+.d3-tip-item:hover {
+	background-color: rgba(80, 210, 210, 0.6);
+}
+
+.d3-tip {
+	-webkit-border-radius: 10px;
+	background-color: rgba(50, 50, 50, 0.8);
+	color: #EFEFEF;
+	font-family: Arial, sans-serif;
+	padding: 15px;
+	width: 500px;
+	height: 500px;
+	overflow-y: scroll;
+	font-size: 12px;
+	position: absolute !important;
+	top: 150px !important;
+	left: 400px !important;
+}
+
+.close-container {
+	text-align: right;
+	margin: 0;
+}
+
+.sortContainer {
+	text-align: right;
+	font-size: 12px;
+}
+
+.close {
+	cursor: pointer;
+}
+
+.close:hover {
+	background-color: rgba(150, 150, 150, 0.6);
+}
+
+#alphabetical, #citations {
+	text-decoration: underline !important;
+}

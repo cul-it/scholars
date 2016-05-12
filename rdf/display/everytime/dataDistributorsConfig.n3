@@ -31,3 +31,10 @@
     :actionName "collaboration_sunburst" ;
     :path "fakeData/fake_collab_data.json" ;
     :contentType "application/json" .
+
+:data_distributor_ra_bubble_chart
+    a   <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.DataDistributor> ,
+        <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.FileDistributor> ;
+    :actionName "research_area_bubbles" ;
+    :path "fakeData/fake_bubble_chart_data.json" ;
+    :contentType "application/json" .
