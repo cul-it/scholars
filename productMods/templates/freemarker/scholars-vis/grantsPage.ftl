@@ -35,15 +35,15 @@
     </footer>
   </div> <!--! end of #container -->
 
-${stylesheets.add('<link rel="stylesheet" href="${urls.theme}/css/visualizations/grants/style.css" />')}
+${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/grants/style.css" />')}
 
 ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></script>',
-              '<script type="text/javascript" src="${urls.theme}/js/visualizations/grants/plugins.js"></script>',
-              '<script type="text/javascript" src="${urls.theme}/js/visualizations/grants/script.js"></script>',
-              '<script type="text/javascript" src="${urls.theme}/js/visualizations/grants/CustomTooltip.js"></script>',
-              '<script type="text/javascript" src="${urls.theme}/js/visualizations/grants/coffee-script.js"></script>',
-              '<script type="text/javascript" src="${urls.theme}/js/visualizations/grants/papaparse.min.js"></script>',
-              '<script type="text/coffeescript" src="${urls.theme}/js/visualizations/grants/vis.coffee"></script>')}
+              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/grants/plugins.js"></script>',
+              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/grants/script.js"></script>',
+              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/grants/CustomTooltip.js"></script>',
+              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/grants/coffee-script.js"></script>',
+              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/grants/papaparse.min.js"></script>',
+              '<script type="text/coffeescript" src="${urls.base}/js/scholars-vis/grants/vis.coffee"></script>')}
 
 
   <script type="text/javascript">

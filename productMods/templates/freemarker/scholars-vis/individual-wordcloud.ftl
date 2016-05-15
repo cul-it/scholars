@@ -50,12 +50,12 @@ $().ready(function() {
 });
 </script>
 
-${stylesheets.add('<link rel="stylesheet" href="${urls.theme}/css/visualizations/jqModal.css" />')}
+${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/jqModal.css" />')}
 
 ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></script>',
-              '<script type="text/javascript" src="${urls.theme}/js/visualizations/jqModal.js"></script>',
-              '<script type="text/javascript" src="${urls.theme}/js/visualizations/visualization-loader.js"></script>',
-              '<script type="text/javascript" src="${urls.theme}/js/visualizations/rdflib.js"></script>',
-              '<script type="text/javascript" src="${urls.theme}/js/visualizations/d3/d3-tip.js"></script>',
-              '<script type="text/javascript" src="${urls.theme}/js/visualizations/d3/d3.layout.cloud.js"></script>',
-              '<script type="text/javascript" src="${urls.theme}/js/visualizations/wordcloud/person-word-cloud.js"></script>')}
+              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/jqModal.js"></script>',
+              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/visualization-loader.js"></script>',
+              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/rdflib.js"></script>',
+              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/d3/d3-tip.js"></script>',
+              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/d3/d3.layout.cloud.js"></script>',
+              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/wordcloud/person-word-cloud.js"></script>')}
