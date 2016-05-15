@@ -9,8 +9,8 @@ $().ready(function() {
     url : "${urls.base}/api/dataRequest?action=collaboration_sunburst",
 //    transform : fake_data,
     display : sunburst,
-    height : 0.75,
-    width : 0.75
+    height : 500,
+    width : 700
   });
 });
 </script>

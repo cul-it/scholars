@@ -1,11 +1,11 @@
 
 function sunburst(json_data, target) {
-var width = 300;
-var height = 300;
+var width = $(target).width();
+var height = $(target).height();
 
 var margin = {top: 300, right: 310, bottom: 300, left: 310},
     // radius = Math.min(margin.top, margin.right, margin.bottom, margin.left) - 10;
-       radius = Math.min(width, height) - 10;
+       radius = Math.min(width, height) / 2 - 10;
 
 function filter_min_arc_size_text(d, i) {return (d.dx*d.depth*radius/3)>14}; 
 
@@ -36,10 +36,10 @@ var tip = d3.tip().attr('class', 'd3-tip choices triangle-isosceles').html(funct
 });
 
 var svg = d3.select(target).append("svg")
-    .attr("width", margin.left + margin.right)
-    .attr("height", margin.top + margin.bottom)
+    .attr("width", width)
+    .attr("height", height)
   .append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")").call(tip);
+    .attr("transform", "translate(" + (width / 2) + "," + (height / 2) + ")").call(tip);
 
 var nodeList = [];
 
