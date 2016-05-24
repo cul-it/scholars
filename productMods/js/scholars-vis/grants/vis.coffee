@@ -296,5 +296,13 @@ $ ->
     else
       root.display_all()
 
-  d3.json "api/dataRequest?action=grants_bubble_chart", render_vis
+  loadVisualization {
+#     target : '#bogus',
+      url : "api/dataRequest?action=grants_bubble_chart",
+      transform : transformGrantsData,
+      display : render_vis,
+      height : 500,
+      width : 700
+     }
+  
   

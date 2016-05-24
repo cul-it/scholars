@@ -38,6 +38,8 @@
 ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/grants/style.css" />')}
 
 ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></script>',
+              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/visualization-loader.js"></script>',
+              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/grants/transform-data.js"></script>',
               '<script type="text/javascript" src="${urls.base}/js/scholars-vis/grants/plugins.js"></script>',
               '<script type="text/javascript" src="${urls.base}/js/scholars-vis/grants/script.js"></script>',
               '<script type="text/javascript" src="${urls.base}/js/scholars-vis/grants/CustomTooltip.js"></script>',
