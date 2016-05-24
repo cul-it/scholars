@@ -32,18 +32,6 @@ public class FileDistributor extends DataDistributorBase {
 	/** The content type to attach to the file. */
 	private String contentType;
 
-	@Override
-	@Property(uri = "http://vitro.mannlib.cornell.edu/ns/vitro/ApplicationSetup#actionName")
-	public void setActionName(String action) {
-		if (actionName == null) {
-			actionName = action;
-		} else {
-			throw new IllegalStateException(
-					"Configuration includes multiple instances of actionName: "
-							+ actionName + ", and " + action);
-		}
-	}
-
 	@Property(uri = "http://vitro.mannlib.cornell.edu/ns/vitro/ApplicationSetup#path")
 	public void setPath(String path) {
 		if (datapath == null) {

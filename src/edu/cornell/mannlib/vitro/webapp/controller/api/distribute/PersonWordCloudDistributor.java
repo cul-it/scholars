@@ -14,7 +14,6 @@ import com.hp.hpl.jena.query.Syntax;
 import com.hp.hpl.jena.rdf.model.Model;
 
 import edu.cornell.mannlib.vitro.webapp.modelaccess.RequestModelAccess;
-import edu.cornell.mannlib.vitro.webapp.utils.configuration.Property;
 import edu.cornell.mannlib.vitro.webapp.utils.configuration.RequestModelsUser;
 
 /**
@@ -25,18 +24,6 @@ public class PersonWordCloudDistributor extends RdfDataDistributorBase
 		implements RequestModelsUser {
 	private static final Log log = LogFactory
 			.getLog(PersonWordCloudDistributor.class);
-
-	@Override
-	@Property(uri = "http://vitro.mannlib.cornell.edu/ns/vitro/ApplicationSetup#actionName")
-	public void setActionName(String action) {
-		if (actionName == null) {
-			actionName = action;
-		} else {
-			throw new IllegalStateException(
-					"Configuration includes multiple instances of actionName: "
-							+ actionName + ", and " + action);
-		}
-	}
 
 	/** The models on the current request. */
 	private RequestModelAccess models;
