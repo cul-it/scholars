@@ -20,10 +20,8 @@
 
 :data_distributor_grants_page
     a   <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.DataDistributor> ,
-        <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.FileDistributor> ;
-    :actionName "grants_bubble_chart" ;
-    :path "fakeData/fake_grants_data.json" ;
-    :contentType "application/json" .
+        <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.GrantsBubbleChartDistributor> ;
+    :actionName "grants_bubble_chart" .
 
 :data_distributor_collaborations
     a   <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.DataDistributor> ,
