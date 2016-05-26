@@ -3,7 +3,7 @@ class BubbleChart
   constructor: (data) ->
     @data = data
     @width = 900
-    @height = 500
+    @height = 600
     @currentlyClicked = false
 
     @years = []
@@ -48,7 +48,7 @@ class BubbleChart
 
     # use the max total_amount in the data as the max in the scale's domain
     max_amount = d3.max(@data, (d) -> parseInt(d.Cost))
-    @radius_scale = d3.scale.pow().exponent(0.5).domain([0, max_amount]).range([2, 85])
+    @radius_scale = d3.scale.pow().exponent(0.5).domain([0, max_amount]).range([2, 20])
     
     default_year = @years[0]
     @setup_year_centers(default_year)
@@ -301,7 +301,7 @@ $ ->
       url : "api/dataRequest?action=grants_bubble_chart",
       transform : transformGrantsData,
       display : render_vis,
-      height : 500,
+      height : 600,
       width : 700
      }
   

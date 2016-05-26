@@ -30,7 +30,7 @@ function transform_word_cloud_data(graph) {
 
 		function getEntityInfo(stmt) {
 			return {
-				uri : stmt.subject.uri,
+				uri : toDisplayPage(stmt.subject.uri),
 				text : graph.any(stmt.subject, RDFS("label")).value
 			};
 		}
@@ -43,6 +43,13 @@ function transform_word_cloud_data(graph) {
 			return b.size - a.size;
 		}
 	}
+	
+	function toDisplayPage(uri) {
+		var delimiterHere = Math.max(uri.lastIndexOf('/'), uri.lastIndexOf('#'));
+		var localname = uri.substring(delimiterHere + 1);
+		return applicationBaseUrl + "/display/" + localname;
+	}
+
 }
  
  function draw_word_cloud(keywords, target) {
