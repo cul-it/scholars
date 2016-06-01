@@ -34,21 +34,37 @@ public class GrantsBubbleChartDistributor extends DataDistributorBase implements
 			+ "PREFIX scholars-grant: <http://scholars.cornell.edu/ontology/grant.owl#> \n " //
 			+ "PREFIX scholars-hr:    <http://scholars.cornell.edu/ontology/hr.owl#> \n " //
 			+ "PREFIX vivo:           <http://vivoweb.org/ontology/core#> \n " //
-			+ "SELECT ?grant ?grantTitle ?amount \n " //
+			+ "SELECT ?grant ?grantTitle ?grantType \n " //
+			+ "       ?amount ?fundingOrg ?fundingOrgName \n " //
 			+ "       ?person ?personName ?personNetid \n " //
 			+ "       ?dept ?deptName \n " //
 			+ "       ?startYear ?endYear \n " //
 			+ "WHERE \n " //
 			+ "{ \n " //
-			+ "  ?grant a vivo:Grant . \n " //
+			+ "  { \n " //"
+			+ "    { \n " //"
+			+ "      ?grant a vivo:Grant . \n " //"
+			+ "      BIND(\"GRANT\" AS ?grantType) . \n " //
+			+ "    } UNION { \n " //"
+			+ "      ?grant a vivo:Contract . \n " //"
+			+ "      BIND(\"CONTRACT\" AS ?grantType) . \n " //
+			+ "    } UNION { \n " //"
+			+ "      ?grant a vivo:CooperativeAgreement . \n " //"
+			+ "      BIND(\"COOPERATIVE_AGREEMENT\" AS ?grantType) . \n " //
+			+ "    } \n " //"
+			+ "  } \n " //"
 			+ "  ?grant rdfs:label ?grantTitle . \n " //
+			+ "  \n " //
 			+ "  ?grant vivo:totalAwardAmount ?amount . \n " //
+			+ "  ?grant vivo:assignedBy ?fundingOrg . \n " //
+			+ "  ?fundingOrg rdfs:label ?fundingOrgName . \n "
 			+ "  \n " //
 			+ "  ?grant vivo:relates ?node1 . \n " //
 			+ "  ?node1 a vivo:PrincipalInvestigatorRole . \n " //
 			+ "  ?node1 obo:RO_0000052 ?person . \n " //
 			+ "  ?person rdfs:label ?personName . \n " //
 			+ "  ?person scholars-hr:netId ?personNetid . \n " //
+			+ "  \n " //
 			+ "  \n " //
 			+ "  ?grant vivo:relates ?node2 . \n " //
 			+ "  ?node2 a vivo:AdministratorRole . \n " //

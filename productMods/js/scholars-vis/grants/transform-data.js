@@ -10,6 +10,7 @@ function transformGrantsData(resultSet) {
 	console.log("BASE" + applicationBaseUrl);
 	var uniqueId = 1;
 	var bindings = resultSet.results.bindings;
+	console.log("How many? " + bindings.length);
 	return bindings.map(transformBinding)
 
 	function transformBinding(binding) {
@@ -18,18 +19,15 @@ function transformGrantsData(resultSet) {
 			"person":     getPersonDetails(),
 			"P-I-Id":     "55226-3713", // BOGUS
 			"NetId":      binding.personNetid.value,
-		    "Type":       "GRANT", // BOGUS?
-		    "Title":      binding.grantTitle.value,
 			"grant":      getGrantDetails(),
 			"dept":       getDepartmentDetails(),
-			"Person":     binding.personName.value,
-	        "deptCode":   "CBE", // BOGUS
+			"funagen":    getFundingAgencyDetails(),
 			"Cost":       parseInt(binding.amount.value),
-			"Role":       "CO", // BOGUS
+			"Role":       "CO", // BOGUS - which role? pi, co-pi?
 			"Department": binding.deptName.value,
 			"End":        binding.endYear.value,
 			"Start":      binding.startYear.value,
-			"id":         getUniqueId() // BOGUS?
+			"id":         getUniqueId() // BOGUS? -- for grant (where is the data?)
 		};
 		
 		function figureGrantGroup() {
@@ -52,7 +50,8 @@ function transformGrantsData(resultSet) {
 		function getGrantDetails() {
 			return {
 				"uri":   toDisplayPage(binding.grant.value),
-				"title": binding.grantTitle.value
+				"title": binding.grantTitle.value,
+				"type" : binding.grantType.value
 			};
 		}
 
@@ -72,6 +71,13 @@ function transformGrantsData(resultSet) {
 			};
 		}
 		
+		function getFundingAgencyDetails() {
+			return {
+				"name": binding.fundingOrgName.value,
+				"uri" : toDisplayPage(binding.fundingOrg.value)
+			}
+		}
+		
 		function getUniqueId() {
 			return uniqueId++;
 		}
@@ -83,60 +89,3 @@ function transformGrantsData(resultSet) {
 		}
 	}
 }
-/*
- * Provided:
- *  
- *       {
-        "grant": { "type": "uri" , "value": "http://scholars.cornell.edu/individual/gnt69457" } ,
-        "grantTitle": { "type": "literal" , "value": "TRANSFER OF TECHNIQUE AND KNOW-HOW FOR ISOLATION AND CULTIVATION OF HUMAN TASTE BUDS" } ,
-        "amount": { "type": "literal" , "value": "120000.0" } ,
-        "person": { "type": "uri" , "value": "http://scholars.cornell.edu/individual/rd426" } ,
-        "personName": { "type": "literal" , "value": "Dando, Robin" } ,
-        "personNetid": { "type": "literal" , "value": "rd426" } ,
-        "dept": { "type": "uri" , "value": "http://scholars.cornell.edu/individual/org86203" } ,
-        "deptName": { "type": "literal" , "value": "Food Science" } ,
-        "startYear": { "type": "literal" , "value": "2013" } ,
-        "endYear": { "type": "literal" , "value": "2015" }
-      } ,
-
- */
-
-/*
- * Desired result:
- * 
- *  {
-      "group":"high",
-      "person":{
-         "uri":"http://vivo.cornell.edu",
-         "name":"ARCHER, LYNDEN A",
-         "netid":"LAA25"
-      },
-      "P-I-Id":"55226-3713",
-      "NetId":"LAA25",
-      "Type":"GRANT",
-      "Title":"KAUST-CORNELL CENTER FOR RESEARCH AND EDUCATION",
-      "grant":{
-         "uri":"http://vivo.cornell.edu",
-         "title":"KAUST-CORNELL CENTER FOR RESEARCH AND EDUCATION"
-      },
-      "dept":{
-         "code":"CBE",
-         "name":"Chemical and Biomolecular Engineering",
-         "uri":"http://vivo.cornell.edu"
-      },
-      "Person":"ARCHER, LYNDEN A",
-      "deptCode":"CBE",
-      "Cost":24987685,
-      "Role":"CO",
-      "Department":"Chemical and Biomolecular Engineering",
-      "End":2015,
-      "Start":2008,
-      "id":55226
-   },
-   
-   Where group:
-     high: over 1,000,000
-     medium: between 1,000,000 and 100,000
-     low: under 100,000
-     unknown: unknown or 0
- */
