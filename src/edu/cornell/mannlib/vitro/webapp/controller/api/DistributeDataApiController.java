@@ -76,7 +76,7 @@ public class DistributeDataApiController extends VitroApiServlet {
 
 		List<String> uris = createQueryContext(model,
 				DISTRIBUTOR_FOR_SPECIFIED_ACTION)
-				.bindVariableToValue("action", action).execute()
+				.bindVariableToPlainLiteral("action", action).execute()
 				.getStringFields("distributor").flatten();
 		Collections.sort(uris);
 		log.debug("Found URIs for action '" + action + "': " + uris);

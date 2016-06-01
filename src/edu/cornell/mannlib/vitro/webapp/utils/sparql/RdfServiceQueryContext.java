@@ -2,10 +2,15 @@
 
 package edu.cornell.mannlib.vitro.webapp.utils.sparql;
 
+import static edu.cornell.mannlib.vitro.webapp.rdfservice.RDFService.ResultFormat.JSON;
+
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -41,8 +46,8 @@ class RdfServiceQueryContext implements SelectQueryContext {
 	}
 
 	@Override
-	public RdfServiceQueryContext bindVariableToValue(String name, String value) {
-		return new RdfServiceQueryContext(rdfService, query.bindToValue(name,
+	public RdfServiceQueryContext bindVariableToPlainLiteral(String name, String value) {
+		return new RdfServiceQueryContext(rdfService, query.bindToPlainLiteral(name,
 				value));
 	}
 
@@ -74,6 +79,19 @@ class RdfServiceQueryContext implements SelectQueryContext {
 						"problem while running query '"
 								+ query.getQueryString() + "'", e);
 				return StringResultsMapping.EMPTY;
+			}
+		}
+
+		@Override
+		public void writeToOutput(OutputStream output) {
+			try {
+				InputStream resultStream = rdfService.sparqlSelectQuery(
+						query.getQueryString(), JSON);
+				IOUtils.copy(resultStream, output);
+			} catch (Exception e) {
+				log.error(
+						"problem while running query '"
+								+ query.getQueryString() + "'", e);
 			}
 		}
 	}

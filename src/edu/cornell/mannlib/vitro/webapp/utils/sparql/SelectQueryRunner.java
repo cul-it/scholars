@@ -2,6 +2,8 @@
 
 package edu.cornell.mannlib.vitro.webapp.utils.sparql;
 
+import java.io.OutputStream;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -72,13 +74,16 @@ public final class SelectQueryRunner {
 	public static interface SelectQueryContext {
 		public SelectQueryContext bindVariableToUri(String name, String uri);
 
-		public SelectQueryContext bindVariableToValue(String name, String value);
+		public SelectQueryContext bindVariableToPlainLiteral(String name,
+				String value);
 
 		public ExecutingSelectQueryContext execute();
 	}
 
 	public static interface ExecutingSelectQueryContext {
 		public StringResultsMapping getStringFields(String... fieldNames);
+
+		public void writeToOutput(OutputStream output);
 	}
 
 }

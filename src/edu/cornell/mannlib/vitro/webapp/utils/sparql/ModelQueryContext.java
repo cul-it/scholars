@@ -2,6 +2,7 @@
 
 package edu.cornell.mannlib.vitro.webapp.utils.sparql;
 
+import java.io.OutputStream;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -14,6 +15,7 @@ import com.hp.hpl.jena.query.QueryExecution;
 import com.hp.hpl.jena.query.QueryExecutionFactory;
 import com.hp.hpl.jena.query.QueryFactory;
 import com.hp.hpl.jena.query.ResultSet;
+import com.hp.hpl.jena.query.ResultSetFormatter;
 import com.hp.hpl.jena.rdf.model.Model;
 
 import edu.cornell.mannlib.vitro.webapp.utils.sparql.SelectQueryRunner.ExecutingSelectQueryContext;
@@ -42,8 +44,8 @@ class ModelQueryContext implements SelectQueryContext {
 	}
 
 	@Override
-	public ModelQueryContext bindVariableToValue(String name, String value) {
-		return new ModelQueryContext(model, query.bindToValue(name, value));
+	public ModelQueryContext bindVariableToPlainLiteral(String name, String value) {
+		return new ModelQueryContext(model, query.bindToPlainLiteral(name, value));
 	}
 
 	@Override
@@ -78,6 +80,23 @@ class ModelQueryContext implements SelectQueryContext {
 						"problem while running query '"
 								+ query.getQueryString() + "'", e);
 				return StringResultsMapping.EMPTY;
+			}
+		}
+
+		@Override
+		public void writeToOutput(OutputStream output) {
+			try {
+				Query q = QueryFactory.create(query.getQueryString());
+				QueryExecution qexec = QueryExecutionFactory.create(q, model);
+				try {
+					ResultSetFormatter.outputAsJSON(output, qexec.execSelect());
+				} finally {
+					qexec.close();
+				}
+			} catch (Exception e) {
+				log.error(
+						"problem while running query '"
+								+ query.getQueryString() + "'", e);
 			}
 		}
 	}
