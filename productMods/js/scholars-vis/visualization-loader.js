@@ -217,9 +217,19 @@ function loadVisualization(o) {
 		}
 
 		function prettyPrintDisplay(data, target) {
-			$(target).append("<div>The transformed data</div>").append(
-					"<div><pre>" + JSON.stringify(data, null, 2)
-							+ "</pre></div>");
+			var h = Math.floor($(window).height() * 0.8);
+			var textArea = document.createElement("div")
+			$(textArea).css({
+				"overflow" : "auto",
+				"height" : h,
+				"font-family" : "monospace",
+				"line-height" : "normal",
+				"margin" : "1em"
+			})
+			$(textArea).append(
+					"<pre>" + JSON.stringify(data, null, 2) + "</pre>")
+			$(target).append("<div>The transformed data</div>")
+					.append(textArea);
 		}
 	}
 
