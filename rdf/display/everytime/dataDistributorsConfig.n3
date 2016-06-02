@@ -6,33 +6,161 @@
 # configure the DistributeDataApiController.
 #
 
+:data_distributor_person_word_cloud :actionName "person_word_cloud" .
 :data_distributor_person_word_cloud
     a   <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.DataDistributor> ,
-        <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.PersonWordCloudDistributor> ;
-    :actionName "person_word_cloud" .
+        <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.PersonWordCloudDistributor> .
 
+:data_distributor_organization_research_areas :actionName "organization_research_areas" .
 :data_distributor_organization_research_areas
     a   <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.DataDistributor> ,
         <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.FileDistributor> ;
-    :actionName "organization_research_areas" ;
     :path "fakeData/fake_organization_research_areas.ttl" ;
     :contentType "text/turtle" .
 
-:data_distributor_grants_page
-    a   <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.DataDistributor> ,
-        <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.GrantsBubbleChartDistributor> ;
-    :actionName "grants_bubble_chart" .
-
+:data_distributor_collaborations :actionName "collaboration_sunburst" .
 :data_distributor_collaborations
     a   <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.DataDistributor> ,
         <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.FileDistributor> ;
-    :actionName "collaboration_sunburst" ;
     :path "fakeData/fake_collab_data.json" ;
     :contentType "application/json" .
 
+:data_distributor_ra_bubble_chart :actionName "research_area_bubbles" .
 :data_distributor_ra_bubble_chart
     a   <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.DataDistributor> ,
         <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.FileDistributor> ;
-    :actionName "research_area_bubbles" ;
     :path "fakeData/fake_bubble_chart_data.json" ;
     :contentType "application/json" .
+
+# ---- GRANTS BUBBLE CHART ----
+
+#:data_distributor_grants_page :actionName "grants_bubble_chart" .
+:data_distributor_grants_page
+    a   <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.DataDistributor> ,
+        <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.GrantsBubbleChartDistributor> .
+
+#:data_distributor_grants_page_live :actionName "grants_bubble_chart" .
+:data_distributor_grants_page_live
+    a   <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.DataDistributor> ,
+        <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.SparqlSelectDataDistributor> ;
+    :query """
+      PREFIX local:          <http://scholars.cornell.edu/individual/>
+      PREFIX obo:            <http://purl.obolibrary.org/obo/>
+      PREFIX rdfs:           <http://www.w3.org/2000/01/rdf-schema#>
+      PREFIX scholars-grant: <http://scholars.cornell.edu/ontology/grant.owl#>
+      PREFIX scholars-hr:    <http://scholars.cornell.edu/ontology/hr.owl#>
+      PREFIX vivo:           <http://vivoweb.org/ontology/core#>
+      
+      SELECT ?grant ?grantTitle ?grantType
+             ?amount ?fundingOrg ?fundingOrgName
+             ?person ?personName ?personNetid
+             ?dept ?deptName
+             ?startYear ?endYear
+      
+      WHERE
+      {
+        {
+          {
+            ?grant a vivo:Grant .
+            BIND("GRANT" AS ?grantType) .
+          } UNION {
+            ?grant a vivo:Contract .
+            BIND("CONTRACT" AS ?grantType) .
+          } UNION {
+            ?grant a vivo:CooperativeAgreement .
+            BIND("COOPERATIVE_AGREEMENT" AS ?grantType) .
+          }
+        }
+        ?grant rdfs:label ?grantTitle .
+       
+        ?grant vivo:totalAwardAmount ?amount .
+        ?grant vivo:assignedBy ?fundingOrg .
+        ?fundingOrg rdfs:label ?fundingOrgName .
+       
+        ?grant vivo:relates ?node1 .
+        ?node1 a vivo:PrincipalInvestigatorRole .
+        ?node1 obo:RO_0000052 ?person .
+        ?person rdfs:label ?personName .
+        ?person scholars-hr:netId ?personNetid .
+       
+       
+        ?grant vivo:relates ?node2 .
+        ?node2 a vivo:AdministratorRole .
+        ?node2 obo:RO_0000052 ?dept .
+        ?dept rdfs:label ?deptName .
+       
+        ?grant vivo:dateTimeInterval ?dti .
+        ?dti vivo:end ?end .
+        ?end vivo:dateTime ?enddt .
+        BIND(SUBSTR(STR(?enddt),1,4) AS ?endYear) .
+        ?dti vivo:start ?start .
+        ?start vivo:dateTime ?startdt .
+        BIND(SUBSTR(STR(?startdt),1,4) AS ?startYear) .
+      }
+      """ .
+
+:data_distributor_grants_page_with_optionals :actionName "grants_bubble_chart" .
+:data_distributor_grants_page_with_optionals
+    a   <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.DataDistributor> ,
+        <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.SparqlSelectDataDistributor> ;
+    :query """
+      PREFIX local:          <http://scholars.cornell.edu/individual/>
+      PREFIX obo:            <http://purl.obolibrary.org/obo/>
+      PREFIX rdfs:           <http://www.w3.org/2000/01/rdf-schema#>
+      PREFIX scholars-grant: <http://scholars.cornell.edu/ontology/grant.owl#>
+      PREFIX scholars-hr:    <http://scholars.cornell.edu/ontology/hr.owl#>
+      PREFIX vivo:           <http://vivoweb.org/ontology/core#>
+      
+      SELECT ?grant ?grantTitle ?grantType
+             ?amount ?fundingOrg ?fundingOrgName
+             ?person ?personName ?personNetid
+             ?dept ?deptName
+             ?startYear ?endYear
+      
+      WHERE
+      {
+        {
+          {
+            ?grant a vivo:Grant .
+            BIND("GRANT" AS ?grantType) .
+          } UNION {
+            ?grant a vivo:Contract .
+            BIND("CONTRACT" AS ?grantType) .
+          } UNION {
+            ?grant a vivo:CooperativeAgreement .
+            BIND("COOPERATIVE_AGREEMENT" AS ?grantType) .
+          }
+        }
+        ?grant rdfs:label ?grantTitle .
+       
+        ?grant vivo:dateTimeInterval ?dti .
+        ?dti vivo:end ?end .
+        ?end vivo:dateTime ?enddt .
+        BIND(SUBSTR(STR(?enddt),1,4) AS ?endYear) .
+        ?dti vivo:start ?start .
+        ?start vivo:dateTime ?startdt .
+        BIND(SUBSTR(STR(?startdt),1,4) AS ?startYear) .
+       
+        OPTIONAL {
+          ?grant vivo:relates ?node1 .
+          ?node1 a vivo:PrincipalInvestigatorRole .
+          ?node1 obo:RO_0000052 ?person .
+          ?person rdfs:label ?personName .
+          ?person scholars-hr:netId ?personNetid .
+        }
+       
+        OPTIONAL {
+          ?grant vivo:relates ?node2 .
+          ?node2 a vivo:AdministratorRole .
+          ?node2 obo:RO_0000052 ?dept .
+          ?dept rdfs:label ?deptName .
+        }
+       
+        OPTIONAL {
+          ?grant vivo:totalAwardAmount ?amount .
+          ?grant vivo:assignedBy ?fundingOrg .
+          ?fundingOrg rdfs:label ?fundingOrgName .
+        }
+      }
+      """ .
+
