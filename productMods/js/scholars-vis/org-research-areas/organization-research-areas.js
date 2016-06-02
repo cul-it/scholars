@@ -22,7 +22,7 @@ function transformFlaredata(graph) {
 				"type"  : "ditem",
 				"ditem" : index, 
 				"name"  : getLabel(author),
-				"url"   : toDisplayPage(author),
+				"url"   : toDisplayPageUrl(author),
 				"links" : figureLinks()
 			}
 
@@ -88,13 +88,6 @@ function transformFlaredata(graph) {
 	function getObjectUri(stmt) {
 		return stmt.object.uri;
 	}
-	
-	function toDisplayPage(uri) {
-		var delimiterHere = Math.max(uri.lastIndexOf('/'), uri.lastIndexOf('#'));
-		var localname = uri.substring(delimiterHere + 1);
-		return applicationBaseUrl + "/display/" + localname;
-	}
-	
 }
 
 function plotConceptMap(flaredata, target) {
