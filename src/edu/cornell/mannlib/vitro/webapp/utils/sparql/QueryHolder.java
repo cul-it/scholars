@@ -5,15 +5,15 @@ package edu.cornell.mannlib.vitro.webapp.utils.sparql;
 import java.util.regex.Pattern;
 
 /**
- * Holds the text of a SPARQL Select query, and allows you to perform some lexical
+ * Holds the text of a SPARQL query, and allows you to perform some lexical
  * operations on it.
  * 
  * This is immutable, so don't forget to get the result of the operations.
  */
-public class SelectQueryHolder {
+public class QueryHolder {
 	private final String queryString;
 
-	public SelectQueryHolder(String queryString) {
+	public QueryHolder(String queryString) {
 		this.queryString = queryString;
 	}
 
@@ -26,18 +26,23 @@ public class SelectQueryHolder {
 		return Pattern.compile(regex).matcher(queryString).find();
 	}
 
-	public SelectQueryHolder bindToUri(String name, String uri) {
+	public QueryHolder bindToUri(String name, String uri) {
 		String regex = "\\?" + name + "\\b";
 		String replacement = "<" + uri + ">";
 		String bound = queryString.replaceAll(regex, replacement);
-		return new SelectQueryHolder(bound);
+		return new QueryHolder(bound);
 	}
 
-	public SelectQueryHolder bindToPlainLiteral(String name, String value) {
+	public QueryHolder bindToPlainLiteral(String name, String value) {
 		String regex = "\\?" + name + "\\b";
 		String replacement = '"' + value + '"';
 		String bound = queryString.replaceAll(regex, replacement);
-		return new SelectQueryHolder(bound);
+		return new QueryHolder(bound);
+	}
+
+	@Override
+	public String toString() {
+		return "QueryHolder[" + queryString + "]";
 	}
 	
 }

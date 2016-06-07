@@ -18,37 +18,42 @@ import com.hp.hpl.jena.query.ResultSet;
 
 import edu.cornell.mannlib.vitro.webapp.rdfservice.RDFService;
 import edu.cornell.mannlib.vitro.webapp.rdfservice.impl.RDFServiceUtils;
-import edu.cornell.mannlib.vitro.webapp.utils.sparql.SelectQueryRunner.ExecutingSelectQueryContext;
-import edu.cornell.mannlib.vitro.webapp.utils.sparql.SelectQueryRunner.SelectQueryContext;
+import edu.cornell.mannlib.vitro.webapp.utils.sparql.SparqlQueryRunner.ExecutingSelectQueryContext;
+import edu.cornell.mannlib.vitro.webapp.utils.sparql.SparqlQueryRunner.SelectQueryContext;
 
 /**
  * An implementation of QueryContext based on an RDFService.
  * 
- * Package access. Instances should be created only by SelectQueryRunner, or by
+ * Package access. Instances should be created only by SparqlQueryRunner, or by
  * a method on this class.
  */
-class RdfServiceQueryContext implements SelectQueryContext {
+class RdfServiceSelectQueryContext implements SelectQueryContext {
 	private static final Log log = LogFactory
-			.getLog(RdfServiceQueryContext.class);
+			.getLog(RdfServiceSelectQueryContext.class);
 
 	private final RDFService rdfService;
-	private final SelectQueryHolder query;
+	private final QueryHolder query;
 
-	RdfServiceQueryContext(RDFService rdfService, SelectQueryHolder query) {
+	RdfServiceSelectQueryContext(RDFService rdfService, QueryHolder query) {
 		this.rdfService = rdfService;
 		this.query = query;
 	}
 
 	@Override
-	public RdfServiceQueryContext bindVariableToUri(String name, String uri) {
-		return new RdfServiceQueryContext(rdfService,
+	public RdfServiceSelectQueryContext bindVariableToUri(String name, String uri) {
+		return new RdfServiceSelectQueryContext(rdfService,
 				query.bindToUri(name, uri));
 	}
 
 	@Override
-	public RdfServiceQueryContext bindVariableToPlainLiteral(String name, String value) {
-		return new RdfServiceQueryContext(rdfService, query.bindToPlainLiteral(name,
+	public RdfServiceSelectQueryContext bindVariableToPlainLiteral(String name, String value) {
+		return new RdfServiceSelectQueryContext(rdfService, query.bindToPlainLiteral(name,
 				value));
+	}
+
+	@Override
+	public String toString() {
+		return "RdfServiceSelectQueryContext[query=" + query + "]";
 	}
 
 	@Override
@@ -59,16 +64,16 @@ class RdfServiceQueryContext implements SelectQueryContext {
 	private static class RdfServiceExecutingQueryContext implements
 			ExecutingSelectQueryContext {
 		private final RDFService rdfService;
-		private final SelectQueryHolder query;
+		private final QueryHolder query;
 
 		public RdfServiceExecutingQueryContext(RDFService rdfService,
-				SelectQueryHolder query) {
+				QueryHolder query) {
 			this.rdfService = rdfService;
 			this.query = query;
 		}
 
 		@Override
-		public StringResultsMapping getStringFields(String... names) {
+		public StringResultsMapping toStringFields(String... names) {
 			Set<String> fieldNames = new HashSet<>(Arrays.asList(names));
 			try {
 				ResultSet results = RDFServiceUtils.sparqlSelectQuery(

@@ -18,34 +18,39 @@ import com.hp.hpl.jena.query.ResultSet;
 import com.hp.hpl.jena.query.ResultSetFormatter;
 import com.hp.hpl.jena.rdf.model.Model;
 
-import edu.cornell.mannlib.vitro.webapp.utils.sparql.SelectQueryRunner.ExecutingSelectQueryContext;
-import edu.cornell.mannlib.vitro.webapp.utils.sparql.SelectQueryRunner.SelectQueryContext;
+import edu.cornell.mannlib.vitro.webapp.utils.sparql.SparqlQueryRunner.ExecutingSelectQueryContext;
+import edu.cornell.mannlib.vitro.webapp.utils.sparql.SparqlQueryRunner.SelectQueryContext;
 
 /**
  * An implementation of QueryContext based on a Model.
  * 
- * Package access. Instances should be created only by SelectQueryRunner, or by
+ * Package access. Instances should be created only by SparqlQueryRunner, or by
  * a method on this class.
  */
-class ModelQueryContext implements SelectQueryContext {
-	private static final Log log = LogFactory.getLog(ModelQueryContext.class);
+class ModelSelectQueryContext implements SelectQueryContext {
+	private static final Log log = LogFactory.getLog(ModelSelectQueryContext.class);
 
 	private final Model model;
-	private final SelectQueryHolder query;
+	private final QueryHolder query;
 
-	public ModelQueryContext(Model model, SelectQueryHolder query) {
+	public ModelSelectQueryContext(Model model, QueryHolder query) {
 		this.model = model;
 		this.query = query;
 	}
 
 	@Override
-	public ModelQueryContext bindVariableToUri(String name, String uri) {
-		return new ModelQueryContext(model, query.bindToUri(name, uri));
+	public ModelSelectQueryContext bindVariableToUri(String name, String uri) {
+		return new ModelSelectQueryContext(model, query.bindToUri(name, uri));
 	}
 
 	@Override
-	public ModelQueryContext bindVariableToPlainLiteral(String name, String value) {
-		return new ModelQueryContext(model, query.bindToPlainLiteral(name, value));
+	public ModelSelectQueryContext bindVariableToPlainLiteral(String name, String value) {
+		return new ModelSelectQueryContext(model, query.bindToPlainLiteral(name, value));
+	}
+
+	@Override
+	public String toString() {
+		return "ModelSelectQueryContext[query=" + query + "]";
 	}
 
 	@Override
@@ -56,15 +61,15 @@ class ModelQueryContext implements SelectQueryContext {
 	private static class ModelExecutingQueryContext implements
 			ExecutingSelectQueryContext {
 		private final Model model;
-		private final SelectQueryHolder query;
+		private final QueryHolder query;
 
-		public ModelExecutingQueryContext(Model model, SelectQueryHolder query) {
+		public ModelExecutingQueryContext(Model model, QueryHolder query) {
 			this.model = model;
 			this.query = query;
 		}
 
 		@Override
-		public StringResultsMapping getStringFields(String... names) {
+		public StringResultsMapping toStringFields(String... names) {
 			Set<String> fieldNames = new HashSet<>(Arrays.asList(names));
 			try {
 				Query q = QueryFactory.create(query.getQueryString());

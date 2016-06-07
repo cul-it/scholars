@@ -2,16 +2,12 @@
 
 package edu.cornell.mannlib.vitro.webapp.controller.api.distribute;
 
-import static edu.cornell.mannlib.vitro.webapp.utils.sparql.SelectQueryRunner.createQueryContext;
+import static edu.cornell.mannlib.vitro.webapp.utils.sparql.SparqlQueryRunner.createSelectQueryContext;
 
 import java.io.OutputStream;
-import java.util.HashSet;
-import java.util.Set;
 
-import edu.cornell.mannlib.vitro.webapp.modelaccess.RequestModelAccess;
 import edu.cornell.mannlib.vitro.webapp.utils.configuration.Property;
-import edu.cornell.mannlib.vitro.webapp.utils.configuration.RequestModelsUser;
-import edu.cornell.mannlib.vitro.webapp.utils.sparql.SelectQueryRunner.SelectQueryContext;
+import edu.cornell.mannlib.vitro.webapp.utils.sparql.SparqlQueryRunner.SelectQueryContext;
 
 /**
  * <pre>
@@ -51,77 +47,23 @@ import edu.cornell.mannlib.vitro.webapp.utils.sparql.SelectQueryRunner.SelectQue
  * Each specified binding name must have exactly one value in the request parameters.
  * </pre>
  */
-public class SparqlSelectDataDistributor extends DataDistributorBase implements
-		RequestModelsUser {
-
-	/** The models on the current request. */
-	private RequestModelAccess models;
+public class SparqlSelectDataDistributor extends SparqlSelectDataDistributorBase {
 
 	private String rawQuery;
-	private Set<String> uriBinders = new HashSet<>();
-	private Set<String> literalBinders = new HashSet<>();
-
-	@Override
-	public void setRequestModels(RequestModelAccess models) {
-		this.models = models;
-	}
 
 	@Property(uri = "http://vitro.mannlib.cornell.edu/ns/vitro/ApplicationSetup#query", minOccurs = 1, maxOccurs = 1)
 	public void setRawQuery(String query) {
 		rawQuery = query;
 	}
 
-	@Property(uri = "http://vitro.mannlib.cornell.edu/ns/vitro/ApplicationSetup#uriBinding")
-	public void addUriBinder(String uriBindingName) {
-		this.uriBinders.add(uriBindingName);
-	}
-
-	@Property(uri = "http://vitro.mannlib.cornell.edu/ns/vitro/ApplicationSetup#literalBinding")
-	public void addLiteralBinder(String literalBindingName) {
-		this.literalBinders.add(literalBindingName);
-	}
-
-	@Override
-	public String getContentType() throws DataDistributorException {
-		return "application/sparql-results+json";
-	}
-
 	@Override
 	public void writeOutput(OutputStream output)
 			throws DataDistributorException {
-		SelectQueryContext queryContext = createQueryContext(
+		SelectQueryContext queryContext = createSelectQueryContext(
 				this.models.getRDFService(), this.rawQuery);
-		bindUriParameters(queryContext);
-		bindLiteralParameters(queryContext);
+		queryContext = bindUriParameters(queryContext);
+		queryContext = bindLiteralParameters(queryContext);
 		queryContext.execute().writeToOutput(output);
-	}
-
-	private void bindUriParameters(SelectQueryContext queryContext)
-			throws MissingParametersException {
-		for (String name : this.uriBinders) {
-			queryContext.bindVariableToUri(name, getOneParameter(name));
-		}
-	}
-
-	private void bindLiteralParameters(SelectQueryContext queryContext)
-			throws MissingParametersException {
-		for (String name : this.literalBinders) {
-			queryContext
-					.bindVariableToPlainLiteral(name, getOneParameter(name));
-		}
-	}
-
-	private String getOneParameter(String name)
-			throws MissingParametersException {
-		String[] uris = parameters.get(name);
-		if (uris == null || uris.length == 0) {
-			throw new MissingParametersException("A '" + name
-					+ "' parameter is required.");
-		} else if (uris.length > 1) {
-			throw new MissingParametersException(
-					"Unexpected multiple values for '" + name + "' parameter.");
-		}
-		return uris[0];
 	}
 
 	@Override
