@@ -32,13 +32,6 @@
     :path "fakeData/fake_bubble_chart_data.json" ;
     :contentType "application/json" .
 
-# ---- GRANTS BUBBLE CHART ----
-
-#:data_distributor_grants_page :actionName "grants_bubble_chart" .
-:data_distributor_grants_page
-    a   <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.DataDistributor> ,
-        <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.GrantsBubbleChartDistributor> .
-
 #
 # Grants data:
 #
@@ -59,12 +52,24 @@
 #     amount as “0.0” . But, may be later.
 # - Time interval, I believe it should be there for every grant.
 #
-:data_distributor_grants_page_construct_select :actionName "grants_bubble_chart" .
+
+:data_distributor_grants_page_fake :actionName "grants_bubble_chart" .
+:data_distributor_grants_page_fake
+    a   <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.DataDistributor> ,
+        <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.FileDistributor> ;
+    :path "fakeData/fake_grants_select_results.json" ;
+    :contentType "application/sparql-results+json" .
+
+#:data_distributor_grants_page :actionName "grants_bubble_chart" .
+:data_distributor_grants_page
+    a   <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.DataDistributor> ,
+        <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.GrantsBubbleChartDistributor> .
+
+#:data_distributor_grants_page_construct_select :actionName "grants_bubble_chart" .
 :data_distributor_grants_page_construct_select
     a   <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.DataDistributor> ,
         <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.SparqlConstructSelectDataDistributor> ;
     :constructQuery """
-      PREFIX local:          <http://scholars.cornell.edu/individual/>
       PREFIX obo:            <http://purl.obolibrary.org/obo/>
       PREFIX rdfs:           <http://www.w3.org/2000/01/rdf-schema#>
       PREFIX scholars-grant: <http://scholars.cornell.edu/ontology/grant.owl#>
@@ -78,17 +83,10 @@
 
         ?grant rdfs:label ?grantTitle .
         ?grant vivo:totalAwardAmount ?amount .
-        ?grant vivo:assignedBy ?fundingOrg .
-        ?fundingOrg rdfs:label ?fundingOrgName .
        
         ?roleNode obo:RO_0000052 ?person .
         ?person rdfs:label ?personName .
         ?person scholars-hr:netId ?personNetid .
-       
-        ?grant vivo:relates ?node2 .
-        ?node2 a vivo:AdministratorRole .
-        ?node2 obo:RO_0000052 ?dept .
-        ?dept rdfs:label ?deptName .
        
         ?grant vivo:dateTimeInterval ?dti .
         ?dti vivo:end ?end .
@@ -103,17 +101,10 @@
 
         ?grant rdfs:label ?grantTitle .
         ?grant vivo:totalAwardAmount ?amount .
-        ?grant vivo:assignedBy ?fundingOrg .
-        ?fundingOrg rdfs:label ?fundingOrgName .
        
         ?roleNode obo:RO_0000052 ?person .
         ?person rdfs:label ?personName .
         ?person scholars-hr:netId ?personNetid .
-       
-        ?grant vivo:relates ?node2 .
-        ?node2 a vivo:AdministratorRole .
-        ?node2 obo:RO_0000052 ?dept .
-        ?dept rdfs:label ?deptName .
        
         ?grant vivo:dateTimeInterval ?dti .
         ?dti vivo:end ?end .
@@ -123,7 +114,6 @@
       }
       """ ;
     :constructQuery """
-      PREFIX local:          <http://scholars.cornell.edu/individual/>
       PREFIX obo:            <http://purl.obolibrary.org/obo/>
       PREFIX rdfs:           <http://www.w3.org/2000/01/rdf-schema#>
       PREFIX scholars-grant: <http://scholars.cornell.edu/ontology/grant.owl#>
@@ -137,17 +127,10 @@
 
         ?grant rdfs:label ?grantTitle .
         ?grant vivo:totalAwardAmount ?amount .
-        ?grant vivo:assignedBy ?fundingOrg .
-        ?fundingOrg rdfs:label ?fundingOrgName .
        
         ?roleNode obo:RO_0000052 ?person .
         ?person rdfs:label ?personName .
         ?person scholars-hr:netId ?personNetid .
-       
-        ?grant vivo:relates ?node2 .
-        ?node2 a vivo:AdministratorRole .
-        ?node2 obo:RO_0000052 ?dept .
-        ?dept rdfs:label ?deptName .
        
         ?grant vivo:dateTimeInterval ?dti .
         ?dti vivo:end ?end .
@@ -162,17 +145,10 @@
 
         ?grant rdfs:label ?grantTitle .
         ?grant vivo:totalAwardAmount ?amount .
-        ?grant vivo:assignedBy ?fundingOrg .
-        ?fundingOrg rdfs:label ?fundingOrgName .
        
         ?roleNode obo:RO_0000052 ?person .
         ?person rdfs:label ?personName .
         ?person scholars-hr:netId ?personNetid .
-       
-        ?grant vivo:relates ?node2 .
-        ?node2 a vivo:AdministratorRole .
-        ?node2 obo:RO_0000052 ?dept .
-        ?dept rdfs:label ?deptName .
        
         ?grant vivo:dateTimeInterval ?dti .
         ?dti vivo:end ?end .
@@ -182,7 +158,6 @@
       }
       """ ;
     :constructQuery """
-      PREFIX local:          <http://scholars.cornell.edu/individual/>
       PREFIX obo:            <http://purl.obolibrary.org/obo/>
       PREFIX rdfs:           <http://www.w3.org/2000/01/rdf-schema#>
       PREFIX scholars-grant: <http://scholars.cornell.edu/ontology/grant.owl#>
@@ -196,17 +171,10 @@
 
         ?grant rdfs:label ?grantTitle .
         ?grant vivo:totalAwardAmount ?amount .
-        ?grant vivo:assignedBy ?fundingOrg .
-        ?fundingOrg rdfs:label ?fundingOrgName .
        
         ?roleNode obo:RO_0000052 ?person .
         ?person rdfs:label ?personName .
         ?person scholars-hr:netId ?personNetid .
-       
-        ?grant vivo:relates ?node2 .
-        ?node2 a vivo:AdministratorRole .
-        ?node2 obo:RO_0000052 ?dept .
-        ?dept rdfs:label ?deptName .
        
         ?grant vivo:dateTimeInterval ?dti .
         ?dti vivo:end ?end .
@@ -221,17 +189,10 @@
 
         ?grant rdfs:label ?grantTitle .
         ?grant vivo:totalAwardAmount ?amount .
-        ?grant vivo:assignedBy ?fundingOrg .
-        ?fundingOrg rdfs:label ?fundingOrgName .
        
         ?roleNode obo:RO_0000052 ?person .
         ?person rdfs:label ?personName .
         ?person scholars-hr:netId ?personNetid .
-       
-        ?grant vivo:relates ?node2 .
-        ?node2 a vivo:AdministratorRole .
-        ?node2 obo:RO_0000052 ?dept .
-        ?dept rdfs:label ?deptName .
        
         ?grant vivo:dateTimeInterval ?dti .
         ?dti vivo:end ?end .
@@ -241,7 +202,6 @@
       }
       """ ;
     :constructQuery """
-      PREFIX local:          <http://scholars.cornell.edu/individual/>
       PREFIX obo:            <http://purl.obolibrary.org/obo/>
       PREFIX rdfs:           <http://www.w3.org/2000/01/rdf-schema#>
       PREFIX scholars-grant: <http://scholars.cornell.edu/ontology/grant.owl#>
@@ -255,17 +215,10 @@
 
         ?grant rdfs:label ?grantTitle .
         ?grant vivo:totalAwardAmount ?amount .
-        ?grant vivo:assignedBy ?fundingOrg .
-        ?fundingOrg rdfs:label ?fundingOrgName .
        
         ?roleNode obo:RO_0000052 ?person .
         ?person rdfs:label ?personName .
         ?person scholars-hr:netId ?personNetid .
-       
-        ?grant vivo:relates ?node2 .
-        ?node2 a vivo:AdministratorRole .
-        ?node2 obo:RO_0000052 ?dept .
-        ?dept rdfs:label ?deptName .
        
         ?grant vivo:dateTimeInterval ?dti .
         ?dti vivo:end ?end .
@@ -280,17 +233,10 @@
 
         ?grant rdfs:label ?grantTitle .
         ?grant vivo:totalAwardAmount ?amount .
-        ?grant vivo:assignedBy ?fundingOrg .
-        ?fundingOrg rdfs:label ?fundingOrgName .
        
         ?roleNode obo:RO_0000052 ?person .
         ?person rdfs:label ?personName .
         ?person scholars-hr:netId ?personNetid .
-       
-        ?grant vivo:relates ?node2 .
-        ?node2 a vivo:AdministratorRole .
-        ?node2 obo:RO_0000052 ?dept .
-        ?dept rdfs:label ?deptName .
        
         ?grant vivo:dateTimeInterval ?dti .
         ?dti vivo:end ?end .
@@ -300,7 +246,6 @@
       }
       """ ;
     :constructQuery """
-      PREFIX local:          <http://scholars.cornell.edu/individual/>
       PREFIX obo:            <http://purl.obolibrary.org/obo/>
       PREFIX rdfs:           <http://www.w3.org/2000/01/rdf-schema#>
       PREFIX scholars-grant: <http://scholars.cornell.edu/ontology/grant.owl#>
@@ -314,17 +259,10 @@
 
         ?grant rdfs:label ?grantTitle .
         ?grant vivo:totalAwardAmount ?amount .
-        ?grant vivo:assignedBy ?fundingOrg .
-        ?fundingOrg rdfs:label ?fundingOrgName .
        
         ?roleNode obo:RO_0000052 ?person .
         ?person rdfs:label ?personName .
         ?person scholars-hr:netId ?personNetid .
-       
-        ?grant vivo:relates ?node2 .
-        ?node2 a vivo:AdministratorRole .
-        ?node2 obo:RO_0000052 ?dept .
-        ?dept rdfs:label ?deptName .
        
         ?grant vivo:dateTimeInterval ?dti .
         ?dti vivo:end ?end .
@@ -339,17 +277,10 @@
 
         ?grant rdfs:label ?grantTitle .
         ?grant vivo:totalAwardAmount ?amount .
-        ?grant vivo:assignedBy ?fundingOrg .
-        ?fundingOrg rdfs:label ?fundingOrgName .
        
         ?roleNode obo:RO_0000052 ?person .
         ?person rdfs:label ?personName .
         ?person scholars-hr:netId ?personNetid .
-       
-        ?grant vivo:relates ?node2 .
-        ?node2 a vivo:AdministratorRole .
-        ?node2 obo:RO_0000052 ?dept .
-        ?dept rdfs:label ?deptName .
        
         ?grant vivo:dateTimeInterval ?dti .
         ?dti vivo:end ?end .
@@ -359,7 +290,6 @@
       }
       """ ;
     :constructQuery """
-      PREFIX local:          <http://scholars.cornell.edu/individual/>
       PREFIX obo:            <http://purl.obolibrary.org/obo/>
       PREFIX rdfs:           <http://www.w3.org/2000/01/rdf-schema#>
       PREFIX scholars-grant: <http://scholars.cornell.edu/ontology/grant.owl#>
@@ -373,17 +303,10 @@
 
         ?grant rdfs:label ?grantTitle .
         ?grant vivo:totalAwardAmount ?amount .
-        ?grant vivo:assignedBy ?fundingOrg .
-        ?fundingOrg rdfs:label ?fundingOrgName .
        
         ?roleNode obo:RO_0000052 ?person .
         ?person rdfs:label ?personName .
         ?person scholars-hr:netId ?personNetid .
-       
-        ?grant vivo:relates ?node2 .
-        ?node2 a vivo:AdministratorRole .
-        ?node2 obo:RO_0000052 ?dept .
-        ?dept rdfs:label ?deptName .
        
         ?grant vivo:dateTimeInterval ?dti .
         ?dti vivo:end ?end .
@@ -398,17 +321,10 @@
 
         ?grant rdfs:label ?grantTitle .
         ?grant vivo:totalAwardAmount ?amount .
-        ?grant vivo:assignedBy ?fundingOrg .
-        ?fundingOrg rdfs:label ?fundingOrgName .
        
         ?roleNode obo:RO_0000052 ?person .
         ?person rdfs:label ?personName .
         ?person scholars-hr:netId ?personNetid .
-       
-        ?grant vivo:relates ?node2 .
-        ?node2 a vivo:AdministratorRole .
-        ?node2 obo:RO_0000052 ?dept .
-        ?dept rdfs:label ?deptName .
        
         ?grant vivo:dateTimeInterval ?dti .
         ?dti vivo:end ?end .
@@ -417,6 +333,114 @@
         ?start vivo:dateTime ?startdt .
       }
       """ ;
+      
+    :constructQuery """
+      PREFIX rdfs:           <http://www.w3.org/2000/01/rdf-schema#>
+      PREFIX vivo:           <http://vivoweb.org/ontology/core#>
+ 
+      CONSTRUCT {     
+        ?grant a vivo:Grant .
+        ?grant vivo:assignedBy ?fundingOrg .
+        ?fundingOrg rdfs:label ?fundingOrgName .
+      } 
+      WHERE {
+        ?grant a vivo:Grant .
+        ?grant vivo:assignedBy ?fundingOrg .
+        ?fundingOrg rdfs:label ?fundingOrgName .
+      }
+      """ ;
+    :constructQuery """
+      PREFIX rdfs:           <http://www.w3.org/2000/01/rdf-schema#>
+      PREFIX vivo:           <http://vivoweb.org/ontology/core#>
+ 
+      CONSTRUCT {     
+        ?grant a vivo:Contract .
+        ?grant vivo:assignedBy ?fundingOrg .
+        ?fundingOrg rdfs:label ?fundingOrgName .
+      } 
+      WHERE {
+        ?grant a vivo:Contract .
+        ?grant vivo:assignedBy ?fundingOrg .
+        ?fundingOrg rdfs:label ?fundingOrgName .
+      }
+      """ ;
+    :constructQuery """
+      PREFIX rdfs:           <http://www.w3.org/2000/01/rdf-schema#>
+      PREFIX vivo:           <http://vivoweb.org/ontology/core#>
+ 
+      CONSTRUCT {     
+        ?grant a vivo:CooperativeInvestigation .
+        ?grant vivo:assignedBy ?fundingOrg .
+        ?fundingOrg rdfs:label ?fundingOrgName .
+      } 
+      WHERE {
+        ?grant a vivo:CooperativeInvestigation .
+        ?grant vivo:assignedBy ?fundingOrg .
+        ?fundingOrg rdfs:label ?fundingOrgName .
+      }
+      """ ;
+      
+    :constructQuery """
+      PREFIX obo:            <http://purl.obolibrary.org/obo/>
+      PREFIX rdfs:           <http://www.w3.org/2000/01/rdf-schema#>
+      PREFIX vivo:           <http://vivoweb.org/ontology/core#>
+ 
+      CONSTRUCT {     
+        ?grant a vivo:Grant .
+        ?grant vivo:relates ?node2 .
+        ?node2 a vivo:AdministratorRole .
+        ?node2 obo:RO_0000052 ?dept .
+        ?dept rdfs:label ?deptName .
+      } 
+      WHERE {
+        ?grant a vivo:Grant .
+        ?grant vivo:relates ?node2 .
+        ?node2 a vivo:AdministratorRole .
+        ?node2 obo:RO_0000052 ?dept .
+        ?dept rdfs:label ?deptName .
+      }
+      """ ;
+    :constructQuery """
+      PREFIX obo:            <http://purl.obolibrary.org/obo/>
+      PREFIX rdfs:           <http://www.w3.org/2000/01/rdf-schema#>
+      PREFIX vivo:           <http://vivoweb.org/ontology/core#>
+ 
+      CONSTRUCT {     
+        ?grant a vivo:Contract .
+        ?grant vivo:relates ?node2 .
+        ?node2 a vivo:AdministratorRole .
+        ?node2 obo:RO_0000052 ?dept .
+        ?dept rdfs:label ?deptName .
+      } 
+      WHERE {
+        ?grant a vivo:Contract .
+        ?grant vivo:relates ?node2 .
+        ?node2 a vivo:AdministratorRole .
+        ?node2 obo:RO_0000052 ?dept .
+        ?dept rdfs:label ?deptName .
+      }
+      """ ;
+    :constructQuery """
+      PREFIX obo:            <http://purl.obolibrary.org/obo/>
+      PREFIX rdfs:           <http://www.w3.org/2000/01/rdf-schema#>
+      PREFIX vivo:           <http://vivoweb.org/ontology/core#>
+ 
+      CONSTRUCT {     
+        ?grant a vivo:CooperativeInvestigation .
+        ?grant vivo:relates ?node2 .
+        ?node2 a vivo:AdministratorRole .
+        ?node2 obo:RO_0000052 ?dept .
+        ?dept rdfs:label ?deptName .
+      } 
+      WHERE {
+        ?grant a vivo:CooperativeInvestigation .
+        ?grant vivo:relates ?node2 .
+        ?node2 a vivo:AdministratorRole .
+        ?node2 obo:RO_0000052 ?dept .
+        ?dept rdfs:label ?deptName .
+      }
+      """ ;
+      
     :selectQuery """
       PREFIX local:          <http://scholars.cornell.edu/individual/>
       PREFIX obo:            <http://purl.obolibrary.org/obo/>
@@ -434,7 +458,6 @@
       WHERE {
         ?grant a ?type .
         ?grant rdfs:label ?grantTitle .
-     
         ?grant vivo:totalAwardAmount ?amount .
         OPTIONAL {
           ?grant vivo:assignedBy ?fundingOrg .
@@ -447,11 +470,13 @@
         ?person rdfs:label ?personName .
         ?person scholars-hr:netId ?personNetid .
       
-        ?grant vivo:relates ?node2 .
-        ?node2 a vivo:AdministratorRole .
-        ?node2 obo:RO_0000052 ?dept .
-        ?dept rdfs:label ?deptName .
-       
+        OPTIONAL {
+          ?grant vivo:relates ?node2 .
+          ?node2 a vivo:AdministratorRole .
+          ?node2 obo:RO_0000052 ?dept .
+          ?dept rdfs:label ?deptName .
+        }
+        
         ?grant vivo:dateTimeInterval ?dti .
         ?dti vivo:end ?end .
         ?end vivo:dateTime ?enddt .

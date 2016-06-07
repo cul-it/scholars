@@ -6,6 +6,22 @@
  * check for both of those.
  */
 function transformGrantsData(resultSet) {
+	var dummyPersonDetails = {
+		"uri" : "'",
+		"name" : "not found",
+		"netid" : "zzz",
+		"role" : ""
+	};
+	var dummyFundingOrg = {
+		"name" : "not found",
+		"uri" : "."
+	};
+	var dummyDept = {
+		"code" : "",
+		"name" : "not found",
+		"uri" : "."
+	};
+
 	console.log(window.location.href);
 	var uniqueId = 1;
 	var bindings = resultSet.results.bindings;
@@ -74,12 +90,7 @@ function transformGrantsData(resultSet) {
 				if (binding.person == undefined
 						|| binding.personName == undefined
 						|| binding.personNetid == undefined) {
-					return {
-						"uri" : "'",
-						"name" : "not found",
-						"netid" : "zzz",
-						"role" : ""
-					};
+					return dummyPersonDetails;
 				} else {
 					return {
 						"uri" : toDisplayPageUrl(binding.person.value),
@@ -105,11 +116,7 @@ function transformGrantsData(resultSet) {
 
 		function getDepartmentDetails() {
 			if (binding.dept == undefined || binding.deptName == undefined) {
-				return {
-					"code" : "",
-					"name" : "not found",
-					"uri" : "."
-				};
+				return dummyDept;
 			} else {
 				return {
 					"code" : "CBE", // BOGUS
@@ -122,10 +129,7 @@ function transformGrantsData(resultSet) {
 		function getFundingAgencyDetails() {
 			if (binding.fundingOrg == undefined
 					|| binding.fundingOrgName == undefined) {
-				return {
-					"name" : "not found",
-					"uri" : "."
-				};
+				return dummyFundingOrg;
 			} else {
 				return {
 					"name" : binding.fundingOrgName.value,
@@ -147,18 +151,45 @@ function transformGrantsData(resultSet) {
 		}
 	}
 
-	function mergeDuplicates(bindingsSoFar, currentBinding) {
-		var matchingValue = bindingsSoFar.find(matchUris);
-		if (matchingValue == undefined) {
-			return bindingsSoFar.concat(currentBinding);
+	function mergeDuplicates(bindingsSoFar, current) {
+		var matching = bindingsSoFar.find(matchUris);
+		if (matching == undefined) {
+			return bindingsSoFar.concat(current);
 		} else {
-			matchingValue.person = matchingValue.person
-					.concat(currentBinding.person);
+			matching.person = mergePeople();
+			matching.funagen = mergeFunders();
+			matching.dept = mergeDepartments();
 			return bindingsSoFar;
 		}
 
 		function matchUris(aBinding) {
-			return aBinding.grant.uri == currentBinding.grant.uri
+			return aBinding.grant.uri == current.grant.uri
+		}
+
+		function mergePeople() {
+			var people = matching.person.concat(current.person);
+			var filtered = people.filter(notDummyPerson);
+			return filtered.length == 0 ? [ dummyPersonDetails ] : filtered;
+
+			function notDummyPerson(person) {
+				return person != dummyPersonDetails;
+			}
+		}
+
+		function mergeFunders() {
+			if (matching.funagen == dummyFundingOrg) {
+				return current.funagen;
+			} else {
+				return matching.funagen;
+			}
+		}
+		
+		function mergeDepartments() {
+			if (matching.dept == dummyDept) {
+				return current.dept;
+			} else {
+				return matching.dept;
+			}
 		}
 	}
 }
