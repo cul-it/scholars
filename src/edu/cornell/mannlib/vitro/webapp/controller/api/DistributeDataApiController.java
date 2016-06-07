@@ -3,7 +3,7 @@
 package edu.cornell.mannlib.vitro.webapp.controller.api;
 
 import static edu.cornell.mannlib.vitro.webapp.modelaccess.ModelNames.DISPLAY;
-import static edu.cornell.mannlib.vitro.webapp.utils.sparql.SelectQueryRunner.createQueryContext;
+import static edu.cornell.mannlib.vitro.webapp.utils.sparql.SparqlQueryRunner.createSelectQueryContext;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -55,7 +55,6 @@ public class DistributeDataApiController extends VitroApiServlet {
 			String uri = findDistributorForAction(action, model);
 			DataDistributor instance = instantiateDistributor(req, uri, model);
 			runIt(req, resp, instance);
-			
 		} catch (NoSuchActionException e) {
 			do400BadRequest(e.getMessage(), resp);
 		} catch (MissingParametersException e) {
@@ -74,10 +73,10 @@ public class DistributeDataApiController extends VitroApiServlet {
 					"'action' parameter was not provided.");
 		}
 
-		List<String> uris = createQueryContext(model,
+		List<String> uris = createSelectQueryContext(model,
 				DISTRIBUTOR_FOR_SPECIFIED_ACTION)
 				.bindVariableToPlainLiteral("action", action).execute()
-				.getStringFields("distributor").flatten();
+				.toStringFields("distributor").flatten();
 		Collections.sort(uris);
 		log.debug("Found URIs for action '" + action + "': " + uris);
 
@@ -112,10 +111,13 @@ public class DistributeDataApiController extends VitroApiServlet {
 			@SuppressWarnings("unchecked")
 			Map<String, String[]> parameters = req.getParameterMap();
 			instance.init(parameters);
+			log.debug("Distributor is " + instance);
+
 			resp.setContentType(instance.getContentType());
 			resp.setCharacterEncoding("UTF-8");
 			instance.writeOutput(resp.getOutputStream());
 		} catch (Exception e) {
+			log.error("Failed to execute the DataDistributor", e);
 			instance.close();
 		}
 	}

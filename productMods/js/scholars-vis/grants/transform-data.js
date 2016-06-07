@@ -10,21 +10,23 @@ function transformGrantsData(resultSet) {
 	var uniqueId = 1;
 	var bindings = resultSet.results.bindings;
 	console.log("How many? " + bindings.length);
-	return bindings.map(transformBinding)
+	var merged = bindings.map(transformBinding).reduce(mergeDuplicates, []);
+	console.log("Merged? " + merged.length);
+	return merged;
 
 	function transformBinding(binding) {
 		return {
 			"group" : figureGrantGroup(),
-			"person" : getPersonDetails(),
+			"person" : getPeopleDetails(),
 			"P-I-Id" : "55226-3713", // BOGUS
 			"grant" : getGrantDetails(),
 			"dept" : getDepartmentDetails(),
 			"funagen" : getFundingAgencyDetails(),
 			"Cost" : parseInt(binding.amount.value),
-			"Role" : "CO", // BOGUS - which role? pi, co-pi?
-			"End" : binding.endYear.value,
-			"Start" : binding.startYear.value,
-			"id": getUniqueId() // BOGUS? -- for grant (where is the data?)
+			"End" : figureYear(binding.enddt),
+			"Start" : figureYear(binding.startdt),
+			"id" : getUniqueId()
+		// BOGUS? -- for grant (where is the data?)
 		};
 
 		function figureGrantGroup() {
@@ -48,24 +50,56 @@ function transformGrantsData(resultSet) {
 			return {
 				"uri" : toDisplayPageUrl(binding.grant.value),
 				"title" : binding.grantTitle.value,
-				"type" : binding.grantType.value
+				"type" : figureGrantType()
 			};
+
+			function figureGrantType() {
+				if (binding.type == undefined) {
+					return "UNKNOWN";
+				} else if (binding.type.value == "http://vivoweb.org/ontology/core#Grant") {
+					return "GRANT";
+				} else if (binding.type.value == "http://vivoweb.org/ontology/core#Contract") {
+					return "CONTRACT";
+				} else if (binding.type.value == "http://vivoweb.org/ontology/core#CooperativeAgreement") {
+					return "CO-OP";
+				} else {
+					return "UNKNOWN";
+				}
+			}
 		}
 
-		function getPersonDetails() {
-			if (binding.person == undefined || binding.personName == undefined
-					|| binding.personNetid == undefined) {
-				return {
-					"uri" : "'",
-					"name" : "not found",
-					"netid" : "zzz"
-				};
-			} else {
-				return {
-					"uri" : toDisplayPageUrl(binding.person.value),
-					"name" : binding.personName.value,
-					"netid" : binding.personNetid.value
-				};
+		function getPeopleDetails() {
+			return [ getPersonDetails() ]
+			function getPersonDetails() {
+				if (binding.person == undefined
+						|| binding.personName == undefined
+						|| binding.personNetid == undefined) {
+					return {
+						"uri" : "'",
+						"name" : "not found",
+						"netid" : "zzz",
+						"role" : ""
+					};
+				} else {
+					return {
+						"uri" : toDisplayPageUrl(binding.person.value),
+						"name" : binding.personName.value,
+						"netid" : binding.personNetid.value,
+						"role" : figureRole()
+					};
+				}
+
+				function figureRole() {
+					if (binding.role == undefined) {
+						return "";
+					} else if (binding.role.value == "http://vivoweb.org/ontology/core#PrincipalInvestigatorRole") {
+						return "PI";
+					} else if (binding.role.value == "http://vivoweb.org/ontology/core#CoPrincipalInvestigatorRole") {
+						return "CO";
+					} else {
+						return "";
+					}
+				}
 			}
 		}
 
@@ -100,8 +134,31 @@ function transformGrantsData(resultSet) {
 			}
 		}
 
+		function figureYear(date) {
+			if (date == undefined) {
+				return "9999";
+			} else {
+				return date.value.substring(0, 4);
+			}
+		}
+
 		function getUniqueId() {
 			return uniqueId++;
+		}
+	}
+
+	function mergeDuplicates(bindingsSoFar, currentBinding) {
+		var matchingValue = bindingsSoFar.find(matchUris);
+		if (matchingValue == undefined) {
+			return bindingsSoFar.concat(currentBinding);
+		} else {
+			matchingValue.person = matchingValue.person
+					.concat(currentBinding.person);
+			return bindingsSoFar;
+		}
+
+		function matchUris(aBinding) {
+			return aBinding.grant.uri == currentBinding.grant.uri
 		}
 	}
 }
