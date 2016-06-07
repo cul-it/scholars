@@ -39,216 +39,6 @@
     a   <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.DataDistributor> ,
         <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.GrantsBubbleChartDistributor> .
 
-#:data_distributor_grants_page_live :actionName "grants_bubble_chart" .
-:data_distributor_grants_page_live
-    a   <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.DataDistributor> ,
-        <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.SparqlSelectDataDistributor> ;
-    :query """
-      PREFIX local:          <http://scholars.cornell.edu/individual/>
-      PREFIX obo:            <http://purl.obolibrary.org/obo/>
-      PREFIX rdfs:           <http://www.w3.org/2000/01/rdf-schema#>
-      PREFIX scholars-grant: <http://scholars.cornell.edu/ontology/grant.owl#>
-      PREFIX scholars-hr:    <http://scholars.cornell.edu/ontology/hr.owl#>
-      PREFIX vivo:           <http://vivoweb.org/ontology/core#>
-      
-      SELECT ?grant ?grantTitle ?grantType
-             ?amount ?fundingOrg ?fundingOrgName
-             ?person ?personName ?personNetid
-             ?dept ?deptName
-             ?startYear ?endYear
-      
-      WHERE
-      {
-        {
-          {
-            ?grant a vivo:Grant .
-            BIND("GRANT" AS ?grantType) .
-          } UNION {
-            ?grant a vivo:Contract .
-            BIND("CONTRACT" AS ?grantType) .
-          } UNION {
-            ?grant a vivo:CooperativeAgreement .
-            BIND("COOPERATIVE_AGREEMENT" AS ?grantType) .
-          }
-        }
-        ?grant rdfs:label ?grantTitle .
-       
-        ?grant vivo:totalAwardAmount ?amount .
-        ?grant vivo:assignedBy ?fundingOrg .
-        ?fundingOrg rdfs:label ?fundingOrgName .
-       
-        ?grant vivo:relates ?node1 .
-        ?node1 a vivo:PrincipalInvestigatorRole .
-        ?node1 obo:RO_0000052 ?person .
-        ?person rdfs:label ?personName .
-        ?person scholars-hr:netId ?personNetid .
-       
-       
-        ?grant vivo:relates ?node2 .
-        ?node2 a vivo:AdministratorRole .
-        ?node2 obo:RO_0000052 ?dept .
-        ?dept rdfs:label ?deptName .
-       
-        ?grant vivo:dateTimeInterval ?dti .
-        ?dti vivo:end ?end .
-        ?end vivo:dateTime ?enddt .
-        BIND(SUBSTR(STR(?enddt),1,4) AS ?endYear) .
-        ?dti vivo:start ?start .
-        ?start vivo:dateTime ?startdt .
-        BIND(SUBSTR(STR(?startdt),1,4) AS ?startYear) .
-      }
-      """ .
-
-#:data_distributor_grants_page_with_optionals :actionName "grants_bubble_chart" .
-:data_distributor_grants_page_with_optionals
-    a   <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.DataDistributor> ,
-        <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.SparqlSelectDataDistributor> ;
-    :query """
-      PREFIX local:          <http://scholars.cornell.edu/individual/>
-      PREFIX obo:            <http://purl.obolibrary.org/obo/>
-      PREFIX rdfs:           <http://www.w3.org/2000/01/rdf-schema#>
-      PREFIX scholars-grant: <http://scholars.cornell.edu/ontology/grant.owl#>
-      PREFIX scholars-hr:    <http://scholars.cornell.edu/ontology/hr.owl#>
-      PREFIX vivo:           <http://vivoweb.org/ontology/core#>
-      
-      SELECT ?grant ?grantTitle ?grantType
-             ?amount ?fundingOrg ?fundingOrgName
-             ?person ?personName ?personNetid
-             ?dept ?deptName
-             ?startYear ?endYear
-      
-      WHERE
-      {
-        {
-          {
-            ?grant a vivo:Grant .
-            BIND("GRANT" AS ?grantType) .
-          } UNION {
-            ?grant a vivo:Contract .
-            BIND("CONTRACT" AS ?grantType) .
-          } UNION {
-            ?grant a vivo:CooperativeAgreement .
-            BIND("COOPERATIVE_AGREEMENT" AS ?grantType) .
-          }
-        }
-        ?grant rdfs:label ?grantTitle .
-       
-        ?grant vivo:dateTimeInterval ?dti .
-        ?dti vivo:end ?end .
-        ?end vivo:dateTime ?enddt .
-        BIND(SUBSTR(STR(?enddt),1,4) AS ?endYear) .
-        ?dti vivo:start ?start .
-        ?start vivo:dateTime ?startdt .
-        BIND(SUBSTR(STR(?startdt),1,4) AS ?startYear) .
-       
-        OPTIONAL {
-          ?grant vivo:relates ?node1 .
-          ?node1 a vivo:PrincipalInvestigatorRole .
-          ?node1 obo:RO_0000052 ?person .
-          ?person rdfs:label ?personName .
-          ?person scholars-hr:netId ?personNetid .
-        }
-       
-        OPTIONAL {
-          ?grant vivo:relates ?node2 .
-          ?node2 a vivo:AdministratorRole .
-          ?node2 obo:RO_0000052 ?dept .
-          ?dept rdfs:label ?deptName .
-        }
-       
-        OPTIONAL {
-          ?grant vivo:totalAwardAmount ?amount .
-          ?grant vivo:assignedBy ?fundingOrg .
-          ?fundingOrg rdfs:label ?fundingOrgName .
-        }
-      }
-      """ .
-
-#:data_distributor_grants_page_with_sub :actionName "grants_bubble_chart" .
-:data_distributor_grants_page_with_sub
-    a   <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.DataDistributor> ,
-        <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.SparqlSelectDataDistributor> ;
-    :query """
-      PREFIX local:          <http://scholars.cornell.edu/individual/>
-      PREFIX obo:            <http://purl.obolibrary.org/obo/>
-      PREFIX rdfs:           <http://www.w3.org/2000/01/rdf-schema#>
-      PREFIX scholars-grant: <http://scholars.cornell.edu/ontology/grant.owl#>
-      PREFIX scholars-hr:    <http://scholars.cornell.edu/ontology/hr.owl#>
-      PREFIX vivo:           <http://vivoweb.org/ontology/core#>
-      
-      SELECT ?grant ?grantTitle ?grantType
-             ?amount ?fundingOrg ?fundingOrgName
-             ?person ?personName ?personNetid
-             ?dept ?deptName
-             ?startYear ?endYear
-      
-      WHERE {
-        {
-          SELECT ?grant ?grantType
-          WHERE {
-            {
-              ?grant a vivo:Grant .
-              BIND("GRANT" AS ?grantType) .
-              ?grant vivo:relates ?roleNode .
-              ?roleNode a vivo:PrincipalInvestigatorRole .
-              BIND("PI" AS ?role) .
-            } UNION {
-              ?grant a vivo:Contract .
-              BIND("CONTRACT" AS ?grantType) .
-              ?grant vivo:relates ?roleNode .
-              ?roleNode a vivo:PrincipalInvestigatorRole .
-              BIND("PI" AS ?role) .
-            } UNION {
-              ?grant a vivo:CooperativeAgreement .
-              BIND("COOPERATIVE_AGREEMENT" AS ?grantType) .
-              ?grant vivo:relates ?roleNode .
-              ?roleNode a vivo:PrincipalInvestigatorRole .
-              BIND("PI" AS ?role) .
-            } UNION {
-              ?grant a vivo:Grant .
-              BIND("GRANT" AS ?grantType) .
-              ?grant vivo:relates ?roleNode .
-              ?roleNode a vivo:CoPrincipalInvestigatorRole .
-              BIND("CO" AS ?role) .
-            } UNION {
-              ?grant a vivo:Contract .
-              BIND("CONTRACT" AS ?grantType) .
-              ?grant vivo:relates ?roleNode .
-              ?roleNode a vivo:CoPrincipalInvestigatorRole .
-              BIND("CO" AS ?role) .
-            } UNION {
-              ?grant a vivo:CooperativeAgreement .
-              BIND("COOPERATIVE_AGREEMENT" AS ?grantType) .
-              ?grant vivo:relates ?roleNode .
-              ?roleNode a vivo:CoPrincipalInvestigatorRole .
-              BIND("CO" AS ?role) .
-            }
-          }
-        }
-        ?grant rdfs:label ?grantTitle .
-        ?grant vivo:totalAwardAmount ?amount .
-        ?grant vivo:assignedBy ?fundingOrg .
-        ?fundingOrg rdfs:label ?fundingOrgName .
-       
-        ?roleNode obo:RO_0000052 ?person .
-        ?person rdfs:label ?personName .
-        ?person scholars-hr:netId ?personNetid .
-       
-       
-        ?grant vivo:relates ?node2 .
-        ?node2 a vivo:AdministratorRole .
-        ?node2 obo:RO_0000052 ?dept .
-        ?dept rdfs:label ?deptName .
-       
-        ?grant vivo:dateTimeInterval ?dti .
-        ?dti vivo:end ?end .
-        ?end vivo:dateTime ?enddt .
-        BIND(SUBSTR(STR(?enddt),1,4) AS ?endYear) .
-        ?dti vivo:start ?start .
-        ?start vivo:dateTime ?startdt .
-        BIND(SUBSTR(STR(?startdt),1,4) AS ?startYear) .
-      }
-      """ .
 #
 # Grants data:
 #
@@ -628,44 +418,45 @@
       }
       """ ;
     :selectQuery """
-        PREFIX local:          <http://scholars.cornell.edu/individual/>
-        PREFIX obo:            <http://purl.obolibrary.org/obo/>
-        PREFIX rdfs:           <http://www.w3.org/2000/01/rdf-schema#>
-        PREFIX scholars-grant: <http://scholars.cornell.edu/ontology/grant.owl#>
-        PREFIX scholars-hr:    <http://scholars.cornell.edu/ontology/hr.owl#>
-        PREFIX vivo:           <http://vivoweb.org/ontology/core#>
+      PREFIX local:          <http://scholars.cornell.edu/individual/>
+      PREFIX obo:            <http://purl.obolibrary.org/obo/>
+      PREFIX rdfs:           <http://www.w3.org/2000/01/rdf-schema#>
+      PREFIX scholars-grant: <http://scholars.cornell.edu/ontology/grant.owl#>
+      PREFIX scholars-hr:    <http://scholars.cornell.edu/ontology/hr.owl#>
+      PREFIX vivo:           <http://vivoweb.org/ontology/core#>
       
-        SELECT ?grant ?grantTitle ?type
-               ?amount ?fundingOrg ?fundingOrgName
-               ?person ?personName ?personNetid ?role
-               ?dept ?deptName
-               ?startdt ?enddt
+      SELECT ?grant ?grantTitle ?type
+             ?amount ?fundingOrg ?fundingOrgName
+             ?person ?personName ?personNetid ?role
+             ?dept ?deptName
+             ?startdt ?enddt
       
-        WHERE
-        {
-          ?grant a ?type .
-          ?grant rdfs:label ?grantTitle .
-       
-          ?grant vivo:totalAwardAmount ?amount .
+      WHERE {
+        ?grant a ?type .
+        ?grant rdfs:label ?grantTitle .
+     
+        ?grant vivo:totalAwardAmount ?amount .
+        OPTIONAL {
           ?grant vivo:assignedBy ?fundingOrg .
           ?fundingOrg rdfs:label ?fundingOrgName .
-       
-          ?grant vivo:relates ?node1 .
-          ?node1 a ?role .
-          ?node1 obo:RO_0000052 ?person .
-          ?person rdfs:label ?personName .
-          ?person scholars-hr:netId ?personNetid .
-       
-          ?grant vivo:relates ?node2 .
-          ?node2 a vivo:AdministratorRole .
-          ?node2 obo:RO_0000052 ?dept .
-          ?dept rdfs:label ?deptName .
-       
-          ?grant vivo:dateTimeInterval ?dti .
-          ?dti vivo:end ?end .
-          ?end vivo:dateTime ?enddt .
-          ?dti vivo:start ?start .
-          ?start vivo:dateTime ?startdt .
         }
-        """ .
+       
+        ?grant vivo:relates ?node1 .
+        ?node1 a ?role .
+        ?node1 obo:RO_0000052 ?person .
+        ?person rdfs:label ?personName .
+        ?person scholars-hr:netId ?personNetid .
+      
+        ?grant vivo:relates ?node2 .
+        ?node2 a vivo:AdministratorRole .
+        ?node2 obo:RO_0000052 ?dept .
+        ?dept rdfs:label ?deptName .
+       
+        ?grant vivo:dateTimeInterval ?dti .
+        ?dti vivo:end ?end .
+        ?end vivo:dateTime ?enddt .
+        ?dti vivo:start ?start .
+        ?start vivo:dateTime ?startdt .
+      }
+      """ .
       
