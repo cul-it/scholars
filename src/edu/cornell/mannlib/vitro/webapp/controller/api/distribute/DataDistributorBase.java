@@ -13,6 +13,7 @@ import edu.cornell.mannlib.vitro.webapp.utils.configuration.Validation;
 public abstract class DataDistributorBase implements DataDistributor {
 	/** The name of the action request that we are responding to. */
 	protected String actionName;
+	protected DataDistributorContext ddContext;
 	protected Map<String, String[]> parameters;
 
 	@Property(uri = "http://vitro.mannlib.cornell.edu/ns/vitro/ApplicationSetup#actionName")
@@ -35,8 +36,10 @@ public abstract class DataDistributorBase implements DataDistributor {
 		}
 	}
 
+	@SuppressWarnings("hiding")
 	@Override
 	public void init(DataDistributorContext ddContext) {
+		this.ddContext = ddContext;
 		this.parameters = ddContext.getRequestParameters();
 	}
 

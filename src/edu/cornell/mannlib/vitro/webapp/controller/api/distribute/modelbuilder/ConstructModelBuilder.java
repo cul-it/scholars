@@ -15,28 +15,23 @@ import com.hp.hpl.jena.rdf.model.Model;
 
 import edu.cornell.mannlib.vitro.webapp.controller.api.distribute.DataDistributor.DataDistributorException;
 import edu.cornell.mannlib.vitro.webapp.controller.api.distribute.DataDistributor.MissingParametersException;
+import edu.cornell.mannlib.vitro.webapp.controller.api.distribute.DataDistributorContext;
 import edu.cornell.mannlib.vitro.webapp.modelaccess.RequestModelAccess;
 import edu.cornell.mannlib.vitro.webapp.utils.configuration.Property;
-import edu.cornell.mannlib.vitro.webapp.utils.configuration.RequestModelsUser;
 import edu.cornell.mannlib.vitro.webapp.utils.sparql.SparqlQueryRunner.ConstructQueryContext;
 
 /**
  * Run a construct query to build the model. Bind parameters from the request, as needed.
  */
-public class ConstructModelBuilder implements ModelBuilder, RequestModelsUser {
+public class ConstructModelBuilder implements ModelBuilder {
 	private static final Log log = LogFactory
 			.getLog(ConstructModelBuilder.class);
 
-	private RequestModelAccess models;
+	protected RequestModelAccess models;
 	private Map<String, String[]> parameters;
-	private String rawConstructQuery;
+	protected String rawConstructQuery;
 	private Set<String> uriBinders = new HashSet<>();
 	private Set<String> literalBinders = new HashSet<>();
-
-	@Override
-	public void setRequestModels(RequestModelAccess models) {
-		this.models = models;
-	}
 
 	@Property(uri = "http://vitro.mannlib.cornell.edu/ns/vitro/ApplicationSetup#uriBinding")
 	public void addUriBinder(String uriBindingName) {
@@ -54,9 +49,10 @@ public class ConstructModelBuilder implements ModelBuilder, RequestModelsUser {
 	}
 
 	@Override
-	public void init(Map<String, String[]> requestParameters)
+	public void init(DataDistributorContext ddContext)
 			throws DataDistributorException {
-		this.parameters = requestParameters;
+		this.parameters = ddContext.getRequestParameters();
+		this.models = ddContext.getRequestModels();
 	}
 
 	@Override

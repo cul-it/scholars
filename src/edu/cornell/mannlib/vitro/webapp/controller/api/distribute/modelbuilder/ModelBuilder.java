@@ -2,18 +2,17 @@
 
 package edu.cornell.mannlib.vitro.webapp.controller.api.distribute.modelbuilder;
 
-import java.util.Map;
-
 import com.hp.hpl.jena.rdf.model.Model;
 
 import edu.cornell.mannlib.vitro.webapp.controller.api.distribute.DataDistributor.DataDistributorException;
+import edu.cornell.mannlib.vitro.webapp.controller.api.distribute.DataDistributorContext;
 
 /**
  * Creates a local model as the basis for later queries.
  */
 public interface ModelBuilder {
 	/** Call once, after instantiating */
-	void init(Map<String, String[]> requestParameters)
+	void init(DataDistributorContext ddContext)
 			throws DataDistributorException;
 
 	/** Call once, after init. */

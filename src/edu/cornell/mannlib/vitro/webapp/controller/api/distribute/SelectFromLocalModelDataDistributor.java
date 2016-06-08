@@ -53,7 +53,7 @@ public class SelectFromLocalModelDataDistributor extends
 
 	private Model runModelBuilder(ModelBuilder modelBuilder)
 			throws DataDistributorException {
-		modelBuilder.init(parameters);
+		modelBuilder.init(ddContext);
 		Model model = modelBuilder.buildModel();
 		modelBuilder.close();
 		return model;
@@ -71,7 +71,7 @@ public class SelectFromLocalModelDataDistributor extends
 
 	@Override
 	public String toString() {
-		return "SparqlConstructSelectDataDistributor [actionName=" + actionName
+		return "SelectFromLocalModelDataDistributor [actionName=" + actionName
 				+ ", rawSelectQuery=" + rawSelectQuery + ", modelBuilders="
 				+ modelBuilders + ", uriBinders=" + uriBinders
 				+ ", literalBinders=" + literalBinders + ", parameters="

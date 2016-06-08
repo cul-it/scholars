@@ -11,7 +11,7 @@ import edu.cornell.mannlib.vitro.webapp.utils.sparql.SparqlQueryRunner.Construct
 import edu.cornell.mannlib.vitro.webapp.utils.sparql.SparqlQueryRunner.SelectQueryContext;
 
 /**
- * TODO
+ * Some utility methods that come in handy.
  */
 public abstract class SparqlSelectDataDistributorBase extends
 		DataDistributorBase {
@@ -22,6 +22,7 @@ public abstract class SparqlSelectDataDistributorBase extends
 	protected Set<String> uriBinders = new HashSet<>();
 	protected Set<String> literalBinders = new HashSet<>();
 
+	@SuppressWarnings("hiding")
 	@Override
 	public void init(DataDistributorContext ddContext) {
 		super.init(ddContext);
