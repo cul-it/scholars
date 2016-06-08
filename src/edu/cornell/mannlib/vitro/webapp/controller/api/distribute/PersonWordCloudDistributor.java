@@ -14,14 +14,12 @@ import com.hp.hpl.jena.query.Syntax;
 import com.hp.hpl.jena.rdf.model.Model;
 
 import edu.cornell.mannlib.vitro.webapp.modelaccess.RequestModelAccess;
-import edu.cornell.mannlib.vitro.webapp.utils.configuration.RequestModelsUser;
 
 /**
  * An interim implementation -- this should be replaced by a generalized
  * CONSTRUCT distributor.
  */
-public class PersonWordCloudDistributor extends RdfDataDistributorBase
-		implements RequestModelsUser {
+public class PersonWordCloudDistributor extends RdfDataDistributorBase {
 	private static final Log log = LogFactory
 			.getLog(PersonWordCloudDistributor.class);
 
@@ -49,8 +47,9 @@ public class PersonWordCloudDistributor extends RdfDataDistributorBase
 			+ "}";
 
 	@Override
-	public void setRequestModels(RequestModelAccess models) {
-		this.models = models;
+	public void init(DataDistributorContext ddContext) {
+		super.init(ddContext);
+		this.models = ddContext.getRequestModels();
 	}
 
 	@Override

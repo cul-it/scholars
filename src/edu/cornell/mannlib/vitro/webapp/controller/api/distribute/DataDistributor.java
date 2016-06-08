@@ -3,7 +3,6 @@
 package edu.cornell.mannlib.vitro.webapp.controller.api.distribute;
 
 import java.io.OutputStream;
-import java.util.Map;
 
 /**
  * <pre>
@@ -11,14 +10,14 @@ import java.util.Map;
  * -- instantiated
  * -- init()
  * -- getActionName(), writeOutput(), getContentType()
- *      In any order. Might not be called. Not called more than once.
+ *      In any order. Might not be called. Never called more than once.
  * -- close()
  * -- garbage-collected 
  *      (probably)
  * </pre>
  */
 public interface DataDistributor {
-	void init(Map<String, String[]> parameters) throws DataDistributorException;
+	void init(DataDistributorContext ddContext) throws DataDistributorException;
 
 	String getActionName();
 
@@ -36,28 +35,28 @@ public interface DataDistributor {
 	}
 
 	public class NoSuchActionException extends DataDistributorException {
-		public NoSuchActionException() {	super(); }
+		public NoSuchActionException() { super(); }
 		public NoSuchActionException(String message) { super(message); }
 		public NoSuchActionException(Throwable cause) { super(cause); }
 		public NoSuchActionException(String message, Throwable cause) { super(message, cause); }
 	}
 
 	public class NotAuthorizedException extends DataDistributorException {
-		public NotAuthorizedException() {	super(); }
+		public NotAuthorizedException() { super(); }
 		public NotAuthorizedException(String message) { super(message); }
 		public NotAuthorizedException(Throwable cause) { super(cause); }
 		public NotAuthorizedException(String message, Throwable cause) { super(message, cause); }
 	}
 
 	public class MissingParametersException extends DataDistributorException {
-		public MissingParametersException() {	super(); }
+		public MissingParametersException() { super(); }
 		public MissingParametersException(String message) { super(message); }
 		public MissingParametersException(Throwable cause) { super(cause); }
 		public MissingParametersException(String message, Throwable cause) { super(message, cause); }
 	}
 
 	public class ActionFailedException extends DataDistributorException {
-		public ActionFailedException() {	super(); }
+		public ActionFailedException() { super(); }
 		public ActionFailedException(String message) { super(message); }
 		public ActionFailedException(Throwable cause) { super(cause); }
 		public ActionFailedException(String message, Throwable cause) { super(message, cause); }

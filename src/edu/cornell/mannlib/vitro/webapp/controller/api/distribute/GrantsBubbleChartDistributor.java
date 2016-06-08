@@ -13,13 +13,11 @@ import org.apache.commons.logging.LogFactory;
 
 import edu.cornell.mannlib.vitro.webapp.modelaccess.RequestModelAccess;
 import edu.cornell.mannlib.vitro.webapp.rdfservice.RDFService;
-import edu.cornell.mannlib.vitro.webapp.utils.configuration.RequestModelsUser;
 
 /**
  * TODO
  */
-public class GrantsBubbleChartDistributor extends DataDistributorBase implements
-		RequestModelsUser {
+public class GrantsBubbleChartDistributor extends DataDistributorBase {
 	private static final Log log = LogFactory
 			.getLog(GrantsBubbleChartDistributor.class);
 
@@ -41,30 +39,29 @@ public class GrantsBubbleChartDistributor extends DataDistributorBase implements
 			+ "       ?startYear ?endYear \n " //
 			+ "WHERE \n " //
 			+ "{ \n " //
-			+ "  { \n " //"
-			+ "    { \n " //"
-			+ "      ?grant a vivo:Grant . \n " //"
+			+ "  { \n " // "
+			+ "    { \n " // "
+			+ "      ?grant a vivo:Grant . \n " // "
 			+ "      BIND(\"GRANT\" AS ?grantType) . \n " //
-			+ "    } UNION { \n " //"
-			+ "      ?grant a vivo:Contract . \n " //"
+			+ "    } UNION { \n " // "
+			+ "      ?grant a vivo:Contract . \n " // "
 			+ "      BIND(\"CONTRACT\" AS ?grantType) . \n " //
-			+ "    } UNION { \n " //"
-			+ "      ?grant a vivo:CooperativeAgreement . \n " //"
+			+ "    } UNION { \n " // "
+			+ "      ?grant a vivo:CooperativeAgreement . \n " // "
 			+ "      BIND(\"COOPERATIVE_AGREEMENT\" AS ?grantType) . \n " //
-			+ "    } \n " //"
-			+ "  } \n " //"
+			+ "    } \n " // "
+			+ "  } \n " // "
 			+ "  ?grant rdfs:label ?grantTitle . \n " //
 			+ "  \n " //
 			+ "  ?grant vivo:totalAwardAmount ?amount . \n " //
 			+ "  ?grant vivo:assignedBy ?fundingOrg . \n " //
-			+ "  ?fundingOrg rdfs:label ?fundingOrgName . \n "
+			+ "  ?fundingOrg rdfs:label ?fundingOrgName . \n " //
 			+ "  \n " //
 			+ "  ?grant vivo:relates ?node1 . \n " //
 			+ "  ?node1 a vivo:PrincipalInvestigatorRole . \n " //
 			+ "  ?node1 obo:RO_0000052 ?person . \n " //
 			+ "  ?person rdfs:label ?personName . \n " //
 			+ "  ?person scholars-hr:netId ?personNetid . \n " //
-			+ "  \n " //
 			+ "  \n " //
 			+ "  ?grant vivo:relates ?node2 . \n " //
 			+ "  ?node2 a vivo:AdministratorRole . \n " //
@@ -81,8 +78,9 @@ public class GrantsBubbleChartDistributor extends DataDistributorBase implements
 			+ "}";
 
 	@Override
-	public void setRequestModels(RequestModelAccess models) {
-		this.models = models;
+	public void init(DataDistributorContext ddContext) {
+		super.init(ddContext);
+		this.models = ddContext.getRequestModels();
 	}
 
 	@Override

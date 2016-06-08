@@ -36,9 +36,8 @@ public abstract class DataDistributorBase implements DataDistributor {
 	}
 
 	@Override
-	public void init(Map<String, String[]> requestParameters)
-			throws DataDistributorException {
-		this.parameters = requestParameters;
+	public void init(DataDistributorContext ddContext) {
+		this.parameters = ddContext.getRequestParameters();
 	}
 
 	@Override
