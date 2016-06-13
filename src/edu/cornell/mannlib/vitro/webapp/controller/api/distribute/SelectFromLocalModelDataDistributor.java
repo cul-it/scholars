@@ -43,12 +43,17 @@ public class SelectFromLocalModelDataDistributor extends
 	@Override
 	public void writeOutput(OutputStream output)
 			throws DataDistributorException {
+		Model localModel = runModelBuilders();
+		runSelectQuery(output, localModel);
+	}
+
+	private Model runModelBuilders() throws DataDistributorException {
 		Model localModel = ModelFactory.createDefaultModel();
 		for (ModelBuilder modelBuilder : modelBuilders) {
 			localModel.add(runModelBuilder(modelBuilder));
 			log.debug("Model size is  " + localModel.size());
 		}
-		runSelectQuery(output, localModel);
+		return localModel;
 	}
 
 	private Model runModelBuilder(ModelBuilder modelBuilder)
