@@ -1,0 +1,271 @@
+<#-- $This file is distributed under the terms of the license in /doc/license.txt$ -->
+
+<#-- Individual profile page template for foaf:Organization individuals (extends individual.ftl in vivo)-->
+
+<#-- Do not show the link for temporal visualization unless it's enabled -->
+
+<#include "individual-setup.ftl">
+<#import "lib-vivo-properties.ftl" as vp>
+
+    
+
+<#import "lib-microformats.ftl" as mf>
+<#import "lib-datetime.ftl" as dt>
+<#--Number of labels present-->
+<#if !labelCount??>
+    <#assign labelCount = 0 >
+</#if>
+<#--Number of available locales-->
+<#if !localesCount??>
+	<#assign localesCount = 1>
+</#if>
+<#--Number of distinct languages represented, with no language tag counting as a language, across labels-->
+<#if !languageCount??>
+	<#assign languageCount = 1>
+</#if>	
+<#-- pull properties -->
+<#assign abstractProp = propertyGroups.pullProperty("http://purl.org/ontology/bibo/abstract")!>
+<#assign authorsProp = propertyGroups.pullProperty("http://vivoweb.org/ontology/core#relatedBy","http://vivoweb.org/ontology/core#Authorship")!>
+<#assign editorsProp = propertyGroups.pullProperty("http://vivoweb.org/ontology/core#relatedBy","http://vivoweb.org/ontology/core#Editorship")!>
+<#assign pubDateProp = propertyGroups.pullProperty("http://vivoweb.org/ontology/core#dateTimeValue","http://vivoweb.org/ontology/core#DateTimeValue")!>
+<#if pubDateProp?has_content && pubDateProp.statements?has_content>
+	<#assign pubDateStmt = pubDateProp.statements?first/>
+	<#assign pubDate>${dt.formatXsdDateTimeLong(pubDateStmt.dateTime, pubDateStmt.precision!)}</#assign>
+</#if>
+<#assign pubLocaleProp = propertyGroups.pullProperty("http://vivoweb.org/ontology/core#placeOfPublication")!>
+<#assign pubVenueProp = propertyGroups.pullProperty("http://vivoweb.org/ontology/core#hasPublicationVenue")!>
+<#assign keywordsProp = propertyGroups.pullProperty("http://vivoweb.org/ontology/core#freetextKeyword")!>
+<#assign doiProp = propertyGroups.pullProperty("http://purl.org/ontology/bibo/doi")!>
+<#assign startProp = propertyGroups.pullProperty("http://purl.org/ontology/bibo/pageStart")!>
+<#assign endProp = propertyGroups.pullProperty("http://purl.org/ontology/bibo/pageEnd")!>
+<#assign volumeProp = propertyGroups.pullProperty("http://purl.org/ontology/bibo/volume")!>
+<#assign issueProp = propertyGroups.pullProperty("http://purl.org/ontology/bibo/issue")!>
+<#assign gccProp = propertyGroups.pullProperty("http://purl.org/spar/c4o/hasGlobalCitationFrequency")!>
+<#-- if gccProp?has_content && gccProp.statements?has_content -->
+	<#assign gcc = 4 />
+<#-- if -->
+
+<#assign pmidProp = propertyGroups.pullProperty("http://purl.org/ontology/bibo/pmid")!>
+
+<#if authorsProp?has_content && authorsProp.statements?has_content>
+	<#assign authorList>
+		<div class="col-sm-12" style="padding:6px 0 0 24px;">
+		  <div class="col-sm-1" style="text-align:right;padding:0 0 0 0;">
+			<h3 style="color:#CC6949;font-size:16px;padding:0 0 0 0">Authors</h3>
+		  </div>
+		  <div class="col-sm-9" style="padding:2px 0 0 0">
+			<div style="color:#595b5b;font-size:16px;padding-left:15px">
+			<#list authorsProp.statements as statement>
+				<span style="padding-right:8px">
+		    	<#if statement.subclass?? && statement.subclass?contains("vcard")>
+					<#if statement.authorName?replace(" ","")?length == statement.authorName?replace(" ","")?last_index_of(",") + 1 >
+		        		${statement.authorName?replace(",","")}
+					<#else>
+						${statement.authorName}<#if statement_has_next>,</span><#else></span></#if>
+					</#if>
+		    	<#else>
+		        	<a href="${profileUrl(statement.uri("author"))}" title="${i18n().author_name}">${statement.authorName}</a><#if statement_has_next>,</span><#else></span></#if>
+		    	</#if>
+				 
+			</#list>
+			</div>
+		  </div>
+		  <div class="col-sm-1" style="text-align:right;padding:0 0 0 0;">
+			<h3 style="color:#CC6949;font-size:16px;padding:0 0 0 0">Citations</h3>
+		  </div>
+		  <div class="col-sm-1" style="color:#595b5b;font-size:16px;padding:2px 0 0 15px">
+			${gcc!}
+		  </div>
+		</div>
+	</#assign>
+</#if>
+<#if pubVenueProp?has_content && pubVenueProp.statements?has_content>
+	<#assign pubVenue = pubVenueProp.statements?first/>
+	<#assign journalDetails>
+		<div class="col-sm-12" style="padding:6px 0 0 24px;">
+		  <div class="col-sm-1" style="text-align:right;padding:0 0 0 0">
+			<h3 style="color:#CC6949;font-size:16px;padding:0 0 0 0">Journal</h3>
+		  </div>
+		  <div class="col-sm-9" style="padding:2px 0 0 0">
+			<span style="color:#595b5b;font-size:16px;padding-left:15px">
+				<em><a href="${profileUrl(pubVenue.object)}" title="${pubVenue.label!}">${pubVenue.label!}</a></em>
+			</span>
+		  </div>
+	</#assign>
+</#if>
+<#if volumeProp?has_content && volumeProp.statements?has_content>
+	<#assign volumeStmt = volumeProp.statements?first />
+	<#assign volume = volumeStmt.value! />
+</#if>
+<#if issueProp?has_content && issueProp.statements?has_content>
+	<#assign issueStmt = issueProp.statements?first!""/>
+	<#assign issue = issueStmt.value! />
+</#if>
+<#if volume?has_content && issue?has_content >
+	<#assign volumeIssue>
+ 		<div style="margin-left:24px;display:inline-block;width:80%">
+			<h3 style="color:#CC6949;font-size:16px;padding:2px 0 6px 0;display:inline-block;width:100px;text-align:right">Volume(Issue)</h3><span style="color:#595b5b;font-size:16px;padding-left:15px">${volume!}(${issue!})</span>
+		</div>
+	</#assign>
+<#elseif volume?has_content && !issue?has_content >
+	<#assign volumeIssue>
+		<div style="margin-left:24px;display:inline-block;width:80%">
+			<h3 style="color:#CC6949;font-size:16px;padding:2px 0 6px 0;display:inline-block;width:100px;text-align:right">Volume</h3><span style="color:#595b5b;font-size:16px;padding-left:15px">${volume!}</span>
+		</div>
+	</#assign>
+<#elseif !volume?has_content && issue?has_content >
+	<#assign volumeIssue>
+		<div style="margin-left:24px;display:inline-block;width:80%">
+			<h3 style="color:#CC6949;font-size:16px;padding:2px 0 6px 0;display:inline-block;width:100px;text-align:right">Issue</h3><span style="color:#595b5b;font-size:16px;padding-left:15px">${issue!}</span>
+		</div>
+	</#assign>
+</#if>
+<#if startProp?has_content && startProp.statements?has_content>
+	<#assign startPageStmt = startProp.statements?first!""/>
+	<#assign startPage = startPageStmt.value! />
+</#if>  
+<#if endProp?has_content && endProp.statements?has_content>
+	<#assign endPageStmt = endProp.statements?first!""/>
+	<#assign endPage = endPageStmt.value!/>
+</#if>
+<#if startPage?has_content && endPage?has_content >
+	<#assign pages>
+ 		<h3 style="color:#CC6949;font-size:16px;margin-left:24px;float:left;padding:2px 0 6px 0">Pages<span style="color:#595b5b;font-size:16px;padding-left:15px">${startPage!} - ${endPage!}</span></h3>
+	</#assign>
+<#elseif startPage?has_content && !endPage?has_content >
+	<#assign pages>
+		<h3 style="color:#CC6949;font-size:16px;margin-left:24px;float:left;padding:2px 0 6px 0">Start page<span style="color:#595b5b;font-size:16px;padding-left:15px">${startPage!}</span></h3>
+	</#assign>
+<#elseif !startPage?has_content && endPage?has_content >
+	<#assign pages>
+		<h3 style="color:#CC6949;font-size:16px;margin-left:24px;float:left;padding:2px 0 6px 0">End page<span style="color:#595b5b;font-size:16px;padding-left:15px">${endPage!}</span></h3>
+	</#assign>
+</#if>
+<#if pubDate?has_content>
+	<#assign published ><span style="font-size:20px">(${pubDate!})</span></#assign>
+</#if>
+<#if gccProp?has_content && gccProp.statements?has_content>
+	<#assign gcc>
+		<div style="margin-left:24px;display:inline-block;width:80%"><h3 style="color:#CC6949;font-size:16px;padding:2px 0 6px 0;display:inline-block;width:75px;text-align:right">Citations</h3>
+			<span style="color:#595b5b;font-size:16px;padding-left:15px">
+				${gccProp.statements[0].value!}
+			</span>
+		</div>
+	</#assign>
+</#if>
+<#if doiProp?has_content && doiProp.statements?has_content>
+	<#assign doiStmt = doiProp.statements?first!""/>
+	<#assign doi = doiStmt.value! />
+	<#assign doiInline>
+		<div style="margin-left:24px;display:inline-block;width:80%"><h3 style="color:#CC6949;font-size:16px;padding:2px 0 6px 0;display:inline-block;width:75px;text-align:right">DOI</h3>
+		<span style="color:#595b5b;font-size:16px;padding-left:15px">
+			<a href="http://dx.doi.org/${doi!}" title="link to DOI" target="_blank">${doi!}</a>
+		</span></div>
+	</#assign>
+</#if>
+<#if pmidProp?has_content && pmidProp.statements?has_content>
+	<#assign pmidStmt = pmidProp.statements?first!""/>
+	<#assign pmid = pmidStmt.value! />
+	<#assign pmidInline>
+		<div style="margin-left:24px;display:inline-block;width:80%"><h3 style="color:#CC6949;font-size:16px;padding:2px 0 6px 0;display:inline-block;width:75px;text-align:right">PubMed ID</h3>
+		<span style="color:#595b5b;font-size:16px;padding-left:15px">
+			<a href="http://www.ncbi.nlm.nih.gov/pubmed/?term=${pmid!}" title="View in PubMed" target="_blank">${pmid!}</a>
+		</span></div>
+	</#assign>
+</#if>
+<#if doi?has_content>
+	<#assign fullTextLink = "http://dx.doi.org/${doi!}" />
+<#elseif pmid?has_content>
+	<#assign fullTextLink = "http://www.ncbi.nlm.nih.gov/pubmed/?term=${pmid!}" />
+</#if>
+<div style="position:absolute;bottom:85px;width:100%;background-color: rgba(103,113,129,0.75);">
+<div style="background-color:#f1f2f3;margin:25px 50px;box-shadow: 0 0 30px black;" <@mf.sectionSchema individual/>>
+
+<section id="individual-info" ${infoClass!} role="region">
+    <#include "individual-adminPanel.ftl">
+
+    <#if individualProductExtensionPreHeader??>
+        ${individualProductExtensionPreHeader}
+    </#if>
+	
+    <header>
+			<#include "individual-altmetric.ftl">
+            <h1 class="fn" itemprop="name" style="margin-top:17px;float:left;margin-left:24px;width:75%">
+                <#-- Label -->
+                <@p.label individual editable labelCount localesCount languageCount/>  ${published}
+                <#--  Most-specific types -->
+                <@p.mostSpecificTypes individual />
+            </h1>
+		<div style="float:right;margin:14px 10px -14px 0">
+			<#include "document-iconControls.ftl" />
+		</div>
+
+		<h2 id="relatedBy" class="mainPropGroup" title="A position, either vertical or horizontal." style="margin-left:24px;clear:both;padding-top:0;border-bottom:1px solid #b9b9b9">  </h2>
+    </header>
+		${authorList?replace(" ,",",")!}
+		${journalDetails!}
+        </section> <!-- individual-info -->
+		<div style="clear:both;padding-top:12px"></div>
+
+	</div>
+</div>
+</div> <!-- main div -->
+
+<#assign nameForOtherGroup = "${i18n().other}"> 
+
+<!-- Property group menu or tabs -->
+<#-- 
+    With release 1.6 there are now two types of property group displays: the original property group
+     menu and the horizontal tab display, which is the default. If you prefer to use the property
+     group menu, simply substitute the include statement below with the one that appears after this
+     comment section.
+     
+     <#include "individual-property-group-menus.ftl">
+-->
+
+<#-- include "individual-property-group-tabs.ftl" -->
+
+
+<#assign rdfUrl = individual.rdfUrl>
+<#if rdfUrl??>
+    <script>
+        var individualRdfUrl = '${rdfUrl}';
+    </script>
+</#if>
+
+
+
+<script>
+    var individualLocalName = "${individual.localName}";
+</script>
+<script>
+var i18nStrings = {
+errorProcessingTypeChange: '${i18n().error_processing_type_change}',
+displayLess: '${i18n().display_less}',
+displayMoreEllipsis: '${i18n().display_more_ellipsis}',
+showMoreContent: '${i18n().show_more_content}',
+verboseTurnOff: '${i18n().verbose_turn_off}',
+standardviewTooltipOne: '${i18n().standardview_tooltip_one}',
+standardviewTooltipTwo: '${i18n().standardview_tooltip_two}',
+researchAreaTooltipOne: '${i18n().research_area_tooltip_one}',
+researchAreaTooltipTwo: '${i18n().research_area_tooltip_two}'
+};
+var i18nStringsUriRdf = {
+    shareProfileUri: '${i18n().share_profile_uri}',
+    viewRDFProfile: '${i18n().view_profile_in_rdf}',
+    closeString: '${i18n().close}'
+};
+
+</script>
+
+${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/individual/individual-vivo.css?vers=1.5.1" />',
+				  '<link rel="stylesheet" href="${urls.base}/css/individual/individual.css?vers=1.5.1" />')}
+
+${headScripts.add('<script type="text/javascript" src="${urls.base}/js/jquery_plugins/jquery.truncator.js"></script>',
+				  '<script type="text/javascript" src="${urls.base}/js/jquery_plugins/qtip/jquery.qtip-1.0.0-rc3.min.js"></script>',
+                  '<script type="text/javascript" src="${urls.base}/js/json2.js"></script>')}
+                  
+${scripts.add('<script type="text/javascript" src="${urls.base}/js/individual/individualUtils.js?vers=1.5.1"></script>',
+			  '<script type="text/javascript" src="https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js"></script>',
+	          '<script type="text/javascript" src="${urls.base}/js/individual/moreLessController.js"></script>',
+              '<script type="text/javascript" src="${urls.base}/themes/scholars/js/individualUriRdf.js"></script>')}

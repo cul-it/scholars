@@ -1,0 +1,26 @@
+* {
+	box-sizing:border-box;
+}
+#nav-bar.homepage {
+	position: absolute;
+	bottom: 0;
+}
+.fixed {
+	position: fixed !important;
+	top: 0;
+}
+.pages a {
+	color: #fff;
+}
+.pages a:hover {
+	color: #CC6949;
+	text-decoration: none !important;
+}
+#stats {
+	width:	100%;
+}
+#nav-bar.basepage {
+	position: fixed !important;
+	top: 0;
+}
+
