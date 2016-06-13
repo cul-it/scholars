@@ -7,15 +7,14 @@ import java.util.Set;
 
 import edu.cornell.mannlib.vitro.webapp.modelaccess.RequestModelAccess;
 import edu.cornell.mannlib.vitro.webapp.utils.configuration.Property;
-import edu.cornell.mannlib.vitro.webapp.utils.configuration.RequestModelsUser;
 import edu.cornell.mannlib.vitro.webapp.utils.sparql.SparqlQueryRunner.ConstructQueryContext;
 import edu.cornell.mannlib.vitro.webapp.utils.sparql.SparqlQueryRunner.SelectQueryContext;
 
 /**
- * TODO
+ * Some utility methods that come in handy.
  */
 public abstract class SparqlSelectDataDistributorBase extends
-		DataDistributorBase implements RequestModelsUser {
+		DataDistributorBase {
 
 	/** The models on the current request. */
 	protected RequestModelAccess models;
@@ -23,9 +22,11 @@ public abstract class SparqlSelectDataDistributorBase extends
 	protected Set<String> uriBinders = new HashSet<>();
 	protected Set<String> literalBinders = new HashSet<>();
 
+	@SuppressWarnings("hiding")
 	@Override
-	public void setRequestModels(RequestModelAccess models) {
-		this.models = models;
+	public void init(DataDistributorContext ddContext) {
+		super.init(ddContext);
+		this.models = ddContext.getRequestModels();
 	}
 
 	@Property(uri = "http://vitro.mannlib.cornell.edu/ns/vitro/ApplicationSetup#uriBinding")

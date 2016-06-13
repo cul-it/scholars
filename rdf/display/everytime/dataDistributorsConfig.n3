@@ -35,10 +35,16 @@
 #
 # Grants data:
 #
-# Six construct queries and a select query. The six construct queries handle
-# the combinations of Grant/Contract/CooperativeInvestigation and 
-# PrincipalInvestigator/CoPrincipalInvestigator. The six separate queries run
-# much more quickly than a single query build using UNIONs or FILTERs.
+# Twelve construct queries and a select query. 
+#
+# The first six construct queries handle the combinations of 
+# Grant/Contract/CooperativeInvestigation and PrincipalInvestigator/CoPrincipalInvestigator. 
+# The six separate queries run much more quickly than a single query using UNIONs or FILTERs. 
+# 
+# The remaining six construct queries provide two sets of optional data for 
+# Grant/Contract/CooperativeInvestigation.
+#
+# The select query creates a result set from the model built by the construct queries.
 #
 # Javed says this about the data:
 # - Every grant should have a link to at least one person. Person can have PI 
@@ -60,387 +66,13 @@
     :path "fakeData/fake_grants_select_results.json" ;
     :contentType "application/sparql-results+json" .
 
-#:data_distributor_grants_page :actionName "grants_bubble_chart" .
-:data_distributor_grants_page
+#:data_distributor_grants_page_iterate_select :actionName "grants_bubble_chart" .
+:data_distributor_grants_page_iterate_select
     a   <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.DataDistributor> ,
-        <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.GrantsBubbleChartDistributor> .
-
-#:data_distributor_grants_page_construct_select :actionName "grants_bubble_chart" .
-:data_distributor_grants_page_construct_select
-    a   <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.DataDistributor> ,
-        <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.SparqlConstructSelectDataDistributor> ;
-    :constructQuery """
-      PREFIX obo:            <http://purl.obolibrary.org/obo/>
-      PREFIX rdfs:           <http://www.w3.org/2000/01/rdf-schema#>
-      PREFIX scholars-grant: <http://scholars.cornell.edu/ontology/grant.owl#>
-      PREFIX scholars-hr:    <http://scholars.cornell.edu/ontology/hr.owl#>
-      PREFIX vivo:           <http://vivoweb.org/ontology/core#>
- 
-      CONSTRUCT {     
-        ?grant a vivo:Grant .
-        ?grant vivo:relates ?roleNode .
-        ?roleNode a vivo:PrincipalInvestigatorRole .
-
-        ?grant rdfs:label ?grantTitle .
-        ?grant vivo:totalAwardAmount ?amount .
-       
-        ?roleNode obo:RO_0000052 ?person .
-        ?person rdfs:label ?personName .
-        ?person scholars-hr:netId ?personNetid .
-       
-        ?grant vivo:dateTimeInterval ?dti .
-        ?dti vivo:end ?end .
-        ?end vivo:dateTime ?enddt .
-        ?dti vivo:start ?start .
-        ?start vivo:dateTime ?startdt .
-      } 
-      WHERE {
-        ?grant a vivo:Grant .
-        ?grant vivo:relates ?roleNode .
-        ?roleNode a vivo:PrincipalInvestigatorRole .
-
-        ?grant rdfs:label ?grantTitle .
-        ?grant vivo:totalAwardAmount ?amount .
-       
-        ?roleNode obo:RO_0000052 ?person .
-        ?person rdfs:label ?personName .
-        ?person scholars-hr:netId ?personNetid .
-       
-        ?grant vivo:dateTimeInterval ?dti .
-        ?dti vivo:end ?end .
-        ?end vivo:dateTime ?enddt .
-        ?dti vivo:start ?start .
-        ?start vivo:dateTime ?startdt .
-      }
-      """ ;
-    :constructQuery """
-      PREFIX obo:            <http://purl.obolibrary.org/obo/>
-      PREFIX rdfs:           <http://www.w3.org/2000/01/rdf-schema#>
-      PREFIX scholars-grant: <http://scholars.cornell.edu/ontology/grant.owl#>
-      PREFIX scholars-hr:    <http://scholars.cornell.edu/ontology/hr.owl#>
-      PREFIX vivo:           <http://vivoweb.org/ontology/core#>
- 
-      CONSTRUCT {     
-        ?grant a vivo:Grant .
-        ?grant vivo:relates ?roleNode .
-        ?roleNode a vivo:CoPrincipalInvestigatorRole .
-
-        ?grant rdfs:label ?grantTitle .
-        ?grant vivo:totalAwardAmount ?amount .
-       
-        ?roleNode obo:RO_0000052 ?person .
-        ?person rdfs:label ?personName .
-        ?person scholars-hr:netId ?personNetid .
-       
-        ?grant vivo:dateTimeInterval ?dti .
-        ?dti vivo:end ?end .
-        ?end vivo:dateTime ?enddt .
-        ?dti vivo:start ?start .
-        ?start vivo:dateTime ?startdt .
-      } 
-      WHERE {
-        ?grant a vivo:Grant .
-        ?grant vivo:relates ?roleNode .
-        ?roleNode a vivo:CoPrincipalInvestigatorRole .
-
-        ?grant rdfs:label ?grantTitle .
-        ?grant vivo:totalAwardAmount ?amount .
-       
-        ?roleNode obo:RO_0000052 ?person .
-        ?person rdfs:label ?personName .
-        ?person scholars-hr:netId ?personNetid .
-       
-        ?grant vivo:dateTimeInterval ?dti .
-        ?dti vivo:end ?end .
-        ?end vivo:dateTime ?enddt .
-        ?dti vivo:start ?start .
-        ?start vivo:dateTime ?startdt .
-      }
-      """ ;
-    :constructQuery """
-      PREFIX obo:            <http://purl.obolibrary.org/obo/>
-      PREFIX rdfs:           <http://www.w3.org/2000/01/rdf-schema#>
-      PREFIX scholars-grant: <http://scholars.cornell.edu/ontology/grant.owl#>
-      PREFIX scholars-hr:    <http://scholars.cornell.edu/ontology/hr.owl#>
-      PREFIX vivo:           <http://vivoweb.org/ontology/core#>
- 
-      CONSTRUCT {     
-        ?grant a vivo:Contract .
-        ?grant vivo:relates ?roleNode .
-        ?roleNode a vivo:PrincipalInvestigatorRole .
-
-        ?grant rdfs:label ?grantTitle .
-        ?grant vivo:totalAwardAmount ?amount .
-       
-        ?roleNode obo:RO_0000052 ?person .
-        ?person rdfs:label ?personName .
-        ?person scholars-hr:netId ?personNetid .
-       
-        ?grant vivo:dateTimeInterval ?dti .
-        ?dti vivo:end ?end .
-        ?end vivo:dateTime ?enddt .
-        ?dti vivo:start ?start .
-        ?start vivo:dateTime ?startdt .
-      } 
-      WHERE {
-        ?grant a vivo:Contract .
-        ?grant vivo:relates ?roleNode .
-        ?roleNode a vivo:PrincipalInvestigatorRole .
-
-        ?grant rdfs:label ?grantTitle .
-        ?grant vivo:totalAwardAmount ?amount .
-       
-        ?roleNode obo:RO_0000052 ?person .
-        ?person rdfs:label ?personName .
-        ?person scholars-hr:netId ?personNetid .
-       
-        ?grant vivo:dateTimeInterval ?dti .
-        ?dti vivo:end ?end .
-        ?end vivo:dateTime ?enddt .
-        ?dti vivo:start ?start .
-        ?start vivo:dateTime ?startdt .
-      }
-      """ ;
-    :constructQuery """
-      PREFIX obo:            <http://purl.obolibrary.org/obo/>
-      PREFIX rdfs:           <http://www.w3.org/2000/01/rdf-schema#>
-      PREFIX scholars-grant: <http://scholars.cornell.edu/ontology/grant.owl#>
-      PREFIX scholars-hr:    <http://scholars.cornell.edu/ontology/hr.owl#>
-      PREFIX vivo:           <http://vivoweb.org/ontology/core#>
- 
-      CONSTRUCT {     
-        ?grant a vivo:Contract .
-        ?grant vivo:relates ?roleNode .
-        ?roleNode a vivo:CoPrincipalInvestigatorRole .
-
-        ?grant rdfs:label ?grantTitle .
-        ?grant vivo:totalAwardAmount ?amount .
-       
-        ?roleNode obo:RO_0000052 ?person .
-        ?person rdfs:label ?personName .
-        ?person scholars-hr:netId ?personNetid .
-       
-        ?grant vivo:dateTimeInterval ?dti .
-        ?dti vivo:end ?end .
-        ?end vivo:dateTime ?enddt .
-        ?dti vivo:start ?start .
-        ?start vivo:dateTime ?startdt .
-      } 
-      WHERE {
-        ?grant a vivo:Contract .
-        ?grant vivo:relates ?roleNode .
-        ?roleNode a vivo:CoPrincipalInvestigatorRole .
-
-        ?grant rdfs:label ?grantTitle .
-        ?grant vivo:totalAwardAmount ?amount .
-       
-        ?roleNode obo:RO_0000052 ?person .
-        ?person rdfs:label ?personName .
-        ?person scholars-hr:netId ?personNetid .
-       
-        ?grant vivo:dateTimeInterval ?dti .
-        ?dti vivo:end ?end .
-        ?end vivo:dateTime ?enddt .
-        ?dti vivo:start ?start .
-        ?start vivo:dateTime ?startdt .
-      }
-      """ ;
-    :constructQuery """
-      PREFIX obo:            <http://purl.obolibrary.org/obo/>
-      PREFIX rdfs:           <http://www.w3.org/2000/01/rdf-schema#>
-      PREFIX scholars-grant: <http://scholars.cornell.edu/ontology/grant.owl#>
-      PREFIX scholars-hr:    <http://scholars.cornell.edu/ontology/hr.owl#>
-      PREFIX vivo:           <http://vivoweb.org/ontology/core#>
- 
-      CONSTRUCT {     
-        ?grant a vivo:CooperativeAgreement .
-        ?grant vivo:relates ?roleNode .
-        ?roleNode a vivo:PrincipalInvestigatorRole .
-
-        ?grant rdfs:label ?grantTitle .
-        ?grant vivo:totalAwardAmount ?amount .
-       
-        ?roleNode obo:RO_0000052 ?person .
-        ?person rdfs:label ?personName .
-        ?person scholars-hr:netId ?personNetid .
-       
-        ?grant vivo:dateTimeInterval ?dti .
-        ?dti vivo:end ?end .
-        ?end vivo:dateTime ?enddt .
-        ?dti vivo:start ?start .
-        ?start vivo:dateTime ?startdt .
-      } 
-      WHERE {
-        ?grant a vivo:CooperativeAgreement .
-        ?grant vivo:relates ?roleNode .
-        ?roleNode a vivo:PrincipalInvestigatorRole .
-
-        ?grant rdfs:label ?grantTitle .
-        ?grant vivo:totalAwardAmount ?amount .
-       
-        ?roleNode obo:RO_0000052 ?person .
-        ?person rdfs:label ?personName .
-        ?person scholars-hr:netId ?personNetid .
-       
-        ?grant vivo:dateTimeInterval ?dti .
-        ?dti vivo:end ?end .
-        ?end vivo:dateTime ?enddt .
-        ?dti vivo:start ?start .
-        ?start vivo:dateTime ?startdt .
-      }
-      """ ;
-    :constructQuery """
-      PREFIX obo:            <http://purl.obolibrary.org/obo/>
-      PREFIX rdfs:           <http://www.w3.org/2000/01/rdf-schema#>
-      PREFIX scholars-grant: <http://scholars.cornell.edu/ontology/grant.owl#>
-      PREFIX scholars-hr:    <http://scholars.cornell.edu/ontology/hr.owl#>
-      PREFIX vivo:           <http://vivoweb.org/ontology/core#>
- 
-      CONSTRUCT {     
-        ?grant a vivo:CooperativeAgreement .
-        ?grant vivo:relates ?roleNode .
-        ?roleNode a vivo:CoPrincipalInvestigatorRole .
-
-        ?grant rdfs:label ?grantTitle .
-        ?grant vivo:totalAwardAmount ?amount .
-       
-        ?roleNode obo:RO_0000052 ?person .
-        ?person rdfs:label ?personName .
-        ?person scholars-hr:netId ?personNetid .
-       
-        ?grant vivo:dateTimeInterval ?dti .
-        ?dti vivo:end ?end .
-        ?end vivo:dateTime ?enddt .
-        ?dti vivo:start ?start .
-        ?start vivo:dateTime ?startdt .
-      } 
-      WHERE {
-        ?grant a vivo:CooperativeAgreement .
-        ?grant vivo:relates ?roleNode .
-        ?roleNode a vivo:CoPrincipalInvestigatorRole .
-
-        ?grant rdfs:label ?grantTitle .
-        ?grant vivo:totalAwardAmount ?amount .
-       
-        ?roleNode obo:RO_0000052 ?person .
-        ?person rdfs:label ?personName .
-        ?person scholars-hr:netId ?personNetid .
-       
-        ?grant vivo:dateTimeInterval ?dti .
-        ?dti vivo:end ?end .
-        ?end vivo:dateTime ?enddt .
-        ?dti vivo:start ?start .
-        ?start vivo:dateTime ?startdt .
-      }
-      """ ;
-      
-    :constructQuery """
-      PREFIX rdfs:           <http://www.w3.org/2000/01/rdf-schema#>
-      PREFIX vivo:           <http://vivoweb.org/ontology/core#>
- 
-      CONSTRUCT {     
-        ?grant a vivo:Grant .
-        ?grant vivo:assignedBy ?fundingOrg .
-        ?fundingOrg rdfs:label ?fundingOrgName .
-      } 
-      WHERE {
-        ?grant a vivo:Grant .
-        ?grant vivo:assignedBy ?fundingOrg .
-        ?fundingOrg rdfs:label ?fundingOrgName .
-      }
-      """ ;
-    :constructQuery """
-      PREFIX rdfs:           <http://www.w3.org/2000/01/rdf-schema#>
-      PREFIX vivo:           <http://vivoweb.org/ontology/core#>
- 
-      CONSTRUCT {     
-        ?grant a vivo:Contract .
-        ?grant vivo:assignedBy ?fundingOrg .
-        ?fundingOrg rdfs:label ?fundingOrgName .
-      } 
-      WHERE {
-        ?grant a vivo:Contract .
-        ?grant vivo:assignedBy ?fundingOrg .
-        ?fundingOrg rdfs:label ?fundingOrgName .
-      }
-      """ ;
-    :constructQuery """
-      PREFIX rdfs:           <http://www.w3.org/2000/01/rdf-schema#>
-      PREFIX vivo:           <http://vivoweb.org/ontology/core#>
- 
-      CONSTRUCT {     
-        ?grant a vivo:CooperativeInvestigation .
-        ?grant vivo:assignedBy ?fundingOrg .
-        ?fundingOrg rdfs:label ?fundingOrgName .
-      } 
-      WHERE {
-        ?grant a vivo:CooperativeInvestigation .
-        ?grant vivo:assignedBy ?fundingOrg .
-        ?fundingOrg rdfs:label ?fundingOrgName .
-      }
-      """ ;
-      
-    :constructQuery """
-      PREFIX obo:            <http://purl.obolibrary.org/obo/>
-      PREFIX rdfs:           <http://www.w3.org/2000/01/rdf-schema#>
-      PREFIX vivo:           <http://vivoweb.org/ontology/core#>
- 
-      CONSTRUCT {     
-        ?grant a vivo:Grant .
-        ?grant vivo:relates ?node2 .
-        ?node2 a vivo:AdministratorRole .
-        ?node2 obo:RO_0000052 ?dept .
-        ?dept rdfs:label ?deptName .
-      } 
-      WHERE {
-        ?grant a vivo:Grant .
-        ?grant vivo:relates ?node2 .
-        ?node2 a vivo:AdministratorRole .
-        ?node2 obo:RO_0000052 ?dept .
-        ?dept rdfs:label ?deptName .
-      }
-      """ ;
-    :constructQuery """
-      PREFIX obo:            <http://purl.obolibrary.org/obo/>
-      PREFIX rdfs:           <http://www.w3.org/2000/01/rdf-schema#>
-      PREFIX vivo:           <http://vivoweb.org/ontology/core#>
- 
-      CONSTRUCT {     
-        ?grant a vivo:Contract .
-        ?grant vivo:relates ?node2 .
-        ?node2 a vivo:AdministratorRole .
-        ?node2 obo:RO_0000052 ?dept .
-        ?dept rdfs:label ?deptName .
-      } 
-      WHERE {
-        ?grant a vivo:Contract .
-        ?grant vivo:relates ?node2 .
-        ?node2 a vivo:AdministratorRole .
-        ?node2 obo:RO_0000052 ?dept .
-        ?dept rdfs:label ?deptName .
-      }
-      """ ;
-    :constructQuery """
-      PREFIX obo:            <http://purl.obolibrary.org/obo/>
-      PREFIX rdfs:           <http://www.w3.org/2000/01/rdf-schema#>
-      PREFIX vivo:           <http://vivoweb.org/ontology/core#>
- 
-      CONSTRUCT {     
-        ?grant a vivo:CooperativeInvestigation .
-        ?grant vivo:relates ?node2 .
-        ?node2 a vivo:AdministratorRole .
-        ?node2 obo:RO_0000052 ?dept .
-        ?dept rdfs:label ?deptName .
-      } 
-      WHERE {
-        ?grant a vivo:CooperativeInvestigation .
-        ?grant vivo:relates ?node2 .
-        ?node2 a vivo:AdministratorRole .
-        ?node2 obo:RO_0000052 ?dept .
-        ?dept rdfs:label ?deptName .
-      }
-      """ ;
-      
+        <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.SelectFromLocalModelDataDistributor> ;
+    :modelBuilder :grants_page_model_builder_A ;
+    :modelBuilder :grants_page_model_builder_B ;
+    :modelBuilder :grants_page_model_builder_C ;
     :selectQuery """
       PREFIX local:          <http://scholars.cornell.edu/individual/>
       PREFIX obo:            <http://purl.obolibrary.org/obo/>
@@ -485,3 +117,110 @@
       }
       """ .
       
+:grants_page_model_builder_A
+    a   <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.modelbuilder.ModelBuilder> ,
+        <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.modelbuilder.IteratingConstructModelBuilder> ;
+    :iterator """grantClass=
+      http://vivoweb.org/ontology/core#Grant, 
+      http://vivoweb.org/ontology/core#Contract, 
+      http://vivoweb.org/ontology/core#CooperativeInvestigation""" ;
+    :iterator """investigatorRoleClass=
+      http://vivoweb.org/ontology/core#PrincipalInvestigatorRole, 
+      http://vivoweb.org/ontology/core#CoPrincipalInvestigatorRole""" ;
+    :constructQuery """
+      PREFIX obo:            <http://purl.obolibrary.org/obo/>
+      PREFIX rdfs:           <http://www.w3.org/2000/01/rdf-schema#>
+      PREFIX scholars-grant: <http://scholars.cornell.edu/ontology/grant.owl#>
+      PREFIX scholars-hr:    <http://scholars.cornell.edu/ontology/hr.owl#>
+      PREFIX vivo:           <http://vivoweb.org/ontology/core#>
+ 
+      CONSTRUCT {     
+        ?grant a ?grantClass .
+        ?grant vivo:relates ?roleNode .
+        ?roleNode a ?investigatorRoleClass .
+
+        ?grant rdfs:label ?grantTitle .
+        ?grant vivo:totalAwardAmount ?amount .
+       
+        ?roleNode obo:RO_0000052 ?person .
+        ?person rdfs:label ?personName .
+        ?person scholars-hr:netId ?personNetid .
+       
+        ?grant vivo:dateTimeInterval ?dti .
+        ?dti vivo:end ?end .
+        ?end vivo:dateTime ?enddt .
+        ?dti vivo:start ?start .
+        ?start vivo:dateTime ?startdt .
+      } 
+      WHERE {
+        ?grant a ?grantClass .
+        ?grant vivo:relates ?roleNode .
+        ?roleNode a ?investigatorRoleClass .
+
+        ?grant rdfs:label ?grantTitle .
+        ?grant vivo:totalAwardAmount ?amount .
+       
+        ?roleNode obo:RO_0000052 ?person .
+        ?person rdfs:label ?personName .
+        ?person scholars-hr:netId ?personNetid .
+       
+        ?grant vivo:dateTimeInterval ?dti .
+        ?dti vivo:end ?end .
+        ?end vivo:dateTime ?enddt .
+        ?dti vivo:start ?start .
+        ?start vivo:dateTime ?startdt .
+      }
+      """ .
+      
+:grants_page_model_builder_B
+    a   <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.modelbuilder.ModelBuilder> ,
+        <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.modelbuilder.IteratingConstructModelBuilder> ;
+    :iterator """grantClass=
+      http://vivoweb.org/ontology/core#Grant, 
+      http://vivoweb.org/ontology/core#Contract, 
+      http://vivoweb.org/ontology/core#CooperativeInvestigation""" ;
+    :constructQuery """
+      PREFIX rdfs:           <http://www.w3.org/2000/01/rdf-schema#>
+      PREFIX vivo:           <http://vivoweb.org/ontology/core#>
+ 
+      CONSTRUCT {     
+        ?grant a ?grantClass .
+        ?grant vivo:assignedBy ?fundingOrg .
+        ?fundingOrg rdfs:label ?fundingOrgName .
+      } 
+      WHERE {
+        ?grant a ?grantClass .
+        ?grant vivo:assignedBy ?fundingOrg .
+        ?fundingOrg rdfs:label ?fundingOrgName .
+      }
+      """ .
+      
+:grants_page_model_builder_C
+    a   <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.modelbuilder.ModelBuilder> ,
+        <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.modelbuilder.IteratingConstructModelBuilder> ;
+    :iterator """grantClass=
+      http://vivoweb.org/ontology/core#Grant, 
+      http://vivoweb.org/ontology/core#Contract, 
+      http://vivoweb.org/ontology/core#CooperativeInvestigation""" ;
+    :constructQuery """
+      PREFIX obo:            <http://purl.obolibrary.org/obo/>
+      PREFIX rdfs:           <http://www.w3.org/2000/01/rdf-schema#>
+      PREFIX vivo:           <http://vivoweb.org/ontology/core#>
+ 
+      CONSTRUCT {     
+        ?grant a ?grantClass .
+        ?grant vivo:relates ?node2 .
+        ?node2 a vivo:AdministratorRole .
+        ?node2 obo:RO_0000052 ?dept .
+        ?dept rdfs:label ?deptName .
+      } 
+      WHERE {
+        ?grant a ?grantClass .
+        ?grant vivo:relates ?node2 .
+        ?node2 a vivo:AdministratorRole .
+        ?node2 obo:RO_0000052 ?dept .
+        ?dept rdfs:label ?deptName .
+      }
+      """ .
+
+            

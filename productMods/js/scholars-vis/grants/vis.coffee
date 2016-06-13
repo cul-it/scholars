@@ -90,13 +90,12 @@ class BubbleChart
         radius: @radius_scale(parseInt(d.Cost))
         value: d.Cost
         dept: d.dept
-        inv:d.person.name
         name: d.grant.title
         group: d.group
         year: d.Start
         url: d.grant.uri
         grant: d.grant
-        person: d.person
+        people: d.people
         x: Math.random() * 900
         y: Math.random() * 800
       }
@@ -254,12 +253,26 @@ class BubbleChart
     @currentlyClicked = true
     @tooltip.hideTooltip()
     content = "<span class=\"name\">Title:</span><span class=\"value\"><a href='#{data.grant.uri}'>#{data.name}</a></span><br/>"
-    content +="<span class=\"name\">Investigator:</span><span class=\"value\"><a href='#{data.person.uri}'>#{data.inv}</a></span><br/>"
+    content += this.format_people(data.people)
     content +="<span class=\"name\">Department:</span><span class=\"value\"><a href='#{data.dept.uri}'>#{data.dept.name}</a></span><br/>"
     content +="<span class=\"name\">Amount:</span><span class=\"value\"> $#{addCommas(data.value)}</span><br/>"
     content +="<span class=\"name\">Year:</span><span class=\"value\"> #{data.year}</span>"
     @tooltip.showTooltip(content,d3.event)
+    
+  format_people: (people) =>
+    people.sort (a,b) ->
+      if a.role > b.role then -1 else if a.role < b.role then 1 else 0
+    spans = for p in people
+      this.format_person(p)
+    spans.join("")
 
+  format_person: (p) =>
+    if p.role is "PI"
+      role = "Investigator"
+    else
+      role = "Co-Investigator"
+    "<span class=\"name\">#{role}:</span><span class=\"value\"><a href='#{p.uri}'>#{p.name}</a></span><br/>"
+  
   hide_details: (data, i, element) =>
     d3.select(element).attr("stroke", (d) => d3.rgb(@fill_color(d.group)).darker())
     #@tooltip.hideTooltip()

@@ -22,18 +22,15 @@ function transformGrantsData(resultSet) {
 		"uri" : "."
 	};
 
-	console.log(window.location.href);
 	var uniqueId = 1;
 	var bindings = resultSet.results.bindings;
-	console.log("How many? " + bindings.length);
 	var merged = bindings.map(transformBinding).reduce(mergeDuplicates, []);
-	console.log("Merged? " + merged.length);
 	return merged;
 
 	function transformBinding(binding) {
 		return {
 			"group" : figureGrantGroup(),
-			"person" : getPeopleDetails(),
+			"people" : getPeopleDetails(),
 			"P-I-Id" : "55226-3713", // BOGUS
 			"grant" : getGrantDetails(),
 			"dept" : getDepartmentDetails(),
@@ -156,7 +153,7 @@ function transformGrantsData(resultSet) {
 		if (matching == undefined) {
 			return bindingsSoFar.concat(current);
 		} else {
-			matching.person = mergePeople();
+			matching.people = mergePeople();
 			matching.funagen = mergeFunders();
 			matching.dept = mergeDepartments();
 			return bindingsSoFar;
@@ -167,7 +164,7 @@ function transformGrantsData(resultSet) {
 		}
 
 		function mergePeople() {
-			var people = matching.person.concat(current.person);
+			var people = matching.people.concat(current.people);
 			var filtered = people.filter(notDummyPerson);
 			return filtered.length == 0 ? [ dummyPersonDetails ] : filtered;
 

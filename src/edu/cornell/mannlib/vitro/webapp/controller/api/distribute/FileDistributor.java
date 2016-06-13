@@ -14,7 +14,6 @@ import org.apache.commons.logging.LogFactory;
 
 import edu.cornell.mannlib.vitro.webapp.application.ApplicationUtils;
 import edu.cornell.mannlib.vitro.webapp.utils.configuration.Property;
-import edu.cornell.mannlib.vitro.webapp.utils.configuration.Validation;
 
 /**
  * A generalize mocking data distributor (although it could have legitimate
@@ -32,40 +31,14 @@ public class FileDistributor extends DataDistributorBase {
 	/** The content type to attach to the file. */
 	private String contentType;
 
-	@Property(uri = "http://vitro.mannlib.cornell.edu/ns/vitro/ApplicationSetup#path")
+	@Property(uri = "http://vitro.mannlib.cornell.edu/ns/vitro/ApplicationSetup#path", minOccurs = 1, maxOccurs = 1)
 	public void setPath(String path) {
-		if (datapath == null) {
-			datapath = path;
-		} else {
-			throw new IllegalStateException(
-					"Configuration includes multiple instances of datapath: "
-							+ datapath + ", and " + path);
-		}
+		datapath = path;
 	}
 
-	@Property(uri = "http://vitro.mannlib.cornell.edu/ns/vitro/ApplicationSetup#contentType")
+	@Property(uri = "http://vitro.mannlib.cornell.edu/ns/vitro/ApplicationSetup#contentType", minOccurs = 1, maxOccurs = 1)
 	public void setContentType(String cType) {
-		if (contentType == null) {
-			contentType = cType;
-		} else {
-			throw new IllegalStateException(
-					"Configuration includes multiple instances of contentType: "
-							+ contentType + ", and " + cType);
-		}
-	}
-
-	@Validation
-	public void validate() {
-		if (datapath == null) {
-			throw new IllegalStateException(
-					"Configuration contains no data path for "
-							+ this.getClass().getSimpleName());
-		}
-		if (contentType == null) {
-			throw new IllegalStateException(
-					"Configuration contains no content type for "
-							+ this.getClass().getSimpleName());
-		}
+		contentType = cType;
 	}
 
 	@Override

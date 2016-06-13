@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -26,6 +25,7 @@ import edu.cornell.mannlib.vitro.webapp.controller.api.distribute.DataDistributo
 import edu.cornell.mannlib.vitro.webapp.controller.api.distribute.DataDistributor.MissingParametersException;
 import edu.cornell.mannlib.vitro.webapp.controller.api.distribute.DataDistributor.NoSuchActionException;
 import edu.cornell.mannlib.vitro.webapp.controller.api.distribute.DataDistributor.NotAuthorizedException;
+import edu.cornell.mannlib.vitro.webapp.controller.api.distribute.DataDistributorContextImpl;
 import edu.cornell.mannlib.vitro.webapp.modelaccess.ModelAccess;
 import edu.cornell.mannlib.vitro.webapp.utils.configuration.ConfigurationBeanLoader;
 import edu.cornell.mannlib.vitro.webapp.utils.configuration.ConfigurationBeanLoaderException;
@@ -105,12 +105,9 @@ public class DistributeDataApiController extends VitroApiServlet {
 	}
 
 	private void runIt(HttpServletRequest req, HttpServletResponse resp,
-			DataDistributor instance) throws IOException,
-			DataDistributorException {
+			DataDistributor instance) throws DataDistributorException {
 		try {
-			@SuppressWarnings("unchecked")
-			Map<String, String[]> parameters = req.getParameterMap();
-			instance.init(parameters);
+			instance.init(new DataDistributorContextImpl(req));
 			log.debug("Distributor is " + instance);
 
 			resp.setContentType(instance.getContentType());

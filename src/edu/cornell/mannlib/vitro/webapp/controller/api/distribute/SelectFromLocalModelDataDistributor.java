@@ -2,7 +2,6 @@
 
 package edu.cornell.mannlib.vitro.webapp.controller.api.distribute;
 
-import static edu.cornell.mannlib.vitro.webapp.utils.sparql.SparqlQueryRunner.createConstructQueryContext;
 import static edu.cornell.mannlib.vitro.webapp.utils.sparql.SparqlQueryRunner.createSelectQueryContext;
 
 import java.io.OutputStream;
@@ -15,26 +14,25 @@ import org.apache.commons.logging.LogFactory;
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
 
-import edu.cornell.mannlib.vitro.webapp.rdfservice.RDFService;
+import edu.cornell.mannlib.vitro.webapp.controller.api.distribute.modelbuilder.ModelBuilder;
 import edu.cornell.mannlib.vitro.webapp.utils.configuration.Property;
-import edu.cornell.mannlib.vitro.webapp.utils.sparql.SparqlQueryRunner.ConstructQueryContext;
 import edu.cornell.mannlib.vitro.webapp.utils.sparql.SparqlQueryRunner.SelectQueryContext;
 
 /**
- * Execute one or more CONSTRUCT queries to build a local model. Execute a
- * SELECT query against that model.
+ * Execute one or more ModelBuilders to build a local model. Execute a SELECT
+ * query against that model.
  */
-public class SparqlConstructSelectDataDistributor extends
+public class SelectFromLocalModelDataDistributor extends
 		SparqlSelectDataDistributorBase {
 	private static final Log log = LogFactory
-			.getLog(SparqlConstructSelectDataDistributor.class);
+			.getLog(SelectFromLocalModelDataDistributor.class);
 
 	private String rawSelectQuery;
-	private List<String> rawConstructQueries = new ArrayList<>();
+	private List<ModelBuilder> modelBuilders = new ArrayList<>();
 
-	@Property(uri = "http://vitro.mannlib.cornell.edu/ns/vitro/ApplicationSetup#constructQuery", minOccurs = 1)
-	public void addRawConstructQuery(String query) {
-		rawConstructQueries.add(query);
+	@Property(uri = "http://vitro.mannlib.cornell.edu/ns/vitro/ApplicationSetup#modelBuilder", minOccurs = 1)
+	public void addModelBuilder(ModelBuilder builder) {
+		modelBuilders.add(builder);
 	}
 
 	@Property(uri = "http://vitro.mannlib.cornell.edu/ns/vitro/ApplicationSetup#selectQuery", minOccurs = 1, maxOccurs = 1)
@@ -45,23 +43,25 @@ public class SparqlConstructSelectDataDistributor extends
 	@Override
 	public void writeOutput(OutputStream output)
 			throws DataDistributorException {
-		Model localModel = ModelFactory.createDefaultModel();
-		for (String rawConstructQuery : rawConstructQueries) {
-			localModel.add(runConstructQuery(rawConstructQuery,
-					models.getRDFService()));
-			log.debug("Model size is  " + localModel.size());
-		}
+		Model localModel = runModelBuilders();
 		runSelectQuery(output, localModel);
 	}
 
-	private Model runConstructQuery(String rawConstructQuery,
-			RDFService rdfService) throws MissingParametersException {
-		ConstructQueryContext queryContext = createConstructQueryContext(
-				rdfService, rawConstructQuery);
-		queryContext = bindUriParameters(queryContext);
-		queryContext = bindLiteralParameters(queryContext);
-		log.debug("Query context is: " + queryContext);
-		return queryContext.execute().toModel();
+	private Model runModelBuilders() throws DataDistributorException {
+		Model localModel = ModelFactory.createDefaultModel();
+		for (ModelBuilder modelBuilder : modelBuilders) {
+			localModel.add(runModelBuilder(modelBuilder));
+			log.debug("Model size is  " + localModel.size());
+		}
+		return localModel;
+	}
+
+	private Model runModelBuilder(ModelBuilder modelBuilder)
+			throws DataDistributorException {
+		modelBuilder.init(ddContext);
+		Model model = modelBuilder.buildModel();
+		modelBuilder.close();
+		return model;
 	}
 
 	private void runSelectQuery(OutputStream output, Model localModel)
@@ -76,11 +76,11 @@ public class SparqlConstructSelectDataDistributor extends
 
 	@Override
 	public String toString() {
-		return "SparqlConstructSelectDataDistributor [actionName=" + actionName
-				+ ", rawSelectQuery=" + rawSelectQuery
-				+ ", rawConstructQueries=" + rawConstructQueries
-				+ ", uriBinders=" + uriBinders + ", literalBinders="
-				+ literalBinders + ", parameters=" + parameters + "]";
+		return "SelectFromLocalModelDataDistributor [actionName=" + actionName
+				+ ", rawSelectQuery=" + rawSelectQuery + ", modelBuilders="
+				+ modelBuilders + ", uriBinders=" + uriBinders
+				+ ", literalBinders=" + literalBinders + ", parameters="
+				+ parameters + "]";
 	}
 
 	@Override

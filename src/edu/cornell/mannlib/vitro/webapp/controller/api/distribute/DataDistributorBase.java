@@ -5,7 +5,6 @@ package edu.cornell.mannlib.vitro.webapp.controller.api.distribute;
 import java.util.Map;
 
 import edu.cornell.mannlib.vitro.webapp.utils.configuration.Property;
-import edu.cornell.mannlib.vitro.webapp.utils.configuration.Validation;
 
 /**
  * Build your DataDistributors on top of this.
@@ -13,32 +12,18 @@ import edu.cornell.mannlib.vitro.webapp.utils.configuration.Validation;
 public abstract class DataDistributorBase implements DataDistributor {
 	/** The name of the action request that we are responding to. */
 	protected String actionName;
+	protected DataDistributorContext ddContext;
 	protected Map<String, String[]> parameters;
 
-	@Property(uri = "http://vitro.mannlib.cornell.edu/ns/vitro/ApplicationSetup#actionName")
+	@Property(uri = "http://vitro.mannlib.cornell.edu/ns/vitro/ApplicationSetup#actionName", minOccurs = 1, maxOccurs = 1)
 	public void setActionName(String action) {
-		if (actionName == null) {
-			actionName = action;
-		} else {
-			throw new IllegalStateException(
-					"Configuration includes multiple instances of actionName: "
-							+ actionName + ", and " + action);
-		}
-	}
-
-	@Validation
-	public void validateActionName() {
-		if (actionName == null) {
-			throw new IllegalStateException(
-					"Configuration contains no action name for "
-							+ this.getClass().getSimpleName());
-		}
+		actionName = action;
 	}
 
 	@Override
-	public void init(Map<String, String[]> requestParameters)
-			throws DataDistributorException {
-		this.parameters = requestParameters;
+	public void init(DataDistributorContext context) {
+		this.ddContext = context;
+		this.parameters = context.getRequestParameters();
 	}
 
 	@Override

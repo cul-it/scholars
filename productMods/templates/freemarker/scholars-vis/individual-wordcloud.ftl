@@ -30,7 +30,7 @@
  }
  </style>
  
-<div id="person_word_cloud" style="z-index: 3">BOGUS ONE</div>
+<div id="person_word_cloud" style="z-index: 3"></div>
 
 <a href="#" id="word_cloud_trigger">WordCloud</a>
 
