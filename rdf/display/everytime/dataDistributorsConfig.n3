@@ -53,7 +53,7 @@
 # - Time interval, I believe it should be there for every grant.
 #
 
-#:data_distributor_grants_page_fake :actionName "grants_bubble_chart" .
+:data_distributor_grants_page_fake :actionName "grants_bubble_chart" .
 :data_distributor_grants_page_fake
     a   <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.DataDistributor> ,
         <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.FileDistributor> ;
@@ -65,7 +65,7 @@
     a   <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.DataDistributor> ,
         <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.GrantsBubbleChartDistributor> .
 
-:data_distributor_grants_page_iterate_select :actionName "grants_bubble_chart" .
+#:data_distributor_grants_page_iterate_select :actionName "grants_bubble_chart" .
 :data_distributor_grants_page_iterate_select
     a   <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.DataDistributor> ,
         <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.SelectFromLocalModelDataDistributor> ;
