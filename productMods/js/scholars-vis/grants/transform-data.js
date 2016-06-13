@@ -22,7 +22,6 @@ function transformGrantsData(resultSet) {
 		"uri" : "."
 	};
 
-	var uniqueId = 1;
 	var bindings = resultSet.results.bindings;
 	var merged = bindings.map(transformBinding).reduce(mergeDuplicates, []);
 	return merged;
@@ -38,8 +37,7 @@ function transformGrantsData(resultSet) {
 			"Cost" : parseInt(binding.amount.value),
 			"End" : figureYear(binding.enddt),
 			"Start" : figureYear(binding.startdt),
-			"id" : getUniqueId()
-		// BOGUS? -- for grant (where is the data?)
+			"id" : binding.grantId.value
 		};
 
 		function figureGrantGroup() {
@@ -141,10 +139,6 @@ function transformGrantsData(resultSet) {
 			} else {
 				return date.value.substring(0, 4);
 			}
-		}
-
-		function getUniqueId() {
-			return uniqueId++;
 		}
 	}
 
