@@ -35,10 +35,16 @@
 #
 # Grants data:
 #
-# Six construct queries and a select query. The six construct queries handle
-# the combinations of Grant/Contract/CooperativeInvestigation and 
-# PrincipalInvestigator/CoPrincipalInvestigator. The six separate queries run
-# much more quickly than a single query build using UNIONs or FILTERs.
+# Twelve construct queries and a select query. 
+#
+# The first six construct queries handle the combinations of 
+# Grant/Contract/CooperativeInvestigation and PrincipalInvestigator/CoPrincipalInvestigator. 
+# The six separate queries run much more quickly than a single query using UNIONs or FILTERs. 
+# 
+# The remaining six construct queries provide two sets of optional data for 
+# Grant/Contract/CooperativeInvestigation.
+#
+# The select query creates a result set from the model built by the construct queries.
 #
 # Javed says this about the data:
 # - Every grant should have a link to at least one person. Person can have PI 
@@ -59,11 +65,6 @@
         <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.FileDistributor> ;
     :path "fakeData/fake_grants_select_results.json" ;
     :contentType "application/sparql-results+json" .
-
-#:data_distributor_grants_page :actionName "grants_bubble_chart" .
-:data_distributor_grants_page
-    a   <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.DataDistributor> ,
-        <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.GrantsBubbleChartDistributor> .
 
 #:data_distributor_grants_page_iterate_select :actionName "grants_bubble_chart" .
 :data_distributor_grants_page_iterate_select
