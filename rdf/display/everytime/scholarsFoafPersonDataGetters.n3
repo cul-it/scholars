@@ -15,7 +15,7 @@
 ## associate the classes with the datagetter (COUNT(?vIndividual) AS ?theCount)##
 
 <http://xmlns.com/foaf/0.1/Person> display:hasDataGetter display:subjectAreasFromPubs .
- 
+<http://xmlns.com/foaf/0.1/Person> display:hasDataGetter display:keywordsFromPubs . 
  
 ## define the datagetter ##
 
@@ -44,4 +44,25 @@ display:subjectAreasFromPubs
 		}
 		ORDER BY ?subjectAreaLabel
         """ .
+
+display:keywordsFromPubs
+    a <java:edu.cornell.mannlib.vitro.webapp.utils.dataGetter.SparqlQueryDataGetter>;
+    display:saveToVar "keywords";
+    display:query 
+        """
+        PREFIX bibo:     <http://purl.org/ontology/bibo/> 
+		PREFIX vivo:     <http://vivoweb.org/ontology/core#> 
+		SELECT
+		  ?keyword  
+		WHERE 
+		{ 
+		  ?individualURI vivo:relatedBy ?auth . 
+		  ?auth a vivo:Authorship . 
+		  ?auth vivo:relates ?pub . 
+		  ?pub a bibo:Document . 
+		  ?pub vivo:freetextKeyword ?keyword . 
+		}
+		LIMIT 1
+        """ .
+
 
