@@ -11,12 +11,13 @@
         </#if>
     </#list>
 </#macro>
-
+<#-- <h4 style="border-bottom:1px solid #CC6949;padding:30px;color:#fff;text-align:center;margin:0 -15px;font-size:20px;font-family:Lucida Sans Unicode, Helvetica, sans-serif;background:url('${urls.base}/themes/scholars/images/faculty_and_researchers.jpg') no-repeat 21% 33%">Faculty and Researchers</h4>
+-->
 <#-- Renders the html for the faculty member section on the home page. -->
 <#-- Works in conjunction with the homePageUtils.js file, which contains the ajax call. -->
 <#macro facultyMbrHtml>
     <div class="col-sm-12 col-md-12 col-lg-12" id="fac_researchers" style="border: 1px solid #cdd4e7;border-top:5px solid #CC6949;position:relative;background-color: #fff">
-	<h4 style="border-bottom:1px solid #CC6949;padding:30px;color:#fff;text-align:center;margin:0 -15px;font-size:20px;font-family:Lucida Sans Unicode, Helvetica, sans-serif;background:url('${urls.base}/themes/scholars/images/faculty_and_researchers.jpg') no-repeat 21% 33%">Faculty and Researchers</h4>
+	<h4 style="color:#5f5858;text-align:center;margin-top:16px;margin-bottom:16px;font-size:20px;font-family:Lucida Sans Unicode, Helvetica, sans-serif">Faculty and Researchers</h4>
 		<div class="row" style="background-color:#fff">
 			<div id="tempSpacing" class="col-sm-12 col-md-12 col-lg-12" style="text-align:center;">
             		<span>${i18n().loading_faculty}&nbsp;&nbsp;&nbsp;
@@ -61,7 +62,8 @@
     <#assign selected = 'class="selected" ' />
     <#assign classGroupList>
     <div class="col-sm-12 col-md-12 col-lg-12" id="statistics" style="margin-top:40px;border: 1px solid #cdd4e7;border-top:5px solid #CC6949;position:relative;background-color: #fff">
-		<h4 style="border-bottom:1px solid #CC6949;padding:30px;color:#fff;text-align:center;margin:0 -15px;font-size:20px;font-family:Lucida Sans Unicode, Helvetica, sans-serif;background:url('${urls.base}/themes/scholars/images/statistics.jpg') no-repeat 38% 53%">By the Numbers</h4>
+		<#-- <h4 style="border-bottom:1px solid #CC6949;padding:30px;color:#fff;text-align:center;margin:0 -15px;font-size:20px;font-family:Lucida Sans Unicode, Helvetica, sans-serif;background:url('${urls.base}/themes/scholars/images/statistics.jpg') no-repeat 38% 53%">By the Numbers</h4> -->
+		<h4 style="color:#5f5858;text-align:center;margin-top:16px;margin-bottom:16px;font-size:20px;font-family:Lucida Sans Unicode, Helvetica, sans-serif">By the Numbers</h4>
 			<div class="row" style="background-color:#fff">
 				<div class="col-sm-12 col-md-12 col-lg-12" style="background-color:#fff">
 		            <ul id="stats">

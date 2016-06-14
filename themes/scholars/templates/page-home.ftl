@@ -40,15 +40,16 @@
 			<div id="body" style="width:100%;margin:0;background-color:#f1f2f3;min-height: 0;padding:50px 70px 0 70px">
 				<div id="row1" class="row" style="background-color:#f1f2f3">
 					<div class="col-sm-4 col-md-4 col-lg-4" id="visualizations" style="border: 1px solid #cdd4e7;border-top:5px solid #CC6949;position:relative;background-color: #fff">
-						<h4 style="border-bottom:1px solid #CC6949;background:#403d3e url('${urls.base}/themes/scholars/images/viz_header.png') no-repeat 50% 50%;background-size: 112% 112%;margin:0 -15px;padding:30px;;color:#fff;text-align:center;margin-bottom:16px;font-size:20px;font-family:Lucida Sans Unicode, Helvetica, sans-serif">Visualizations</h4>
+						<#-- <h4 style="border-bottom:1px solid #CC6949;background:#403d3e url('${urls.base}/themes/scholars/images/viz_header_test.png') no-repeat 30% 50%;;margin:0 -15px;padding:30px;;color:#fff;text-align:center;margin-bottom:16px;font-size:20px;font-family:Lucida Sans Unicode, Helvetica, sans-serif">Visualizations</h4> -->
+						<h4 style="color:#5f5858;text-align:center;margin-top:16px;margin-bottom:16px;font-size:20px;font-family:Lucida Sans Unicode, Helvetica, sans-serif">Visualizations</h4>
 						<div class="row" style="background-color:#f1f2f3;margin-top:30px">
 							<div class="col-sm-12 col-md-12 col-lg-12" style="text-align:center;background-color:#fff">
-								<img width="50%" src="collaborations.png"/>
-								<p style="padding-top:6px"><a href="#">Collaborations</a></p>
+								<a id="collaborations_trigger" href="#"><img width="54%" src="${urls.base}/themes/scholars/images/collab2.png"/></a>
+								<p style="padding-top:4px;font-size:16px;color:#CC6949">Collaborations</p>
 							</div>
 							<div class="col-sm-12 col-md-12 col-lg-12" style="text-align:center;padding-top:16px;background-color:#fff">
-								<img width="50%" src="affiliations.png"/>
-								<p style="padding-top:6px"><a href="#">Affiliations</a></p>
+								<a href="${urls.base}/grantsVisualization"><img width="50%" src="${urls.base}/themes/scholars/images/grants.png"/></a>
+								<p style="padding-top:4px;font-size:16px;color:#CC6949">Grants</p>
 							</div>
 							<div class="col-sm-12 col-md-12 col-lg-12" style="text-align:center;padding-top:16px;background-color:#fff">
 								<img width="50%" src="research-areas.png"/>
@@ -74,6 +75,22 @@
 					</div>
 				</div> <!-- row1 -->
 			</div> <!-- body div -->
+			<div id="collab_vis" style="z-index:15;border-radius:5px"></div>
+
+			<script>
+			$().ready(function() {
+			  loadVisualization({
+		    	modal : true, 
+			    target : '#collab_vis',
+			    trigger : '#collaborations_trigger',
+			    url : "${urls.base}/api/dataRequest?action=collaboration_sunburst",
+			//    transform : fake_data,
+			    display : sunburst,
+			    height : 500,
+			    width : 700
+			  });
+			});
+			</script>
 	        <#include "footer.ftl" />
 		</div> <!-- home -->
         <script>       
@@ -98,5 +115,4 @@
         </script>
     </body>
 </html>
-
 <#-- <#if !settings.developer_enabled>margin-top:-60px<#else>margin-top:10px</#if>  -->

@@ -88,6 +88,7 @@
 		  <div class="col-sm-9" style="padding:2px 0 0 2px">
 			<span style="color:#595b5b;font-size:16px;padding-left:15px">
 				<em><a href="${profileUrl(pubVenue.object)}" title="${pubVenue.label!}">${pubVenue.label!}</a></em>
+				<#-- <i class="fa fa-external-link-square" aria-hidden="true" style="margin:0 0 0 8px;color:#609bc1"></i> -->
 			</span>
 		  </div>
 		</div>
