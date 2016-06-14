@@ -2284,3 +2284,6 @@ article.property ul.subclass-property-list li {
 #collab_vis svg {
 	background-color: #fff;
 }
+.conceptMap svg {
+	padding: none !important;
+}

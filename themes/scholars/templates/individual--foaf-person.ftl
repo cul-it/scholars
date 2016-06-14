@@ -131,7 +131,7 @@ $(document).ready(function() {
 
 
 <#if isAuthor || isInvestigator || editable >
-<div id="row2" class="row" style="background-color:#f1f2f3;margin-top:30px" >
+<div id="row2" class="row" style="background-color:#f1f2f3;margin:30px 0 100px 0" >
 
 <div id="foafPersonViz" class="col-sm-3 col-md-3 col-lg-3" style=";border: 1px solid #cdd4e7;border-top:5px solid #CC6949;position:relative;background-color: #fff">
 	<h4 style="display:none;color:#5f5858;text-align:center;margin-top:16px;margin-bottom:16px;font-size:1.6em;font-family:Lucida Sans Unicode, Helvetica, sans-serif">Visualizations</h4>
@@ -162,7 +162,7 @@ $(document).ready(function() {
 	    <#if isInvestigator ><li><a href="#tabs-2">Grants</a></li></#if>
 	  </ul>
 	  <#if isAuthor >
-		  <div id="tabs-1" style="height:620px;overflow:auto" data="${publicationsProp!}-dude">
+		  <div id="tabs-1" style="height:620px;overflow:auto">
 			<article class="property" role="article">
 			<#if subjectAreaList?has_content>
 				<a href="#" class="jqModal" style="color:#167093;float:right;padding-right:18px;margin-top:6px">Subject Areas</a>
@@ -196,6 +196,7 @@ $(document).ready(function() {
 		  </div>
 	  </#if>
 	</div>
+</div>
 </div> <!-- row2 div -->
 <#else>
 <div class="row" style="margin-bottom:400px"></div>
@@ -203,7 +204,6 @@ $(document).ready(function() {
 <div id="person_word_cloud" style="z-index:3;border-radius:5px"></div>
 
 <#-- <#include "individual-property-group-tabs.ftl"> -->
-</div>
 
 
 

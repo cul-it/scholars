@@ -125,10 +125,13 @@
 }
 
 /* map */
+.conceptmap {
+  margin-top: -70px;
+}
 .conceptmap svg {
   font-family: Arial;
   font-size: 12px;
-  padding: 3cm;
+  padding: none;
 }
 .conceptmap .ditem > rect {
   stroke: #fff;

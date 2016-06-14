@@ -114,3 +114,21 @@ display:getGFDepartmentDataGetter
         <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#saveToVar>
                 "deptGradFields" .
 
+
+<freemarker:organization-research-areas.ftl> display:hasDataGetter display:subjAreaVisDataGetter .
+
+display:subjAreaVisDataGetter
+    a <java:edu.cornell.mannlib.vitro.webapp.utils.dataGetter.SparqlQueryDataGetter> ;
+    display:saveToVar "requestingDept" ;
+    display:query """
+	PREFIX obo:      <http://purl.obolibrary.org/obo/>
+	PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+	SELECT ?dept ?label
+	WHERE
+	{
+	      ?deptURI obo:ARG_2000028 ?contactInfo .
+	      ?contactInfo obo:ARG_2000029 ?dept .
+	      ?dept rdfs:label ?label .
+	}
+	LIMIT 1    
+    """ .

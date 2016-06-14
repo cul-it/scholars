@@ -75,6 +75,39 @@
 <#if !languageCount??>
 	<#assign languageCount = 1>
 </#if>	
+<#assign awardsGrantProp = propertyGroups.pullProperty("http://vivoweb.org/ontology/core#assigns", "${core}Grant")!>
+<#if awardsGrantProp?has_content> 
+    <#assign awardsGrant>
+		<@p.objectProperty awardsGrantProp editable />
+	</#assign>
+</#if>
+<#assign adminsGrantProp = propertyGroups.pullProperty("http://purl.obolibrary.org/obo/RO_0000053", "${core}AdministratorRole")!>
+<#if adminsGrantProp?has_content> 
+    <#assign adminsGrant>
+		<@p.objectProperty adminsGrantProp editable />
+	</#assign>
+</#if>
+<#assign facultyProp = propertyGroups.pullProperty("${core}relatedBy", "${core}Position")!>
+<#if facultyProp?has_content> 
+    <#assign facultyList>
+		<@p.objectProperty facultyProp editable />
+	</#assign>
+</#if>
+<#if academicOfficers?has_content>
+  <#assign academicOfficerList>
+		<div style="margin:6px 0 15px 0">
+		<#list academicOfficers as officer>
+			<div style="margin-top:6px;color:#CC6949;font-size:16px;text-align:right;display:inline-block">
+				${officer.positionTitle!}
+			</div>
+			<div  style="margin-top:6px;color:#595b5b;font-size:16px;padding-left:8px;display:inline-block">
+				${officer.personName!}
+			</div>
+			<div style="clear:both"></div>
+		</#list>
+		</div>
+  </#assign>
+</#if>
 
 <#-- Default individual profile page template -->
 <div id="row1" class="row" style="background-color:#f1f2f3">
@@ -116,8 +149,9 @@
 	            </h1>
 	        </#if>
 	    </header>
-
-	        </section> <!-- individual-info -->
+		<div style="clear:both"></div>
+		${academicOfficerList!}
+	 </section> <!-- individual-info -->
 			<div style="clear:both"></div>
 	</div> <!-- foafPersonMainColumn -->
 </div> <!-- row1 -->
@@ -127,31 +161,78 @@
 <div id="row2" class="row" style="background-color:#f1f2f3;margin-top:30px" >
 
 <div id="foafOrgViz" class="col-sm-3 col-md-3 col-lg-3" style=";border: 1px solid #cdd4e7;border-top:5px solid #CC6949;position:relative;background-color: #fff">
-	<h4 style="color:#5f5858;text-align:center;margin-top:16px;margin-bottom:16px;font-size:20px;font-family:Lucida Sans Unicode, Helvetica, sans-serif">Visualizations</h4>
-	<div style="text-align:center">
-		<img width="70%" src="collaborations.png"/>
-		<p style="padding-top:6px"><a href="#">Collaborations</a></p>
+<#if nameForOtherGroup?has_content >
+	<#if nameForOtherGroup?has_content >
+		<div style="text-align:center;padding-top:34px;">
+			<a href="#" id="word_cloud_trigger"><div id="test_word_cloud" style="height:120px">&nbsp;</div></a>
+			<p style="padding-top:8px;font-size:16px;color:#CC6949">Grants</p>
+		</div>
+	</#if>
+	<div style="text-align:center;padding-top:26px">
+		<a href="${urls.base}/orgSAVisualization?deptURI=${individual.uri}"><img width="68%" src="${urls.base}/themes/scholars/images/person_sa.png"/></a>
+		<p style="padding-top:4px;font-size:16px;color:#CC6949">Subject Areas</p>
 	</div>
-	<div style="text-align:center;padding-top:16px">
-		<img width="70%" src="affiliations.png"/>
-		<p style="padding-top:6px"><a href="#">Affiliations</a></p>
-	</div>
-	<div style="text-align:center;padding-top:16px">
-		<img width="70%" src="research-areas.png"/>
-		<p style="padding-top:6px"><a href="#">Research Areas</a></p>
-	</div>
-	<div style="text-align:center;padding-top:16px">
-		<img width="70%" src="co-authors.png"/>
-		<p style="padding-top:6px"><a href="#">Co-author Networks</a></p>
-	</div>
+</#if>
 </div>
-<div id="foafPersonSpacer" class="col-sm-1 col-md-1 col-lg-1"></div>
-<div id="foafPersonTabs" class="col-sm-8 col-md-8 col-lg-8" style="border: 1px solid #cdd4e7;border-top:5px solid #CC6949;background-color: #fff">
-
-<#include "individual-property-group-tabs.ftl">
+<div id="foafOrgSpacer" class="col-sm-1 col-md-1 col-lg-1"></div>
+<div id="foafOrgTabs" class="col-sm-8 col-md-8 col-lg-8" style="border: 1px solid #cdd4e7;border-top:5px solid #CC6949;background-color: #fff">
+	<div id="tabs" style="margin: 0 -15px 0 -15px;padding:0">
+	  <ul style="margin:0;padding:8px 0 0 8px; border-top:none;border-right: none; border-left:none; background:#ebf3f4;border-radius:0">
+	    <#if facultyList?has_content ><li><a href="#tabs-1">Publications</a></li> </#if>
+	    <#if adminsGrant?has_content ><li><a href="#tabs-2">Grants</a></li></#if>
+	  </ul>
+	  <#if facultyList?has_content >
+		  <div id="tabs-1" style="height:620px;overflow:auto" data="${publicationsProp!}-dude">
+			<article class="property" role="article">
+		    <ul id="individual-faculty" class="property-list" role="list" >
+		    	${facultyList?replace(" position","")!}
+			</ul>
+			</article>	
+		  </div>
+	  </#if>
+	  <#if adminsGrant?has_content || awardsGrant?has_content >
+		  <div id="tabs-2" style="height:620px;overflow:auto">
+			<article class="property" role="article">
+		    <ul id="individual-grants-pi" class="property-list" role="list" >
+				<li class="subclass" role="listitem">
+				  <#if adminsGrant?has_content >
+					<h3>Administers Grant</h3>
+				    <ul class="subclass-property-list">
+		    			${adminsGrant!}
+					</ul>
+				  </#if>
+				  <#if awardsGrant?has_content >
+					<h3>Awards Grant</h3>
+				    <ul class="subclass-property-list">
+		    			${awardsGrant!}
+					</ul>
+				  </#if>
+				</li>
+			</ul>
+		    
+		  </div>
+	  </#if>
+	</div>
 </div>
 </div> <!-- row2 div -->
 
+<#--
+<div id="organization-research-areas" style="z-index:15;border-radius:5px"></div>
+<script>
+$().ready(function() {
+  loadVisualization({
+    target : '#organization-research-areas',
+    url : "${urls.base}/api/dataRequest?action=organization_research_areas&organization=${individual.uri?url}",
+    parse : 'turtle',
+    transform : transformFlaredata,
+    display : plotConceptMap,
+    height : 0.95,
+    width : 0.95
+  });
+});
+</script>
+-->
+<#-- include "individual-property-group-tabs.ftl" -->
 <#assign rdfUrl = individual.rdfUrl>
 
 <#if rdfUrl??>
@@ -173,6 +254,9 @@
 
 </script>
 <script>
+	$(function() {
+	  $( "#tabs" ).tabs();
+	});
     var individualLocalName = "${individual.localName}";
 </script>
 <script>
@@ -189,6 +273,15 @@ var i18nStringsUriRdf = {
 };
 
 </script>
+<script>
+$().ready(function() {
+	if ($('#individual-faculty li').first().children('h3').text() == "academic officer") {
+		$('#individual-faculty li').first().hide();
+	}
+});
+</script>
+
+
 
 ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/individual/individual-vivo.css?vers=1.5.1" />')}
 
@@ -201,7 +294,7 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/individual/in
 ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/individual/individual.css" />')}
 
 ${headScripts.add('<script type="text/javascript" src="${urls.base}/js/jquery_plugins/qtip/jquery.qtip-1.0.0-rc3.min.js"></script>',
-                  '<script type="text/javascript" src="${urls.base}/js/tiny_mce/tiny_mce.js"></script>')}
+                  	'<script type="text/javascript" src="${urls.base}/js/tiny_mce/tiny_mce.js"></script>')}
 
 ${scripts.add('<script type="text/javascript" src="${urls.base}/js/imageUpload/imageUploadUtils.js"></script>',
 	          '<script type="text/javascript" src="${urls.base}/js/individual/moreLessController.js"></script>',
@@ -210,3 +303,14 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/imageUpload/i
 <script type="text/javascript">
     i18n_confirmDelete = "${i18n().confirm_delete}"
 </script>
+
+
+${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/org-research-areas/ra.css" />',
+					'<link rel="stylesheet" href="${urls.base}/css/scholars-vis/jqModal.css" />')}
+
+${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></script>',
+              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/jqModal.js"></script>',
+              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/visualization-loader.js"></script>',
+              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/rdflib.js"></script>',
+              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/org-research-areas/organization-research-areas.js"></script>')}
+
