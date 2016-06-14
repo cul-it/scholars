@@ -1,7 +1,6 @@
 /* $This file is distributed under the terms of the license in /doc/license.txt$ */
 
 $(document).ready(function() {
-
 	$.fn.inView = function(){
 	    //Window Object
 	    var win = $(window);
@@ -57,6 +56,7 @@ $(document).ready(function() {
 			};
 
 			if((window_height - $nav_bar.height()) <= scroll_top){
+				
 				if(!$nav_bar.hasClass('fixed')){
 					$nav_bar.addClass('fixed');
 					$dev_bar.addClass('devPanelFixed');
@@ -66,7 +66,6 @@ $(document).ready(function() {
 				};
 			} else {
 				if($nav_bar.hasClass('fixed')){
-
 					if($page_layer.attr('id') == 'home'){
 
 						var other_pages = $('#body > div');
