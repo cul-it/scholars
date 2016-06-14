@@ -23,8 +23,16 @@ function transformGrantsData(resultSet) {
 	};
 
 	var bindings = resultSet.results.bindings;
-	var merged = bindings.map(transformBinding).reduce(mergeDuplicates, []);
+	var merged = bindings.filter(matchDepartment).map(transformBinding).reduce(
+			mergeDuplicates, []);
 	return merged;
+
+	function matchDepartment(binding) {
+		return typeof grantsDataDepartmentUri == 'undefined'
+				|| grantsDataDepartmentUri == undefined
+				|| grantsDataDepartmentUri == ""
+				|| (binding.dept != undefined && grantsDataDepartmentUri == binding.dept.value);
+	}
 
 	function transformBinding(binding) {
 		return {
@@ -174,7 +182,7 @@ function transformGrantsData(resultSet) {
 				return matching.funagen;
 			}
 		}
-		
+
 		function mergeDepartments() {
 			if (matching.dept == dummyDept) {
 				return current.dept;
