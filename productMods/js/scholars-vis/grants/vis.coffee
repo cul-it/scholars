@@ -2,8 +2,8 @@
 class BubbleChart
   constructor: (data) ->
     @data = data
-    @width = 900
-    @height = 600
+    @width = 600
+    @height = 430
     @currentlyClicked = false
 
     @years = []
@@ -152,7 +152,7 @@ class BubbleChart
   # Dividing by 8 scales down the charge to be
   # appropriate for the visualization dimensions.
   charge: (d) ->
-    -Math.pow(d.radius, 2.0) / 8
+    -Math.pow(d.radius, 2.0) / 20
 
   # Starts up the force layout with
   # the default values
@@ -181,8 +181,8 @@ class BubbleChart
   # of the visualization
   move_towards_center: (alpha) =>
     (d) =>
-      d.x = d.x + (@center.x - d.x) * (@damper + 0.02) * alpha
-      d.y = d.y + (@center.y - d.y) * (@damper + 0.02) * alpha
+      d.x = d.x + (@center.x - d.x) * (@damper + 0.04) * alpha
+      d.y = d.y + (@center.y - d.y) * (@damper + 0.04) * alpha
 
   # sets the display of bubbles to be separated
   # into each year. Does this by calling move_towards_year
@@ -314,8 +314,8 @@ $ ->
       url : "api/dataRequest?action=grants_bubble_chart",
       transform : transformGrantsData,
       display : render_vis,
-      height : 600,
-      width : 700
+      height : 300,
+      width : 300
      }
   
   

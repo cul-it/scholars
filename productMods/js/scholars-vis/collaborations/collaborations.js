@@ -14,11 +14,11 @@ function filter_min_arc_size_text(d, i) {return (d.dx*d.depth*radius/3)>14};
   return colors[i % colors.length];
 }*/
 
-var hue = d3.scale.category20();
-hue.range(["#006699", "#cc3333", "#ffcc33", "#cc6699", "#9966cc", "#669900", "#00ffcc", "#ff9933"]);
-
+var hue = d3.scale.category10();
+hue.range([,"#cc3333", "#669900","#006699", "#00ffcc ", "#cc6699",  "#9966cc", "#ffcc33" ,"#ff9933"]);
+/* 6 - */
 var luminance = d3.scale.sqrt()
-    .domain([1, 1500])
+    .domain([3, 1e4])
     .clamp(true)
     .range([90, 20]);
 

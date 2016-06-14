@@ -1,3 +1,4 @@
+/*
 a, a:visited, a:active {
   color: #EFEFEF;
   padding:5px;
@@ -8,18 +9,19 @@ a:hover {
   text-decoration:none;
   background-color:rgba(80, 210, 210, 0.6);
 }
-
+*/
 #selects {
   margin-top:10px;
 }
 
 #vis {
   margin-top: 5px;
-  width: 1000px;
-  height: 550px;
+  width: 100%;
+  height: 100%;
   clear: both;
   margin-bottom: 10px;
   /*border: 2px solid #A4A4A4;*/
+  text-align:	center;
 }
 
 #newPadding {
@@ -36,9 +38,26 @@ footer {
 }
 
 #view_selection {
-  margin-top: 10px;
+	background: transparent; 
+	color:#fff;
+	width: 240px;
+	padding: 5px;
+	font-size: 16px;
+	line-height: 1;
+	border: 0;
+	border-radius: 0;
+	height: 34px;
+	-webkit-appearance: none;">
 }
-
+.select-container {
+	margin-top:20px;
+	border-radius:3px;
+	width: 224px;
+	height: 34px;   
+	overflow: hidden;   
+	background: url(../../../images/select-down.png) no-repeat right #609bc1;   
+	border: 1px solid #879eab;
+}
 .years {
   font-size: 21px;
   fill: #aaa;
