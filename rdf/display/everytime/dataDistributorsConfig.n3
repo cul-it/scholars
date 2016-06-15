@@ -15,7 +15,7 @@
 :data_distributor_organization_research_areas
     a   <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.DataDistributor> ,
         <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.FileDistributor> ;
-    :path "fakeData/fake_organization_research_areas.ttl" ;
+    :path "fakeData/fake_bme_research_areas.ttl" ;
     :contentType "text/turtle" .
 
 :data_distributor_collaborations :actionName "collaboration_sunburst" .
@@ -81,7 +81,7 @@
       PREFIX scholars-hr:    <http://scholars.cornell.edu/ontology/hr.owl#>
       PREFIX vivo:           <http://vivoweb.org/ontology/core#>
       
-      SELECT ?grant ?grantTitle ?type
+      SELECT ?grant ?grantTitle ?grantId ?type
              ?amount ?fundingOrg ?fundingOrgName
              ?person ?personName ?personNetid ?role
              ?dept ?deptName
@@ -90,6 +90,7 @@
       WHERE {
         ?grant a ?type .
         ?grant rdfs:label ?grantTitle .
+        ?grant vivo:localAwardId ?grantId .
         ?grant vivo:totalAwardAmount ?amount .
         OPTIONAL {
           ?grant vivo:assignedBy ?fundingOrg .
@@ -140,6 +141,7 @@
         ?roleNode a ?investigatorRoleClass .
 
         ?grant rdfs:label ?grantTitle .
+        ?grant vivo:localAwardId ?grantId .
         ?grant vivo:totalAwardAmount ?amount .
        
         ?roleNode obo:RO_0000052 ?person .
@@ -158,6 +160,7 @@
         ?roleNode a ?investigatorRoleClass .
 
         ?grant rdfs:label ?grantTitle .
+        ?grant vivo:localAwardId ?grantId .
         ?grant vivo:totalAwardAmount ?amount .
        
         ?roleNode obo:RO_0000052 ?person .

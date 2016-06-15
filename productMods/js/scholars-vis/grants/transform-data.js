@@ -22,10 +22,17 @@ function transformGrantsData(resultSet) {
 		"uri" : "."
 	};
 
-	var uniqueId = 1;
 	var bindings = resultSet.results.bindings;
-	var merged = bindings.map(transformBinding).reduce(mergeDuplicates, []);
+	var merged = bindings.filter(matchDepartment).map(transformBinding).reduce(
+			mergeDuplicates, []);
 	return merged;
+
+	function matchDepartment(binding) {
+		return typeof grantsDataDepartmentUri == 'undefined'
+				|| grantsDataDepartmentUri == undefined
+				|| grantsDataDepartmentUri == ""
+				|| (binding.dept != undefined && grantsDataDepartmentUri == binding.dept.value);
+	}
 
 	function transformBinding(binding) {
 		return {
@@ -38,8 +45,7 @@ function transformGrantsData(resultSet) {
 			"Cost" : parseInt(binding.amount.value),
 			"End" : figureYear(binding.enddt),
 			"Start" : figureYear(binding.startdt),
-			"id" : getUniqueId()
-		// BOGUS? -- for grant (where is the data?)
+			"id" : binding.grantId.value
 		};
 
 		function figureGrantGroup() {
@@ -142,10 +148,6 @@ function transformGrantsData(resultSet) {
 				return date.value.substring(0, 4);
 			}
 		}
-
-		function getUniqueId() {
-			return uniqueId++;
-		}
 	}
 
 	function mergeDuplicates(bindingsSoFar, current) {
@@ -180,7 +182,7 @@ function transformGrantsData(resultSet) {
 				return matching.funagen;
 			}
 		}
-		
+
 		function mergeDepartments() {
 			if (matching.dept == dummyDept) {
 				return current.dept;
