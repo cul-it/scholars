@@ -42,7 +42,9 @@
 <#assign issueProp = propertyGroups.pullProperty("http://purl.org/ontology/bibo/issue")!>
 <#assign gccProp = propertyGroups.pullProperty("http://purl.org/spar/c4o/hasGlobalCitationFrequency")!>
 <#assign pmidProp = propertyGroups.pullProperty("http://purl.org/ontology/bibo/pmid")!>
-
+<#if libraryCatalogPage?has_content>
+	<#assign lcp = libraryCatalogPage[0].lcp />
+</#if>
 <#if abstractProp?has_content && abstractProp.statements?has_content>
 	<#assign abstractStmt = abstractProp.statements?first />
 	<#assign abstract >
@@ -78,6 +80,9 @@
 		</div>
 	</#assign>
 </#if>
+<#if lcpProp?has_content && lcpProp.statements?has_content>
+	<#assign lcp = volumeProp.statements[0].value />
+</#if>
 <#if pubVenueProp?has_content && pubVenueProp.statements?has_content>
 	<#assign pubVenue = pubVenueProp.statements?first/>
 	<#assign journalTitle>
@@ -88,7 +93,7 @@
 		  <div class="col-sm-9" style="padding:2px 0 0 2px">
 			<span style="color:#595b5b;font-size:16px;padding-left:15px">
 				<em><a href="${profileUrl(pubVenue.object)}" title="${pubVenue.label!}">${pubVenue.label!}</a></em>
-				<#-- <i class="fa fa-external-link-square" aria-hidden="true" style="margin:0 0 0 8px;color:#609bc1"></i> -->
+				<#if lcp??><a href="${lcp}" target="_blank"><i class="fa fa-external-link-square" aria-hidden="true" style="margin:0 0 0 8px;color:#609bc1"></i></a></#if>
 			</span>
 		  </div>
 		</div>

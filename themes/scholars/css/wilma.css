@@ -2287,3 +2287,9 @@ article.property ul.subclass-property-list li {
 .conceptMap svg {
 	padding: none !important;
 }
+#depts-container p  {
+	font-size: 16px;
+}
+#years-container p  {
+	font-size: 16px;
+}

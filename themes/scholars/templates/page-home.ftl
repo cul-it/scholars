@@ -52,10 +52,10 @@
 								<p style="padding-top:4px;font-size:16px;color:#CC6949">Grants</p>
 							</div>
 							<div class="col-sm-12 col-md-12 col-lg-12" style="text-align:center;padding-top:16px;background-color:#fff">
-								<img width="50%" src="research-areas.png"/>
-								<p style="padding-top:6px"><a href="#">Research Areas</a></p>
+								<img width="55%" src="${urls.base}/themes/scholars/images/wordcloud.png"/>
+								<p style="padding-top:4px;font-size:16px;color:#CC6949">Subject Areas</p>
 							</div>
-							<div class="col-sm-12 col-md-12 col-lg-12" style="text-align:center;padding-top:16px;background-color:#fff">
+							<div class="col-sm-12 col-md-12 col-lg-12" style="display:none;text-align:center;padding-top:16px;background-color:#fff">
 								<img width="50%" src="co-authors.png"/>
 								<p style="padding-top:6px"><a href="#">Co-author Networks</a></p>
 							</div>

@@ -132,3 +132,24 @@ display:subjAreaVisDataGetter
 	}
 	LIMIT 1    
     """ .
+
+
+### NOT A DEPT, BUT THIS IS A QUICK FIX FOR THE SCHOLARS DEMOS
+
+<http://purl.org/ontology/bibo/Document> display:hasDataGetter display:libraryCatalogPageDataGetter .
+
+display:libraryCatalogPageDataGetter
+    a <java:edu.cornell.mannlib.vitro.webapp.utils.dataGetter.SparqlQueryDataGetter>;
+    display:saveToVar "libraryCatalogPage";
+    display:query """
+    PREFIX vivoc: <http://scholars.cornell.edu/ontology/vivoc.owl#>
+    PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+    PREFIX vivo: <http://vivoweb.org/ontology/core#>
+    PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+    SELECT ?lcp
+    WHERE {
+            ?individualURI vivo:hasPublicationVenue ?journal .
+            ?journal vivoc:libraryCatalogPage ?lcp .
+    }
+    LIMIT 1
+    """ .
