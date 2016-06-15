@@ -1,11 +1,14 @@
 <div class="row"  style="background-color:#fff;">
 <div id="container" class="col-sm-12 col-md-12 col-lg-12" style="border: 1px solid #cdd4e7;border-top:5px solid #CC6949;">
+<div style="float:right;margin:22px 22px 0 0">
+	<a href="#"><i class="fa fa-download" aria-hidden="true" title="download the data" style="font-size:24px"></i></a>
+</div>
 	<div class="select-container">
 		<select id="view_selection">
 			<option id="all" value="grants-all">All Grants</option>
 			<option id="year" value="grants-year">Grants By Year</option>
 			<option id="dept" value="grants-dept">Grants By Department</option>
-			</select>
+		</select>
 	</div>
       <div id="selects">
         <div id="years-container" style="display:none;">
@@ -62,13 +65,11 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></
 
   <script type="text/javascript">
     $(document).ready(function() {
-        $(document).ready(function() {
           $('#view_selection').change(function() {
             var view_type = $(this).children(":selected").attr('id');
 			$(this).blur();
             toggle_view(view_type);
             return false;
           });
-        });
     });
   </script>

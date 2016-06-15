@@ -88,7 +88,7 @@ div.tooltip {
 	width: 800px;
   font-family:Arial;
 	font-size: 12px;
-	z-index: 10;
+	z-index: 3001;
 }
 
 div.tooltip span {
@@ -103,4 +103,9 @@ div.tooltip .title {
 div.tooltip .name {
   font-weight:bold;
 }
-
+span.value a {
+	color: #9BC4D4 !important;
+}
+span.value a:hover {
+	color: #9BC4D4 !important;
+}

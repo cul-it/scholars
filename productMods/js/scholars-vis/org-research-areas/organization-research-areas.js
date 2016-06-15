@@ -92,7 +92,7 @@ function transformFlaredata(graph) {
 
 function plotConceptMap(flaredata, target) {
 	
-	function addNewlines(str) {
+		function addNewlines(str) {
 		var splitStr = str.split(" ");
 		var subarrays = [];
 		var wordsInSubstring = 3;
@@ -125,7 +125,7 @@ function plotConceptMap(flaredata, target) {
 
 	function ConceptMap(chartElementId, infoElementId, dataJson) {
 
-		var width = 964;// document.body.clientWidth; //window.innerWidth ||
+		var width = 984;// document.body.clientWidth; //window.innerWidth ||
 		// document.documentElement.clientWidth ||
 		// document.body.clientWidth;
 		var height = 600; // window.innerHeight ||
@@ -155,12 +155,12 @@ function plotConceptMap(flaredata, target) {
 		// Node name at Footer
 		var Nh = (c / 2) + 200;
 		var svgHeight = c + 450;
-		var d = d3.select(target).append("div").attr("class", "conceptmap").append("svg").attr("width", a + 10)
+		var d = d3.select(target).append("div").attr("class", "conceptmap").append("svg").attr("id", "svg-id").attr("width", a)
 				.attr("height", svgHeight).append("g").attr("transform",
 						"translate(" + a / 2 + "," + Nh + ")");
 		var I = d.append("rect").attr("class", "bg").attr({
 			x : a / -2,
-			y : c / -2,
+			y : c / -3,
 			width : a,
 			height : c,
 			fill : "transparent"
@@ -750,4 +750,17 @@ function plotConceptMap(flaredata, target) {
 			return k.map[X.key] ? Z : aa
 		}
 	}
+	$(function() {
+	  panZoomInstance = svgPanZoom('#svg-id', {
+	    zoomEnabled: true,
+	    controlIconsEnabled: true,
+	    fit: true,
+	    center: true,
+	    minZoom: 0.1
+	  });
+
+	  // zoom out
+	  panZoomInstance.zoom(0.9)
+
+	})
 };

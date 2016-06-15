@@ -2,34 +2,26 @@
 class BubbleChart
   constructor: (data) ->
     @data = data
-    @width = 700
-    @height = 600
+    @width = 400
+    @height = 400
     @currentlyClicked = false
 
     @years = []
     @depts = []
-    @funagens = []
-    @pis = []
 
     for item in @data
       if item.Start not in @years
         @years.push(item.Start)
       if item.dept.name not in @depts
         @depts.push(item.dept.name)
-      if item.funagen.name not in @funagens
-        @funagens.push(item.funagen.name)
 
     @years.sort()
-    @years.reverse();
     @depts.sort()
-    @funagens.sort()
 
     for year in @years
       $("#years").append($("<option name='" + year + "'>" + year + "</option>"))
     for dept in @depts
       $("#depts").append($("<option name='" + dept + "'>" + dept + "</option>"))
-    for funagen in @funagens
-      $("#funagens").append($("<option name='" + funagen + "'>" + funagen + "</option>"))
 
     @tooltip = CustomTooltip("gates_tooltip", 400)
 
@@ -56,14 +48,12 @@ class BubbleChart
 
     # use the max total_amount in the data as the max in the scale's domain
     max_amount = d3.max(@data, (d) -> parseInt(d.Cost))
-    @radius_scale = d3.scale.pow().exponent(0.5).domain([0, max_amount]).range([2, 20])
+    @radius_scale = d3.scale.pow().exponent(0.5).domain([0, max_amount]).range([2, 26])
     
     default_year = @years[0]
     @setup_year_centers(default_year)
     default_dept = @depts[0]
     @setup_dept_centers(default_dept)
-    default_funagen = @funagens[0]
-    @setup_funagen_centers(default_funagen)
 
     this.create_nodes()
     this.create_vis()
@@ -87,12 +77,7 @@ class BubbleChart
       @dept_centers[dept] = {x: @width + 500, y: @height + 500}
     @dept_centers[currentDept] = {x: @width / 2, y: @height / 2}
 
-  setup_funagen_centers: (currentfunagen) =>
-    @funagen_centers = {}
-    for funagen in @funagens
-      # place the centers off the canvas
-      @funagen_centers[funagen] = {x: @width + 500, y: @height + 500}
-    @funagen_centers[currentfunagen] = {x: @width / 2, y: @height / 2}
+    
 
   # create node objects from original data
   # that will serve as the data behind each
@@ -111,7 +96,6 @@ class BubbleChart
         url: d.grant.uri
         grant: d.grant
         people: d.people
-# 		funagen: d.funagen
         x: Math.random() * 900
         y: Math.random() * 800
       }
@@ -190,7 +174,6 @@ class BubbleChart
     @force.start()
     this.hide_years()
     this.hide_dept()
-    this.hide_funagen()
     @tooltip.hideTooltip()
     @currentlyClicked = false
 
@@ -213,7 +196,6 @@ class BubbleChart
           .attr("cy", (d) -> d.y)
     @force.start()
     this.hide_dept()
-    this.hide_funagen()
     @tooltip.hideTooltip()
     @currentlyClicked = false
     this.display_years()
@@ -228,25 +210,9 @@ class BubbleChart
           .attr("cy", (d) -> d.y)
     @force.start()
     this.hide_years()
-    this.hide_funagen()
     @tooltip.hideTooltip()
     @currentlyClicked = false
     this.display_dept()
-
-  display_by_funagen: () =>
-    @force.gravity(@layout_gravity)
-      .charge(this.charge)
-      .friction(0.9)
-      .on "tick", (e) =>
-        @circles.each(this.move_towards_funagen(e.alpha))
-          .attr("cx", (d) -> d.x)
-          .attr("cy", (d) -> d.y)
-    @force.start()
-    this.hide_years()
-    this.hide_dept()
-    @tooltip.hideTooltip()
-    @currentlyClicked = false
-    this.display_funagen()
 
   # move all circles to their associated @year_centers 
   move_towards_year: (alpha) =>
@@ -258,12 +224,6 @@ class BubbleChart
   move_towards_dept: (alpha) =>
     (d) =>
       target = @dept_centers[d.dept.name]
-      d.x = d.x + (target.x - d.x) * (@damper + 0.02) * alpha * 1.1
-      d.y = d.y + (target.y - d.y) * (@damper + 0.02) * alpha * 1.1
-
-  move_towards_funagen: (alpha) =>
-    (d) =>
-      target = @funagen_centers[d.funagen.name]
       d.x = d.x + (target.x - d.x) * (@damper + 0.02) * alpha * 1.1
       d.y = d.y + (target.y - d.y) * (@damper + 0.02) * alpha * 1.1
 
@@ -282,12 +242,6 @@ class BubbleChart
   hide_dept: () =>
     $("#depts-container").hide()
 
-  display_funagen: () =>
-    $("#funagens-container").show()
-
-  # Method to hide dept titiles
-  hide_funagen: () =>
-    $("#funagens-container").hide()
 
   show_details: (data, i, element) =>
     if not @currentlyClicked
@@ -298,14 +252,13 @@ class BubbleChart
   make_details_clickable: (data, i, element) =>
     @currentlyClicked = true
     @tooltip.hideTooltip()
-    content = "<span class=\"name\">Title: </span><span class=\"value\"><a href='#{data.grant.uri}'>#{data.name}</a></span><br/>"
+    content = "<span class=\"name\">Title:</span><span class=\"value\"><a href='#{data.grant.uri}'>#{data.name}</a></span><br/>"
     content += this.format_people(data.people)
-    content +="<span class=\"name\">Department: </span><span class=\"value\"><a href='#{data.dept.uri}'>#{data.dept.name}</a></span><br/>"
-   #content +="<span class=\"name\">Amount:</span><span class=\"value\"> $#{addCommas(data.value)}</span><br/>"
-   # content +="<span class=\"name\">Funding agency:</span><span class=\"value\"><a href='#{data.funagen.uri}'>#{data.funagen.name}</a></span><br/>"
-    content +="<span class=\"name\">Year: </span><span class=\"value\"> #{data.year}</span>"
+    content +="<span class=\"name\">Department:</span><span class=\"value\"><a href='#{data.dept.uri}'>#{data.dept.name}</a></span><br/>"
+    content +="<span class=\"name\">Amount:</span><span class=\"value\"> $#{addCommas(data.value)}</span><br/>"
+    content +="<span class=\"name\">Year:</span><span class=\"value\"> #{data.year}</span>"
     @tooltip.showTooltip(content,d3.event)
-
+    
   format_people: (people) =>
     people.sort (a,b) ->
       if a.role > b.role then -1 else if a.role < b.role then 1 else 0
@@ -318,7 +271,7 @@ class BubbleChart
       role = "Investigator"
     else
       role = "Co-Investigator"
-    "<span class=\"name\">#{role}: </span><span class=\"value\"><a href='#{p.uri}'>#{p.name}</a></span><br/>"
+    "<span class=\"name\">#{role}:</span><span class=\"value\"><a href='#{p.uri}'>#{p.name}</a></span><br/>"
   
   hide_details: (data, i, element) =>
     d3.select(element).attr("stroke", (d) => d3.rgb(@fill_color(d.group)).darker())
@@ -348,21 +301,11 @@ $ ->
       chart.setup_dept_centers($("#depts").val())
       chart.display_by_dept()
     )
-  
-  root.display_funagen = () =>
-    chart.display_by_funagen()
-    $("#funagens").change((e) =>
-      chart.setup_funagen_centers($("#funagens").val())
-      chart.display_by_funagen()
-    )
-
   root.toggle_view = (view_type) =>
     if view_type == 'year'
       root.display_year()
     else if view_type == 'dept'
       root.display_dept()
-    else if view_type == 'funagen'
-      root.display_funagen()
     else
       root.display_all()
 
@@ -371,8 +314,8 @@ $ ->
 	      url : applicationContextPath + "/api/dataRequest?action=grants_bubble_chart",
 	      transform : transformGrantsData,
 	      display : render_vis,
-	      height : 300,
-	      width : 300
+	      height : 200,
+	      width : 200
      }
   
   
