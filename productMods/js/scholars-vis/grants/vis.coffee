@@ -8,20 +8,35 @@ class BubbleChart
 
     @years = []
     @depts = []
+    @funagens = []
+    @pis = []
 
     for item in @data
       if item.Start not in @years
         @years.push(item.Start)
       if item.dept.name not in @depts
         @depts.push(item.dept.name)
+      if item.funagen.name not in @funagens
+        @funagens.push(item.funagen.name)
+      for person in item.people
+        if person.name not in @pis
+          @pis.push(person.name)
 
-    @years.sort()
+
+    @years.sort();
+    @years.reverse();
     @depts.sort()
+    @funagens.sort()
+    @pis.sort()
 
     for year in @years
       $("#years").append($("<option name='" + year + "'>" + year + "</option>"))
     for dept in @depts
       $("#depts").append($("<option name='" + dept + "'>" + dept + "</option>"))
+    for funagen in @funagens
+      $("#funagens").append($("<option name='" + funagen + "'>" + funagen + "</option>"))
+    for pi in @pis
+      $("#pis").append($("<option name='" + pi + "'>" + pi + "</option>"))
 
     @tooltip = CustomTooltip("gates_tooltip", 400)
 
@@ -54,6 +69,10 @@ class BubbleChart
     @setup_year_centers(default_year)
     default_dept = @depts[0]
     @setup_dept_centers(default_dept)
+    default_funagen = @funagens[0]
+    @setup_funagen_centers(default_funagen)
+    default_pi = @pis[0]
+    @setup_pi_centers(default_pi)
 
     this.create_nodes()
     this.create_vis()
@@ -77,7 +96,19 @@ class BubbleChart
       @dept_centers[dept] = {x: @width + 500, y: @height + 500}
     @dept_centers[currentDept] = {x: @width / 2, y: @height / 2}
 
-    
+  setup_funagen_centers: (currentFunagen) =>
+    @funagen_centers = {}
+    for funagen in @funagens
+      # place the centers off the canvas
+      @funagen_centers[funagen] = {x: @width + 500, y: @height + 500}
+    @funagen_centers[currentFunagen] = {x: @width / 2, y: @height / 2}
+
+  setup_pi_centers: (currentPI) =>
+    @pi_centers = {}
+    for pi in @pis
+      # place the centers off the canvas
+      @pi_centers[pi] = {x: @width + 500, y: @height + 500}
+    @pi_centers[currentPI] = {x: @width / 2, y: @height / 2}
 
   # create node objects from original data
   # that will serve as the data behind each
@@ -96,6 +127,7 @@ class BubbleChart
         url: d.grant.uri
         grant: d.grant
         people: d.people
+        funagen: d.funagen
         x: Math.random() * 900
         y: Math.random() * 800
       }
@@ -174,6 +206,8 @@ class BubbleChart
     @force.start()
     this.hide_years()
     this.hide_dept()
+    this.hide_funagen()
+    this.hide_pi()
     @tooltip.hideTooltip()
     @currentlyClicked = false
 
@@ -196,6 +230,8 @@ class BubbleChart
           .attr("cy", (d) -> d.y)
     @force.start()
     this.hide_dept()
+    this.hide_funagen()
+    this.hide_pi()
     @tooltip.hideTooltip()
     @currentlyClicked = false
     this.display_years()
@@ -210,9 +246,45 @@ class BubbleChart
           .attr("cy", (d) -> d.y)
     @force.start()
     this.hide_years()
+    this.hide_funagen()
+    this.hide_pi()
     @tooltip.hideTooltip()
     @currentlyClicked = false
     this.display_dept()
+
+  display_by_funagen: () =>
+    @force.gravity(@layout_gravity)
+      .charge(this.charge)
+      .friction(0.9)
+      .on "tick", (e) =>
+        @circles.each(this.move_towards_funagen(e.alpha))
+          .attr("cx", (d) -> d.x)
+          .attr("cy", (d) -> d.y)
+    @force.start()
+    this.hide_years()
+    this.hide_dept()
+    this.hide_pi()
+    @tooltip.hideTooltip()
+    @currentlyClicked = false
+    this.display_funagen()
+
+  display_by_pi: () =>
+    @force.gravity(@layout_gravity)
+      .charge(this.charge)
+      .friction(0.9)
+      .on "tick", (e) =>
+        @circles.each(this.move_towards_pi(e.alpha))
+          .attr("cx", (d) -> d.x)
+          .attr("cy", (d) -> d.y)
+    @force.start()
+    this.hide_years()
+    this.hide_dept()
+    this.hide_funagen()
+    @tooltip.hideTooltip()
+    @currentlyClicked = false
+    this.display_pi()
+
+
 
   # move all circles to their associated @year_centers 
   move_towards_year: (alpha) =>
@@ -224,6 +296,18 @@ class BubbleChart
   move_towards_dept: (alpha) =>
     (d) =>
       target = @dept_centers[d.dept.name]
+      d.x = d.x + (target.x - d.x) * (@damper + 0.02) * alpha * 1.1
+      d.y = d.y + (target.y - d.y) * (@damper + 0.02) * alpha * 1.1
+
+  move_towards_funagen: (alpha) =>
+    (d) =>
+      target = @funagen_centers[d.funagen.name]
+      d.x = d.x + (target.x - d.x) * (@damper + 0.02) * alpha * 1.1
+      d.y = d.y + (target.y - d.y) * (@damper + 0.02) * alpha * 1.1
+
+  move_towards_pi: (alpha) =>
+    (d) =>
+      target = @pi_centers[d.person.name]
       d.x = d.x + (target.x - d.x) * (@damper + 0.02) * alpha * 1.1
       d.y = d.y + (target.y - d.y) * (@damper + 0.02) * alpha * 1.1
 
@@ -242,6 +326,20 @@ class BubbleChart
   hide_dept: () =>
     $("#depts-container").hide()
 
+  display_funagen: () =>
+    $("#funagens-container").show()
+
+  # Method to hide dept titiles
+  hide_funagen: () =>
+    $("#funagens-container").hide()
+
+  display_pi: () =>
+    $("#pis-container").show()
+
+  # Method to hide dept titiles
+  hide_pi: () =>
+    $("#pis-container").hide()
+
 
   show_details: (data, i, element) =>
     if not @currentlyClicked
@@ -255,7 +353,8 @@ class BubbleChart
     content = "<span class=\"name\">Title:</span><span class=\"value\"><a href='#{data.grant.uri}'>#{data.name}</a></span><br/>"
     content += this.format_people(data.people)
     content +="<span class=\"name\">Department:</span><span class=\"value\"><a href='#{data.dept.uri}'>#{data.dept.name}</a></span><br/>"
-    content +="<span class=\"name\">Amount:</span><span class=\"value\"> $#{addCommas(data.value)}</span><br/>"
+   #content +="<span class=\"name\">Amount:</span><span class=\"value\"> $#{addCommas(data.value)}</span><br/>"
+    content +="<span class=\"name\">Funding agency:</span><span class=\"value\"><a href='#{data.funagen.uri}'>#{data.funagen.name}</a></span><br/>"
     content +="<span class=\"name\">Year:</span><span class=\"value\"> #{data.year}</span>"
     @tooltip.showTooltip(content,d3.event)
     
@@ -287,25 +386,47 @@ $ ->
     chart = new BubbleChart json
     chart.start()
     root.display_all()
+  
   root.display_all = () =>
     chart.display_group_all()
+  
   root.display_year = () =>
     chart.display_by_year()
     $("#years").change((e) =>
       chart.setup_year_centers($("#years").val())
       chart.display_by_year()
     )
+
   root.display_dept = () =>
     chart.display_by_dept()
     $("#depts").change((e) =>
       chart.setup_dept_centers($("#depts").val())
       chart.display_by_dept()
     )
+  
+  root.display_funagen = () =>
+    chart.display_by_funagen()
+    $("#funagens").change((e) =>
+      chart.setup_funagen_centers($("#funagens").val())
+      chart.display_by_funagen()
+    )
+
+  root.display_pi = () =>
+    chart.display_by_pi()
+    $("#pis").change((e) =>
+      chart.setup_pi_centers($("#pis").val())
+      chart.display_by_pi()
+    )
+
   root.toggle_view = (view_type) =>
     if view_type == 'year'
       root.display_year()
     else if view_type == 'dept'
       root.display_dept()
+    else if view_type == 'funagen'
+      root.display_funagen()
+    else if view_type == 'pi'
+      root.display_pi()
     else
       root.display_all()
 
