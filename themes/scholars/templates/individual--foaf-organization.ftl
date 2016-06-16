@@ -218,7 +218,7 @@
 </div>
 </#if>
 <#if isCollege && subOrgs?has_content >
-<div id="foafOrgTabs" class="col-sm-8 col-md-8 col-lg-8" style="<#if facultyList?has_content || adminsGrant?has_content >border: 1px solid #cdd4e7;border-top:5px solid #CC6949;background-color: #fff</#if>">
+<div id="foafOrgTabs" class="col-sm-8 col-md-8 col-lg-8" style="border: 1px solid #cdd4e7;border-top:5px solid #CC6949;background-color: #fff">
 	<div id="tabs" style="margin: 0 -15px 0 -15px;padding:0">
 	  <ul style="margin:0;padding:8px 0 0 8px; border-top:none;border-right: none; border-left:none; background:#ebf3f4;border-radius:0">
 	    <li><a href="#tabs-1">Departments</a></li>
@@ -295,11 +295,18 @@ $().ready(function() {
 
 <script>
 $().ready(function() {
-  $('#dialog').jqm();
+  $('#dialog').jqm({
+	onHide: function(hash){
+	    // hide modal
+	    hash.w.hide();
+	    // clear content
+		$('#gates_tooltip').css("display","none");
+	    // remove overlay
+	    hash.o.remove();
+	}
+  });
 });
 </script>
-
-
 
 ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/individual/individual-vivo.css?vers=1.5.1" />')}
 
@@ -376,8 +383,7 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></
 	//    transform : fake_data,
 	    display : sunburst,
 	    height : 500,
-	    width : 700
-	  });
+	    width : 700	  });
 	});
 	</script>
 </#if>

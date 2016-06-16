@@ -300,7 +300,7 @@ class BubbleChart
     @tooltip.hideTooltip()
     content = "<span class=\"name\">Title: </span><span class=\"value\"><a href='#{data.grant.uri}'>#{data.name}</a></span><br/>"
     content += this.format_people(data.people)
-    content +="<span class=\"name\">Department: </span><span class=\"value\"><a href='#{data.dept.uri}'>#{data.dept.name}</a></span><br/>"
+    content +="<span class=\"name\">Academic Unit: </span><span class=\"value\"><a href='#{data.dept.uri}'>#{data.dept.name}</a></span><br/>"
    #content +="<span class=\"name\">Amount:</span><span class=\"value\"> $#{addCommas(data.value)}</span><br/>"
    # content +="<span class=\"name\">Funding agency:</span><span class=\"value\"><a href='#{data.funagen.uri}'>#{data.funagen.name}</a></span><br/>"
     content +="<span class=\"name\">Year: </span><span class=\"value\"> #{data.year}</span>"

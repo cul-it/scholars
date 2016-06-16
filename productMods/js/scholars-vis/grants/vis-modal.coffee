@@ -252,11 +252,11 @@ class BubbleChart
   make_details_clickable: (data, i, element) =>
     @currentlyClicked = true
     @tooltip.hideTooltip()
-    content = "<span class=\"name\">Title:</span><span class=\"value\"><a href='#{data.grant.uri}'>#{data.name}</a></span><br/>"
+    content = "<span class=\"name\">Title: </span><span class=\"value\"><a href='#{data.grant.uri}'>#{data.name}</a></span><br/>"
     content += this.format_people(data.people)
-    content +="<span class=\"name\">Department:</span><span class=\"value\"><a href='#{data.dept.uri}'>#{data.dept.name}</a></span><br/>"
-    content +="<span class=\"name\">Amount:</span><span class=\"value\"> $#{addCommas(data.value)}</span><br/>"
-    content +="<span class=\"name\">Year:</span><span class=\"value\"> #{data.year}</span>"
+    content +="<span class=\"name\">Academic Unit: </span><span class=\"value\"><a href='#{data.dept.uri}'>#{data.dept.name}</a></span><br/>"
+    #content +="<span class=\"name\">Amount: </span><span class=\"value\"> $#{addCommas(data.value)}</span><br/>"
+    content +="<span class=\"name\">Year: </span><span class=\"value\"> #{data.year}</span>"
     @tooltip.showTooltip(content,d3.event)
     
   format_people: (people) =>
@@ -271,11 +271,11 @@ class BubbleChart
       role = "Investigator"
     else
       role = "Co-Investigator"
-    "<span class=\"name\">#{role}:</span><span class=\"value\"><a href='#{p.uri}'>#{p.name}</a></span><br/>"
+    "<span class=\"name\">#{role}: </span><span class=\"value\"><a href='#{p.uri}'>#{p.name}</a></span><br/>"
   
   hide_details: (data, i, element) =>
     d3.select(element).attr("stroke", (d) => d3.rgb(@fill_color(d.group)).darker())
-    #@tooltip.hideTooltip()
+	#@tooltip.hideTooltip()
 
 
 root = exports ? this
@@ -317,5 +317,5 @@ $ ->
 	      height : 200,
 	      width : 200
      }
-  
+	
   
