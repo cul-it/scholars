@@ -327,11 +327,14 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/imageUpload/i
 	grantsDataDepartmentUri = "${individual.uri}"
 </script>
 
+
 ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/org-research-areas/ra.css" />',
-					'<link rel="stylesheet" href="${urls.base}/css/scholars-vis/grants/style.css" />'
-					'<link rel="stylesheet" href="${urls.base}/css/scholars-vis/collaborations/collab.css" />',
+					'<link rel="stylesheet" href="${urls.base}/css/scholars-vis/grants/style.css" />',
 					'<link rel="stylesheet" href="${urls.base}/css/scholars-vis/jqModal.css" />')}
 
+<#if isCollege >
+	${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/collaborations/collab.css" />')}
+</#if>
 ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></script>',
               '<script type="text/javascript" src="${urls.base}/js/scholars-vis/visualization-loader.js"></script>',
               '<script type="text/javascript" src="${urls.base}/js/scholars-vis/grants/transform-data.js"></script>',
