@@ -7,7 +7,7 @@
 		<select id="view_selection">
 			<option id="all" value="grants-all">All Grants</option>
 			<option id="year" value="grants-year">Grants By Year</option>
-			<option id="dept" value="grants-dept">Grants By Department</option>
+			<option id="dept" value="grants-dept">Grants By Academic Unit</option>
 		</select>
 	</div>
       <div id="selects">
@@ -18,7 +18,7 @@
           </select></p>
         </div>
         <div id="depts-container" style="display:none;">
-          <p>Select department:
+          <p>Select academic unit:
           <select id="depts">
           </select>
           </p>
