@@ -84,7 +84,7 @@
 			    target : '#collab_vis',
 			    trigger : '#collaborations_trigger',
 			    url : "${urls.base}/api/dataRequest?action=collaboration_sunburst",
-			//    transform : fake_data,
+			    transform : transformCollab,
 			    display : sunburst,
 			    height : 500,
 			    width : 700

@@ -1,3 +1,23 @@
+/**
+ * Take the fake data that comes from the server and convert the URIs
+ * to display page URLs.
+ */
+function transformCollab(fake) {
+	return transformNode(fake)
+	
+	function transformNode(node) {
+		if (node.uri) {
+			node.uri = toDisplayPageUrl(node.uri);
+		}
+		if (node.children) {
+			node.children = node.children.map(transformNode);
+		}
+		if (node.pubs) {
+			node.pubs = node.pubs.map(transformNode);
+		}
+		return node;
+	}
+}
 
 function sunburst(json_data, target) {
 var width = $(target).width();
