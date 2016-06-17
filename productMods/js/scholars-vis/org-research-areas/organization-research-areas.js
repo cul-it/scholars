@@ -14,7 +14,7 @@ function transformFlaredata(graph) {
 	
 	function figureDItems() {
 		var stmts = graph.statementsMatching(undefined, RDF("type"), FOAF("Person"))
-		return stmts.map(figureDItem);
+		return stmts.map(figureDItem).sort(sortByName);
 
 		function figureDItem(stmt, index) {
 			var author = stmt.subject.uri;
@@ -63,7 +63,7 @@ function transformFlaredata(graph) {
 	function figureThemes() {
 		var stmts = graph.statementsMatching(undefined, RDF("type"), SKOS("Concept"))
 		var uris = Array.from(new Set(stmts.map(getSubjectUri)));
-		return uris.map(figureTheme);
+		return uris.map(figureTheme).sort(sortByName);
 		
 		function figureTheme(uri) {
 			var label = getLabel(uri);
@@ -87,6 +87,12 @@ function transformFlaredata(graph) {
 	
 	function getObjectUri(stmt) {
 		return stmt.object.uri;
+	}
+
+	function sortByName(a, b) {
+		var aname = a.name.toLowerCase();
+		var bname = b.name.toLowerCase();
+		return aname > bname ? 1 : (aname < bname ? -1 : 0);
 	}
 }
 
