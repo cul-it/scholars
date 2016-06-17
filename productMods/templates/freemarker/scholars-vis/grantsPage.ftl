@@ -8,6 +8,7 @@
 			<option id="all" value="grants-all">All Grants</option>
 			<option id="year" value="grants-year">Grants By Year</option>
 			<option id="dept" value="grants-dept">Grants By Academic Unit</option>
+			<option id="funagen" value="grants-funagen">Grants By Funding Agency</option>
 		</select>
 	</div>
       <div id="selects">
@@ -20,6 +21,12 @@
         <div id="depts-container" style="display:none;">
           <p>Select academic unit:
           <select id="depts">
+          </select>
+          </p>
+		</div>
+        <div id="funagens-container" style="display:none;">
+          <p>Select funding agency:
+          <select id="funagens">
           </select>
           </p>
 		</div>
