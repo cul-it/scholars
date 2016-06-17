@@ -179,7 +179,7 @@
   <#if facultyList?has_content || adminsGrant?has_content >
 	<div id="tabs" style="margin: 0 -15px 0 -15px;padding:0">
 	  <ul style="margin:0;padding:8px 0 0 8px; border-top:none;border-right: none; border-left:none; background:#ebf3f4;border-radius:0">
-	    <#if facultyList?has_content ><li><a href="#tabs-1">Publications</a></li> </#if>
+	    <#if facultyList?has_content ><li><a href="#tabs-1">People</a></li> </#if>
 	    <#if adminsGrant?has_content ><li><a href="#tabs-2">Grants</a></li></#if>
 	  </ul>
 	  <#if facultyList?has_content >
