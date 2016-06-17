@@ -125,7 +125,7 @@ function plotConceptMap(flaredata, target) {
 
 	function ConceptMap(chartElementId, infoElementId, dataJson) {
 
-		var width = 984;// document.body.clientWidth; //window.innerWidth ||
+		var width = 999;// document.body.clientWidth; //window.innerWidth ||
 		// document.documentElement.clientWidth ||
 		// document.body.clientWidth;
 		var height = 600; // window.innerHeight ||

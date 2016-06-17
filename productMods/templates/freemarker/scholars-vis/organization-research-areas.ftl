@@ -1,6 +1,6 @@
 <#if requestingDept?has_content>
 	<div class="row"  style="background-color:#fff;">
-	<div id="container" class="col-sm-12 col-md-12 col-lg-12" style="border: 1px solid #cdd4e7;border-top:5px solid #CC6949;">
+	<div id="container" class="col-sm-12 col-md-12 col-lg-12" style="border: 1px solid #cdd4e7;border-top:5px solid #CC6949;padding-bottom:60px">
 	<div style="float:right;margin:22px 22px 0 0">
 		<a href="#"><i class="fa fa-download" aria-hidden="true" title="download the data" style="font-size:24px;z-index:4000"></i></a>
 	</div>
