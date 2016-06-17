@@ -81,13 +81,11 @@ $(document).ready(function() {
 	<#assign webpageLabel = webpageStmt.label! />
 	<#assign webpageUrl = webpageStmt.url! />
 </#if>
-<#assign orcidProp = propertyGroups.pullProperty("http://vivoweb.org/ontology/core#orcidID")!>
-<#if orcidProp?has_content && orcidProp.statements?has_content> 
-    <#assign orcidStmt = orcidProp.statements?first />
-	<#assign orcidID = orcidStmt.value! />
+<#-- for some reason pullProperty was only working when logged in, and even with the display level set to public. Weird! So using datagetter-->
+<#if orcidID?has_content> 
+	<#assign theOrcidId = orcidID?first.orcidId! />
 </#if>
-<#--add the VIVO-ORCID interface -->
-<#-- include "individual-orcidInterface.ftl" -->  
+
 <div id="row1" class="row" style="background-color:#f1f2f3">
 <div class="col-sm-12 col-md-12 col-lg-12" id="foafPersonMainColumn" style="border: 1px solid #cdd4e7;border-top:5px solid #CC6949;position:relative;background-color: #fff">
 <section id="share-contact" role="region"> 
@@ -131,14 +129,14 @@ $(document).ready(function() {
 
 
 <#if isAuthor || isInvestigator || editable >
-<div id="row2" class="row" style="background-color:#f1f2f3;margin:30px 0 100px 0" >
+<div id="row2" class="row" style="background-color:#f1f2f3;margin:30px -15px 100px -15px" >
 
 <div id="foafPersonViz" class="col-sm-3 col-md-3 col-lg-3" style=";border: 1px solid #cdd4e7;border-top:5px solid #CC6949;position:relative;background-color: #fff">
 	<h4 style="display:none;color:#5f5858;text-align:center;margin-top:16px;margin-bottom:16px;font-size:1.6em;font-family:Lucida Sans Unicode, Helvetica, sans-serif">Visualizations</h4>
  	<#if isAuthor >
 		<#if hasKeywords >
  			<div style="text-align:center;padding-top:34px;">
- 				<a href="#" id="word_cloud_trigger"><div id="test_word_cloud" style="height:120px">&nbsp;</div></a>
+ 				<a href="#" id="word_cloud_trigger"><div id="dynamic_word_cloud" style="height:120px;display:inline">&nbsp;</div></a>
  				<p style="padding-top:8px;font-size:16px;color:#CC6949">Keywords</p>
  			</div>
 		</#if>
@@ -292,7 +290,7 @@ $().ready(function() {
 	$().ready(function() {
 	  loadVisualization({
 	//    modal : true, 
-	    target : '#test_word_cloud',
+	    target : '#dynamic_word_cloud',
 	//    trigger : '#word_cloud_trigger',
 	    url : "${urls.base}/api/dataRequest?action=person_word_cloud&person=${individual.uri?url}",
 	    parse : 'turtle',
@@ -335,9 +333,4 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></
 
 ${stylesheets.add('<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Raleway" />',
 	'<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Muli" />')}
-
-
-
-
-
 

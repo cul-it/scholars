@@ -10,9 +10,7 @@
 </#if>
 <img id="uriIcon" title="Share the URI or view this profile's RDF" data="${individual.uri}" width="32px" src="${urls.base}/themes/scholars/images/share-uri-icon.png" alt="share the uri" style="margin-left:6px"/>
 <#if orcidID?has_content>
-	<a href="${orcidID!}" title="View the departmental page" target="_blank">
-		<img id="orcidIcon" title="View ORCiD page" width="32px" src="${urls.base}/themes/scholars/images/orcid-icon.png" alt="Click to view ORCiD page" style="margin-left:6px"/>
-	</a>
+	<a href="${theOrcidId!}" title="View the ORCID page" target="_blank"><img id="orcidIcon" title="View ORCiD page" width="32px" src="${urls.base}/themes/scholars/images/orcid-icon.png" alt="Click to view ORCiD page" style="margin-left:6px"/></a>
 </#if>
 <#if webpageUrl?has_content>
 	<a href="${webpageUrl!}" title="View the departmental page" target="_blank">

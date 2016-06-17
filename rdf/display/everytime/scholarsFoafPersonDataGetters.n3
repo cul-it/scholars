@@ -16,6 +16,7 @@
 
 <http://xmlns.com/foaf/0.1/Person> display:hasDataGetter display:subjectAreasFromPubs .
 <http://xmlns.com/foaf/0.1/Person> display:hasDataGetter display:keywordsFromPubs . 
+<http://xmlns.com/foaf/0.1/Person> display:hasDataGetter display:orcidId .
  
 ## define the datagetter ##
 
@@ -61,6 +62,19 @@ display:keywordsFromPubs
 		  ?auth vivo:relates ?pub . 
 		  ?pub a bibo:Document . 
 		  ?pub vivo:freetextKeyword ?keyword . 
+		}
+		LIMIT 1
+        """ .
+
+display:orcidId
+    a <java:edu.cornell.mannlib.vitro.webapp.utils.dataGetter.SparqlQueryDataGetter>;
+    display:saveToVar "orcidID";
+    display:query 
+        """
+		SELECT ?orcidId
+		WHERE
+		{
+		      ?individualURI <http://vivoweb.org/ontology/core#orcidId> ?orcidId
 		}
 		LIMIT 1
         """ .
