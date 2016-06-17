@@ -46,7 +46,7 @@ var tip = d3.tip().attr('class', 'd3-tip choices triangle-isosceles').html(funct
   result = "<p><b><a href='" + d.uri + "'>" + d.name + "</a></b></p>";
   if(typeof d.pubs != "undefined") {
     for(var i = 0; i < d.pubs.length; i++) {
-      result += "<a href='" + d.pubs[i].uri + "'>" + d.pubs[i].title + "</a>";
+      result += "<p><a href='" + d.pubs[i].uri + "'>" + d.pubs[i].title + "</a></p>";
     }
   }
   else {
