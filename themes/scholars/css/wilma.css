@@ -20,7 +20,7 @@ html,
 body {
     padding: 0;
     height: 100%; /* needed for container min-height */
-    font-family: "Lucida Sans Unicode","Lucida Grande", Geneva, helvetica, sans-serif; 
+    font-family: "Lucida Sans Unicode","Lucida Grande", Geneva, helvetica, sans-serif !important; 
     height: auto !important; /* real browsers */
     height: 100%; /* IE6: treaded as min-height*/;
     min-height: 100%; /* real browsers */
@@ -1990,7 +1990,8 @@ div#body {
 }
 
 body {
-   background: #f1f2f3; 
+   background: #f1f2f3;
+ /*  font-family: "Raleway, Verdana, Lucida Sans Unicode","Lucida Grande", Geneva, helvetica, sans-serif !important; */
 }
 body.home {
     background-color: #f1f2f3;
@@ -2016,7 +2017,7 @@ margin-right: 7px;
 	border-color:#687385;
 	border-style:solid;
 	border-radius:5px;
-	height:30px;
+	height:32px;
 	width: 300px;
     text-decoration: none;
     background-color: #fff;
@@ -2180,9 +2181,10 @@ ul#footer-nav li { /* no change */
 ul#footer-nav li:last-child { /* no change */
     border-right: none
 }
-.row {
+/*.row {
 	background-color: #f1f2f3;
-}
+	font-family: "Raleway, Verdana, Lucida Sans Unicode","Lucida Grande", Geneva, helvetica, sans-serif !important; 
+}*/
 ul#individual-personInPosition {
     font-size: 16px !important;
 }
@@ -2242,6 +2244,45 @@ article.property ul.subclass-property-list li {
 #bodyPannel {
 	height: 100% !important;
 }
+/* browse pages */
+ul#browse-classes li {
+	font-size: 16px;
+}
+h3.selected-class {
+	font-size: 16px;
+	padding-bottom: 6px;
+}
+ul#alpha-browse-individuals li {
+	font-size: 12px;
+}
+.pagination.menupage {
+    font-size: 12px;
+}
+#individuals-in-class li h1 {
+    color: #5e6363;
+    font-size: 16px;
+}
+#browse-by {
+	margin: 0 0 0 20px !important;
+}
+ul#alpha-browse-individuals {
+    background-color: rgb(235, 243, 244);
+	width: 609px;
+}
+nav#alpha-browse-container {
+    width: 619px;
+    float: left;
+    padding-left: 8px;
+    margin-left: 20px;
+    margin-top: 10px;
+	background-color: rgb(235, 243, 244);
+}
+#individuals-in-class {
+    width: 619px;
+    border: 1px solid #dde4e3;
+    background-color: #fff;
+	margin-right: 11px;
+}
 /*** VISUALIZATIONS ***/
  .choices {
     background-color: rgba(50, 50, 50, 0.8);
@@ -2273,6 +2314,7 @@ article.property ul.subclass-property-list li {
  }
 #stage {
 	background-color: #fff;
+	margin-left: -10px;
 }
 #chord {
 	text-align: center;
