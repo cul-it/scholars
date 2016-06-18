@@ -65,8 +65,22 @@
 					</div>
 					<div class="col-sm-7 col-md-7 col-lg-7">
 						<div class="row" style="background-color:#f1f2f3">
-		        			<!-- List of four randomly selected faculty members -->
-		        			<@lh.facultyMbrHtml />
+		        		<#--	<@lh.facultyMbrHtml /> -->
+
+
+					    <div class="col-sm-12 col-md-12 col-lg-12" id="fac_researchers" style="border: 1px solid #cdd4e7;border-top:5px solid #CC6949;position:relative;background-color: #fff">
+						<h4 style="color:#5f5858;text-align:center;margin-top:16px;margin-bottom:16px;font-size:20px;font-family:Lucida Sans Unicode, Helvetica, sans-serif">Faculty and Researchers</h4>
+							<div class="row" style="background-color:#fff">
+					        		<div id="research-faculty-mbrs" style="margin-top:0">
+					            		<!-- populated via an ajax call -->
+					            		<ul id="facultyThumbs">
+					            		</ul>
+						  			</div>
+								</div>
+						    </div>
+
+
+						<#-- -->
 						</div>
 						<div class="row" style="background-color:#f1f2f3">
 			    			<!-- Statistical information relating to property groups and their classes; displayed horizontally, not vertically-->
@@ -74,6 +88,100 @@
 						</div>
 					</div>
 				</div> <!-- row1 -->
+
+
+
+
+
+				<ul id="facultyThumbstest">
+					<li class="individual" style="display:none" role="listitem"><img alt="placeholder image" src="/scholars/file/n864/thumbnail_fg.jpg" width="80">
+						<h1><a href="/scholars/individual?uri=http%3A%2F%2Fscholars.cornell.edu%2Findividual%2Ffvg3">Guimbretiere, Francois V.</a></h1><span class="title">Associate Professor, Information Science</span>
+					</li>
+					<li class="individual" style="display:none" role="listitem"><img alt="placeholder image" src="/scholars/file/n7259/thumbnail_nap.jpg" width="80">
+			        	<h1><a href="/scholars/individual?uri=http%3A%2F%2Fscholars.cornell.edu%2Findividual%2Fna424">Andarawis-Puri, Nelly</a></h1><span class="title">Assistant Professor, Mechanical and Aerospace Engineering</span>
+					</li>
+					<li class="individual" style="display:none" role="listitem"><img alt="placeholder image" src="/scholars/file/n4370/thumbnail_gx.jpg" width="80">
+						<h1><a href="/scholars/individual?uri=http%3A%2F%2Fscholars.cornell.edu%2Findividual%2Fhgx2">Xing, Huili Grace</a></h1><span class="title">Professor, Electrical and Computer Engineering</span>
+					</li>
+					<li class="individual" style="display:none" role="listitem"><img alt="placeholder image" src="/scholars/file/n6709/thumbnail_jm.jpg" width="80">
+						<h1><a href="/scholars/individual?uri=http%3A%2F%2Fscholars.cornell.edu%2Findividual%2Fjfm37">Martinez, Jose F.</a></h1><span class="title">Associate Professor, Electrical and Computer Engineering</span>
+					</li>
+					<li class="individual" style="display:none" role="listitem"><img alt="placeholder image" src="/scholars/file/n6865/thumbnail_hunter.jpg" width="80">
+						<h1><a href="/scholars/individual?uri=http%3A%2F%2Fscholars.cornell.edu%2Findividual%2Fjbh5">Hunter, Jean B.</a></h1><span class="title">Associate Professor, Biological and Environmental Engineering</span>
+					</li>
+					<li class="individual" style="display:none" role="listitem"><img alt="placeholder image" src="/scholars/file/n7131/thumbnail_datta.jpg" width="80">
+						<h1><a href="/scholars/individual?uri=http%3A%2F%2Fscholars.cornell.edu%2Findividual%2Fakd1">Datta, Ashim</a></h1><span class="title">Professor, Biological and Environmental Engineering</span>
+					</li>
+					<li class="individual" style="display:none" role="listitem"><img alt="placeholder image" src="/scholars/file/n700/thumbnail_lewis.jpg" width="80">
+						<h1><a href="/scholars/individual?uri=http%3A%2F%2Fscholars.cornell.edu%2Findividual%2mel47">Lewis, Mark E.</a></h1><span class="title">Professor, Operations Research and Information Engineering</span>
+					</li>
+					<li class="individual" style="display:none" role="listitem"><img alt="placeholder image" src="/scholars/file/n6003/thumbnail_minca.jpg" width="80">
+						<h1><a href="/scholars/individual?uri=http%3A%2F%2Fscholars.cornell.edu%2Findividual%2Facm299">Minca, Andreea C.</a></h1><span class="title">Assistant Professor, Operations Research and Information Engineering</span>
+					</li>
+					<li class="individual" style="display:none" role="listitem"><img alt="placeholder image" src="/scholars/file/n7467/thumbnail_collins.jpg" width="80">
+						<h1><a href="/scholars/individual?uri=http%3A%2F%2Fscholars.cornell.edu%2Findividual%2Flc2462">Collins, Lance</a></h1><span class="title">Professor, Sibley School of Mechanical and Aerospace Engineering</span>
+					</li>
+					<li class="individual" style="display:none" role="listitem"><img alt="placeholder image" src="/scholars/file/n8009/thumbnail_trotter.jpg" width="80">
+						<h1><a href="/scholars/individual?uri=http%3A%2F%2Fscholars.cornell.edu%2Findividual%2Flet3">Trotter, Leslie Earl</a></h1><span class="title">Professor, Operations Research and Information Engineering</span>
+					</li>
+					<li class="individual" style="display:none" role="listitem"><img alt="placeholder image" src="/scholars/file/n1518/thumbnail_pollack.jpg" width="80">
+						<h1><a href="/scholars/individual?uri=http%3A%2F%2Fscholars.cornell.edu%2Findividual%2Flp26">Pollack, Lois</a></h1><span class="title">Professor, Applied and Engineering Physics</span>
+					</li>
+					<li class="individual" style="display:none" role="listitem"><img alt="placeholder image" src="/scholars/file/n404/thumbnail_schlom.jpg" width="80">
+						<h1><a href="/scholars/individual?uri=http%3A%2F%2Fscholars.cornell.edu%2Findividual%2Fds636">Schlom, Darrell</a></h1><span class="title">Professor, Materials Science and Engineering</span>
+					</li>
+					<li class="individual" style="display:none" role="listitem"><img alt="placeholder image" src="/scholars/file/n4731/thumbnail_mclask.jpg" width="80">
+						<h1><a href="/scholars/individual?uri=http%3A%2F%2Fscholars.cornell.edu%2Findividual%2Fgcm8">McLaskey, Gregory Christofer</a></h1><span class="title">Assistant Professor, Civil and Environmental Engineering</span>
+					</li>
+					<li class="individual" style="display:none" role="listitem"><img alt="placeholder image" src="/scholars/file/n1279/thumbnail_king.jpg" width="80">
+						<h1><a href="/scholars/individual?uri=http%3A%2F%2Fscholars.cornell.edu%2Findividual%2Fmrk93">King, Michael R.</a></h1><span class="title">Professor, Biomedical Engineering</span>
+					</li>
+					<li class="individual" style="display:none" role="listitem"><img alt="placeholder image" src="/scholars/file/n402/thumbnail_vdm.jpg" width="80">
+						<h1><a href="/scholars/individual?uri=http%3A%2F%2Fscholars.cornell.edu%2Findividual%2Fmcv3">van der Meulen, Marjolein</a></h1><span class="title">Professor, Biomedical Engineering</span>
+					</li>
+					<li class="individual" style="display:none" role="listitem"><img alt="placeholder image" src="/scholars/file/n1355/thumbnail_fischbach.jpg" width="80">
+						<h1><a href="/scholars/individual?uri=http%3A%2F%2Fscholars.cornell.edu%2Findividual%2Fcf99">Fischbach, Claudia</a></h1><span class="title">Associate Professor, Biomedical Engineering</span>
+					</li>
+					<li class="individual" style="display:none" role="listitem"><img alt="placeholder image" src="/scholars/file/n1392/thumbnail_pritch.jpg" width="80">
+						<h1><a href="/scholars/individual?uri=http%3A%2F%2Fscholars.cornell.edu%2Findividual%2Fmp337">Pritchard, Matthew</a></h1><span class="title">Associate Professor, Earth and Atmospheric Sciences</span>
+					</li>
+					<li class="individual" style="display:none" role="listitem"><img alt="placeholder image" src="/scholars/file/n7712/thumbnail_daniel.jpg" width="80">
+						<h1><a href="/scholars/individual?uri=http%3A%2F%2Fscholars.cornell.edu%2Findividual%2Fsd386">Daniel, Susan</a></h1><span class="title">Associate Professor, Chemical and Biomolecular Engineering</span>
+					</li>
+					<li class="individual" style="display:none" role="listitem"><img alt="placeholder image" src="/scholars/file/n4715/thumbnail_bonnassar.jpg" width="80">
+						<h1><a href="/scholars/individual?uri=http%3A%2F%2Fscholars.cornell.edu%2Findividual%2Flb244">Bonassar, Lawrence</a></h1><span class="title">Professor, Biomedical Engineering</span>
+					</li>
+					<li class="individual" style="display:none" role="listitem"><img alt="placeholder image" src="/scholars/file/n5537/thumbnail_donnely.jpg" width="80">
+						<h1><a href="/scholars/individual?uri=http%3A%2F%2Fscholars.cornell.edu%2Findividual%2Feld26">Donnelly, Eve Lorraine</a></h1><span class="title">Assistant Professor, Materials Science and Engineering</span>
+					</li>
+					<li class="individual" style="display:none" role="listitem"><img alt="placeholder image" src="/scholars/file/n686/thumbnail_watson.jpg" width="80">
+						<h1><a href="/scholars/individual?uri=http%3A%2F%2Fscholars.cornell.edu%2Findividual%2Fcml66">Watson, Chekesha M.</a></h1><span class="title">Associate Professor, Materials Science and Engineering</span>
+					</li>
+					<li class="individual" style="display:none" role="listitem"><img alt="placeholder image" src="/scholars/file/n4692/thumbnail_cohen.jpg" width="80">
+						<h1><a href="/scholars/individual?uri=http%3A%2F%2Fscholars.cornell.edu%2Findividual%2Fic64">Cohen, Itai</a></h1><span class="title">Associate Professor, Physics</span>
+					</li>
+					<li class="individual" style="display:none" role="listitem"><img alt="placeholder image" src="/scholars/file/n6382/thumbnail_jordan.jpg" width="80">
+						<h1><a href="/scholars/individual?uri=http%3A%2F%2Fscholars.cornell.edu%2Findividual%2Ftej1">Jordan, Teresa Eileen</a></h1><span class="title">Professor, Earth and Atmospheric Sciences</span>
+					</li>
+					<li class="individual" style="display:none" role="listitem"><img alt="placeholder image" src="/scholars/file/n7756/thumbnail_thomp.jpg" width="80">
+						<h1><a href="/scholars/individual?uri=http%3A%2F%2Fscholars.cornell.edu%2Findividual%2Fmot1">Thompson, Michael Olgar</a></h1><span class="title">Associate Professor, Materials Science and Engineering</span>
+					</li>
+					<li class="individual" style="display:none" role="listitem"><img alt="placeholder image" src="/scholars/file/n5847/thumbnail_estrin.jpg" width="80">
+						<h1><a href="/scholars/individual?uri=http%3A%2F%2Fscholars.cornell.edu%2Findividual%2Fde226">Estrin, Deborah</a></h1><span class="title">Professor, Office of the Vice President of Cornell New York City Tech</span>
+					</li>
+				</ul>
+
+				<script>
+				  $(document).ready(function() {
+					var fac = $("ul#facultyThumbstest li").get().sort(function() {
+						return Math.round(Math.random())-0.5;
+					}).slice(0,5);
+					$(fac).show();
+					$('ul#facultyThumbs').append(fac);
+				  });
+				</script>
+
+
 			</div> <!-- body div -->
 			<div id="collab_vis" style="z-index:15;border-radius:5px"></div>
 
@@ -113,6 +221,9 @@
                 noDepartmentsFound: '${i18n().no_departments_found}'
             };
         </script>
+
+
     </body>
 </html>
-<#-- <#if !settings.developer_enabled>margin-top:-60px<#else>margin-top:10px</#if>  -->
+
+
