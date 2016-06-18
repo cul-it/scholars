@@ -12,7 +12,7 @@ $(document).ready(function(){
     // to return to th ehome page from the search results
     $('input[name="classgroup"]').val("");    
 
-    getFacultyMembers();  
+//    getFacultyMembers();  
     buildResearchFacilities(); 
 
     if ( $('section#home-geo-focus').length == 0 ) {
