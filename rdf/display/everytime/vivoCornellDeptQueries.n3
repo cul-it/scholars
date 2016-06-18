@@ -42,14 +42,14 @@ display:getGraduateFieldDataGetter
 	    PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 	    PREFIX vivo: <http://vivoweb.org/ontology/core#>
 	    PREFIX foaf: <http://xmlns.com/foaf/0.1/>
-		SELECT  ?positionTitle ?personName
+		SELECT  DISTINCT ?positionTitle (str(?name) AS ?personName)
 		WHERE
 		{
     		?individualURI vivo:relatedBy ?position .
     		?position a vivo:FacultyAdministrativePosition .
     		?position vivo:relates ?person .
     		?person a foaf:Person .
-    		?person rdfs:label ?personName .
+    		?person rdfs:label ?name .
     		?position rdfs:label ?positionTitle .
 		}
 		ORDER BY DESC(?positionTitle) ?personName
