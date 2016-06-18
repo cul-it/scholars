@@ -2244,6 +2244,29 @@ article.property ul.subclass-property-list li {
 #bodyPannel {
 	height: 100% !important;
 }
+/* search results */
+.searchResultsHeader {
+    width: 675px;
+    float: left;
+	font-size: 20px;
+	color: rgb(95, 88, 88);
+	margin: 5px 0 0 12px;
+}
+.searchResultsHeader img {
+	margin: 0 0 0 22px !important;
+}
+.advancedSearchForm .form-button, .searchhits li {
+    margin-top: 1em;
+    font-size: 16px;
+}
+.contentsBrowseGroup {
+    clear: both;
+    padding-top: 5px;
+    margin-left: 15px;
+}
+.searchTOC {
+    border: 1px solid #dde4e3 !important;
+}
 /* browse pages */
 ul#browse-classes li {
 	font-size: 16px;
