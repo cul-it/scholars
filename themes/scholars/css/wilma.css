@@ -2244,6 +2244,12 @@ article.property ul.subclass-property-list li {
 #bodyPannel {
 	height: 100% !important;
 }
+/* homepage images */
+div#research-faculty-mbrs li img {
+    width: 110px;
+    float: left;
+    padding: 0px 8px 24px 24px;
+}
 /* search results */
 .searchResultsHeader {
     width: 675px;
