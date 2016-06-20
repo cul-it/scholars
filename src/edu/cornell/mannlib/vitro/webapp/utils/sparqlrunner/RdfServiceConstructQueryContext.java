@@ -1,6 +1,6 @@
 /* $This file is distributed under the terms of the license in /doc/license.txt$ */
 
-package edu.cornell.mannlib.vitro.webapp.utils.sparql;
+package edu.cornell.mannlib.vitro.webapp.utils.sparqlrunner;
 
 import static edu.cornell.mannlib.vitro.webapp.rdfservice.RDFService.ModelSerializationFormat.NTRIPLE;
 
@@ -13,8 +13,8 @@ import com.hp.hpl.jena.rdf.model.ModelFactory;
 
 import edu.cornell.mannlib.vitro.webapp.rdfservice.RDFService;
 import edu.cornell.mannlib.vitro.webapp.rdfservice.impl.RDFServiceUtils;
-import edu.cornell.mannlib.vitro.webapp.utils.sparql.SparqlQueryRunner.ConstructQueryContext;
-import edu.cornell.mannlib.vitro.webapp.utils.sparql.SparqlQueryRunner.ExecutingConstructQueryContext;
+import edu.cornell.mannlib.vitro.webapp.utils.sparqlrunner.SparqlQueryRunner.ConstructQueryContext;
+import edu.cornell.mannlib.vitro.webapp.utils.sparqlrunner.SparqlQueryRunner.ExecutingConstructQueryContext;
 
 /**
  * TODO

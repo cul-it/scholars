@@ -1,6 +1,6 @@
 /* $This file is distributed under the terms of the license in /doc/license.txt$ */
 
-package edu.cornell.mannlib.vitro.webapp.utils.sparql;
+package edu.cornell.mannlib.vitro.webapp.utils.sparqlrunner;
 
 import java.io.OutputStream;
 import java.util.Arrays;
@@ -18,8 +18,8 @@ import com.hp.hpl.jena.query.ResultSet;
 import com.hp.hpl.jena.query.ResultSetFormatter;
 import com.hp.hpl.jena.rdf.model.Model;
 
-import edu.cornell.mannlib.vitro.webapp.utils.sparql.SparqlQueryRunner.ExecutingSelectQueryContext;
-import edu.cornell.mannlib.vitro.webapp.utils.sparql.SparqlQueryRunner.SelectQueryContext;
+import edu.cornell.mannlib.vitro.webapp.utils.sparqlrunner.SparqlQueryRunner.ExecutingSelectQueryContext;
+import edu.cornell.mannlib.vitro.webapp.utils.sparqlrunner.SparqlQueryRunner.SelectQueryContext;
 
 /**
  * An implementation of QueryContext based on a Model.
@@ -28,7 +28,8 @@ import edu.cornell.mannlib.vitro.webapp.utils.sparql.SparqlQueryRunner.SelectQue
  * a method on this class.
  */
 class ModelSelectQueryContext implements SelectQueryContext {
-	private static final Log log = LogFactory.getLog(ModelSelectQueryContext.class);
+	private static final Log log = LogFactory
+			.getLog(ModelSelectQueryContext.class);
 
 	private final Model model;
 	private final QueryHolder query;
@@ -44,8 +45,10 @@ class ModelSelectQueryContext implements SelectQueryContext {
 	}
 
 	@Override
-	public ModelSelectQueryContext bindVariableToPlainLiteral(String name, String value) {
-		return new ModelSelectQueryContext(model, query.bindToPlainLiteral(name, value));
+	public ModelSelectQueryContext bindVariableToPlainLiteral(String name,
+			String value) {
+		return new ModelSelectQueryContext(model, query.bindToPlainLiteral(
+				name, value));
 	}
 
 	@Override
@@ -70,9 +73,10 @@ class ModelSelectQueryContext implements SelectQueryContext {
 
 		@Override
 		public StringResultsMapping toStringFields(String... names) {
+			String qString = query.getQueryString();
 			Set<String> fieldNames = new HashSet<>(Arrays.asList(names));
 			try {
-				Query q = QueryFactory.create(query.getQueryString());
+				Query q = QueryFactory.create(qString);
 				QueryExecution qexec = QueryExecutionFactory.create(q, model);
 				try {
 					ResultSet results = qexec.execSelect();
@@ -81,17 +85,33 @@ class ModelSelectQueryContext implements SelectQueryContext {
 					qexec.close();
 				}
 			} catch (Exception e) {
-				log.error(
-						"problem while running query '"
-								+ query.getQueryString() + "'", e);
+				log.error("problem while running query '" + qString + "'", e);
 				return StringResultsMapping.EMPTY;
 			}
 		}
 
 		@Override
-		public void writeToOutput(OutputStream output) {
+		public <T> T parse(ResultSetParser<T> parser) {
+			String qString = query.getQueryString();
 			try {
-				Query q = QueryFactory.create(query.getQueryString());
+				Query q = QueryFactory.create(qString);
+				QueryExecution qexec = QueryExecutionFactory.create(q, model);
+				try {
+					return parser.parseResults(qString, qexec.execSelect());
+				} finally {
+					qexec.close();
+				}
+			} catch (Exception e) {
+				log.error("problem while running query '" + qString + "'", e);
+				return parser.defaultValue();
+			}
+		}
+
+		@Override
+		public void writeToOutput(OutputStream output) {
+			String qString = query.getQueryString();
+			try {
+				Query q = QueryFactory.create(qString);
 				QueryExecution qexec = QueryExecutionFactory.create(q, model);
 				try {
 					ResultSetFormatter.outputAsJSON(output, qexec.execSelect());
@@ -99,10 +119,9 @@ class ModelSelectQueryContext implements SelectQueryContext {
 					qexec.close();
 				}
 			} catch (Exception e) {
-				log.error(
-						"problem while running query '"
-								+ query.getQueryString() + "'", e);
+				log.error("problem while running query '" + qString + "'", e);
 			}
 		}
+
 	}
 }

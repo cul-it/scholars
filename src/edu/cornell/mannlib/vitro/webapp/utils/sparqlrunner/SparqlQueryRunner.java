@@ -1,6 +1,6 @@
 /* $This file is distributed under the terms of the license in /doc/license.txt$ */
 
-package edu.cornell.mannlib.vitro.webapp.utils.sparql;
+package edu.cornell.mannlib.vitro.webapp.utils.sparqlrunner;
 
 import java.io.OutputStream;
 
@@ -22,9 +22,9 @@ import edu.cornell.mannlib.vitro.webapp.rdfservice.RDFService;
  * 				               .toStringFields("partner")
  * 				               .flatten();
  * 
- *   QueryHolder q = selectQuery(queryString)
+ *   QueryHolder qh = queryHolder(queryString)
  *                             .bindToUri("uri", uri));
- *   List<Map<String, String> map = createSelectQueryContext(model, q)
+ *   List<Map<String, String> map = createSelectQueryContext(model, qh)
  *                             .execute()
  *                             .toStringFields();
  * </pre>
@@ -47,19 +47,15 @@ public final class SparqlQueryRunner {
 		// No need to create an instance.
 	}
 
-	public static QueryHolder selectQuery(String queryString) {
+	public static QueryHolder queryHolder(String queryString) {
 		return new QueryHolder(queryString);
 	}
 
-	public static QueryHolder constructQuery(String queryString) {
-		return new QueryHolder(queryString);
-	}
-	
 	// ------------- SELECT ----------- //
 	
 	public static SelectQueryContext createSelectQueryContext(RDFService rdfService,
 			String queryString) {
-		return createSelectQueryContext(rdfService, selectQuery(queryString));
+		return createSelectQueryContext(rdfService, queryHolder(queryString));
 	}
 
 	public static SelectQueryContext createSelectQueryContext(RDFService rdfService,
@@ -69,7 +65,7 @@ public final class SparqlQueryRunner {
 
 	public static SelectQueryContext createSelectQueryContext(Model model,
 			String queryString) {
-		return createSelectQueryContext(model, selectQuery(queryString));
+		return createSelectQueryContext(model, queryHolder(queryString));
 	}
 
 	public static SelectQueryContext createSelectQueryContext(Model model,
@@ -89,6 +85,8 @@ public final class SparqlQueryRunner {
 	public static interface ExecutingSelectQueryContext {
 		public StringResultsMapping toStringFields(String... fieldNames);
 		
+		public <T> T parse(ResultSetParser<T> parser);
+		
 		public void writeToOutput(OutputStream output);
 	}
 	
@@ -96,7 +94,7 @@ public final class SparqlQueryRunner {
 	
 	public static ConstructQueryContext createConstructQueryContext(RDFService rdfService,
 			String queryString) {
-		return createConstructQueryContext(rdfService, constructQuery(queryString));
+		return createConstructQueryContext(rdfService, queryHolder(queryString));
 	}
 	
 	public static ConstructQueryContext createConstructQueryContext(RDFService rdfService,
@@ -106,7 +104,7 @@ public final class SparqlQueryRunner {
 	
 	public static ConstructQueryContext createConstructQueryContext(Model model,
 			String queryString) {
-		return createConstructQueryContext(model, constructQuery(queryString));
+		return createConstructQueryContext(model, queryHolder(queryString));
 	}
 	
 	public static ConstructQueryContext createConstructQueryContext(Model model,

@@ -1,6 +1,6 @@
 /* $This file is distributed under the terms of the license in /doc/license.txt$ */
 
-package edu.cornell.mannlib.vitro.webapp.utils.sparql;
+package edu.cornell.mannlib.vitro.webapp.utils.sparqlrunner;
 
 import static edu.cornell.mannlib.vitro.webapp.rdfservice.RDFService.ResultFormat.JSON;
 
@@ -18,8 +18,8 @@ import com.hp.hpl.jena.query.ResultSet;
 
 import edu.cornell.mannlib.vitro.webapp.rdfservice.RDFService;
 import edu.cornell.mannlib.vitro.webapp.rdfservice.impl.RDFServiceUtils;
-import edu.cornell.mannlib.vitro.webapp.utils.sparql.SparqlQueryRunner.ExecutingSelectQueryContext;
-import edu.cornell.mannlib.vitro.webapp.utils.sparql.SparqlQueryRunner.SelectQueryContext;
+import edu.cornell.mannlib.vitro.webapp.utils.sparqlrunner.SparqlQueryRunner.ExecutingSelectQueryContext;
+import edu.cornell.mannlib.vitro.webapp.utils.sparqlrunner.SparqlQueryRunner.SelectQueryContext;
 
 /**
  * An implementation of QueryContext based on an RDFService.
@@ -40,15 +40,17 @@ class RdfServiceSelectQueryContext implements SelectQueryContext {
 	}
 
 	@Override
-	public RdfServiceSelectQueryContext bindVariableToUri(String name, String uri) {
-		return new RdfServiceSelectQueryContext(rdfService,
-				query.bindToUri(name, uri));
+	public RdfServiceSelectQueryContext bindVariableToUri(String name,
+			String uri) {
+		return new RdfServiceSelectQueryContext(rdfService, query.bindToUri(
+				name, uri));
 	}
 
 	@Override
-	public RdfServiceSelectQueryContext bindVariableToPlainLiteral(String name, String value) {
-		return new RdfServiceSelectQueryContext(rdfService, query.bindToPlainLiteral(name,
-				value));
+	public RdfServiceSelectQueryContext bindVariableToPlainLiteral(String name,
+			String value) {
+		return new RdfServiceSelectQueryContext(rdfService,
+				query.bindToPlainLiteral(name, value));
 	}
 
 	@Override
@@ -84,6 +86,18 @@ class RdfServiceSelectQueryContext implements SelectQueryContext {
 						"problem while running query '"
 								+ query.getQueryString() + "'", e);
 				return StringResultsMapping.EMPTY;
+			}
+		}
+
+		@Override
+		public <T> T parse(ResultSetParser<T> parser) {
+			String qString = query.getQueryString();
+			try {
+				return parser.parseResults(qString,
+						RDFServiceUtils.sparqlSelectQuery(qString, rdfService));
+			} catch (Exception e) {
+				log.error("problem while running query '" + qString + "'", e);
+				return parser.defaultValue();
 			}
 		}
 
