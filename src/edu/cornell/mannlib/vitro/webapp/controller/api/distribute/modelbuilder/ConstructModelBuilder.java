@@ -2,7 +2,7 @@
 
 package edu.cornell.mannlib.vitro.webapp.controller.api.distribute.modelbuilder;
 
-import static edu.cornell.mannlib.vitro.webapp.utils.sparql.SparqlQueryRunner.createConstructQueryContext;
+import static edu.cornell.mannlib.vitro.webapp.utils.sparqlrunner.SparqlQueryRunner.createConstructQueryContext;
 
 import java.util.HashSet;
 import java.util.Map;
@@ -18,7 +18,7 @@ import edu.cornell.mannlib.vitro.webapp.controller.api.distribute.DataDistributo
 import edu.cornell.mannlib.vitro.webapp.controller.api.distribute.DataDistributorContext;
 import edu.cornell.mannlib.vitro.webapp.modelaccess.RequestModelAccess;
 import edu.cornell.mannlib.vitro.webapp.utils.configuration.Property;
-import edu.cornell.mannlib.vitro.webapp.utils.sparql.SparqlQueryRunner.ConstructQueryContext;
+import edu.cornell.mannlib.vitro.webapp.utils.sparqlrunner.SparqlQueryRunner.ConstructQueryContext;
 
 /**
  * Run a construct query to build the model. Bind parameters from the request, as needed.

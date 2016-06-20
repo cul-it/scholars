@@ -3,7 +3,7 @@
 package edu.cornell.mannlib.vitro.webapp.controller.api;
 
 import static edu.cornell.mannlib.vitro.webapp.modelaccess.ModelNames.DISPLAY;
-import static edu.cornell.mannlib.vitro.webapp.utils.sparql.SparqlQueryRunner.createSelectQueryContext;
+import static edu.cornell.mannlib.vitro.webapp.utils.sparqlrunner.SparqlQueryRunner.createSelectQueryContext;
 
 import java.io.IOException;
 import java.io.PrintWriter;

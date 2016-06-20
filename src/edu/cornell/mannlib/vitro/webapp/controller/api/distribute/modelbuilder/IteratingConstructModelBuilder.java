@@ -2,7 +2,7 @@
 
 package edu.cornell.mannlib.vitro.webapp.controller.api.distribute.modelbuilder;
 
-import static edu.cornell.mannlib.vitro.webapp.utils.sparql.SparqlQueryRunner.createConstructQueryContext;
+import static edu.cornell.mannlib.vitro.webapp.utils.sparqlrunner.SparqlQueryRunner.createConstructQueryContext;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,7 +20,7 @@ import edu.cornell.mannlib.vitro.webapp.controller.api.distribute.DataDistributo
 import edu.cornell.mannlib.vitro.webapp.controller.api.distribute.DataDistributor.MissingParametersException;
 import edu.cornell.mannlib.vitro.webapp.utils.configuration.ConfigurationBeanLoaderException;
 import edu.cornell.mannlib.vitro.webapp.utils.configuration.Property;
-import edu.cornell.mannlib.vitro.webapp.utils.sparql.SparqlQueryRunner.ConstructQueryContext;
+import edu.cornell.mannlib.vitro.webapp.utils.sparqlrunner.SparqlQueryRunner.ConstructQueryContext;
 
 /**
  * Run the construct query more than once, each time binding one value from each

@@ -2,7 +2,7 @@
 
 package edu.cornell.mannlib.vitro.webapp.controller.api.distribute;
 
-import static edu.cornell.mannlib.vitro.webapp.utils.sparql.SparqlQueryRunner.createSelectQueryContext;
+import static edu.cornell.mannlib.vitro.webapp.utils.sparqlrunner.SparqlQueryRunner.createSelectQueryContext;
 
 import java.io.OutputStream;
 import java.util.ArrayList;
@@ -16,7 +16,7 @@ import com.hp.hpl.jena.rdf.model.ModelFactory;
 
 import edu.cornell.mannlib.vitro.webapp.controller.api.distribute.modelbuilder.ModelBuilder;
 import edu.cornell.mannlib.vitro.webapp.utils.configuration.Property;
-import edu.cornell.mannlib.vitro.webapp.utils.sparql.SparqlQueryRunner.SelectQueryContext;
+import edu.cornell.mannlib.vitro.webapp.utils.sparqlrunner.SparqlQueryRunner.SelectQueryContext;
 
 /**
  * Execute one or more ModelBuilders to build a local model. Execute a SELECT
