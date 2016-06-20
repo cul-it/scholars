@@ -199,7 +199,7 @@ $(document).ready(function() {
 <#else>
 <div class="row" style="margin-bottom:400px"></div>
 </#if>
-<div id="person_word_cloud" style="z-index:3;border-radius:5px"></div>
+<div id="person_word_cloud" style="padding:13px 0 0 22px;z-index:3;border-radius:5px"></div>
 
 <#-- <#include "individual-property-group-tabs.ftl"> -->
 

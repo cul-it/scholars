@@ -113,7 +113,7 @@
 						<h1><a href="/scholars/individual?uri=http%3A%2F%2Fscholars.cornell.edu%2Findividual%2Fakd1">Datta, Ashim</a></h1><span class="title">Professor, Biological and Environmental Engineering</span>
 					</li>
 					<li class="individual" style="display:none" role="listitem"><img alt="placeholder image" src="/scholars/file/n700/thumbnail_lewis.jpg" width="80">
-						<h1><a href="/scholars/individual?uri=http%3A%2F%2Fscholars.cornell.edu%2Findividual%2mel47">Lewis, Mark E.</a></h1><span class="title">Professor, Operations Research and Information Engineering</span>
+						<h1><a href="/scholars/individual?uri=http%3A%2F%2Fscholars.cornell.edu%2Findividual%2Fmel47">Lewis, Mark E.</a></h1><span class="title">Professor, Operations Research and Information Engineering</span>
 					</li>
 					<li class="individual" style="display:none" role="listitem"><img alt="placeholder image" src="/scholars/file/n6003/thumbnail_minca.jpg" width="80">
 						<h1><a href="/scholars/individual?uri=http%3A%2F%2Fscholars.cornell.edu%2Findividual%2Facm299">Minca, Andreea C.</a></h1><span class="title">Assistant Professor, Operations Research and Information Engineering</span>
