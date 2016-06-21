@@ -599,7 +599,7 @@ function plotConceptMap(flaredata, target) {
 					});
 					aa.append("text").attr("fill", "#aaa").attr("text-anchor",
 							"middle").attr("y", (o + t) * -1).text(
-							"RESEARCH AREA")
+							"Subject Area")
 				}
 			}
 			ac.exit().remove();
