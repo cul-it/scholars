@@ -432,7 +432,7 @@ $ ->
 
   loadVisualization {
 #     target : '#bogus',
-      url : applicationContextPath + "/api/dataRequest?action=grants_bubble_chart",
+      url : applicationContextPath + "/api/dataRequest/grants_bubble_chart",
       transform : transformGrantsData,
       display : render_vis,
       height : 600,

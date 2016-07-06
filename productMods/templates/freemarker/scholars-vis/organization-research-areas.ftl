@@ -5,7 +5,7 @@
 $().ready(function() {
   loadVisualization({
     target : '#organization-research-areas',
-    url : "${urls.base}/api/dataRequest?action=organization_research_areas&organization=${individual.uri?url}",
+    url : "${urls.base}/api/dataRequest/organization_research_areas?organization=${individual.uri?url}",
     parse : 'turtle',
     transform : transformFlaredata,
     display : plotConceptMap,

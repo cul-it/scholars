@@ -15,21 +15,21 @@
 :data_distributor_organization_research_areas
     a   <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.DataDistributor> ,
         <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.FileDistributor> ;
-    :path "fakeData/fake_bme_research_areas.ttl" ;
+    :path "visualizationData/fake_bme_research_areas.ttl" ;
     :contentType "text/turtle" .
 
 :data_distributor_collaborations :actionName "collaboration_sunburst" .
 :data_distributor_collaborations
     a   <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.DataDistributor> ,
         <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.FileDistributor> ;
-    :path "fakeData/fake_collab_data.json" ;
+    :path "visualizationData/fake_collab_data.json" ;
     :contentType "application/json" .
 
 :data_distributor_ra_bubble_chart :actionName "research_area_bubbles" .
 :data_distributor_ra_bubble_chart
     a   <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.DataDistributor> ,
         <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.FileDistributor> ;
-    :path "fakeData/fake_bubble_chart_data.json" ;
+    :path "visualizationData/fake_bubble_chart_data.json" ;
     :contentType "application/json" .
 
 #
@@ -63,7 +63,7 @@
 :data_distributor_grants_page_fake
     a   <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.DataDistributor> ,
         <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.FileDistributor> ;
-    :path "fakeData/fake_grants_select_results.json" ;
+    :path "visualizationData/fake_grants_select_results.json" ;
     :contentType "application/sparql-results+json" .
 
 #:data_distributor_grants_page_iterate_select :actionName "grants_bubble_chart" .

@@ -1208,7 +1208,7 @@
 
   <servlet-mapping>
     <servlet-name>DistributeDataApi</servlet-name>
-    <url-pattern>/api/dataRequest</url-pattern>
+    <url-pattern>/api/dataRequest/*</url-pattern>
   </servlet-mapping>
   
    <servlet>

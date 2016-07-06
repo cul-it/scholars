@@ -40,7 +40,7 @@ $().ready(function() {
     modal : true, 
     target : '#person_word_cloud',
     trigger : '#word_cloud_trigger',
-    url : "${urls.base}/api/dataRequest?action=person_word_cloud&person=${individual.uri?url}",
+    url : "${urls.base}/api/dataRequest/person_word_cloud?person=${individual.uri?url}",
     parse : 'turtle',
     transform : transform_word_cloud_data,
     display : draw_word_cloud,
