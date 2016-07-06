@@ -8,13 +8,6 @@
 # Start with some simple ones.
 #
 
-:data_distributor_organization_research_areas :actionName "organization_research_areas" .
-:data_distributor_organization_research_areas
-    a   <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.DataDistributor> ,
-        <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.FileDistributor> ;
-    :path "visualizationData/fake_bme_research_areas.ttl" ;
-    :contentType "text/turtle" .
-
 :data_distributor_collaborations :actionName "collaboration_sunburst" .
 :data_distributor_collaborations
     a   <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.DataDistributor> ,
@@ -30,6 +23,59 @@
     :contentType "application/json" .
 
 #
+# Organization research areas
+#
+
+#:data_distributor_organization_research_areas_fake :actionName "organization_research_areas" .
+:data_distributor_organization_research_areas_fake
+    a   <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.DataDistributor> ,
+        <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.FileDistributor> ;
+    :path "visualizationData/fake_bme_research_areas.ttl" ;
+    :contentType "text/turtle" .
+
+:data_distributor_organization_research_areas :actionName "organization_research_areas" .
+:data_distributor_organization_research_areas
+    a   <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.DataDistributor> ,
+        <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.RdfGraphDistributor> ;
+    :modelBuilder :model_builder_organization_research_areas .
+    
+:model_builder_organization_research_areas
+    a   <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.modelbuilder.ModelBuilder> ,
+        <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.modelbuilder.ConstructModelBuilder> ;
+    :uriBinding "organization" ;
+    :constructQuery """
+		PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+		PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+		PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+		PREFIX vivo: <http://vivoweb.org/ontology/core#>
+		CONSTRUCT {
+		  ?organization vivo:relatedBy ?position .
+		  ?position vivo:relates ?author .
+		  ?author 
+		    a foaf:Person ;
+		    rdfs:label ?name ;
+		    vivo:relatedBy ?authorship .
+		  ?authorship vivo:relates ?article .
+		  ?article vivo:hasSubjectArea ?concept .
+		  ?concept 
+		    a skos:Concept ;
+		    rdfs:label ?subject .
+		}
+		WHERE {
+		  ?organization vivo:relatedBy ?position .
+		  ?position vivo:relates ?author .
+		  ?author 
+		    a foaf:Person ;
+		    rdfs:label ?name ;
+		    vivo:relatedBy ?authorship .
+		  ?authorship vivo:relates ?article .
+		  ?article vivo:hasSubjectArea ?concept .
+		  ?concept 
+		    a skos:Concept ;
+		    rdfs:label ?subject .
+		} 
+      """ .
+
 #
 # Person word cloud
 #

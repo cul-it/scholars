@@ -21,7 +21,6 @@
     <script>
       grantsDataDepartmentUri = "${individual.uri}"
     </script>
-    <#include "grantsPage.ftl">
     <#include "organization-research-areas.ftl">
 </#assign>
 
