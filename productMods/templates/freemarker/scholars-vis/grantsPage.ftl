@@ -74,6 +74,7 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></
     $(document).ready(function() {
           $('#view_selection').change(function() {
             var view_type = $(this).children(":selected").attr('id');
+			$('#view_selection a').removeClass('active');
 			$(this).blur();
             toggle_view(view_type);
             return false;
