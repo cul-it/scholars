@@ -1,11 +1,8 @@
-
-<div id="bubbleChart_area" class="bubbleChart2"></div>
-
 <script>
 $().ready(function() {
   loadVisualization({
     target : '#bubbleChart_area',
-    url : "${urls.base}/api/dataRequest?action=research_area_bubbles",
+    url : "${urls.base}/api/dataRequest/research_area_bubbles",
     transform : transform_bubble_chart_data,
     display : draw_bubble_chart,
     height : 500,

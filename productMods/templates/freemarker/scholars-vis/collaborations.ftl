@@ -6,8 +6,8 @@
 $().ready(function() {
   loadVisualization({
     target : '#collab_vis',
-    url : "${urls.base}/api/dataRequest?action=collaboration_sunburst",
-//    transform : fake_data,
+    url : "${urls.base}/api/dataRequest/collaboration_sunburst",
+    transform : transformCollab,
     display : sunburst,
     height : 500,
     width : 700

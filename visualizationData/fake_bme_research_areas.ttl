@@ -1,0 +1,704 @@
+@prefix bibo: <http://purl.org/ontology/bibo/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix scholars: <http://scholars.cornell.edu/individual/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix vivo: <http://vivoweb.org/ontology/core#> .
+
+scholars:SA-13148 a skos:Concept;
+   rdfs:label "Reproductive Biology" .
+
+scholars:SA-25255 a skos:Concept;
+   rdfs:label "Mechanics" .
+
+scholars:SA-51106 a skos:Concept;
+   rdfs:label "Imaging Science & Photographic Technology" .
+
+scholars:SA-51118 a skos:Concept;
+   rdfs:label "Robotics" .
+
+scholars:SA-62567 a skos:Concept;
+   rdfs:label "Toxicology" .
+
+scholars:SA-68027 a skos:Concept;
+   rdfs:label "Telecommunications" .
+
+scholars:SA-69961 a skos:Concept;
+   rdfs:label "Nutrition & Dietetics" .
+
+scholars:SA-77359 a skos:Concept;
+   rdfs:label "Health Care Sciences & Services" .
+
+scholars:SA-79979 a skos:Concept;
+   rdfs:label "Urology & Nephrology" .
+
+scholars:SA-81762 a skos:Concept;
+   rdfs:label "Sport Sciences" .
+
+scholars:SA-82492 a skos:Concept;
+   rdfs:label "Microbiology" .
+
+scholars:SA-87685 a skos:Concept;
+   rdfs:label "Geology" .
+
+scholars:SA-91704 a skos:Concept;
+   rdfs:label "Infectious Diseases" .
+
+scholars:SA-92962 a skos:Concept;
+   rdfs:label "Environmental Sciences & Ecology" .
+
+scholars:SA-95529 a skos:Concept;
+   rdfs:label "Gastroenterology & Hepatology" .
+
+scholars:ais63 a foaf:Person;
+   rdfs:label "Schafer, Andrew I.";
+   vivo:relatedBy scholars:authorship19 .
+
+scholars:article1 a bibo:Article;
+   vivo:hasSubjectArea scholars:SA-73639,
+     scholars:SA-82492,
+     scholars:SA-71719,
+     scholars:SA-92304,
+     scholars:SA-12985,
+     scholars:SA-92962,
+     scholars:SA-68027,
+     scholars:SA-54545,
+     scholars:SA-39743,
+     scholars:SA-74003,
+     scholars:SA-22933,
+     scholars:SA-97815,
+     scholars:SA-23902,
+     scholars:SA-20239,
+     scholars:SA-48545,
+     scholars:SA-49534,
+     scholars:SA-28261,
+     scholars:SA-69961,
+     scholars:SA-46937,
+     scholars:SA-51547 .
+
+scholars:article10 a bibo:Article;
+   vivo:hasSubjectArea scholars:SA-73639,
+     scholars:SA-37936,
+     scholars:SA-28236,
+     scholars:SA-12985,
+     scholars:SA-54545,
+     scholars:SA-27287,
+     scholars:SA-22933,
+     scholars:SA-97815,
+     scholars:SA-70970,
+     scholars:SA-23902,
+     scholars:SA-20239,
+     scholars:SA-48545,
+     scholars:SA-49534,
+     scholars:SA-29462,
+     scholars:SA-46937,
+     scholars:SA-54362,
+     scholars:SA-82463 .
+
+scholars:article11 a bibo:Article;
+   vivo:hasSubjectArea scholars:SA-33209,
+     scholars:SA-87685,
+     scholars:SA-12985,
+     scholars:SA-54545,
+     scholars:SA-39743,
+     scholars:SA-47964,
+     scholars:SA-74003,
+     scholars:SA-23902,
+     scholars:SA-20239,
+     scholars:SA-48545,
+     scholars:SA-62567,
+     scholars:SA-29462,
+     scholars:SA-62622,
+     scholars:SA-47964a,
+     scholars:SA-51547,
+     scholars:SA-51106 .
+
+scholars:article12 a bibo:Article;
+   vivo:hasSubjectArea scholars:SA-28261,
+     scholars:SA-71719,
+     scholars:SA-39743,
+     scholars:SA-74003 .
+
+scholars:article13 a bibo:Article;
+   vivo:hasSubjectArea scholars:SA-48545,
+     scholars:SA-73639,
+     scholars:SA-46937,
+     scholars:SA-12985,
+     scholars:SA-54545,
+     scholars:SA-97815,
+     scholars:SA-23902 .
+
+scholars:article14 a bibo:Article;
+   vivo:hasSubjectArea scholars:SA-20239,
+     scholars:SA-48545,
+     scholars:SA-73639,
+     scholars:SA-49534,
+     scholars:SA-46937,
+     scholars:SA-12985,
+     scholars:SA-41248,
+     scholars:SA-54545,
+     scholars:SA-74003,
+     scholars:SA-12418,
+     scholars:SA-97815,
+     scholars:SA-23902 .
+
+scholars:article15 a bibo:Article;
+   vivo:hasSubjectArea scholars:SA-73639,
+     scholars:SA-49534,
+     scholars:SA-12985,
+     scholars:SA-49898,
+     scholars:SA-22276 .
+
+scholars:article16 a bibo:Article;
+   vivo:hasSubjectArea scholars:SA-37936,
+     scholars:SA-85413,
+     scholars:SA-12985,
+     scholars:SA-22276,
+     scholars:SA-54545,
+     scholars:SA-39743,
+     scholars:SA-47964,
+     scholars:SA-22933,
+     scholars:SA-70970,
+     scholars:SA-48545,
+     scholars:SA-49534,
+     scholars:SA-29462,
+     scholars:SA-28261,
+     scholars:SA-46937,
+     scholars:SA-36739,
+     scholars:SA-47964a,
+     scholars:SA-41248,
+     scholars:SA-54362 .
+
+scholars:article17 a bibo:Article;
+   vivo:hasSubjectArea scholars:SA-73639,
+     scholars:SA-42594,
+     scholars:SA-12985,
+     scholars:SA-22276,
+     scholars:SA-54545,
+     scholars:SA-74003,
+     scholars:SA-97815,
+     scholars:SA-20239,
+     scholars:SA-48545,
+     scholars:SA-51567,
+     scholars:SA-81762,
+     scholars:SA-28261,
+     scholars:SA-45647,
+     scholars:SA-41248,
+     scholars:SA-54362 .
+
+scholars:article18 a bibo:Article;
+   vivo:hasSubjectArea scholars:SA-20239,
+     scholars:SA-97815,
+     scholars:SA-23902 .
+
+scholars:article19 a bibo:Article;
+   vivo:hasSubjectArea scholars:SA-29462,
+     scholars:SA-37936,
+     scholars:SA-41248,
+     scholars:SA-54362,
+     scholars:SA-39743 .
+
+scholars:article2 a bibo:Article;
+   vivo:hasSubjectArea scholars:SA-20239,
+     scholars:SA-48545,
+     scholars:SA-37936,
+     scholars:SA-29462,
+     scholars:SA-68264,
+     scholars:SA-41248,
+     scholars:SA-92304,
+     scholars:SA-54362,
+     scholars:SA-39743,
+     scholars:SA-54545,
+     scholars:SA-97815 .
+
+scholars:article20 a bibo:Article;
+   vivo:hasSubjectArea scholars:SA-48545,
+     scholars:SA-20239,
+     scholars:SA-73639,
+     scholars:SA-49534,
+     scholars:SA-46937,
+     scholars:SA-12985,
+     scholars:SA-74003,
+     scholars:SA-97815,
+     scholars:SA-23902 .
+
+scholars:article21 a bibo:Article;
+   vivo:hasSubjectArea scholars:SA-20239,
+     scholars:SA-12985,
+     scholars:SA-83756,
+     scholars:SA-54545,
+     scholars:SA-97815 .
+
+scholars:article22 a bibo:Article;
+   vivo:hasSubjectArea scholars:SA-37936,
+     scholars:SA-92304,
+     scholars:SA-12985,
+     scholars:SA-39743,
+     scholars:SA-54545,
+     scholars:SA-74003,
+     scholars:SA-97815,
+     scholars:SA-23902,
+     scholars:SA-48545,
+     scholars:SA-29462,
+     scholars:SA-28261,
+     scholars:SA-41248,
+     scholars:SA-54362 .
+
+scholars:article23 a bibo:Article;
+   vivo:hasSubjectArea scholars:SA-48545,
+     scholars:SA-20239,
+     scholars:SA-49534,
+     scholars:SA-28261,
+     scholars:SA-45647,
+     scholars:SA-41248,
+     scholars:SA-12985,
+     scholars:SA-54545 .
+
+scholars:article24 a bibo:Article;
+   vivo:hasSubjectArea scholars:SA-73639,
+     scholars:SA-37936,
+     scholars:SA-49898,
+     scholars:SA-22276,
+     scholars:SA-54545,
+     scholars:SA-74003,
+     scholars:SA-22933,
+     scholars:SA-97815,
+     scholars:SA-23902,
+     scholars:SA-48545,
+     scholars:SA-20239,
+     scholars:SA-51567,
+     scholars:SA-29462,
+     scholars:SA-91145,
+     scholars:SA-46937,
+     scholars:SA-25255,
+     scholars:SA-54362,
+     scholars:SA-82463,
+     scholars:SA-13148 .
+
+scholars:article3 a bibo:Article;
+   vivo:hasSubjectArea scholars:SA-77359,
+     scholars:SA-28236,
+     scholars:SA-51118,
+     scholars:SA-70970,
+     scholars:SA-23902,
+     scholars:SA-20239,
+     scholars:SA-48545,
+     scholars:SA-27187,
+     scholars:SA-29462,
+     scholars:SA-62622,
+     scholars:SA-46937,
+     scholars:SA-54362,
+     scholars:SA-73639,
+     scholars:SA-37936,
+     scholars:SA-85413,
+     scholars:SA-16189,
+     scholars:SA-12985,
+     scholars:SA-22276,
+     scholars:SA-54545,
+     scholars:SA-83756,
+     scholars:SA-74003,
+     scholars:SA-22933,
+     scholars:SA-97815,
+     scholars:SA-93269,
+     scholars:SA-49534,
+     scholars:SA-36739,
+     scholars:SA-91704 .
+
+scholars:article4 a bibo:Article;
+   vivo:hasSubjectArea scholars:SA-33209,
+     scholars:SA-73639,
+     scholars:SA-42594,
+     scholars:SA-12985,
+     scholars:SA-49898,
+     scholars:SA-54545,
+     scholars:SA-39743,
+     scholars:SA-47964,
+     scholars:SA-74003,
+     scholars:SA-27287,
+     scholars:SA-97815,
+     scholars:SA-23902,
+     scholars:SA-48545,
+     scholars:SA-51567,
+     scholars:SA-20239,
+     scholars:SA-49534,
+     scholars:SA-45647,
+     scholars:SA-28261,
+     scholars:SA-47964a,
+     scholars:SA-41248 .
+
+scholars:article5 a bibo:Article;
+   vivo:hasSubjectArea scholars:SA-73639,
+     scholars:SA-16189,
+     scholars:SA-92304,
+     scholars:SA-28236,
+     scholars:SA-12985,
+     scholars:SA-83756,
+     scholars:SA-54545,
+     scholars:SA-39743,
+     scholars:SA-47964,
+     scholars:SA-74003,
+     scholars:SA-12418,
+     scholars:SA-79979,
+     scholars:SA-97815,
+     scholars:SA-23902,
+     scholars:SA-95529,
+     scholars:SA-20239,
+     scholars:SA-93269,
+     scholars:SA-49534,
+     scholars:SA-68264,
+     scholars:SA-45647,
+     scholars:SA-91145,
+     scholars:SA-47964a,
+     scholars:SA-82463 .
+
+scholars:article6 a bibo:Article;
+   vivo:hasSubjectArea scholars:SA-48545,
+     scholars:SA-73639,
+     scholars:SA-49534,
+     scholars:SA-29462,
+     scholars:SA-28261,
+     scholars:SA-85413,
+     scholars:SA-36739,
+     scholars:SA-12985,
+     scholars:SA-74003,
+     scholars:SA-27287,
+     scholars:SA-22933,
+     scholars:SA-97815 .
+
+scholars:article7 a bibo:Article;
+   vivo:hasSubjectArea scholars:SA-73639,
+     scholars:SA-37936,
+     scholars:SA-92304,
+     scholars:SA-12985,
+     scholars:SA-39743,
+     scholars:SA-54545,
+     scholars:SA-22933,
+     scholars:SA-97815,
+     scholars:SA-23902,
+     scholars:SA-48545,
+     scholars:SA-49534,
+     scholars:SA-29462,
+     scholars:SA-28261,
+     scholars:SA-46937,
+     scholars:SA-41248,
+     scholars:SA-54362 .
+
+scholars:article8 a bibo:Article;
+   vivo:hasSubjectArea scholars:SA-73639,
+     scholars:SA-42594,
+     scholars:SA-92304,
+     scholars:SA-28236,
+     scholars:SA-12985,
+     scholars:SA-54545,
+     scholars:SA-39743,
+     scholars:SA-47964,
+     scholars:SA-74003,
+     scholars:SA-97815,
+     scholars:SA-23902,
+     scholars:SA-20239,
+     scholars:SA-48545,
+     scholars:SA-68264,
+     scholars:SA-45647,
+     scholars:SA-47964a,
+     scholars:SA-54362,
+     scholars:SA-82463 .
+
+scholars:article9 a bibo:Article;
+   vivo:hasSubjectArea scholars:SA-20239,
+     scholars:SA-48545,
+     scholars:SA-73639,
+     scholars:SA-27187,
+     scholars:SA-46937,
+     scholars:SA-12985,
+     scholars:SA-74003,
+     scholars:SA-23902 .
+
+scholars:authorship1 vivo:relates scholars:mls50,
+     scholars:article1 .
+
+scholars:authorship10 vivo:relates scholars:cak57,
+     scholars:article10 .
+
+scholars:authorship11 vivo:relates scholars:yw233,
+     scholars:article11 .
+
+scholars:authorship12 vivo:relates scholars:sbc76,
+     scholars:article12 .
+
+scholars:authorship13 vivo:relates scholars:bs438,
+     scholars:article13 .
+
+scholars:authorship14 vivo:relates scholars:cf99,
+     scholars:article14 .
+
+scholars:authorship15 vivo:relates scholars:sda4,
+     scholars:article15 .
+
+scholars:authorship16 vivo:relates scholars:wlo1,
+     scholars:article16 .
+
+scholars:authorship17 vivo:relates scholars:mcv3,
+     scholars:article17 .
+
+scholars:authorship18 vivo:relates scholars:bdc68,
+     scholars:article18 .
+
+scholars:authorship19 vivo:relates scholars:ais63,
+     scholars:article19 .
+
+scholars:authorship2 vivo:relates scholars:pd83,
+     scholars:article2 .
+
+scholars:authorship20 vivo:relates scholars:mbe2,
+     scholars:article20 .
+
+scholars:authorship21 vivo:relates scholars:jl2792,
+     scholars:article21 .
+
+scholars:authorship22 vivo:relates scholars:nn62,
+     scholars:article22 .
+
+scholars:authorship23 vivo:relates scholars:cjh275,
+     scholars:article23 .
+
+scholars:authorship24 vivo:relates scholars:jtb47,
+     scholars:article24 .
+
+scholars:authorship3 vivo:relates scholars:mrk93,
+     scholars:article3 .
+
+scholars:authorship4 vivo:relates scholars:lb244,
+     scholars:article4 .
+
+scholars:authorship5 vivo:relates scholars:wrz2,
+     scholars:article5 .
+
+scholars:authorship6 vivo:relates scholars:jas456,
+     scholars:article6 .
+
+scholars:authorship7 vivo:relates scholars:cs385,
+     scholars:article7 .
+
+scholars:authorship8 vivo:relates scholars:rw36,
+     scholars:article8 .
+
+scholars:authorship9 vivo:relates scholars:dap43,
+     scholars:article9 .
+
+scholars:bdc68 a foaf:Person;
+   rdfs:label "Cosgrove, Benjamin D.";
+   vivo:relatedBy scholars:authorship18 .
+
+scholars:bs438 a foaf:Person;
+   rdfs:label "Seo, Bo Ri";
+   vivo:relatedBy scholars:authorship13 .
+
+scholars:cak57 a foaf:Person;
+   rdfs:label "Reinhart-King, Cynthia A.";
+   vivo:relatedBy scholars:authorship10 .
+
+scholars:cf99 a foaf:Person;
+   rdfs:label "Fischbach, Claudia";
+   vivo:relatedBy scholars:authorship14 .
+
+scholars:cjh275 a foaf:Person;
+   rdfs:label "Hernandez, Christopher J.";
+   vivo:relatedBy scholars:authorship23 .
+
+scholars:cs385 a foaf:Person;
+   rdfs:label "Schaffer, Chris B.";
+   vivo:relatedBy scholars:authorship7 .
+
+scholars:dap43 a foaf:Person;
+   rdfs:label "Putnam, David";
+   vivo:relatedBy scholars:authorship9 .
+
+scholars:jas456 a foaf:Person;
+   rdfs:label "Spector, Jason A.";
+   vivo:relatedBy scholars:authorship6 .
+
+scholars:jl2792 a foaf:Person;
+   rdfs:label "Lammerding, Jan";
+   vivo:relatedBy scholars:authorship21 .
+
+scholars:jtb47 a foaf:Person;
+   rdfs:label "Butcher, Jonathan T.";
+   vivo:relatedBy scholars:authorship24 .
+
+scholars:lb244 a foaf:Person;
+   rdfs:label "Bonassar, Lawrence J.";
+   vivo:relatedBy scholars:authorship4 .
+
+scholars:mbe2 a foaf:Person;
+   rdfs:label "Esch, Mandy Brigitte";
+   vivo:relatedBy scholars:authorship20 .
+
+scholars:mcv3 a foaf:Person;
+   rdfs:label "van der Meulen, Marjolein C. H.";
+   vivo:relatedBy scholars:authorship17 .
+
+scholars:mls50 a foaf:Person;
+   rdfs:label "Shuler, Michael Louis";
+   vivo:relatedBy scholars:authorship1 .
+
+scholars:mrk93 a foaf:Person;
+   rdfs:label "King, Michael R.";
+   vivo:relatedBy scholars:authorship3 .
+
+scholars:nn62 a foaf:Person;
+   rdfs:label "Nishimura, Nozomi";
+   vivo:relatedBy scholars:authorship22 .
+
+scholars:pd83 a foaf:Person;
+   rdfs:label "Doerschuk, Peter C.";
+   vivo:relatedBy scholars:authorship2 .
+
+scholars:rw36 a foaf:Person;
+   rdfs:label "Williams, Rebecca M.";
+   vivo:relatedBy scholars:authorship8 .
+
+scholars:sbc76 a foaf:Person;
+   rdfs:label "Pannullo, Susan C.";
+   vivo:relatedBy scholars:authorship12 .
+
+scholars:sda4 a foaf:Person;
+   rdfs:label "Archer, Shivaun D.";
+   vivo:relatedBy scholars:authorship15 .
+
+scholars:wlo1 a foaf:Person;
+   rdfs:label "Olbricht, William L.";
+   vivo:relatedBy scholars:authorship16 .
+
+scholars:wrz2 a foaf:Person;
+   rdfs:label "Zipfell, Warren R.";
+   vivo:relatedBy scholars:authorship5 .
+
+scholars:yw233 a foaf:Person;
+   rdfs:label "Wang, Yi";
+   vivo:relatedBy scholars:authorship11 .
+
+scholars:SA-12418 a skos:Concept;
+   rdfs:label "Crystallography" .
+
+scholars:SA-16189 a skos:Concept;
+   rdfs:label "Medical Laboratory Technology" .
+
+scholars:SA-27187 a skos:Concept;
+   rdfs:label "Immunology" .
+
+scholars:SA-33209 a skos:Concept;
+   rdfs:label "Spectroscopy" .
+
+scholars:SA-51547 a skos:Concept;
+   rdfs:label "Plant Sciences" .
+
+scholars:SA-62622 a skos:Concept;
+   rdfs:label "Computer Science" .
+
+scholars:SA-71719 a skos:Concept;
+   rdfs:label "Food Science & Technology" .
+
+scholars:SA-91145 a skos:Concept;
+   rdfs:label "Anatomy & Morphology" .
+
+scholars:SA-93269 a skos:Concept;
+   rdfs:label "Pathology" .
+
+scholars:SA-27287 a skos:Concept;
+   rdfs:label "Polymer Science" .
+
+scholars:SA-36739 a skos:Concept;
+   rdfs:label "Electrochemistry" .
+
+scholars:SA-42594 a skos:Concept;
+   rdfs:label "Rheumatology" .
+
+scholars:SA-49898 a skos:Concept;
+   rdfs:label "Education & Educational Research" .
+
+scholars:SA-51567 a skos:Concept;
+   rdfs:label "Veterinary Sciences" .
+
+scholars:SA-68264 a skos:Concept;
+   rdfs:label "Microscopy" .
+
+scholars:SA-70970 a skos:Concept;
+   rdfs:label "Mathematical & Computational Biology" .
+
+scholars:SA-83756 a skos:Concept;
+   rdfs:label "Genetics & Heredity" .
+
+scholars:SA-85413 a skos:Concept;
+   rdfs:label "Instruments & Instrumentation" .
+
+scholars:SA-28236 a skos:Concept;
+   rdfs:label "Oncology" .
+
+scholars:SA-82463 a skos:Concept;
+   rdfs:label "Developmental Biology" .
+
+scholars:SA-22276 a skos:Concept;
+   rdfs:label "Life Sciences & Biomedicine - Other Topics" .
+
+scholars:SA-45647 a skos:Concept;
+   rdfs:label "Orthopedics" .
+
+scholars:SA-47964 a skos:Concept;
+   rdfs:label "Nuclear Medicine & Medical Imaging" .
+
+scholars:SA-47964a a skos:Concept;
+   rdfs:label "Radiology" .
+
+scholars:SA-92304 a skos:Concept;
+   rdfs:label "Optics" .
+
+scholars:SA-22933 a skos:Concept;
+   rdfs:label "Physics" .
+
+scholars:SA-37936 a skos:Concept;
+   rdfs:label "Hematology" .
+
+scholars:SA-28261 a skos:Concept;
+   rdfs:label "Surgery" .
+
+scholars:SA-41248 a skos:Concept;
+   rdfs:label "Endocrinology & Metabolism" .
+
+scholars:SA-29462 a skos:Concept;
+   rdfs:label "Cardiovascular System & Cardiology" .
+
+scholars:SA-46937 a skos:Concept;
+   rdfs:label "Pharmacology & Pharmacy" .
+
+scholars:SA-54362 a skos:Concept;
+   rdfs:label "Physiology" .
+
+scholars:SA-39743 a skos:Concept;
+   rdfs:label "Neurosciences & Neurology" .
+
+scholars:SA-49534 a skos:Concept;
+   rdfs:label "Chemistry" .
+
+scholars:SA-74003 a skos:Concept;
+   rdfs:label "Biotechnology & Applied Microbiology" .
+
+scholars:SA-23902 a skos:Concept;
+   rdfs:label "Research & Experimental Medicine" .
+
+scholars:SA-73639 a skos:Concept;
+   rdfs:label "Materials Science" .
+
+scholars:SA-20239 a skos:Concept;
+   rdfs:label "Biochemistry & Molecular Biology" .
+
+scholars:SA-54545 a skos:Concept;
+   rdfs:label "Biophysics" .
+
+scholars:SA-97815 a skos:Concept;
+   rdfs:label "Cell Biology" .
+
+scholars:SA-48545 a skos:Concept;
+   rdfs:label "Engineering" .
+
+scholars:SA-12985 a skos:Concept;
+   rdfs:label "Science & Technology - Other Topics" .

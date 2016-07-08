@@ -191,7 +191,7 @@
 		    	modal : true, 
 			    target : '#collab_vis',
 			    trigger : '#collaborations_trigger',
-			    url : "${urls.base}/api/dataRequest?action=collaboration_sunburst",
+			    url : "${urls.base}/api/dataRequest/collaboration_sunburst",
 			    transform : transformCollab,
 			    display : sunburst,
 			    height : 500,
