@@ -3,20 +3,10 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 #
-# configure the DistributeDataApiController.
+# Configure the DistributeDataApiController.
+# 
+# Start with some simple ones.
 #
-
-:data_distributor_person_word_cloud :actionName "person_word_cloud" .
-:data_distributor_person_word_cloud
-    a   <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.DataDistributor> ,
-        <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.PersonWordCloudDistributor> .
-
-:data_distributor_organization_research_areas :actionName "organization_research_areas" .
-:data_distributor_organization_research_areas
-    a   <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.DataDistributor> ,
-        <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.FileDistributor> ;
-    :path "visualizationData/fake_bme_research_areas.ttl" ;
-    :contentType "text/turtle" .
 
 :data_distributor_collaborations :actionName "collaboration_sunburst" .
 :data_distributor_collaborations
@@ -31,6 +21,94 @@
         <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.FileDistributor> ;
     :path "visualizationData/fake_bubble_chart_data.json" ;
     :contentType "application/json" .
+
+#
+# Organization research areas
+#
+
+#:data_distributor_organization_research_areas_fake :actionName "organization_research_areas" .
+:data_distributor_organization_research_areas_fake
+    a   <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.DataDistributor> ,
+        <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.FileDistributor> ;
+    :path "visualizationData/fake_bme_research_areas.ttl" ;
+    :contentType "text/turtle" .
+
+:data_distributor_organization_research_areas :actionName "organization_research_areas" .
+:data_distributor_organization_research_areas
+    a   <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.DataDistributor> ,
+        <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.RdfGraphDistributor> ;
+    :modelBuilder :model_builder_organization_research_areas .
+    
+:model_builder_organization_research_areas
+    a   <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.modelbuilder.ModelBuilder> ,
+        <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.modelbuilder.ConstructModelBuilder> ;
+    :uriBinding "organization" ;
+    :constructQuery """
+		PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+		PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+		PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+		PREFIX vivo: <http://vivoweb.org/ontology/core#>
+		CONSTRUCT {
+		  ?organization vivo:relatedBy ?position .
+		  ?position vivo:relates ?author .
+		  ?author 
+		    a foaf:Person ;
+		    rdfs:label ?name ;
+		    vivo:relatedBy ?authorship .
+		  ?authorship vivo:relates ?article .
+		  ?article vivo:hasSubjectArea ?concept .
+		  ?concept 
+		    a skos:Concept ;
+		    rdfs:label ?subject .
+		}
+		WHERE {
+		  ?organization vivo:relatedBy ?position .
+		  ?position vivo:relates ?author .
+		  ?author 
+		    a foaf:Person ;
+		    rdfs:label ?name ;
+		    vivo:relatedBy ?authorship .
+		  ?authorship vivo:relates ?article .
+		  ?article vivo:hasSubjectArea ?concept .
+		  ?concept 
+		    a skos:Concept ;
+		    rdfs:label ?subject .
+		} 
+      """ .
+
+#
+# Person word cloud
+#
+
+:data_distributor_person_word_cloud :actionName "person_word_cloud" .
+:data_distributor_person_word_cloud
+    a   <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.DataDistributor> ,
+        <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.RdfGraphDistributor> ;
+    :modelBuilder :model_builder_person_word_cloud .
+    
+:model_builder_person_word_cloud
+    a   <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.modelbuilder.ModelBuilder> ,
+        <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.modelbuilder.ConstructModelBuilder> ;
+    :uriBinding "person" ;
+    :constructQuery """
+		PREFIX rdf:      <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+		PREFIX rdfs:     <http://www.w3.org/2000/01/rdf-schema#>
+		PREFIX bibo:     <http://purl.org/ontology/bibo/>
+		PREFIX vivo:     <http://vivoweb.org/ontology/core#>
+		CONSTRUCT {
+		  ?pub rdfs:label ?label .
+		  ?pub vivo:freetextKeyword ?keyword .
+		}
+		WHERE
+		{
+		  ?person vivo:relatedBy ?auth .
+		  ?auth a vivo:Authorship .
+		  ?auth vivo:relates ?pub .
+		  ?pub a bibo:Document .
+		  ?pub rdfs:label ?label .
+		  ?pub vivo:freetextKeyword ?keyword .
+		}
+      """ .
 
 #
 # Grants data:
@@ -226,4 +304,3 @@
       }
       """ .
 
-            
