@@ -149,8 +149,8 @@ function transform_word_cloud_data(graph) {
     }
 
     $(document).click(function(e) {
-    	if(!$(e.target).closest('#stage').length && !$(e.target).is('#stage')) {
-    		tip.hide();
+    	if((!$(e.target).closest('text').length && !$(e.target).is('text')) || (!$(e.target).closest('#stage').length && !$(e.target).is('#stage'))){
+         	tip.hide();
     	}
     });
  };
