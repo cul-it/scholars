@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!-- $This file is distributed under the terms of the license in /doc/license.txt$ -->
+
+<!-- VIVO-specific default list view config file for object properties 
+    
+     See guidelines at https://wiki.duraspace.org/x/eYXVAw -->
+
+<list-view-config>
+    <query-select>
+	    PREFIX rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt;
+		PREFIX c4o:  &lt;http://purl.org/spar/c4o/&gt;
+		PREFIX afn:  &lt;http://jena.hpl.hp.com/ARQ/function#&gt;
+        SELECT ?gcc ?localName ?count
+		WHERE
+		{
+		      ?subject ?property ?gcc .
+			  LET (?localName := afn:localname(?gcc))
+		      OPTIONAL { ?gcc c4o:hasGlobalCountValue ?count .
+		      } 
+		}
+		
+    </query-select>
+
+    <query-construct>
+		PREFIX rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt;
+        PREFIX c4o: &lt;http://purl.org/spar/c4o/&gt;
+        CONSTRUCT {
+            ?subject ?property ?gcc .
+			?gcc rdfs:label ?label .
+			?gcc c4o:hasGlobalCountValue ?count .
+        } WHERE { {
+                ?subject ?property ?gcc .
+        } 
+		UNION {
+			?subject ?property ?gcc .
+			?gcc c4o:hasGlobalCountValue ?count .
+		}	
+		UNION {
+			?subject ?property ?gcc .
+			?gcc rdfs:label ?label .
+		}}
+    </query-construct>
+    
+    <template>propStatement-globalCitationCount.ftl</template>
+</list-view-config>

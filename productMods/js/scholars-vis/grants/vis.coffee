@@ -1,8 +1,7 @@
-
 class BubbleChart
   constructor: (data) ->
     @data = data
-    @width = 900
+    @width = 700
     @height = 600
     @currentlyClicked = false
 
@@ -21,7 +20,6 @@ class BubbleChart
       for person in item.people
         if person.name not in @pis
           @pis.push(person.name)
-
 
     @years.sort();
     @years.reverse();
@@ -215,8 +213,8 @@ class BubbleChart
   # of the visualization
   move_towards_center: (alpha) =>
     (d) =>
-      d.x = d.x + (@center.x - d.x) * (@damper + 0.02) * alpha
-      d.y = d.y + (@center.y - d.y) * (@damper + 0.02) * alpha
+      d.x = d.x + (@center.x - d.x) * (@damper + 0.04) * alpha
+      d.y = d.y + (@center.y - d.y) * (@damper + 0.04) * alpha
 
   # sets the display of bubbles to be separated
   # into each year. Does this by calling move_towards_year
@@ -284,8 +282,6 @@ class BubbleChart
     @currentlyClicked = false
     this.display_pi()
 
-
-
   # move all circles to their associated @year_centers 
   move_towards_year: (alpha) =>
     (d) =>
@@ -340,7 +336,6 @@ class BubbleChart
   hide_pi: () =>
     $("#pis-container").hide()
 
-
   show_details: (data, i, element) =>
     if not @currentlyClicked
       d3.select(element).attr("stroke", "black")
@@ -350,14 +345,14 @@ class BubbleChart
   make_details_clickable: (data, i, element) =>
     @currentlyClicked = true
     @tooltip.hideTooltip()
-    content = "<span class=\"name\">Title:</span><span class=\"value\"><a href='#{data.grant.uri}'>#{data.name}</a></span><br/>"
+    content = "<span class=\"name\">Title: </span><span class=\"value\"><a href='#{data.grant.uri}'>#{data.name}</a></span><br/>"
     content += this.format_people(data.people)
-    content +="<span class=\"name\">Department:</span><span class=\"value\"><a href='#{data.dept.uri}'>#{data.dept.name}</a></span><br/>"
+    content +="<span class=\"name\">Academic Unit: </span><span class=\"value\"><a href='#{data.dept.uri}'>#{data.dept.name}</a></span><br/>"
    #content +="<span class=\"name\">Amount:</span><span class=\"value\"> $#{addCommas(data.value)}</span><br/>"
     content +="<span class=\"name\">Funding agency:</span><span class=\"value\"><a href='#{data.funagen.uri}'>#{data.funagen.name}</a></span><br/>"
-    content +="<span class=\"name\">Year:</span><span class=\"value\"> #{data.year}</span>"
+    content +="<span class=\"name\">Year: </span><span class=\"value\"> #{data.year}</span>"
     @tooltip.showTooltip(content,d3.event)
-    
+
   format_people: (people) =>
     people.sort (a,b) ->
       if a.role > b.role then -1 else if a.role < b.role then 1 else 0
@@ -370,12 +365,11 @@ class BubbleChart
       role = "Investigator"
     else
       role = "Co-Investigator"
-    "<span class=\"name\">#{role}:</span><span class=\"value\"><a href='#{p.uri}'>#{p.name}</a></span><br/>"
+    "<span class=\"name\">#{role}: </span><span class=\"value\"><a href='#{p.uri}'>#{p.name}</a></span><br/>"
   
   hide_details: (data, i, element) =>
     d3.select(element).attr("stroke", (d) => d3.rgb(@fill_color(d.group)).darker())
     #@tooltip.hideTooltip()
-
 
 root = exports ? this
 
@@ -386,10 +380,10 @@ $ ->
     chart = new BubbleChart json
     chart.start()
     root.display_all()
-  
+
   root.display_all = () =>
     chart.display_group_all()
-  
+
   root.display_year = () =>
     chart.display_by_year()
     $("#years").change((e) =>
@@ -430,13 +424,12 @@ $ ->
     else
       root.display_all()
 
-  loadVisualization {
-#     target : '#bogus',
-      url : applicationContextPath + "/api/dataRequest/grants_bubble_chart",
-      transform : transformGrantsData,
-      display : render_vis,
-      height : 600,
-      width : 700
-     }
-  
+	  loadVisualization {
+	#     target : '#bogus',
+	      url : applicationContextPath + "/api/dataRequest/grants_bubble_chart",
+	      transform : transformGrantsData,
+	      display : render_vis,
+	      height : 600,
+	      width : 700
+	     }
   

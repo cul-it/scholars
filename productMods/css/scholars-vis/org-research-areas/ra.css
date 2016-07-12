@@ -127,8 +127,9 @@
 /* map */
 .conceptmap svg {
   font-family: Arial;
-  font-size: 12px;
-  padding: 3cm;
+  font-size: 15px;
+  padding: none;
+  margin-left:	-15px;
 }
 .conceptmap .ditem > rect {
   stroke: #fff;
@@ -141,12 +142,36 @@
   cursor: pointer;
 }
 .conceptmap .all-ditems {
-  fill: #aaa;
+  fill: #565654;
 }
 .conceptmap .detail a text:hover, .conceptmap text.all-ditems:hover {
   text-decoration: underline;
 }
+path.svg-pan-zoom-control-element {
+	fill: #167093;
+}
+.svg-pan-zoom_viewport {
+	margin-top: -60px;
+}
 
+.svg-pan-zoom-zoom-in {
+	fill-opacity: 0.7;
+}
+.svg-pan-zoom-reset-pan-zoom {
+	fill-opacity: 0.6;
+}
+.svg-pan-zoom-zoom-out {
+	fill-opacity: 0.6;
+}
+.svg-pan-zoom-zoom-in:hover {
+	fill-opacity: 0.99;
+}
+.svg-pan-zoom-reset-pan-zoom:hover {
+	fill-opacity: 0.99;
+}
+.svg-pan-zoom-zoom-out:hover {
+	fill-opacity: 0.99;
+}
 body{
 padding-top: 10px;
 }

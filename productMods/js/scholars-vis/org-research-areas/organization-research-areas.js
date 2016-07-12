@@ -88,17 +88,17 @@ function transformFlaredata(graph) {
 	function getObjectUri(stmt) {
 		return stmt.object.uri;
 	}
-
 	function sortByName(a, b) {
 		var aname = a.name.toLowerCase();
 		var bname = b.name.toLowerCase();
 		return aname > bname ? 1 : (aname < bname ? -1 : 0);
 	}
+	
 }
 
 function plotConceptMap(flaredata, target) {
 	
-	function addNewlines(str) {
+		function addNewlines(str) {
 		var splitStr = str.split(" ");
 		var subarrays = [];
 		var wordsInSubstring = 3;
@@ -131,16 +131,16 @@ function plotConceptMap(flaredata, target) {
 
 	function ConceptMap(chartElementId, infoElementId, dataJson) {
 
-		var width = 800;// document.body.clientWidth; //window.innerWidth ||
+		var width = 999;// document.body.clientWidth; //window.innerWidth ||
 		// document.documentElement.clientWidth ||
 		// document.body.clientWidth;
-		var height = 500; // window.innerHeight ||
+		var height = 600; // window.innerHeight ||
 		// document.documentElement.clientHeight ||
 		// document.body.clientHeight;
 		var a = width, c = height, h = c, U = 180, // width of the person
 													// fields.
 		K = 22, // height of the person field area.
-		S = 20, s = 8, R = -30, // Radius for node circle 110
+		S = 20, s = 8, R = -15, // Radius for node circle 110
 		J = 30, o = 15, // placement
 		t = 10, w = 1000, F = "elastic", N = "#0da4d3";
 		var T, q, x, j, H, A, P;
@@ -159,14 +159,14 @@ function plotConceptMap(flaredata, target) {
 			return X[1]
 		}).interpolate("bundle").tension(0.5);
 		// Node name at Footer
-		var Nh = (c / 2) + 100;
-		var svgHeight = c + 250;
-		var d = d3.select(target).append("div").attr("class", "conceptmap").append("svg").attr("width", a)
+		var Nh = (c / 2) + 200;
+		var svgHeight = c + 450;
+		var d = d3.select(target).append("div").attr("class", "conceptmap").append("svg").attr("id", "svg-id").attr("width", a)
 				.attr("height", svgHeight).append("g").attr("transform",
 						"translate(" + a / 2 + "," + Nh + ")");
 		var I = d.append("rect").attr("class", "bg").attr({
 			x : a / -2,
-			y : c / -2,
+			y : c / -3,
 			width : a,
 			height : c,
 			fill : "transparent"
@@ -599,7 +599,7 @@ function plotConceptMap(flaredata, target) {
 					});
 					aa.append("text").attr("fill", "#aaa").attr("text-anchor",
 							"middle").attr("y", (o + t) * -1).text(
-							"RESEARCH AREA")
+							"Subject Area")
 				}
 			}
 			ac.exit().remove();
@@ -756,4 +756,17 @@ function plotConceptMap(flaredata, target) {
 			return k.map[X.key] ? Z : aa
 		}
 	}
+	$(function() {
+	  panZoomInstance = svgPanZoom('#svg-id', {
+	    zoomEnabled: true,
+	    controlIconsEnabled: true,
+	    fit: true,
+	    center: true,
+	    minZoom: 0.1
+	  });
+
+	  // zoom out
+	  panZoomInstance.zoom(0.9)
+
+	})
 };

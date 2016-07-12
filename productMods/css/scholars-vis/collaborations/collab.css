@@ -46,6 +46,7 @@ circle {
 	-moz-border-radius: 10px;
 	border-radius: 5px;
 	-moz-border-radius: 5px;
+	z-index: 100 !important;
 }
 
 .hoverable {

@@ -1,6 +1,3 @@
-
-<div id="bubbleChart_area" class="bubbleChart2"></div>
-
 <script>
 $().ready(function() {
   loadVisualization({

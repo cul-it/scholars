@@ -1,0 +1,82 @@
+# $This file is distributed under the terms of the license in /doc/license.txt$ 
+
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix display: <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix core: <http://vivoweb.org/ontology/core#> .
+@prefix vivoweb: <http://vivoweb.org/ontology#> .
+@prefix afn:  <http://jena.hpl.hp.com/ARQ/function#> .
+
+ 
+#### Check to see if the person being viewed has a first and last name. ####
+#### If so, the page will display the QR code icon link.                ####
+
+## associate the classes with the datagetter (COUNT(?vIndividual) AS ?theCount)##
+
+<http://xmlns.com/foaf/0.1/Person> display:hasDataGetter display:subjectAreasFromPubs .
+<http://xmlns.com/foaf/0.1/Person> display:hasDataGetter display:keywordsFromPubs . 
+<http://xmlns.com/foaf/0.1/Person> display:hasDataGetter display:orcidId .
+ 
+## define the datagetter ##
+
+display:subjectAreasFromPubs
+    a <java:edu.cornell.mannlib.vitro.webapp.utils.dataGetter.SparqlQueryDataGetter>;
+    display:saveToVar "subjectAreas";
+    display:query 
+        """
+        PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+		PREFIX vivo: <http://vivoweb.org/ontology/core#>
+		PREFIX bibo: <http://purl.org/ontology/bibo/>
+		PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
+		PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+
+		SELECT DISTINCT 
+		    ?subjectArea
+		    ?subjectAreaLabel
+		WHERE
+		{
+		    ?individualURI vivo:relatedBy ?authorship .
+		    ?authorship a vivo:Authorship .
+		    ?authorship vivo:relates ?infoResource .
+		    ?infoResource a <http://purl.obolibrary.org/obo/IAO_0000030> .
+			?infoResource vivo:hasSubjectArea ?subjectArea .
+			?subjectArea rdfs:label ?subjectAreaLabel .
+		}
+		ORDER BY ?subjectAreaLabel
+        """ .
+
+display:keywordsFromPubs
+    a <java:edu.cornell.mannlib.vitro.webapp.utils.dataGetter.SparqlQueryDataGetter>;
+    display:saveToVar "keywords";
+    display:query 
+        """
+        PREFIX bibo:     <http://purl.org/ontology/bibo/> 
+		PREFIX vivo:     <http://vivoweb.org/ontology/core#> 
+		SELECT
+		  ?keyword  
+		WHERE 
+		{ 
+		  ?individualURI vivo:relatedBy ?auth . 
+		  ?auth a vivo:Authorship . 
+		  ?auth vivo:relates ?pub . 
+		  ?pub a bibo:Document . 
+		  ?pub vivo:freetextKeyword ?keyword . 
+		}
+		LIMIT 1
+        """ .
+
+display:orcidId
+    a <java:edu.cornell.mannlib.vitro.webapp.utils.dataGetter.SparqlQueryDataGetter>;
+    display:saveToVar "orcidID";
+    display:query 
+        """
+		SELECT ?orcidId
+		WHERE
+		{
+		      ?individualURI <http://vivoweb.org/ontology/core#orcidId> ?orcidId
+		}
+		LIMIT 1
+        """ .
+
+
