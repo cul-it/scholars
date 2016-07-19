@@ -18,7 +18,7 @@ circle {
 
 .choices {
 	background-color: rgba(50, 50, 50, 0.8);
-	color: #EFEFEF;
+	color: white;
 	font-family: Arial;
 	cursor: pointer;
 	font-family: 12px;
@@ -52,6 +52,10 @@ circle {
 .hoverable {
 	width: 100%;
 	padding: 5px;
+}
+
+.nonlinktext{
+	color: #A9A9A9;
 }
 
 .hoverable a {

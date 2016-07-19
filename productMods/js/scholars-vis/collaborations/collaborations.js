@@ -43,10 +43,14 @@ var luminance = d3.scale.sqrt()
     .range([90, 20]);
 
 var tip = d3.tip().attr('class', 'd3-tip choices triangle-isosceles').html(function(d) { 
-  result = "<p><b><a href='" + d.uri + "'>" + d.name + "</a></b></p>";
+  if(d.uri != null){
+    result = "<p><b><a href='" + d.uri + "'>" + d.name + "</a></b></p>";
+  }else{
+    result = "<p class='nonlinktext'>" + d.name + "</p>";
+  }
   if(typeof d.pubs != "undefined") {
     for(var i = 0; i < d.pubs.length; i++) {
-      result += "<p><a href='" + d.pubs[i].uri + "'>" + d.pubs[i].title + "</a></p>";
+      result += "<div class='hoverable'><a href='" + d.pubs[i].uri + "'>" +(i+1)+"- "+d.pubs[i].title + "</a></div>";
     }
   }
   else {
