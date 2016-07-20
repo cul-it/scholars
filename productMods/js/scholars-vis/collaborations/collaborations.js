@@ -50,7 +50,7 @@ var tip = d3.tip().attr('class', 'd3-tip choices triangle-isosceles').html(funct
   }
   if(typeof d.pubs != "undefined") {
     for(var i = 0; i < d.pubs.length; i++) {
-      result += "<div class='hoverable'><a href='" + d.pubs[i].uri + "'>" +(i+1)+"- "+d.pubs[i].title + "</a></div>";
+      result += "<div class='collabhoverable'><a href='" + d.pubs[i].uri + "'>" +(i+1)+". "+d.pubs[i].title + "</a></div>";
     }
   }
   else {
