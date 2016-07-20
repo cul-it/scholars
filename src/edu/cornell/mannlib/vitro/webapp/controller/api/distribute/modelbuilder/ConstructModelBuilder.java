@@ -5,7 +5,6 @@ package edu.cornell.mannlib.vitro.webapp.controller.api.distribute.modelbuilder;
 import static edu.cornell.mannlib.vitro.webapp.utils.sparqlrunner.SparqlQueryRunner.createConstructQueryContext;
 
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.logging.Log;
@@ -14,33 +13,34 @@ import org.apache.commons.logging.LogFactory;
 import com.hp.hpl.jena.rdf.model.Model;
 
 import edu.cornell.mannlib.vitro.webapp.controller.api.distribute.DataDistributor.DataDistributorException;
-import edu.cornell.mannlib.vitro.webapp.controller.api.distribute.DataDistributor.MissingParametersException;
 import edu.cornell.mannlib.vitro.webapp.controller.api.distribute.DataDistributorContext;
+import edu.cornell.mannlib.vitro.webapp.controller.api.distribute.VariableBinder;
 import edu.cornell.mannlib.vitro.webapp.modelaccess.RequestModelAccess;
 import edu.cornell.mannlib.vitro.webapp.utils.configuration.Property;
 import edu.cornell.mannlib.vitro.webapp.utils.sparqlrunner.SparqlQueryRunner.ConstructQueryContext;
 
 /**
- * Run a construct query to build the model. Bind parameters from the request, as needed.
+ * Run a construct query to build the model. Bind parameters from the request,
+ * as needed.
  */
 public class ConstructModelBuilder implements ModelBuilder {
 	private static final Log log = LogFactory
 			.getLog(ConstructModelBuilder.class);
 
 	protected RequestModelAccess models;
-	private Map<String, String[]> parameters;
 	protected String rawConstructQuery;
-	private Set<String> uriBinders = new HashSet<>();
-	private Set<String> literalBinders = new HashSet<>();
+	protected Set<String> uriBindingNames = new HashSet<>();
+	protected Set<String> literalBindingNames = new HashSet<>();
+	protected VariableBinder binder;
 
 	@Property(uri = "http://vitro.mannlib.cornell.edu/ns/vitro/ApplicationSetup#uriBinding")
-	public void addUriBinder(String uriBindingName) {
-		this.uriBinders.add(uriBindingName);
+	public void addUriBindingName(String uriBindingName) {
+		this.uriBindingNames.add(uriBindingName);
 	}
 
 	@Property(uri = "http://vitro.mannlib.cornell.edu/ns/vitro/ApplicationSetup#literalBinding")
-	public void addLiteralBinder(String literalBindingName) {
-		this.literalBinders.add(literalBindingName);
+	public void addLiteralBindingName(String literalBindingName) {
+		this.literalBindingNames.add(literalBindingName);
 	}
 
 	@Property(uri = "http://vitro.mannlib.cornell.edu/ns/vitro/ApplicationSetup#constructQuery", minOccurs = 1, maxOccurs = 1)
@@ -51,51 +51,19 @@ public class ConstructModelBuilder implements ModelBuilder {
 	@Override
 	public void init(DataDistributorContext ddContext)
 			throws DataDistributorException {
-		this.parameters = ddContext.getRequestParameters();
 		this.models = ddContext.getRequestModels();
+		this.binder = new VariableBinder(ddContext.getRequestParameters());
 	}
 
 	@Override
 	public Model buildModel() throws DataDistributorException {
 		ConstructQueryContext queryContext = createConstructQueryContext(
 				models.getRDFService(), rawConstructQuery);
-		queryContext = bindUriParameters(queryContext);
-		queryContext = bindLiteralParameters(queryContext);
+		queryContext = binder.bindUriParameters(uriBindingNames, queryContext);
+		queryContext = binder.bindLiteralParameters(literalBindingNames,
+				queryContext);
 		log.debug("Query context is: " + queryContext);
 		return queryContext.execute().toModel();
-	}
-
-	protected ConstructQueryContext bindUriParameters(
-			ConstructQueryContext queryContext)
-			throws MissingParametersException {
-		for (String name : this.uriBinders) {
-			queryContext = queryContext.bindVariableToUri(name,
-					getOneParameter(name));
-		}
-		return queryContext;
-	}
-
-	protected ConstructQueryContext bindLiteralParameters(
-			ConstructQueryContext queryContext)
-			throws MissingParametersException {
-		for (String name : this.literalBinders) {
-			queryContext = queryContext.bindVariableToPlainLiteral(name,
-					getOneParameter(name));
-		}
-		return queryContext;
-	}
-
-	private String getOneParameter(String name)
-			throws MissingParametersException {
-		String[] uris = parameters.get(name);
-		if (uris == null || uris.length == 0) {
-			throw new MissingParametersException("A '" + name
-					+ "' parameter is required.");
-		} else if (uris.length > 1) {
-			throw new MissingParametersException(
-					"Unexpected multiple values for '" + name + "' parameter.");
-		}
-		return uris[0];
 	}
 
 	@Override

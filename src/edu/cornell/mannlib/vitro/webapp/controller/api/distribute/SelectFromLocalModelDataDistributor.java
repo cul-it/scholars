@@ -22,8 +22,9 @@ import edu.cornell.mannlib.vitro.webapp.utils.sparqlrunner.SparqlQueryRunner.Sel
  * Execute one or more ModelBuilders to build a local model. Execute a SELECT
  * query against that model.
  */
-public class SelectFromLocalModelDataDistributor extends
-		SparqlSelectDataDistributorBase {
+public class SelectFromLocalModelDataDistributor
+		extends
+			SparqlSelectDataDistributorBase {
 	private static final Log log = LogFactory
 			.getLog(SelectFromLocalModelDataDistributor.class);
 
@@ -68,8 +69,10 @@ public class SelectFromLocalModelDataDistributor extends
 			throws MissingParametersException {
 		SelectQueryContext queryContext = createSelectQueryContext(localModel,
 				this.rawSelectQuery);
-		queryContext = bindUriParameters(queryContext);
-		queryContext = bindLiteralParameters(queryContext);
+		queryContext = binder.bindUriParameters(uriBindingNames, queryContext);
+		queryContext = binder.bindLiteralParameters(literalBindingNames,
+				queryContext);
+
 		log.debug("Query context is: " + queryContext);
 		queryContext.execute().writeToOutput(output);
 	}
@@ -78,9 +81,9 @@ public class SelectFromLocalModelDataDistributor extends
 	public String toString() {
 		return "SelectFromLocalModelDataDistributor [actionName=" + actionName
 				+ ", rawSelectQuery=" + rawSelectQuery + ", modelBuilders="
-				+ modelBuilders + ", uriBinders=" + uriBinders
-				+ ", literalBinders=" + literalBinders + ", parameters="
-				+ parameters + "]";
+				+ modelBuilders + ", uriBindingNames=" + uriBindingNames
+				+ ", literalBindingNames=" + literalBindingNames
+				+ ", parameters=" + parameters + "]";
 	}
 
 	@Override

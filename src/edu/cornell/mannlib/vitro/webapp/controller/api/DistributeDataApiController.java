@@ -52,7 +52,7 @@ public class DistributeDataApiController extends VitroApiServlet {
 			Model model = ModelAccess.on(req).getOntModel(DISPLAY);
 			String action = req.getParameter("action");
 
-			String uri = findDistributorForAction(action, model);
+			String uri = findDistributorForAction(req, model);
 			DataDistributor instance = instantiateDistributor(req, uri, model);
 			runIt(req, resp, instance);
 		} catch (NoSuchActionException e) {
@@ -66,17 +66,20 @@ public class DistributeDataApiController extends VitroApiServlet {
 		}
 	}
 
-	private String findDistributorForAction(String action, Model model)
+	private String findDistributorForAction(HttpServletRequest req, Model model)
 			throws NoSuchActionException {
+		String action = req.getPathInfo();
 		if (action == null || action.isEmpty()) {
-			throw new NoSuchActionException(
-					"'action' parameter was not provided.");
+			throw new NoSuchActionException("'action' path was not provided.");
+		}
+		if (action.startsWith("/")) {
+			action = action.substring(1);
 		}
 
 		List<String> uris = createSelectQueryContext(model,
 				DISTRIBUTOR_FOR_SPECIFIED_ACTION)
-				.bindVariableToPlainLiteral("action", action).execute()
-				.toStringFields("distributor").flatten();
+						.bindVariableToPlainLiteral("action", action).execute()
+						.toStringFields("distributor").flatten();
 		Collections.sort(uris);
 		log.debug("Found URIs for action '" + action + "': " + uris);
 
@@ -95,12 +98,13 @@ public class DistributeDataApiController extends VitroApiServlet {
 	private DataDistributor instantiateDistributor(HttpServletRequest req,
 			String distributorUri, Model model) throws ActionFailedException {
 		try {
-			return new ConfigurationBeanLoader(model, req).loadInstance(
-					distributorUri, DataDistributor.class);
+			return new ConfigurationBeanLoader(model, req)
+					.loadInstance(distributorUri, DataDistributor.class);
 		} catch (ConfigurationBeanLoaderException e) {
 			throw new ActionFailedException(
 					"Failed to instantiate the DataDistributor: "
-							+ distributorUri, e);
+							+ distributorUri,
+					e);
 		}
 	}
 

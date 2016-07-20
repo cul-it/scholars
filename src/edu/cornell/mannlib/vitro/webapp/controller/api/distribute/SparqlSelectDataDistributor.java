@@ -61,8 +61,9 @@ public class SparqlSelectDataDistributor extends SparqlSelectDataDistributorBase
 			throws DataDistributorException {
 		SelectQueryContext queryContext = createSelectQueryContext(
 				this.models.getRDFService(), this.rawQuery);
-		queryContext = bindUriParameters(queryContext);
-		queryContext = bindLiteralParameters(queryContext);
+		queryContext = binder.bindUriParameters(uriBindingNames, queryContext);
+		queryContext = binder.bindLiteralParameters(literalBindingNames,
+				queryContext);
 		queryContext.execute().writeToOutput(output);
 	}
 

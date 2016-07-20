@@ -120,8 +120,9 @@ public class IteratingConstructModelBuilder extends ConstructModelBuilder {
 			throws MissingParametersException {
 		ConstructQueryContext queryContext = createConstructQueryContext(
 				models.getRDFService(), rawConstructQuery);
-		queryContext = bindUriParameters(queryContext);
-		queryContext = bindLiteralParameters(queryContext);
+		queryContext = binder.bindUriParameters(uriBindingNames, queryContext);
+		queryContext = binder.bindLiteralParameters(literalBindingNames,
+				queryContext);
 		queryContext = bindIteratorValues(queryContext, iteratorValues);
 		log.debug("Query context is: " + queryContext);
 		return queryContext.execute().toModel();
