@@ -111,6 +111,45 @@
       """ .
 
 #
+# Department word cloud
+#
+
+:data_distributor_department_word_cloud :actionName "department_word_cloud" .
+:data_distributor_department_word_cloud
+    a   <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.DataDistributor> ,
+        <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.RdfGraphDistributor> ;
+    :modelBuilder :model_builder_department_word_cloud .
+    
+:model_builder_department_word_cloud
+    a   <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.modelbuilder.ModelBuilder> ,
+        <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.modelbuilder.ConstructModelBuilder> ;
+	    :uriBinding "department" ;
+	    :constructQuery """
+		PREFIX rdf:      <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+		PREFIX rdfs:     <http://www.w3.org/2000/01/rdf-schema#>
+		PREFIX bibo:     <http://purl.org/ontology/bibo/>
+		PREFIX vivo:     <http://vivoweb.org/ontology/core#>
+	    PREFIX foaf:     <http://xmlns.com/foaf/0.1/>
+		CONSTRUCT {
+		  ?person rdfs:label ?label .
+		  ?person vivo:freetextKeyword ?keyword .
+		}
+		WHERE
+		{
+		  ?department vivo:relatedBy ?posn .
+		  ?posn a vivo:Position .
+		  ?posn vivo:relates ?person .
+		  ?person a foaf:Person .
+		  ?person rdfs:label ?label .
+		  ?person vivo:relatedBy ?auth .
+		  ?auth a vivo:Authorship .
+		  ?auth vivo:relates ?pub .
+		  ?pub a bibo:Document .
+		  ?pub vivo:freetextKeyword ?keyword .
+		}
+      """ .
+
+#
 # Grants data:
 #
 # Twelve construct queries and a select query. 

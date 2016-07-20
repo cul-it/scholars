@@ -1,4 +1,4 @@
-function transform_word_cloud_data(graph) {
+function iconize_word_cloud_data(graph) {
 	var VIVO = $rdf.Namespace("http://vivoweb.org/ontology/core#");
 	var RDFS = $rdf.Namespace("http://www.w3.org/2000/01/rdf-schema#");
 
@@ -41,8 +41,9 @@ function transform_word_cloud_data(graph) {
  		}
 	}
 
+
 	function sortAndSlice(keywordArray) {
-		return keywordArray.sort(compareSizes).slice(0, 50);
+		return keywordArray.sort(compareSizes).slice(0, 100);
 
 		function compareSizes(a, b) {
 			return b.size - a.size;
@@ -50,9 +51,9 @@ function transform_word_cloud_data(graph) {
 	}
 }
  
- function draw_word_cloud(keywords, target) {
-	 var height = $(target).height();
-	 var width = $(target).width();
+ function draw_iconized_word_cloud(keywords, target) {
+	 var height = 110;//$(target).height();
+	 var width = 220;//$(target).width();
 
 	 if (keywords.length == 0) {
 		 $(target).html("<div>No Research Keywords</div>");
@@ -61,16 +62,16 @@ function transform_word_cloud_data(graph) {
 
 	var fill = d3.scale.category20();
     
-    var keywordScale = d3.scale.linear().range([15,60]);
-      
-    var tip = d3.tip().attr('class', 'd3-tip choices triangle-isosceles').html(function(d) { 
+    var keywordScale = d3.scale.linear().range([2,18]);
+     
+/*    var tip = d3.tip().attr('class', 'd3-tip choices triangle-isosceles').html(function(d) { 
       var repr = "";
       for(var i = 0; i < d.entities.length; i++) {
-        repr += "<div class='hoverable'><a href='" + d.entities[i].uri + "'>" +(i+1)+". " + d.entities[i].text + "</a></div>";
-      }
+        repr += "<div class='hoverable'><a href='" + d.entities[i].uri + "'>" + d.entities[i].text + "</a></div>";
+      } 
       return repr; 
     });
-
+*/
     keywordScale.domain([
                          d3.min(keywords, function(d) { return d.size; }),
                          d3.max(keywords, function(d) { return d.size; })
@@ -140,8 +141,8 @@ function transform_word_cloud_data(graph) {
     	.attr("transform", function(d) {
     		return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
     	})
-    	.text(function(d) { return d.text; }).call(tip)
-    	.on('click', tip.show) 
+    	.text(function(d) { return d.text; })//.call(tip)
+   /* 	.on('click', tip.show) 
     	.on('mouseover', function(d) {
     		d3.select(this).style("cursor", "pointer");
     		var currentColor = d3.select(this).style("fill");
@@ -150,12 +151,12 @@ function transform_word_cloud_data(graph) {
     		d3.select(this).style("fill", brighterFill);
     	}).on('mouseout', function(d) {
     		d3.select(this).style("fill", wordsToFills[d.text]);
-    	});
+    	}); */
     }
 
     $(document).click(function(e) {
-    	if((!$(e.target).closest('text').length && !$(e.target).is('text')) || (!$(e.target).closest('#stage').length && !$(e.target).is('#stage'))){
-         	tip.hide();
+    	if(!$(e.target).closest('#stage').length && !$(e.target).is('#stage')) {
+    	//	tip.hide();
     	}
     });
  };

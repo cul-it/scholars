@@ -171,6 +171,12 @@
 			<p style="padding-top:4px;font-size:16px;color:#CC6949">Collaborations</p>
 	  </#if>
 	</div>
+	<#if isAcademicDept >
+		<div style="text-align:center;padding-top:34px;">
+			<a href="#" id="word_cloud_trigger"><div id="dynamic_word_cloud" style="height:120px;display:inline">&nbsp;</div></a>
+			<p style="padding-top:8px;font-size:16px;color:#CC6949">Keywords</p>
+		</div>
+	</#if>
 </#if>
 </div>
 <div id="foafOrgSpacer" class="col-sm-1 col-md-1 col-lg-1"></div>
@@ -289,8 +295,7 @@ $().ready(function() {
 	<div id="vis" style="background-color:#fff"></div>
 </div>
 
-
-
+<div id="department_word_cloud" style="padding:13px 0 0 22px;z-index:3;border-radius:5px"></div>
 
 
 <script>
@@ -354,6 +359,11 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></
 			'<script type="text/javascript" src="${urls.base}/js/scholars-vis/collaborations/collaborations.js"></script>',
 			'<script type="text/javascript" src="${urls.base}/js/scholars-vis/d3/d3-tip.js"></script>',
 			'<script type="text/javascript" src="${urls.base}/js/scholars-vis/jqModal.js"></script>',
+			'<script type="text/javascript" src="${urls.base}/js/scholars-vis/rdflib.js"></script>',
+            '<script type="text/javascript" src="${urls.base}/js/scholars-vis/d3/d3-tip.js"></script>',
+            '<script type="text/javascript" src="${urls.base}/js/scholars-vis/d3/d3.layout.cloud.js"></script>',
+			  '<script type="text/javascript" src="${urls.base}/js/scholars-vis/wordcloud/iconized-person-word-cloud.js"></script>',
+            '<script type="text/javascript" src="${urls.base}/js/scholars-vis/wordcloud/person-word-cloud.js"></script>',
               '<script type="text/coffeescript" src="${urls.base}/js/scholars-vis/grants/vis-modal.coffee"></script>')}
 
 
@@ -384,6 +394,36 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></
 	    display : sunburst,
 	    height : 500,
 	    width : 700	  });
+	});
+	</script>
+</#if>
+<#if isAcademicDept >
+	<script>
+	$().ready(function() {
+	  loadVisualization({
+	    modal : true, 
+	    target : '#department_word_cloud',
+	    trigger : '#word_cloud_trigger',
+	    url : "${urls.base}/api/dataRequest/department_word_cloud?department=${individual.uri?url}",
+	    parse : 'turtle',
+	    transform : transform_word_cloud_data,
+	    display : draw_word_cloud,
+	    height : 0.70,
+	    width : 0.70
+	  });
+	});
+	$().ready(function() {
+	  loadVisualization({
+	//    modal : true, 
+    	target : '#dynamic_word_cloud',
+    //	  trigger : '#word_cloud_trigger',
+    	url : "${urls.base}/api/dataRequest/department_word_cloud?department=${individual.uri?url}",
+	    parse : 'turtle',
+	    transform : iconize_word_cloud_data,
+	    display : draw_iconized_word_cloud,
+	    height : 120,
+	    width : 220
+	  });
 	});
 	</script>
 </#if>

@@ -20,21 +20,27 @@ function iconize_word_cloud_data(graph) {
 		return Array.from(keywordSet).map(gatherKeywordInfo)
 	}
 
-	function gatherKeywordInfo(keyword) {
-		var stmts = graph.statementsMatching(undefined, undefined, keyword);
-		return {
-			text : keyword,
-			size : stmts.length,
-			entities : stmts.map(getEntityInfo)
-		}
+ 	function gatherKeywordInfo(keyword) {
+ 		var stmts = graph.statementsMatching(undefined, undefined, keyword);
+ 		return {
+ 			text : keyword,
+ 			size : stmts.length,
+ 			entities : stmts.map(getEntityInfo).filter(hasLabel)
+ 		}
 
-		function getEntityInfo(stmt) {
-			return {
-				uri : toDisplayPageUrl(stmt.subject.uri),
-				text : graph.any(stmt.subject, RDFS("label")).value
-			};
-		}
+ 		function getEntityInfo(stmt) {
+ 			var info = {uri : toDisplayPageUrl(stmt.subject.uri)};
+ 			var label = graph.any(stmt.subject, RDFS("label"));
+ 			if (label) {
+ 				info["text"] = label.value;
+ 			}
+ 			return info;
+ 		}
+ 		function hasLabel(entity) {
+ 			return entity.text && entity.text.length > 0 
+ 		}
 	}
+
 
 	function sortAndSlice(keywordArray) {
 		return keywordArray.sort(compareSizes).slice(0, 50);
@@ -56,7 +62,7 @@ function iconize_word_cloud_data(graph) {
 
 	var fill = d3.scale.category20();
     
-    var keywordScale = d3.scale.linear().range([4,16]);
+    var keywordScale = d3.scale.linear().range([2,18]);
      
 /*    var tip = d3.tip().attr('class', 'd3-tip choices triangle-isosceles').html(function(d) { 
       var repr = "";
