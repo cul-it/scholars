@@ -42,7 +42,7 @@ function transform_word_cloud_data(graph) {
 	}
 
 	function sortAndSlice(keywordArray) {
-		return keywordArray.sort(compareSizes).slice(0, 50);
+		return keywordArray.sort(compareSizes).slice(0, 100);
 
 		function compareSizes(a, b) {
 			return b.size - a.size;
