@@ -79,7 +79,7 @@ function transformGrantsData(resultSet) {
 					return "GRANT";
 				} else if (binding.type.value == "http://vivoweb.org/ontology/core#Contract") {
 					return "CONTRACT";
-				} else if (binding.type.value == "http://vivoweb.org/ontology/core#CooperativeAgreement") {
+				} else if (binding.type.value == "http://scholars.cornell.edu/ontology/ospcu.owl#CooperativeAgreement") {
 					return "CO-OP";
 				} else {
 					return "UNKNOWN";
