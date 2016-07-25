@@ -295,6 +295,7 @@ $().ready(function() {
 	<div id="vis" style="background-color:#fff"></div>
 </div>
 
+${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/keywordcloud/kwcloud.css" />')}
 <div id="department_word_cloud" style="padding:13px 0 0 22px;z-index:3;border-radius:5px"></div>
 
 

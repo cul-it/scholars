@@ -66,7 +66,7 @@ function transform_word_cloud_data(graph) {
     var tip = d3.tip().attr('class', 'd3-tip choices triangle-isosceles').html(function(d) { 
       var repr = "";
       for(var i = 0; i < d.entities.length; i++) {
-        repr += "<div class='hoverable'><a href='" + d.entities[i].uri + "'>" +(i+1)+". " + d.entities[i].text + "</a></div>";
+        repr += "<div class='kwhoverable'><a href='" + d.entities[i].uri + "'>" +(i+1)+". " + d.entities[i].text + "</a></div>";
       }
       return repr; 
     });
