@@ -321,6 +321,7 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/themes/scholars/
               '<script type="text/javascript" src="${urls.base}/js/imageUpload/imageUploadUtils.js"></script>')}
 
 ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/jqModal.css" />')}
+${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/keywordcloud/kwcloud.css" />')}
 
 ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></script>',
 	              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/jqModal.js"></script>',
