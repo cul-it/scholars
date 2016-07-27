@@ -18,7 +18,6 @@
     </section> <!-- #individual-intro -->
     <!--postindividual overview ftl-->
     ${departmentalGraduateFields!}
-    ${visualizationContent!}
 </#assign>
 
 <#include "individual-vitro.ftl">
