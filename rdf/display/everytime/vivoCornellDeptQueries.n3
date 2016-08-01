@@ -115,7 +115,7 @@ display:getGFDepartmentDataGetter
                 "deptGradFields" .
 
 
-<freemarker:organization-research-areas.ftl> display:hasDataGetter display:subjAreaVisDataGetter .
+<freemarker:organization-subject-areas.ftl> display:hasDataGetter display:subjAreaVisDataGetter .
 
 display:subjAreaVisDataGetter
     a <java:edu.cornell.mannlib.vitro.webapp.utils.dataGetter.SparqlQueryDataGetter> ;

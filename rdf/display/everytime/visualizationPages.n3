@@ -1,0 +1,32 @@
+@prefix display: <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#> .
+
+# Creates the page and url mapping to display the grants visualization page
+display:GrantsVisualizationPage
+        a       display:Page ;
+        display:isSelfContainedTemplate
+                "true" ;
+        display:requiresAction
+                <java:edu.cornell.mannlib.vitro.webapp.auth.permissions.SimplePermission#PageViewablePublic> ;
+        display:requiresBodyTemplate
+                "grantsPage.ftl" ;
+        display:title
+                "Grants Visualization" ;
+        display:urlMapping
+                "/grantsVisualization" .
+
+
+
+# Creates the page and url mapping to display the subject area-to-person visualization pages
+
+display:SubjectAreaVisualizationPage
+        a       display:Page ;
+        display:isSelfContainedTemplate
+                "true" ;
+        display:requiresAction
+                <java:edu.cornell.mannlib.vitro.webapp.auth.permissions.SimplePermission#PageViewablePublic> ;
+        display:requiresBodyTemplate
+                "organization-subject-areas.ftl" ;
+        display:title
+                "Subject Area Visualization" ;
+        display:urlMapping
+                "/orgSAVisualization" .
