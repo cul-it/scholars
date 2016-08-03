@@ -39,7 +39,7 @@
 			<#include "developer.ftl">
 			<div id="body" style="width:100%;margin:0;background-color:#f1f2f3;min-height: 0;padding:50px 70px 0 70px">
 				<div id="row1" class="row" style="background-color:#f1f2f3">
-					<div class="col-sm-4 col-md-4 col-lg-4" id="visualizations" style="border: 1px solid #cdd4e7;border-top:5px solid #CC6949;position:relative;background-color: #fff">
+					<div class="col-sm-4 col-md-4 col-lg-4 scholars-container" id="visualizations">
 						<#-- <h4 style="border-bottom:1px solid #CC6949;background:#403d3e url('${urls.base}/themes/scholars/images/viz_header_test.png') no-repeat 30% 50%;;margin:0 -15px;padding:30px;;color:#fff;text-align:center;margin-bottom:16px;font-size:20px;font-family:Lucida Sans Unicode, Helvetica, sans-serif">Visualizations</h4> -->
 						<h4 style="color:#5f5858;text-align:center;margin-top:16px;margin-bottom:16px;font-size:20px;font-family:Lucida Sans Unicode, Helvetica, sans-serif">Visualizations</h4>
 						<div class="row" style="background-color:#f1f2f3;margin-top:30px">
@@ -68,7 +68,7 @@
 		        		<#--	<@lh.facultyMbrHtml /> -->
 
 
-					    <div class="col-sm-12 col-md-12 col-lg-12" id="fac_researchers" style="border: 1px solid #cdd4e7;border-top:5px solid #CC6949;position:relative;background-color: #fff">
+					    <div class="col-sm-12 col-md-12 col-lg-12 scholars-container" id="fac_researchers">
 						<h4 style="color:#5f5858;text-align:center;margin-top:16px;margin-bottom:16px;font-size:20px;font-family:Lucida Sans Unicode, Helvetica, sans-serif">Faculty and Researchers</h4>
 							<div class="row" style="background-color:#fff">
 					        		<div id="research-faculty-mbrs" style="margin-top:0">

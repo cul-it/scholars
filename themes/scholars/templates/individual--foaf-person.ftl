@@ -60,8 +60,8 @@ $(document).ready(function() {
 <#if subjectAreas?has_content>
   <#assign subjectAreaList>
 	<article class="property" role="article">
-		<h3 style="color: rgb(204, 105, 73);">Journal Subject Areas</h3>
-		<ul id="individual-publications" class="property-list" role="list" style="padding-top:12px">
+		<h3 class="burnt-orange">Journal Subject Areas</h3>
+		<ul id="journal-subject-area-list" class="property-list" role="list">
 			<#list subjectAreas as subject>
 				<li role="listitem">		
 					<a href="${urls.base}/individual?uri=${subject.subjectArea!}">${subject.subjectAreaLabel!}</a>
@@ -86,8 +86,8 @@ $(document).ready(function() {
 	<#assign theOrcidId = orcidID?first.orcidId! />
 </#if>
 
-<div id="row1" class="row" style="background-color:#f1f2f3">
-<div class="col-sm-12 col-md-12 col-lg-12" id="foafPersonMainColumn" style="border: 1px solid #cdd4e7;border-top:5px solid #CC6949;position:relative;background-color: #fff">
+<div id="row1" class="row scholars-row">
+<div class="col-sm-12 col-md-12 col-lg-12 scholars-container" id="foafPersonMainColumn">
 <section id="share-contact" role="region"> 
     <#-- Image -->           
     <#assign individualImage>
@@ -99,26 +99,26 @@ $(document).ready(function() {
     </#assign>
 
     <#if ( individualImage?contains('<img class="individual-photo"') )>
-        <#assign infoClass = 'class="withThumb"'/>
+        <#assign infoClass = 'withThumb'/>
     </#if>
 
     <div id="photo-wrapper" >${individualImage}</div>
     
     <#-- include "individual-visualizationFoafPerson.ftl" -->
 </section> <!-- end share-contact -->
-<section id="individual-info" ${infoClass!} role="region" style="padding-bottom: 15px;">
+<section id="individual-info" class="scholars-person-info ${infoClass!}" role="region">
     <#include "individual-adminPanel.ftl">
     <header>
         <#if relatedSubject??>
             <h2>${relatedSubject.relatingPredicateDomainPublic} ${i18n().for} ${relatedSubject.name}</h2>
             <p><a href="${relatedSubject.url}" title="${i18n().return_to(relatedSubject.name)}">&larr; ${i18n().return_to(relatedSubject.name)}</a></p>
         <#else>  
-            <h1 itemprop="name" class="vcard foaf-person fn" style="margin-top:10px;<#if !editable>float:left;</#if>"> 
+            <h1 itemprop="name" class="vcard foaf-person fn"> 
                 <#-- Label -->
                 <@p.label individual editable labelCount localesCount/>
             </h1>
         </#if>    
-		<div style="float:right;margin:6px 4px -14px 0">
+		<div id="foaf-person-icons">
 			<#include "individual-iconControls.ftl" />
 		</div>
     	<#include "individual-positions.ftl">
@@ -129,41 +129,40 @@ $(document).ready(function() {
 
 
 <#if isAuthor || isInvestigator || editable >
-<div id="row2" class="row" style="background-color:#f1f2f3;margin:30px -15px 100px -15px" >
+<div id="row2" class="row scholars-row foaf-person-row2">
 
-<div id="foafPersonViz" class="col-sm-3 col-md-3 col-lg-3" style=";border: 1px solid #cdd4e7;border-top:5px solid #CC6949;position:relative;background-color: #fff">
-	<h4 style="display:none;color:#5f5858;text-align:center;margin-top:16px;margin-bottom:16px;font-size:1.6em;font-family:Lucida Sans Unicode, Helvetica, sans-serif">Visualizations</h4>
+<div id="visualization-column" class="col-sm-3 col-md-3 col-lg-3 scholars-container">
  	<#if isAuthor >
 		<#if hasKeywords >
- 			<div style="text-align:center;padding-top:34px;">
- 				<a href="#" id="word_cloud_trigger"><div id="dynamic_word_cloud" style="height:120px;display:inline">&nbsp;</div></a>
- 				<p style="padding-top:8px;font-size:16px;color:#CC6949">Keywords</p>
+ 			<div>
+ 				<a href="#" id="word_cloud_trigger"><div id="dynamic_word_cloud">&nbsp;</div></a>
+ 				<p>Keywords</p>
  			</div>
 		</#if>
- 		<div style="text-align:center;padding-top:26px">
+ 		<div>
  			<a href="${coAuthorVisUrl}"><img width="60%" src="${urls.base}/themes/scholars/images/co-authors.png"/></a>
- 			<p style="padding-top:4px;font-size:16px;color:#CC6949">Co-authors</p>
+ 			<p>Co-authors</p>
  		</div>
  	</#if>
  	<#if isInvestigator >
- 		<div style="text-align:center;padding-top:26px">
+ 		<div>
  			<a href="${coInvestigatorVisUrl}"><img width="60%" src="${urls.base}/themes/scholars/images/co-investigators.png"/></a>
- 			<p style="padding-top:4px;font-size:16px;color:#CC6949">Co-investigators</p>
+ 			<p>Co-investigators</p>
  		</div>
  	</#if>
 </div>
 <div id="foafPersonSpacer" class="col-sm-1 col-md-1 col-lg-1"></div>
-<div id="foafPersonTabs" class="col-sm-8 col-md-8 col-lg-8" style="border: 1px solid #cdd4e7;border-top:5px solid #CC6949;background-color: #fff">
-	<div id="tabs" style="margin: 0 -15px 0 -15px;padding:0">
-	  <ul style="margin:0;padding:8px 0 0 8px; border-top:none;border-right: none; border-left:none; background:#ebf3f4;border-radius:0">
+<div id="foafPersonTabs" class="col-sm-8 col-md-8 col-lg-8  scholars-container">
+	<div id="scholars-tabs-container">
+	  <ul id="scholars-tabs">
 	    <#if isAuthor ><li><a href="#tabs-1">Publications</a></li></#if>
 	    <#if isInvestigator ><li><a href="#tabs-2">Grants</a></li></#if>
 	  </ul>
 	  <#if isAuthor >
-		  <div id="tabs-1" style="height:620px;overflow:auto">
+		  <div id="tabs-1" class="tab-content">
 			<article class="property" role="article">
 			<#if subjectAreaList?has_content>
-				<a href="#" class="jqModal" style="color:#167093;float:right;padding-right:18px;margin-top:6px">Subject Areas</a>
+				<a id="subject-area-link" href="#" class="jqModal" >Subject Areas</a>
 			</#if>
 		    <ul id="individual-publications" class="property-list" role="list" >
 		    	${publications!}
@@ -172,7 +171,7 @@ $(document).ready(function() {
 		  </div>
 	  </#if>
 	  <#if isInvestigator >
-		  <div id="tabs-2" style="height:620px;overflow:auto">
+		  <div id="tabs-2"  class="tab-content">
 		    <article class="property" role="article">
 		    <ul id="individual-grants-pi" class="property-list" role="list" >
 				<li class="subclass" role="listitem">
@@ -197,17 +196,17 @@ $(document).ready(function() {
 </div>
 </div> <!-- row2 div -->
 <#else>
-<div class="row" style="margin-bottom:400px"></div>
+<div id="foaf-person-blank-row" class="row scholars-row"></div>
 </#if>
-<div id="person_word_cloud" style="padding:13px 0 0 22px;z-index:3;border-radius:5px"></div>
+<div id="word_cloud_vis"></div>
 
 <#-- <#include "individual-property-group-tabs.ftl"> -->
 
 
 
-<div class="jqmWindow" id="dialog" style="padding:0;border-radius:3px;border-color:#f1f2f3;max-height:480px;overflow:auto">
-	<div style="background-color:#fff">
-		<a href="#" class="jqmClose" style="float:right;padding-right:15px;margin-top:7px"><i class="fa fa-times" aria-hidden="true"></i>
+<div class="jqmWindow" id="subject-area-dialog">
+	<div>
+		<a id="subject-area-dialog-close" href="#" class="jqmClose"><i class="fa fa-times" aria-hidden="true"></i>
 		</a>
 		${subjectAreaList!}
 	</div>
@@ -266,10 +265,10 @@ var i18nStringsUriRdf = {
 </script>
 <script>
 $(function() {
-  $( "#tabs" ).tabs();
+  $( "#scholars-tabs-container" ).tabs();
 });
 $().ready(function() {
-  $('#dialog').jqm();
+  $('#subject-area-dialog').jqm();
 });
 </script>
 <#if hasKeywords >
@@ -277,7 +276,7 @@ $().ready(function() {
 	$().ready(function() {
 	  loadVisualization({
 	    modal : true, 
-	    target : '#person_word_cloud',
+	    target : '#word_cloud_vis',
 	    trigger : '#word_cloud_trigger',
 	    url : "${urls.base}/api/dataRequest/person_word_cloud?person=${individual.uri?url}",
 	    parse : 'turtle',
