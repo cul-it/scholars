@@ -8,6 +8,20 @@
 # Start with some simple ones.
 #
 
+:data_distributor_collaborations_interd :actionName "interdepartmental_sunburst" .
+:data_distributor_collaborations_interd
+    a   <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.DataDistributor> ,
+        <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.FileDistributor> ;
+    :path "visualizationData/fake_collab_data_interdept.json" ;
+    :contentType "application/json" .
+
+:data_distributor_collaborations_crossunit :actionName "cross_unit_sunburst" .
+:data_distributor_collaborations_crossunit
+    a   <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.DataDistributor> ,
+        <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.FileDistributor> ;
+    :path "visualizationData/fake_collab_data_intercollege.json" ;
+    :contentType "application/json" .
+
 :data_distributor_collaborations :actionName "collaboration_sunburst" .
 :data_distributor_collaborations
     a   <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.DataDistributor> ,

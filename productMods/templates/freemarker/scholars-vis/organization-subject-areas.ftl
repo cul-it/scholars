@@ -5,11 +5,11 @@
 		<a href="#"><i class="fa fa-download" aria-hidden="true" title="download the data" style="font-size:24px;z-index:4000"></i></a>
 	</div>
 		<div  style="margin:16px 0 0 20px"><h2 style="padding:0;color:#5f5858;font-size:20px">Person to Subject Area Map &ndash; ${requestingDept[0].label!}</h2></div>	
-		<div id="organization-research-areas" style="padding-bottom:60px"></div>
+		<div id="organization-subject-areas" style="padding-bottom:60px"></div>
 		<script>
 		$().ready(function() {
 		  loadVisualization({
-		    target : '#organization-research-areas',
+		    target : '#organization-subject-areas',
 		    url : "${urls.base}/api/dataRequest/organization_research_areas?organization=${requestingDept[0].dept?url}",
 		    parse : 'turtle',
 		    transform : transformFlaredata,

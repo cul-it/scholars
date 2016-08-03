@@ -61,7 +61,7 @@
 			<h3 style="color:#CC6949;font-size:17px;padding:0 0 0 0">Authors</h3>
 		  </div>
 		  <div class="col-sm-9" style="padding:2px 0 0 4px">
-			<div style="color:#595b5b;font-size:16px;padding-left:15px">
+			<div class="scholars-article-metadata">
 			<#list authorsProp.statements as statement>
 				<span style="padding-right:8px">
 		    	<#if statement.subclass?? && statement.subclass?contains("vcard")>
@@ -91,10 +91,10 @@
 			<h3 style="color:#CC6949;font-size:17px;padding:0 0 0 0">Journal</h3>
 		  </div>
 		  <div class="col-sm-9" style="padding:2px 0 0 2px">
-			<span style="color:#595b5b;font-size:16px;padding-left:15px">
+			<div class="scholars-article-metadata">
 				<em><a href="${profileUrl(pubVenue.object)}" title="${pubVenue.label!}">${pubVenue.label!}</a></em>
 				<#if lcp??><a href="${lcp}" target="_blank"><i class="fa fa-external-link-square" aria-hidden="true" style="margin:0 0 0 8px;color:#609bc1"></i></a></#if>
-			</span>
+			</div>
 		  </div>
 		</div>
 	</#assign>
@@ -103,7 +103,7 @@
 	<#assign volumeStmt = volumeProp.statements?first />
 	<#assign volume >
 		<div style="margin-left:24px;display:inline-block;width:80%">
-			<h3 style="color:#CC6949;font-size:17px;padding:2px 0 6px 0;display:inline-block;width:100px;text-align:right">Volume</h3><span style="color:#595b5b;font-size:16px;padding-left:15px">${volumeStmt.value!}</span>
+			<h3 style="color:#CC6949;font-size:17px;padding:2px 0 6px 0;display:inline-block;width:100px;text-align:right">Volume</h3><div class="scholars-article-metadata">${volumeStmt.value!}</div>
 		</div>
 	</#assign>
 </#if>
@@ -111,7 +111,7 @@
 	<#assign issueStmt = issueProp.statements?first!""/>
 	<#assign issue >
 		<div style="margin-left:24px;display:inline-block;width:80%">
-			<h3 style="color:#CC6949;font-size:17px;padding:2px 0 6px 0;display:inline-block;width:100px;text-align:right">Issue</h3><span style="color:#595b5b;font-size:16px;padding-left:15px">${issueStmt.value!}</span>
+			<h3 style="color:#CC6949;font-size:17px;padding:2px 0 6px 0;display:inline-block;width:100px;text-align:right">Issue</h3><div class="scholars-article-metadata">${issueStmt.value!}</div>
 		</div>
 	</#assign>
 </#if>
@@ -121,9 +121,9 @@
 			<h3 style="color:#CC6949;font-size:17px;padding:0 0 0 0">Volume(Issue)</h3>
 		  </div>
 		  <div class="col-sm-3" style="padding:8px 0 0 0">
-			<span style="color:#595b5b;font-size:16px;padding-left:15px">
+			<div class="scholars-article-metadata">
 				${volumeStmt.value!}(${issueStmt.value!})
-			</span>
+			</div>
 		  </div>
 	</#assign>
 <#elseif volume?has_content && !issue?has_content >
@@ -132,9 +132,9 @@
 			<h3 style="color:#CC6949;font-size:17px;padding:0 0 0 0">Volume</h3>
 		  </div>
 		  <div class="col-sm-3" style="padding:2px 0 0 0">
-			<span style="color:#595b5b;font-size:16px;padding-left:15px">
+			<div class="scholars-article-metadata">
 				${volumeStmt.value!}
-			</span>
+			</div>
 		  </div>
 	</#assign>
 <#elseif !volume?has_content && issue?has_content >
@@ -143,9 +143,9 @@
 			<h3 style="color:#CC6949;font-size:17px;padding:0 0 0 0">Issue</h3>
 		  </div>
 		  <div class="col-sm-3" style="padding:2px 0 0 0">
-			<span style="color:#595b5b;font-size:16px;padding-left:15px">
+			<div class="scholars-article-metadata">
 				${issueStmt.value!}
-			</span>
+			</div>
 		  </div>
 	</#assign>
 </#if>
@@ -164,9 +164,9 @@
 			<h3 style="color:#CC6949;font-size:17px;padding:0 0 0 0">Pages</h3>
 		  </div>
 		  <div class="col-sm-9" style="padding:2px 0 0 7px">
-			<span style="color:#595b5b;font-size:16px;padding-left:15px">
+			<div class="scholars-article-metadata">
 				${startPage!} - ${endPage!}
-			</span>
+			</div>
 		  </div>
 		</div>
 	</#assign>
@@ -177,9 +177,9 @@
 			<h3 style="color:#CC6949;font-size:17px;padding:0 0 0 0">Starts</h3>
 		  </div>
 		  <div class="col-sm-9" style="padding:2px 0 0 7px">
-			<span style="color:#595b5b;font-size:16px;padding-left:15px">
+			<div class="scholars-article-metadata">
 				${startPage!}
-			</span>
+			</div>
 		  </div>
 		</div>
 	</#assign>
@@ -190,9 +190,9 @@
 			<h3 style="color:#CC6949;font-size:17px;padding:0 0 0 0">Ends</h3>
 		  </div>
 		  <div class="col-sm-9" style="padding:2px 0 0 7px">
-			<span style="color:#595b5b;font-size:16px;padding-left:15px">
+			<div class="scholars-article-metadata">
 				${endPage!}
-			</span>
+			</div>
 		  </div>
 		</div>
 	</#assign>
@@ -204,9 +204,9 @@
 			<h3 style="color:#CC6949;font-size:17px;padding:0 0 0 0">Published</h3>
 		  </div>
 		  <div class="col-sm-3" style="padding:8px 0 0 0">
-			<span style="color:#595b5b;font-size:16px;padding-left:15px">
+			<div class="scholars-article-metadata">
 				${pubDate!}
-			</span>
+			</div>
 		  </div>
 	</#assign>
 
@@ -217,9 +217,9 @@
 			<h3 style="color:#CC6949;font-size:17px;padding:0 0 0 0">Citations</h3>
 		  </div>
 		  <div class="col-sm-3" style="padding:9px 0 0 0">
-			<span style="color:#595b5b;font-size:16px;padding-left:15px">
+			<div class="scholars-article-metadata">
 				&nbsp;${gccProp.statements[0].count!}
-			</span>
+			</div>
 		  </div>
 	</#assign>
 </#if>
@@ -231,9 +231,9 @@
 			<h3 style="color:#CC6949;font-size:17px;padding:0 0 0 0">DOI</h3>
 		</div>
 		<div class="col-sm-9" style="padding:0 0 0 0;margin-top:-3px">
-			<span style="color:#595b5b;font-size:<#if (doi?length! > 30) && abstract?has_content>15<#else>16</#if>px;padding-left:15px">
+			<div style="color:#595b5b;font-size:<#if (doi?length! > 30) && abstract?has_content>15<#else>16</#if>px;padding-left:15px">
 				<a href="http://dx.doi.org/${doi!}" title="link to DOI" target="_blank">${doi!}</a>
-			</span>
+			</div>
 		</div>
 	</#assign>
 </#if>
@@ -245,9 +245,9 @@
 			<h3 style="color:#CC6949;font-size:17px;padding:0 0 0 0">PMID</h3>
 		</div>
 		<div class="col-sm-9" style="padding:0 0 0 0;margin-top:-3px">
-			<span style="color:#595b5b;font-size:16px;padding-left:15px">
+			<div class="scholars-article-metadata">
 				<a href="http://www.ncbi.nlm.nih.gov/pubmed/?term=${pmid!}" title="View in PubMed" target="_blank">${pmid!}</a>
-			</span>
+			</div>
 		</div>			
 	</#assign>
 </#if>
@@ -276,7 +276,7 @@
 </#if>
 
 <div id="row1" class="row" style="background-color:#f1f2f3">
-<div class="col-sm-12 col-md-12 col-lg-12" id="biboDocumentMainColumn" style="border: 1px solid #cdd4e7;border-top:5px solid #CC6949;position:relative;background-color: #fff">
+<div class="col-sm-12 col-md-12 col-lg-12 scholars-container" id="biboDocumentMainColumn">
 
 <section id="individual-info" ${infoClass!} role="region">
     <#include "individual-adminPanel.ftl">
@@ -341,7 +341,7 @@
 <div id="row2" class="row" style="background-color:#f1f2f3;margin-top:30px" >
 
 <#if abstract?has_content>
-	<div id="keywords" class="col-sm-5 col-md-5 col-lg-5" style="border: 1px solid #cdd4e7;border-top:5px solid #CC6949;position:relative;background-color: #fff">
+	<div id="keywords" class="col-sm-5 col-md-5 col-lg-5 scholars-container">
 		<div class="row" style="background-color:#fff;margin:16px 0 0 0" >
 			${keywordsList!}
 		</div>
@@ -355,13 +355,13 @@
 		</div>
 	</div>
 	<div class="col-sm-1 col-md-1 col-lg-1"></div>
-	<div id="abstract" class="col-sm-6 col-md-6 col-lg-6" style="border: 1px solid #cdd4e7;border-top:5px solid #CC6949;background-color: #fff">
+	<div id="abstract" class="col-sm-6 col-md-6 col-lg-6 scholars-container">
 		${abstract!}
 		<div class="row" style="background-color:#fff;margin:16px 0 0 0" >
 		</div>
 	</div> 
 <#else>
-	<div id="foafPersonViz" class="col-sm-12 col-md-12 col-lg-12" style="border: 1px solid #cdd4e7;border-top:5px solid #CC6949;position:relative;background-color: #fff">
+	<div id="foafPersonViz" class="col-sm-12 col-md-12 col-lg-12 scholars-container">
 		<div class="row" style="background-color:#fff;margin:16px 0 0 0" >
 			<div class="col-sm-12 col-md-12 col-lg-12">
 				<div class="row" style="background-color:#fff;margin:16px 0 0 0">

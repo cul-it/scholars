@@ -1979,8 +1979,163 @@ span.subclassExpandMinus {
     margin-bottom:10px
 }
 /* ------------------------------------------------->  */
+/* SCHOLARS SPECIFIC */
+/* ------------------------------------------------->  */
+.scholars-container {
+	border: 1px solid #cdd4e7;
+	border-top: none;
+	background-color: #fff
+}
+.scholars-container::before {
+	box-sizing: content-box;
+    background-color: #CC6949;
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -1px;
+    width: 100%;
+    height: 5px;
+    padding: 0 1px;
+}
+div#scholars-tabs-container {
+	margin: 0 -15px 0 -15px;
+	padding: 0;
+}
+#scholars-tabs {
+	margin: 5px 0 0 0;
+	padding: 8px 0 0 8px; 
+	border-top: none;
+	border-right: none; 
+	border-left:none; 
+	background: #ebf3f4;
+	border-radius:0
+}
+.tab-content {
+	height: 620px;
+	overflow: auto;
+}
+.scholars-article-metadata {
+	color: #595b5b;
+	font-size: 16px;
+	padding-left: 15px;
+}
+#by-the-numbers {
+	margin-top: 50px;
+}
+.burnt-orange {
+	color: #CC6949;
+}
+#journal-subject-area-list {
+	padding-top: 12px;
+}
+.scholars-row {
+	background-color: #f1f2f3;
+}
+.scholars-person-info {
+	padding-bottom: 15px !important;
+}
+div#foaf-person-icons {
+	float: right;
+	margin: 6px 4px -14px 0;
+}
+div#foaf-organization-icons {
+	float: right;
+	margin: 12px 4px -14px 0;
+}
+.foaf-person-row2 {
+	margin: 30px -15px 100px -15px;
+}
+.foaf-organization-row2 {
+	margin-top: 30px;
+}
+div#visualization-column div {
+	text-align: center; 
+	padding-top: 34px;
+}
+div#visualization-column div p {
+	padding-top: 8px;
+	font-size: 16px;
+	color: #CC6949;
+}
+div#dynamic_word_cloud {
+	display: inline;
+}
+a#subject-area-link {
+	color: #167093;
+	float: right;
+	padding-right: 18px;
+	margin-top: 6px;
+}
+div#foaf-person-blank-row {
+	margin-bottom: 400px;
+}
+div#word_cloud_vis {
+	background-color: #fff;
+	border-radius: 5px;
+	z-index: 3;
+}
+div#subject-area-dialog {
+	padding: 0;
+	border-radius: 3px;
+	border-color: #f1f2f3;
+	max-height: 480px;
+	overflow: auto;
+}
+a#subject-area-dialog-close {
+	float: right;
+	padding-right: 15px;
+	margin-top: 7px;
+}
+div#academic-officer-list {
+	margin: 6px 0 15px 0;
+}
+div#academic-officer-list div {
+	margin-top: 6px;
+	font-size: 16px;
+	display: inline-block;
+}
+div#academic-officer-list-title {
+	color: #CC6949;
+	text-align: right;
+}
+div#academic-officer-list-name {
+	color: #595b5b;
+	padding-left: 8px;
+}
+#page-heading-break {
+	margin-right: -24px;
+	clear: both;
+	padding-top: 0  !important;
+	border-bottom: 1px solid #b9b9b9;
+}
+ul#individual-faculty {
+	margin-top: 16px;
+}
+div#foaf-organization-blank-row {
+	height: 200px;
+	min-height: 200px;
+}
+#org-grants-modal {
+	border-radius: 5px;
+	padding: 0; /*7px 12px 3px 12px; */
+	background-color: #fff;
+}
+.dept_collab_vis {
+	height: 600;
+	z-index: 15;
+	border-radius: 5px;
+}
+/* ------------------------------------------------->  */
 /* SCHOLARS OVERRIDE */
 /* ------------------------------------------------->  */
+#individual-info h1.foaf-person {
+	margin-top: 10px;
+	float: left;
+}
+#individual-info h1.foaf-organization {
+	margin-top: 17px;
+	float: left;
+}
 div#profileTypeContainer {
 	top: 120px !important;
 }
@@ -2313,6 +2468,9 @@ nav#alpha-browse-container {
 	margin-right: 11px;
 }
 /*** VISUALIZATIONS ***/
+.dept_collab_vis svg g text {
+	font-size: 80%;
+}
  .choices {
     background-color: rgba(50, 50, 50, 0.8);
     color: #DDDDDD;
@@ -2341,10 +2499,10 @@ nav#alpha-browse-container {
  .d3-tip {
      z-index: 4;
  }
-#stage {
+/*#stage {
 	background-color: #fff;
 	margin-left: -10px;
-}
+}*/
 #chord {
 	text-align: center;
 	float: none;
