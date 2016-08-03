@@ -52,8 +52,8 @@ function iconize_word_cloud_data(graph) {
 }
  
  function draw_iconized_word_cloud(keywords, target) {
-	 var height = 110;//$(target).height();
-	 var width = 220;//$(target).width();
+	 var height = 130;//$(target).height();
+	 var width = 170;//$(target).width();
 
 	 if (keywords.length == 0) {
 		 $(target).html("<div>No Research Keywords</div>");
