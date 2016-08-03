@@ -274,7 +274,7 @@
 		</div>
 	</#assign>
 </#if>
-
+<#-- The row1 div contains the top portion of the profile page: tile, icon controls, authors, key metadata -->
 <div id="row1" class="row" style="background-color:#f1f2f3">
 <div class="col-sm-12 col-md-12 col-lg-12 scholars-container" id="biboDocumentMainColumn">
 

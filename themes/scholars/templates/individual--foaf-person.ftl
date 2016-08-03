@@ -86,6 +86,7 @@ $(document).ready(function() {
 	<#assign theOrcidId = orcidID?first.orcidId! />
 </#if>
 
+<#-- The row1 div contains the top portion of the profile page: name, photo, icon controls, positions -->
 <div id="row1" class="row scholars-row">
 <div class="col-sm-12 col-md-12 col-lg-12 scholars-container" id="foafPersonMainColumn">
 <section id="share-contact" role="region"> 
@@ -129,6 +130,7 @@ $(document).ready(function() {
 
 
 <#if isAuthor || isInvestigator || editable >
+<#-- The row2 div contains the visualization section and the publication and grants lists -->
 <div id="row2" class="row scholars-row foaf-person-row2">
 
 <div id="visualization-column" class="col-sm-3 col-md-3 col-lg-3 scholars-container">

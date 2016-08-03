@@ -10,21 +10,8 @@
 </style>
 <#include "individual-setup.ftl">
 <#import "lib-vivo-properties.ftl" as vp>
+<#import "lib-microformats.ftl" as mf>
 
-<#assign individualProductExtension>
-    <#-- Include for any class specific template additions -->
-    ${classSpecificExtension!}
-    ${departmentalGrantsExtension!} 
-    <!--PREINDIVIDUAL OVERVIEW.FTL-->
-    <#-- include "individual-webpage.ftl" -->
-    <#include "individual-overview.ftl">
-    ${affiliatedResearchAreas!}
-	${graduateFieldDepartments!}
-        </section> <!-- #individual-info -->
-    </section> <!-- #individual-intro -->
-    <!--postindividual overview ftl-->
-    ${departmentalGraduateFields!}
-</#assign>
 <#assign isAcademicDept = false />
 <#if individual.mostSpecificTypes?seq_contains("Academic Department") >
 	<#assign isAcademicDept = true />
@@ -34,8 +21,7 @@
 	<#assign isCollege = true />
 </#if>
 
-<#-- $This file is distributed under the terms of the license in /doc/license.txt$ -->
-<#import "lib-microformats.ftl" as mf>
+
 
 <#--Number of labels present-->
 <#if !labelCount??>
@@ -96,7 +82,106 @@
 		</#assign>
 	</#if>
 </#if>
+<#assign visualizationColumn >
+  <#if isAcademicDept || isCollege >
+  	<div id="visualization-column" class="col-sm-3 col-md-3 col-lg-3 scholars-container">
+  </#if>
+  <#if isAcademicDept >
+	<div>
+		<a href="#" id="word_cloud_trigger"><div id="dynamic_word_cloud">&nbsp;</div></a>
+		<p>Keywords</p>
+	</div>
+	<div>
+		<a href="${urls.base}/orgSAVisualization?deptURI=${individual.uri}"><img width="68%" src="${urls.base}/themes/scholars/images/person_sa.png"/></a>
+		<p>Subject Areas</p>
+	</div>
+	<div>
+  		<a href="#" id="view_selection" class="jqModal" ><img width="40%" src="${urls.base}/themes/scholars/images/dept_grants.png"/></a>
+		<p>Grants</p>
+	</div>
+  <#elseif isCollege >
+	<div>
+		<img width="40%" src="${urls.base}/themes/scholars/images/dept_grants.png"/>
+		<p>Grants</p>
+	</div>
+	<div>
+		<a id="interd_collab_trigger" href="#"><img width="54%" src="${urls.base}/themes/scholars/images/interd_collab.png"/></a>
+		<p>Interdepartmental<br/>Collaborations</p>
+	</div>
+	<div>
+		<a id="cross_unit_collab_trigger" href="#"><img width="54%" src="${urls.base}/themes/scholars/images/cross_unit_collab.png"/></a>
+		<p>Cross-unit<br/>Collaborations</p>
+	</div>
+  <#else>
+	<#-- Do not display anything if the individual is neither an academic department nor a college. -->
+  </#if>
+  <#if isAcademicDept || isCollege >
+  	</div>
+  </#if>
+</#assign>
+<#assign facultyDeptListColumn >
+  <#if isAcademicDept >
+	<div id="foafOrgTabs" class="col-sm-8 col-md-8 col-lg-8 <#if facultyList?has_content || adminsGrant?has_content >scholars-container</#if>">
+	  <#if facultyList?has_content || adminsGrant?has_content >
+		<div id="scholars-tabs-container">
+		  <ul id="scholars-tabs">
+		    <#if facultyList?has_content ><li><a href="#tabs-1">People</a></li> </#if>
+		    <#if adminsGrant?has_content ><li><a href="#tabs-2">Grants</a></li></#if>
+		  </ul>
+		  <#if facultyList?has_content >
+			  <div id="tabs-1" class="tab-content" data="${publicationsProp!}-dude">
+				<article class="property" role="article">
+			    <ul id="individual-faculty" class="property-list" role="list" >
+			    	${facultyList?replace(" position","")!}
+				</ul>
+				</article>	
+			  </div>
+		  </#if>
+		  <#if adminsGrant?has_content || awardsGrant?has_content >
+			  <div id="tabs-2"  class="tab-content">
+				<article class="property" role="article">
+			    <ul id="individual-grants-pi" class="property-list" role="list" >
+					<li class="subclass" role="listitem">
+					  <#if adminsGrant?has_content >
+						<h3>Administers Grant</h3>
+					    <ul class="subclass-property-list">
+			    			${adminsGrant!}
+						</ul>
+					  </#if>
+					  <#if awardsGrant?has_content >
+						<h3>Awards Grant</h3>
+					    <ul class="subclass-property-list">
+			    			${awardsGrant!}
+						</ul>
+					  </#if>
+					</li>
+				</ul>
+			  </div>
+		  </#if>
+		</div>
+	  </#if>
+	</div>
+  <#elseif isCollege && subOrgs?has_content >
+	<div id="foafOrgTabs" class="col-sm-8 col-md-8 col-lg-8 scholars-container">
+		<div id="scholars-tabs-container">
+		  <ul id="scholars-tabs">
+		    <li><a href="#tabs-1">Departments</a></li>
+		  </ul>
+			  <div id="tabs-1"  class="tab-content" data="${publicationsProp!}-dude">
+				<article class="property" role="article">
+			    <ul id="individual-faculty" class="property-list" role="list">
+			    	${subOrgs!}
+				</ul>
+				</article>	
+			  </div>
+		</div>
+	</div>
+  <#else>
+	<#-- Don't display anything if the individual is neither an academic department nor a college -->
+  </#if>
+</#assign>
 <#-- Default individual profile page template -->
+<#-- The row1 div contains the top portion of the profile page: name, photo, icon controls -->
 <div id="row1" class="row scholars-row">
 <div class="col-sm-12 col-md-12 col-lg-12 scholars-container" id="foafOrgMainColumn">
 	<section id="share-contact" role="region"> 
@@ -118,9 +203,6 @@
 	<section id="individual-info" ${infoClass!} role="region">
 	    <#include "individual-adminPanel.ftl">
 
-	    <#if individualProductExtensionPreHeader??>
-	        ${individualProductExtensionPreHeader}
-	    </#if>
 
 	    <header>
 	        <#if relatedSubject??>
@@ -148,95 +230,11 @@
 
 <#assign nameForOtherGroup = "${i18n().other}"> 
 
+<#-- The row2 div contains the visualization section and the faculty or department list, separated by a "spacer" column -->
 <div id="row2" class="row scholars-row foaf-organization-row2">
-
-<div id="visualization-column" class="col-sm-3 col-md-3 col-lg-3 scholars-container">
-  	<div>
-  	  <#if isAcademicDept >
-  		<a href="#" id="view_selection" class="jqModal" ><img width="40%" src="${urls.base}/themes/scholars/images/dept_grants.png"/></a>
-  	  <#elseif isCollege >
-  			<img width="40%" src="${urls.base}/themes/scholars/images/dept_grants.png"/>
-  	  </#if>
-  		<p>Grants</p>
-  	</div>
-	<div>
-	  <#if isAcademicDept >
-			<a href="${urls.base}/orgSAVisualization?deptURI=${individual.uri}"><img width="68%" src="${urls.base}/themes/scholars/images/person_sa.png"/></a>
-			<p>Subject Areas</p>
-	  <#elseif isCollege >
-		<a id="interd_collab_trigger" href="#"><img width="54%" src="${urls.base}/themes/scholars/images/interd_collab.png"/></a>
-		<p>Interdepartmental<br/>Collaborations</p><br/>
-		<a id="cross_unit_collab_trigger" href="#"><img width="54%" src="${urls.base}/themes/scholars/images/cross_unit_collab.png"/></a>
-		<p>Cross-unit<br/>Collaborations</p>
-	  </#if>
-	</div>
-	<#if isAcademicDept >
-		<div>
-			<a href="#" id="word_cloud_trigger"><div id="dynamic_word_cloud">&nbsp;</div></a>
-			<p>Keywords</p>
-		</div>
-	</#if>
-</div>
-<div id="foafOrgSpacer" class="col-sm-1 col-md-1 col-lg-1"></div>
-<#if isAcademicDept >
-<div id="foafOrgTabs" class="col-sm-8 col-md-8 col-lg-8 <#if facultyList?has_content || adminsGrant?has_content >scholars-container</#if>">
-  <#if facultyList?has_content || adminsGrant?has_content >
-	<div id="scholars-tabs-container">
-	  <ul id="scholars-tabs">
-	    <#if facultyList?has_content ><li><a href="#tabs-1">People</a></li> </#if>
-	    <#if adminsGrant?has_content ><li><a href="#tabs-2">Grants</a></li></#if>
-	  </ul>
-	  <#if facultyList?has_content >
-		  <div id="tabs-1" class="tab-content" data="${publicationsProp!}-dude">
-			<article class="property" role="article">
-		    <ul id="individual-faculty" class="property-list" role="list" >
-		    	${facultyList?replace(" position","")!}
-			</ul>
-			</article>	
-		  </div>
-	  </#if>
-	  <#if adminsGrant?has_content || awardsGrant?has_content >
-		  <div id="tabs-2"  class="tab-content">
-			<article class="property" role="article">
-		    <ul id="individual-grants-pi" class="property-list" role="list" >
-				<li class="subclass" role="listitem">
-				  <#if adminsGrant?has_content >
-					<h3>Administers Grant</h3>
-				    <ul class="subclass-property-list">
-		    			${adminsGrant!}
-					</ul>
-				  </#if>
-				  <#if awardsGrant?has_content >
-					<h3>Awards Grant</h3>
-				    <ul class="subclass-property-list">
-		    			${awardsGrant!}
-					</ul>
-				  </#if>
-				</li>
-			</ul>
-		    
-		  </div>
-	  </#if>
-	</div>
-  </#if>
-</div>
-</#if>
-<#if isCollege && subOrgs?has_content >
-<div id="foafOrgTabs" class="col-sm-8 col-md-8 col-lg-8 scholars-container">
-	<div id="scholars-tabs-container">
-	  <ul id="scholars-tabs">
-	    <li><a href="#tabs-1">Departments</a></li>
-	  </ul>
-		  <div id="tabs-1"  class="tab-content" data="${publicationsProp!}-dude">
-			<article class="property" role="article">
-		    <ul id="individual-faculty" class="property-list" role="list">
-		    	${subOrgs!}
-			</ul>
-			</article>	
-		  </div>
-	</div>
-</div>
-</#if>
+	${visualizationColumn}
+	<div id="foafOrgSpacer" class="col-sm-1 col-md-1 col-lg-1"></div>
+	${facultyDeptListColumn}
 </div> <!-- row2 div subOrgs -->
 <#if !facultyList?has_content || !adminsGrant?has_content || !subOrgs?has_content>
 	<div id="foaf-organization-blank-row"></div>
@@ -373,16 +371,15 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></
 <script type="text/javascript">
   $(document).ready(function() {
         $('#view_selection_off').click(function() {
-		  // $('#vis').show();
-          var view_type = 'years'//$(this).children(":selected").attr('id');
+          var view_type = 'years'
           toggle_view(view_type);
           return false;
         });
   });
 </script>
-<div id="interd_collab_vis" class="dept_collab_vis"></div>
-<div id="cross_unit_collab_vis" class="dept_collab_vis"></div>
 <#if isCollege >
+  <div id="interd_collab_vis" class="dept_collab_vis"></div>
+  <div id="cross_unit_collab_vis" class="dept_collab_vis"></div>
 	<script>
 	$().ready(function() {
 	  loadVisualization({
