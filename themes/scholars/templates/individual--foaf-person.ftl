@@ -302,7 +302,19 @@ $().ready(function() {
 	  });
 	});
 	</script>
+
+	<#-- this javascript will clear any "dangling" collaboration tooltips when the modal is closed -->
+	<script>
+	$().ready(function() {
+		$('#word_cloud_vis').click(function() {
+				$('div.jqmOverlay').click(function() {
+					$('div.d3-tip').hide();
+				});
+		});
+	});
+	</script>
 </#if>
+
 ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/individual/individual.css" />',
                   '<link rel="stylesheet" href="${urls.base}/css/individual/individual-vivo.css" />',
                   '<link rel="stylesheet" href="${urls.base}/css/individual/individual-2column-view.css" />',
