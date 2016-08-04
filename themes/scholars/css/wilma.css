@@ -2125,9 +2125,38 @@ div#foaf-organization-blank-row {
 	z-index: 15;
 	border-radius: 5px;
 }
+.generic-page-header {
+	margin-top: 17px;
+	float: left;
+	margin-left: 24px;
+}
+#generic-main-column {
+	min-height: 40px;
+	padding-bottom: 40px;
+}
+h2#generic-page-heading-break {
+	margin-left: 24px;
+	clear: both;
+	padding: 6px 0 0 0 !important;
+	border-bottom: 1px solid rgb(185, 185, 185);
+}
+article.scholars-property ul li article h3 {
+    padding: 10px 0 10px 20px;
+    margin: 0;
+    font-size: 1.063em;
+    color: #CC6949;
+	background: #fff;
+	border: none;
+	text-transform: capitalize;
+}
 /* ------------------------------------------------->  */
 /* SCHOLARS OVERRIDE */
 /* ------------------------------------------------->  */
+article.property ul.property-list li {
+    line-height: 1.2em;
+    padding: 10px 20px 5px 40px;
+    background-color: #fff;
+}
 #individual-info h1.foaf-person {
 	margin-top: 10px;
 	float: left;
