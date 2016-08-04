@@ -20,22 +20,20 @@
                         ?rank                  
                         ?org ?orgName 
                         ?middleOrg ?middleOrgName
+						?posnInUnit ?posnInUnitName
                         ?outerOrg ?outerOrgName
                         ?dateTimeStart ?dateTimeEnd WHERE {
             ?subject ?property ?position 
             OPTIONAL { ?position core:relates ?org .
                        ?org rdfs:label ?orgName 
-                       OPTIONAL {
-                                 { ?org obo:BFO_0000050 ?middleOrg .
-                                   BIND (1 AS ?sortUnit )
-                                  } UNION {
-                                  ?position hr:positionInUnit ?middleOrg .
-                                   BIND (0 AS ?sortUnit )
-                                   }
-                                  ?middleOrg rdfs:label ?middleOrgName
-                                  OPTIONAL { ?middleOrg obo:BFO_0000050 ?outerOrg .
-                                             ?outerOrg rdfs:label ?outerOrgName
-                                  }
+                       OPTIONAL { ?org obo:BFO_0000050 ?middleOrg .
+								  ?middleOrg rdfs:label ?middleOrgName
+                       }
+                       OPTIONAL { ?position hr:positionInUnit ?posnInUnit .
+                                  ?posnInUnit rdfs:label ?posnInUnitName
+                       }
+                       OPTIONAL { ?middleOrg obo:BFO_0000050 ?outerOrg .
+                                  ?outerOrg rdfs:label ?outerOrgName
                        }
             }
             OPTIONAL { ?position rdfs:label ?positionTitle } 
@@ -57,7 +55,7 @@
             <critical-data-required>
             FILTER ( bound(?org) )
             </critical-data-required>
-        } ORDER BY <collated>?subclass</collated> DESC(?dateTimeEnd) ?rank ?sortUnit
+        } ORDER BY <collated>?subclass</collated> DESC(?dateTimeEnd) ?rank 
         
     </query-select>
        
@@ -94,7 +92,8 @@
             ?middleOrg rdfs:label ?middleOrgName .
             ?middleOrg obo:BFO_0000050 ?outerOrg .
             ?outerOrg rdfs:label ?outerOrgName .
-            ?position hr:positionInUnit ?middleOrg .
+            ?position hr:positionInUnit ?posnInUnit .
+            ?posnInUnit rdfs:label ?posnInUnitName .
             ?middleOrg rdfs:label ?middleOrgName .
         } WHERE {
             {
@@ -123,13 +122,15 @@
                 ?position a core:Position .
                 ?position core:relates ?org .
                 ?org a foaf:Organization .  
-                ?org core:subOrganizationWithin ?middleOrg
+                ?org core:subOrganizationWithin ?middleOrg .
+				?middleOrg a foaf:Organization .
             } UNION {
                 ?subject ?property ?position .
                 ?position a core:Position .
                 ?position core:relates ?org .
                 ?org a foaf:Organization .  
                 ?org obo:BFO_0000050 ?middleOrg .
+				?middleOrg a foaf:Organization .
                 ?middleOrg rdfs:label ?middleOrgName
             } UNION {
                 ?subject ?property ?position .
@@ -137,20 +138,25 @@
                 ?position core:relates ?org .
                 ?org a foaf:Organization .  
                 ?org obo:BFO_0000050 ?middleOrg .
+				?middleOrg a foaf:Organization .
                 ?middleOrg obo:BFO_0000050 ?outerOrg .
+				?outerOrg a foaf:Organization .
             } UNION {
                 ?subject ?property ?position .
                 ?position a core:Position .
                 ?position core:relates ?org .
                 ?org a foaf:Organization .  
                 ?org obo:BFO_0000050 ?middleOrg .
+				?middleOrg a foaf:Organization .
                 ?middleOrg obo:BFO_0000050 ?outerOrg .
+				?outerOrg a foaf:Organization .
                 ?outerOrg rdfs:label ?outerOrgName .
             } UNION {
                 ?subject ?property ?position .
                 ?position a core:Position .
-                ?position hr:positionInUnit ?middleOrg .
-                ?middleOrg rdfs:label ?middleOrgName
+                ?position hr:positionInUnit ?posnInUnit .
+                ?posnInUnit a foaf:Organization .
+ 				?posnInUnit rdfs:label ?posnInUnitName
             }
 
         } 

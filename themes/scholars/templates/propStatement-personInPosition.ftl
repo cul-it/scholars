@@ -14,14 +14,13 @@
 <#-- Use a macro to keep variable assignments local; otherwise the values carry over to the
      next statement -->
 <#macro showPosition statement>
-    
     <#local posTitle>
         <span itemprop="jobTitle">${statement.positionTitle!statement.hrJobTitle!}<#if statement.org??>,</#if></span>
     </#local>
     <#local linkedIndividual>
         <#if statement.org??>
             <span itemprop="worksFor" itemscope itemtype="http://schema.org/Organization">
-               <a itemprop="name" href="${profileUrl(statement.uri("org"))}" title="${i18n().organization_name}">${statement.orgName}</a><#if statement.middleOrg??>,</#if>
+               <a itemprop="name" href="${profileUrl(statement.uri("org"))}" title="${i18n().organization_name}">${statement.orgName}</a><#if statement.middleOrg?? || statement.posnInUnit??>,</#if>
             </span>
         <#else>
             <#-- This shouldn't happen, but we must provide for it -->
@@ -31,11 +30,15 @@
     <#-- The sparql query returns both the org's parent (middleOrg) and grandparent (outerOrg).
          For now, we are only displaying the parent in the list view. -->
     <#local middleOrganization>
-        <#if statement.middleOrg?? && (statement.middleOrgName != statement.orgName)>
-            <span itemprop="worksFor" itemscope itemtype="http://schema.org/Organization">
-                <a itemprop="name" href="${profileUrl(statement.uri("middleOrg"))}" title="${i18n().middle_organization}">${statement.middleOrgName!}</a>
-            </span>
-        </#if>
+		<#if statement.posnInUnit?? && (statement.posnInUnitName != statement.orgName) >
+        	<span itemprop="worksFor" itemscope itemtype="http://schema.org/Organization">
+            	<a itemprop="name" href="${profileUrl(statement.uri("posnInUnit"))}" title="${i18n().middle_organization}">${statement.posnInUnitName!}</a>
+        	</span>
+		<#elseif statement.middleOrg??  && (statement.middleOrgName != statement.orgName)>
+        	<span itemprop="worksFor" itemscope itemtype="http://schema.org/Organization">
+            	<a itemprop="name" href="${profileUrl(statement.uri("middleOrg"))}" title="${i18n().middle_organization}">${statement.middleOrgName!}</a>
+        	</span>
+		</#if>
     </#local>
     
     ${posTitle!} ${linkedIndividual} ${middleOrganization}   <@dt.yearIntervalSpan "${statement.dateTimeStart!}" "${statement.dateTimeEnd!}" />
