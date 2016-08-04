@@ -438,3 +438,23 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></
 	});
 	</script>
 </#if>
+<#-- this javascript will clear any "dangling" collaboration tooltips when the modal is closed -->
+<script>
+$().ready(function() {
+	$('#interd_collab_trigger').click(function() {
+			$('div.jqmOverlay').click(function() {
+				$('div#tooltip').hide();
+			});
+	});
+	$('#cross_unit_collab_trigger').click(function() {
+			$('div.jqmOverlay').click(function() {
+				$('div#tooltip').hide();
+			});
+	});
+	$('#word_cloud_vis').click(function() {
+			$('div.jqmOverlay').click(function() {
+				$('div.d3-tip').hide();
+			});
+	});
+});
+</script>
