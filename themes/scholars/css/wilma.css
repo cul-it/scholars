@@ -2089,18 +2089,19 @@ a#subject-area-dialog-close {
 div#academic-officer-list {
 	margin: 6px 0 15px 0;
 }
-div#academic-officer-list div {
+div#academic-officer-list-title {
+	color: #CC6949;
+	text-align: right;
 	margin-top: 6px;
 	font-size: 16px;
 	display: inline-block;
 }
-div#academic-officer-list-title {
-	color: #CC6949;
-	text-align: right;
-}
 div#academic-officer-list-name {
 	color: #595b5b;
 	padding-left: 8px;
+	margin-top: 6px;
+	font-size: 16px;
+	display: inline-block;
 }
 #page-heading-break {
 	margin-right: -24px;
