@@ -52,7 +52,7 @@
 								<p style="padding-top:4px;font-size:16px;color:#CC6949">Grants</p>
 							</div>
 							<div class="col-sm-12 col-md-12 col-lg-12" style="text-align:center;padding-top:16px;background-color:#fff">
-								<img width="55%" src="${urls.base}/themes/scholars/images/wordcloud.png"/>
+								<a id="wordcloud_trigger" href="#"><img width="54%" src="${urls.base}/themes/scholars/images/wordcloud.png"/></a>
 								<p style="padding-top:4px;font-size:16px;color:#CC6949">Subject Areas</p>
 							</div>
 							<div class="col-sm-12 col-md-12 col-lg-12" style="display:none;text-align:center;padding-top:16px;background-color:#fff">
@@ -184,6 +184,22 @@
 
 			</div> <!-- body div -->
 			<div id="collab_vis" style="z-index:15;border-radius:5px"></div>
+			
+			<div id="wordcloud_vis" style="z-index:15;border-radius:5px">
+      	      <div style="width: 50%; height: 10px; float:left">
+                <span class="text-primary" id="content"></span>
+              </div>
+              <div id="wcUniv">
+                <div style="width: 50%; float:right">
+                  <div>
+                    <span class="glyphicon glyphicon-info-sign pull-right" 
+                      data-toggle="tooltip" 
+                      data-original-title="The keyword cloud presents the top 300 keywords extracted from the journal articles published by the Cornell faculty and researchers. The size of each keyword in the cloud is directly proportional to the sum of the count of the faculty/researchers. Bigger the keyword in size is, more the faculty members and researcher used the term in their papers.">
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
 
 			<script>
 			$().ready(function() {
@@ -194,6 +210,18 @@
 			    url : "${urls.base}/api/dataRequest/collaboration_sunburst",
 			    transform : transformCollab,
 			    display : sunburst,
+			    height : 500,
+			    width : 700
+			  });
+			});
+			$().ready(function() {
+			  loadVisualization({
+		    	modal : true, 
+			    target : '#wordcloud_vis',
+			    trigger : '#wordcloud_trigger',
+			    url : "${urls.base}/api/dataRequest/university_word_cloud",
+			    transform : transformUniversityWordcloud,
+			    display : drawUniversityWordCloud,
 			    height : 500,
 			    width : 700
 			  });

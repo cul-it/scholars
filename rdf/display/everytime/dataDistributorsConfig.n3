@@ -36,6 +36,13 @@
     :path "visualizationData/fake_bubble_chart_data.json" ;
     :contentType "application/json" .
 
+:data_distributor_university_word_cloud :actionName "university_word_cloud" .
+:data_distributor_university_word_cloud
+    a   <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.DataDistributor> ,
+        <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.FileDistributor> ;
+    :path "visualizationData/KWbyPersonCount.json" ;
+    :contentType "application/json" .
+
 #
 # Organization research areas
 #

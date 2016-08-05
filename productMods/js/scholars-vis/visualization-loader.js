@@ -3,7 +3,7 @@
  * loadVisualization([options])
  *   target: a jquery selector
  *     The first HTML element selected will contain the visualization. 
- *         Previous contents of the element will be removed.
+ *         If the viz is modal, the target will be returned to its original content before re-drawing.
  *     Default: create an unnamed, unstyled element and add it to the DOM.
  *   trigger: a jquery selector
  *     Clicking on the first HTML element selected will cause the visualization
@@ -285,7 +285,7 @@ function loadVisualization(o) {
 					var desiredWidth = desiredDimension(options.getWidth(), $(
 							window).width())
 
-					target.empty();
+					restoreTargetToOriginalContent(target)
 					target.height(desiredHeight);
 					target.width(desiredWidth);
 
@@ -297,6 +297,14 @@ function loadVisualization(o) {
 						} else {
 							return Math.floor(windowDim * requestedDim);
 						}
+					}
+					
+					function restoreTargetToOriginalContent(target) {
+					  if (options["originalTargetContent"]) {
+					    target.html(options["originalTargetContent"]);
+					  } else {
+					    options["originalTargetContent"] = target.html();
+					  }
 					}
 				}
 			}
