@@ -444,11 +444,13 @@ $().ready(function() {
 	$('#interd_collab_trigger').click(function() {
 			$('div.jqmOverlay').click(function() {
 				$('div#tooltip').hide();
+				$('div.d3-tip').hide();
 			});
 	});
 	$('#cross_unit_collab_trigger').click(function() {
 			$('div.jqmOverlay').click(function() {
 				$('div#tooltip').hide();
+				$('div.d3-tip').hide();
 			});
 	});
 	$('#word_cloud_vis').click(function() {

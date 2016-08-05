@@ -221,7 +221,17 @@
                 noDepartmentsFound: '${i18n().no_departments_found}'
             };
         </script>
-
+		<#-- this javascript will clear any "dangling" collaboration tooltips when the modal is closed -->
+		<script>
+		$().ready(function() {
+			$('#collaborations_trigger').click(function() {
+					$('div.jqmOverlay').click(function() {
+						$('div#tooltip').hide();
+						$('div.d3-tip').hide();
+					});
+			});
+		});
+		</script>
 
     </body>
 </html>
