@@ -208,11 +208,15 @@ function draw_it(root, target) {
 
   function zoomIn(p) {
     if (p.depth > 1) p = p.parent;
-    if (!p.children) return;
+    if (!p.children) {
+		tip.show(p);
+		return;
+	}
     zoom(p, p);
   }
 
   function zoomOut(p) {
+	tip.hide(p);
     if(typeof p == "undefined") return;
     if (!p.parent) return;
     zoom(p.parent, p);
@@ -279,7 +283,8 @@ function draw_it(root, target) {
       
       // if we're at depth 2, make tooltip visible
 
-      if(typeof root.parent != "undefined") {
+// Commenting out per Javed's instructions
+/*      if(typeof root.parent != "undefined") {
         if(typeof root.parent.parent != "undefined") {
           svg.selectAll('path').on('click', function(d) { 
             tip.show(d); 
@@ -291,7 +296,7 @@ function draw_it(root, target) {
           svg.selectAll('path').on('click', zoomIn);
         }
       }
-     
+*/     
          
     });
     
