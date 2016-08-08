@@ -27,7 +27,8 @@
     a   <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.DataDistributor> ,
         <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.FileDistributor> ;
     :path "visualizationData/fake_collab_data.json" ;
-    :contentType "application/json" .
+    :contentType "application/json" ;
+    :permitsCorsFrom "*" .
 
 :data_distributor_ra_bubble_chart :actionName "research_area_bubbles" .
 :data_distributor_ra_bubble_chart

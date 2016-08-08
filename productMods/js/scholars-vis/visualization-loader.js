@@ -65,6 +65,7 @@ function loadVisualization(o) {
 		} else { // default
 			targetElement = simpleTarget();
 		}
+		var originalTargetContent = $(targetElement).html();
 
 		var triggerElement;
 		if (o.trigger) { // selector
@@ -106,6 +107,10 @@ function loadVisualization(o) {
 
 		this.getTarget = function() {
 			return targetElement;
+		};
+
+		this.getOriginalTargetContent = function() {
+			return originalTargetContent;
 		};
 
 		this.getTrigger = function() {
@@ -285,7 +290,7 @@ function loadVisualization(o) {
 					var desiredWidth = desiredDimension(options.getWidth(), $(
 							window).width())
 
-					restoreTargetToOriginalContent(target)
+				    target.html(options.getOriginalTargetContent());
 					target.height(desiredHeight);
 					target.width(desiredWidth);
 
@@ -297,14 +302,6 @@ function loadVisualization(o) {
 						} else {
 							return Math.floor(windowDim * requestedDim);
 						}
-					}
-					
-					function restoreTargetToOriginalContent(target) {
-					  if (options["originalTargetContent"]) {
-					    target.html(options["originalTargetContent"]);
-					  } else {
-					    options["originalTargetContent"] = target.html();
-					  }
 					}
 				}
 			}
