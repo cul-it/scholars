@@ -62,6 +62,8 @@ function drawUniversityWordCloud(transformed, target) {
     }).font("Tahoma").fontSize(function(d) {
         return keywordScale(d.size);
     }).on("end", draw).start();
+    
+    activateInfoButton();
 
     function parseRgb(rgbString) {
         var commaString = rgbString.substring(4, rgbString.length - 1);
@@ -137,4 +139,10 @@ function drawUniversityWordCloud(transformed, target) {
             d3.select("#content").text('');
         }
     });
+   
+    function activateInfoButton() {
+        $('[data-toggle="tooltip"]').tooltip();
+        console.log("Activated tooltips");
+    }
+    
 }
