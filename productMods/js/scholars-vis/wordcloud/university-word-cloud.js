@@ -11,7 +11,7 @@ function drawUniversityWordCloud(transformed, target) {
 
     var keywordScale = d3.scale.linear().range([5, 50]);
 
-    var tip = d3.tip().attr('class', 'd3-tip choices triangle-isosceles').html(function(d) {
+    var tip = d3.tip().attr('class', 'sitewc d3-tip choices triangle-isosceles').html(function(d) {
         var repr = "";
         for (var i = 0; i < d.entities.length; i++) {
             repr += "<div class='hoverable'><a href='" + d.entities[i].uri + "'>" + (i + 1) + ". " + d.entities[i].text + " (" + d.entities[i].artcount + ")</a></div>";

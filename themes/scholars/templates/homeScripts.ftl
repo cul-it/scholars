@@ -15,7 +15,7 @@
 <script type="text/javascript" src="${urls.base}/js/scholars-vis/rdflib.js"></script>
 <script type="text/javascript" src="${urls.base}/js/scholars-vis/d3/d3.layout.cloud.js"></script>
 <script type="text/javascript" src="${urls.base}/js/scholars-vis/wordcloud/university-word-cloud.js"></script>
-<link rel="stylesheet" href="${urls.base}/css/scholars-vis/keywordcloud/kwcloud.css" />
+<link rel="stylesheet" href="${urls.base}/css/scholars-vis/keywordcloud/site-kwcloud.css" />
 
 <link rel="stylesheet" href="${urls.base}/css/scholars-vis/collaborations/collab.css" />
 <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Raleway" />

@@ -185,7 +185,7 @@
 			</div> <!-- body div -->
 			<div id="collab_vis" style="z-index:15;border-radius:5px"></div>
 			
-			<div id="wordcloud_vis" style="z-index:15;border-radius:5px">
+			<div id="site_wordcloud_vis">
       	      <div style="width: 50%; height: 10px; float:left">
                 <span class="text-primary" id="content"></span>
               </div>
@@ -217,7 +217,7 @@
 			$().ready(function() {
 			  loadVisualization({
 		    	modal : true, 
-			    target : '#wordcloud_vis',
+			    target : '#site_wordcloud_vis',
 			    trigger : '#wordcloud_trigger',
 			    url : "${urls.base}/api/dataRequest/university_word_cloud",
 			    transform : transformUniversityWordcloud,
