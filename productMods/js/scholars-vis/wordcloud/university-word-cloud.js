@@ -1,6 +1,22 @@
 function transformUniversityWordcloud(rawData) {
-    // Working from fake data - no transformation needed.
-    return rawData;
+	return rawData.map(processKeywordStructure);
+	
+	function processKeywordStructure(kwStruct) {
+	    return {
+	        persons: kwStruct.persons.map(processPersonStructure),
+	        countOfArticle: kwStruct.countOfArticle,
+            keyword: kwStruct.keyword,
+            countByPerson: kwStruct.countByPerson
+            }
+       
+        function processPersonStructure(pStruct) {
+            return {
+                personName: pStruct.personName,
+                personURI: toDisplayPageUrl(pStruct.personURI),
+                articleCount: pStruct.articleCount
+            }
+        }
+	}
 }
 
 function drawUniversityWordCloud(transformed, target) {
