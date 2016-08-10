@@ -72,7 +72,9 @@
 		PREFIX vivo: <http://vivoweb.org/ontology/core#>
 		CONSTRUCT {
 		  ?organization vivo:relatedBy ?position .
-		  ?position vivo:relates ?author .
+		  ?position 
+		    a vivo:Position ;
+		    vivo:relates ?author .
 		  ?author 
 		    a foaf:Person ;
 		    rdfs:label ?name ;
@@ -85,7 +87,9 @@
 		}
 		WHERE {
 		  ?organization vivo:relatedBy ?position .
-		  ?position vivo:relates ?author .
+		  ?position 
+		    a vivo:Position ;
+		    vivo:relates ?author .
 		  ?author 
 		    a foaf:Person ;
 		    rdfs:label ?name ;
