@@ -2651,6 +2651,7 @@ ul#footer-controls {
 	text-decoration: none !important;
 }
 div.cul-footer {
+	text-align: left;
 	font-size: 14px;
 	font-family: Muli, Arial, Verdana, Helvetica;
 	background-color: #f1f2f3;
