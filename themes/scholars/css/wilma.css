@@ -2005,10 +2005,11 @@ div#researcher-count:hover {
 	border:1px solid #9c9c9c;
 	font-size:38px;
 	font-family: Muli, Arial, Verdana, Helvetica;
+	text-decoration: none !important;
 }
 div#researcher-count:hover > p {
 	color:#3770b7;
-	text-decoration: none;
+	text-decoration: none !important;
 }
 div#grant-count {
 	background-color:#a64342;
@@ -2176,19 +2177,19 @@ div#department-text p:hover {
 	background-color: #ed7924;
 }
 a.researcher-link:hover {
-	text-decoration: overline;
+	text-decoration: none !important;
 	color: #3770b7;
 }
 a.grant-link:hover {
-	text-decoration: overline;
+	text-decoration: none !important;
 	color: #a64342;
 }
 a.article-link:hover {
-	text-decoration: overline;
+	text-decoration: none !important;
 	color: #11946d;
 }
 a.department-link:hover {
-	text-decoration: none;
+	text-decoration: none !important;
 	color: #ed7924;
 }
 .scholars-container::before {
@@ -2623,11 +2624,60 @@ article.property ul.property-list li.subclass h3 {
 article.property ul.subclass-property-list li {
     font-size: 16px;
 }
-#footer-nav a {
-    color: #167093 ;
+ul#footer-controls {
+	float: right;
+	padding-right: 30px;
 }
-#footer-nav a:hover {
-    color: #1483a4 ;
+.footer-menu {
+	display: inline;
+}
+.footer-menu li {
+	display: inline;
+	font-size:14px;
+	font-family: Muli, Arial, Verdana, Helvetica;color:#fff;
+	padding: 0 10px 0 4px;
+	border-right: 1px solid #c9c8c8;
+}
+.footer-menu li:last-child {
+	border-right: none;
+}
+.footer-menu a {
+    color: #fff ;
+	text-decoration: underline !important;
+	transition: .5s;
+}
+.footer-menu a:hover {
+    color: #CC6949;
+	text-decoration: none !important;
+}
+div.cul-footer {
+	font-size: 14px;
+	font-family: Muli, Arial, Verdana, Helvetica;
+	background-color: #f1f2f3;
+	padding: 10px 0 0 30px;
+	height: 110px;
+}
+div.cul-footer nav p,
+div.cul-footer nav ul,
+div.cul-footer nav li {
+	display: inline;
+}
+body footer {
+	background: none;
+	margin-top: -1px;
+}
+.btn-give {
+	border-radius: 5px;
+	padding: 0 6px;
+	background-color: #3770b7;
+	color: #fff;
+	float: right;
+	margin-right: 30px;
+}
+.btn-give:hover {
+	color: #3770b7;
+	text-decoration: none !important;
+	background-color: #c2d6ef;
 }
 .devPanelFixed {
 	position: fixed;

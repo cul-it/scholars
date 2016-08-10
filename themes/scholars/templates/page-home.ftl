@@ -116,30 +116,13 @@
 					</div>
 				</div>
 				<@lh.downloadCounts />
-				<div id="download-footer" class="row" style="background-color:#fff;margin:0;padding:40px 120px 0 120px;">
+				<div id="download-footer" class="row" style="display:none;background-color:#fff;margin:0;padding:40px 120px 0 120px;">
 					<div class="col-sm-12 col-md-12 col-lg-12" style="text-align:center;">
 						<p style="font-size:20px;font-family: Muli, Arial, Verdana, Helvetica;color:#5e6363;margin:0;padding:6px 0">
 							Scholars@Cornell By The Numbers
 						</p>
 					</div>
 				</div>
-				<div id="row3" class="row" style="background-color:#fff;margin:0;min-height:200px;padding:60px 60px 20px 60px;">
-				</div>
-
-
-
-				<div id="row1" class="row" style="background-color:#f1f2f3;display:none">
-						<div class="row" style="background-color:#f1f2f3">
-			    			<!-- Statistical information relating to property groups and their classes; displayed horizontally, not vertically-->
-			    			<@lh.allClassGroups vClassGroups! />
-						</div>
-					</div>
-				</div> <!-- row1 faculty, academic professionals, grants, academic articles, journals, academic departments, colleges & schools, academic centers-->
-
-
-
-
-
 			</div> <!-- body div -->
 			<div id="collab_vis" style="z-index:15;border-radius:5px"></div>
 			

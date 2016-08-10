@@ -193,7 +193,7 @@ var urlsBase = "${urls.base}";
 		<#assign grantsCount = count.grantCount?number />
 		<#assign articlesCount = count.articleCount?number />
 		</#list>
-		<div id="download-content" class="row" style="background-color:#fff;margin:0;padding:25px 30px 0 30px;">
+		<div id="download-content" class="row" style="background-color:#fff;margin:0 0 200px 0;padding:25px 30px 0 30px;">
 			<div class="col-sm-12 col-md-12 col-lg-12" style="background-color:#fff;">
 				<div class="row" style="margin:0 0 0 58px;background-color:#fff">
 				<div class="col-sm-3 col-md-3 col-lg-3" style="margin-top:10px;text-align:center">
