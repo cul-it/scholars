@@ -2,7 +2,7 @@
 
 
 <footer role="contentinfo">
-    <div class="wrapper">
+    <div class="wrapper" style="background-color: #f1f2f3;margin-top:-20px">
         <p class="copyright">
             <#if copyright??>
                 <small>&copy;${copyright.year?c}

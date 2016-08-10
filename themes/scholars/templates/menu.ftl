@@ -1,14 +1,12 @@
 <#-- $This file is distributed under the terms of the license in /doc/license.txt$ -->
-<div id="nav-bar-topper" class="${navbarClass!}" role="navigation" style="display:none;background: url('${urls.base}/themes/scholars/images/menu_background-topper.png') repeat-x;height: 40px;z-index: 2;width:100%;margin:0;padding:0;border:0;vertical-align:baseline;">
-		<img src="${urls.base}/themes/scholars/images/cornell-logo.png" alt="cornell logo" width="140px" style="margin:4px 0 0 62px"/>
-		<span style="padding-right:20px;color:#fff;font-size:12px;font-family:verdana, arial, helvetica, sans-serif;vertical-align:middle;float:right">Search Cornell</span>
+<div id="nav-bar-topper" class="${navbarClass!}" role="navigation" style="display:none;background: url('${urls.base}/themes/scholars/images/menu-background-topper.png') repeat-x;height: 20px;z-index: 2;width:100%;margin:0;padding:0;border:0;vertical-align:baseline;position:fixed;top:0">
 </div>
-<div id="nav-bar" class="${navbarClass!}" role="navigation" style="background: url('${urls.base}/themes/scholars/images/menu_background.png') repeat-x;height: 105px;z-index: 2;width:100%;margin:0;padding:0;border:0;vertical-align:baseline;">
+<div id="nav-bar" class="${navbarClass!}" role="navigation" style="background: url('${urls.base}/themes/scholars/images/nav-menu-background.png') no-repeat center center;background-size: cover;height: 95px;z-index: 2;width:100%;margin:0;padding:0;border:0;vertical-align:baseline;">
 	<div class="row" style="position:relative;margin: 0 20px 0 30px;padding:0;border:0;vertical-align:baseline;background:none">
-		<a id="nav-logo" class="ir" href="${urls.home}" title="" style="${navbarLogoDisplay!};padding-top:44px;background-color:transparent;background: url('${urls.base}/themes/scholars/images/tower.png') no-repeat;float: left;margin-top: 0;width: 180px;height: 105px;">
+		<a id="nav-logo" class="ir" href="${urls.home}" title="" style="${navbarLogoDisplay!};padding-top:36px;background-color:transparent;background: url('${urls.base}/themes/scholars/images/tower.png') no-repeat;float: left;margin-top: 0;width: 180px;height: 95px;">
 			<span style="padding-left:65px;"><img src="${urls.base}/themes/scholars/images/menu_logo.png"/></span>
 		</a>
-		 <nav class="pages" style="padding-top:18px;margin-top:5px;height:85px;float:right;display:block;font: inherit;">
+		 <nav class="pages" style="padding-top:15px;margin-top:5px;height:95px;float:right;display:block;font: inherit;">
 			<ul style="list-style:none;margin: 0;padding: 0;border: 0;font: inherit;vertical-align: baseline">
 
 	        	<#list menu.items as item>

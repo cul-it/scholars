@@ -185,29 +185,35 @@ var urlsBase = "${urls.base}";
 <#-- renders the "geographic focus" section on the home page. works in      -->
 <#-- conjunction with the homePageMaps.js and latLongJson.js files, as well -->
 <#-- as the leaflet javascript library.                                     -->
-<#macro geographicFocusHtml>
-    <section id="home-geo-focus" class="home-sections">
-        <h4>${i18n().geographic_focus}</h4>
-        <#-- map controls allow toggling between multiple map types: e.g., global, country, state/province. -->
-        <#-- VIVO default is for only a global display, though the javascript exists to support the other   -->
-        <#-- types. See map documentation for additional information on how to implement additional types.  -->
-        <#--
-            <div id="mapControls">
-                <a id="globalLink" class="selected" href="javascript:">${i18n().global_research}</a>&nbsp;|&nbsp;
-                <a id="countryLink" href="javascript:">${i18n().country_wide_research}</a>&nbsp;|&nbsp;
-                <a id="localLink" href="javascript:">${i18n().local_research}</a>  
-            </div>  
-        -->
-        <div id="researcherTotal"></div>
-        <div id="timeIndicatorGeo">
-            <span>${i18n().loading_map_information}&nbsp;&nbsp;&nbsp;
-                <img  src="${urls.images}/indicatorWhite.gif">
-            </span>
-        </div>
-        <div id="mapGlobal" class="mapArea"></div>
-       <#--  
-            <div id="mapCountry" class="mapArea"></div>
-            <div id="mapLocal" class="mapArea"></div> 
-       -->
-    </section>
+<#macro downloadCounts>
+	<#if classCounts?has_content>
+		<#list classCounts as count >
+		<#assign researchersCount = count.facultyCount?number + count.professionalCount?number />
+		<#assign departmentsCount = count.journalCount?number />
+		<#assign grantsCount = count.grantCount?number />
+		<#assign articlesCount = count.articleCount?number />
+		</#list>
+		<div id="download-content" class="row" style="background-color:#fff;margin:0;padding:25px 30px 0 30px;">
+			<div class="col-sm-12 col-md-12 col-lg-12" style="background-color:#fff;">
+				<div class="row" style="margin:0 0 0 58px;background-color:#fff">
+				<div class="col-sm-3 col-md-3 col-lg-3" style="margin-top:10px;text-align:center">
+					<a class="researcher-link" href="/scholars/people"><div id="researcher-count"><p>${researchersCount}</p></div></a>
+					<a class="researcher-link" href="/scholars/people"><div id="researcher-text"><p>Researchers</p></div></a>
+				</div>
+				<div class="col-sm-3 col-md-3 col-lg-3" style="margin-top:10px;text-align:center">
+					<a class="grant-link" href="/scholars/research#http://vivoweb.org/ontology/core#Grant"><div id="grant-count" ><p>${grantsCount}</p></div></a>
+					<a class="grant-link" href="/scholars/research#http://vivoweb.org/ontology/core#Grant"><div id="grant-text"><p>Grants</p></div></a>
+				</div>
+				<div class="col-sm-3 col-md-3 col-lg-3" style="margin-top:10px;text-align:center">
+					<a class="article-link" href="/scholars/research#http://purl.org/ontology/bibo/AcademicArticle "><div id="article-count" ><p >${articlesCount}</p></div></a>
+					<a class="article-link" href="/scholars/research#http://purl.org/ontology/bibo/AcademicArticle "><div id="article-text"><p>Articles</p></div></a>
+				</div>
+				<div class="col-sm-3 col-md-3 col-lg-3" style="margin-top:10px;text-align:center">
+					<a class="department-link" href="/scholars/research#http://purl.org/ontology/bibo/Journal "><div id="department-count" ><p>${departmentsCount}</p></div></a>
+					<a class="department-link" href="/scholars/research#http://purl.org/ontology/bibo/Journal "><div id="department-text"><p>Journals</p></div></a>
+				</div>
+				</div>
+			</div>
+		</div>
+	</#if>
 </#macro>
