@@ -1,4 +1,5 @@
 #site_wordcloud_vis {
+    background-color: #fff;
     z-index:15;
     border-radius:5px";
 }
@@ -43,7 +44,7 @@
 
 #site_wordcloud_vis  .tooltip.bottom .tooltip-inner {
 /*    background-color:green; */
-    width: 500px;
+    width: 800px;
     text-align: justify;
 }
 #site_wordcloud_vis  .tooltip.bottom .tooltip-arrow {
