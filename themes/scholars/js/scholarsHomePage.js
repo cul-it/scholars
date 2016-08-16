@@ -54,8 +54,15 @@ $(document).ready(function() {
 			//		'background': 'rgba(255,255,255,' + ratio + ')'
 				});
 			};
+			
+			if ((window_height - ($nav_bar.height() + 160)) <= scroll_top) {
+				$('#logo-container').fadeOut(100);
+			}
+			else {
+				$('#logo-container').show('fade');
+			}
 
-			if((window_height - ($nav_bar.height() + 90)) <= scroll_top){
+			if((window_height - ($nav_bar.height() + 85)) <= scroll_top){
 				
 				if(!$nav_bar.hasClass('fixed')){
 					$nav_bar.addClass('fixed');
@@ -84,7 +91,7 @@ $(document).ready(function() {
 					};
 
 				};
-			};
+			};			
 
 		});
 

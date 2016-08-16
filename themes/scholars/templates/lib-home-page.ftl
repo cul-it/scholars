@@ -156,20 +156,20 @@
 </section>
 </#macro>
 
-<#-- Renders the html for the academic departments section on the home page. -->
+<#-- Renders the html for the academic journals section on the home page. -->
 <#-- Works in conjunction with the homePageUtils.js file -->
 <#macro academicDeptsHtml>
     <section id="home-academic-depts" class="home-sections">
-        <h4>${i18n().departments}</h4>
+        <h4>${i18n().journals}</h4>
         <div id="academic-depts">
         </div>
     </section>        
 </#macro>
 
-<#-- builds the "academic departments" box on the home page -->
-<#macro listAcademicDepartments>
+<#-- builds the "academic journals" box on the home page -->
+<#macro listAcademicjournals>
 <script>
-var academicDepartments = [
+var academicjournals = [
 <#if academicDeptDG?has_content>
     <#list academicDeptDG as resultRow>
         <#assign uri = resultRow["theURI"] />
@@ -189,11 +189,11 @@ var urlsBase = "${urls.base}";
 	<#if classCounts?has_content>
 		<#list classCounts as count >
 		<#assign researchersCount = count.facultyCount?number + count.professionalCount?number />
-		<#assign departmentsCount = count.journalCount?number />
+		<#assign journalsCount = count.journalCount?number />
 		<#assign grantsCount = count.grantCount?number />
 		<#assign articlesCount = count.articleCount?number />
 		</#list>
-		<div id="download-content" class="row" style="background-color:#fff;margin:0 0 200px 0;padding:25px 30px 0 30px;">
+		<div id="download-content" class="row" style="background-color:#fff;margin:0 0 180px 0;padding:25px 30px 0 45px;">
 			<div class="col-sm-12 col-md-12 col-lg-12" style="background-color:#fff;">
 				<div class="row" style="margin:0 0 0 58px;background-color:#fff">
 				<div class="col-sm-3 col-md-3 col-lg-3" style="margin-top:10px;text-align:center">
@@ -209,8 +209,8 @@ var urlsBase = "${urls.base}";
 					<a class="article-link" href="/scholars/research#http://purl.org/ontology/bibo/AcademicArticle "><div id="article-text"><p>Articles</p></div></a>
 				</div>
 				<div class="col-sm-3 col-md-3 col-lg-3" style="margin-top:10px;text-align:center">
-					<a class="department-link" href="/scholars/research#http://purl.org/ontology/bibo/Journal "><div id="department-count" ><p>${departmentsCount}</p></div></a>
-					<a class="department-link" href="/scholars/research#http://purl.org/ontology/bibo/Journal "><div id="department-text"><p>Journals</p></div></a>
+					<a class="journal-link" href="/scholars/research#http://purl.org/ontology/bibo/Journal "><div id="journal-count" ><p>${journalsCount}</p></div></a>
+					<a class="journal-link" href="/scholars/research#http://purl.org/ontology/bibo/Journal "><div id="journal-text"><p>Journals</p></div></a>
 				</div>
 				</div>
 			</div>

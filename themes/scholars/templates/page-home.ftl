@@ -28,15 +28,15 @@
 				</header>
 			</div>
 			<div id="body" class="row" style="width:100%;margin:-80px 0 0 0;background-color:#fff;min-height: 0;">
-			<#include "developer.ftl">
+					<#include "developer.ftl">
 				<div id="discover-header" class="row" style="background-color:#fff;margin:0;padding:60px 50px 0 50px;">
 					<div class="col-sm-12 col-md-12 col-lg-12" style="background-color:#e3e6e9;">
 						<p style="font-size:20px;font-family: Muli, Arial, Verdana, Helvetica;color:#CC6949;margin:0;padding:6px 0">
-							Discover
+							Discovery
 						</p>
 					</div>
 				</div>
-				<div id="discover-content" class="row" style="background-color:#fff;margin:0;padding:25px 50px 0 50px;">
+				<div id="discover-content" class="row" style="background-color:#fff;margin:0;padding:35px 50px 0 50px;">
 					<div class="col-sm-4 col-md-4 col-lg-4">
 						<a class="image-links" href="/scholars/people" >
 							<div id="domain-experts" class="image-link-div" style="background: #fff url('${urls.base}/themes/scholars/images/home-domain-experts.jpg') no-repeat ${randomized!}0%;background-size: cover;">
@@ -47,19 +47,7 @@
 							</div>
 						</a>
 						<div style="padding-top:12px;text-align:center;line-height:23px">
-							<p style="font-size:18px;font-family: Muli, Arial, Verdana, Helvetica;color:#5e6363">Search for domain experts by research interests, publication keywords, affiliations, and more.</p>
-						</div>
-					</div>
-					<div class="col-sm-4 col-md-4 col-lg-4"">
-						<a class="image-links" href="/scholars/research#http://vivoweb.org/ontology/core#Grant" >
-							<div id="ongoing-research" class="image-link-div">
-								<div style="background-color:rgba(0, 0, 0, 0.5);;text-align:center;">
-									<span style="opacity:1;color:#fff;font-size:24px;font-family:Muli;font-weight:bold;">Review<br/>Ongoing Research</span>
-								</div>
-							</div>
-						</a>
-						<div style="padding-top:12px;text-align:center;line-height:23px">
-							<p style="font-size:18px;font-family: Muli, Arial, Verdana, Helvetica;color:#5e6363;">Locate current and past grants by subject area, investigator, funding agency, and more.</p>
+							<p style="font-size:18px;font-family: Muli, Arial, Verdana, Helvetica;color:#5e6363">Search by research interests, keywords, and affiliations.</p>
 						</div>
 					</div>
 					<div class="col-sm-4 col-md-4 col-lg-4">
@@ -71,58 +59,68 @@
 							</div>
 						</a>
 						<div style="padding-top:12px;text-align:center;line-height:23px">
-							<p style="font-size:18px;font-family: Muli, Arial, Verdana, Helvetica;color:#5e6363">Find the scholarly works of Cornell researchers by subject area, author affiliation, and more.</p>
+							<p style="font-size:18px;font-family: Muli, Arial, Verdana, Helvetica;color:#5e6363">Search by subject area, and author affiliation.</p>
 						</div>		
+					</div>
+					<div class="col-sm-4 col-md-4 col-lg-4"">
+						<a class="image-links" href="/scholars/research#http://vivoweb.org/ontology/core#Grant" >
+							<div id="ongoing-research" class="image-link-div">
+								<div style="background-color:rgba(0, 0, 0, 0.5);;text-align:center;">
+									<span style="opacity:1;color:#fff;font-size:24px;font-family:Muli;font-weight:bold;">Review<br/>Ongoing Research</span>
+								</div>
+							</div>
+						</a>
+						<div style="padding-top:12px;text-align:center;line-height:23px">
+							<p style="font-size:18px;font-family: Muli, Arial, Verdana, Helvetica;color:#5e6363;">Search by topic, investigator, and funding agency.</p>
+						</div>
 					</div>
 				</div>
 				<div id="visualize-header" class="row" style="background-color:#fff;margin:0;padding:40px 50px 0 50px;">
 					<div class="col-sm-12 col-md-12 col-lg-12" style="background-color:#e3e6e9;">
 						<p style="font-size:20px;font-family: Muli, Arial, Verdana, Helvetica;color:#CC6949;margin:0;padding:6px 0">
-							Visualize
+							Visualizations and Downloads
 						</p>
 					</div>
 				</div>
-				<div id="visualize-content" class="row" style="background-color:#fff;margin:0;padding:25px 0 0 70px;">
-					<div class="col-sm-2 col-md-2 col-lg-2" style=";border-bottom-left-radius:10px;border-top-left-radius:10px;height:300px;text-align:center;background: #fff url('${urls.base}/themes/scholars/images/visualize.jpg') no-repeat 50%;background-size: cover;margin-left:15px">
+				<div id="visualize-content" class="row" style="background-color:#fff;margin:0;padding:10px 5px 0 30px;">
+					<div class="col-sm-3 col-md-3 col-lg-3" style="height:300px;text-align:center;padding-top:30px;background-color:#fff;"> 
+						<a id="person-to-sa" href="${urls.base}/orgSAVisualization?deptURI=n1234">
+							<img width="150px" src="${urls.base}/themes/scholars/images/home-person-sa.png"/>
+						</a>
+						<div style="padding-top:12px;text-align:center;line-height:23px">
+							<p style="font-size:18px;font-family: Muli, Arial, Verdana, Helvetica;color:#5e6363">Person to Subject Area</p>
+						</div>
 					</div>
-					<div class="col-sm-3 col-md-3 col-lg-3" style="height:300px;border:1px solid #686868;border-left: none;border-right:none;text-align:center;padding-top:30px;background-color:#fff;"> 
+					<div class="col-sm-3 col-md-3 col-lg-3" style="height:300px;text-align:center;padding-top:30px;background-color:#fff">
+						<a id="wordcloud_trigger" href="#"><img width="150px" src="${urls.base}/themes/scholars/images/home-wordcloud.png"/></a>
+						<div style="padding-top:12px;text-align:center;line-height:23px">
+							<p style="font-size:18px;font-family: Muli, Arial, Verdana, Helvetica;color:#5e6363">Keyword Cloud</p>
+						</div>
+					</div>
+					<div class="col-sm-3 col-md-3 col-lg-3" style="height:300px;text-align:center;padding-top:30px;background-color:#fff;"> 
 						<a id="collaborations_trigger" href="#">
 							<img width="150px" src="${urls.base}/themes/scholars/images/home-collaborations.png"/>
 						</a>
 						<div style="padding-top:12px;text-align:center;line-height:23px">
-							<p style="font-size:18px;font-family: Muli, Arial, Verdana, Helvetica;color:#5e6363">The Collaborations Wheel highlights college-wide collaborations.</p>
+							<p style="font-size:18px;font-family: Muli, Arial, Verdana, Helvetica;color:#5e6363">Collaborations</p>
 						</div>
 					</div>
-					<div class="col-sm-3 col-md-3 col-lg-3" style="height:300px;border:1px solid #686868;border-left: none;border-right:none;text-align:center;padding-top:30px;background-color:#fff">
+					<div class="col-sm-3 col-md-3 col-lg-3" style="height:300px;text-align:center;padding-top:30px;background-color:#fff">
 						<a href="${urls.base}/grantsVisualization"><img width="150px" src="${urls.base}/themes/scholars/images/home-grants.png"/>
 						</a>
 						<div style="padding-top:12px;text-align:center;line-height:23px">
-							<p style="font-size:18px;font-family: Muli, Arial, Verdana, Helvetica;color:#5e6363">The Grants Bubble Chart provides a bird's-eye view of active research grants.</p>
-						</div>
-					</div>
-					<div class="col-sm-3 col-md-3 col-lg-3" style="height:300px;border:1px solid #686868;border-left: none;border-top-right-radius: 10px;border-bottom-right-radius:10px;text-align:center;padding-top:30px;background-color:#fff">
-						<a id="wordcloud_trigger" href="#"><img width="150px" src="${urls.base}/themes/scholars/images/home-wordcloud.png"/></a>
-						<div style="padding-top:12px;text-align:center;line-height:23px">
-							<p style="font-size:18px;font-family: Muli, Arial, Verdana, Helvetica;color:#5e6363">The Keyword Cloud illustrates Cornell researchers' domain expertise.</p>
+							<p style="font-size:18px;font-family: Muli, Arial, Verdana, Helvetica;color:#5e6363">Research Grants</p>
 						</div>
 					</div>
 				</div>
-
-				<div id="download-header" class="row" style="background-color:#fff;margin:0;padding:70px 50px 0 50px;">
+				<div id="download-header" class="row" style="background-color:#fff;margin:0;padding:10px 50px 0 50px;">
 					<div class="col-sm-12 col-md-12 col-lg-12" style="background-color:#e3e6e9;">
 						<p style="font-size:20px;font-family: Muli, Arial, Verdana, Helvetica;color:#CC6949;margin:0;padding:6px 0">
-							Download
+							By the Numbers
 						</p>
 					</div>
 				</div>
 				<@lh.downloadCounts />
-				<div id="download-footer" class="row" style="display:none;background-color:#fff;margin:0;padding:40px 120px 0 120px;">
-					<div class="col-sm-12 col-md-12 col-lg-12" style="text-align:center;">
-						<p style="font-size:20px;font-family: Muli, Arial, Verdana, Helvetica;color:#5e6363;margin:0;padding:6px 0">
-							Scholars@Cornell By The Numbers
-						</p>
-					</div>
-				</div>
 			</div> <!-- body div -->
 			<div id="collab_vis" style="z-index:15;border-radius:5px"></div>
 			

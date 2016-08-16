@@ -19,6 +19,12 @@
 #stats {
 	width:	100%;
 }
+div#logo-container {
+	position:fixed;
+	top:26px;
+	left:26px;
+	z-index:2;
+}
 #nav-bar.basepage {
 	position: fixed !important;
 	top: 0;
