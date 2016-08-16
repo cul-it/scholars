@@ -114,7 +114,7 @@ display:getGFDepartmentDataGetter
         <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#saveToVar>
                 "deptGradFields" .
 
-
+# Passing the uri and label for the selected department to the template
 <freemarker:organization-subject-areas.ftl> display:hasDataGetter display:subjAreaVisDataGetter .
 
 display:subjAreaVisDataGetter
@@ -123,14 +123,34 @@ display:subjAreaVisDataGetter
     display:query """
 	PREFIX obo:      <http://purl.obolibrary.org/obo/>
 	PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+	PREFIX vivo:     <http://vivoweb.org/ontology/core#>
 	SELECT ?dept ?label
 	WHERE
 	{
-	      ?deptURI obo:ARG_2000028 ?contactInfo .
-	      ?contactInfo obo:ARG_2000029 ?dept .
+		  ?deptURI a vivo:AcademicDepartment .
+	      ?deptURI rdfs:label ?label .
+	      BIND (?deptURI AS ?dept)
+	}
+	LIMIT 1
+    """ .
+
+# Get the uri and labels for all departments
+<freemarker:organization-subject-areas.ftl> display:hasDataGetter display:subjAreaVisDataGetterDepts .
+
+display:subjAreaVisDataGetterDepts
+    a <java:edu.cornell.mannlib.vitro.webapp.utils.dataGetter.SparqlQueryDataGetter> ;
+    display:saveToVar "departmentList" ;
+    display:query """
+	PREFIX obo:      <http://purl.obolibrary.org/obo/>
+	PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+	PREFIX vivo:     <http://vivoweb.org/ontology/core#>
+	SELECT ?dept ?label
+	WHERE
+	{
+		  ?dept a vivo:AcademicDepartment .
 	      ?dept rdfs:label ?label .
 	}
-	LIMIT 1    
+	ORDER BY ?label
     """ .
 
 
