@@ -26,14 +26,8 @@
             ?subject ?property ?position 
             OPTIONAL { ?position core:relates ?org .
                        ?org rdfs:label ?orgName 
-                       OPTIONAL { ?org obo:BFO_0000050 ?middleOrg .
-								  ?middleOrg rdfs:label ?middleOrgName
-                       }
-                       OPTIONAL { ?position hr:positionInUnit ?posnInUnit .
+                        OPTIONAL { ?position hr:positionInUnit ?posnInUnit .
                                   ?posnInUnit rdfs:label ?posnInUnitName
-                       }
-                       OPTIONAL { ?middleOrg obo:BFO_0000050 ?outerOrg .
-                                  ?outerOrg rdfs:label ?outerOrgName
                        }
             }
             OPTIONAL { ?position rdfs:label ?positionTitle } 
@@ -88,13 +82,8 @@
 			?position core:rank ?rank .
 			?position core:relates ?org .
             ?org rdfs:label ?orgName .
-            ?org obo:BFO_0000050 ?middleOrg .
-            ?middleOrg rdfs:label ?middleOrgName .
-            ?middleOrg obo:BFO_0000050 ?outerOrg .
-            ?outerOrg rdfs:label ?outerOrgName .
             ?position hr:positionInUnit ?posnInUnit .
             ?posnInUnit rdfs:label ?posnInUnitName .
-            ?middleOrg rdfs:label ?middleOrgName .
         } WHERE {
             {
                ?subject ?property ?position .
@@ -117,40 +106,6 @@
                ?position core:relates ?org .
                ?org a foaf:Organization . 
                ?org rdfs:label ?orgName 
-            } UNION {
-                ?subject ?property ?position .
-                ?position a core:Position .
-                ?position core:relates ?org .
-                ?org a foaf:Organization .  
-                ?org core:subOrganizationWithin ?middleOrg .
-				?middleOrg a foaf:Organization .
-            } UNION {
-                ?subject ?property ?position .
-                ?position a core:Position .
-                ?position core:relates ?org .
-                ?org a foaf:Organization .  
-                ?org obo:BFO_0000050 ?middleOrg .
-				?middleOrg a foaf:Organization .
-                ?middleOrg rdfs:label ?middleOrgName
-            } UNION {
-                ?subject ?property ?position .
-                ?position a core:Position .
-                ?position core:relates ?org .
-                ?org a foaf:Organization .  
-                ?org obo:BFO_0000050 ?middleOrg .
-				?middleOrg a foaf:Organization .
-                ?middleOrg obo:BFO_0000050 ?outerOrg .
-				?outerOrg a foaf:Organization .
-            } UNION {
-                ?subject ?property ?position .
-                ?position a core:Position .
-                ?position core:relates ?org .
-                ?org a foaf:Organization .  
-                ?org obo:BFO_0000050 ?middleOrg .
-				?middleOrg a foaf:Organization .
-                ?middleOrg obo:BFO_0000050 ?outerOrg .
-				?outerOrg a foaf:Organization .
-                ?outerOrg rdfs:label ?outerOrgName .
             } UNION {
                 ?subject ?property ?position .
                 ?position a core:Position .
