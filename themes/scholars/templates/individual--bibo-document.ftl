@@ -338,52 +338,52 @@
 
 	</div> <!-- biboDocumentMainColumn -->
 </div> <!-- row1 -->
-<div id="row2" class="row" style="background-color:#f1f2f3;margin-top:30px" >
-
-<#if abstract?has_content>
-	<div id="keywords" class="col-sm-5 col-md-5 col-lg-5 scholars-container">
-		<div class="row" style="background-color:#fff;margin:16px 0 0 0" >
-			${keywordsList!}
+<#if abstract?has_content || keywordsList?has_content || doiInline?has_content || pmidInline?has_content >
+	<div id="row2" class="row" style="background-color:#f1f2f3;margin-top:30px" >
+	<#if abstract?has_content>
+		<div id="keywords" class="col-sm-5 col-md-5 col-lg-5 scholars-container">
+			<div class="row" style="background-color:#fff;margin:16px 0 0 0" >
+				${keywordsList!}
+			</div>
+			<div class="row" style="background-color:#fff;margin:16px 0 0 0" >
+				${doiInline!}
+			</div>
+			<div class="row" style="background-color:#fff;margin:16px 0 0 0" >
+				${pmidInline!}
+			</div>
+			<div class="row" style="background-color:#fff;margin:16px 0 0 0" >
+			</div>
 		</div>
-		<div class="row" style="background-color:#fff;margin:16px 0 0 0" >
-			${doiInline!}
-		</div>
-		<div class="row" style="background-color:#fff;margin:16px 0 0 0" >
-			${pmidInline!}
-		</div>
-		<div class="row" style="background-color:#fff;margin:16px 0 0 0" >
-		</div>
-	</div>
-	<div class="col-sm-1 col-md-1 col-lg-1"></div>
-	<div id="abstract" class="col-sm-6 col-md-6 col-lg-6 scholars-container">
-		${abstract!}
-		<div class="row" style="background-color:#fff;margin:16px 0 0 0" >
-		</div>
-	</div> 
-<#else>
-	<div id="foafPersonViz" class="col-sm-12 col-md-12 col-lg-12 scholars-container">
-		<div class="row" style="background-color:#fff;margin:16px 0 0 0" >
-			<div class="col-sm-12 col-md-12 col-lg-12">
-				<div class="row" style="background-color:#fff;margin:16px 0 0 0">
-					<div class="col-sm-5 col-md-5 col-lg-5" style="margin-bottom:16px">
-						${keywordsList!}
-					</div>
-					<div class="col-sm-1 col-md-1 col-lg-1" ></div>
-					<div class="col-sm-5 col-md-5 col-lg-5">
-						<div class="row" style="background-color:#fff;margin:0 0 0 0">
-							${doiInline!}
+		<div class="col-sm-1 col-md-1 col-lg-1"></div>
+		<div id="abstract" class="col-sm-6 col-md-6 col-lg-6 scholars-container">
+			${abstract!}
+			<div class="row" style="background-color:#fff;margin:16px 0 0 0" >
+			</div>
+		</div> 
+	<#else>
+		<div id="foafPersonViz" class="col-sm-12 col-md-12 col-lg-12 scholars-container">
+			<div class="row" style="background-color:#fff;margin:16px 0 0 0" >
+				<div class="col-sm-12 col-md-12 col-lg-12">
+					<div class="row" style="background-color:#fff;margin:16px 0 0 0">
+						<div class="col-sm-5 col-md-5 col-lg-5" style="margin-bottom:16px">
+							${keywordsList!}
 						</div>
-						<div class="row" style="background-color:#fff;margin:16px 0 0 0">
-							${pmidInline!}
+						<div class="col-sm-1 col-md-1 col-lg-1" ></div>
+						<div class="col-sm-5 col-md-5 col-lg-5">
+							<div class="row" style="background-color:#fff;margin:0 0 0 0">
+								${doiInline!}
+							</div>
+							<div class="row" style="background-color:#fff;margin:16px 0 0 0">
+								${pmidInline!}
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
+	</#if>
+	</div> <!-- row2 div -->
 </#if>
-</div> <!-- row2 div -->
-
 <#assign nameForOtherGroup = "${i18n().other}"> 
 
 <!-- Property group menu or tabs -->
@@ -406,7 +406,7 @@
     </script>
 </#if>
 
-<div class="row" style="padding-bottom:400px"></div>
+<div class="row" style="margin-bottom:400px"></div>
 
 <script>
     var individualLocalName = "${individual.localName}";

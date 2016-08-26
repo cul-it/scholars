@@ -88,7 +88,7 @@ $(document).ready(function() {
 
 <#-- The row1 div contains the top portion of the profile page: name, photo, icon controls, positions -->
 <div id="row1" class="row scholars-row">
-<div class="col-sm-12 col-md-12 col-lg-12 scholars-container" id="foafPersonMainColumn">
+<div itemscope itemtype="http://schema.org/Person" class="col-sm-12 col-md-12 col-lg-12 scholars-container" id="foafPersonMainColumn">
 <section id="share-contact" role="region"> 
     <#-- Image -->           
     <#assign individualImage>
