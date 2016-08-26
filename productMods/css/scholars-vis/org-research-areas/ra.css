@@ -90,7 +90,9 @@
   border: 0;
   background-color: #000;
 }
-
+#organization-subject-areas {
+	min-height:	600px;
+}
 #ditem-thumbs {
   position: absolute;
   top: 0;
