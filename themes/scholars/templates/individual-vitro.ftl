@@ -15,7 +15,7 @@
 </#if>	
 
 <#-- Default individual profile page template -->
-
+<#assign subjectUri = individual.controlPanelUrl()?split("=") >
 <div id="row1" class="row scholars-row">
 <div class="col-sm-12 col-md-12 col-lg-12 scholars-container" id="generic-main-column">
     <section id="share-contact" role="region">

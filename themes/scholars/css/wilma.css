@@ -2190,7 +2190,8 @@ a.journal-link:hover {
 .scholars-container {
 	border: 1px solid #cdd4e7;
 	border-top: none;
-	background-color: #fff
+	background-color: #fff;
+	margin-bottom: 40px;
 }
 .scholars-container::before {
 	box-sizing: content-box;
