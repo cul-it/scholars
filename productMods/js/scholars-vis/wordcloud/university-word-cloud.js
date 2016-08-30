@@ -1,3 +1,14 @@
+ScholarsVis["UniversityWordCloud"] = function(options) {
+	var defaults = {
+		    url : applicationContextPath + "/api/dataRequest/university_word_cloud",
+		    transform : transformUniversityWordcloud,
+		    display : drawUniversityWordCloud,
+		    closer : closeUniversityWordcloud,
+			scripts : [applicationContextPath + "/js/scholars-vis/d3/d3.layout.cloud.js"],
+		};
+	return new ScholarsVis.Visualization(options, defaults);
+};
+
 function transformUniversityWordcloud(rawData) {
 	return rawData.map(processKeywordStructure);
 	
@@ -17,6 +28,12 @@ function transformUniversityWordcloud(rawData) {
             }
         }
 	}
+}
+
+function closeUniversityWordcloud(target) {
+	$(target).children("svg").remove();
+	$('div#tooltip').remove();
+	$('div.d3-tip').remove();
 }
 
 function drawUniversityWordCloud(transformed, target) {

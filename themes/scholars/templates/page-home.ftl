@@ -122,9 +122,10 @@
 				</div>
 				<@lh.downloadCounts />
 			</div> <!-- body div -->
-			<div id="collab_vis" style="z-index:15;border-radius:5px"></div>
-			
-			<div id="site_wordcloud_vis" style="z-index:15;border-radius:5px">
+			<div id="collab_vis" style="height:500px;width:700px;z-index:15;border-radius:5px"></div>
+
+
+			<div id="site_wordcloud_vis" style="height:80%;width:75%;z-index:15;border-radius:5px">
       	      <div style="width: 50%; height: 10px; float:left">
                 <span class="text-primary" id="content"></span>
               </div>
@@ -146,28 +147,17 @@
 
 			<script>
 			$().ready(function() {
-			  loadVisualization({
-		    	modal : true, 
-			    target : '#collab_vis',
-			    trigger : '#collaborations_trigger',
-			    url : "${urls.base}/api/dataRequest/collaboration_sunburst",
-			    transform : transformCollab,
-			    display : sunburst,
-			    height : 500,
-			    width : 700
-			  });
-			});
-			$().ready(function() {
-			  loadVisualization({
-		    	modal : true, 
-			    target : '#site_wordcloud_vis',
-			    trigger : '#wordcloud_trigger',
-			    url : "${urls.base}/api/dataRequest/university_word_cloud",
-			    transform : transformUniversityWordcloud,
-			    display : drawUniversityWordCloud,
-			    height : .80,
-			    width : .75
-			  });
+  			  var collab = new ScholarsVis.CollaborationSunburst({
+      		    target : '#collab_vis',
+      		    modal : true
+		      });
+		      $('#collaborations_trigger').click(collab.show);
+
+			  var wc = new ScholarsVis.UniversityWordCloud({
+      		    target : '#site_wordcloud_vis',
+      		    modal : true
+		      });
+		      $('#wordcloud_trigger').click(wc.show);
 			});
 			</script>
 	        <#include "footer.ftl" />
@@ -192,17 +182,6 @@
                 noDepartmentsFound: '${i18n().no_departments_found}'
             };
         </script>
-		<#-- this javascript will clear any "dangling" collaboration tooltips when the modal is closed -->
-		<script>
-		$().ready(function() {
-			$('#collaborations_trigger').click(function() {
-					$('div.jqmOverlay').click(function() {
-						$('div#tooltip').hide();
-						$('div.d3-tip').hide();
-					});
-			});
-		});
-		</script>
     </body>
 </html>
 

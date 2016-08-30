@@ -1,3 +1,15 @@
+if (typeof ScholarsVis !== "undefined") {
+	ScholarsVis["CollaborationSunburst"] = function(options) {
+		var defaults = {
+			    url : applicationContextPath + "/api/dataRequest/collaboration_sunburst",
+		    	transform : transformCollab,
+			    display : sunburst,
+			    closer : closeSunburst
+			};
+		return new ScholarsVis.Visualization(options, defaults);
+	};
+}
+
 /**
  * Take the fake data that comes from the server and convert the URIs
  * to display page URLs.
@@ -17,6 +29,12 @@ function transformCollab(fake) {
 		}
 		return node;
 	}
+}
+
+function closeSunburst(target) {
+	$(target).children("svg").remove();
+	$('div#tooltip').remove();
+	$('div.d3-tip').remove();
 }
 
 function sunburst(json_data, target) {
