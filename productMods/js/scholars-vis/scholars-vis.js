@@ -11,19 +11,8 @@
  * Behind these functions are those that fetch, parse, and transform the data.
  * Each of these is executed lazily, and only once.
  * 
- * Required scripts and stylesheets will be loaded when the visualization 
- * object is constructed.
- * Required scripts include:
- * -- D3 base
- * -- D3 tooltip
- * -- jqModal (if the modal option is set)
- * -- rdflib (if the data is to be parsed from RDF)
- * Required stylesheets include:
- * -- jqModal (if the modal option is set)
- * Also, the options object may specify additional scripts or styleshgeets.
- * 
  * The Visualization assumes:
- * -- JQuery is alreay available.
+ * -- JQuery is already loaded.
  * -- a variable named 'applicationContextPath' is set, e.g. to '/scholars' 
  *      or '/'
  * 
@@ -55,19 +44,14 @@
  */
 
 var ScholarsVis = (function() {
-	var REQUIRED_SCRIPTS = [applicationContextPath + "/js/d3.min.js", 
-	                        applicationContextPath + "/js/scholars-vis/d3/d3-tip.js"                      
-	                        ];
-	var RDF_PARSER_SCRIPT = applicationContextPath + "/js/scholars-vis/rdflib.js";
-	var MODAL_SCRIPT = applicationContextPath + "/js/scholars-vis/jqModal.js";
-	var REQUIRED_STYLESHEETS = [];
-	var MODAL_STYLESHEET = applicationContextPath + "/css/scholars-vis/jqModal.css"
-	
 	return {Visualization: Visualization};
 	
 	function debugIt(message) {
-		if (true) {
-			console.log(new Date().toTimeString() + "  " + message);
+		if (false) {
+			var now = new Date();
+			var time = now.toLocaleFormat("%H:%M:%S");
+			var millis = now.getMilliseconds().toString().padStart(3, "0");
+			console.log(time + "." + millis + "  " + message);
 		}
 	}
 	
@@ -86,29 +70,11 @@ var ScholarsVis = (function() {
 			} else {
 				var options = new Options(opts); 
 			}
-			loadScripts();
-			loadStylesheets();
 		} catch (e) {
 			handleError(e);
 		}
 		
 		return {show: show, hide: hide, downloadData, downloadData};
-		
-		function loadScripts() {
-			options.scripts.forEach(loadOne);
-			function loadOne(url) {
-				debugIt("loading script: " + url);
-				$.getScript(url);
-			}
-		}
-		
-		function loadStylesheets() {
-			options.stylesheets.forEach(loadOne);
-			function loadOne(url) {
-				debugIt("loading stylesheet: " + url);
-				$('head').append('<link rel="stylesheet" type="text/css" href="' + url + '">');
-			}
-		}
 		
 		function show(e) {
 			if (options.modal) {
@@ -249,8 +215,6 @@ var ScholarsVis = (function() {
 		o = o || {};
 		
 		return {
-			scripts: figureScripts(o),
-			stylesheets: figureStylesheets(o),
 			url: o.url, 
 			target: getOneElement(o.target), 
 			parser: figureParseFunction(o), 
@@ -259,31 +223,6 @@ var ScholarsVis = (function() {
 			closer: getFunctionReference(o.closer, noopCloser),
 			modal: o.modal,
 			exporter: getFunctionReference(o.exporter, noopExporter)
-		}
-		
-		function figureScripts(o) {
-			var s = [].concat(REQUIRED_SCRIPTS)
-			if (o.parse == 'turtle') {
-				s = s.concat(RDF_PARSER_SCRIPT);
-			}
-			if (o.modal) {
-				s = s.concat(MODAL_SCRIPT);
-			}
-			if (o.scripts) {
-				s = s.concat(o.scripts);
-			}
-			return s;
-		}
-		
-		function figureStylesheets(o) {
-			var s = [].concat(REQUIRED_STYLESHEETS)
-			if (o.modal) {
-				s = s.concat(MODAL_STYLESHEET);
-			}
-			if (o.stylesheets) {
-				s = s.concat(o.stylesheets);
-			}
-			return s;
 		}
 		
 		function getOneElement(selector) {

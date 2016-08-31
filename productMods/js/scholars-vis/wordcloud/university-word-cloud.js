@@ -3,8 +3,7 @@ ScholarsVis["UniversityWordCloud"] = function(options) {
 		    url : applicationContextPath + "/api/dataRequest/university_word_cloud",
 		    transform : transformUniversityWordcloud,
 		    display : drawUniversityWordCloud,
-		    closer : closeUniversityWordcloud,
-			scripts : [applicationContextPath + "/js/scholars-vis/d3/d3.layout.cloud.js"],
+		    closer : closeUniversityWordcloud
 		};
 	return new ScholarsVis.Visualization(options, defaults);
 };
