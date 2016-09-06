@@ -26,18 +26,13 @@
 					</#if>
 				</div>	
 			<#if requestingDept?has_content>
-				<div id="organization-subject-areas" style="padding-bottom:60px"></div>
+				<div id="organization-subject-areas" style="padding-bottom:60px;height:1000;width:70%"></div>
 					<script>
 					$().ready(function() {
-					  loadVisualization({
-					    target : '#organization-subject-areas',
-					    url : "${urls.base}/api/dataRequest/organization_research_areas?organization=${requestingDept[0].dept?url}",
-					    parse : 'turtle',
-					    transform : transformFlaredata,
-					    display : plotConceptMap,
-					    height : 1000,
-					    width : 0.70
-					  });
+		  			  new ScholarsVis.OrganizationResearchAreas({
+	      				target : '#organization-subject-areas',
+	      				organization : "${requestingDept[0].dept?url}"
+						}).show();
 					});
 					</script>
 			</#if>
@@ -56,11 +51,11 @@ $().ready(function() {
 </script>
 
 ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/org-research-areas/ra.css" />',
-					'<link rel="stylesheet" href="${urls.base}/css/scholars-vis/jqModal.css" />')}
+				  '<link rel="stylesheet" href="${urls.base}/css/scholars-vis/jqModal.css" />')}
 
 ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></script>',
               '<script type="text/javascript" src="${urls.base}/js/scholars-vis/jqModal.js"></script>',
-              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/visualization-loader.js"></script>',
+              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/scholars-vis.js"></script>',
               '<script type="text/javascript" src="${urls.base}/js/scholars-vis/rdflib.js"></script>',
 			  '<script type="text/javascript" src="${urls.base}/js/scholars-vis/org-research-areas/organization-research-areas.js"></script>',
 			  '<script type="text/javascript" src="${urls.base}/js/scholars-vis/org-research-areas/svg-pan-zoom.js"></script>')}

@@ -47,7 +47,7 @@ var ScholarsVis = (function() {
 	return {Visualization: Visualization};
 	
 	function debugIt(message) {
-		if (false) {
+		if (true) {
 			var now = new Date();
 			var time = now.toLocaleFormat("%H:%M:%S");
 			var millis = now.getMilliseconds().toString().padStart(3, "0");
@@ -77,18 +77,18 @@ var ScholarsVis = (function() {
 		return {show: show, hide: hide, downloadData, downloadData};
 		
 		function show(e) {
+			e && e.preventDefault();
 			if (options.modal) {
 				debugIt("Vis:showModal");
 				fetch().then(parse).then(transform).then(positionModal).then(display).then(makeModal);
-				e.preventDefault();
 			} else {
 				debugIt("Vis:show");
 				fetch().then(parse).then(transform).then(display).then(makeVisible);
-				e.preventDefault();
 			}
 		}
 		
-		function hide() {
+		function hide(e) {
+			e && e.preventDefault();
 			if (options.modal) {
 				debugIt("Vis:hide");
 				$.when(releaseModal());
@@ -105,10 +105,12 @@ var ScholarsVis = (function() {
 		function fetch(nextFunction) {
 			if (typeof options.fetched === "undefined") {
 				debugIt("set up fetching");
-				return $.get(options.url).then(function(fetched) {
+				return $.get(options.url).then(storeFetchedData);
+
+				function storeFetchedData(fetched) {
 					options.fetched = fetched;
 					debugIt("fetched");
-				});
+				}
 			} else {
 				return alreadyDone("fetching");
 			}

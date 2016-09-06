@@ -51,7 +51,7 @@
 	        <span style="padding-left:6px;">> $1,000,000</span> </li>
 	      </div>
 	    </div>
-      	<div id="vis" style="display:inline"></div>
+      	<div id="vis" style="display:inline;height:600px;width:700px"></div>
 	  </div>
 
     <footer></footer>
@@ -60,7 +60,7 @@
 ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/grants/style.css" />')}
 
 ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></script>',
-              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/visualization-loader.js"></script>',
+              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/scholars-vis.js"></script>',
               '<script type="text/javascript" src="${urls.base}/js/scholars-vis/grants/transform-data.js"></script>',
               '<script type="text/javascript" src="${urls.base}/js/scholars-vis/grants/plugins.js"></script>',
               '<script type="text/javascript" src="${urls.base}/js/scholars-vis/grants/script.js"></script>',

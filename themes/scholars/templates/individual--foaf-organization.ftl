@@ -88,7 +88,7 @@
   </#if>
   <#if isAcademicDept >
 	<div>
-		<a href="#" id="word_cloud_trigger"><div id="dynamic_word_cloud">&nbsp;</div></a>
+		<a href="#" id="word_cloud_trigger"><div id="dynamic_word_cloud" style="display:inline-block;height:110px;width:220px">&nbsp;</div></a>
 		<p>Keywords</p>
 	</div>
 	<div>
@@ -96,7 +96,7 @@
 		<p>Subject Areas</p>
 	</div>
 	<div>
-  		<a href="#" id="view_selection" class="jqModal" ><img width="40%" src="${urls.base}/themes/scholars/images/dept_grants.png"/></a>
+  		<a href="#" id="view_selection"><img width="40%" src="${urls.base}/themes/scholars/images/dept_grants.png"/></a>
 		<p>Grants</p>
 	</div>
   <#elseif isCollege >
@@ -287,28 +287,12 @@ $().ready(function() {
 	}
 });
 </script>
-<div id="org-grants-modal" class="jqmWindow">
-	<div id="vis"></div>
-</div>
+
+<div id="grantsVis" style="height:400px;width:400px"></div>
 
 ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/keywordcloud/kwcloud.css" />')}
-<div id="word_cloud_vis"></div>
+<div id="word_cloud_vis" style="height:70%;width:70%"></div>
 
-
-<script>
-$().ready(function() {
-  $('#org-grants-modal').jqm({
-	onHide: function(hash){
-	    // hide modal
-	    hash.w.hide();
-	    // clear content
-		$('#gates_tooltip').css("display","none");
-	    // remove overlay
-	    hash.o.remove();
-	}
-  });
-});
-</script>
 
 ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/individual/individual-vivo.css?vers=1.5.1" />')}
 
@@ -322,7 +306,6 @@ ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/individual/indi
 
 ${headScripts.add('<script type="text/javascript" src="${urls.base}/js/jquery_plugins/qtip/jquery.qtip-1.0.0-rc3.min.js"></script>',
 				    '<script type="text/javascript" src="${urls.base}/js/jquery-ui/js/jquery-ui-1.8.9.custom.min.js"></script>',
-					'<script type="text/javascript" src="${urls.base}/js/scholars-vis/jqModal.js"></script>',
                   	'<script type="text/javascript" src="${urls.base}/js/tiny_mce/tiny_mce.js"></script>')}
 
 ${scripts.add('<script type="text/javascript" src="${urls.base}/js/imageUpload/imageUploadUtils.js"></script>',
@@ -345,7 +328,7 @@ ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/or
 	${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/collaborations/collab.css" />')}
 </#if>
 ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></script>',
-              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/visualization-loader.js"></script>',
+              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/scholars-vis.js"></script>',
               '<script type="text/javascript" src="${urls.base}/js/scholars-vis/grants/transform-data.js"></script>',
               '<script type="text/javascript" src="${urls.base}/js/scholars-vis/grants/plugins.js"></script>',
               '<script type="text/javascript" src="${urls.base}/js/scholars-vis/grants/script.js"></script>',
@@ -359,8 +342,8 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></
 			'<script type="text/javascript" src="${urls.base}/js/scholars-vis/rdflib.js"></script>',
             '<script type="text/javascript" src="${urls.base}/js/scholars-vis/d3/d3-tip.js"></script>',
             '<script type="text/javascript" src="${urls.base}/js/scholars-vis/d3/d3.layout.cloud.js"></script>',
-			  '<script type="text/javascript" src="${urls.base}/js/scholars-vis/wordcloud/iconized-person-word-cloud.js"></script>',
-            '<script type="text/javascript" src="${urls.base}/js/scholars-vis/wordcloud/person-word-cloud.js"></script>',
+			  '<script type="text/javascript" src="${urls.base}/js/scholars-vis/wordcloud/iconized-dept-word-cloud.js"></script>',
+              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/wordcloud/dept-word-cloud.js"></script>',
               '<script type="text/coffeescript" src="${urls.base}/js/scholars-vis/grants/vis-modal.coffee"></script>')}
 
 
@@ -382,28 +365,17 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></
   <div id="cross_unit_collab_vis" class="dept_collab_vis"></div>
 	<script>
 	$().ready(function() {
-	  loadVisualization({
-    	modal : true, 
+	  var cucs = new ScholarsVis.CrossUnitCollaborationSunburst({
 	    target : '#cross_unit_collab_vis',
-	    trigger : '#cross_unit_collab_trigger',
-	    url : "${urls.base}/api/dataRequest/cross_unit_sunburst",
-	    transform : transformCollab,
-	    display : sunburst,
-	    height : 500,
-	    width : 700	  });
-	});
-	</script>
-	<script>
-	$().ready(function() {
-	  loadVisualization({
-    	modal : true, 
+	    modal : true
+      });
+      $('#cross_unit_collab_trigger').click(cucs.show);
+
+	  var idcs = new ScholarsVis.InterDepartmentCollaborationSunburst({
 	    target : '#interd_collab_vis',
-	    trigger : '#interd_collab_trigger',
-	    url : "${urls.base}/api/dataRequest/interdepartmental_sunburst",
-	    transform : transformCollab,
-	    display : sunburst,
-	    height : 500,
-	    width : 700	  });
+	    modal : true
+      });
+      $('#interd_collab_trigger').click(idcs.show);
 	});
 	</script>
 
@@ -411,52 +383,19 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></
 <#if isAcademicDept >
 	<script>
 	$().ready(function() {
-	  loadVisualization({
-	    modal : true, 
+	  var wc = new ScholarsVis.DepartmentWordCloud({
 	    target : '#word_cloud_vis',
-	    trigger : '#word_cloud_trigger',
-	    url : "${urls.base}/api/dataRequest/department_word_cloud?department=${individual.uri?url}",
-	    parse : 'turtle',
-	    transform : transform_word_cloud_data,
-	    display : draw_word_cloud,
-	    height : 0.70,
-	    width : 0.70
-	  });
-	});
-	$().ready(function() {
-	  loadVisualization({
-	//    modal : true, 
-    	target : '#dynamic_word_cloud',
-    //	  trigger : '#word_cloud_trigger',
-    	url : "${urls.base}/api/dataRequest/department_word_cloud?department=${individual.uri?url}",
-	    parse : 'turtle',
-	    transform : iconize_word_cloud_data,
-	    display : draw_iconized_word_cloud,
-	    height : 120,
-	    width : 220
-	  });
+	    modal : true,
+	    department : "${individual.uri?url}"
+      });
+      $('#word_cloud_trigger').click(wc.show);
+
+	  new ScholarsVis.IconizedDepartmentWordCloud({
+	    target : '#dynamic_word_cloud',
+	    modal : false,
+	    department : "${individual.uri?url}"
+      }).show();
 	});
 	</script>
 </#if>
-<#-- this javascript will clear any "dangling" collaboration tooltips when the modal is closed -->
-<script>
-$().ready(function() {
-	$('#interd_collab_trigger').click(function() {
-			$('div.jqmOverlay').click(function() {
-				$('div#tooltip').hide();
-				$('div.d3-tip').hide();
-			});
-	});
-	$('#cross_unit_collab_trigger').click(function() {
-			$('div.jqmOverlay').click(function() {
-				$('div#tooltip').hide();
-				$('div.d3-tip').hide();
-			});
-	});
-	$('#word_cloud_vis').click(function() {
-			$('div.jqmOverlay').click(function() {
-				$('div.d3-tip').hide();
-			});
-	});
-});
 </script>

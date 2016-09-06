@@ -1,14 +1,32 @@
-if (typeof ScholarsVis !== "undefined") {
-	ScholarsVis["CollaborationSunburst"] = function(options) {
-		var defaults = {
-			    url : applicationContextPath + "/api/dataRequest/collaboration_sunburst",
-		    	transform : transformCollab,
-			    display : sunburst,
-			    closer : closeSunburst
-			};
-		return new ScholarsVis.Visualization(options, defaults);
-	};
-}
+ScholarsVis["CollaborationSunburst"] = function(options) {
+	var defaults = {
+		    url : applicationContextPath + "/api/dataRequest/collaboration_sunburst",
+	    	transform : transformCollab,
+		    display : sunburst,
+		    closer : closeSunburst
+		};
+	return new ScholarsVis.Visualization(options, defaults);
+};
+
+ScholarsVis["CrossUnitCollaborationSunburst"] = function(options) {
+	var defaults = {
+		    url : applicationContextPath + "/api/dataRequest/cross_unit_sunburst",
+	    	transform : transformCollab,
+		    display : sunburst,
+		    closer : closeSunburst
+		};
+	return new ScholarsVis.Visualization(options, defaults);
+};
+
+ScholarsVis["InterDepartmentCollaborationSunburst"] = function(options) {
+	var defaults = {
+		    url : applicationContextPath + "/api/dataRequest/interdepartmental_sunburst",
+	    	transform : transformCollab,
+		    display : sunburst,
+		    closer : closeSunburst
+		};
+	return new ScholarsVis.Visualization(options, defaults);
+};
 
 /**
  * Take the fake data that comes from the server and convert the URIs

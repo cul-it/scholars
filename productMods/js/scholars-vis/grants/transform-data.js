@@ -1,3 +1,8 @@
+function closeGrantsVis(target) {
+	$(target).children("svg").remove();
+	$('div#gates_tooltip').remove();
+}
+
 /*
  * Take the data as it comes from the server, and convert it for the bubble-chart.
  * 

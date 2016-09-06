@@ -1,3 +1,19 @@
+ScholarsVis["PersonWordCloud"] = function(options) {
+	var defaults = {
+		    url : applicationContextPath + "/api/dataRequest/person_word_cloud?person=" + options.person,
+		    parse : 'turtle',
+	    	transform : transform_word_cloud_data,
+		    display : draw_word_cloud,
+		    closer : close_word_cloud
+		};
+	return new ScholarsVis.Visualization(options, defaults);
+};
+
+function close_word_cloud(target) {
+	$(target).children("svg").remove();
+	$('div.d3-tip').remove();
+}
+
 function transform_word_cloud_data(graph) {
 	var VIVO = $rdf.Namespace("http://vivoweb.org/ontology/core#");
 	var RDFS = $rdf.Namespace("http://www.w3.org/2000/01/rdf-schema#");
@@ -51,8 +67,8 @@ function transform_word_cloud_data(graph) {
 }
  
  function draw_word_cloud(keywords, target) {
-	 var height = $(target).height();
-	 var width = $(target).width();
+	 var height = Math.floor($(target).height());
+	 var width = Math.floor($(target).width());
 
 	 if (keywords.length == 0) {
 		 $(target).html("<div>No Research Keywords</div>");

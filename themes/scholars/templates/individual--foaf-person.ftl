@@ -137,7 +137,7 @@ $(document).ready(function() {
  	<#if isAuthor >
 		<#if hasKeywords >
  			<div>
- 				<a href="#" id="word_cloud_trigger"><div id="dynamic_word_cloud">&nbsp;</div></a>
+		  		<a href="#" id="word_cloud_trigger"><div id="dynamic_word_cloud" style="display:inline-block;height:130px;width:170px">&nbsp;</div></a>
  				<p>Keywords</p>
  			</div>
 		</#if>
@@ -200,7 +200,7 @@ $(document).ready(function() {
 <#else>
 <div id="foaf-person-blank-row" class="row scholars-row"></div>
 </#if>
-<div id="word_cloud_vis"></div>
+<div id="word_cloud_vis" style="height:70%;width:70%"></div>
 
 <#-- <#include "individual-property-group-tabs.ftl"> -->
 
@@ -276,41 +276,18 @@ $().ready(function() {
 <#if hasKeywords >
 	<script>
 	$().ready(function() {
-	  loadVisualization({
-	    modal : true, 
+	  var wc = new ScholarsVis.PersonWordCloud({
 	    target : '#word_cloud_vis',
-	    trigger : '#word_cloud_trigger',
-	    url : "${urls.base}/api/dataRequest/person_word_cloud?person=${individual.uri?url}",
-	    parse : 'turtle',
-	    transform : transform_word_cloud_data,
-	    display : draw_word_cloud,
-	    height : 0.70,
-	    width : 0.70
-	  });
-	});
-	$().ready(function() {
-	  loadVisualization({
-	//    modal : true, 
-	    target : '#dynamic_word_cloud',
-	//    trigger : '#word_cloud_trigger',
-	    url : "${urls.base}/api/dataRequest/person_word_cloud?person=${individual.uri?url}",
-	    parse : 'turtle',
-	    transform : iconize_word_cloud_data,
-	    display : draw_iconized_word_cloud,
-	    height : 120,
-	    width : 220
-	  });
-	});
-	</script>
+	    modal : true,
+	    person : "${individual.uri?url}"
+      });
+      $('#word_cloud_trigger').click(wc.show);
 
-	<#-- this javascript will clear any "dangling" collaboration tooltips when the modal is closed -->
-	<script>
-	$().ready(function() {
-		$('#word_cloud_vis').click(function() {
-				$('div.jqmOverlay').click(function() {
-					$('div.d3-tip').hide();
-				});
-		});
+	  new ScholarsVis.IconizedPersonWordCloud({
+	    target : '#dynamic_word_cloud',
+	    modal : false,
+	    person : "${individual.uri?url}"
+      }).show();
 	});
 	</script>
 </#if>
@@ -338,7 +315,7 @@ ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/ke
 
 ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></script>',
 	              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/jqModal.js"></script>',
-	              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/visualization-loader.js"></script>',
+	              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/scholars-vis.js"></script>',
 	              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/rdflib.js"></script>',
 	              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/d3/d3-tip.js"></script>',
 	              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/d3/d3.layout.cloud.js"></script>',

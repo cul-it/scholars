@@ -1,3 +1,12 @@
+ScholarsVis["ResearchAreasBubbleChart"] = function(options) {
+	var defaults = {
+		    url : applicationContextPath + "/api/dataRequest/research_area_bubbles",
+	    	transform : transform_bubble_chart_data,
+		    display : draw_bubble_chart
+		};
+	return new ScholarsVis.Visualization(options, defaults);
+};
+
 function transform_bubble_chart_data(rawData) {
 	return rawData;
 }

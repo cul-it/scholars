@@ -1,19 +1,9 @@
-<script>
-$().ready(function() {
-  loadVisualization({
-    target : '#bubbleChart_area',
-    url : "${urls.base}/api/dataRequest/research_area_bubbles",
-    transform : transform_bubble_chart_data,
-    display : draw_bubble_chart,
-    height : 500,
-    width : 500
-  });
-});
-</script>
+<div id="bubbleChart_area" style="height:500px;width:500px;"></div>
 
 ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/research-areas/ra.css" />')}
 
 ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></script>',
+              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/scholars-vis.js"></script>',
               '<script type="text/javascript" src="${urls.base}/js/scholars-vis/d3/d3-tip.js"></script>',
               '<script type="text/javascript" src="${urls.base}/js/scholars-vis/d3/d3-transform.js"></script>',
               '<script type="text/javascript" src="${urls.base}/js/scholars-vis/research-areas/misc.js"></script>',
@@ -23,5 +13,12 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></
               '<script type="text/javascript" src="${urls.base}/js/scholars-vis/research-areas/central-click.js"></script>',
               '<script type="text/javascript" src="${urls.base}/js/scholars-vis/research-areas/lines.js"></script>',
               '<script type="text/javascript" src="${urls.base}/js/scholars-vis/research-areas/research-areas-bubble-chart.js"></script>',
-              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/research-areas/ext-array.js"></script>',
-              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/visualization-loader.js"></script>')}
+              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/research-areas/ext-array.js"></script>')}
+
+<script>
+$().ready(function() {
+  new ScholarsVis.ResearchAreasBubbleChart({
+	target : '#bubbleChart_area'
+  }).show();
+});
+</script>

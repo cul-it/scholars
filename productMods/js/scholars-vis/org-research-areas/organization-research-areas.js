@@ -1,3 +1,13 @@
+ScholarsVis["OrganizationResearchAreas"] = function(options) {
+	var defaults = {
+		    url : applicationContextPath + "/api/dataRequest/organization_research_areas?organization=" + options.organization,
+		    parse : 'turtle',
+		    transform : transformFlaredata,
+		    display : plotConceptMap,
+		};
+	return new ScholarsVis.Visualization(options, defaults);
+};
+
 function transformFlaredata(graph) {
 	var BIBO = $rdf.Namespace("http://purl.org/ontology/bibo/");
 	var FOAF = $rdf.Namespace("http://xmlns.com/foaf/0.1/");

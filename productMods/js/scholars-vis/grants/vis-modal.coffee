@@ -1,9 +1,10 @@
 
 class BubbleChart
-  constructor: (data) ->
+  constructor: (data, target) ->
     @data = data
-    @width = 400
-    @height = 400
+    @target = target
+    @width = $(target).width();
+    @height = $(target).height();
     @currentlyClicked = false
 
     @years = []
@@ -107,7 +108,7 @@ class BubbleChart
   # create svg at #vis and then 
   # create circle representation for each node
   create_vis: () =>
-    @vis = d3.select("#vis").append("svg")
+    @vis = d3.select(@target).append("svg")
       .attr("width", @width)
       .attr("height", @height)
       .attr("id", "svg_vis")
@@ -283,8 +284,8 @@ root = exports ? this
 $ ->
   chart = null
 
-  render_vis = (json) ->
-    chart = new BubbleChart json
+  render_vis = (json, target) ->
+    chart = new BubbleChart json, target
     chart.start()
     root.display_all()
   root.display_all = () =>
@@ -309,13 +310,13 @@ $ ->
     else
       root.display_all()
 
-	  loadVisualization {
-	#     target : '#bogus',
-	      url : applicationContextPath + "/api/dataRequest/grants_bubble_chart",
-	      transform : transformGrantsData,
-	      display : render_vis,
-	      height : 200,
-	      width : 200
-     }
-	
+  vis = new ScholarsVis.Visualization({
+      target : $("#grantsVis"),
+      modal : true,
+      url : applicationContextPath + "/api/dataRequest/grants_bubble_chart",
+      transform : transformGrantsData,
+      display : render_vis,
+      closer : closeGrantsVis
+      })
+  $('#view_selection').click(vis.show);
   

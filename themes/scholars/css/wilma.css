@@ -2329,7 +2329,8 @@ div#foaf-organization-blank-row {
 	background-color: #fff;
 }
 .dept_collab_vis {
-	height: 600;
+	height: 500px;
+	width: 700px;
 	z-index: 15;
 	border-radius: 5px;
 }
