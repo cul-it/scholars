@@ -2,7 +2,7 @@
 
 
 <footer role="contentinfo">
-    <div class="row" style="background-color: #425675;margin:0;padding:16px 0 16px 30px">
+    <div class="row footer-row-one">
 		<div class="col-sm-6 col-md-6 col-lg-6">
 			<nav role="navigation">
 	            <ul class="footer-menu" role="list">

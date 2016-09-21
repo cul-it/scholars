@@ -1147,7 +1147,7 @@ footer .wrapper {
     font-size: .7em;
     color: #4e5051;
     background-color: #fff;
-    margin-top: 1em;
+/*    margin-top: 1em; */
 }
 footer p.copyright {
     float: left;
@@ -2648,17 +2648,26 @@ ul#footer-controls {
 	text-decoration: none !important;
 }
 div.cul-footer {
+	position: relative;
+	z-index: 30;
 	text-align: left;
 	font-size: 14px;
 	font-family: Muli, Arial, Verdana, Helvetica;
 	background-color: #f1f2f3;
-	padding: 10px 0 0 30px;
+	padding: 20px 0 0 30px;
 	height: 110px;
 }
 div.cul-footer nav p,
 div.cul-footer nav ul,
 div.cul-footer nav li {
 	display: inline;
+}
+.footer-row-one {
+	position:relative;
+	z-index:30;
+	background-color: #425675;
+	margin:0;
+	padding:16px 0 16px 30px;
 }
 body footer {
 	background: none;
