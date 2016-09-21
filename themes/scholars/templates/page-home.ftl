@@ -122,10 +122,10 @@
 				</div>
 				<@lh.downloadCounts />
 			</div> <!-- body div -->
-			<div id="collab_vis" style="height:500px;width:700px;z-index:15;border-radius:5px"></div>
+			<div id="collab_vis" style="display:none;height:500px;width:700px;z-index:15;border-radius:5px"></div>
 
 
-			<div id="site_wordcloud_vis" style="height:80%;width:75%;z-index:15;border-radius:5px">
+			<div id="site_wordcloud_vis" style="display:none;height:80%;width:75%;z-index:15;border-radius:5px">
       	      <div style="width: 50%; height: 10px; float:left">
                 <span class="text-primary" id="content"></span>
               </div>
