@@ -137,7 +137,7 @@ $(document).ready(function() {
  	<#if isAuthor >
 		<#if hasKeywords >
  			<div>
-		  		<a href="#" id="word_cloud_trigger"><div id="dynamic_word_cloud" style="display:inline-block;height:130px;width:170px">&nbsp;</div></a>
+		  		<a href="#" id="word_cloud_trigger"><div id="dynamic_word_cloud" style="display:inline-block;height:150px;width:200px">&nbsp;</div></a>
  				<p>Keywords</p>
  			</div>
 		</#if>

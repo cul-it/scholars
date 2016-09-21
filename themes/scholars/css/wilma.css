@@ -2257,7 +2257,8 @@ div#foaf-organization-icons {
 }
 div#visualization-column div {
 	text-align: center; 
-	padding-top: 34px;
+	padding-top: 20px;
+	overflow: hidden;
 }
 div#visualization-column div p {
 	padding-top: 8px;
@@ -2320,8 +2321,8 @@ ul#individual-faculty {
 	margin-top: 16px;
 }
 div#foaf-organization-blank-row {
-	height: 200px;
-	min-height: 200px;
+	height: 100px;
+	min-height: 100px;
 }
 #org-grants-modal {
 	border-radius: 5px;

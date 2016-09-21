@@ -88,7 +88,7 @@
   </#if>
   <#if isAcademicDept >
 	<div>
-		<a href="#" id="word_cloud_trigger"><div id="dynamic_word_cloud" style="display:inline-block;height:110px;width:220px">&nbsp;</div></a>
+		<a href="#" id="word_cloud_trigger"><div id="dynamic_word_cloud" style="display:inline-block;height:150px;width:200px">&nbsp;</div></a>
 		<p>Keywords</p>
 	</div>
 	<div>
@@ -288,10 +288,10 @@ $().ready(function() {
 });
 </script>
 
-<div id="grantsVis" style="height:400px;width:400px"></div>
+<div id="grantsVis" style="display:none;height:400px;width:400px"></div>
 
 ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/keywordcloud/kwcloud.css" />')}
-<div id="word_cloud_vis" style="height:70%;width:70%"></div>
+<div id="word_cloud_vis" style="display:none;height:70%;width:70%"></div>
 
 
 ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/individual/individual-vivo.css?vers=1.5.1" />')}
