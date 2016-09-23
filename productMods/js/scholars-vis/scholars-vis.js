@@ -47,10 +47,10 @@ var ScholarsVis = (function() {
 	return {Visualization: Visualization};
 	
 	function debugIt(message) {
-		if (true) {
+		if (false) {
 			var now = new Date();
-			var time = now.toLocaleFormat("%H:%M:%S");
-			var millis = now.getMilliseconds().toString().padStart(3, "0");
+			var time = now.toLocaleTimeString();
+			var millis = ("000" + now.getMilliseconds().toString()).slice(-3);
 			console.log(time + "." + millis + "  " + message);
 		}
 	}
