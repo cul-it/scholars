@@ -65,3 +65,71 @@ circle {
 .collabhoverable:hover {
 	background-color: rgba(50, 150, 200, 0.8);
 }
+
+#svgDiv  { display: table-header-group; }
+#crumbs  { display: table-footer-group; }
+
+.cwbreadcrumb { 
+	list-style: none; 
+	overflow: hidden; 
+	font-size: 12px;
+}
+.cwbreadcrumb li { 
+	float: left; 
+}
+.cwbreadcrumb li a {
+	color: white;
+	text-decoration: none; 
+	padding: 10px 0 10px 65px;
+	background: Brown;                   /* fallback color */
+	background: hsla(0,0%,35%,1); 
+	position: relative; 
+	display: block;
+	float: left;
+}
+.cwbreadcrumb li a:after { 
+	content: " "; 
+	display: block; 
+	width: 0; 
+	height: 0;
+	border-top: 50px solid transparent;           /* Go big on the size, and let overflow hide */
+	border-bottom: 50px solid transparent;
+	border-left: 30px solid hsla(0,0%,35%,1);
+	position: absolute;
+	top: 50%;
+	margin-top: -50px; 
+	left: 100%;
+	z-index: 2; 
+}
+.cwbreadcrumb li a:before { 
+	content: " "; 
+	display: block; 
+	width: 0; 
+	height: 0;
+	border-top: 50px solid transparent;       
+	border-bottom: 50px solid transparent;
+	border-left: 30px solid white;
+	position: absolute;
+	top: 50%;
+	margin-top: -50px; 
+	margin-left: 1px;
+	left: 100%;
+	z-index: 1; 
+}	
+.cwbreadcrumb li:first-child a {
+	padding-left: 10px;
+}
+.cwbreadcrumb li:nth-child(2) a       { background:        hsla(0,0%,45%,1 ); }
+.cwbreadcrumb li:nth-child(2) a:after { border-left-color: hsla(0,0%,45%,1); }
+.cwbreadcrumb li:nth-child(3) a       { background:        hsla(0,0%,55%,1); }
+.cwbreadcrumb li:nth-child(3) a:after { border-left-color: hsla(0,0%,55%,1); }
+.cwbreadcrumb li:nth-child(4) a       { background:        hsla(0,0%,65%,1); }
+.cwbreadcrumb li:nth-child(4) a:after { border-left-color: hsla(0,0%,65%,1); }
+.cwbreadcrumb li:nth-child(5) a       { background:        hsla(0,0%,75%,1); }
+.cwbreadcrumb li:nth-child(5) a:after { border-left-color: hsla(0,0%,75%,1); }
+
+/* for links 
+.cwbreadcrumb li a:hover { background: hsla(0,0%,25%,1); }
+.cwbreadcrumb li a:hover:after { border-left-color: hsla(0,0%,25%,1) !important; }
+*/
+

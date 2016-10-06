@@ -57,7 +57,7 @@ function closeSunburst(target) {
 
 function sunburst(json_data, target) {
 var width = $(target).width();
-var height = $(target).height();
+var height = $(target).height()-50;
 
 var margin = {top: 300, right: 310, bottom: 300, left: 310},
     // radius = Math.min(margin.top, margin.right, margin.bottom, margin.left) - 10;
@@ -78,11 +78,12 @@ var luminance = d3.scale.sqrt()
     .clamp(true)
     .range([90, 20]);
 
-var tip = d3.tip().attr('class', 'd3-tip choices triangle-isosceles').html(function(d) { 
+var tip = d3.tip().attr('class', 'd3-tip choices triangle-isosceles').attr("id", "specificTip").html(function(d) { 
+  result = "";
   if(d.uri != null){
-    result = "<p><b><a href='" + d.uri + "'>" + d.name + "</a></b></p>";
+    result += "<p><b><a href='" + d.uri + "'>" + d.name + "</a></b></p>";
   }else{
-    result = "<p class='nonlinktext'>" + d.name + "</p>";
+    result += "<p class='nonlinktext'>"+ d.name + "</p>";
   }
   if(typeof d.pubs != "undefined") {
     for(var i = 0; i < d.pubs.length; i++) {
@@ -93,15 +94,26 @@ var tip = d3.tip().attr('class', 'd3-tip choices triangle-isosceles').html(funct
     result += "No publications found";
   } 
   return result;
-});
+  });
+
+// remove any existing crumbs entity and create a new one.
+d3.select("#crumbs").remove();
+var crmb = d3.select(target).append("div")
+    .attr("id", "crumbs")
+    .append("ul")
+      .attr("id", "crumbList")
+      .attr("class", "cwbreadcrumb");
 
 var svg = d3.select(target).append("svg")
+    .attr("id", "svgDiv")
     .attr("width", width)
     .attr("height", height)
   .append("g")
     .attr("transform", "translate(" + (width / 2) + "," + (height / 2) + ")").call(tip);
 
 var nodeList = [];
+// bring to initial stage
+updateCrumbs([]);
 
 var partition = d3.layout.partition()
     .sort(function(a, b) { return d3.ascending(a.name, b.name); })
@@ -137,9 +149,8 @@ function format_description(d) {
 }
 
 function computeTextRotation(d) {
-  var angle=(d.x +d.dx/2)*180/Math.PI - 90  
-  
-  return angle;
+  var angle=(d.x +d.dx/2)*180/Math.PI - 90 ; 
+  return "rotate(" + angle+ ")translate(0,0)";
 }
 
 function mouseOverArc(d) {
@@ -170,6 +181,14 @@ function truncate (s, length){
     return s;
 }
 
+function getLastName(s){
+  return s.split(',')[0];
+}
+
+function getAngle(d) {
+  var thetaDeg = (180 / Math.PI * (arc.startAngle()(d) + arc.endAngle()(d)) / 2 - 90);
+  return (thetaDeg > 90) ? thetaDeg - 180 : thetaDeg;
+}
 
 function draw_it(root, target) {
 	var error;
@@ -199,8 +218,9 @@ function draw_it(root, target) {
 
   var center = svg.append("circle")
       .attr("r", radius / 3).on("click", zoomOut);
-  var centerText = svg.append("text").attr("dx", function(d) { return -30; }).style("font-size", "11px").text(function(d) { return "Engineering "});
-     
+  // why specificly defined as Engineering. This will not work for other units.
+  var centerText = svg.append("text").style("text-anchor", "middle").style("font-size", "11px").text(function(d) { return "Engineering "});
+  
 
   center.append("title")
       .text("zoom out");
@@ -219,28 +239,27 @@ function draw_it(root, target) {
       .on("mouseout", mouseOutArc);
   
       
-  var texts = svg.selectAll("text")
-      .data(partitioned_data)
-    .enter().append("text")
-    .filter(filter_min_arc_size_text)     
-      .attr("transform", function(d) { return "rotate(" + computeTextRotation(d) + ")"; })
-    .attr("x", function(d) { return radius / 3 * d.depth; })  
-    .attr("dx", "6") // margin
-      .attr("dy", ".35em") // vertical-align  
-      .text(function(d,i) {
+var texts = svg.selectAll("text")
+  .data(partitioned_data)
+  .enter()
+  .append("text")
+  .filter(filter_min_arc_size_text)  
+    .attr("x", function(d) { d[1]; })  
+    .attr("dx", "0") // margin
+    .attr("dy", ".35em") // vertical-align  
+    .attr("text-anchor", "middle")
+    .attr("transform", function(d) { 
+      return "translate(" + arc.centroid(d) + ")" + "rotate(" + getAngle(d) + ")"; 
+    })
+    .attr("font-size", 9)    
+  
+  .text(function(d,i) {
         if(!d.uri == null){
-          d.uri;
-          return "<a href=\""+d.uri+"\">"+d.name+"</a>";
+          return d.name;
         }else{
-          return d.name
+          return d.name; 
         }
-      }).on("click", function(d) {
-        if(typeof d.uri != "undefined") {
-          if(d.uri != null) {
-            window.location.href = d.uri;
-          }
-        }
-      })
+  });
 
   function zoomIn(p) {
     if (p.depth > 1) p = p.parent;
@@ -315,50 +334,75 @@ function draw_it(root, target) {
       var defaultFontSize = 11;
       var newFontSize = defaultFontSize - root.description.length/defaultFontSize;
       var scaleFactor = -2.9*newFontSize;
-      centerText.attr("dx", function(d) { return (scaleFactor/defaultFontSize)*root.description.length; }).style("font-size", newFontSize+"px").text(root.description);
+      centerText.style("font-size", newFontSize+"px").style("text-anchor", "middle").text(root.description);
       
-      // if we're at depth 2, make tooltip visible
-
-// Commenting out per Javed's instructions
-/*      if(typeof root.parent != "undefined") {
-        if(typeof root.parent.parent != "undefined") {
+      if(typeof root.children[0].children === "undefined") {
           svg.selectAll('path').on('click', function(d) { 
-            tip.show(d); 
-            console.log(nodeList.indexOf(d));
+            tip.show(d);
+            //Handling case where user switches from professor to professor. 
+              if(crumbs.slice(-1)[0]==="term"){
+                crumbs.pop()
+                crumbs.pop();
+                crumbs.push(d.name);
+                crumbs.push("term"); 
+                var len = crumbs.length-1;
+                updateCrumbs(crumbs.slice(0, len))
+              }
+              else{
+                crumbs.push(d.name);
+                crumbs.push("term"); 
+                var len = crumbs.length-1;
+                updateCrumbs(crumbs.slice(0, len))
+              }
           });
-        }
-        else {
+          d3.select("body").selectAll("#specificTip").on('click', function(d){
+            //closes the tooltip when clicked (Anywhere except links)
+            tip.hide();
+          });  
+        } else {
           tip.hide();
           svg.selectAll('path').on('click', zoomIn);
         }
-      }
-*/     
-         
+      
+      //Breadcrumbs
+      var crumbs = [];
+
+      //construct list of nodes. 
+      crumbs.push(root.name); 
+      while(root.parent){
+        crumbs.push(root.parent.name);
+        root = root.parent;
+      }  
+      //not the best but only up to 4 elements in list. 
+      crumbs.reverse();
+
+      //change the UI
+      updateCrumbs(crumbs);
+
     });
+  
     
     
    texts = texts.data(new_data, function(d) { return d.key; })
    
-   texts.exit()
-           .remove()    
+    texts.exit()
+    .remove()    
     texts.enter()
-            .append("text").on("click", function(d) {
-        if(typeof d.uri != "undefined") {
-          if(d.uri != null) {
-            window.location.href = d.uri;
-          }
-        }
-      })
-        
+    .append("text"); 
+
     texts.style("opacity", 0)
-      .attr("transform", function(d) { return "rotate(" + computeTextRotation(d) + ")"; })
-    .attr("x", function(d) { return radius / 3 * d.depth; })  
+    .attr("x", function(d) { d[1]; })  
     .attr("dx", "6") // margin
-      .attr("dy", ".35em") // vertical-align
+    .attr("dy", ".35em") // vertical-align  
+    .attr("text-anchor", "middle")
+    .attr("font-size", 9)
+    .attr("transform", function(d) { 
+      return "translate(" + arc.centroid(d) + ")" + "rotate(" + getAngle(d) + ")"; 
+    })   
       .filter(filter_min_arc_size_text)     
-      .text(function(d,i) {return truncate(d.name, 15)})
+      .text(function(d,i) {return getLastName(d.name)})
  //  .text(function(d,i) {return d.name})  truncating the names
-    .transition().delay(750).style("opacity", 1)
+ .transition().delay(750).style("opacity", 1)
         
      
   }
@@ -384,6 +428,20 @@ function arcTween(b) {
   return function(t) {
     return arc(i(t));
   };
+}
+
+function updateCrumbs(array){
+  //remove existing crumbs 
+  d3.selectAll(".crumbs").remove();
+
+  //draw new crumbs
+  var circles = d3.select("#crumbList").selectAll(".crumbItems")
+      .data(array)
+      .enter()
+      .append("li")
+      .attr("class", "crumbs")
+      .append("a")
+      .text((d)=>d)
 }
 
 function updateArc(d) {
