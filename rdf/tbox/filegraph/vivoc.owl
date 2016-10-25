@@ -186,7 +186,13 @@
         <rdfs:subPropertyOf rdf:resource="http://purl.org/ontology/bibo/identifier"/>
     </owl:DatatypeProperty>
     
-
+    <!-- http://scholars.cornell.edu/ontology/vivoc.owl#freetextJournalTitle -->
+    
+    <owl:DatatypeProperty rdf:about="http://scholars.cornell.edu/ontology/vivoc.owl#freetextJournalTitle">
+        <rdfs:label xml:lang="en">Free text journal title</rdfs:label>
+        <rdfs:domain rdf:resource="http://purl.obolibrary.org/obo/IAO_0000013"/>
+        <rdfs:comment xml:lang="en">This property is used when a Journal string is neither mapped to an existing Journal label nor ISSN/EISSN is found for the Journal. In such cases, rather creating a new URL for a Journal, intent is to attach the Journal title string to the academic article via free text journl title property.</rdfs:comment>
+    </owl:DatatypeProperty>
 
     <!-- http://scholars.cornell.edu/ontology/vivoc.owl#classYearAndSemester -->
 
