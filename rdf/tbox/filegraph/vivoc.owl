@@ -194,6 +194,13 @@
         <rdfs:comment xml:lang="en">This property is used when a Journal string is neither mapped to an existing Journal label nor ISSN/EISSN is found for the Journal. In such cases, rather creating a new URL for a Journal, intent is to attach the Journal title string to the academic article via free text journl title property.</rdfs:comment>
     </owl:DatatypeProperty>
 
+    <!-- http://scholars.cornell.edu/ontology/vivoc.owl#meshId -->
+    
+    <owl:DatatypeProperty rdf:about="http://scholars.cornell.edu/ontology/vivoc.owl#meshId">
+        <rdfs:label xml:lang="en">MeSH ID</rdfs:label>
+    </owl:DatatypeProperty>
+
+
     <!-- http://scholars.cornell.edu/ontology/vivoc.owl#classYearAndSemester -->
 
     <owl:DatatypeProperty rdf:about="http://scholars.cornell.edu/ontology/vivoc.owl#classYearAndSemester">
@@ -318,6 +325,14 @@
         <rdfs:subClassOf rdf:resource="http://xmlns.com/foaf/0.1/Organization"/>
     </owl:Class>
     
+
+    <!-- http://scholars.cornell.edu/ontology/vivoc.owl#MeshTerm -->
+
+    <owl:Class rdf:about="http://scholars.cornell.edu/ontology/vivoc.owl#MeshTerm">
+        <rdfs:label>MeSH Term</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    </owl:Class>
+
 
 
     <!-- http://scholars.cornell.edu/ontology/vivoc.owl#AdministrativeUnit -->
