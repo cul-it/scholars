@@ -42,6 +42,7 @@
 <#assign issueProp = propertyGroups.pullProperty("http://purl.org/ontology/bibo/issue")!>
 <#assign gccProp = propertyGroups.pullProperty("http://purl.org/spar/c4o/hasGlobalCitationFrequency")!>
 <#assign pmidProp = propertyGroups.pullProperty("http://purl.org/ontology/bibo/pmid")!>
+<#assign freeTextTitleProp = propertyGroups.pullProperty("http://scholars.cornell.edu/ontology/vivoc.owl#freetextJournalTitle")!>
 <#if libraryCatalogPage?has_content>
 	<#assign lcp = libraryCatalogPage[0].lcp />
 </#if>
@@ -149,6 +150,21 @@
 		  </div>
 	</#assign>
 </#if>
+<#if freeTextTitleProp?has_content && freeTextTitleProp.statements?has_content>
+	<#assign freeTextTitleStmt = freeTextTitleProp.statements?first!""/>
+	<#assign freeTextTitle>
+		<div class="col-sm-12" style="padding:6px 0 0 4px;">
+		  <div class="col-sm-1" style="text-align:right;padding:0 0 0 4px">
+			<h3 style="color:#CC6949;font-size:17px;padding:0 0 0 0">Journal</h3>
+		  </div>
+		  <div class="col-sm-9" style="padding:2px 0 0 2px">
+			<div class="scholars-article-metadata">
+				<em>${freeTextTitleStmt.value!}</em>
+			</div>
+	  	  </div>
+	    </div>
+	</#assign>
+</#if>  
 <#if startProp?has_content && startProp.statements?has_content>
 	<#assign startPageStmt = startProp.statements?first!""/>
 	<#assign startPage = startPageStmt.value! />
@@ -305,7 +321,11 @@
 				${authorList?replace(" ,",",")!}
 			</div>
 			<div class="row" role="row" style="background-color:#fff">
-				${journalTitle!}
+				<#if journalTitle?has_content >
+					${journalTitle!}
+				<#else>
+					${freeTextTitle!}
+				</#if>
 			</div>
 			<div class="row" role="row" style="background-color:#fff">
 				${pages!}
