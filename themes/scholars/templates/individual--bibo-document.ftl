@@ -35,6 +35,7 @@
 <#assign pubLocaleProp = propertyGroups.pullProperty("http://vivoweb.org/ontology/core#placeOfPublication")!>
 <#assign pubVenueProp = propertyGroups.pullProperty("http://vivoweb.org/ontology/core#hasPublicationVenue")!>
 <#assign keywordsProp = propertyGroups.pullProperty("http://vivoweb.org/ontology/core#freetextKeyword")!>
+<#assign meshTermsProp = propertyGroups.pullProperty("http://vivoweb.org/ontology/core#hasSubjectArea")!>
 <#assign doiProp = propertyGroups.pullProperty("http://purl.org/ontology/bibo/doi")!>
 <#assign startProp = propertyGroups.pullProperty("http://purl.org/ontology/bibo/pageStart")!>
 <#assign endProp = propertyGroups.pullProperty("http://purl.org/ontology/bibo/pageEnd")!>
@@ -243,13 +244,15 @@
 	<#assign doiStmt = doiProp.statements?first!""/>
 	<#assign doi = doiStmt.value! />
 	<#assign doiInline>
-		<div class="col-sm-3" style="text-align:right;padding:0 0 0 0;">
+		<div class="col-sm-12" style="padding:6px 0 0 0;">
+		  <div class="col-sm-1" style="text-align:right;padding:0 0 0 15px">
 			<h3 style="color:#CC6949;font-size:17px;padding:0 0 0 0">DOI</h3>
-		</div>
-		<div class="col-sm-9" style="padding:0 0 0 0;margin-top:-3px">
-			<div style="color:#595b5b;font-size:<#if (doi?length! > 30) && abstract?has_content>15<#else>16</#if>px;padding-left:15px">
+		  </div>
+		  <div class="col-sm-9" style="padding:2px 0 0 7px">
+			<div class="scholars-article-metadata">
 				<a href="http://dx.doi.org/${doi!}" title="link to DOI" target="_blank">${doi!}</a>
 			</div>
+		  </div>
 		</div>
 	</#assign>
 </#if>
@@ -257,14 +260,16 @@
 	<#assign pmidStmt = pmidProp.statements?first!""/>
 	<#assign pmid = pmidStmt.value! />
 	<#assign pmidInline>
-		<div class="col-sm-3" style="text-align:right;padding:0 0 0 0;">
+		<div class="col-sm-12" style="padding:6px 0 0 0;">
+		  <div class="col-sm-1" style="text-align:right;padding:0 0 0 15px">
 			<h3 style="color:#CC6949;font-size:17px;padding:0 0 0 0">PMID</h3>
-		</div>
-		<div class="col-sm-9" style="padding:0 0 0 0;margin-top:-3px">
+		  </div>
+		  <div class="col-sm-9" style="padding:2px 0 0 7px">
 			<div class="scholars-article-metadata">
 				<a href="http://www.ncbi.nlm.nih.gov/pubmed/?term=${pmid!}" title="View in PubMed" target="_blank">${pmid!}</a>
 			</div>
-		</div>			
+		  </div>
+		</div>
 	</#assign>
 </#if>
 <#if doi?has_content>
@@ -282,9 +287,64 @@
   				<ul>
   					<#list keywordsProp.statements as statement>
   						<li class="list-item">
-  							${statement.value!}.<#-- if statement_has_next>,</#if -->
+  							${statement.value!}.
   						</li>
   					</#list>
+  				</ul>
+  			</div>
+		</div>
+	</#assign>
+	<#assign keywordsListInline>
+		<div class="col-sm-1" style="text-align:right;padding:10px 0 0 0;">
+  			<h3 style="color:#CC6949;font-size:17px;padding:0 0 0 0">Keywords</h3>
+		</div>
+		<div class="col-sm-10" style="padding:10px 0 20px 0;margin-top:-3px">
+  			<div style="color:#595b5b;font-size:16px;padding-left:18px">
+  				<ul>
+  					<#list keywordsProp.statements as statement>
+  							${statement.value!}<#if statement_has_next> | </#if>
+  					</#list>
+  				</ul>
+  			</div>
+		</div>
+	</#assign>
+</#if>
+<#assign hasMeshTerm = false />
+<#if meshTermsProp?has_content && meshTermsProp.statements?has_content>
+	<#assign meshTermsList>
+		<div class="col-sm-3" style="text-align:right;padding:0 0 0 0;">
+  			<h3 style="color:#CC6949;font-size:16px;padding:0 0 0 0">MeSH Terms</h3>
+		</div>
+		<div class="col-sm-9" style="padding:0 0 0 0;margin-top:-3px">
+  			<div style="color:#595b5b;font-size:17px;padding-left:18px">
+  				<ul>
+					<#list meshTermsProp.statements as statement>
+						<#if statement.concept?contains("mesh")>
+							<#assign hasMeshTerm = true />
+							<li class="list-item">
+								<a href="${statement.concept!}" target="_blank">${statement.conceptLabel!}</a>.
+							</li>
+						</#if>
+					</#list>
+  				</ul>
+  			</div>
+		</div>
+	</#assign>
+	<#assign meshTermsListInline>
+		<div class="col-sm-2" style="text-align:right;padding:10px 0 0 0;">
+  			<h3 style="color:#CC6949;font-size:16px;padding:0 0 0 0">MeSH Terms</h3>
+		</div>
+		<div class="col-sm-10" style="padding:10px 0 20px 0;margin-top:-3px">
+  			<div style="color:#595b5b;font-size:17px;padding-left:18px">
+  				<ul>
+					<#list meshTermsProp.statements as statement>
+						<#if statement.concept?contains("mesh")>
+							<#assign hasMeshTerm = true />
+		  					<#list keywordsProp.statements as statement>
+		  							<a href="${statement.concept!}" target="_blank">${statement.conceptLabel!}</a><#if statement_has_next> | </#if>
+		  					</#list>
+						</#if>
+					</#list>
   				</ul>
   			</div>
 		</div>
@@ -330,6 +390,12 @@
 			<div class="row" role="row" style="background-color:#fff">
 				${pages!}
 			</div>
+			<div class="row" style="background-color:#fff" >
+				${doiInline!}
+			</div>
+			<div class="row" style="background-color:#fff" >
+				${pmidInline!}
+			</div>
 			<div class="row" role="row" style="background-color:#fff">
 				
 			</div>
@@ -349,58 +415,96 @@
 	</div>
 
 
-	<#--		
-			${doiInline!} -->
-		
-		
         </section> <!-- individual-info -->
 		<div style="clear:both;padding-top:12px"></div>
 
 	</div> <!-- biboDocumentMainColumn -->
 </div> <!-- row1 -->
-<#if abstract?has_content || keywordsList?has_content || doiInline?has_content || pmidInline?has_content >
+<#if abstract?has_content || keywordsList?has_content || hasMeshTerm >
 	<div id="row2" class="row" style="background-color:#f1f2f3;margin-top:30px" >
 	<#if abstract?has_content>
-		<div id="keywords" class="col-sm-5 col-md-5 col-lg-5 scholars-container">
+	  <div class="col-sm-5 col-md-5 col-lg-5" style="background-color:#f1f2f3;padding-left:0">
+  	  <#if keywordsList?has_content>
+	    <div class="row" style="background-color:#f1f2f3;margin:0 0 0 0">
+			<div id="keywords" class="col-sm-12 col-md-12 col-lg-12 scholars-container">
+				<div class="row" style="background-color:#fff;margin:16px 0 0 0" >
+					${keywordsList!}
+				</div>
+				<div class="row" style="background-color:#fff;margin:16px 0 0 0" >
+				</div>
+			</div>
+		</div>
+		</#if>
+		<#if hasMeshTerm>
+	    <div class="row" style="background-color:#f1f2f3;margin:0 0 0 0">
+			<div id="keywords" class="col-sm-12 col-md-12 col-lg-12 scholars-container">
+				<div class="row" style="background-color:#fff;margin:16px 0 0 0" >
+					${meshTermsList!}
+				</div>
+				<div class="row" style="background-color:#fff;margin:16px 0 0 0" >
+				</div>
+			</div>
+		</div>
+		</#if>
+	  </div>
+	  <#if keywordsList?has_content || hasMeshTerm > 
+	  <div class="col-sm-7 col-md-7 col-lg-7" style="padding:0 0 0 0;">
+		<div class="row" style="background-color:#f1f2f3;margin:0 0 0 0">
+			<div id="abstract" class="col-sm-12 col-md-12 col-lg-12 scholars-container">
+				${abstract!}
+				<div class="row" style="background-color:#fff;margin:16px 0 0 0" >
+			</div>
+		</div>
+	  </div>
+	  <#else>
+	  <div class="col-sm-12 col-md-12 col-lg-12" style="padding:0 0 0 0;">
+		<div class="row" style="background-color:#f1f2f3;margin:0 0 0 0">
+			<div id="abstract" class="col-sm-12 col-md-12 col-lg-12 scholars-container">
+				${abstract!}
+				<div class="row" style="background-color:#fff;margin:16px 0 0 0" >
+			</div>
+		</div>
+	  </div>
+	  </#if>
+	<#else>
+		<#if keywordsList?has_content && hasMeshTerm>
+		<div id="keywords" class="col-sm-5 col-md-5 col-lg-5 scholars-container" >
 			<div class="row" style="background-color:#fff;margin:16px 0 0 0" >
 				${keywordsList!}
 			</div>
 			<div class="row" style="background-color:#fff;margin:16px 0 0 0" >
-				${doiInline!}
 			</div>
+		</div>
+		<div id="meshTerms" class="col-sm-5 col-md-5 col-lg-5 scholars-container col-sm-offset-2 col-md-offset-2 col-lg-offset-2">
 			<div class="row" style="background-color:#fff;margin:16px 0 0 0" >
-				${pmidInline!}
+				${meshTermsList!}
 			</div>
 			<div class="row" style="background-color:#fff;margin:16px 0 0 0" >
 			</div>
 		</div>
-		<div class="col-sm-1 col-md-1 col-lg-1"></div>
-		<div id="abstract" class="col-sm-6 col-md-6 col-lg-6 scholars-container">
-			${abstract!}
+		</#if>
+		<#if keywordsList?has_content && !hasMeshTerm>
+		<div id="foafPersonViz" class="col-sm-12 col-md-12 col-lg-12 scholars-container">
 			<div class="row" style="background-color:#fff;margin:16px 0 0 0" >
+				<div class="col-sm-12 col-md-12 col-lg-12">
+							${keywordsListInline!}
+				</div>
 			</div>
-		</div> 
-	<#else>
+		</div>
+		</#if>
+		<#if !keywordsList?has_content && hasMeshTerm>
 		<div id="foafPersonViz" class="col-sm-12 col-md-12 col-lg-12 scholars-container">
 			<div class="row" style="background-color:#fff;margin:16px 0 0 0" >
 				<div class="col-sm-12 col-md-12 col-lg-12">
 					<div class="row" style="background-color:#fff;margin:16px 0 0 0">
 						<div class="col-sm-5 col-md-5 col-lg-5" style="margin-bottom:16px">
-							${keywordsList!}
-						</div>
-						<div class="col-sm-1 col-md-1 col-lg-1" ></div>
-						<div class="col-sm-5 col-md-5 col-lg-5">
-							<div class="row" style="background-color:#fff;margin:0 0 0 0">
-								${doiInline!}
-							</div>
-							<div class="row" style="background-color:#fff;margin:16px 0 0 0">
-								${pmidInline!}
-							</div>
+							${meshTermsListInline!}
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+		</#if>
 	</#if>
 	</div> <!-- row2 div -->
 </#if>
@@ -426,7 +530,7 @@
     </script>
 </#if>
 
-<div class="row" style="margin-bottom:400px"></div>
+<div class="row" style="margin-bottom:400px;background-color:#f1f2f3;"></div>
 
 <script>
     var individualLocalName = "${individual.localName}";
