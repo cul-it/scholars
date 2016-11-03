@@ -135,7 +135,7 @@
         <rdfs:domain rdf:resource="http://scholars.cornell.edu/ontology/vivoc.owl#RegistrarSubjectArea"/>
         <owl:inverseOf rdf:resource="http://scholars.cornell.edu/ontology/vivoc.owl#hasRegistrarSubjectArea"/>
         <rdfs:range rdf:resource="http://vivoweb.org/ontology/core#Course"/>
-        <rdfs:subPropertyOf rdf:resource="http://vivoweb.org/ontology/core#subjectAreaFor"/>
+        <rdfs:subPropertyOf rdf:resource="http://vivoweb.org/ontology/core#subjectAreaOf"/>
     </owl:ObjectProperty>
     
 
@@ -146,9 +146,9 @@
     
 
 
-    <!-- http://vivoweb.org/ontology/core#subjectAreaFor -->
+    <!-- http://vivoweb.org/ontology/core#subjectAreaOf -->
 
-    <owl:ObjectProperty rdf:about="http://vivoweb.org/ontology/core#subjectAreaFor">
+    <owl:ObjectProperty rdf:about="http://vivoweb.org/ontology/core#subjectAreaOf">
         <owl:inverseOf rdf:resource="http://vivoweb.org/ontology/core#hasSubjectArea"/>
     </owl:ObjectProperty>
     
