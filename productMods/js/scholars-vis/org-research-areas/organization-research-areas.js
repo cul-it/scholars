@@ -39,7 +39,8 @@ function transformFlaredata(graph) {
 			function figureLinks() {
 				var authorships = findAuthorships();
 				var articles = authorships.map(findArticles).reduce(flattener, []);
-				var subjectAreas = articles.map(findSubjectAreas).reduce(flattener, []);
+				var journals = articles.map(findJournals).reduce(flattener, []);
+				var subjectAreas = journals.map(findSubjectAreas).reduce(flattener, []);
 				var labels = new Set(subjectAreas.map(getLabel));
 				return Array.from(labels);
 
@@ -57,9 +58,13 @@ function transformFlaredata(graph) {
 					}
 					return uris;
 				}
+				function findJournals(article) {
+					var stmts = graph.statementsMatching($rdf.sym(article), VIVO("hasPublicationVenue"), undefined)
+					return stmts.map(getObjectUri);
+				}
 				
-				function findSubjectAreas(article) {
-					var stmts = graph.statementsMatching($rdf.sym(article), VIVO("hasSubjectArea"), undefined)
+				function findSubjectAreas(journal) {
+					var stmts = graph.statementsMatching($rdf.sym(journal), VIVO("hasSubjectArea"), undefined)
 					return stmts.map(getObjectUri);
 				}
 				
