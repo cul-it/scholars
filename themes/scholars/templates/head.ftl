@@ -16,7 +16,7 @@
                           '<script type="text/javascript" src="${urls.base}/js/openSocial/orng.js"></script>')}
     </#if>	
 </#if>	
-
+<link rel="icon" href="${urls.base}/favicon.ico?version=2.0">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 <#include "stylesheets.ftl">
