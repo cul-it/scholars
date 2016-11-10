@@ -70,6 +70,7 @@
 		PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 		PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 		PREFIX vivo: <http://vivoweb.org/ontology/core#>
+    PREFIX bibo: <http://purl.org/ontology/bibo/>
 		CONSTRUCT {
 		  ?organization vivo:relatedBy ?position .
 		  ?position 
@@ -79,8 +80,13 @@
 		    a foaf:Person ;
 		    rdfs:label ?name ;
 		    vivo:relatedBy ?authorship .
-		  ?authorship vivo:relates ?article .
-		  ?article vivo:hasSubjectArea ?concept .
+      ?authorship vivo:relates ?article .
+      ?article 
+        a bibo:Article ;
+        vivo:hasPublicationVenue ?journal .
+      ?journal
+        a bibo:Journal ; 
+        vivo:hasSubjectArea ?concept .
 		  ?concept 
 		    a skos:Concept ;
 		    rdfs:label ?subject .
@@ -94,8 +100,13 @@
 		    a foaf:Person ;
 		    rdfs:label ?name ;
 		    vivo:relatedBy ?authorship .
-		  ?authorship vivo:relates ?article .
-		  ?article vivo:hasSubjectArea ?concept .
+      ?authorship vivo:relates ?article .
+      ?article 
+        a bibo:Article ;
+        vivo:hasPublicationVenue ?journal .
+      ?journal
+        a bibo:Journal ; 
+        vivo:hasSubjectArea ?concept .
 		  ?concept 
 		    a skos:Concept ;
 		    rdfs:label ?subject .
