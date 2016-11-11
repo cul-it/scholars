@@ -386,7 +386,12 @@
 
     <owl:Class rdf:about="http://xmlns.com/foaf/0.1/Organization"/>
     
+    <!-- http://scholars.cornell.edu/ontology/vivoc.owl#Discipline -->
 
+    <owl:Class rdf:about="http://scholars.cornell.edu/ontology/vivoc.owl#Discipline">
+        <rdfs:label>Discipline</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://xmlns.com/foaf/0.1/Group"/>
+    </owl:Class>
 
     <!-- 
     ///////////////////////////////////////////////////////////////////////////////////////
