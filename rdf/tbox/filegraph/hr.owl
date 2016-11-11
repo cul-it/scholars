@@ -30,11 +30,10 @@
     
 
 
-    <!-- http://scholars.cornell.edu/ontology/hr.owl#positionInUnit -->
+    <!-- http://scholars.cornell.edu/ontology/hr.owl#positionIn -->
 
-    <owl:ObjectProperty rdf:about="http://scholars.cornell.edu/ontology/hr.owl#positionInUnit">
+    <owl:ObjectProperty rdf:about="http://scholars.cornell.edu/ontology/hr.owl#positionIn">
         <rdfs:domain rdf:resource="http://vivoweb.org/ontology/core#Position"/>
-        <rdfs:range rdf:resource="http://xmlns.com/foaf/0.1/Organization"/>
     </owl:ObjectProperty>
     
 
