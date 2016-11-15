@@ -1,4 +1,4 @@
-<#-- $This file is distributed under the terms of the license in /doc/license.txt$ -->
+120px<#-- $This file is distributed under the terms of the license in /doc/license.txt$ -->
 
 <#-- Individual profile page template for foaf:Person individuals -->
 
@@ -142,13 +142,13 @@ $(document).ready(function() {
  			</div>
 		</#if>
  		<div>
- 			<a href="${coAuthorVisUrl}"><img width="60%" src="${urls.base}/themes/scholars/images/co-authors.png"/></a>
+ 			<a href="${coAuthorVisUrl}"><img width="120px" src="${urls.base}/themes/scholars/images/co-authors.png"/></a>
  			<p>Co-authors</p>
  		</div>
  	</#if>
  	<#if isInvestigator >
  		<div>
- 			<a href="${coInvestigatorVisUrl}"><img width="60%" src="${urls.base}/themes/scholars/images/co-investigators.png"/></a>
+ 			<a href="${coInvestigatorVisUrl}"><img width="120px" src="${urls.base}/themes/scholars/images/co-investigators.png"/></a>
  			<p>Co-investigators</p>
  		</div>
  	</#if>
