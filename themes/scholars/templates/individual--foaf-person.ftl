@@ -122,6 +122,7 @@ $(document).ready(function() {
 		<div id="foaf-person-icons">
 			<#include "individual-iconControls.ftl" />
 		</div>
+		<h2 id="page-heading-break">  </h2>
     	<#include "individual-positions.ftl">
     </header>
 	</section>
@@ -136,8 +137,7 @@ $(document).ready(function() {
 <div id="visualization-column" class="col-sm-3 col-md-3 col-lg-3 scholars-container">
  	<#if isAuthor >
 		<#if hasKeywords >
- 			<div>
-		  		<a href="#" id="word_cloud_trigger"><div id="dynamic_word_cloud" style="display:inline-block;height:150px;width:200px">&nbsp;</div></a>
+ 			<div><a href="#" id="word_cloud_trigger"><div id="dynamic_word_cloud"></div></a>
  				<p>Keywords</p>
  			</div>
 		</#if>
@@ -200,7 +200,7 @@ $(document).ready(function() {
 <#else>
 <div id="foaf-person-blank-row" class="row scholars-row"></div>
 </#if>
-<div id="word_cloud_vis" style="height:70%;width:70%"></div>
+<div id="word_cloud_vis"></div>
 
 <#-- <#include "individual-property-group-tabs.ftl"> -->
 

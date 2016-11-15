@@ -20,117 +20,126 @@
     <#-- supplies the faculty count to the js function that generates a random row number for the solr query -->
     <@lh.facultyMemberCount  vClassGroups! />
     <body class="${bodyClasses!}" onload="${bodyOnload!}">
-		<div id="home" class="page" style=";margin:0;padding:0;height:100%;min-height:100%;border:0;vertical-align:baseline">
+		<div id="home" class="page">
 	    	<#include "identity.ftl">
-			<div id="home-layer" style="height: 228px; background: rgba(255, 255, 255) none repeat scroll 0% 0%;margin:0;padding:0;border:0;vertical-align:baseline">
-				<header style="display:block;margin:0;padding:0;height:100%;min-height:100%;border:0;vertical-align:baseline">
+			<div id="home-layer">
+				<header>
 					<#include "menu.ftl" />
 				</header>
 			</div>
-			<div id="body" class="row" style="width:100%;margin:-80px 0 0 0;background-color:#fff;min-height: 0;">
+			<div id="home-body" class="row">
 					<#include "developer.ftl">
-				<div id="discover-header" class="row" style="background-color:#fff;margin:0;padding:60px 50px 0 50px;">
-					<div class="col-sm-12 col-md-12 col-lg-12" style="background-color:#e3e6e9;">
-						<p style="font-size:20px;font-family: Muli, Arial, Verdana, Helvetica;color:#CC6949;margin:0;padding:6px 0">
+				<div id="discover-header" class="row fff-bkg">
+					<div class="col-sm-12 col-md-12 col-lg-12 e3e6e9-bkg">
+						<p class="home-header">
 							Discovery
 						</p>
 					</div>
 				</div>
-				<div id="discover-content" class="row" style="background-color:#fff;margin:0;padding:35px 50px 0 50px;">
-					<div class="col-sm-4 col-md-4 col-lg-4">
-						<a class="image-links" href="/scholars/people" >
-							<div id="domain-experts" class="image-link-div" style="background: #fff url('${urls.base}/themes/scholars/images/home-domain-experts.jpg') no-repeat ${randomized!}0%;background-size: cover;">
-								<div style="background-color:rgba(0, 0, 0, 0.5);text-align:center;">
-									<span style="opacity:1;color:#fff;font-size:24px;font-family:Muli;font-weight:bold;">
-									Find a<br/>Domain Expert</span>
+				<div class="container">
+					<div id="discover-content" class="row fff-bkg">
+						<div class="col-sm-4 col-md-4 col-lg-4">
+							<a class="image-links" href="/scholars/people" >
+								<div id="domain-experts" class="image-link-div">
+									<div class="discovery-details">
+										<span>
+										Find a<br/>Domain Expert</span>
+									</div>
 								</div>
+							</a>
+							<div class="discovery-text-container">
+								<p class="discovery-text">Search by research interests, keywords, and affiliations.</p>
 							</div>
-						</a>
-						<div style="padding-top:12px;text-align:center;line-height:23px">
-							<p style="font-size:18px;font-family: Muli, Arial, Verdana, Helvetica;color:#5e6363">Search by research interests, keywords, and affiliations.</p>
 						</div>
-					</div>
-					<div class="col-sm-4 col-md-4 col-lg-4">
-						<a class="image-links" href="/scholars/research" >
-							<div id="discover-scholarship" class="image-link-div">
-								<div style="background-color:rgba(0, 0, 0, 0.5);;text-align:center;">
-									<span style="opacity:1;color:#fff;font-size:24px;font-family:Muli;font-weight:bold;">Explore<br/>Cornell Scholarship</span>
+						<div class="col-sm-4 col-md-4 col-lg-4">
+							<a class="image-links" href="/scholars/research" >
+								<div id="discover-scholarship" class="image-link-div">
+									<div class="discovery-details">
+										<span>Explore<br/>Cornell Scholarship</span>
+									</div>
 								</div>
-							</div>
-						</a>
-						<div style="padding-top:12px;text-align:center;line-height:23px">
-							<p style="font-size:18px;font-family: Muli, Arial, Verdana, Helvetica;color:#5e6363">Search by subject area, and author affiliation.</p>
-						</div>		
-					</div>
-					<div class="col-sm-4 col-md-4 col-lg-4"">
-						<a class="image-links" href="/scholars/research#http://vivoweb.org/ontology/core#Grant" >
-							<div id="ongoing-research" class="image-link-div">
-								<div style="background-color:rgba(0, 0, 0, 0.5);;text-align:center;">
-									<span style="opacity:1;color:#fff;font-size:24px;font-family:Muli;font-weight:bold;">Review<br/>Ongoing Research</span>
+							</a>
+							<div class="discovery-text-container">
+								<p class="discovery-text">Search by subject area, and author affiliation.</p>
+							</div>		
+						</div>
+						<div class="col-sm-4 col-md-4 col-lg-4"">
+							<a class="image-links" href="/scholars/research#http://vivoweb.org/ontology/core#Grant" >
+								<div id="ongoing-research" class="image-link-div">
+									<div class="discovery-details">
+										<span>Review<br/>Ongoing Research</span>
+									</div>
 								</div>
+							</a>
+							<div class="discovery-text-container">
+								<p class="discovery-text">Search by topic, investigator, and funding agency.</p>
 							</div>
-						</a>
-						<div style="padding-top:12px;text-align:center;line-height:23px">
-							<p style="font-size:18px;font-family: Muli, Arial, Verdana, Helvetica;color:#5e6363;">Search by topic, investigator, and funding agency.</p>
 						</div>
 					</div>
 				</div>
-				<div id="visualize-header" class="row" style="background-color:#fff;margin:0;padding:40px 50px 0 50px;">
-					<div class="col-sm-12 col-md-12 col-lg-12" style="background-color:#e3e6e9;">
-						<p style="font-size:20px;font-family: Muli, Arial, Verdana, Helvetica;color:#CC6949;margin:0;padding:6px 0">
+				<div id="visualize-header" class="row fff-bkg">
+					<div class="col-sm-12 col-md-12 col-lg-12 e3e6e9-bkg">
+						<p class="home-header">
 							Visualizations and Downloads
 						</p>
 					</div>
 				</div>
-				<div id="visualize-content" class="row" style="background-color:#fff;margin:0;padding:10px 5px 0 30px;">
-					<div class="col-sm-3 col-md-3 col-lg-3" style="height:300px;text-align:center;padding-top:30px;background-color:#fff;"> 
-						<a id="person-to-sa" href="${urls.base}/orgSAVisualization?deptURI=n1234">
-							<img width="150px" src="${urls.base}/themes/scholars/images/home-person-sa.png"/>
-						</a>
-						<div style="padding-top:12px;text-align:center;line-height:23px">
-							<p style="font-size:18px;font-family: Muli, Arial, Verdana, Helvetica;color:#5e6363">Person to Subject Area</p>
+				<div class="container">
+					<div id="visualize-content" class="row fff-bkg">
+						<div class="col-sm-3 col-md-3 col-lg-3"> 
+							<a id="person-to-sa" href="${urls.base}/orgSAVisualization?deptURI=n1234">
+								<img width="150px" src="${urls.base}/themes/scholars/images/home-person-sa.png"/>
+							</a>
+							<div>
+								<p>Person to Subject Area</p>
+							</div>
 						</div>
-					</div>
-					<div class="col-sm-3 col-md-3 col-lg-3" style="height:300px;text-align:center;padding-top:30px;background-color:#fff">
-						<a id="wordcloud_trigger" href="#"><img width="150px" src="${urls.base}/themes/scholars/images/home-wordcloud.png"/></a>
-						<div style="padding-top:12px;text-align:center;line-height:23px">
-							<p style="font-size:18px;font-family: Muli, Arial, Verdana, Helvetica;color:#5e6363">Keyword Cloud</p>
+						<div class="col-sm-3 col-md-3 col-lg-3">
+							<a id="wordcloud_trigger" href="#">
+								<img width="150px" src="${urls.base}/themes/scholars/images/home-wordcloud.png"/>
+							</a>
+							<div>
+								<p>Keyword Cloud</p>
+							</div>
 						</div>
-					</div>
-					<div class="col-sm-3 col-md-3 col-lg-3" style="height:300px;text-align:center;padding-top:30px;background-color:#fff;"> 
-						<a id="collaborations_trigger" href="#">
-							<img width="150px" src="${urls.base}/themes/scholars/images/home-collaborations.png"/>
-						</a>
-						<div style="padding-top:12px;text-align:center;line-height:23px">
-							<p style="font-size:18px;font-family: Muli, Arial, Verdana, Helvetica;color:#5e6363">Collaborations</p>
+						<div class="col-sm-3 col-md-3 col-lg-3"> 
+							<a id="collaborations_trigger" href="#">
+								<img width="150px" src="${urls.base}/themes/scholars/images/home-collaborations.png"/>
+							</a>
+							<div>
+								<p>Collaborations</p>
+							</div>
 						</div>
-					</div>
-					<div class="col-sm-3 col-md-3 col-lg-3" style="height:300px;text-align:center;padding-top:30px;background-color:#fff">
-						<a href="${urls.base}/grantsVisualization"><img width="150px" src="${urls.base}/themes/scholars/images/home-grants.png"/>
-						</a>
-						<div style="padding-top:12px;text-align:center;line-height:23px">
-							<p style="font-size:18px;font-family: Muli, Arial, Verdana, Helvetica;color:#5e6363">Research Grants</p>
+						<div class="col-sm-3 col-md-3 col-lg-3">
+							<a href="${urls.base}/grantsVisualization">
+								<img width="150px" src="${urls.base}/themes/scholars/images/home-grants.png"/>
+							</a>
+							<div>
+								<p>Research Grants</p>
+							</div>
 						</div>
 					</div>
 				</div>
-				<div id="download-header" class="row" style="background-color:#fff;margin:0;padding:10px 50px 0 50px;">
-					<div class="col-sm-12 col-md-12 col-lg-12" style="background-color:#e3e6e9;">
-						<p style="font-size:20px;font-family: Muli, Arial, Verdana, Helvetica;color:#CC6949;margin:0;padding:6px 0">
+				<div id="download-header" class="row fff-bkg">
+					<div class="col-sm-12 col-md-12 col-lg-12 e3e6e9-bkg">
+						<p class="home-header">
 							By the Numbers
 						</p>
 					</div>
 				</div>
-				<@lh.downloadCounts />
-			</div> <!-- body div -->
-			<div id="collab_vis" style="display:none;height:500px;width:700px;z-index:15;border-radius:5px"></div>
+				<div class="container">
+					<@lh.downloadCounts />
+				</div>
+			</div> <!-- home-body div -->
 
+			<div id="site_collab_vis"></div>
 
-			<div id="site_wordcloud_vis" style="display:none;height:80%;width:75%;z-index:15;border-radius:5px">
-      	      <div style="width: 50%; height: 10px; float:left">
+			<div id="site_wordcloud_vis">
+      	      <div>
                 <span class="text-primary" id="content"></span>
               </div>
               <div id="wcUniv">
-                <div style="width: 50%; float:right">
+                <div id="wcUniv-container">
                   <div>
                     <span class="glyphicon glyphicon-info-sign pull-right" 
                       data-toggle="tooltip" 
@@ -148,7 +157,7 @@
 			<script>
 			$().ready(function() {
   			  var collab = new ScholarsVis.CollaborationSunburst({
-      		    target : '#collab_vis',
+      		    target : '#site_collab_vis',
       		    modal : true
 		      });
 		      $('#collaborations_trigger').click(collab.show);

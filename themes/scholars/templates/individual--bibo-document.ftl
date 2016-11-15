@@ -50,22 +50,21 @@
 <#if abstractProp?has_content && abstractProp.statements?has_content>
 	<#assign abstractStmt = abstractProp.statements?first />
 	<#assign abstract >
-		<h3 style="color:#CC6949;font-size:17px;padding:16px 0 8px 0;text-align:center">Abstract</h3>
-		<div style="color:#595b5b;font-size:16px;padding:2px 2px 0 12px">
+		<div id="abstract-hdr" class="profile-label">Abstract</div>
+		<div class="abstract-text">
 			${abstractStmt.value!}
 		</div>
 	</#assign>
 </#if>
 <#if authorsProp?has_content && authorsProp.statements?has_content>
 	<#assign authorList>
-		<div class="col-sm-12" style="background-color:#fff;padding:6px 0 0 4px;">
-		  <div class="col-sm-1" style="text-align:right;padding:0 0 0 0;">
-			<h3 style="color:#CC6949;font-size:17px;padding:0 0 0 0">Authors</h3>
+		  <div class="col-sm-1 no-padding align-text-right" >
+			<span class="profile-label">Authors</span>
 		  </div>
-		  <div class="col-sm-9" style="padding:2px 0 0 4px">
+		  <div class="col-sm-10">
 			<div class="scholars-article-metadata">
 			<#list authorsProp.statements as statement>
-				<span style="padding-right:8px">
+				<span class="hzntl-author-list">
 		    	<#if statement.subclass?? && statement.subclass?contains("vcard")>
 					<#if statement.authorName?replace(" ","")?length == statement.authorName?replace(" ","")?last_index_of(",") + 1 >
 		        		${statement.authorName?replace(",","")}
@@ -79,7 +78,6 @@
 			</#list>
 			</div>
 		  </div>
-		</div>
 	</#assign>
 </#if>
 <#if lcpProp?has_content && lcpProp.statements?has_content>
@@ -88,63 +86,57 @@
 <#if pubVenueProp?has_content && pubVenueProp.statements?has_content>
 	<#assign pubVenue = pubVenueProp.statements?first/>
 	<#assign journalTitle>
-		<div class="col-sm-12" style="padding:6px 0 0 4px;">
-		  <div class="col-sm-1" style="text-align:right;padding:0 0 0 4px">
-			<h3 style="color:#CC6949;font-size:17px;padding:0 0 0 0">Journal</h3>
+		  <div class="col-sm-1  no-padding align-text-right">
+			<span class="profile-label">Journal</span>
 		  </div>
-		  <div class="col-sm-9" style="padding:2px 0 0 2px">
+		  <div class="col-sm-10">
 			<div class="scholars-article-metadata">
 				<em><a href="${profileUrl(pubVenue.object)}" title="${pubVenue.label!}">${pubVenue.label!}</a></em>
-				<#if lcp??><a href="${lcp}" target="_blank"><i class="fa fa-external-link-square" aria-hidden="true" style="margin:0 0 0 8px;color:#609bc1"></i></a></#if>
+				<#if lcp??><a href="${lcp}" target="_blank"><i class="fa fa-external-link-square external-link" aria-hidden="true"></i></a></#if>
 			</div>
 		  </div>
-		</div>
 	</#assign>
 </#if>
 <#if volumeProp?has_content && volumeProp.statements?has_content>
 	<#assign volumeStmt = volumeProp.statements?first />
-	<#assign volume >
-		<div style="margin-left:24px;display:inline-block;width:80%">
-			<h3 style="color:#CC6949;font-size:17px;padding:2px 0 6px 0;display:inline-block;width:100px;text-align:right">Volume</h3><div class="scholars-article-metadata">${volumeStmt.value!}</div>
-		</div>
-	</#assign>
+	<#assign volume = true />
+<#else>
+	<#assign volume = false />
 </#if>
 <#if issueProp?has_content && issueProp.statements?has_content>
 	<#assign issueStmt = issueProp.statements?first!""/>
-	<#assign issue >
-		<div style="margin-left:24px;display:inline-block;width:80%">
-			<h3 style="color:#CC6949;font-size:17px;padding:2px 0 6px 0;display:inline-block;width:100px;text-align:right">Issue</h3><div class="scholars-article-metadata">${issueStmt.value!}</div>
-		</div>
-	</#assign>
+	<#assign issue = true />
+<#else>
+	<#assign issue = false />
 </#if>
-<#if volume?has_content && issue?has_content >
+<#if volume && issue >
 	<#assign volumeIssue>
-		  <div class="col-sm-9" style="text-align:right;padding:6px 0 0 0">
-			<h3 style="color:#CC6949;font-size:17px;padding:0 0 0 0">Volume(Issue)</h3>
+		  <div class="col-sm-9 no-padding align-text-right">
+			<span class="profile-label">Volume(Issue)</span>
 		  </div>
-		  <div class="col-sm-3" style="padding:8px 0 0 0">
+		  <div class="col-sm-3">
 			<div class="scholars-article-metadata">
 				${volumeStmt.value!}(${issueStmt.value!})
 			</div>
 		  </div>
 	</#assign>
-<#elseif volume?has_content && !issue?has_content >
+<#elseif volume && !issue >
 	<#assign volumeIssue>
-		  <div class="col-sm-9" style="text-align:right;padding:6px 0 0 0">
-			<h3 style="color:#CC6949;font-size:17px;padding:0 0 0 0">Volume</h3>
+		  <div class="col-sm-9 no-padding align-text-right">
+			<span class="profile-label">Volume</span>
 		  </div>
-		  <div class="col-sm-3" style="padding:2px 0 0 0">
+		  <div class="col-sm-3">
 			<div class="scholars-article-metadata">
 				${volumeStmt.value!}
 			</div>
 		  </div>
 	</#assign>
-<#elseif !volume?has_content && issue?has_content >
+<#elseif !volume && issue >
 	<#assign volumeIssue>
-		  <div class="col-sm-9" style="text-align:right;padding:6px 0 0 0">
-			<h3 style="color:#CC6949;font-size:17px;padding:0 0 0 0">Issue</h3>
+		  <div class="col-sm-9 no-padding align-text-right">
+			<span class="profile-label">Issue</span>
 		  </div>
-		  <div class="col-sm-3" style="padding:2px 0 0 0">
+		  <div class="col-sm-3">
 			<div class="scholars-article-metadata">
 				${issueStmt.value!}
 			</div>
@@ -154,16 +146,14 @@
 <#if freeTextTitleProp?has_content && freeTextTitleProp.statements?has_content>
 	<#assign freeTextTitleStmt = freeTextTitleProp.statements?first!""/>
 	<#assign freeTextTitle>
-		<div class="col-sm-12" style="padding:6px 0 0 4px;">
-		  <div class="col-sm-1" style="text-align:right;padding:0 0 0 4px">
-			<h3 style="color:#CC6949;font-size:17px;padding:0 0 0 0">Journal</h3>
+		  <div class="col-sm-1  no-padding align-text-right">
+			<span class="profile-label">Journal</span>
 		  </div>
-		  <div class="col-sm-9" style="padding:2px 0 0 2px">
+		  <div class="col-sm-10">
 			<div class="scholars-article-metadata">
 				<em>${freeTextTitleStmt.value!}</em>
 			</div>
 	  	  </div>
-	    </div>
 	</#assign>
 </#if>  
 <#if startProp?has_content && startProp.statements?has_content>
@@ -176,51 +166,44 @@
 </#if>
 <#if startPage?has_content && endPage?has_content >
 	<#assign pages>
-		<div class="col-sm-12" style="padding:6px 0 0 0;">
-		  <div class="col-sm-1" style="text-align:right;padding:0 0 0 15px">
-			<h3 style="color:#CC6949;font-size:17px;padding:0 0 0 0">Pages</h3>
+		  <div class="col-sm-1  no-padding align-text-right">
+			<span class="profile-label">Pages</span>
 		  </div>
-		  <div class="col-sm-9" style="padding:2px 0 0 7px">
+		  <div class="col-sm-10">
 			<div class="scholars-article-metadata">
 				${startPage!} - ${endPage!}
 			</div>
 		  </div>
-		</div>
 	</#assign>
 <#elseif startPage?has_content && !endPage?has_content >
 	<#assign pages>
-		<div class="col-sm-12" style="padding:6px 0 0 0">
-		  <div class="col-sm-1" style="text-align:right;padding:0 0 0 15px">
-			<h3 style="color:#CC6949;font-size:17px;padding:0 0 0 0">Starts</h3>
+		  <div class="col-sm-1  no-padding align-text-right">
+			<span class="profile-label">Starts</span>
 		  </div>
-		  <div class="col-sm-9" style="padding:2px 0 0 7px">
+		  <div class="col-sm-10">
 			<div class="scholars-article-metadata">
 				${startPage!}
 			</div>
 		  </div>
-		</div>
 	</#assign>
 <#elseif !startPage?has_content && endPage?has_content >
 	<#assign pages>
-		<div class="col-sm-12" style="padding:6px 0 0 0;">
-		  <div class="col-sm-1" style="text-align:right;padding:0 0 0 15px">
-			<h3 style="color:#CC6949;font-size:17px;padding:0 0 0 0">Ends</h3>
+		  <div class="col-sm-1  no-padding align-text-right>
+			<span class="profile-label">Ends</span>
 		  </div>
-		  <div class="col-sm-9" style="padding:2px 0 0 7px">
+		  <div class="col-sm-10">
 			<div class="scholars-article-metadata">
 				${endPage!}
 			</div>
 		  </div>
-		</div>
 	</#assign>
 </#if>
 <#if pubDate?has_content>
-	<#assign published ><span style="font-size:20px">(${pubDate!})</span></#assign>
 	<#assign publishedInline >
-		  <div class="col-sm-9" style="text-align:right;padding:6px 0 0 0">
-			<h3 style="color:#CC6949;font-size:17px;padding:0 0 0 0">Published</h3>
+		  <div class="col-sm-9 no-padding align-text-right">
+			<span class="profile-label">Published</span>
 		  </div>
-		  <div class="col-sm-3" style="padding:8px 0 0 0">
+		  <div class="col-sm-3">
 			<div class="scholars-article-metadata">
 				${pubDate!}
 			</div>
@@ -230,12 +213,12 @@
 </#if>
 <#if gccProp?has_content && gccProp.statements?has_content >
 	<#assign gcc>
-		  <div class="col-sm-9" style="text-align:right;padding:6px 0 0 0">
-			<h3 style="color:#CC6949;font-size:17px;padding:0 0 0 0">Citations</h3>
+		  <div class="col-sm-9 no-padding align-text-right">
+			<span class="profile-label">Citations</span>
 		  </div>
-		  <div class="col-sm-3" style="padding:9px 0 0 0">
+		  <div class="col-sm-3" >
 			<div class="scholars-article-metadata">
-				&nbsp;${gccProp.statements[0].count!}
+				${gccProp.statements[0].count!}
 			</div>
 		  </div>
 	</#assign>
@@ -244,32 +227,28 @@
 	<#assign doiStmt = doiProp.statements?first!""/>
 	<#assign doi = doiStmt.value! />
 	<#assign doiInline>
-		<div class="col-sm-12" style="padding:6px 0 0 0;">
-		  <div class="col-sm-1" style="text-align:right;padding:0 0 0 15px">
-			<h3 style="color:#CC6949;font-size:17px;padding:0 0 0 0">DOI</h3>
+		  <div class="col-sm-1  no-padding align-text-right">
+			<span class="profile-label">DOI</span>
 		  </div>
-		  <div class="col-sm-9" style="padding:2px 0 0 7px">
+		  <div class="col-sm-10">
 			<div class="scholars-article-metadata">
 				<a href="http://dx.doi.org/${doi!}" title="link to DOI" target="_blank">${doi!}</a>
 			</div>
 		  </div>
-		</div>
 	</#assign>
 </#if>
 <#if pmidProp?has_content && pmidProp.statements?has_content>
 	<#assign pmidStmt = pmidProp.statements?first!""/>
 	<#assign pmid = pmidStmt.value! />
 	<#assign pmidInline>
-		<div class="col-sm-12" style="padding:6px 0 0 0;">
-		  <div class="col-sm-1" style="text-align:right;padding:0 0 0 15px">
-			<h3 style="color:#CC6949;font-size:17px;padding:0 0 0 0">PMID</h3>
+		  <div class="col-sm-9  no-padding align-text-right">
+			<span class="profile-label">PMID</span>
 		  </div>
-		  <div class="col-sm-9" style="padding:2px 0 0 7px">
+		  <div class="col-sm-3">
 			<div class="scholars-article-metadata">
 				<a href="http://www.ncbi.nlm.nih.gov/pubmed/?term=${pmid!}" title="View in PubMed" target="_blank">${pmid!}</a>
 			</div>
 		  </div>
-		</div>
 	</#assign>
 </#if>
 <#if doi?has_content>
@@ -279,11 +258,11 @@
 </#if>
 <#if keywordsProp?has_content && keywordsProp.statements?has_content>
 	<#assign keywordsList>
-		<div class="col-sm-3" style="text-align:right;padding:0 0 0 0;">
-  			<h3 style="color:#CC6949;font-size:17px;padding:0 0 0 0">Keywords</h3>
+		<div class="col-sm-3 no-padding align-text-right">
+  			<span class="profile-label">Keywords</span>
 		</div>
-		<div class="col-sm-9" style="padding:0 0 0 0;margin-top:-3px">
-  			<div style="color:#595b5b;font-size:16px;padding-left:18px">
+		<div class="col-sm-9 no-padding">
+  			<div class="mesh-term-list">
   				<ul>
   					<#list keywordsProp.statements as statement>
   						<li class="list-item">
@@ -295,11 +274,11 @@
 		</div>
 	</#assign>
 	<#assign keywordsListInline>
-		<div class="col-sm-1" style="text-align:right;padding:10px 0 0 0;">
-  			<h3 style="color:#CC6949;font-size:17px;padding:0 0 0 0">Keywords</h3>
+		<div class="col-sm-1 align-text-right">
+  			<span class="profile-label">Keywords</span>
 		</div>
-		<div class="col-sm-10" style="padding:10px 0 20px 0;margin-top:-3px">
-  			<div style="color:#595b5b;font-size:16px;padding-left:18px">
+		<div class="col-sm-10" >
+  			<div class="mesh-term-list">
   				<ul>
   					<#list keywordsProp.statements as statement>
   							${statement.value!}<#if statement_has_next> | </#if>
@@ -312,11 +291,11 @@
 <#assign hasMeshTerm = false />
 <#if meshTermsProp?has_content && meshTermsProp.statements?has_content>
 	<#assign meshTermsList>
-		<div class="col-sm-3" style="text-align:right;padding:0 0 0 0;">
-  			<h3 style="color:#CC6949;font-size:16px;padding:0 0 0 0">MeSH Terms</h3>
+		<div class="col-sm-3 no-padding align-text-right ws-nowrap">
+  			<span class="profile-label">MeSH Terms</span>
 		</div>
-		<div class="col-sm-9" style="padding:0 0 0 0;margin-top:-3px">
-  			<div style="color:#595b5b;font-size:17px;padding-left:18px">
+		<div class="col-sm-9 no-padding">
+  			<div class="mesh-term-list">
   				<ul>
 					<#list meshTermsProp.statements as statement>
 						<#if statement.concept?contains("mesh")>
@@ -331,11 +310,11 @@
 		</div>
 	</#assign>
 	<#assign meshTermsListInline>
-		<div class="col-sm-2" style="text-align:right;padding:10px 0 0 0;">
-  			<h3 style="color:#CC6949;font-size:16px;padding:0 0 0 0">MeSH Terms</h3>
+		<div class="col-sm-1 align-text-right ws-nowrap">
+  			<span class="profile-label">MeSH Terms</span>
 		</div>
-		<div class="col-sm-10" style="padding:10px 0 20px 0;margin-top:-3px">
-  			<div style="color:#595b5b;font-size:17px;padding-left:18px">
+		<div id="inlineMeshTerms" class="col-sm-10">
+  			<div class="mesh-term-list">
   				<ul>
 					<#list meshTermsProp.statements as statement>
 						<#if statement.concept?contains("mesh")>
@@ -351,7 +330,7 @@
 	</#assign>
 </#if>
 <#-- The row1 div contains the top portion of the profile page: tile, icon controls, authors, key metadata -->
-<div id="row1" class="row" style="background-color:#f1f2f3">
+<div id="row1" class="row f1f2f3-bkg">
 <div class="col-sm-12 col-md-12 col-lg-12 scholars-container" id="biboDocumentMainColumn">
 
 <section id="individual-info" ${infoClass!} role="region">
@@ -363,105 +342,105 @@
 	
     <header>
 			<#include "individual-altmetric.ftl">
-            <h1 class="fn" itemprop="name" style="margin-top:17px;float:left;margin-left:24px;width:72%">
+            <h1 class="fn bibo-profile-title" itemprop="name">
                 <#-- Label -->
                 <@p.label individual editable labelCount localesCount languageCount/>
                 <#--  Most-specific types -->
                 <@p.mostSpecificTypes individual />
             </h1>
-		<div style="float:right;margin:14px 10px -14px 0">
+		<div class="bibo-doc-controls">
 			<#include "document-iconControls.ftl" />
 		</div>
 
-		<h2 id="relatedBy" class="mainPropGroup" title="A position, either vertical or horizontal." style="margin-left:24px;clear:both;padding-top:0;border-bottom:1px solid #b9b9b9">  </h2>
+		<h2 id="bibo-heading-break">  </h2>
     </header>
-	<div class="row" role="row" style="background-color:#fff;margin-left:24px">
+	<div class="row profile-row fff-bkg bibo-metadata" role="row">
 		<div class="col-sm-9 col-md-9 col-lg-9">
-			<div class="row" role="row" style="background-color:#fff">
+			<div class="row profile-row" role="row">
 				${authorList?replace(" ,",",")!}
 			</div>
-			<div class="row" role="row" style="background-color:#fff">
+			<div class="row profile-row" role="row">
 				<#if journalTitle?has_content >
 					${journalTitle!}
 				<#else>
 					${freeTextTitle!}
 				</#if>
 			</div>
-			<div class="row" role="row" style="background-color:#fff">
+			<div class="row profile-row" role="row">
 				${pages!}
 			</div>
-			<div class="row" style="background-color:#fff" >
+			<div class="row profile-row" >
 				${doiInline!}
 			</div>
-			<div class="row" style="background-color:#fff" >
-				${pmidInline!}
-			</div>
-			<div class="row" role="row" style="background-color:#fff">
+			<div class="row profile-row" role="row">
 				
 			</div>
 		</div>
 
 		<div class="col-sm-2 col-md-2 col-lg-2">
-			<div class="row" role="row" style="background-color:#fff">
+			<div class="row profile-row" role="row">
 				${gcc!}
 			</div>
-			<div class="row" role="row" style="background-color:#fff">
+			<div class="row profile-row" role="row">
 				${volumeIssue!}
 			</div>
-			<div class="row" role="row" style="background-color:#fff">
+			<div class="row profile-row" role="row">
 				${publishedInline!}
+			</div>
+			<div class="row profile-row" >
+				${pmidInline!}
 			</div>
 		</div>
 	</div>
 
 
         </section> <!-- individual-info -->
-		<div style="clear:both;padding-top:12px"></div>
+		<div class="clear-both"></div>
 
 	</div> <!-- biboDocumentMainColumn -->
 </div> <!-- row1 -->
 <#if abstract?has_content || keywordsList?has_content || hasMeshTerm >
-	<div id="row2" class="row" style="background-color:#f1f2f3;margin-top:30px" >
+	<div id="bibo-row-two" class="row f1f2f3-bkg">
 	<#if abstract?has_content>
-	  <div class="col-sm-5 col-md-5 col-lg-5" style="background-color:#f1f2f3;padding-left:0">
+	  <div class="col-sm-5 col-md-5 col-lg-5 f1f2f3-bkg">
   	  <#if keywordsList?has_content>
-	    <div class="row" style="background-color:#f1f2f3;margin:0 0 0 0">
+	    <div class="row f1f2f3-bkg row-no-margins">
 			<div id="keywords" class="col-sm-12 col-md-12 col-lg-12 scholars-container">
-				<div class="row" style="background-color:#fff;margin:16px 0 0 0" >
+				<div class="row profile-row profile-row-margins" >
 					${keywordsList!}
 				</div>
-				<div class="row" style="background-color:#fff;margin:16px 0 0 0" >
+				<div class="row profile-row profile-row-margins" >
 				</div>
 			</div>
 		</div>
 		</#if>
 		<#if hasMeshTerm>
-	    <div class="row" style="background-color:#f1f2f3;margin:0 0 0 0">
+	    <div class="row f1f2f3-bkg row-no-margins">
 			<div id="keywords" class="col-sm-12 col-md-12 col-lg-12 scholars-container">
-				<div class="row" style="background-color:#fff;margin:16px 0 0 0" >
+				<div class="row profile-row profile-row-margins" >
 					${meshTermsList!}
 				</div>
-				<div class="row" style="background-color:#fff;margin:16px 0 0 0" >
+				<div class="row profile-row profile-row-margins" >
 				</div>
 			</div>
 		</div>
 		</#if>
 	  </div>
 	  <#if keywordsList?has_content || hasMeshTerm > 
-	  <div class="col-sm-7 col-md-7 col-lg-7" style="padding:0 0 0 0;">
-		<div class="row" style="background-color:#f1f2f3;margin:0 0 0 0">
+	  <div class="col-sm-7 col-md-7 col-lg-7 no-padding">
+		<div class="row f1f2f3-bkg row-no-margins">
 			<div id="abstract" class="col-sm-12 col-md-12 col-lg-12 scholars-container">
 				${abstract!}
-				<div class="row" style="background-color:#fff;margin:16px 0 0 0" >
+				<div class="row profile-row profile-row-margins" >
 			</div>
 		</div>
 	  </div>
 	  <#else>
-	  <div class="col-sm-12 col-md-12 col-lg-12" style="padding:0 0 0 0;">
-		<div class="row" style="background-color:#f1f2f3;margin:0 0 0 0">
+	  <div class="col-sm-12 col-md-12 col-lg-12 no-padding">
+		<div class="row f1f2f3-bkg row-no-margins">
 			<div id="abstract" class="col-sm-12 col-md-12 col-lg-12 scholars-container">
 				${abstract!}
-				<div class="row" style="background-color:#fff;margin:16px 0 0 0" >
+				<div class="row profile-row profile-row-margins" >
 			</div>
 		</div>
 	  </div>
@@ -469,23 +448,23 @@
 	<#else>
 		<#if keywordsList?has_content && hasMeshTerm>
 		<div id="keywords" class="col-sm-5 col-md-5 col-lg-5 scholars-container" >
-			<div class="row" style="background-color:#fff;margin:16px 0 0 0" >
+			<div class="row profile-row profile-row-margins" >
 				${keywordsList!}
 			</div>
-			<div class="row" style="background-color:#fff;margin:16px 0 0 0" >
+			<div class="row profile-row profile-row-margins" >
 			</div>
 		</div>
 		<div id="meshTerms" class="col-sm-5 col-md-5 col-lg-5 scholars-container col-sm-offset-2 col-md-offset-2 col-lg-offset-2">
-			<div class="row" style="background-color:#fff;margin:16px 0 0 0" >
+			<div class="row profile-row profile-row-margins" >
 				${meshTermsList!}
 			</div>
-			<div class="row" style="background-color:#fff;margin:16px 0 0 0" >
+			<div class="row profile-row profile-row-margins" >
 			</div>
 		</div>
 		</#if>
 		<#if keywordsList?has_content && !hasMeshTerm>
 		<div id="foafPersonViz" class="col-sm-12 col-md-12 col-lg-12 scholars-container">
-			<div class="row" style="background-color:#fff;margin:16px 0 0 0" >
+			<div class="row profile-row profile-row-margins" >
 				<div class="col-sm-12 col-md-12 col-lg-12">
 							${keywordsListInline!}
 				</div>
@@ -494,13 +473,9 @@
 		</#if>
 		<#if !keywordsList?has_content && hasMeshTerm>
 		<div id="foafPersonViz" class="col-sm-12 col-md-12 col-lg-12 scholars-container">
-			<div class="row" style="background-color:#fff;margin:16px 0 0 0" >
+			<div class="row profile-row profile-row-margins" >
 				<div class="col-sm-12 col-md-12 col-lg-12">
-					<div class="row" style="background-color:#fff;margin:16px 0 0 0">
-						<div class="col-sm-5 col-md-5 col-lg-5" style="margin-bottom:16px">
 							${meshTermsListInline!}
-						</div>
-					</div>
 				</div>
 			</div>
 		</div>
@@ -530,7 +505,7 @@
     </script>
 </#if>
 
-<div class="row" style="margin-bottom:400px;background-color:#f1f2f3;"></div>
+<div id="profile-bottom" class="row f1f2f3-bkg"></div>
 
 <script>
     var individualLocalName = "${individual.localName}";
