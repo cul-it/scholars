@@ -291,7 +291,9 @@ $().ready(function() {
 <div id="grantsVis"></div>
 
 ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/keywordcloud/kwcloud.css" />')}
-<div id="word_cloud_vis"></div>
+<div id="word_cloud_vis">
+<a href="#" id="word_cloud_exporter" class="pull-right"><i class="fa fa-download" aria-hidden="true" title="export this data" ></i></a>
+</div>
 
 
 ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/individual/individual-vivo.css?vers=1.5.1" />')}
@@ -346,23 +348,13 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></
               '<script type="text/javascript" src="${urls.base}/js/scholars-vis/wordcloud/dept-word-cloud.js"></script>',
               '<script type="text/coffeescript" src="${urls.base}/js/scholars-vis/grants/vis-modal.coffee"></script>')}
 
-
-
-		
-
-
-<script type="text/javascript">
-  $(document).ready(function() {
-        $('#view_selection_off').click(function() {
-          var view_type = 'years'
-          toggle_view(view_type);
-          return false;
-        });
-  });
-</script>
 <#if isCollege >
-  <div id="interd_collab_vis" class="dept_collab_vis"></div>
-  <div id="cross_unit_collab_vis" class="dept_collab_vis"></div>
+  <div id="interd_collab_vis" class="dept_collab_vis">
+ 	<a href="#" id="interd_collab_exporter" class="pull-right"><i class="fa fa-download" aria-hidden="true" title="export this data" ></i></a>
+  </div>
+  <div id="cross_unit_collab_vis" class="dept_collab_vis">
+	<a href="#" id="cross_unit_collab_exporter" class="pull-right"><i class="fa fa-download" aria-hidden="true" title="export this data" ></i></a>
+  </div>
 	<script>
 	$().ready(function() {
 	  var cucs = new ScholarsVis.CrossUnitCollaborationSunburst({
@@ -370,12 +362,14 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></
 	    modal : true
       });
       $('#cross_unit_collab_trigger').click(cucs.show);
+	  $('#cross_unit_collab_exporter').click(cucs.showVisData);
 
 	  var idcs = new ScholarsVis.InterDepartmentCollaborationSunburst({
 	    target : '#interd_collab_vis',
 	    modal : true
       });
       $('#interd_collab_trigger').click(idcs.show);
+      $('#interd_collab_exporter').click(idcs.showVisData);
 	});
 	</script>
 
@@ -389,7 +383,8 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></
 	    department : "${individual.uri?url}"
       });
       $('#word_cloud_trigger').click(wc.show);
-
+	  $('#word_cloud_exporter').click(wc.showVisData);
+	
 	  new ScholarsVis.IconizedDepartmentWordCloud({
 	    target : '#dynamic_word_cloud',
 	    modal : false,

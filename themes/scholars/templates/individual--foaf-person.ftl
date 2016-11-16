@@ -1,4 +1,4 @@
-120px<#-- $This file is distributed under the terms of the license in /doc/license.txt$ -->
+<#-- $This file is distributed under the terms of the license in /doc/license.txt$ -->
 
 <#-- Individual profile page template for foaf:Person individuals -->
 
@@ -201,7 +201,7 @@ $(document).ready(function() {
 <div id="foaf-person-blank-row" class="row scholars-row"></div>
 </#if>
 <div id="word_cloud_vis">
-	<a href="#" id="word_cloud_exporter">EXPORT</a>
+	<a href="#" id="word_cloud_exporter" class="pull-right"><i class="fa fa-download" aria-hidden="true" title="export this data" style="font-size:24px"></i></a>
 </div>
 
 <div class="jqmWindow" id="subject-area-dialog">

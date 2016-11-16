@@ -3191,7 +3191,7 @@ header {
 	z-index:15;
 	border-radius:5px;
 }
-#site_wordcloud_vis div {
+#wc-text-container {
 	width: 50%; 
 	height: 10px; 
 	float:left;
@@ -3199,4 +3199,14 @@ header {
 #wcUniv-container {
 	width: 50%; 
 	float:right;
+}
+#site_word_cloud_exporter i {
+	padding-right: 20px;
+}
+.fa-download {
+	font-size: 24px;
+}
+#site_word_cloud_info {
+    font-size: 22px;
+    color: #167093;
 }
