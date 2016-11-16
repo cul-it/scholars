@@ -135,7 +135,7 @@
 			<div id="site_collab_vis"></div>
 
 			<div id="site_wordcloud_vis">
-      	      <div>
+      	      <div id="wc-text-container">
                 <span class="text-primary" id="content"></span>
               </div>
               <div id="wcUniv">

@@ -3191,7 +3191,7 @@ header {
 	z-index:15;
 	border-radius:5px;
 }
-#site_wordcloud_vis div {
+#wc-text-container {
 	width: 50%; 
 	height: 10px; 
 	float:left;
