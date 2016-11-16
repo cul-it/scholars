@@ -243,14 +243,21 @@ $(document).ready(function(){
 </script>
 <#if (numOfCoAuthorShips?? && numOfCoAuthorShips > 0) || (numOfAuthors?? && numOfAuthors > 0) > 
     <#assign graphml>
-		<span style="margin-left:14px;font-size:.9em"> (<a href="${egoCoAuthorshipNetworkDataFileURL}" style="font-size:0.9em"title="GraphML ${i18n().file}">GraphML ${i18n().file}</a>)</span>
+		<span id="graphml-span"> 
+			<a href="${egoCoAuthorshipNetworkDataFileURL}" title="GraphML ${i18n().file}">(GraphML ${i18n().file})</a>
+		</span>
 	</#assign>
 </#if>
-<div class="row"  style="background-color:#fff;">
-<div id="vis-body" class="col-sm-12 col-md-12 col-lg-12" style="border: 1px solid #cdd4e7;border-top:5px solid #CC6949;">
-	<div  class="sub_headings" style="margin-left:20px"><h2 style="font-size:20px"><a href="${egoVivoProfileURL}" title="${i18n().author_name}"><span id="ego_label"></span></a><br />${i18n().co_author_network} ${graphml!}</h2></div>
-
-    <div class = "toggle_visualization" style="float:right;margin:6px 0 0 0">
+<div class="row f1f2f3-bkg">
+<div id="vis-body" class="col-sm-12 col-md-12 col-lg-12 scholars-container">
+	<div  class="sub_headings">
+		<h2 >
+			<a id="author-name" href="${egoVivoProfileURL}" title="${i18n().author_name}">
+				<span id="ego_label"></span>
+			</a><br />${i18n().co_author_network} ${graphml!}
+		</h2>
+	</div>
+    <div class = "toggle_visualization">
         <div id="coinvestigator_link_container" class="collaboratorship-link-container">
             <div class="collaboratorship-link_off">
                 <h3><a href="${coprincipalinvestigatorURL}" title="${i18n().co_investigator_network}">View Co-investigators</a></h3>
@@ -261,7 +268,7 @@ $(document).ready(function(){
     <#if (builtFromCacheTime??) >
         <div class="cache-info-small">${i18n().using_cache_time} ${builtFromCacheTime?time} (${builtFromCacheTime?date?string("MMM dd yyyy")})</div>
     </#if>
-    <div style="clear:both;"></div>
+    <div class="clear-both"></div>
 
     <#if (numOfAuthors?? && numOfAuthors > 0) >
     <#else>
@@ -279,12 +286,12 @@ $(document).ready(function(){
         </div>
     </#if>
 
-    <div style="clear:both"></div>
-        <div id="incomplete-data-small" style="padding:12px 0 0 0;text-align:center;margin-bottom:10px">
+    <div class="clear-both"></div>
+        <div id="incomplete-data-small">
 			<p>Note: This information is based solely on publications that have been loaded into the Scholars@Cornell system. This may only be a small sample of the person's total work.</p>
         </div>
         
-    <div style="clear:both"></div>
+    <div class="clear-both"></div>
 
     <#if (numOfAuthors?? && numOfAuthors > 0) >
 
@@ -337,7 +344,7 @@ $(document).ready(function(){
             
             </#if>
             
-            <div style="clear:both"></div>
+            <div class="clear-both"></div>
         
         </div>
         
@@ -345,4 +352,3 @@ $(document).ready(function(){
     
 </div>
 </div> <!-- row -->
-<div id="chord-info-div" style="display: none;"></div>

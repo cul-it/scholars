@@ -249,19 +249,25 @@ $(document).ready(function(){
     
     <#if (numOfCoInvestigations?? && numOfCoInvestigations > 0) || (numOfInvestigators?? && numOfInvestigators > 0) > 
 		    <#assign graphml>
-				<span style="margin-left:14px;font-size:.9em"> (<a href="${egoCoInvestigationNetworkDataFileURL}" style="font-size:0.9em"title="GraphML ${i18n().file}">GraphML ${i18n().file}</a>)</span>
+				<span  id="graphml-span">
+					<a href="${egoCoInvestigationNetworkDataFileURL}" title="GraphML ${i18n().file}">(GraphML ${i18n().file})</a>
+				</span>
 			</#assign>
     </#if>
 
 </#if>
 
-<div class="row"  style="background-color:#fff;">
+<div class="row f1f2f3-bkg">
 
-<div id="vis-body" class="col-sm-12 col-md-12 col-lg-12" style="border: 1px solid #cdd4e7;border-top:5px solid #CC6949;">
-    <div  class="sub_headings" style="margin-left:20px"><h2 style="font-size:20px"><a href="${egoVivoProfileURL}" title="${i18n().investigator_name}"><span id="ego_label"></span></a><br />${i18n().co_investigator_network_capitalized}  ${graphml!}</h2></div>
-            
-    
-    <div class="toggle_visualization" style="float:right;margin:6px 0 0 0">
+<div id="vis-body" class="col-sm-12 col-md-12 col-lg-12 scholars-container" >
+    <div  class="sub_headings">
+		<h2>
+			<a id="author-name" href="${egoVivoProfileURL}" title="${i18n().investigator_name}">
+				<span id="ego_label"></span>
+			</a><br />${i18n().co_investigator_network_capitalized}  ${graphml!}
+		</h2>
+	</div>
+    <div class="toggle_visualization">
         <div id="coauthorship_link_container" class="collaboratorship-link-container">
             <div class="collaboratorship-link_off">
                 <h3><a href="${coauthorshipURL}" title="${i18n().co_author_network}">View Co-authors</a></h3>
@@ -269,7 +275,7 @@ $(document).ready(function(){
         </div>
     </div>
         
-    <div style="clear:both;"></div>
+    <div class="clear-both"></div>
     
             
     <#if (numOfCoInvestigations?? && numOfCoInvestigations > 0) || (numOfInvestigators?? && numOfInvestigators > 0) >
@@ -288,11 +294,11 @@ $(document).ready(function(){
     </#if>
 
 
-    <div style="clear:both"></div>
-    <div id="incomplete-data-small" style="padding:12px 0 0 0;text-align:center;margin-bottom:10px">
+    <div class="clear-both"></div>
+    <div id="incomplete-data-small">
 		<p>Note: This information is based solely on grants that have been loaded into the Scholars@Cornell system. This may only be a small sample of the person's total work.</p>
     </div>
-    <div style="clear:both"></div>
+    <div class="clear-both"></div>
 
     <#if (numOfInvestigators?? && numOfInvestigators > 0) >
 
@@ -312,9 +318,11 @@ $(document).ready(function(){
         <div class="vis_stats_full">
         
         <div class="sub_headings" id="table_heading"><h3>${i18n().tables_capitalized}</h3></div>
-            <p style="float:left;font-size:.9em">${i18n().grant_info_for_all_years}&nbsp;<img class="filterInfoIcon" width="16px" height="16px" id="imageIconThree" src="${urls.images}/iconInfo.png" alt="${i18n().info_icon}" title="${i18n().grant_sparkline_note}" /></p>
+            <p class="co-pi-info">${i18n().grant_info_for_all_years}&nbsp;
+				<img class="filterInfoIcon" width="16px" height="16px" id="imageIconThree" src="${urls.images}/iconInfo.png" alt="${i18n().info_icon}" title="${i18n().grant_sparkline_note}" />
+			</p>
 
-            <div style="clear:both"></div>
+            <div class="clear-both"></div>
 
             <div class="vis-tables">
 
@@ -350,11 +358,11 @@ $(document).ready(function(){
             
             </#if>
             
-            <div style="clear:both"></div>
+            <div class="clear-both"></div>
         
         </div>
         
     </#if>
     
 </div>
-<div id="chord-info-div" style="display: none;"></div>
+</div> <!-- row -->

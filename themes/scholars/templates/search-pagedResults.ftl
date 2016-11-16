@@ -1,8 +1,8 @@
 <#-- $This file is distributed under the terms of the license in /doc/license.txt$ -->
 
 <#-- Template for displaying paged search results -->
-<div class="row"  style="background-color:#fff;">
-<div id="container" class="col-sm-12 col-md-12 col-lg-12" style="border: 1px solid #cdd4e7;border-top:5px solid #CC6949;">
+<div class="row scholars-row">
+<div id="biscuit-container" class="col-sm-12 scholars-container">
 
 <h2 class="searchResultsHeader">
 <#escape x as x?html>
@@ -23,7 +23,6 @@
 </script>
 
 	<img id="downloadIcon" src="images/download-icon.png" alt="Download Results" title="Download Results" />
-<#-- <span id="downloadResults" style="float:left"></span>  -->
 </h2>
 
 <span id="searchHelp"><a href="${urls.base}/searchHelp" title="${i18n().search_help}">${i18n().not_expected_results}</a></span>
@@ -82,31 +81,6 @@
         </div>
     </#if>
     <br />
-
-    <#-- VIVO OpenSocial Extension by UCSF -->
-    <#if openSocial??>
-        <#if openSocial.visible>
-        <h3>OpenSocial</h3>
-            <script type="text/javascript" language="javascript">
-                // find the 'Search' gadget(s).
-                var searchGadgets = my.findGadgetsAttachingTo("gadgets-search");
-                var keyword = '${querytext}';
-                // add params to these gadgets
-                if (keyword) {
-                    for (var i = 0; i < searchGadgets.length; i++) {
-                        var searchGadget = searchGadgets[i];
-                        searchGadget.additionalParams = searchGadget.additionalParams || {};
-                        searchGadget.additionalParams["keyword"] = keyword;
-                    }
-                }
-                else {  // remove these gadgets
-                    my.removeGadgets(searchGadgets);
-                }
-            </script>
-
-            <div id="gadgets-search" class="gadgets-gadget-parent" style="display:inline-block"></div>
-        </#if>
-    </#if>
 
 </div> <!-- end contentsBrowseGroup -->
   </div> <!--! end of #container -->

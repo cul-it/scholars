@@ -63,7 +63,7 @@
 			<div id="academic-officer-list-name">
 				${officer.personName!}
 			</div>
-			<div style="clear:both"></div>
+			<div class="clear-both"></div>
 		</#list>
 		</div>
   </#assign>
@@ -88,7 +88,7 @@
   </#if>
   <#if isAcademicDept >
 	<div>
-		<a href="#" id="word_cloud_trigger"><div id="dynamic_word_cloud" style="display:inline-block;height:150px;width:200px">&nbsp;</div></a>
+		<a href="#" id="word_cloud_trigger"><div id="dynamic_word_cloud" >&nbsp;</div></a>
 		<p>Keywords</p>
 	</div>
 	<div>
@@ -221,10 +221,10 @@
 			</div>
 			<h2 id="page-heading-break">  </h2>
 	    </header>
-		<div style="clear:both"></div>
+		<div class="clear-both"></div>
 		${academicOfficerList!}
 	 </section> <!-- individual-info -->
-			<div style="clear:both"></div>
+			<div class="clear-both"></div>
 	</div> <!-- foafPersonMainColumn -->
 </div> <!-- row1 -->
 
@@ -288,10 +288,10 @@ $().ready(function() {
 });
 </script>
 
-<div id="grantsVis" style="display:none;height:400px;width:400px"></div>
+<div id="grantsVis"></div>
 
 ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/keywordcloud/kwcloud.css" />')}
-<div id="word_cloud_vis" style="display:none;height:70%;width:70%"></div>
+<div id="word_cloud_vis"></div>
 
 
 ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/individual/individual-vivo.css?vers=1.5.1" />')}

@@ -1,4 +1,4 @@
-<#-- $This file is distributed under the terms of the license in /doc/license.txt$ -->
+120px<#-- $This file is distributed under the terms of the license in /doc/license.txt$ -->
 
 <#-- Individual profile page template for foaf:Person individuals -->
 
@@ -122,6 +122,7 @@ $(document).ready(function() {
 		<div id="foaf-person-icons">
 			<#include "individual-iconControls.ftl" />
 		</div>
+		<h2 id="page-heading-break">  </h2>
     	<#include "individual-positions.ftl">
     </header>
 	</section>
@@ -136,19 +137,18 @@ $(document).ready(function() {
 <div id="visualization-column" class="col-sm-3 col-md-3 col-lg-3 scholars-container">
  	<#if isAuthor >
 		<#if hasKeywords >
- 			<div>
-		  		<a href="#" id="word_cloud_trigger"><div id="dynamic_word_cloud" style="display:inline-block;height:150px;width:200px">&nbsp;</div></a>
+ 			<div><a href="#" id="word_cloud_trigger"><div id="dynamic_word_cloud"></div></a>
  				<p>Keywords</p>
  			</div>
 		</#if>
  		<div>
- 			<a href="${coAuthorVisUrl}"><img width="60%" src="${urls.base}/themes/scholars/images/co-authors.png"/></a>
+ 			<a href="${coAuthorVisUrl}"><img width="120px" src="${urls.base}/themes/scholars/images/co-authors.png"/></a>
  			<p>Co-authors</p>
  		</div>
  	</#if>
  	<#if isInvestigator >
  		<div>
- 			<a href="${coInvestigatorVisUrl}"><img width="60%" src="${urls.base}/themes/scholars/images/co-investigators.png"/></a>
+ 			<a href="${coInvestigatorVisUrl}"><img width="120px" src="${urls.base}/themes/scholars/images/co-investigators.png"/></a>
  			<p>Co-investigators</p>
  		</div>
  	</#if>
@@ -200,13 +200,9 @@ $(document).ready(function() {
 <#else>
 <div id="foaf-person-blank-row" class="row scholars-row"></div>
 </#if>
-<div id="word_cloud_vis" style="height:70%;width:70%">
+<div id="word_cloud_vis">
 	<a href="#" id="word_cloud_exporter">EXPORT</a>
 </div>
-
-<#-- <#include "individual-property-group-tabs.ftl"> -->
-
-
 
 <div class="jqmWindow" id="subject-area-dialog">
 	<div>

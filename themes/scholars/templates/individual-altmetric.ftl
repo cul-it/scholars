@@ -10,7 +10,6 @@ div.altmetric-hidden {
     <#if doi?has_content> <#-- true when the property is in the list, even if not populated (when editing) -->
             <div class="individual-altmetric-badge">
                 <div class="altmetric-embed"
-                     style="float: left; padding:14px 0 0 26px; margin-bottom: -10px"
                      data-badge-type="donut"
                      <#if altmetricPopover??>data-badge-popover="right"</#if>
                      <#if altmetricDetails??>data-badge-details="${altmetricDetails}"</#if>
@@ -23,7 +22,6 @@ div.altmetric-hidden {
            <#if pmid?has_content> <#-- true when the property is in the list, even if not populated (when editing) -->
 	           <div class="individual-altmetric-badge">
 	               <div class="altmetric-embed"
-	                    style="float: left; padding:14px 0 0 26px"
 	                    data-badge-type="donut"
 	                    <#if altmetricPopover??>data-badge-popover="right"</#if>
 	                    <#if altmetricDetails??>data-badge-details="${altmetricDetails}"</#if>
