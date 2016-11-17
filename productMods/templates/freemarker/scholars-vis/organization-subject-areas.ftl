@@ -33,7 +33,7 @@
 	      				target : '#organization-subject-areas',
 	      				organization : "${requestingDept[0].dept?url}"
 						});
-						$('#organization-subject-areas').show(ora.show);
+						ora.show();
 						$('#org-subject-area-exporter').click(ora.showVisData);
 					});
 					</script>
