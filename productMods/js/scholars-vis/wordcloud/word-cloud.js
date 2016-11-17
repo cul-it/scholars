@@ -114,5 +114,3 @@ function close_word_cloud(target) {
 	$(target).children("svg").remove();
 	$('div.d3-tip').remove();
 }
-
-

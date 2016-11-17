@@ -4,69 +4,14 @@ ScholarsVis["DepartmentWordCloud"] = function(options) {
 		    parse : 'turtle',
 	    	transform : transform_word_cloud_data,
 		    display : draw_word_cloud,
-		    closer : close_word_cloud
+		    closer : close_word_cloud,
+		    
+		    maxKeywords : 100
 		};
 	return new ScholarsVis.Visualization(options, defaults);
 };
 
-function close_word_cloud(target) {
-	$(target).children("svg").remove();
-	$('div.d3-tip').remove();
-}
-
-function transform_word_cloud_data(graph) {
-	var VIVO = $rdf.Namespace("http://vivoweb.org/ontology/core#");
-	var RDFS = $rdf.Namespace("http://www.w3.org/2000/01/rdf-schema#");
-
-	var keywordSet = buildKeywordSet();
-	var keywordArray = populateKeywordArray(keywordSet);
-	return sortAndSlice(keywordArray);
-
-	function buildKeywordSet() {
-		var stmts = graph
-				.statementsMatching(undefined, VIVO('freetextKeyword'));
-		return new Set(stmts.map(getObjectValue));
-
-		function getObjectValue(stmt) {
-			return stmt.object.value
-		}
-	}
-
-	function populateKeywordArray(keywordSet) {
-		return Array.from(keywordSet).map(gatherKeywordInfo)
-	}
-
- 	function gatherKeywordInfo(keyword) {
- 		var stmts = graph.statementsMatching(undefined, undefined, keyword);
- 		return {
- 			text : keyword,
- 			size : stmts.length,
- 			entities : stmts.map(getEntityInfo).filter(hasLabel)
- 		}
-
- 		function getEntityInfo(stmt) {
- 			var info = {uri : toDisplayPageUrl(stmt.subject.uri)};
- 			var label = graph.any(stmt.subject, RDFS("label"));
- 			if (label) {
- 				info["text"] = label.value;
- 			}
- 			return info;
- 		}
- 		function hasLabel(entity) {
- 			return entity.text && entity.text.length > 0 
- 		}
-	}
-
-	function sortAndSlice(keywordArray) {
-		return keywordArray.sort(compareSizes).slice(0, 100);
-
-		function compareSizes(a, b) {
-			return b.size - a.size;
-		}
-	}
-}
- 
- function draw_word_cloud(keywords, target) {
+function draw_word_cloud(keywords, target) {
 	 var height = Math.floor($(target).height());
 	 var width = Math.floor($(target).width());
 
