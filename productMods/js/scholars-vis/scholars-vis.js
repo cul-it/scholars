@@ -6,7 +6,7 @@
  * 'new Visualizatio(options)' will return an object with these functions:
  * -- create and show the visualization (optionally, in a modal dialog box).
  * -- hide the visialization (if modal, close the dialog box).
- * -- open a new window for downloading the data that backs the visualization.
+ * -- open a new window for exporting the data that backs the visualization.
  * 
  * Behind these functions are those that fetch, parse, and transform the data.
  * Each of these is executed lazily, and only once.
@@ -74,7 +74,11 @@ var ScholarsVis = (function() {
 			handleError(e);
 		}
 		
-		return {show: show, hide: hide, downloadData, downloadData};
+		return {
+			show: show, 
+			hide: hide, 
+			showVisData, showVisData
+		};
 		
 		function show(e) {
 			e && e.preventDefault();
@@ -97,9 +101,11 @@ var ScholarsVis = (function() {
 			}
 		}
 		
-		function downloadData() {
-			debugIt("Vis:downloadData");
-			fetch().then(parse).then(transform).then(exportPrep).then(download);
+		function showVisData(e) {
+			e && e.preventDefault();
+			debugIt("Vis:showVisData");
+			options.window = window.open("about:blank", "_blank", "");
+			fetch().then(parse).then(transform).then(exportData);
 		}
 		
 		function fetch(nextFunction) {
@@ -191,12 +197,13 @@ var ScholarsVis = (function() {
 			});
 		}
 		
-		function exportPrep() {
-			return alreadyDone("BOGUS exportPrep");
-		}
-		
-		function download() {
-			return alreadyDone("BOGUS download");
+		function exportData() {
+			return defer("exporting", function() {
+				var d = options.window.document;
+				d.open();
+				d.write(options.exporter(options.transformed));
+				d.close();
+			});
 		}
 		
 		function alreadyDone(label) {
@@ -300,7 +307,7 @@ var ScholarsVis = (function() {
 		}
 		
 		function noopExporter(data) {
-			return data;
+			return JSON.stringify(data, null, '  ');
 		}
 	}
 })();

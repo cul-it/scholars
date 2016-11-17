@@ -3200,3 +3200,13 @@ header {
 	width: 50%; 
 	float:right;
 }
+#site_word_cloud_exporter i {
+	padding-right: 20px;
+}
+.fa-download {
+	font-size: 24px;
+}
+#site_word_cloud_info {
+    font-size: 22px;
+    color: #167093;
+}

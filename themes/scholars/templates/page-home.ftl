@@ -132,7 +132,9 @@
 				</div>
 			</div> <!-- home-body div -->
 
-			<div id="site_collab_vis"></div>
+			<div id="site_collab_vis">
+				<a href="#" id="collaborations_exporter" class="pull-right"><i class="fa fa-download" aria-hidden="true" title="export this data"></i></a>
+			</div>
 
 			<div id="site_wordcloud_vis">
       	      <div id="wc-text-container">
@@ -141,14 +143,14 @@
               <div id="wcUniv">
                 <div id="wcUniv-container">
                   <div>
-                    <span class="glyphicon glyphicon-info-sign pull-right" 
+                    <span id="site_word_cloud_info" class="glyphicon glyphicon-info-sign pull-right" 
                       data-toggle="tooltip" 
-                      data-toggle="tooltip" 
-                      data-original-title="The keyword cloud presents the top 300 keywords extracted from the journal articles published by the Cornell faculty and researchers. <br> The size of each keyword in the cloud is directly proportional to the sum of the count of the faculty/researchers. <br> Bigger the keyword in size is, more the faculty members and researcher used the term in their papers."
+                      data-original-title="The keyword cloud presents the top 300 keywords extracted from the journal articles published by Cornell faculty and researchers. <br> The size of each keyword in the cloud is directly proportional to the sum of the count of the faculty/researchers. <br> The bigger the keyword is in size, the more the faculty members and researcher used the term in their papers."
                       data-placement="bottom"
                       data-html="true" 
                       data-viewport="#site_wordcloud_vis">
                     </span>
+				  <a href="#" id="site_word_cloud_exporter" ><i class="fa fa-download pull-right" aria-hidden="true" title="export this data"></i></a>
                   </div>
                 </div>
               </div>
@@ -161,12 +163,14 @@
       		    modal : true
 		      });
 		      $('#collaborations_trigger').click(collab.show);
+			  $('#collaborations_exporter').click(collab.showVisData);
 
 			  var wc = new ScholarsVis.UniversityWordCloud({
       		    target : '#site_wordcloud_vis',
       		    modal : true
 		      });
 		      $('#wordcloud_trigger').click(wc.show);
+			  $('#site_word_cloud_exporter').click(wc.showVisData);
 			});
 			</script>
 	        <#include "footer.ftl" />

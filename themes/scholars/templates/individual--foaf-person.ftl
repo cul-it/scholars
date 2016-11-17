@@ -200,11 +200,9 @@ $(document).ready(function() {
 <#else>
 <div id="foaf-person-blank-row" class="row scholars-row"></div>
 </#if>
-<div id="word_cloud_vis"></div>
-
-<#-- <#include "individual-property-group-tabs.ftl"> -->
-
-
+<div id="word_cloud_vis">
+	<a href="#" id="word_cloud_exporter" class="pull-right"><i class="fa fa-download" aria-hidden="true" title="export this data" style="font-size:24px"></i></a>
+</div>
 
 <div class="jqmWindow" id="subject-area-dialog">
 	<div>
@@ -282,6 +280,7 @@ $().ready(function() {
 	    person : "${individual.uri?url}"
       });
       $('#word_cloud_trigger').click(wc.show);
+      $('#word_cloud_exporter').click(wc.showVisData);
 
 	  new ScholarsVis.IconizedPersonWordCloud({
 	    target : '#dynamic_word_cloud',
