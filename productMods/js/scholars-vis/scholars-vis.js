@@ -145,7 +145,7 @@ var ScholarsVis = (function() {
 		function display() {
 			return defer("displaying", function() {
 				var copyOfTransformed = JSON.parse(JSON.stringify(options.transformed));
-				options.displayer(copyOfTransformed, options.target)
+				options.displayer(copyOfTransformed, options.target, options)
 			});
 		}
 		

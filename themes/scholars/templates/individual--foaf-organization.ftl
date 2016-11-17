@@ -345,8 +345,6 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></
             '<script type="text/javascript" src="${urls.base}/js/scholars-vis/d3/d3-tip.js"></script>',
             '<script type="text/javascript" src="${urls.base}/js/scholars-vis/d3/d3.layout.cloud.js"></script>',
 			  '<script type="text/javascript" src="${urls.base}/js/scholars-vis/wordcloud/word-cloud.js"></script>',
-			  '<script type="text/javascript" src="${urls.base}/js/scholars-vis/wordcloud/iconized-dept-word-cloud.js"></script>',
-              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/wordcloud/dept-word-cloud.js"></script>',
               '<script type="text/coffeescript" src="${urls.base}/js/scholars-vis/grants/vis-modal.coffee"></script>')}
 
 <#if isCollege >
