@@ -129,7 +129,7 @@ var ScholarsVis = (function() {
 		function transform() {
 			if (typeof options.transformed === "undefined") {
 				return defer("transforming", function() {
-					options.transformed = options.transformer(options.parsed);
+					options.transformed = options.transformer(options.parsed, options);
 				});
 			} else {
 				return alreadyDone("transforming");
@@ -216,7 +216,7 @@ var ScholarsVis = (function() {
 	function Options(o) {
 		o = o || {};
 		
-		return {
+		return $.extend({}, o, {
 			url: o.url, 
 			target: getOneElement(o.target), 
 			parser: figureParseFunction(o), 
@@ -225,7 +225,7 @@ var ScholarsVis = (function() {
 			closer: getFunctionReference(o.closer, noopCloser),
 			modal: o.modal,
 			exporter: getFunctionReference(o.exporter, noopExporter)
-		}
+		});
 		
 		function getOneElement(selector) {
 			var selection = $(selector);
