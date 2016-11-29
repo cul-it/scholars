@@ -1,6 +1,6 @@
 <#-- $This file is distributed under the terms of the license in /doc/license.txt$ -->
 <#import "lib-microformats.ftl" as mf>
-
+<#assign verbose = (verbosePropertySwitch.currentValue)!false>
 <#--Number of labels present-->
 <#if !labelCount??>
     <#assign labelCount = 0 >
