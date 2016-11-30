@@ -1,0 +1,111 @@
+/*
+a, a:visited, a:active {
+  color: #EFEFEF;
+  padding:5px;
+}
+
+a:hover {
+  color:#EFEFEF;
+  text-decoration:none;
+  background-color:rgba(80, 210, 210, 0.6);
+}
+*/
+#selects {
+  margin-top:10px;
+}
+
+#vis {
+  margin-top: 5px;
+  width: 100%;
+  height: 100%;
+  clear: both;
+  margin-bottom: 10px;
+  /*border: 2px solid #A4A4A4;*/
+  text-align:	center;
+}
+
+#newPadding {
+    padding-top: 20px;
+    padding-right: 30px;
+    padding-left: 50px;
+}
+
+#padding {
+    padding-left: 30px;
+}
+footer {
+  text-align: center;
+}
+
+#view_selection {
+	background: transparent; 
+	color:#fff;
+	width: 240px;
+	padding: 5px;
+	font-size: 16px;
+	line-height: 1;
+	border: 0;
+	border-radius: 0;
+	height: 34px;
+	-webkit-appearance: none;">
+}
+.select-container {
+	margin-top:20px;
+	border-radius:3px;
+	width: 224px;
+	height: 34px;   
+	overflow: hidden;   
+	background: url(../../../images/select-down.png) no-repeat right #609bc1;   
+	border: 1px solid #879eab;
+}
+.years {
+  font-size: 21px;
+  fill: #aaa;
+  cursor:pointer;
+}
+
+.years:hover {
+  fill: #000;
+}
+
+.dept{
+  font-size: 21px;
+  fill: #aaa;
+}
+div.tooltip {
+	position: absolute;
+	top: 100px;
+	left: 100px;
+  -moz-border-radius:5px;
+	border-radius: 5px;
+  border: 2px solid #000;
+	/* background: #222222; */
+  background: rgba(50, 50, 50, 0.8);
+	/* color: #eeeeee; */
+  opacity:0.9;
+  color: #EFEFEF;
+	padding: 15px;
+	width: 800px;
+  font-family:Arial;
+	font-size: 12px;
+	z-index: 3001;
+}
+
+div.tooltip span {
+  color: #EFEFEF;
+  font-family:Arial;
+}
+
+div.tooltip .title {
+	font-size: 13px;
+}
+
+div.tooltip .name {
+  font-weight:bold;
+}
+span.value a {
+	color: #9BC4D4 !important;
+}
+span.value a:hover {
+	color: #9BC4D4 !important;
+}

@@ -1,0 +1,72 @@
+* {
+	box-sizing:border-box;
+}
+#nav-bar.homepage {
+	position: absolute;
+	bottom: 80px;
+}
+.fixed {
+	position: fixed !important;
+	top: 0;
+}
+.pages a {
+	color: #fff;
+}
+.pages a:hover {
+	color: #CC6949;
+	text-decoration: none !important;
+}
+#stats {
+	width:	100%;
+}
+div#logo-container {
+	position:fixed;
+	top:26px;
+	left:26px;
+	z-index:2;
+}
+#nav-bar.basepage {
+	position: fixed !important;
+	top: 0;
+}
+.image-links {
+	text-decoration: none;
+	color: #fff;
+	font-family: Muli, Raleway, Arial, Verdana, Helvetica, sans-serif;
+	font-weight: bold;
+}
+.image-links:hover {
+	text-decoration: underline;
+	color: #fff;
+	font-family: Muli, Raleway, Arial, Verdana, Helvetica, sans-serif;
+	font-weight: bold;
+}
+.image-links div.image-link-div:hover {
+	box-shadow: 10px 10px 5px #888888;
+}
+#domain-experts {
+	padding: 188px 0 20px 0;
+	margin: 0;
+	border-radius: 10px;
+	height: 260px;
+	width: 100%;
+	background-size: cover;
+}
+#ongoing-research {
+	background: #fff url('../images/home-research.jpg') no-repeat center center;
+	padding: 188px 0 20px 0;
+	margin: 0;
+	border-radius: 10px;
+	height: 260px;
+	width: 100%;
+	background-size: cover;
+}
+#discover-scholarship {
+	background: #fff url('../images/home-cornell-scholarship.jpg') no-repeat center center;
+	padding: 188px 0 20px 0;
+	margin: 0;
+	border-radius: 10px;
+	height: 260px;
+	width: 100%;
+	background-size: cover;
+}

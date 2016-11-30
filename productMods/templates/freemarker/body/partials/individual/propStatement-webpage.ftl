@@ -37,14 +37,14 @@
         <#if individual?? && individual.organization()>
             <span class="webpage-indicator" id="span-${identifier}" >Loading website image. . .&nbsp;&nbsp;&nbsp;<img  src="${urls.images}/indicatorWhite.gif"></span>
             <div id="${identifier}" style="display:none;">
-            <a title="Click to view the ${linkText} offical web page" href="${statement.url}">
+            <a title="Click to view the ${linkText} offical web page" href="${statement.url}" target="_blank">
                 <img id="img-${identifier}" class="org-webThumbnail" src="http://vivo.cornell.edu/webImageCapture?url=${statement.url}${imgSize}" alt="screenshot of webpage ${statement.url}" /></a>
             <#if imgSize == "" >
-                <a class="weblink-icon" title="Click to view the ${linkText} web page" href="${statement.url}" >
+                <a class="weblink-icon" title="Click to view the ${linkText} web page" href="${statement.url}" target="_blank">
                     <img src="${urls.images}/individual/weblinkIconLarge.png"  alt="click webpage icon"/>  
                 </a>
             <#else>
-                <a class="weblink-icon" title="Click to view the ${linkText} web page" href="${statement.url}">
+                <a class="weblink-icon" title="Click to view the ${linkText} web page" href="${statement.url}" target="_blank">
                     <img src="${urls.images}/individual/weblinkIconSmall.png"  alt="click webpage icon"/>  
                 </a>
             </#if>

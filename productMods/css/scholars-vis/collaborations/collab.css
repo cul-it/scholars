@@ -1,0 +1,135 @@
+circle, path {
+	cursor: pointer;
+}
+
+circle {
+	fill: none;
+	pointer-events: all;
+}
+
+#tooltip {
+	background-color: rgba(60, 60, 60, 0.7);
+	color: #EFEFEF;
+	padding: 3px 5px;
+	font-family: Arial;
+	text-align: center;
+	font-size: 12px;
+}
+
+.choices {
+	background-color: rgba(50, 50, 50, 0.8);
+	color: white;
+	font-family: Arial;
+	cursor: pointer;
+	font-size: 12px;
+	border: 2px solid #000000;
+	z-index: 10;
+}
+
+.choices a {
+	color: #EFEFEF;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-right: 5px;
+	padding-left: 2px;
+}
+
+.triangle-isosceles {
+	max-height: 300px;
+	max-width: 800px;
+	overflow-y:scroll;
+	overflow:auto;
+	position: relative;
+	padding: 15px;
+	margin: 1em 10em 3em;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	z-index: 100 !important;
+}
+
+.collabhoverable {
+	width: 100%;
+}
+
+.nonlinktext{
+	color: #A9A9A9;
+}
+
+.collabhoverable a {
+	color: white;
+	text-decoration: none;
+}
+
+.collabhoverable:hover {
+	background-color: rgba(50, 150, 200, 0.8);
+}
+
+#svgDiv  { display: table-header-group; }
+#crumbs  { display: table-footer-group; }
+
+.cwbreadcrumb { 
+	list-style: none; 
+	overflow: hidden; 
+	font-size: 12px;
+}
+.cwbreadcrumb li { 
+	float: left; 
+}
+.cwbreadcrumb li a {
+	color: white;
+	text-decoration: none; 
+	padding: 10px 0 10px 65px;
+	background: Brown;                   /* fallback color */
+	background: hsla(0,0%,35%,1); 
+	position: relative; 
+	display: block;
+	float: left;
+}
+.cwbreadcrumb li a:after { 
+	content: " "; 
+	display: block; 
+	width: 0; 
+	height: 0;
+	border-top: 50px solid transparent;           /* Go big on the size, and let overflow hide */
+	border-bottom: 50px solid transparent;
+	border-left: 30px solid hsla(0,0%,35%,1);
+	position: absolute;
+	top: 50%;
+	margin-top: -50px; 
+	left: 100%;
+	z-index: 2; 
+}
+.cwbreadcrumb li a:before { 
+	content: " "; 
+	display: block; 
+	width: 0; 
+	height: 0;
+	border-top: 50px solid transparent;       
+	border-bottom: 50px solid transparent;
+	border-left: 30px solid white;
+	position: absolute;
+	top: 50%;
+	margin-top: -50px; 
+	margin-left: 1px;
+	left: 100%;
+	z-index: 1; 
+}	
+.cwbreadcrumb li:first-child a {
+	padding-left: 10px;
+}
+.cwbreadcrumb li:nth-child(2) a       { background:        hsla(0,0%,45%,1 ); }
+.cwbreadcrumb li:nth-child(2) a:after { border-left-color: hsla(0,0%,45%,1); }
+.cwbreadcrumb li:nth-child(3) a       { background:        hsla(0,0%,55%,1); }
+.cwbreadcrumb li:nth-child(3) a:after { border-left-color: hsla(0,0%,55%,1); }
+.cwbreadcrumb li:nth-child(4) a       { background:        hsla(0,0%,65%,1); }
+.cwbreadcrumb li:nth-child(4) a:after { border-left-color: hsla(0,0%,65%,1); }
+.cwbreadcrumb li:nth-child(5) a       { background:        hsla(0,0%,75%,1); }
+.cwbreadcrumb li:nth-child(5) a:after { border-left-color: hsla(0,0%,75%,1); }
+
+/* for links 
+.cwbreadcrumb li a:hover { background: hsla(0,0%,25%,1); }
+.cwbreadcrumb li a:hover:after { border-left-color: hsla(0,0%,25%,1) !important; }
+*/
+

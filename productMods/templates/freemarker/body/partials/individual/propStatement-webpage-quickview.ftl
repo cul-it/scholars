@@ -33,20 +33,20 @@
 </#if>
 <#if statement.url?has_content>
 <span id="span-${identifier}" class="webpage-indicator-qv">Loading website image. . .&nbsp;&nbsp;&nbsp;<img  src="${urls.images}/indicatorWhite.gif"></span>
-        <a title="Click to view the ${linkText} web page" href="${statement.url }">
+        <a title="Click to view the ${linkText} web page" href="${statement.url }" target="_blank">
             <img id="img-${identifier}" class="org-webThumbnail" src="http://vivo.cornell.edu/webImageCapture?url=${statement.url }${imgSize}" alt="screenshot of webpage ${statement.url}" style="display:none"/>
 
         </a>
         <#if imgSize == "" >
             </li>
             <li class="weblinkLarge">  
-            <a title="Click to view the ${linkText} web page" href="${statement.url }">
+            <a title="Click to view the ${linkText} web page" href="${statement.url }" target="_blank">
                 <img id="icon-${identifier}" src="${urls.images}/individual/weblinkIconLarge.png"  alt="click webpage icon" style="display:none"/>  
             </a>
         <#else>
             </li>
             <li class="weblinkSmall">  
-            <a title="Click to view the ${linkText} web page" href="${statement.url }">
+            <a title="Click to view the ${linkText} web page" href="${statement.url }" target="_blank">
                 <img id="icon-${identifier}" src="${urls.images}/individual/weblinkIconSmall.png"  alt="click webpage icon" style="display:none"/>  
             </a>
         </#if>

@@ -8,24 +8,63 @@
 @prefix vivoweb: <http://vivoweb.org/ontology#> .
 @prefix foaf: <http://xmlns.com/foaf/0.1/> .
  
-    # research facility datagetter 
+    # by the numbers datagetter 
 
-    <freemarker:lib-vivocornell-home-page.ftl> display:hasDataGetter display:researchFacsDataGetter .
+    <freemarker:lib-home-page.ftl> display:hasDataGetter display:classCountsDataGetter .
 
-    display:researchFacsDataGetter
+    display:classCountsDataGetter
         a <java:edu.cornell.mannlib.vitro.webapp.utils.dataGetter.SparqlQueryDataGetter> ;
-        display:saveToVar "researchFacsDG" ;
+        display:saveToVar "classCounts" ;
         display:query """
-        PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-        PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-        PREFIX vivoc: <http://vivo.library.cornell.edu/ns/0.1#>
-
-        SELECT DISTINCT ?facURI (str(?label) as ?name)
-        WHERE
-        {
-              ?facURI rdf:type vivoc:ServiceLaboratory .
-              ?facURI rdfs:label ?label 
-        }
+        PREFIX rdf:      <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+		PREFIX bibo:     <http://purl.org/ontology/bibo/>
+		PREFIX vivo:     <http://vivoweb.org/ontology/core#>
+		SELECT  (count(distinct ?faculty) as ?facultyCount) 
+		             (count(distinct ?professional) as ?professionalCount)
+		             (count(distinct ?department) as ?departmentCount)
+		             (count(distinct ?college) as ?collegeCount)
+		             (count(distinct ?school) as ?schoolCount)
+		             (count(distinct ?center) as ?centerCount)
+		             (count(distinct ?grant) as ?grantCount)
+		             (count(distinct ?article) as ?articleCount)
+		             (count(distinct ?journal) as ?journalCount)
+		WHERE
+		{{
+		      ?faculty rdf:type vivo:FacultyMember .
+		}
+		UNION 
+		{
+		     ?professional rdf:type vivo:NonFacultyAcademic .
+		}
+		UNION 
+		{
+		     ?department rdf:type vivo:AcademicDepartment .
+		}
+		UNION 
+		{
+		     ?college rdf:type vivo:College .
+		}
+		UNION 
+		{
+		     ?school rdf:type vivo:School .
+		}
+		UNION 
+		{
+		     ?center rdf:type vivo:Center .
+		}
+		UNION 
+		{
+		     ?grant rdf:type vivo:Grant.
+		}
+		UNION 
+		{
+		     ?article rdf:type bibo:AcademicArticle .
+		}
+		UNION 
+		{
+		     ?journal rdf:type bibo:Journal .
+		}
+		}
         
         """ .
 

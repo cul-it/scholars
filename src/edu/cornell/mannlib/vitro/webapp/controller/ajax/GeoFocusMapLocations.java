@@ -35,7 +35,7 @@ public class GeoFocusMapLocations extends AbstractAjaxResponder {
         + "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> \n" 
         + "PREFIX core: <http://vivoweb.org/ontology/core#>  \n"
         + "PREFIX foaf: <http://xmlns.com/foaf/0.1/>  \n"
-        + "PREFIX vivoc: <http://vivo.library.cornell.edu/ns/0.1#>  \n"
+        + "PREFIX vivoc: <http://scholars.cornell.edu/ontology/vivoc.owl#>  \n"
         + "PREFIX afn:  <http://jena.hpl.hp.com/ARQ/function#> "
         + "SELECT DISTINCT ?label ?location (afn:localname(?location) AS ?localName) (COUNT(DISTINCT ?person) AS ?count)  \n"
         + "WHERE { { \n"
