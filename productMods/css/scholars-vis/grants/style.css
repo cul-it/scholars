@@ -181,3 +181,16 @@ label{
 a {
   cursor: pointer;
 }
+
+.labelPerson {
+  display: inline;
+  margin-left: 1%;
+}
+.labelDepartment {
+  display: inline;
+  margin-left: 1%;
+}
+.labelFunding {
+  display: inline;
+  margin-left: 1%;
+}
