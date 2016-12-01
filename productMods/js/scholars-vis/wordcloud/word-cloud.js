@@ -149,7 +149,7 @@ function transform_word_cloud_data(graph, options) {
 			function addToEntities(labelText) {
 				if (! bucket.entities.find(findUri)) {
 					bucket.entities.push({
- 	 					uri: uri, 
+ 	 					uri: toDisplayPageUrl(uri), 
  	 					text: labelText
  	 				});
 					bucket.size = bucket.size + 1;
