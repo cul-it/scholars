@@ -1,0 +1,45 @@
+.row{
+	margin-top: 1%;
+	max-width: 100%;
+	padding-top: 10px;
+}
+.panel-group{
+	padding-left: 1%;
+}
+
+.panel-body{
+	padding-top: 2px;
+	padding-bottom: 2px;
+	max-height: 300px;
+	overflow-y: scroll;
+	min-height: 100px;
+}
+
+.start{
+	color: gray;
+}
+
+#range{
+	margin-top: 40px;
+	margin-left: 20px;
+	margin-right: 20px;
+}
+
+.noUi-connect{
+	background: #d3d3d3;
+}
+
+.noUi-value-large{
+	font-size: 10pt;
+	margin-top: 5px;
+}
+
+.col-md-9{
+	padding-left: 0px;
+	padding-right: 0px;
+}
+
+text {
+  font: 16px "Helvetica Neue", Helvetica, Arial, sans-serif;
+  pointer-events: none;
+}
