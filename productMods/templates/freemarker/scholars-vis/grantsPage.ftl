@@ -21,7 +21,7 @@
           <div class="panel-heading">
             <h4 class="panel-title">
               <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
-               <span class="start">Filter by:</span> Department
+               <span class="start">Filter by:</span> Academic Unit
              </a>
             </h4>
           </div>
