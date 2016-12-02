@@ -147,16 +147,17 @@ function transform_word_cloud_data(graph, options) {
 			}
 			
 			function addToEntities(labelText) {
+				var displayUri = toDisplayPageUrl(uri);
 				if (! bucket.entities.find(findUri)) {
 					bucket.entities.push({
- 	 					uri: toDisplayPageUrl(uri), 
+ 	 					uri: displayUri,
  	 					text: labelText
  	 				});
 					bucket.size = bucket.size + 1;
 				}
 				
 				function findUri(entity) {
-					return entity.uri === uri;
+					return entity.uri === displayUri;
 				}
 			}
 		}
