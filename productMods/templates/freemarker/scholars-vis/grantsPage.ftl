@@ -73,10 +73,9 @@
     <div class="col-md-8">
       <span class="glyphicon glyphicon-info-sign pull-right" 
                       data-toggle="ttip"
-                      data-original-title="This is the Grant Visualization tooltip."
-                      data-placement="bottom"
+                      data-placement="left"
                       data-html="true" 
-                      data-viewport="#vis">
+                      data-viewport="#body">
       </span>
       <div id="vis"> </div>
     </div>
@@ -118,7 +117,9 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></
     });
 
     $(document).ready(function(){
-      $('[data-toggle="ttip"]').tooltip(); 
+      $('[data-toggle="ttip"]').tooltip({
+      title: "<p align='justify'><font color='white'>The Grants Bubble Chart (GBC) represents the active research grants data of Cornell University. Scholars@Cornell receive the grants data through Office of Sponsored Programs (OSP) feed. Based on the awarded amount, the grant bubbles are colored and sized in the visualization. The grants can be filtered by investigators (persons), academic unit, funding agencies or active years. One can also search and view grants for the specific investigators, academic units or funding agencies.</font></p>"
+      })
     });
 
   </script>
