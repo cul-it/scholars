@@ -36,7 +36,7 @@
 						</p>
 					</div>
 				</div>
-				<div class="container">
+				<div class="container-fluid scholars-home-container">
 					<div id="discover-content" class="row fff-bkg">
 						<div class="col-sm-4 col-md-4 col-lg-4">
 							<a class="image-links" href="/scholars/people" >
@@ -84,7 +84,7 @@
 						</p>
 					</div>
 				</div>
-				<div class="container">
+				<div class="container-fluid scholars-home-container">
 					<div id="visualize-content" class="row fff-bkg">
 						<div class="col-sm-3 col-md-3 col-lg-3"> 
 							<a id="person-to-sa" href="${urls.base}/orgSAVisualization?deptURI=n1234">
@@ -127,7 +127,7 @@
 						</p>
 					</div>
 				</div>
-				<div class="container">
+				<div class="container-fluid scholars-home-container">
 					<@lh.downloadCounts />
 				</div>
 			</div> <!-- home-body div -->

@@ -45,6 +45,7 @@
 		<#assign articlesCount = count.articleCount?number />
 		</#list>
 		<div id="download-content" class="row fff-bkg">
+				<div class="col-sm-1 col-md-1 col-lg-1"></div>
 				<div class="col-sm-3 col-md-3 col-lg-3">
 					<a class="researcher-link" href="/scholars/people"><div id="researcher-count"><p>${researchersCount}</p></div></a>
 					<a class="researcher-link" href="/scholars/people"><div id="researcher-text"><p>Researchers</p></div></a>
@@ -57,7 +58,7 @@
 					<a class="article-link" href="/scholars/research#http://purl.org/ontology/bibo/AcademicArticle "><div id="article-count" ><p >${articlesCount}</p></div></a>
 					<a class="article-link" href="/scholars/research#http://purl.org/ontology/bibo/AcademicArticle "><div id="article-text"><p>Articles</p></div></a>
 				</div>
-				<div class="col-sm-3 col-md-3 col-lg-3">
+				<div class="col-sm-2 col-md-2 col-lg-2">
 					<a class="journal-link" href="/scholars/research#http://purl.org/ontology/bibo/Journal "><div id="journal-count" ><p>${journalsCount}</p></div></a>
 					<a class="journal-link" href="/scholars/research#http://purl.org/ontology/bibo/Journal "><div id="journal-text"><p>Journals</p></div></a>
 				</div>
