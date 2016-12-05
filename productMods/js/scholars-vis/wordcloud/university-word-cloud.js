@@ -38,8 +38,11 @@ function closeUniversityWordcloud(target) {
 function drawUniversityWordCloud(transformed, target) {
     var fill = d3.scale.category20();
 
-	var height = $(target).height();
-    var width = $(target).width();
+    var margin_height = 20;
+    var margin_width = 20;
+
+	var height = $(target).height()-margin_height;
+    var width = $(target).width()-margin_width;
 
     var keywordScale = d3.scale.linear().range([5, 50]);
 
