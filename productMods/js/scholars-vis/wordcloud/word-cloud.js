@@ -186,9 +186,12 @@ function transform_word_cloud_data(graph, options) {
 function draw_word_cloud(keywords, target, options) {
 	 var isInteractive =  (typeof(options.interactive) == 'undefined') || options.interactive;
 	 var scaleRange = options.scaleRange || [15, 60];
+
+	 var height_margin = 20;
+	 var width_margin = 20;
 	 
-	 var height = Math.floor($(target).height());
-	 var width = Math.floor($(target).width());
+	 var height = Math.floor($(target).height()-height_margin);
+	 var width = Math.floor($(target).width()-width_margin);
 
 	 if (keywords.length == 0) {
 		 $(target).html("<div>No Research Keywords</div>");
@@ -266,7 +269,7 @@ function draw_word_cloud(keywords, target, options) {
    	.data(words)
    	.enter().append("text")
    	.style("font-size", function(d) { return d.size + "px"; })
-   	.style("font-family", "Impact")
+   	.style("font-family", "Tahoma")
    	.style("fill", function(d, i) {
    		var wordFill = fill(i);
    		wordsToFills[d.text] = wordFill;

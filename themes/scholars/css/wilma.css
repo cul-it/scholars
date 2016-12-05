@@ -2915,8 +2915,8 @@ div#grantsVis {
 }
 div#word_cloud_vis {
 	display:none;
-	height:70%;
-	width:70%;
+	height:80%;
+	width:75%;
 }
 .doc-controls-img  {
     margin-left:6px
