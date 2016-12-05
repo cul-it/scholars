@@ -135,6 +135,8 @@
 		CONSTRUCT {
 		  ?pub rdfs:label ?label .
 		  ?pub vivo:freetextKeyword ?keyword .
+		  ?pub vivo:hasSubjectArea ?mesh .
+		  ?mesh rdfs:label ?meshLabel .
 		}
 		WHERE
 		{
@@ -143,7 +145,14 @@
 		  ?auth vivo:relates ?pub .
 		  ?pub a bibo:Document .
 		  ?pub rdfs:label ?label .
-		  ?pub vivo:freetextKeyword ?keyword .
+		  OPTIONAL { 
+		    ?pub vivo:freetextKeyword ?keyword . 
+		  }
+		  OPTIONAL { 
+		    ?pub vivo:hasSubjectArea ?mesh .
+		    ?mesh a <http://scholars.cornell.edu/ontology/vivoc.owl#MeshTerm> .
+		    ?mesh rdfs:label ?meshLabel .
+		  }
 		}
       """ .
 

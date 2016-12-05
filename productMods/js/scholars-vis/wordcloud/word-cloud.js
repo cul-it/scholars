@@ -66,15 +66,16 @@ ScholarsVis["IconizedDepartmentWordCloud"] = function(options) {
  * [
  *   {
  *     "text": "prostate cancer",
- *     "size": 2,
  *     "entities": [
  *       {
  *         "uri": "/scholars/display/UR-380249",
- *         "text": "E-selectin ligand-1 controls circulating prostate cancer cell rolling/adhesion and metastasis"
+ *         "text": "E-selectin ligand-1 controls circulating prostate cancer cell rolling/adhesion and metastasis",
+ *         "citationTypes": ["KEYWORD"]
  *       },
  *       {
  *         "uri": "/scholars/display/UR-19472",
- *         "text": "Human fucosyltransferase 6 enables prostate cancer metastasis to bone"
+ *         "text": "Human fucosyltransferase 6 enables prostate cancer metastasis to bone",
+ *         "citationTypes": ["KEYWORD", "MESH"]
  *       }
  *     ]
  *   }
@@ -86,8 +87,11 @@ ScholarsVis["IconizedDepartmentWordCloud"] = function(options) {
  * -- On display, the first letter of each keyword is capitalized.
  * -- If an article has no label, it is ignored.
  * 
- * The resulting array is sorted alphabetically by size, and limited to the 20 most used keywords.
- * 
+ * The citationTypes ensure that:
+ * -- If a publication has the same value for both a Keyword and a Mesh term (and later, 
+ *      an inferred keyword), then that publication will only appear once in the entities
+ *      list. However, multiple keywordTypes will be listed for it.
+ *
  * Options:
  *   maxKeywords -- The transformed data will be truncated after this many keywords.
  *                    Defaults to 20 keywords, may not be set to less than 5.
@@ -96,23 +100,41 @@ function transform_word_cloud_data(graph, options) {
 	var VIVO = $rdf.Namespace("http://vivoweb.org/ontology/core#");
 	var RDFS = $rdf.Namespace("http://www.w3.org/2000/01/rdf-schema#");
 
-	var maxKeywords = Math.max(options.maxKeywords || 20, 5);
-
 	var jsonResult = [];
-	var stmts = graph.statementsMatching(undefined, VIVO('freetextKeyword'));
-	stmts.forEach(processStatement);
-	return sortAndSlice(jsonResult);
 
-	function processStatement(statement) {
-		var articleUri = statement.subject.uri;
-		var keyword = statement.object.value;
-		var bucket = getBucket(keyword);
-		addToBucket(articleUri, bucket);
+	var stmts = graph.statementsMatching(undefined, VIVO('freetextKeyword'));
+	stmts.forEach(new StatementProcessor("KEYWORD").processStatement);
+
+	stmts = graph.statementsMatching(undefined, VIVO('hasSubjectArea'));
+	stmts.forEach(new StatementProcessor("MESH").processStatement);
+	
+	return jsonResult;
+	
+	function StatementProcessor(citationType) {
+		var labelFunction;
+		if (citationType == "KEYWORD") {
+			labelFunction = labelOfKeyword;
+		} else {
+			labelFunction = labelOfMeshTerm;
+		}
 		
-		function getBucket(keyword) {
-			return findBucket(keyword) || createBucket(keyword);
-			
-			function findBucket(keyword) {
+		return {processStatement: processStatement};
+	
+		function labelOfKeyword(statement) {
+			return statement.object.value;
+		}
+		
+		function labelOfMeshTerm(statement) {
+			return graph.any(statement.object, RDFS("label")).value;
+		}
+
+		function processStatement(statement) {
+			var articleUri = statement.subject.uri;
+			var keyword = labelFunction(statement);
+			var bucket = findBucket() || createBucket();
+			addToBucket(articleUri, bucket);
+
+			function findBucket() {
 				return jsonResult.find(bucketMatcher);
 				
 				function bucketMatcher(bucket) {
@@ -120,11 +142,10 @@ function transform_word_cloud_data(graph, options) {
 				}
 			}
 			
-			function createBucket(keyword) {
+			function createBucket() {
 				var bucket = {
 						matcher: toMatcher(keyword),
 						text: toDisplay(keyword),
-						size: 0,
 						entities: []
 				};
 				jsonResult.push(bucket);
@@ -138,39 +159,122 @@ function transform_word_cloud_data(graph, options) {
 			function toMatcher(keyword) {
 				return keyword.toLowerCase();
 			}
-		}
-
-		function addToBucket(uri, bucket) {
-			var label = graph.any($rdf.sym(uri), RDFS("label"));
-			if (label && label.value) {
-				addToEntities(label.value);
-			}
-			
-			function addToEntities(labelText) {
-				var displayUri = toDisplayPageUrl(uri);
-				if (! bucket.entities.find(findUri)) {
-					bucket.entities.push({
- 	 					uri: displayUri,
- 	 					text: labelText
- 	 				});
-					bucket.size = bucket.size + 1;
+	
+			function addToBucket(uri, bucket) {
+				var label = graph.any($rdf.sym(uri), RDFS("label"));
+				if (label && label.value) {
+					var displayUri = toDisplayPageUrl(uri);
+					var entity = findEntity() || createEntity();
+					addToEntity(entity);
 				}
 				
-				function findUri(entity) {
-					return entity.uri === displayUri;
+				function findEntity() {
+					return bucket.entities.find(entityMatcher);
+					
+					function entityMatcher(entity) {
+						return displayUri === entity.uri;
+					}
+				}
+				
+				function createEntity() {
+					var entity = {
+	 	 				uri: displayUri,
+	 	 				text: label.value,
+	 	 				citationTypes: []
+					};
+					bucket.entities.push(entity);
+					return entity;
+				}
+
+				function addToEntity(entity) {
+					if (! entity.citationTypes.includes(citationType)) {
+						entity.citationTypes.push(citationType) ;
+					}
 				}
 			}
-		}
-	}
-	
-	 function sortAndSlice(jsonResult) {
-		 return jsonResult.sort(compareSizes).slice(0, maxKeywords);
-	
-		 function compareSizes(a, b) {
-			 return b.size - a.size;
 		}
 	}
 }
+
+/*******************************************************************************
+ * 
+ * Process the transformed data:
+ *    Filter keyword structures by one or more citation types.
+ *    Sort keywords by resulting number of citations.
+ *    Trim to the 20 most commonly used keywords (or options.maxKeywords, 
+ *        if provided).
+ *        
+ * The transformed data appears in the format described in transform_word_cloud_data().
+ * 
+ * filterSortAndSlice() produces output in the format that the display routine 
+ * expectes:
+ * [
+ *   {
+ *     "text": "prostate cancer",
+ *     "size": 3,
+ *     "entities": [
+ *       {
+ *         "uri": "/scholars/display/UR-380249",
+ *         "text": "E-selectin ligand-1 controls circulating prostate cancer cell rolling/adhesion and metastasis"
+ *       },
+ *       {
+ *         "uri": "/scholars/display/UR-19472",
+ *         "text": "Human fucosyltransferase 6 enables prostate cancer metastasis to bone"
+ *       }
+ *     ]
+ *   }
+ * ]
+ * This is the result of filtering the example data from transform_word_cloud_data()
+ * on the type array ["KEYWORD", "MESH"]. Note that the second citation counts 
+ * twice (has both citation types), for a total size of 3. 
+ * 
+ * The resulting array is sorted by size, and trimmed to the most used keywords.
+ * 
+ * Parameters:
+ *   unfiltered -- the output from transform_word_cloud_data().
+ *   options -- the options structure provided by the visualization framework.
+ *   citationTypes -- a String or an Array of Strings containing the type(s) to
+ *        filter against. Accepted types include "KEYWORD" and "MESH". 
+ * 
+ ******************************************************************************/
+function filterSortAndSlice(unfiltered, options, citationTypes) {
+	var maxKeywords = Math.max(options.maxKeywords || 20, 5);
+	var typesArray = [].concat(citationTypes);
+	
+	return unfiltered.reduce(listFilter, []).sort(compareSizes).slice(0, maxKeywords);
+	
+	function listFilter(keywordsSoFar, keywordStruct) {
+		var filteredEntities = keywordStruct.entities.reduce(entityFilter, []);
+		var size = filteredEntities.length;
+		if (size > 0) {
+			keywordsSoFar.push({
+				text: keywordStruct.text,
+				size: size,
+			    entities: filteredEntities
+			});
+		}
+		return keywordsSoFar;
+		
+		function entityFilter(entitiesSoFar, entity) {
+			if (entity.citationTypes.reduce(typeMatcher, false)) {
+				entitiesSoFar.push({
+					uri: entity.uri,
+					text: entity.text
+				});
+			}
+			return entitiesSoFar;
+			
+			function typeMatcher(matchingSoFar, type) {
+				return matchingSoFar || typesArray.includes(type);
+			}
+		}
+	}
+
+	function compareSizes(a, b) {
+	  return b.size - a.size;
+	}
+}
+
 
 /*******************************************************************************
  * 
@@ -183,7 +287,10 @@ function transform_word_cloud_data(graph, options) {
  *   scaleRange -- A two-element array that determines the fontsize of the smallest
  *                    and largest keywords. Defaults to [15, 60].
  ******************************************************************************/
-function draw_word_cloud(keywords, target, options) {
+function draw_word_cloud(unfiltered, target, options) {
+//	var keywords = filterSortAndSlice(unfiltered, options, ["MESH", "KEYWORD"]);
+	var keywords = filterSortAndSlice(unfiltered, options, "KEYWORD");
+
 	 var isInteractive =  (typeof(options.interactive) == 'undefined') || options.interactive;
 	 var scaleRange = options.scaleRange || [15, 60];
 
