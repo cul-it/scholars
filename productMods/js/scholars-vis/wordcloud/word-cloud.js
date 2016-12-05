@@ -288,8 +288,10 @@ function filterSortAndSlice(unfiltered, options, citationTypes) {
  *                    and largest keywords. Defaults to [15, 60].
  ******************************************************************************/
 function draw_word_cloud(unfiltered, target, options) {
-//	var keywords = filterSortAndSlice(unfiltered, options, ["MESH", "KEYWORD"]);
-	var keywords = filterSortAndSlice(unfiltered, options, "KEYWORD");
+	
+	// HARDCODED FOR NOW.
+	var keywords = filterSortAndSlice(unfiltered, options, ["MESH", "KEYWORD"]);
+//	var keywords = filterSortAndSlice(unfiltered, options, "KEYWORD");
 
 	 var isInteractive =  (typeof(options.interactive) == 'undefined') || options.interactive;
 	 var scaleRange = options.scaleRange || [15, 60];
