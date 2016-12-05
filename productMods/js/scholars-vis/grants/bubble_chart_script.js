@@ -203,6 +203,7 @@ function createGrantNodes(rawData) {
 } //end of function createGrantNodes()
 
 function update(rawData){
+  ttip();
   var maxAmount = d3.max(rawData, function (d) { return +d.Cost; });
   radiusScale.domain([0, maxAmount]);
   nodes = createGrantNodes(rawData);
