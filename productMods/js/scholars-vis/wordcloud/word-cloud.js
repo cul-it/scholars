@@ -329,7 +329,7 @@ function draw_word_cloud(unfiltered, target, options) {
    d3.layout.cloud().size([width, height])
    	.words(keywords)
    	.rotate(function() { return ~~(Math.random() * 2) * 90; })
-   	.font("Impact")
+   	.font("Tahoma")
    	.fontSize(function(d) {
    		return keywordScale(d.size);
    	})
