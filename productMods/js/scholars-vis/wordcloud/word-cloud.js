@@ -290,8 +290,8 @@ function filterSortAndSlice(unfiltered, options, citationTypes) {
 function draw_word_cloud(unfiltered, target, options) {
 	
 	// HARDCODED FOR NOW.
-	var keywords = filterSortAndSlice(unfiltered, options, ["MESH", "KEYWORD"]);
-//	var keywords = filterSortAndSlice(unfiltered, options, "KEYWORD");
+//	var keywords = filterSortAndSlice(unfiltered, options, ["MESH", "KEYWORD"]);
+	var keywords = filterSortAndSlice(unfiltered, options, "KEYWORD");
 
 	 var isInteractive =  (typeof(options.interactive) == 'undefined') || options.interactive;
 	 var scaleRange = options.scaleRange || [15, 60];
