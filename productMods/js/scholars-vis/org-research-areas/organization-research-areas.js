@@ -771,17 +771,4 @@ function plotConceptMap(flaredata, target) {
 			return k.map[X.key] ? Z : aa
 		}
 	}
-	$(function() {
-	  panZoomInstance = svgPanZoom('#svg-id', {
-	    zoomEnabled: true,
-	    controlIconsEnabled: true,
-	    fit: true,
-	    center: true,
-	    minZoom: 0.1
-	  });
-
-	  // zoom out
-	  panZoomInstance.zoom(0.9)
-
-	})
 };
