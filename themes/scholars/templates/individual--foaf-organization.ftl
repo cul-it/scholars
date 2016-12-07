@@ -377,7 +377,7 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></
 	<#else>
 	  <#-- IF IT'S NOT THE COE, DISPLAY A BOGUS "NO DATA" MESSAGE -->
 	  <div id="no_collaboration_data" class="jqmWindow dept_collab_vis" style="display:none;">
-	 	<div style="padding:40px 40px 0 40px;">There is no ${individual.nameStatement.value!"college"} collaboration data available at this time.</div>
+	 	<div style="padding:40px 40px 0 40px;">There is no collaboration data available for the ${individual.nameStatement.value!"college"} at this time.</div>
 	  </div>
 		<script>
 		$().ready(function() {
