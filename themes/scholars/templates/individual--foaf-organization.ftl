@@ -105,11 +105,11 @@
 		<p>Grants</p>
 	</div>
 	<div>
-		<a id="interd_collab_trigger" href="#"><img width="54%" src="${urls.base}/themes/scholars/images/interd_collab.png"/></a>
+		<a id="interd_collab_trigger" class="jqModal" href="#"><img width="54%" src="${urls.base}/themes/scholars/images/interd_collab.png"/></a>
 		<p>Interdepartmental<br/>Collaborations</p>
 	</div>
 	<div>
-		<a id="cross_unit_collab_trigger" href="#"><img width="54%" src="${urls.base}/themes/scholars/images/cross_unit_collab.png"/></a>
+		<a id="cross_unit_collab_trigger" class="jqModal" href="#"><img width="54%" src="${urls.base}/themes/scholars/images/cross_unit_collab.png"/></a>
 		<p>Cross-unit<br/>Collaborations</p>
 	</div>
   <#else>
@@ -348,29 +348,44 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></
               '<script type="text/coffeescript" src="${urls.base}/js/scholars-vis/grants/vis-modal.coffee"></script>')}
 
 <#if isCollege >
-  <div id="interd_collab_vis" class="dept_collab_vis">
- 	<a href="#" id="interd_collab_exporter" class="pull-right"><i class="fa fa-download" aria-hidden="true" title="export this data" ></i></a>
-  </div>
-  <div id="cross_unit_collab_vis" class="dept_collab_vis">
-	<a href="#" id="cross_unit_collab_exporter" class="pull-right"><i class="fa fa-download" aria-hidden="true" title="export this data" ></i></a>
-  </div>
-	<script>
-	$().ready(function() {
-	  var cucs = new ScholarsVis.CrossUnitCollaborationSunburst({
-	    target : '#cross_unit_collab_vis',
-	    modal : true
-      });
-      $('#cross_unit_collab_trigger').click(cucs.show);
-	  $('#cross_unit_collab_exporter').click(cucs.showVisData);
 
-	  var idcs = new ScholarsVis.InterDepartmentCollaborationSunburst({
-	    target : '#interd_collab_vis',
-	    modal : true
-      });
-      $('#interd_collab_trigger').click(idcs.show);
-      $('#interd_collab_exporter').click(idcs.showVisData);
-	});
-	</script>
+	<#-- TEMPORARY HACK. ONLY SHOW THE COLLAB VIZ FOR THE COLLEGE OF ENGINEERING -->
+	<#if individual.nameStatement?? && individual.nameStatement.value == "College of Engineering" >
+	  <div id="interd_collab_vis" class="dept_collab_vis" style="display:none">
+	 	<a href="#" id="interd_collab_exporter" class="pull-right"><i class="fa fa-download" aria-hidden="true" title="export this data" ></i></a>
+	  </div>
+	  <div id="cross_unit_collab_vis" class="dept_collab_vis" style="display:none">
+		<a href="#" id="cross_unit_collab_exporter" class="pull-right"><i class="fa fa-download" aria-hidden="true" title="export this data" ></i></a>
+	  </div>
+		<script>
+		$().ready(function() {
+		  var cucs = new ScholarsVis.CrossUnitCollaborationSunburst({
+		    target : '#cross_unit_collab_vis',
+		    modal : true
+	      });
+	      $('#cross_unit_collab_trigger').click(cucs.show);
+		  $('#cross_unit_collab_exporter').click(cucs.showVisData);
+	
+		  var idcs = new ScholarsVis.InterDepartmentCollaborationSunburst({
+		    target : '#interd_collab_vis',
+		    modal : true
+	      });
+	      $('#interd_collab_trigger').click(idcs.show);
+	      $('#interd_collab_exporter').click(idcs.showVisData);
+		});
+		</script>
+	<#else>
+	  <#-- IF IT'S NOT THE COE, DISPLAY A BOGUS "NO DATA" MESSAGE -->
+	  <div id="no_collaboration_data" class="jqmWindow dept_collab_vis" style="display:none;">
+	 	<div style="padding:40px 40px 0 40px;">There is no ${individual.nameStatement.value!"college"} collaboration data available at this time.</div>
+	  </div>
+		<script>
+		$().ready(function() {
+			$('#no_collaboration_data').jqm();
+		});
+		</script>
+
+	</#if>
 
 </#if>
 <#if isAcademicDept >
