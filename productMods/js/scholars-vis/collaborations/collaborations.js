@@ -173,14 +173,6 @@ function mouseMoveArc (d) {
             .style("left", (d3.event.pageX+10)+"px");
 }
 
-function truncate (s, length){
-  var ellipsis = '...';
-  if (s.length > length)
-    return s.substring(0, length);
-  else
-    return s;
-}
-
 function getLastName(s){
   return s.split(',')[0];
 }
@@ -254,11 +246,7 @@ var texts = svg.selectAll("text")
     .attr("font-size", 9)    
   
   .text(function(d,i) {
-        if(!d.uri == null){
-          return d.name;
-        }else{
-          return d.name; 
-        }
+      return getLastName(d.name); 
   });
 
   function zoomIn(p) {
