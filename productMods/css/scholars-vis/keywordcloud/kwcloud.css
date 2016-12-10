@@ -31,3 +31,7 @@
  .d3-tip {
      z-index: 4;
  }
+.boxLabel{
+    display: inline;
+    padding: 3px;
+}

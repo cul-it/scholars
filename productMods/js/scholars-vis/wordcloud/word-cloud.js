@@ -287,11 +287,24 @@ function filterSortAndSlice(unfiltered, options, citationTypes) {
  *   scaleRange -- A two-element array that determines the fontsize of the smallest
  *                    and largest keywords. Defaults to [15, 60].
  ******************************************************************************/
-function draw_word_cloud(unfiltered, target, options) {
-	
-	// HARDCODED FOR NOW.
-//	var keywords = filterSortAndSlice(unfiltered, options, ["MESH", "KEYWORD"]);
-	var keywords = filterSortAndSlice(unfiltered, options, "KEYWORD");
+var allWords = [];
+var initialLoad = true;
+var targetDiv; 
+var currentOptions;
+var types = ["KEYWORD","MESH"];
+
+function draw_word_cloud(unfiltered, target, options) {	
+	targetDiv = target; 
+	if(initialLoad){
+		allWords = unfiltered;
+		initialLoad = false;
+	}
+
+    currentOptions = options;
+// HARDCODED FOR NOW.
+
+	var keywords = filterSortAndSlice(unfiltered, options, types);
+//	var keywords = filterSortAndSlice(unfiltered, options, "KEYWORD");
 
 	 var isInteractive =  (typeof(options.interactive) == 'undefined') || options.interactive;
 	 var scaleRange = options.scaleRange || [15, 60];
@@ -302,10 +315,10 @@ function draw_word_cloud(unfiltered, target, options) {
 	 var height = Math.floor($(target).height()-height_margin);
 	 var width = Math.floor($(target).width()-width_margin);
 
-	 if (keywords.length == 0) {
-		 $(target).html("<div>No Research Keywords</div>");
-		 return;
-	 }
+	 // if (keywords.length == 0) {
+		//  $(target).html("<div>No Research Keywords</div>");
+		//  return;
+	 // }
 
 	var fill = d3.scale.category20();
    
@@ -366,29 +379,64 @@ function draw_word_cloud(unfiltered, target, options) {
    	return "rgb(" + rgbs[0] + "," + rgbs[1] + "," + rgbs[2] + ")";
    }
 
-   function draw(words) {
-   	d3.select(target)
-   	.append("svg")
+function draw(input) {
+   	var svg = d3.select(target)
+   		.append("svg")
   		.attr("width", width)
-  		.attr("height", height)
-  		.attr("id", "stage")
-   	.append("g")
-  		.attr("transform", "translate("+(width/2)+","+(height/2)+")")
-   	.selectAll("text")
-   	.data(words)
-   	.enter().append("text")
-   	.style("font-size", function(d) { return d.size + "px"; })
-   	.style("font-family", "Tahoma")
-   	.style("fill", function(d, i) {
-   		var wordFill = fill(i);
-   		wordsToFills[d.text] = wordFill;
-   		return wordFill;
-   	})
-   	.attr("text-anchor", "middle")
-   	.attr("transform", function(d) {
-   		return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
-   	})
-   	.text(function(d) { return d.text; }).call(addKeywordActivity);
+  		.attr("height", height).attr("id", "stage")
+   		.append("g")
+  		.attr("transform", "translate("+(width/2)+","+(height/2)+")");
+
+  	var cloud = svg.selectAll("g text")
+        .data(input); 
+    
+    //Entering words
+    cloud.enter()
+        .append("text")
+        .style("font-family", "Tahoma")
+        .attr("class", "word")
+        .style("fill", function(d, i) { 
+        	var wordFill = fill(i);
+   			wordsToFills[d.text] = wordFill;
+   			return wordFill; 
+   		})
+        .attr("text-anchor", "middle")
+        .attr('font-size', 1)
+        .text(function(d) { return d.text; }).call(addKeywordActivity);;
+
+        //Entering and existing words
+    cloud.transition()
+        .duration(600)
+        .style("font-size", function(d) { return d.size + "px"; })
+        .attr("transform", function(d) {
+            return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
+        })
+        .style("fill-opacity", 1);
+
+        //Exiting words
+    cloud.exit()
+        .transition()
+        .duration(200)
+        .style('fill-opacity', 1e-6)
+        .attr('font-size', 1)
+        .remove();
+
+   	// .selectAll("text")
+   	// .data(words)
+
+   	// .enter().append("text")
+   	// .style("font-size", function(d) { return d.size + "px"; })
+   	// .style("font-family", "Tahoma")
+   	// .style("fill", function(d, i) {
+   	// 	var wordFill = fill(i);
+   	// 	wordsToFills[d.text] = wordFill;
+   	// 	return wordFill;
+   	// })
+   	// .attr("text-anchor", "middle")
+   	// .attr("transform", function(d) {
+   	// 	return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
+   	// })
+   	// .text(function(d) { return d.text; }).call(addKeywordActivity);
    	
    	function addKeywordActivity(keywords) {
    		if (isInteractive) {
@@ -426,3 +474,28 @@ function close_word_cloud(target) {
 	$(target).children("svg").remove();
 	$('div.d3-tip').remove();
 }
+
+/*Returns the status of the checkboxes as an array*/
+function getChecks(){
+ var keyword = d3.select("#keyword").property("checked"); 
+ var mesh = d3.select("#mesh").property("checked"); 
+ var mined = d3.select("#mined").property("checked"); 
+ return [keyword, mesh, mined];  
+}
+
+$(document).ready(function(){
+	d3.selectAll(".cbox").on("change", function(){
+ 	var checks = getChecks(); 
+	types = [];
+ 	if(checks[0] == true){
+ 		types.push("KEYWORD");
+	}
+	if(checks[1] == true){
+		types.push("MESH");
+	}
+	//draw_word_cloud(allWords, targetDiv, currentOptions);
+
+	d3.select(targetDiv).selectAll("svg").remove(); 
+		draw_word_cloud(allWords, targetDiv, currentOptions); 
+	});
+}); 
