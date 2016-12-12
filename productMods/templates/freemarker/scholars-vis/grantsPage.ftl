@@ -1,5 +1,7 @@
+<div class="row scholars-row">
+ <div id="grants-vis-container" class="col-md-12 scholars-container"
   <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-4" class="scholars-container">
       <div class="panel-group" id="accordion">
         
         <div class="panel panel-default">
@@ -80,7 +82,8 @@
       <div id="vis"> </div>
     </div>
   </div>
-
+</div>
+</div>
 ${stylesheets.add('<link rel="stylesheet" type="text/css" href="${urls.base}/css/scholars-vis/grants/reset.css"/>')}
 ${stylesheets.add('<link rel="stylesheet" type="text/css" href="${urls.base}/css/scholars-vis/grants/nouislider.min.css">')}
 ${stylesheets.add('<link rel="stylesheet" type="text/css" href="${urls.base}/css/scholars-vis/grants/style.css">')}
@@ -90,8 +93,6 @@ ${stylesheets.add('<link rel="stylesheet" type="text/css" href="https://maxcdn.b
 ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></script>',
               '<script type="text/javascript" src="${urls.base}/js/scholars-vis/scholars-vis.js"></script>',
               '<script type="text/javascript" src="${urls.base}/js/scholars-vis/grants/transform-data.js"></script>',
-              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/grants/plugins.js"></script>',
-              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/grants/script.js"></script>',
               '<script type="text/javascript" src="${urls.base}/js/scholars-vis/grants/listfunc.js"></script>',
               '<script type="text/javascript" src="${urls.base}/js/scholars-vis/grants/tooltip.js"></script>',
               '<script type="text/javascript" src="${urls.base}/js/scholars-vis/grants/packUpdate.js"></script>',

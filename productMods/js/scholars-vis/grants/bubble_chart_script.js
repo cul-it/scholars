@@ -172,10 +172,10 @@ var visDisplay = function(json, target){
   var legendHeight = 300;
   var legend = d3.select("#legendDiv").append("svg").attr("width", legendWidth).attr("height", legendHeight); 
   var domainValues = ["Unknown", "< $100,000", "$100,000 - $1,000,000", "> $1,000,000"];
-  legend.append('text').attr('x',5).attr('y', 16).style("font-weight", "bold").text("Color Scheme");
+  legend.append('text').attr('x',5).attr('y', 12).style("font-weight", "bold").style("margin-bottom","20px").text("Color Scheme");
   fillColor.range().forEach(function(color, i){
-    legend.append('rect').attr("width", 20).attr("height", 20).attr("x", 5).attr("y", 20 + i*25).style("fill", color);
-    legend.append('text').attr("x", 45).attr("y", 20 +5 + i*25).attr("alignment-baseline", "hanging").attr("text-anchor", "start").style("font-size", 16).text(domainValues[i]);
+    legend.append('rect').attr("width", 20).attr("height", 20).attr("x", 5).attr("y", 25 + i*25).style("fill", color);
+    legend.append('text').attr("x", 42).attr("y", 20 + 20 + i*25).attr("alignment-baseline", "hanging").attr("text-anchor", "start").style("font-size", 16).text(domainValues[i]);
   })
 } // end of function visDisplay()
 

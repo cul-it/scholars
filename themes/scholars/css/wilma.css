@@ -2363,6 +2363,9 @@ article.scholars-property ul li article h3 {
 /* ------------------------------------------------->  */
 /* SCHOLARS OVERRIDE */
 /* ------------------------------------------------->  */
+#grants-vis-container {
+	padding-top:22px;
+}
 article.property ul.property-list li {
     line-height: 1.2em;
     padding: 10px 20px 5px 40px;
@@ -3205,7 +3208,7 @@ header {
 .fa-download {
 	font-size: 24px;
 }
-#site_word_cloud_info {
+.glyphicon-info-sign {
     font-size: 22px;
     color: #167093;
 }

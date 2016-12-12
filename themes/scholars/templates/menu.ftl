@@ -1,7 +1,7 @@
 <#-- $This file is distributed under the terms of the license in /doc/license.txt$ -->
 <div id="nav-bar" class="${navbarClass!}" role="navigation" >
 	<div id="nav-bar-row"class="row">
-		<a id="nav-logo" class="ir" href="${urls.home}" title="" style="${navbarLogoDisplay!}">
+		<a id="nav-logo" href="${urls.home}" title="" style="${navbarLogoDisplay!}">
 			<span><img src="${urls.base}/themes/scholars/images/menu_logo.png"/></span>
 		</a>
 		 <nav id="nav-pages" class="pages" >
