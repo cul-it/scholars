@@ -19,16 +19,15 @@
                         ?hrJobTitle  
                         ?rank                  
                         ?org ?orgName 
-                        ?middleOrg ?middleOrgName
 						?posnInUnit ?posnInUnitName
-                        ?outerOrg ?outerOrgName
-                        ?dateTimeStart ?dateTimeEnd WHERE {
+                        ?dateTimeStart ?dateTimeEnd 
+		WHERE {
             ?subject ?property ?position 
             OPTIONAL { ?position core:relates ?org .
                        ?org rdfs:label ?orgName 
-                        OPTIONAL { ?position hr:positionInUnit ?posnInUnit .
-                                  ?posnInUnit rdfs:label ?posnInUnitName
-                       }
+                     }
+            OPTIONAL { ?position hr:positionIn ?posnInUnit .
+                       ?posnInUnit rdfs:label ?posnInUnitName .
             }
             OPTIONAL { ?position rdfs:label ?positionTitle } 
             OPTIONAL { ?position core:hrJobTitle ?hrJobTitle }
@@ -82,7 +81,7 @@
 			?position core:rank ?rank .
 			?position core:relates ?org .
             ?org rdfs:label ?orgName .
-            ?position hr:positionInUnit ?posnInUnit .
+            ?position hr:positionIn ?posnInUnit .
             ?posnInUnit rdfs:label ?posnInUnitName .
         } WHERE {
             {
@@ -109,8 +108,7 @@
             } UNION {
                 ?subject ?property ?position .
                 ?position a core:Position .
-                ?position hr:positionInUnit ?posnInUnit .
-                ?posnInUnit a foaf:Organization .
+                ?position hr:positionIn ?posnInUnit .
  				?posnInUnit rdfs:label ?posnInUnitName
             }
 

@@ -67,14 +67,14 @@ PREFIX rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX vivo: <http://vivoweb.org/ontology/core#>
 PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX hr: <http://scholars.cornell.edu/ontology/hr.owl#>
 SELECT DISTINCT ?posLabel (str(?oLabel) AS ?orgLabel)
 WHERE {    
 ?individualUri vivo:relatedBy ?position .
 ?position a vivo:Position .
 ?position rdf:type vivo:PrimaryPosition .
 ?position rdfs:label ?posLabel .
-?position vivo:relates ?org .
-?org a foaf:Organization .
+?position hr:positionIn ?org .
 ?org rdfs:label ?oLabel
 }
 	""" .
@@ -87,6 +87,7 @@ PREFIX rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX vivo: <http://vivoweb.org/ontology/core#>
 PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX hr: <http://scholars.cornell.edu/ontology/hr.owl#>
 SELECT DISTINCT ?posn (str(?oLabel) as ?orgLabel) ?title
 WHERE {    
 ?individualUri vivo:relatedBy ?position .
@@ -94,8 +95,7 @@ WHERE {
 OPTIONAL { ?individualUri vivo:preferredTitle ?title . }
 ?position rdf:type vivo:PrimaryPosition .
 ?position rdfs:label ?posn .
-?position vivo:relates ?org .
-?org a foaf:Organization .
+?position hr:positionIn ?org .
 ?org rdfs:label ?oLabel
 }
 	""" .
