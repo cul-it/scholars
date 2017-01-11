@@ -22,23 +22,23 @@
     <#local posTitle>
         <span itemprop="jobTitle">${statement.positionTitle!statement.hrJobTitle!}<#if statement.org??>,</#if></span>
     </#local>
-    <#local parentOrganization>
+    <#local linkedIndividual>
         <#if statement.org??>
             <span itemprop="worksFor" itemscope itemtype="http://schema.org/Organization">
-               <a itemprop="name" href="${profileUrl(statement.uri("org"))}" title="${i18n().organization_name}">${statement.orgName}</a>
+               <a itemprop="name" href="${profileUrl(statement.uri("org"))}" title="${i18n().organization_name}">${statement.orgName}</a><#if validPosInUnit>,</#if>
             </span>
         <#else>
             <#-- This shouldn't happen, but we must provide for it -->
             <a href="${profileUrl(statement.uri("position"))}" title="${i18n().missing_organization}">${i18n().missing_organization}</a>
         </#if>
     </#local>
-    <#local positionInUnit>
+    <#local middleOrganization>
 		<#if validPosInUnit >
         	<span itemprop="worksFor" itemscope itemtype="http://schema.org/Organization">
-            	<a itemprop="name" href="${profileUrl(statement.uri("posnInUnit"))}" title="${i18n().middle_organization}">${statement.posnInUnitName!}</a><#if statement.org??>,</#if>
+            	<a itemprop="name" href="${profileUrl(statement.uri("posnInUnit"))}" title="${i18n().middle_organization}">${statement.posnInUnitName!}</a>
         	</span>
 		</#if>
     </#local>
     
-    ${posTitle!} ${positionInUnit!} ${parentOrganization}   <@dt.yearIntervalSpan "${statement.dateTimeStart!}" "${statement.dateTimeEnd!}" />
+    ${posTitle!} ${linkedIndividual} ${middleOrganization!}   <@dt.yearIntervalSpan "${statement.dateTimeStart!}" "${statement.dateTimeEnd!}" />
 </#macro>
