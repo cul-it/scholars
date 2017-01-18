@@ -16,9 +16,9 @@
 <#if individual.mostSpecificTypes?seq_contains("Academic Department") >
 	<#assign isAcademicDept = true />
 </#if>
-<#assign isCollege = false />
-<#if individual.mostSpecificTypes?seq_contains("College") >
-	<#assign isCollege = true />
+<#assign isCollegeOrSchool = false />
+<#if individual.mostSpecificTypes?seq_contains("College") || individual.mostSpecificTypes?seq_contains("School")>
+	<#assign isCollegeOrSchool = true />
 </#if>
 
 
@@ -74,7 +74,7 @@
 	<#assign webpageLabel = webpageStmt.label! />
 	<#assign webpageUrl = webpageStmt.url! />
 </#if>
-<#if isCollege>
+<#if isCollegeOrSchool>
 	<#assign departmentsProp = propertyGroups.pullProperty("http://purl.obolibrary.org/obo/BFO_0000051","http://xmlns.com/foaf/0.1/Organization")!>
 	<#if departmentsProp?has_content && departmentsProp.statements?has_content> 
 	    <#assign subOrgs>
@@ -83,7 +83,7 @@
 	</#if>
 </#if>
 <#assign visualizationColumn >
-  <#if isAcademicDept || isCollege >
+  <#if isAcademicDept || isCollegeOrSchool >
   	<div id="visualization-column" class="col-sm-3 col-md-3 col-lg-3 scholars-container">
   </#if>
   <#if isAcademicDept >
@@ -99,7 +99,7 @@
   		<a href="#" id="view_selection"><img width="40%" src="${urls.base}/themes/scholars/images/dept_grants.png"/></a>
 		<p>Grants</p>
 	</div>
-  <#elseif isCollege >
+  <#elseif isCollegeOrSchool >
 	<div>
 		<img width="40%" src="${urls.base}/themes/scholars/images/dept_grants.png"/>
 		<p>Grants</p>
@@ -115,7 +115,7 @@
   <#else>
 	<#-- Do not display anything if the individual is neither an academic department nor a college. -->
   </#if>
-  <#if isAcademicDept || isCollege >
+  <#if isAcademicDept || isCollegeOrSchool >
   	</div>
   </#if>
 </#assign>
@@ -161,7 +161,7 @@
 		</div>
 	  </#if>
 	</div>
-  <#elseif isCollege && subOrgs?has_content >
+  <#elseif isCollegeOrSchool && subOrgs?has_content >
 	<div id="foafOrgTabs" class="col-sm-8 col-md-8 col-lg-8 scholars-container">
 		<div id="scholars-tabs-container">
 		  <ul id="scholars-tabs">
@@ -171,6 +171,23 @@
 				<article class="property" role="article">
 			    <ul id="individual-faculty" class="property-list" role="list">
 			    	${subOrgs!}
+				</ul>
+				</article>	
+			  </div>
+		</div>
+	</div>
+  <#elseif schoolDisciplines?has_content >
+	<div id="foafOrgTabs" class="col-sm-8 col-md-8 col-lg-8 scholars-container">
+		<div id="scholars-tabs-container">
+		  <ul id="scholars-tabs">
+		    <li><a href="#tabs-1">Disciplines</a></li>
+		  </ul>
+			  <div id="tabs-1"  class="tab-content" data="${publicationsProp!}-dude">
+				<article class="property" role="article">
+			    <ul id="individual-faculty" class="property-list" role="list">
+			    	<#list schoolDisciplines as discipline >
+						<li><a href="${urls.base}/individual?uri=${discipline.discipline!}" title="link to discipline">${discipline.disciplineName!}</a></li>
+					</#list>
 				</ul>
 				</article>	
 			  </div>
@@ -326,7 +343,7 @@ ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/or
 					'<link rel="stylesheet" href="${urls.base}/css/scholars-vis/grants/style.css" />',
 					'<link rel="stylesheet" href="${urls.base}/css/scholars-vis/jqModal.css" />')}
 
-<#if isCollege >
+<#if isCollegeOrSchool >
 	${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/collaborations/collab.css" />')}
 </#if>
 ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></script>',
@@ -347,7 +364,7 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></
 			  '<script type="text/javascript" src="${urls.base}/js/scholars-vis/wordcloud/word-cloud.js"></script>',
               '<script type="text/coffeescript" src="${urls.base}/js/scholars-vis/grants/vis-modal.coffee"></script>')}
 
-<#if isCollege >
+<#if isCollegeOrSchool >
 
 	<#-- TEMPORARY HACK. ONLY SHOW THE COLLAB VIZ FOR THE COLLEGE OF ENGINEERING -->
 	<#if individual.nameStatement?? && individual.nameStatement.value == "College of Engineering" >
@@ -387,24 +404,5 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></
 
 	</#if>
 
-</#if>
-<#if isAcademicDept >
-	<script>
-	$().ready(function() {
-	  var wc = new ScholarsVis.DepartmentWordCloud({
-	    target : '#word_cloud_vis',
-	    modal : true,
-	    department : "${individual.uri?url}"
-      });
-      $('#word_cloud_trigger').click(wc.show);
-	  $('#word_cloud_exporter').click(wc.showVisData);
-	
-	  new ScholarsVis.IconizedDepartmentWordCloud({
-	    target : '#dynamic_word_cloud',
-	    modal : false,
-	    department : "${individual.uri?url}"
-      }).show();
-	});
-	</script>
 </#if>
 </script>

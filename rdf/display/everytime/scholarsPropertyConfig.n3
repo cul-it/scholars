@@ -1,0 +1,88 @@
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix : <http://vitro.mannlib.cornell.edu/ns/vitro/ApplicationConfiguration#> .
+@prefix display: <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix datagetter: <java:edu/cornell/mannlib/vitro/webapp/utils/datagetter/> .
+@prefix vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#> .
+@prefix role:  <http://vitro.mannlib.cornell.edu/ns/vitro/role#> .
+@prefix local: <http://vitro.mannlib.cornell.edu/ns/vitro/siteConfig/> .
+@prefix vivo: <http://vivoweb.org/ontology/core#> . 
+@prefix obo: <http://purl.obolibrary.org/obo/> .
+@prefix hr: <http://scholars.cornell.edu/ontology/hr.owl#> .
+@prefix vivoc: <http://scholars.cornell.edu/ontology/vivoc.owl#> .
+@base <http://vitro.mannlib.cornell.edu/ns/vitro/ApplicationConfiguration> .
+
+
+# warning: don't use blank nodes; the display model doesn't currently support them.
+
+local:personInPositionContext a :ConfigContext ;
+    :hasConfiguration local:personInPositionConfig ;
+    :configContextFor vivo:relatedBy ;
+    :qualifiedByDomain <http://xmlns.com/foaf/0.1/Person> ;
+    :qualifiedBy vivo:Position .
+
+local:personInPositionConfig a :ObjectPropertyDisplayConfig ;
+    rdfs:label "personInPosition"@en-US;
+    :displayName "positions" ;
+    :listViewConfigFile "listViewConfig-personInPosition.xml"^^xsd:string ;
+    :propertyGroup <http://vivoweb.org/ontology#vitroPropertyGroupaffiliation> ;
+    vitro:displayRankAnnot 40;
+    vitro:hiddenFromDisplayBelowRoleLevelAnnot role:root ;
+    vitro:prohibitedFromUpdateBelowRoleLevelAnnot role:root ;
+    vitro:stubObjectPropertyAnnot "true"^^xsd:boolean ;
+    vitro:customEntryFormAnnot "edu.cornell.mannlib.vitro.webapp.edit.n3editing.configuration.generators.PersonHasPositionHistoryGenerator"^^xsd:string .
+
+local:organizationForPositionContext a :ConfigContext ;
+    :hasConfiguration local:organizationForPositionConfig ;
+    :configContextFor vivo:relatedBy ;
+    :qualifiedByDomain <http://xmlns.com/foaf/0.1/Organization> ;
+    :qualifiedBy vivo:Position .
+
+local:organizationForPositionConfig a :ObjectPropertyDisplayConfig ;
+    rdfs:label "organizationForPosition"@en-US;
+    :displayName "people" ;
+    :listViewConfigFile "listViewConfig-organizationForPosition.xml"^^xsd:string ;
+    :propertyGroup <http://vivoweb.org/ontology#vitroPropertyGroupaffiliation> ;
+    vitro:collateBySubclassAnnot
+              "true"^^xsd:boolean;
+    vitro:displayRankAnnot 10;
+    vitro:hiddenFromDisplayBelowRoleLevelAnnot role:root ;
+    vitro:prohibitedFromUpdateBelowRoleLevelAnnot role:root ;
+    vitro:customEntryFormAnnot "edu.cornell.mannlib.vitro.webapp.edit.n3editing.configuration.generators.OrganizationHasPositionHistoryGenerator"^^xsd:string .
+
+local:disciplineHasPositionContext a :ConfigContext ;
+    :hasConfiguration local:disciplineHasPositionConfig ;
+    :configContextFor hr:hasPosition ;
+    :qualifiedByDomain <http://scholars.cornell.edu/ontology/vivoc.owl#Discipline> ;
+    :qualifiedBy vivo:Position .
+
+local:disciplineHasPositionConfig a :ObjectPropertyDisplayConfig ;
+    rdfs:label "disciplineHasPosition"@en-US;
+    :displayName "people" ;
+    :listViewConfigFile "listViewConfig-organizationForPosition.xml"^^xsd:string ;
+    :propertyGroup <http://vivoweb.org/ontology#vitroPropertyGroupaffiliation> ;
+    vitro:collateBySubclassAnnot
+              "true"^^xsd:boolean;
+    vitro:displayRankAnnot 10;
+    vitro:hiddenFromDisplayBelowRoleLevelAnnot role:public ;
+    vitro:prohibitedFromUpdateBelowRoleLevelAnnot role:public .
+
+local:departmentHasPositionContext a :ConfigContext ;
+    :hasConfiguration local:departmentHasPositionConfig ;
+    :configContextFor hr:hasPosition ;
+    :qualifiedByDomain <http://vivoweb.org/ontology/core#AcademicDepartment> ;
+    :qualifiedBy vivo:Position .
+
+local:departmentHasPositionConfig a :ObjectPropertyDisplayConfig ;
+    rdfs:label "departmentHasPosition"@en-US;
+    :displayName "people" ;
+    :listViewConfigFile "listViewConfig-organizationForPosition.xml"^^xsd:string ;
+    :propertyGroup <http://vivoweb.org/ontology#vitroPropertyGroupaffiliation> ;
+    vitro:collateBySubclassAnnot
+              "true"^^xsd:boolean;
+    vitro:displayRankAnnot 10;
+    vitro:hiddenFromDisplayBelowRoleLevelAnnot role:public ;
+    vitro:prohibitedFromUpdateBelowRoleLevelAnnot role:public .
+

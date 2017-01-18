@@ -22,8 +22,8 @@
 	<#if webpageUrl?has_content>
 		<#if isAcademicDept>
 			<#assign theType = "deparmental" />
-		<#elseif isCollege >
-			<#assign theType = "college" />
+		<#elseif isCollegeOrSchool >
+			<#assign theType = "college or school" />
 		</#if>
 		<a href="${webpageUrl!}" title="View the departmental page" target="_blank"><img src="${urls.base}/themes/scholars/images/contact-info-icon.png" width="32px" title="Click to view the ${theType!} webpage" alt="contact info" /></a>
 	</#if>

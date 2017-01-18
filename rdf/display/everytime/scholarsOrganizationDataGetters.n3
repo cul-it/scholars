@@ -1,0 +1,44 @@
+# $This file is distributed under the terms of the license in /doc/license.txt$ 
+
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix display: <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix core: <http://vivoweb.org/ontology/core#> .
+@prefix vivoweb: <http://vivoweb.org/ontology#> .
+@prefix afn:  <http://jena.hpl.hp.com/ARQ/function#> .
+
+ 
+## This may be a one-off just for the Johnson School -- because that's what we do....
+
+<http://vivoweb.org/ontology/core#School> display:hasDataGetter display:disciplinesForSchool .
+ 
+## define the datagetter ##
+
+display:disciplinesForSchool
+    a <java:edu.cornell.mannlib.vitro.webapp.utils.dataGetter.SparqlQueryDataGetter>;
+    display:saveToVar "schoolDisciplines";
+    display:query 
+        """
+        PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+        PREFIX core: <http://vivoweb.org/ontology/core#>
+        PREFIX vivoc:   <http://scholars.cornell.edu/ontology/vivoc.owl#>
+        PREFIX hr: <http://scholars.cornell.edu/ontology/hr.owl#>
+
+        SELECT DISTINCT 
+            ?discipline 
+            ?disciplineName 
+        WHERE
+        {
+            ?individualURI core:relatedBy ?position .
+            ?position a core:Position .
+            OPTIONAL
+            {
+            ?position hr:positionIn ?discipline .
+            ?discipline a vivoc:Discipline .
+            ?discipline rdfs:label ?disciplineName .
+            }
+
+        } ORDER BY ?disciplineName
+        """ .
+
