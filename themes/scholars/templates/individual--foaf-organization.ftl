@@ -398,4 +398,24 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></
 	</#if>
 
 </#if>
+<#if isAcademicDept >
+	<script>
+	$().ready(function() {
+	  var wc = new ScholarsVis.DepartmentWordCloud({
+	    target : '#word_cloud_vis',
+	    modal : true,
+	    department : "${individual.uri?url}"
+      });
+      $('#word_cloud_trigger').click(wc.show);
+	  $('#word_cloud_exporter').click(wc.showVisData);
+	
+	  new ScholarsVis.IconizedDepartmentWordCloud({
+	    target : '#dynamic_word_cloud',
+	    modal : false,
+	    department : "${individual.uri?url}"
+      }).show();
+	});
+	</script>
+</#if>
+
 </script>
