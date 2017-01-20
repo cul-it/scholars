@@ -71,8 +71,9 @@
 		PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 		PREFIX vivo: <http://vivoweb.org/ontology/core#>
     PREFIX bibo: <http://purl.org/ontology/bibo/>
+    PREFIX hr:   <http://scholars.cornell.edu/ontology/hr.owl#>
 		CONSTRUCT {
-		  ?organization vivo:relatedBy ?position .
+		  ?organization hr:hasPosition ?position .
 		  ?position 
 		    a vivo:Position ;
 		    vivo:relates ?author .
@@ -92,7 +93,7 @@
 		    rdfs:label ?subject .
 		}
 		WHERE {
-		  ?organization vivo:relatedBy ?position .
+		  ?organization hr:hasPosition ?position .
 		  ?position 
 		    a vivo:Position ;
 		    vivo:relates ?author .
