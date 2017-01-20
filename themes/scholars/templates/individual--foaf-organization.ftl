@@ -349,20 +349,13 @@ ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/or
 ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></script>',
               '<script type="text/javascript" src="${urls.base}/js/scholars-vis/scholars-vis.js"></script>',
               '<script type="text/javascript" src="${urls.base}/js/scholars-vis/grants/transform-data.js"></script>',
-              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/grants/plugins.js"></script>',
-              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/grants/script.js"></script>',
               '<script type="text/javascript" src="${urls.base}/js/scholars-vis/grants/CustomTooltip.js"></script>',
-              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/grants/coffee-script.js"></script>',
-              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/grants/papaparse.min.js"></script>',
-			'<script type="text/javascript" src="${urls.base}/js/d3.min.js"></script>',
 			'<script type="text/javascript" src="${urls.base}/js/scholars-vis/collaborations/collaborations.js"></script>',
-			'<script type="text/javascript" src="${urls.base}/js/scholars-vis/d3/d3-tip.js"></script>',
 			'<script type="text/javascript" src="${urls.base}/js/scholars-vis/jqModal.js"></script>',
 			'<script type="text/javascript" src="${urls.base}/js/scholars-vis/rdflib.js"></script>',
             '<script type="text/javascript" src="${urls.base}/js/scholars-vis/d3/d3-tip.js"></script>',
             '<script type="text/javascript" src="${urls.base}/js/scholars-vis/d3/d3.layout.cloud.js"></script>',
-			  '<script type="text/javascript" src="${urls.base}/js/scholars-vis/wordcloud/word-cloud.js"></script>',
-              '<script type="text/coffeescript" src="${urls.base}/js/scholars-vis/grants/vis-modal.coffee"></script>')}
+			  '<script type="text/javascript" src="${urls.base}/js/scholars-vis/wordcloud/word-cloud.js"></script>')}
 
 <#if isCollegeOrSchool >
 
