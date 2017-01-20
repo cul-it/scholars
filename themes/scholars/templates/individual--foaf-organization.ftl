@@ -47,7 +47,7 @@
 		<@p.objectProperty adminsGrantProp editable />
 	</#assign>
 </#if>
-<#assign facultyProp = propertyGroups.pullProperty("${core}relatedBy", "${core}Position")!>
+<#assign facultyProp = propertyGroups.pullProperty("http://scholars.cornell.edu/ontology/hr.owl#hasPosition", "${core}Position")!>
 <#if facultyProp?has_content> 
     <#assign facultyList>
 		<@p.objectProperty facultyProp editable />
