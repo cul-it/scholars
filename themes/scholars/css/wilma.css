@@ -2366,6 +2366,9 @@ article.scholars-property ul li article h3 {
 #grants-vis-container {
 	padding-top:22px;
 }
+#wc-vis-container {
+	padding-top:22px;
+}
 article.property ul.property-list li {
     line-height: 1.2em;
     padding: 10px 20px 5px 40px;
@@ -3188,19 +3191,15 @@ header {
 }
 #site_wordcloud_vis {
 	display:none;
-	height:80%;
-	width:75%;
+	height:600px;
 	z-index:15;
 	border-radius:5px;
+	padding-bottom:15px;
 }
 #wc-text-container {
-	width: 50%; 
+	width: 70%; 
 	height: 10px; 
 	float:left;
-}
-#wcUniv-container {
-	width: 50%; 
-	float:right;
 }
 #site_word_cloud_exporter i {
 	padding-right: 20px;

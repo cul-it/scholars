@@ -1,6 +1,5 @@
 @prefix display: <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#> .
 
-# Creates the page and url mapping to display the grants visualization page
 display:GrantsVisualizationPage
         a       display:Page ;
         display:isSelfContainedTemplate
@@ -14,10 +13,6 @@ display:GrantsVisualizationPage
         display:urlMapping
                 "/grantsVisualization" .
 
-
-
-# Creates the page and url mapping to display the subject area-to-person visualization pages
-
 display:SubjectAreaVisualizationPage
         a       display:Page ;
         display:isSelfContainedTemplate
@@ -30,3 +25,29 @@ display:SubjectAreaVisualizationPage
                 "Subject Area Visualization" ;
         display:urlMapping
                 "/orgSAVisualization" .
+
+display:HomeWordcloudPage
+        a       display:Page ;
+        display:isSelfContainedTemplate
+                "true" ;
+        display:requiresAction
+                <java:edu.cornell.mannlib.vitro.webapp.auth.permissions.SimplePermission#PageViewablePublic> ;
+        display:requiresBodyTemplate
+                "home-wordcloud-page.ftl" ;
+        display:title
+                "Keyword Cloud Visualization" ;
+        display:urlMapping
+                "/homeWordcloudVisualization" .
+
+display:HomeWorldmapPage
+        a       display:Page ;
+        display:isSelfContainedTemplate
+                "true" ;
+        display:requiresAction
+                <java:edu.cornell.mannlib.vitro.webapp.auth.permissions.SimplePermission#PageViewablePublic> ;
+        display:requiresBodyTemplate
+                "home-worldmap-page.ftl" ;
+        display:title
+                "Worldmap Visualization" ;
+        display:urlMapping
+                "/homeWorldmapVisualization" .
