@@ -1,6 +1,5 @@
 <div class="row scholars-row">
- <div id="grants-vis-container" class="col-md-12 scholars-container"
-  <div class="row">
+  <div id="grants-vis-container" class="col-md-12 scholars-container">
     <div class="col-md-4" class="scholars-container">
       <div class="panel-group" id="accordion">
         
@@ -82,7 +81,6 @@
       <div id="vis"> </div>
     </div>
   </div>
-</div>
 </div>
 ${stylesheets.add('<link rel="stylesheet" type="text/css" href="${urls.base}/css/scholars-vis/grants/reset.css"/>')}
 ${stylesheets.add('<link rel="stylesheet" type="text/css" href="${urls.base}/css/scholars-vis/grants/nouislider.min.css">')}
