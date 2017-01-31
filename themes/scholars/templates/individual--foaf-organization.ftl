@@ -293,6 +293,9 @@ $().ready(function() {
 ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/keywordcloud/kwcloud.css" />')}
 <div id="word_cloud_vis">
 <a href="#" id="word_cloud_exporter" class="pull-right"><i class="fa fa-download" aria-hidden="true" title="export this data" ></i></a>
+	<label class="boxLabel"><input id="keyword" type="checkbox" class="cbox" checked>Article Keywords<span id="kw">(0)</span></label>
+	<label class="boxLabel"><input id="mined" type="checkbox" class="cbox" checked>Inferred Keywords<span id="minedt">(0)</span></label>
+	<label class="boxLabel"><input id="mesh" type="checkbox" class="cbox" checked>Mesh Terms<span id="mt">(0)</span></label>
 </div>
 
 
@@ -394,7 +397,8 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></
 	  var wc = new ScholarsVis.DepartmentWordCloud({
 	    target : '#word_cloud_vis',
 	    modal : true,
-	    department : "${individual.uri?url}"
+	    department : "${individual.uri?url}",
+	    animation : true
       });
       $('#word_cloud_trigger').click(wc.show);
 	  $('#word_cloud_exporter').click(wc.showVisData);
@@ -402,7 +406,8 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></
 	  new ScholarsVis.IconizedDepartmentWordCloud({
 	    target : '#dynamic_word_cloud',
 	    modal : false,
-	    department : "${individual.uri?url}"
+	    department : "${individual.uri?url}",
+	    animation : false
       }).show();
 	});
 	</script>

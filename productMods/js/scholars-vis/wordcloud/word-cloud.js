@@ -99,6 +99,7 @@ ScholarsVis["IconizedDepartmentWordCloud"] = function(options) {
 function transform_word_cloud_data(graph, options) {
 	var VIVO = $rdf.Namespace("http://vivoweb.org/ontology/core#");
 	var RDFS = $rdf.Namespace("http://www.w3.org/2000/01/rdf-schema#");
+	var VIVOC= $rdf.Namespace("http://scholars.cornell.edu/ontology/vivoc.owl#");
 
 	var jsonResult = [];
 
@@ -108,14 +109,18 @@ function transform_word_cloud_data(graph, options) {
 	stmts = graph.statementsMatching(undefined, VIVO('hasSubjectArea'));
 	stmts.forEach(new StatementProcessor("MESH").processStatement);
 	
+	stmts = graph.statementsMatching(undefined, VIVOC('inferredKeyword'));
+	stmts.forEach(new StatementProcessor("INFERRED").processStatement);
 	return jsonResult;
 	
 	function StatementProcessor(citationType) {
 		var labelFunction;
 		if (citationType == "KEYWORD") {
 			labelFunction = labelOfKeyword;
-		} else {
+		} else if (citationType == "MESH"){
 			labelFunction = labelOfMeshTerm;
+		} else if (citationType == "INFERRED"){
+			labelFunction = labelOfInferred;
 		}
 		
 		return {processStatement: processStatement};
@@ -123,7 +128,9 @@ function transform_word_cloud_data(graph, options) {
 		function labelOfKeyword(statement) {
 			return statement.object.value;
 		}
-		
+		function labelOfInferred(statement) {
+			return statement.object.value;
+		}
 		function labelOfMeshTerm(statement) {
 			return graph.any(statement.object, RDFS("label")).value;
 		}
@@ -242,7 +249,8 @@ function filterSortAndSlice(unfiltered, options, citationTypes) {
 	var typesArray = [].concat(citationTypes);
 	
 	return unfiltered.reduce(listFilter, []).sort(compareSizes).slice(0, maxKeywords);
-	
+	//return unfiltered.sort(compareSizes).slice(0, maxKeywords).reduce(listFilter, []);
+
 	function listFilter(keywordsSoFar, keywordStruct) {
 		var filteredEntities = keywordStruct.entities.reduce(entityFilter, []);
 		var size = filteredEntities.length;
@@ -259,7 +267,8 @@ function filterSortAndSlice(unfiltered, options, citationTypes) {
 			if (entity.citationTypes.reduce(typeMatcher, false)) {
 				entitiesSoFar.push({
 					uri: entity.uri,
-					text: entity.text
+					text: entity.text,
+					citationsTypes: entity.citationTypes
 				});
 			}
 			return entitiesSoFar;
@@ -272,6 +281,7 @@ function filterSortAndSlice(unfiltered, options, citationTypes) {
 
 	function compareSizes(a, b) {
 	  return b.size - a.size;
+	  //return b.entities.length - a.entities.length;
 	}
 }
 
@@ -291,38 +301,39 @@ var allWords = [];
 var initialLoad = true;
 var targetDiv; 
 var currentOptions;
-var types = ["KEYWORD","MESH"];
+var types = ["KEYWORD","MESH","INFERRED"];
+var keywords;
 
 function draw_word_cloud(unfiltered, target, options) {	
 	targetDiv = target; 
+    currentOptions = options;
+	keywords = filterSortAndSlice(unfiltered, options, types);
+	//	var keywords = filterSortAndSlice(unfiltered, options, "KEYWORD");
+	var counts = generateCount(keywords);
+	updateNumbers(counts);
+	
 	if(initialLoad){
 		allWords = unfiltered;
+		enabledisable(keywords);
 		initialLoad = false;
+		if (keywords.length == 0) {
+			$(target).html("<div>No Research Keywords</div>");
+		 	return;
+		}
 	}
 
-    currentOptions = options;
-// HARDCODED FOR NOW.
+	var isInteractive =  (typeof(options.interactive) == 'undefined') || options.interactive;
+	var scaleRange = options.scaleRange || [15, 60];
 
-	var keywords = filterSortAndSlice(unfiltered, options, types);
-//	var keywords = filterSortAndSlice(unfiltered, options, "KEYWORD");
-
-	 var isInteractive =  (typeof(options.interactive) == 'undefined') || options.interactive;
-	 var scaleRange = options.scaleRange || [15, 60];
-
-	 var height_margin = 20;
-	 var width_margin = 20;
+	var height_margin = 20;
+	var width_margin = 20;
 	 
-	 var height = Math.floor($(target).height()-height_margin);
-	 var width = Math.floor($(target).width()-width_margin);
-
-	 // if (keywords.length == 0) {
-		//  $(target).html("<div>No Research Keywords</div>");
-		//  return;
-	 // }
+	var height = Math.floor($(target).height()-height_margin);
+	var width = Math.floor($(target).width()-width_margin);
 
 	var fill = d3.scale.category20();
    
-   var keywordScale = d3.scale.linear().range(scaleRange);
+   	var keywordScale = d3.scale.linear().range(scaleRange);
      
    var tip = d3.tip().attr('class', 'd3-tip choices triangle-isosceles').html(function(d) { 
      var repr = "";
@@ -378,8 +389,13 @@ function draw_word_cloud(unfiltered, target, options) {
    function toRgbString(rgbs) {
    	return "rgb(" + rgbs[0] + "," + rgbs[1] + "," + rgbs[2] + ")";
    }
-
+   	
 function draw(input) {
+	
+	//console.log("draw");
+
+	if(input.length == 0) return;
+
    	var svg = d3.select(target)
    		.append("svg")
   		.attr("width", width)
@@ -402,42 +418,34 @@ function draw(input) {
    		})
         .attr("text-anchor", "middle")
         .attr('font-size', 1)
-        .text(function(d) { return d.text; }).call(addKeywordActivity);;
+        .text(function(d) { return d.text; })
+        .call(addKeywordActivity);  // for tooltips
 
         //Entering and existing words
-    cloud.transition()
-        .duration(600)
-        .style("font-size", function(d) { return d.size + "px"; })
-        .attr("transform", function(d) {
-            return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
-        })
-        .style("fill-opacity", 1);
+ 		if(currentOptions.animation){
+			cloud.transition()
+        		.duration(600)
+        		.style("font-size", function(d) { return d.size + "px"; })
+        		.attr("transform", function(d) {
+            		return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
+        		})
+        		.style("fill-opacity", 1);
 
-        //Exiting words
-    cloud.exit()
-        .transition()
-        .duration(200)
-        .style('fill-opacity', 1e-6)
-        .attr('font-size', 1)
-        .remove();
-
-   	// .selectAll("text")
-   	// .data(words)
-
-   	// .enter().append("text")
-   	// .style("font-size", function(d) { return d.size + "px"; })
-   	// .style("font-family", "Tahoma")
-   	// .style("fill", function(d, i) {
-   	// 	var wordFill = fill(i);
-   	// 	wordsToFills[d.text] = wordFill;
-   	// 	return wordFill;
-   	// })
-   	// .attr("text-anchor", "middle")
-   	// .attr("transform", function(d) {
-   	// 	return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
-   	// })
-   	// .text(function(d) { return d.text; }).call(addKeywordActivity);
-   	
+        	//Exiting words
+   			cloud.exit()
+        		.transition()
+        		.duration(200)
+        		.style('fill-opacity', 1e-6)
+        		.attr('font-size', 1)
+        		.remove();
+ 		}else{
+ 			cloud.style("font-size", function(d) { return d.size + "px"; })
+        		.attr("transform", function(d) {
+            		return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
+        		})
+        		.style("fill-opacity", 1);
+ 		}
+ 		
    	function addKeywordActivity(keywords) {
    		if (isInteractive) {
 		    	keywords
@@ -483,19 +491,96 @@ function getChecks(){
  return [keyword, mesh, mined];  
 }
 
+function updateNumbers(arrayIn){
+	setNumber("#kw", arrayIn.keywords); 
+	setNumber("#mt", arrayIn.mesh); 
+	setNumber("#minedt", arrayIn.mined);
+
+	function setNumber(target, number){
+		d3.select(target).text("(" + number + ")");
+	}
+}
+
+function generateCount(keywords){
+	var returnObject = {
+		mined: 0, 
+		mesh: 0,
+		keywords: 0
+	}
+	keywords.forEach(function(keyword){
+		var types = keyword.entities.map(function(entity){
+			return entity.citationsTypes;
+		});
+		var merged = [].concat.apply([], types);
+		var wordSet = new Set(merged);
+
+		if (wordSet.has("KEYWORD")){
+			returnObject.keywords++;
+		}
+		if (wordSet.has("MESH")){
+			returnObject.mesh++; 
+		}
+		if (wordSet.has("INFERRED")){
+			returnObject.mined++; 
+		}
+	});
+	return returnObject;
+}
+
+
+function enabledisable(keywords){
+ 	var keyword = false;
+ 	var mesh = false;
+	var inferred = false;
+ 	var kw = document.getElementById("keyword");
+ 	var ms = document.getElementById("mesh");
+ 	var mn = document.getElementById("mined");
+
+ 	for(var i = 0; i < keywords.length; i++) {
+   		var entities = keywords[i].entities;
+   		for(var j=0; j<entities.length; j++){
+   			var types = entities[j].citationsTypes;
+   			if(types.includes("MESH")){
+   				mesh = true;
+   			}
+   			if(types.includes("KEYWORD")){
+				keyword = true;
+   			}
+   			if(types.includes("INFERRED")){
+   				inferred = true;
+   			}
+   		}
+ 	}
+
+ 	if(kw && !keyword){
+ 		kw.checked = false;
+		kw.setAttribute("disabled", "true");
+ 	}
+ 	if(ms && !mesh){
+ 		ms.checked = false;
+		ms.setAttribute("disabled", "true");
+ 	}
+ 	if(mn && !inferred){
+ 		mn.checked = false;
+		mn.setAttribute("disabled", "true");
+ 	}
+}
+
 $(document).ready(function(){
 	d3.selectAll(".cbox").on("change", function(){
- 	var checks = getChecks(); 
-	types = [];
- 	if(checks[0] == true){
- 		types.push("KEYWORD");
-	}
-	if(checks[1] == true){
-		types.push("MESH");
-	}
-	//draw_word_cloud(allWords, targetDiv, currentOptions);
-
-	d3.select(targetDiv).selectAll("svg").remove(); 
+ 		var checks = getChecks(); 
+		types = [];
+ 		if(checks[0] == true){
+ 			types.push("KEYWORD");
+		}
+		if(checks[1] == true){
+			types.push("MESH");
+		}
+		if(checks[2] == true){
+			types.push("INFERRED");
+		}
+		d3.select(targetDiv).selectAll("svg").remove(); 
 		draw_word_cloud(allWords, targetDiv, currentOptions); 
+
 	});
 }); 

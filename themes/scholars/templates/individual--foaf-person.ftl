@@ -202,9 +202,9 @@ $(document).ready(function() {
 </#if>
 <div id="word_cloud_vis">
 	<a href="#" id="word_cloud_exporter" class="pull-right"><i class="fa fa-download" aria-hidden="true" title="export this data" style="font-size:24px"></i></a>
-	<label class="boxLabel"><input id="keyword" type="checkbox" class="cbox" checked>Keyword</label>
-    <label class="boxLabel"><input id="mesh" type="checkbox" class="cbox" checked>Mesh</label>
-    <label class="boxLabel"><input id="mined" type="checkbox" class="cbox" checked>Inferred Keywords</label>
+	<label class="boxLabel"><input id="keyword" type="checkbox" class="cbox" checked>Article Keywords<span id="kw">(0)</span></label>
+	<label class="boxLabel"><input id="mined" type="checkbox" class="cbox" checked>Inferred Keywords<span id="minedt">(0)</span></label>
+	<label class="boxLabel"><input id="mesh" type="checkbox" class="cbox" checked>Mesh Terms<span id="mt">(0)</span></label>
 </div>
 
 <div class="jqmWindow" id="subject-area-dialog">
@@ -280,7 +280,8 @@ $().ready(function() {
 	  var wc = new ScholarsVis.PersonWordCloud({
 	    target : '#word_cloud_vis',
 	    modal : true,
-	    person : "${individual.uri?url}"
+	    person : "${individual.uri?url}",
+	    animation : true
       });
       $('#word_cloud_trigger').click(wc.show);
       $('#word_cloud_exporter').click(wc.showVisData);
@@ -288,7 +289,8 @@ $().ready(function() {
 	  new ScholarsVis.IconizedPersonWordCloud({
 	    target : '#dynamic_word_cloud',
 	    modal : false,
-	    person : "${individual.uri?url}"
+	    person : "${individual.uri?url}",
+	    animation : false
       }).show();
 	});
 	</script>

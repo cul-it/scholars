@@ -132,10 +132,12 @@
 		PREFIX rdfs:     <http://www.w3.org/2000/01/rdf-schema#>
 		PREFIX bibo:     <http://purl.org/ontology/bibo/>
 		PREFIX vivo:     <http://vivoweb.org/ontology/core#>
+    PREFIX vivoc:    <http://scholars.cornell.edu/ontology/vivoc.owl#>
 		CONSTRUCT {
 		  ?pub rdfs:label ?label .
 		  ?pub vivo:freetextKeyword ?keyword .
 		  ?pub vivo:hasSubjectArea ?mesh .
+      ?pub vivoc:inferredKeyword ?infkeyword .
 		  ?mesh rdfs:label ?meshLabel .
 		}
 		WHERE
@@ -150,9 +152,13 @@
 		  }
 		  OPTIONAL { 
 		    ?pub vivo:hasSubjectArea ?mesh .
-		    ?mesh a <http://scholars.cornell.edu/ontology/vivoc.owl#MeshTerm> .
+		    ?mesh a vivoc:MeshTerm .
 		    ?mesh rdfs:label ?meshLabel .
 		  }
+      OPTIONAL { 
+        ?pub vivoc:inferredKeyword ?infkeyword . 
+      }
+      FILTER (str(?keyword) != "" || str(?mesh) != "" || str(?infkeyword) != "") .
 		}
       """ .
 
@@ -175,10 +181,14 @@
 		PREFIX rdfs:     <http://www.w3.org/2000/01/rdf-schema#>
 		PREFIX bibo:     <http://purl.org/ontology/bibo/>
 		PREFIX vivo:     <http://vivoweb.org/ontology/core#>
-	    PREFIX foaf:     <http://xmlns.com/foaf/0.1/>
+	  PREFIX foaf:     <http://xmlns.com/foaf/0.1/>
+    PREFIX vivoc:    <http://scholars.cornell.edu/ontology/vivoc.owl#>
 		CONSTRUCT {
 		  ?person rdfs:label ?label .
 		  ?person vivo:freetextKeyword ?keyword .
+      ?person vivo:hasSubjectArea ?mesh .
+      ?person vivoc:inferredKeyword ?infkeyword .
+      ?mesh rdfs:label ?meshLabel .
 		}
 		WHERE
 		{
@@ -191,7 +201,18 @@
 		  ?auth a vivo:Authorship .
 		  ?auth vivo:relates ?pub .
 		  ?pub a bibo:Document .
-		  ?pub vivo:freetextKeyword ?keyword .
+      OPTIONAL { 
+        ?pub vivo:freetextKeyword ?keyword . 
+      }
+      OPTIONAL { 
+        ?pub vivo:hasSubjectArea ?mesh .
+        ?mesh a vivoc:MeshTerm .
+        ?mesh rdfs:label ?meshLabel .
+      }
+      OPTIONAL { 
+        ?pub vivoc:inferredKeyword ?infkeyword . 
+      }
+      FILTER (str(?keyword) != "" || str(?mesh) != "" || str(?infkeyword) != "") .
 		}
       """ .
 
