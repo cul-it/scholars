@@ -1,183 +1,163 @@
 ScholarsVis["UniversityWordCloud"] = function(options) {
-	var defaults = {
-		    url : applicationContextPath + "/api/dataRequest/university_word_cloud",
-		    transform : transformUniversityWordcloud,
-		    display : drawUniversityWordCloud,
-		    closer : closeUniversityWordcloud
-		};
-	return new ScholarsVis.Visualization(options, defaults);
+  var defaults = {
+      url : applicationContextPath + "/api/dataRequest/university_word_cloud",
+      transform : transformUniversityWordcloud,
+      display : drawUniversityWordCloud,
+      closer : closeUniversityWordcloud
+  };
+  return new ScholarsVis.Visualization(options, defaults);
 };
 
 function transformUniversityWordcloud(rawData) {
-	return rawData.map(processKeywordStructure);
-	
-	function processKeywordStructure(kwStruct) {
-	    return {
-	        persons: kwStruct.persons.map(processPersonStructure),
-	        countOfArticle: kwStruct.countOfArticle,
-            keyword: kwStruct.keyword,
-            countByPerson: kwStruct.countByPerson
-            }
-       
-        function processPersonStructure(pStruct) {
-            return {
-                personName: pStruct.personName,
-                personURI: toDisplayPageUrl(pStruct.personURI),
-                articleCount: pStruct.articleCount
-            }
-        }
-	}
+  return rawData.map(keywordStructToWordCloudData).sort(descendingBySize);
+  
+  function keywordStructToWordCloudData(kwStruct) {
+    return {
+      text : kwStruct.keyword,
+      size : kwStruct.countByPerson,
+      articleCount : kwStruct.countOfArticle,
+      entities : kwStruct.persons.map(personToEntity).sort(
+          descendingByArticleCount),
+    }
+    
+    function personToEntity(pStruct) {
+      return {
+        text : pStruct.personName,
+        uri : toDisplayPageUrl(pStruct.personURI),
+        artcount : pStruct.articleCount
+      }
+    }
+    
+    function descendingByArticleCount(a, b) {
+      return b.artcount - a.artcount;
+    }
+  }
+  
+  function descendingBySize(a, b) {
+    return b.size - a.size;
+  }
 }
 
 function closeUniversityWordcloud(target) {
-	$(target).children("svg").remove();
-	$('div#tooltip').remove();
-	$('div.d3-tip').remove();
+  $(target).children("svg").remove();
+  $('div#tooltip').remove();
+  $('div.d3-tip').remove();
 }
 
-function drawUniversityWordCloud(transformed, target) {
-    var fill = d3.scale.category20();
-
+function drawUniversityWordCloud(keywords, target) {
+  var tip = createTooltip();
+  activateInfoButton();
+  refreshWordCloud();
+  
+  function activateInfoButton() {
+    $('[data-toggle="tooltip"]').tooltip();
+  }
+  
+  function createTooltip() {
+    return d3.tip()
+    .attr('class', 'sitewc d3-tip choices triangle-isosceles')
+    .html(produceTooltipHtml);
+    
+    function produceTooltipHtml(d) {
+      return d.entities.map(htmlForEntity).join('');
+      
+      function htmlForEntity(ent, i) {
+        return "<div class='hoverable'>" 
+        + "<a href='" + ent.uri + "'>" + (i + 1) + ". " + ent.text + " (" + ent.artcount + ")</a>"
+        + "</div>";
+      }
+    }
+  }
+  
+  function refreshWordCloud() {
+    var fills = d3.scale.category20();
+    
     var margin_height = 20;
     var margin_width = 20;
-
-	var height = $(target).height()-margin_height;
-    var width = $(target).width()-margin_width;
-
-    var keywordScale = d3.scale.linear().range([5, 50]);
-
-    var tip = d3.tip().attr('class', 'sitewc d3-tip choices triangle-isosceles').html(function(d) {
-        var repr = "";
-        for (var i = 0; i < d.entities.length; i++) {
-            repr += "<div class='hoverable'><a href='" + d.entities[i].uri + "'>" + (i + 1) + ". " + d.entities[i].text + " (" + d.entities[i].artcount + ")</a></div>";
-        }
-        return repr;
-    })
-
-    var keywords;
-
-    keywords = transformed.filter(function(d) {
-        return + d.countByPerson > 0;
-    }).map(function(d) {
-        var entities = [];
-        for (var i = 0; i < d.persons.length; i++) {
-            entities.push({
-                text: d.persons[i].personName,
-                uri: d.persons[i].personURI,
-                artcount: d.persons[i].articleCount
-            });
-        }
-
-        entities.sort(function(a, b) {
-            return b.artcount - a.artcount;
-        });
-
-        return {
-            text: d.keyword,
-            size: +d.countByPerson,
-            articleCount: +d.countOfArticle,
-            entities: entities
-        };
-    }).sort(function(a, b) {
-        return d3.descending(a.size, b.size);
-    });
-
-    keywordScale.domain([d3.min(keywords,
-    function(d) {
-        return d.size;
-    }), d3.max(keywords,
-    function(d) {
-        return d.size;
-    })]);
+    var height = $(target).height() - margin_height;
+    var width = $(target).width() - margin_width;
     
-    var wordsToFills = {};
-
-    d3.layout.cloud().size([width, height]).words(keywords).rotate(function() {
-        return~~ (Math.random() * 2) * 90;
-    }).font("Tahoma").fontSize(function(d) {
-        return keywordScale(d.size);
-    }).on("end", draw).start();
+    keywords.forEach((kw, i) => kw.fillColor=fills(i));
     
-    activateInfoButton();
-
-    function parseRgb(rgbString) {
-        var commaString = rgbString.substring(4, rgbString.length - 1);
-        var numberStrings = commaString.split(",");
-        var nums = [];
-        for (var i = 0; i < numberStrings.length; i++) {
-            nums.push(parseInt(numberStrings[i]));
-        }
-        return nums;
-    }
-
-    function brighten(rgbs, p) {
-        var result = [];
-        for (var i = 0; i < rgbs.length; i++) {
-            if (rgbs[i] + 20 <= 255) {
-                result.push(rgbs[i] + p);
-            } else {
-                result.push(255);
-            }
-        }
-        return result;
-    }
-
-    function toRgbString(rgbs) {
-        return "rgb(" + rgbs[0] + "," + rgbs[1] + "," + rgbs[2] + ")";
-    }
-
+    var keywordScale = d3.scale.linear().range([ 5, 50 ]).domain(
+        [ d3.min(keywords, d => d.size), d3.max(keywords, d => d.size) ]);
+    
+    d3.layout.cloud()
+    .size([ width, height ])
+    .words(keywords)
+    .rotate(d => ~~(Math.random() * 2) * 90)
+    .font("Tahoma")
+    .fontSize(d => keywordScale(d.size))
+    .on("end", draw)
+    .start();
+    
     function draw(words) {
-        d3.select(target).append("svg").attr("width", width).attr("height", height).attr("id", "stage").append("g").attr("transform", "translate(" + (width / 2) + "," + (height / 2) + ")").selectAll("text").data(words).enter().append("text").style("font-size",
-        function(d) {
-            return d.size + "px";
-        }).style("font-family", "Tahoma").style("fill",
-        function(d, i) {
-            var wordFill = fill(i);
-            wordsToFills[d.text] = wordFill;
-            return wordFill;
-        }).attr("text-anchor", "middle").attr("transform",
-        function(d) {
-            return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
-        }).text(function(d) {
-            return d.text;
-        }).call(tip).on('click', tip.show).on('mouseover',
-        function(d) {
-            d3.select(this).style("cursor", "pointer");
-            var currentColor = d3.select(this).style("fill");
-            var rgbs = parseRgb(currentColor);
-            var brighterFill = toRgbString(brighten(rgbs, 40));
-            d3.select(this).style("fill", brighterFill);
-            d3.select("#content").html(getHtmlString(d));
-        }).on('mouseout',
-        function(d) {
-            d3.select(this).style("fill", wordsToFills[d.text]);
-        });
-    }
-
-    function getHtmlString(d) {
-        var text = '<b>' + d.text + '</b>,' + '<font class="text-muted"> person count: ' + findEntityLength(d.text) + '</font>, ' + '<font class="text-warning">article count: ' + d.articleCount + '</font>';
-        return text;
-    }
-
-    function findEntityLength(t) {
-        for (var i = 0; i < keywords.length; i++) {
-            var item = keywords[i];
-            if (item.text === t) {
-                return item.entities.length;
-            }
+      d3.select(target)
+      .append("svg")
+      .attr("width", width)
+      .attr("height", height)
+      .attr("id", "stage")
+      .append("g")
+      .attr("transform", "translate(" + (width / 2) + "," + (height / 2) + ")")
+      .selectAll("text")
+      .data(words)
+      .enter()
+      .append("text")
+      .style("font-size", d => d.size + "px")
+      .style("font-family", "Tahoma")
+      .style("fill", d => d.fillColor)
+      .attr("text-anchor", "middle")
+      .attr("transform", d => "translate(" + [ d.x, d.y ] + ")rotate(" + d.rotate + ")")
+      .text(d => d.text)
+      .call(tip)
+      .on('click', tip.show)
+      .on('mouseover', handleMouseover)
+      .on('mouseout', restoreColor);
+      
+      function handleMouseover(d) {
+        d3.select(this).style("cursor", "pointer");
+        d3.select(this).style("fill", brightenColor(d));
+        d3.select("#content").html(getHtmlString(d));
+        
+        function brightenColor(d) {
+          return toRgbString(brighten(parseRgb(d.fillColor), 40));
+          
+          function parseRgb(color) {
+            return [ parseInt(color.substr(1, 2), 16),
+              parseInt(color.substr(3, 2), 16),
+              parseInt(color.substr(5, 2), 16) ];
+          }
+          
+          function brighten(rgbs, p) {
+            return rgbs.map(i => Math.min(i + p, 255));
+          }
+          
+          function toRgbString(rgbs) {
+            return "rgb(" + rgbs.join(',') + ")";
+          }
         }
-    }
-
-    $(document).click(function(e) {
-        if ((!$(e.target).closest('text').length && !$(e.target).is('text')) || (!$(e.target).closest('#stage').length && !$(e.target).is('#stage'))) {
-            tip.hide();
-            d3.select("#content").text('');
+        
+        function getHtmlString(d) {
+          return '<b>' + d.text + '</b>,'
+          + '<font class="text-muted"> person count: ' + d.entities.length
+          + '</font>, ' + '<font class="text-warning">article count: '
+          + d.articleCount + '</font>';
         }
-    });
-   
-    function activateInfoButton() {
-        $('[data-toggle="tooltip"]').tooltip();
-        console.log("Activated tooltips");
+      }
+      
+      function restoreColor(d) {
+        d3.select(this).style("fill", d.fillColor);
+      }
     }
-    
+  }
+  
+  $(document).click(
+      function(e) {
+        if (!$(e.target).closest('text').length && !$(e.target).is('text')) {
+          tip.hide();
+          d3.select("#content").text('');
+        }
+      }
+  );
+
 }
