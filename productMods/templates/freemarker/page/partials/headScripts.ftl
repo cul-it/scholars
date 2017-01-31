@@ -7,7 +7,7 @@ var i18nStrings = {
 };
 </script>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
 <script type="text/javascript" src="${urls.base}/js/vitroUtils.js"></script>
 
 <#-- script for enabling new HTML5 semantic markup in IE browsers -->
