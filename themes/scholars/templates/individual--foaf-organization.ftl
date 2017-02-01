@@ -176,23 +176,6 @@
 			  </div>
 		</div>
 	</div>
-  <#elseif schoolDisciplines?has_content >
-	<div id="foafOrgTabs" class="col-sm-8 col-md-8 col-lg-8 scholars-container">
-		<div id="scholars-tabs-container">
-		  <ul id="scholars-tabs">
-		    <li><a href="#tabs-1">Disciplines</a></li>
-		  </ul>
-			  <div id="tabs-1"  class="tab-content" data="${publicationsProp!}-dude">
-				<article class="property" role="article">
-			    <ul id="individual-faculty" class="property-list" role="list">
-			    	<#list schoolDisciplines as discipline >
-						<li><a href="${urls.base}/individual?uri=${discipline.discipline!}" title="link to discipline">${discipline.disciplineName!}</a></li>
-					</#list>
-				</ul>
-				</article>	
-			  </div>
-		</div>
-	</div>
   <#else>
 	<#-- Don't display anything if the individual is neither an academic department nor a college -->
   </#if>
@@ -313,21 +296,16 @@ ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/ke
 </div>
 
 
-${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/individual/individual-vivo.css?vers=1.5.1" />')}
+${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/individual/individual-vivo.css?vers=1.5.1" />',
+					'<link rel="stylesheet" href="${urls.base}/css/individual/individual.css" />')}
 
 ${headScripts.add('<script type="text/javascript" src="${urls.base}/js/jquery_plugins/jquery.truncator.js"></script>',
-                  '<script type="text/javascript" src="${urls.base}/js/json2.js"></script>')}
+                  '<script type="text/javascript" src="${urls.base}/js/json2.js"></script>',
+				  '<script type="text/javascript" src="${urls.base}/js/jquery_plugins/qtip/jquery.qtip-1.0.0-rc3.min.js"></script>',
+				  '<script type="text/javascript" src="${urls.base}/js/tiny_mce/tiny_mce.js"></script>')}
                   
-${scripts.add('<script type="text/javascript" src="${urls.base}/js/individual/individualUtils.js?vers=1.5.1"></script>')}
-
-
-${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/individual/individual.css" />')}
-
-${headScripts.add('<script type="text/javascript" src="${urls.base}/js/jquery_plugins/qtip/jquery.qtip-1.0.0-rc3.min.js"></script>',
-				    '<script type="text/javascript" src="${urls.base}/js/jquery-ui/js/jquery-ui-1.8.9.custom.min.js"></script>',
-                  	'<script type="text/javascript" src="${urls.base}/js/tiny_mce/tiny_mce.js"></script>')}
-
-${scripts.add('<script type="text/javascript" src="${urls.base}/js/imageUpload/imageUploadUtils.js"></script>',
+${scripts.add('<script type="text/javascript" src="${urls.base}/js/individual/individualUtils.js?vers=1.5.1"></script>',
+			  '<script type="text/javascript" src="${urls.base}/js/imageUpload/imageUploadUtils.js"></script>',
 	          '<script type="text/javascript" src="${urls.base}/js/individual/moreLessController.js"></script>',
               '<script type="text/javascript" src="${urls.base}/themes/scholars/js/individualUriRdf.js"></script>')}
 
