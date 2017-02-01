@@ -158,7 +158,6 @@
       OPTIONAL { 
         ?pub vivoc:inferredKeyword ?infkeyword . 
       }
-      FILTER (str(?keyword) != "" || str(?mesh) != "" || str(?infkeyword) != "") .
 		}
       """ .
 
@@ -186,9 +185,6 @@
 		CONSTRUCT {
 		  ?person rdfs:label ?label .
 		  ?person vivo:freetextKeyword ?keyword .
-      ?person vivo:hasSubjectArea ?mesh .
-      ?person vivoc:inferredKeyword ?infkeyword .
-      ?mesh rdfs:label ?meshLabel .
 		}
 		WHERE
 		{
@@ -204,15 +200,6 @@
       OPTIONAL { 
         ?pub vivo:freetextKeyword ?keyword . 
       }
-      OPTIONAL { 
-        ?pub vivo:hasSubjectArea ?mesh .
-        ?mesh a vivoc:MeshTerm .
-        ?mesh rdfs:label ?meshLabel .
-      }
-      OPTIONAL { 
-        ?pub vivoc:inferredKeyword ?infkeyword . 
-      }
-      FILTER (str(?keyword) != "" || str(?mesh) != "" || str(?infkeyword) != "") .
 		}
       """ .
 
