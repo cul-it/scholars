@@ -1,6 +1,6 @@
 <h1>Worldmap Visualization</h1>
 
-<div id="worldMapContainer"></div>
+<div id="worldMapContainer" class="col-md-12 scholars-container"></div>
 
 
 ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></script>',
