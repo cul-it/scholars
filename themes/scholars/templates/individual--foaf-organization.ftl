@@ -161,19 +161,31 @@
 		</div>
 	  </#if>
 	</div>
-  <#elseif isCollegeOrSchool && subOrgs?has_content >
+  <#elseif isCollegeOrSchool && (subOrgs?has_content || facultyList?has_content)>
 	<div id="foafOrgTabs" class="col-sm-8 col-md-8 col-lg-8 scholars-container">
 		<div id="scholars-tabs-container">
 		  <ul id="scholars-tabs">
-		    <li><a href="#tabs-1">Departments</a></li>
+		    <#if subOrgs?has_content ><li><a href="#tabs-1">Departments</a></li></#if>
+		    <#if facultyList?has_content ><li><a href="#tabs-1">People</a></li> </#if>
 		  </ul>
-			  <div id="tabs-1"  class="tab-content" data="${publicationsProp!}-dude">
-				<article class="property" role="article">
-			    <ul id="individual-faculty" class="property-list" role="list">
-			    	${subOrgs!}
-				</ul>
-				</article>	
-			  </div>
+			  <#if subOrgs?has_content >
+				  <div id="tabs-1"  class="tab-content" data="${publicationsProp!}-dude">
+					<article class="property" role="article">
+				    <ul id="individual-faculty" class="property-list" role="list">
+				    	${subOrgs!}
+					</ul>
+					</article>	
+				  </div>
+			  </#if>
+			  <#if facultyList?has_content >
+				  <div id="tabs-1" class="tab-content" data="${publicationsProp!}-dude">
+					<article class="property" role="article">
+				    <ul id="individual-faculty" class="property-list" role="list" >
+				    	${facultyList?replace(" position","")!}
+					</ul>
+					</article>	
+				  </div>
+			  </#if>
 		</div>
 	</div>
   <#else>
