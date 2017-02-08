@@ -105,11 +105,9 @@ var visDisplay = function(json, target){
     var query = this.value.toLowerCase();
     $('.labelPerson').each(function(i, elem) {
       if(elem.innerHTML.toLowerCase().indexOf(query) != -1) {
-        $(this).closest('label').show();
-        $(this).prev().show();
+        $(this).closest('li').show();
       }else{
-        $(this).closest('label').hide();
-        $(this).prev().hide();
+        $(this).closest('li').hide();
       }
     });
   });

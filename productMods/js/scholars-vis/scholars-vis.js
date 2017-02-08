@@ -97,7 +97,7 @@ var ScholarsVis = (function() {
 				debugIt("Vis:hide");
 				$.when(releaseModal());
 			} else {
-				$.when(makeInvisible());
+				$.when(clearCanvas());
 			}
 		}
 		
@@ -155,9 +155,8 @@ var ScholarsVis = (function() {
 			});
 		}
 		
-		function makeInvisible() {
-			return defer("makeVisible", function() {
-				$(options.target).hide();
+		function clearCanvas() {
+			return defer("clearCanvas", function() {
 				options.closer(options.target);
 			});
 		}

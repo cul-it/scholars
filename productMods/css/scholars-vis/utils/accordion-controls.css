@@ -1,0 +1,20 @@
+.panel-body{
+	padding-top: 2px;
+	padding-bottom: 2px;
+	max-height: 300px;
+	overflow-y: scroll;
+	min-height: 100px;
+}
+
+.selection-list .panel-body li {
+  list-style-type: none;
+  text-indent: -1em; 
+  padding-left: 1em;
+  line-height: 1.2;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+.selection-list .panel-body li:hover {
+  background: hsla(0,0%,90%,1);
+}
