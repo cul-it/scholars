@@ -20,7 +20,10 @@
 <#if individual.mostSpecificTypes?seq_contains("College") || individual.mostSpecificTypes?seq_contains("School")>
 	<#assign isCollegeOrSchool = true />
 </#if>
-
+<#assign isJohnsonOrHotelSchool = false />
+<#if individual.name?contains(" Johnson Graduate School") || individual.name?contains("Hotel Administration")>
+	<#assign isJohnsonOrHotelSchool = true />
+</#if>
 
 
 <#--Number of labels present-->
@@ -86,20 +89,20 @@
   <#if isAcademicDept || isCollegeOrSchool >
   	<div id="visualization-column" class="col-sm-3 col-md-3 col-lg-3 scholars-container">
   </#if>
-  <#if isAcademicDept >
+  <#if isAcademicDept || isJohnsonOrHotelSchool >
 	<div>
 		<a href="#" id="word_cloud_trigger"><div id="dynamic_word_cloud" >&nbsp;</div></a>
 		<p>Keywords</p>
 	</div>
-	<div>
+	<div <#if isJohnsonOrHotelSchool >style="display:none"</#if>>
 		<a href="${urls.base}/orgSAVisualization?deptURI=${individual.uri}"><img width="68%" src="${urls.base}/themes/scholars/images/person_sa.png"/></a>
 		<p>Subject Areas</p>
 	</div>
-	<div>
+	<div <#if isJohnsonOrHotelSchool >style="display:none"</#if>>
   		<a href="#" id="view_selection"><img width="40%" src="${urls.base}/themes/scholars/images/dept_grants.png"/></a>
 		<p>Grants</p>
 	</div>
-  <#elseif isCollegeOrSchool >
+  <#elseif isCollegeOrSchool && !isJohnsonOrHotelSchool>
 	<div>
 		<img width="40%" src="${urls.base}/themes/scholars/images/dept_grants.png"/>
 		<p>Grants</p>
@@ -388,7 +391,7 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></
 	</#if>
 
 </#if>
-<#if isAcademicDept >
+<#if isAcademicDept || isJohnsonOrHotelSchool >
 	<script>
 	$().ready(function() {
 	  var wc = new ScholarsVis.DepartmentWordCloud({
