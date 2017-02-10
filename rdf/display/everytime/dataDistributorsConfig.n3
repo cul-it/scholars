@@ -71,9 +71,8 @@
 		PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 		PREFIX vivo: <http://vivoweb.org/ontology/core#>
     PREFIX bibo: <http://purl.org/ontology/bibo/>
-    PREFIX hr:   <http://scholars.cornell.edu/ontology/hr.owl#>
 		CONSTRUCT {
-		  ?organization hr:hasPosition ?position .
+		  ?organization vivo:relatedBy ?position .
 		  ?position 
 		    a vivo:Position ;
 		    vivo:relates ?author .
@@ -93,7 +92,7 @@
 		    rdfs:label ?subject .
 		}
 		WHERE {
-		  ?organization hr:hasPosition ?position .
+		  ?organization vivo:relatedBy ?position .
 		  ?position 
 		    a vivo:Position ;
 		    vivo:relates ?author .
@@ -133,10 +132,12 @@
 		PREFIX rdfs:     <http://www.w3.org/2000/01/rdf-schema#>
 		PREFIX bibo:     <http://purl.org/ontology/bibo/>
 		PREFIX vivo:     <http://vivoweb.org/ontology/core#>
+    PREFIX vivoc:    <http://scholars.cornell.edu/ontology/vivoc.owl#>
 		CONSTRUCT {
 		  ?pub rdfs:label ?label .
 		  ?pub vivo:freetextKeyword ?keyword .
 		  ?pub vivo:hasSubjectArea ?mesh .
+      ?pub vivoc:inferredKeyword ?infkeyword .
 		  ?mesh rdfs:label ?meshLabel .
 		}
 		WHERE
@@ -151,9 +152,12 @@
 		  }
 		  OPTIONAL { 
 		    ?pub vivo:hasSubjectArea ?mesh .
-		    ?mesh a <http://scholars.cornell.edu/ontology/vivoc.owl#MeshTerm> .
+		    ?mesh a vivoc:MeshTerm .
 		    ?mesh rdfs:label ?meshLabel .
 		  }
+      OPTIONAL { 
+        ?pub vivoc:inferredKeyword ?infkeyword . 
+      }
 		}
       """ .
 
@@ -177,14 +181,14 @@
 		PREFIX bibo:     <http://purl.org/ontology/bibo/>
 		PREFIX vivo:     <http://vivoweb.org/ontology/core#>
 	  PREFIX foaf:     <http://xmlns.com/foaf/0.1/>
-    PREFIX hr:       <http://scholars.cornell.edu/ontology/hr.owl#>
+    PREFIX vivoc:    <http://scholars.cornell.edu/ontology/vivoc.owl#>
 		CONSTRUCT {
 		  ?person rdfs:label ?label .
 		  ?person vivo:freetextKeyword ?keyword .
 		}
 		WHERE
 		{
-		  ?department hr:hasPosition ?posn .
+		  ?department vivo:relatedBy ?posn .
 		  ?posn a vivo:Position .
 		  ?posn vivo:relates ?person .
 		  ?person a foaf:Person .
@@ -193,7 +197,9 @@
 		  ?auth a vivo:Authorship .
 		  ?auth vivo:relates ?pub .
 		  ?pub a bibo:Document .
-		  ?pub vivo:freetextKeyword ?keyword .
+      OPTIONAL { 
+        ?pub vivo:freetextKeyword ?keyword . 
+      }
 		}
       """ .
 
