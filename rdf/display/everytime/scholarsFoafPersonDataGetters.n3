@@ -55,7 +55,7 @@ display:keywordsFromPubs
 		PREFIX vivo:     <http://vivoweb.org/ontology/core#> 
 		PREFIX vivoc:    <http://scholars.cornell.edu/ontology/vivoc.owl#>
 		SELECT
-		  ?keyword ?mesh ?infkeyword
+		  ?keyword
 		WHERE 
 		{ 
 		  ?individualURI vivo:relatedBy ?auth . 
