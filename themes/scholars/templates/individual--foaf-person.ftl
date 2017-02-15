@@ -297,16 +297,16 @@ $().ready(function() {
 </#if>
 
 ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/individual/individual.css" />',
-                  '<link rel="stylesheet" href="${urls.base}/css/individual/individual-vivo.css" />',
+		         '<link rel="stylesheet" href="${urls.base}/css/individual/individual-vivo.css" />',
+				  '<link rel="stylesheet" href="${urls.base}/css/jquery_plugins/jquery.qtip.min.css" />',
                   '<link rel="stylesheet" href="${urls.base}/css/individual/individual-2column-view.css" />')}
 
 ${headScripts.add('<script type="text/javascript" src="${urls.base}/js/tiny_mce/tiny_mce.js"></script>',
-                  '<script type="text/javascript" src="${urls.base}/js/jquery_plugins/qtip/jquery.qtip-1.0.0-rc3.min.js"></script>',
+                  '<script type="text/javascript" src="${urls.base}/js/jquery_plugins/qtip/jquery.qtip-3.0.3.min.js"></script>',
                   '<script type="text/javascript" src="${urls.base}/js/json2.js"></script>',
                   '<script type="text/javascript" src="${urls.base}/js/jquery_plugins/jquery.truncator.js"></script>')}
 
 ${scripts.add('<script type="text/javascript" src="${urls.base}/themes/scholars/js/individualUriRdf.js"></script>',
-              '<script type="text/javascript" src="${urls.base}/js/individual/individualQtipBubble.js"></script>',
               '<script type="text/javascript" src="${urls.base}/js/individual/individualUtils.js?vers=1.5.1"></script>',
 			  '<script type="text/javascript" src="${urls.base}/js/individual/moreLessController.js"></script>',
               '<script type="text/javascript" src="${urls.base}/js/individual/individualProfilePageType.js"></script>',

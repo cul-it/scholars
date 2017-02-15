@@ -3211,3 +3211,10 @@ header {
     font-size: 22px;
     color: #167093;
 }
+.qtip-scholars {
+	font-size: 15px;
+	background-color: #ebf3f4;
+	max-width: 600px;
+	border-color: #aba;
+	border-radius: 8px;
+}
