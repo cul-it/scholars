@@ -168,7 +168,7 @@
 	<div id="foafOrgTabs" class="col-sm-8 col-md-8 col-lg-8 scholars-container">
 		<div id="scholars-tabs-container">
 		  <ul id="scholars-tabs">
-		    <#if subOrgs?has_content ><li><a href="#tabs-1">Departments</a></li></#if>
+		    <#if subOrgs?has_content ><li><a href="#tabs-1">Academic Units</a></li></#if>
 		    <#if facultyList?has_content ><li><a href="#tabs-1">People</a></li> </#if>
 		  </ul>
 			  <#if subOrgs?has_content >
