@@ -303,7 +303,7 @@ function draw_word_cloud(unfiltered, target, options) {
 	 var width = Math.floor($(target).width()-width_margin);
 
 	 if (keywords.length == 0) {
-		 $(target).html("<div>No Research Keywords</div>");
+		 $(target).html("<div id='none'>No Research Keywords</div>");
 		 return;
 	 }
 
@@ -424,5 +424,6 @@ function draw_word_cloud(unfiltered, target, options) {
  ******************************************************************************/
 function close_word_cloud(target) {
 	$(target).children("svg").remove();
+	$(target).children("#none").remove();
 	$('div.d3-tip').remove();
 }

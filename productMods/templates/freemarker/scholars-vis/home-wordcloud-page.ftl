@@ -2,6 +2,10 @@
   <div id="wc-vis-container" class="col-md-12 scholars-container">
     <div class="col-md-4 kwcloud-selector">
 
+      <div id="legendDiv" class="center-block">
+        Browse keyword clouds 
+      </div>
+      
       <div class="panel-group" id="accordion">
 
         <div id="departmentSelectionPanel" class="panel panel-default selection-list">
@@ -38,14 +42,6 @@
         
       </div> 
 
-      <div id="legendDiv" class="center-block">
-        Browse keyword clouds 
-        <ul>
-          <li>by Academic Department</li>
-          <li>or by Faculty Member</li>
-        </ul>
-      </div>
-      
     </div>
 
     <div class="col-md-8">

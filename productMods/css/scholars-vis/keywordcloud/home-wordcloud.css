@@ -3,10 +3,6 @@
   margin-bottom: 20px;
 }
 
-.kwcloud-selector #legendDiv li {
-  margin-left: 15px;
-}
-
 #selectedWordCloudLabel {
   font: 16px "Helvetica Neue", Helvetica, Arial, sans-serif;
   margin-bottom: 8px;
@@ -15,4 +11,8 @@
 .col-md-8 #vis {
    height: 600px;
    margin-bottom: 20px;
- }
+}
+ 
+div.panel-collapse div#selector li {
+   cursor: pointer;
+}

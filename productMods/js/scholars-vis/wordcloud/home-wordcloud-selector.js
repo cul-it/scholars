@@ -25,7 +25,7 @@ function createWordCloudSelector(siteSelector, departmentSelector, personSelecto
     });
     wc.show();
     $(site_wc_container + '>#exporter').click(wc.showVisData);
-    showSelection("Scholars@Cornell");
+    showSelection();
     showClouds("site");
   }
   
@@ -54,7 +54,9 @@ function createWordCloudSelector(siteSelector, departmentSelector, personSelecto
   }
   
   function showSelection(message, uri) {
-    if ( typeof uri == "undefined") {
+    if ( typeof message == "undefined") {
+      $("#selectedWordCloudLabel").html("");
+    } else if ( typeof uri == "undefined") {
       $("#selectedWordCloudLabel").html("Keyword cloud for " + message);
     } else {
       $("#selectedWordCloudLabel").html('Keyword cloud for <a href="' + toDisplayPageUrl(uri) + '">' + message + '</a>');
