@@ -72,7 +72,7 @@ local:disciplineHasPositionConfig a :ObjectPropertyDisplayConfig ;
 local:departmentHasPositionContext a :ConfigContext ;
     :hasConfiguration local:departmentHasPositionConfig ;
     :configContextFor hr:hasPosition ;
-    :qualifiedByDomain <http://vivoweb.org/ontology/core#AcademicDepartment> ;
+    :qualifiedByDomain <http://xmlns.com/foaf/0.1/Organization> ;
     :qualifiedBy vivo:Position .
 
 local:departmentHasPositionConfig a :ObjectPropertyDisplayConfig ;

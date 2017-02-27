@@ -2932,6 +2932,18 @@ div#word_cloud_vis {
 	padding:14px 0 0 26px; 
 	margin-bottom: -10px;
 }
+.individual-altmetric-badge-inline {
+	display: inline; 
+	margin:0 0 0 12px; 
+}
+.individual-altmetric-badge-inline .altmetric-embed {
+	display: inline;
+}
+
+.individual-altmetric-badge-inline .altmetric-embed img {
+	vertical-align: middle;
+}
+
 /*** co-author and co-pi pages ***/
 .sub_headings {
 	margin-left: 20px;
@@ -3210,4 +3222,11 @@ header {
 .glyphicon-info-sign {
     font-size: 22px;
     color: #167093;
+}
+.qtip-scholars {
+	font-size: 15px;
+	background-color: #ebf3f4;
+	max-width: 600px;
+	border-color: #aba;
+	border-radius: 8px;
 }

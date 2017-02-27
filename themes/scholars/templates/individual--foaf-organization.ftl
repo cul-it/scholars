@@ -20,7 +20,10 @@
 <#if individual.mostSpecificTypes?seq_contains("College") || individual.mostSpecificTypes?seq_contains("School")>
 	<#assign isCollegeOrSchool = true />
 </#if>
-
+<#assign isJohnsonOrHotelSchool = false />
+<#if individual.name?contains(" Johnson Graduate School") || individual.name?contains("Hotel Administration")>
+	<#assign isJohnsonOrHotelSchool = true />
+</#if>
 
 
 <#--Number of labels present-->
@@ -86,20 +89,20 @@
   <#if isAcademicDept || isCollegeOrSchool >
   	<div id="visualization-column" class="col-sm-3 col-md-3 col-lg-3 scholars-container">
   </#if>
-  <#if isAcademicDept >
+  <#if isAcademicDept || isJohnsonOrHotelSchool >
 	<div>
 		<a href="#" id="word_cloud_trigger"><div id="dynamic_word_cloud" >&nbsp;</div></a>
 		<p>Keywords</p>
 	</div>
-	<div>
+	<div <#if isJohnsonOrHotelSchool >style="display:none"</#if>>
 		<a href="${urls.base}/orgSAVisualization?deptURI=${individual.uri}"><img width="68%" src="${urls.base}/themes/scholars/images/person_sa.png"/></a>
 		<p>Subject Areas</p>
 	</div>
-	<div>
+	<div <#if isJohnsonOrHotelSchool >style="display:none"</#if>>
   		<a href="#" id="view_selection"><img width="40%" src="${urls.base}/themes/scholars/images/dept_grants.png"/></a>
 		<p>Grants</p>
 	</div>
-  <#elseif isCollegeOrSchool >
+  <#elseif isCollegeOrSchool && !isJohnsonOrHotelSchool>
 	<div>
 		<img width="40%" src="${urls.base}/themes/scholars/images/dept_grants.png"/>
 		<p>Grants</p>
@@ -161,36 +164,31 @@
 		</div>
 	  </#if>
 	</div>
-  <#elseif isCollegeOrSchool && subOrgs?has_content >
+  <#elseif isCollegeOrSchool && (subOrgs?has_content || facultyList?has_content)>
 	<div id="foafOrgTabs" class="col-sm-8 col-md-8 col-lg-8 scholars-container">
 		<div id="scholars-tabs-container">
 		  <ul id="scholars-tabs">
-		    <li><a href="#tabs-1">Departments</a></li>
+		    <#if subOrgs?has_content ><li><a href="#tabs-1">Academic Units</a></li></#if>
+		    <#if facultyList?has_content ><li><a href="#tabs-1">People</a></li> </#if>
 		  </ul>
-			  <div id="tabs-1"  class="tab-content" data="${publicationsProp!}-dude">
-				<article class="property" role="article">
-			    <ul id="individual-faculty" class="property-list" role="list">
-			    	${subOrgs!}
-				</ul>
-				</article>	
-			  </div>
-		</div>
-	</div>
-  <#elseif schoolDisciplines?has_content >
-	<div id="foafOrgTabs" class="col-sm-8 col-md-8 col-lg-8 scholars-container">
-		<div id="scholars-tabs-container">
-		  <ul id="scholars-tabs">
-		    <li><a href="#tabs-1">Disciplines</a></li>
-		  </ul>
-			  <div id="tabs-1"  class="tab-content" data="${publicationsProp!}-dude">
-				<article class="property" role="article">
-			    <ul id="individual-faculty" class="property-list" role="list">
-			    	<#list schoolDisciplines as discipline >
-						<li><a href="${urls.base}/individual?uri=${discipline.discipline!}" title="link to discipline">${discipline.disciplineName!}</a></li>
-					</#list>
-				</ul>
-				</article>	
-			  </div>
+			  <#if subOrgs?has_content >
+				  <div id="tabs-1"  class="tab-content" data="${publicationsProp!}-dude">
+					<article class="property" role="article">
+				    <ul id="individual-faculty" class="property-list" role="list">
+				    	${subOrgs!}
+					</ul>
+					</article>	
+				  </div>
+			  </#if>
+			  <#if facultyList?has_content >
+				  <div id="tabs-1" class="tab-content" data="${publicationsProp!}-dude">
+					<article class="property" role="article">
+				    <ul id="individual-faculty" class="property-list" role="list" >
+				    	${facultyList?replace(" position","")!}
+					</ul>
+					</article>	
+				  </div>
+			  </#if>
 		</div>
 	</div>
   <#else>
@@ -310,24 +308,24 @@ $().ready(function() {
 ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/keywordcloud/kwcloud.css" />')}
 <div id="word_cloud_vis">
 <a href="#" id="word_cloud_exporter" class="pull-right"><i class="fa fa-download" aria-hidden="true" title="export this data" ></i></a>
+<#--	
+<label class="boxLabel"><input id="keyword" type="checkbox" class="cbox" checked>Article Keywords<span id="kw">(0)</span></label>
+<label class="boxLabel"><input id="mined" type="checkbox" class="cbox" checked>Inferred Keywords<span id="minedt">(0)</span></label>
+<label class="boxLabel"><input id="mesh" type="checkbox" class="cbox" checked>Mesh Terms<span id="mt">(0)</span></label> 
+-->
 </div>
 
 
-${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/individual/individual-vivo.css?vers=1.5.1" />')}
+${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/individual/individual-vivo.css?vers=1.5.1" />',
+					'<link rel="stylesheet" href="${urls.base}/css/individual/individual.css" />')}
 
 ${headScripts.add('<script type="text/javascript" src="${urls.base}/js/jquery_plugins/jquery.truncator.js"></script>',
-                  '<script type="text/javascript" src="${urls.base}/js/json2.js"></script>')}
+                  '<script type="text/javascript" src="${urls.base}/js/json2.js"></script>',
+				  '<script type="text/javascript" src="${urls.base}/js/jquery_plugins/qtip/jquery.qtip-3.0.3.min.js"></script>',
+				  '<script type="text/javascript" src="${urls.base}/js/tiny_mce/tiny_mce.js"></script>')}
                   
-${scripts.add('<script type="text/javascript" src="${urls.base}/js/individual/individualUtils.js?vers=1.5.1"></script>')}
-
-
-${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/individual/individual.css" />')}
-
-${headScripts.add('<script type="text/javascript" src="${urls.base}/js/jquery_plugins/qtip/jquery.qtip-1.0.0-rc3.min.js"></script>',
-				    '<script type="text/javascript" src="${urls.base}/js/jquery-ui/js/jquery-ui-1.8.9.custom.min.js"></script>',
-                  	'<script type="text/javascript" src="${urls.base}/js/tiny_mce/tiny_mce.js"></script>')}
-
-${scripts.add('<script type="text/javascript" src="${urls.base}/js/imageUpload/imageUploadUtils.js"></script>',
+${scripts.add('<script type="text/javascript" src="${urls.base}/js/individual/individualUtils.js?vers=1.5.1"></script>',
+			  '<script type="text/javascript" src="${urls.base}/js/imageUpload/imageUploadUtils.js"></script>',
 	          '<script type="text/javascript" src="${urls.base}/js/individual/moreLessController.js"></script>',
               '<script type="text/javascript" src="${urls.base}/themes/scholars/js/individualUriRdf.js"></script>')}
 
@@ -341,6 +339,7 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/imageUpload/i
 
 ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/org-research-areas/ra.css" />',
 					'<link rel="stylesheet" href="${urls.base}/css/scholars-vis/grants/style.css" />',
+					'<link rel="stylesheet" href="${urls.base}/css/jquery_plugins/jquery.qtip.min.css" />',
 					'<link rel="stylesheet" href="${urls.base}/css/scholars-vis/jqModal.css" />')}
 
 <#if isCollegeOrSchool >
@@ -398,13 +397,14 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></
 	</#if>
 
 </#if>
-<#if isAcademicDept >
+<#if isAcademicDept || isJohnsonOrHotelSchool >
 	<script>
 	$().ready(function() {
 	  var wc = new ScholarsVis.DepartmentWordCloud({
 	    target : '#word_cloud_vis',
 	    modal : true,
-	    department : "${individual.uri?url}"
+	    department : "${individual.uri?url}",
+	    animation : true
       });
       $('#word_cloud_trigger').click(wc.show);
 	  $('#word_cloud_exporter').click(wc.showVisData);
@@ -412,7 +412,8 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></
 	  new ScholarsVis.IconizedDepartmentWordCloud({
 	    target : '#dynamic_word_cloud',
 	    modal : false,
-	    department : "${individual.uri?url}"
+	    department : "${individual.uri?url}",
+	    animation : false
       }).show();
 	});
 	</script>

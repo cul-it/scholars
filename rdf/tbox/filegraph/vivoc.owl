@@ -194,11 +194,11 @@
         <rdfs:comment xml:lang="en">This property is used when a Journal string is neither mapped to an existing Journal label nor ISSN/EISSN is found for the Journal. In such cases, rather creating a new URL for a Journal, intent is to attach the Journal title string to the academic article via free text journl title property.</rdfs:comment>
     </owl:DatatypeProperty>
 
-    <!-- http://scholars.cornell.edu/ontology/vivoc.owl#inferredKeywords -->
+    <!-- http://scholars.cornell.edu/ontology/vivoc.owl#inferredKeyword -->
     
-    <owl:DatatypeProperty rdf:about="http://scholars.cornell.edu/ontology/vivoc.owl#inferredKeywords">
-        <rdfs:label xml:lang="en">Inferred Keywords</rdfs:label>
-        <rdfs:comment xml:lang="en">Keywords that are inferred by an algorithm or a human and are attached to a thing. Examples of such things are Article, Journal, Grant etc. </rdfs:comment>
+    <owl:DatatypeProperty rdf:about="http://scholars.cornell.edu/ontology/vivoc.owl#inferredKeyword">
+        <rdfs:label xml:lang="en">Inferred Keyword</rdfs:label>
+        <rdfs:comment xml:lang="en">Keyword that is inferred by an algorithm or a human and is attached to a thing. Examples of such things are Article, Journal, Grant etc. </rdfs:comment>
     </owl:DatatypeProperty>
 
     <!-- http://scholars.cornell.edu/ontology/vivoc.owl#meshId -->

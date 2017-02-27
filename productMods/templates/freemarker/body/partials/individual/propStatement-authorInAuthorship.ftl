@@ -98,6 +98,36 @@
         </#if>
     </#local>
 
+	<#local altmetric>
+		<#if altmetricEnabled??>
+		    <#if statement.doi?has_content> <#-- true when the property is in the list, even if not populated (when editing) -->
+		            <div class="individual-altmetric-badge-inline">
+		                <div class="altmetric-embed"
+		                     data-badge-type="4"
+		                     <#if altmetricPopover??>data-badge-popover="right"</#if>
+		                     <#if altmetricDetails??>data-badge-details="${altmetricDetails}"</#if>
+		                     <#if altmetricHideEmpty??>data-hide-no-mentions="true"</#if>
+		                     data-link-target="_blank"
+		                     data-doi="${statement.doi!}">
+		                </div>
+		            </div>
+		    <#elseif statement.pmid?has_content>
+		           <#if statement.pmid?has_content> <#-- true when the property is in the list, even if not populated (when editing) -->
+			           <div class="individual-altmetric-badge">
+			               <div class="altmetric-embed"
+			                    data-badge-type="4"
+			                    <#if altmetricPopover??>data-badge-popover="right"</#if>
+			                    <#if altmetricDetails??>data-badge-details="${altmetricDetails}"</#if>
+			                    <#if altmetricHideEmpty??>data-hide-no-mentions="true"</#if>
+			                    data-link-target="_blank"
+			                    data-doi="${statement.pmid!}">
+			               </div>
+			           </div>
+		        </#if>
+		    </#if>
+		</#if>
+	</#local>
+
     <#local resourceTitle>
         <#if statement.infoResource??>
             <#if citationDetails?has_content && statement.infoResourceName?has_content >
@@ -111,6 +141,6 @@
         </#if>
     </#local>
 
-    ${resourceTitle} ${citationDetails} <@dt.yearSpan "${statement.dateTime!}" /> 
+    ${resourceTitle} ${citationDetails} <@dt.yearSpan "${statement.dateTime!}"/> ${altmetric!}
 </#if>
 </#macro>

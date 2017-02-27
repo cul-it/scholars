@@ -27,6 +27,8 @@
             ?editor
             ?hideThis
 			?freeTextTitle
+			?pmid
+			?doi
         WHERE
         {
             ?subject ?property ?authorship .
@@ -35,6 +37,8 @@
             ?infoResource a &lt;http://purl.obolibrary.org/obo/IAO_0000030&gt; .
             ?infoResource rdfs:label ?infoResourceName .
             OPTIONAL { ?infoResource vitro:mostSpecificType ?subclass }
+            OPTIONAL { ?infoResource bibo:doi ?doi }
+            OPTIONAL { ?infoResource bibo:pmid ?pmid }
             OPTIONAL { ?infoResource bibo:volume ?volume }
             OPTIONAL { ?infoResource bibo:pageStart ?startPage }
             OPTIONAL { ?infoResource bibo:pageEnd ?endPage }
@@ -92,6 +96,8 @@
             ?infoResource a &lt;http://purl.obolibrary.org/obo/IAO_0000030&gt; .
             ?infoResource vitro:mostSpecificType ?subclass .
             ?infoResource rdfs:label ?infoResourceName .
+            ?infoResource bibo:doi ?doi .
+            ?infoResource bibo:pmid ?pmid .
             ?infoResource bibo:volume ?volume .
             ?infoResource bibo:pageStart ?startPage .
             ?infoResource bibo:pageEnd ?endPage .
@@ -152,6 +158,22 @@
                 ?authorship core:relates ?infoResource .
                 ?infoResource a &lt;http://purl.obolibrary.org/obo/IAO_0000030&gt; .
                 ?infoResource rdfs:label ?infoResourceName
+            }
+            UNION
+            {
+                ?subject ?property ?authorship .
+                ?authorship a core:Authorship .
+                ?authorship core:relates ?infoResource .
+                ?infoResource a &lt;http://purl.obolibrary.org/obo/IAO_0000030&gt; .
+                ?infoResource bibo:doi ?doi .
+            }
+            UNION
+            {
+                ?subject ?property ?authorship .
+                ?authorship a core:Authorship .
+                ?authorship core:relates ?infoResource .
+                ?infoResource a &lt;http://purl.obolibrary.org/obo/IAO_0000030&gt; .
+                ?infoResource bibo:pmid ?pmid .
             }
             UNION
             {
@@ -263,6 +285,11 @@
                 ?editorObj rdfs:label ?editor .
             }
         }
+<!-- 
+http://purl.org/ontology/bibo/doi
+
+http://purl.org/ontology/bibo/pmid
+-->
     </query-construct>
 
     <template>propStatement-authorInAuthorship.ftl</template>

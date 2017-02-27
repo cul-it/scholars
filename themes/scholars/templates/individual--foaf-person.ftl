@@ -202,6 +202,8 @@ $(document).ready(function() {
 </#if>
 <div id="word_cloud_vis">
 	<a href="#" id="word_cloud_exporter" class="pull-right"><i class="fa fa-download" aria-hidden="true" title="export this data" style="font-size:24px"></i></a>
+	<label class="boxLabel"><input id="keyword" type="checkbox" class="cbox" checked>Article Keywords<span id="kw">(0)</span></label>
+	<label class="boxLabel"><input id="mesh" type="checkbox" class="cbox" checked>External Vocab.<span id="mt">(0)</span></label>
 </div>
 
 <div class="jqmWindow" id="subject-area-dialog">
@@ -277,7 +279,8 @@ $().ready(function() {
 	  var wc = new ScholarsVis.PersonWordCloud({
 	    target : '#word_cloud_vis',
 	    modal : true,
-	    person : "${individual.uri?url}"
+	    person : "${individual.uri?url}",
+	    animation : true
       });
       $('#word_cloud_trigger').click(wc.show);
       $('#word_cloud_exporter').click(wc.showVisData);
@@ -285,25 +288,24 @@ $().ready(function() {
 	  new ScholarsVis.IconizedPersonWordCloud({
 	    target : '#dynamic_word_cloud',
 	    modal : false,
-	    person : "${individual.uri?url}"
+	    person : "${individual.uri?url}",
+	    animation : false
       }).show();
 	});
 	</script>
 </#if>
 
 ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/individual/individual.css" />',
-                  '<link rel="stylesheet" href="${urls.base}/css/individual/individual-vivo.css" />',
-                  '<link rel="stylesheet" href="${urls.base}/css/individual/individual-2column-view.css" />',
-                  '<link rel="stylesheet" href="${urls.base}/js/jquery-ui/css/smoothness/jquery-ui-1.8.9.custom.css" />')}
+		         '<link rel="stylesheet" href="${urls.base}/css/individual/individual-vivo.css" />',
+				  '<link rel="stylesheet" href="${urls.base}/css/jquery_plugins/jquery.qtip.min.css" />',
+                  '<link rel="stylesheet" href="${urls.base}/css/individual/individual-2column-view.css" />')}
 
 ${headScripts.add('<script type="text/javascript" src="${urls.base}/js/tiny_mce/tiny_mce.js"></script>',
-                  '<script type="text/javascript" src="${urls.base}/js/jquery_plugins/qtip/jquery.qtip-1.0.0-rc3.min.js"></script>',
+                  '<script type="text/javascript" src="${urls.base}/js/jquery_plugins/qtip/jquery.qtip-3.0.3.min.js"></script>',
                   '<script type="text/javascript" src="${urls.base}/js/json2.js"></script>',
                   '<script type="text/javascript" src="${urls.base}/js/jquery_plugins/jquery.truncator.js"></script>')}
 
 ${scripts.add('<script type="text/javascript" src="${urls.base}/themes/scholars/js/individualUriRdf.js"></script>',
-              '<script type="text/javascript" src="${urls.base}/js/individual/individualQtipBubble.js"></script>',
-              '<script type="text/javascript" src="${urls.base}/js/jquery-ui/js/jquery-ui-1.8.9.custom.min.js"></script>',
               '<script type="text/javascript" src="${urls.base}/js/individual/individualUtils.js?vers=1.5.1"></script>',
 			  '<script type="text/javascript" src="${urls.base}/js/individual/moreLessController.js"></script>',
               '<script type="text/javascript" src="${urls.base}/js/individual/individualProfilePageType.js"></script>',
@@ -317,6 +319,7 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></
 	              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/scholars-vis.js"></script>',
 	              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/rdflib.js"></script>',
 	              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/d3/d3-tip.js"></script>',
+				  '<script type="text/javascript" src="https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js"></script>',
 	              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/d3/d3.layout.cloud.js"></script>',
 				  '<script type="text/javascript" src="${urls.base}/js/scholars-vis/wordcloud/word-cloud.js"></script>')}
 

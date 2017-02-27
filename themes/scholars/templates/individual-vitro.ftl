@@ -109,9 +109,10 @@
 
 </script>
 
-${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/individual/individual.css" />')}
+${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/jquery_plugins/jquery.qtip.min.css" />',
+				  '<link rel="stylesheet" href="${urls.base}/css/individual/individual.css" />')}
 
-${headScripts.add('<script type="text/javascript" src="${urls.base}/js/jquery_plugins/qtip/jquery.qtip-1.0.0-rc3.min.js"></script>',
+${headScripts.add('<script type="text/javascript" src="${urls.base}/js/jquery_plugins/qtip/jquery.qtip-3.0.3.min.js"></script>',
                   '<script type="text/javascript" src="${urls.base}/js/tiny_mce/tiny_mce.js"></script>')}
 
 ${scripts.add('<script type="text/javascript" src="${urls.base}/js/imageUpload/imageUploadUtils.js"></script>',
