@@ -138,7 +138,6 @@
 		  ?pub rdfs:label ?label .
 		  ?pub vivo:freetextKeyword ?keyword .
 		  ?pub vivo:hasSubjectArea ?mesh .
-      ?pub vivoc:inferredKeyword ?infkeyword .
 		  ?mesh rdfs:label ?meshLabel .
 		}
 		WHERE
@@ -156,9 +155,6 @@
 		    ?mesh a vivoc:MeshTerm .
 		    ?mesh rdfs:label ?meshLabel .
 		  }
-      OPTIONAL { 
-        ?pub vivoc:inferredKeyword ?infkeyword . 
-      }
 		}
       """ .
 

@@ -109,8 +109,6 @@ function transform_word_cloud_data(graph, options) {
 	stmts = graph.statementsMatching(undefined, VIVO('hasSubjectArea'));
 	stmts.forEach(new StatementProcessor("MESH").processStatement);
 	
-	stmts = graph.statementsMatching(undefined, VIVOC('inferredKeyword'));
-	stmts.forEach(new StatementProcessor("INFERRED").processStatement);
 	return jsonResult;
 	
 	function StatementProcessor(citationType) {
@@ -119,16 +117,11 @@ function transform_word_cloud_data(graph, options) {
 			labelFunction = labelOfKeyword;
 		} else if (citationType == "MESH"){
 			labelFunction = labelOfMeshTerm;
-		} else if (citationType == "INFERRED"){
-			labelFunction = labelOfInferred;
-		}
+		} 
 		
 		return {processStatement: processStatement};
 	
 		function labelOfKeyword(statement) {
-			return statement.object.value;
-		}
-		function labelOfInferred(statement) {
 			return statement.object.value;
 		}
 		function labelOfMeshTerm(statement) {
@@ -301,7 +294,7 @@ var allWords = [];
 var initialLoad = true;
 var targetDiv; 
 var currentOptions;
-var types = ["KEYWORD","MESH","INFERRED"];
+var types = ["KEYWORD","MESH"];
 var keywords;
 
 function draw_word_cloud(unfiltered, target, options) {	
@@ -486,15 +479,13 @@ function close_word_cloud(target) {
 /*Returns the status of the checkboxes as an array*/
 function getChecks(){
  var keyword = d3.select("#keyword").property("checked"); 
- var mesh = d3.select("#mesh").property("checked"); 
- var mined = d3.select("#mined").property("checked"); 
- return [keyword, mesh, mined];  
+ var mesh = d3.select("#mesh").property("checked");
+ return [keyword, mesh];  
 }
 
 function updateNumbers(arrayIn){
 	setNumber("#kw", arrayIn.keywords); 
-	setNumber("#mt", arrayIn.mesh); 
-	setNumber("#minedt", arrayIn.mined);
+	setNumber("#mt", arrayIn.mesh);
 
 	function setNumber(target, number){
 		d3.select(target).text("(" + number + ")");
@@ -503,7 +494,6 @@ function updateNumbers(arrayIn){
 
 function generateCount(keywords){
 	var returnObject = {
-		mined: 0, 
 		mesh: 0,
 		keywords: 0
 	}
@@ -520,9 +510,6 @@ function generateCount(keywords){
 		if (wordSet.has("MESH")){
 			returnObject.mesh++; 
 		}
-		if (wordSet.has("INFERRED")){
-			returnObject.mined++; 
-		}
 	});
 	return returnObject;
 }
@@ -531,10 +518,8 @@ function generateCount(keywords){
 function enabledisable(keywords){
  	var keyword = false;
  	var mesh = false;
-	var inferred = false;
  	var kw = document.getElementById("keyword");
  	var ms = document.getElementById("mesh");
- 	var mn = document.getElementById("mined");
 
  	for(var i = 0; i < keywords.length; i++) {
    		var entities = keywords[i].entities;
@@ -545,9 +530,6 @@ function enabledisable(keywords){
    			}
    			if(types.includes("KEYWORD")){
 				keyword = true;
-   			}
-   			if(types.includes("INFERRED")){
-   				inferred = true;
    			}
    		}
  	}
@@ -560,10 +542,6 @@ function enabledisable(keywords){
  		ms.checked = false;
 		ms.setAttribute("disabled", "true");
  	}
- 	if(mn && !inferred){
- 		mn.checked = false;
-		mn.setAttribute("disabled", "true");
- 	}
 }
 
 $(document).ready(function(){
@@ -575,9 +553,6 @@ $(document).ready(function(){
 		}
 		if(checks[1] == true){
 			types.push("MESH");
-		}
-		if(checks[2] == true){
-			types.push("INFERRED");
 		}
 		d3.select(targetDiv).selectAll("svg").remove(); 
 		draw_word_cloud(allWords, targetDiv, currentOptions); 
