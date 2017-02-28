@@ -3,25 +3,13 @@
     <div class="col-md-4 kwcloud-selector">
 
       <div id="legendDiv" class="center-block">
-        Browse keyword clouds 
+         <h2 style="padding:0;color:#5f5858;font-size:20px">
+            Browse keyword clouds
+         </h2>
+         <p style="font-size:12px">Select faculty member or academic department.</p>
       </div>
       
       <div class="panel-group" id="accordion">
-
-        <div id="departmentSelectionPanel" class="panel panel-default selection-list">
-          <div class="panel-heading">
-            <h4 class="panel-title">
-              <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-                <span class="start">Select:</span> Academic Department
-              </a>
-            </h4>
-          </div>
-          <div id="collapseOne" class="panel-collapse collapse">
-            <div class="panel-body" id="selector">
-              <input id="searcher" type="text" class="form-control" placeholder="Search"/>
-            </div>
-          </div>
-        </div>
 
         <div id="personSelectionPanel" class="panel panel-default selection-list">
           <div class="panel-heading">
@@ -38,7 +26,22 @@
           </div>
         </div>
         
-        <h4><a id="siteSelector" href="#">Reset</a></h4>
+        <div id="departmentSelectionPanel" class="panel panel-default selection-list">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+              <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                <span class="start">Select:</span> Academic Department
+              </a>
+            </h4>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse">
+            <div class="panel-body" id="selector">
+              <input id="searcher" type="text" class="form-control" placeholder="Search"/>
+            </div>
+          </div>
+        </div>
+
+        <h4 style="margin-top:8px"><a id="siteSelector" href="#">Reset</a></h4>
         
       </div> 
 
@@ -64,16 +67,16 @@
       </div>
 
       <div id="siteWordCloudVis" style="display:none">
+        <a href="#" id="exporter" >
+          <i class="fa fa-download pull-right" aria-hidden="true" title="export this data"></i>
+        </a>
         <span class="glyphicon glyphicon-info-sign pull-right" 
           data-toggle="tooltip" 
           data-original-title="The keyword cloud presents the top 300 keywords extracted from the journal articles published by Cornell faculty and researchers. <br> The size of each keyword in the cloud is directly proportional to the sum of the count of the faculty/researchers. <br> The bigger the keyword is in size, the more the faculty members and researcher used the term in their papers."
           data-placement="bottom"
           data-html="true" 
-          data-viewport="#site_wordcloud_vis">
+          data-viewport="#siteWordCloudVis">
         </span>
-        <a href="#" id="exporter" >
-          <i class="fa fa-download pull-right" aria-hidden="true" title="export this data"></i>
-        </a>
         <div id="wc-text-container">
           <span class="text-primary" id="content"></span>
         </div>

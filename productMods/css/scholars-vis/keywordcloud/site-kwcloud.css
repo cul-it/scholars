@@ -42,11 +42,12 @@
     background-color: rgba(50, 150, 200, 0.8);
 }
 
-#site_wordcloud_vis  .tooltip.bottom .tooltip-inner {
-/*    background-color:green; */
-    width: 800px;
+#siteWordCloudVis .tooltip {
+    width: 30%;
+}
+#siteWordCloudVis .tooltip.bottom .tooltip-inner {
     text-align: justify;
 }
-#site_wordcloud_vis  .tooltip.bottom .tooltip-arrow {
-/*    border-bottom-color: green; */
-}  
+#siteWordCloudVis .glyphicon-info-sign {
+    margin-right: 10px;
+}
