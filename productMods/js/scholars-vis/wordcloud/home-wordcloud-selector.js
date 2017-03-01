@@ -93,7 +93,7 @@ function createWordCloudSelector(siteSelector, departmentSelector, personSelecto
       }
       
       function sorter(a, b) {
-        return a.label.toLowerCase() > b.label.toLowerCase();
+        return a.label.toLowerCase().localeCompare(b.label.toLowerCase());
       }
       
       function distinct(el, i, array) {
