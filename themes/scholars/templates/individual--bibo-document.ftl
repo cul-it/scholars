@@ -319,9 +319,7 @@
 					<#list meshTermsProp.statements as statement>
 						<#if statement.concept?contains("mesh")>
 							<#assign hasMeshTerm = true />
-		  					<#list meshTermsProp.statements as statement>
-		  							<a href="${statement.concept!}" target="_blank">${statement.conceptLabel!}</a><#if statement_has_next> | </#if>
-		  					</#list>
+		  					<li class="inline-meshterm"><a href="${statement.concept!}" target="_blank">${statement.conceptLabel!}</a><#if statement_has_next> | </#if></li>
 						</#if>
 					</#list>
   				</ul>

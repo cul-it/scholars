@@ -3230,3 +3230,6 @@ header {
 	border-color: #aba;
 	border-radius: 8px;
 }
+.inline-meshterm {
+	display: inline;
+}
