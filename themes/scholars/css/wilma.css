@@ -2331,8 +2331,8 @@ div#foaf-organization-blank-row {
 }
 .dept_collab_vis {
     display: table;
-	height: 600px;
-	width: 700px;
+    height:80%;
+    width:75%;
 	z-index: 15;
 	border-radius: 5px;
 }
