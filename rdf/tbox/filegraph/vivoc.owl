@@ -162,7 +162,19 @@
     ///////////////////////////////////////////////////////////////////////////////////////
      -->
 
+    <!-- http://scholars.cornell.edu/ontology/vivoc.owl#freetextAddress -->
     
+    <owl:DatatypeProperty rdf:about="http://scholars.cornell.edu/ontology/vivoc.owl#freetextAddress">
+        <rdfs:label xml:lang="en">Free text address</rdfs:label>
+        <rdfs:comment xml:lang="en">This property is used when an affiliation string is not paresed to address, city, country and zipcode etc. In such cases, rather creating a new URL for an Organization, intent is to attach the address string to the authorship node via free text address data property. If one has the parsed address data, vivo object property vivo:relates should be used to link a foaf:Organization with the vivo:Authorship node.</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+     <!-- http://scholars.cornell.edu/ontology/vivoc.owl#isOptIn -->
+
+    <owl:DatatypeProperty rdf:about="http://scholars.cornell.edu/ontology/vivoc.owl#isOptIn">
+        <rdfs:range rdf:resource="&xsd;boolean"/>
+         <rdfs:comment xml:lang="en">This property is used to demonstrate if an agent (person/organization) is optIn or optOut. In case, a person is opt in, a complete profile page will be displayed. In case of opt out, only top panel (with position information) will be displayed. </rdfs:comment>
+    </owl:DatatypeProperty>
 
 
     <!-- http://purl.org/ontology/bibo/identifier -->
