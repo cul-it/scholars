@@ -309,10 +309,10 @@ function draw_word_cloud(unfiltered, target, options) {
 		allWords = unfiltered;
 		enabledisable(keywords);
 		initialLoad = false;
-	}
-	if (keywords.length == 0) {
-	  $(target).html("<div id='none'>No Research Keywords</div>");
-	  return;
+		if (keywords.length == 0) {
+	  		$(target).html("<div id='none'>No Research Keywords</div>");
+	  		return;
+		}
 	}
 
 	var isInteractive =  (typeof(options.interactive) == 'undefined') || options.interactive;
