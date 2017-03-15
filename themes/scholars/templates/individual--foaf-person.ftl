@@ -137,7 +137,7 @@ $(document).ready(function() {
 <div id="visualization-column" class="col-sm-3 col-md-3 col-lg-3 scholars-container">
  	<#if isAuthor >
 		<#if hasKeywords >
- 			<div><a href="#" id="word_cloud_trigger"><div id="dynamic_word_cloud"></div></a>
+ 			<div><a href="#" id="word_cloud_trigger"><img width="128px" src="${urls.base}/themes/scholars/images/profile-wordcloud.png"/></a>
  				<p>Keywords</p>
  			</div>
 		</#if>
@@ -284,13 +284,6 @@ $().ready(function() {
       });
       $('#word_cloud_trigger').click(wc.show);
       $('#word_cloud_exporter').click(wc.showVisData);
-
-	  new ScholarsVis.IconizedPersonWordCloud({
-	    target : '#dynamic_word_cloud',
-	    modal : false,
-	    person : "${individual.uri?url}",
-	    animation : false
-      }).show();
 	});
 	</script>
 </#if>

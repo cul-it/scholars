@@ -91,7 +91,7 @@
   </#if>
   <#if isAcademicDept || isJohnsonOrHotelSchool >
 	<div>
-		<a href="#" id="word_cloud_trigger"><div id="dynamic_word_cloud" >&nbsp;</div></a>
+		<a href="#" id="word_cloud_trigger"><img width="128px" src="${urls.base}/themes/scholars/images/profile-wordcloud.png"/></a>
 		<p>Keywords</p>
 	</div>
 	<div <#if isJohnsonOrHotelSchool >style="display:none"</#if>>
@@ -408,13 +408,6 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></
       });
       $('#word_cloud_trigger').click(wc.show);
 	  $('#word_cloud_exporter').click(wc.showVisData);
-	
-	  new ScholarsVis.IconizedDepartmentWordCloud({
-	    target : '#dynamic_word_cloud',
-	    modal : false,
-	    department : "${individual.uri?url}",
-	    animation : false
-      }).show();
 	});
 	</script>
 </#if>
