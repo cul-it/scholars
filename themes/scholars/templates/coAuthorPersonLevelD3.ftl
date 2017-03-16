@@ -95,99 +95,134 @@ $(document).ready(function(){
 
             }
         });
-                    
+
+    render_chord();
+});
+
 // RENDER CHORD
 
     var labels = [];
-    var uris   = [];
+    var uris = [];
     var matrix = [];
 
-    var matrixX = 0;
-    <#list coAuthorshipData.collaborationMatrix as row>
-        matrix[matrixX] = [];
-        <#list row as cell>
-            matrix[matrixX].push(${cell?c});
+    var width = 725;
+    var height = 725;
+    var padding = 175;
+    var svg;
+
+    function render_chord() {
+        var showVCards = $("#vcards").is(':checked');
+        vcards = [];
+        labels = [];
+        uris = [];
+        matrix = [];
+
+        var matrixX = 0;
+        <#list coAuthorshipData.collaborators as collaborator>
+            <#if collaborator.isVCard>
+                vcards.push(true);
+                $("#vcardstoggle").show();
+            <#else>
+                vcards.push(false);
+            </#if>
+            if (showVCards || !vcards[vcards.length-1]) {
+                labels.push("${collaborator.collaboratorName}");
+                uris.push("${collaborator.collaboratorURI}");
+            }
         </#list>
-        matrixX++;
-    </#list>
-    <#list coAuthorshipData.collaborators as collaborator>
-        labels.push("${collaborator.collaboratorName}");
-        uris.push("${collaborator.collaboratorURI}");
-    </#list>
+        <#list coAuthorshipData.collaborationMatrix as row>
+            if (showVCards || !vcards[${row_index}]) {
+                matrix[matrixX] = [];
+                <#list row as cell>
+                    matrix[matrixX].push(${cell?c});
+                </#list>
+                matrixX++;
+            }
+        </#list>
 
-    var chord = d3.layout.chord()
-            .padding(0.05)
-            .sortSubgroups(d3.descending)
-            .matrix(matrix);
+        $( "#chord" ).empty();
 
-    var width  = 600;
-    var height = 600;
-    var padding = 110;
-    var inner_radius = Math.min(width, height) * 0.37;
-    var outer_radius = Math.min(width, height) * 0.39;
+        var chord = d3.layout.chord()
+                .padding(0.05)
+                .sortSubgroups(d3.descending)
+                .matrix(matrix);
 
-    var fill = d3.scale.category10();
+        var inner_radius = Math.min(width, height) * 0.37;
+        var outer_radius = Math.min(width, height) * 0.39;
 
-    var svg = d3.select('#chord').append('svg')
-            .attr('width', width+padding)
-            .attr('height', height+padding)
-            .append('g').attr('transform', 'translate(' + (width+padding) / 2 + ',' + (height+padding) / 2 +')');
+        var fill = d3.scale.category10();
 
-    svg.append('g').selectAll('path').data(chord.groups).enter()
-            .append('path').style('fill', function(val) { return val.index == 0 ? "#000000" : fill(val.index); })
-            .style('stroke', function(val) { return val.index == 0 ? "#000000" : fill(val.index); })
-            .attr('d', d3.svg.arc().innerRadius(inner_radius).outerRadius(outer_radius))
-            .on('click', chord_click())
-            .on("mouseover", chord_hover(.05))
-            .on("mouseout", chord_hover(.8));
+        svg = d3.select('#chord').append('svg')
+                .attr('width', width + padding)
+                .attr('height', height + padding)
+                .append('g').attr('transform', 'translate(' + (width + padding) / 2 + ',' + (height + padding) / 2 + ')');
 
-    var group_ticks = function (d) {
-        var k = (d.endAngle - d.startAngle) / d.value;
-        return d3.range(d.value / 2, d.value, d.value / 2).map(function (v) {
-            return {
-                angle: v * k + d.startAngle,
-                label: Math.round(d.value)
-            };
-        });
-    };
+        svg.append('g').selectAll('path').data(chord.groups).enter()
+                .append('path').style('fill', function (val) {
+                    return val.index == 0 ? "#000000" : fill(val.index);
+                })
+                .style('stroke', function (val) {
+                    return val.index == 0 ? "#000000" : fill(val.index);
+                })
+                .attr('d', d3.svg.arc().innerRadius(inner_radius).outerRadius(outer_radius))
+                .on('click', chord_click())
+                .on("mouseover", chord_hover(.05))
+                .on("mouseout", chord_hover(.8));
 
-    var chord_ticks = svg.append('g')
-            .selectAll('g')
-            .data(chord.groups)
-            .enter().append('g')
-            .selectAll('g')
-            .data(group_ticks)
-            .enter().append('g')
-            .attr('transform', function (d) {
-                return 'rotate(' + (d.angle * 180 / Math.PI - 90) + ') translate(' + outer_radius + ',0)';
+        var group_ticks = function (d) {
+            var k = (d.endAngle - d.startAngle) / d.value;
+            return d3.range(d.value / 2, d.value, d.value / 2).map(function (v) {
+                return {
+                    angle: v * k + d.startAngle,
+                    label: Math.round(d.value)
+                };
             });
+        };
 
-    svg.append('g')
-            .attr('class', 'chord')
-            .selectAll('path')
-            .data(chord.chords)
-            .enter().append('path')
-            .style('fill', function (d) { return fill(d.target.index); })
-            .attr('d', d3.svg.chord().radius(inner_radius))
-            .style('opacity', .8);
+        var chord_ticks = svg.append('g')
+                .selectAll('g')
+                .data(chord.groups)
+                .enter().append('g')
+                .selectAll('g')
+                .data(group_ticks)
+                .enter().append('g')
+                .attr('transform', function (d) {
+                    return 'rotate(' + (d.angle * 180 / Math.PI - 90) + ') translate(' + outer_radius + ',0)';
+                });
 
-    svg.append("g").selectAll(".arc")
-            .data(chord.groups)
-            .enter().append("svg:text")
-            .attr("dy", ".35em")
-            .attr("style", function(d) { return d.index == 0 ? "font-size: .75em; font-weight: bold;" : "font-size: .70em;"; } )
-            .attr("text-anchor", function(d) { return ((d.startAngle + d.endAngle) / 2) > Math.PI ? "end" : null; })
-            .attr("transform", function(d) {
-                return "rotate(" + (((d.startAngle + d.endAngle) / 2) * 180 / Math.PI - 90) + ")"
-                        + "translate(" + (height *.40) + ")"
-                        + (((d.startAngle + d.endAngle) / 2) > Math.PI ? "rotate(180)" : "");
-            })
-            .text(function(d) {
-                return labels[d.index];
-            })
-            .on('click', chord_click())
-            .on("mouseover", chord_hover(.05))
-            .on("mouseout", chord_hover(.8));
+        svg.append('g')
+                .attr('class', 'chord')
+                .selectAll('path')
+                .data(chord.chords)
+                .enter().append('path')
+                .style('fill', function (d) {
+                    return fill(d.target.index);
+                })
+                .attr('d', d3.svg.chord().radius(inner_radius))
+                .style('opacity', .8);
+
+        svg.append("g").selectAll(".arc")
+                .data(chord.groups)
+                .enter().append("svg:text")
+                .attr("dy", ".35em")
+                .attr("style", function (d) {
+                    return d.index == 0 ? "font-size: .75em; font-weight: bold;" : (vcards[d.index] ? "font-size: .65em; font-style: italic;" : "font-size: .70em;");
+                })
+                .attr("text-anchor", function (d) {
+                    return ((d.startAngle + d.endAngle) / 2) > Math.PI ? "end" : null;
+                })
+                .attr("transform", function (d) {
+                    return "rotate(" + (((d.startAngle + d.endAngle) / 2) * 180 / Math.PI - 90) + ")"
+                            + "translate(" + (height * .40) + ")"
+                            + (((d.startAngle + d.endAngle) / 2) > Math.PI ? "rotate(180)" : "");
+                })
+                .text(function (d) {
+                    return labels[d.index];
+                })
+                .on('click', chord_click())
+                .on("mouseover", chord_hover(.05))
+                .on("mouseout", chord_hover(.8));
+    }
 
     function chord_hover(opacity) {
         return function(g, i) {
@@ -205,7 +240,7 @@ $(document).ready(function(){
                 if (i > 0) {
                     hoverMsg += matrix[i][0] + " Joint ${i18n().publication_s_capitalized}<br/>";
                 } else {
-                    hoverMsg += "${coAuthorshipData.collaboratorsCount} ${i18n().co_author_s_capitalized}<br/>";
+                    hoverMsg += "${coAuthorshipData.collaboratorsCount - 1} ${i18n().co_author_s_capitalized}<br/>";
                 }
 
                 chordInfoDiv.html(hoverMsg);
@@ -239,36 +274,36 @@ $(document).ready(function(){
             }
         };
     }
-});
 </script>
+
 <#if (numOfCoAuthorShips?? && numOfCoAuthorShips > 0) || (numOfAuthors?? && numOfAuthors > 0) > 
     <#assign graphml>
 		<span id="graphml-span"> 
 			<a href="${egoCoAuthorshipNetworkDataFileURL}" title="GraphML ${i18n().file}">(GraphML ${i18n().file})</a>
 		</span>
 	</#assign>
-</#if>
-<div class="row f1f2f3-bkg">
-<div id="vis-body" class="col-sm-12 col-md-12 col-lg-12 scholars-container">
-	<div  class="sub_headings">
-		<h2 >
-			<a id="author-name" href="${egoVivoProfileURL}" title="${i18n().author_name}">
-				<span id="ego_label"></span>
-			</a><br />${i18n().co_author_network} ${graphml!}
-		</h2>
-	</div>
+</#if>	<div class="row f1f2f3-bkg">
+	<div id="vis-body" class="col-sm-12 col-md-12 col-lg-12 scholars-container">
+		<div  class="sub_headings">
+			<h2 >
+				<a id="author-name" href="${egoVivoProfileURL}" title="${i18n().author_name}">
+					<span id="ego_label"></span>
+				</a><br />${i18n().co_author_network} ${graphml!}
+			</h2>
+		</div>
+
     <div class = "toggle_visualization">
-        <div id="coinvestigator_link_container" class="collaboratorship-link-container">
-            <div class="collaboratorship-link_off">
-                <h3><a href="${coprincipalinvestigatorURL}" title="${i18n().co_investigator_network}">View Co-investigators</a></h3>
-            </div>
-        </div>
+	    <div id="coinvestigator_link_container" class="collaboratorship-link-container">
+	        <div class="collaboratorship-link_off">
+	            <h3><a href="${coprincipalinvestigatorURL}" title="${i18n().co_investigator_network}">View Co-investigators</a></h3>
+	        </div>
+	    </div>
     </div>
     
     <#if (builtFromCacheTime??) >
         <div class="cache-info-small">${i18n().using_cache_time} ${builtFromCacheTime?time} (${builtFromCacheTime?date?string("MMM dd yyyy")})</div>
     </#if>
-    <div class="clear-both"></div>
+    <div style="clear:both;"></div>
 
     <#if (numOfAuthors?? && numOfAuthors > 0) >
     <#else>
@@ -282,16 +317,23 @@ $(document).ready(function(){
     <#if (numOfCoAuthorShips?? && numOfCoAuthorShips > 0) || (numOfAuthors?? && numOfAuthors > 0) >
     
         <div id="bodyPannel">
-            <div id="chord"></div>
+            <form id="vcardstoggle" method="get" style="float: right; display: none;margin:-40px 35px 0 0;">
+                <span for="vcards" style="font-size:15px">Include unconfirmed co-authors <input type="checkbox" id="vcards" onclick="render_chord();"  checked /></span>
+            </form>
+            <div id="chord" style="margin-top:"></div>
         </div>
     </#if>
 
-    <div class="clear-both"></div>
-        <div id="incomplete-data-small">
-			<p>Note: This information is based solely on publications that have been loaded into the Scholars@Cornell system. This may only be a small sample of the person's total work.</p>
+    <div style="clear:both"></div>
+        <div id="incomplete-data-small">${i18n().incomplete_data_note1}<p></p><p></p>
+            <#if user.loggedIn >
+                ${i18n().incomplete_data_note2}
+            <#else>
+                ${i18n().incomplete_data_note3}
+            </#if>
         </div>
-        
-    <div class="clear-both"></div>
+        <p></p>
+    <div style="clear:both"></div>
 
     <#if (numOfAuthors?? && numOfAuthors > 0) >
 
@@ -344,11 +386,12 @@ $(document).ready(function(){
             
             </#if>
             
-            <div class="clear-both"></div>
+            <div style="clear:both"></div>
         
         </div>
         
     </#if>
     
 </div>
+<div id="chord-info-div" style="display: none;"></div>
 </div> <!-- row -->
