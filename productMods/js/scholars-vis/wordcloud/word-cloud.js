@@ -108,6 +108,9 @@ function transform_word_cloud_data(graph, options) {
 
 	stmts = graph.statementsMatching(undefined, VIVO('hasSubjectArea'));
 	stmts.forEach(new StatementProcessor("MESH").processStatement);
+
+	stmts = graph.statementsMatching(undefined, VIVOC('inferredKeyword'));
+	stmts.forEach(new StatementProcessor("INFERRED").processStatement);
 	
 	return jsonResult;
 	
@@ -117,6 +120,8 @@ function transform_word_cloud_data(graph, options) {
 			labelFunction = labelOfKeyword;
 		} else if (citationType == "MESH"){
 			labelFunction = labelOfMeshTerm;
+		} else if (citationType == "INFERRED"){
+			labelFunction = labelOfInferredTerm;
 		} 
 		
 		return {processStatement: processStatement};
@@ -126,6 +131,9 @@ function transform_word_cloud_data(graph, options) {
 		}
 		function labelOfMeshTerm(statement) {
 			return graph.any(statement.object, RDFS("label")).value;
+		}
+		function labelOfInferredTerm(statement) {
+			return statement.object.value;
 		}
 
 		function processStatement(statement) {
@@ -294,25 +302,19 @@ var allWords = [];
 var initialLoad = true;
 var targetDiv; 
 var currentOptions;
-var types = ["KEYWORD","MESH"];
+var types = ["KEYWORD","MESH","INFERRED"];
 var keywords;
 
 function draw_word_cloud(unfiltered, target, options) {	
 	targetDiv = target; 
     currentOptions = options;
+
 	keywords = filterSortAndSlice(unfiltered, options, types);
 	//	var keywords = filterSortAndSlice(unfiltered, options, "KEYWORD");
-	var counts = generateCount(keywords);
-	updateNumbers(counts);
 	
 	if(initialLoad){
 		allWords = unfiltered;
-		enabledisable(keywords);
 		initialLoad = false;
-		if (keywords.length == 0) {
-	  		$(target).html("<div id='none'>No Research Keywords</div>");
-	  		return;
-		}
 	}
 
 	var isInteractive =  (typeof(options.interactive) == 'undefined') || options.interactive;
@@ -384,8 +386,6 @@ function draw_word_cloud(unfiltered, target, options) {
    }
    	
 function draw(input) {
-	
-	//console.log("draw");
 
 	if(input.length == 0) return;
 
@@ -479,81 +479,27 @@ function close_word_cloud(target) {
 
 /*Returns the status of the checkboxes as an array*/
 function getChecks(){
+ var all = d3.select("#all").property("checked");
  var keyword = d3.select("#keyword").property("checked"); 
- var mesh = d3.select("#mesh").property("checked");
- return [keyword, mesh];  
-}
-
-function updateNumbers(arrayIn){
-	setNumber("#kw", arrayIn.keywords); 
-	setNumber("#mt", arrayIn.mesh);
-
-	function setNumber(target, number){
-		d3.select(target).text("(" + number + ")");
-	}
-}
-
-function generateCount(keywords){
-	var returnObject = {
-		mesh: 0,
-		keywords: 0
-	}
-	keywords.forEach(function(keyword){
-		var types = keyword.entities.map(function(entity){
-			return entity.citationsTypes;
-		});
-		var merged = [].concat.apply([], types);
-		var wordSet = new Set(merged);
-
-		if (wordSet.has("KEYWORD")){
-			returnObject.keywords++;
-		}
-		if (wordSet.has("MESH")){
-			returnObject.mesh++; 
-		}
-	});
-	return returnObject;
-}
-
-
-function enabledisable(keywords){
- 	var keyword = false;
- 	var mesh = false;
- 	var kw = document.getElementById("keyword");
- 	var ms = document.getElementById("mesh");
-
- 	for(var i = 0; i < keywords.length; i++) {
-   		var entities = keywords[i].entities;
-   		for(var j=0; j<entities.length; j++){
-   			var types = entities[j].citationsTypes;
-   			if(types.includes("MESH")){
-   				mesh = true;
-   			}
-   			if(types.includes("KEYWORD")){
-				keyword = true;
-   			}
-   		}
- 	}
-
- 	if(kw && !keyword){
- 		kw.checked = false;
-		kw.setAttribute("disabled", "true");
- 	}
- 	if(ms && !mesh){
- 		ms.checked = false;
-		ms.setAttribute("disabled", "true");
- 	}
+ var ext = d3.select("#mesh").property("checked");
+ var inf = d3.select("#inferred").property("checked");
+ return [all, keyword, ext, inf];  
 }
 
 $(document).ready(function(){
-	d3.selectAll(".cbox").on("change", function(){
+	d3.selectAll(".radio").on("change", function(){
  		var checks = getChecks(); 
 		types = [];
  		if(checks[0] == true){
- 			types.push("KEYWORD");
-		}
-		if(checks[1] == true){
+ 			types.push("MESH");
+			types.push("KEYWORD");
+			types.push("INFERRED");
+		}else if(checks[1] == true){
+			types.push("KEYWORD");
+		}else if(checks[2] == true){
 			types.push("MESH");
+		}else if(checks[3] == true){
+			types.push("INFERRED");
 		}
 		d3.select(targetDiv).selectAll("svg").remove(); 
 		draw_word_cloud(allWords, targetDiv, currentOptions); 
