@@ -137,7 +137,7 @@ $(document).ready(function() {
 <div id="visualization-column" class="col-sm-3 col-md-3 col-lg-3 scholars-container">
  	<#if isAuthor >
 		<#if hasKeywords >
- 			<div><a href="#" id="word_cloud_trigger"><img width="128px" src="${urls.base}/themes/scholars/images/profile-wordcloud.png"/></a>
+ 			<div><a href="#" id="word_cloud_trigger"><img width="128px" src="${urls.base}/themes/scholars/images/wordcloud-icon.png"/></a>
  				<p>Keywords</p>
  			</div>
 		</#if>

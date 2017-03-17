@@ -96,7 +96,7 @@
 						</div>
 						<div class="col-sm-3 col-md-3 col-lg-3">
 							<a href="${urls.base}/homeWordcloudVisualization">
-								<img width="150px" src="${urls.base}/themes/scholars/images/home-wordcloud.png"/>
+								<img width="150px" src="${urls.base}/themes/scholars/images/wordcloud-icon.png"/>
 							</a>
 							<div>
 								<p>Keyword Cloud</p>
