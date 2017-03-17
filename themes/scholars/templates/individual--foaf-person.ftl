@@ -202,8 +202,10 @@ $(document).ready(function() {
 </#if>
 <div id="word_cloud_vis">
 	<a href="#" id="word_cloud_exporter" class="pull-right"><i class="fa fa-download" aria-hidden="true" title="export this data" style="font-size:24px"></i></a>
-	<label class="boxLabel"><input id="keyword" type="checkbox" class="cbox" checked>Article Keywords<span id="kw">(0)</span></label>
-	<label class="boxLabel"><input id="mesh" type="checkbox" class="cbox" checked>External Vocab.<span id="mt">(0)</span></label>
+	<label class="radio-inline"><input id="all"      type="radio" name="kwRadio" class="radio" checked>All</label>
+	<label class="radio-inline"><input id="keyword"  type="radio" name="kwRadio" class="radio" >Article Keywords</label>
+	<label class="radio-inline"><input id="mesh"     type="radio" name="kwRadio" class="radio" >External Vocab.</label>
+	<label class="radio-inline"><input id="inferred" type="radio" name="kwRadio" class="radio" >Mined Keywords</label>
 </div>
 
 <div class="jqmWindow" id="subject-area-dialog">
