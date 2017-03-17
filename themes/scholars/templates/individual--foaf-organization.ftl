@@ -91,7 +91,7 @@
   </#if>
   <#if isAcademicDept || isJohnsonOrHotelSchool >
 	<div>
-		<a href="#" id="word_cloud_trigger"><img width="128px" src="${urls.base}/themes/scholars/images/wordcloud-icon.png"/></a>
+		<a href="#" id="word_cloud_trigger"><img width="145px" src="${urls.base}/themes/scholars/images/wordcloud-icon.png"/></a>
 		<p>Keywords</p>
 	</div>
 	<div <#if isJohnsonOrHotelSchool >style="display:none"</#if>>
