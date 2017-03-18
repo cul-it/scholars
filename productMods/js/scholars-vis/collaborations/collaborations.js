@@ -331,13 +331,13 @@ var texts = svg.selectAll("text")
               if(crumbs.slice(-1)[0]==="term"){
                 crumbs.pop()
                 crumbs.pop();
-                crumbs.push(d.name);
+                crumbs.push(d.name+" ("+d.orgCode+")");
                 crumbs.push("term"); 
                 var len = crumbs.length-1;
                 updateCrumbs(crumbs.slice(0, len))
               }
               else{
-                crumbs.push(d.name);
+                crumbs.push(d.name+" ("+d.orgCode+")");
                 crumbs.push("term"); 
                 var len = crumbs.length-1;
                 updateCrumbs(crumbs.slice(0, len))
@@ -356,7 +356,11 @@ var texts = svg.selectAll("text")
       var crumbs = [];
 
       //construct list of nodes. 
-      crumbs.push(root.name); 
+      if(root.orgCode){
+        crumbs.push(root.name+" ("+root.orgCode+")");
+      }else{
+        crumbs.push(root.name); 
+      }
       while(root.parent){
         crumbs.push(root.parent.name);
         root = root.parent;
