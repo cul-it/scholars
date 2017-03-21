@@ -45,7 +45,7 @@ display:getGraduateFieldDataGetter
 		SELECT  DISTINCT ?positionTitle (str(?name) AS ?personName)
 		WHERE
 		{
-    		?individualURI vivo:relatedBy ?position .
+    		?individualURI <http://scholars.cornell.edu/ontology/hr.owl#hasPosition> ?position .
     		?position a vivo:FacultyAdministrativePosition .
     		?position vivo:relates ?person .
     		?person a foaf:Person .

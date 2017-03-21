@@ -58,7 +58,6 @@
 </#if>
 <#if academicOfficers?has_content>
   <#assign academicOfficerList>
-		<div id="academic-officer-list">
 		<#list academicOfficers as officer>
 			<div id="academic-officer-list-title">
 				${officer.positionTitle!}
@@ -68,7 +67,6 @@
 			</div>
 			<div class="clear-both"></div>
 		</#list>
-		</div>
   </#assign>
 </#if>
 <#assign webpageProp = propertyGroups.pullProperty("http://purl.obolibrary.org/obo/ARG_2000028","http://www.w3.org/2006/vcard/ns#URL")!>
@@ -199,22 +197,6 @@
 <#-- The row1 div contains the top portion of the profile page: name, photo, icon controls -->
 <div id="row1" class="row scholars-row">
 <div class="col-sm-12 col-md-12 col-lg-12 scholars-container" id="foafOrgMainColumn">
-	<section id="share-contact" role="region"> 
-	    <#-- Image -->           
-	    <#assign individualImage>
-	        <@p.image individual=individual 
-	                  propertyGroups=propertyGroups 
-	                  namespaces=namespaces 
-	                  editable=editable 
-	                  showPlaceholder="always" />
-	    </#assign>
-	
-	    <#if ( individualImage?contains('<img class="individual-photo"') )>
-	        <#assign infoClass = 'class="withThumb"'/>
-	    </#if>
-	
-	    <div id="photo-wrapper" >${individualImage}</div>
-	</section> <!-- end share-contact -->
 	<section id="individual-info" ${infoClass!} role="region">
 	    <#include "individual-adminPanel.ftl">
 
@@ -237,7 +219,9 @@
 			<h2 id="page-heading-break">  </h2>
 	    </header>
 		<div class="clear-both"></div>
-		${academicOfficerList!}
+		<div id="academic-officer-list">
+			${academicOfficerList!"&nbsp;"}
+		</div>
 	 </section> <!-- individual-info -->
 			<div class="clear-both"></div>
 	</div> <!-- foafPersonMainColumn -->
