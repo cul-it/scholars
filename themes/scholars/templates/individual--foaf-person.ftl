@@ -71,10 +71,6 @@ $(document).ready(function() {
 	</article>
   </#assign>
 </#if>
-<#assign hasKeywords = false />
-<#if keywords?has_content>
-  <#assign hasKeywords = true />
-</#if>
 <#assign webpageProp = propertyGroups.pullProperty("http://purl.obolibrary.org/obo/ARG_2000028","http://www.w3.org/2006/vcard/ns#URL")!>
 <#if webpageProp?has_content && webpageProp.statements?has_content> 
     <#assign webpageStmt = webpageProp.statements?first />
@@ -136,11 +132,10 @@ $(document).ready(function() {
 
 <div id="visualization-column" class="col-sm-3 col-md-3 col-lg-3 scholars-container">
  	<#if isAuthor >
-		<#if hasKeywords >
- 			<div><a href="#" id="word_cloud_trigger"><img width="145px" src="${urls.base}/themes/scholars/images/wordcloud-icon.png"/></a>
- 				<p>Keywords</p>
- 			</div>
-		</#if>
+		<div id="word_cloud_icon_holder" style="display:none">
+		    <a href="#" id="word_cloud_trigger"><img width="145px" src="${urls.base}/themes/scholars/images/wordcloud-icon.png"/></a>
+			<p>Keywords</p>
+		</div>
  		<div>
  			<a href="${coAuthorVisUrl}"><img width="120px" src="${urls.base}/themes/scholars/images/co-authors.png"/></a>
  			<p>Co-authors</p>
@@ -275,20 +270,23 @@ $().ready(function() {
   $('#subject-area-dialog').jqm();
 });
 </script>
-<#if hasKeywords >
-	<script>
-	$().ready(function() {
-	  var wc = new ScholarsVis.PersonWordCloud({
-	    target : '#word_cloud_vis',
-	    modal : true,
-	    person : "${individual.uri?url}",
-	    animation : true
-      });
+<script>
+$().ready(function() {
+  var wc = new ScholarsVis.PersonWordCloud({
+    target : '#word_cloud_vis',
+    modal : true,
+    person : "${individual.uri?url}",
+    animation : true
+    });
+  wc.examineData(function(data) {
+    if (data.length > 0) {
+      $('#word_cloud_icon_holder').show();
       $('#word_cloud_trigger').click(wc.show);
       $('#word_cloud_exporter').click(wc.showVisData);
-	});
-	</script>
-</#if>
+    }
+  });
+});
+</script>
 
 ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/individual/individual.css" />',
 		         '<link rel="stylesheet" href="${urls.base}/css/individual/individual-vivo.css" />',
