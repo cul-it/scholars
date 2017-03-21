@@ -4,6 +4,7 @@
  * 
  * Contains a single constructor function, named Visualization. Calling 
  * 'new Visualizatio(options)' will return an object with these functions:
+ * -- examine the data before rendering the visualization.
  * -- create and show the visualization (optionally, in a modal dialog box).
  * -- hide the visialization (if modal, close the dialog box).
  * -- open a new window for exporting the data that backs the visualization.
@@ -47,7 +48,7 @@ var ScholarsVis = (function() {
 	return {Visualization: Visualization};
 	
 	function debugIt(message) {
-		if (false) {
+		if (true) {
 			var now = new Date();
 			var time = now.toLocaleTimeString();
 			var millis = ("000" + now.getMilliseconds().toString()).slice(-3);
@@ -74,12 +75,19 @@ var ScholarsVis = (function() {
 			handleError(e);
 		}
 		
-		return {
-			show: show, 
-			hide: hide, 
-			showVisData, showVisData
-		};
+    return {
+      examineData: examineData,
+      show: show, 
+      hide: hide, 
+      showVisData, showVisData
+    };
 		
+    function examineData(examiner) {
+      debugIt("Vis:examineData");
+      options.examiner = examiner;
+      fetch().then(parse).then(transform).then(examine);
+    }
+    
 		function show(e) {
 			e && e.preventDefault();
 			if (options.modal) {
@@ -142,6 +150,12 @@ var ScholarsVis = (function() {
 			}
 		}
 		
+    function examine() {
+      return defer("examining", function() {
+        options.checkResult = options.examiner(options.transformed, options);
+      });
+    }
+    
 		function display() {
 			return defer("displaying", function() {
 				var copyOfTransformed = JSON.parse(JSON.stringify(options.transformed));
