@@ -211,7 +211,7 @@ function draw_it(root, target) {
   var center = svg.append("circle")
       .attr("r", radius / 3).on("click", zoomOut);
   // why specificly defined as Engineering. This will not work for other units.
-  var centerText = svg.append("text").style("text-anchor", "middle").style("font-size", "11px").text(function(d) { return "Engineering "});
+  var centerText = svg.append("text").style("text-anchor", "middle").style("font-size", "11px").text(function(d) { return root.description});
   
 
   center.append("title")
