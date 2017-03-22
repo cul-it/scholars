@@ -88,7 +88,7 @@
   	<div id="visualization-column" class="col-sm-3 col-md-3 col-lg-3 scholars-container">
   </#if>
   <#if isAcademicDept || isJohnsonOrHotelSchool >
-	<div>
+	<div id="word_cloud_icon_holder" style="display:none">
 		<a href="#" id="word_cloud_trigger"><img width="145px" src="${urls.base}/themes/scholars/images/wordcloud-icon.png"/></a>
 		<p>Keywords</p>
 	</div>
@@ -389,9 +389,14 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></
 	    modal : true,
 	    department : "${individual.uri?url}",
 	    animation : true
-      });
-      $('#word_cloud_trigger').click(wc.show);
-	  $('#word_cloud_exporter').click(wc.showVisData);
+	    });
+	  wc.examineData(function(data) {
+	    if (data.length > 0) {
+	      $('#word_cloud_icon_holder').show();
+	      $('#word_cloud_trigger').click(wc.show);
+	      $('#word_cloud_exporter').click(wc.showVisData);
+	    }
+	  });
 	});
 	</script>
 </#if>
