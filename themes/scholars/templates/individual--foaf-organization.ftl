@@ -107,11 +107,11 @@
 	</div>
 	<div>
 		<a id="interd_collab_trigger" class="jqModal" href="#"><img width="54%" src="${urls.base}/themes/scholars/images/interd_collab.png"/></a>
-		<p>Interdepartmental<br/>Collaborations</p>
+		<p>Interdepartmental<br/>CoAuthorships</p>
 	</div>
 	<div>
 		<a id="cross_unit_collab_trigger" class="jqModal" href="#"><img width="54%" src="${urls.base}/themes/scholars/images/cross_unit_collab.png"/></a>
-		<p>Cross-unit<br/>Collaborations</p>
+		<p>Cross-unit<br/>CoAuthorships</p>
 	</div>
   <#else>
 	<#-- Do not display anything if the individual is neither an academic department nor a college. -->
