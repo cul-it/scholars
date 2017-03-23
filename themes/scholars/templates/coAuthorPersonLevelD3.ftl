@@ -318,7 +318,7 @@ $(document).ready(function(){
     
         <div id="bodyPannel">
             <form id="vcardstoggle" method="get" style="float: right; display: none;margin:-40px 35px 0 0;">
-                <span for="vcards" style="font-size:15px">Include unconfirmed co-authors <input type="checkbox" id="vcards" onclick="render_chord();"  checked /></span>
+                <span for="vcards" style="font-size:15px">Include non-faculty co-authors <input type="checkbox" id="vcards" onclick="render_chord();"  checked /></span>
             </form>
             <div id="chord" style="margin-top:"></div>
         </div>
