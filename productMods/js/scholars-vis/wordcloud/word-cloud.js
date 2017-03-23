@@ -13,21 +13,6 @@ ScholarsVis["PersonWordCloud"] = function(options) {
 	return new ScholarsVis.Visualization(options, defaults);
 };
 
-ScholarsVis["IconizedPersonWordCloud"] = function(options) {
-	var defaults = {
-		    url : applicationContextPath + "/api/dataRequest/person_word_cloud?person=" + options.person,
-		    parse : 'turtle',
-	    	transform : transform_word_cloud_data,
-		    display : draw_word_cloud,
-		    closer : close_word_cloud,
-		    
-		    maxKeywords : 50,
-		    interactive : false,
-		    scaleRange : [2, 18]
-		};
-	return new ScholarsVis.Visualization(options, defaults);
-};
-
 ScholarsVis["DepartmentWordCloud"] = function(options) {
 	var defaults = {
 		    url : applicationContextPath + "/api/dataRequest/department_word_cloud?department=" + options.department,
@@ -39,21 +24,6 @@ ScholarsVis["DepartmentWordCloud"] = function(options) {
 		    maxKeywords : 100,
 		    interactive : true,
 		    scaleRange : [15, 60]
-		};
-	return new ScholarsVis.Visualization(options, defaults);
-};
-
-ScholarsVis["IconizedDepartmentWordCloud"] = function(options) {
-	var defaults = {
-		    url : applicationContextPath + "/api/dataRequest/department_word_cloud?department=" + options.department,
-		    parse : 'turtle',
-	    	transform : transform_word_cloud_data,
-		    display : draw_word_cloud,
-		    closer : close_word_cloud,
-		    
-		    maxKeywords : 100,
-		    interactive : false,
-		    scaleRange : [2, 18]
 		};
 	return new ScholarsVis.Visualization(options, defaults);
 };
