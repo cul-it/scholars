@@ -39,8 +39,9 @@ display:subjectAreasFromPubs
 		    ?authorship a vivo:Authorship .
 		    ?authorship vivo:relates ?infoResource .
 		    ?infoResource a <http://purl.obolibrary.org/obo/IAO_0000030> .
-			?infoResource vivo:hasSubjectArea ?subjectArea .
-			?subjectArea rdfs:label ?subjectAreaLabel .
+            ?infoResource vivo:hasPublicationVenue ?venue .
+		    ?venue vivo:hasSubjectArea ?subjectArea .
+		    ?subjectArea rdfs:label ?subjectAreaLabel .
 		}
 		ORDER BY ?subjectAreaLabel
         """ .
