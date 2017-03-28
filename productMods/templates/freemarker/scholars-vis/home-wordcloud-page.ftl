@@ -4,7 +4,7 @@
 
       <div id="legendDiv" class="center-block">
          <h2 style="padding:0;color:#5f5858;font-size:20px">
-            Browse keyword clouds
+            Browse research keywords
          </h2>
          <p style="font-size:12px">Select faculty member or academic department.</p>
       </div>
@@ -44,6 +44,12 @@
         <h4 style="margin-top:8px"><a id="siteSelector" href="#">Reset</a></h4>
         
       </div> 
+
+      <div>
+        <font face="Times New Roman" size="2">
+          <span><i>Click on a keyword to view the list of the relevant faculty. In a faculty keyword cloud, click on a keyword to view the list of the related publications of the selected faculty.</i></span>
+        </font>
+      </div>
 
     </div>
 

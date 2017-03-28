@@ -134,7 +134,7 @@ $(document).ready(function() {
  	<#if isAuthor >
 		<div id="word_cloud_icon_holder" style="display:none">
 		    <a href="#" id="word_cloud_trigger"><img width="145px" src="${urls.base}/themes/scholars/images/wordcloud-icon.png"/></a>
-			<p>Keywords</p>
+			<p>Research Keywords</p>
 		</div>
  		<div>
  			<a href="${coAuthorVisUrl}"><img width="120px" src="${urls.base}/themes/scholars/images/co-authors.png"/></a>
@@ -196,11 +196,15 @@ $(document).ready(function() {
 <div id="foaf-person-blank-row" class="row scholars-row"></div>
 </#if>
 <div id="word_cloud_vis">
-	<a href="#" id="word_cloud_exporter" class="pull-right"><i class="fa fa-download" aria-hidden="true" title="export this data" style="font-size:24px"></i></a>
-	<label class="radio-inline radio-inline-override"><input id="all" type="radio" name="kwRadio" class="radio" checked>All</label>
+	<h3 style="margin:0;padding:0">Research Keywords</h3>
+	<font face="Times New Roman" size="2">
+	<span><i>Click on a keyword to view the list of the related publications.</i></span>
+	<a href="#" id="word_cloud_exporter" class="pull-right"><i class="fa fa-download" aria-hidden="true" title="export this data" style="font-size:24px"></i></a><br>
+	<label class="radio-inline radio-inline-override"><input id="all" type="radio" name="kwRadio" class="radio" checked>Featured Keywords</label>
 	<label class="radio-inline"><input id="keyword"  type="radio" name="kwRadio" class="radio" >Article Keywords</label>
-	<label class="radio-inline"><input id="mesh"     type="radio" name="kwRadio" class="radio" >External Vocab.</label>
+	<label class="radio-inline"><input id="mesh"     type="radio" name="kwRadio" class="radio" >External Vocab. Terms</label>
 	<label class="radio-inline"><input id="inferred" type="radio" name="kwRadio" class="radio" >Mined Keywords</label>
+	</font>
 </div>
 
 <div class="jqmWindow" id="subject-area-dialog">

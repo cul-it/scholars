@@ -90,7 +90,7 @@
   <#if isAcademicDept || isJohnsonOrHotelSchool >
 	<div id="word_cloud_icon_holder" style="display:none">
 		<a href="#" id="word_cloud_trigger"><img width="145px" src="${urls.base}/themes/scholars/images/wordcloud-icon.png"/></a>
-		<p>Keywords</p>
+		<p>Research Keywords</p>
 	</div>
 	<div <#if isJohnsonOrHotelSchool >style="display:none"</#if>>
 		<a href="${urls.base}/orgSAVisualization?deptURI=${individual.uri}"><img width="68%" src="${urls.base}/themes/scholars/images/person_sa.png"/></a>
@@ -291,12 +291,17 @@ $().ready(function() {
 
 ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/keywordcloud/kwcloud.css" />')}
 <div id="word_cloud_vis">
+
+<h3 style="margin:0;padding:0">Research Keywords</h3>
+	<font face="Times New Roman" size="2">
+	<span><i>Click on a keyword to view the list of the relevant faculty.</i></span>
 <a href="#" id="word_cloud_exporter" class="pull-right"><i class="fa fa-download" aria-hidden="true" title="export this data" ></i></a>
 <#--	
 <label class="boxLabel"><input id="keyword" type="checkbox" class="cbox" checked>Article Keywords<span id="kw">(0)</span></label>
 <label class="boxLabel"><input id="mined" type="checkbox" class="cbox" checked>Inferred Keywords<span id="minedt">(0)</span></label>
 <label class="boxLabel"><input id="mesh" type="checkbox" class="cbox" checked>Mesh Terms<span id="mt">(0)</span></label> 
 -->
+</font>
 </div>
 
 
@@ -345,9 +350,23 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></
 	<#-- TEMPORARY HACK. ONLY SHOW THE COLLAB VIZ FOR THE COLLEGE OF ENGINEERING -->
 	<#if individual.nameStatement?? && individual.nameStatement.value == "College of Engineering" >
 	  <div id="interd_collab_vis" class="dept_collab_vis" style="display:none">
+	 	
+	 	<h3 style="margin:0;padding:0">Interdepartmental CoAuthorships</h3>
+		<font face="Times New Roman" size="2">
+		<span><i>Click on any arc to zoom in and on the center circle to zoom out.
+		Once zoomed in to a faculty of interest, click on the outer arc to view the list of coauthored publications.
+		</i></span>
+	 	</font>
 	 	<a href="#" id="interd_collab_exporter" class="pull-right"><i class="fa fa-download" aria-hidden="true" title="export this data" ></i></a>
 	  </div>
 	  <div id="cross_unit_collab_vis" class="dept_collab_vis" style="display:none">
+		
+		<h3 style="margin:0;padding:0">Cross-unit CoAuthorships</h3>
+		<font face="Times New Roman" size="2">
+		<span><i>Click on any arc to zoom in and on the center circle to zoom out.
+		Once zoomed in to a faculty of interest, click on the outer arc to view the list of coauthored publications.
+		</i></span>
+		</font>
 		<a href="#" id="cross_unit_collab_exporter" class="pull-right"><i class="fa fa-download" aria-hidden="true" title="export this data" ></i></a>
 	  </div>
 		<script>

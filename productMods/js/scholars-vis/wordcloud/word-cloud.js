@@ -288,10 +288,10 @@ function draw_word_cloud(unfiltered, target, options) {
 	}
 
 	var isInteractive =  (typeof(options.interactive) == 'undefined') || options.interactive;
-	var scaleRange = options.scaleRange || [15, 60];
+	var scaleRange = options.scaleRange || [15, 50];
 
-	var height_margin = 20;
-	var width_margin = 20;
+	var height_margin = 50;
+	var width_margin = 40;
 	 
 	var height = Math.floor($(target).height()-height_margin);
 	var width = Math.floor($(target).width()-width_margin);
