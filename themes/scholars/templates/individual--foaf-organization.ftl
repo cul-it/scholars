@@ -121,8 +121,8 @@
   </#if>
 </#assign>
 <#assign facultyDeptListColumn >
-  <#if isAcademicDept >
-	<div id="foafOrgTabs" class="col-sm-8 col-md-8 col-lg-8 <#if facultyList?has_content || adminsGrant?has_content >scholars-container</#if>">
+  <#if !isCollegeOrSchool && (facultyList?has_content || adminsGrant?has_content)>
+	<div id="foafOrgTabs" class="col-sm-8 col-md-8 col-lg-8 scholars-container <#if !isCollegeOrSchool && !isAcademicDept>scholars-container-full</#if>">
 	  <#if facultyList?has_content || adminsGrant?has_content >
 		<div id="scholars-tabs-container">
 		  <ul id="scholars-tabs">
