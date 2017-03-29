@@ -17,14 +17,17 @@
 	<#assign isAcademicDept = true />
 </#if>
 <#assign isCollegeOrSchool = false />
-<#if individual.mostSpecificTypes?seq_contains("College") || individual.mostSpecificTypes?seq_contains("School")>
+<#if individual.mostSpecificTypes?seq_contains("College") || individual.mostSpecificTypes?seq_contains("School") || individual.mostSpecificTypes?seq_contains("Administrative Unit")>
 	<#assign isCollegeOrSchool = true />
 </#if>
 <#assign isJohnsonOrHotelSchool = false />
 <#if individual.name?contains(" Johnson Graduate School") || individual.name?contains("Hotel Administration")>
 	<#assign isJohnsonOrHotelSchool = true />
 </#if>
-
+<#assign showVisualizations = false>
+<#if individual.mostSpecificTypes?seq_contains("College") || individual.mostSpecificTypes?seq_contains("School") || individual.mostSpecificTypes?seq_contains("Academic Department")>
+	<#assign showVisualizations = true />
+</#if>
 
 <#--Number of labels present-->
 <#if !labelCount??>
@@ -122,7 +125,7 @@
 </#assign>
 <#assign facultyDeptListColumn >
   <#if !isCollegeOrSchool && (facultyList?has_content || adminsGrant?has_content)>
-	<div id="foafOrgTabs" class="col-sm-8 col-md-8 col-lg-8 scholars-container <#if !isCollegeOrSchool && !isAcademicDept>scholars-container-full</#if>">
+	<div id="foafOrgTabs" class="col-sm-8 col-md-8 col-lg-8 scholars-container <#if !showVisualizations>scholars-container-full</#if>">
 	  <#if facultyList?has_content || adminsGrant?has_content >
 		<div id="scholars-tabs-container">
 		  <ul id="scholars-tabs">
@@ -163,7 +166,7 @@
 	  </#if>
 	</div>
   <#elseif isCollegeOrSchool && (subOrgs?has_content || facultyList?has_content)>
-	<div id="foafOrgTabs" class="col-sm-8 col-md-8 col-lg-8 scholars-container">
+	<div id="foafOrgTabs" class="col-sm-8 col-md-8 col-lg-8 scholars-container <#if !showVisualizations>scholars-container-full</#if>">
 		<div id="scholars-tabs-container">
 		  <ul id="scholars-tabs">
 		    <#if subOrgs?has_content ><li><a href="#tabs-1">Academic Units</a></li></#if>
@@ -178,7 +181,7 @@
 					</article>	
 				  </div>
 			  </#if>
-			  <#if facultyList?has_content >
+			  <#if facultyList?has_content && !subOrgs?has_content>
 				  <div id="tabs-1" class="tab-content" data="${publicationsProp!}-dude">
 					<article class="property" role="article">
 				    <ul id="individual-faculty" class="property-list" role="list" >
@@ -231,7 +234,7 @@
 
 <#-- The row2 div contains the visualization section and the faculty or department list, separated by a "spacer" column -->
 <div id="row2" class="row scholars-row foaf-organization-row2">
-	${visualizationColumn}
+	<#if showVisualizations>${visualizationColumn}</#if>
 	<div id="foafOrgSpacer" class="col-sm-1 col-md-1 col-lg-1"></div>
 	${facultyDeptListColumn}
 </div> <!-- row2 div subOrgs -->
