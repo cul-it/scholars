@@ -23,14 +23,13 @@
 			<#setting time_zone='GMT'>
 			<#setting datetime_format='YYYY-MM-DD HH:MM:SS'>
 
-			${statement.dateTimeStart?replace("T"," ")?replace("Z","")?datetime?string("MMMM dd, yyyy")!}
+			${statement.dateTimeStart[0..9]?date('yyyy-MM-dd')?string.long}
 			
 			<#if statement.dateTimeEnd?? >
-				-	${statement.dateTimeEnd?replace("T"," ")?replace("Z","")?datetime?string("MMMM dd, yyyy")!}
+				-	${statement.dateTimeEnd[0..9]?date('yyyy-MM-dd')?string.long}
 			</#if>
 		<#else>    
 			${dt.dateTimeInterval("${statement.dateTimeStart!}", "${statement.precisionStart!}", "${statement.dateTimeEnd!}", "${statement.precisionEnd!}")} 
 		</#if>
     </#if>
 </#if>
-
