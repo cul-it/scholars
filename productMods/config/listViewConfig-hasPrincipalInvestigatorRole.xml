@@ -146,6 +146,14 @@
                 ?subject ?property ?role .
                 ?role a core:PrincipalInvestigatorRole .
                 ?role core:relatedBy ?activity .
+                ?activity a ospcu:CooperativeAgreement .
+                ?activity rdfs:label ?activityLabel .
+            }
+            UNION
+            {
+                ?subject ?property ?role .
+                ?role a core:PrincipalInvestigatorRole .
+                ?role core:relatedBy ?activity .
                 ?activity a core:Grant .
                 ?activity core:assignedBy ?awardedBy .
                 ?awardedBy a foaf:Organization .
