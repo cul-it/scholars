@@ -91,7 +91,7 @@
 								<img width="150px" src="${urls.base}/themes/scholars/images/home-person-sa.png"/>
 							</a>
 							<div>
-								<p>Person to Subject Area</p>
+								<p>Research Interests</p>
 							</div>
 						</div>
 						<div class="col-sm-3 col-md-3 col-lg-3">
@@ -99,7 +99,7 @@
 								<img width="150px" src="${urls.base}/themes/scholars/images/wordcloud-icon.png"/>
 							</a>
 							<div>
-								<p>Keyword Cloud</p>
+								<p>Research Keywords</p>
 							</div>
 						</div>
 						<div class="col-sm-3 col-md-3 col-lg-3"> 
@@ -107,7 +107,7 @@
 								<img width="150px" src="${urls.base}/themes/scholars/images/home-worldmap.png"/>
 							</a>
 							<div>
-								<p>World Map</p>
+								<p>Global Collaborations</p>
 							</div>
 						</div>
 						<div class="col-sm-3 col-md-3 col-lg-3">

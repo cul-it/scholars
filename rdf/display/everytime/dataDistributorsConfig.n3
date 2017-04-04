@@ -41,7 +41,7 @@
 :data_distributor_university_word_cloud
     a   <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.DataDistributor> ,
         <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.FileDistributor> ;
-    :path "visualizationData/KWbyPersonCount.json" ;
+    :path "visualizationData/HomepageKWCloud.json" ;
     :contentType "application/json" .
 
 #

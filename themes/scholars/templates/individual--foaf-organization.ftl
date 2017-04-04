@@ -17,14 +17,17 @@
 	<#assign isAcademicDept = true />
 </#if>
 <#assign isCollegeOrSchool = false />
-<#if individual.mostSpecificTypes?seq_contains("College") || individual.mostSpecificTypes?seq_contains("School")>
+<#if individual.mostSpecificTypes?seq_contains("College") || individual.mostSpecificTypes?seq_contains("School") || individual.mostSpecificTypes?seq_contains("Administrative Unit")>
 	<#assign isCollegeOrSchool = true />
 </#if>
 <#assign isJohnsonOrHotelSchool = false />
 <#if individual.name?contains(" Johnson Graduate School") || individual.name?contains("Hotel Administration")>
 	<#assign isJohnsonOrHotelSchool = true />
 </#if>
-
+<#assign showVisualizations = false>
+<#if individual.mostSpecificTypes?seq_contains("College") || individual.mostSpecificTypes?seq_contains("School") || individual.mostSpecificTypes?seq_contains("Academic Department")>
+	<#assign showVisualizations = true />
+</#if>
 
 <#--Number of labels present-->
 <#if !labelCount??>
@@ -90,11 +93,11 @@
   <#if isAcademicDept || isJohnsonOrHotelSchool >
 	<div id="word_cloud_icon_holder" style="display:none">
 		<a href="#" id="word_cloud_trigger"><img width="145px" src="${urls.base}/themes/scholars/images/wordcloud-icon.png"/></a>
-		<p>Keywords</p>
+		<p>Research Keywords</p>
 	</div>
 	<div <#if isJohnsonOrHotelSchool >style="display:none"</#if>>
 		<a href="${urls.base}/orgSAVisualization?deptURI=${individual.uri}"><img width="68%" src="${urls.base}/themes/scholars/images/person_sa.png"/></a>
-		<p>Subject Areas</p>
+		<p>Research Interests</p>
 	</div>
 	<div <#if isJohnsonOrHotelSchool >style="display:none"</#if>>
   		<a href="#" id="view_selection"><img width="40%" src="${urls.base}/themes/scholars/images/dept_grants.png"/></a>
@@ -121,8 +124,8 @@
   </#if>
 </#assign>
 <#assign facultyDeptListColumn >
-  <#if isAcademicDept >
-	<div id="foafOrgTabs" class="col-sm-8 col-md-8 col-lg-8 <#if facultyList?has_content || adminsGrant?has_content >scholars-container</#if>">
+  <#if !isCollegeOrSchool && (facultyList?has_content || adminsGrant?has_content)>
+	<div id="foafOrgTabs" class="col-sm-8 col-md-8 col-lg-8 scholars-container <#if !showVisualizations>scholars-container-full</#if>">
 	  <#if facultyList?has_content || adminsGrant?has_content >
 		<div id="scholars-tabs-container">
 		  <ul id="scholars-tabs">
@@ -163,7 +166,7 @@
 	  </#if>
 	</div>
   <#elseif isCollegeOrSchool && (subOrgs?has_content || facultyList?has_content)>
-	<div id="foafOrgTabs" class="col-sm-8 col-md-8 col-lg-8 scholars-container">
+	<div id="foafOrgTabs" class="col-sm-8 col-md-8 col-lg-8 scholars-container <#if !showVisualizations>scholars-container-full</#if>">
 		<div id="scholars-tabs-container">
 		  <ul id="scholars-tabs">
 		    <#if subOrgs?has_content ><li><a href="#tabs-1">Academic Units</a></li></#if>
@@ -178,7 +181,7 @@
 					</article>	
 				  </div>
 			  </#if>
-			  <#if facultyList?has_content >
+			  <#if facultyList?has_content && !subOrgs?has_content>
 				  <div id="tabs-1" class="tab-content" data="${publicationsProp!}-dude">
 					<article class="property" role="article">
 				    <ul id="individual-faculty" class="property-list" role="list" >
@@ -231,7 +234,7 @@
 
 <#-- The row2 div contains the visualization section and the faculty or department list, separated by a "spacer" column -->
 <div id="row2" class="row scholars-row foaf-organization-row2">
-	${visualizationColumn}
+	<#if showVisualizations>${visualizationColumn}</#if>
 	<div id="foafOrgSpacer" class="col-sm-1 col-md-1 col-lg-1"></div>
 	${facultyDeptListColumn}
 </div> <!-- row2 div subOrgs -->
@@ -291,12 +294,17 @@ $().ready(function() {
 
 ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/keywordcloud/kwcloud.css" />')}
 <div id="word_cloud_vis">
+
+<h3 style="margin:0;padding:0">Research Keywords</h3>
+	<font face="Times New Roman" size="2">
+	<span><i>Click on a keyword to view the list of the relevant faculty.</i></span>
 <a href="#" id="word_cloud_exporter" class="pull-right"><i class="fa fa-download" aria-hidden="true" title="export this data" ></i></a>
 <#--	
 <label class="boxLabel"><input id="keyword" type="checkbox" class="cbox" checked>Article Keywords<span id="kw">(0)</span></label>
 <label class="boxLabel"><input id="mined" type="checkbox" class="cbox" checked>Inferred Keywords<span id="minedt">(0)</span></label>
 <label class="boxLabel"><input id="mesh" type="checkbox" class="cbox" checked>Mesh Terms<span id="mt">(0)</span></label> 
 -->
+</font>
 </div>
 
 
@@ -345,9 +353,23 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></
 	<#-- TEMPORARY HACK. ONLY SHOW THE COLLAB VIZ FOR THE COLLEGE OF ENGINEERING -->
 	<#if individual.nameStatement?? && individual.nameStatement.value == "College of Engineering" >
 	  <div id="interd_collab_vis" class="dept_collab_vis" style="display:none">
+	 	
+	 	<h3 style="margin:0;padding:0">Interdepartmental CoAuthorships</h3>
+		<font face="Times New Roman" size="2">
+		<span><i>Click on any arc to zoom in and on the center circle to zoom out.
+		Once zoomed in to a faculty of interest, click on the outer arc to view the list of coauthored publications.
+		</i></span>
+	 	</font>
 	 	<a href="#" id="interd_collab_exporter" class="pull-right"><i class="fa fa-download" aria-hidden="true" title="export this data" ></i></a>
 	  </div>
 	  <div id="cross_unit_collab_vis" class="dept_collab_vis" style="display:none">
+		
+		<h3 style="margin:0;padding:0">Cross-unit CoAuthorships</h3>
+		<font face="Times New Roman" size="2">
+		<span><i>Click on any arc to zoom in and on the center circle to zoom out.
+		Once zoomed in to a faculty of interest, click on the outer arc to view the list of coauthored publications.
+		</i></span>
+		</font>
 		<a href="#" id="cross_unit_collab_exporter" class="pull-right"><i class="fa fa-download" aria-hidden="true" title="export this data" ></i></a>
 	  </div>
 		<script>

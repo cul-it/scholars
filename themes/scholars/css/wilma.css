@@ -2204,6 +2204,10 @@ a.journal-link:hover {
     height: 5px;
     padding: 0 1px;
 }
+.scholars-container-full {
+	float: left;
+	width: 100%;
+}
 div#scholars-tabs-container {
 	margin: 0 -15px 0 -15px;
 	padding: 0;
@@ -2250,10 +2254,10 @@ div#foaf-organization-icons {
 	margin: 12px 4px -14px 0;
 }
 .foaf-person-row2 {
-	margin: 30px -15px 100px -15px;
+	margin: 10px -15px 100px -15px;
 }
 .foaf-organization-row2 {
-	margin-top: 30px;
+	margin-top: 10px;
 }
 div#visualization-column div {
 	text-align: center; 
@@ -2921,7 +2925,7 @@ div#grantsVis {
 }
 div#word_cloud_vis {
 	display:none;
-	height:80%;
+	height:90%;
 	width:75%;
 }
 .doc-controls-img  {

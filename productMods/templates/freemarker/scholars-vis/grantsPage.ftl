@@ -1,13 +1,21 @@
 <div class="row scholars-row">
   <div id="grants-vis-container" class="col-md-12 scholars-container">
     <div class="col-md-4" class="scholars-container">
+     
+      <div>
+         <h2 style="padding:0;color:#5f5858;font-size:20px">
+            Browse research grants
+         </h2>
+         <p style="font-size:12px">Filter grants by selecting an investigator, academic unit, funding agency or active year(s).</p>
+      </div>
+
       <div class="panel-group" id="accordion">
         
         <div class="panel panel-default">
           <div class="panel-heading">
             <h4 class="panel-title">
               <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-                <span class="start">Filter by:</span> Person
+                <span class="start">Filter by:</span> Investigator
               </a>
             </h4>
           </div>
@@ -66,6 +74,13 @@
         <div>
           <h5><a onclick="checkAll()">Check All</a> | <a onclick="uncheckAll()">Uncheck All</a></h5>
         </div>
+
+        <div>
+          <font face="Times New Roman" size="2">
+            <span><i>Hover over grant bubbles to browse the titles of the grants. Click on a grant's bubble to view the details of a funded grant.</i></span>
+          </font><br>
+        </div>
+
       </div> 
 
       <div id="legendDiv" class="center-block"> </div>
