@@ -1,0 +1,126 @@
+@prefix : <http://vitro.mannlib.cornell.edu/ns/vitro/ApplicationSetup#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> . 
+
+#
+# Specify the SearchIndexExcluders, DocumentModifiers and IndexingUriFinders for Scholars. 
+# These are in addition to the ones specified for VIVO.
+#
+
+# 
+# ------------------------------------------------------
+# Keywords
+# ------------------------------------------------------
+#
+
+# 
+# If an authorship is altered, re-index all of the related authors. 
+# 
+:scholars_keywords_uriFilder_1
+    a   <java:edu.cornell.mannlib.vitro.webapp.searchindex.indexing.IndexingUriFinder> ,
+        <java:edu.cornell.mannlib.vitro.webapp.searchindex.extensions.MatchingRestrictingUriFinder> ;
+    rdfs:label "keywords: change in authorship" ;
+    :hasMatcher "?subject vivo:relates ?object" ;
+    :hasAskRestriction """
+        ASK { 
+          ?subject a vivo:Authorship . 
+        }
+        """ .
+    :hasSelectQuery """
+        SELECT ?person
+        WHERE {
+          ?subject vivo:relates ?person .
+          ?person a foaf:Person .
+        }
+        """ .
+
+# 
+# If a freetext keyword changes on a document, re-index all of that document's authors. 
+# 
+:scholars_keywords_uriFilder_2
+    a   <java:edu.cornell.mannlib.vitro.webapp.searchindex.indexing.IndexingUriFinder> ,
+        <java:edu.cornell.mannlib.vitro.webapp.searchindex.extensions.MatchingRestrictingUriFinder> ;
+    rdfs:label "keywords: change in freetext keyword" ;
+    :hasMatcher "?subject vivo:freetextKeyword ?object" ;
+    :hasAskRestriction """
+        ASK {
+          ?subject a bibo:Document .
+        }
+        """ .
+    :hasSelectQuery """
+        SELECT ?person
+        WHERE {
+          ?auth vivo:relates ?subject .
+          ?auth a vivo:Authorship .
+          ?auth vivo:relates ?person .
+          ?person a foaf:Person .
+        }
+        """ .
+
+# 
+# If a MESH keyword changes on a document, re-index all of that document's authors. 
+# 
+:scholars_keywords_uriFilder_3
+    a   <java:edu.cornell.mannlib.vitro.webapp.searchindex.indexing.IndexingUriFinder> ,
+        <java:edu.cornell.mannlib.vitro.webapp.searchindex.extensions.MatchingRestrictingUriFinder> ;
+    rdfs:label "keywords: change in MESH keyword" ;
+    :hasMatcher "?subject vivo:hasSubjectArea ?object" ;
+    :hasAskRestriction """
+        ASK {
+          ?subject a bibo:Document .
+          ?object a vivoc:MeshTerm .
+        }
+        """ .
+    :hasSelectQuery """
+        SELECT ?person
+        WHERE {
+          ?auth vivo:relates ?subject .
+          ?auth a vivo:Authorship .
+          ?auth vivo:relates ?person .
+          ?person a foaf:Person .
+        }
+        """ .
+
+# 
+# If an inferred keyword changes on a document, re-index all of that document's authors. 
+# 
+:scholars_keywords_uriFilder_4
+    a   <java:edu.cornell.mannlib.vitro.webapp.searchindex.indexing.IndexingUriFinder> ,
+        <java:edu.cornell.mannlib.vitro.webapp.searchindex.extensions.MatchingRestrictingUriFinder> ;
+    rdfs:label "keywords: change in inferred keyword" ;
+    :hasMatcher "?subject vivoc:inferredKeyword ?object" ;
+    :hasAskRestriction """
+        ASK {
+          ?subject a bibo:Document .
+        }
+        """ .
+    :hasSelectQuery """
+        SELECT ?person
+        WHERE {
+          ?auth vivo:relates ?subject .
+          ?auth a vivo:Authorship .
+          ?auth vivo:relates ?person .
+          ?person a foaf:Person .
+        }
+        """ .
+
+*
+* When indexing an author, add all of the keywords associated with their publications.
+*
+:vivodocumentModifier_PreferredTitle
+    a   <java:edu.cornell.mannlib.vitro.webapp.searchindex.documentBuilding.SelectQueryDocumentModifier> ,
+        <java:edu.cornell.mannlib.vitro.webapp.searchindex.documentBuilding.DocumentModifier> ;
+    rdfs:label "Add keywords to author" ;
+    :hasTypeRestriction "<http://xmlns.com/foaf/0.1/Person>" ;
+    :hasTargetField "KEYWORDUNSTEMMED" ;
+    :hasSelectQuery """
+        PREFIX vcard: <http://www.w3.org/2006/vcard/ns#>
+        PREFIX obo: <http://purl.obolibrary.org/obo/>
+		SELECT ?title 
+		WHERE {
+			?uri obo:ARG_2000028 ?card .
+			?card a vcard:Individual .
+			?card vcard:hasTitle ?titleHolder .
+			?titleHolder vcard:title ?title .
+		}
+        """ .
+    
