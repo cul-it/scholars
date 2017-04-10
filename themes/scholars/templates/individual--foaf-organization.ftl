@@ -298,13 +298,18 @@ ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/ke
 <h3 style="margin:0;padding:0">Research Keywords</h3>
 	<font face="Times New Roman" size="2">
 	<span><i>Click on a keyword to view the list of the relevant faculty.</i></span>
-<a href="#" id="word_cloud_exporter" class="pull-right"><i class="fa fa-download" aria-hidden="true" title="export this data" ></i></a>
 <#--	
 <label class="boxLabel"><input id="keyword" type="checkbox" class="cbox" checked>Article Keywords<span id="kw">(0)</span></label>
 <label class="boxLabel"><input id="mined" type="checkbox" class="cbox" checked>Inferred Keywords<span id="minedt">(0)</span></label>
 <label class="boxLabel"><input id="mesh" type="checkbox" class="cbox" checked>Mesh Terms<span id="mt">(0)</span></label> 
 -->
 </font>
+
+        <div id="info_icon_text" style="display:none">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+          Cras finibus blandit turpis, eu egestas est sagittis eget. 
+          Duis eu enim. 
+        </div>
 </div>
 
 
@@ -346,6 +351,7 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></
 			'<script type="text/javascript" src="${urls.base}/js/scholars-vis/rdflib.js"></script>',
             '<script type="text/javascript" src="${urls.base}/js/scholars-vis/d3/d3-tip.js"></script>',
             '<script type="text/javascript" src="${urls.base}/js/scholars-vis/d3/d3.layout.cloud.js"></script>',
+              '<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>',
 			  '<script type="text/javascript" src="${urls.base}/js/scholars-vis/wordcloud/word-cloud.js"></script>')}
 
 <#if isCollegeOrSchool >
@@ -360,7 +366,12 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></
 		Once zoomed in to a faculty of interest, click on the outer arc to view the list of coauthored publications.
 		</i></span>
 	 	</font>
-	 	<a href="#" id="interd_collab_exporter" class="pull-right"><i class="fa fa-download" aria-hidden="true" title="export this data" ></i></a>
+
+        <div id="info_icon_text" style="display:none">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+          Cras finibus blandit turpis, eu egestas est sagittis eget. 
+          Duis eu enim. 
+        </div>
 	  </div>
 	  <div id="cross_unit_collab_vis" class="dept_collab_vis" style="display:none">
 		
@@ -370,7 +381,12 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></
 		Once zoomed in to a faculty of interest, click on the outer arc to view the list of coauthored publications.
 		</i></span>
 		</font>
-		<a href="#" id="cross_unit_collab_exporter" class="pull-right"><i class="fa fa-download" aria-hidden="true" title="export this data" ></i></a>
+
+        <div id="info_icon_text" style="display:none">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+          Cras finibus blandit turpis, eu egestas est sagittis eget. 
+          Duis eu enim. 
+        </div>
 	  </div>
 		<script>
 		$().ready(function() {
@@ -387,6 +403,10 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></
 	      });
 	      $('#interd_collab_trigger').click(idcs.show);
 	      $('#interd_collab_exporter').click(idcs.showVisData);
+		});
+		$().ready(function() {
+		  new ScholarsVis.Toolbar("#cross_unit_collab_vis");
+		  new ScholarsVis.Toolbar("#interd_collab_vis");
 		});
 		</script>
 	<#else>
@@ -419,6 +439,7 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></
 	      $('#word_cloud_exporter').click(wc.showVisData);
 	    }
 	  });
+      new ScholarsVis.Toolbar("#word_cloud_vis");
 	});
 	</script>
 </#if>

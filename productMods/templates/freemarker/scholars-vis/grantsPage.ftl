@@ -86,13 +86,15 @@
       <div id="legendDiv" class="center-block"> </div>
     </div>
     
-    <div class="col-md-8">
-      <span class="glyphicon glyphicon-info-sign pull-right" 
-                      data-toggle="ttip"
-                      data-placement="left"
-                      data-html="true" 
-                      data-viewport="#body">
-      </span>
+    <div class="col-md-8" id="vis_holder">
+        <div id="info_icon_text" style="display:none">
+          The Grants Bubble Chart (GBC) represents the active research grants data of Cornell University. 
+          Scholars@Cornell receive the grants data through Office of Sponsored Programs (OSP) feed. 
+          Based on the awarded amount, the grant bubbles are colored and sized in the visualization. 
+          The grants can be filtered by investigators (persons), academic unit, funding agencies 
+          or active years. One can also search and view grants for the specific investigators, 
+          academic units or funding agencies.
+        </div>
       <div id="vis"> </div>
     </div>
   </div>
@@ -129,13 +131,9 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></
             return false;
           });
     });
-
     $(document).ready(function(){
-      $('[data-toggle="ttip"]').tooltip({
-      title: "<p align='justify'><font color='white'>The Grants Bubble Chart (GBC) represents the active research grants data of Cornell University. Scholars@Cornell receive the grants data through Office of Sponsored Programs (OSP) feed. Based on the awarded amount, the grant bubbles are colored and sized in the visualization. The grants can be filtered by investigators (persons), academic unit, funding agencies or active years. One can also search and view grants for the specific investigators, academic units or funding agencies.</font></p>"
-      })
+      new ScholarsVis.Toolbar("#vis_holder");
     });
-
   </script>
 
 

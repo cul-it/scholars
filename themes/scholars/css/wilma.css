@@ -2776,6 +2776,17 @@ nav#alpha-browse-container {
 	margin-right: 11px;
 }
 /*** VISUALIZATIONS ***/
+
+.visualization-toolbar .tooltip.bottom .tooltip-inner {
+    text-align: justify;
+        max-width: 350px;
+        width: 350px;
+}
+
+.visualization-toolbar .glyphicon-info-sign {
+    margin-right: 10px;
+}
+
 .dept_collab_vis svg g text {
 	font-size: 80%;
 }

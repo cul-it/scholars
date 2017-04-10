@@ -41,13 +41,3 @@
 .sitewc .hoverable:hover {
     background-color: rgba(50, 150, 200, 0.8);
 }
-
-#siteWordCloudVis .tooltip {
-    width: 30%;
-}
-#siteWordCloudVis .tooltip.bottom .tooltip-inner {
-    text-align: justify;
-}
-#siteWordCloudVis .glyphicon-info-sign {
-    margin-right: 10px;
-}

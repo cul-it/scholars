@@ -58,35 +58,42 @@
       
       <#-- swiped from individual--foaf-organization.ftl -->
       <div id="departmentWordCloudVis" style="display:none">
-        <a href="#" id="exporter" class="pull-right">
-	      <i class="fa fa-download" aria-hidden="true" title="export this data" ></i>
-        </a>
         <div id="vis"></div>
+
+        <div id="info_icon_text" style="display:none">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+          Cras finibus blandit turpis, eu egestas est sagittis eget. 
+          Duis eu enim. 
+        </div>
       </div>
     
       <#-- swiped from individual--foaf-person.ftl -->
       <div id="personWordCloudVis" style="display:none">
-   	    <a href="#" id="exporter" class="pull-right">
-   	      <i class="fa fa-download" aria-hidden="true" title="export this data" style="font-size:24px"></i>
-     	  </a>
         <div id="vis"></div>
+
+        <div id="info_icon_text" style="display:none">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+          Cras finibus blandit turpis, eu egestas est sagittis eget. 
+          Duis eu enim. 
+        </div>
       </div>
 
       <div id="siteWordCloudVis" style="display:none">
-        <a href="#" id="exporter" >
-          <i class="fa fa-download pull-right" aria-hidden="true" title="export this data"></i>
-        </a>
-        <span class="glyphicon glyphicon-info-sign pull-right" 
-          data-toggle="tooltip" 
-          data-original-title="The keyword cloud presents the top 300 keywords extracted from the journal articles published by Cornell faculty and researchers. <br> The size of each keyword in the cloud is directly proportional to the sum of the count of the faculty/researchers. <br> The bigger the keyword is in size, the more the faculty members and researcher used the term in their papers."
-          data-placement="bottom"
-          data-html="true" 
-          data-viewport="#siteWordCloudVis">
-        </span>
         <div id="wc-text-container">
           <span class="text-primary" id="content"></span>
         </div>
         <div id="vis"></div>
+
+        <div id="info_icon_text" style="display:none">
+          The keyword cloud presents the top 300 keywords extracted from the 
+          journal articles published by Cornell faculty and researchers. 
+          <br>
+          The size of each keyword in the cloud is directly proportional to the 
+          sum of the count of the faculty/researchers. 
+          <br> 
+          The bigger the keyword is in size, the more the 
+          faculty members and researcher used the term in their papers.
+        </div>
       </div>
 
     </div>
@@ -118,5 +125,10 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></
 $().ready(function() {
   createWordCloudSelector("#siteSelector", "#departmentSelectionPanel", "#personSelectionPanel", 
                           "#siteWordCloudVis", "#departmentWordCloudVis", "#personWordCloudVis");
+});
+$().ready(function() {
+  new ScholarsVis.Toolbar("#departmentWordCloudVis");
+  new ScholarsVis.Toolbar("#personWordCloudVis");
+  new ScholarsVis.Toolbar("#siteWordCloudVis");
 });
 </script>

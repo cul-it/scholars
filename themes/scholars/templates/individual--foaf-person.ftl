@@ -199,12 +199,18 @@ $(document).ready(function() {
 	<h3 style="margin:0;padding:0">Research Keywords</h3>
 	<font face="Times New Roman" size="2">
 	<span><i>Click on a keyword to view the list of the related publications.</i></span>
-	<a href="#" id="word_cloud_exporter" class="pull-right"><i class="fa fa-download" aria-hidden="true" title="export this data" style="font-size:24px"></i></a><br>
+    <br>
 	<label class="radio-inline radio-inline-override"><input id="all" type="radio" name="kwRadio" class="radio" checked>Featured Keywords</label>
 	<label class="radio-inline"><input id="keyword"  type="radio" name="kwRadio" class="radio" >Article Keywords</label>
 	<label class="radio-inline"><input id="mesh"     type="radio" name="kwRadio" class="radio" >External Vocab. Terms</label>
 	<label class="radio-inline"><input id="inferred" type="radio" name="kwRadio" class="radio" >Mined Keywords</label>
 	</font>
+	
+    <div id="info_icon_text" style="display:none">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+        Cras finibus blandit turpis, eu egestas est sagittis eget. 
+        Duis eu enim. 
+    </div>
 </div>
 
 <div class="jqmWindow" id="subject-area-dialog">
@@ -289,6 +295,7 @@ $().ready(function() {
       $('#word_cloud_exporter').click(wc.showVisData);
     }
   });
+  new ScholarsVis.Toolbar("#word_cloud_vis");
 });
 </script>
 
@@ -318,6 +325,7 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></
 	              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/d3/d3-tip.js"></script>',
 				  '<script type="text/javascript" src="https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js"></script>',
 	              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/d3/d3.layout.cloud.js"></script>',
+                  '<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>',
 				  '<script type="text/javascript" src="${urls.base}/js/scholars-vis/wordcloud/word-cloud.js"></script>')}
 
 ${stylesheets.add('<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Raleway" />',
