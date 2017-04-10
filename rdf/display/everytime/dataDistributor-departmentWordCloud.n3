@@ -17,7 +17,7 @@
     a   <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.modelbuilder.ModelBuilder> ,
         <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.modelbuilder.DrillDownModelBuilder> ;
     :topLevelModelBuilder :dwc_drill_mb_level_1 ;
-    :bottomLevelModelBuilder :dwc_drill_mb_level_2 ;        
+    :drillDownModelBuilder :dwc_drill_mb_level_2 ;        
     :drillDownQuery """
         PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
         SELECT ?person 
