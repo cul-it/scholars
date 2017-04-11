@@ -4,6 +4,7 @@ ScholarsVis["OrganizationResearchAreas"] = function(options) {
 		    parse : 'turtle',
 		    transform : transformFlaredata,
 		    display : plotConceptMap,
+                    closer : closeConceptMap,
 		};
 	return new ScholarsVis.Visualization(options, defaults);
 };
@@ -772,3 +773,8 @@ function plotConceptMap(flaredata, target) {
 		}
 	}
 };
+
+function closeConceptMap(target) {
+    $(target).children(".conceptmap").remove();
+    $(target).children(".graph-info").remove();
+}

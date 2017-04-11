@@ -87,7 +87,7 @@
 				<div class="container-fluid scholars-home-container">
 					<div id="visualize-content" class="row fff-bkg">
 						<div class="col-sm-3 col-md-3 col-lg-3"> 
-							<a id="person-to-sa" href="${urls.base}/orgSAVisualization?deptURI=n1234">
+							<a id="person-to-sa" href="${urls.base}/orgSAVisualization">
 								<img width="150px" src="${urls.base}/themes/scholars/images/home-person-sa.png"/>
 							</a>
 							<div>

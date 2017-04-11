@@ -11,10 +11,10 @@ function createWordCloudSelector(siteSelector, departmentSelector, personSelecto
   $(siteSelector).click(showSiteCloud);
   
   var departmentControl = new AccordionControls.Selector(departmentSelector, showDepartmentCloud);
-  populateSelector(departmentControl, "departmentList");
+  departmentControl.loadFromDataRequest("departmentList");
   
   var personControl = new AccordionControls.Selector(personSelector, showPersonCloud);
-  populateSelector(personControl, "facultyList");
+  personControl.loadFromDataRequest("facultyList");
   
   showSiteCloud();
   
@@ -76,29 +76,6 @@ function createWordCloudSelector(siteSelector, departmentSelector, personSelecto
       $(site_wc_container).show();
       $(unit_wc_container).hide();
       $(person_wc_container).hide();
-    }
-  }
-  
-  function populateSelector(selector, dataRequest) {
-    $.get(applicationContextPath + "/api/dataRequest/" + dataRequest).then(mapAndLoad);
-    
-    function mapAndLoad(data) {
-      selector.loadData(data.results.bindings.map(mapper).sort(sorter).filter(distinct));
-      
-      function mapper(d) {
-        return {
-          uri: d.uri.value,
-          label: d.label.value
-        }
-      }
-      
-      function sorter(a, b) {
-        return a.label.toLowerCase().localeCompare(b.label.toLowerCase());
-      }
-      
-      function distinct(el, i, array) {
-        return i == 0 || el.uri != array[i-1].uri;
-      }
     }
   }
 }
