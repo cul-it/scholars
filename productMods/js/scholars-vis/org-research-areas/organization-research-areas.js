@@ -146,11 +146,12 @@ function plotConceptMap(flaredata, target) {
 	var plot = ConceptMap("graph", "graph-info", flaredata);
 
 	function ConceptMap(chartElementId, infoElementId, dataJson) {
-
-		var width = 999;// document.body.clientWidth; //window.innerWidth ||
-		// document.documentElement.clientWidth ||
-		// document.body.clientWidth;
-		var height = 600; // window.innerHeight ||
+	    var width = Math.floor($(target).width() * 1.2);
+	    var height = Math.floor($(target).height() * .7);
+//		var width = 999;// document.body.clientWidth; //window.innerWidth ||
+//		// document.documentElement.clientWidth ||
+//		// document.body.clientWidth;
+//		var height = 600; // window.innerHeight ||
 		// document.documentElement.clientHeight ||
 		// document.body.clientHeight;
 		var a = width, c = height, h = c, U = 180, // width of the person
@@ -175,8 +176,8 @@ function plotConceptMap(flaredata, target) {
 			return X[1]
 		}).interpolate("bundle").tension(0.5);
 		// Node name at Footer
-		var Nh = (c / 2) + 200;
-		var svgHeight = c + 450;
+		var Nh = (c / 2) + 100;
+		var svgHeight = height + 250;
 		var d = d3.select(target).append("div").attr("class", "conceptmap").append("svg").attr("id", "svg-id").attr("width", a)
 				.attr("height", svgHeight).append("g").attr("transform",
 						"translate(" + a / 2 + "," + Nh + ")");

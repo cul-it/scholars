@@ -41,7 +41,7 @@
     </div>
 
     <div class="col-md-8">
-	  <div id="organization-subject-areas" style="padding-bottom:60px;height:500px;width:100%">
+	  <div id="organization-subject-areas" style="padding-bottom:60px;height:800px;width:100%">
 	    <div id="info_icon_text" style="display:none">
 		  Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
 		  Cras finibus blandit turpis, eu egestas est sagittis eget. 
