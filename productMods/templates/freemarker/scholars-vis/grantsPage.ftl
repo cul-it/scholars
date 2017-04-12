@@ -88,12 +88,7 @@
     
     <div class="col-md-8" id="vis_holder">
         <div id="info_icon_text" style="display:none">
-          The Grants Bubble Chart (GBC) represents the active research grants data of Cornell University. 
-          Scholars@Cornell receive the grants data through Office of Sponsored Programs (OSP) feed. 
-          Based on the awarded amount, the grant bubbles are colored and sized in the visualization. 
-          The grants can be filtered by investigators (persons), academic unit, funding agencies 
-          or active years. One can also search and view grants for the specific investigators, 
-          academic units or funding agencies.
+          This visualization represents a bird-view of all the grants where a Cornell faculty member or a researcher is either a Principal or Co-Principal Investigator. The data is represented as a cluster of bubbles where each bubble represents a grant and the size of the bubble indicates the relative award amount. The color scheme in lower left of the page reveals the dollar amount range of the grant. This provides a quick visual view of the active research grants for the entire university. While the visualization starts from a big cluster, one can narrow down the view by selecting the funding agency, academic unit, active year range or the faculty member of interest. Clicking on a grant bubble will display the full description of the grant including title, list of investigators and other information. Note: This information is based solely on grants that have been loaded into the system through OSP (Office of Sponsored Program) feed.
         </div>
       <div id="vis"> </div>
     </div>

@@ -4,9 +4,9 @@
 
       <div id="legendDiv" class="center-block">
          <h2 style="padding:0;color:#5f5858;font-size:20px">
-            Browse research keywords
+            Browse research interests
          </h2>
-         <p style="font-size:12px">Select an academic department.</p>
+         <p style="font-size:12px">Select an academic unit.</p>
       </div>
       
       <div class="panel-group" id="accordion">
@@ -15,7 +15,7 @@
           <div class="panel-heading">
             <h4 class="panel-title">
               <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-                <span class="start">Select:</span> Academic Department
+                <span class="start">Select:</span> Academic Unit
               </a>
             </h4>
           </div>
@@ -31,9 +31,7 @@
       <div>
         <font face="Times New Roman" size="2">
           <span><i>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-            Cras finibus blandit turpis, eu egestas est sagittis eget. 
-            Duis eu enim. 
+            Hover over a faculty's name to see one's research interests.  
           </i></span>
         </font>
       </div>
@@ -41,11 +39,9 @@
     </div>
 
     <div class="col-md-8">
-	  <div id="organization-subject-areas" style="padding-bottom:60px;height:800px;width:100%">
+	  <div id="organization-subject-areas" style="padding-bottom:60px;height:900px;width:100%">
 	    <div id="info_icon_text" style="display:none">
-		  Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-		  Cras finibus blandit turpis, eu egestas est sagittis eget. 
-		  Duis eu enim. 
+		  This visualization represents all the faculty in the selected organizational unit linked to all the subject areas in which faculty have published in. Subject areas are derived from the subject area classification of the journals assigned by the publishers. We infer that any article that is published in a particular journal has the subject area classification of that journal. Thus, the author of such article is said to have research interest in those subject areas. This visualization can be looked in two ways. One is by hovering over the author names (given in the center), in which case, the links to the subject areas will be highlighted. Alternatively, by hovering over a subject area, will highlight all the authors who have published in that subject area. Note: This information is based solely on publications that have been loaded into the system. 
 		</div>
     </div>
 

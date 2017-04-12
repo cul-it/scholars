@@ -55,11 +55,11 @@ function createWordCloudSelector(siteSelector, departmentSelector, personSelecto
   
   function showSelection(message, uri) {
     if ( typeof message == "undefined") {
-      $("#selectedWordCloudLabel").html("University-wide Research Keywords");
+      $("#selectedWordCloudLabel").html("University-wide research keywords");
     } else if ( typeof uri == "undefined") {
-      $("#selectedWordCloudLabel").html("Research Keywords for " + message);
+      $("#selectedWordCloudLabel").html("Research keywords for " + message);
     } else {
-      $("#selectedWordCloudLabel").html('Research Keywords for <a href="' + toDisplayPageUrl(uri) + '">' + message + '</a>');
+      $("#selectedWordCloudLabel").html('Research keywords for <a href="' + toDisplayPageUrl(uri) + '">' + message + '</a>');
     }
   }
   
