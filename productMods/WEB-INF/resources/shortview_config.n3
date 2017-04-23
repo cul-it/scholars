@@ -19,27 +19,32 @@
 vivo:FacultyMember
         display:hasCustomView mydomain:peopleSearchView ;
         display:hasCustomView mydomain:peopleIndexView ;
-        display:hasCustomView mydomain:peopleBrowseView .
+        display:hasCustomView mydomain:peopleBrowseView ;
+        display:hasCustomView mydomain:peopleExpertsView .
 
 vivo:Librarian
         display:hasCustomView mydomain:peopleSearchView ;
         display:hasCustomView mydomain:peopleIndexView ;
-        display:hasCustomView mydomain:peopleBrowseView .
+        display:hasCustomView mydomain:peopleBrowseView ;
+        display:hasCustomView mydomain:peopleExpertsView .
 
 vivo:NonFacultyAcademic
         display:hasCustomView mydomain:peopleSearchView ;
         display:hasCustomView mydomain:peopleIndexView ;
-        display:hasCustomView mydomain:peopleBrowseView .
+        display:hasCustomView mydomain:peopleBrowseView ;
+        display:hasCustomView mydomain:peopleExpertsView .
 
 vivo:NonAcademic
         display:hasCustomView mydomain:peopleSearchView ;
         display:hasCustomView mydomain:peopleIndexView ;
-        display:hasCustomView mydomain:peopleBrowseView .
+        display:hasCustomView mydomain:peopleBrowseView ;
+        display:hasCustomView mydomain:peopleExpertsView .
 
 vivo:EmeritusFaculty
         display:hasCustomView mydomain:peopleSearchView ;
         display:hasCustomView mydomain:peopleIndexView ;
-        display:hasCustomView mydomain:peopleBrowseView .
+        display:hasCustomView mydomain:peopleBrowseView ;
+        display:hasCustomView mydomain:peopleExpertsView .
 
 mydomain:peopleSearchView
 	a display:customViewForIndividual ;
@@ -58,6 +63,13 @@ mydomain:peopleBrowseView
 	display:appliesToContext "BROWSE" ;
 	display:hasTemplate "view-browse-people-custom.ftl" ;
 	display:hasDataGetter mydomain:personInPositionPlusTitleDG .
+
+mydomain:peopleExpertsView
+	a display:customViewForIndividual ;
+	display:appliesToContext "EXPERTS" ;
+	display:hasTemplate "view-experts-default.ftl" ;
+	display:hasDataGetter mydomain:expertsInPositionDG ;
+	display:hasDataGetter mydomain:expertsPubCountDG .
 
 mydomain:personInPositionDG
 	a datagetters:SparqlQueryDataGetter ;
@@ -98,4 +110,121 @@ OPTIONAL { ?individualUri vivo:preferredTitle ?title . }
 ?position hr:positionIn ?org .
 ?org rdfs:label ?oLabel
 }
+	""" .
+
+mydomain:expertsInPositionDG
+	a datagetters:SparqlQueryDataGetter ;
+	display:saveToVar "position" ;
+	display:query """
+PREFIX rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX vivo: <http://vivoweb.org/ontology/core#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX hr: <http://scholars.cornell.edu/ontology/hr.owl#>
+SELECT DISTINCT ?expPosn (str(?oLabel) as ?orgLabel)
+WHERE {    
+?individualUri vivo:relatedBy ?position .
+?position a vivo:Position .
+?position rdf:type vivo:PrimaryPosition .
+?position rdfs:label ?expPosn .
+?position hr:positionIn ?org .
+?org rdfs:label ?oLabel
+}
+	""" .
+
+mydomain:expertsPubCountDG
+	a datagetters:SparqlQueryDataGetter ;
+	display:saveToVar "pubCount" ;
+	display:query """
+	PREFIX rdf:      <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+	PREFIX rdfs:     <http://www.w3.org/2000/01/rdf-schema#>
+	PREFIX bibo:     <http://purl.org/ontology/bibo/>
+	PREFIX vivo:     <http://vivoweb.org/ontology/core#>
+	PREFIX vivoc:    <http://scholars.cornell.edu/ontology/vivoc.owl#>
+	select 
+	  (count(DISTINCT ?label) as ?lcount)  (count(DISTINCT ?journal) as ?jcount) 
+
+	WHERE
+	{
+	  {
+	    ?individualUri vivo:relatedBy ?auth .
+	    ?auth a vivo:Authorship .
+	    ?auth vivo:relates ?pub .
+	    ?pub a bibo:Document .
+	    ?pub rdfs:label ?label .
+	    ?pub vivo:freetextKeyword ?keyword . 
+	    ?pub vivo:hasPublicationVenue ?journal . 
+		BIND (str('?querytext') AS ?text)
+		BIND (REPLACE(?text, "<", "", "i") AS ?textTwo)
+		BIND (REPLACE(?textTwo, ">", "", "i") AS ?textThree)
+	    FILTER regex(?keyword,?textThree,'i')
+	  } UNION {
+	    ?individualUri vivo:relatedBy ?auth .
+	    ?auth a vivo:Authorship .
+	    ?auth vivo:relates ?pub .
+	    ?pub a bibo:Document .
+	    ?pub rdfs:label ?label .
+	    ?pub vivo:hasSubjectArea ?mesh .
+	    ?mesh a vivoc:MeshTerm .
+	    ?mesh rdfs:label ?keyword .
+	    ?pub vivo:hasPublicationVenue ?journal . 
+		BIND (str('?querytext') AS ?text)
+		BIND (REPLACE(?text, "<", "", "i") AS ?textTwo)
+		BIND (REPLACE(?textTwo, ">", "", "i") AS ?textThree)
+	    FILTER regex(?keyword,?textThree,'i')
+	 } UNION {
+	    ?individualUri vivo:relatedBy ?auth .
+	    ?auth a vivo:Authorship .
+	    ?auth vivo:relates ?pub .
+	    ?pub a bibo:Document .
+	    ?pub rdfs:label ?label .
+	    ?pub vivoc:inferredKeyword ?keyword . 
+	    ?pub vivo:hasPublicationVenue ?journal . 
+		BIND (str('?querytext') AS ?text)
+		BIND (REPLACE(?text, "<", "", "i") AS ?textTwo)
+		BIND (REPLACE(?textTwo, ">", "", "i") AS ?textThree)
+	    FILTER regex(?keyword,?textThree,'i')
+	  } UNION {
+	    ?individualUri vivo:relatedBy ?auth .
+	    ?auth a vivo:Authorship .
+	    ?auth vivo:relates ?pub .
+	    ?pub a bibo:Document .
+	    ?pub rdfs:label ?label .
+	    ?pub vivo:freetextKeyword ?keyword . 
+	    ?pub vivoc:freetextJournalTitle ?journal . 
+		BIND (str('?querytext') AS ?text)
+		BIND (REPLACE(?text, "<", "", "i") AS ?textTwo)
+		BIND (REPLACE(?textTwo, ">", "", "i") AS ?textThree)
+	    FILTER regex(?keyword,?textThree,'i')
+	  } UNION {
+	    ?individualUri vivo:relatedBy ?auth .
+	    ?auth a vivo:Authorship .
+	    ?auth vivo:relates ?pub .
+	    ?pub a bibo:Document .
+	    ?pub rdfs:label ?label .
+	    ?pub vivo:hasSubjectArea ?mesh .
+	    ?mesh a vivoc:MeshTerm .
+	    ?mesh rdfs:label ?keyword .
+	    ?pub vivoc:freetextJournalTitle ?journal . 
+		BIND (str('?querytext') AS ?text)
+		BIND (REPLACE(?text, "<", "", "i") AS ?textTwo)
+		BIND (REPLACE(?textTwo, ">", "", "i") AS ?textThree)
+	    FILTER regex(?keyword,?textThree,'i')
+	 } UNION {
+	    ?individualUri vivo:relatedBy ?auth .
+	    ?auth a vivo:Authorship .
+	    ?auth vivo:relates ?pub .
+	    ?pub a bibo:Document .
+	    ?pub rdfs:label ?label .
+	    ?pub vivoc:inferredKeyword ?keyword . 
+	    ?pub vivoc:freetextJournalTitle ?journal . 
+		BIND (str('?querytext') AS ?text)
+		BIND (REPLACE(?text, "<", "", "i") AS ?textTwo)
+		BIND (REPLACE(?textTwo, ">", "", "i") AS ?textThree)
+	    FILTER regex(?keyword,?textThree,'i')
+	  }
+	  
+	}
+
+
 	""" .
