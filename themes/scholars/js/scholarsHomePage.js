@@ -97,5 +97,14 @@ $(document).ready(function() {
 
 	};
 	
+	$(document).ready(function() {
+		$('.search-links').mouseenter(function() {
+				$('#expert-search').show("fade");
+		}).mouseleave(function() {
+				if ( $('#de-search-input').val().length < 1 ) {
+					$('#expert-search').hide("fade");
+				}
+		});
+	});
 
 });
