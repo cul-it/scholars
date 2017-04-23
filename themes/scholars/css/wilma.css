@@ -3237,3 +3237,55 @@ header {
 .inline-meshterm {
 	display: inline;
 }
+/*** Search widgets ***/
+#by-name-radio {
+	margin-left: 18px;
+}
+.results-search-radio-container {
+	color: rgb(95, 88, 88);
+	text-align: left;
+	margin-top: -12px;
+	padding-left: 4px;
+}
+#results-search-input {
+	margin-top: 5px;
+	color: #656;
+	font-size: 14px;
+	height: 32px;
+	width: 250px;
+}
+#results-search-submit {
+	background :none;
+	border: none;
+	font-size: 17px;
+	color: rgb(95, 88, 88);
+}
+#results-search-submit:hover {
+	color: #CC6949;
+}
+.searchTypeFacet {
+    border: 1px solid #dde4e3margin-bottom: 1.5em;
+    width: 182px;
+    text-align: center;
+    border: 1px solid #dde4e3;
+    padding-top: 4px;
+    color: #fff;
+    background: #5e6363;
+}
+.searchTypeFacet ul {
+    width: 180px;
+    border: 1px solid #dde4e3;
+    background: #f1f2ee;
+    padding: 0;
+    margin-top: 4px;
+    text-align: left;
+}
+.searchTypeFacet ul li {
+    border-bottom: 1px solid #dde4e3;
+    display: block;
+    font-size: 14px;
+    margin-left: 20px;
+    padding-top: .5em;
+    padding-bottom: .5em;
+    width: 150px;
+}

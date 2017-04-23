@@ -44,13 +44,58 @@ div#logo-container {
 .image-links div.image-link-div:hover {
 	box-shadow: 10px 10px 5px #888888;
 }
+.search-links {
+	text-decoration: none;
+	color: #fff;
+	font-family: Muli, Raleway, Arial, Verdana, Helvetica, sans-serif;
+	font-weight: bold;
+	padding-bottom:	20px;
+}
+.search-links:hover {
+	color: #fff;
+	font-family: Muli, Raleway, Arial, Verdana, Helvetica, sans-serif;
+	font-weight: bold;
+}
+.search-links div.search-link-div:hover {
+	box-shadow: 10px 10px 5px #888888;
+}
+#expert-search {
+	background-color: rgba(0, 0, 0, 0.5);
+	border-radius: 10px;
+	display: none;
+	font-family: Arial,Helvetica,sans-serif;
+	text-align: center;
+	width: 100%;
+}
 #domain-experts {
-	padding: 188px 0 20px 0;
+	padding: 135px 0 20px 0;
 	margin: 0;
 	border-radius: 10px;
 	height: 260px;
 	width: 100%;
 	background-size: cover;
+}
+#de-search-input {
+	margin-top: 5px;
+	color: #656;
+	font-size: 14px;
+	height: 32px;
+	width: 80%;
+}
+#de-search-submit {
+	background :none;
+	border: none;
+	font-size: 17px;
+	color: #fff;
+}
+#de-search-submit:hover {
+	color: #CC6949;
+}
+.search-radio-container {
+	color: #fff;
+	text-align: left;
+	margin-top: -12px;
+	padding-left: 22px;
 }
 #ongoing-research {
 	background: #fff url('../images/home-research.jpg') no-repeat center center;
