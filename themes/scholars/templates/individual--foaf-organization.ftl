@@ -97,7 +97,7 @@
 	</div>
 	<div <#if isJohnsonOrHotelSchool >style="display:none"</#if>>
 		<a href="${urls.base}/orgSAVisualization?deptURI=${individual.uri}"><img width="68%" src="${urls.base}/themes/scholars/images/person_sa.png"/></a>
-		<p>Subject Areas</p>
+		<p>Research Interests</p>
 	</div>
 	<div <#if isJohnsonOrHotelSchool >style="display:none"</#if>>
   		<a href="#" id="view_selection"><img width="40%" src="${urls.base}/themes/scholars/images/dept_grants.png"/></a>
