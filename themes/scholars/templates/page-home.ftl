@@ -5,7 +5,6 @@
 <#assign string_time = .now?time?string />
 <#assign randomized = string_time[string_time?index_of(":")+2..string_time?index_of("M")-3] />
 <#import "lib-home-page.ftl" as lh>
-<#import "lib-vivocornell-home-page.ftl" as lvh>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -15,10 +14,12 @@
 	<#assign navbarClass = "homepage"/>
 	<#assign backsplashDisplay = ""/>
 	<#assign navbarLogoDisplay = "display:none;"/>
-    <#-- builds a json object that is used by js to render the academic departments section -->
-    <@lvh.listResearchFacilities />
-    <#-- supplies the faculty count to the js function that generates a random row number for the solr query -->
-    <@lh.facultyMemberCount  vClassGroups! />
+	<script>
+	<#-- don't need these, but need to clean up related js first; otherwise, things break. -->
+	var researchFacilities = [];
+	var urlsBase = "/scholars";
+	var facultyMemberCount = 0;
+	</script>
     <body class="${bodyClasses!}" onload="${bodyOnload!}">
 		<div id="home" class="page">
 	    	<#include "identity.ftl">
@@ -38,17 +39,24 @@
 				</div>
 				<div class="container-fluid scholars-home-container">
 					<div id="discover-content" class="row fff-bkg">
-						<div class="col-sm-4 col-md-4 col-lg-4">
-							<a class="image-links" href="/scholars/people" >
-								<div id="domain-experts" class="image-link-div">
-									<div class="discovery-details">
-										<span>
-										Find a<br/>Domain Expert</span>
-									</div>
+						<div class="col-sm-4 col-md-4 col-lg-4 search-links">
+							<div id="domain-experts" class="search-link-div">
+								<div class="discovery-details">
+									<span>
+										Find a<br/>Domain Expert
+									</span>
 								</div>
-							</a>
-							<div class="discovery-text-container">
-								<p class="discovery-text">Search by research interests, keywords, and affiliations.</p>
+								<div id="expert-search" >
+									<form id="de-search-form" action="${urls.base}/domainExpert" name="search" role="search" accept-charset="UTF-8" method="POST"> 
+										<input id="de-search-vclass" type="hidden" name="vclassId" value="http://xmlns.com/foaf/0.1/Person" />
+										<input id="de-search-input" type="text" name="querytext" value="${querytext!}" />
+										<input id="de-search-submit" type="submit" action="${urls.base}/domainExpert?origin=homepage" value="Go" />
+										<div class="search-radio-container">
+											<input type="radio" name="querytype" value="subject" checked> by subject or keyword
+								   			<input id="by-name-radio" type="radio" name="querytype" value="name"> by name
+								  		</div>
+									</form>
+								</div>
 							</div>
 						</div>
 						<div class="col-sm-4 col-md-4 col-lg-4">
@@ -153,7 +161,19 @@
                 viewAllDepartments: '${i18n().view_all_departments}',
                 noDepartmentsFound: '${i18n().no_departments_found}'
             };
+
+
         </script>
+		<script>
+		var baseUrl = "${urls.base}";
+		var concepts = [
+		<#if conceptsDG?has_content>
+		    <#list conceptsDG as resultRow>"${resultRow["label"]}"<#if (resultRow_has_next)>,</#if></#list>       
+		<#else>
+			"Nopers"
+		</#if>
+		];
+		</script>
     </body>
 </html>
 
