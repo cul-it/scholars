@@ -8,13 +8,13 @@
 
 :data_distributor_department_word_cloud :actionName "department_word_cloud" .
 :data_distributor_department_word_cloud
-    a   <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.DataDistributor> ,
-        <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.RdfGraphDistributor> ;
+    a   <java:edu.cornell.library.scholars.webapp.controller.api.distribute.DataDistributor> ,
+        <java:edu.cornell.library.scholars.webapp.controller.api.distribute.RdfGraphDistributor> ;
     :modelBuilder :model_builder_department_word_cloud .
     
 :model_builder_department_word_cloud
-    a   <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.modelbuilder.ModelBuilder> ,
-        <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.modelbuilder.ConstructModelBuilder> ;
+    a   <java:edu.cornell.library.scholars.webapp.controller.api.distribute.modelbuilder.ModelBuilder> ,
+        <java:edu.cornell.library.scholars.webapp.controller.api.distribute.modelbuilder.ConstructModelBuilder> ;
 	    :uriBinding "department" ;
 	    :constructQuery """
 		PREFIX rdf:      <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -49,14 +49,14 @@
 # Drilldown to UNIONS model builder
 #
 :dwc_drill_dd
-    a   <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.DataDistributor> ,
-        <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.RdfGraphDistributor> ;
     :actionName "department_word_cloud_NOT_YET" ;
+    a   <java:edu.cornell.library.scholars.webapp.controller.api.distribute.DataDistributor> ,
+        <java:edu.cornell.library.scholars.webapp.controller.api.distribute.RdfGraphDistributor> ;
     :modelBuilder :dwc_drill_mb .
     
 :dwc_drill_mb
-    a   <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.modelbuilder.ModelBuilder> ,
-        <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.modelbuilder.DrillDownModelBuilder> ;
+    a   <java:edu.cornell.library.scholars.webapp.controller.api.distribute.modelbuilder.ModelBuilder> ,
+        <java:edu.cornell.library.scholars.webapp.controller.api.distribute.modelbuilder.DrillDownModelBuilder> ;
     :topLevelModelBuilder :dwc_drill_mb_level_1 ;
     :drillDownModelBuilder :dwc_drill_mb_level_2 ;        
     :drillDownQuery """
@@ -68,8 +68,8 @@
     """ .
 
 :dwc_drill_mb_level_1
-    a   <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.modelbuilder.ModelBuilder> ,
-        <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.modelbuilder.ConstructModelBuilder> ;
+    a   <java:edu.cornell.library.scholars.webapp.controller.api.distribute.modelbuilder.ModelBuilder> ,
+        <java:edu.cornell.library.scholars.webapp.controller.api.distribute.modelbuilder.ConstructModelBuilder> ;
     :uriBinding "department" ;
     :constructQuery """
         PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
@@ -89,8 +89,8 @@
     """ .
         
 :dwc_drill_mb_level_2
-    a   <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.modelbuilder.ResettableModelBuilder> ,
-        <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.modelbuilder.ConstructModelBuilder> ;
+    a   <java:edu.cornell.library.scholars.webapp.controller.api.distribute.modelbuilder.ResettableModelBuilder> ,
+        <java:edu.cornell.library.scholars.webapp.controller.api.distribute.modelbuilder.ConstructModelBuilder> ;
     :uriBinding "person" ;
     :constructQuery """
         PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
