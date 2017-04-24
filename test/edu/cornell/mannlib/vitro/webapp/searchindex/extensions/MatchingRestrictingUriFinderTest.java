@@ -1,6 +1,6 @@
 /* $This file is distributed under the terms of the license in /doc/license.txt$ */
 
-package edu.cornell.mannlib.vitro.webapp.searchindex.indexing;
+package edu.cornell.mannlib.vitro.webapp.searchindex.extensions;
 
 import static com.hp.hpl.jena.rdf.model.ResourceFactory.createPlainLiteral;
 import static com.hp.hpl.jena.rdf.model.ResourceFactory.createProperty;
@@ -9,7 +9,8 @@ import static com.hp.hpl.jena.rdf.model.ResourceFactory.createStatement;
 import static edu.cornell.mannlib.vitro.testing.ModelUtilitiesTestHelper.model;
 import static edu.cornell.mannlib.vitro.webapp.modelaccess.ModelAccess.WhichService.CONTENT;
 import static org.hamcrest.CoreMatchers.containsString;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -28,7 +29,7 @@ import com.hp.hpl.jena.vocabulary.RDF;
 
 import edu.cornell.mannlib.vitro.testing.AbstractTestClass;
 import edu.cornell.mannlib.vitro.webapp.rdfservice.impl.jena.model.RDFServiceModel;
-import edu.cornell.mannlib.vitro.webapp.searchindex.indexing.StatementPatternParser.PatternException;
+import edu.cornell.mannlib.vitro.webapp.searchindex.extensions.StatementPatternParser.PatternException;
 import stubs.edu.cornell.mannlib.vitro.webapp.modelaccess.ContextModelAccessStub;
 
 /**
