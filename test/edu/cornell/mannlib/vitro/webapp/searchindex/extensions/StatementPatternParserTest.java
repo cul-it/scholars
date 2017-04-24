@@ -1,12 +1,13 @@
 /* $This file is distributed under the terms of the license in /doc/license.txt$ */
 
-package edu.cornell.mannlib.vitro.webapp.searchindex.indexing;
+package edu.cornell.mannlib.vitro.webapp.searchindex.extensions;
 
-import static com.hp.hpl.jena.rdf.model.ResourceFactory.*;
+import static com.hp.hpl.jena.rdf.model.ResourceFactory.createLangLiteral;
+import static com.hp.hpl.jena.rdf.model.ResourceFactory.createPlainLiteral;
 import static com.hp.hpl.jena.rdf.model.ResourceFactory.createProperty;
 import static com.hp.hpl.jena.rdf.model.ResourceFactory.createResource;
+import static com.hp.hpl.jena.rdf.model.ResourceFactory.createTypedLiteral;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
@@ -20,7 +21,7 @@ import com.hp.hpl.jena.rdf.model.SimpleSelector;
 import com.hp.hpl.jena.vocabulary.RDF;
 
 import edu.cornell.mannlib.vitro.testing.AbstractTestClass;
-import edu.cornell.mannlib.vitro.webapp.searchindex.indexing.StatementPatternParser.PatternException;
+import edu.cornell.mannlib.vitro.webapp.searchindex.extensions.StatementPatternParser.PatternException;
 
 /**
  * TODO
