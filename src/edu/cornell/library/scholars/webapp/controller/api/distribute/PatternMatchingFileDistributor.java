@@ -7,6 +7,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.file.Path;
+import java.util.Arrays;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -148,6 +149,9 @@ public class PatternMatchingFileDistributor extends DataDistributorBase {
 
         private String getParameterFromRequest() {
             String[] values = parameters.get(parameterName);
+            if (log.isDebugEnabled()) {
+                log.debug("Parameter value: =" + Arrays.asList(values));
+            }
             if (values == null || values.length == 0) {
                 log.warn("No value provided for request parameter '"
                         + parameterName + "'");
@@ -158,6 +162,8 @@ public class PatternMatchingFileDistributor extends DataDistributorBase {
 
         private File doPatternMatching(String parameter) {
             Matcher m = parameterParser.matcher(parameter);
+            log.debug("Pattern matching: value=" + parameter + ", parser="
+                    + parameterParser + ", match=" + m);
             if (m.find()) {
                 return substituteIntoFilepath(m);
             } else {
@@ -174,6 +180,7 @@ public class PatternMatchingFileDistributor extends DataDistributorBase {
             for (int i = 0; i <= m.groupCount(); i++) {
                 path = path.replace("\\" + i, m.group(i));
             }
+            log.debug("Substitute: " + filepathPattern + " becomes " + path);
             return home.resolve(path).toFile();
         }
 

@@ -8,20 +8,6 @@
 # Start with some simple ones.
 #
 
-:data_distributor_collaborations_interd :actionName "interdepartmental_sunburst" .
-:data_distributor_collaborations_interd
-    a   <java:edu.cornell.library.scholars.webapp.controller.api.distribute.DataDistributor> ,
-        <java:edu.cornell.library.scholars.webapp.controller.api.distribute.FileDistributor> ;
-    :path "visualizationData/interdept-org73341.json" ;
-    :contentType "application/json" .
-
-:data_distributor_collaborations_crossunit :actionName "cross_unit_sunburst" .
-:data_distributor_collaborations_crossunit
-    a   <java:edu.cornell.library.scholars.webapp.controller.api.distribute.DataDistributor> ,
-        <java:edu.cornell.library.scholars.webapp.controller.api.distribute.FileDistributor> ;
-    :path "visualizationData/crossunit-org73341.json" ;
-    :contentType "application/json" .
-
 :data_distributor_collaborations :actionName "collaboration_sunburst" .
 :data_distributor_collaborations
     a   <java:edu.cornell.library.scholars.webapp.controller.api.distribute.DataDistributor> ,
@@ -43,6 +29,31 @@
         <java:edu.cornell.library.scholars.webapp.controller.api.distribute.FileDistributor> ;
     :path "visualizationData/HomepageKWCloud.json" ;
     :contentType "application/json" .
+
+#
+# These serve static files, but they choose the file based on a request parameter.
+#
+
+:sunburst_inter_dd
+    a   <java:edu.cornell.library.scholars.webapp.controller.api.distribute.DataDistributor> ,
+        <java:edu.cornell.library.scholars.webapp.controller.api.distribute.PatternMatchingFileDistributor> ;
+    :actionName "interdepartmental_sunburst" ;
+    :parameterName "department" ;                             # ?department=[department URI]
+    :parameterPattern "[^/#]+$";                              # matches the localname of the department URI.
+    :filepathPattern "visualizationData/interdept-\\0.json" ; # substitute the localname into this path.
+    :emptyResponse "{}" ;                                     # if file not found, return this.
+    :contentType "application/json" .
+
+:sunburst_cross_dd
+    a   <java:edu.cornell.library.scholars.webapp.controller.api.distribute.DataDistributor> ,
+        <java:edu.cornell.library.scholars.webapp.controller.api.distribute.PatternMatchingFileDistributor> ;
+    :actionName "cross_unit_sunburst" ;
+    :parameterName "department" ;                             # ?department=[department URI]
+    :parameterPattern "[^/#]+$";                              # matches the localname of the department URI.
+    :filepathPattern "visualizationData/crossunit-\\0.json" ; # substitute the localname into this path.
+    :emptyResponse "{}" ;                                     # if file not found, return this.
+    :contentType "application/json" .
+
 
 #
 # Grants data:

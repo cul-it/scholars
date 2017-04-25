@@ -1,16 +1,6 @@
-ScholarsVis["CollaborationSunburst"] = function(options) {
-	var defaults = {
-		    url : applicationContextPath + "/api/dataRequest/collaboration_sunburst",
-	    	transform : transformCollab,
-		    display : sunburst,
-		    closer : closeSunburst
-		};
-	return new ScholarsVis.Visualization(options, defaults);
-};
-
 ScholarsVis["CrossUnitCollaborationSunburst"] = function(options) {
 	var defaults = {
-		    url : applicationContextPath + "/api/dataRequest/cross_unit_sunburst",
+		    url : applicationContextPath + "/api/dataRequest/cross_unit_sunburst?department=" + options.department,
 	    	transform : transformCollab,
 		    display : sunburst,
 		    closer : closeSunburst
@@ -20,7 +10,7 @@ ScholarsVis["CrossUnitCollaborationSunburst"] = function(options) {
 
 ScholarsVis["InterDepartmentCollaborationSunburst"] = function(options) {
 	var defaults = {
-		    url : applicationContextPath + "/api/dataRequest/interdepartmental_sunburst",
+		    url : applicationContextPath + "/api/dataRequest/interdepartmental_sunburst?department=" + options.department,
 	    	transform : transformCollab,
 		    display : sunburst,
 		    closer : closeSunburst
