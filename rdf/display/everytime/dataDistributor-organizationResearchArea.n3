@@ -1,0 +1,106 @@
+@prefix : <http://vitro.mannlib.cornell.edu/ns/vitro/ApplicationSetup#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  
+#
+# Organization research areas
+# Drill down at level 1: 
+#   for the organization, find position; 
+#   for each position,    find person,
+#                              authorship, 
+#                              article,
+#                              journal, 
+#                              concept, 
+#                              subject.
+#
+
+:ora_drill_L1_dd
+    a   <java:edu.cornell.library.scholars.webapp.controller.api.distribute.DataDistributor> ,
+        <java:edu.cornell.library.scholars.webapp.controller.api.distribute.RdfGraphDistributor> ;
+    :actionName "organization_research_areas" ;
+    :modelBuilder :ora_drill_L1_mb0 .
+    
+:ora_drill_L1_mb0
+    a   <java:edu.cornell.library.scholars.webapp.controller.api.distribute.modelbuilder.ModelBuilder> ,
+        <java:edu.cornell.library.scholars.webapp.controller.api.distribute.modelbuilder.DrillDownModelBuilder> ;
+    :topLevelModelBuilder :ora_drill_L1_mb1 ;
+    :bottomLevelModelBuilder :ora_drill_L1_mb2 ;        
+    :drillDownQuery """
+        PREFIX hr:   <http://scholars.cornell.edu/ontology/hr.owl#>
+        SELECT ?position 
+        WHERE {
+          ?organization hr:hasPosition ?position .
+        }
+    """ .
+    
+:ora_drill_L1_mb1
+    a   <java:edu.cornell.library.scholars.webapp.controller.api.distribute.modelbuilder.ModelBuilder> ,
+        <java:edu.cornell.library.scholars.webapp.controller.api.distribute.modelbuilder.ConstructModelBuilder> ;
+    :uriBinding "organization" ;
+    :constructQuery """
+        PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+        PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+        PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+        PREFIX vivo: <http://vivoweb.org/ontology/core#>
+        PREFIX bibo: <http://purl.org/ontology/bibo/>
+        PREFIX hr:   <http://scholars.cornell.edu/ontology/hr.owl#>
+        CONSTRUCT {
+          ?organization hr:hasPosition ?position .
+        }
+        WHERE {
+          ?organization hr:hasPosition ?position .
+        } 
+      """ .
+
+:ora_drill_L1_mb2
+    a   <java:edu.cornell.library.scholars.webapp.controller.api.distribute.modelbuilder.ResettableModelBuilder> ,
+        <java:edu.cornell.library.scholars.webapp.controller.api.distribute.modelbuilder.ConstructModelBuilder> ;
+    :uriBinding "position" ;
+    :constructQuery """
+        PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+        PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+        PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+        PREFIX vivo: <http://vivoweb.org/ontology/core#>
+        PREFIX bibo: <http://purl.org/ontology/bibo/>
+        PREFIX hr:   <http://scholars.cornell.edu/ontology/hr.owl#>
+        CONSTRUCT {
+          ?position 
+            a vivo:Position ;
+            vivo:relates ?author .
+          ?author 
+            a foaf:Person ;
+            rdfs:label ?name ;
+            vivo:relatedBy ?authorship .
+          ?authorship vivo:relates ?article .
+          ?article 
+            a bibo:Article ;
+            vivo:hasPublicationVenue ?journal .
+          ?journal
+            a bibo:Journal ; 
+            vivo:hasSubjectArea ?concept .
+          ?concept 
+            a skos:Concept ;
+            rdfs:label ?subject .
+        }
+        WHERE {
+          ?position 
+            a vivo:Position ;
+            vivo:relates ?author .
+          ?author 
+            a foaf:Person ;
+            rdfs:label ?name ;
+            vivo:relatedBy ?authorship .
+          ?authorship vivo:relates ?article .
+          ?article 
+            a bibo:Article ;
+            vivo:hasPublicationVenue ?journal .
+          ?journal
+            a bibo:Journal ; 
+            vivo:hasSubjectArea ?concept .
+          ?concept 
+            a skos:Concept ;
+            rdfs:label ?subject .
+        } 
+      """ .
+
