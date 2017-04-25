@@ -129,7 +129,7 @@
     :hasSelectQuery """
         PREFIX bibo:     <http://purl.org/ontology/bibo/>
         PREFIX vivo:     <http://vivoweb.org/ontology/core#>
-		SELECT ?keyword 
+		SELECT (lcase(?keyword) as ?kw) 
 		WHERE {
             ?uri vivo:relatedBy ?auth .
             ?auth a vivo:Authorship .
@@ -143,7 +143,7 @@
         PREFIX rdfs:     <http://www.w3.org/2000/01/rdf-schema#>
         PREFIX vivo:     <http://vivoweb.org/ontology/core#>
         PREFIX vivoc:    <http://scholars.cornell.edu/ontology/vivoc.owl#>
-		SELECT ?meshLabel 
+		SELECT (lcase(?meshLabel) AS ?kw) 
 		WHERE {
             ?uri vivo:relatedBy ?auth .
             ?auth a vivo:Authorship .
@@ -158,7 +158,7 @@
         PREFIX bibo:     <http://purl.org/ontology/bibo/>
         PREFIX vivo:     <http://vivoweb.org/ontology/core#>
         PREFIX vivoc:    <http://scholars.cornell.edu/ontology/vivoc.owl#>
-		SELECT ?infkeyword 
+		SELECT (lcase(?infkeyword) AS ?kw) 
 		WHERE {
             ?uri vivo:relatedBy ?auth .
             ?auth a vivo:Authorship .
