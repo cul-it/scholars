@@ -108,11 +108,11 @@
 		<img width="40%" src="${urls.base}/themes/scholars/images/dept_grants.png"/>
 		<p>Grants</p>
 	</div>
-	<div>
+	<div id="interd_collab_icon_holder" style="display:none">
 		<a id="interd_collab_trigger" class="jqModal" href="#"><img width="54%" src="${urls.base}/themes/scholars/images/interd_collab.png"/></a>
 		<p>Interdepartmental<br/>CoAuthorships</p>
 	</div>
-	<div>
+	<div id="cross_unit_collab_icon_holder" style="display:none">
 		<a id="cross_unit_collab_trigger" class="jqModal" href="#"><img width="54%" src="${urls.base}/themes/scholars/images/cross_unit_collab.png"/></a>
 		<p>Cross-unit<br/>CoAuthorships</p>
 	</div>
@@ -353,70 +353,66 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></
 			  '<script type="text/javascript" src="${urls.base}/js/scholars-vis/wordcloud/word-cloud.js"></script>')}
 
 <#if isCollegeOrSchool >
+  <div id="interd_collab_vis" class="dept_collab_vis" style="display:none">
+ 	
+ 	<h3 style="margin:0;padding:0">Interdepartmental CoAuthorships</h3>
+	<font face="Times New Roman" size="2">
+	<span><i>Click on any arc to zoom in and on the center circle to zoom out.
+	Once zoomed in to a faculty of interest, click on the outer arc to view the list of coauthored publications.
+	</i></span>
+ 	</font>
 
-	<#-- TEMPORARY HACK. ONLY SHOW THE COLLAB VIZ FOR THE COLLEGE OF ENGINEERING -->
-	<#if individual.nameStatement?? && individual.nameStatement.value == "College of Engineering" >
-	  <div id="interd_collab_vis" class="dept_collab_vis" style="display:none">
-	 	
-	 	<h3 style="margin:0;padding:0">Interdepartmental CoAuthorships</h3>
-		<font face="Times New Roman" size="2">
-		<span><i>Click on any arc to zoom in and on the center circle to zoom out.
-		Once zoomed in to a faculty of interest, click on the outer arc to view the list of coauthored publications.
-		</i></span>
-	 	</font>
-
-        <div id="info_icon_text" style="display:none">
-          The interdepartmental co-authorships were identified based on the affiliation data extracted from the citation of a publication. Currently, we present co-authorships between researchers with the faculty appointments only. This visualization has a zoom-in/zoom-out functionality. The visualization consists of three layers i.e., department-level layer (inner most), person-level layer 1 (i.e., author in context) and the person-level layer 2 (i.e., the co-authors). To view the co-authorships, a user is first required to select a department of interest. In this view, a user can observe, who has co-authored with whom and how often did they co-authored. To view the co-authored publications, user is required to select a faculty member of interest. In this view, clicking on a co-author (in the outer circle) displays the list of co-authored articles in the tooltip. Click in the center circle to zoom out to select any other faculty/department of interest. Note: This information is based solely on publications that have been loaded into the system. 
-        </div>
-	  </div>
-	  <div id="cross_unit_collab_vis" class="dept_collab_vis" style="display:none">
-		
-		<h3 style="margin:0;padding:0">Cross-unit CoAuthorships</h3>
-		<font face="Times New Roman" size="2">
-		<span><i>Click on any arc to zoom in and on the center circle to zoom out.
-		Once zoomed in to a faculty of interest, click on the outer arc to view the list of coauthored publications.
-		</i></span>
-		</font>
-
-        <div id="info_icon_text" style="display:none">
-          The cross-unit co-authorships were identified based on the affiliation data extracted from the citation of a publication. Currently, we present co-authorships between researchers with the faculty appointments only. This visualization has a zoom-in/zoom-out functionality. The visualization consists of three layers i.e., unit-level layer (inner most), person-level layer 1 (i.e., author in context) and the person-level layer 2 (i.e., the co-authors). To view the co-authorships, a user is first required to select an academic unit of interest. In this view, a user can observe, who has co-authored with whom and how often did they co-authored. To view the co-authored publications, user is required to select a faculty member of interest. In this view, clicking on a co-author (in the outer circle) displays the list of co-authored articles in the tooltip. Click in the center circle to zoom out to select any other faculty/academic unit of interest. Note: This information is based solely on publications that have been loaded into the system.
-        </div>
-	  </div>
-		<script>
-		$().ready(function() {
-		  var cucs = new ScholarsVis.CrossUnitCollaborationSunburst({
-		    target : '#cross_unit_collab_vis',
-		    modal : true
-	      });
-	      $('#cross_unit_collab_trigger').click(cucs.show);
-		  $('#cross_unit_collab_exporter').click(cucs.showVisData);
+    <div id="info_icon_text" style="display:none">
+      The interdepartmental co-authorships were identified based on the affiliation data extracted from the citation of a publication. Currently, we present co-authorships between researchers with the faculty appointments only. This visualization has a zoom-in/zoom-out functionality. The visualization consists of three layers i.e., department-level layer (inner most), person-level layer 1 (i.e., author in context) and the person-level layer 2 (i.e., the co-authors). To view the co-authorships, a user is first required to select a department of interest. In this view, a user can observe, who has co-authored with whom and how often did they co-authored. To view the co-authored publications, user is required to select a faculty member of interest. In this view, clicking on a co-author (in the outer circle) displays the list of co-authored articles in the tooltip. Click in the center circle to zoom out to select any other faculty/department of interest. Note: This information is based solely on publications that have been loaded into the system. 
+    </div>
+  </div>
+  <div id="cross_unit_collab_vis" class="dept_collab_vis" style="display:none">
 	
-		  var idcs = new ScholarsVis.InterDepartmentCollaborationSunburst({
-		    target : '#interd_collab_vis',
-		    modal : true
-	      });
+	<h3 style="margin:0;padding:0">Cross-unit CoAuthorships</h3>
+	<font face="Times New Roman" size="2">
+	<span><i>Click on any arc to zoom in and on the center circle to zoom out.
+	Once zoomed in to a faculty of interest, click on the outer arc to view the list of coauthored publications.
+	</i></span>
+	</font>
+
+    <div id="info_icon_text" style="display:none">
+      The cross-unit co-authorships were identified based on the affiliation data extracted from the citation of a publication. Currently, we present co-authorships between researchers with the faculty appointments only. This visualization has a zoom-in/zoom-out functionality. The visualization consists of three layers i.e., unit-level layer (inner most), person-level layer 1 (i.e., author in context) and the person-level layer 2 (i.e., the co-authors). To view the co-authorships, a user is first required to select an academic unit of interest. In this view, a user can observe, who has co-authored with whom and how often did they co-authored. To view the co-authored publications, user is required to select a faculty member of interest. In this view, clicking on a co-author (in the outer circle) displays the list of co-authored articles in the tooltip. Click in the center circle to zoom out to select any other faculty/academic unit of interest. Note: This information is based solely on publications that have been loaded into the system.
+    </div>
+  </div>
+	<script>
+	$().ready(function() {
+	  var cucs = new ScholarsVis.CrossUnitCollaborationSunburst({
+	    department : '${individual.uri}',
+	    target : '#cross_unit_collab_vis',
+	    modal : true
+      });
+      cucs.examineData(function(data) {
+	    if (data && data.children && data.children.length > 0) {
+	      $('#cross_unit_collab_icon_holder').show();
+	      $('#cross_unit_collab_trigger').click(cucs.show);
+	      $('#cross_unit_collab_exporter').click(cucs.showVisData);
+          new ScholarsVis.Toolbar("#cross_unit_collab_vis");
+	    }
+      });
+
+	  var idcs = new ScholarsVis.InterDepartmentCollaborationSunburst({
+	    department : '${individual.uri}',
+	    target : '#interd_collab_vis',
+	    modal : true
+      });
+      idcs.examineData(function(data) {
+	    if (data && data.children && data.children.length > 0) {
+	      $('#interd_collab_icon_holder').show();
 	      $('#interd_collab_trigger').click(idcs.show);
 	      $('#interd_collab_exporter').click(idcs.showVisData);
-		});
-		$().ready(function() {
-		  new ScholarsVis.Toolbar("#cross_unit_collab_vis");
-		  new ScholarsVis.Toolbar("#interd_collab_vis");
-		});
-		</script>
-	<#else>
-	  <#-- IF IT'S NOT THE COE, DISPLAY A BOGUS "NO DATA" MESSAGE -->
-	  <div id="no_collaboration_data" class="jqmWindow dept_collab_vis" style="display:none;">
-	 	<div style="padding:40px 40px 0 40px;">There is no collaboration data available for the ${individual.nameStatement.value!"college"} at this time.</div>
-	  </div>
-		<script>
-		$().ready(function() {
-			$('#no_collaboration_data').jqm();
-		});
-		</script>
+          new ScholarsVis.Toolbar("#interd_collab_vis");
+	    }
+      });
 
-	</#if>
-
+	});
+	</script>
 </#if>
+
 <#if isAcademicDept || isJohnsonOrHotelSchool >
 	<script>
 	$().ready(function() {

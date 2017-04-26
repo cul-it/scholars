@@ -9,14 +9,14 @@
 # Use UNIONs instead of OPTIONALs
 #
 :pwc_dd
-    a   <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.DataDistributor> ,
-        <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.RdfGraphDistributor> ;
+    a   <java:edu.cornell.library.scholars.webapp.controller.api.distribute.DataDistributor> ,
+        <java:edu.cornell.library.scholars.webapp.controller.api.distribute.RdfGraphDistributor> ;
     :actionName "person_word_cloud" ;
     :modelBuilder :pwc_mb .
     
 :pwc_mb
-    a   <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.modelbuilder.ModelBuilder> ,
-        <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.modelbuilder.ConstructModelBuilder> ;
+    a   <java:edu.cornell.library.scholars.webapp.controller.api.distribute.modelbuilder.ModelBuilder> ,
+        <java:edu.cornell.library.scholars.webapp.controller.api.distribute.modelbuilder.ConstructModelBuilder> ;
     :uriBinding "person" ;
     :constructQuery """
         PREFIX rdf:      <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
