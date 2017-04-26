@@ -7,6 +7,43 @@
 # 
 # Start with some simple ones.
 #
+:data_distributor_collaborations_global_worldTopo :actionName "global_collab_worldTopo" .
+:data_distributor_collaborations_global_worldTopo
+    a   <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.DataDistributor> ,
+        <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.FileDistributor> ;
+    :path "visualizationData/countries.topo.json" ;
+    :contentType "application/json" .
+
+
+
+:data_distributor_collaborations_global_usTopo :actionName "global_collab_usTopo" .
+:data_distributor_collaborations_global_usTopo
+    a   <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.DataDistributor> ,
+        <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.FileDistributor> ;
+    :path "visualizationData/us.json" ;
+    :contentType "application/json" .
+
+
+:data_distributor_collaborations_global_statesHash :actionName "global_collab_statesHash" .
+:data_distributor_collaborations_global_statesHash
+    a   <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.DataDistributor> ,
+        <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.FileDistributor> ;
+    :path "visualizationData/statesHash.csv" ;
+    :contentType "application/json" .
+
+:data_distributor_collaborations_global_countries :actionName "global_collab_countries" .
+:data_distributor_collaborations_global_countries
+    a   <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.DataDistributor> ,
+        <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.FileDistributor> ;
+    :path "visualizationData/ExternalCollaborations-CountryUpdated.json" ;
+    :contentType "application/json" .
+
+:data_distributor_collaborations_global_us :actionName "global_collab_states" .
+:data_distributor_collaborations_global_us
+    a   <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.DataDistributor> ,
+        <java:edu.cornell.mannlib.vitro.webapp.controller.api.distribute.FileDistributor> ;
+    :path "visualizationData/ExternalCollaborations-StateUpdated.json" ;
+    :contentType "application/json" .
 
 :data_distributor_collaborations_interd :actionName "interdepartmental_sunburst" .
 :data_distributor_collaborations_interd
