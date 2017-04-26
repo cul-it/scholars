@@ -971,6 +971,15 @@
     <url-pattern>/populateselect</url-pattern>
   </servlet-mapping>
  
+  <servlet>
+    <servlet-name>KeywordsAutocompleteController</servlet-name>
+    <servlet-class>edu.cornell.mannlib.vitro.webapp.search.controller.KeywordsAutocompleteController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>KeywordsAutocompleteController</servlet-name>
+    <url-pattern>/ackeywords</url-pattern>
+  </servlet-mapping>
+
    <servlet>
     <servlet-name>DataAutocompleteController</servlet-name>
     <servlet-class>edu.cornell.mannlib.vitro.webapp.search.controller.DataAutocompleteController</servlet-class>

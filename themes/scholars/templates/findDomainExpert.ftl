@@ -62,7 +62,6 @@
 				</div>
             </#list>
         </div>
-<a href="/scholars/domainExpert?ajax=1&querytext=Potassium&amp;querytype=subject&amp;vclassId=http%3A%2F%2Fvivoweb.org%2Fontology%2Fcore%23FacultyMember" title="class link">Faculty Member</a>
     </#if>
   </div>
   <div id="results-container" class="col-md-8">
@@ -112,13 +111,6 @@ ${stylesheets.add('<link rel="stylesheet" href="//code.jquery.com/ui/1.10.3/them
 ${scripts.add('<script type="text/javascript" src="${urls.base}/js/searchDownload.js"></script>')}
 <script>
 var baseUrl = "${urls.base}";
-var concepts = [
-<#if conceptsDG?has_content>
-    <#list conceptsDG as resultRow>"${resultRow["label"]}"<#if (resultRow_has_next)>,</#if></#list>       
-<#else>
-	Nopers
-</#if>
-];
 </script>
 ${scripts.add('<script type="text/javascript" src="${urls.base}/js/findDomainExpert.js"></script>',
 			  '<script type="text/javascript" src="${urls.base}/js/jquery_plugins/jquery.scrollTo-min.js"></script>')}

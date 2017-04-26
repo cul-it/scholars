@@ -92,6 +92,7 @@ public class DomainExpertJsonServlet extends VitroHttpServlet {
     private static final String PARAM_VCLASS_ID = "vclassId";
     private static final String PARAM_QUERY_TEXT = "querytext";
     private static final String PARAM_QUERY_TYPE = "querytype";
+	private static final String KEYWORD_FIELD = "keyword_txt";
 
          
      @Override
@@ -328,8 +329,11 @@ public class DomainExpertJsonServlet extends VitroHttpServlet {
         //String typeParam = "type:\"" + vreq.getParameter(PARAM_VCLASS_ID) + "\"";
 		String typeParam = "type:\"" + vclassids + "\"";
 		
-        SearchQuery query = ApplicationUtils.instance().getSearchEngine().createQuery(queryText);
+        SearchQuery query = ApplicationUtils.instance().getSearchEngine().createQuery();
         
+		String queryString = KEYWORD_FIELD + ":*" + queryText + "*";
+		query.setQuery(queryString);
+
         query.setStart( startIndex )
              .setRows(hitsPerPage);
 

@@ -90,6 +90,7 @@ public class DomainExpertController extends FreemarkerHttpServlet {
     private static final String PARAM_VCLASS_ID = "vclassId";
     private static final String PARAM_QUERY_TEXT = "querytext";
     private static final String PARAM_QUERY_TYPE = "querytype";
+	private static final String KEYWORD_FIELD = "keyword_txt";
 
     protected static final Map<Format,Map<Result,String>> templateTable;
 
@@ -479,7 +480,10 @@ public class DomainExpertController extends FreemarkerHttpServlet {
     private SearchQuery getQuery(String queryText, String queryType,int hitsPerPage, int startIndex, VitroRequest vreq) {
         // Lowercase the search term to support wildcard searches: The search engine applies no text
         // processing to a wildcard search term.
-        SearchQuery query = ApplicationUtils.instance().getSearchEngine().createQuery(queryText);
+        SearchQuery query = ApplicationUtils.instance().getSearchEngine().createQuery();
+
+		String queryString = KEYWORD_FIELD + ":*" + queryText + "*";
+		query.setQuery(queryString);
         
         query.setStart( startIndex )
              .setRows(hitsPerPage);

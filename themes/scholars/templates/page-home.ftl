@@ -166,13 +166,6 @@
         </script>
 		<script>
 		var baseUrl = "${urls.base}";
-		var concepts = [
-		<#if conceptsDG?has_content>
-		    <#list conceptsDG as resultRow>"${resultRow["label"]}"<#if (resultRow_has_next)>,</#if></#list>       
-		<#else>
-			"Nopers"
-		</#if>
-		];
 		</script>
     </body>
 </html>

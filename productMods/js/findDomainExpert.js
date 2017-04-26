@@ -3,12 +3,12 @@
 var getDomainExperts = {
 			
     onLoad: function() {
-    	$.extend(this, concepts);
+
     	$.extend(this, baseUrl);
     	this.initObjects();
     	this.initAutoComplete();
 		this.bindEventListeners();
-		
+		//
 },
 
 	initObjects: function() {
@@ -16,10 +16,32 @@ var getDomainExperts = {
 	},
 	
     initAutoComplete: function() {
-
+		
 		$( "#de-search-input" ).autocomplete({
-  			minlength: 3,
-  			source: concepts
+			minLength: 3,
+			source: function(request, response) {
+  				$.ajax({
+                    url: baseUrl + "/ackeywords?tokenize=true&stem=true",
+                    dataType: 'json',
+                    data: {
+                        term: request.term,
+                        type: "http://xmlns.com/foaf/0.1/Person"
+					},
+					complete: function(xhr, status) {
+                        // Not sure why, but we need an explicit json parse here. 
+						console.log(xhr.responseText);
+                        var results = $.parseJSON(xhr.responseText);
+						var terms = [];
+						$.each(results, function() {
+							terms.push(this.name);
+						});
+                    	response(terms);
+					}
+				});
+			},
+			select: function(event, ui) {
+				$("#de-search-input").val(ui.item.label);
+			}
 		});
     },
 
