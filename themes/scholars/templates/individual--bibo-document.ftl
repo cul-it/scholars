@@ -528,6 +528,32 @@ var i18nStringsUriRdf = {
 
 </script>
 
+
+<#assign pubTitle = "not found" />
+<#if pubVenue?has_content >
+	<#assign pubTitle = pubVenue.label />
+	<#elseif freeTextTitleStmt?has_content >
+	<#assign pubTitle = freeTextTitleStmt.value />
+</#if>
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "ScholarlyArticle",
+  "headline": "Article title (first author name)",
+  "image": {},
+  "name": "",
+  "datePublished": "${pubDate!}",
+  "pageStart": "${startPage!}",
+  "pageEnd": "${endPage!}",
+  "author": "",
+   "publisher": {
+    "@type": "Periodical",
+    "name": "${pubTitle!}"
+  }
+}
+</script>
+
 ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/individual/individual-vivo.css?vers=1.5.1" />',
 				  '<link rel="stylesheet" href="${urls.base}/css/jquery_plugins/jquery.qtip.min.css" />',
 				  '<link rel="stylesheet" href="${urls.base}/css/individual/individual.css?vers=1.5.1" />')}
