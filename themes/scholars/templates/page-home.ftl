@@ -49,7 +49,7 @@
 								<div id="expert-search" >
 									<form id="de-search-form" action="${urls.base}/domainExpert" name="search" role="search" accept-charset="UTF-8" method="POST"> 
 										<input id="de-search-vclass" type="hidden" name="vclassId" value="http://xmlns.com/foaf/0.1/Person" />
-										<input id="de-search-input" type="text" name="querytext" value="${querytext!}" />
+										<input id="de-search-input" class="subject-search" type="text" name="querytext" value="${querytext!}" />
 										<input id="de-search-submit" type="submit" action="${urls.base}/domainExpert?origin=homepage" value="Go" />
 										<div class="search-radio-container">
 											<input type="radio" name="querytype" value="subject" checked> by subject or keyword
@@ -165,7 +165,8 @@
 
         </script>
 		<script>
-		var baseUrl = "${urls.base}";
+			var baseUrl = "${urls.base}";
+			var imagesUrl = "${urls.images}";
 		</script>
     </body>
 </html>

@@ -1,0 +1,86 @@
+@prefix : <http://vitro.mannlib.cornell.edu/ns/vitro/ApplicationSetup#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> . 
+
+#
+# Specify the SearchIndexExcluders, DocumentModifiers and IndexingUriFinders for Scholars. 
+# These are in addition to the ones specified for VIVO.
+#
+
+# 
+# ------------------------------------------------------
+# Positions (department and college/school)
+# ------------------------------------------------------
+#
+
+# 
+# If an authorship is altered, re-index all of the related authors. 
+# 
+:scholars_position_uriFinder
+    a   <java:edu.cornell.mannlib.vitro.webapp.searchindex.indexing.IndexingUriFinder> ,
+        <java:edu.cornell.mannlib.vitro.webapp.searchindex.extensions.MatchingRestrictingUriFinder> ;
+    rdfs:label "change in position" ;
+    :hasMatcher "?subject <http://vivoweb.org/ontology/core#relates> ?object" ;
+    :hasAskRestriction """
+        PREFIX vivo: <http://vivoweb.org/ontology/core#>
+        ASK { 
+          ?subject a vivo:Position . 
+        }
+        """ ;
+    :hasSelectQuery """
+        PREFIX vivo: <http://vivoweb.org/ontology/core#>
+        PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+        SELECT ?person
+        WHERE {
+          ?subject vivo:relates ?person .
+          ?person a foaf:Person .
+        }
+        """ .
+
+#
+# When indexing an person, add position (department and college/school) information.
+#
+:vivodocumentModifier_addDepartmentToPerson
+    a   <java:edu.cornell.mannlib.vitro.webapp.searchindex.documentBuilding.SelectQueryDocumentModifier> ,
+        <java:edu.cornell.mannlib.vitro.webapp.searchindex.documentBuilding.DocumentModifier> ;
+    rdfs:label "Add Department to Person" ;
+    :hasTypeRestriction "http://xmlns.com/foaf/0.1/Person" ;
+    :hasTargetField "department_txt" ;
+    :hasSelectQuery """
+        PREFIX hr:       <http://scholars.cornell.edu/ontology/hr.owl#>
+        PREFIX vivo:     <http://vivoweb.org/ontology/core#>
+		PREFIX foaf:     <http://xmlns.com/foaf/0.1/>
+		PREFIX rdfs:     <http://www.w3.org/2000/01/rdf-schema#>
+		PREFIX rdf:      <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+		SELECT ?label
+		WHERE {
+            ?uri vivo:relatedBy ?posn .
+            ?posn a vivo:Position .
+			?posn rdf:type vivo:PrimaryPosition .
+            ?posn hr:positionIn ?dept .
+            ?dept a foaf:Organization .
+            ?dept rdfs:label ?label . 
+		}
+        """ .
+
+:vivodocumentModifier_addCollegeToPerson
+    a   <java:edu.cornell.mannlib.vitro.webapp.searchindex.documentBuilding.SelectQueryDocumentModifier> ,
+        <java:edu.cornell.mannlib.vitro.webapp.searchindex.documentBuilding.DocumentModifier> ;
+    rdfs:label "Add College/School to Person" ;
+    :hasTypeRestriction "http://xmlns.com/foaf/0.1/Person" ;
+    :hasTargetField "college_txt" ;
+    :hasSelectQuery """
+        PREFIX vivo:     <http://vivoweb.org/ontology/core#>
+		PREFIX foaf:     <http://xmlns.com/foaf/0.1/>
+		PREFIX rdfs:     <http://www.w3.org/2000/01/rdf-schema#>
+		PREFIX rdf:      <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+		SELECT ?label
+		WHERE {
+            ?uri vivo:relatedBy ?posn .
+            ?posn a vivo:Position .
+			?posn rdf:type vivo:PrimaryPosition .
+            ?posn vivo:relates ?college .
+            ?college a foaf:Organization .
+            ?college rdfs:label ?label . 
+		}
+        """ .
+

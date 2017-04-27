@@ -152,6 +152,7 @@ public class DomainExpertController extends FreemarkerHttpServlet {
  
              String queryText = vreq.getParameter(PARAM_QUERY_TEXT);  
              String queryType = vreq.getParameter(PARAM_QUERY_TYPE); 
+             String classGroupParam = "http://vivoweb.org/ontology#vitroClassGrouppeople"; 
  			 
              log.debug("Query text is \""+ queryText + "\""); 
   
@@ -160,7 +161,7 @@ public class DomainExpertController extends FreemarkerHttpServlet {
                  return doFailedSearch(badQueryMsg, queryText, format, vreq);
              }
                  
-             SearchQuery query = getQuery(queryText, queryType, hitsPerPage, startIndex, vreq);   
+             SearchQuery query = getQuery(queryText, queryType, hitsPerPage, startIndex, vreq, classGroupParam);   
          	 log.debug("THE QUERY = " + query.toString());
 
  		 	  SearchEngine search = ApplicationUtils.instance().getSearchEngine();
@@ -204,75 +205,22 @@ public class DomainExpertController extends FreemarkerHttpServlet {
 			
 			IndividualListQueryResults results = new IndividualListQueryResults((int) hitCount, individuals);
 			IndividualListResults ilResults = new IndividualListResults(hitsPerPage, results.getIndividuals(), "", false, Collections.<PageRecord>emptyList());
-			//JSONObject rObj = null;
+
 	        JSONObject rObj = IndividualListResultsUtils.wrapIndividualListResultsInJson(ilResults, vreq, true);
 
 			addShortViewRenderings(rObj, vreq);
-			log.debug("SHORTVIEWED ROBJ: " + rObj.toString());	 	
 
-/*              List<Individual> individuals = new ArrayList<Individual>(docs.size());
-              Iterator<SearchResultDocument> docIter = docs.iterator();
-              while( docIter.hasNext() ){
-                  try {                                    
-                      SearchResultDocument doc = docIter.next();
-                      String uri = doc.getStringValue(VitroSearchTermNames.URI);                    
-                      Individual ind = iDao.getIndividualByURI(uri);
-                      if(ind != null) {
-                        ind.setSearchSnippet( getSnippet(doc, response) );
-                        individuals.add(ind);
-                      }
-                  } catch(Exception e) {
-                      log.error("Problem getting usable individuals from search hits. ",e);
-                  }
-              }          
-*/
-             ParamMap pagingLinkParams = new ParamMap();
-             pagingLinkParams.put(PARAM_QUERY_TEXT, queryText);
-             pagingLinkParams.put(PARAM_QUERY_TYPE, queryType);
-             pagingLinkParams.put(PARAM_HITS_PER_PAGE, String.valueOf(hitsPerPage));
-             
-             
-             /* Compile the data for the templates */
-             
+             /* Compile the data for the templates */             
              Map<String, Object> body = new HashMap<String, Object>();
              
-             String classGroupParam = "http://vivoweb.org/ontology#vitroClassGrouppeople"; 
-             log.debug("ClassGroupParam is \""+ classGroupParam + "\"");   
-             boolean classGroupFilterRequested = false;
-             if (!StringUtils.isEmpty(classGroupParam)) {
-                 VClassGroup grp = grpDao.getGroupByURI(classGroupParam);
-                 classGroupFilterRequested = true;
-                 if (grp != null && grp.getPublicName() != null)
-                     body.put("classGroupName", grp.getPublicName());
-             }
-             
-             String typeParam = vreq.getParameter(PARAM_RDFTYPE);
-             boolean typeFilterRequested = false;
-             if (!StringUtils.isEmpty(typeParam)) {
-                 VClass type = vclassDao.getVClassByURI(typeParam);
-                 typeFilterRequested = true;
-                 if (type != null && type.getName() != null)
-                     body.put("typeName", type.getName());
-             }
-             
-             /* Add ClassGroup and type refinement links to body */
-             if( wasHtmlRequested ){                                
-                 if ( !classGroupFilterRequested && !typeFilterRequested ) {
-                     // Search request includes no ClassGroup and no type, so add ClassGroup search refinement links.
-                     body.put("classGroupLinks", getClassGroupsLinks(vreq, grpDao, docs, response, queryText, queryType));                            
-                 } else if ( classGroupFilterRequested && !typeFilterRequested ) {
-                     // Search request is for a ClassGroup, so add rdf:type search refinement links
-                     // but try to filter out classes that are subclasses
-                     body.put("classLinks", getVClassLinks(vclassDao, docs, response, queryText, queryType));                       
-                     pagingLinkParams.put(PARAM_CLASSGROUP, classGroupParam);
- 
-                 } else {
-                     //search request is for a class so there are no more refinements
-                     pagingLinkParams.put(PARAM_RDFTYPE, typeParam);
-                 }
-             }           
-// 			 log.debug("individuals = " + rObj.toString());//individuals.toString());
-			
+             VClassGroup grp = grpDao.getGroupByURI(classGroupParam);
+
+             if (grp != null && grp.getPublicName() != null) {
+             	body.put("classGroupName", grp.getPublicName());
+			 }
+                          
+            body.put("classLinks", getVClassLinks(vclassDao, docs, response, queryText, queryType));                       
+ 			
 			List<String> svhList = new ArrayList<String>();
 			JSONArray indArray = rObj.getJSONArray("individuals");
 			
@@ -291,21 +239,7 @@ public class DomainExpertController extends FreemarkerHttpServlet {
 	        body.put("hitsPerPage", DEFAULT_HITS_PER_PAGE);
             body.put("startIndex", startIndex);
             body.put("currentPage", currentPage);
-             
-             body.put("pagingLinks", 
-                     getPagingLinks(startIndex, hitsPerPage, hitCount,  
-                                    vreq.getServletPath(),
-                                    pagingLinkParams, vreq));
- 
-             if (startIndex != 0) {
-                 body.put("prevPage", getPreviousPageLink(startIndex,
-                         hitsPerPage, vreq.getServletPath(), pagingLinkParams));
-             }
-             if (startIndex < (hitCount - hitsPerPage)) {
-                 body.put("nextPage", getNextPageLink(startIndex, hitsPerPage,
-                         vreq.getServletPath(), pagingLinkParams));
-             }
- 	
+              	
  	        String template = templateTable.get(format).get(Result.PAGED);
 
             return new TemplateResponseValues(template, body);
@@ -400,8 +334,6 @@ public class DomainExpertController extends FreemarkerHttpServlet {
         HashSet<String> typesInHits = getVClassUrisForHits(docs);                                
         List<VClass> classes = new ArrayList<VClass>(typesInHits.size());
         Map<String,Long> typeURItoCount = new HashMap<String,Long>();        
-		log.debug("DOCS " + docs.toString());
-		log.debug("RESPONSE " + rsp.toString());
         
         List<SearchFacetField> ffs = rsp.getFacetFields();
 //		log.debug("FFS " + ffs.toString());
@@ -464,58 +396,36 @@ public class DomainExpertController extends FreemarkerHttpServlet {
         return typesInHits;
     }
     
-    private String getSnippet(SearchResultDocument doc, SearchResponse response) {
-        String docId = doc.getStringValue(VitroSearchTermNames.DOCID);
-        StringBuffer text = new StringBuffer();
-        Map<String, Map<String, List<String>>> highlights = response.getHighlighting();
-        if (highlights != null && highlights.get(docId) != null) {
-            List<String> snippets = highlights.get(docId).get(VitroSearchTermNames.ALLTEXT);
-            if (snippets != null && snippets.size() > 0) {
-                text.append("... " + snippets.get(0) + " ...");
-            }       
-        }
-        return text.toString();
-    }       
+    private SearchQuery getQuery(String queryText, String queryType,int hitsPerPage, int startIndex, VitroRequest vreq, String classgroupParam) {
 
-    private SearchQuery getQuery(String queryText, String queryType,int hitsPerPage, int startIndex, VitroRequest vreq) {
-        // Lowercase the search term to support wildcard searches: The search engine applies no text
-        // processing to a wildcard search term.
         SearchQuery query = ApplicationUtils.instance().getSearchEngine().createQuery();
 
-		String queryString = KEYWORD_FIELD + ":*" + queryText + "*";
+		String queryString = "";
+		// are we querying a name or a keyword?
+		if ( queryType.equals("name") ) {
+			if ( queryText.indexOf(", ") > 0 ) {
+				queryString = "nameRaw:\"" + queryText + "\"";
+			}
+			else {
+				query.addFilterQuery("nameLowercase:*" + queryText.toLowerCase().replaceAll(" ", "* AND nameLowercase:*") + "*");
+			}
+		} 
+		else {
+			queryString = KEYWORD_FIELD + ":*" + queryText.toLowerCase() + "*";
+		}
+
 		query.setQuery(queryString);
         
         query.setStart( startIndex )
              .setRows(hitsPerPage);
 
-        // ClassGroup filtering param
-        String classgroupParam = "http://vivoweb.org/ontology#vitroClassGrouppeople";
+        query.addFilterQuery(VitroSearchTermNames.CLASSGROUP_URI + ":\"" + classgroupParam + "\"");
         
-        // rdf:type filtering param
-        String typeParam = vreq.getParameter(PARAM_RDFTYPE);
-
-        if ( ! StringUtils.isBlank(classgroupParam) ) {
-            // ClassGroup filtering
-            log.debug("Firing classgroup query ");
-            log.debug("request.getParameter(classgroup) is "+ classgroupParam);
-            query.addFilterQuery(VitroSearchTermNames.CLASSGROUP_URI + ":\"" + classgroupParam + "\"");
-			if ( queryType.equals("name") ) {
-				query.addFilterQuery("nameLowercase:*" + queryText + "*");
-			}
+        //with ClassGroup filtering we want type facets
+        query.addFacetFields(VitroSearchTermNames.RDFTYPE).setFacetLimit(-1);
             
-            //with ClassGroup filtering we want type facets
-            query.addFacetFields(VitroSearchTermNames.RDFTYPE).setFacetLimit(-1);
-            
-        }else if (  ! StringUtils.isBlank(typeParam) ) {
-            // rdf:type filtering
-            log.debug("Firing type query ");
-            log.debug("request.getParameter(type) is "+ typeParam);   
-            query.addFilterQuery(VitroSearchTermNames.RDFTYPE + ":\"" + typeParam + "\"");
-            //with type filtering we don't have facets.            
-        }else{ 
-            //When no filtering is set, we want ClassGroup facets
-        	query.addFacetFields(VitroSearchTermNames.CLASSGROUP_URI).setFacetLimit(-1);
-        }                        
+		String vclassId = vreq.getParameter(PARAM_VCLASS_ID);
+        query.addFilterQuery("-mostSpecificTypeURIs:\"" + vclassId + "\"");
         
         log.debug("Query = " + query.toString());
         return query;
@@ -540,66 +450,7 @@ public class DomainExpertController extends FreemarkerHttpServlet {
         
     public String getCount() { return Long.toString(count); }               
     }
-    
-    protected static List<PagingLink> getPagingLinks(int startIndex, int hitsPerPage, long hitCount, String baseUrl, ParamMap params, VitroRequest vreq) {
-
-        List<PagingLink> pagingLinks = new ArrayList<PagingLink>();
-        
-        // No paging links if only one page of results
-        if (hitCount <= hitsPerPage) {
-            return pagingLinks;
-        }
-        
-        int maxHitCount = DEFAULT_MAX_HIT_COUNT ;
-        if( startIndex >= DEFAULT_MAX_HIT_COUNT  - hitsPerPage )
-            maxHitCount = startIndex + DEFAULT_MAX_HIT_COUNT ;                
-            
-        for (int i = 0; i < hitCount; i += hitsPerPage) {
-            params.put(PARAM_START_INDEX, String.valueOf(i));
-            if ( i < maxHitCount - hitsPerPage) {
-                int pageNumber = i/hitsPerPage + 1;
-                boolean iIsCurrentPage = (i >= startIndex && i < (startIndex + hitsPerPage)); 
-                if ( iIsCurrentPage ) {
-                    pagingLinks.add(new PagingLink(pageNumber));
-                } else {
-                    pagingLinks.add(new PagingLink(pageNumber, baseUrl, params));
-                }
-            } else {
-            	pagingLinks.add(new PagingLink(I18n.text(vreq, "paging_link_more"), baseUrl, params));
-                break;
-            }
-        }   
-        
-        return pagingLinks;
-    }
-    
-    private String getPreviousPageLink(int startIndex, int hitsPerPage, String baseUrl, ParamMap params) {
-        params.put(PARAM_START_INDEX, String.valueOf(startIndex-hitsPerPage));
-        return UrlBuilder.getUrl(baseUrl, params);
-    }
-    
-    private String getNextPageLink(int startIndex, int hitsPerPage, String baseUrl, ParamMap params) {
-        params.put(PARAM_START_INDEX, String.valueOf(startIndex+hitsPerPage));
-        return UrlBuilder.getUrl(baseUrl, params);
-    }
-    
-    protected static class PagingLink extends LinkTemplateModel {
-        
-        PagingLink(int pageNumber, String baseUrl, ParamMap params) {
-            super(String.valueOf(pageNumber), baseUrl, params);
-        }
-        
-        // Constructor for current page item: not a link, so no url value.
-        PagingLink(int pageNumber) {
-            setText(String.valueOf(pageNumber));
-        }
-        
-        // Constructor for "more..." item
-        PagingLink(String text, String baseUrl, ParamMap params) {
-            super(text, baseUrl, params);
-        }
-    }
-   
+       
     private ExceptionResponseValues doSearchError(Throwable e, Format f) {
         Map<String, Object> body = new HashMap<String, Object>();
         body.put("message", "Search failed: " + e.getMessage());  

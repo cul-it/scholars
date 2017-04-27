@@ -5,6 +5,7 @@ var getDomainExperts = {
     onLoad: function() {
 
     	$.extend(this, baseUrl);
+    	$.extend(this, imagesUrl);
     	this.initObjects();
     	this.initAutoComplete();
 		this.bindEventListeners();
@@ -17,7 +18,7 @@ var getDomainExperts = {
 	
     initAutoComplete: function() {
 		
-		$( "#de-search-input" ).autocomplete({
+		$(".subject-search").autocomplete({
 			minLength: 3,
 			source: function(request, response) {
   				$.ajax({
@@ -29,7 +30,6 @@ var getDomainExperts = {
 					},
 					complete: function(xhr, status) {
                         // Not sure why, but we need an explicit json parse here. 
-						console.log(xhr.responseText);
                         var results = $.parseJSON(xhr.responseText);
 						var terms = [];
 						$.each(results, function() {
@@ -43,6 +43,33 @@ var getDomainExperts = {
 				$("#de-search-input").val(ui.item.label);
 			}
 		});
+
+		$(".name-search").autocomplete({
+			minLength: 3,
+			source: function(request, response) {
+  				$.ajax({
+                    url: baseUrl + "/autocomplete?tokenize=true&stem=true",
+                    dataType: 'json',
+                    data: {
+                        term: request.term,
+                        type: "http://xmlns.com/foaf/0.1/Person"
+					},
+					complete: function(xhr, status) {
+                        // Not sure why, but we need an explicit json parse here. 
+                        var results = $.parseJSON(xhr.responseText);
+						var terms = [];
+						$.each(results, function() {
+							terms.push(this.label.substring( 0, this.label.indexOf(" (")));
+						});
+                    	response(terms);
+					}
+				});
+			},
+			select: function(event, ui) {
+				$("#de-search-input").val(ui.item.label);
+			}
+		});
+
     },
 
 	bindEventListeners: function() {
@@ -51,7 +78,7 @@ var getDomainExperts = {
 			if ( $("#scroll-control").length ) {
 				var viewable = getDomainExperts.isInViewport($("#scroll-control"), false) ;
 			    if (  viewable && getDomainExperts.makeTheCall ) {
-					console.log("Making The Call");
+					$("#search-indicator").show();
 					getDomainExperts.makeTheCall = false;
 					var vclassIds = getDomainExperts.getVClassIds();
 					var queryText = getDomainExperts.getQueryText();
@@ -67,6 +94,19 @@ var getDomainExperts = {
             var queryType = getDomainExperts.getQueryType();
             getDomainExperts.getIndividuals(vclassIds, queryText, queryType, "faceting");
         });
+
+		$('input[type=radio][name=querytype]').change(function() {
+	        if (this.value == 'subject') {
+	            $("#de-search-input").removeClass("name-search");
+	            $("#de-search-input").addClass("subject-search");
+				getDomainExperts.initAutoComplete();
+	        }
+	        else if (this.value == 'name') {
+	            $("#de-search-input").removeClass("subject-search");
+	            $("#de-search-input").addClass("name-search");
+				getDomainExperts.initAutoComplete();
+	        }
+	    });
     
     },
 
@@ -145,13 +185,14 @@ var getDomainExperts = {
 				// totalCount is actually the hitsPerPage (not sure why it's named like this in the java class)
 				var adjPage = (results.currentPage + 1);
 				var adjStartIndex = (adjPage * results.totalCount);
+				console.log("ADJ START INDEX = " + adjStartIndex);
+				console.log("ADJ PAGE = " + adjPage);
 				if ( results.hitCount > adjStartIndex ) {
 					$("ul.searchhits").append('<li id="scroll-control" data-start-index="' + 
-						adjStartIndex + '" data-current-page="' + adjPage + '">holy toledo</li>');
+						adjStartIndex + '" data-current-page="' + adjPage + '" style="text-align:center"><img id="search-indicator" src="'
+						+ imagesUrl + '/indicatorWhite.gif" style="display:none"/></li>');
 				}
-				console.log("URL = " + url);
-				console.log("AdjStartIndex = " + adjStartIndex);
-				console.log("AdjPage = " + adjPage);
+
 				getDomainExperts.makeTheCall = true;
             }            
         });

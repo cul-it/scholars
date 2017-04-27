@@ -130,7 +130,7 @@ public class DomainExpertJsonServlet extends VitroHttpServlet {
 
 	        int startIndex = getStartIndex(vreq);            
 	        int hitsPerPage = getHitsPerPage( vreq );           
-	        int currentPage = getCurrentPage( vreq );           
+	        int currentPage = getCurrentPage( vreq );  
 
 	        String queryText = vreq.getParameter(PARAM_QUERY_TEXT);  
 	        String queryType = vreq.getParameter(PARAM_QUERY_TYPE);  
@@ -141,7 +141,7 @@ public class DomainExpertJsonServlet extends VitroHttpServlet {
 			IndividualListQueryResults results = null;
 			try{
 		        results = IndividualListQueryResults.runQuery(query, iDao);
-				log.debug("YES, WE HAVE RESULTS: " + results.getHitCount());
+				log.debug("results hit count: " + results.getHitCount());
 		 	} catch (SearchEngineException e) {
 				log.error("Search exception occurred: " + e);
 				JSONObject jsonObj = new JSONObject("['what the hell?]");
@@ -156,7 +156,6 @@ public class DomainExpertJsonServlet extends VitroHttpServlet {
 			rObj.put("currentPage", currentPage);
 			
 			addShortViewRenderings(rObj, vreq);
-			log.debug("SHORTVIEWED ROBJ: " + rObj.toString());	 	
 
 			return rObj;
 		}
@@ -244,8 +243,6 @@ public class DomainExpertJsonServlet extends VitroHttpServlet {
         HashSet<String> typesInHits = getVClassUrisForHits(docs);                                
         List<VClass> classes = new ArrayList<VClass>(typesInHits.size());
         Map<String,Long> typeURItoCount = new HashMap<String,Long>();        
-		log.debug("DOCS " + docs.toString());
-		log.debug("RESPONSE " + rsp.toString());
         
         List<SearchFacetField> ffs = rsp.getFacetFields();
 //		log.debug("FFS " + ffs.toString());
@@ -308,19 +305,6 @@ public class DomainExpertJsonServlet extends VitroHttpServlet {
         return typesInHits;
     }
     
-    private String getSnippet(SearchResultDocument doc, SearchResponse response) {
-        String docId = doc.getStringValue(VitroSearchTermNames.DOCID);
-        StringBuffer text = new StringBuffer();
-        Map<String, Map<String, List<String>>> highlights = response.getHighlighting();
-        if (highlights != null && highlights.get(docId) != null) {
-            List<String> snippets = highlights.get(docId).get(VitroSearchTermNames.ALLTEXT);
-            if (snippets != null && snippets.size() > 0) {
-                text.append("... " + snippets.get(0) + " ...");
-            }       
-        }
-        return text.toString();
-    }       
-    
     private static SearchQuery getQuery(String queryText, String queryType,int hitsPerPage, int startIndex, VitroRequest vreq) {
 
 		String vclassids = vreq.getParameter(PARAM_VCLASS_ID).replaceAll(",","\" OR type:\"");
@@ -331,7 +315,20 @@ public class DomainExpertJsonServlet extends VitroHttpServlet {
 		
         SearchQuery query = ApplicationUtils.instance().getSearchEngine().createQuery();
         
-		String queryString = KEYWORD_FIELD + ":*" + queryText + "*";
+		String queryString = "";
+		// are we querying a name or a keyword?
+		if ( queryType.equals("name") ) {
+			if ( queryText.indexOf(", ") > 0 ) {
+				queryString = "nameRaw:\"" + queryText + "\"";
+			}
+			else {
+				query.addFilterQuery("nameLowercase:*" + queryText.toLowerCase().replaceAll(" ", "* AND nameLowercase:*") + "*");
+			}
+		} 
+		else {
+			queryString = KEYWORD_FIELD + ":*" + queryText.toLowerCase() + "*";
+		}
+
 		query.setQuery(queryString);
 
         query.setStart( startIndex )
@@ -341,9 +338,8 @@ public class DomainExpertJsonServlet extends VitroHttpServlet {
         String classgroupParam = "http://vivoweb.org/ontology#vitroClassGrouppeople";
         query.addFilterQuery(typeParam);
 
-		if ( queryType.equals("name") ) {
-			query.addFilterQuery("nameLowercase:*" + queryText + "*");
-		}
+		// filtering out people whose MST is 
+		query.addFilterQuery("-mostSpecificTypeURIs:\"http://xmlns.com/foaf/0.1/Person\"");
 
         log.debug("Query = " + query.toString());
         return query;

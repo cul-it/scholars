@@ -75,24 +75,7 @@ public class KeywordsAutocompleteController extends VitroAjaxController {
         try {
             String qtxt = vreq.getParameter(PARAM_QUERY);
 			String typeParam = vreq.getParameter(PARAM_RDFTYPE);
-/*	        if (typeParam != null) {
-				String[] parts = typeParam.split(",");
-				if ( parts.length > 1 ) {
-					hasMultipleTypes = true;
-				}
-				else if ( parts.length == 1 ) {
-					String askQuery = "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> \n" +
-					                  "ASK { ?something rdfs:subClassOf <" + typeParam.replace(",","") + "> }";
-					if ( getRdfService(vreq).sparqlAskQuery(askQuery) ) {
-						hasMultipleTypes = true;
-					}
-				}
-	        } else {
-	        	//if the type parameter is null, no range is specified and individuals of any class might be returned
-	        	//in this case, it would be useful to show the most specific type of the individual
-	        	hasMultipleTypes = true;
-	        }
-*/			
+
             SearchQuery query = getQuery(qtxt, vreq);
             if (query == null ) {
                 log.debug("query for '" + qtxt +"' is null.");
@@ -130,9 +113,9 @@ public class KeywordsAutocompleteController extends VitroAjaxController {
 			for(SearchFacetField ff : ffs) {
 				List<Count> values = ff.getValues();
 				for( Count value: values){
-					String matchCheck = value.getName();
-					if ( matchCheck.toLowerCase().contains(qtxt.toLowerCase()) ) {
-						FacetField result = new FacetField(value.getName());
+					String valueLow = value.getName().toLowerCase();
+					if ( valueLow.contains(qtxt.toLowerCase()) ) {
+						FacetField result = new FacetField(valueLow);
 						results.add(result);
 					}
 				}
@@ -170,22 +153,9 @@ public class KeywordsAutocompleteController extends VitroAjaxController {
         SearchQuery query = ApplicationUtils.instance().getSearchEngine().createQuery();
 		
 		query.addFacetFields(KEYWORD_FIELD).setFacetLimit(70000);
-//		query.setFacetPrefix(term);
+
         query.setStart(0)
              .setRows(1);
-//        setNameQuery(query, queryStr, vreq);
-        // Filter by type
-//        String typeParam = vreq.getParameter(PARAM_RDFTYPE);
-//        String multipleTypesParam = vreq.getParameter(PARAM_MULTIPLE_RDFTYPE);
-
-//        if (typeParam != null) {
-//        	query.addFilterQuery(VitroSearchTermNames.RDFTYPE + ":\"" + typeParam + "\" ");
-//        }
-		
-//        query.addFields(KEYWORD_FIELD, VitroSearchTermNames.URI, VitroSearchTermNames.MOST_SPECIFIC_TYPE_URIS); // fields to retrieve
-//		query.addFields(KEYWORD_FIELD);
-        // Can't sort on multivalued field, so we sort the results in Java when we get them.
-        // query.addSortField(VitroSearchTermNames.NAME_LOWERCASE, Order.ASC);
 
         return query;
     }

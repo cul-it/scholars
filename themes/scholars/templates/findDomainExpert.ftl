@@ -28,13 +28,12 @@
   <div class="col-md-12">
     <fieldset>
         <legend>${i18n().search_form}</legend>
-
+		<#assign qType = querytype!"subject" />
 		<form id="results-search-form" action="${urls.base}/domainExpert" name="search" role="search" accept-charset="UTF-8" method="POST"> 
 			<input id="de-search-vclass" type="hidden" name="vclassId" value="http://xmlns.com/foaf/0.1/Person" />
-			<input id="de-search-input" type="text" name="querytext" value="${querytext!}" style="width:300px" />
+			<input id="de-search-input" class="<#if qType == "name">name-search<#else>subject-search</#if>" type="text" name="querytext" value="${querytext!}" style="width:300px" />
 			<input id="results-search-submit" type="submit" action="${urls.base}/domainExpert?origin=homepage" value="Go" />
 			<div class="results-search-radio-container">
-				<#assign qType = querytype!"subject" />
 				<input type="radio" name="querytype" value="subject" <#if qType == "subject">checked</#if>> by subject or keyword
 	   			<input id="by-name-radio" type="radio" name="querytype" value="name" <#if qType == "name">checked</#if>> by name
 	  		</div>
@@ -55,16 +54,16 @@
                 <div class="panel-heading" style="line-height:18px;font-size:16px">Position</div>
             <#list classLinks as link>
                 <div class="panel-body" style="padding:10px;line-height:16px;font-size:14px">
-					<#-- if link.text != "Person" -->
+					<#if link.text != "Person" >
 						<#assign vclassid = link.url[link.url?index_of("vclassId=")+9..] />
 						<input type="checkbox" class="type-checkbox" data-vclassid="${vclassid?url}" /> ${link.text}<span> (${link.count})</span>
-					<#-- if -->
+					</#if>
 				</div>
             </#list>
         </div>
     </#if>
   </div>
-  <div id="results-container" class="col-md-8">
+  <div id="results-container" class="col-md-8 panel panel-default ">
     <#-- Search results -->
 	<#if individuals?? >
     <ul class="searchhits">
@@ -74,7 +73,9 @@
 			<#assign adjPage = (currentPage + 1) />
 			<#assign adjStartIndex =  (adjPage * hitsPerPage) />
 			<#if ( hitCount > adjStartIndex ) >
-				<li id="scroll-control" data-start-index="${adjStartIndex}" data-current-page="${adjPage}">yowzah</li>
+				<li id="scroll-control" data-start-index="${adjStartIndex}" data-current-page="${adjPage}" style="text-align:center">
+					<img id="search-indicator" src="${urls.images}/indicatorWhite.gif" style="display:none" />
+				</li>
 			</#if>
 			<script>
 				console.log("INITIAL START INDEX = " + "${adjStartIndex}");
@@ -84,23 +85,6 @@
 	</#if>
   </div>  
 </div>
-    <#-- Paging controls -->
-    <#if pagingLinks?? && (pagingLinks?size > 0)>
-        <div class="searchpages">
-            Pages: 
-            <#if prevPage??><a class="prev" href="${prevPage}" title="${i18n().previous}">${i18n().previous}</a></#if>
-            <#list pagingLinks as link>
-                <#if link.url??>
-                    <a href="${link.url}" title="${i18n().page_link}">${link.text}</a>
-                <#else>
-                    <span>${link.text}</span> <#-- no link if current page -->
-                </#if>
-            </#list>
-            <#if nextPage??><a class="next" href="${nextPage}" title="${i18n().next_capitalized}">${i18n().next_capitalized}</a></#if>
-        </div>
-    </#if>
-    <br />
-
 </div> <!-- end contentsBrowseGroup -->
   </div> <!--! end of #container -->
 </div> <!-- end of row -->
@@ -111,6 +95,7 @@ ${stylesheets.add('<link rel="stylesheet" href="//code.jquery.com/ui/1.10.3/them
 ${scripts.add('<script type="text/javascript" src="${urls.base}/js/searchDownload.js"></script>')}
 <script>
 var baseUrl = "${urls.base}";
+var imagesUrl = "${urls.images}";
 </script>
 ${scripts.add('<script type="text/javascript" src="${urls.base}/js/findDomainExpert.js"></script>',
 			  '<script type="text/javascript" src="${urls.base}/js/jquery_plugins/jquery.scrollTo-min.js"></script>')}
