@@ -154,6 +154,20 @@
                 noDepartmentsFound: '${i18n().no_departments_found}'
             };
         </script>
+
+        <script type="application/ld+json">
+        	{
+  				"@context": "http://schema.org",
+  				"@type": "WebSite",
+  				"name": "Scholars@Cornell",
+  				"alternateName": "Scholars at Cornell",
+  				"url": "http://dev.scholars.cornell.edu/scholars/"
+  				"sameAs" :[
+       				"https://twitter.com/ScholarsCornell"
+   				]
+			}
+		</script>
+
     </body>
 </html>
 
