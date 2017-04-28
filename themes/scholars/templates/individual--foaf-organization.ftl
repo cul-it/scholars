@@ -294,8 +294,6 @@ $().ready(function() {
 
 ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/keywordcloud/kwcloud.css" />')}
 <div id="word_cloud_vis">
-
-<h3 style="margin:0;padding:0">Research Keywords</h3>
 	<font face="Times New Roman" size="2">
 	<span><i>Click on a keyword to view the list of the relevant faculty.</i></span>
 <#--	
@@ -429,7 +427,7 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></
 	      $('#word_cloud_exporter').click(wc.showVisData);
 	    }
 	  });
-      new ScholarsVis.Toolbar("#word_cloud_vis");
+      new ScholarsVis.Toolbar("#word_cloud_vis", "Research Keywords");
 	});
 	</script>
 </#if>
