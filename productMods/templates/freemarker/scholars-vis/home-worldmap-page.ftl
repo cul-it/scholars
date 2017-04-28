@@ -1,7 +1,15 @@
-
 <div id="worldMapContainer" class="col-md-12 scholars-container">
 		<div class="row" id="mapRow">
-			<div class="col-md-3">
+			<div class="col-md-4">
+				<div>
+         			<h2 style="padding:0;color:#5f5858;font-size:20px">
+            			Browse global collaborations
+         			</h2>
+         			<p style="font-size:12px">
+         				Filter data by selecting an academic unit, subject area or publication year(s).
+         			</p>
+      			</div>
+
 				<div class="panel-group" id="accordion">
 					<div class="panel panel-default">
 						<div class="panel-heading">
@@ -14,11 +22,9 @@
 						<div id="collapseOne" class="panel-collapse collapse">
 							<div class="panel-body" id="academicUnit">
 								<input type="text" class="form-control" id="academicInput" placeholder="Search">
-
 							</div>
 						</div>
 					</div>
-
 					<div class="panel panel-default">
 						<div class="panel-heading">
 							<h4 class="panel-title">
@@ -56,18 +62,16 @@
 
 				</div>
 			</div>
-
 			<div class="col-md-8 container">
-				
-			</p>
 			<div id="mapViz">
+				<div id="info_icon_text" style="display:none">
+          			This global collaborations.
+        		</div>
+				<h5 class="normal"> Now Showing: <span id="nowShowing">All</span></h5>
 				<form class="form-inline">
-
 					<label class="radio-inline"><input type="radio" name="map" value="world" checked>World Map</label>
 					<label class="radio-inline" id="usa-label"><input type="radio" name="map" value="usa">USA Map</label>
-					
 				</form>
-				<h5 class="normal"> Now Showing: <span id="nowShowing">All</span></h5>
 			</div>
 		</div>
 		<div class="closed" id="rh-panel">
@@ -104,7 +108,7 @@
 	'script', 
 	'<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>',
 	'<script src="${urls.base}/js/scholars-vis/grants/nouislider.min.js"></script>')}
-
+	
 	<script type="text/javascript">
 		$().ready(function() {
 			// new ScholarsVis.GlobalCollaboration({
@@ -112,5 +116,8 @@
 			// }).show();
 			initializeMap();
 			
+		});
+		$().ready(function() {
+  			new ScholarsVis.Toolbar("#mapVis");
 		});
 	</script>

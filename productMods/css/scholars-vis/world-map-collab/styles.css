@@ -77,26 +77,28 @@ div.tooltip {
 
 #rh-panel {
   background-color: rgba(50, 50, 50, 0.8);
-  height: 550px;
+  height: 95%;
   width: 3%;
   float:right;
   transition: width .5s;
   position: absolute;
   right:0;
   visibility: hidden;
-
-
 }
 
+
 #hamburgerIcon{
-  font-size: 30px;
+  font-size: 20px;
   color: white;
   display:block;
   margin-left: 30px;
   float:left;
   margin-left:4px;
   margin-top: 15px;
+}
 
+#hamburgerIcon:hover{
+  cursor: pointer;
 }
 
 #areaTitle{
@@ -105,8 +107,7 @@ div.tooltip {
   color: #FF0;
   float:left;
   margin-left: 5px;
-  font-size: 24pt;
-
+  font-size: 18pt;
 }
 
 .list{
@@ -176,9 +177,14 @@ html{
 .linked:hover{
   background-color: rgba(50, 150, 200, 1.0);
 }
+
 .counts{
  float: right;
  color: white;
+}
+
+.linked{
+  margin-bottom: 0px;
 }
 
 .linked a{
@@ -186,14 +192,34 @@ html{
   text-decoration: none;
   margin-bottom: 0px;
 }
+
 .linked a:hover{
   text-decoration: underline;
   
 }
+
 .unlinked a{
   color: white;
   text-decoration: none;
 }
+
+
+.unlinked { 
+  color: white;
+  text-decoration: none;
+  margin-bottom: 0px;
+}
+
+.unlinked:hover{
+  text-decoration: none;
+}
+
+.unlinked a:hover{
+  color: white;
+  text-decoration: none;
+  margin-bottom: 0px;
+}
+
 #bigCounts{
   margin-left: 7px;
   color: #FF0;
@@ -205,7 +231,7 @@ html{
 }
 
 #nowShowing{
-  color: steelBlue;
+  color: #212F3C;
 }
 
 .listy:hover{
@@ -215,6 +241,7 @@ html{
 }
 .listy{
   font-weight: 300;
+  margin-bottom: 0px;
 }
 #clear:hover{
   cursor: pointer;
