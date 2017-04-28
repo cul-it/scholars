@@ -16,6 +16,10 @@ function createWordCloudSelector(siteSelector, departmentSelector, personSelecto
   var personControl = new AccordionControls.Selector(personSelector, showPersonCloud);
   personControl.loadFromDataRequest("facultyList");
   
+  var personToolbar = new ScholarsVis.Toolbar(person_wc_container);
+  var unitToolbar = new ScholarsVis.Toolbar(unit_wc_container);
+  var siteToolbar = new ScholarsVis.Toolbar(site_wc_container);
+
   showSiteCloud();
   
   function showSiteCloud() {
@@ -25,7 +29,7 @@ function createWordCloudSelector(siteSelector, departmentSelector, personSelecto
     });
     wc.show();
     $(site_wc_container + '>#exporter').click(wc.showVisData);
-    showSelection();
+    showSelection(siteToolbar);
     showClouds("site");
   }
   
@@ -37,7 +41,7 @@ function createWordCloudSelector(siteSelector, departmentSelector, personSelecto
     });
     wc.show();
     $(unit_wc_container + '>#exporter').click(wc.showVisData);
-    showSelection(unit.label, unit.uri);
+    showSelection(unitToolbar, unit.label, unit.uri);
     showClouds("unit");
   }
   
@@ -49,17 +53,17 @@ function createWordCloudSelector(siteSelector, departmentSelector, personSelecto
     });
     wc.show();
     $(person_wc_container + ' #exporter').click(wc.showVisData);
-    showSelection(person.label, person.uri);
+    showSelection(personToolbar, person.label, person.uri);
     showClouds("person");
   }
   
-  function showSelection(message, uri) {
+  function showSelection(toolbar, message, uri) {
     if ( typeof message == "undefined") {
-      $("#selectedWordCloudLabel").html("University-wide research keywords");
+      toolbar.setHeadingText("University-wide research keywords");
     } else if ( typeof uri == "undefined") {
-      $("#selectedWordCloudLabel").html("Research keywords for " + message);
+      toolbar.setHeadingText("Research keywords for " + message);
     } else {
-      $("#selectedWordCloudLabel").html('Research keywords for <a href="' + toDisplayPageUrl(uri) + '">' + message + '</a>');
+      toolbar.setHeadingText('Research keywords for <a href="' + toDisplayPageUrl(uri) + '">' + message + '</a>');
     }
   }
   

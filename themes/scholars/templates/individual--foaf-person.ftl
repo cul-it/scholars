@@ -196,7 +196,6 @@ $(document).ready(function() {
 <div id="foaf-person-blank-row" class="row scholars-row"></div>
 </#if>
 <div id="word_cloud_vis">
-	<h3 style="margin:0;padding:0">Research Keywords</h3>
 	<font face="Times New Roman" size="2">
 	<span><i>Click on a keyword to view the list of the related publications.</i></span>
     <br>
@@ -293,7 +292,7 @@ $().ready(function() {
       $('#word_cloud_exporter').click(wc.showVisData);
     }
   });
-  new ScholarsVis.Toolbar("#word_cloud_vis");
+  new ScholarsVis.Toolbar("#word_cloud_vis", "Research Keywords");
 });
 </script>
 

@@ -115,9 +115,4 @@ $().ready(function() {
   createWordCloudSelector("#siteSelector", "#departmentSelectionPanel", "#personSelectionPanel", 
                           "#siteWordCloudVis", "#departmentWordCloudVis", "#personWordCloudVis");
 });
-$().ready(function() {
-  new ScholarsVis.Toolbar("#departmentWordCloudVis");
-  new ScholarsVis.Toolbar("#personWordCloudVis");
-  new ScholarsVis.Toolbar("#siteWordCloudVis");
-});
 </script>

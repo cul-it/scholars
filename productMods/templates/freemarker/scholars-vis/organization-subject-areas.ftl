@@ -1,8 +1,9 @@
 <div class="row scholars-row">
   <div id="wc-vis-container" class="col-md-12 scholars-container">
+    <div class="row scholars-row visualization-row">
     <div class="col-md-4 kwcloud-selector">
 
-      <div id="legendDiv" class="center-block">
+            <div id="legendDiv" class="center-block">
          <h2 style="padding:0;color:#5f5858;font-size:20px">
             Browse research interests
          </h2>
@@ -27,7 +28,9 @@
         </div>
                 
       </div> 
+    </div> 
 
+    <div class="col-md-8 kwcloud-selector">
       <div>
         <font face="Times New Roman" size="2">
           <span><i>
@@ -35,16 +38,35 @@
           </i></span>
         </font>
       </div>
-
     </div>
-
-    <div class="col-md-8">
-	  <div id="organization-subject-areas" style="padding-bottom:60px;height:900px;width:100%">
-	    <div id="info_icon_text" style="display:none">
-		  This visualization represents all the faculty in the selected organizational unit linked to all the subject areas in which faculty have published in. Subject areas are derived from the subject area classification of the journals assigned by the publishers. We infer that any article that is published in a particular journal has the subject area classification of that journal. Thus, the author of such article is said to have research interest in those subject areas. This visualization can be looked in two ways. One is by hovering over the author names (given in the center), in which case, the links to the subject areas will be highlighted. Alternatively, by hovering over a subject area, will highlight all the authors who have published in that subject area. Note: This information is based solely on publications that have been loaded into the system. 
-		</div>
     </div>
-
+  <div class="row scholars-row visualization-row">
+  <div class="col-md-12">
+	  <div id="organization-subject-areas" style="padding-bottom:60px;width:100%">
+		    <div id="info_icon_text" style="display:none">
+		      <p>
+			  This visualization represents all the faculty in the selected organizational unit 
+			  linked to all the subject areas in which faculty have published in. Subject areas 
+			  are derived from the subject area classification of the journals assigned by the 
+			  publishers. We infer that any article that is published in a particular journal 
+			  has the subject area classification of that journal. Thus, the author of such 
+			  article is said to have research interest in those subject areas. 
+			  </p>
+			  <p>
+			  This visualization
+			  can be looked in two ways. One is by hovering over the author names (given in the 
+			  center), in which case, the links to the subject areas will be highlighted. 
+			  Alternatively, by hovering over a subject area, will highlight all the authors 
+			  who have published in that subject area.
+			  </p> 
+			  <hr> 
+			  <p>
+			  Note: This information is based solely on publications that have been loaded 
+			  into the system.
+			  </p> 
+			</div>
+			<div id="selection_text"></div>
+	  </div>
   </div>
 </div>
 
@@ -72,9 +94,8 @@ $().ready(function() {
    * - If a 'deptURI' is present in the URL that got us here, show that department.
    *   - Should this even remain? Since this should probably appear as a modal on the department page
    * - Is this really the best place for a very useful function like getParameterByName() ?
-   *
    */
-  new ScholarsVis.Toolbar("#organization-subject-areas");
+  var toolbar = new ScholarsVis.Toolbar("#organization-subject-areas");
 
   var departmentControl = new AccordionControls.Selector("#departmentSelectionPanel", showDepartmentCloud);
   departmentControl.loadFromDataRequest("departmentList");
@@ -87,6 +108,8 @@ $().ready(function() {
   var ora = null;
     
   function showDepartmentCloud(dept) {
+    departmentControl.collapse();
+    toolbar.setHeadingText("Research areas for " + dept.label);
     if (ora != null) {
       ora.hide();
     }

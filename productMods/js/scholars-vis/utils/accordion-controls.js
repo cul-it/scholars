@@ -26,11 +26,26 @@ var AccordionControls = (function() {
      * 
      * mainElementId -- a d3 selector string
      * 
-     * dataArray -- an array of object, each with a :label attribute, and other
-     * attributes as required.
-     * 
      * selectionCallback -- a function to be called when the user selects a data
      * item.
+     * 
+     * Methods:
+     * 
+     * loadData(dataArray) -- set the list of choices. 
+     *     dataArray -- an array of object, each with a :label attribute, and other
+     *             attributes as required by the selectionCallback function.
+     *             
+     * loadFromDataRequest(actionName) -- set the list of choices from the results 
+     *         of a Data Distribution request. The data received is assumed to be
+     *         in SPARQL SELECT JSON format, with values for 'uri' and 'label'.
+     *         The data will be sorted by label (case-independent) and duplicated
+     *         will be removed. 
+     *     actionName -- the last element in the dataRequest path. This could 
+     *             optionally include a query string (e.g. listWebSites?dept=ORG)
+     * 
+     * expand() -- open the selection panel
+     * 
+     * collapse() -- close the selection panel
      * 
      * The main element must have a descendent with id="selector", where the list
      * elements will be created.
@@ -47,7 +62,8 @@ var AccordionControls = (function() {
         
         return {
             loadData: loadData,
-            loadFromDataRequest: loadFromDataRequest
+            loadFromDataRequest: loadFromDataRequest,
+            collapse: collapse
         };
         
         function showMatchingItems() {
@@ -75,8 +91,8 @@ var AccordionControls = (function() {
         }
         
         /* Is this done properly? Should the mapper function be a parameter? */
-        function loadFromDataRequest(dataRequest) {
-            $.get(applicationContextPath + "/api/dataRequest/" + dataRequest).then(mapAndLoad);
+        function loadFromDataRequest(actionName) {
+            $.get(applicationContextPath + "/api/dataRequest/" + actionName).then(mapAndLoad);
             
             function mapAndLoad(data) {
                 loadData(data.results.bindings.map(mapper).sort(sorter).filter(distinct));
@@ -96,6 +112,14 @@ var AccordionControls = (function() {
                     return i == 0 || el.uri != array[i-1].uri;
                 }
             }
+        }
+        
+        function expand() {
+            $(mainElementId + " .collapse").collapse("show");
+        }
+
+        function collapse() {
+            $(mainElementId + " .collapse").collapse("hide");
         }
     }
 })();
