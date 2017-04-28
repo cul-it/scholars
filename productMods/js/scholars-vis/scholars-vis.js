@@ -326,21 +326,34 @@ var ScholarsVis = (function() {
             return JSON.stringify(data, null, '  ');
         }
     }
-    function Toolbar(targetSelector) {
-        var theText = $(targetSelector).find("#info_icon_text").html();
+    function Toolbar(targetSelector, headingText) {
+        var tipText = $(targetSelector).find("#info_icon_text").html();
         
         var tipOptions = {
-                title: theText,
+                title: tipText,
                 html: true,
                 placement: "bottom",
                 viewport: targetSelector
         };
         
-        var exportIcon = $("<i class=\"fa fa-download pull-right\" aria-hidden=\"true\" title=\"export this data\"></i>");
-        var exporter = $("<a href='#' id='exporter'></a>").append(exportIcon);
+        var heading = $("<span class=\"heading\">&nbsp;</span>");
+        var exportIcon = $("<i class=\"fa fa-download\" aria-hidden=\"true\" title=\"export this data\"></i>");
+        var exporter = $("<a href='#' id='exporter' class=\"pull-right\"></a>").append(exportIcon);
 
         var tooltip = $("<span></span>").addClass("glyphicon glyphicon-info-sign pull-right").tooltip(tipOptions);
-        var toolbar = $("<div class=\"visualization-toolbar\"></div>").append(exporter, tooltip)
-        $(targetSelector).prepend(toolbar)
+        var toolbar = $("<div class=\"visualization-toolbar\"></div>").append(heading, exporter, tooltip);
+        $(targetSelector).prepend(toolbar);
+        
+        if (typeof headingText != "undefined") {
+            setHeadingText(headingText);
+        }
+        
+        return {
+            setHeadingText: setHeadingText
+        }
+        
+        function setHeadingText(headingText) {
+            $(heading).html(headingText);
+        }
     }
 })();

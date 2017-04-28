@@ -146,8 +146,8 @@ function plotConceptMap(flaredata, target) {
 	var plot = ConceptMap("graph", "graph-info", flaredata);
 
 	function ConceptMap(chartElementId, infoElementId, dataJson) {
-	    var width = Math.floor($(target).width() * 1.2);
-	    var height = Math.floor($(target).height() * .7);
+	    var width = Math.floor($(target).width());
+	    var height = Math.floor($(target).height());
 //		var width = 999;// document.body.clientWidth; //window.innerWidth ||
 //		// document.documentElement.clientWidth ||
 //		// document.body.clientWidth;
