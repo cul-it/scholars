@@ -1,3 +1,4 @@
+$.extend(this, urlsBase);
 
 function drawCountryMap(articles) {
 
@@ -5,8 +6,8 @@ function drawCountryMap(articles) {
     articles['NY'] = articles['NY'].filter(nyFilter);
 
     var urls = {
-        us: "http://dev.scholars.cornell.edu/scholars/api/dataRequest/usjson",
-        keys: "http://dev.scholars.cornell.edu/scholars/api/dataRequest/stateshash"
+        us:   urlsBase+"/api/dataRequest/usjson",
+        keys: urlsBase+"/api/dataRequest/stateshash"
     }
 
     var margin = { top: 10, left: 0, bottom: 10, right: 0 }
@@ -341,7 +342,7 @@ function drawWorldMap(data) {
     data['KOREA'] = data['SOUTH KOREA'];
 
     var urls = {
-        world: "http://dev.scholars.cornell.edu/scholars/api/dataRequest/topoc"
+        world: urlsBase+"/api/dataRequest/topoc"
     }
 
     var margin = { top: 10, left: 10, bottom: 10, right: 10 }
@@ -1200,8 +1201,8 @@ function addListeners(){
         word = "usa"
         d3.select("#nowShowing").text("Loading map visualization"); 
         d3.queue()
-        .defer(d3.json, "http://dev.scholars.cornell.edu/scholars/api/dataRequest/collabus")
-        .defer(d3.json, "http://dev.scholars.cornell.edu/scholars/api/dataRequest/collabworld")
+        .defer(d3.json, urlsBase+"/api/dataRequest/collabus")
+        .defer(d3.json, urlsBase+"/api/dataRequest/collabworld")
         .await(function(err, rawStates, rawWorld){
             window.filterVariable = false;
             window.countryRaw = rawStates; 

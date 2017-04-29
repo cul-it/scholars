@@ -108,7 +108,9 @@
 	'script', 
 	'<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>',
 	'<script src="${urls.base}/js/scholars-vis/grants/nouislider.min.js"></script>')}
-	
+	<script>
+		var urlsBase = "${urls.base}";
+	</script>
 	<script type="text/javascript">
 		$().ready(function() {
 			// new ScholarsVis.GlobalCollaboration({
