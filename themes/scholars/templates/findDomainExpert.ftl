@@ -47,23 +47,43 @@
   </div>
 </div>
 <div class="contentsBrowseGroup row fff-bkg">
-  <div id="facet-container" class="col-md-3">
+  <div id="facet-container" class="col-md-4">
 
-    <#if classLinks?has_content>
-        <div class="panel panel-default selection-list" >
+    <#if classFacet?has_content>
+        <div id="position-facets" class="panel panel-default selection-list" >
                 <div class="panel-heading" style="line-height:18px;font-size:16px">Position</div>
-            <#list classLinks as link>
+            <#list classFacet as class>
+				<#if class.text != "Person" >
+                	<div class="panel-body" style="padding:10px;line-height:16px;font-size:14px">
+						<#assign vclassid = class.url[class.url?index_of("vclassId=")+9..] />
+						<input type="checkbox" class="type-checkbox position-cb" data-vclassid="${vclassid?url}" /> ${class.text}<span> (${class.count})</span>
+					</div>
+				</#if>
+            </#list>
+        </div>
+    </#if>
+    <#if collegeFacet?has_content>
+        <div id="college-facets" class="panel panel-default selection-list" >
+                <div class="panel-heading" style="line-height:18px;font-size:16px">College / School</div>
+            <#list collegeFacet?keys as key>
                 <div class="panel-body" style="padding:10px;line-height:16px;font-size:14px">
-					<#if link.text != "Person" >
-						<#assign vclassid = link.url[link.url?index_of("vclassId=")+9..] />
-						<input type="checkbox" class="type-checkbox" data-vclassid="${vclassid?url}" /> ${link.text}<span> (${link.count})</span>
-					</#if>
+						<input type="checkbox" class="type-checkbox college-cb" data-college="${key}" /> ${key}<span> (${collegeFacet[key]})</span>
 				</div>
             </#list>
         </div>
     </#if>
-  </div>
-  <div id="results-container" class="col-md-8 panel panel-default ">
+    <#if departmentFacet?has_content>
+        <div id="department-facets" class="panel panel-default selection-list" >
+                <div class="panel-heading" style="line-height:18px;font-size:16px">Department</div>
+            <#list departmentFacet?keys as key>
+                <div class="panel-body" style="padding:10px;line-height:16px;font-size:14px">
+						<input type="checkbox" class="type-checkbox department-cb" data-department="${key}" /> ${key}<span> (${departmentFacet[key]})</span>
+				</div>
+            </#list>
+        </div>
+    </#if>
+ </div>
+  <div id="results-container" class="col-md-7 panel panel-default ">
     <#-- Search results -->
 	<#if individuals?? >
     <ul class="searchhits">
@@ -74,7 +94,8 @@
 			<#assign adjStartIndex =  (adjPage * hitsPerPage) />
 			<#if ( hitCount > adjStartIndex ) >
 				<li id="scroll-control" data-start-index="${adjStartIndex}" data-current-page="${adjPage}" style="text-align:center">
-					<img id="search-indicator" src="${urls.images}/indicatorWhite.gif" style="display:none" />
+					<img id="search-indicator" src="${urls.images}/indicatorWhite.gif" style="display:none;vertical-align:middle" /> 
+					<span style="font-size:14px;color:#95908d">retrieving additional results</span>
 				</li>
 			</#if>
 			<script>

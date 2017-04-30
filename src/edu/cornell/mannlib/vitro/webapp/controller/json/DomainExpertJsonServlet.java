@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -90,6 +91,8 @@ public class DomainExpertJsonServlet extends VitroHttpServlet {
     private static final String PARAM_CLASSGROUP = "classgroup";
     private static final String PARAM_RDFTYPE = "type";
     private static final String PARAM_VCLASS_ID = "vclassId";
+    private static final String PARAM_COLLEGES = "colleges";
+    private static final String PARAM_DEPARTMENTS = "departments";
     private static final String PARAM_QUERY_TEXT = "querytext";
     private static final String PARAM_QUERY_TYPE = "querytype";
 	private static final String KEYWORD_FIELD = "keyword_txt";
@@ -134,7 +137,7 @@ public class DomainExpertJsonServlet extends VitroHttpServlet {
 
 	        String queryText = vreq.getParameter(PARAM_QUERY_TEXT);  
 	        String queryType = vreq.getParameter(PARAM_QUERY_TYPE);  
-
+			log.debug("build the query");
 			SearchQuery query = getQuery(queryText, queryType, hitsPerPage, startIndex, vreq);  
 
 			
@@ -204,7 +207,7 @@ public class DomainExpertJsonServlet extends VitroHttpServlet {
      * Get the class groups represented for the individuals in the documents.
      * @param qtxt 
      */
-    private List<VClassGroupSearchLink> getClassGroupsLinks(VitroRequest vreq, VClassGroupDao grpDao, SearchResultDocumentList docs, SearchResponse rsp, String qtxt, String qtype) {                                 
+/*    private List<VClassGroupSearchLink> getClassGroupsLinks(VitroRequest vreq, VClassGroupDao grpDao, SearchResultDocumentList docs, SearchResponse rsp, String qtxt, String qtype) {                                 
         Map<String,Long> cgURItoCount = new HashMap<String,Long>();
         
         List<VClassGroup> classgroups = new ArrayList<VClassGroup>( );
@@ -304,11 +307,25 @@ public class DomainExpertJsonServlet extends VitroHttpServlet {
         }
         return typesInHits;
     }
-    
+*/    
     private static SearchQuery getQuery(String queryText, String queryType,int hitsPerPage, int startIndex, VitroRequest vreq) {
-
+		
+		Enumeration params = vreq.getParameterNames(); 
+		while(params.hasMoreElements()){
+		 String paramName = (String)params.nextElement();
+		 log.debug("Parameter Name - "+paramName+", Value - "+vreq.getParameter(paramName));
+		}
+		
 		String vclassids = vreq.getParameter(PARAM_VCLASS_ID).replaceAll(",","\" OR type:\"");
-
+		
+		if (vreq.getParameterMap().containsKey(PARAM_COLLEGES)) {
+			String colleges = vreq.getParameter(PARAM_COLLEGES).replaceAll(",","\" OR type:\"");
+		}
+		if (vreq.getParameterMap().containsKey(PARAM_DEPARTMENTS)) {
+			String departments = vreq.getParameter(PARAM_DEPARTMENTS).replaceAll(",","\" OR type:\"");
+		}
+		
+		
 		log.debug("VCLASSIDS = " + vclassids);
         //String typeParam = "type:\"" + vreq.getParameter(PARAM_VCLASS_ID) + "\"";
 		String typeParam = "type:\"" + vclassids + "\"";
@@ -338,13 +355,23 @@ public class DomainExpertJsonServlet extends VitroHttpServlet {
         String classgroupParam = "http://vivoweb.org/ontology#vitroClassGrouppeople";
         query.addFilterQuery(typeParam);
 
+		// if we have colleges or departments in the request, add filters for them
+		if (vreq.getParameterMap().containsKey(PARAM_COLLEGES)) {
+			String colleges = vreq.getParameter(PARAM_COLLEGES).replaceAll(",","\" OR college_txt:\"");
+			query.addFilterQuery("college_txt:\"" + colleges + "\"");
+		}
+		if (vreq.getParameterMap().containsKey(PARAM_DEPARTMENTS)) {
+			String departments = vreq.getParameter(PARAM_DEPARTMENTS).replaceAll(",","\" OR department_txt:\"");
+			query.addFilterQuery("department_txt:\"" + departments + "\"");
+		}
+
 		// filtering out people whose MST is 
 		query.addFilterQuery("-mostSpecificTypeURIs:\"http://xmlns.com/foaf/0.1/Person\"");
 
         log.debug("Query = " + query.toString());
         return query;
     }   
-
+/*
     public static class VClassGroupSearchLink extends LinkTemplateModel {        
         long count = 0;
         VClassGroupSearchLink(String querytext, String querytype, VClassGroup classgroup, long count) {
@@ -364,7 +391,7 @@ public class DomainExpertJsonServlet extends VitroHttpServlet {
         
     public String getCount() { return Long.toString(count); }               
     }
-    
+*/    
     /**
      * Makes a message to display to user for a bad search term.
      * @param queryText

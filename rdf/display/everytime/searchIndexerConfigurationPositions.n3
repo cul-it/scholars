@@ -45,6 +45,7 @@
     rdfs:label "Add Department to Person" ;
     :hasTypeRestriction "http://xmlns.com/foaf/0.1/Person" ;
     :hasTargetField "department_txt" ;
+    :hasTargetField "department_ss" ;
     :hasSelectQuery """
         PREFIX hr:       <http://scholars.cornell.edu/ontology/hr.owl#>
         PREFIX vivo:     <http://vivoweb.org/ontology/core#>
@@ -68,6 +69,7 @@
     rdfs:label "Add College/School to Person" ;
     :hasTypeRestriction "http://xmlns.com/foaf/0.1/Person" ;
     :hasTargetField "college_txt" ;
+    :hasTargetField "college_ss" ;
     :hasSelectQuery """
         PREFIX vivo:     <http://vivoweb.org/ontology/core#>
 		PREFIX foaf:     <http://xmlns.com/foaf/0.1/>

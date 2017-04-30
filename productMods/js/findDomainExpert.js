@@ -83,7 +83,9 @@ var getDomainExperts = {
 					var vclassIds = getDomainExperts.getVClassIds();
 					var queryText = getDomainExperts.getQueryText();
 					var queryType = getDomainExperts.getQueryType();
-					getDomainExperts.getIndividuals(vclassIds, queryText, queryType, "scrolling");
+					var colleges =  getDomainExperts.getColleges();
+					var departments =  getDomainExperts.getDepartments();
+					getDomainExperts.getIndividuals(vclassIds, queryText, queryType, "scrolling", colleges, departments);
 				}
 			}
 		});
@@ -92,7 +94,9 @@ var getDomainExperts = {
 			var vclassIds =  getDomainExperts.getVClassIds();
             var queryText = getDomainExperts.getQueryText();
             var queryType = getDomainExperts.getQueryType();
-            getDomainExperts.getIndividuals(vclassIds, queryText, queryType, "faceting");
+			var colleges =  getDomainExperts.getColleges();
+			var departments =  getDomainExperts.getDepartments();
+            getDomainExperts.getIndividuals(vclassIds, queryText, queryType, "faceting", colleges, departments);
         });
 
 		$('input[type=radio][name=querytype]').change(function() {
@@ -113,8 +117,8 @@ var getDomainExperts = {
 	getVClassIds: function() {
 		var vClassIds = "&vclassId=";
 		
-		if ( $("#facet-container input:checkbox:checked").length ) {
-			$(".type-checkbox:checked").each(function () {
+		if ( $("#position-facets input:checkbox:checked").length ) {
+			$(".position-cb:checked").each(function () {
 				vClassIds += decodeURIComponent($(this).attr('data-vclassid')) + ",";
 			});
 			vClassIds = vClassIds.replace(/,\s*$/, "");
@@ -123,6 +127,32 @@ var getDomainExperts = {
 			vClassIds = "&vclassId=" + $("#de-search-vclass").val();
 		}
 		return vClassIds;
+	},
+	
+	getColleges: function() {
+		var colleges = "";
+		
+		if ( $("#college-facets input:checkbox:checked").length ) {
+			colleges = "&colleges=";
+			$(".college-cb:checked").each(function () {
+				colleges += decodeURIComponent($(this).attr('data-college')) + ",";
+			});
+			colleges = colleges.replace(/,\s*$/, "");
+		}
+		return colleges;
+	},
+	
+	getDepartments: function() {
+		var departments = "";
+		
+		if ( $("#department-facets input:checkbox:checked").length ) {
+			departments = "&departments=";
+			$(".department-cb:checked").each(function () {
+				departments += decodeURIComponent($(this).attr('data-department')) + ",";
+			});
+			departments = departments.replace(/,\s*$/, "");
+		}
+		return departments;
 	},
 	
 	getQueryType: function() {
@@ -134,12 +164,17 @@ var getDomainExperts = {
 	},
 	
 	// Called when a facet checkbox is clicked
-    getIndividuals: function(vclassIds, queryText, queryType, method, scroll) {
+    getIndividuals: function(vclassIds, queryText, queryType, method, colleges, departments, scroll) {
         var url = baseUrl + "/domainExpertJson?querytext=" + queryText + "&querytype=" + queryType + vclassIds;
         if ( typeof scroll === "undefined" ) {
             scroll = true;
         }
-
+		if ( colleges.length > 0 ) {
+			url += colleges;
+		}
+		if ( departments.length > 0 ) {
+			url += departments;
+		}
 		if ( method == "scrolling" ) {
 			var startIndex = $("#scroll-control").attr("data-start-index");
 			var currentPage = $("#scroll-control").attr("data-current-page");
@@ -162,7 +197,7 @@ var getDomainExperts = {
             var individualList = "";
             // Catch exceptions when empty individuals result set is returned
             if ( results.individuals.length == 0 ) {
-                //browseByVClass.emptyResultSet(results.vclass, alpha)
+                alert("aint got nuttin");
             } else {
                 var vclassName = results.vclass.name;
                 $.each(results.individuals, function(i, item) {
@@ -190,7 +225,7 @@ var getDomainExperts = {
 				if ( results.hitCount > adjStartIndex ) {
 					$("ul.searchhits").append('<li id="scroll-control" data-start-index="' + 
 						adjStartIndex + '" data-current-page="' + adjPage + '" style="text-align:center"><img id="search-indicator" src="'
-						+ imagesUrl + '/indicatorWhite.gif" style="display:none"/></li>');
+						+ imagesUrl + '/indicatorWhite.gif" style="display:none;vertical-align:middle"/><span style="font-size:14px;color:#95908d">retrieving additional results</span></li>');
 				}
 
 				getDomainExperts.makeTheCall = true;
