@@ -1203,7 +1203,7 @@
   
   <servlet>
     <servlet-name>DistributeDataApi</servlet-name>
-    <servlet-class>edu.cornell.mannlib.vitro.webapp.controller.api.DistributeDataApiController</servlet-class>
+    <servlet-class>edu.cornell.library.scholars.webapp.controller.api.DistributeDataApiController</servlet-class>
   </servlet>
 
   <servlet-mapping>

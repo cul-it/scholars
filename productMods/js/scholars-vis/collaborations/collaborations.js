@@ -1,16 +1,6 @@
-ScholarsVis["CollaborationSunburst"] = function(options) {
-	var defaults = {
-		    url : applicationContextPath + "/api/dataRequest/collaboration_sunburst",
-	    	transform : transformCollab,
-		    display : sunburst,
-		    closer : closeSunburst
-		};
-	return new ScholarsVis.Visualization(options, defaults);
-};
-
 ScholarsVis["CrossUnitCollaborationSunburst"] = function(options) {
 	var defaults = {
-		    url : applicationContextPath + "/api/dataRequest/cross_unit_sunburst",
+		    url : applicationContextPath + "/api/dataRequest/cross_unit_sunburst?department=" + options.department,
 	    	transform : transformCollab,
 		    display : sunburst,
 		    closer : closeSunburst
@@ -20,7 +10,7 @@ ScholarsVis["CrossUnitCollaborationSunburst"] = function(options) {
 
 ScholarsVis["InterDepartmentCollaborationSunburst"] = function(options) {
 	var defaults = {
-		    url : applicationContextPath + "/api/dataRequest/interdepartmental_sunburst",
+		    url : applicationContextPath + "/api/dataRequest/interdepartmental_sunburst?department=" + options.department,
 	    	transform : transformCollab,
 		    display : sunburst,
 		    closer : closeSunburst
@@ -211,7 +201,11 @@ function draw_it(root, target) {
   var center = svg.append("circle")
       .attr("r", radius / 3).on("click", zoomOut);
   // why specificly defined as Engineering. This will not work for other units.
-  var centerText = svg.append("text").style("text-anchor", "middle").style("font-size", "11px").text(function(d) { return root.description});
+
+  var defaultFontSize = 11;
+  var newFontSize = defaultFontSize - root.description.length/defaultFontSize;
+  //var scaleFactor = -2.9*newFontSize;
+  var centerText = svg.append("text").style("text-anchor", "middle").style("font-size", newFontSize).text(function(d) { return root.description});
   
 
   center.append("title")
@@ -232,7 +226,7 @@ function draw_it(root, target) {
   
       
 var texts = svg.selectAll("text")
-  .data(partitioned_data)
+  .data(partition.nodes(root))
   .enter()
   .append("text")
   .filter(filter_min_arc_size_text)  
@@ -321,7 +315,7 @@ var texts = svg.selectAll("text")
           
       var defaultFontSize = 11;
       var newFontSize = defaultFontSize - root.description.length/defaultFontSize;
-      var scaleFactor = -2.9*newFontSize;
+      //var scaleFactor = -2.9*newFontSize;
       centerText.style("font-size", newFontSize+"px").style("text-anchor", "middle").text(root.description);
       
       if(typeof root.children[0].children === "undefined") {
