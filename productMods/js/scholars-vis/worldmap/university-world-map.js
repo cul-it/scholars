@@ -208,7 +208,7 @@ function drawCountryMap(articles) {
             fillSidebar(d);
         }
 
-        var tooltip = d3.select("body")
+        var tooltip = d3.select("#mapViz")
         .append("div")
         .style("position", "absolute")
         .style("z-index", "10")
@@ -227,7 +227,8 @@ function drawCountryMap(articles) {
             tooltip.text(state.properties.name + " (" + getStateCounts(state) + ")");
         }
         function stateMove(d){
-            return tooltip.style("top", (event.pageY-10)+"px").style("left",(event.pageX+10)+"px");
+            var coordinates = d3.mouse(this);
+            return tooltip.style("top", (coordinates[1])+"px").style("left",(coordinates[0])+"px");
         }
         function stateMouseout(d) {
             return tooltip.style("visibility", "hidden");
@@ -434,7 +435,7 @@ function drawWorldMap(data) {
 
 
 
-        var tooltip = d3.select("body")
+        var tooltip = d3.select("#mapViz")
         .append("div")
         .style("position", "absolute")
         .style("z-index", "10")
@@ -463,7 +464,8 @@ function drawWorldMap(data) {
 
 
      function countryMove(d){
-         return tooltip.style("top", (event.pageY-10)+"px").style("left",(event.pageX+10)+"px");
+        var coordinates = d3.mouse(this);
+        return tooltip.style("top", (coordinates[1])+"px").style("left",(coordinates[0])+"px");
      }
      function countryMouseout(d) {
         tooltip.style("visibility", "hidden");
