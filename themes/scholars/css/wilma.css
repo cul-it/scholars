@@ -3238,6 +3238,30 @@ header {
 	display: inline;
 }
 /*** Search widgets ***/
+#search-field-container {
+	margin-bottom: 30px;
+}
+#search-field-container div {
+	padding-right: 0;
+}
+#start-over {
+	text-align: right;
+}
+#start-over a {
+	font-size: 14px;
+/*	padding-right: 28px; */
+}
+.facet-panel-heading {
+	line-height: 18px;
+	font-size: 16px;
+}
+.results-input {
+	width: 298px !important;
+	margin-top: 0px !important;
+}
+#results-column {
+	padding: 0 45px 0 20px;
+}
 #by-name-radio {
 	margin-left: 18px;
 }
@@ -3247,18 +3271,12 @@ header {
 	margin-top: -12px;
 	padding-left: 4px;
 }
-#results-search-input {
-	margin-top: 5px;
-	color: #656;
-	font-size: 14px;
-	height: 32px;
-	width: 250px;
-}
 #results-search-submit {
 	background :none;
 	border: none;
 	font-size: 17px;
 	color: rgb(95, 88, 88);
+	margin-left: -5px
 }
 #results-search-submit:hover {
 	color: #CC6949;
@@ -3288,4 +3306,74 @@ header {
     padding-top: .5em;
     padding-bottom: .5em;
     width: 150px;
+}
+#results-blurb {
+	margin-top: -27px;
+	margin-left: 12px;
+	min-height: 27px;
+	font-size:14px;
+}
+#results-blurb span {
+	background-color: #d9edf7;
+	padding: 3px 5px;
+}
+#results-container {
+	padding-bottom: 15px;
+}
+#results-container.no-results {
+	background-color: #fcf8e3;
+	border-color: #faf2cc;
+}
+#no-results-text {
+	padding: 22px;
+}
+#unmatched-term {
+	font-size: 16px;
+	margin-left: 20px;
+	padding: 6px 0;
+}
+input[type=text]:focus {
+  box-shadow: 0 0 5px #d9edf7;
+
+  border: 1px solid #d9edf7;
+}
+.scholars-facet {
+	padding: 10px;
+	line-height: 16px;
+	font-size: 14px;
+}
+.scholars-facet label {
+	margin-left: 18px;
+}
+.scholars-facet label input[type='checkbox'] {
+	margin-left: -18px;
+}
+ul.searchhits {
+	padding-left: 14px;
+}
+span.no-results-found {
+	font-size: 14px;
+}
+div.no-results-found {
+	font-size: 16px;
+}
+ul.no-result-facet-list {
+	margin-left: 15px;
+	list-style: outside;
+}
+ul.no-result-facet-list li {
+	font-size:14px;
+	margin-top :0.5em;
+}
+li#scroll-control {
+	text-align: center;
+}
+li#scroll-control span {
+	padding-left: 4px; 
+	font-size:14px; 
+	color:#95908d;
+}
+img#search-indicator {
+	display: none;
+	vertical-align: middle;
 }

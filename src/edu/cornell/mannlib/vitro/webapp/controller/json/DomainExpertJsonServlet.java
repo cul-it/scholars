@@ -13,6 +13,8 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -137,11 +139,47 @@ public class DomainExpertJsonServlet extends VitroHttpServlet {
 
 	        String queryText = vreq.getParameter(PARAM_QUERY_TEXT);  
 	        String queryType = vreq.getParameter(PARAM_QUERY_TYPE);  
-			log.debug("build the query");
-			SearchQuery query = getQuery(queryText, queryType, hitsPerPage, startIndex, vreq);  
 
-			
-			IndividualListQueryResults results = null;
+			SearchQuery query = getQuery(queryText, queryType, hitsPerPage, startIndex, vreq);  
+//
+		 	  SearchEngine search = ApplicationUtils.instance().getSearchEngine();
+			  SearchResponse resp = null;           
+            try {
+                resp = search.query(query);
+            } catch (Exception ex) {                
+                log.error("could not run search query",ex);
+				JSONObject jsonObj = new JSONObject("{'query exception'}");
+		 	    return jsonObj;
+            }
+
+              SearchResultDocumentList docs = resp.getResults();
+              if (docs == null) {
+                  log.error("Document list for a search was null");                
+				JSONObject jsonObj = new JSONObject("{'failed search'}");
+		 	    return jsonObj;
+              }
+			  log.debug("DOCS = " + docs.toString());  
+              long hitCount = docs.getNumFound();
+              log.debug("Number of hits = " + hitCount);
+              if ( hitCount < 1 ) {                
+                  JSONObject jsonObj = new JSONObject("{individuals:''}");
+		 	    return jsonObj;
+				
+              }            
+
+			List<Individual> individuals = new ArrayList<Individual>(docs.size());
+			for (SearchResultDocument doc : docs) {
+				String uri = doc.getStringValue(VitroSearchTermNames.URI);
+				Individual individual = iDao.getIndividualByURI(uri);
+				if (individual == null) {
+					log.debug("No individual for search document with uri = " + uri);
+				} else {
+					individuals.add(individual);
+					log.debug("Adding individual " + uri + " to individual list");
+				}
+			}
+//			
+/*			IndividualListQueryResults results = null;
 			try{
 		        results = IndividualListQueryResults.runQuery(query, iDao);
 				log.debug("results hit count: " + results.getHitCount());
@@ -152,14 +190,23 @@ public class DomainExpertJsonServlet extends VitroHttpServlet {
 		   	}
 		
 			IndividualListResults ilResults = new IndividualListResults(hitsPerPage, results.getIndividuals(), "", false, Collections.<PageRecord>emptyList());
+*/
+
+			IndividualListQueryResults results = new IndividualListQueryResults((int) hitCount, individuals);
+			IndividualListResults ilResults = new IndividualListResults(hitsPerPage, results.getIndividuals(), "", false, Collections.<PageRecord>emptyList());
+			
 	        rObj = IndividualListResultsUtils.wrapIndividualListResultsInJson(ilResults, vreq, true);
 
 			rObj.put("hitCount", results.getHitCount());
 			rObj.put("startIndex", startIndex);
 			rObj.put("currentPage", currentPage);
 			
+			Map<String,Long> departmentFacets = getDepartmentFacet(docs, resp);
+			log.debug("departmentFacets = " + departmentFacets.toString());
+			rObj.put("departmentFacets", departmentFacets);
+			
 			addShortViewRenderings(rObj, vreq);
-
+			log.debug("rObj = " + rObj.toString());
 			return rObj;
 		}
 		catch (Throwable e) {
@@ -202,112 +249,7 @@ public class DomainExpertJsonServlet extends VitroHttpServlet {
         log.debug("currentPage is " + currentPage);
         return currentPage;
     }
-
-    /**
-     * Get the class groups represented for the individuals in the documents.
-     * @param qtxt 
-     */
-/*    private List<VClassGroupSearchLink> getClassGroupsLinks(VitroRequest vreq, VClassGroupDao grpDao, SearchResultDocumentList docs, SearchResponse rsp, String qtxt, String qtype) {                                 
-        Map<String,Long> cgURItoCount = new HashMap<String,Long>();
-        
-        List<VClassGroup> classgroups = new ArrayList<VClassGroup>( );
-        List<SearchFacetField> ffs = rsp.getFacetFields();
-        for(SearchFacetField ff : ffs){
-            if(VitroSearchTermNames.CLASSGROUP_URI.equals(ff.getName())){
-                List<Count> counts = ff.getValues();
-                for( Count ct: counts){                    
-                    VClassGroup vcg = grpDao.getGroupByURI( ct.getName() );
-                    if( vcg == null ){
-                        log.debug("could not get classgroup for URI " + ct.getName());
-                    }else{
-                        classgroups.add(vcg);
-                        cgURItoCount.put(vcg.getURI(),  ct.getCount());
-                    }                    
-                }                
-            }            
-        }
-        
-        grpDao.sortGroupList(classgroups);     
-        
-        VClassGroupsForRequest vcgfr = VClassGroupCache.getVClassGroups(vreq);
-        List<VClassGroupSearchLink> classGroupLinks = new ArrayList<VClassGroupSearchLink>(classgroups.size());
-        for (VClassGroup vcg : classgroups) {
-        	String groupURI = vcg.getURI();
-			VClassGroup localizedVcg = vcgfr.getGroup(groupURI);
-            long count = cgURItoCount.get( groupURI );
-            if (localizedVcg.getPublicName() != null && count > 0 )  {
-                classGroupLinks.add(new VClassGroupSearchLink(qtxt, qtype, localizedVcg, count));
-            }
-        }
-        return classGroupLinks;
-    }
-
-    private List<VClassSearchLink> getVClassLinks(VClassDao vclassDao, SearchResultDocumentList docs, SearchResponse rsp, String qtxt, String qtype){        
-        HashSet<String> typesInHits = getVClassUrisForHits(docs);                                
-        List<VClass> classes = new ArrayList<VClass>(typesInHits.size());
-        Map<String,Long> typeURItoCount = new HashMap<String,Long>();        
-        
-        List<SearchFacetField> ffs = rsp.getFacetFields();
-//		log.debug("FFS " + ffs.toString());
-        for(SearchFacetField ff : ffs){
-            if(VitroSearchTermNames.RDFTYPE.equals(ff.getName())){
-                List<Count> counts = ff.getValues();
-                for( Count ct: counts){  
-                    String typeUri = ct.getName();
-                    long count = ct.getCount();
-                    try{                                                   
-                        if( VitroVocabulary.OWL_THING.equals(typeUri) ||
-                            count == 0 )
-                            continue;
-                        VClass type = vclassDao.getVClassByURI(typeUri);
-                        if( type != null &&
-                            ! type.isAnonymous() &&
-                              type.getName() != null && !"".equals(type.getName()) &&
-                              type.getGroupURI() != null ){ //don't display classes that aren't in classgroups                                   
-                            typeURItoCount.put(typeUri,count);
-                            classes.add(type);
-                        }
-                    }catch(Exception ex){
-                        if( log.isDebugEnabled() )
-                            log.debug("could not add type " + typeUri, ex);
-                    }                                                
-                }                
-            }            
-        }
-        
-        
-        Collections.sort(classes, new Comparator<VClass>(){
-            public int compare(VClass o1, VClass o2) {                
-                return o1.compareTo(o2);
-            }});
-        
-        List<VClassSearchLink> vClassLinks = new ArrayList<VClassSearchLink>(classes.size());
-        for (VClass vc : classes) {                        
-            long count = typeURItoCount.get(vc.getURI());
-            vClassLinks.add(new VClassSearchLink(qtxt, qtype, vc, count ));
-        }
-        
-        return vClassLinks;
-    }       
-        
-    private HashSet<String> getVClassUrisForHits(SearchResultDocumentList docs){
-        HashSet<String> typesInHits = new HashSet<String>();  
-        for (SearchResultDocument doc : docs) {
-            try {
-                Collection<Object> types = doc.getFieldValues(VitroSearchTermNames.RDFTYPE);     
-                if (types != null) {
-                    for (Object o : types) {
-                        String typeUri = o.toString();
-                        typesInHits.add(typeUri);
-                    }
-                }
-            } catch (Exception e) {
-                log.error("problems getting rdf:type for search hits",e);
-            }
-        }
-        return typesInHits;
-    }
-*/    
+   
     private static SearchQuery getQuery(String queryText, String queryType,int hitsPerPage, int startIndex, VitroRequest vreq) {
 		
 		Enumeration params = vreq.getParameterNames(); 
@@ -368,35 +310,58 @@ public class DomainExpertJsonServlet extends VitroHttpServlet {
 		// filtering out people whose MST is 
 		query.addFilterQuery("-mostSpecificTypeURIs:\"http://xmlns.com/foaf/0.1/Person\"");
 
+	    query.addFacetFields("department_ss").setFacetLimit(-1);
+	    query.addFacetFields("college_ss").setFacetLimit(-1);
+
         log.debug("Query = " + query.toString());
         return query;
     }   
-/*
-    public static class VClassGroupSearchLink extends LinkTemplateModel {        
-        long count = 0;
-        VClassGroupSearchLink(String querytext, String querytype, VClassGroup classgroup, long count) {
-            super(classgroup.getPublicName(), "/search", PARAM_QUERY_TEXT, querytext, PARAM_QUERY_TYPE, querytype, PARAM_CLASSGROUP, classgroup.getURI());
-            this.count = count;
+	private static Map<String,Long> getDepartmentFacet(SearchResultDocumentList docs, SearchResponse rsp){        
+	    HashSet<String> typesInHits = getFacetResultsForHits(docs, "college_ss");                                
+	    Map<String,Long> departmentFacets = new HashMap<String,Long>();        
+	
+	    List<SearchFacetField> ffs = rsp.getFacetFields();
+	   	String departmentName = "department_ss";
+	    for(SearchFacetField ff : ffs){
+	        if(departmentName.equals(ff.getName())){
+	            List<Count> counts = ff.getValues();
+	            for( Count ct: counts){  
+	                String department = ct.getName();
+	                long count = ct.getCount();
+	   				if ( count > 0 ) {
+	                	departmentFacets.put(department,count);
+	   				}
+	            }                
+	        }            
+	    }
+		Map<String,Long> sortedDepartmentFacets = sortByValue(departmentFacets);
+		
+        return sortedDepartmentFacets;
+	}
+
+    private static HashSet<String> getFacetResultsForHits(SearchResultDocumentList docs, String ffName){
+        HashSet<String> typesInHits = new HashSet<String>();  
+        for (SearchResultDocument doc : docs) {
+            try {
+                Collection<Object> types = doc.getFieldValues(ffName);
+                if (types != null) {
+                    for (Object o : types) {
+                        String typeUri = o.toString();
+                        typesInHits.add(typeUri);
+                    }
+                }
+            } catch (Exception e) {
+                log.error("problems getting rdf:type for search hits",e);
+            }
         }
-        
-        public String getCount() { return Long.toString(count); }
+        return typesInHits;
     }
-    
-    public static class VClassSearchLink extends LinkTemplateModel {
-        long count = 0;
-        VClassSearchLink(String querytext, String querytype, VClass type, long count) {
-            super(type.getName(), "/search", PARAM_QUERY_TEXT, querytext, PARAM_QUERY_TYPE, querytype, PARAM_VCLASS_ID, type.getURI());
-            this.count = count;
-        }
-        
-    public String getCount() { return Long.toString(count); }               
-    }
-*/    
-    /**
-     * Makes a message to display to user for a bad search term.
-     * @param queryText
-     * @param exceptionMsg
-     */
+
+	    /**
+	     * Makes a message to display to user for a bad search term.
+	     * @param queryText
+	     * @param exceptionMsg
+	     */
     private String makeBadSearchMessage(String querytext, String exceptionMsg, VitroRequest vreq){
         String rv = "";
         try{
@@ -460,4 +425,25 @@ public class DomainExpertJsonServlet extends VitroHttpServlet {
 		return svs.renderShortView(individual, ShortViewContext.EXPERTS,
 				modelMap, vreq);
 	}
+	
+	public static <K, V extends Comparable<? super V>> Map<K, V> sortByValue( Map<K, V> map ) {
+	    List<Map.Entry<K, V>> list =
+	        new LinkedList<>( map.entrySet() );
+	    Collections.sort( list, new Comparator<Map.Entry<K, V>>()
+	    {
+	        @Override
+	        public int compare( Map.Entry<K, V> o1, Map.Entry<K, V> o2 )
+	        {
+	            return ( o2.getValue() ).compareTo( o1.getValue() );
+	        }
+	    } );
+
+	    Map<K, V> result = new LinkedHashMap<>();
+	    for (Map.Entry<K, V> entry : list)
+	    {
+	        result.put( entry.getKey(), entry.getValue() );
+	    }
+	    return result;
+	}
+	
 }

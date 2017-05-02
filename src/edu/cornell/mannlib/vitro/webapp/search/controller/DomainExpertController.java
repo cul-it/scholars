@@ -94,9 +94,8 @@ public class DomainExpertController extends FreemarkerHttpServlet {
     private static final String PARAM_QUERY_TEXT = "querytext";
     private static final String PARAM_QUERY_TYPE = "querytype";
 	private static final String KEYWORD_FIELD = "keyword_txt";
-
-    protected static final Map<Format,Map<Result,String>> templateTable;
-
+	private static final String TEMPLATE = "findDomainExpert.ftl";
+	
     protected enum Format { 
         HTML, XML, CSV; 
     }
@@ -105,10 +104,6 @@ public class DomainExpertController extends FreemarkerHttpServlet {
         PAGED, ERROR, BAD_QUERY         
     }
     
-    static{
-        templateTable = setupTemplateTable();
-    }
-         
     /**
      * Overriding doGet from FreemarkerHttpController to do a page template (as
      * opposed to body template) style output for XML requests.
@@ -165,7 +160,6 @@ public class DomainExpertController extends FreemarkerHttpServlet {
              }
                  
              SearchQuery query = getQuery(queryText, queryType, hitsPerPage, startIndex, vreq, classGroupParam);   
-         	 log.debug("THE QUERY = " + query.toString());
 
  		 	  SearchEngine search = ApplicationUtils.instance().getSearchEngine();
  			  SearchResponse response = null;           
@@ -245,9 +239,7 @@ public class DomainExpertController extends FreemarkerHttpServlet {
             body.put("startIndex", startIndex);
             body.put("currentPage", currentPage);
               	
- 	        String template = templateTable.get(format).get(Result.PAGED);
-
-            return new TemplateResponseValues(template, body);
+            return new TemplateResponseValues(TEMPLATE, body);
         } catch (Throwable e) {
             return doSearchError(e,format);
         }        
@@ -462,34 +454,34 @@ public class DomainExpertController extends FreemarkerHttpServlet {
     	public String getCount() { return Long.toString(count); }               
     }
        
-    private ExceptionResponseValues doSearchError(Throwable e, Format f) {
-        Map<String, Object> body = new HashMap<String, Object>();
-        body.put("message", "Search failed: " + e.getMessage());  
-        return new ExceptionResponseValues(getTemplate(f,Result.ERROR), body, e);
-    }   
-    
+	private ExceptionResponseValues doSearchError(Throwable e, Format f) {
+	        Map<String, Object> body = new HashMap<String, Object>();
+	        body.put("message", "Search failed: " + e.getMessage());  
+	        return new ExceptionResponseValues("search-error.ftl", body, e);
+	    }
+
     private TemplateResponseValues doFailedSearch(String message, String querytext, Format f, VitroRequest vreq) {
         Map<String, Object> body = new HashMap<String, Object>();       
-        body.put("title", I18n.text(vreq, "search_for", querytext));        
+        body.put("title", querytext);
         if ( StringUtils.isEmpty(message) ) {
-        	message = I18n.text(vreq, "search_failed");
+        	message = "search_failed";
         }        
         body.put("message", message);
-        return new TemplateResponseValues(getTemplate(f,Result.ERROR), body);
+        return new TemplateResponseValues(TEMPLATE, body);
     }
 
     private TemplateResponseValues doNoHits(String querytext, Format f, VitroRequest vreq) {
         Map<String, Object> body = new HashMap<String, Object>();       
-        body.put("title", I18n.text(vreq, "search_for", querytext));        
-        body.put("message", I18n.text(vreq, "no_matching_results"));     
-        return new TemplateResponseValues(getTemplate(f,Result.ERROR), body);        
+        body.put("title", querytext);        
+        body.put("message", "no_matches");     
+        return new TemplateResponseValues(TEMPLATE, body);        
     }
-
-    /**
-     * Makes a message to display to user for a bad search term.
-     * @param queryText
-     * @param exceptionMsg
-     */
+    
+	/**
+      * Makes a message to display to user for a bad search term.
+      * @param queryText
+      * @param exceptionMsg
+      */
     private String makeBadSearchMessage(String querytext, String exceptionMsg, VitroRequest vreq){
         String rv = "";
         try{
@@ -527,67 +519,13 @@ public class DomainExpertController extends FreemarkerHttpServlet {
         }
         return rv;
     }
-    
+
     public static final int MAX_QUERY_LENGTH = 500;
 
-    protected boolean isRequestedCallAjax(VitroRequest req){
-        if( req != null ){
-            String param = req.getParameter(PARAM_AJAX_REQUEST);
-            if( param != null && "1".equals(param)){
-                return true;
-            }else{
-                return false;
-            }
-        }else{
-            return false;
-        }
-    }
-    
     protected Format getFormat(VitroRequest req){
             return Format.HTML;
     }
     
-    protected static String getTemplate(Format format, Result result){
-        if( format != null && result != null)
-            return templateTable.get(format).get(result);
-        else{
-            log.error("getTemplate() must not have a null format or result.");
-            return templateTable.get(Format.HTML).get(Result.ERROR);
-        }
-    }
-    
-    protected static Map<Format,Map<Result,String>> setupTemplateTable(){
-        Map<Format,Map<Result,String>> table = new HashMap<>();
-        
-        HashMap<Result,String> resultsToTemplates = new HashMap<Result,String>();
-        
-        // set up HTML format
-        resultsToTemplates.put(Result.PAGED, "findDomainExpert.ftl");
-        resultsToTemplates.put(Result.ERROR, "search-error.ftl");
-        // resultsToTemplates.put(Result.BAD_QUERY, "search-badQuery.ftl");        
-        table.put(Format.HTML, Collections.unmodifiableMap(resultsToTemplates));
-        
-        // set up XML format
-        resultsToTemplates = new HashMap<Result,String>();
-        resultsToTemplates.put(Result.PAGED, "search-xmlResults.ftl");
-        resultsToTemplates.put(Result.ERROR, "search-xmlError.ftl");
-
-        // resultsToTemplates.put(Result.BAD_QUERY, "search-xmlBadQuery.ftl");        
-        table.put(Format.XML, Collections.unmodifiableMap(resultsToTemplates));
-        
-        
-        // set up CSV format
-        resultsToTemplates = new HashMap<Result,String>();
-        resultsToTemplates.put(Result.PAGED, "search-csvResults.ftl");
-        resultsToTemplates.put(Result.ERROR, "search-csvError.ftl");
-        
-        // resultsToTemplates.put(Result.BAD_QUERY, "search-xmlBadQuery.ftl");        
-        table.put(Format.CSV, Collections.unmodifiableMap(resultsToTemplates));
-
-        
-        return Collections.unmodifiableMap(table);
-    }
-
 	private static void addShortViewRenderings(JSONObject rObj, VitroRequest vreq) throws JSONException {
 		JSONArray individuals = rObj.getJSONArray("individuals");
 		String vclassName = rObj.getJSONObject("vclass").getString("name");

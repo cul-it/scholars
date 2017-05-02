@@ -9,7 +9,7 @@ var getDomainExperts = {
     	this.initObjects();
     	this.initAutoComplete();
 		this.bindEventListeners();
-		//
+		var collegeFacetClicked = false;
 },
 
 	initObjects: function() {
@@ -73,6 +73,13 @@ var getDomainExperts = {
     },
 
 	bindEventListeners: function() {
+		
+		$("a#start-over-link").click(function() {
+			$("#facets-and-results").empty();
+			$("#de-search-input").val("");
+			$("#de-search-input").focus();
+			$(this).hide();
+		});
 
 		$(window).on('scroll', function() {
 			if ( $("#scroll-control").length ) {
@@ -91,12 +98,21 @@ var getDomainExperts = {
 		});
 
         $(".type-checkbox").click(function() {
+			// used to rebuild department facets when a college is clicked
+			if ( $(this).hasClass("college-cb") ) {
+				collegeFacetClicked = true;
+			}
+			else {
+				collegeFacetClicked = false;
+			}
+			// get all the info used in parameters
 			var vclassIds =  getDomainExperts.getVClassIds();
             var queryText = getDomainExperts.getQueryText();
             var queryType = getDomainExperts.getQueryType();
 			var colleges =  getDomainExperts.getColleges();
 			var departments =  getDomainExperts.getDepartments();
             getDomainExperts.getIndividuals(vclassIds, queryText, queryType, "faceting", colleges, departments);
+
         });
 
 		$('input[type=radio][name=querytype]').change(function() {
@@ -155,6 +171,19 @@ var getDomainExperts = {
 		return departments;
 	},
 	
+	getPositions: function() {
+		var positions = "";
+		
+		if ( $("#position-facets input:checkbox:checked").length ) {
+			positions = "";
+			$(".position-cb:checked").each(function () {
+				positions += decodeURIComponent($(this).attr("value")) + ", ";
+			});
+			positions = positions.replace(/,\s*$/, "");
+		}
+		return positions;
+	},
+
 	getQueryType: function() {
 		return $("#hidden-querytype").val();
 	},
@@ -197,8 +226,12 @@ var getDomainExperts = {
             var individualList = "";
             // Catch exceptions when empty individuals result set is returned
             if ( results.individuals.length == 0 ) {
-                alert("aint got nuttin");
+				$("div#results-blurb").empty();
+                $("ul.searchhits").empty();
+				$("div#results-container").addClass("no-results");
+				$("ul.searchhits").append("<span class='no-results-found'>No scholars found for this criteria:</span><br/>" + getDomainExperts.noResultsFacetList());
             } else {
+				$("div#results-container").css("background-color","none").css("border-color","none");
                 var vclassName = results.vclass.name;
                 $.each(results.individuals, function(i, item) {
                     var individual = results.individuals[i];
@@ -214,7 +247,8 @@ var getDomainExperts = {
 				// remove the exiting $("#scroll-control") object as it will be replaced
 				$("#scroll-control").remove();
 				
-                // And then add the new content
+                // And then add the new content, remove previous no results selector
+				$("div#results-container").removeClass("no-results");
                 $("ul.searchhits").append(individualList);
 				// hitCount is the total number of rows found; 
 				// totalCount is actually the hitsPerPage (not sure why it's named like this in the java class)
@@ -224,15 +258,76 @@ var getDomainExperts = {
 				console.log("ADJ PAGE = " + adjPage);
 				if ( results.hitCount > adjStartIndex ) {
 					$("ul.searchhits").append('<li id="scroll-control" data-start-index="' + 
-						adjStartIndex + '" data-current-page="' + adjPage + '" style="text-align:center"><img id="search-indicator" src="'
-						+ imagesUrl + '/indicatorWhite.gif" style="display:none;vertical-align:middle"/><span style="font-size:14px;color:#95908d">retrieving additional results</span></li>');
+						adjStartIndex + '" data-current-page="' + adjPage + '"><img id="search-indicator" src="'
+						+ imagesUrl + '/indicatorWhite.gif"/><span>retrieving additional results</span></li>');
 				}
-
+				$("div#results-blurb").empty();
+				var noun = (results.hitCount > 1) ? " scholars" : " scholar" ;
+				$("div#results-blurb").append("<span>" + results.hitCount + noun + " found.</span>");
 				getDomainExperts.makeTheCall = true;
+
+				if ( collegeFacetClicked ) {
+					getDomainExperts.buildDepartmentFacets(results.departmentFacets);
+				}
             }            
         });
     },
     
+	buildDepartmentFacets: function(results) {
+		var array = [];	
+		for(a in results){
+			array.push([a,results[a]])
+		}
+		array.sort(function(a,b){return a[1] - b[1]});
+		array.reverse();
+		
+		$("#department-facets").find(".panel-body").remove();
+		var divString = "<div class='panel-body scholars-facet' ><label><input class='type-checkbox department-cb' data-department='";
+		$.each(array, function(key, value) {
+			$("#department-facets").append(divString + value[0] + "' type='checkbox'> " + value[0] + "<span> (" + value[1] + ")</span></label></div>");
+		});
+		
+		// need to bind click event for these new checkboxes
+        $(".departmen-cb").click(function() {
+			var vclassIds =  getDomainExperts.getVClassIds();
+            var queryText = getDomainExperts.getQueryText();
+            var queryType = getDomainExperts.getQueryType();
+			var colleges =  getDomainExperts.getColleges();
+			var departments =  getDomainExperts.getDepartments();
+            getDomainExperts.getIndividuals(vclassIds, queryText, queryType, "faceting", colleges, departments);
+        });
+	},
+
+	noResultsFacetList: function() {
+		var facetList = "";
+		var positions = getDomainExperts.getPositions();
+		var colleges = getDomainExperts.getColleges().replace("&colleges=","").replace(/,/g , ", ");
+		var departments = getDomainExperts.getDepartments().replace("&departments=","").replace(/,/g , ", ");
+		if ( positions.length > 0 ) {
+			facetList += "<ul class='no-result-facet-list'><li>" + positions + "</li>";
+		}
+		if ( colleges.length > 0 ) {
+			if ( facetList.length > 0 ) {
+				facetList += "<li>" + colleges + "</li>";
+			}
+			else {
+				facetList += "<ul class='no-result-facet-list'><li>" + colleges + "</li>";
+			}
+		}
+		if ( departments.length > 0 ) {
+			if ( facetList.length > 0 ) {
+				facetList += "<li>" + departments + "</li>";
+			}
+			else {
+				facetList += "<ul class='no-result-facet-list'><li>" + departments + "</li>";
+			}
+		}
+		if ( facetList.length > 0 ) {
+			facetList += "</ul>";
+		}
+		return facetList;
+	},
+
 	// getPageScroll() by quirksmode.org
 	getPageScroll: function() {
 	    var xScroll, yScroll;
