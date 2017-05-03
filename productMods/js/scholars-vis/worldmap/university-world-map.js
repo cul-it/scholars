@@ -209,6 +209,18 @@ function drawCountryMap(articles) {
         function stateClick(d) {
             sidebar(d);
             fillSidebar(d);
+
+            d3.selectAll(".state")
+                .style('fill', function (d) {
+
+                if (getStateCounts(d) == 0){
+                    return "#d3d3d3";
+                }
+                else{
+                    return colors(Math.log(getStateCounts(d)));
+                }
+            });
+            d3.select(this).style("fill", "#EF7633");
         }
 
         var tooltip = d3.select("#mapViz")
@@ -509,6 +521,21 @@ function drawWorldMap(data) {
     function countryClick(d){
         if (d.id !== "USA"){
             //console.log(d);
+            d3.selectAll(".state").style("fill", function (d) {
+                if(d.properties.name == "United States"){
+                    return "#4d4d4d";
+                }
+                if(data[d.properties.name.toUpperCase()]){
+                    if (data[d.properties.name.toUpperCase()].length == 0){
+                        return "#d3d3d3";
+                    }
+                    return colors(data[d.properties.name.toUpperCase()].length);
+                }
+                else{
+                    return "#d3d3d3";
+                }
+            })
+            d3.select(this).style("fill","#EF7633");
             sidebar(d);
             fillCountrySidebar(d);
         }
