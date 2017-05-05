@@ -13,17 +13,6 @@ function GrantsTooltip(tooltipId, width) {
         });
     $("body").append(tooltip);
 
-    var closebox = $("<p>").append(
-        $("<span>", {
-            id: "close", click: hideTooltip
-        }).append(
-            $("<img>", {
-                id: "closeIcon",
-                alt: "close",
-                src: "./images/whiteX.png"
-            }))
-        );
-        
     hideTooltip();
 
     return {
@@ -100,6 +89,18 @@ function GrantsTooltip(tooltipId, width) {
     }
 
     function showTooltip(content, event, addCloser) {
+        var closebox = $("<p>").append(
+                $("<span>", {
+                    id: "close", 
+                    on: {click: hideTooltip}
+                }).append(
+                    $("<img>", {
+                        id: "closeIcon",
+                        alt: "close",
+                        src: "./images/whiteX.png"
+                    }))
+                );
+                
         $("#" + tooltipId).html(content);
         if (addCloser) {
             tooltip.prepend(closebox);
