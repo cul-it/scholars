@@ -304,7 +304,16 @@ ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/ke
 </font>
 
         <div id="info_icon_text" style="display:none">
-          This visualization represents the scholarly fingerprints for an entire academic unit which is an aggregation of all the keywords found in all the articles authored by all faculty and researchers of a academic unit. The size of the keyword indicates the frequency of the keyword in the author’s publications which suggests that in which subject author published most (or least) frequently. This is not a static visualization. A user can click on any keyword to see the list of authors that have this keyword associated with one of more of their articles. One can click on the author’s name in the list to go to the author’s page which contains the full list of author’s publications in Scholars. Note: This information is based solely on publications that have been loaded into the system.
+        	<p>
+        		This visualization represents the research keywords for an entire academic unit which is an aggregation of all the keywords found in all the articles authored by all faculty and researchers of a academic unit. The size of the keyword indicates the frequency of the keyword in the author’s publications which suggests that in which subject author published most (or least) frequently. 
+        	</p>
+        	<p>
+        		This is not a static visualization. A user can click on any keyword to see the list of authors that have this keyword associated with one of more of their articles. One can click on the author’s name in the list to go to the author’s page which contains the full list of author’s publications in Scholars.
+         	</p>
+          	<hr> 
+          	<p>
+            	Note: This information is based solely on publications that have been loaded into the system.
+          	</p> 
         </div>
 </div>
 
@@ -353,7 +362,6 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></
 <#if isCollegeOrSchool >
   <div id="interd_collab_vis" class="dept_collab_vis" style="display:none">
  	
- 	<h3 style="margin:0;padding:0">Interdepartmental CoAuthorships</h3>
 	<font face="Times New Roman" size="2">
 	<span><i>Click on any arc to zoom in and on the center circle to zoom out.
 	Once zoomed in to a faculty of interest, click on the outer arc to view the list of coauthored publications.
@@ -361,12 +369,20 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></
  	</font>
 
     <div id="info_icon_text" style="display:none">
-      The interdepartmental co-authorships were identified based on the affiliation data extracted from the citation of a publication. Currently, we present co-authorships between researchers with the faculty appointments only. This visualization has a zoom-in/zoom-out functionality. The visualization consists of three layers i.e., department-level layer (inner most), person-level layer 1 (i.e., author in context) and the person-level layer 2 (i.e., the co-authors). To view the co-authorships, a user is first required to select a department of interest. In this view, a user can observe, who has co-authored with whom and how often did they co-authored. To view the co-authored publications, user is required to select a faculty member of interest. In this view, clicking on a co-author (in the outer circle) displays the list of co-authored articles in the tooltip. Click in the center circle to zoom out to select any other faculty/department of interest. Note: This information is based solely on publications that have been loaded into the system. 
+    	<p>
+    		The interdepartmental co-authorships were identified based on the affiliation data extracted from the citation of a publication. Currently, we present co-authorships between researchers with the faculty appointments only. This visualization has a zoom-in/zoom-out functionality. The visualization consists of three layers i.e., department-level layer (inner most), person-level layer 1 (i.e., author in context) and the person-level layer 2 (i.e., the co-authors). 
+    	</p>
+    	<p>
+    		To view the co-authorships, a user is first required to select a department of interest. In this view, a user can observe, who has co-authored with whom and how often did they co-author. To view the co-authored publications, user is required to select a faculty member of interest. In this view, clicking on a co-author (in the outer circle) displays the list of co-authored articles in the tooltip. Click in the center circle to zoom out to select any other faculty/department of interest.
+    	</p>
+        <hr> 
+        <p>
+        	Note: This information is based solely on publications that have been loaded into the system.
+        </p> 
     </div>
   </div>
   <div id="cross_unit_collab_vis" class="dept_collab_vis" style="display:none">
-	
-	<h3 style="margin:0;padding:0">Cross-unit CoAuthorships</h3>
+
 	<font face="Times New Roman" size="2">
 	<span><i>Click on any arc to zoom in and on the center circle to zoom out.
 	Once zoomed in to a faculty of interest, click on the outer arc to view the list of coauthored publications.
@@ -374,7 +390,16 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></
 	</font>
 
     <div id="info_icon_text" style="display:none">
-      The cross-unit co-authorships were identified based on the affiliation data extracted from the citation of a publication. Currently, we present co-authorships between researchers with the faculty appointments only. This visualization has a zoom-in/zoom-out functionality. The visualization consists of three layers i.e., unit-level layer (inner most), person-level layer 1 (i.e., author in context) and the person-level layer 2 (i.e., the co-authors). To view the co-authorships, a user is first required to select an academic unit of interest. In this view, a user can observe, who has co-authored with whom and how often did they co-authored. To view the co-authored publications, user is required to select a faculty member of interest. In this view, clicking on a co-author (in the outer circle) displays the list of co-authored articles in the tooltip. Click in the center circle to zoom out to select any other faculty/academic unit of interest. Note: This information is based solely on publications that have been loaded into the system.
+      	<p>
+      		The cross-unit co-authorships were identified based on the affiliation data extracted from the citation of a publication. Currently, we present co-authorships between researchers with the faculty appointments only. This visualization has a zoom-in/zoom-out functionality. The visualization consists of three layers i.e., unit-level layer (inner most), person-level layer 1 (i.e., author in context) and the person-level layer 2 (i.e., the co-authors). 
+    	</p>
+    	<p>
+    		To view the co-authorships, a user is first required to select an academic unit of interest. In this view, a user can observe, who has co-authored with whom and how often did they co-authored. To view the co-authored publications, user is required to select a faculty member of interest. In this view, clicking on a co-author (in the outer circle) displays the list of co-authored articles in the tooltip. Click in the center circle to zoom out to select any other faculty/academic unit of interest.
+    	</p>
+        <hr> 
+        <p>
+        	Note: This information is based solely on publications that have been loaded into the system.
+        </p>
     </div>
   </div>
 	<script>
@@ -389,7 +414,7 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></
 	      $('#cross_unit_collab_icon_holder').show();
 	      $('#cross_unit_collab_trigger').click(cucs.show);
 	      $('#cross_unit_collab_exporter').click(cucs.showVisData);
-          new ScholarsVis.Toolbar("#cross_unit_collab_vis");
+          new ScholarsVis.Toolbar("#cross_unit_collab_vis", "Cross-unit CoAuthorships");
 	    }
       });
 
@@ -403,7 +428,7 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></
 	      $('#interd_collab_icon_holder').show();
 	      $('#interd_collab_trigger').click(idcs.show);
 	      $('#interd_collab_exporter').click(idcs.showVisData);
-          new ScholarsVis.Toolbar("#interd_collab_vis");
+          new ScholarsVis.Toolbar("#interd_collab_vis", "Interdepartmental CoAuthorships");
 	    }
       });
 

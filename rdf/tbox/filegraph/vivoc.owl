@@ -189,6 +189,23 @@
         <rdfs:subPropertyOf rdf:resource="http://purl.org/ontology/bibo/identifier"/>
     </owl:DatatypeProperty>
     
+    <!-- http://scholars.cornell.edu/ontology/vivoc.owl#instfeed1Id -->
+
+    <owl:DatatypeProperty rdf:about="http://scholars.cornell.edu/ontology/vivoc.owl#instfeed1Id">
+        <rdfs:subPropertyOf rdf:resource="http://purl.org/ontology/bibo/identifier"/>
+    </owl:DatatypeProperty>
+
+    <!-- http://scholars.cornell.edu/ontology/vivoc.owl#instfeed2Id -->
+
+    <owl:DatatypeProperty rdf:about="http://scholars.cornell.edu/ontology/vivoc.owl#instfeed2Id">
+        <rdfs:subPropertyOf rdf:resource="http://purl.org/ontology/bibo/identifier"/>
+    </owl:DatatypeProperty>
+
+    <!-- http://scholars.cornell.edu/ontology/vivoc.owl#ssrnId -->
+
+    <owl:DatatypeProperty rdf:about="http://scholars.cornell.edu/ontology/vivoc.owl#ssrnId">
+        <rdfs:subPropertyOf rdf:resource="http://purl.org/ontology/bibo/identifier"/>
+    </owl:DatatypeProperty>
 
 
     <!-- http://scholars.cornell.edu/ontology/vivoc.owl#arxivId -->

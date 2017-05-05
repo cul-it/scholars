@@ -87,8 +87,17 @@
     </div>
     
     <div class="col-md-8" id="vis_holder">
-        <div id="info_icon_text" style="display:none">
-          This visualization represents a bird-view of all the grants where a Cornell faculty member or a researcher is either a Principal or Co-Principal Investigator. The data is represented as a cluster of bubbles where each bubble represents a grant and the size of the bubble indicates the relative award amount. The color scheme in lower left of the page reveals the dollar amount range of the grant. This provides a quick visual view of the active research grants for the entire university. While the visualization starts from a big cluster, one can narrow down the view by selecting the funding agency, academic unit, active year range or the faculty member of interest. Clicking on a grant bubble will display the full description of the grant including title, list of investigators and other information. Note: This information is based solely on grants that have been loaded into the system through OSP (Office of Sponsored Program) feed.
+        <div id="info_icon_text" style="display:none"> 
+          <p>
+            This visualization represents a bird-view of all the grants where a Cornell faculty member or a researcher is either a Principal or Co-Principal Investigator. The data is represented as a cluster of bubbles where each bubble represents a grant and the size of the bubble indicates the relative award amount. The color scheme in lower left of the page reveals the dollar amount range of the grant. This provides a quick visual view of the active research grants for the entire university. 
+          </p>
+          <p>
+            While the visualization starts from a big cluster, one can narrow down the view by selecting the funding agency, academic unit, active year range or the faculty member of interest. Clicking on a grant bubble will display the full description of the grant including title, list of investigators and other information.
+          </p>
+          <hr> 
+          <p>
+            Note: This information is based solely on grants that have been loaded into the system through OSP (Office of Sponsored Program) feed.
+          </p> 
         </div>
       <div id="grants_vis" style="width:600px; height:600px"> </div>
     </div>

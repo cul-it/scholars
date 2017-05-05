@@ -71,9 +71,9 @@ var luminance = d3.scale.sqrt()
 var tip = d3.tip().attr('class', 'd3-tip choices triangle-isosceles').attr("id", "specificTip").html(function(d) { 
   result = "";
   if(d.uri != null){
-    result += "<p><b><a href='" + d.uri + "'>" + d.name + "</a></b></p>";
+    result += "<p><b><a href='" + d.uri + "'>" + d.name + " ("+d.pubs.length+") </a></b></p>";
   }else{
-    result += "<p class='nonlinktext'>"+ d.name + "</p>";
+    result += "<p class='nonlinktext'>"+ d.name + " ("+d.pubs.length+")</p> ";
   }
   if(typeof d.pubs != "undefined") {
     for(var i = 0; i < d.pubs.length; i++) {
@@ -131,9 +131,13 @@ function format_number(x) {
 function format_description(d) {
   var description = d.description;
   if(d.description === d.name){
-    return  '<b>' + d.description+ '</b>'+'<br> (' + format_number(d.value) + ')';
+    return  '<b>' + d.description+ '</b>';
+    //+'<br> (' + format_number(d.value) + ')'; // This number does not represent the # of articles one unit or person has written in collaboration with others.
+    // It is the number of coauthors of person A with other persons and a single article may have multiple interdept or crossunit coauthorships.
   }else
-    return  '<b>' + d.description+' ('+d.name+') '+ '</b>'+'<br> (' + format_number(d.value) + ')';
+    return  '<b>' + d.description+' ('+d.name+') '+ '</b>';
+    //+'<br> (' + format_number(d.value) + ')'; // This number does not represent the # of articles one unit or person has written in collaboration with others.
+    // It is the number of coauthors of person A with other persons and a single article may have multiple interdept or crossunit coauthorships.
   end
       
 }

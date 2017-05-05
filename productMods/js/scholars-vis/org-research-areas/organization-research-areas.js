@@ -127,7 +127,7 @@ function plotConceptMap(flaredata, target) {
 		}
 		var result = "<tspan x='0' dy='0'>" + substrings[0] + "</tspan>";
 		for (var i = 1; i < substrings.length; i++) {
-			result += "<tspan x='0' dy='1.4em'>" + substrings[i] + "</tspan>";
+			result += "<tspan x='0' dy='1.2em'>" + substrings[i] + "</tspan>";
 		}
 		return result;
 	}
@@ -156,7 +156,7 @@ function plotConceptMap(flaredata, target) {
 		// document.body.clientHeight;
 		var a = width, c = height, h = c, U = 180, // width of the person
 													// fields.
-		K = 22, // height of the person field area.
+		K = 17, // height of the person field area.
 		S = 20, s = 8, R = -15, // Radius for node circle 110
 		J = 30, o = 15, // placement
 		t = 10, w = 1000, F = "elastic", N = "#0da4d3";
@@ -181,13 +181,13 @@ function plotConceptMap(flaredata, target) {
 		var d = d3.select(target).append("div").attr("class", "conceptmap").append("svg").attr("id", "svg-id").attr("width", a)
 				.attr("height", svgHeight).append("g").attr("transform",
 						"translate(" + a / 2 + "," + Nh + ")");
-		var I = d.append("rect").attr("class", "bg").attr({
-			x : a / -2,
-			y : c / -3,
-			width : a,
-			height : c,
-			fill : "transparent"
-		}).on("click", O);
+		// var I = d.append("rect").attr("class", "bg").attr({
+		// 	x : a / -2,
+		// 	y : c / -3,
+		// 	width : a,
+		// 	height : c,
+		// 	fill : "transparent"
+		// }).on("click", O);
 		var B = d.append("g").attr("class", "links"), f = d.append("g").attr(
 				"class", "ditems"), E = d.append("g").attr("class", "nodes");
 
@@ -538,12 +538,12 @@ function plotConceptMap(flaredata, target) {
 			X.selectAll("circle").transition().duration(w).ease(F).attr("r",
 					function(Z) {
 						if (Z == L.node) {
-							return 100 // size of internal node
+							return 90 // size of internal node
 						} else {
 							if (Z.isGroup) {
 								return 7 + Z.count
 							} else {
-								return 4.5 // intermediate node's size
+								return 3 // intermediate node's size
 							}
 						}
 					});
@@ -638,7 +638,7 @@ function plotConceptMap(flaredata, target) {
 					}).attr("y", function(Z) {
 				return Z.y
 			});
-			X.append("text").attr("font-size", 12) // size of the faculty
+			X.append("text").attr("font-size", 11) // size of the faculty
 													// members
 			.attr("x", function(Z) {
 				return U / -2 + t

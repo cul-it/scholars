@@ -30,6 +30,7 @@
       </div> 
     </div> 
 
+    <!--
     <div class="col-md-8 kwcloud-selector">
       <div>
         <font face="Times New Roman" size="2">
@@ -39,6 +40,7 @@
         </font>
       </div>
     </div>
+    -->
     </div>
   <div class="row scholars-row visualization-row">
   <div class="col-md-12">

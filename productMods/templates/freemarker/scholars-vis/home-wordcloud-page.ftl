@@ -61,7 +61,16 @@
         <div id="vis"></div>
 
         <div id="info_icon_text" style="display:none">
-          This visualization represents the research keywords for an entire academic unit which is an aggregation of all the keywords found in all the articles authored by all faculty and researchers of an academic unit. The size of the keyword indicates the frequency of the keyword in the author’s publications which suggests that in which subject author published most (or least) frequently. This is not a static visualization. A user can click on any keyword to see the list of authors that have this keyword associated with one of more of their articles. One can click on the author’s name in the list to go to the author’s page which contains the full list of author’s publications in Scholars. Note: This information is based solely on publications that have been loaded into the system.
+          <p>
+            This visualization represents the research keywords for an entire academic unit which is an aggregation of all the keywords found in all the articles authored by all faculty and researchers of an academic unit. The size of the keyword indicates the frequency of the keyword in the author’s publications which suggests that in which subject author published most (or least) frequently. 
+          </p>
+          <p>
+            This is not a static visualization. A user can click on any keyword to see the list of authors that have this keyword associated with one of more of their articles. One can click on the author’s name in the list to go to the author’s page which contains the full list of author’s publications in Scholars.
+          </p>
+          <hr> 
+          <p>
+            Note: This information is based solely on publications that have been loaded into the system.
+          </p> 
         </div>
       </div>
     
@@ -70,7 +79,16 @@
         <div id="vis"></div>
 
         <div id="info_icon_text" style="display:none">
-          This visualization represents the research keywords of the author which is an aggregation of keywords found in all the author’s articles. There are different sources of these keywords; those expressed by the author in the articles, those assigned by the publishers to the article and those that are algorithmically inferred from the text of the article’s abstract. The size of the keyword indicates the frequency of the keyword in the author’s publications which suggests that in which subject author published most (or least) frequently. This is not a static visualization. A user can click on any the keyword to see the list of actual articles that have this keyword. One can click on the article title in the list to navigate to the full view of the article’s metadata and a link to the full text when its available. Note: This information is based solely on publications that have been loaded into the system.
+          <p>
+            This visualization represents the research keywords of the author which is an aggregation of keywords found in all the author’s articles. There are different sources of these keywords; those expressed by the author in the articles, those assigned by the publishers to the article and those that are algorithmically inferred from the text of the article’s abstract. The size of the keyword indicates the frequency of the keyword in the author’s publications which suggests that in which subject author published most (or least) frequently. 
+          </p>
+          <p>
+            This is not a static visualization. A user can click on any the keyword to see the list of actual articles that have this keyword. One can click on the article title in the list to navigate to the full view of the article’s metadata and a link to the full text when its available.
+          </p>
+          <hr> 
+          <p>
+            Note: This information is based solely on publications that have been loaded into the system.
+          </p> 
         </div>
       </div>
 
@@ -81,7 +99,16 @@
         <div id="vis"></div>
 
         <div id="info_icon_text" style="display:none">
-         This visualization gives a bird-view of the research keywords of the Cornell faculty and researchers which is an aggregation of all the keywords found in their published articles. The size of the keyword indicates the frequency of the keyword in the author’s publications which suggests that in which subject Cornell faculty and researchers published most (or least) frequently. This is not a static visualization. A user can click on any keyword to see the list of authors that have this keyword associated with one of more of their articles. One can click on the author’s name in the list to go to the author’s page which contains the full list of author’s publications in Scholars. Note: This information is based solely on publications that have been loaded into the system.
+          <p>
+            This visualization gives a bird-view of the research keywords of the Cornell faculty and researchers which is an aggregation of all the keywords found in their published articles. The size of the keyword indicates the frequency of the keyword in the author’s publications which suggests that in which subject Cornell faculty and researchers published most (or least) frequently. 
+          </p>
+          <p>
+            This is not a static visualization. A user can click on any keyword to see the list of authors that have this keyword associated with one of more of their articles. One can click on the author’s name in the list to go to the author’s page which contains the full list of author’s publications in Scholars.
+          </p>
+          <hr> 
+          <p>
+            Note: This information is based solely on publications that have been loaded into the system.
+          </p> 
         </div>
       </div>
 
