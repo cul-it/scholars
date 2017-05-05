@@ -362,7 +362,6 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></
 <#if isCollegeOrSchool >
   <div id="interd_collab_vis" class="dept_collab_vis" style="display:none">
  	
- 	<h3 style="margin:0;padding:0">Interdepartmental CoAuthorships</h3>
 	<font face="Times New Roman" size="2">
 	<span><i>Click on any arc to zoom in and on the center circle to zoom out.
 	Once zoomed in to a faculty of interest, click on the outer arc to view the list of coauthored publications.
@@ -383,8 +382,7 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></
     </div>
   </div>
   <div id="cross_unit_collab_vis" class="dept_collab_vis" style="display:none">
-	
-	<h3 style="margin:0;padding:0">Cross-unit CoAuthorships</h3>
+
 	<font face="Times New Roman" size="2">
 	<span><i>Click on any arc to zoom in and on the center circle to zoom out.
 	Once zoomed in to a faculty of interest, click on the outer arc to view the list of coauthored publications.
@@ -416,7 +414,7 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></
 	      $('#cross_unit_collab_icon_holder').show();
 	      $('#cross_unit_collab_trigger').click(cucs.show);
 	      $('#cross_unit_collab_exporter').click(cucs.showVisData);
-          new ScholarsVis.Toolbar("#cross_unit_collab_vis");
+          new ScholarsVis.Toolbar("#cross_unit_collab_vis", "Cross-unit CoAuthorships");
 	    }
       });
 
@@ -430,7 +428,7 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></
 	      $('#interd_collab_icon_holder').show();
 	      $('#interd_collab_trigger').click(idcs.show);
 	      $('#interd_collab_exporter').click(idcs.showVisData);
-          new ScholarsVis.Toolbar("#interd_collab_vis");
+          new ScholarsVis.Toolbar("#interd_collab_vis", "Interdepartmental CoAuthorships");
 	    }
       });
 
