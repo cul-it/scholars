@@ -1,6 +1,4 @@
 #accordion .panel-body{
-  padding-top: 2px;
-  padding-bottom: 2px;
   max-height: 300px;
   overflow-y: scroll;
   min-height: 100px;
@@ -57,9 +55,6 @@
 }
 
 #accordion #slider .noUi-handle {
-  margin-top: 40px;
-  margin-left: 20px;
-  margin-right: 20px;
   cursor: pointer;
 }
 
