@@ -4,15 +4,22 @@
  * Selector: let the user select one from a list of items, with an optional
  * filter.
  * 
+ * Checklist: present the user with checkboxes so they can choose from a list
+ * of items.
+ * 
  * <pre>
  * new AccordionControls.Selector(mainElementId, dataArray, selectionCallback);
  * </pre>
  */
 var AccordionControls = (function() {
-    return {Selector: Selector};
+    return {
+        Selector: Selector,
+        Checklist: Checklist,
+        RangeSlider: RangeSlider
+        };
     
     function debugIt(message) {
-        if (false) {
+        if (true) {
             var now = new Date();
             var time = now.toLocaleTimeString();
             var millis = ("000" + now.getMilliseconds().toString()).slice(-3);
@@ -57,8 +64,8 @@ var AccordionControls = (function() {
         debugIt("create Selector");
         
         d3.select(mainElementId)
-        .select("#searcher")
-        .on('keyup', showMatchingItems);
+            .select("#searcher")
+            .on('keyup', showMatchingItems);
         
         return {
             loadData: loadData,
@@ -121,5 +128,188 @@ var AccordionControls = (function() {
         function collapse() {
             $(mainElementId + " .collapse").collapse("hide");
         }
+    }
+    
+    /**
+     * Within the main element, display the data. When a data item is clicked,
+     * execute the callback function.
+     * 
+     * mainElementId -- a d3 selector string
+     * 
+     * selectionCallback -- a function to be called when the user checks or 
+     * unchecks a data item.
+     * 
+     * Methods:
+     * 
+     * loadData(array) -- set the list of choices. 
+     *     array -- an array of strings, already in the desired order.
+     *     
+     * getChecked() -- returns an array of the checked strings.
+     * 
+     * updateChecks(array) -- adjust the state of each checkbox, depending on
+     *         whether its text appears in this array.
+     * 
+     * expand() -- open the selection panel
+     * 
+     * collapse() -- close the selection panel
+     * 
+     * The main element must have a descendent with id="checkarea", where the list
+     * elements will be created.
+     * 
+     * The main element must have a text field descendent with id="listFilter",
+     * which can be used to filter the list elements.
+     */
+    function Checklist(mainElementId, changeCallback) {
+        d3.select(mainElementId)
+            .select("#listFilter")
+            .on('keyup', showMatchingItems);
+        
+        return {
+            loadData: loadData,
+            getChecked: getChecked,
+            updateChecks: updateChecks,
+            expand: expand,
+            collapse: collapse
+        }
+        
+        function showMatchingItems() {
+            var query = this.value.toLowerCase();
+            $(mainElementId + " #checkarea>li").each(showOrHide);
+            
+            function showOrHide() {
+                if($(this).text().toLowerCase().includes(query)) {
+                    $(this).show();
+                }else{
+                    $(this).hide();
+                }
+            }
+        }
+        
+       function loadData(array) {
+            var anchorDiv = d3.select(mainElementId);
+            var labels = anchorDiv
+                .select("#checkarea")
+                .selectAll("li")
+                .data(array)
+                .enter()
+                .append("li");
+            labels
+                .append("input")
+                .attr("checked", true)
+                .attr("type", "checkbox")
+                .attr("id", (d, i) => i)
+                .attr("for", (d, i) => i)
+                .on("change", changeCallback);
+            labels
+                .append("label")
+                .attr("class", "checkListLabel")
+                .text(d => d);
+        }
+        
+        function getChecked() {
+            return d3.select(mainElementId)
+                .selectAll("#checkarea input[type='checkbox']:checked")
+                .data();
+        }
+        
+        function updateChecks(array) {
+            debugIt("UpdateChecks: " + array.length);
+            d3.select(mainElementId)
+                .selectAll("#checkarea input[type='checkbox']")
+                .each(updateCheck);
+            
+            function updateCheck(d) {
+                if (array.includes(d)) {
+                    this.checked = true;
+                } else {
+                    this.checked = false;
+                }
+            }
+        }
+        
+        function expand() {
+            $(mainElementId + " .collapse").collapse("show");
+        }
+
+        function collapse() {
+            $(mainElementId + " .collapse").collapse("hide");
+        }
+    }
+    
+    /**
+     * Within the main element, display a range slider (two handles). When a 
+     * handle is moved, execute the callback function.
+     * 
+     * mainElementId -- a d3 selector string
+     * 
+     * changeCallback -- a function to be called when the user moves a handle
+     * 
+     * Methods:
+     * 
+     * setRange(values) -- set the limits of the range, and initialize the
+     *     handle positions. 
+     *     
+     * getCurrentValues() -- returns an array reflecting the current positions 
+     *     of the handles.
+     * 
+     * expand() -- open the selection panel
+     * 
+     * collapse() -- close the selection panel
+     * 
+     * The main element must have a <div> descendent with id="slider", where the 
+     * slider will be created.
+     * 
+     * Requires nouislider.min.js
+     */
+    function RangeSlider(panelSelector, changeCallback) {
+        debugIt("Create RangeSlider on " + panelSelector);
+        var sliderDiv = $(panelSelector + " #slider").get(0);  
+
+        initialize();
+
+        return {
+            setRange: setRange,
+            getCurrentValues: getCurrentValues
+        }
+        
+        function initialize() {
+            noUiSlider.create(sliderDiv, {
+                range: {
+                    'min': 1,
+                    'max': 100
+                },
+                start: [ 1, 100],
+                connect: true,
+                step: 1,
+                tooltips: true,
+                format: {
+                    to: v => v,
+                    from: v => v
+                }
+            });
+            sliderDiv.noUiSlider.on("change", changeCallback);
+        }
+        
+        function setRange(values) {
+            sliderDiv.noUiSlider.updateOptions({
+                range: {
+                    min: values[0], max: values[1]
+                }, 
+                start: values
+            }, false);
+        }
+
+        function getCurrentValues() {
+            return sliderDiv.noUiSlider.get();
+        }
+        
+        function expand() {
+            $(panelSelector + " .collapse").collapse("show");
+        }
+
+        function collapse() {
+            $(panelSelector + " .collapse").collapse("hide");
+        }
+
     }
 })();
