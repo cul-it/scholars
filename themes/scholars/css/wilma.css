@@ -3129,14 +3129,14 @@ header {
 }
 #discover-header {
 	margin:0;
-	padding:60px 50px 0 50px;
+	padding:40px 50px 0 50px;
 }
 .home-header {
-	font-size:20px;
+	font-size:24px;
 	font-family: Muli, Arial, Verdana, Helvetica;
 	color:#CC6949;
 	margin:0;
-	padding:6px 0;
+	padding:10px 0;
 	width: 100%;
 }
 .e3e6e9-bkg {
@@ -3238,8 +3238,13 @@ header {
 	display: inline;
 }
 /*** Search widgets ***/
+.expertsResultsHeader {
+	font-size: 20px;
+	color: rgb(95, 88, 88);
+	margin: 8px 0 0 30px;
+}
 #search-field-container {
-	margin-bottom: 30px;
+	margin-bottom: 7px;
 }
 #search-field-container div {
 	padding-right: 0;
@@ -3307,22 +3312,51 @@ header {
     padding-bottom: .5em;
     width: 150px;
 }
+#facets-and-results {
+	padding-top: 0 !important;
+}
 #results-blurb {
-	margin-top: -27px;
-	margin-left: 12px;
-	min-height: 27px;
-	font-size:14px;
+	padding: 0 0 3px 48px;
+	font-size:14px; 
 }
 #results-blurb span {
 	background-color: #d9edf7;
-	padding: 3px 5px;
+	padding: 6px 10px;
 }
 #results-container {
 	padding-bottom: 15px;
 }
+#results-container li.individual {
+	border-bottom: 1px solid #dde4e3;
+	padding: 12px 0 12px 0;
+	margin-top: 0;
+}
+#results-container li.individual h1 {
+	padding-bottom: 6px;
+}
+#results-container li.individual span {
+	font-size: 14px;
+	display: block;
+	margin-top: 6px;
+	line-height: 18px;
+}
+#results-container li.individual:last-child {
+	border-bottom: none;
+	padding: 12px 0 12px 0;
+	margin-top: 0;
+}
 #results-container.no-results {
 	background-color: #fcf8e3;
 	border-color: #faf2cc;
+}
+#pub-details {
+	padding: 0 0 4px 0;
+	border: 1px solid #d0e9c6;
+	background-color: #dff0d8;
+	margin-left: 25px;
+}
+#pub-details span {
+	padding-left: 8px;
 }
 #no-results-text {
 	padding: 22px;
@@ -3343,13 +3377,13 @@ input[type=text]:focus {
 	font-size: 14px;
 }
 .scholars-facet label {
-	margin-left: 18px;
+	margin: 0 0 0 18px;
 }
 .scholars-facet label input[type='checkbox'] {
 	margin-left: -18px;
 }
 ul.searchhits {
-	padding-left: 14px;
+	padding: 0 16px;
 }
 span.no-results-found {
 	font-size: 14px;
@@ -3376,4 +3410,24 @@ li#scroll-control span {
 img#search-indicator {
 	display: none;
 	vertical-align: middle;
+}
+.facet-note {
+	font-style: italic;
+	color: #8a8787;
+	padding: 4px 0 0 12px;
+}
+#jump-check {
+	margin-top:80px;
+	min-height: 1px;
+}
+p#jump-to-page-top {
+    position:fixed;
+    bottom:30px;
+    left:246px;
+    cursor: pointer;
+}
+img.jump-to-top {
+	display: inline;
+    opacity:0.8;
+    filter:alpha(opacity=80);
 }

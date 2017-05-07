@@ -49,7 +49,7 @@ div#logo-container {
 	color: #fff;
 	font-family: Muli, Raleway, Arial, Verdana, Helvetica, sans-serif;
 	font-weight: bold;
-	padding-bottom:	20px;
+	padding: 0 8px 20px 12px;
 }
 .search-links:hover {
 	color: #fff;
@@ -68,10 +68,10 @@ div#logo-container {
 	width: 100%;
 }
 #domain-experts {
-	padding: 135px 0 20px 0;
+	padding: 166px 0 20px 0;
 	margin: 0;
 	border-radius: 10px;
-	height: 260px;
+	height: 290px;
 	width: 100%;
 	background-size: cover;
 }
@@ -99,22 +99,23 @@ div#logo-container {
 }
 #ongoing-research {
 	background: #fff url('../images/home-research.jpg') no-repeat center center;
-	padding: 188px 0 20px 0;
+	padding: 166px 0 20px 0;
 	margin: 0;
 	border-radius: 10px;
-	height: 260px;
+	height: 290px;
 	width: 100%;
 	background-size: cover;
 }
 #discover-scholarship {
 	background: #fff url('../images/home-cornell-scholarship.jpg') no-repeat center center;
-	padding: 188px 0 20px 0;
+	padding: 166px 0 20px 0;
 	margin: 0;
 	border-radius: 10px;
-	height: 260px;
+	height: 290px;
 	width: 100%;
 	background-size: cover;
 }
 .scholars-home-container {
 	margin: 0 20px;
+	padding-left: 6px;
 }
