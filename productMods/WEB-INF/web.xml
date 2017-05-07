@@ -908,6 +908,24 @@
   </servlet-mapping>
   
   <servlet>
+    <servlet-name>DomainExpertController</servlet-name>
+    <servlet-class>edu.cornell.mannlib.vitro.webapp.search.controller.DomainExpertController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DomainExpertController</servlet-name>
+    <url-pattern>/domainExpert</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>DomainExpertJsonServlet</servlet-name>
+    <servlet-class>edu.cornell.mannlib.vitro.webapp.controller.json.DomainExpertJsonServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DomainExpertJsonServlet</servlet-name>
+    <url-pattern>/domainExpertJson</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
      <servlet-name>SearchHelpController</servlet-name>
      <servlet-class>edu.cornell.mannlib.vitro.webapp.search.controller.SearchHelpController</servlet-class>
    </servlet>
@@ -953,6 +971,15 @@
     <url-pattern>/populateselect</url-pattern>
   </servlet-mapping>
  
+  <servlet>
+    <servlet-name>KeywordsAutocompleteController</servlet-name>
+    <servlet-class>edu.cornell.mannlib.vitro.webapp.search.controller.KeywordsAutocompleteController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>KeywordsAutocompleteController</servlet-name>
+    <url-pattern>/ackeywords</url-pattern>
+  </servlet-mapping>
+
    <servlet>
     <servlet-name>DataAutocompleteController</servlet-name>
     <servlet-class>edu.cornell.mannlib.vitro.webapp.search.controller.DataAutocompleteController</servlet-class>

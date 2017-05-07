@@ -5,7 +5,6 @@
 <#assign string_time = .now?time?string />
 <#assign randomized = string_time[string_time?index_of(":")+2..string_time?index_of("M")-3] />
 <#import "lib-home-page.ftl" as lh>
-<#import "lib-vivocornell-home-page.ftl" as lvh>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -15,10 +14,12 @@
 	<#assign navbarClass = "homepage"/>
 	<#assign backsplashDisplay = ""/>
 	<#assign navbarLogoDisplay = "display:none;"/>
-    <#-- builds a json object that is used by js to render the academic departments section -->
-    <@lvh.listResearchFacilities />
-    <#-- supplies the faculty count to the js function that generates a random row number for the solr query -->
-    <@lh.facultyMemberCount  vClassGroups! />
+	<script>
+	<#-- don't need these, but need to clean up related js first; otherwise, things break. -->
+	var researchFacilities = [];
+	var urlsBase = "/scholars";
+	var facultyMemberCount = 0;
+	</script>
     <body class="${bodyClasses!}" onload="${bodyOnload!}">
 		<div id="home" class="page">
 	    	<#include "identity.ftl">
@@ -38,32 +39,36 @@
 				</div>
 				<div class="container-fluid scholars-home-container">
 					<div id="discover-content" class="row fff-bkg">
-						<div class="col-sm-4 col-md-4 col-lg-4">
-							<a class="image-links" href="/scholars/people" >
-								<div id="domain-experts" class="image-link-div">
-									<div class="discovery-details">
-										<span>
-										Find a<br/>Domain Expert</span>
-									</div>
+						<div id="expert-search-link" class="col-sm-4 col-md-4 col-lg-4 search-links">
+							<div id="domain-experts" class="search-link-div">
+								<div class="discovery-details">
+									<span>
+										Find a<br/>Domain Expert
+									</span>
 								</div>
-							</a>
-							<div class="discovery-text-container">
-								<p class="discovery-text">Search by research interests, keywords, and affiliations.</p>
+								<div id="expert-search" >
+									<form id="de-search-form" action="${urls.base}/domainExpert" name="search" role="search" accept-charset="UTF-8" method="POST"> 
+										<input id="de-search-vclass" type="hidden" name="vclassId" value="http://xmlns.com/foaf/0.1/Person" />
+										<input id="de-search-input" class="subject-search" type="text" name="querytext" value="${querytext!}" />
+										<input id="de-search-submit" type="submit" action="${urls.base}/domainExpert?origin=homepage" value="GO" />
+										<div class="search-radio-container">
+											<input type="radio" name="querytype" value="subject" checked> by subject or keyword
+								   			<input id="by-name-radio" type="radio" name="querytype" value="name"> by name
+								  		</div>
+									</form>
+								</div>
 							</div>
 						</div>
-						<div class="col-sm-4 col-md-4 col-lg-4">
+						<div class="col-sm-4 col-md-4 col-lg-4 search-links" >
 							<a class="image-links" href="/scholars/research" >
 								<div id="discover-scholarship" class="image-link-div">
 									<div class="discovery-details">
-										<span>Explore<br/>Cornell Scholarship</span>
+										<span>Explore<br/>Scholarship & Research</span>
 									</div>
 								</div>
 							</a>
-							<div class="discovery-text-container">
-								<p class="discovery-text">Search by subject area, and author affiliation.</p>
-							</div>		
 						</div>
-						<div class="col-sm-4 col-md-4 col-lg-4"">
+						<div class="col-sm-4 col-md-4 col-lg-4 search-links">
 							<a class="image-links" href="/scholars/research#http://vivoweb.org/ontology/core#Grant" >
 								<div id="ongoing-research" class="image-link-div">
 									<div class="discovery-details">
@@ -71,9 +76,6 @@
 									</div>
 								</div>
 							</a>
-							<div class="discovery-text-container">
-								<p class="discovery-text">Search by topic, investigator, and funding agency.</p>
-							</div>
 						</div>
 					</div>
 				</div>
@@ -88,7 +90,7 @@
 					<div id="visualize-content" class="row fff-bkg">
 						<div class="col-sm-3 col-md-3 col-lg-3"> 
 							<a id="person-to-sa" href="${urls.base}/orgSAVisualization">
-								<img width="150px" src="${urls.base}/themes/scholars/images/home-person-sa.png"/>
+								<img width="190px" src="${urls.base}/themes/scholars/images/home-person-sa.png"/>
 							</a>
 							<div>
 								<p>Research Interests</p>
@@ -96,7 +98,7 @@
 						</div>
 						<div class="col-sm-3 col-md-3 col-lg-3">
 							<a href="${urls.base}/homeWordcloudVisualization">
-								<img width="150px" src="${urls.base}/themes/scholars/images/wordcloud-icon.png"/>
+								<img width="190px" src="${urls.base}/themes/scholars/images/wordcloud-icon.png"/>
 							</a>
 							<div>
 								<p>Research Keywords</p>
@@ -104,7 +106,7 @@
 						</div>
 						<div class="col-sm-3 col-md-3 col-lg-3"> 
 							<a href="${urls.base}/homeWorldmapVisualization">
-								<img width="150px" src="${urls.base}/themes/scholars/images/home-worldmap.png"/>
+								<img width="190px" src="${urls.base}/themes/scholars/images/home-worldmap.png"/>
 							</a>
 							<div>
 								<p>Global Collaborations</p>
@@ -112,7 +114,7 @@
 						</div>
 						<div class="col-sm-3 col-md-3 col-lg-3">
 							<a href="${urls.base}/grantsVisualization">
-								<img width="150px" src="${urls.base}/themes/scholars/images/home-grants.png"/>
+								<img width="190px" src="${urls.base}/themes/scholars/images/home-grants.png"/>
 							</a>
 							<div>
 								<p>Research Grants</p>
@@ -153,8 +155,13 @@
                 viewAllDepartments: '${i18n().view_all_departments}',
                 noDepartmentsFound: '${i18n().no_departments_found}'
             };
-        </script>
 
+
+        </script>
+		<script>
+			var baseUrl = "${urls.base}";
+			var imagesUrl = "${urls.images}";
+		</script>
         <script type="application/ld+json">
         	{
   				"@context": "http://schema.org",
@@ -167,7 +174,6 @@
    				]
 			}
 		</script>
-
     </body>
 </html>
 
