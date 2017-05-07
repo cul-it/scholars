@@ -6,18 +6,21 @@ var getDomainExperts = {
 
     	$.extend(this, baseUrl);
     	$.extend(this, imagesUrl);
+		$('img.jump-to-top').hide();
     	this.initObjects();
     	this.initAutoComplete();
 		this.bindEventListeners();
-		var collegeFacetClicked = false;
 },
 
 	initObjects: function() {
+		// part of the scrolling mechanism linked to the ajax call
 		this.makeTheCall = true;
+		// this variable triggers the rebuilding of the department facet
+		this.collegeFacetClicked = false;
 	},
 	
     initAutoComplete: function() {
-		
+		// autocomplete when the subject radio is selected
 		$(".subject-search").autocomplete({
 			minLength: 3,
 			source: function(request, response) {
@@ -26,7 +29,8 @@ var getDomainExperts = {
                     dataType: 'json',
                     data: {
                         term: request.term,
-                        type: "http://xmlns.com/foaf/0.1/Person"
+                        type: "http://xmlns.com/foaf/0.1/Person",
+						querytype: "subject"
 					},
 					complete: function(xhr, status) {
                         // Not sure why, but we need an explicit json parse here. 
@@ -41,25 +45,34 @@ var getDomainExperts = {
 			},
 			select: function(event, ui) {
 				$("#de-search-input").val(ui.item.label);
+				if ( $("#discover-content").length ) {
+					getDomainExperts.scrollToSearchField($("#discover-content"));
+				}
+				else if ( $("#search-field-container").length ) {
+					getDomainExperts.scrollToSearchField($("#search-field-container"));
+				}
 			}
 		});
 
+		// autocomplete when the name radio is selected
 		$(".name-search").autocomplete({
 			minLength: 3,
 			source: function(request, response) {
   				$.ajax({
-                    url: baseUrl + "/autocomplete?tokenize=true&stem=true",
+                    url: baseUrl + "/ackeywords?tokenize=true&stem=true",
                     dataType: 'json',
                     data: {
                         term: request.term,
-                        type: "http://xmlns.com/foaf/0.1/Person"
+                        type: "http://xmlns.com/foaf/0.1/Person",
+						querytype: "name"
 					},
 					complete: function(xhr, status) {
-                        // Not sure why, but we need an explicit json parse here. 
+                         
                         var results = $.parseJSON(xhr.responseText);
 						var terms = [];
 						$.each(results, function() {
-							terms.push(this.label.substring( 0, this.label.indexOf(" (")));
+							console.log(this.label);
+							terms.push(this.label);
 						});
                     	response(terms);
 					}
@@ -67,21 +80,45 @@ var getDomainExperts = {
 			},
 			select: function(event, ui) {
 				$("#de-search-input").val(ui.item.label);
+				if ( $("#discover-content").length ) {
+					getDomainExperts.scrollToSearchField($("#discover-content"));
+				}
+				else if ( $("#search-field-container").length ) {
+					getDomainExperts.scrollToSearchField($("#search-field-container"));
+				}
 			}
 		});
 
     },
 
+	scrollToSearchField: function(element) {
+		var isElementVisible = getDomainExperts.isInViewport(element, true) ;
+		if ( !isElementVisible ) {
+			var scrollPosition = getDomainExperts.getPageScroll();
+            var containerOffset = element.offset();
+            if ( scrollPosition[1] > containerOffset.top) {
+                $.scrollTo(element, 500);
+            }
+		}
+	},
+
 	bindEventListeners: function() {
 		
 		$("a#start-over-link").click(function() {
 			$("#facets-and-results").empty();
+			$("#results-blurb").empty();
 			$("#de-search-input").val("");
 			$("#de-search-input").focus();
 			$(this).hide();
 		});
+		
+		$('img.jump-to-top').click(function() {
+          $("html, body").animate({ scrollTop: 0 }, 400);
+        });
 
 		$(window).on('scroll', function() {
+			// if the scroll-control element exists, we have more results than the initial default number
+			// so we go get the next batch
 			if ( $("#scroll-control").length ) {
 				var viewable = getDomainExperts.isInViewport($("#scroll-control"), false) ;
 			    if (  viewable && getDomainExperts.makeTheCall ) {
@@ -95,16 +132,34 @@ var getDomainExperts = {
 					getDomainExperts.getIndividuals(vclassIds, queryText, queryType, "scrolling", colleges, departments);
 				}
 			}
+			
+			// these booleans determine whether to display the "jump-to-top" image/link
+			if ( !$("#discover-content").length ) {
+				var posFacetsVisible = getDomainExperts.isInViewport($("#position-facets"), false) ;
+				var deptFacetsVisible = getDomainExperts.isInViewport($("#department-facets"), true) ;
+				var jumpCheckVisible = getDomainExperts.isInViewport($("#jump-check"), false) ;
+	            if ( !posFacetsVisible && jumpCheckVisible ) {
+	                $('img.jump-to-top').show();
+	            }
+				else if ( !posFacetsVisible && !deptFacetsVisible ){
+					$('img.jump-to-top').show();
+				}
+	            else {
+	                $('img.jump-to-top').hide();
+	            }
+			}
 		});
 
+		// when check boxes are clicked, we need to fetch a fresh batch
         $(".type-checkbox").click(function() {
 			// used to rebuild department facets when a college is clicked
 			if ( $(this).hasClass("college-cb") ) {
-				collegeFacetClicked = true;
+				getDomainExperts.collegeFacetClicked = true;
 			}
 			else {
-				collegeFacetClicked = false;
+				getDomainExperts.collegeFacetClicked = false;
 			}
+
 			// get all the info used in parameters
 			var vclassIds =  getDomainExperts.getVClassIds();
             var queryText = getDomainExperts.getQueryText();
@@ -115,6 +170,7 @@ var getDomainExperts = {
 
         });
 
+		// when user switches between subject and name radio, we need to init autocomplete again
 		$('input[type=radio][name=querytype]').change(function() {
 	        if (this.value == 'subject') {
 	            $("#de-search-input").removeClass("name-search");
@@ -126,6 +182,8 @@ var getDomainExperts = {
 	            $("#de-search-input").addClass("name-search");
 				getDomainExperts.initAutoComplete();
 	        }
+			$("#de-search-input").val("");
+			$("#de-search-input").focus();
 	    });
     
     },
@@ -229,7 +287,7 @@ var getDomainExperts = {
 				$("div#results-blurb").empty();
                 $("ul.searchhits").empty();
 				$("div#results-container").addClass("no-results");
-				$("ul.searchhits").append("<span class='no-results-found'>No scholars found for this criteria:</span><br/>" + getDomainExperts.noResultsFacetList());
+				$("ul.searchhits").append("<span class='no-results-found'>No domain experts found for this criteria:</span><br/>" + getDomainExperts.noResultsFacetList());
             } else {
 				$("div#results-container").css("background-color","none").css("border-color","none");
                 var vclassName = results.vclass.name;
@@ -262,17 +320,19 @@ var getDomainExperts = {
 						+ imagesUrl + '/indicatorWhite.gif"/><span>retrieving additional results</span></li>');
 				}
 				$("div#results-blurb").empty();
-				var noun = (results.hitCount > 1) ? " scholars" : " scholar" ;
+				var noun = (results.hitCount > 1) ? " domain experts" : " domain expert" ;
 				$("div#results-blurb").append("<span>" + results.hitCount + noun + " found.</span>");
 				getDomainExperts.makeTheCall = true;
 
-				if ( collegeFacetClicked ) {
+				if ( getDomainExperts.collegeFacetClicked ) {
 					getDomainExperts.buildDepartmentFacets(results.departmentFacets);
 				}
+				getDomainExperts.collegeFacetClicked = false;
             }            
         });
     },
-    
+ 
+   // when a college facet is clicked, rebuild department facet
 	buildDepartmentFacets: function(results) {
 		var array = [];	
 		for(a in results){
@@ -288,7 +348,7 @@ var getDomainExperts = {
 		});
 		
 		// need to bind click event for these new checkboxes
-        $(".departmen-cb").click(function() {
+        $(".department-cb").click(function() {
 			var vclassIds =  getDomainExperts.getVClassIds();
             var queryText = getDomainExperts.getQueryText();
             var queryType = getDomainExperts.getQueryType();
@@ -298,6 +358,8 @@ var getDomainExperts = {
         });
 	},
 
+	// when a faceted search produces no results, we display a message and include all the
+	// facets that were selected.
 	noResultsFacetList: function() {
 		var facetList = "";
 		var positions = getDomainExperts.getPositions();
@@ -344,6 +406,7 @@ var getDomainExperts = {
 	    return new Array(xScroll,yScroll)
 	},
     
+	// used in a couple of places. returns boolean whether an element is visible
 	isInViewport: function(element, detectPartial) {
 	    element = $(element);
 	    detectPartial = (!!detectPartial); // if null or undefined, default to false

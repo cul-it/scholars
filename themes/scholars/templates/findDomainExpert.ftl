@@ -4,14 +4,14 @@
 <div class="row scholars-row">
 <div id="biscuit-container" class="col-sm-12 scholars-container">
 
-<h2 class="searchResultsHeader">Find Domain Experts</h2>
 <#if individuals?? >
 	<#assign searchResults>
 		<#escape x as x?html>
-    		<span>${hitCount} scholar<#if (hitCount > 1)>s</#if> found.</span>
+    		<span>${hitCount} domain expert<#if (hitCount > 1)>s</#if> found.</span>
 		</#escape>
 	</#assign>
 </#if>
+<h2 class="expertsResultsHeader">Find Domain Experts</h2>
 <div id="search-field-container" class="contentsBrowseGroup row fff-bkg">
   <div class="col-md-5">
     <fieldset>
@@ -35,7 +35,7 @@
   </div>
 <#if individuals?? >
   <div id="start-over" class="col-md-6">
-	<a id="start-over-link" href="#" title="Click to begin a new search">Start over</a>
+	<a id="start-over-link" href="javascript:return false;" title="Click to begin a new search">Start over</a>
   </div>
 <#else>
 	<div id="no-results-container" class="col-md-6">
@@ -55,15 +55,22 @@
 					</#if>
 				</#if>
 			</div>
-      </div>
+        </div>
+	</div>
 </#if>
 </div>
 <#if individuals?? >
+  <div class="row fff-bkg" style="padding:0;margin:0;">
+  	<div id="results-blurb" class="col-md-7 col-md-offset-4">
+		${searchResults!}
+  	</div>
+  </div>
   <div id="facets-and-results" class="contentsBrowseGroup row fff-bkg">
   <div id="facet-container" class="col-md-4">
     <#if classFacet?has_content>
         <div id="position-facets" class="panel panel-default selection-list" >
                 <div class="panel-heading facet-panel-heading">Position</div>
+				<#assign classCount = 0 />
             <#list classFacet as class>
 				<#if class.text != "Person" >
                 	<div class="panel-body scholars-facet">
@@ -72,8 +79,12 @@
 							<input type="checkbox" class="type-checkbox position-cb" data-vclassid="${vclassid?url}" value="${class.text}"/> ${class.text}<span> (${class.count})</span>
 						</label>
 					</div>
+					<#assign classCount = classCount + class.count?number />
 				</#if>
             </#list>
+			<#if (classCount > hitCount?number)>
+				<div class="facet-note" data-cc="${classCount?number}" data-hc="${hitCount?number}">* Some scholars have multiple positions.</div>
+			</#if>
         </div>
     </#if>
     <#if collegeFacet?has_content>
@@ -100,11 +111,14 @@
             </#list>
         </div>
     </#if>
-  </div> <!-- facet container -->
+    <div id="jump-check"></div>
+  </div>
+  <p id="jump-to-page-top" class="pull-right">
+	<img class="jump-to-top" title="jump to top of page" alt="arrow up" data-no-retina="" src="${urls.base}/themes/scholars/images/jump-to-top.gif">
+  </p>
+
+ 	<!-- facet container -->
     <div id="results-column" class="col-md-8">
-	  <div id="results-blurb">
-		${searchResults!}
-	  </div>
 	  <div id="results-container" class="panel panel-default">
       <ul class="searchhits">
   			<#list individuals as indy>
@@ -115,13 +129,9 @@
   			<#if ( hitCount > adjStartIndex ) >
   				<li id="scroll-control" data-start-index="${adjStartIndex}" data-current-page="${adjPage}">
   					<img id="search-indicator" src="${urls.images}/indicatorWhite.gif" /> 
-  					<spa>retrieving additional results</span>
+  					<span>retrieving additional results</span>
   				</li>
   			</#if>
-  			<script>
-  				console.log("INITIAL START INDEX = " + "${adjStartIndex}");
-  				console.log("INITIAL PAGE ADJ = " + "${adjPage}");
-  			</script>
       </ul>
       </div>
     </div>  
