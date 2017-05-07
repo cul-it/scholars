@@ -14,15 +14,15 @@
 
 .selection-list .panel-body li {
   list-style-type: none;
-  text-indent: -1em; 
-  padding-left: 1em;
-  line-height: 1.2;
-  margin-top: 0.5em;
-  margin-bottom: 0.5em;
+  font-weight: 300;
+  padding-left: 0.5em;
+  line-height: 2;
 }
 
 .selection-list .panel-body li:hover {
-  background: hsla(0,0%,90%,1);
+   background-color: rgba(50, 150, 200, .7);
+   cursor: pointer;
+   color:white;
 }
 
 #accordion #selector label {
