@@ -2776,6 +2776,36 @@ nav#alpha-browse-container {
 	margin-right: 11px;
 }
 /*** VISUALIZATIONS ***/
+
+.visualization-row.scholars-row {
+    background-color: #FFFFFF;
+}
+
+.visualization-toolbar {
+	background-color: #f5f5f5;
+	padding: 5px;
+}
+
+.visualization-toolbar .tooltip.bottom .tooltip-inner {
+    text-align: justify;
+    max-width: 350px;
+    width: 350px;
+}
+
+.visualization-toolbar .tooltip.bottom .tooltip-inner p {
+    color: #FFFFFF;
+}
+
+.visualization-toolbar .glyphicon-info-sign {
+    margin-right: 10px;
+}
+
+.visualization-toolbar .heading {
+  font: 16px "Helvetica Neue", Helvetica, Arial, sans-serif;
+  margin-bottom: 8px;
+}
+
+
 .dept_collab_vis svg g text {
 	font-size: 80%;
 }

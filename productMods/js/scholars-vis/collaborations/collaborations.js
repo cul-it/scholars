@@ -1,16 +1,6 @@
-ScholarsVis["CollaborationSunburst"] = function(options) {
-	var defaults = {
-		    url : applicationContextPath + "/api/dataRequest/collaboration_sunburst",
-	    	transform : transformCollab,
-		    display : sunburst,
-		    closer : closeSunburst
-		};
-	return new ScholarsVis.Visualization(options, defaults);
-};
-
 ScholarsVis["CrossUnitCollaborationSunburst"] = function(options) {
 	var defaults = {
-		    url : applicationContextPath + "/api/dataRequest/cross_unit_sunburst",
+		    url : applicationContextPath + "/api/dataRequest/cross_unit_sunburst?department=" + options.department,
 	    	transform : transformCollab,
 		    display : sunburst,
 		    closer : closeSunburst
@@ -20,7 +10,7 @@ ScholarsVis["CrossUnitCollaborationSunburst"] = function(options) {
 
 ScholarsVis["InterDepartmentCollaborationSunburst"] = function(options) {
 	var defaults = {
-		    url : applicationContextPath + "/api/dataRequest/interdepartmental_sunburst",
+		    url : applicationContextPath + "/api/dataRequest/interdepartmental_sunburst?department=" + options.department,
 	    	transform : transformCollab,
 		    display : sunburst,
 		    closer : closeSunburst
@@ -81,9 +71,9 @@ var luminance = d3.scale.sqrt()
 var tip = d3.tip().attr('class', 'd3-tip choices triangle-isosceles').attr("id", "specificTip").html(function(d) { 
   result = "";
   if(d.uri != null){
-    result += "<p><b><a href='" + d.uri + "'>" + d.name + "</a></b></p>";
+    result += "<p><b><a href='" + d.uri + "'>" + d.name + " ("+d.pubs.length+") </a></b></p>";
   }else{
-    result += "<p class='nonlinktext'>"+ d.name + "</p>";
+    result += "<p class='nonlinktext'>"+ d.name + " ("+d.pubs.length+")</p> ";
   }
   if(typeof d.pubs != "undefined") {
     for(var i = 0; i < d.pubs.length; i++) {
@@ -141,9 +131,13 @@ function format_number(x) {
 function format_description(d) {
   var description = d.description;
   if(d.description === d.name){
-    return  '<b>' + d.description+ '</b>'+'<br> (' + format_number(d.value) + ')';
+    return  '<b>' + d.description+ '</b>';
+    //+'<br> (' + format_number(d.value) + ')'; // This number does not represent the # of articles one unit or person has written in collaboration with others.
+    // It is the number of coauthors of person A with other persons and a single article may have multiple interdept or crossunit coauthorships.
   }else
-    return  '<b>' + d.description+' ('+d.name+') '+ '</b>'+'<br> (' + format_number(d.value) + ')';
+    return  '<b>' + d.description+' ('+d.name+') '+ '</b>';
+    //+'<br> (' + format_number(d.value) + ')'; // This number does not represent the # of articles one unit or person has written in collaboration with others.
+    // It is the number of coauthors of person A with other persons and a single article may have multiple interdept or crossunit coauthorships.
   end
       
 }
@@ -211,7 +205,11 @@ function draw_it(root, target) {
   var center = svg.append("circle")
       .attr("r", radius / 3).on("click", zoomOut);
   // why specificly defined as Engineering. This will not work for other units.
-  var centerText = svg.append("text").style("text-anchor", "middle").style("font-size", "11px").text(function(d) { return root.description});
+
+  var defaultFontSize = 11;
+  var newFontSize = defaultFontSize - root.description.length/defaultFontSize;
+  //var scaleFactor = -2.9*newFontSize;
+  var centerText = svg.append("text").style("text-anchor", "middle").style("font-size", newFontSize).text(function(d) { return root.description});
   
 
   center.append("title")
@@ -232,7 +230,7 @@ function draw_it(root, target) {
   
       
 var texts = svg.selectAll("text")
-  .data(partitioned_data)
+  .data(partition.nodes(root))
   .enter()
   .append("text")
   .filter(filter_min_arc_size_text)  
@@ -321,7 +319,7 @@ var texts = svg.selectAll("text")
           
       var defaultFontSize = 11;
       var newFontSize = defaultFontSize - root.description.length/defaultFontSize;
-      var scaleFactor = -2.9*newFontSize;
+      //var scaleFactor = -2.9*newFontSize;
       centerText.style("font-size", newFontSize+"px").style("text-anchor", "middle").text(root.description);
       
       if(typeof root.children[0].children === "undefined") {

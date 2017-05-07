@@ -196,15 +196,27 @@ $(document).ready(function() {
 <div id="foaf-person-blank-row" class="row scholars-row"></div>
 </#if>
 <div id="word_cloud_vis">
-	<h3 style="margin:0;padding:0">Research Keywords</h3>
 	<font face="Times New Roman" size="2">
 	<span><i>Click on a keyword to view the list of the related publications.</i></span>
-	<a href="#" id="word_cloud_exporter" class="pull-right"><i class="fa fa-download" aria-hidden="true" title="export this data" style="font-size:24px"></i></a><br>
+    <br>
 	<label class="radio-inline radio-inline-override"><input id="all" type="radio" name="kwRadio" class="radio" checked>Featured Keywords</label>
 	<label class="radio-inline"><input id="keyword"  type="radio" name="kwRadio" class="radio" >Article Keywords</label>
 	<label class="radio-inline"><input id="mesh"     type="radio" name="kwRadio" class="radio" >External Vocab. Terms</label>
 	<label class="radio-inline"><input id="inferred" type="radio" name="kwRadio" class="radio" >Mined Keywords</label>
 	</font>
+	
+    <div id="info_icon_text" style="display:none">
+    	<p>
+    		This visualization represents the research keywords of the author which is an aggregation of keywords found in all the author’s articles. There are different sources of these keywords; those expressed by the author in the articles, those assigned by the publishers to the article and those that are algorithmically inferred from the text of the article’s abstract. The size of the keyword indicates the frequency of the keyword in the author’s publications which suggests that in which subject author published most (or least) frequently.
+        </p>
+        <p>
+        	This is not a static visualization. A user can click on any the keyword to see the list of actual articles that have this keyword. One can click on the article title in the list to navigate to the full view of the article’s metadata and a link to the full text when its available.
+	 	</p>
+	 	<hr> 
+		<p>
+        	Note: This information is based solely on publications that have been loaded into the system.
+		</p>   
+    </div>
 </div>
 
 <div class="jqmWindow" id="subject-area-dialog">
@@ -289,6 +301,7 @@ $().ready(function() {
       $('#word_cloud_exporter').click(wc.showVisData);
     }
   });
+  new ScholarsVis.Toolbar("#word_cloud_vis", "Research Keywords");
 });
 </script>
 
@@ -318,6 +331,7 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></
 	              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/d3/d3-tip.js"></script>',
 				  '<script type="text/javascript" src="https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js"></script>',
 	              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/d3/d3.layout.cloud.js"></script>',
+                  '<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>',
 				  '<script type="text/javascript" src="${urls.base}/js/scholars-vis/wordcloud/word-cloud.js"></script>')}
 
 ${stylesheets.add('<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Raleway" />',

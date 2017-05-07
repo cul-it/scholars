@@ -1,9 +1,15 @@
-.panel-body{
-	padding-top: 2px;
-	padding-bottom: 2px;
-	max-height: 300px;
-	overflow-y: scroll;
-	min-height: 100px;
+#accordion .panel-body{
+  max-height: 300px;
+  overflow-y: scroll;
+  min-height: 100px;
+}
+
+#accordion .panel-title .start{
+  color: gray;
+}
+
+#accordion .panel-group{
+  padding-left: 1%;
 }
 
 .selection-list .panel-body li {
@@ -18,3 +24,46 @@
 .selection-list .panel-body li:hover {
   background: hsla(0,0%,90%,1);
 }
+
+#accordion #selector label {
+  display: inline;
+  margin-left: 1%;
+}
+
+#accordion #selector li {
+  list-style-type: none;
+  cursor: pointer;
+}
+
+#accordion #checkarea label {
+  display: inline;
+  margin-left: 1%;
+}
+
+#accordion #checkarea li {
+  list-style-type: none;
+}
+
+#accordion #checkarea input {
+  cursor: pointer;
+}
+
+#accordion #slider {
+  margin-top: 40px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+#accordion #slider .noUi-handle {
+  cursor: pointer;
+}
+
+#accordion #slider .noUi-connect {
+  background: #d3d3d3;
+}
+
+#accordion .noUi-value-large{
+  font-size: 10pt;
+  margin-top: 5px;
+}
+

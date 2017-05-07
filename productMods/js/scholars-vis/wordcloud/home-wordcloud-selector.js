@@ -11,11 +11,15 @@ function createWordCloudSelector(siteSelector, departmentSelector, personSelecto
   $(siteSelector).click(showSiteCloud);
   
   var departmentControl = new AccordionControls.Selector(departmentSelector, showDepartmentCloud);
-  populateSelector(departmentControl, "departmentList");
+  departmentControl.loadFromDataRequest("departmentList");
   
   var personControl = new AccordionControls.Selector(personSelector, showPersonCloud);
-  populateSelector(personControl, "facultyList");
+  personControl.loadFromDataRequest("facultyList");
   
+  var personToolbar = new ScholarsVis.Toolbar(person_wc_container);
+  var unitToolbar = new ScholarsVis.Toolbar(unit_wc_container);
+  var siteToolbar = new ScholarsVis.Toolbar(site_wc_container);
+
   showSiteCloud();
   
   function showSiteCloud() {
@@ -25,7 +29,7 @@ function createWordCloudSelector(siteSelector, departmentSelector, personSelecto
     });
     wc.show();
     $(site_wc_container + '>#exporter').click(wc.showVisData);
-    showSelection();
+    showSelection(siteToolbar);
     showClouds("site");
   }
   
@@ -37,7 +41,7 @@ function createWordCloudSelector(siteSelector, departmentSelector, personSelecto
     });
     wc.show();
     $(unit_wc_container + '>#exporter').click(wc.showVisData);
-    showSelection(unit.label, unit.uri);
+    showSelection(unitToolbar, unit.label, unit.uri);
     showClouds("unit");
   }
   
@@ -49,17 +53,17 @@ function createWordCloudSelector(siteSelector, departmentSelector, personSelecto
     });
     wc.show();
     $(person_wc_container + ' #exporter').click(wc.showVisData);
-    showSelection(person.label, person.uri);
+    showSelection(personToolbar, person.label, person.uri);
     showClouds("person");
   }
   
-  function showSelection(message, uri) {
+  function showSelection(toolbar, message, uri) {
     if ( typeof message == "undefined") {
-      $("#selectedWordCloudLabel").html("University-wide Research Keywords");
+      toolbar.setHeadingText("University-wide research keywords");
     } else if ( typeof uri == "undefined") {
-      $("#selectedWordCloudLabel").html("Research Keywords for " + message);
+      toolbar.setHeadingText("Research keywords for " + message);
     } else {
-      $("#selectedWordCloudLabel").html('Research Keywords for <a href="' + toDisplayPageUrl(uri) + '">' + message + '</a>');
+      toolbar.setHeadingText('Research keywords for <a href="' + toDisplayPageUrl(uri) + '">' + message + '</a>');
     }
   }
   
@@ -76,29 +80,6 @@ function createWordCloudSelector(siteSelector, departmentSelector, personSelecto
       $(site_wc_container).show();
       $(unit_wc_container).hide();
       $(person_wc_container).hide();
-    }
-  }
-  
-  function populateSelector(selector, dataRequest) {
-    $.get(applicationContextPath + "/api/dataRequest/" + dataRequest).then(mapAndLoad);
-    
-    function mapAndLoad(data) {
-      selector.loadData(data.results.bindings.map(mapper).sort(sorter).filter(distinct));
-      
-      function mapper(d) {
-        return {
-          uri: d.uri.value,
-          label: d.label.value
-        }
-      }
-      
-      function sorter(a, b) {
-        return a.label.toLowerCase().localeCompare(b.label.toLowerCase());
-      }
-      
-      function distinct(el, i, array) {
-        return i == 0 || el.uri != array[i-1].uri;
-      }
     }
   }
 }
