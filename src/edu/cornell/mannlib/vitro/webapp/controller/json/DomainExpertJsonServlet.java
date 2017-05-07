@@ -62,6 +62,7 @@ import edu.cornell.mannlib.vitro.webapp.modules.searchEngine.SearchEngineExcepti
 import edu.cornell.mannlib.vitro.webapp.modules.searchEngine.SearchFacetField.Count;
 import edu.cornell.mannlib.vitro.webapp.modules.searchEngine.SearchFacetField;
 import edu.cornell.mannlib.vitro.webapp.modules.searchEngine.SearchQuery;
+import edu.cornell.mannlib.vitro.webapp.modules.searchEngine.SearchQuery.Order;
 import edu.cornell.mannlib.vitro.webapp.modules.searchEngine.SearchResponse;
 import edu.cornell.mannlib.vitro.webapp.modules.searchEngine.SearchResultDocument;
 import edu.cornell.mannlib.vitro.webapp.modules.searchEngine.SearchResultDocumentList;
@@ -99,6 +100,9 @@ public class DomainExpertJsonServlet extends VitroHttpServlet {
     private static final String PARAM_QUERY_TYPE = "querytype";
 	private static final String KEYWORD_FIELD = "keyword_txt";
 
+    protected enum Order {
+        ASC, DESC         
+    }
          
      @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -283,9 +287,10 @@ public class DomainExpertJsonServlet extends VitroHttpServlet {
 			else {
 				query.addFilterQuery("nameLowercase:*" + queryText.toLowerCase().replaceAll(" ", "* AND nameLowercase:*") + "*");
 			}
+			query.addSortField("nameLowercaseSingleValued",SearchQuery.Order.ASC);
 		} 
 		else {
-			queryString = KEYWORD_FIELD + ":*" + queryText.toLowerCase() + "*";
+			queryString = KEYWORD_FIELD + ":\"" + queryText.toLowerCase() + "\"";
 		}
 
 		query.setQuery(queryString);

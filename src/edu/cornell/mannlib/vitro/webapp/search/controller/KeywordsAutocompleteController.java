@@ -53,6 +53,7 @@ public class KeywordsAutocompleteController extends VitroAjaxController {
     
     private static final String PARAM_QUERY = "term";
     private static final String PARAM_RDFTYPE = "type";
+    private static final String PARAM_QUERY_TYPE = "querytype";
     private static final String PARAM_MULTIPLE_RDFTYPE = "multipleTypes";
     private static final String KEYWORD_FIELD = "keyword_ss";
 
@@ -63,11 +64,11 @@ public class KeywordsAutocompleteController extends VitroAjaxController {
 
     public static final int MAX_QUERY_LENGTH = 200;
     
-    @Override
+/*    @Override
     protected AuthorizationRequest requiredActions(VitroRequest vreq) {
-    	return SimplePermission.USE_BASIC_AJAX_CONTROLLERS.ACTION;
+    	return SimplePermission.PAGE_VIEWABLE_PUBLIC.ACTION;
     }
-
+*/
     @Override
     protected void doRequest(VitroRequest vreq, HttpServletResponse response)
         throws IOException, ServletException {
@@ -75,8 +76,9 @@ public class KeywordsAutocompleteController extends VitroAjaxController {
         try {
             String qtxt = vreq.getParameter(PARAM_QUERY);
 			String typeParam = vreq.getParameter(PARAM_RDFTYPE);
+			String qType = vreq.getParameter(PARAM_QUERY_TYPE);
 
-            SearchQuery query = getQuery(qtxt, vreq);
+            SearchQuery query = getQuery(qtxt, qType, vreq);
             if (query == null ) {
                 log.debug("query for '" + qtxt +"' is null.");
                 doNoQuery(response);
@@ -86,8 +88,7 @@ public class KeywordsAutocompleteController extends VitroAjaxController {
 
 			SearchEngine search = ApplicationUtils.instance().getSearchEngine();
             SearchResponse queryResponse = search.query(query);
-			log.debug("queryResponse = " + queryResponse.toString());
-			log.debug("get facet fields = " + queryResponse.getFacetFields().toString());
+
             if ( queryResponse == null) {
                 log.error("Query response for a search was null");
                 doNoSearchResults(response);
@@ -107,28 +108,61 @@ public class KeywordsAutocompleteController extends VitroAjaxController {
                 doNoSearchResults(response);
                 return;
             }  
+			
+			JSONArray jsonArray = new JSONArray();
 
-    		List<FacetField> results = new ArrayList<FacetField>();
-			List<SearchFacetField> ffs = queryResponse.getFacetFields();
-			for(SearchFacetField ff : ffs) {
-				List<Count> values = ff.getValues();
-				for( Count value: values){
-					String valueLow = value.getName().toLowerCase();
-					if ( valueLow.contains(qtxt.toLowerCase()) ) {
-						FacetField result = new FacetField(valueLow);
-						results.add(result);
+			if ( qType.equals("subject") ) {
+	    		List<FacetField> results = new ArrayList<FacetField>();
+				List<SearchFacetField> ffs = queryResponse.getFacetFields();
+				for(SearchFacetField ff : ffs) {
+					List<Count> values = ff.getValues();
+					for( Count value: values){
+						String valueLow = value.getName().toLowerCase();
+						if ( valueLow.contains(qtxt.toLowerCase()) ) {
+							FacetField result = new FacetField(valueLow);
+							results.add(result);
+						}
 					}
 				}
+	           Collections.sort(results);
+
+
+	            for (FacetField result : results) {
+	                //jsonArray.put(result.toMap());
+	            	jsonArray.put(result.toJSONObject());
+	            }
+			}
+			else {
+				List<SearchResult> results = new ArrayList<SearchResult>();
+	            for (SearchResultDocument doc : docs) {
+	                try {                
+	                    String uri = doc.getStringValue(VitroSearchTermNames.URI);
+	                    String name = doc.getStringValue(VitroSearchTermNames.NAME_RAW);
+	                    //There may be multiple most specific types, sending them all back
+	                    String mst = doc.getStringValue(VitroSearchTermNames.MOST_SPECIFIC_TYPE_URIS);
+	                    //Assuming these will get me string values
+	                    Collection<Object> mstObjValues = doc.getFieldValues(VitroSearchTermNames.MOST_SPECIFIC_TYPE_URIS);
+	                    String[] mstStringValues = mstObjValues.toArray(new String[mstObjValues.size()]);
+	                    List<String> mstValues = Arrays.asList(mstStringValues);
+	                    SearchResult result = new SearchResult(name, uri, mst, mstValues, hasMultipleTypes, vreq);
+	                    results.add(result);
+	                    log.debug("results = " + results.toString());
+	                } catch(Exception e){
+	                    log.error("problem getting usable individuals from search " +
+	                            "hits" + e.getMessage());
+	                }
+	            }
+				hasMultipleTypes = false;
+
+	            Collections.sort(results);
+
+	            for (SearchResult result : results) {
+	                //jsonArray.put(result.toMap());
+	            	jsonArray.put(result.toJSONObject());
+	            }
 			}
 			
-            Collections.sort(results);
-
-            JSONArray jsonArray = new JSONArray();
-            for (FacetField result : results) {
-                //jsonArray.put(result.toMap());
-            	jsonArray.put(result.toJSONObject());
-            }
-            response.getWriter().write(jsonArray.toString());
+             response.getWriter().write(jsonArray.toString());
 
         } catch (Throwable e) {
             log.error(e, e);
@@ -136,7 +170,7 @@ public class KeywordsAutocompleteController extends VitroAjaxController {
         }
     }
 
-    private SearchQuery getQuery(String queryStr, VitroRequest vreq) {
+    private SearchQuery getQuery(String queryStr, String queryType, VitroRequest vreq) {
 
         if ( queryStr == null) {
             log.error("There was no parameter '"+ PARAM_QUERY
@@ -148,14 +182,26 @@ public class KeywordsAutocompleteController extends VitroAjaxController {
             return null;
         }
 
-		String term = "\"facet.prefix=" + queryStr +"\"";
-          
-        SearchQuery query = ApplicationUtils.instance().getSearchEngine().createQuery();
-		
-		query.addFacetFields(KEYWORD_FIELD).setFacetLimit(70000);
+    	SearchQuery query = ApplicationUtils.instance().getSearchEngine().createQuery();
+		query.setStart(0);
+        
+		if ( queryType.equals("subject") ) {
+			String term = "\"facet.prefix=" + queryStr +"\"";
+			query.setRows(1);
+			query.addFacetFields(KEYWORD_FIELD).setFacetLimit(70000);
+		}
+		else {
+			query.setRows(DEFAULT_MAX_HIT_COUNT);
+			setNameQuery(query, queryStr, vreq);
+			String typeParam = vreq.getParameter(PARAM_RDFTYPE);
+	        String multipleTypesParam = vreq.getParameter(PARAM_MULTIPLE_RDFTYPE);
 
-        query.setStart(0)
-             .setRows(1);
+	        if (typeParam != null) {
+	        	addFilterQuery(query, typeParam,  multipleTypesParam);
+	        }
+
+	        query.addFields(VitroSearchTermNames.NAME_RAW, VitroSearchTermNames.URI, VitroSearchTermNames.MOST_SPECIFIC_TYPE_URIS); // fields to retrieve
+		}
 
         return query;
     }
@@ -314,6 +360,88 @@ public class KeywordsAutocompleteController extends VitroAjaxController {
             }
             FacetField sr = (FacetField) o;
             return name.compareToIgnoreCase(sr.getName());
+        }
+    }
+    public class SearchResult implements Comparable<Object> {
+        private String label;
+        private String uri;
+        private String msType;
+        private List<String> allMsTypes;
+		private boolean hasMultipleTypes;
+
+        SearchResult(String label, String uri, String msType, List<String> allMsTypes, boolean hasMultipleTypes, VitroRequest vreq) {
+			if ( hasMultipleTypes ) {
+	            this.label = label + " (" + getMsTypeLocalName(msType, vreq) + ")";
+			}
+			else {
+	            this.label = label;				
+			}
+            this.uri = uri;
+            this.msType = msType;
+            this.allMsTypes = allMsTypes;
+        }
+		
+        public String getLabel() {
+            return label;
+        }
+
+        public String getJsonLabel() {
+            return JSONObject.quote(label);
+        }
+
+        public String getUri() {
+            return uri;
+        }
+
+        public String getJsonUri() {
+            return JSONObject.quote(uri);
+        }
+        
+        public String getMsType() {
+            return msType;
+        }
+        
+        public List<String> getAllMsTypes() {
+        	return allMsTypes;
+        }
+
+		public String getMsTypeLocalName(String theUri, VitroRequest vreq) {
+			VClassDao vcDao = vreq.getUnfilteredAssertionsWebappDaoFactory().getVClassDao();
+			VClass vClass = vcDao.getVClassByURI(theUri);
+			String theType = ((vClass.getName() == null) ? "" : vClass.getName());
+			return theType;
+		}
+
+        public String getJsonMsType() {
+            return JSONObject.quote(msType);
+        }
+        
+        
+        //Simply passing in the array in the map converts it to a string and not to an array
+        //which is what we want so need to convert to an object instad
+        JSONObject toJSONObject() {
+        	JSONObject jsonObj = new JSONObject();
+        	try {
+        	 jsonObj.put("label", label);
+             jsonObj.put("uri", uri);
+             //Leaving this in for now, in case there is code out there that depends on this single string version
+             //But this should really be changed so that the entire array is all that should be returned
+             jsonObj.put("msType", msType);
+             //map.put("allMsTypes", allMsTypes);
+             JSONArray allMsTypesArray = new JSONArray(allMsTypes);
+             jsonObj.put("allMsTypes", allMsTypesArray);
+        	} catch(Exception ex) {
+        		log.error("Error occurred in converting values to JSON object", ex);
+        	}
+        	return jsonObj;
+        }
+
+        public int compareTo(Object o) throws ClassCastException {
+            if ( !(o instanceof SearchResult) ) {
+                throw new ClassCastException("Error in SearchResult.compareTo(): expected SearchResult object.");
+            }
+            SearchResult sr = (SearchResult) o;
+            return label.compareToIgnoreCase(sr.getLabel());
         }
     }
 

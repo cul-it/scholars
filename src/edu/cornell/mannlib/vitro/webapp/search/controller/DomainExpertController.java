@@ -60,6 +60,7 @@ import edu.cornell.mannlib.vitro.webapp.modules.searchEngine.SearchEngineExcepti
 import edu.cornell.mannlib.vitro.webapp.modules.searchEngine.SearchFacetField.Count;
 import edu.cornell.mannlib.vitro.webapp.modules.searchEngine.SearchFacetField;
 import edu.cornell.mannlib.vitro.webapp.modules.searchEngine.SearchQuery;
+import edu.cornell.mannlib.vitro.webapp.modules.searchEngine.SearchQuery.Order;
 import edu.cornell.mannlib.vitro.webapp.modules.searchEngine.SearchResponse;
 import edu.cornell.mannlib.vitro.webapp.modules.searchEngine.SearchResultDocument;
 import edu.cornell.mannlib.vitro.webapp.modules.searchEngine.SearchResultDocumentList;
@@ -302,9 +303,10 @@ public class DomainExpertController extends FreemarkerHttpServlet {
 			else {
 				query.addFilterQuery("nameLowercase:*" + queryText.toLowerCase().replaceAll(" ", "* AND nameLowercase:*") + "*");
 			}
+			query.addSortField("nameLowercaseSingleValued", SearchQuery.Order.ASC);
 		} 
 		else {
-			queryString = KEYWORD_FIELD + ":*" + queryText.toLowerCase() + "*";
+			queryString = KEYWORD_FIELD + ":\"" + queryText.toLowerCase() + "\"";
 		}
 	
 		query.setQuery(queryString);
