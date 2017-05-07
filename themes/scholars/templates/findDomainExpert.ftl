@@ -20,7 +20,7 @@
 		<form id="results-search-form" action="${urls.base}/domainExpert" name="search" role="search" accept-charset="UTF-8" method="POST"> 
 			<input id="de-search-vclass" type="hidden" name="vclassId" value="http://xmlns.com/foaf/0.1/Person" />
 			<input id="de-search-input" class="results-input <#if qType == "name">name-search<#else>subject-search</#if>" type="text" name="querytext" value="${querytext!}"/>
-			<input id="results-search-submit" type="submit" action="${urls.base}/domainExpert?origin=homepage" value="Go"/>
+			<input id="results-search-submit" type="submit" action="${urls.base}/domainExpert?origin=homepage" value="GO"/>
 			<div class="results-search-radio-container">
 				<input type="radio" name="querytype" value="subject" <#if qType == "subject">checked</#if>> by subject or keyword
 	   			<input id="by-name-radio" type="radio" name="querytype" value="name" <#if qType == "name">checked</#if>> by name
