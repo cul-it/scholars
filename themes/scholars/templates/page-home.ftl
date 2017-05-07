@@ -39,7 +39,7 @@
 				</div>
 				<div class="container-fluid scholars-home-container">
 					<div id="discover-content" class="row fff-bkg">
-						<div class="col-sm-4 col-md-4 col-lg-4 search-links">
+						<div id="expert-search-link" class="col-sm-4 col-md-4 col-lg-4 search-links">
 							<div id="domain-experts" class="search-link-div">
 								<div class="discovery-details">
 									<span>
@@ -59,19 +59,16 @@
 								</div>
 							</div>
 						</div>
-						<div class="col-sm-4 col-md-4 col-lg-4">
+						<div class="col-sm-4 col-md-4 col-lg-4 search-links" >
 							<a class="image-links" href="/scholars/research" >
 								<div id="discover-scholarship" class="image-link-div">
 									<div class="discovery-details">
-										<span>Explore<br/>Cornell Scholarship</span>
+										<span>Explore<br/>Scholarship & Research</span>
 									</div>
 								</div>
 							</a>
-							<div class="discovery-text-container">
-								<p class="discovery-text">Search by subject area, and author affiliation.</p>
-							</div>		
 						</div>
-						<div class="col-sm-4 col-md-4 col-lg-4"">
+						<div class="col-sm-4 col-md-4 col-lg-4 search-links">
 							<a class="image-links" href="/scholars/research#http://vivoweb.org/ontology/core#Grant" >
 								<div id="ongoing-research" class="image-link-div">
 									<div class="discovery-details">
@@ -79,9 +76,6 @@
 									</div>
 								</div>
 							</a>
-							<div class="discovery-text-container">
-								<p class="discovery-text">Search by topic, investigator, and funding agency.</p>
-							</div>
 						</div>
 					</div>
 				</div>

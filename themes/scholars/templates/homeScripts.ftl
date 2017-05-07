@@ -6,6 +6,7 @@
 <script type="text/javascript" src="${urls.base}/${themeDir}/js/homeUtils.js"></script>        
 <script type="text/javascript" src="${urls.theme}/js/scholarsHomePage.js?version=x"></script>
 <script type="text/javascript" src="${urls.base}/js/findDomainExpert.js"></script>
+<script type="text/javascript" src="${urls.base}/js/jquery_plugins/jquery.scrollTo-min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Raleway" />
 <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Muli" />
 
