@@ -125,7 +125,6 @@ SELECT DISTINCT ?expPosn (str(?oLabel) as ?orgLabel)
 WHERE {    
 ?individualUri vivo:relatedBy ?position .
 ?position a vivo:Position .
-?position rdf:type vivo:PrimaryPosition .
 ?position rdfs:label ?expPosn .
 ?position hr:positionIn ?org .
 ?org rdfs:label ?oLabel
