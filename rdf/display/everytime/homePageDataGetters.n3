@@ -21,10 +21,6 @@
 		PREFIX vivo:     <http://vivoweb.org/ontology/core#>
 		SELECT  (count(distinct ?faculty) as ?facultyCount) 
 		             (count(distinct ?professional) as ?professionalCount)
-		             (count(distinct ?department) as ?departmentCount)
-		             (count(distinct ?college) as ?collegeCount)
-		             (count(distinct ?school) as ?schoolCount)
-		             (count(distinct ?center) as ?centerCount)
 		             (count(distinct ?grant) as ?grantCount)
 		             (count(distinct ?article) as ?articleCount)
 		             (count(distinct ?journal) as ?journalCount)
@@ -35,22 +31,6 @@
 		UNION 
 		{
 		     ?professional rdf:type vivo:NonFacultyAcademic .
-		}
-		UNION 
-		{
-		     ?department rdf:type vivo:AcademicDepartment .
-		}
-		UNION 
-		{
-		     ?college rdf:type vivo:College .
-		}
-		UNION 
-		{
-		     ?school rdf:type vivo:School .
-		}
-		UNION 
-		{
-		     ?center rdf:type vivo:Center .
 		}
 		UNION 
 		{

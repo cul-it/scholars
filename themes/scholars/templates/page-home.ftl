@@ -14,12 +14,6 @@
 	<#assign navbarClass = "homepage"/>
 	<#assign backsplashDisplay = ""/>
 	<#assign navbarLogoDisplay = "display:none;"/>
-	<script>
-	<#-- don't need these, but need to clean up related js first; otherwise, things break. -->
-	var researchFacilities = [];
-	var urlsBase = "/scholars";
-	var facultyMemberCount = 0;
-	</script>
     <body class="${bodyClasses!}" onload="${bodyOnload!}">
 		<div id="home" class="page">
 	    	<#include "identity.ftl">
