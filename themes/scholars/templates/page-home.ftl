@@ -116,6 +116,58 @@
 						</div>
 					</div>
 				</div>
+
+
+				<div id="visualize-header" class="row fff-bkg">
+					<div class="col-sm-12 col-md-12 col-lg-12 e3e6e9-bkg">
+						<p class="home-header">
+							Partner Alliance
+						</p>
+					</div>
+				</div>
+				<div class="container-fluid scholars-home-container">
+					<div id="partners-row1" class="row fff-bkg">
+						<div id="jgsm-text" class="col-sm-4 col-md-4 col-lg-4"> 
+							<p><a id="jgsm-link" href="${urls.base}/display/org74741">Samuel Curtis Johnson School of Management</a></p>
+						</div>
+						<div class="col-sm-4 col-md-4 col-lg-4"> 
+							<a href="${urls.base}/display/org74741">
+								<div id="jgsm-image"> 
+								</div>
+							</a>
+						</div>
+						<div class="col-sm-4 col-md-4 col-lg-4"> 
+						</div>
+					</div>
+					<div id="partners-row2" class="row fff-bkg">
+						<div class="col-sm-4 col-md-4 col-lg-4"> 
+						</div>
+						<div class="col-sm-4 col-md-4 col-lg-4"> 
+						</div>
+						<div id="arts-text" class="col-sm-4 col-md-4 col-lg-4"> 
+							<p><a id="arts-link" href="${urls.base}/display/org89721">College of Arts and Sciences</a></p>
+						</div>
+					</div>
+					<div id="partners-row3" class="row fff-bkg">
+						<div class="col-sm-4 col-md-4 col-lg-4"> 
+							<a href="${urls.base}/display/org73341">
+								<div id="eng-image"> 
+								</div>
+							</a>
+						</div>
+						<div id="eng-text" class="col-sm-4 col-md-4 col-lg-4"> 
+							<p><a id="eng-link" href="${urls.base}/display/org73341">College of Engineering</a></p>
+						</div>
+						<div class="col-sm-4 col-md-4 col-lg-4"> 
+							<a href="${urls.base}/display/org89721">
+								<div id="arts-image"> 
+								</div>
+							</a>
+						</div>
+					</div>
+				</div>
+
+
 				<div id="download-header" class="row fff-bkg">
 					<div class="col-sm-12 col-md-12 col-lg-12 e3e6e9-bkg">
 						<p class="home-header">
