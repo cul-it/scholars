@@ -337,17 +337,20 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></
 ${stylesheets.add('<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Raleway" />',
 	'<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Muli" />')}
 
-
-<script type="application/ld+json">
-{
-  "@context": "http://schema.org",
-  "@type": "Person",
-  "name": "${individual.name?replace("\"","")!}",
-  "affiliation": "Cornell University",
-  "image": "${individual.thumbNail!}",
-  "url": "${individual.uri}",
-  "jobTitle": "",
-  "worksFor": "",
-  "worksFor": ""
-}
+<div id="ldjson">
+</div>
+<script>
+  var ldjson = document.createElement('script');
+  ldjson.type = 'application/ld+json';
+  ldjson.text = JSON.stringify({
+    "@context": "http://schema.org",
+    "@type": "Person",
+	  "name": "${individual.name?replace("\"","")!}",
+	  "affiliation": "Cornell University",
+	  "image": "${individual.thumbNail!}",
+	  "url": "${individual.uri}",
+	  "jobTitle": posT,
+	  "worksFor": posD + ", " + posU
+  });
+  $('#ldjson').append(ldjson);
 </script>
