@@ -133,17 +133,17 @@ $(document).ready(function() {
 <div id="visualization-column" class="col-sm-3 col-md-3 col-lg-3 scholars-container">
  	<#if isAuthor >
 		<div id="word_cloud_icon_holder" style="display:none">
-		    <a href="#" id="word_cloud_trigger"><img width="145px" src="${urls.base}/themes/scholars/images/wordcloud-icon.png"/></a>
+		    <a href="#" id="word_cloud_trigger"><img id="vizIcon" width="145px" src="${urls.base}/themes/scholars/images/wordcloud-icon.png"/></a>
 			<p>Research Keywords</p>
 		</div>
  		<div>
- 			<a href="${coAuthorVisUrl}"><img width="120px" src="${urls.base}/themes/scholars/images/co-authors.png"/></a>
+ 			<a href="${coAuthorVisUrl}"><img id="vizIcon" width="120px" src="${urls.base}/themes/scholars/images/co-authors.png"/></a>
  			<p>Co-authors</p>
  		</div>
  	</#if>
  	<#if isInvestigator >
  		<div>
- 			<a href="${coInvestigatorVisUrl}"><img width="120px" src="${urls.base}/themes/scholars/images/co-investigators.png"/></a>
+ 			<a href="${coInvestigatorVisUrl}"><img id="vizIcon" width="120px" src="${urls.base}/themes/scholars/images/co-investigators.png"/></a>
  			<p>Co-investigators</p>
  		</div>
  	</#if>
@@ -337,3 +337,17 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></
 ${stylesheets.add('<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Raleway" />',
 	'<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Muli" />')}
 
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Person",
+  "name": "${individual.name?replace("\"","")!}",
+  "affiliation": "Cornell University",
+  "image": "${individual.thumbNail!}",
+  "url": "${individual.uri}",
+  "jobTitle": "",
+  "worksFor": "",
+  "worksFor": ""
+}
+</script>
