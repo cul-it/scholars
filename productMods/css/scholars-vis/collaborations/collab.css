@@ -1,8 +1,8 @@
-circle, path {
+.dept_collab_vis circle, path {
 	cursor: pointer;
 }
 
-circle {
+.dept_collab_vis circle {
 	fill: none;
 	pointer-events: all;
 }

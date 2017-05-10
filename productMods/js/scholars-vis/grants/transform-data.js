@@ -1,6 +1,6 @@
 function closeGrantsVis(target) {
 	$(target).children("svg").remove();
-	$('div#gates_tooltip').remove();
+	$('#grants_tooltip').remove();
 }
 
 /*

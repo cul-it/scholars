@@ -24,6 +24,11 @@ function displayWithControls(json, target, options){
     display.update(json);
 } 
 
+function displayWithoutControls(json, target, options){
+    var display = new GrantsDisplay(target, options.legendDiv);
+    display.update(json);
+} 
+
 function GrantsController(grants, display, options) {
     var filtered = grants;
     var currentPeople;
@@ -166,8 +171,6 @@ function GrantsDisplay(target, legendSelector) {
         .domain(['unknown','low', 'medium', 'high'])
         .range(["#41B3A7","#81F7F3", "#819FF7", "#BE81F7"]);
 
-    drawLegend();
-    
     var force = d3.layout.force()
         .size([width, height])
         .charge(charge)
@@ -190,42 +193,6 @@ function GrantsDisplay(target, legendSelector) {
         update: draw  // BOGUS
     }
     
-    function drawLegend() {
-        var legend = d3.select(legendSelector)
-            .append("svg")
-            .attr("width", 300)
-            .attr("height", 300);
-        legend
-            .append('text')
-            .attr('x',5)
-            .attr('y', 12)
-            .style("font-weight", "bold")
-            .style("margin-bottom","20px")
-            .text("Color Scheme");
-        fillColor
-            .range()
-            .forEach(drawLegendBar);
-        
-        function drawLegendBar(color, i) {
-            var domainValues = ["Unknown", "< $100,000", "$100,000 - $1,000,000", "> $1,000,000"];
-            legend
-                .append('rect')
-                .attr("width", 20)
-                .attr("height", 20)
-                .attr("x", 5)
-                .attr("y", 25 + i*25)
-                .style("fill", color);
-            legend
-                .append('text')
-                .attr("x", 42)
-                .attr("y", 20 + 20 + i*25)
-                .attr("alignment-baseline", "hanging")
-                .attr("text-anchor", "start")
-                .style("font-size", 16)
-                .text(domainValues[i]);
-        }
-    }
-    
     function clear() {
         d3.select(targetElem).select("svg").remove();
     }
@@ -233,6 +200,8 @@ function GrantsDisplay(target, legendSelector) {
     function draw(rawData) {
         clear();
         tooltip.hideTooltip();
+
+        drawLegend();
 
         var nodes = createGrantNodes(rawData);
         force.nodes(nodes);
@@ -267,6 +236,42 @@ function GrantsDisplay(target, legendSelector) {
 
         groupBubbles();
 
+        function drawLegend() {
+            var legend = d3.select(legendSelector)
+                .append("svg")
+                .attr("width", 300)
+                .attr("height", 300);
+            legend
+                .append('text')
+                .attr('x',5)
+                .attr('y', 12)
+                .style("font-weight", "bold")
+                .style("margin-bottom","20px")
+                .text("Color Scheme");
+            fillColor
+                .range()
+                .forEach(drawLegendBar);
+            
+            function drawLegendBar(color, i) {
+                var domainValues = ["Unknown", "< $100,000", "$100,000 - $1,000,000", "> $1,000,000"];
+                legend
+                    .append('rect')
+                    .attr("width", 20)
+                    .attr("height", 20)
+                    .attr("x", 5)
+                    .attr("y", 25 + i*25)
+                    .style("fill", color);
+                legend
+                    .append('text')
+                    .attr("x", 42)
+                    .attr("y", 20 + 20 + i*25)
+                    .attr("alignment-baseline", "hanging")
+                    .attr("text-anchor", "start")
+                    .style("font-size", 16)
+                    .text(domainValues[i]);
+            }
+        }
+        
         function createGrantNodes(data) {
             var radiusScaler = createRadiusScaler();
             return data.map(nodeBuilder).sort(nodeSorter);

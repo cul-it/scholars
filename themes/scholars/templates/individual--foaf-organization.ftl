@@ -86,43 +86,52 @@
 		</#assign>
 	</#if>
 </#if>
+
 <#assign visualizationColumn >
-  <#if isAcademicDept || isCollegeOrSchool >
-  	<div id="visualization-column" class="col-sm-3 col-md-3 col-lg-3 scholars-container">
-  </#if>
-  <#if isAcademicDept || isJohnsonOrHotelSchool >
-	<div id="word_cloud_icon_holder" style="display:none">
-		<a href="#" id="word_cloud_trigger"><img width="145px" src="${urls.base}/themes/scholars/images/wordcloud-icon.png"/></a>
-		<p>Research Keywords</p>
-	</div>
-	<div <#if isJohnsonOrHotelSchool >style="display:none"</#if>>
-		<a href="${urls.base}/orgSAVisualization?deptURI=${individual.uri}"><img width="68%" src="${urls.base}/themes/scholars/images/person_sa.png"/></a>
-		<p>Research Interests</p>
-	</div>
-	<div <#if isJohnsonOrHotelSchool >style="display:none"</#if>>
-  		<a href="#" id="view_selection"><img width="40%" src="${urls.base}/themes/scholars/images/dept_grants.png"/></a>
-		<p>Grants</p>
-	</div>
-  <#elseif isCollegeOrSchool && !isJohnsonOrHotelSchool>
-	<div>
-		<img width="40%" src="${urls.base}/themes/scholars/images/dept_grants.png"/>
-		<p>Grants</p>
-	</div>
-	<div id="interd_collab_icon_holder" style="display:none">
-		<a id="interd_collab_trigger" class="jqModal" href="#"><img width="54%" src="${urls.base}/themes/scholars/images/interd_collab.png"/></a>
-		<p>Interdepartmental<br/>CoAuthorships</p>
-	</div>
-	<div id="cross_unit_collab_icon_holder" style="display:none">
-		<a id="cross_unit_collab_trigger" class="jqModal" href="#"><img width="54%" src="${urls.base}/themes/scholars/images/cross_unit_collab.png"/></a>
-		<p>Cross-unit<br/>CoAuthorships</p>
-	</div>
+  <#if isJohnsonOrHotelSchool >
+    <div id="visualization-column" class="col-sm-3 col-md-3 col-lg-3 scholars-container">
+	  <div id="word_cloud_icon_holder" style="display:none">
+        <a href="#" id="word_cloud_trigger"><img width="145px" src="${urls.base}/themes/scholars/images/wordcloud-icon.png"/></a>
+        <p>Research Keywords</p>  
+      </div>
+    </div>
+  <#elseif isAcademicDept>
+    <div id="visualization-column" class="col-sm-3 col-md-3 col-lg-3 scholars-container">
+      <div id="word_cloud_icon_holder" style="display:none">
+        <a href="#" id="word_cloud_trigger"><img width="145px" src="${urls.base}/themes/scholars/images/wordcloud-icon.png"/></a>
+        <p>Research Keywords</p>
+      </div>
+      <div>
+        <a href="${urls.base}/orgSAVisualization?deptURI=${individual.uri}"><img width="68%" src="${urls.base}/themes/scholars/images/person_sa.png"/></a>
+        <p>Research Interests</p>
+      </div>
+	  <div id="grants_icon_holder" style="display:none">
+        <a href="#" id="grants_trigger"><img width="145px" src="${urls.base}/themes/scholars/images/dept_grants.png"/></a>
+        <p>Grants</p>
+      </div>
+    </div>
+  <#elseif isCollegeOrSchool>
+    <div id="visualization-column" class="col-sm-3 col-md-3 col-lg-3 scholars-container">
+	  <div id="grants_icon_holder" style="display:none">
+        <a href="#" id="grants_trigger"><img width="145px" src="${urls.base}/themes/scholars/images/dept_grants.png"/></a>
+        <p>Grants</p>
+      </div>
+      <div id="interd_collab_icon_holder" style="display:none">
+        <a id="interd_collab_trigger" class="jqModal" href="#"><img width="54%" src="${urls.base}/themes/scholars/images/interd_collab.png"/></a>
+        <p>Interdepartmental<br/>CoAuthorships</p>
+      </div>
+      <div id="cross_unit_collab_icon_holder" style="display:none">
+        <a id="cross_unit_collab_trigger" class="jqModal" href="#"><img width="54%" src="${urls.base}/themes/scholars/images/cross_unit_collab.png"/></a>
+        <p>Cross-unit<br/>CoAuthorships</p>
+      </div>
+    </div>
   <#else>
 	<#-- Do not display anything if the individual is neither an academic department nor a college. -->
-  </#if>
-  <#if isAcademicDept || isCollegeOrSchool >
-  	</div>
+    <div id="visualization-column" class="col-sm-3 col-md-3 col-lg-3 scholars-container">
+    </div>
   </#if>
 </#assign>
+
 <#assign facultyDeptListColumn >
   <#if !isCollegeOrSchool && (facultyList?has_content || adminsGrant?has_content)>
 	<div id="foafOrgTabs" class="col-sm-8 col-md-8 col-lg-8 scholars-container <#if !showVisualizations>scholars-container-full</#if>">
@@ -290,8 +299,6 @@ $().ready(function() {
 });
 </script>
 
-<div id="grantsVis"></div>
-
 ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/keywordcloud/kwcloud.css" />')}
 <div id="word_cloud_vis">
 	<font face="Times New Roman" size="2">
@@ -334,13 +341,9 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/individual/in
 <script type="text/javascript">
     i18n_confirmDelete = "${i18n().confirm_delete}"
 </script>
-<script>
-	grantsDataDepartmentUri = "${individual.uri}"
-</script>
-
 
 ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/org-research-areas/ra.css" />',
-					'<link rel="stylesheet" href="${urls.base}/css/scholars-vis/grants/style.css" />',
+                  '<link rel="stylesheet" href="${urls.base}/css/scholars-vis/grants/bubble_chart.css" />',
 					'<link rel="stylesheet" href="${urls.base}/css/jquery_plugins/jquery.qtip.min.css" />',
 					'<link rel="stylesheet" href="${urls.base}/css/scholars-vis/jqModal.css" />')}
 
@@ -350,7 +353,8 @@ ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/or
 ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></script>',
               '<script type="text/javascript" src="${urls.base}/js/scholars-vis/scholars-vis.js"></script>',
               '<script type="text/javascript" src="${urls.base}/js/scholars-vis/grants/transform-data.js"></script>',
-              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/grants/CustomTooltip.js"></script>',
+              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/grants/grants_tooltip.js"></script>',
+              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/grants/bubble_chart_script.js"></script>'
 			'<script type="text/javascript" src="${urls.base}/js/scholars-vis/collaborations/collaborations.js"></script>',
 			'<script type="text/javascript" src="${urls.base}/js/scholars-vis/jqModal.js"></script>',
 			'<script type="text/javascript" src="${urls.base}/js/scholars-vis/rdflib.js"></script>',
@@ -435,26 +439,48 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></
 	});
 	</script>
 </#if>
+</script>
 
-<#if isAcademicDept || isJohnsonOrHotelSchool >
-	<script>
-	$().ready(function() {
-	  var wc = new ScholarsVis.DepartmentWordCloud({
-	    target : '#word_cloud_vis',
-	    modal : true,
-	    department : "${individual.uri?url}",
-	    animation : true
-	    });
-	  wc.examineData(function(data) {
-	    if (data.length > 0) {
-	      $('#word_cloud_icon_holder').show();
-	      $('#word_cloud_trigger').click(wc.show);
-	      $('#word_cloud_exporter').click(wc.showVisData);
-	    }
-	  });
+<div id="modal_grants_vis" class="dept_grants_vis" style="display:none">
+  <div id="grantsLegendDiv" class="center-block" style="width:300px; height:300px">
+  </div>
+</div>
+
+
+<script>
+  $().ready(function() {
+    if ($('#word_cloud_icon_holder')) {
+      var wc = new ScholarsVis.DepartmentWordCloud({
+        target : '#word_cloud_vis',
+        modal : true,
+        department : "${individual.uri?url}",
+        animation : true
+      });
+      wc.examineData(function(data) {
+        if (data.length > 0) {
+          $('#word_cloud_icon_holder').show();
+          $('#word_cloud_trigger').click(wc.show);
+          $('#word_cloud_exporter').click(wc.showVisData);
+        }
+      });
       new ScholarsVis.Toolbar("#word_cloud_vis", "Research Keywords");
-	});
-	</script>
-</#if>
+    }
 
+    if ($('#grants_icon_holder')) {
+      var g = new ScholarsVis.DepartmentGrants({
+        target : '#modal_grants_vis',
+        legendDiv : '#grantsLegendDiv',
+        modal : true,
+        department : "${individual.uri?url}"
+      });
+      g.examineData(function(data) {
+        if (data && data.length > 0) {
+          $('#grants_icon_holder').show();
+          $('#grants_trigger').click(g.show);
+          $('#grants_exporter').click(g.showVisData);
+        }
+      });
+      new ScholarsVis.Toolbar("#modal_grants_vis", "Browse Research");
+    }
+  });
 </script>

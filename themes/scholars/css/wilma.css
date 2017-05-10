@@ -2328,18 +2328,6 @@ div#foaf-organization-blank-row {
 	height: 100px;
 	min-height: 100px;
 }
-#org-grants-modal {
-	border-radius: 5px;
-	padding: 0; /*7px 12px 3px 12px; */
-	background-color: #fff;
-}
-.dept_collab_vis {
-    display: table;
-    height:80%;
-    width:75%;
-	z-index: 15;
-	border-radius: 5px;
-}
 .generic-page-header {
 	margin-top: 17px;
 	float: left;
@@ -2805,11 +2793,29 @@ nav#alpha-browse-container {
   margin-bottom: 8px;
 }
 
+.dept_grants_vis {
+    display: table;
+    height:80%;
+    width:75%;
+	z-index: 15;
+	border-radius: 5px;
+}
+.dept_grants_vis svg g text {
+	font-size: 80%;
+}
 
+.dept_collab_vis {
+    display: table;
+    height:80%;
+    width:75%;
+	z-index: 15;
+	border-radius: 5px;
+}
 .dept_collab_vis svg g text {
 	font-size: 80%;
 }
- .choices {
+
+.choices {
     background-color: rgba(50, 50, 50, 0.8);
     color: #DDDDDD;
     font-family: Arial;

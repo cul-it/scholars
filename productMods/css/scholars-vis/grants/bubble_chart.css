@@ -65,7 +65,7 @@ a {
   cursor: pointer;
 }
 
-#legendDiv text {
+#grantsLegendDiv text {
   font: 16px "Helvetica Neue", Helvetica, Arial, sans-serif;
   pointer-events: none;
 }

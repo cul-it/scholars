@@ -97,7 +97,7 @@ function GrantsTooltip(tooltipId, width) {
                     $("<img>", {
                         id: "closeIcon",
                         alt: "close",
-                        src: "./images/whiteX.png"
+                        src: applicationContextPath + "/images/whiteX.png"
                     }))
                 );
                 
