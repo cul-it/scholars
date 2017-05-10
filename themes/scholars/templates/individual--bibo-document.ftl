@@ -57,6 +57,7 @@
 	</#assign>
 </#if>
 <#if authorsProp?has_content && authorsProp.statements?has_content>
+	<#assign authors = [] />
 	<#assign authorList>
 		  <div class="col-sm-1 no-padding align-text-right" >
 			<span class="profile-label">Authors</span>
@@ -68,11 +69,16 @@
 		    	<#if statement.subclass?? && statement.subclass?contains("vcard")>
 					<#if statement.authorName?replace(" ","")?length == statement.authorName?replace(" ","")?last_index_of(",") + 1 >
 		        		${statement.authorName?replace(",","")}
+		        		<#assign authors = authors + [statement.authorName?trim] />
 					<#else>
-						${statement.authorName}<#if statement_has_next>,</span><#else></span></#if>
+						${statement.authorName}<#if statement_has_next>,</span>
+     					<#else></span></#if>
+     					<#assign authors = authors + [statement.authorName?trim] />
 					</#if>
 		    	<#else>
-		        	<a href="${profileUrl(statement.uri("author"))}" title="${i18n().author_name}">${statement.authorName}</a><#if statement_has_next>,</span><#else></span></#if>
+		        	<a href="${profileUrl(statement.uri("author"))}" title="${i18n().author_name}">${statement.authorName}</a>
+		        	<#if statement_has_next>,</span><#else></span></#if>
+		        	<#assign authors = authors + [statement.authorName?trim] />
 		    	</#if>
 				 
 			</#list>
@@ -530,6 +536,7 @@ var i18nStringsUriRdf = {
 
 
 <#assign pubTitle = "not found" />
+
 <#if pubVenue?has_content >
 	<#assign pubTitle = pubVenue.label />
 	<#elseif freeTextTitleStmt?has_content >
@@ -540,13 +547,19 @@ var i18nStringsUriRdf = {
 {
   "@context": "http://schema.org",
   "@type": "ScholarlyArticle",
-  "headline": "Article title (first author name)",
-  "image": {},
-  "name": "",
+  "headline": "${individual.name?replace("\"","")!} (${authors?first})",
+  "name": "${individual.name?replace("\"","")!}",
   "datePublished": "${pubDate!}",
   "pageStart": "${startPage!}",
   "pageEnd": "${endPage!}",
-  "author": "",
+  "author": [
+		<#list authors as author>
+			{
+				"@type": "Person",
+				"name": "${author}"
+			}
+			<#if author_has_next>, </#if></#list>
+		],
    "publisher": {
     "@type": "Periodical",
     "name": "${pubTitle!}"

@@ -41,4 +41,13 @@
     </#local>
     
     ${posTitle!} ${deptOrDiscipline!} ${collegeOrSchool!}   <@dt.yearIntervalSpan "${statement.dateTimeStart!}" "${statement.dateTimeEnd!}" />
+
+<script>
+  var posT = "${statement.positionTitle!statement.hrJobTitle!}";
+  var posU = "${statement.orgName!}";
+  var posD = "${statement.posnInUnitName!}";
+</script>
+
 </#macro>
+
+
