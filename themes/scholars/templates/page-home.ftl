@@ -84,7 +84,7 @@
 					<div id="visualize-content" class="row fff-bkg">
 						<div class="col-sm-3 col-md-3 col-lg-3"> 
 							<a id="person-to-sa" href="${urls.base}/orgSAVisualization">
-								<img id="homepage-viz" width="190px" src="${urls.base}/themes/scholars/images/home-person-sa.png"/>
+								<img id="vizIcon" width="190px" src="${urls.base}/themes/scholars/images/home-person-sa.png"/>
 							</a>
 							<div>
 								<p>Research Interests</p>
@@ -92,7 +92,7 @@
 						</div>
 						<div class="col-sm-3 col-md-3 col-lg-3">
 							<a href="${urls.base}/homeWordcloudVisualization">
-								<img id="homepage-viz" width="190px" src="${urls.base}/themes/scholars/images/wordcloud-icon.png"/>
+								<img id="vizIcon" width="190px" src="${urls.base}/themes/scholars/images/wordcloud-icon.png"/>
 							</a>
 							<div>
 								<p>Research Keywords</p>
@@ -100,7 +100,7 @@
 						</div>
 						<div class="col-sm-3 col-md-3 col-lg-3"> 
 							<a href="${urls.base}/homeWorldmapVisualization">
-								<img id="homepage-viz" width="190px" src="${urls.base}/themes/scholars/images/home-worldmap.png"/>
+								<img id="vizIcon" width="190px" src="${urls.base}/themes/scholars/images/home-worldmap.png"/>
 							</a>
 							<div>
 								<p>Global Collaborations</p>
@@ -108,7 +108,7 @@
 						</div>
 						<div class="col-sm-3 col-md-3 col-lg-3">
 							<a href="${urls.base}/grantsVisualization">
-								<img id="homepage-viz" width="190px" src="${urls.base}/themes/scholars/images/home-grants.png"/>
+								<img id="vizIcon" width="190px" src="${urls.base}/themes/scholars/images/home-grants.png"/>
 							</a>
 							<div>
 								<p>Research Grants</p>

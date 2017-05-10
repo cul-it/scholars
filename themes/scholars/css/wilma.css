@@ -1677,7 +1677,7 @@ ul#individual-hasResearchArea li a {
     color: #167093;
 }
 /* INDIVIDUAL VISUALIZATION ------>  */
-img#homepage-viz:hover{
+img#vizIcon:hover{
     opacity: 0.5;
     filter: alpha(opacity=50); /* For IE8 and earlier */
     transition: opacity .2s ease-out;
@@ -1685,7 +1685,7 @@ img#homepage-viz:hover{
     -webkit-transition: opacity .2s ease-out;
     -o-transition: opacity .2s ease-out;
 }
-img#homepage-viz{
+img#vizIcon-viz{
     opacity:1;
 }
 
