@@ -1,5 +1,5 @@
 function closeGrantsVis(target) {
-	$(target).children("svg").remove();
+	$(target).find("svg").remove();
 	$('#grants_tooltip').remove();
 }
 
@@ -10,7 +10,7 @@ function closeGrantsVis(target) {
  * and that each grant is represented only once. In the future, we will need to 
  * check for both of those.
  */
-function transformGrantsData(resultSet) {
+function transformGrantsData(resultSet, options) {
 	var dummyPersonDetails = {
 		"uri" : "'",
 		"name" : "not found",
@@ -33,10 +33,13 @@ function transformGrantsData(resultSet) {
 	return merged;
 
 	function matchDepartment(binding) {
-		return typeof grantsDataDepartmentUri == 'undefined'
-				|| grantsDataDepartmentUri == undefined
-				|| grantsDataDepartmentUri == ""
-				|| (binding.dept != undefined && grantsDataDepartmentUri == binding.dept.value);
+	    if (!options.department) {
+	        return true;
+	    } else if (!binding.dept) {
+	        return false;
+	    } else {
+	        return options.department == binding.dept.value;
+	    }
 	}
 
 	function transformBinding(binding) {

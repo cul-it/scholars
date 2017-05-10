@@ -2,7 +2,7 @@ ScholarsVis["SiteGrants"] = function(options) {
     var defaults = {
             url : applicationContextPath + "/api/dataRequest/grants_bubble_chart",
             transform : transformGrantsData,
-            display : displayWithControls,
+            display : displayGrantsWithControls,
             closer : closeGrantsVis,
     };
     return new ScholarsVis.Visualization(options, defaults);
@@ -12,20 +12,22 @@ ScholarsVis["DepartmentGrants"] = function(options) {
     var defaults = {
             url : applicationContextPath + "/api/dataRequest/grants_bubble_chart",
             transform : transformGrantsData,
-            display : displayWithoutControls,
+            display : displayGrantsWithoutControls,
             closer : closeGrantsVis,
     };
     return new ScholarsVis.Visualization(options, defaults);
 };
 
-function displayWithControls(json, target, options){
-    var display = new GrantsDisplay(target, options.legendDiv);
+function displayGrantsWithControls(json, target, options){
+    var mainDiv = options.mainDiv || target;
+    var display = new GrantsDisplay(mainDiv, options.legendDiv);
     new GrantsController(json, display, options);
     display.update(json);
 } 
 
-function displayWithoutControls(json, target, options){
-    var display = new GrantsDisplay(target, options.legendDiv);
+function displayGrantsWithoutControls(json, target, options){
+    var mainDiv = options.mainDiv || target;
+    var display = new GrantsDisplay(mainDiv, options.legendDiv);
     display.update(json);
 } 
 
@@ -160,9 +162,12 @@ function GrantsController(grants, display, options) {
  * @param target
  *                may be a selector or a JQuery selection. Get the element
  *                either way, so we know what we are working with.
+ * @param legend
+ *                similar
  */
-function GrantsDisplay(target, legendSelector) {
+function GrantsDisplay(target, legend) {
     var targetElem = $(target).get(0);
+    var legendElem = $(legend).get(0);
 
     var height = Math.floor($(targetElem).height());
     var width = Math.floor($(targetElem).width());
@@ -237,10 +242,13 @@ function GrantsDisplay(target, legendSelector) {
         groupBubbles();
 
         function drawLegend() {
-            var legend = d3.select(legendSelector)
+            var legendHeight = Math.floor($(legendElem).height());
+            var legendWidth = Math.floor($(legendElem).width());
+
+            var legend = d3.select(legendElem)
                 .append("svg")
-                .attr("width", 300)
-                .attr("height", 300);
+                .attr("width", legendWidth)
+                .attr("height", legendHeight);
             legend
                 .append('text')
                 .attr('x',5)

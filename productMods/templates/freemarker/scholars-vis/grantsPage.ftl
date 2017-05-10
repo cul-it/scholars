@@ -83,7 +83,7 @@
 
       </div> 
 
-      <div id="legendDiv" class="center-block"> </div>
+      <div id="grantsLegendDiv" class="center-block"> </div>
     </div>
     
     <div class="col-md-8" id="vis_holder">
@@ -125,7 +125,7 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></
     $(document).ready(function() {
 		new ScholarsVis.SiteGrants({
 		    target : '#grants_vis',
-		    legendDiv : '#legendDiv',
+		    legendDiv : '#grantsLegendDiv',
 		    personChecklistPanel: "#personChecklistPanel",
 		    unitChecklistPanel: "#unitChecklistPanel",
 		    agencyChecklistPanel: "#agencyChecklistPanel",

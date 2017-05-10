@@ -65,6 +65,20 @@ a {
   cursor: pointer;
 }
 
+#grantsMainDiv {
+ width:500px; 
+ height:500px; 
+ display: inline-block;
+}
+
+#grantsLegendDiv {
+  width: 250px;
+  height: 130px;
+  padding-top: 10px;
+  display: inline-block; 
+  vertical-align: top;
+}
+
 #grantsLegendDiv text {
   font: 16px "Helvetica Neue", Helvetica, Arial, sans-serif;
   pointer-events: none;
