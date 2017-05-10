@@ -105,8 +105,8 @@
 		<p>Grants</p>
 	</div>
   <#elseif isCollegeOrSchool && !isJohnsonOrHotelSchool>
-	<div>
-		<img id="vizIcon" width="40%" src="${urls.base}/themes/scholars/images/dept_grants.png"/>
+	<div id="grants_icon_holder" style="display:none">
+  		<a href="#" id="grants_trigger"><img id="vizIcon" width="40%" src="${urls.base}/themes/scholars/images/dept_grants.png"/></a>
 		<p>Grants</p>
 	</div>
 	<div id="interd_collab_icon_holder" style="display:none">
