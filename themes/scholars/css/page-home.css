@@ -44,32 +44,133 @@ div#logo-container {
 .image-links div.image-link-div:hover {
 	box-shadow: 10px 10px 5px #888888;
 }
+.search-links {
+	text-decoration: none;
+	color: #fff;
+	font-family: Muli, Raleway, Arial, Verdana, Helvetica, sans-serif;
+	font-weight: bold;
+	padding: 0 8px 20px 12px;
+}
+.search-links:hover {
+	color: #fff;
+	font-family: Muli, Raleway, Arial, Verdana, Helvetica, sans-serif;
+	font-weight: bold;
+}
+.search-links div.search-link-div:hover {
+	box-shadow: 10px 10px 5px #888888;
+}
+#expert-search {
+	background-color: rgba(0, 0, 0, 0.5);
+	border-radius: 10px;
+	display: none;
+	font-family: Arial,Helvetica,sans-serif;
+	text-align: center;
+	width: 100%;
+}
 #domain-experts {
-	padding: 188px 0 20px 0;
+	padding: 166px 0 20px 0;
 	margin: 0;
 	border-radius: 10px;
-	height: 260px;
+	height: 290px;
 	width: 100%;
 	background-size: cover;
 }
+#de-search-input {
+	margin-top: 5px;
+	color: #656;
+	font-size: 14px;
+	height: 32px;
+	width: 80%;
+}
+#de-search-submit {
+	background :none;
+	border: none;
+	font-size: 16px;
+	color: #fff;
+}
+#de-search-submit:hover {
+	color: #CC6949;
+}
+.search-radio-container {
+	color: #fff;
+	text-align: left;
+	margin-top: -12px;
+	padding-left: 22px;
+}
 #ongoing-research {
 	background: #fff url('../images/home-research.jpg') no-repeat center center;
-	padding: 188px 0 20px 0;
+	padding: 166px 0 20px 0;
 	margin: 0;
 	border-radius: 10px;
-	height: 260px;
+	height: 290px;
 	width: 100%;
 	background-size: cover;
 }
 #discover-scholarship {
 	background: #fff url('../images/home-cornell-scholarship.jpg') no-repeat center center;
-	padding: 188px 0 20px 0;
+	padding: 166px 0 20px 0;
 	margin: 0;
 	border-radius: 10px;
-	height: 260px;
+	height: 290px;
 	width: 100%;
 	background-size: cover;
 }
 .scholars-home-container {
 	margin: 0 20px;
+	padding-left: 6px;
+}
+#jgsm-image {
+	background: #fff url('../images/sage_hall.jpg') no-repeat center center;
+	height: 210px;
+	background-size: cover;
+}
+#eng-image {
+	background: #fff url('../images/eng_quad.jpg') no-repeat center center;
+	height: 210px;
+	background-size: cover;
+}
+#arts-image {
+	background: #fff url('../images/arts_quad.jpg') no-repeat center center;
+	height: 210px;
+	background-size: cover;
+}
+#jgsm-image:hover, #eng-image:hover, #arts-image:hover {
+	box-shadow: 10px 10px 5px #888888;
+}
+#partners-row1 {
+	margin: 30px 30px 0 30px;
+}
+#partners-row2 {
+	margin: 10px 30px 0 30px;
+}
+#partners-row3 {
+	margin:10px 30px 20px;
+}
+#jgsm-text {
+	padding-right: 5px;
+	text-align: right;
+}
+#jgsm-text p {
+	margin: 20px 0 0 0;
+	font-size: 18px;
+}
+#eng-text {
+	padding: 170px 0 0 5px;
+	text-align: left;
+}
+#eng-text p {
+	margin: 0;
+	font-size: 18px;
+}
+#arts-text {
+	text-align: center;
+	padding: 0;
+	margin: 0;
+}
+#arts-text p {
+	margin: 0;
+	font-size: 18px;
+}
+.partner-shadow {
+	box-shadow: 10px 10px 5px #888888;
 }

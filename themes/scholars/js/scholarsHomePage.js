@@ -97,5 +97,30 @@ $(document).ready(function() {
 
 	};
 	
+	$(document).ready(function() {
+		$('#expert-search-link').mouseenter(function() {
+				$('#expert-search').show("fade");
+		}).mouseleave(function() {
+				if ( $('#de-search-input').val().length < 1 ) {
+					$('#expert-search').hide("fade");
+				}
+		});
+
+		  $("#jgsm-link").mouseenter(function() {
+				$("#jgsm-image").addClass("partner-shadow");
+		  }).mouseleave(function() {
+				$("#jgsm-image").removeClass("partner-shadow");
+		  });
+		  $("#eng-link").mouseenter(function() {
+				$("#eng-image").addClass("partner-shadow");
+		  }).mouseleave(function() {
+				$("#eng-image").removeClass("partner-shadow");
+		  });
+		  $("#arts-link").mouseenter(function() {
+				$("#arts-image").addClass("partner-shadow");
+		  }).mouseleave(function() {
+				$("#arts-image").removeClass("partner-shadow");
+		  });
+	});
 
 });
