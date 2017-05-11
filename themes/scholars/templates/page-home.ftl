@@ -53,23 +53,42 @@
 								</div>
 							</div>
 						</div>
-						<div class="col-sm-4 col-md-4 col-lg-4 search-links" >
-							<a class="image-links" href="/scholars/research" >
-								<div id="discover-scholarship" class="image-link-div">
+						<div id="res-search-link" class="col-sm-4 col-md-4 col-lg-4 search-links" >
+							<#-- a class="image-links" href="/scholars/research" -->
+								<div id="discover-scholarship" class="search-link-div">
 									<div class="discovery-details">
-										<span>Explore<br/>Scholarship & Research</span>
+										<span>
+											Explore<br/>Scholarship & Research
+										</span>
+									</div>
+									<div id="research-placeholder" class="discovery-details">
+										<span>&#8212 Coming Soon &#8212</span>
 									</div>
 								</div>
-							</a>
+								<div id="research-search" style="display:none">
+									<form id="res-search-form" action="${urls.base}/domainExpert" name="search" role="search" accept-charset="UTF-8" method="POST"> 
+										<input id="res-search-vclass" type="hidden" name="vclassId" value="http://xmlns.com/foaf/0.1/Person" />
+										<input id="res-search-input" class="subject-search" type="text" name="querytext" value="${querytext!}" />
+										<input id="res-search-submit" type="submit" action="${urls.base}/domainExpert?origin=homepage" value="GO" />
+										<div class="search-radio-container">
+											<input type="radio" name="querytype" value="subject" checked> by subject or keyword
+								   			<input id="by-name-radio" type="radio" name="querytype" value="name"> by title
+								  		</div>
+									</form>
+								</div>
+							<#-- /a -->
 						</div>
-						<div class="col-sm-4 col-md-4 col-lg-4 search-links">
-							<a class="image-links" href="/scholars/research#http://vivoweb.org/ontology/core#Grant" >
-								<div id="ongoing-research" class="image-link-div">
+						<div id="unit-search-link" class="col-sm-4 col-md-4 col-lg-4 search-links">
+							<#-- a class="image-links" href="/scholars/research#http://vivoweb.org/ontology/core#Grant" -->
+								<div id="ongoing-research" class="search-link-div">
 									<div class="discovery-details">
-										<span>Review<br/>Ongoing Research</span>
+										<span>Browse<br/>Academic Units</span>
+									</div>
+									<div id="unit-placeholder" class="discovery-details">
+										<span>&#8212 Coming Soon &#8212</span>
 									</div>
 								</div>
-							</a>
+							<#-- /a -->
 						</div>
 					</div>
 				</div>
@@ -118,7 +137,7 @@
 				</div>
 
 
-				<div id="visualize-header" class="row fff-bkg">
+				<div id="partners-header" class="row fff-bkg">
 					<div class="col-sm-12 col-md-12 col-lg-12 e3e6e9-bkg">
 						<p class="home-header">
 							Partner Alliance
@@ -126,41 +145,22 @@
 					</div>
 				</div>
 				<div class="container-fluid scholars-home-container">
-					<div id="partners-row1" class="row fff-bkg">
-						<div id="jgsm-text" class="col-sm-4 col-md-4 col-lg-4"> 
-							<p><a id="jgsm-link" href="${urls.base}/display/org74741">Samuel Curtis Johnson School of Management</a></p>
+					<div id="partners-row1" class="row fff-bkg" style="margin:30px 30px 30px 30px;">
+					<div class="col-sm-4 col-md-4 col-lg-4"> 
+					  <div id="eng-text" style="padding:0 0 10px;font-size:18px;">
+						<p><a id="eng-link" href="${urls.base}/display/org73341">College of Engineering</a></p>
+					  </div>
+						<a href="${urls.base}/display/org89721">
+							<div id="eng-image" style="margin-right:-40px"> 
+							</div>
+						</a>
+					</div>
+						<div id="jgsm-text" class="col-sm-3 col-md-3 col-lg-3" style="padding-top:40px;margin-left: 40px;"> 
+							<p><a id="jgsm-link" href="${urls.base}/display/org74741">Samuel Curtis Johnson<br/>School of Management</a></p>
 						</div>
-						<div class="col-sm-4 col-md-4 col-lg-4"> 
+						<div class="col-sm-4 col-md-4 col-lg-4" style="padding-top:36px"> 
 							<a href="${urls.base}/display/org74741">
-								<div id="jgsm-image"> 
-								</div>
-							</a>
-						</div>
-						<div class="col-sm-4 col-md-4 col-lg-4"> 
-						</div>
-					</div>
-					<div id="partners-row2" class="row fff-bkg">
-						<div class="col-sm-4 col-md-4 col-lg-4"> 
-						</div>
-						<div class="col-sm-4 col-md-4 col-lg-4"> 
-						</div>
-						<div id="arts-text" class="col-sm-4 col-md-4 col-lg-4"> 
-							<p><a id="arts-link" href="${urls.base}/display/org89721">College of Arts and Sciences</a></p>
-						</div>
-					</div>
-					<div id="partners-row3" class="row fff-bkg">
-						<div class="col-sm-4 col-md-4 col-lg-4"> 
-							<a href="${urls.base}/display/org73341">
-								<div id="eng-image"> 
-								</div>
-							</a>
-						</div>
-						<div id="eng-text" class="col-sm-4 col-md-4 col-lg-4"> 
-							<p><a id="eng-link" href="${urls.base}/display/org73341">College of Engineering</a></p>
-						</div>
-						<div class="col-sm-4 col-md-4 col-lg-4"> 
-							<a href="${urls.base}/display/org89721">
-								<div id="arts-image"> 
+								<div id="jgsm-image" style="margin-right:-40px"> 
 								</div>
 							</a>
 						</div>
@@ -222,5 +222,3 @@
 		</script>
     </body>
 </html>
-
-

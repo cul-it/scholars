@@ -3197,7 +3197,7 @@ header {
 }
 #visualize-content {
 	margin:0;
-	padding:10px 0 30px 0;
+	padding:10px 0 20px 0;
 }
 #visualize-content div {
 	text-align:center;
@@ -3241,11 +3241,15 @@ header {
 }
 #visualize-header {
 	margin:0;
-	padding:40px 50px 0 50px;
+	padding:30px 50px 0 50px;
+}
+#partners-header {
+	margin:0;
+	padding:10px 50px 0 50px;
 }
 #download-header {
 	margin:0;
-	padding:10px 50px 0 50px;
+	padding:20px 50px 0 50px;
 }
 #site_collab_vis {
 	display:none;

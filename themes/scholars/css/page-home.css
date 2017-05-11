@@ -59,6 +59,20 @@ div#logo-container {
 .search-links div.search-link-div:hover {
 	box-shadow: 10px 10px 5px #888888;
 }
+#research-placeholder {
+	display:none;
+	font-style: italic;
+}
+#res-search-link:hover  #research-placeholder {
+	display:block;
+}
+#unit-placeholder {
+	display:none;
+	font-style: italic;
+}
+#unit-search-link:hover  #unit-placeholder {
+	display:block;
+}
 #expert-search {
 	background-color: rgba(0, 0, 0, 0.5);
 	border-radius: 10px;
