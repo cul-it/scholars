@@ -155,6 +155,10 @@ public class DomainExpertController extends FreemarkerHttpServlet {
  			 
              log.debug("Query text is \""+ queryText + "\""); 
   
+             if( queryType != null && queryType.equals("new")){
+                 return doNewSearch(vreq);
+             }
+
              String badQueryMsg = badQueryText( queryText, vreq );
              if( badQueryMsg != null ){
                  return doFailedSearch(badQueryMsg, queryText, format, vreq);
@@ -475,7 +479,14 @@ public class DomainExpertController extends FreemarkerHttpServlet {
     private TemplateResponseValues doNoHits(String querytext, Format f, VitroRequest vreq) {
         Map<String, Object> body = new HashMap<String, Object>();       
         body.put("title", querytext);        
-        body.put("message", "no_matches");     
+		body.put("message", "no_matches");    
+        return new TemplateResponseValues(TEMPLATE, body);        
+    }
+    
+    private TemplateResponseValues doNewSearch(VitroRequest vreq) {
+        Map<String, Object> body = new HashMap<String, Object>();       
+        body.put("title", "New Search");        
+        body.put("message", "new_search");     
         return new TemplateResponseValues(TEMPLATE, body);        
     }
     

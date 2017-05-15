@@ -3467,6 +3467,10 @@ header {
 	background-color: #fcf8e3;
 	border-color: #faf2cc;
 }
+#results-container.new-search {
+	background-color: #d9edf7;
+	border-color: #bcdff1;;
+}
 #pub-details {
 	padding: 0 0 4px 0;
 	border: 1px solid #d0e9c6;
@@ -3478,6 +3482,10 @@ header {
 }
 #no-results-text {
 	padding: 22px;
+}
+.no-results-found {
+	line-height: 20px;
+	padding-bottom: 10px;
 }
 #unmatched-term {
 	font-size: 16px;

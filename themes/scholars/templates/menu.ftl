@@ -20,7 +20,7 @@
 								<li class="browse-menu-li">
 									<h3 id="disc-header">Discovery</h3>
 									<ul id="disc-links">
-										<li><a class="browse-menu-link" href="${urls.base}/domainExpert">Find a Domain Expert</a></li>
+										<li><a class="browse-menu-link" href="${urls.base}/domainExpert?querytype=new">Find a Domain Expert</a></li>
 										<li style="letter-spacing:0">Explore Research & Scholarship</li>
 										<li style="letter-spacing:0">Browse Academic Units</li>
 									</ul>

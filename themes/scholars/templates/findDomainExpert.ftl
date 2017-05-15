@@ -37,16 +37,25 @@
   <div id="start-over" class="col-md-6">
 	<a id="start-over-link" href="javascript:return false;" title="Click to begin a new search">Start over</a>
   </div>
+<#elseif  message?? && message == "new_search">
+<div id="no-results-container" class="col-md-6">
+	<div id="results-container" class="panel panel-default new-search">
+		<div id="no-results-text">
+			<div class="no-results-found">Locate domain experts by subject or keyword, or by the person's name.</div>
+			<div class="no-results-found">Enter your own search term or select one from the list of suggestions.</div>
+		</div>
+	</div>
+</div>
 <#else>
 	<div id="no-results-container" class="col-md-6">
-		<div id="results-container" class="panel panel-default no-results" style="">
+		<div id="results-container" class="panel panel-default no-results">
       		<div id="no-results-text">
 				<#if message?? && message == "no_matches">
 					<div class="no-results-found">No results matched the term:</div>
 					<div id="unmatched-term"><span>'${title!}'</span></div>
 					<div class="no-results-found">Try another term or select one from the list of suggestions.</div>
 				<#else>
-					<#assign str = title + "test"/>
+					<#assign str = title!"" + "test"/>
 					<#if str == "test" >
 						<div class="no-results-found">Please enter a search term or select one from the list of suggestions.</div>
 					<#else>
