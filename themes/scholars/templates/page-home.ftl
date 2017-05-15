@@ -58,7 +58,7 @@
 								<div id="discover-scholarship" class="search-link-div">
 									<div class="discovery-details">
 										<span>
-											Explore<br/>Scholarship & Research
+											Explore<br/>Research & Scholarship
 										</span>
 									</div>
 									<div id="research-placeholder" class="discovery-details">
@@ -95,7 +95,7 @@
 				<div id="visualize-header" class="row fff-bkg">
 					<div class="col-sm-12 col-md-12 col-lg-12 e3e6e9-bkg">
 						<p class="home-header">
-							Visualizations and Downloads
+							Visualizations
 						</p>
 					</div>
 				</div>
