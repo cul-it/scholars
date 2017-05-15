@@ -150,7 +150,7 @@
 					  <div id="eng-text" style="padding:0 0 10px;font-size:18px;">
 						<p><a id="eng-link" href="${urls.base}/display/org73341">College of Engineering</a></p>
 					  </div>
-						<a href="${urls.base}/display/org89721">
+						<a href="${urls.base}/display/org73341">
 							<div id="eng-image" style="margin-right:-40px"> 
 							</div>
 						</a>
