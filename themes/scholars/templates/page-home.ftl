@@ -82,7 +82,7 @@
 							<#-- a class="image-links" href="/scholars/research#http://vivoweb.org/ontology/core#Grant" -->
 								<div id="ongoing-research" class="search-link-div">
 									<div class="discovery-details">
-										<span>Browse<br/>Academic Units</span>
+										<span>Review<br/>Academic Units</span>
 									</div>
 									<div id="unit-placeholder" class="discovery-details">
 										<span>&#8212 Coming Soon &#8212</span>
