@@ -3112,6 +3112,8 @@ a#author-name {
 	padding: 0 10px 0 10px;
 	letter-spacing: .2em;
 	font-size:14px;
+	border-top-left-radius: 4px;
+	border-top-right-radius: 4px;
 	
 }
 .browse-menu-li {
