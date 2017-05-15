@@ -83,6 +83,13 @@
     </owl:DatatypeProperty>
     
 
+    <!-- http://scholars.cornell.edu/ontology/hr.owl#businessTitle -->
+
+    <owl:DatatypeProperty rdf:about="http://scholars.cornell.edu/ontology/hr.owl#businessTitle">
+        <rdfs:label xml:lang="en">HR Business Title</rdfs:label>
+        <rdfs:comment xml:lang="en">Business title of the position, coming from HR intake process.</rdfs:comment>
+    </owl:DatatypeProperty>
+
 
     <!-- http://scholars.cornell.edu/ontology/hr.owl#netId -->
 
