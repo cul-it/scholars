@@ -28,7 +28,7 @@
 		<#else>
         	<nav role="navigation">
 	            <ul id="footer-controls" class="footer-menu" role="list">
-	                <li role="listitem"><a href="${urls.about}" title="about">About</a></li>
+	                <li role="listitem"><a href="${urls.index}">Index</a></li>
 	                <#if urls.contact??>
 	                    <li role="listitem"><a href="${urls.contact}" title="contact us">Contact Us</a></li>
 	                </#if> 
