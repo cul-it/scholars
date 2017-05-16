@@ -462,13 +462,22 @@ public class DomainExpertController extends FreemarkerHttpServlet {
        
 	private ExceptionResponseValues doSearchError(Throwable e, Format f) {
 	        Map<String, Object> body = new HashMap<String, Object>();
+	        body.put("title", "Search Failed");  
 	        body.put("message", "Search failed: " + e.getMessage());  
 	        return new ExceptionResponseValues("search-error.ftl", body, e);
 	    }
 
     private TemplateResponseValues doFailedSearch(String message, String querytext, Format f, VitroRequest vreq) {
-        Map<String, Object> body = new HashMap<String, Object>();       
-        body.put("title", querytext);
+        Map<String, Object> body = new HashMap<String, Object>();
+        if ( querytext == null || StringUtils.isEmpty(querytext) ) {
+			body.put("title", "No Search Term");
+	        message =  "no_search_term";
+		}
+		else {
+			body.put("title", "Search Failed");
+	        body.put("badquerytext", querytext);
+		}
+        
         if ( StringUtils.isEmpty(message) ) {
         	message = "search_failed";
         }        
@@ -478,7 +487,8 @@ public class DomainExpertController extends FreemarkerHttpServlet {
 
     private TemplateResponseValues doNoHits(String querytext, Format f, VitroRequest vreq) {
         Map<String, Object> body = new HashMap<String, Object>();       
-        body.put("title", querytext);        
+        body.put("title", "No Search Results");        
+        body.put("badquerytext", querytext);        
 		body.put("message", "no_matches");    
         return new TemplateResponseValues(TEMPLATE, body);        
     }
