@@ -59,6 +59,20 @@ div#logo-container {
 .search-links div.search-link-div:hover {
 	box-shadow: 10px 10px 5px #888888;
 }
+#research-placeholder {
+	display:none;
+	font-style: italic;
+}
+#res-search-link:hover  #research-placeholder {
+	display:block;
+}
+#unit-placeholder {
+	display:none;
+	font-style: italic;
+}
+#unit-search-link:hover  #unit-placeholder {
+	display:block;
+}
 #expert-search {
 	background-color: rgba(0, 0, 0, 0.5);
 	border-radius: 10px;
@@ -98,7 +112,7 @@ div#logo-container {
 	padding-left: 22px;
 }
 #ongoing-research {
-	background: #fff url('../images/home-research.jpg') no-repeat center center;
+	background: #fff url('../images/academic-units.jpg') no-repeat center center;
 	padding: 166px 0 20px 0;
 	margin: 0;
 	border-radius: 10px;
