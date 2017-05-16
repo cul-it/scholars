@@ -3100,7 +3100,7 @@ a#author-name {
 }
 #browse-menu {
 	position: absolute;
-	top: 57px;
+	top: 50px;
 	right: 50px;
 	z-index: 2;
 	text-transform: none;
@@ -3123,7 +3123,7 @@ a#author-name {
 #browse-menu-option:hover {
 	background-color: #f8f3dd;
 	color:	#af5a3f !important;
-	padding-bottom:	16px;
+	padding-bottom:	4px;
 }
 #browse-menu-option:hover #browse-menu{
 	display: block;
@@ -3556,4 +3556,7 @@ img.jump-to-top {
 	display: inline;
     opacity:0.8;
     filter:alpha(opacity=80);
+}
+.siteMap {
+	padding: 0 40px 40px;
 }
