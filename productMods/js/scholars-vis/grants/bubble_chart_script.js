@@ -273,7 +273,6 @@ function GrantsDisplay(target, legend) {
                     .append('text')
                     .attr("x", 42)
                     .attr("y", 20 + 20 + i*25)
-                    .attr("alignment-baseline", "hanging")
                     .attr("text-anchor", "start")
                     .style("font-size", 16)
                     .text(domainValues[i]);
