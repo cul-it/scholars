@@ -92,7 +92,7 @@ var getDomainExperts = {
     },
 
 	scrollToSearchField: function(element) {
-		var isElementVisible = getDomainExperts.isInViewport(element, true) ;
+		var isElementVisible = getDomainExperts.isInViewport(element, false) ;
 		if ( !isElementVisible ) {
 			var scrollPosition = getDomainExperts.getPageScroll();
             var containerOffset = element.offset();

@@ -3557,6 +3557,16 @@ img.jump-to-top {
     opacity:0.8;
     filter:alpha(opacity=80);
 }
+.ui-autocomplete {
+    max-height: 500px;
+	border: 1px solid #ddd;
+	background: rgb(249, 250, 249);
+	background-color: rgb(249, 250, 249);
+    overflow-y: auto;   /* prevent horizontal scrollbar */
+    overflow-x: hidden; /* add padding to account for vertical scrollbar */
+    z-index:1000 !important;
+}
+/*  scholars updates to generic pages (index, siteAdmin, etc) */
 .siteMap {
 	padding: 0 40px 40px;
 }
