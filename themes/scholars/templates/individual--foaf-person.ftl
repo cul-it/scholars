@@ -82,22 +82,27 @@ $(document).ready(function() {
 	<#assign theOrcidId = orcidID?first.orcidId! />
 </#if>
 
+<#-- Image -->           
+<#assign individualImage>
+    <@p.image individual=individual 
+              propertyGroups=propertyGroups 
+              namespaces=namespaces 
+              editable=editable 
+              showPlaceholder="always" />
+</#assign>
+<#assign hasImage = true />
+<#if ( individualImage?contains('<img class="individual-photo"') )>
+    <#assign infoClass = 'withThumb'/>
+</#if>
+<#if ( individualImage?contains('placeholder') && !editable )>
+    <#assign infoClass = ''/>
+	<#assign hasImage = false />
+</#if>
+
 <#-- The row1 div contains the top portion of the profile page: name, photo, icon controls, positions -->
 <div id="row1" class="row scholars-row">
 <div itemscope itemtype="http://schema.org/Person" class="col-sm-12 col-md-12 col-lg-12 scholars-container" id="foafPersonMainColumn">
-<section id="share-contact" role="region"> 
-    <#-- Image -->           
-    <#assign individualImage>
-        <@p.image individual=individual 
-                  propertyGroups=propertyGroups 
-                  namespaces=namespaces 
-                  editable=editable 
-                  showPlaceholder="always" />
-    </#assign>
-
-    <#if ( individualImage?contains('<img class="individual-photo"') )>
-        <#assign infoClass = 'withThumb'/>
-    </#if>
+<section id="share-contact" role="region" <#if !hasImage >style="display:none"</#if>> 
 
     <div id="photo-wrapper" >${individualImage}</div>
     
