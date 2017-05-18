@@ -33,14 +33,14 @@
 :data_distributor_collab_us_json
     a   <java:edu.cornell.library.scholars.webapp.controller.api.distribute.DataDistributor> ,
         <java:edu.cornell.library.scholars.webapp.controller.api.distribute.FileDistributor> ;
-    :path "visualizationData/ExternalCollaborations-StateUpdated.json" ;
+    :path "visualizationData/ExternalCollaborations-State.json" ;
     :contentType "application/json" .
 
 :data_distributor_collab_world_json :actionName "collabworld" .
 :data_distributor_collab_world_json
     a   <java:edu.cornell.library.scholars.webapp.controller.api.distribute.DataDistributor> ,
         <java:edu.cornell.library.scholars.webapp.controller.api.distribute.FileDistributor> ;
-    :path "visualizationData/ExternalCollaborations-CountryUpdated.json" ;
+    :path "visualizationData/ExternalCollaborations-Country.json" ;
     :contentType "application/json" .
 
 

@@ -133,14 +133,33 @@ function drawCountryMap(articles) {
             var topResearchers = authorCounter(researchersList).filter(hasURI);
             //console.log(topResearchers);
             d3.select("#researchers1").selectAll("p").remove();
-            d3.select("#researchers1").selectAll("p").data(topResearchers).enter().append("p").attr("class", "linked").append("a").attr("href", d=>d.uri).html(d=>"<span class='long-name'>"+ d.name + "</span><span class='counts'>(" + d.count + ") </span>"); 
+            
+            //This is for presenting the persons with the links
+            //d3.select("#researchers1").selectAll("p")
+            //    .data(topResearchers).enter()
+            //        .append("p").attr("class", "linked")
+            //        .append("a").attr("href", d=>d.uri).html(d=>"<span class='long-name'>"+ d.name + "</span><span class='counts'>(" + d.count + ") </span>"); 
+            
+            // This is for presenting the persons with no links
+            d3.select("#researchers1").selectAll("p")
+                .data(topResearchers).enter()
+                    .append("p").attr("class", "unlinked").html(d=>"<span class='long-name'>"+ d.name + "</span><span class='counts'>(" + d.count + ") </span>"); 
+            
+            
             var institutionList = arts.map(oneAuthor).reduce((a,b)=>a.concat(b)).filter(correctState);
             var topInstitutions = institutionCounter(institutionList).filter(containsCornell);
+            
             d3.select("#institutions").selectAll("p").remove();
-            d3.select("#institutions").selectAll("p").data(topInstitutions).enter().append("p").attr("class", returnLink).append("a").attr("href", d=>d.uri).attr("target", "_blank").html(d=>"<span class='long-name'>"+ d.name + "</span><span class='counts'>(" + d.count + ") </span>"); 
+            
+            //This is for presenting the institutions with the links
+            //d3.select("#institutions").selectAll("p")
+            //    .data(topInstitutions).enter().append("p").attr("class", returnLink)
+            //    .append("a").attr("href", d=>d.uri).attr("target", "_blank").html(d=>"<span class='long-name'>"+ d.name + "</span><span class='counts'>(" + d.count + ") </span>"); 
             
             // This is for presenting the institutions with no links
-            //d3.select("#institutions").selectAll("p").data(topInstitutions).enter().append("p").attr("class", "unlinked").html(d=>"<span class='long-name'>"+ d.name + "</span><span class='counts'>(" + d.count + ") </span>"); 
+            d3.select("#institutions").selectAll("p")
+                .data(topInstitutions).enter()
+                .append("p").attr("class", "unlinked").html(d=>"<span class='long-name'>"+ d.name + "</span><span class='counts'>(" + d.count + ") </span>"); 
 
             d3.select("#bigCounts").html(d=>"("+arts.length+")");
 
@@ -578,25 +597,41 @@ function drawWorldMap(data) {
             var topResearchers = authorCounter(researchersList).filter(hasURI);
             //console.log(topResearchers);
             d3.select("#researchers1").selectAll("p").remove();
+            
+            // This is for the linked persons
+            // d3.select("#researchers1").selectAll("p")
+            //     .data(topResearchers).enter()
+            //     .append("p")
+            //     .attr("class", "linked")
+            //     .append("a").attr("href", d=>d.uri).html(d=>"<span class='long-name'>"+ d.name + "</span><span class='counts'>(" + d.count + ") </span>"); 
+
+            // This is for the unlinked persons
             d3.select("#researchers1").selectAll("p")
                 .data(topResearchers).enter()
                 .append("p")
-                .attr("class", "linked")
-                .append("a").attr("href", d=>d.uri).html(d=>"<span class='long-name'>"+ d.name + "</span><span class='counts'>(" + d.count + ") </span>"); 
+                .attr("class", "unlinked")
+                .html(d=>"<span class='long-name'>"+ d.name + "</span><span class='counts'>(" + d.count + ") </span>"); 
+
+
+
 
             var institutionList = arts.map(oneAuthor).reduce((a,b)=>a.concat(b)).filter(correctCountry);
             var topInstitutions = institutionCounter(institutionList).filter(containsCornell);
             d3.select("#institutions").selectAll("p").remove();
-            d3.select("#institutions").selectAll("p")
-                .data(topInstitutions).enter()
-                .append("p").attr("class", returnLink)
-                .append("a").attr("href", d=>d.uri).attr("target", "_blank").html(d=>"<span class='long-name'>"+ d.name + "</span><span class='counts'>(" + d.count + ") </span>"); 
-
-            // This is for presenting the institutions with no links
+            
+            // This is for the linked institutions
             // d3.select("#institutions").selectAll("p")
             //     .data(topInstitutions).enter()
-            //     .append("p").attr("class", "unlinked")
-            //     .html(d=>"<span class='long-name'>"+ d.name + "</span><span class='counts'>(" + d.count + ") </span>"); 
+            //     .append("p").attr("class", returnLink)
+            //     .append("a").attr("href", d=>d.uri).attr("target", "_blank").html(d=>"<span class='long-name'>"+ d.name + "</span><span class='counts'>(" + d.count + ") </span>"); 
+
+            // This is for presenting the institutions with no links
+             d3.select("#institutions").selectAll("p")
+                .data(topInstitutions).enter()
+                .append("p")
+                .attr("class", "unlinked")
+                .html(d=>"<span class='long-name'>"+ d.name + "</span><span class='counts'>(" + d.count + ") </span>"); 
+
 
             d3.select("#bigCounts").html(d=>"("+arts.length+")");
 
