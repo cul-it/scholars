@@ -36,7 +36,7 @@
     a   <java:edu.cornell.library.scholars.webapp.controller.api.distribute.DataDistributor> ,
         <java:edu.cornell.library.scholars.webapp.controller.api.distribute.FileDistributor> ;
     :actionName "grants_bubble_chart" ;
-    :path "visualizationData/fake_grants_select_results.json" ;
+    :path "visualizationData/grants_select_results.json" ;
     :contentType "application/sparql-results+json" .
 
 #
