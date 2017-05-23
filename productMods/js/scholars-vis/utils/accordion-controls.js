@@ -70,7 +70,8 @@ var AccordionControls = (function() {
         return {
             loadData: loadData,
             loadFromDataRequest: loadFromDataRequest,
-            collapse: collapse
+            collapse: collapse,
+            clearSelection: clearSelection
         };
         
         function showMatchingItems() {
@@ -94,7 +95,21 @@ var AccordionControls = (function() {
             .enter()
             .append("li")
             .text(d=>d.label)
-            .on("click", selectionCallback);
+            .on("click.show", showSelection)
+            .on("click.callback", selectionCallback)
+        }
+        
+        function showSelection(d, i, nodes) {
+            clearSelection();
+            d3.select(this)
+            .classed("current", true);
+        }
+        
+        function clearSelection() {
+            d3.select(mainElementId)
+            .select("#selector")
+            .selectAll("li")
+            .classed("current", false);
         }
         
         /* Is this done properly? Should the mapper function be a parameter? */
@@ -240,7 +255,7 @@ var AccordionControls = (function() {
      * Within the main element, display a range slider (two handles). When a 
      * handle is moved, execute the callback function.
      * 
-     * mainElementId -- a d3 selector string
+     * panelSelector -- a CSS selector string
      * 
      * changeCallback -- a function to be called when the user moves a handle
      * 
@@ -251,6 +266,8 @@ var AccordionControls = (function() {
      *     
      * getCurrentValues() -- returns an array reflecting the current positions 
      *     of the handles.
+     *     
+     * reset() -- restore the handles to their original positions.
      * 
      * expand() -- open the selection panel
      * 
@@ -269,7 +286,10 @@ var AccordionControls = (function() {
 
         return {
             setRange: setRange,
-            getCurrentValues: getCurrentValues
+            getCurrentValues: getCurrentValues,
+            reset: resetHandles,
+            expand: expand,
+            collapse: collapse
         }
         
         function initialize() {
@@ -278,7 +298,7 @@ var AccordionControls = (function() {
                     'min': 1,
                     'max': 100
                 },
-                start: [ 1, 100],
+                start: [1, 100],
                 connect: true,
                 step: 1,
                 tooltips: true,
@@ -301,6 +321,12 @@ var AccordionControls = (function() {
 
         function getCurrentValues() {
             return sliderDiv.noUiSlider.get();
+        }
+        
+        function resetHandles() {
+            // Can't simply use reset() because the start values are still [1, 100], in spite of updateOptions()
+            var range = sliderDiv.noUiSlider.options.range;
+            sliderDiv.noUiSlider.set([range.min, range.max]);
         }
         
         function expand() {
