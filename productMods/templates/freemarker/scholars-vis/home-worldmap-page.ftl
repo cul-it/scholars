@@ -64,14 +64,24 @@
 			</div>
 			<div class="col-md-8 container">
 			<div id="mapViz">
-				<div id="info_icon_text" style="display:none">
-          			This global collaborations.
-        		</div>
 				<h5 class="normal"> Now Showing: <span id="nowShowing">All</span></h5>
 				<form class="form-inline">
 					<label class="radio-inline"><input type="radio" name="map" value="world" checked>World Map</label>
 					<label class="radio-inline" id="usa-label"><input type="radio" name="map" value="usa">USA Map</label>
 				</form>
+
+				<div id="info_icon_text" style="display:none">
+          			<p>
+            			This visualization presents the national and the international level co-authorships of Cornell faculty and researchers. The global co-authorships were identified from the affiliation data attached to the citation of a publication. While the visualization starts with co-authorships for all the Cornell academic units, one can filter the data by selecting either a specific academic unit, subject area or the publication year range. 
+          			</p>
+          			<p>
+            			Clicking on a country (in the country map) or a state (in the USA map) opens a side panel presenting the featured Cornell faculty/researchers and the featured institutions from the selected country/state. The color scheme in left panel of the page reveals the range of the co-authorship counts.  
+          			</p>
+          			<hr> 
+          			<p>
+            			Note: This information is based solely on publications that have been loaded into the system.
+          			</p> 
+        		</div>
 			</div>
 		</div>
 		<div class="closed" id="rh-panel">
@@ -120,6 +130,6 @@
 			
 		});
 		$().ready(function() {
-  			new ScholarsVis.Toolbar("#mapVis");
+  			new ScholarsVis.Toolbar("#mapViz", "Global Collaborations");
 		});
 	</script>
