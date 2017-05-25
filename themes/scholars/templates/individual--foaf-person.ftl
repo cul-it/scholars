@@ -200,7 +200,7 @@ $(document).ready(function() {
 <#else>
 <div id="foaf-person-blank-row" class="row scholars-row"></div>
 </#if>
-<div id="word_cloud_vis">
+<div id="word_cloud_vis" class="vis_modal" style"display:none;">
 	<font face="Times New Roman" size="2">
 	<span><i>Click on a keyword to view the list of the related publications.</i></span>
     <br>
