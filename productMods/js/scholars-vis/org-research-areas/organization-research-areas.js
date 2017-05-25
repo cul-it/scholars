@@ -156,7 +156,7 @@ function plotConceptMap(flaredata, target) {
 		// document.body.clientHeight;
 		var a = width, c = height, h = c, U = 180, // width of the person
 													// fields.
-		K = 17, // height of the person field area.
+		K = 20, // height of the person field area.
 		S = 20, s = 8, R = -15, // Radius for node circle 110
 		J = 30, o = 15, // placement
 		t = 10, w = 1000, F = "elastic", N = "#0da4d3";
