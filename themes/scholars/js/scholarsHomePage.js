@@ -106,6 +106,14 @@ $(document).ready(function() {
 				}
 		});
 
+		$('#res-search-link').mouseenter(function() {
+				$('#research-search').show("fade");
+		}).mouseleave(function() {
+				if ( $('#res-search-input').val().length < 1 ) {
+					$('#research-search').hide("fade");
+				}
+		});
+
 		  $("#jgsm-link").mouseenter(function() {
 				$("#jgsm-image").addClass("partner-shadow");
 		  }).mouseleave(function() {

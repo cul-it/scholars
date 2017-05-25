@@ -67,8 +67,12 @@ public interface ShortViewService {
 	 * The available contexts for short views.
 	 */
 	public enum ShortViewContext {
-		SEARCH("view-search-default.ftl"), INDEX("view-index-default.ftl"), BROWSE(
-				"view-browse-default.ftl"), EXPERTS("view-experts-default.ftl");
+		SEARCH("view-search-default.ftl"), 
+		INDEX("view-index-default.ftl"), 
+		BROWSE("view-browse-default.ftl"), 
+		EXPERTS("view-experts-default.ftl"),
+		PUBLICATIONS("view-publications-default.ftl"),
+		RESEARCH("view-research-default.ftl");
 
 		private final String defaultTemplateName;
 

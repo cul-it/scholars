@@ -40,11 +40,11 @@
 										Find a<br/>Domain Expert
 									</span>
 								</div>
-								<div id="expert-search" >
+								<div id="expert-search" class="home-search-container">
 									<form id="de-search-form" action="${urls.base}/domainExpert" name="search" role="search" accept-charset="UTF-8" method="POST"> 
-										<input id="de-search-vclass" type="hidden" name="vclassId" value="http://xmlns.com/foaf/0.1/Person" />
-										<input id="de-search-input" class="subject-search" type="text" name="querytext" value="${querytext!}" />
-										<input id="de-search-submit" type="submit" action="${urls.base}/domainExpert?origin=homepage" value="GO" />
+										<input id="de-search-vclass" type="hidden" name="vclassId" value="http://purl.obolibrary.org/obo/BFO_0000002" />
+										<input id="de-search-input" class="home-search-input subject-search" type="text" name="querytext" value="${querytext!}" />
+										<input id="de-search-submit" class="home-page-submit" type="submit" action="${urls.base}/domainExpert?origin=homepage" value="GO" />
 										<div class="search-radio-container">
 											<input type="radio" name="querytype" value="subject" checked> by subject or keyword
 								   			<input id="by-name-radio" type="radio" name="querytype" value="name"> by name
@@ -54,29 +54,24 @@
 							</div>
 						</div>
 						<div id="res-search-link" class="col-sm-4 col-md-4 col-lg-4 search-links" >
-							<#-- a class="image-links" href="/scholars/research" -->
 								<div id="discover-scholarship" class="search-link-div">
 									<div class="discovery-details">
 										<span>
 											Explore<br/>Research & Scholarship
 										</span>
 									</div>
-									<div id="research-placeholder" class="discovery-details">
-										<span>&#8212 Coming Soon &#8212</span>
+									<div id="research-search" class="home-search-container">
+										<form id="res-search-form" action="${urls.base}/scholarship" name="search" role="search" accept-charset="UTF-8" method="POST"> 
+											<input id="res-search-vclass" type="hidden" name="vclassId" value="http://xmlns.com/foaf/0.1/Person" />
+											<input id="res-search-input" class="home-search-input subject-search" type="text" name="querytext" value="${querytext!}" />
+											<input id="res-search-submit" class="home-page-submit" type="submit" action="${urls.base}/domainExpert?origin=homepage" value="GO" />
+											<div class="search-radio-container" style="display:none">
+												<input type="radio" name="querytype" value="subject" checked> by subject or keyword
+									   			<input id="by-name-radio" type="radio" name="querytype" value="name"> by person
+									  		</div>
+										</form>
 									</div>
 								</div>
-								<div id="research-search" style="display:none">
-									<form id="res-search-form" action="${urls.base}/domainExpert" name="search" role="search" accept-charset="UTF-8" method="POST"> 
-										<input id="res-search-vclass" type="hidden" name="vclassId" value="http://xmlns.com/foaf/0.1/Person" />
-										<input id="res-search-input" class="subject-search" type="text" name="querytext" value="${querytext!}" />
-										<input id="res-search-submit" type="submit" action="${urls.base}/domainExpert?origin=homepage" value="GO" />
-										<div class="search-radio-container">
-											<input type="radio" name="querytype" value="subject" checked> by subject or keyword
-								   			<input id="by-name-radio" type="radio" name="querytype" value="name"> by title
-								  		</div>
-									</form>
-								</div>
-							<#-- /a -->
 						</div>
 						<div id="unit-search-link" class="col-sm-4 col-md-4 col-lg-4 search-links">
 							<#-- a class="image-links" href="/scholars/research#http://vivoweb.org/ontology/core#Grant" -->

@@ -15,6 +15,7 @@
 @prefix display: <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#> .
 @prefix datagetters: <java:edu.cornell.mannlib.vitro.webapp.utils.dataGetter.> .
 @prefix mydomain: <http://localhost:8080/individual/> .
+@prefix obo:      <http://purl.obolibrary.org/obo/> .
 
 vivo:FacultyMember
         display:hasCustomView mydomain:peopleSearchView ;
@@ -45,6 +46,30 @@ vivo:EmeritusFaculty
         display:hasCustomView mydomain:peopleIndexView ;
         display:hasCustomView mydomain:peopleBrowseView ;
         display:hasCustomView mydomain:peopleExpertsView .
+
+obo:IAO_0000013
+		display:hasCustomView mydomain:articlesPublicationsView .
+        
+vivo:Contract
+		display:hasCustomView mydomain:grantsResearchView .
+
+vivo:Grant
+		display:hasCustomView mydomain:grantsResearchView .
+
+
+mydomain:articlesPublicationsView
+	a display:customViewForIndividual ;
+	display:appliesToContext "PUBLICATIONS" ;
+	display:hasTemplate "view-publications-default.ftl" ;
+	display:hasDataGetter mydomain:articleDetailsDG ;
+	display:hasDataGetter mydomain:articleAuthorsDG .
+
+mydomain:grantsResearchView
+	a display:customViewForIndividual ;
+	display:appliesToContext "RESEARCH" ;
+	display:hasTemplate "view-research-default.ftl" ;
+	display:hasDataGetter mydomain:grantContractDetailsDG ;
+	display:hasDataGetter mydomain:grantContractInvestigatorsDG .
 
 mydomain:peopleSearchView
 	a display:customViewForIndividual ;
@@ -224,6 +249,124 @@ mydomain:expertsPubCountDG
 	  }
 	  
 	}
-
-
+	
 	""" .
+
+mydomain:articleDetailsDG
+	a datagetters:SparqlQueryDataGetter ;
+	display:saveToVar "articleDetails" ;
+	display:query """
+PREFIX rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX vivo: <http://vivoweb.org/ontology/core#>
+PREFIX vivoc:    <http://scholars.cornell.edu/ontology/vivoc.owl#>
+PREFIX bibo:     <http://purl.org/ontology/bibo/>
+PREFIX obo:      <http://purl.obolibrary.org/obo/>
+SELECT ?label ?vol ?start ?end ?year ?pmid ?doi ?journal ?freeTextTitle 
+WHERE
+{
+?individualUri rdf:type obo:IAO_0000013 . 
+?individualUri rdfs:label ?label .
+OPTIONAL { ?individualUri bibo:doi ?doi }
+OPTIONAL { ?individualUri bibo:pmid ?pmid }
+OPTIONAL { ?individualUri bibo:volume ?vol }
+OPTIONAL {?individualUri bibo:pageStart ?start }
+OPTIONAL {?individualUri bibo:pageEnd ?end }
+OPTIONAL { ?individualUri vivoc:freetextJournalTitle ?freeTextTitle }
+OPTIONAL
+{
+?individualUri vivo:hasPublicationVenue ?publishedIn .
+?publishedIn  rdfs:label ?journal .
+}
+OPTIONAL
+{
+?individualUri vivo:dateTimeValue ?dateTimeValue .
+?dateTimeValue vivo:dateTime ?year .
+}
+}
+	""" .
+
+mydomain:articleAuthorsDG
+	a datagetters:SparqlQueryDataGetter ;
+	display:saveToVar "articleAuthors" ;
+	display:query """
+	PREFIX rdfs:     <http://www.w3.org/2000/01/rdf-schema#>
+	PREFIX foaf:     <http://xmlns.com/foaf/0.1/>
+	PREFIX vcard:    <http://www.w3.org/2006/vcard/ns#>
+	PREFIX vivo:     <http://vivoweb.org/ontology/core#>
+
+	SELECT ?rank ?author (str(?authorName) as ?name) ?type
+	WHERE
+	{{
+	       ?individualUri vivo:relatedBy ?authorship .
+	       ?authorship a vivo:Authorship .
+	       ?authorship vivo:rank ?rank .
+	       ?authorship vivo:relates ?author .
+	       ?author a foaf:Agent .
+	       ?author rdfs:label ?authorName .
+	       bind (str("person") AS ?type)
+	} UNION {
+	       ?individualUri vivo:relatedBy ?authorship .
+	       ?authorship a vivo:Authorship .
+	       ?authorship vivo:rank ?rank .
+	       ?authorship vivo:relates ?author .
+           ?authorship rdfs:label ?authorName . 
+	       ?author a vcard:Kind .
+		   bind (str("vcard") AS ?type)
+	}
+	}
+	ORDER BY ?rank
+	""" .
+
+mydomain:grantContractDetailsDG
+	a datagetters:SparqlQueryDataGetter ;
+	display:saveToVar "grantContractDetails" ;
+	display:query """
+	PREFIX rdfs:     <http://www.w3.org/2000/01/rdf-schema#>
+	PREFIX foaf:     <http://xmlns.com/foaf/0.1/>
+	PREFIX obo:      <http://purl.obolibrary.org/obo/>
+	PREFIX vivo:     <http://vivoweb.org/ontology/core#>
+	SELECT DISTINCT ?adminOrg ?orgLabel ?funder ?start ?end
+	WHERE
+	{
+	      ?individualUri vivo:relates ?adminRole .
+	      ?adminRole a vivo:AdministratorRole .
+	      ?adminRole obo:RO_0000052 ?adminOrg .
+	      ?adminOrg rdfs:label ?orgLabel .
+		  ?individualUri vivo:assignedBy ?fundingOrg .
+		  ?fundingOrg rdfs:label ?funder .
+	      ?individualUri vivo:dateTimeInterval ?dtv .
+	      ?dtv vivo:start ?startDate .
+	      ?startDate vivo:dateTime ?start .
+	      ?dtv vivo:end ?endDate .
+	      ?endDate vivo:dateTime ?end .
+	}
+	""" .
+
+mydomain:grantContractInvestigatorsDG
+	a datagetters:SparqlQueryDataGetter ;
+	display:saveToVar "grantContractInvestigators" ;
+	display:query """
+	PREFIX rdfs:     <http://www.w3.org/2000/01/rdf-schema#>
+	PREFIX foaf:     <http://xmlns.com/foaf/0.1/>
+	PREFIX obo:      <http://purl.obolibrary.org/obo/>
+	PREFIX vivo:     <http://vivoweb.org/ontology/core#>
+	SELECT DISTINCT ?person ?personLabel ?type
+	WHERE
+	{{
+	      ?individualUri vivo:relates ?piRole .
+	       ?piRole a vivo:PrincipalInvestigatorRole .
+	       ?piRole obo:RO_0000052 ?person .
+	       ?person  rdfs:label ?personLabel .
+           bind (str("1-PI") AS ?type )
+	} UNION {
+	       ?individualUri vivo:relates ?piRole .
+	       ?piRole a vivo:CoPrincipalInvestigatorRole .
+	       ?piRole obo:RO_0000052 ?person .
+	       ?person  rdfs:label ?personLabel .
+           bind (str("2-Co-PI") AS ?type )
+     }
+     }
+     ORDER BY ?type ?personLabel
+	""" .
+	
