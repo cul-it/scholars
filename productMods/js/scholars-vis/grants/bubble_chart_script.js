@@ -89,9 +89,13 @@ function GrantsController(grants, display, options) {
     }
     
     function ignoreCaseSort(a, b) {
-        var aa = a.label.toUpperCase();
-        var bb = b.label.toUpperCase();
-        return (aa < bb) ? -1 : (aa > bb) ? 1 : 0;
+        var al = a.label.toUpperCase();
+        var bl = b.label.toUpperCase();
+        return (al < bl) ? -1 : 
+            (al > bl) ? 1 : 
+                (a.uri < b.uri) ? -1 : 
+                    (a.uri > b.uri) ? 1 : 
+                        0;
     }
     
     function uniqueUris(element, index, array) {
