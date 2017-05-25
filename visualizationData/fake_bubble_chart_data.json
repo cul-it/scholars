@@ -1,0 +1,76 @@
+[
+	{
+		"text" : "Books",
+		"count" : "236",
+		"children" : [
+				{
+					"name" : "book1",
+					"url" : "http://dev.scholars.cornell.edu/scholars/display/UR-92028"
+				},
+				{
+					"name" : "book2",
+					"url" : "http://dev.scholars.cornell.edu/scholars/display/UR-92028"
+				},
+				{
+					"name" : "book3",
+					"url" : "http://dev.scholars.cornell.edu/scholars/display/UR-92028"
+				} ]
+	},
+	{
+		"text" : "Journal Articles",
+		"count" : "382",
+		"children" : [
+				{
+					"name" : "A Cysteine Protease Inhibitor Protects Dogs from Cardiac Damage during Infection by Trypanosoma cruzi",
+					"url" : "http://dev.scholars.cornell.edu/scholars/display/UR-13446",
+					"citations" : 7
+				},
+				{
+					"name" : "A Discussion on Mean Excess Plots",
+					"url" : "http://dev.scholars.cornell.edu/scholars/display/UR-74175",
+					"citations" : 8
+				},
+				{
+					"name" : "Bull Sperm Binding to Oviductal Epithelium Is Mediated by a Ca2+-Dependent Lectin on Sperm That Recognizes Lewis-a Trisaccharide",
+					"url" : "http://dev.scholars.cornell.edu/scholars/display/UR-12171",
+					"citations" : 5
+				},
+				{
+					"name" : "Ceftiofur-Resistant Salmonella Strains Isolated from Dairy Farms Represent Multiple Widely Distributed Subtypes That Evolved by Independent Horizontal Gene Transfer",
+					"url" : "http://dev.scholars.cornell.edu/scholars/display/UR-15153",
+					"citations" : 17
+				},
+				{
+					"name" : "Photovoltaic Effects in BiFeO3",
+					"url" : "http://dev.scholars.cornell.edu/scholars/display/UR-363735",
+					"citations" : 2
+				},
+				{
+					"name" : "Disease Severity in a Mouse Model of Ataxia Talangiectasia is Modulated by the DNA Damage Checkpoint Gene Hus1",
+					"url" : "http://dev.scholars.cornell.edu/scholars/display/UR-11391",
+					"citations" : 0
+				} ]
+	}, {
+		"text" : "Conference Papers",
+		"count" : "120"
+	}, {
+		"text" : "Persons",
+		"count" : "123"
+	}, {
+		"text" : "Posters",
+		"count" : "12"
+	}, {
+		"text" : "Chapters",
+		"count" : "170"
+	}, {
+		"text" : "Thesis",
+		"count" : "382"
+	}, {
+		"text" : "Collections",
+		"count" : "10"
+	}, {
+		"text" : "Grant",
+		"count" : "170"
+	}
+]
+								

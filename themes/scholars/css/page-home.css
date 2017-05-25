@@ -1,0 +1,190 @@
+* {
+	box-sizing:border-box;
+}
+#nav-bar.homepage {
+	position: absolute;
+	bottom: 80px;
+}
+.fixed {
+	position: fixed !important;
+	top: 0;
+}
+.pages a {
+	color: #fff;
+}
+.pages a:hover {
+	color: #CC6949;
+	text-decoration: none !important;
+}
+#stats {
+	width:	100%;
+}
+div#logo-container {
+	position:fixed;
+	top:26px;
+	left:26px;
+	z-index:2;
+}
+#nav-bar.basepage {
+	position: fixed !important;
+	top: 0;
+}
+.image-links {
+	text-decoration: none;
+	color: #fff;
+	font-family: Muli, Raleway, Arial, Verdana, Helvetica, sans-serif;
+	font-weight: bold;
+}
+.image-links:hover {
+	text-decoration: underline;
+	color: #fff;
+	font-family: Muli, Raleway, Arial, Verdana, Helvetica, sans-serif;
+	font-weight: bold;
+}
+.image-links div.image-link-div:hover {
+	box-shadow: 10px 10px 5px #888888;
+}
+.search-links {
+	text-decoration: none;
+	color: #fff;
+	font-family: Muli, Raleway, Arial, Verdana, Helvetica, sans-serif;
+	font-weight: bold;
+	padding: 0 8px 20px 12px;
+}
+.search-links:hover {
+	color: #fff;
+	font-family: Muli, Raleway, Arial, Verdana, Helvetica, sans-serif;
+	font-weight: bold;
+}
+.search-links div.search-link-div:hover {
+	box-shadow: 10px 10px 5px #888888;
+}
+#research-placeholder {
+	display:none;
+	font-style: italic;
+}
+#res-search-link:hover  #research-placeholder {
+	display:block;
+}
+#unit-placeholder {
+	display:none;
+	font-style: italic;
+}
+#unit-search-link:hover  #unit-placeholder {
+	display:block;
+}
+#expert-search {
+	background-color: rgba(0, 0, 0, 0.5);
+	border-radius: 10px;
+	display: none;
+	font-family: Arial,Helvetica,sans-serif;
+	text-align: center;
+	width: 100%;
+}
+#domain-experts {
+	padding: 166px 0 20px 0;
+	margin: 0;
+	border-radius: 10px;
+	height: 290px;
+	width: 100%;
+	background-size: cover;
+}
+#de-search-input {
+	margin-top: 5px;
+	color: #656;
+	font-size: 14px;
+	height: 32px;
+	width: 80%;
+}
+#de-search-submit {
+	background :none;
+	border: none;
+	font-size: 16px;
+	color: #fff;
+}
+#de-search-submit:hover {
+	color: #CC6949;
+}
+.search-radio-container {
+	color: #fff;
+	text-align: left;
+	margin-top: -12px;
+	padding-left: 22px;
+}
+#ongoing-research {
+	background: #fff url('../images/academic-units.jpg') no-repeat center center;
+	padding: 166px 0 20px 0;
+	margin: 0;
+	border-radius: 10px;
+	height: 290px;
+	width: 100%;
+	background-size: cover;
+}
+#discover-scholarship {
+	background: #fff url('../images/home-cornell-scholarship.jpg') no-repeat center center;
+	padding: 166px 0 20px 0;
+	margin: 0;
+	border-radius: 10px;
+	height: 290px;
+	width: 100%;
+	background-size: cover;
+}
+.scholars-home-container {
+	margin: 0 20px;
+	padding-left: 6px;
+}
+#jgsm-image {
+	background: #fff url('../images/sage_hall.jpg') no-repeat center center;
+	height: 210px;
+	background-size: cover;
+}
+#eng-image {
+	background: #fff url('../images/eng_quad.jpg') no-repeat center center;
+	height: 210px;
+	background-size: cover;
+}
+#arts-image {
+	background: #fff url('../images/arts_quad.jpg') no-repeat center center;
+	height: 210px;
+	background-size: cover;
+}
+#jgsm-image:hover, #eng-image:hover, #arts-image:hover {
+	box-shadow: 10px 10px 5px #888888;
+}
+#partners-row1 {
+	margin: 30px 30px 0 30px;
+}
+#partners-row2 {
+	margin: 10px 30px 0 30px;
+}
+#partners-row3 {
+	margin:10px 30px 20px;
+}
+#jgsm-text {
+	padding-right: 5px;
+	text-align: right;
+}
+#jgsm-text p {
+	margin: 20px 0 0 0;
+	font-size: 18px;
+}
+#eng-text {
+	padding: 170px 0 0 5px;
+	text-align: left;
+}
+#eng-text p {
+	margin: 0;
+	font-size: 18px;
+}
+#arts-text {
+	text-align: center;
+	padding: 0;
+	margin: 0;
+}
+#arts-text p {
+	margin: 0;
+	font-size: 18px;
+}
+.partner-shadow {
+	box-shadow: 10px 10px 5px #888888;
+}

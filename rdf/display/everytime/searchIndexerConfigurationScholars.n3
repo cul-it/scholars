@@ -1,0 +1,169 @@
+@prefix : <http://vitro.mannlib.cornell.edu/ns/vitro/ApplicationSetup#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> . 
+
+#
+# Specify the SearchIndexExcluders, DocumentModifiers and IndexingUriFinders for Scholars. 
+# These are in addition to the ones specified for VIVO.
+#
+
+# 
+# ------------------------------------------------------
+# Keywords
+# ------------------------------------------------------
+#
+
+# 
+# If an authorship is altered, re-index all of the related authors. 
+# 
+:scholars_keywords_uriFinder_1
+    a   <java:edu.cornell.mannlib.vitro.webapp.searchindex.indexing.IndexingUriFinder> ,
+        <java:edu.cornell.mannlib.vitro.webapp.searchindex.extensions.MatchingRestrictingUriFinder> ;
+    rdfs:label "keywords: change in authorship" ;
+    :hasMatcher "?subject <http://vivoweb.org/ontology/core#relates> ?object" ;
+    :hasAskRestriction """
+        PREFIX vivo: <http://vivoweb.org/ontology/core#>
+        ASK { 
+          ?subject a vivo:Authorship . 
+        }
+        """ ;
+    :hasSelectQuery """
+        PREFIX vivo: <http://vivoweb.org/ontology/core#>
+        PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+        SELECT ?person
+        WHERE {
+          ?subject vivo:relates ?person .
+          ?person a foaf:Person .
+        }
+        """ .
+
+# 
+# If a freetext keyword changes on a document, re-index all of that document's authors. 
+# 
+:scholars_keywords_uriFinder_2
+    a   <java:edu.cornell.mannlib.vitro.webapp.searchindex.indexing.IndexingUriFinder> ,
+        <java:edu.cornell.mannlib.vitro.webapp.searchindex.extensions.MatchingRestrictingUriFinder> ;
+    rdfs:label "keywords: change in freetext keyword" ;
+    :hasMatcher "?subject <http://vivoweb.org/ontology/core#freetextKeyword> ?object" ;
+    :hasAskRestriction """
+        PREFIX bibo: <http://purl.org/ontology/bibo/>
+        ASK {
+          ?subject a bibo:Document .
+        }
+        """ ;
+    :hasSelectQuery """
+        PREFIX vivo: <http://vivoweb.org/ontology/core#>
+        PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+        SELECT ?person
+        WHERE {
+          ?auth vivo:relates ?subject .
+          ?auth a vivo:Authorship .
+          ?auth vivo:relates ?person .
+          ?person a foaf:Person .
+        }
+        """ .
+
+# 
+# If a MESH keyword changes on a document, re-index all of that document's authors. 
+# 
+:scholars_keywords_uriFinder_3
+    a   <java:edu.cornell.mannlib.vitro.webapp.searchindex.indexing.IndexingUriFinder> ,
+        <java:edu.cornell.mannlib.vitro.webapp.searchindex.extensions.MatchingRestrictingUriFinder> ;
+    rdfs:label "keywords: change in MESH keyword" ;
+    :hasMatcher "?subject <http://vivoweb.org/ontology/core#hasSubjectArea> ?object" ;
+    :hasAskRestriction """
+        PREFIX bibo: <http://purl.org/ontology/bibo/>
+        PREFIX vivoc: <http://scholars.cornell.edu/ontology/vivoc.owl#>
+        ASK {
+          ?subject a bibo:Document .
+          ?object a vivoc:MeshTerm .
+        }
+        """ ;
+    :hasSelectQuery """
+        PREFIX vivo: <http://vivoweb.org/ontology/core#>
+        PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+        SELECT ?person
+        WHERE {
+          ?auth vivo:relates ?subject .
+          ?auth a vivo:Authorship .
+          ?auth vivo:relates ?person .
+          ?person a foaf:Person .
+        }
+        """ .
+
+# 
+# If an inferred keyword changes on a document, re-index all of that document's authors. 
+# 
+:scholars_keywords_uriFinder_4
+    a   <java:edu.cornell.mannlib.vitro.webapp.searchindex.indexing.IndexingUriFinder> ,
+        <java:edu.cornell.mannlib.vitro.webapp.searchindex.extensions.MatchingRestrictingUriFinder> ;
+    rdfs:label "keywords: change in inferred keyword" ;
+    :hasMatcher "?subject <http://scholars.cornell.edu/ontology/vivoc.owl#inferredKeyword> ?object" ;
+    :hasAskRestriction """
+        PREFIX bibo: <http://purl.org/ontology/bibo/>
+        ASK {
+          ?subject a bibo:Document .
+        }
+        """ ;
+    :hasSelectQuery """
+        PREFIX vivo: <http://vivoweb.org/ontology/core#>
+        PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+        SELECT ?person
+        WHERE {
+          ?auth vivo:relates ?subject .
+          ?auth a vivo:Authorship .
+          ?auth vivo:relates ?person .
+          ?person a foaf:Person .
+        }
+        """ .
+
+#
+# When indexing an author, add all of the keywords associated with their publications.
+#
+:vivodocumentModifier_addKeywordsToAuthor
+    a   <java:edu.cornell.mannlib.vitro.webapp.searchindex.documentBuilding.SelectQueryDocumentModifier> ,
+        <java:edu.cornell.mannlib.vitro.webapp.searchindex.documentBuilding.DocumentModifier> ;
+    rdfs:label "Add keywords to author" ;
+    :hasTypeRestriction "http://xmlns.com/foaf/0.1/Person" ;
+    :hasTargetField "keyword_txt" ;
+    :hasTargetField "keyword_ss" ;
+    :hasSelectQuery """
+        PREFIX bibo:     <http://purl.org/ontology/bibo/>
+        PREFIX vivo:     <http://vivoweb.org/ontology/core#>
+		SELECT (lcase(?keyword) as ?kw) 
+		WHERE {
+            ?uri vivo:relatedBy ?auth .
+            ?auth a vivo:Authorship .
+            ?auth vivo:relates ?pub .
+            ?pub a bibo:Document .
+            ?pub vivo:freetextKeyword ?keyword . 
+		}
+        """ ;
+    :hasSelectQuery """
+        PREFIX bibo:     <http://purl.org/ontology/bibo/>
+        PREFIX rdfs:     <http://www.w3.org/2000/01/rdf-schema#>
+        PREFIX vivo:     <http://vivoweb.org/ontology/core#>
+        PREFIX vivoc:    <http://scholars.cornell.edu/ontology/vivoc.owl#>
+		SELECT (lcase(?meshLabel) AS ?kw) 
+		WHERE {
+            ?uri vivo:relatedBy ?auth .
+            ?auth a vivo:Authorship .
+            ?auth vivo:relates ?pub .
+            ?pub a bibo:Document .
+            ?pub vivo:hasSubjectArea ?mesh .
+            ?mesh a vivoc:MeshTerm .
+            ?mesh rdfs:label ?meshLabel .
+		}
+        """ ;
+    :hasSelectQuery """
+        PREFIX bibo:     <http://purl.org/ontology/bibo/>
+        PREFIX vivo:     <http://vivoweb.org/ontology/core#>
+        PREFIX vivoc:    <http://scholars.cornell.edu/ontology/vivoc.owl#>
+		SELECT (lcase(?infkeyword) AS ?kw) 
+		WHERE {
+            ?uri vivo:relatedBy ?auth .
+            ?auth a vivo:Authorship .
+            ?auth vivo:relates ?pub .
+            ?pub a bibo:Document .
+            ?pub vivoc:inferredKeyword ?infkeyword . 
+		}
+        """ .

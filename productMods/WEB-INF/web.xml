@@ -710,7 +710,14 @@
     <servlet-name>ShowConfiguration</servlet-name>
     <url-pattern>/admin/showConfiguration</url-pattern>
   </servlet-mapping>
-
+  <servlet>
+    <servlet-name>ShowRDFSources</servlet-name>
+    <servlet-class>edu.cornell.mannlib.vitro.webapp.controller.admin.ShowSourcesController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ShowRDFSources</servlet-name>
+    <url-pattern>/admin/showSources</url-pattern>
+  </servlet-mapping>
   <servlet>
     <servlet-name>StartupStatus</servlet-name>
     <servlet-class>edu.cornell.mannlib.vitro.webapp.controller.admin.StartupStatusController</servlet-class>
@@ -775,12 +782,12 @@
   </servlet-mapping>
 
   <servlet>
-    <servlet-name>ManageLabelsForIndividualController</servlet-name>
-    <servlet-class>edu.cornell.mannlib.vitro.webapp.controller.freemarker.ManageLabelsForIndividualController</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>ManageLabelsForIndividualController</servlet-name>
-    <url-pattern>/manageLabels</url-pattern>
+	    <servlet-name>ViewLabelsServlet</servlet-name>
+	    <servlet-class>edu.cornell.mannlib.vitro.webapp.controller.freemarker.ViewLabelsServlet</servlet-class>
+	  </servlet>
+	  <servlet-mapping>
+	    <servlet-name>ViewLabelsServlet</servlet-name>
+	    <url-pattern>/viewLabels</url-pattern>
   </servlet-mapping>
 
   <servlet>
@@ -817,6 +824,15 @@
   <servlet-mapping>
     <servlet-name>ShowObjectPropertyHierarchyController</servlet-name>
     <url-pattern>/showObjectPropertyHierarchy</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>ListFauxPropertiesController</servlet-name>
+    <servlet-class>edu.cornell.mannlib.vitro.webapp.controller.freemarker.ListFauxPropertiesController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ListFauxPropertiesController</servlet-name>
+    <url-pattern>/listFauxProperties</url-pattern>
   </servlet-mapping>
 
   <servlet>
@@ -892,6 +908,24 @@
   </servlet-mapping>
   
   <servlet>
+    <servlet-name>DomainExpertController</servlet-name>
+    <servlet-class>edu.cornell.mannlib.vitro.webapp.search.controller.DomainExpertController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DomainExpertController</servlet-name>
+    <url-pattern>/domainExpert</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>DomainExpertJsonServlet</servlet-name>
+    <servlet-class>edu.cornell.mannlib.vitro.webapp.controller.json.DomainExpertJsonServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DomainExpertJsonServlet</servlet-name>
+    <url-pattern>/domainExpertJson</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
      <servlet-name>SearchHelpController</servlet-name>
      <servlet-class>edu.cornell.mannlib.vitro.webapp.search.controller.SearchHelpController</servlet-class>
    </servlet>
@@ -937,6 +971,15 @@
     <url-pattern>/populateselect</url-pattern>
   </servlet-mapping>
  
+  <servlet>
+    <servlet-name>KeywordsAutocompleteController</servlet-name>
+    <servlet-class>edu.cornell.mannlib.vitro.webapp.search.controller.KeywordsAutocompleteController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>KeywordsAutocompleteController</servlet-name>
+    <url-pattern>/ackeywords</url-pattern>
+  </servlet-mapping>
+
    <servlet>
     <servlet-name>DataAutocompleteController</servlet-name>
     <servlet-class>edu.cornell.mannlib.vitro.webapp.search.controller.DataAutocompleteController</servlet-class>
@@ -1183,6 +1226,16 @@
   <servlet-mapping>
     <servlet-name>SparqlUpdateApi</servlet-name>
     <url-pattern>/api/sparqlUpdate</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>DistributeDataApi</servlet-name>
+    <servlet-class>edu.cornell.library.scholars.webapp.controller.api.DistributeDataApiController</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>DistributeDataApi</servlet-name>
+    <url-pattern>/api/dataRequest/*</url-pattern>
   </servlet-mapping>
   
    <servlet>
@@ -1455,6 +1508,61 @@
     <servlet-name>WebImageCaptureServlet</servlet-name>
     <url-pattern>/webImageCapture</url-pattern>
   </servlet-mapping>
+
+<!-- ==================== mime types ============================== -->
+
+  <mime-mapping>
+    <extension>css</extension>
+    <mime-type>text/css</mime-type>
+  </mime-mapping>
+  <mime-mapping>
+    <extension>gif</extension>
+    <mime-type>image/gif</mime-type>
+  </mime-mapping>
+  <mime-mapping>
+    <extension>GIF</extension>
+    <mime-type>image/gif</mime-type>
+  </mime-mapping>
+  <mime-mapping>
+    <extension>htm</extension>
+    <mime-type>text/html</mime-type>
+  </mime-mapping>
+  <mime-mapping>
+    <extension>html</extension>
+    <mime-type>text/html</mime-type>
+  </mime-mapping>
+  <mime-mapping>
+    <extension>ico</extension>
+    <mime-type>image/x-icon</mime-type>
+  </mime-mapping>
+  <mime-mapping>
+    <extension>jpeg</extension>
+    <mime-type>image/jpeg</mime-type>
+  </mime-mapping>
+  <mime-mapping>
+    <extension>jpg</extension>
+    <mime-type>image/jpeg</mime-type>
+  </mime-mapping>
+  <mime-mapping>
+    <extension>js</extension>
+    <mime-type>application/javascript</mime-type>
+  </mime-mapping>
+  <mime-mapping>
+    <extension>png</extension>
+    <mime-type>image/png</mime-type>
+  </mime-mapping>
+  <mime-mapping>
+    <extension>svg</extension>
+    <mime-type>image/svg+xml</mime-type>
+  </mime-mapping>
+  <mime-mapping>
+    <extension>txt</extension>
+    <mime-type>text/plain</mime-type>
+  </mime-mapping>
+  <mime-mapping>
+    <extension>xml</extension>
+    <mime-type>application/xml</mime-type>
+  </mime-mapping>
 
   <!-- ==================== tag libraries ============================== -->
   <jsp-config>

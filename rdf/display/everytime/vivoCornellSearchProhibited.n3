@@ -8,7 +8,7 @@
 @prefix bibo: <http://purl.org/ontology/bibo/> .
 @prefix acti: <http://vivoweb.org/ontology/activity-insight#> .
 @prefix vivolocal: <http://vivo.cornell.edu/ontology/local#> .
-@prefix vivocornell: <http://vivo.library.cornell.edu/ns/0.1#> .
+@prefix vivocornell: <http://scholars.cornell.edu/ontology/vivoc.owl#> .
 
 # See vitroSearchProhibited.n3 for more information about files in this directory.
 

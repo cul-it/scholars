@@ -1,0 +1,43 @@
+#site_wordcloud_vis {
+    background-color: #fff;
+    z-index:15;
+    border-radius:5px;
+}
+
+.sitewc.choices {
+    background-color: rgba(50, 50, 50, 0.8);
+    color: #DDDDDD;
+    font-family: Arial;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.sitewc.triangle-isosceles {
+    max-height: 250px;
+    max-width: 600px;
+    overflow-y: scroll;
+    position: relative;
+    padding: 15px;
+    margin: 1em 0 3em;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+}
+
+.sitewc.d3-tip {
+    z-index: 20;
+}
+
+.sitewc .hoverable {
+    width: 100%;
+}
+
+.sitewc .hoverable a {
+    color: white;
+    text-decoration: none;
+    padding: 5px 5px 5px 2px;
+}
+
+.sitewc .hoverable:hover {
+    background-color: rgba(50, 150, 200, 0.8);
+}

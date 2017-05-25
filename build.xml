@@ -90,6 +90,7 @@
 			<include name="config/jarlist/*.txt" />
 			<include name="config/solr/*" />
 			<include name="context.xml" />
+			<include name="visualizationData/**/*" />
 		</patternset>
 
 		<copy todir="${appbase.dir}" includeemptydirs="true">
@@ -112,6 +113,16 @@
 			<fileset dir=".">
 				<patternset refid="appbase.patterns" />
 			</fileset>
+		</copy>
+	</target>
+
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: prepareVitroHomeDir                      
+         - - - - - - - - - - - - - - - - - -->
+	<target name="prepareVitroHomeDir" depends="vitroCore.prepareVitroHomeDir">
+		<mkdir dir="${vitrohome.image.dir}/visualizationData" />
+		<copy todir="${vitrohome.image.dir}/visualizationData" >
+			<fileset dir="${appbase.dir}/visualizationData" />
 		</copy>
 	</target>
 
