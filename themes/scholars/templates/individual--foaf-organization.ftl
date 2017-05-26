@@ -295,7 +295,7 @@ $().ready(function() {
 </script>
 
 ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/keywordcloud/kwcloud.css" />')}
-<div id="word_cloud_vis" class="vis_modal" style"display:none;">
+<div id="word_cloud_vis" class="vis_modal" style="display:none;">
 	<font face="Times New Roman" size="2">
 	<span><i>Click on a keyword to view the list of the relevant faculty.</i></span>
 <#--	
