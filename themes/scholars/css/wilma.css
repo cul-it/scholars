@@ -2294,11 +2294,6 @@ a#subject-area-link {
 div#foaf-person-blank-row {
 	margin-bottom: 400px;
 }
-div#word_cloud_vis {
-	background-color: #fff;
-	border-radius: 5px;
-	z-index: 3;
-}
 div#subject-area-dialog {
 	padding: 0;
 	border-radius: 3px;
@@ -2782,48 +2777,47 @@ nav#alpha-browse-container {
     background-color: #FFFFFF;
 }
 
-.visualization-toolbar {
+.vis_toolbar {
 	background-color: #f5f5f5;
 	padding: 5px;
 }
 
-.visualization-toolbar .tooltip.bottom .tooltip-inner {
+.vis_toolbar .tooltip.bottom .tooltip-inner {
     text-align: justify;
     max-width: 350px;
     width: 350px;
 }
 
-.visualization-toolbar .tooltip.bottom .tooltip-inner p {
+.vis_toolbar .tooltip.bottom .tooltip-inner p {
     color: #FFFFFF;
 }
 
-.visualization-toolbar .glyphicon-info-sign {
+.vis_toolbar .glyphicon-info-sign {
     margin-right: 10px;
 }
 
-.visualization-toolbar .heading {
+.vis_toolbar .heading {
   font: 16px "Helvetica Neue", Helvetica, Arial, sans-serif;
   margin-bottom: 8px;
 }
 
-.dept_grants_vis {
+.vis_modal {
     display: table;
-    height:80%;
-    width:75%;
-	z-index: 15;
+	height:80%;
+	width:75%;
+	background-color: #fff;
 	border-radius: 5px;
+	z-index: 3;
 }
+
+.word_cloud_vis {
+	height:90%;
+}
+
 .dept_grants_vis svg g text {
 	font-size: 80%;
 }
 
-.dept_collab_vis {
-    display: table;
-    height:80%;
-    width:75%;
-	z-index: 15;
-	border-radius: 5px;
-}
 .dept_collab_vis svg g text {
 	font-size: 80%;
 }
@@ -2971,11 +2965,6 @@ div#grantsVis {
 	display:none;
 	height:400px;
 	width:400px;
-}
-div#word_cloud_vis {
-	display:none;
-	height:90%;
-	width:75%;
 }
 .doc-controls-img  {
     margin-left:6px

@@ -11,51 +11,51 @@
 
       <div class="panel-group" id="accordion">
         
-        <div id="personChecklistPanel" class="panel panel-default">
+        <div id="personSelectionPanel" class="panel panel-default selection-list">
           <div class="panel-heading">
             <h4 class="panel-title">
               <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapsePerson">
-                <span class="start">Filter by:</span> Investigator
+                <span class="start">Select:</span> Investigator
               </a>
             </h4>
           </div>
           <div id="collapsePerson" class="panel-collapse collapse">
-            <div id="checkarea" class="panel-body">
-              <input type="text" class="form-control" id="listFilter" placeholder="Search"/>
+            <div class="panel-body" id="selector">
+              <input id="searcher" type="text" class="form-control" placeholder="Search"/>
             </div>
           </div>
         </div>
 
-        <div id="unitChecklistPanel" class="panel panel-default">
+        <div id="unitSelectionPanel" class="panel panel-default selection-list">
           <div class="panel-heading">
             <h4 class="panel-title">
               <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseUnit">
-                <span class="start">Filter by:</span> Academic Unit
+                <span class="start">Select:</span> Academic Unit
               </a>
             </h4>
           </div>
           <div id="collapseUnit" class="panel-collapse collapse">
-            <div id="checkarea" class="panel-body">
-              <input type="text" class="form-control" id="listFilter" placeholder="Search"/>
+            <div class="panel-body" id="selector">
+              <input id="searcher" type="text" class="form-control" placeholder="Search"/>
             </div>
           </div>
         </div>
 
-        <div id="agencyChecklistPanel" class="panel panel-default">
+        <div id="agencySelectionPanel" class="panel panel-default selection-list">
           <div class="panel-heading">
             <h4 class="panel-title">
               <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseAgency">
-                <span class="start">Filter by:</span> Funding Agency
+                <span class="start">Select:</span> Funding Agency
               </a>
             </h4>
           </div>
           <div id="collapseAgency" class="panel-collapse collapse">
-            <div id="checkarea" class="panel-body">
-              <input type="text" class="form-control" id="listFilter" placeholder="Search"/>
+            <div class="panel-body" id="selector">
+              <input id="searcher" type="text" class="form-control" placeholder="Search"/>
             </div>
           </div>
         </div>
-        
+
         <div id="dateRangePanel" class="panel panel-default">
           <div class="panel-heading">
             <h4 class="panel-title">
@@ -72,7 +72,7 @@
         </div>
       
         <div>
-          <h5><a id="checkAllLink">Check All</a> | <a id="uncheckAllLink">Uncheck All</a></h5>
+          <h5><a id="resetLink">Reset</a></h5>
         </div>
 
         <div>
@@ -126,14 +126,12 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></
 		new ScholarsVis.SiteGrants({
 		    target : '#grants_vis',
 		    legendDiv : '#grantsLegendDiv',
-		    personChecklistPanel: "#personChecklistPanel",
-		    unitChecklistPanel: "#unitChecklistPanel",
-		    agencyChecklistPanel: "#agencyChecklistPanel",
+		    personFilter: "#personSelectionPanel",
+		    unitFilter: "#unitSelectionPanel",
+		    agencyFilter: "#agencySelectionPanel",
 		    dateRangePanel: "#dateRangePanel",
-		    checkAllLink: "#checkAllLink",
-		    uncheckAllLink: "#uncheckAllLink"
+		    resetLink: "#resetLink",
+		    toolbar: new ScholarsVis.Toolbar("#vis_holder")
 		}).show();
-
-        new ScholarsVis.Toolbar("#vis_holder");
     });
 </script>

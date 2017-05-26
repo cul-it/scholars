@@ -16,7 +16,7 @@
 	    vitro.home
 	    tomcat.home
 	     ====================================================================== -->
-<project name="vivoCornell" default="describe">
+<project name="Scholars@Cornell" default="describe">
 
 	<!-- 
 		The build directory goes in the product directory. 

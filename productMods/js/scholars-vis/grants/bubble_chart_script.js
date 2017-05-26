@@ -3,7 +3,7 @@ ScholarsVis["SiteGrants"] = function(options) {
             url : applicationContextPath + "/api/dataRequest/grants_bubble_chart",
             transform : transformGrantsData,
             display : displayGrantsWithControls,
-            closer : closeGrantsVis,
+            closer : closeGrantsVis
     };
     return new ScholarsVis.Visualization(options, defaults);
 };
@@ -13,7 +13,7 @@ ScholarsVis["DepartmentGrants"] = function(options) {
             url : applicationContextPath + "/api/dataRequest/grants_bubble_chart",
             transform : transformGrantsData,
             display : displayGrantsWithoutControls,
-            closer : closeGrantsVis,
+            closer : closeGrantsVis
     };
     return new ScholarsVis.Visualization(options, defaults);
 };
@@ -22,139 +22,165 @@ function displayGrantsWithControls(json, target, options){
     var mainDiv = options.mainDiv || target;
     var display = new GrantsDisplay(mainDiv, options.legendDiv);
     new GrantsController(json, display, options);
-    display.update(json);
+    display.draw(json);
 } 
 
 function displayGrantsWithoutControls(json, target, options){
     var mainDiv = options.mainDiv || target;
     var display = new GrantsDisplay(mainDiv, options.legendDiv);
-    display.update(json);
+    display.draw(json);
 } 
 
 function GrantsController(grants, display, options) {
-    var filtered = grants;
-    var currentPeople;
-    var currentUnits;
-    var currentAgencies;
-    var currentDates;
+    var personFilter = new AccordionControls.Selector(options.personFilter, personChanged);
+    personFilter.loadData(getPersonData());
     
-    var personPanel = new AccordionControls.Checklist(options.personChecklistPanel, personChanged);
-    personPanel.loadData(getPersonNames());
+    var unitFilter = new AccordionControls.Selector(options.unitFilter, unitChanged);
+    unitFilter.loadData(getUnitData());
     
-    var unitPanel = new AccordionControls.Checklist(options.unitChecklistPanel, unitChanged);
-    unitPanel.loadData(getUnitNames());
-    
-    var agencyPanel = new AccordionControls.Checklist(options.agencyChecklistPanel, agencyChanged);
-    agencyPanel.loadData(getAgencyNames());
+    var agencyFilter = new AccordionControls.Selector(options.agencyFilter, agencyChanged);
+    agencyFilter.loadData(getAgencyData());
     
     var dateRange = new AccordionControls.RangeSlider(options.dateRangePanel, yearChanged);
-    dateRange.setRange(getYears());
+    dateRange.setRange(getYearsRange());
     
-    $(options.checkAllLink).click(checkAll);
+    $(options.resetLink).click(resetFilters);
+    
+//    resetFilters();
+    setToolbarText(grants.length + " grants");
+    display.draw(grants);
 
-    $(options.uncheckAllLink).click(uncheckAll);
-    
-    readControls();
-    
-    function getPersonNames() {
-        return _.uniq(filtered.reduce(addNames, [])).sort(ignoreCaseSort);
+    function getPersonData() {
+        return grants.reduce(addPeople, []).sort(ignoreCaseSort).filter(uniqueUris);
         
-        function addNames(names, grant) {
-            return names.concat(grant.people.map(p => p.name));
+        function addPeople(people, grant) {
+            return people.concat(grant.people.map(personNode));
+            
+            function personNode(p) {
+                return {
+                    label: p.name, 
+                    uri: p.uri
+                };
+            }
+            
         }
     }
     
-    function getUnitNames() {
-        return _.uniq(filtered.map(g => g.dept.name)).sort(ignoreCaseSort);
+    function getUnitData() {
+        return grants.map(unitNode).sort(ignoreCaseSort).filter(uniqueUris);
+        
+        function unitNode(grant) {
+            return {
+                label: grant.dept.name, 
+                uri: grant.dept.uri
+            };
+        }
     }
     
-    function getAgencyNames() {
-        return _.uniq(filtered.map(g => g.funagen.name)).sort(ignoreCaseSort);
+    function getAgencyData() {
+        return grants.map(agencyNode).sort(ignoreCaseSort).filter(uniqueUris);
+        
+        function agencyNode(grant) {
+            return {
+                label: grant.funagen.name, 
+                uri: grant.funagen.uri
+            };
+        }
     }
     
     function ignoreCaseSort(a, b) {
-        var aa = a.toUpperCase();
-        var bb = b.toUpperCase();
-        return (aa < bb) ? -1 : (aa > bb) ? 1 : 0;
+        var al = a.label.toUpperCase();
+        var bl = b.label.toUpperCase();
+        return (al < bl) ? -1 : 
+            (al > bl) ? 1 : 
+                (a.uri < b.uri) ? -1 : 
+                    (a.uri > b.uri) ? 1 : 
+                        0;
     }
     
-    function getYears() {
+    function uniqueUris(element, index, array) {
+        return index == 0 || element.uri != array[index - 1].uri;
+    }
+    
+    function getYearsRange() {
         var minYear = d3.min(grants, g=>Number(g.Start));
         var maxYear = d3.max(grants, g=>Number(g.End));
         return [minYear, maxYear];
     }
     
-    function readControls() {
-        currentPeople = personPanel.getChecked();
-        currentUnits = unitPanel.getChecked();
-        currentAgencies = agencyPanel.getChecked();
-        currentDates = dateRange.getCurrentValues();
-    }
-    
-    function personChanged() {
-        readControls();
-        filtered = grants.filter(yearFilter).filter(peopleFilter);
-        updateChecks();
-        updateDisplay();
+    function personChanged(selectedPerson) {
+        unitFilter.clearSelection();
+        agencyFilter.clearSelection();
+        dateRange.reset();
+
+        var filtered = grants.filter(peopleFilter);
+        setToolbarText(pluralize(filtered.length, "grant") + " involving " + selectedPerson.label);
+        display.draw(filtered);
         
         function peopleFilter(g) {
-            return g.people.some(p => currentPeople.includes(p.name));
+            return g.people.some(p => selectedPerson.uri == p.uri);
         }
     }
     
-    function unitChanged() {
-        readControls();
-        filtered = grants.filter(yearFilter).filter(unitFilter);
-        updateChecks();
-        updateDisplay();
+    function unitChanged(selectedUnit) {
+        personFilter.clearSelection();
+        agencyFilter.clearSelection();
+        dateRange.reset();
         
-        function unitFilter(g) {
-            return currentUnits.includes(g.dept.name);
-        }
+        var filtered = grants.filter(g => g.dept.uri == selectedUnit.uri)
+        setToolbarText(pluralize(filtered.length, "grant") + " involving " + selectedUnit.label);
+        display.draw(filtered);
     }
     
-    function agencyChanged() {
-        readControls();
-        filtered = grants.filter(yearFilter).filter(agencyFilter);
-        updateChecks();
-        updateDisplay();
+    function agencyChanged(selectedAgency) {
+        personFilter.clearSelection();
+        unitFilter.clearSelection();
+        dateRange.reset();
         
-        function agencyFilter(g) {
-            return currentAgencies.includes(g.funagen.name);
-        }
+        var filtered = grants.filter(g => g.funagen.uri == selectedAgency.uri);
+        setToolbarText(pluralize(filtered.length, "grant") + " from " + selectedAgency.label);
+        display.draw(filtered);
     }
     
     function yearChanged() {
-        readControls();
-        filtered = grants.filter(yearFilter);
-        updateChecks();
-        updateDisplay();
+        personFilter.clearSelection();
+        unitFilter.clearSelection();
+        agencyFilter.clearSelection();
+
+        var currentDates = dateRange.getCurrentValues();
+        var filtered = grants.filter(yearFilter);
+        setToolbarText(pluralize(filtered.length, "grant") + " from " + currentDates[0] + " to " + currentDates[1]);
+        display.draw(filtered);
+        
+        function yearFilter(g) {
+            return Number(g.Start) <= currentDates[1] && Number(g.End) >= currentDates[0] ;
+        }
     }
     
-    function yearFilter(g) {
-        return Number(g.Start) <= currentDates[1] && Number(g.End) >= currentDates[0] ;
+    function pluralize(count, text) {
+        if (count == 1) {
+            return count + " " + text;
+        } else {
+            return count + " " + text + "s"
+        }
     }
     
-    function checkAll() {
-        filtered = grants;
-        updateChecks();
-        updateDisplay();
+    function resetFilters() {
+        personFilter.collapse();
+        personFilter.clearSelection();
+        unitFilter.collapse();
+        unitFilter.clearSelection();
+        agencyFilter.collapse();
+        agencyFilter.clearSelection();
+        dateRange.collapse();
+        dateRange.reset();
+
+        setToolbarText(grants.length + " grants");
+        display.draw(grants);
     }
     
-    function uncheckAll() {
-        filtered = [];
-        updateChecks();
-        updateDisplay();
-    }
-    
-    function updateChecks() {
-        personPanel.updateChecks(getPersonNames());
-        unitPanel.updateChecks(getUnitNames());
-        agencyPanel.updateChecks(getAgencyNames());
-    }
-    
-    function updateDisplay() {
-        display.update(filtered);
+    function setToolbarText(text) {
+        options.toolbar.setHeadingText(text);
     }
 }
 
@@ -194,8 +220,7 @@ function GrantsDisplay(target, legend) {
 
     return {
         clear: clear,
-        draw: draw,
-        update: draw  // BOGUS
+        draw: draw
     }
     
     function clear() {
@@ -245,6 +270,7 @@ function GrantsDisplay(target, legend) {
             var legendHeight = Math.floor($(legendElem).height());
             var legendWidth = Math.floor($(legendElem).width());
 
+            d3.select(legendElem).selectAll("svg").remove();
             var legend = d3.select(legendElem)
                 .append("svg")
                 .attr("width", legendWidth)

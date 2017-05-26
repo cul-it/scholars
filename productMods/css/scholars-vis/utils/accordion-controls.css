@@ -25,6 +25,10 @@
    color:white;
 }
 
+.selection-list .panel-body li.current {
+   background-color: rgba(50, 150, 200, .2);
+}
+
 #accordion #selector label {
   display: inline;
   margin-left: 1%;

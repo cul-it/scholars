@@ -341,7 +341,7 @@ var ScholarsVis = (function() {
         var exporter = $("<a href='#' id='exporter' class=\"pull-right\"></a>").append(exportIcon);
 
         var tooltip = $("<span></span>").addClass("glyphicon glyphicon-info-sign pull-right").tooltip(tipOptions);
-        var toolbar = $("<div class=\"visualization-toolbar\"></div>").append(heading, exporter, tooltip);
+        var toolbar = $("<div class=\"vis_toolbar\"></div>").append(heading, exporter, tooltip);
         $(targetSelector).prepend(toolbar);
         
         if (typeof headingText != "undefined") {

@@ -96,7 +96,7 @@
 		<a href="#" id="word_cloud_trigger"><img id="vizIcon" width="145px" src="${urls.base}/themes/scholars/images/wordcloud-icon.png"/></a>
 		<p>Research Keywords</p>
 	</div>
-	<div <#if isJohnsonOrHotelSchool >style="display:none"</#if>>
+	<div>
 		<a href="${urls.base}/orgSAVisualization?deptURI=${individual.uri}"><img id="vizIcon" width="68%" src="${urls.base}/themes/scholars/images/person_sa.png"/></a>
 		<p>Research Interests</p>
 	</div>
@@ -295,7 +295,7 @@ $().ready(function() {
 </script>
 
 ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/keywordcloud/kwcloud.css" />')}
-<div id="word_cloud_vis">
+<div id="word_cloud_vis" class="vis_modal" style="display:none;">
 	<font face="Times New Roman" size="2">
 	<span><i>Click on a keyword to view the list of the relevant faculty.</i></span>
 <#--	
@@ -359,7 +359,7 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></
 			  '<script type="text/javascript" src="${urls.base}/js/scholars-vis/wordcloud/word-cloud.js"></script>')}
 
 <#if isCollegeOrSchool >
-  <div id="interd_collab_vis" class="dept_collab_vis" style="display:none">
+  <div id="interd_collab_vis" class="vis_modal dept_collab_vis" style="display:none">
  	
 	<font face="Times New Roman" size="2">
 	<span><i>Click on any arc to zoom in and on the center circle to zoom out.
@@ -380,7 +380,7 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></
         </p> 
     </div>
   </div>
-  <div id="cross_unit_collab_vis" class="dept_collab_vis" style="display:none">
+  <div id="cross_unit_collab_vis" class="vis_modal dept_collab_vis" style="display:none">
 
 	<font face="Times New Roman" size="2">
 	<span><i>Click on any arc to zoom in and on the center circle to zoom out.
@@ -436,7 +436,7 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></
 </#if>
 </script>
 
-<div id="modal_grants_vis" class="dept_grants_vis" style="display:none">
+<div id="modal_grants_vis" class="vis_modal dept_grants_vis" style="display:none">
   <div id="info_icon_text" style="display:none"> 
     <p>
       This visualization represents all the grants where a faculty member or a researcher of this department is either a Principal or Co-Principal Investigator. Grants data is represented as a cluster of bubbles where each bubble represents a grant and the size of the bubble indicates the relative award amount. The color scheme reveals the dollar amount range of the grant. This provides a quick visual view of the active research grants for the entire department. Clicking on a grant bubble will display the full description of the grant including title, list of investigators and other information.
