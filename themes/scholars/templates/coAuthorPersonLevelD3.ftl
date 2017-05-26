@@ -325,7 +325,7 @@ $(document).ready(function(){
     </#if>
 
     <div style="clear:both"></div>
-        <div id="incomplete-data-small">${i18n().incomplete_data_note1}<p></p><p></p>
+        <div id="incomplete-data-small">Note: This information is based solely on publications that have been loaded into the Scholars@Cornell system. This may only be a small sample of the person's total work.<p></p><p></p>
             <#if user.loggedIn >
                 ${i18n().incomplete_data_note2}
             <#else>
