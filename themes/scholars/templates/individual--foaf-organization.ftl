@@ -96,7 +96,7 @@
 		<a href="#" id="word_cloud_trigger"><img id="vizIcon" width="145px" src="${urls.base}/themes/scholars/images/wordcloud-icon.png"/></a>
 		<p>Research Keywords</p>
 	</div>
-	<div <#if isJohnsonOrHotelSchool >style="display:none"</#if>>
+	<div>
 		<a href="${urls.base}/orgSAVisualization?deptURI=${individual.uri}"><img id="vizIcon" width="68%" src="${urls.base}/themes/scholars/images/person_sa.png"/></a>
 		<p>Research Interests</p>
 	</div>
