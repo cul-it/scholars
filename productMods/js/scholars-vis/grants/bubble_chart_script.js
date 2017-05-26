@@ -114,7 +114,7 @@ function GrantsController(grants, display, options) {
         dateRange.reset();
 
         var filtered = grants.filter(peopleFilter);
-        setToolbarText(filtered.length + " grants involving " + selectedPerson.label);
+        setToolbarText(pluralize(filtered.length, "grant") + " involving " + selectedPerson.label);
         display.draw(filtered);
         
         function peopleFilter(g) {
@@ -128,7 +128,7 @@ function GrantsController(grants, display, options) {
         dateRange.reset();
         
         var filtered = grants.filter(g => g.dept.uri == selectedUnit.uri)
-        setToolbarText(filtered.length + " grants involving " + selectedUnit.label);
+        setToolbarText(pluralize(filtered.length, "grant") + " involving " + selectedUnit.label);
         display.draw(filtered);
     }
     
@@ -138,7 +138,7 @@ function GrantsController(grants, display, options) {
         dateRange.reset();
         
         var filtered = grants.filter(g => g.funagen.uri == selectedAgency.uri);
-        setToolbarText(filtered.length + " grants from " + selectedAgency.label);
+        setToolbarText(pluralize(filtered.length, "grant") + " from " + selectedAgency.label);
         display.draw(filtered);
     }
     
@@ -149,11 +149,19 @@ function GrantsController(grants, display, options) {
 
         var currentDates = dateRange.getCurrentValues();
         var filtered = grants.filter(yearFilter);
-        setToolbarText(filtered.length + " grants from " + currentDates[0] + " to " + currentDates[1]);
+        setToolbarText(pluralize(filtered.length, "grant") + " from " + currentDates[0] + " to " + currentDates[1]);
         display.draw(filtered);
         
         function yearFilter(g) {
             return Number(g.Start) <= currentDates[1] && Number(g.End) >= currentDates[0] ;
+        }
+    }
+    
+    function pluralize(count, text) {
+        if (count == 1) {
+            return count + " " + text;
+        } else {
+            return count + " " + text + "s"
         }
     }
     
