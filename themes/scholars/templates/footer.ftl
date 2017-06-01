@@ -59,9 +59,24 @@
 
     <p>&copy; 2016 Cornell University Library / <a href="tel:6072554144">(607) 255-4144 </a>  / <a href="https://www.library.cornell.edu/privacy">Privacy</a></p>
 
-    
-
     </div>
+
+    <!-- Piwik -->
+	<script type="text/javascript">
+  		var _paq = _paq || [];
+  		/* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+  		_paq.push(['trackPageView']);
+  		_paq.push(['enableLinkTracking']);
+  		(function() {
+    	var u="//webstats.library.cornell.edu/";
+    	_paq.push(['setTrackerUrl', u+'piwik.php']);
+    	_paq.push(['setSiteId', '63']);
+    	var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    	g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+  		})();
+	</script>
+	<!-- End Piwik Code -->
+
 </footer>
 
 </footer><#include "scripts.ftl">
