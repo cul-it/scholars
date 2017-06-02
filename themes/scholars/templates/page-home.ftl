@@ -44,7 +44,7 @@
 									<form id="de-search-form" action="${urls.base}/domainExpert" name="search" role="search" accept-charset="UTF-8" method="POST"> 
 										<input id="de-search-vclass" type="hidden" name="vclassId" value="http://xmlns.com/foaf/0.1/Person" />
 										<input id="de-search-input" class="subject-search" type="text" name="querytext" value="${querytext!}" />
-										<input id="de-search-submit" type="submit" action="${urls.base}/domainExpert?origin=homepage" value="GO" />
+										<input id="de-search-submit" type="submit" action="${urls.base}/domainExpert?origin=homepage" value="GO" onclick="javascript:_paq.push(['trackEvent', 'Search', 'Homepage', 'Find A Domain Expert']);"/>
 										<div class="search-radio-container">
 											<input type="radio" name="querytype" value="subject" checked> by subject or keyword
 								   			<input id="by-name-radio" type="radio" name="querytype" value="name"> by name
@@ -102,7 +102,7 @@
 				<div class="container-fluid scholars-home-container">
 					<div id="visualize-content" class="row fff-bkg">
 						<div class="col-sm-3 col-md-3 col-lg-3"> 
-							<a id="person-to-sa" href="${urls.base}/orgSAVisualization">
+							<a id="person-to-sa" href="${urls.base}/orgSAVisualization" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Homepage', 'Research Interest']);">
 								<img id="vizIcon" width="190px" src="${urls.base}/themes/scholars/images/home-person-sa.png"/>
 							</a>
 							<div>
@@ -110,7 +110,7 @@
 							</div>
 						</div>
 						<div class="col-sm-3 col-md-3 col-lg-3">
-							<a href="${urls.base}/homeWordcloudVisualization">
+							<a href="${urls.base}/homeWordcloudVisualization" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Homepage', 'Research Keywords']);">
 								<img id="vizIcon" width="190px" src="${urls.base}/themes/scholars/images/wordcloud-icon.png"/>
 							</a>
 							<div>
@@ -118,7 +118,7 @@
 							</div>
 						</div>
 						<div class="col-sm-3 col-md-3 col-lg-3"> 
-							<a href="${urls.base}/homeWorldmapVisualization">
+							<a href="${urls.base}/homeWorldmapVisualization" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Homepage', 'Global Collaborations']);">
 								<img id="vizIcon" width="190px" src="${urls.base}/themes/scholars/images/home-worldmap.png"/>
 							</a>
 							<div>
@@ -126,7 +126,7 @@
 							</div>
 						</div>
 						<div class="col-sm-3 col-md-3 col-lg-3">
-							<a href="${urls.base}/grantsVisualization">
+							<a href="${urls.base}/grantsVisualization" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Homepage', 'Research Grants']);">
 								<img id="vizIcon" width="190px" src="${urls.base}/themes/scholars/images/home-grants.png"/>
 							</a>
 							<div>
@@ -148,18 +148,18 @@
 					<div id="partners-row1" class="row fff-bkg" style="margin:30px 30px 30px 30px;">
 					<div class="col-sm-4 col-md-4 col-lg-4"> 
 					  <div id="eng-text" style="padding:0 0 10px;font-size:18px;">
-						<p><a id="eng-link" href="${urls.base}/display/org73341">College of Engineering</a></p>
+						<p><a id="eng-link" href="${urls.base}/display/org73341" onclick="javascript:_paq.push(['trackEvent', 'Scholars Affiliates', 'Homepage', 'Engineering']);">College of Engineering</a></p>
 					  </div>
-						<a href="${urls.base}/display/org73341">
+						<a href="${urls.base}/display/org73341" onclick="javascript:_paq.push(['trackEvent', 'Scholars Affiliates', 'Homepage', 'Engineering']);">
 							<div id="eng-image" style="margin-right:-40px"> 
 							</div>
 						</a>
 					</div>
 						<div id="jgsm-text" class="col-sm-3 col-md-3 col-lg-3" style="padding-top:40px;margin-left: 40px;"> 
-							<p><a id="jgsm-link" href="${urls.base}/display/org74741">Samuel Curtis Johnson<br/>School of Management</a></p>
+							<p><a id="jgsm-link" href="${urls.base}/display/org74741" onclick="javascript:_paq.push(['trackEvent', 'Scholars Affiliates', 'Homepage', 'Johnson School']);">Samuel Curtis Johnson<br/>School of Management</a></p>
 						</div>
 						<div class="col-sm-4 col-md-4 col-lg-4" style="padding-top:36px"> 
-							<a href="${urls.base}/display/org74741">
+							<a href="${urls.base}/display/org74741" onclick="javascript:_paq.push(['trackEvent', 'Scholars Affiliates', 'Homepage', 'Johnson School']);">
 								<div id="jgsm-image" style="margin-right:-40px"> 
 								</div>
 							</a>
