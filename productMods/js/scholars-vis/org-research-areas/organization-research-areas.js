@@ -147,7 +147,9 @@ function plotConceptMap(flaredata, target) {
 
 	function ConceptMap(chartElementId, infoElementId, dataJson) {
 	    var width = Math.floor($(target).width());
-	    var height = Math.floor($(target).height());
+	    var height = Math.max(dataJson.ditems.length * 15, 600);
+	    //Math.floor($(target).height());
+	    
 //		var width = 999;// document.body.clientWidth; //window.innerWidth ||
 //		// document.documentElement.clientWidth ||
 //		// document.body.clientWidth;
@@ -158,7 +160,7 @@ function plotConceptMap(flaredata, target) {
 													// fields.
 		K = 20, // height of the person field area.
 		S = 20, s = 8, R = -15, // Radius for node circle 110
-		J = 30, o = 15, // placement
+		J = 30, o = 10, // placement
 		t = 10, w = 1000, F = "elastic", N = "#0da4d3";
 		var T, q, x, j, H, A, P;
 		var L = {}, k = {};

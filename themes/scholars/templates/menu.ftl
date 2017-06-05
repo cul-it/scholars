@@ -7,7 +7,7 @@
 		 <nav id="nav-pages" class="pages" >
 			<ul>
 				<li class="nav-menu-option" role="listitem">
-					<a class="menu-links" href="${urls.about}" title="about">About</a>
+					<a class="menu-links" href="${urls.about}" title="about" onclick="javascript:_paq.push(['trackEvent', 'Homepage', 'About']);">About</a>
 				</li>
 				<li class="nav-menu-option" role="listitem">
 					<a class="menu-links" href="${urls.base}/tour" title="take the tour">Take the Tour</a>

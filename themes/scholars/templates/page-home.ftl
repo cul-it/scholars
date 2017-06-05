@@ -44,7 +44,7 @@
 									<form id="de-search-form" action="${urls.base}/domainExpert" name="search" role="search" accept-charset="UTF-8" method="POST"> 
 										<input id="de-search-vclass" type="hidden" name="vclassId" value="http://xmlns.com/foaf/0.1/Person" />
 										<input id="de-search-input" class="subject-search" type="text" name="querytext" value="${querytext!}" />
-										<input id="de-search-submit" type="submit" action="${urls.base}/domainExpert?origin=homepage" value="GO" />
+										<input id="de-search-submit" type="submit" action="${urls.base}/domainExpert?origin=homepage" value="GO" onclick="javascript:_paq.push(['trackEvent', 'Homepage', 'FindADomainExpert']);"/>
 										<div class="search-radio-container">
 											<input type="radio" name="querytype" value="subject" checked> by subject or keyword
 								   			<input id="by-name-radio" type="radio" name="querytype" value="name"> by name
