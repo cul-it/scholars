@@ -26,6 +26,19 @@ display:SubjectAreaVisualizationPage
         display:urlMapping
                 "/orgSAVisualization" .
 
+display:PersonSubjectAreaPage
+        a       display:Page ;
+        display:isSelfContainedTemplate
+                "true" ;
+        display:requiresAction
+                <java:edu.cornell.mannlib.vitro.webapp.auth.permissions.SimplePermission#PageViewablePublic> ;
+        display:requiresBodyTemplate
+                "oneOrganization-subject-areas.ftl" ;
+        display:title
+                "Subject Area Visualization" ;
+        display:urlMapping
+                "/oneOrganizationSubjectAreaVisualization" .
+
 display:HomeWordcloudPage
         a       display:Page ;
         display:isSelfContainedTemplate
@@ -51,3 +64,4 @@ display:HomeWorldmapPage
                 "Worldmap Visualization" ;
         display:urlMapping
                 "/homeWorldmapVisualization" .
+

@@ -97,7 +97,9 @@
 		<p>Research Keywords</p>
 	</div>
 	<div <#if isJohnsonOrHotelSchool >style="display:none"</#if>>
-		<a href="${urls.base}/orgSAVisualization?deptURI=${individual.uri}"><img id="vizIcon" width="68%" src="${urls.base}/themes/scholars/images/person_sa.png"/></a>
+		<a href="${urls.base}/oneOrganizationSubjectAreaVisualization?deptURI=${individual.uri?url}&deptLabel=${individual.name?url}">
+		  <img id="vizIcon" width="68%" src="${urls.base}/themes/scholars/images/person_sa.png"/>
+		</a>
 		<p>Research Interests</p>
 	</div>
 	<div id="grants_icon_holder" style="display:none">
