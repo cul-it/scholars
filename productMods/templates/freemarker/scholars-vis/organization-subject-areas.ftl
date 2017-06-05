@@ -101,16 +101,13 @@ $().ready(function() {
   var departmentControl = new AccordionControls.Selector("#departmentSelectionPanel", showDepartmentCloud);
   departmentControl.loadFromDataRequest("departmentList");
 
-  var requestingDept = getParameterByName("deptURI", window.location.http);
-  if (requestingDept.length > 0) {
-    showDepartmentCloud({uri: requestingDept});
-  }
+  showFeaturedDepartment();
   
   var ora = null;
     
   function showDepartmentCloud(dept) {
     departmentControl.collapse();
-    toolbar.setHeadingText("Research areas for " + dept.label);
+    toolbar.setHeadingText("Research areas for <a href=\"" + toDisplayPageUrl(dept.uri) + "\">" + dept.label + "</a>");
     if (ora != null) {
       ora.hide();
     }
@@ -129,6 +126,33 @@ $().ready(function() {
     if (!results) return '';
     if (!results[2]) return '';
     return decodeURIComponent(results[2].replace(/\+/g, " "));
+  }
+  
+  /*
+   * Start by displaying one of our featured departments. 
+   */
+  function showFeaturedDepartment() {
+    // This array should contain uris and labels for all of the featured departments.
+    var featuredDepartments = [
+      {
+        uri: "http://scholars.cornell.edu/individual/org68763",
+        label: "Meinig School of Biomedical Engineering"
+      },
+      {
+        uri: "http://scholars.cornell.edu/individual/org80541",
+        label: "Smith School of Chemical and Biomolecular Engineering"
+      }
+    ];
+   
+    showDepartmentCloud(randomArrayEntry(featuredDepartments));
+
+    function randomArrayEntry(array) {
+      return array[getRandomInt(0, array.length - 1)];
+    
+      function getRandomInt(min, max) {
+       return Math.floor(Math.random() * (max - min + 1)) + min;
+      }
+    }
   }
 });
 </script>
