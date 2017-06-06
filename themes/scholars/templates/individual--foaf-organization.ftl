@@ -143,8 +143,8 @@
 	  <#if facultyList?has_content || adminsGrant?has_content >
 		<div id="scholars-tabs-container">
 		  <ul id="scholars-tabs">
-		    <#if facultyList?has_content ><li><a href="#tabs-1">People</a></li> </#if>
-		    <#if adminsGrant?has_content ><li><a href="#tabs-2">Grants</a></li></#if>
+		    <#if facultyList?has_content ><li><a href="#tabs-1" onclick="javascript:_paq.push(['trackEvent', 'Tab', 'Department-School', 'People']);">People</a></li> </#if>
+		    <#if adminsGrant?has_content ><li><a href="#tabs-2" onclick="javascript:_paq.push(['trackEvent', 'Tab', 'Department-School', 'Grants']);">Grants</a></li></#if>
 		  </ul>
 		  <#if facultyList?has_content >
 			  <div id="tabs-1" class="tab-content" data="${publicationsProp!}-dude">

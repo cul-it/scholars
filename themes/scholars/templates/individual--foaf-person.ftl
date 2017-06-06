@@ -138,17 +138,23 @@ $(document).ready(function() {
 <div id="visualization-column" class="col-sm-3 col-md-3 col-lg-3 scholars-container">
  	<#if isAuthor >
 		<div id="word_cloud_icon_holder" style="display:none">
-		    <a href="#" id="word_cloud_trigger"><img id="vizIcon" width="145px" src="${urls.base}/themes/scholars/images/wordcloud-icon.png"/></a>
+		    <a href="#" id="word_cloud_trigger" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Person', 'Research-Keywords']);">
+		    	<img id="vizIcon" width="145px" src="${urls.base}/themes/scholars/images/wordcloud-icon.png"/>
+		    </a>
 			<p>Research Keywords</p>
 		</div>
  		<div>
- 			<a href="${coAuthorVisUrl}"><img id="vizIcon" width="120px" src="${urls.base}/themes/scholars/images/co-authors.png"/></a>
+ 			<a href="${coAuthorVisUrl}" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Person', 'Co-authors']);">
+ 				<img id="vizIcon" width="120px" src="${urls.base}/themes/scholars/images/co-authors.png"/>
+ 			</a>
  			<p>Co-authors</p>
  		</div>
  	</#if>
  	<#if isInvestigator >
  		<div>
- 			<a href="${coInvestigatorVisUrl}"><img id="vizIcon" width="120px" src="${urls.base}/themes/scholars/images/co-investigators.png"/></a>
+ 			<a href="${coInvestigatorVisUrl}" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Person', 'Co-investigtors']);">
+ 				<img id="vizIcon" width="120px" src="${urls.base}/themes/scholars/images/co-investigators.png"/>
+ 			</a>
  			<p>Co-investigators</p>
  		</div>
  	</#if>
@@ -157,14 +163,14 @@ $(document).ready(function() {
 <div id="foafPersonTabs" class="col-sm-8 col-md-8 col-lg-8  scholars-container">
 	<div id="scholars-tabs-container">
 	  <ul id="scholars-tabs">
-	    <#if isAuthor ><li><a href="#tabs-1">Publications</a></li></#if>
-	    <#if isInvestigator ><li><a href="#tabs-2">Grants</a></li></#if>
+	    <#if isAuthor ><li><a href="#tabs-1" onclick="javascript:_paq.push(['trackEvent', 'Tab', 'Person', 'Publications']);">Publications</a></li></#if>
+	    <#if isInvestigator ><li><a href="#tabs-2" onclick="javascript:_paq.push(['trackEvent', 'Tab', 'Person', 'Grants']);">Grants</a></li></#if>
 	  </ul>
 	  <#if isAuthor >
 		  <div id="tabs-1" class="tab-content">
 			<article class="property" role="article">
 			<#if subjectAreaList?has_content>
-				<a id="subject-area-link" href="#" class="jqModal" >Subject Areas</a>
+				<a id="subject-area-link" href="#" class="jqModal" onclick="javascript:_paq.push(['trackEvent', 'Link', 'Person', 'Subject-Areas']);">Subject Areas</a>
 			</#if>
 		    <ul id="individual-publications" class="property-list" role="list" >
 		    	${publications!}
