@@ -7,10 +7,10 @@
 		 <nav id="nav-pages" class="pages" >
 			<ul>
 				<li class="nav-menu-option" role="listitem">
-					<a class="menu-links" href="${urls.about}" title="about" onclick="javascript:_paq.push(['trackEvent', 'Homepage', 'About']);">About</a>
+					<a class="menu-links" href="${urls.about}" title="about" onclick="javascript:_paq.push(['trackEvent', 'General', 'Homepage', 'About']);">About</a>
 				</li>
 				<li class="nav-menu-option" role="listitem">
-					<a class="menu-links" href="${urls.base}/tour" title="take the tour">Take the Tour</a>
+					<a class="menu-links" href="${urls.base}/tour" title="take the tour" onclick="javascript:_paq.push(['trackEvent', 'General', 'Homepage', 'Take The Tour']);">Take the Tour</a>
 				</li>
 				<#if currentServlet != "home" >
 					<li class="nav-menu-option" id="browse-menu-option" role="listitem">
@@ -46,7 +46,7 @@
 			<div id="search-container">
 			  <form id="home-search-form" action="${urls.search}" name="search-home" role="search" method="post"> 
 	        	<input id="search-input" placeholder="Search the full site" type="text" name="querytext" class="homepage-search" value="" autocapitalize="off" />
-	        	<button type="submit" class="search-submit">GO</button>
+	        	<button type="submit" class="search-submit" onclick="javascript:_paq.push(['trackEvent', 'Search', 'Homepage', 'Full Site Search']);">GO</button>
 			  </form>
 	        </div>   
 		</nav>
