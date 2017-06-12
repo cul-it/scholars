@@ -256,24 +256,9 @@ public class DomainExpertJsonServlet extends VitroHttpServlet {
    
     private static SearchQuery getQuery(String queryText, String queryType,int hitsPerPage, int startIndex, VitroRequest vreq) {
 		
-		Enumeration params = vreq.getParameterNames(); 
-		while(params.hasMoreElements()){
-		 String paramName = (String)params.nextElement();
-		 log.debug("Parameter Name - "+paramName+", Value - "+vreq.getParameter(paramName));
-		}
-		
 		String vclassids = vreq.getParameter(PARAM_VCLASS_ID).replaceAll(",","\" OR type:\"");
-		
-		if (vreq.getParameterMap().containsKey(PARAM_COLLEGES)) {
-			String colleges = vreq.getParameter(PARAM_COLLEGES).replaceAll(",","\" OR type:\"");
-		}
-		if (vreq.getParameterMap().containsKey(PARAM_DEPARTMENTS)) {
-			String departments = vreq.getParameter(PARAM_DEPARTMENTS).replaceAll(",","\" OR type:\"");
-		}
-		
-		
 		log.debug("VCLASSIDS = " + vclassids);
-        //String typeParam = "type:\"" + vreq.getParameter(PARAM_VCLASS_ID) + "\"";
+
 		String typeParam = "type:\"" + vclassids + "\"";
 		
         SearchQuery query = ApplicationUtils.instance().getSearchEngine().createQuery();
@@ -298,8 +283,6 @@ public class DomainExpertJsonServlet extends VitroHttpServlet {
         query.setStart( startIndex )
              .setRows(hitsPerPage);
 
-        // ClassGroup filtering param
-        String classgroupParam = "http://vivoweb.org/ontology#vitroClassGrouppeople";
         query.addFilterQuery(typeParam);
 
 		// if we have colleges or departments in the request, add filters for them

@@ -373,7 +373,9 @@ public class DomainExpertController extends FreemarkerHttpServlet {
         List<VClassSearchLink> classFacets= new ArrayList<VClassSearchLink>(sortedClassFacets.size());
 		for (Map.Entry<String, Long> entry : sortedClassFacets.entrySet()) {
 			VClass type = vclassDao.getVClassByURI(entry.getKey());
-			classFacets.add(new VClassSearchLink(type, entry.getValue() ));
+			if ( !type.getName().equals("Person") ) {
+				classFacets.add(new VClassSearchLink(type, entry.getValue() ));
+			}
 		}
         return classFacets;
     }       

@@ -94,8 +94,13 @@ public class ResearchAndScholarshipJsonServlet extends VitroHttpServlet {
     private static final String PARAM_CLASSGROUP = "classgroup";
     private static final String PARAM_RDFTYPE = "type";
     private static final String PARAM_VCLASS_ID = "vclassId";
-    private static final String PARAM_COLLEGES = "colleges";
-    private static final String PARAM_DEPARTMENTS = "departments";
+    private static final String PARAM_AFFILIATIONS = "affiliations";
+    private static final String PARAM_ADMINISTRATORS = "administrators";
+    private static final String PARAM_FUNDERS = "funders";
+    private static final String PARAM_PUB_VENUES = "pubVenues";
+    private static final String PARAM_START_YEAR = "startYear";
+    private static final String PARAM_END_YEAR = "endYear";
+    private static final String PARAM_ACTIVE_YEAR = "activeYear";
     private static final String PARAM_QUERY_TEXT = "querytext";
     private static final String PARAM_QUERY_TYPE = "querytype";
 	private static final String KEYWORD_FIELD = "keyword_txt";
@@ -182,19 +187,6 @@ public class ResearchAndScholarshipJsonServlet extends VitroHttpServlet {
 					log.debug("Adding individual " + uri + " to individual list");
 				}
 			}
-//			
-/*			IndividualListQueryResults results = null;
-			try{
-		        results = IndividualListQueryResults.runQuery(query, iDao);
-				log.debug("results hit count: " + results.getHitCount());
-		 	} catch (SearchEngineException e) {
-				log.error("Search exception occurred: " + e);
-				JSONObject jsonObj = new JSONObject("['what the hell?]");
-		 	    return jsonObj;
-		   	}
-		
-			IndividualListResults ilResults = new IndividualListResults(hitsPerPage, results.getIndividuals(), "", false, Collections.<PageRecord>emptyList());
-*/
 
 			IndividualListQueryResults results = new IndividualListQueryResults((int) hitCount, individuals);
 			IndividualListResults ilResults = new IndividualListResults(hitsPerPage, results.getIndividuals(), "", false, Collections.<PageRecord>emptyList());
@@ -204,13 +196,9 @@ public class ResearchAndScholarshipJsonServlet extends VitroHttpServlet {
 			rObj.put("hitCount", results.getHitCount());
 			rObj.put("startIndex", startIndex);
 			rObj.put("currentPage", currentPage);
-			
-			Map<String,Long> departmentFacets = getDepartmentFacet(docs, resp);
-			log.debug("departmentFacets = " + departmentFacets.toString());
-			rObj.put("departmentFacets", departmentFacets);
-			
+						
 			addShortViewRenderings(rObj, vreq);
-			log.debug("rObj = " + rObj.toString());
+			//log.debug("rObj = " + rObj.toString());
 			return rObj;
 		}
 		catch (Throwable e) {
@@ -262,87 +250,79 @@ public class ResearchAndScholarshipJsonServlet extends VitroHttpServlet {
 		 log.debug("Parameter Name - "+paramName+", Value - "+vreq.getParameter(paramName));
 		}
 		
-		String vclassids = vreq.getParameter(PARAM_VCLASS_ID).replaceAll(",","\" OR type:\"");
-		
-		if (vreq.getParameterMap().containsKey(PARAM_COLLEGES)) {
-			String colleges = vreq.getParameter(PARAM_COLLEGES).replaceAll(",","\" OR type:\"");
-		}
-		if (vreq.getParameterMap().containsKey(PARAM_DEPARTMENTS)) {
-			String departments = vreq.getParameter(PARAM_DEPARTMENTS).replaceAll(",","\" OR type:\"");
-		}
-		
-		
-		log.debug("VCLASSIDS = " + vclassids);
-        //String typeParam = "type:\"" + vreq.getParameter(PARAM_VCLASS_ID) + "\"";
-		String typeParam = "type:\"" + vclassids + "\"";
-		
         SearchQuery query = ApplicationUtils.instance().getSearchEngine().createQuery();
         
-		String queryString = "";
-		// are we querying a name or a keyword?
-		if ( queryType.equals("name") ) {
-			if ( queryText.indexOf(", ") > 0 ) {
-				queryString = "nameRaw:\"" + queryText + "\"";
-			}
-			else {
-				query.addFilterQuery("nameLowercase:*" + queryText.toLowerCase().replaceAll(" ", "* AND nameLowercase:*") + "*");
-			}
-			query.addSortField("nameLowercaseSingleValued",SearchQuery.Order.ASC);
-		} 
-		else {
-			queryString = KEYWORD_FIELD + ":\"" + queryText.toLowerCase() + "\"";
-		}
+		String queryString = KEYWORD_FIELD + ":\"" + queryText.toLowerCase() + "\" OR nameLowercase:\"" + queryText.toLowerCase() 
+						+ "\" OR ALLTEXT:\"" + queryText.toLowerCase() + "\"";
 
 		query.setQuery(queryString);
 
         query.setStart( startIndex )
              .setRows(hitsPerPage);
 
-        // ClassGroup filtering param
-        String classgroupParam = "http://vivoweb.org/ontology#vitroClassGrouppeople";
-        query.addFilterQuery(typeParam);
-
-		// if we have colleges or departments in the request, add filters for them
-		if (vreq.getParameterMap().containsKey(PARAM_COLLEGES)) {
-			String colleges = vreq.getParameter(PARAM_COLLEGES).replaceAll(",","\" OR college_txt:\"");
-			query.addFilterQuery("college_txt:\"" + colleges + "\"");
+		String vclassidCheck = vreq.getParameter(PARAM_VCLASS_ID);
+		log.debug("VCLASSIDS = " + vclassidCheck);
+		String[] vclassArray = vclassidCheck.split(",");
+		if ( vclassArray.length == 1 && vclassidCheck.contains("BFO_0000002") ) {
+			String classgroupParam = "http://vivoweb.org/ontology#vitroClassGrouppublications";
+			query.addFilterQuery(VitroSearchTermNames.CLASSGROUP_URI + ":\"" + classgroupParam + "\"");
 		}
-		if (vreq.getParameterMap().containsKey(PARAM_DEPARTMENTS)) {
-			String departments = vreq.getParameter(PARAM_DEPARTMENTS).replaceAll(",","\" OR department_txt:\"");
-			query.addFilterQuery("department_txt:\"" + departments + "\"");
+		else {
+			String vclassids = vclassidCheck.replaceAll(",","\" OR type:\"");
+			String typeParam = "type:\"" + vclassids + "\"";
+	        query.addFilterQuery(typeParam);
 		}
 
-		// filtering out people whose MST is 
-		query.addFilterQuery("-mostSpecificTypeURIs:\"http://xmlns.com/foaf/0.1/Person\"");
+		// add filters for an of the checked facets
+		if (vreq.getParameterMap().containsKey(PARAM_AFFILIATIONS)) {
+			String affiliations = vreq.getParameter(PARAM_AFFILIATIONS).replaceAll(",","\" OR affiliation_txt:\"");
+			query.addFilterQuery("affiliation_txt:\"" + affiliations + "\"");
+		}
+		if (vreq.getParameterMap().containsKey(PARAM_ADMINISTRATORS)) {
+			String administrators = vreq.getParameter(PARAM_ADMINISTRATORS).replaceAll(",","\" OR administrator_txt:\"");
+			query.addFilterQuery("administrator_txt:\"" + administrators + "\"");
+		}
+		if (vreq.getParameterMap().containsKey(PARAM_FUNDERS)) {
+			String funders = vreq.getParameter(PARAM_FUNDERS).replaceAll(",","\" OR funder_ss:\"");
+			query.addFilterQuery("funder_ss:\"" + funders + "\"");
+		}
+		if (vreq.getParameterMap().containsKey(PARAM_PUB_VENUES)) {
+			String pub_venues = vreq.getParameter(PARAM_PUB_VENUES).replaceAll(",","\" OR pub_venue_ss:\"");
+			query.addFilterQuery("pub_venue_ss:\"" + pub_venues + "\"");
+		}
+		if (vreq.getParameterMap().containsKey(PARAM_START_YEAR) && vreq.getParameterMap().containsKey(PARAM_END_YEAR)) {
+			String startYear = vreq.getParameter(PARAM_START_YEAR);
+			String endYear = vreq.getParameter(PARAM_END_YEAR);
+			if ( queryType.equals("pubs") ) {
+				query.addFilterQuery("pub_date_dt:[" + startYear + "-01-01T00:00:00Z TO " + endYear + "-01-01T00:00:00Z]");
+			}
+			else if ( queryType.equals("grants") ) {
+				String activeYear = vreq.getParameter(PARAM_ACTIVE_YEAR);
+				if ( !activeYear.equals("reset") ) {
+					query.addFilterQuery("start_date_dt:[" + startYear + "-01-01T00:00:00Z TO " + activeYear + "-01-01T00:00:00Z]");
+					query.addFilterQuery("end_date_dt:[" + activeYear + "-01-01T00:00:00Z TO " + endYear + "-01-01T00:00:00Z]");
+				}
+				else {
+					query.addFilterQuery("start_date_dt:[" + startYear + "-01-01T00:00:00Z TO *]");
+					query.addFilterQuery("end_date_dt:[* TO " + endYear + "-01-01T00:00:00Z]");
+				}
+			}
+		}
 
-	    query.addFacetFields("department_ss").setFacetLimit(-1);
-	    query.addFacetFields("college_ss").setFacetLimit(-1);
+		if ( queryType.equals("pubs") ) {
+			query.addFilterQuery("type:\"http://purl.org/ontology/bibo/Document\"");
+		}
+		else if ( queryType.equals("grants") ) {
+			query.addFilterQuery("type:\"http://vivoweb.org/ontology/core#Grant\" OR type:\"http://vivoweb.org/ontology/core#Contract\"");
+		}
+		else {
+			query.addFilterQuery("-type:\"http://www.w3.org/2004/02/skos/core#Concept\"");
+			query.addFilterQuery("-type:\"http://purl.org/ontology/bibo/Journal\"");
+		}
 
         log.debug("Query = " + query.toString());
         return query;
     }   
-	private static Map<String,Long> getDepartmentFacet(SearchResultDocumentList docs, SearchResponse rsp){        
-	    HashSet<String> typesInHits = getFacetResultsForHits(docs, "college_ss");                                
-	    Map<String,Long> departmentFacets = new HashMap<String,Long>();        
-	
-	    List<SearchFacetField> ffs = rsp.getFacetFields();
-	   	String departmentName = "department_ss";
-	    for(SearchFacetField ff : ffs){
-	        if(departmentName.equals(ff.getName())){
-	            List<Count> counts = ff.getValues();
-	            for( Count ct: counts){  
-	                String department = ct.getName();
-	                long count = ct.getCount();
-	   				if ( count > 0 ) {
-	                	departmentFacets.put(department,count);
-	   				}
-	            }                
-	        }            
-	    }
-		Map<String,Long> sortedDepartmentFacets = sortByValue(departmentFacets);
-		
-        return sortedDepartmentFacets;
-	}
 
     private static HashSet<String> getFacetResultsForHits(SearchResultDocumentList docs, String ffName){
         HashSet<String> typesInHits = new HashSet<String>();  
@@ -421,13 +401,29 @@ public class ResearchAndScholarshipJsonServlet extends VitroHttpServlet {
 		IndividualDao iDao = vreq.getWebappDaoFactory().getIndividualDao();
 		Individual individual = iDao.getIndividualByURI(individualUri);
 
+		IndividualTemplateModel itm = new IndividualTemplateModel(individual, vreq);
+		Collection<String> mst = itm.getMostSpecificTypes();
 		Map<String, Object> modelMap = new HashMap<String, Object>();
-		modelMap.put("individual",
-				new IndividualTemplateModel(individual, vreq));
+		modelMap.put("individual", itm);
 		modelMap.put("vclass", vclassName);
+		log.debug("Individual MST = " + mst.iterator().next());
+		ShortViewContext svc;
+		switch(mst.iterator().next()) {
+			case "Journal Article": 
+				svc = ShortViewContext.PUBLICATIONS;
+				break;
+			case "Grant": 
+				svc = ShortViewContext.RESEARCH;
+				break;
+			case "Contract": 
+				svc = ShortViewContext.RESEARCH;
+				break;
+			default :
+		 		svc = ShortViewContext.BROWSE;
+		}
 		ServletContext ctx = vreq.getSession().getServletContext();
 		ShortViewService svs = ShortViewServiceSetup.getService(ctx);
-		return svs.renderShortView(individual, ShortViewContext.EXPERTS,
+		return svs.renderShortView(individual, svc,
 				modelMap, vreq);
 	}
 	
