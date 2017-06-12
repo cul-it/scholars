@@ -89,6 +89,40 @@ var getDomainExperts = {
 			}
 		});
 
+		// autocomplete for the explore research field
+		// TO DO: need a separate js file for this
+		$("#res-search-input").autocomplete({
+			minLength: 3,
+			source: function(request, response) {
+  				$.ajax({
+                    url: baseUrl + "/ackeywords?tokenize=true&stem=true",
+                    dataType: 'json',
+                    data: {
+                        term: request.term,
+                        type: "http://xmlns.com/foaf/0.1/Person",
+						querytype: "subject"
+					},
+					complete: function(xhr, status) {
+                        // Not sure why, but we need an explicit json parse here. 
+                        var results = $.parseJSON(xhr.responseText);
+						var terms = [];
+						$.each(results, function() {
+							terms.push(this.name);
+						});
+                    	response(terms);
+					}
+				});
+			},
+			select: function(event, ui) {
+				$("#de-search-input").val(ui.item.label);
+				if ( $("#discover-content").length ) {
+					getDomainExperts.scrollToSearchField($("#discover-content"));
+				}
+				else if ( $("#search-field-container").length ) {
+					getDomainExperts.scrollToSearchField($("#search-field-container"));
+				}
+			}
+		});
     },
 
 	scrollToSearchField: function(element) {

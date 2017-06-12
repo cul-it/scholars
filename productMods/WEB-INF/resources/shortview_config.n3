@@ -295,7 +295,7 @@ mydomain:articleAuthorsDG
 	PREFIX vcard:    <http://www.w3.org/2006/vcard/ns#>
 	PREFIX vivo:     <http://vivoweb.org/ontology/core#>
 
-	SELECT ?rank ?author (str(?authorName) as ?name) ?type
+	SELECT DISTINCT ?rank ?author (str(?authorName) as ?name) ?type
 	WHERE
 	{{
 	       ?individualUri vivo:relatedBy ?authorship .
@@ -326,7 +326,7 @@ mydomain:grantContractDetailsDG
 	PREFIX foaf:     <http://xmlns.com/foaf/0.1/>
 	PREFIX obo:      <http://purl.obolibrary.org/obo/>
 	PREFIX vivo:     <http://vivoweb.org/ontology/core#>
-	SELECT DISTINCT ?adminOrg ?orgLabel ?funder ?start ?end
+	SELECT DISTINCT ?adminOrg ?fundingOrg ?orgLabel ?funder ?start ?end
 	WHERE
 	{
 	      ?individualUri vivo:relates ?adminRole .
@@ -351,19 +351,19 @@ mydomain:grantContractInvestigatorsDG
 	PREFIX foaf:     <http://xmlns.com/foaf/0.1/>
 	PREFIX obo:      <http://purl.obolibrary.org/obo/>
 	PREFIX vivo:     <http://vivoweb.org/ontology/core#>
-	SELECT DISTINCT ?person ?personLabel ?type
+	SELECT DISTINCT ?person (str(?pLabel) AS ?personLabel) ?type
 	WHERE
 	{{
 	      ?individualUri vivo:relates ?piRole .
 	       ?piRole a vivo:PrincipalInvestigatorRole .
 	       ?piRole obo:RO_0000052 ?person .
-	       ?person  rdfs:label ?personLabel .
+	       ?person  rdfs:label ?pLabel .
            bind (str("1-PI") AS ?type )
 	} UNION {
 	       ?individualUri vivo:relates ?piRole .
 	       ?piRole a vivo:CoPrincipalInvestigatorRole .
 	       ?piRole obo:RO_0000052 ?person .
-	       ?person  rdfs:label ?personLabel .
+	       ?person  rdfs:label ?pLabel .
            bind (str("2-Co-PI") AS ?type )
      }
      }

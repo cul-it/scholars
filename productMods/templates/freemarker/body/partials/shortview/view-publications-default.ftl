@@ -30,11 +30,11 @@
 					</#if>
 				<#else>
 					<#if auth_has_next>
-						<#assign authorname = auth.name + "</a>, " />
+						<#assign authorname = auth.name + ",</a>" />
 					<#else>
 						<#assign authorname = auth.name + "</a>" />
 					</#if>
-					<a href="${auth.author}">${authorname!}</span>
+					<a href="${profileUrl(auth.author)}">${authorname!}</span>
 				</#if>
 			</#list>
 	</#assign>
@@ -46,7 +46,7 @@
 	            <div class="individual-altmetric-badge-inline">
 	                <div class="altmetric-embed"
 	                     data-badge-type="4"
-	                     data-badge-popover="right"
+	                     data-badge-popover="left"
 	                     data-badge-details=""
 	                     data-hide-no-mentions="true"
 	                     data-link-target="_blank"
@@ -59,7 +59,7 @@
 		           <div class="individual-altmetric-badge">
 		               <div class="altmetric-embed"
 		                    data-badge-type="4"
-		                    data-badge-popover="right"
+		                    data-badge-popover="left"
 		                    data-badge-details=""
 		                    data-hide-no-mentions="true"
 		                    data-link-target="_blank"
@@ -68,15 +68,16 @@
 		           </div>
 			</#assign>
 	    </#if>
-
 <li class="individual" role="listitem" role="navigation">
     <div class="row fff-bkg" style="margin:0;padding:0;">
-		<div class="col-md-<#if altmetric?contains("altmetric-hidden") >12<#else>10</#if>" style="padding:0">
+		<div class="col-md-1" style="padding-left:0;font-size: 20px;margin-top: 3px;"><i class="fa fa-book" aria-hidden="true"></i>
+		</div>
+		<div class="col-md-<#if !altmetric?has_content>11<#else>9</#if>" style="padding:0">
 	    	<h1 class="thumb" style="font-size:16px;margin-top:6px;line-height:1.25em">
 	        	<a href="${individual.profileUrl}" title="View the profile page for ${individual.name}}">${individual.name}.</a> 
 	    	</h1>
 		</div>
-		<#if !altmetric?contains("altmetric-hidden") >
+		<#if altmetric?has_content >
 			<div class="col-md-2" style="font-size:16px;padding:0">
 				${altmetric!}
 			</div>
