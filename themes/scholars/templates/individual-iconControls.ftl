@@ -6,14 +6,18 @@
 <#assign netidProp = propertyGroups.pullProperty("http://scholars.cornell.edu/ontology/hr.owl#netId")>
 <#assign netId = netidProp.statements?first />
 <#if netId?has_content>
-    <a href="http://www.cornell.edu/search/?tab=people&netid=${netId.value}" title="View the departmental page" target="_blank"><img src="${urls.base}/themes/scholars/images/contact-info-icon.png" width="32px" title="Click to view contact information" alt="contact info" /></a>
+    <a href="http://www.cornell.edu/search/?tab=people&netid=${netId.value}" title="View the departmental page" target="_blank" onclick="javascript:_paq.push(['trackEvent', 'Icons', 'Person', 'CornellSearch-Icon']);">
+    	<img src="${urls.base}/themes/scholars/images/contact-info-icon.png" width="32px" title="Click to view contact information" alt="contact info" />
+    </a>
 </#if>
 <img id="uriIcon" title="Share the URI or view this profile's RDF" data="${individual.uri}" width="32px" src="${urls.base}/themes/scholars/images/share-uri-icon.png" alt="share the uri" style="margin-left:6px"/>
 <#if orcidID?has_content>
-	<a href="${theOrcidId!}" title="View the ORCID page" target="_blank"><img id="orcidIcon" title="View ORCiD page" width="32px" src="${urls.base}/themes/scholars/images/orcid-icon.png" alt="Click to view ORCiD page" style="margin-left:6px"/></a>
+	<a href="${theOrcidId!}" title="View the ORCID page" target="_blank" onclick="javascript:_paq.push(['trackEvent', 'Icons', 'Person', 'ORCID-Icon']);">
+		<img id="orcidIcon" title="View ORCiD page" width="32px" src="${urls.base}/themes/scholars/images/orcid-icon.png" alt="Click to view ORCiD page" style="margin-left:6px"/>
+	</a>
 </#if>
 <#if webpageUrl?has_content>
-	<a href="${webpageUrl!}" title="View the departmental page" target="_blank">
+	<a href="${webpageUrl!}" title="View the departmental page" target="_blank" onclick="javascript:_paq.push(['trackEvent', 'Icons', 'Person', 'PersonalWebsite-Icon']);">
 		<img id="webIcon" title="Click to view websites" width="32px" src="${urls.base}/themes/scholars/images/websites-icon.png" alt="Click to view website/s" style="margin-left:6px"/>
 	</a>
 </#if>
@@ -25,7 +29,9 @@
 		<#elseif isCollegeOrSchool >
 			<#assign theType = "college or school" />
 		</#if>
-		<a href="${webpageUrl!}" title="View the departmental page" target="_blank"><img src="${urls.base}/themes/scholars/images/contact-info-icon.png" width="32px" title="Click to view the ${theType!} webpage" alt="contact info" /></a>
+		<a href="${webpageUrl!}" title="View the departmental page" target="_blank" onclick="javascript:_paq.push(['trackEvent', 'Icons', 'Department-School-College', 'Webpage-Icon']);">
+			<img src="${urls.base}/themes/scholars/images/contact-info-icon.png" width="32px" title="Click to view the ${theType!} webpage" alt="contact info" />
+		</a>
 	</#if>
 	<img id="uriIcon" title="Share the URI or view this profile's RDF" data="${individual.uri}" width="32px" src="${urls.base}/themes/scholars/images/share-uri-icon.png" alt="share the uri" style="margin-left:6px"/>
 </#if>

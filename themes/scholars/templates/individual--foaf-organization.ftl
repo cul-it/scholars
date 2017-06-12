@@ -93,11 +93,15 @@
   </#if>
   <#if isAcademicDept || isJohnsonOrHotelSchool >
 	<div id="word_cloud_icon_holder" style="display:none">
-		<a href="#" id="word_cloud_trigger"><img id="vizIcon" width="145px" src="${urls.base}/themes/scholars/images/wordcloud-icon.png"/></a>
+		<a href="#" id="word_cloud_trigger" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Department-School', 'Research-Keywords']);">
+			<img id="vizIcon" width="145px" src="${urls.base}/themes/scholars/images/wordcloud-icon.png"/>
+		</a>
 		<p>Research Keywords</p>
 	</div>
-	<div>
-		<a href="${urls.base}/orgSAVisualization?deptURI=${individual.uri}"><img id="vizIcon" width="68%" src="${urls.base}/themes/scholars/images/person_sa.png"/></a>
+	<div <#if isJohnsonOrHotelSchool >style="display:none"</#if>>
+		<a href="${urls.base}/oneOrganizationSubjectAreaVisualization?deptURI=${individual.uri?url}&deptLabel=${individual.name?url}" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Department-School', 'Research-Interests']);">
+		  <img id="vizIcon" width="68%" src="${urls.base}/themes/scholars/images/person_sa.png"/>
+		</a>
 		<p>Research Interests</p>
 	</div>
 	<div id="grants_icon_holder" style="display:none">
@@ -106,15 +110,21 @@
 	</div>
   <#elseif isCollegeOrSchool && !isJohnsonOrHotelSchool>
 	<div id="grants_icon_holder" style="display:none">
-  		<a href="#" id="grants_trigger"><img id="vizIcon" width="40%" src="${urls.base}/themes/scholars/images/dept_grants.png"/></a>
+  		<a href="#" id="grants_trigger" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Department-School', 'Research-Grants']);">
+  			<img id="vizIcon" width="40%" src="${urls.base}/themes/scholars/images/dept_grants.png"/>
+  		</a>
 		<p>Grants</p>
 	</div>
 	<div id="interd_collab_icon_holder" style="display:none">
-		<a id="interd_collab_trigger" class="jqModal" href="#"><img id="vizIcon" width="54%" src="${urls.base}/themes/scholars/images/interd_collab.png"/></a>
+		<a id="interd_collab_trigger" class="jqModal" href="#" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'College', 'Interdepartmental-CoAuthorships']);">
+			<img id="vizIcon" width="54%" src="${urls.base}/themes/scholars/images/interd_collab.png"/>
+		</a>
 		<p>Interdepartmental<br/>CoAuthorships</p>
 	</div>
 	<div id="cross_unit_collab_icon_holder" style="display:none">
-		<a id="cross_unit_collab_trigger" class="jqModal" href="#"><img id="vizIcon" width="54%" src="${urls.base}/themes/scholars/images/cross_unit_collab.png"/></a>
+		<a id="cross_unit_collab_trigger" class="jqModal" href="#" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'College', 'Cross-unit-CoAuthorships']);">
+			<img id="vizIcon" width="54%" src="${urls.base}/themes/scholars/images/cross_unit_collab.png"/>
+		</a>
 		<p>Cross-unit<br/>CoAuthorships</p>
 	</div>
   <#else>
@@ -133,8 +143,8 @@
 	  <#if facultyList?has_content || adminsGrant?has_content >
 		<div id="scholars-tabs-container">
 		  <ul id="scholars-tabs">
-		    <#if facultyList?has_content ><li><a href="#tabs-1">People</a></li> </#if>
-		    <#if adminsGrant?has_content ><li><a href="#tabs-2">Grants</a></li></#if>
+		    <#if facultyList?has_content ><li><a href="#tabs-1" onclick="javascript:_paq.push(['trackEvent', 'Tab', 'Department-School', 'People']);">People</a></li> </#if>
+		    <#if adminsGrant?has_content ><li><a href="#tabs-2" onclick="javascript:_paq.push(['trackEvent', 'Tab', 'Department-School', 'Grants']);">Grants</a></li></#if>
 		  </ul>
 		  <#if facultyList?has_content >
 			  <div id="tabs-1" class="tab-content" data="${publicationsProp!}-dude">
