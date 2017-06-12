@@ -44,7 +44,7 @@
 									<form id="de-search-form" action="${urls.base}/domainExpert" name="search" role="search" accept-charset="UTF-8" method="POST"> 
 										<input id="de-search-vclass" type="hidden" name="vclassId" value="http://purl.obolibrary.org/obo/BFO_0000002" />
 										<input id="de-search-input" class="home-search-input subject-search" type="text" name="querytext" value="${querytext!}" />
-										<input id="de-search-submit" class="home-page-submit" type="submit" action="${urls.base}/domainExpert?origin=homepage" value="GO" />
+										<input id="de-search-submit" class="home-page-submit" type="submit" action="${urls.base}/domainExpert?origin=homepage" value="GO"  onclick="javascript:_paq.push(['trackEvent', 'Search', 'Homepage', 'Find A Domain Expert']);" />
 										<div class="search-radio-container">
 											<input type="radio" name="querytype" value="subject" checked> by subject or keyword
 								   			<input id="by-name-radio" type="radio" name="querytype" value="name"> by name
@@ -64,7 +64,7 @@
 										<form id="res-search-form" action="${urls.base}/scholarship" name="search" role="search" accept-charset="UTF-8" method="POST"> 
 											<input id="res-search-vclass" type="hidden" name="vclassId" value="http://purl.obolibrary.org/obo/BFO_0000002" />
 											<input id="res-search-input" class="home-search-input" type="text" name="querytext" value="${querytext!}" />
-											<input id="res-search-submit" class="home-page-submit" type="submit" action="${urls.base}/domainExpert?origin=homepage" value="GO" />
+											<input id="res-search-submit" class="home-page-submit" type="submit" action="${urls.base}/domainExpert?origin=homepage" value="GO"  onclick="javascript:_paq.push(['trackEvent', 'Search', 'Homepage', 'Explore Research and Scholarship']);"/>
 												<input type="hidden" name="querytype" value="all" /> 
 										</form>
 									</div>
