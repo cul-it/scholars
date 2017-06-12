@@ -3,34 +3,44 @@
 <#-- Template for displaying paged search results -->
 <div class="row scholars-row">
 <div id="biscuit-container" class="col-sm-12 scholars-container">
-
+<#assign hasPubs = false />
+<#assign hasGrants = false />
+<#assign hasContracts = false />
 <#if individuals?? >
 	<#assign searchResults>
 		<#escape x as x?html>
-    		<span>${hitCount} domain expert<#if (hitCount > 1)>s</#if> found.</span>
+			<span>${hitCount} item<#if (hitCount > 1)>s</#if> found.</span>
 		</#escape>
 	</#assign>
+	<#if (pubCount > 0) >
+		<#assign hasPubs = true />
+	</#if>
+	<#if (grantCount > 0) >
+		<#assign hasGrants = true />
+	</#if>
+	<#if (contractCount > 0) >
+		<#assign hasContracts = true />
+	</#if>
+	<#assign grantContractTotal = (grantCount + contractCount) />
 </#if>
 <h2 class="expertsResultsHeader">Explore Research & Scholarship</h2>
 <div id="search-field-container" class="contentsBrowseGroup row fff-bkg">
   <div class="col-md-5">
     <fieldset>
         <legend>${i18n().search_form}</legend>
-		<#assign qType = querytype!"subject" />
-		<form id="results-search-form" action="${urls.base}/domainExpert" name="search" role="search" accept-charset="UTF-8" method="POST"> 
-			<input id="de-search-vclass" type="hidden" name="vclassId" value="http://xmlns.com/foaf/0.1/Person" />
-			<input id="de-search-input" class="results-input <#if qType == "name">name-search<#else>subject-search</#if>" type="text" name="querytext" value="${querytext!}"/>
-			<input id="results-search-submit" type="submit" action="${urls.base}/domainExpert?origin=homepage" value="GO"/>
-			<div class="results-search-radio-container">
-				<input type="radio" name="querytype" value="subject" <#if qType == "subject">checked</#if>> by subject or keyword
-	   			<input id="by-name-radio" type="radio" name="querytype" value="name" <#if qType == "name">checked</#if>> by name
-	  		</div>
+		<#assign qType = querytype!"all" />
+		<form id="results-search-form" action="${urls.base}/scholarship" name="search" role="search" accept-charset="UTF-8" method="POST"> 
+			<input id="de-search-vclass" type="hidden" name="vclassId" value="http://purl.obolibrary.org/obo/BFO_0000002" />
+			<input id="res-search-input" class="results-input" type="text" name="querytext" value="${querytext!}"/>
+			<input id="results-search-submit" type="button" value="GO"/>
+			<input id="hidden-querytype" type="hidden" name="querytype" value="${querytype!}" />
+			<input type="hidden" name="unselectedRadio" value="" />
+			<input type="hidden" name="radioCount" value="" />
 		</form>
 		<#-- we need these values for the ajax call that happens on scrolling and faceting. can't use the values in the form -->
 		<#-- because, though unlikely, users could clear the query text or change the query type, change their mind and      -->
 		<#-- continue scrolling or clicking facets. Deal with it, Hudson.                                                    -->
 		<input id="hidden-querytext" type="hidden" name="q-text" value="${querytext!}" />
-		<input id="hidden-querytype" type="hidden" name="q-type" value="${querytype!}" />
     </fieldset>
   </div>
 <#if individuals?? >
@@ -66,19 +76,40 @@
 </#if>
 </div>
 <#if individuals?? >
-  <div class="row fff-bkg" style="padding:0;margin:0;">
-  	<div id="results-blurb" class="col-md-7 col-md-offset-4">
+  <#if unselectedRadio?has_content >
+	<#if unselectedRadio == "pubs">
+		<#if (radioCount?string !=  "0") >
+			<#assign hasPubs = true />
+			<#assign pubCount = radioCount />
+		</#if>
+	<#elseif unselectedRadio == "grants">
+		<#if (radioCount?string !=  "0") >
+			<#assign hasGrants = true />
+			<#assign grantContractTotal = radioCount />
+		</#if>
+    </#if>
+  </#if>
+  <div class="row fff-bkg" style="padding:12px 0 1px 0;margin:0;">
+	<div id="research-radio-container" class="col-md-4">
+		<input id="all-radio" class="research-radio" type="radio" name="querytype" value="all" <#if qType == "all">checked</#if>>
+		<label for="all-radio"> All</label>
+		<input id="pubs-radio" class="research-radio" type="radio" name="querytype" data-count="${pubCount!}" value="pubs" <#if qType == "pubs">checked</#if><#if !hasPubs> disabled</#if>>
+		<label for="pubs-radio"> Publications <#if hasPubs>(${pubCount!})</#if></label>
+		<input id="grants-radio" class="research-radio" type="radio" name="querytype" data-count="${grantContractTotal!}" value="grants" <#if qType == "grants">checked</#if><#if !hasGrants && !hasContracts> disabled</#if>>
+		<label for="grants-radio"> Grants <#if hasGrants || hasContracts>(${grantContractTotal!})</#if></label>
+	</div>
+	
+  	<div id="results-blurb" class="col-md-6">
 		${searchResults!}
   	</div>
   </div>
   <div id="facets-and-results" class="contentsBrowseGroup row fff-bkg">
   <div id="facet-container" class="col-md-4">
-    <#if classFacet?has_content>
+    <#if classFacet?has_content && querytype != "all">
         <div id="position-facets" class="panel panel-default selection-list" >
-                <div class="panel-heading facet-panel-heading">Position</div>
+                <div class="panel-heading facet-panel-heading">Type</div>
 				<#assign classCount = 0 />
             <#list classFacet as class>
-				<#if class.text != "Person" >
                 	<div class="panel-body scholars-facet">
 						<#assign vclassid = class.url[class.url?index_of("vclassId=")+9..] />
 						<label>
@@ -86,36 +117,99 @@
 						</label>
 					</div>
 					<#assign classCount = classCount + class.count?number />
-				</#if>
             </#list>
-			<#if (classCount > hitCount?number)>
-				<div class="facet-note" data-cc="${classCount?number}" data-hc="${hitCount?number}">* Some scholars have multiple positions.</div>
+        </div>
+    </#if>
+    <#if affiliationFacet?has_content>
+        <div id="affiliation-facets" class="panel panel-default selection-list" >
+                <div class="panel-heading facet-panel-heading">Affiliation</div>
+				<#assign affilCount = 0 />
+            <#list affiliationFacet?keys as key>
+                <div class="panel-body scholars-facet">
+					<label>
+						<input type="checkbox" class="type-checkbox affiliation-cb" data-affiliation="${key}" /> ${key}<span> (${affiliationFacet[key]})</span>
+					</label>
+				</div>
+				<#assign affilCount = affilCount + affiliationFacet[key]?string?replace(",","")?number />
+            </#list>
+			<#if (affilCount > hitCount?string?replace(",","")?number)>
+				<div class="facet-note" data-ac="${affilCount?number}" data-hc="${hitCount?number}">* Some scholars have multiple affiliations.</div>
 			</#if>
         </div>
     </#if>
-    <#if collegeFacet?has_content>
-        <div id="college-facets" class="panel panel-default selection-list" >
-                <div class="panel-heading facet-panel-heading">College / School</div>
-            <#list collegeFacet?keys as key>
-                <div class="panel-body scholars-facet">
-					<label>
-						<input type="checkbox" class="type-checkbox college-cb" data-college="${key}" /> ${key}<span> (${collegeFacet[key]})</span>
-					</label>
+    <#if pubVenueFacet?has_content>
+        <div id="pubvenue-facets" class="panel panel-default selection-list" >
+                <div class="panel-heading facet-panel-heading">Publication Venue</div>
+				<div style="max-height:320px;overflow:auto;">
+            	<#list pubVenueFacet?keys as key>
+                	<div class="panel-body scholars-facet">
+						<label>
+							<input type="checkbox" class="type-checkbox pubvenue-cb" data-pubvenue="${key}" /> ${key}<span> (${pubVenueFacet[key]})</span>
+						</label>
+					</div>
+            	</#list>
 				</div>
-            </#list>
         </div>
     </#if>
-    <#if departmentFacet?has_content>
-        <div id="department-facets" class="panel panel-default selection-list" >
-                <div class="panel-heading facet-panel-heading">Department</div>
-            <#list departmentFacet?keys as key>
-                <div class="panel-body scholars-facet">
-					<label>
-						<input type="checkbox" class="type-checkbox department-cb" data-department="${key}" /> ${key}<span> (${departmentFacet[key]})</span>
-					</label>
+    <#if administratorFacet?has_content>
+        <div id="administrator-facets" class="panel panel-default selection-list" >
+                <div class="panel-heading facet-panel-heading">Administered by</div>
+				<div style="max-height:320px;overflow:auto;">
+            	<#list administratorFacet?keys as key>
+                	<div class="panel-body scholars-facet">
+						<label>
+							<input type="checkbox" class="type-checkbox administrator-cb" data-administrator="${key}" /> ${key}<span> (${administratorFacet[key]})</span>
+						</label>
+					</div>
+            	</#list>
 				</div>
-            </#list>
         </div>
+    </#if>
+    <#if funderFacet?has_content>
+        <div id="funder-facets" class="panel panel-default selection-list" >
+                <div class="panel-heading facet-panel-heading">Funding Agency</div>
+				<div style="max-height:320px;overflow:auto;">
+            	<#list funderFacet?keys as key>
+                	<div class="panel-body scholars-facet">
+						<label>
+							<input type="checkbox" class="type-checkbox funder-cb" data-funder="${key}" /> ${key?capitalize?replace("Nsf","NSF")?replace("Nih","NIH")?replace("Dhhs","DHHS")?replace("usda","USDA")?replace("Usda","USDA")?replace("A&m","A&M")?replace("Doe","DOE")?replace("Dod","DOD")?replace("Rsch","RSCH")?replace("Res","RES")?replace("Ltd","LTD")?replace("Fdn","FDN")?replace("Doi","DOI")?replace("Gsa","GSA")?replace("Doc","DOC")?replace(" Us"," US")}<span> (${funderFacet[key]})</span>
+						</label>
+					</div>
+            	</#list>
+				</div>
+        </div>
+    </#if>
+    <#if startYear?has_content && endYear?has_content && querytype != "all">
+		<script>
+			var startYear = ${startYear?c!};
+			var endYear = ${endYear?c!};
+		</script>
+        <div id="yearRange-facets" class="panel panel-default selection-list" >
+                <div class="panel-heading facet-panel-heading"><#if querytype == "pubs">Publication<#else>Active</#if> Year</div>
+				<div style="max-height:320px;overflow:auto;">
+                	<div class="panel-body scholars-facet">
+					  <#if querytype == "grants">
+						<div id="reset-dates" style="width:100%;text-align:right;display:none">
+							<a id="reset-dates-link" href="javascript:return false;">Reset</a>
+						</div>
+					  </#if>
+						<div id="slider" style="margin: 50px 20px 10px;"></div>
+						<#if querytype == "grants">
+							<div id="pips" style="padding:0 20px">
+								<div style="float:left">|</div><div style="float:right">|</div>
+							</div>
+							<div id="demarcation" style="clear: both;padding: 4px 6px 20px;">
+								<span id="date-start" data-date="${startYear?c!}" style="float:left">${startYear?c!}</span><span id="date-end" data-date="${endYear?c!}" style="float:right">${endYear?c!}</span>
+							</div>
+						</#if>
+					</div>
+				</div>
+        </div>
+	<#else>
+		<script>
+			var startYear = 0;
+			var endYear = 0;
+		</script>
     </#if>
     <div id="jump-check"></div>
   </div>
@@ -132,7 +226,7 @@
   			</#list>
   			<#assign adjPage = (currentPage + 1) />
   			<#assign adjStartIndex =  (adjPage * hitsPerPage) />
-  			<#if ( hitCount > 987654321 ) > <#-- adjStartIndex ) -->
+  			<#if ( hitCount > adjStartIndex ) >
   				<li id="scroll-control" data-start-index="${adjStartIndex}" data-current-page="${adjPage}">
   					<img id="search-indicator" src="${urls.images}/indicatorWhite.gif" /> 
   					<span>retrieving additional results</span>
@@ -148,6 +242,7 @@
 </div> <!-- end of row -->
 
 ${stylesheets.add('<link rel="stylesheet" href="//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />',
+				  '<link rel="stylesheet" type="text/css" href="${urls.base}/css/scholars-vis/grants/nouislider.min.css">',
   				  '<link rel="stylesheet" href="${urls.base}/css/search.css" />')}
 
 ${scripts.add('<script type="text/javascript" src="${urls.base}/js/searchDownload.js"></script>')}
@@ -155,7 +250,8 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/searchDownloa
 var baseUrl = "${urls.base}";
 var imagesUrl = "${urls.images}";
 </script>
-${scripts.add('<script type="text/javascript" src="${urls.base}/js/findDomainExpert.js"></script>',
+${scripts.add('<script type="text/javascript" src="${urls.base}/js/exploreResearch.js"></script>',
 			  '<script type="text/javascript" src="https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js"></script>',
+			  '<script type="text/javascript" src="${urls.base}/js/scholars-vis/grants/nouislider.min.js"></script>',
 			  '<script type="text/javascript" src="${urls.base}/js/jquery_plugins/jquery.scrollTo-min.js"></script>')}
 <#-- @dumpAll/ -->

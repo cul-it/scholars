@@ -3,7 +3,7 @@
 }
 #nav-bar.homepage {
 	position: absolute;
-	bottom: 80px;
+	bottom: 90px;
 }
 .fixed {
 	position: fixed !important;
@@ -86,7 +86,7 @@ div#logo-container {
 	padding: 166px 0 20px 0;
 	margin: 0;
 	border-radius: 10px;
-	height: 290px;
+	height: 310px;
 	width: 100%;
 	background-size: cover;
 }
@@ -117,7 +117,7 @@ div#logo-container {
 	padding: 166px 0 20px 0;
 	margin: 0;
 	border-radius: 10px;
-	height: 290px;
+	height: 310px;
 	width: 100%;
 	background-size: cover;
 }
@@ -126,7 +126,7 @@ div#logo-container {
 	padding: 166px 0 20px 0;
 	margin: 0;
 	border-radius: 10px;
-	height: 290px;
+	height: 310px;
 	width: 100%;
 	background-size: cover;
 }

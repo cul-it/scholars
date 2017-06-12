@@ -78,7 +78,6 @@
                 <div class="panel-heading facet-panel-heading">Position</div>
 				<#assign classCount = 0 />
             <#list classFacet as class>
-				<#if class.text != "Person" >
                 	<div class="panel-body scholars-facet">
 						<#assign vclassid = class.url[class.url?index_of("vclassId=")+9..] />
 						<label>
@@ -86,7 +85,6 @@
 						</label>
 					</div>
 					<#assign classCount = classCount + class.count?number />
-				</#if>
             </#list>
 			<#if (classCount > hitCount?number)>
 				<div class="facet-note" data-cc="${classCount?number}" data-hc="${hitCount?number}">* Some scholars have multiple positions.</div>

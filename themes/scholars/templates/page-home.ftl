@@ -62,19 +62,15 @@
 									</div>
 									<div id="research-search" class="home-search-container">
 										<form id="res-search-form" action="${urls.base}/scholarship" name="search" role="search" accept-charset="UTF-8" method="POST"> 
-											<input id="res-search-vclass" type="hidden" name="vclassId" value="http://xmlns.com/foaf/0.1/Person" />
-											<input id="res-search-input" class="home-search-input subject-search" type="text" name="querytext" value="${querytext!}" />
+											<input id="res-search-vclass" type="hidden" name="vclassId" value="http://purl.obolibrary.org/obo/BFO_0000002" />
+											<input id="res-search-input" class="home-search-input" type="text" name="querytext" value="${querytext!}" />
 											<input id="res-search-submit" class="home-page-submit" type="submit" action="${urls.base}/domainExpert?origin=homepage" value="GO" />
-											<div class="search-radio-container" style="display:none">
-												<input type="radio" name="querytype" value="subject" checked> by subject or keyword
-									   			<input id="by-name-radio" type="radio" name="querytype" value="name"> by person
-									  		</div>
+												<input type="hidden" name="querytype" value="all" /> 
 										</form>
 									</div>
 								</div>
 						</div>
 						<div id="unit-search-link" class="col-sm-4 col-md-4 col-lg-4 search-links">
-							<#-- a class="image-links" href="/scholars/research#http://vivoweb.org/ontology/core#Grant" -->
 								<div id="ongoing-research" class="search-link-div">
 									<div class="discovery-details">
 										<span>Review<br/>Academic Units</span>
@@ -83,14 +79,13 @@
 										<span>&#8212 Coming Soon &#8212</span>
 									</div>
 								</div>
-							<#-- /a -->
 						</div>
 					</div>
 				</div>
 				<div id="visualize-header" class="row fff-bkg">
-					<div class="col-sm-12 col-md-12 col-lg-12 e3e6e9-bkg">
+					<div class="col-sm-12 col-md-12 col-lg-12 home-divider">
 						<p class="home-header">
-							Visualizations
+							The Visualizations
 						</p>
 					</div>
 				</div>
@@ -133,7 +128,7 @@
 
 
 				<div id="partners-header" class="row fff-bkg">
-					<div class="col-sm-12 col-md-12 col-lg-12 e3e6e9-bkg">
+					<div class="col-sm-12 col-md-12 col-lg-12 home-divider">
 						<p class="home-header">
 							Partner Alliance
 						</p>
@@ -164,7 +159,7 @@
 
 
 				<div id="download-header" class="row fff-bkg">
-					<div class="col-sm-12 col-md-12 col-lg-12 e3e6e9-bkg">
+					<div class="col-sm-12 col-md-12 col-lg-12 home-divider">
 						<p class="home-header">
 							By the Numbers
 						</p>

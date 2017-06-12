@@ -37,12 +37,11 @@
 <#-- conjunction with the homePageMaps.js and latLongJson.js files, as well -->
 <#-- as the leaflet javascript library.                                     -->
 <#macro downloadCounts>
-	<#if facultyCount?has_content>
-        <#assign researchersCount = facultyCount[0].count?number + professionalCount[0].count?number />
+	<#if researcherCount?has_content>
 		<div id="download-content" class="row fff-bkg">
 				<div class="col-sm-1 col-md-1 col-lg-1"></div>
 				<div class="col-sm-3 col-md-3 col-lg-3">
-					<a class="researcher-link" href="/scholars/people"><div id="researcher-count"><p>${researchersCount}</p></div></a>
+					<a class="researcher-link" href="/scholars/people"><div id="researcher-count"><p>${researcherCount[0].count?number}</p></div></a>
 					<a class="researcher-link" href="/scholars/people"><div id="researcher-text"><p>Researchers</p></div></a>
 				</div>
 				<div class="col-sm-3 col-md-3 col-lg-3">
