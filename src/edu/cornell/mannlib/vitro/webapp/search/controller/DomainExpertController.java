@@ -142,8 +142,8 @@ public class DomainExpertController extends FreemarkerHttpServlet {
              
              ApplicationBean appBean = vreq.getAppBean();
              
-             log.debug("IndividualDao is " + iDao.toString() + " Public classes in the classgroup are " + grpDao.getPublicGroupsWithVClasses().toString());
-             log.debug("VClassDao is "+ vclassDao.toString() );            
+             //log.debug("IndividualDao is " + iDao.toString() + " Public classes in the classgroup are " + grpDao.getPublicGroupsWithVClasses().toString());
+             //log.debug("VClassDao is "+ vclassDao.toString() );            
              
              int startIndex = getStartIndex(vreq);            
              int hitsPerPage = getHitsPerPage( vreq );           

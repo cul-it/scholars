@@ -253,13 +253,13 @@ public class ResearchAndScholarshipController extends FreemarkerHttpServlet {
 			body.put("grantCount", grantCount); 
 			body.put("contractCount", contractCount); 
             body.put("affiliationFacet", getAffiliationFacet(docs, response));  
-			if ( queryType.equals("pubs") ) {
+			if ( queryType.equals("pubs") || queryType.equals("all") ) {
 				body.put("pubVenueFacet", getPubVenueFacet(docs, response)); 
 				List<Integer> pubYearFacet = getPubYearFacet(docs, response);
 				body.put("startYear", pubYearFacet.get(0));                      
 				body.put("endYear", pubYearFacet.get(pubYearFacet.size() - 1));                      
 			}
-			else if ( queryType.equals("grants") ) {
+			else if ( queryType.equals("grants") || queryType.equals("all") ) {
 				body.put("administratorFacet", getAdministratorFacet(docs, response));  
 				body.put("funderFacet", getFunderFacet(docs, response));  
 				List<Integer> grantYearFacet = getGrantYearFacet(docs, response);
@@ -343,8 +343,8 @@ public class ResearchAndScholarshipController extends FreemarkerHttpServlet {
 	
 	    SearchQuery query = ApplicationUtils.instance().getSearchEngine().createQuery();
 	
-		String queryString = KEYWORD_FIELD + ":\"" + queryText.toLowerCase() + "\" OR nameLowercase:\"" + queryText.toLowerCase() 
-						+ "\" OR ALLTEXT:\"" + queryText.toLowerCase() + "\"";
+		String queryString = KEYWORD_FIELD + ":\"" + queryText.toLowerCase() + "\" OR nameLowercase:\"" + queryText.toLowerCase().replaceAll("\"","") 
+						+ "\" OR ALLTEXT:\"" + queryText.toLowerCase().replaceAll("\"","") + "\"";
 	
 		query.setQuery(queryString);
 	    
@@ -355,21 +355,22 @@ public class ResearchAndScholarshipController extends FreemarkerHttpServlet {
 		
 		if ( queryType.equals("pubs") ) {
 			query.addFilterQuery("type:\"http://purl.org/ontology/bibo/Document\"");
-			query.addFacetFields("pub_date_dt").setFacetLimit(-1);
-			query.addFacetFields("pub_venue_ss").setFacetLimit(-1);
 		}
 		else if ( queryType.equals("grants") ) {
 			query.addFilterQuery("type:\"http://vivoweb.org/ontology/core#Grant\" OR type:\"http://vivoweb.org/ontology/core#Contract\"");
-			query.addFacetFields("administrator_ss").setFacetLimit(-1);
-			query.addFacetFields("funder_ss").setFacetLimit(-1);
-			query.addFacetFields("start_date_dt").setFacetLimit(-1);
-			query.addFacetFields("end_date_dt").setFacetLimit(-1);
 		}
 		else {
 			query.addFilterQuery("-type:\"http://www.w3.org/2004/02/skos/core#Concept\"");
 			query.addFilterQuery("-type:\"http://purl.org/ontology/bibo/Journal\"");
 		}
 	    
+		query.addFacetFields("pub_date_dt").setFacetLimit(-1);
+		query.addFacetFields("pub_venue_ss").setFacetLimit(-1);
+		query.addFacetFields("administrator_ss").setFacetLimit(-1);
+		query.addFacetFields("funder_ss").setFacetLimit(-1);
+		query.addFacetFields("start_date_dt").setFacetLimit(-1);
+		query.addFacetFields("end_date_dt").setFacetLimit(-1);
+
 	    //with ClassGroup filtering we want type facets
 	    query.addFacetFields(VitroSearchTermNames.RDFTYPE).setFacetLimit(-1);
 		// affiliations apply to all types
@@ -620,14 +621,23 @@ public class ResearchAndScholarshipController extends FreemarkerHttpServlet {
     }
        
 	private ExceptionResponseValues doSearchError(Throwable e, Format f) {
-	        Map<String, Object> body = new HashMap<String, Object>();
-	        body.put("message", "Search failed: " + e.getMessage());  
-	        return new ExceptionResponseValues("search-error.ftl", body, e);
-	    }
+        Map<String, Object> body = new HashMap<String, Object>();
+        body.put("title", "Search Failed");  
+        body.put("message", "Search failed: " + e.getMessage());  
+        return new ExceptionResponseValues("search-error.ftl", body, e);
+	}
 
     private TemplateResponseValues doFailedSearch(String message, String querytext, Format f, VitroRequest vreq) {
         Map<String, Object> body = new HashMap<String, Object>();       
-        body.put("title", querytext);
+        if ( querytext == null || StringUtils.isEmpty(querytext) ) {
+			body.put("title", "No Search Term");
+	        message =  "no_search_term";
+		}
+		else {
+			body.put("title", "Search Failed");
+	        body.put("badquerytext", querytext);
+		}
+        
         if ( StringUtils.isEmpty(message) ) {
         	message = "search_failed";
         }        
@@ -637,7 +647,8 @@ public class ResearchAndScholarshipController extends FreemarkerHttpServlet {
 
     private TemplateResponseValues doNoHits(String querytext, Format f, VitroRequest vreq) {
         Map<String, Object> body = new HashMap<String, Object>();       
-        body.put("title", querytext);        
+        body.put("title", "No Search Results");        
+        body.put("badquerytext", querytext);        
 		body.put("message", "no_matches");    
         return new TemplateResponseValues(TEMPLATE, body);        
     }

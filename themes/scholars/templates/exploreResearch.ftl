@@ -6,6 +6,7 @@
 <#assign hasPubs = false />
 <#assign hasGrants = false />
 <#assign hasContracts = false />
+<#assign disableAll = false />
 <#if individuals?? >
 	<#assign searchResults>
 		<#escape x as x?html>
@@ -23,17 +24,33 @@
 	</#if>
 	<#assign grantContractTotal = (grantCount + contractCount) />
 </#if>
+<#-- If we only have pubs or we only have grants, set the querytype accordingly -->
+<#if !querytype?? >
+	<#assign adjQueryType = "all" />
+<#elseif querytype == "pubs" || (pubCount > 0 && grantContractTotal == 0) >
+	<#assign adjQueryType = "pubs" />
+	<#assign disableAll = true />
+<#elseif querytype == "grants" || (grantContractTotal > 0 && pubCount == 0) >
+	<#assign adjQueryType = "grants" />
+	<#assign disableAll = true />
+<#else>
+	<#assign adjQueryType = "all" />
+</#if>
+<#if querytext?? >
+	<#assign querytext = querytext?replace("\"","&quot;")/>
+<#else>
+	<#assign querytext = ""/>
+</#if>
 <h2 class="expertsResultsHeader">Explore Research & Scholarship</h2>
 <div id="search-field-container" class="contentsBrowseGroup row fff-bkg">
   <div class="col-md-5">
     <fieldset>
         <legend>${i18n().search_form}</legend>
-		<#assign qType = querytype!"all" />
 		<form id="results-search-form" action="${urls.base}/scholarship" name="search" role="search" accept-charset="UTF-8" method="POST"> 
 			<input id="de-search-vclass" type="hidden" name="vclassId" value="http://purl.obolibrary.org/obo/BFO_0000002" />
 			<input id="res-search-input" class="results-input" type="text" name="querytext" value="${querytext!}"/>
 			<input id="results-search-submit" type="button" value="GO"/>
-			<input id="hidden-querytype" type="hidden" name="querytype" value="${querytype!}" />
+			<input id="hidden-querytype" type="hidden" name="querytype" value="${adjQueryType!}" />
 			<input type="hidden" name="unselectedRadio" value="" />
 			<input type="hidden" name="radioCount" value="" />
 		</form>
@@ -91,12 +108,12 @@
   </#if>
   <div class="row fff-bkg" style="padding:12px 0 1px 0;margin:0;">
 	<div id="research-radio-container" class="col-md-4">
-		<input id="all-radio" class="research-radio" type="radio" name="querytype" value="all" <#if qType == "all">checked</#if>>
+		<input id="all-radio" class="research-radio" type="radio" name="querytype" value="all" <#if adjQueryType == "all">checked</#if> <#if disableAll> disabled</#if>>
 		<label for="all-radio"> All</label>
-		<input id="pubs-radio" class="research-radio" type="radio" name="querytype" data-count="${pubCount!}" value="pubs" <#if qType == "pubs">checked</#if><#if !hasPubs> disabled</#if>>
-		<label for="pubs-radio"> Publications <#if hasPubs>(${pubCount!})</#if></label>
-		<input id="grants-radio" class="research-radio" type="radio" name="querytype" data-count="${grantContractTotal!}" value="grants" <#if qType == "grants">checked</#if><#if !hasGrants && !hasContracts> disabled</#if>>
-		<label for="grants-radio"> Grants <#if hasGrants || hasContracts>(${grantContractTotal!})</#if></label>
+		<input id="pubs-radio" class="research-radio" type="radio" name="querytype" data-count="${pubCount!}" value="pubs" <#if adjQueryType == "pubs">checked</#if><#if !hasPubs> disabled</#if>>
+		<label for="pubs-radio"> Publications (${pubCount!})</label>
+		<input id="grants-radio" class="research-radio" type="radio" name="querytype" data-count="${grantContractTotal!}" value="grants" <#if adjQueryType == "grants">checked</#if><#if !hasGrants && !hasContracts> disabled</#if>>
+		<label for="grants-radio"> Grants (${grantContractTotal!})</label>
 	</div>
 	
   	<div id="results-blurb" class="col-md-6">
@@ -105,7 +122,7 @@
   </div>
   <div id="facets-and-results" class="contentsBrowseGroup row fff-bkg">
   <div id="facet-container" class="col-md-4">
-    <#if classFacet?has_content && querytype != "all">
+    <#if (classFacet?has_content && adjQueryType != "all")>
         <div id="position-facets" class="panel panel-default selection-list" >
                 <div class="panel-heading facet-panel-heading">Type</div>
 				<#assign classCount = 0 />
@@ -130,14 +147,14 @@
 						<input type="checkbox" class="type-checkbox affiliation-cb" data-affiliation="${key}" /> ${key}<span> (${affiliationFacet[key]})</span>
 					</label>
 				</div>
-				<#assign affilCount = affilCount + affiliationFacet[key]?string?replace(",","")?number />
+				<#assign affilCount = affilCount?string?replace(",","")?number + affiliationFacet[key]?string?replace(",","")?number />
             </#list>
 			<#if (affilCount > hitCount?string?replace(",","")?number)>
-				<div class="facet-note" data-ac="${affilCount?number}" data-hc="${hitCount?number}">* Some scholars have multiple affiliations.</div>
+				<div class="facet-note" data-ac="${affilCount?string?replace(",","")?number}" data-hc="${hitCount?string?replace(",","")?number}">* Some scholars may have multiple affiliations.</div>
 			</#if>
         </div>
     </#if>
-    <#if pubVenueFacet?has_content>
+    <#if pubVenueFacet?has_content && adjQueryType == "pubs">
         <div id="pubvenue-facets" class="panel panel-default selection-list" >
                 <div class="panel-heading facet-panel-heading">Publication Venue</div>
 				<div style="max-height:320px;overflow:auto;">
@@ -151,7 +168,7 @@
 				</div>
         </div>
     </#if>
-    <#if administratorFacet?has_content>
+    <#if administratorFacet?has_content && adjQueryType == "grants" >
         <div id="administrator-facets" class="panel panel-default selection-list" >
                 <div class="panel-heading facet-panel-heading">Administered by</div>
 				<div style="max-height:320px;overflow:auto;">
@@ -165,7 +182,7 @@
 				</div>
         </div>
     </#if>
-    <#if funderFacet?has_content>
+    <#if funderFacet?has_content && adjQueryType == "grants">
         <div id="funder-facets" class="panel panel-default selection-list" >
                 <div class="panel-heading facet-panel-heading">Funding Agency</div>
 				<div style="max-height:320px;overflow:auto;">
@@ -179,22 +196,22 @@
 				</div>
         </div>
     </#if>
-    <#if startYear?has_content && endYear?has_content && querytype != "all">
+    <#if (startYear?has_content && endYear?has_content && adjQueryType != "all")>
 		<script>
 			var startYear = ${startYear?c!};
 			var endYear = ${endYear?c!};
 		</script>
         <div id="yearRange-facets" class="panel panel-default selection-list" >
-                <div class="panel-heading facet-panel-heading"><#if querytype == "pubs">Publication<#else>Active</#if> Year</div>
+                <div class="panel-heading facet-panel-heading"><#if adjQueryType == "pubs">Publication<#else>Active</#if> Year</div>
 				<div style="max-height:320px;overflow:auto;">
                 	<div class="panel-body scholars-facet">
-					  <#if querytype == "grants">
+					  <#if adjQueryType == "grants">
 						<div id="reset-dates" style="width:100%;text-align:right;display:none">
 							<a id="reset-dates-link" href="javascript:return false;">Reset</a>
 						</div>
 					  </#if>
 						<div id="slider" style="margin: 50px 20px 10px;"></div>
-						<#if querytype == "grants">
+						<#if adjQueryType == "grants">
 							<div id="pips" style="padding:0 20px">
 								<div style="float:left">|</div><div style="float:right">|</div>
 							</div>
@@ -237,6 +254,11 @@
     </div>  
 </div>
 </div> <!-- end contentsBrowseGroup -->
+<#else>
+	<script>
+		var startYear = 0;
+		var endYear = 0;
+	</script>
 </#if>
   </div> <!--! end of #container -->
 </div> <!-- end of row -->
