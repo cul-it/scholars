@@ -10,35 +10,24 @@
  
     # by the numbers datagetters 
 
-    <freemarker:lib-home-page.ftl> display:hasDataGetter display:facultyCountDataGetter ,
+    <freemarker:lib-home-page.ftl> display:hasDataGetter display:researcherCountDataGetter ,
                                                          display:professionalCountDataGetter ,
                                                          display:grantCountDataGetter ,
                                                          display:articleCountDataGetter ,
                                                          display:journalCountDataGetter .
                                                          
-    display:facultyCountDataGetter
+    display:researcherCountDataGetter
         a <java:edu.cornell.mannlib.vitro.webapp.utils.dataGetter.SparqlQueryDataGetter> ;
-        display:saveToVar "facultyCount" ;
+        display:saveToVar "researcherCount" ;
         display:query """
         PREFIX rdf:      <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-		PREFIX bibo:     <http://purl.org/ontology/bibo/>
-		PREFIX vivo:     <http://vivoweb.org/ontology/core#>
-		SELECT  (count(distinct ?faculty) as ?count) 
+		PREFIX foaf:     <http://xmlns.com/foaf/0.1/>
+		PREFIX vitro:    <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
+		SELECT  (count(?mst) AS ?count)
 		WHERE {
-		      ?faculty rdf:type vivo:FacultyMember .
-		}
-        """ .
-
-    display:professionalCountDataGetter
-        a <java:edu.cornell.mannlib.vitro.webapp.utils.dataGetter.SparqlQueryDataGetter> ;
-        display:saveToVar "professionalCount" ;
-        display:query """
-        PREFIX rdf:      <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-		PREFIX bibo:     <http://purl.org/ontology/bibo/>
-		PREFIX vivo:     <http://vivoweb.org/ontology/core#>
-		SELECT (count(distinct ?professional) as ?count)
-		WHERE {
-		     ?professional rdf:type vivo:NonFacultyAcademic .
+      		?person rdf:type foaf:Person .
+      		?person vitro:mostSpecificType ?mst .
+      		FILTER (str(?mst) != "http://xmlns.com/foaf/0.1/Person")
 		}
         """ .
 
