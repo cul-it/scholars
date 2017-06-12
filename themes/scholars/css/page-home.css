@@ -3,7 +3,7 @@
 }
 #nav-bar.homepage {
 	position: absolute;
-	bottom: 80px;
+	bottom: 90px;
 }
 .fixed {
 	position: fixed !important;
@@ -73,9 +73,10 @@ div#logo-container {
 #unit-search-link:hover  #unit-placeholder {
 	display:block;
 }
-#expert-search {
+.home-search-container {
 	background-color: rgba(0, 0, 0, 0.5);
-	border-radius: 10px;
+	border-bottom-right-radius: 10px;
+	border-bottom-left-radius: 10px;
 	display: none;
 	font-family: Arial,Helvetica,sans-serif;
 	text-align: center;
@@ -85,24 +86,24 @@ div#logo-container {
 	padding: 166px 0 20px 0;
 	margin: 0;
 	border-radius: 10px;
-	height: 290px;
+	height: 310px;
 	width: 100%;
 	background-size: cover;
 }
-#de-search-input {
+.home-search-input {
 	margin-top: 5px;
 	color: #656;
 	font-size: 14px;
 	height: 32px;
 	width: 80%;
 }
-#de-search-submit {
+.home-page-submit {
 	background :none;
 	border: none;
 	font-size: 16px;
 	color: #fff;
 }
-#de-search-submit:hover {
+.home-page-submit:hover {
 	color: #CC6949;
 }
 .search-radio-container {
@@ -116,7 +117,7 @@ div#logo-container {
 	padding: 166px 0 20px 0;
 	margin: 0;
 	border-radius: 10px;
-	height: 290px;
+	height: 310px;
 	width: 100%;
 	background-size: cover;
 }
@@ -125,7 +126,7 @@ div#logo-container {
 	padding: 166px 0 20px 0;
 	margin: 0;
 	border-radius: 10px;
-	height: 290px;
+	height: 310px;
 	width: 100%;
 	background-size: cover;
 }

@@ -926,6 +926,33 @@
   </servlet-mapping>
   
   <servlet>
+    <servlet-name>ResearchAndScholarshipController</servlet-name>
+    <servlet-class>edu.cornell.mannlib.vitro.webapp.search.controller.ResearchAndScholarshipController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ResearchAndScholarshipController</servlet-name>
+    <url-pattern>/scholarship</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>ResearchAndScholarshipJsonServlet</servlet-name>
+    <servlet-class>edu.cornell.mannlib.vitro.webapp.controller.json.ResearchAndScholarshipJsonServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ResearchAndScholarshipJsonServlet</servlet-name>
+    <url-pattern>/scholarshipJson</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>ScholarsAjaxController</servlet-name>
+    <servlet-class>edu.cornell.mannlib.vitro.webapp.controller.ajax.ScholarsAjaxController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ScholarsAjaxController</servlet-name>
+    <url-pattern>/scholarsAjax</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
      <servlet-name>SearchHelpController</servlet-name>
      <servlet-class>edu.cornell.mannlib.vitro.webapp.search.controller.SearchHelpController</servlet-class>
    </servlet>

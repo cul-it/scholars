@@ -77,10 +77,10 @@ import edu.cornell.mannlib.vitro.webapp.web.templatemodels.individual.Individual
  * Paged search controller that uses the search engine
  */
 
-public class DomainExpertController extends FreemarkerHttpServlet {
+public class ResearchAndScholarshipController extends FreemarkerHttpServlet {
 
     private static final long serialVersionUID = 1L;
-    private static final Log log = LogFactory.getLog(DomainExpertController.class);
+    private static final Log log = LogFactory.getLog(ResearchAndScholarshipController.class);
     
     protected static final int DEFAULT_HITS_PER_PAGE = 12;
     protected static final int DEFAULT_MAX_HIT_COUNT = 100;   
@@ -94,8 +94,10 @@ public class DomainExpertController extends FreemarkerHttpServlet {
     private static final String PARAM_VCLASS_ID = "vclassId";
     private static final String PARAM_QUERY_TEXT = "querytext";
     private static final String PARAM_QUERY_TYPE = "querytype";
+    private static final String PARAM_UNSELECTED_RADIO = "unselectedRadio";
+    private static final String PARAM_RADIO_COUNT = "radioCount";
 	private static final String KEYWORD_FIELD = "keyword_txt";
-	private static final String TEMPLATE = "findDomainExpert.ftl";
+	private static final String TEMPLATE = "exploreResearch.ftl";
 	
     protected enum Format { 
         HTML, XML, CSV; 
@@ -142,18 +144,23 @@ public class DomainExpertController extends FreemarkerHttpServlet {
              
              ApplicationBean appBean = vreq.getAppBean();
              
-             //log.debug("IndividualDao is " + iDao.toString() + " Public classes in the classgroup are " + grpDao.getPublicGroupsWithVClasses().toString());
-             //log.debug("VClassDao is "+ vclassDao.toString() );            
+             log.debug("IndividualDao is " + iDao.toString() + " Public classes in the classgroup are " + grpDao.getPublicGroupsWithVClasses().toString());
+             log.debug("VClassDao is "+ vclassDao.toString() );            
              
              int startIndex = getStartIndex(vreq);            
              int hitsPerPage = getHitsPerPage( vreq );           
              int currentPage = getCurrentPage( vreq );           
  
              String queryText = vreq.getParameter(PARAM_QUERY_TEXT);  
-             String queryType = vreq.getParameter(PARAM_QUERY_TYPE); 
-             String classGroupParam = "http://vivoweb.org/ontology#vitroClassGrouppeople"; 
+             String queryType = (vreq.getParameter(PARAM_QUERY_TYPE) == null) ? "all" : vreq.getParameter(PARAM_QUERY_TYPE); 
+             String unselectedRadio = (vreq.getParameter(PARAM_UNSELECTED_RADIO) == null) ? "" : vreq.getParameter(PARAM_UNSELECTED_RADIO); 
+             String radioCount = (vreq.getParameter(PARAM_RADIO_COUNT) == null) ? "0" : vreq.getParameter(PARAM_RADIO_COUNT); 
+             String classGroupParam = "http://vivoweb.org/ontology#vitroClassGrouppublications"; 
  			 
              log.debug("Query text is \""+ queryText + "\""); 
+             log.debug("Query type is \""+ queryType + "\""); 
+             log.debug("unselectedRadio is \""+ unselectedRadio + "\""); 
+             log.debug("radioCount = "+ radioCount ); 
   
              if( queryType != null && queryType.equals("new")){
                  return doNewSearch(vreq);
@@ -175,7 +182,7 @@ public class DomainExpertController extends FreemarkerHttpServlet {
                   log.error("could not run search query",ex);
                   return doFailedSearch(msg, queryText, format, vreq);              
               }
-
+	
               if (response == null) {
                   log.error("Search response was null");                                
                   return doFailedSearch(I18n.text(vreq, "error_in_search_request"), queryText, format, vreq);
@@ -186,7 +193,7 @@ public class DomainExpertController extends FreemarkerHttpServlet {
                   log.error("Document list for a search was null");                
                   return doFailedSearch(I18n.text(vreq, "error_in_search_request"), queryText, format, vreq);
               }
-			  log.debug("DOCS = " + docs.toString());  
+
               long hitCount = docs.getNumFound();
               log.debug("Number of hits = " + hitCount);
               if ( hitCount < 1 ) {                
@@ -220,11 +227,49 @@ public class DomainExpertController extends FreemarkerHttpServlet {
              if (grp != null && grp.getPublicName() != null) {
              	body.put("classGroupName", grp.getPublicName());
 			 }
-                          
-            body.put("classFacet", getVClassFacet(vclassDao, docs, response));                       
-            body.put("collegeFacet", getCollegeFacet(docs, response));                       
-            body.put("departmentFacet", getDepartmentFacet(docs, response));                       
- 			
+                 
+			
+         	List<VClassSearchLink> classFacet = getVClassFacet(vclassDao, docs, response);
+            body.put("classFacet", classFacet); 
+
+			int pubCount = 0;
+			int grantCount = 0;
+			int contractCount = 0;
+			
+			for (VClassSearchLink facet : classFacet ) {
+				String name = facet.getName();
+				if ( name.equals("Grant") ) {
+					grantCount += Integer.valueOf(facet.getCount());
+				}
+				else if ( name.equals("Contract") ) {
+					contractCount += Integer.valueOf(facet.getCount());
+				}
+				else {
+					pubCount += Integer.valueOf(facet.getCount());
+				}
+			}
+            
+			body.put("pubCount", pubCount); 
+			body.put("grantCount", grantCount); 
+			body.put("contractCount", contractCount); 
+            body.put("affiliationFacet", getAffiliationFacet(docs, response));  
+			if ( queryType.equals("pubs") || queryType.equals("all") ) {
+				body.put("pubVenueFacet", getPubVenueFacet(docs, response)); 
+				List<Integer> pubYearFacet = getPubYearFacet(docs, response);
+				body.put("startYear", pubYearFacet.get(0));                      
+				body.put("endYear", pubYearFacet.get(pubYearFacet.size() - 1));                      
+			}
+			else if ( queryType.equals("grants") || queryType.equals("all") ) {
+				body.put("administratorFacet", getAdministratorFacet(docs, response));  
+				body.put("funderFacet", getFunderFacet(docs, response));  
+				List<Integer> grantYearFacet = getGrantYearFacet(docs, response);
+				body.put("startYear", grantYearFacet.get(0));                      
+				body.put("endYear", grantYearFacet.get(grantYearFacet.size() - 1));                      
+			}
+ 			if ( unselectedRadio.length() > 0 ) {
+				body.put("unselectedRadio", unselectedRadio);
+				body.put("radioCount", radioCount);
+			}
 			List<String> svhList = new ArrayList<String>();
 			JSONArray indArray = rObj.getJSONArray("individuals");
 			
@@ -298,20 +343,8 @@ public class DomainExpertController extends FreemarkerHttpServlet {
 	
 	    SearchQuery query = ApplicationUtils.instance().getSearchEngine().createQuery();
 	
-		String queryString = "";
-		// are we querying a name or a keyword?
-		if ( queryType.equals("name") ) {
-			if ( queryText.indexOf(", ") > 0 ) {
-				queryString = "nameRaw:\"" + queryText + "\"";
-			}
-			else {
-				query.addFilterQuery("nameLowercase:*" + queryText.toLowerCase().replaceAll(" ", "* AND nameLowercase:*") + "*");
-			}
-			query.addSortField("nameLowercaseSingleValued", SearchQuery.Order.ASC);
-		} 
-		else {
-			queryString = KEYWORD_FIELD + ":\"" + queryText.toLowerCase() + "\"";
-		}
+		String queryString = KEYWORD_FIELD + ":\"" + queryText.toLowerCase() + "\" OR nameLowercase:\"" + queryText.toLowerCase().replaceAll("\"","") 
+						+ "\" OR ALLTEXT:\"" + queryText.toLowerCase().replaceAll("\"","") + "\"";
 	
 		query.setQuery(queryString);
 	    
@@ -319,15 +352,30 @@ public class DomainExpertController extends FreemarkerHttpServlet {
 	         .setRows(hitsPerPage);
 	
 	    query.addFilterQuery(VitroSearchTermNames.CLASSGROUP_URI + ":\"" + classgroupParam + "\"");
+		
+		if ( queryType.equals("pubs") ) {
+			query.addFilterQuery("type:\"http://purl.org/ontology/bibo/Document\"");
+		}
+		else if ( queryType.equals("grants") ) {
+			query.addFilterQuery("type:\"http://vivoweb.org/ontology/core#Grant\" OR type:\"http://vivoweb.org/ontology/core#Contract\"");
+		}
+		else {
+			query.addFilterQuery("-type:\"http://www.w3.org/2004/02/skos/core#Concept\"");
+			query.addFilterQuery("-type:\"http://purl.org/ontology/bibo/Journal\"");
+		}
 	    
+		query.addFacetFields("pub_date_dt").setFacetLimit(-1);
+		query.addFacetFields("pub_venue_ss").setFacetLimit(-1);
+		query.addFacetFields("administrator_ss").setFacetLimit(-1);
+		query.addFacetFields("funder_ss").setFacetLimit(-1);
+		query.addFacetFields("start_date_dt").setFacetLimit(-1);
+		query.addFacetFields("end_date_dt").setFacetLimit(-1);
+
 	    //with ClassGroup filtering we want type facets
 	    query.addFacetFields(VitroSearchTermNames.RDFTYPE).setFacetLimit(-1);
-	    query.addFacetFields("department_ss").setFacetLimit(-1);
-	    query.addFacetFields("college_ss").setFacetLimit(-1);
+		// affiliations apply to all types
+	    query.addFacetFields("affiliation_ss").setFacetLimit(-1);
 	        
-		String vclassId = vreq.getParameter(PARAM_VCLASS_ID);
-	    query.addFilterQuery("-mostSpecificTypeURIs:\"" + vclassId + "\"");
-	    
 	    log.debug("Query = " + query.toString());
 	    return query;
 	}   
@@ -373,7 +421,7 @@ public class DomainExpertController extends FreemarkerHttpServlet {
         List<VClassSearchLink> classFacets= new ArrayList<VClassSearchLink>(sortedClassFacets.size());
 		for (Map.Entry<String, Long> entry : sortedClassFacets.entrySet()) {
 			VClass type = vclassDao.getVClassByURI(entry.getKey());
-			if ( !type.getName().equals("Person") ) {
+			if ( !type.getName().equals("Article") && !type.getName().equals("Academic Article") ) {
 				classFacets.add(new VClassSearchLink(type, entry.getValue() ));
 			}
 		}
@@ -398,79 +446,189 @@ public class DomainExpertController extends FreemarkerHttpServlet {
         return typesInHits;
     }
     
-    private Map<String,Long> getCollegeFacet(SearchResultDocumentList docs, SearchResponse rsp){        
-        HashSet<String> typesInHits = getFacetResultsForHits(docs, "college_ss");                                
-        Map<String,Long> collegeFacets = new HashMap<String,Long>();        
+    private Map<String,Long> getAffiliationFacet(SearchResultDocumentList docs, SearchResponse rsp){        
+        Map<String,Long> affiliationFacets = new HashMap<String,Long>();        
         
         List<SearchFacetField> ffs = rsp.getFacetFields();
-		String collegeName = "college_ss";
+		String affiliationName = "affiliation_ss";
         for(SearchFacetField ff : ffs){
-            if(collegeName.equals(ff.getName())){
+            if(affiliationName.equals(ff.getName())){
                 List<Count> counts = ff.getValues();
                 for( Count ct: counts){  
-                    String college = ct.getName();
+                    String affiliation = ct.getName();
                     long count = ct.getCount();
 					if ( count > 0 ) {
-                    	collegeFacets.put(college,count);
+                    	affiliationFacets.put(affiliation,count);
 					}
                 }                
             }            
         }
         
 		// sort by count
-//		Map sortedCollegeFacets = new TreeMap(new ValueComparator(collegeFacets));
-//		sortedCollegeFacets.putAll(collegeFacets);
-		Map<String,Long> sortedCollegeFacets = sortByValue(collegeFacets);
+		Map<String,Long> sortedAffiliationFacets = sortByValue(affiliationFacets);
 
-        return sortedCollegeFacets;
+        return sortedAffiliationFacets;
     }       
 
-    private Map<String,Long> getDepartmentFacet(SearchResultDocumentList docs, SearchResponse rsp){        
-        HashSet<String> typesInHits = getFacetResultsForHits(docs, "college_ss");                                
-        Map<String,Long> departmentFacets = new HashMap<String,Long>();        
+    private Map<String,Long> getPubVenueFacet(SearchResultDocumentList docs, SearchResponse rsp){        
+        Map<String,Long> pubVenueFacets = new HashMap<String,Long>();        
 
         List<SearchFacetField> ffs = rsp.getFacetFields();
-		String departmentName = "department_ss";
+		String pubVenueName = "pub_venue_ss";
         for(SearchFacetField ff : ffs){
-            if(departmentName.equals(ff.getName())){
+            if(pubVenueName.equals(ff.getName())){
                 List<Count> counts = ff.getValues();
                 for( Count ct: counts){  
-                    String department = ct.getName();
+                    String pubVenue = ct.getName();
                     long count = ct.getCount();
 					if ( count > 0 ) {
-                    	departmentFacets.put(department,count);
+                    	pubVenueFacets.put(pubVenue,count);
 					}
                 }                
             }            
         }
 
 		// sort by count
-//		Map sortedDepartmentFacets = new TreeMap(new ValueComparator(departmentFacets));
-//		sortedDepartmentFacets.putAll(departmentFacets);
-		Map<String,Long> sortedDepartmentFacets = sortByValue(departmentFacets);
+		Map<String,Long> sortedPubVenueFacets = sortByValue(pubVenueFacets);
 		
-        return sortedDepartmentFacets;
+        return sortedPubVenueFacets;
+    }       
+
+    private Map<String,Long> getAdministratorFacet(SearchResultDocumentList docs, SearchResponse rsp){        
+        Map<String,Long> administratorFacets = new HashMap<String,Long>();        
+
+        List<SearchFacetField> ffs = rsp.getFacetFields();
+		String administratorName = "administrator_ss";
+        for(SearchFacetField ff : ffs){
+            if(administratorName.equals(ff.getName())){
+                List<Count> counts = ff.getValues();
+                for( Count ct: counts){  
+                    String administrator = ct.getName();
+                    long count = ct.getCount();
+					if ( count > 0 ) {
+                    	administratorFacets.put(administrator,count);
+					}
+                }                
+            }            
+        }
+
+		// sort by count
+		Map<String,Long> sortedAdministratorFacets = sortByValue(administratorFacets);
+
+        return sortedAdministratorFacets;
+    }       
+
+    private Map<String,Long> getFunderFacet(SearchResultDocumentList docs, SearchResponse rsp){        
+        HashSet<String> typesInHits = getFacetResultsForHits(docs, "college_ss");                                
+        Map<String,Long> funderFacets = new HashMap<String,Long>();        
+
+        List<SearchFacetField> ffs = rsp.getFacetFields();
+		String funderName = "funder_ss";
+        for(SearchFacetField ff : ffs){
+            if(funderName.equals(ff.getName())){
+                List<Count> counts = ff.getValues();
+                for( Count ct: counts){  
+                    String funder = ct.getName();
+                    long count = ct.getCount();
+					if ( count > 0 ) {
+                    	funderFacets.put(funder,count);
+					}
+                }                
+            }            
+        }
+
+		// sort by count
+		Map<String,Long> sortedFunderFacets = sortByValue(funderFacets);
+
+        return sortedFunderFacets;
+    }       
+
+    private List<Integer> getPubYearFacet(SearchResultDocumentList docs, SearchResponse rsp){        
+        List<Integer> pubYearFacets = new ArrayList<Integer>();        
+
+        List<SearchFacetField> ffs = rsp.getFacetFields();
+		String pubYearName = "pub_date_dt";
+        for(SearchFacetField ff : ffs){
+            if(pubYearName.equals(ff.getName())){
+                List<Count> counts = ff.getValues();
+                for( Count ct: counts){  
+                    String pubYear = ct.getName();
+                    long count = ct.getCount();
+					if ( count > 0 ) {
+                    	pubYearFacets.add(Integer.valueOf(pubYear.substring(0,4)));
+					}
+                }                
+            }            
+        }
+
+		// sort by count
+		Collections.sort(pubYearFacets);
+//		log.debug("sortedPubYearFacets = " + pubYearFacets.toString());
+        return pubYearFacets;
+    }       
+
+    private List<Integer> getGrantYearFacet(SearchResultDocumentList docs, SearchResponse rsp){        
+        List<Integer> grantYearFacets = new ArrayList<Integer>();        
+
+		// combine the start and end years into one list
+		// which will give us the range of "active" years
+        List<SearchFacetField> ffs = rsp.getFacetFields();
+		String startYearName = "start_date_dt";
+        for(SearchFacetField ff : ffs){
+            if(startYearName.equals(ff.getName())){
+                List<Count> counts = ff.getValues();
+                for( Count ct: counts){  
+                    String startYear = ct.getName();
+                    long count = ct.getCount();
+					if ( count > 0 ) {
+                    	grantYearFacets.add(Integer.valueOf(startYear.substring(0,4)));
+					}
+                }                
+            }            
+        }
+
+		String endYearName = "end_date_dt";
+        for(SearchFacetField ff2 : ffs){
+            if(endYearName.equals(ff2.getName())){
+                List<Count> counts = ff2.getValues();
+                for( Count ct: counts){  
+                    String endYear = ct.getName();
+                    long count = ct.getCount();
+					if ( count > 0 ) {
+                    	grantYearFacets.add(Integer.valueOf(endYear.substring(0,4)));
+					}
+                }                
+            }            
+        }
+		// sort by count
+		Collections.sort(grantYearFacets);
+//		log.debug("sortedGrantYearFacets = " + grantYearFacets.toString());
+        return grantYearFacets;
     }       
 
     public static class VClassSearchLink extends LinkTemplateModel {
         long count = 0;
+		String name;
         VClassSearchLink(VClass type, long count) {
             super(type.getName(), "/search", PARAM_VCLASS_ID, type.getURI());
+			this.name = type.getName(); 
             this.count = count;
         }
+
+		public String getName() { return name; }
         
     	public String getCount() { return Long.toString(count); }               
     }
        
 	private ExceptionResponseValues doSearchError(Throwable e, Format f) {
-	        Map<String, Object> body = new HashMap<String, Object>();
-	        body.put("title", "Search Failed");  
-	        body.put("message", "Search failed: " + e.getMessage());  
-	        return new ExceptionResponseValues("search-error.ftl", body, e);
-	    }
+        Map<String, Object> body = new HashMap<String, Object>();
+        body.put("title", "Search Failed");  
+        body.put("message", "Search failed: " + e.getMessage());  
+        return new ExceptionResponseValues("search-error.ftl", body, e);
+	}
 
     private TemplateResponseValues doFailedSearch(String message, String querytext, Format f, VitroRequest vreq) {
-        Map<String, Object> body = new HashMap<String, Object>();
+        Map<String, Object> body = new HashMap<String, Object>();       
         if ( querytext == null || StringUtils.isEmpty(querytext) ) {
 			body.put("title", "No Search Term");
 	        message =  "no_search_term";
@@ -565,13 +723,29 @@ public class DomainExpertController extends FreemarkerHttpServlet {
 		IndividualDao iDao = vreq.getWebappDaoFactory().getIndividualDao();
 		Individual individual = iDao.getIndividualByURI(individualUri);
 
+		IndividualTemplateModel itm = new IndividualTemplateModel(individual, vreq);
+		Collection<String> mst = itm.getMostSpecificTypes();
 		Map<String, Object> modelMap = new HashMap<String, Object>();
-		modelMap.put("individual",
-				new IndividualTemplateModel(individual, vreq));
+		modelMap.put("individual", itm);
 		modelMap.put("vclass", vclassName);
+		log.debug("Individual MST = " + mst.iterator().next());
+		ShortViewContext svc;
+		switch(mst.iterator().next()) {
+			case "Journal Article": 
+				svc = ShortViewContext.PUBLICATIONS;
+				break;
+			case "Grant": 
+				svc = ShortViewContext.RESEARCH;
+				break;
+			case "Contract": 
+				svc = ShortViewContext.RESEARCH;
+				break;
+			default :
+		 		svc = ShortViewContext.BROWSE;
+		}
 		ServletContext ctx = vreq.getSession().getServletContext();
 		ShortViewService svs = ShortViewServiceSetup.getService(ctx);
-		return svs.renderShortView(individual, ShortViewContext.EXPERTS,
+		return svs.renderShortView(individual, svc,
 				modelMap, vreq);
 	}
 

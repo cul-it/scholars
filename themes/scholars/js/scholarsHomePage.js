@@ -98,11 +98,27 @@ $(document).ready(function() {
 	};
 	
 	$(document).ready(function() {
+		$.extend(this, baseUrl);
+    	
+		
+		getResearcherCount();
+		getGrantCount();
+		getArticleCount();
+		getJournalCount();
+		
 		$('#expert-search-link').mouseenter(function() {
 				$('#expert-search').show("fade");
 		}).mouseleave(function() {
 				if ( $('#de-search-input').val().length < 1 ) {
 					$('#expert-search').hide("fade");
+				}
+		});
+
+		$('#res-search-link').mouseenter(function() {
+				$('#research-search').show("fade");
+		}).mouseleave(function() {
+				if ( $('#res-search-input').val().length < 1 ) {
+					$('#research-search').hide("fade");
 				}
 		});
 
@@ -121,6 +137,80 @@ $(document).ready(function() {
 		  }).mouseleave(function() {
 				$("#arts-image").removeClass("partner-shadow");
 		  });
+
+	function getResearcherCount() {
+		
+		$.ajax({
+            url: baseUrl + "/scholarsAjax?querytype=researcher",
+            dataType: "json",
+            data: {
+                action: "getHomePageDataGetters",
+            },
+            complete: function(xhr, status) {
+                var results = $.parseJSON(xhr.responseText);
+                // there will only ever be one key/value pair
+                if ( results != null ) {
+                    $('div#researcher-count > p').text(results.count.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+                }
+            }
+       });        
+       
+	}
+	    
+	function getGrantCount() {
+		
+		$.ajax({
+            url: baseUrl + "/scholarsAjax?querytype=grant",
+            dataType: "json",
+            data: {
+                action: "getHomePageDataGetters",
+            },
+            complete: function(xhr, status) {
+                var results = $.parseJSON(xhr.responseText);
+                // there will only ever be one key/value pair
+                if ( results != null ) {
+                    $('div#grant-count > p').text(results.count.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+                }
+            }
+       });        
+       
+	}
+	function getArticleCount() {
+		
+		$.ajax({
+            url: baseUrl + "/scholarsAjax?querytype=article",
+            dataType: "json",
+            data: {
+                action: "getHomePageDataGetters",
+            },
+            complete: function(xhr, status) {
+                var results = $.parseJSON(xhr.responseText);
+                // there will only ever be one key/value pair
+                if ( results != null ) {
+                    $('div#article-count > p').text(results.count.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+                }
+            }
+       });        
+       
+	}
+	function getJournalCount() {
+		
+		$.ajax({
+            url: baseUrl + "/scholarsAjax?querytype=journal",
+            dataType: "json",
+            data: {
+                action: "getHomePageDataGetters",
+            },
+            complete: function(xhr, status) {
+                var results = $.parseJSON(xhr.responseText);
+                // there will only ever be one key/value pair
+                if ( results != null ) {
+                    $('div#journal-count > p').text(results.count.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+                }
+            }
+       });        
+       
+	}
 	});
 
 });
