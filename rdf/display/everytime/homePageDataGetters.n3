@@ -11,7 +11,6 @@
     # by the numbers datagetters 
 
     <freemarker:lib-home-page.ftl> display:hasDataGetter display:researcherCountDataGetter ,
-                                                         display:professionalCountDataGetter ,
                                                          display:grantCountDataGetter ,
                                                          display:articleCountDataGetter ,
                                                          display:journalCountDataGetter .
