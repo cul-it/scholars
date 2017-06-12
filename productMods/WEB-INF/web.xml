@@ -944,6 +944,15 @@
   </servlet-mapping>
   
   <servlet>
+    <servlet-name>ScholarsAjaxController</servlet-name>
+    <servlet-class>edu.cornell.mannlib.vitro.webapp.controller.ajax.ScholarsAjaxController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ScholarsAjaxController</servlet-name>
+    <url-pattern>/scholarsAjax</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
      <servlet-name>SearchHelpController</servlet-name>
      <servlet-class>edu.cornell.mannlib.vitro.webapp.search.controller.SearchHelpController</servlet-class>
    </servlet>

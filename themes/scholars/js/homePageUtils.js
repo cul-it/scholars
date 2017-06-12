@@ -5,102 +5,27 @@ $(document).ready(function(){
     $.extend(this, urlsBase);
     $.extend(this, facultyMemberCount);
     $.extend(this, i18nStrings);
-
-    var retryCount = 0;
     
     // this will ensure that the hidden classgroup input is cleared if the back button is used
     // to return to th ehome page from the search results
     $('input[name="classgroup"]').val("");    
 
-//    getFacultyMembers();  
+    getResercherCount();  
     buildResearchFacilities(); 
 
     if ( $('section#home-geo-focus').length == 0 ) {
         $('section#home-stats').css("display","inline-block").css("margin-top","20px");
     } 
         
-    function getFacultyMembers() {
-        var individualList = "";
-
-        if ( facultyMemberCount > 0 ) {        
-            // determine the row at which to start the search query
-            var rowStart = Math.floor((Math.random()*facultyMemberCount));
-            var diff;
-            var pageSize = 5; // the number of faculty to display on the home page
-            
-            // could have fewer than 4 in a test or dev environment
-            if ( facultyMemberCount < pageSize ) {
-                pageSize = facultyMemberCount;
-            }
-
-            // in case the random number is equal to or within 3 of the facultyMemberCount 
-            // subtract 1 from the facultyMemberCount because the search rows begin at 0, not 1
-            if ( (rowStart + (pageSize-1)) > (facultyMemberCount-1) ) {
-                diff = (rowStart + (pageSize-1)) - (facultyMemberCount-1);
-                if ( diff == 0 ) {
-                    rowStart = rowStart - (pageSize-1);
-                }
-                else {
-                    rowStart = rowStart - diff;
-                }
-            }
-            if ( rowStart < 0 ) {
-                rowStart = 0;
-            }
-
-            var dataServiceUrl = urlsBase + "/dataservice?getRandomSearchIndividualsByVClass=1&vclassId=";
-            var url = dataServiceUrl + encodeURIComponent("http://vivoweb.org/ontology/core#FacultyMember"); 
-			// http://xmlns.com/foaf/0.1/Person
-            url += "&page=" + rowStart + "&pageSize=" + pageSize;
+    function getResercherCount() {
+            var url = urlsBase + "/homepageNumbers?querytype=researcher"; 
 
             $.getJSON(url, function(results) {
             
-                if ( results == null || results.individuals.length == 0 ) {
-                    if ( retryCount < 5 ) {
-                        retryCount = retryCount + 1;
-                        getFacultyMembers();
-                    }
-                    else {
-                        individualList = "<p><li style='padding-left:1.2em'>" + i18nStrings.noFacultyFound + "</li></p>";
-                        $('div#tempSpacing').hide();
-                        $('div#research-faculty-mbrs ul#facultyThumbs').append(individualList);
-                    }
-                } 
-                else {
-                    var vclassName = results.vclass.name;
-                    $.each(results.individuals, function(i, item) {
-                        var individual = results.individuals[i];
-                        individualList += individual.shortViewHtml;
-                    });
-                    $('div#tempSpacing').hide();
-                    $('div#research-faculty-mbrs ul#facultyThumbs').append(individualList);
-                
-                    $.each($('div#research-faculty-mbrs ul#facultyThumbs li.individual'), function() {
-                        if ( $(this).children('img').length == 0 ) {
-                            var imgHtml = "<img width='80' alt='" + i18nStrings.placeholderImage + "' src='" + urlsBase + "/images/placeholders/person.bordered.thumbnail.jpg'>";
-                            $(this).prepend(imgHtml);
-                        }
-                        else { 
-                            $(this).children('img').load( function() {
-                                adjustImageHeight($(this));
-                            });
-                        }
-                    });
-                    var viewMore = "<ul id='viewMoreFac'><li><a href='"
-                                + urlsBase
-                                + "/people#http://vivoweb.org/ontology/core#FacultyMember' alt='" 
-                                + i18nStrings.viewAllFaculty + "'>"
-                                + i18nStrings.viewAllString + "</a></li?</ul>";
-                    $('div#research-faculty-mbrs').append(viewMore);
+                if ( results != null || results.individuals.length > 0 ) {
+                    $('div#researcher-count > p').text(results.count);
                 }
             });
-       }
-       else {
-           individualList = "<p><li style='padding-left:1.2em'>" + i18nStrings.noFacultyFound + "</li></p>";
-           $('div#tempSpacing').hide();
-           $('div#research-faculty-mbrs ul#facultyThumbs').append(individualList);
-           $('div#research-faculty-mbrs ul#facultyThumbs').css("padding", "1.0em 0 0.825em 0.75em");
-       }
     }
 
     function adjustImageHeight(theImg) {
