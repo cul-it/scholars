@@ -20,7 +20,7 @@
 	</#list>
 </#if>
 </#assign>
-<#assign jCount = pubCount[0].jcount?number />
+<#-- assign jCount = pubCount[0].jcount?number / -->
 
 <li class="individual" role="listitem" role="navigation">
   
