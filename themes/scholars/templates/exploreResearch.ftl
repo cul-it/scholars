@@ -29,10 +29,8 @@
 	<#assign adjQueryType = "all" />
 <#elseif querytype == "pubs" || (pubCount > 0 && grantContractTotal == 0) >
 	<#assign adjQueryType = "pubs" />
-	<#assign disableAll = true />
 <#elseif querytype == "grants" || (grantContractTotal > 0 && pubCount == 0) >
 	<#assign adjQueryType = "grants" />
-	<#assign disableAll = true />
 <#else>
 	<#assign adjQueryType = "all" />
 </#if>
@@ -41,6 +39,7 @@
 <#else>
 	<#assign querytext = ""/>
 </#if>
+
 <h2 class="expertsResultsHeader">Explore Research & Scholarship</h2>
 <div id="search-field-container" class="contentsBrowseGroup row fff-bkg">
   <div class="col-md-5">
@@ -106,6 +105,9 @@
 		</#if>
     </#if>
   </#if>
+<#if (pubCount?number == 0 || grantContractTotal?number == 0) >
+	<#assign disableAll = true />
+</#if>
   <div class="row fff-bkg" style="padding:12px 0 1px 0;margin:0;">
 	<div id="research-radio-container" class="col-md-4">
 		<input id="all-radio" class="research-radio" type="radio" name="querytype" value="all" <#if adjQueryType == "all">checked</#if> <#if disableAll> disabled</#if>>
