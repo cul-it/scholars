@@ -288,11 +288,11 @@ public class DomainExpertJsonServlet extends VitroHttpServlet {
 		// if we have colleges or departments in the request, add filters for them
 		if (vreq.getParameterMap().containsKey(PARAM_COLLEGES)) {
 			String colleges = vreq.getParameter(PARAM_COLLEGES).replaceAll(",","\" OR college_txt:\"");
-			query.addFilterQuery("college_txt:\"" + colleges + "\"");
+			query.addFilterQuery("college_ss:\"" + colleges + "\"");
 		}
 		if (vreq.getParameterMap().containsKey(PARAM_DEPARTMENTS)) {
 			String departments = vreq.getParameter(PARAM_DEPARTMENTS).replaceAll(",","\" OR department_txt:\"");
-			query.addFilterQuery("department_txt:\"" + departments + "\"");
+			query.addFilterQuery("department_ss:\"" + departments + "\"");
 		}
 
 		// filtering out people whose MST is 

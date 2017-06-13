@@ -228,14 +228,14 @@ public class ResearchAndScholarshipController extends FreemarkerHttpServlet {
              	body.put("classGroupName", grp.getPublicName());
 			 }
                  
-			
+			log.debug("go get class facets");
          	List<VClassSearchLink> classFacet = getVClassFacet(vclassDao, docs, response);
             body.put("classFacet", classFacet); 
 
 			int pubCount = 0;
 			int grantCount = 0;
 			int contractCount = 0;
-			
+
 			for (VClassSearchLink facet : classFacet ) {
 				String name = facet.getName();
 				if ( name.equals("Grant") ) {
@@ -248,23 +248,28 @@ public class ResearchAndScholarshipController extends FreemarkerHttpServlet {
 					pubCount += Integer.valueOf(facet.getCount());
 				}
 			}
-            
 			body.put("pubCount", pubCount); 
 			body.put("grantCount", grantCount); 
 			body.put("contractCount", contractCount); 
             body.put("affiliationFacet", getAffiliationFacet(docs, response));  
 			if ( queryType.equals("pubs") || queryType.equals("all") ) {
-				body.put("pubVenueFacet", getPubVenueFacet(docs, response)); 
+				body.put("pubVenueFacet", getPubVenueFacet(docs, response));
 				List<Integer> pubYearFacet = getPubYearFacet(docs, response);
-				body.put("startYear", pubYearFacet.get(0));                      
-				body.put("endYear", pubYearFacet.get(pubYearFacet.size() - 1));                      
+				if ( pubYearFacet != null && !pubYearFacet.isEmpty() ) {
+					log.debug("getPubYearFacet if clause");
+					
+					body.put("startYear", pubYearFacet.get(0));                      
+					body.put("endYear", pubYearFacet.get(pubYearFacet.size() - 1));
+				}
 			}
 			else if ( queryType.equals("grants") || queryType.equals("all") ) {
 				body.put("administratorFacet", getAdministratorFacet(docs, response));  
 				body.put("funderFacet", getFunderFacet(docs, response));  
 				List<Integer> grantYearFacet = getGrantYearFacet(docs, response);
-				body.put("startYear", grantYearFacet.get(0));                      
-				body.put("endYear", grantYearFacet.get(grantYearFacet.size() - 1));                      
+				if ( grantYearFacet != null && !grantYearFacet.isEmpty() ) {
+					body.put("startYear", grantYearFacet.get(0));                      
+					body.put("endYear", grantYearFacet.get(grantYearFacet.size() - 1));
+				}
 			}
  			if ( unselectedRadio.length() > 0 ) {
 				body.put("unselectedRadio", unselectedRadio);
@@ -272,7 +277,6 @@ public class ResearchAndScholarshipController extends FreemarkerHttpServlet {
 			}
 			List<String> svhList = new ArrayList<String>();
 			JSONArray indArray = rObj.getJSONArray("individuals");
-			
 			for(int i = 0 ; i < indArray.length() ; i++){
 			    svhList.add(indArray.getJSONObject(i).getString("shortViewHtml"));
 			}
@@ -413,11 +417,9 @@ public class ResearchAndScholarshipController extends FreemarkerHttpServlet {
 
 		log.debug("typeURItoCount = " + typeURItoCount.toString());
         
-//		Map<String,Long> sortedClassFacets = new TreeMap(new ValueComparator(typeURItoCount));
-//		sortedClassFacets.putAll(typeURItoCount);
 		Map<String,Long> sortedClassFacets = sortByValue(typeURItoCount);
         log.debug("sortedClassFacets = " + sortedClassFacets.toString());
-		
+
         List<VClassSearchLink> classFacets= new ArrayList<VClassSearchLink>(sortedClassFacets.size());
 		for (Map.Entry<String, Long> entry : sortedClassFacets.entrySet()) {
 			VClass type = vclassDao.getVClassByURI(entry.getKey());
@@ -425,6 +427,7 @@ public class ResearchAndScholarshipController extends FreemarkerHttpServlet {
 				classFacets.add(new VClassSearchLink(type, entry.getValue() ));
 			}
 		}
+
         return classFacets;
     }       
         
