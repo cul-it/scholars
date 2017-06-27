@@ -72,7 +72,8 @@ public interface ShortViewService {
 		BROWSE("view-browse-default.ftl"), 
 		EXPERTS("view-experts-default.ftl"),
 		PUBLICATIONS("view-publications-default.ftl"),
-		RESEARCH("view-research-default.ftl");
+		RESEARCH("view-research-default.ftl"),
+		ACADEMIC_UNITS("view-units-default.ftl");
 
 		private final String defaultTemplateName;
 

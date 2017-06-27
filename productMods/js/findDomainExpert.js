@@ -336,7 +336,7 @@ var getDomainExperts = {
                 	$("ul.searchhits").empty();
 				}
                 
-				// remove the exiting $("#scroll-control") object as it will be replaced
+				// remove the existing $("#scroll-control") object as it will be replaced
 				$("#scroll-control").remove();
 				
                 // And then add the new content, remove previous no results selector

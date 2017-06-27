@@ -182,19 +182,6 @@ public class DomainExpertJsonServlet extends VitroHttpServlet {
 					log.debug("Adding individual " + uri + " to individual list");
 				}
 			}
-//			
-/*			IndividualListQueryResults results = null;
-			try{
-		        results = IndividualListQueryResults.runQuery(query, iDao);
-				log.debug("results hit count: " + results.getHitCount());
-		 	} catch (SearchEngineException e) {
-				log.error("Search exception occurred: " + e);
-				JSONObject jsonObj = new JSONObject("['what the hell?]");
-		 	    return jsonObj;
-		   	}
-		
-			IndividualListResults ilResults = new IndividualListResults(hitsPerPage, results.getIndividuals(), "", false, Collections.<PageRecord>emptyList());
-*/
 
 			IndividualListQueryResults results = new IndividualListQueryResults((int) hitCount, individuals);
 			IndividualListResults ilResults = new IndividualListResults(hitsPerPage, results.getIndividuals(), "", false, Collections.<PageRecord>emptyList());
@@ -215,7 +202,6 @@ public class DomainExpertJsonServlet extends VitroHttpServlet {
 		}
 		catch (Throwable e) {
 			log.error("Search exception occurred: " + e);
-			//JSONObject jsonObj = new JSONObject("[]");
 	 	    return rObj;
 			
 		}
