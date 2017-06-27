@@ -908,6 +908,24 @@
   </servlet-mapping>
   
   <servlet>
+    <servlet-name>AcademicUnitsController</servlet-name>
+    <servlet-class>edu.cornell.mannlib.vitro.webapp.search.controller.AcademicUnitsController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AcademicUnitsController</servlet-name>
+    <url-pattern>/academicUnits</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>AcademicUnitsJsonServlet</servlet-name>
+    <servlet-class>edu.cornell.mannlib.vitro.webapp.controller.json.AcademicUnitsJsonServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AcademicUnitsJsonServlet</servlet-name>
+    <url-pattern>/academicUnitsJson</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
     <servlet-name>DomainExpertController</servlet-name>
     <servlet-class>edu.cornell.mannlib.vitro.webapp.search.controller.DomainExpertController</servlet-class>
   </servlet>
