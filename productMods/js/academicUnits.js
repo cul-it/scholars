@@ -76,12 +76,15 @@ var getAcademicUnits = {
 
 	bindEventListeners: function() {
 		
+		$("#results-search-submit").click(function() {
+			$("form#units-search-form").attr("action", baseUrl + "/academicUnits?origin=template");
+			$("form#units-search-form").submit();
+		});
+		
 		$("a#start-over-link").click(function() {
-			$("#facets-and-results").empty();
-			$("#results-blurb").empty();
-			$("#de-search-input").val("");
-			$("#de-search-input").focus();
-			$(this).hide();
+			$("#units-search-querytype").val("colleges");
+			$("#units-search-input").val("");
+            $("form#units-search-form").submit();
 		});
 		
 		$('img.jump-to-top').click(function() {
@@ -121,7 +124,8 @@ var getAcademicUnits = {
 			$("#units-search-input").val("");
             $("form#units-search-form").submit();
 	    });
-	
+		
+		// display time indicator when a new search is started
 		$("#results-search-submit").click(function() {
 			$("#time-indicator").show();
 		});
@@ -257,6 +261,7 @@ var getAcademicUnits = {
 				// if not (i.e., a fresh search), remove the existing content.
 				if ( method != "scrolling" ) {
                		$("ul.searchhits").empty();
+					$("ul.searchhits").prepend(getAcademicUnits.timeIndicator);
 				}
 				else {
 					// remove the existing $("#scroll-control") object as it will be replaced
@@ -271,7 +276,6 @@ var getAcademicUnits = {
 				var adjStartIndex = (adjPage * results.totalCount);
 				console.log("ADJ START INDEX = " + adjStartIndex);
 				console.log("ADJ PAGE = " + adjPage);
-				$("ul.searchhits").prepend(getAcademicUnits.timeIndicator);
 				if ( results.hitCount > adjStartIndex ) {
 					$("ul.searchhits").append('<li id="scroll-control" data-start-index="' + 
 						adjStartIndex + '" data-current-page="' + adjPage + '"><img id="search-indicator" src="'

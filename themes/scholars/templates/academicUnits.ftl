@@ -32,11 +32,15 @@
 			<input id="units-search-vclass" type="hidden" name="vclassId" value="http://xmlns.com/foaf/0.1/Organization" />
 			<input id="units-search-querytype" type="hidden" name="querytype" value="${querytype!}" />
 			<input id="units-search-input" class="results-input" type="text" name="querytext" value="${querytext!}" placeholder="Quick search: enter a full or partial name"/>
-			<input id="results-search-submit" type="submit" action="${urls.base}/academicUnits?origin=homepage" value="GO"/>
+			<input id="results-search-submit" type="button" value="GO"/>
 		</form>
     </fieldset>
   </div>
-<#if  !individuals?? && message?? && message == "new_search">
+<#if individuals?? >
+  <div id="start-over" class="col-md-6" <#if !querytext?has_content || (querytext?length < 1 )>style="display:none"</#if> >
+	<a id="start-over-link" href="javascript:return false;" title="Click to begin a new search">Start over</a>
+  </div>
+<#elseif  !individuals?? && message?? && message == "new_search">
 <div id="no-results-container" class="col-md-6">
 	<div id="results-container" class="panel panel-default new-search">
 		<div id="no-results-text">
@@ -54,7 +58,8 @@
 					<div id="unmatched-term"><span>'${badquerytext!}'</span></div>
 					<div class="no-results-found">Try another term or select one from the list of suggestions.</div>
 				<#elseif  message?? && message == "no_search_term">
-					<div class="no-results-found">Please enter a search term or select one from the list of suggestions.</div>
+				<div class="no-results-found">Please enter a search term or select one from the list of suggestions.</div>
+				<div class="no-results-found">Or you can <a id="start-over-link" href="javascript:return false;" title="Click to begin a new search">start over</a>.</div>
 				<#else>
 					<div class="no-results-found">Your search for the term '${badquerytext!}' did not complete successfully.</div>
 					<div class="no-results-found">Try another term or select one from the list of suggestions.</div>

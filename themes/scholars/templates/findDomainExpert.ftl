@@ -125,6 +125,10 @@
     <div id="results-column" class="col-md-8">
 	  <div id="results-container" class="panel panel-default">
       <ul class="searchhits">
+			<li id="time-indicator">
+				<img id="time-indicator-img" src="${urls.images}/indicator1.gif"/>
+				<p>Searching</p>
+			</li>
   			<#list individuals as indy>
   				${indy!}
   			</#list>

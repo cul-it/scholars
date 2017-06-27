@@ -91,6 +91,7 @@ public class AcademicUnitsController extends FreemarkerHttpServlet {
     private static final String PARAM_HITS_PER_PAGE = "hitsPerPage";
     private static final String PARAM_CLASSGROUP = "classgroup";
     private static final String PARAM_RDFTYPE = "type";
+    private static final String PARAM_ORIGIN = "origin";
     private static final String PARAM_VCLASS_ID = "vclassId";
     private static final String PARAM_QUERY_TEXT = "querytext";
     private static final String PARAM_QUERY_TYPE = "querytype";
@@ -148,6 +149,7 @@ public class AcademicUnitsController extends FreemarkerHttpServlet {
              int hitsPerPage = getHitsPerPage( vreq );           
              int currentPage = getCurrentPage( vreq );           
  
+             String origin = vreq.getParameter(PARAM_ORIGIN); //== null) ? "none" : vreq.getParameter(PARAM_SOURCE);
              String queryText = vreq.getParameter(PARAM_QUERY_TEXT);  
              String queryType = (vreq.getParameter(PARAM_QUERY_TYPE) == null) ? "colleges" : vreq.getParameter(PARAM_QUERY_TYPE); 
              String vclassid = vreq.getParameter(PARAM_VCLASS_ID);  
@@ -157,10 +159,16 @@ public class AcademicUnitsController extends FreemarkerHttpServlet {
              log.debug("Query text is \""+ queryText + "\""); 
              log.debug("Query type is \""+ queryType + "\""); 
              log.debug("Vclassid is \""+ vclassid + "\""); 
+             log.debug("Origin is \""+ origin + "\""); 
   
-             if( queryType != null && queryType.equals("new")){
-                 return doNewSearch(vreq);
-             }
+			// user cannot do a "quick search" without entering text
+			// the source param is passed when a quick search is done
+			if ( origin != null && origin.equals("template") ) {
+			 	String badQueryMsg = badQueryText( queryText, vreq );
+             	if( badQueryMsg != null ){
+                 	return doFailedSearch(badQueryMsg, queryText, format, vreq);
+             	}
+			}
 			 
 			 // this class uses the hitsPerPage variable differently. We want to fetch all the units because
 			 // we need them to build the alpha list, but we do not want to render short views for all of them
