@@ -72,11 +72,13 @@
 						</div>
 						<div id="unit-search-link" class="col-sm-4 col-md-4 col-lg-4 search-links">
 								<div id="ongoing-research" class="search-link-div">
+									<form id="unit-search-form" action="${urls.base}/academicUnits" name="search" role="search" accept-charset="UTF-8" method="POST"> 
+										<input id="unit-search-vclass" type="hidden" name="vclassId" value="http://xmlns.com/foaf/0.1/Organization" />
+										<#-- onclick="javascript:_paq.push(['trackEvent', 'Search', 'Homepage', 'Browse Academic Units']);" -->
+										<input type="hidden" name="querytype" value="colleges" /> 
+									</form>
 									<div class="discovery-details">
-										<span>Review<br/>Academic Units</span>
-									</div>
-									<div id="unit-placeholder" class="discovery-details">
-										<span>&#8212 Coming Soon &#8212</span>
+										<a class="image-links" id="browse-units-link" href="javascript:"><span>Browse<br/>Academic Units</span></a>
 									</div>
 								</div>
 						</div>

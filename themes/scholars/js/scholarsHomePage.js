@@ -97,46 +97,50 @@ $(document).ready(function() {
 
 	};
 	
-	$(document).ready(function() {
-		$.extend(this, baseUrl);
-    	
-		
-		getResearcherCount();
-		getGrantCount();
-		getArticleCount();
-		getJournalCount();
-		
-		$('#expert-search-link').mouseenter(function() {
-				$('#expert-search').show("fade");
-		}).mouseleave(function() {
-				if ( $('#de-search-input').val().length < 1 ) {
-					$('#expert-search').hide("fade");
-				}
-		});
+ 	$.extend(this, baseUrl);
+// 	$.extend(this, _pac);
+ 	
+ 	getResearcherCount();
+ 	getGrantCount();
+ 	getArticleCount();
+ 	getJournalCount();
 
-		$('#res-search-link').mouseenter(function() {
-				$('#research-search').show("fade");
-		}).mouseleave(function() {
-				if ( $('#res-search-input').val().length < 1 ) {
-					$('#research-search').hide("fade");
-				}
-		});
+	$('#browse-units-link').click(function() {
+//		_paq.push(['trackEvent', 'Search', 'Homepage', 'Browse Academic Units']);
+		$('form#unit-search-form').submit();
+	});
+ 	
+ 	$('#expert-search-link').mouseenter(function() {
+ 			$('#expert-search').show("fade");
+ 	}).mouseleave(function() {
+ 			if ( $('#de-search-input').val().length < 1 ) {
+ 				$('#expert-search').hide("fade");
+ 			}
+ 	});
 
-		  $("#jgsm-link").mouseenter(function() {
-				$("#jgsm-image").addClass("partner-shadow");
-		  }).mouseleave(function() {
-				$("#jgsm-image").removeClass("partner-shadow");
-		  });
-		  $("#eng-link").mouseenter(function() {
-				$("#eng-image").addClass("partner-shadow");
-		  }).mouseleave(function() {
-				$("#eng-image").removeClass("partner-shadow");
-		  });
-		  $("#arts-link").mouseenter(function() {
-				$("#arts-image").addClass("partner-shadow");
-		  }).mouseleave(function() {
-				$("#arts-image").removeClass("partner-shadow");
-		  });
+ 	$('#res-search-link').mouseenter(function() {
+ 			$('#research-search').show("fade");
+ 	}).mouseleave(function() {
+ 			if ( $('#res-search-input').val().length < 1 ) {
+ 				$('#research-search').hide("fade");
+ 			}
+ 	});
+
+ 	  $("#jgsm-link").mouseenter(function() {
+ 			$("#jgsm-image").addClass("partner-shadow");
+ 	  }).mouseleave(function() {
+ 			$("#jgsm-image").removeClass("partner-shadow");
+ 	  });
+ 	  $("#eng-link").mouseenter(function() {
+ 			$("#eng-image").addClass("partner-shadow");
+ 	  }).mouseleave(function() {
+ 			$("#eng-image").removeClass("partner-shadow");
+ 	  });
+ 	  $("#arts-link").mouseenter(function() {
+ 			$("#arts-image").addClass("partner-shadow");
+ 	  }).mouseleave(function() {
+ 			$("#arts-image").removeClass("partner-shadow");
+ 	  });
 
 	function getResearcherCount() {
 		
@@ -211,6 +215,5 @@ $(document).ready(function() {
        });        
        
 	}
-	});
 
 });

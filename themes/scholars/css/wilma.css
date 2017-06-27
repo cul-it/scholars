@@ -3577,7 +3577,51 @@ img.jump-to-top {
 .research-radio:disabled  + label {
 	color: #dcdcdc;
 }
-
+.browse-links {
+	color: #fff;
+	font-size:14px;
+	transition: .5s;
+	text-decoration: none !important;
+}
+.browse-links:hover {
+	color: #CC6949;
+	text-decoration: none !important;
+}
+.active-browse-links {
+	color: #CC6949;
+	font-size:14px;
+	text-decoration: none !important;
+}
+.active-browse-links:hover, .active-browse-links:focus {
+	color: #CC6949;
+	font-size:14px;
+	text-decoration: none !important;
+	cursor: default;
+}
+a.toggle-children i:hover {
+	color: #CC6949;
+}
+#time-indicator { 
+	display: none;
+	position: absolute;
+	top: 40px;
+	left: 50%;
+	margin-left: -120px;
+	z-index: 10;
+	opacity: 0.5;
+}
+#time-indicator img {
+	width: 200px; 
+}
+#time-indicator p { 
+	position: absolute;
+	top: 220px;
+	left: 50%;
+	margin-left: -86px;
+	z-index: 10;
+	opacity: 0.5;
+	font-size: 40px;
+}
 /*  scholars updates to generic pages (index, siteAdmin, etc) */
 .siteMap {
 	padding: 0 40px 40px;
