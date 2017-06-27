@@ -149,7 +149,7 @@ public class AcademicUnitsController extends FreemarkerHttpServlet {
              int hitsPerPage = getHitsPerPage( vreq );           
              int currentPage = getCurrentPage( vreq );           
  
-             String origin = vreq.getParameter(PARAM_ORIGIN); //== null) ? "none" : vreq.getParameter(PARAM_SOURCE);
+             String origin = vreq.getParameter(PARAM_ORIGIN); 
              String queryText = vreq.getParameter(PARAM_QUERY_TEXT);  
              String queryType = (vreq.getParameter(PARAM_QUERY_TYPE) == null) ? "colleges" : vreq.getParameter(PARAM_QUERY_TYPE); 
              String vclassid = vreq.getParameter(PARAM_VCLASS_ID);  

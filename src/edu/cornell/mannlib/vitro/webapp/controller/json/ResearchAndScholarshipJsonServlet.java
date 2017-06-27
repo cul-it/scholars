@@ -94,6 +94,7 @@ public class ResearchAndScholarshipJsonServlet extends VitroHttpServlet {
     private static final String PARAM_CLASSGROUP = "classgroup";
     private static final String PARAM_RDFTYPE = "type";
     private static final String PARAM_VCLASS_ID = "vclassId";
+    private static final String PARAM_SORT_BY = "sortby";
     private static final String PARAM_AFFILIATIONS = "affiliations";
     private static final String PARAM_ADMINISTRATORS = "administrators";
     private static final String PARAM_FUNDERS = "funders";
@@ -252,6 +253,7 @@ public class ResearchAndScholarshipJsonServlet extends VitroHttpServlet {
 		
         SearchQuery query = ApplicationUtils.instance().getSearchEngine().createQuery();
         
+		String sortBy = (vreq.getParameter(PARAM_SORT_BY) == null) ? "relevance" : vreq.getParameter(PARAM_SORT_BY);
 		String queryString = KEYWORD_FIELD + ":\"" + queryText.toLowerCase() + "\" OR nameLowercase:\"" + queryText.toLowerCase() 
 						+ "\" OR ALLTEXT:\"" + queryText.toLowerCase() + "\"";
 
@@ -319,7 +321,10 @@ public class ResearchAndScholarshipJsonServlet extends VitroHttpServlet {
 			query.addFilterQuery("-type:\"http://www.w3.org/2004/02/skos/core#Concept\"");
 			query.addFilterQuery("-type:\"http://purl.org/ontology/bibo/Journal\"");
 		}
-
+		if ( sortBy.equals("title") ) {
+        	query.addSortField("nameLowercaseSingleValued",SearchQuery.Order.ASC);
+		}
+		
         log.debug("Query = " + query.toString());
         return query;
     }   

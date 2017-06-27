@@ -215,6 +215,14 @@ var getScholarship = {
 
         });
 
+		$("#sort-results").change(function() {
+			$("#time-indicator").show();
+			// get basic info used in parameters
+            var queryText = getScholarship.getQueryText();
+            var queryType = getScholarship.getQueryType();
+            getScholarship.getIndividuals(queryText, queryType, "faceting", getScholarship.selectedRadio);
+		});
+
 		// when user switches among all, pubs, grants radio, we need to init autocomplete again
 		$('input[type=radio][name=querytype]').change(function() {
 			$("#time-indicator").show();
@@ -406,9 +414,17 @@ var getScholarship = {
 		return $("#hidden-querytext").val();
 	},
 	
+	getSortBy: function() {
+		var sortBy = "&sortby=" + $("#sort-results").val();
+		return sortBy;
+	},
+
 	// Called when a facet checkbox is clicked
     getIndividuals: function(queryText, queryType, method, radio, scroll) {
         var url = baseUrl + "/scholarshipJson?querytext=" + queryText + "&querytype=" + queryType;
+
+		url += getScholarship.getSortBy();
+
         if ( typeof scroll === "undefined" ) {
             scroll = true;
         }

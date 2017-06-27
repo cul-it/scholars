@@ -118,8 +118,15 @@
 		<label for="grants-radio"> Grants (${grantContractTotal!})</label>
 	</div>
 	
-  	<div id="results-blurb" class="col-md-6">
+  	<div id="results-blurb" class="col-md-4">
 		${searchResults!}
+  	</div>
+  	<div class="col-md-4" style="text-align:right;padding-right:40px">
+		Sort by
+		<select id="sort-results">
+			<option value="relevance">relevance</option>
+			<option value="title">title</option>
+		</select/>
   	</div>
   </div>
   <div id="facets-and-results" class="contentsBrowseGroup row fff-bkg">

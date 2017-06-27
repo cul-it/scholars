@@ -211,6 +211,17 @@ var getDomainExperts = {
 
         });
 
+		$("#sort-results").change(function() {
+			$("#time-indicator").show();
+			// get all the info used in parameters
+			var vclassIds =  getDomainExperts.getVClassIds();
+            var queryText = getDomainExperts.getQueryText();
+            var queryType = getDomainExperts.getQueryType();
+			var colleges =  getDomainExperts.getColleges();
+			var departments =  getDomainExperts.getDepartments();
+            getDomainExperts.getIndividuals(vclassIds, queryText, queryType, "faceting", colleges, departments);
+		});
+
 		// display time indicator when a new search is started
 		$("#results-search-submit").click(function() {
 			$("#time-indicator").show();
@@ -296,9 +307,19 @@ var getDomainExperts = {
 		return $("#hidden-querytext").val();
 	},
 	
+	getSortBy: function() {
+		var sortBy = "&sortby=" + $("#sort-results").val();
+		return sortBy;
+	},
+
 	// Called when a facet checkbox is clicked
     getIndividuals: function(vclassIds, queryText, queryType, method, colleges, departments, scroll) {
         var url = baseUrl + "/domainExpertJson?querytext=" + queryText + "&querytype=" + queryType + vclassIds;
+
+		if ( $("#sort-results").length ) {
+			url += getDomainExperts.getSortBy();
+		}
+		
         if ( typeof scroll === "undefined" ) {
             scroll = true;
         }

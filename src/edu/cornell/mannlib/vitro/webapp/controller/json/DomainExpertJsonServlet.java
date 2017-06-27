@@ -94,6 +94,7 @@ public class DomainExpertJsonServlet extends VitroHttpServlet {
     private static final String PARAM_CLASSGROUP = "classgroup";
     private static final String PARAM_RDFTYPE = "type";
     private static final String PARAM_VCLASS_ID = "vclassId";
+    private static final String PARAM_SORT_BY = "sortby";
     private static final String PARAM_COLLEGES = "colleges";
     private static final String PARAM_DEPARTMENTS = "departments";
     private static final String PARAM_QUERY_TEXT = "querytext";
@@ -242,6 +243,7 @@ public class DomainExpertJsonServlet extends VitroHttpServlet {
    
     private static SearchQuery getQuery(String queryText, String queryType,int hitsPerPage, int startIndex, VitroRequest vreq) {
 		
+		String sortBy = (vreq.getParameter(PARAM_SORT_BY) == null) ? "relevance" : vreq.getParameter(PARAM_SORT_BY);
 		String vclassids = vreq.getParameter(PARAM_VCLASS_ID).replaceAll(",","\" OR type:\"");
 		log.debug("VCLASSIDS = " + vclassids);
 
@@ -262,6 +264,10 @@ public class DomainExpertJsonServlet extends VitroHttpServlet {
 		} 
 		else {
 			queryString = KEYWORD_FIELD + ":\"" + queryText.toLowerCase() + "\"";
+
+			if ( sortBy.equals("name") ) {
+	        	query.addSortField("nameLowercaseSingleValued",SearchQuery.Order.ASC);
+			}
 		}
 
 		query.setQuery(queryString);
