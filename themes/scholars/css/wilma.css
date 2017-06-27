@@ -3087,7 +3087,7 @@ a#author-name {
 #search-container {
 	display:none;
 }
-#browse-menu {
+#discover-menu {
 	position: absolute;
 	top: 50px;
 	right: 50px;
@@ -3096,7 +3096,7 @@ a#author-name {
 	background-color: #f8f3dd;
 	display:none;
 }
-#browse-menu-option {
+#discover-menu-option {
 	color: #fff;
 	padding: 0 10px 0 10px;
 	letter-spacing: .2em;
@@ -3105,50 +3105,50 @@ a#author-name {
 	border-top-right-radius: 4px;
 	
 }
-.browse-menu-li {
+.discover-menu-li {
 	float: left;
-	margin: 15px 30px 15px 30px;
+	margin: 20px 40px;
 }
-#browse-menu-option:hover {
+#discover-menu-option:hover {
 	background-color: #f8f3dd;
 	color:	#af5a3f !important;
 	padding-bottom:	4px;
 }
-#browse-menu-option:hover #browse-menu{
+#discover-menu-option:hover #discover-menu{
 	display: block;
 }
-.browse-menu-link {
+.discover-menu-link {
 	font-size: 14px;
 	color: #167093 !important;
 	text-decoration: none !important; 
 	letter-spacing: 0 !important;
 	text-transform: none !important;
 }
-.browse-menu-link:hover {
+.discover-menu-link:hover {
 	color: #167093 !important; 
 	text-decoration: underline !important; 
 }
-#vis-links, #disc-links {
+#vis-links, #searches-links {
 	padding:0 10px 0 5px !important;
 }
-#vis-links li, #disc-links li {
+#vis-links li, #searches-links li {
 	float: none !important;
 }
-#vis-links li a:hover, #disc-links li a:hover {
+#vis-links li a:hover, #searches-links li a:hover {
 	text-decoration: underline !important;
 }
-#disc-header, #vis-header {
+#searches-header, #vis-header {
 	font-size: 16px;
 	color: #474a4b;
 	border-bottom: 1px solid #b9b6a8;
 }
-#disc-header {
+#searches-header {
 	padding: 0 0 2px 4px;
 	margin: 0;
 }
 #vis-header {
-	padding: 0 12px 2px 4px;
-	margin: 0 15px 0 0;
+	padding: 0 22px 2px 4px;
+	margin: 0 25px 0 0;
 }
 /*** identity.ftl ***/
 #welcome {
