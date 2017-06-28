@@ -92,8 +92,8 @@ $().ready(function() {
   /*
    * What is the right place to do these things?
    * - Create the selector and populate it
-   * - If a 'deptURI' is present in the URL that got us here, show that department.
-   *   - Should this even remain? Since this should probably appear as a modal on the department page
+   * - Show a featured department
+   * - Because 'ora' is global to showDepartmentCloud(), the ora.hide() functionality is brittle. How to do it correctly?
    * - Is this really the best place for a very useful function like getParameterByName() ?
    */
   var toolbar = new ScholarsVis.Toolbar("#organization-subject-areas");
@@ -101,10 +101,10 @@ $().ready(function() {
   var departmentControl = new AccordionControls.Selector("#departmentSelectionPanel", showDepartmentCloud);
   departmentControl.loadFromDataRequest("departmentList");
 
-  showFeaturedDepartment();
-  
   var ora = null;
     
+  showFeaturedDepartment();
+  
   function showDepartmentCloud(dept) {
     departmentControl.collapse();
     toolbar.setHeadingText("Research areas for <a href=\"" + toDisplayPageUrl(dept.uri) + "\">" + dept.label + "</a>");
