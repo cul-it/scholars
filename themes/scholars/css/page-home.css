@@ -111,6 +111,7 @@ div#logo-container {
 	text-align: left;
 	margin-top: -12px;
 	padding-left: 22px;
+	font-size: 15px;
 }
 #ongoing-research {
 	background: #fff url('../images/academic-units.jpg') no-repeat center center;
@@ -135,21 +136,27 @@ div#logo-container {
 	padding-left: 6px;
 }
 #jgsm-image {
-	background: #fff url('../images/sage_hall.jpg') no-repeat center center;
-	height: 210px;
-	background-size: cover;
+	background: #fff url('../images/johnson-logo.png') no-repeat center center;
+	height: 110px;
+	background-size: 75%;
 }
 #eng-image {
-	background: #fff url('../images/eng_quad.jpg') no-repeat center center;
-	height: 210px;
-	background-size: cover;
+	background: #fff url('../images/eng-logo.png') no-repeat center center;
+	height: 60px;
+	background-size: 65%;
 }
-#arts-image {
+#bti-image {
+	background: #fff url('../images/bti-logo.png') no-repeat center center;
+	height: 120px;
+	background-size: 70%;
+	margin-top: -20px;
+}
+#cals-image {
 	background: #fff url('../images/arts_quad.jpg') no-repeat center center;
 	height: 210px;
 	background-size: cover;
 }
-#jgsm-image:hover, #eng-image:hover, #arts-image:hover {
+#jgsm-image:hover, #eng-image:hover, #cals-image:hover, #bti-image:hover {
 	box-shadow: 10px 10px 5px #888888;
 }
 #partners-row1 {
@@ -177,12 +184,12 @@ div#logo-container {
 	margin: 0;
 	font-size: 18px;
 }
-#arts-text {
+#cals-text {
 	text-align: center;
 	padding: 0;
 	margin: 0;
 }
-#arts-text p {
+#cals-text p {
 	margin: 0;
 	font-size: 18px;
 }

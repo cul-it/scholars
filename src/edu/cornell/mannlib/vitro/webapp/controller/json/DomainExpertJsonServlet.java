@@ -94,6 +94,7 @@ public class DomainExpertJsonServlet extends VitroHttpServlet {
     private static final String PARAM_CLASSGROUP = "classgroup";
     private static final String PARAM_RDFTYPE = "type";
     private static final String PARAM_VCLASS_ID = "vclassId";
+    private static final String PARAM_SORT_BY = "sortby";
     private static final String PARAM_COLLEGES = "colleges";
     private static final String PARAM_DEPARTMENTS = "departments";
     private static final String PARAM_QUERY_TEXT = "querytext";
@@ -182,19 +183,6 @@ public class DomainExpertJsonServlet extends VitroHttpServlet {
 					log.debug("Adding individual " + uri + " to individual list");
 				}
 			}
-//			
-/*			IndividualListQueryResults results = null;
-			try{
-		        results = IndividualListQueryResults.runQuery(query, iDao);
-				log.debug("results hit count: " + results.getHitCount());
-		 	} catch (SearchEngineException e) {
-				log.error("Search exception occurred: " + e);
-				JSONObject jsonObj = new JSONObject("['what the hell?]");
-		 	    return jsonObj;
-		   	}
-		
-			IndividualListResults ilResults = new IndividualListResults(hitsPerPage, results.getIndividuals(), "", false, Collections.<PageRecord>emptyList());
-*/
 
 			IndividualListQueryResults results = new IndividualListQueryResults((int) hitCount, individuals);
 			IndividualListResults ilResults = new IndividualListResults(hitsPerPage, results.getIndividuals(), "", false, Collections.<PageRecord>emptyList());
@@ -215,7 +203,6 @@ public class DomainExpertJsonServlet extends VitroHttpServlet {
 		}
 		catch (Throwable e) {
 			log.error("Search exception occurred: " + e);
-			//JSONObject jsonObj = new JSONObject("[]");
 	 	    return rObj;
 			
 		}
@@ -256,6 +243,7 @@ public class DomainExpertJsonServlet extends VitroHttpServlet {
    
     private static SearchQuery getQuery(String queryText, String queryType,int hitsPerPage, int startIndex, VitroRequest vreq) {
 		
+		String sortBy = (vreq.getParameter(PARAM_SORT_BY) == null) ? "relevance" : vreq.getParameter(PARAM_SORT_BY);
 		String vclassids = vreq.getParameter(PARAM_VCLASS_ID).replaceAll(",","\" OR type:\"");
 		log.debug("VCLASSIDS = " + vclassids);
 
@@ -276,6 +264,10 @@ public class DomainExpertJsonServlet extends VitroHttpServlet {
 		} 
 		else {
 			queryString = KEYWORD_FIELD + ":\"" + queryText.toLowerCase() + "\"";
+
+			if ( sortBy.equals("name") ) {
+	        	query.addSortField("nameLowercaseSingleValued",SearchQuery.Order.ASC);
+			}
 		}
 
 		query.setQuery(queryString);

@@ -67,8 +67,17 @@
 </div>
 <#if individuals?? >
   <div class="row fff-bkg" style="padding:0;margin:0;">
-  	<div id="results-blurb" class="col-md-7 col-md-offset-4">
+  	<div id="results-blurb" class="col-md-4 col-md-offset-4">
 		${searchResults!}
+  	</div>
+  	<div class="col-md-4" style="text-align:right;padding-right:40px">
+	  <#if querytype != "name">
+		Sort by
+		<select id="sort-results">
+			<option value="relevance">relevance</option>
+			<option value="name">last name</option>
+		</select/>
+	  </#if>
   	</div>
   </div>
   <div id="facets-and-results" class="contentsBrowseGroup row fff-bkg">
@@ -125,6 +134,10 @@
     <div id="results-column" class="col-md-8">
 	  <div id="results-container" class="panel panel-default">
       <ul class="searchhits">
+			<li id="time-indicator">
+				<img id="time-indicator-img" src="${urls.images}/indicator1.gif"/>
+				<p>Searching</p>
+			</li>
   			<#list individuals as indy>
   				${indy!}
   			</#list>

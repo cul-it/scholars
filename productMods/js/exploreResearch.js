@@ -19,6 +19,13 @@ var getScholarship = {
 		this.makeTheCall = true;
 		this.selectedRadio = $("input[type=radio][name=querytype]:checked").val();
 		
+		// we need this in the js, because the html in the template gets removed
+		// when we refresh the search results via the ajax call. Probably a cleaner 
+		// way to do this...
+		this.timeIndicator = "<li id='time-indicator'>" +
+						     "<img id='time-indicator-img' src='" + imagesUrl + "/indicator1.gif'/>" +
+							 "<p>Searching</p></li>";
+
 		if ( $("#yearRange-facets").length && getScholarship.selectedRadio == "pubs" ) {
 			this.slider = document.getElementById('slider');
 			
@@ -200,7 +207,7 @@ var getScholarship = {
 
 		// when check boxes are clicked, we need to fetch a fresh batch
         $(".type-checkbox").click(function() {
-
+			$("#time-indicator").show();
 			// get basic info used in parameters
             var queryText = getScholarship.getQueryText();
             var queryType = getScholarship.getQueryType();
@@ -208,24 +215,33 @@ var getScholarship = {
 
         });
 
+		$("#sort-results").change(function() {
+			$("#time-indicator").show();
+			// get basic info used in parameters
+            var queryText = getScholarship.getQueryText();
+            var queryType = getScholarship.getQueryType();
+            getScholarship.getIndividuals(queryText, queryType, "faceting", getScholarship.selectedRadio);
+		});
+
 		// when user switches among all, pubs, grants radio, we need to init autocomplete again
 		$('input[type=radio][name=querytype]').change(function() {
-	            $("#hidden-querytype").val(this.value);
-	            $("#res-search-input").val($("#hidden-querytext").val());
-
-				var selected = this.value;
-				if ( selected == "pubs" ) {
-					var count = $("input#grants-radio").attr("data-count");
-					$("input[name=unselectedRadio]").val("grants");
-					$("input[name=radioCount]").val(count);
-				}
-				else if ( selected == "grants" ) {
-					var count = $("input#pubs-radio").attr("data-count");
-					$("input[name=unselectedRadio]").val("pubs");
-					$("input[name=radioCount]").val(count);
-				}
-
-				$("#results-search-form").submit();
+			$("#time-indicator").show();
+	        $("#hidden-querytype").val(this.value);
+	        $("#res-search-input").val($("#hidden-querytext").val());
+            
+			var selected = this.value;
+			if ( selected == "pubs" ) {
+				var count = $("input#grants-radio").attr("data-count");
+				$("input[name=unselectedRadio]").val("grants");
+				$("input[name=radioCount]").val(count);
+			}
+			else if ( selected == "grants" ) {
+				var count = $("input#pubs-radio").attr("data-count");
+				$("input[name=unselectedRadio]").val("pubs");
+				$("input[name=radioCount]").val(count);
+			}
+            
+			$("#results-search-form").submit();
 	    });
 	
     	// Go button has been clicked
@@ -246,15 +262,22 @@ var getScholarship = {
 			}
 
 			getScholarship.slider.noUiSlider.on("change", function(values, handle){
+				$("#time-indicator").show();
 				var queryText = getScholarship.getQueryText();
 	            var queryType = getScholarship.getQueryType();
 	            getScholarship.getIndividuals(queryText, queryType, "faceting", getScholarship.selectedRadio);
 			});
 		}
+		
+		// display time indicator when a new search is started
+		$("#results-search-submit").click(function() {
+			$("#time-indicator").show();
+		});
 
 		// reset link used with grants and Active Year facet
 		if ( $("#reset-dates").length ) {
 			$("a#reset-dates-link").click(function() {
+				$("#time-indicator").show();
 				$(".noUi-tooltip").hide();
 				getScholarship.slider.noUiSlider.set(0);
 				$(".noUi-tooltip").text("reset");
@@ -391,9 +414,17 @@ var getScholarship = {
 		return $("#hidden-querytext").val();
 	},
 	
+	getSortBy: function() {
+		var sortBy = "&sortby=" + $("#sort-results").val();
+		return sortBy;
+	},
+
 	// Called when a facet checkbox is clicked
     getIndividuals: function(queryText, queryType, method, radio, scroll) {
         var url = baseUrl + "/scholarshipJson?querytext=" + queryText + "&querytype=" + queryType;
+
+		url += getScholarship.getSortBy();
+
         if ( typeof scroll === "undefined" ) {
             scroll = true;
         }
@@ -475,6 +506,7 @@ var getScholarship = {
 				// if not (i.e., a fresh search), remove the existing content.
 				if ( method != "scrolling" ) {
                 	$("ul.searchhits").empty();
+					$("ul.searchhits").prepend(getScholarship.timeIndicator);
 				}
                 
 				// remove the exiting $("#scroll-control") object as it will be replaced

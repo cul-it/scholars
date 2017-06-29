@@ -15,7 +15,8 @@
 @prefix display: <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#> .
 @prefix datagetters: <java:edu.cornell.mannlib.vitro.webapp.utils.dataGetter.> .
 @prefix mydomain: <http://localhost:8080/individual/> .
-@prefix obo:      <http://purl.obolibrary.org/obo/> .
+@prefix obo: <http://purl.obolibrary.org/obo/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
 
 vivo:FacultyMember
         display:hasCustomView mydomain:peopleSearchView ;
@@ -56,6 +57,21 @@ vivo:Contract
 vivo:Grant
 		display:hasCustomView mydomain:grantsResearchView .
 
+vivo:AcademicDepartment
+		display:hasCustomView mydomain:departmentUnitsView .
+
+#vivo:Library
+#		display:hasCustomView mydomain:departmentUnitsView .
+
+vivo:Institute
+		display:hasCustomView mydomain:departmentUnitsView .
+
+vivo:School
+	display:hasCustomView mydomain:departmentUnitsView ;
+	display:hasCustomView mydomain:collegeUnitsView .
+
+vivo:College
+	display:hasCustomView mydomain:collegeUnitsView .
 
 mydomain:articlesPublicationsView
 	a display:customViewForIndividual ;
@@ -95,6 +111,18 @@ mydomain:peopleExpertsView
 	display:hasTemplate "view-experts-default.ftl" ;
 	display:hasDataGetter mydomain:expertsInPositionDG ;
 	display:hasDataGetter mydomain:expertsPubCountDG .
+
+mydomain:departmentUnitsView
+	a display:customViewForIndividual ;
+	display:appliesToContext "ACADEMIC_UNITS" ;
+	display:hasTemplate "view-units-default.ftl" ;
+	display:hasDataGetter mydomain:getParentOrgsDG .
+
+mydomain:collegeUnitsView
+	a display:customViewForIndividual ;
+	display:appliesToContext "ACADEMIC_UNITS" ;
+	display:hasTemplate "view-units-default.ftl" ;
+	display:hasDataGetter mydomain:getSubOrgsDG .
 
 mydomain:personInPositionDG
 	a datagetters:SparqlQueryDataGetter ;
@@ -368,5 +396,37 @@ mydomain:grantContractInvestigatorsDG
      }
      }
      ORDER BY ?type ?personLabel
+	""" .
+
+mydomain:getSubOrgsDG
+	a datagetters:SparqlQueryDataGetter ;
+	display:saveToVar "subOrgs" ;
+	display:query """
+	PREFIX rdfs:     <http://www.w3.org/2000/01/rdf-schema#>
+	PREFIX obo:      <http://purl.obolibrary.org/obo/>
+	PREFIX vitro:    <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
+	SELECT DISTINCT ?dept ?label ?indLabel
+	WHERE
+	{
+	      ?individualUri obo:BFO_0000051 ?dept .
+		  ?individualUri rdfs:label ?indLabel .
+	      ?dept rdfs:label ?label .
+     }
+     ORDER BY ?label
+	""" .
+
+mydomain:getParentOrgsDG
+	a datagetters:SparqlQueryDataGetter ;
+	display:saveToVar "parentOrgs" ;
+	display:query """
+	PREFIX rdfs:     <http://www.w3.org/2000/01/rdf-schema#>
+	PREFIX obo:      <http://purl.obolibrary.org/obo/>
+	SELECT DISTINCT ?college ?label
+	WHERE
+	{
+	      ?individualUri obo:BFO_0000050 ?college .
+	       ?college rdfs:label ?label .
+     }
+     ORDER BY ?label
 	""" .
 	

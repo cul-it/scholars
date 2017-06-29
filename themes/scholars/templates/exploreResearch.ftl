@@ -105,7 +105,7 @@
 		</#if>
     </#if>
   </#if>
-<#if (pubCount?number == 0 || grantContractTotal?number == 0) >
+<#if (pubCount?string?replace(",","")?number == 0 || grantContractTotal?string?replace(",","")?number == 0) >
 	<#assign disableAll = true />
 </#if>
   <div class="row fff-bkg" style="padding:12px 0 1px 0;margin:0;">
@@ -118,8 +118,15 @@
 		<label for="grants-radio"> Grants (${grantContractTotal!})</label>
 	</div>
 	
-  	<div id="results-blurb" class="col-md-6">
+  	<div id="results-blurb" class="col-md-4">
 		${searchResults!}
+  	</div>
+  	<div class="col-md-4" style="text-align:right;padding-right:40px">
+		Sort by
+		<select id="sort-results">
+			<option value="relevance">relevance</option>
+			<option value="title">title</option>
+		</select/>
   	</div>
   </div>
   <div id="facets-and-results" class="contentsBrowseGroup row fff-bkg">
@@ -240,6 +247,10 @@
     <div id="results-column" class="col-md-8">
 	  <div id="results-container" class="panel panel-default">
       <ul class="searchhits">
+			<li id="time-indicator">
+				<img id="time-indicator-img" src="${urls.images}/indicator1.gif"/>
+				<p>Searching</p>
+			</li>
   			<#list individuals as indy>
   				${indy!}
   			</#list>

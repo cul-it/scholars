@@ -17,6 +17,12 @@ var getDomainExperts = {
 		this.makeTheCall = true;
 		// this variable triggers the rebuilding of the department facet
 		this.collegeFacetClicked = false;
+		// we need this in the js, because the html in the template gets removed
+		// when we refresh the search results via the ajax call. Probably a cleaner 
+		// way to do this...
+		this.timeIndicator = "<li id='time-indicator'>" +
+						     "<img id='time-indicator-img' src='" + imagesUrl + "/indicator1.gif'/>" +
+							 "<p>Searching</p></li>";
 	},
 	
     initAutoComplete: function() {
@@ -186,6 +192,7 @@ var getDomainExperts = {
 
 		// when check boxes are clicked, we need to fetch a fresh batch
         $(".type-checkbox").click(function() {
+			$("#time-indicator").show();
 			// used to rebuild department facets when a college is clicked
 			if ( $(this).hasClass("college-cb") ) {
 				getDomainExperts.collegeFacetClicked = true;
@@ -203,6 +210,22 @@ var getDomainExperts = {
             getDomainExperts.getIndividuals(vclassIds, queryText, queryType, "faceting", colleges, departments);
 
         });
+
+		$("#sort-results").change(function() {
+			$("#time-indicator").show();
+			// get all the info used in parameters
+			var vclassIds =  getDomainExperts.getVClassIds();
+            var queryText = getDomainExperts.getQueryText();
+            var queryType = getDomainExperts.getQueryType();
+			var colleges =  getDomainExperts.getColleges();
+			var departments =  getDomainExperts.getDepartments();
+            getDomainExperts.getIndividuals(vclassIds, queryText, queryType, "faceting", colleges, departments);
+		});
+
+		// display time indicator when a new search is started
+		$("#results-search-submit").click(function() {
+			$("#time-indicator").show();
+		});
 
 		// when user switches between subject and name radio, we need to init autocomplete again
 		$('input[type=radio][name=querytype]').change(function() {
@@ -284,9 +307,19 @@ var getDomainExperts = {
 		return $("#hidden-querytext").val();
 	},
 	
+	getSortBy: function() {
+		var sortBy = "&sortby=" + $("#sort-results").val();
+		return sortBy;
+	},
+
 	// Called when a facet checkbox is clicked
     getIndividuals: function(vclassIds, queryText, queryType, method, colleges, departments, scroll) {
         var url = baseUrl + "/domainExpertJson?querytext=" + queryText + "&querytype=" + queryType + vclassIds;
+
+		if ( $("#sort-results").length ) {
+			url += getDomainExperts.getSortBy();
+		}
+		
         if ( typeof scroll === "undefined" ) {
             scroll = true;
         }
@@ -334,9 +367,10 @@ var getDomainExperts = {
 				// if not (i.e., a fresh search), remove the existing content.
 				if ( method != "scrolling" ) {
                 	$("ul.searchhits").empty();
+					$("ul.searchhits").prepend(getDomainExperts.timeIndicator);
 				}
                 
-				// remove the exiting $("#scroll-control") object as it will be replaced
+				// remove the existing $("#scroll-control") object as it will be replaced
 				$("#scroll-control").remove();
 				
                 // And then add the new content, remove previous no results selector
