@@ -78,7 +78,7 @@
 										<input type="hidden" name="querytype" value="colleges" /> 
 									</form>
 									<div class="discovery-details">
-										<a class="image-links" id="browse-units-link" href="javascript:"><span>Browse<br/>Academic Units</span></a>
+										<a class="image-links" id="browse-units-link" href="javascript:" onclick="javascript:_paq.push(['trackEvent', 'Search', 'Homepage', 'Browse Academic Units']);"><span>Browse<br/>Academic Units</span></a>
 									</div>
 								</div>
 						</div>
@@ -131,33 +131,52 @@
 
 				<div id="partners-header" class="row fff-bkg">
 					<div class="col-sm-12 col-md-12 col-lg-12 home-divider">
-						<p class="home-header">
-							Partner Alliance
-						</p>
 					</div>
 				</div>
-				<div class="container-fluid scholars-home-container">
-					<div id="partners-row1" class="row fff-bkg" style="margin:30px 30px 30px 30px;">
-					<div class="col-sm-4 col-md-4 col-lg-4"> 
-					  <div id="eng-text" style="padding:0 0 10px;font-size:18px;">
-						<p><a id="eng-link" href="${urls.base}/display/org73341" onclick="javascript:_paq.push(['trackEvent', 'Scholars Affiliates', 'Homepage', 'Engineering']);">College of Engineering</a></p>
-					  </div>
-						<a href="${urls.base}/display/org73341" onclick="javascript:_paq.push(['trackEvent', 'Scholars Affiliates', 'Homepage', 'Engineering']);">
-							<div id="eng-image" style="margin-right:-40px"> 
-							</div>
+				
+				
+	<div class="container-fluid scholars-home-container">
+   		<div id="partners-row1" class="row fff-bkg" style="margin:30px 30px 0 30px;">
+   			<div class="col-sm-4 col-md-4 col-lg-4" style="padding:0;">
+				<div id="partners-row1a" class="row fff-bkg" style="margin:0;padding:0;">
+					<div class="col-sm-12 col-md-12 col-lg-12" style="padding:0;margin:0;min-height: 45px;"></div>
+				</div>
+				<div id="partners-row1b" class="row fff-bkg" style="margin:0;padding:0;">
+   					<div class="col-sm-12 col-md-12 col-lg-12" style="text-align:center;vertical-align:middle;padding:0;margin:0"> 
+   						<p class="home-header">Our Partners</p>
+   						<p style="font-size:18px;">We're collaborating with these academic units to ensure the integrity of Scholars@Cornell data.</p>
+   					</div>
+				</div>
+			</div>
+   			<div class="col-sm-8 col-md-8 col-lg-8" style="padding:0;">
+				<div id="partners-row1c" class="row fff-bkg" style="margin:0;padding:0;">
+					<div class="col-sm-1 col-md-1 col-lg-1" style="padding:0;"></div>
+	   				<div class="col-sm-8 col-md-8 col-lg-8" style="padding:0;z-index:1">
+	   					<a href="${urls.base}/display/org73341" onclick="javascript:_paq.push(['trackEvent', 'Scholars Affiliates', 'Homepage', 'Johnson School']);">
+							<div id="jgsm-image"></div>
 						</a>
-					</div>
-						<div id="jgsm-text" class="col-sm-3 col-md-3 col-lg-3" style="padding-top:40px;margin-left: 40px;"> 
-							<p><a id="jgsm-link" href="${urls.base}/display/org74741" onclick="javascript:_paq.push(['trackEvent', 'Scholars Affiliates', 'Homepage', 'Johnson School']);">Samuel Curtis Johnson<br/>School of Management</a></p>
-						</div>
-						<div class="col-sm-4 col-md-4 col-lg-4" style="padding-top:36px"> 
-							<a href="${urls.base}/display/org74741" onclick="javascript:_paq.push(['trackEvent', 'Scholars Affiliates', 'Homepage', 'Johnson School']);">
-								<div id="jgsm-image" style="margin-right:-40px"> 
-								</div>
-							</a>
-						</div>
-					</div>
+	   				</div>
+					<div class="col-sm-2 col-md-2 col-lg-2" style="padding:0;"></div>
 				</div>
+				<div id="partners-row1d" class="row fff-bkg" style="margin:0;padding:0;">
+	   				<div class="col-sm-7 col-md-7 col-lg-7" style="padding:0;margin: 0;"></div>	
+	   				<div class="col-sm-5 col-md-5 col-lg-5" style="padding:0;margin:0;"> 
+	   					<a id="bti-link" href="${urls.base}/display/org74741" onclick="javascript:_paq.push(['trackEvent', 'Scholars Affiliates', 'Homepage', 'BTI']);">
+	   						<div id="bti-image"></div>
+						</a>
+	   				</div>
+				</div>
+			</div>
+		</div>
+		<div id="partners-row2" class="row fff-bkg" style="padding:0;margin:0 30px 10px 30px;"> 
+	   		<div class="col-sm-2 col-md-2 col-lg-2" style="padding:0;margin: 0;"></div>
+	   		<div class="col-sm-6 col-md-6 col-lg-6" style="padding:0;margin: 0;"> 
+	   			<a href="${urls.base}/display/org74741" onclick="javascript:_paq.push(['trackEvent', 'Scholars Affiliates', 'Homepage', 'Engineering']);">
+	   				<div id="eng-image"></div>
+	   			</a>
+	   		</div>
+	   	</div>
+   	</div>
 
 
 				<div id="download-header" class="row fff-bkg">
