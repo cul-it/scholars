@@ -22,7 +22,7 @@
 					<#include "menu.ftl" />
 				</header>
 			</div>
-			<div id="home-body" class="row">
+			<div id="home-body" class="row" style="position:relative;z-index:3;">
 					<#include "developer.ftl">
 				<div id="discover-header" class="row fff-bkg">
 					<div class="col-sm-12 col-md-12 col-lg-12 e3e6e9-bkg">
@@ -177,20 +177,9 @@
 	   		</div>
 	   	</div>
    	</div>
-
-
-				<div id="download-header" class="row fff-bkg">
-					<div class="col-sm-12 col-md-12 col-lg-12 home-divider">
-						<p class="home-header">
-							By the Numbers
-						</p>
-					</div>
-				</div>
-				<div class="container-fluid scholars-home-container">
-					<@lh.downloadCounts />
-				</div>
-			</div> <!-- home-body div -->
-
+	</div> <!-- home-body div -->
+	<@lh.downloadCounts />
+			
 	        <#include "footer.ftl" />
 		</div> <!-- home -->
         <script>       
@@ -221,15 +210,15 @@
 		</script>
         <script type="application/ld+json">
         	{
-  				"@context": "http://schema.org",
-  				"@type": "WebSite",
-  				"name": "Scholars@Cornell",
-  				"alternateName": "Scholars at Cornell",
-  				"url": "https://scholars.cornell.edu/",
+				"@context": "http://schema.org",
+				"@type": "WebSite",
+				"name": "Scholars@Cornell",
+				"alternateName": "Scholars at Cornell",
+				"url": "https://scholars.cornell.edu/",
 				"description": "Scholars@Cornell is a data and visualization service developed at Cornell University Library with the goal of improving the visibility of Cornell research and enabling discovery of explicit and latent patterns of scholarly collaboration.",
-  				"sameAs" :[
-       				"https://twitter.com/ScholarsCornell"
-   				]
+				"sameAs" :[
+					"https://twitter.com/ScholarsCornell"
+				]
 			}
 		</script>
     </body>

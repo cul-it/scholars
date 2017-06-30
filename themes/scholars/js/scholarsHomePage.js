@@ -1,6 +1,9 @@
 /* $This file is distributed under the terms of the license in /doc/license.txt$ */
 
 $(document).ready(function() {
+	
+	$("#tagline").show();
+	
 	$.fn.inView = function(){
 	    //Window Object
 	    var win = $(window);
@@ -91,7 +94,23 @@ $(document).ready(function() {
 					};
 
 				};
-			};			
+			};	
+			
+			var numbersViewable = isInViewport($("#download-content"), true);
+			if ( numbersViewable ) {
+				$("#articles-count").show();
+				$("#grants-count").show();
+				$("#journals-count").show();
+				$("#researchers-count").show();
+				$("#by-the-numbers-text").show();
+			}
+			else {
+				$("#articles-count").hide();
+				$("#grants-count").hide();
+				$("#journals-count").hide();
+				$("#researchers-count").hide();
+				$("#by-the-numbers-text").hide();
+			}		
 
 		});
 
@@ -154,7 +173,7 @@ $(document).ready(function() {
                 var results = $.parseJSON(xhr.responseText);
                 // there will only ever be one key/value pair
                 if ( results != null ) {
-                    $('div#researcher-count > p').text(results.count.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+                    $('#researcher-count').text(results.count.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
                 }
             }
        });        
@@ -173,7 +192,7 @@ $(document).ready(function() {
                 var results = $.parseJSON(xhr.responseText);
                 // there will only ever be one key/value pair
                 if ( results != null ) {
-                    $('div#grant-count > p').text(results.count.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+                    $('#grant-count').text(results.count.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
                 }
             }
        });        
@@ -191,7 +210,7 @@ $(document).ready(function() {
                 var results = $.parseJSON(xhr.responseText);
                 // there will only ever be one key/value pair
                 if ( results != null ) {
-                    $('div#article-count > p').text(results.count.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+                    $('#article-count').text(results.count.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
                 }
             }
        });        
@@ -209,11 +228,32 @@ $(document).ready(function() {
                 var results = $.parseJSON(xhr.responseText);
                 // there will only ever be one key/value pair
                 if ( results != null ) {
-                    $('div#journal-count > p').text(results.count.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+                    $('#journal-count').text(results.count.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
                 }
             }
        });        
        
+	}
+
+	function isInViewport(element, detectPartial) {
+	    element = $(element);
+	    detectPartial = (!!detectPartial); // if null or undefined, default to false
+
+	    var viewport = $(window),
+	        vpWidth = viewport.width(),
+	        vpHeight = viewport.height(),
+	        vpTop = viewport.scrollTop(),
+	        vpBottom = vpTop + vpHeight,
+	        vpLeft = viewport.scrollLeft(),
+	        vpRight = vpLeft + vpWidth,
+
+	        elementOffset = element.offset(),
+	        elementTopArea = elementOffset.top+((detectPartial) ? element.height() : 0),
+	        elementBottomArea = elementOffset.top+((detectPartial) ? 0 : element.height()),
+	        elementLeftArea = elementOffset.left+((detectPartial) ? element.width() : 0),
+	        elementRightArea = elementOffset.left+((detectPartial) ? 0 : element.width());
+
+	       return ((elementBottomArea <= vpBottom) && (elementTopArea >= vpTop)) && ((elementRightArea <= vpRight) && (elementLeftArea >= vpLeft));
 	}
 
 });
