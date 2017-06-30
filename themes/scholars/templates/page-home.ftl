@@ -144,36 +144,36 @@
 				<div id="partners-row1b" class="row fff-bkg" style="margin:0;padding:0;">
    					<div class="col-sm-12 col-md-12 col-lg-12" style="text-align:center;vertical-align:middle;padding:0;margin:0"> 
    						<p class="home-header">Our Partners</p>
-   						<p style="font-size:18px;">We're collaborating with these academic units to ensure the integrity of Scholars@Cornell data.</p>
+   						<p style="font-size:18px;margin:0">We're currently collaborating with these academic units to ensure the integrity of Scholars@Cornell data. <a href="#">Become a partner.</a></p>
    					</div>
 				</div>
 			</div>
    			<div class="col-sm-8 col-md-8 col-lg-8" style="padding:0;">
 				<div id="partners-row1c" class="row fff-bkg" style="margin:0;padding:0;">
-					<div class="col-sm-1 col-md-1 col-lg-1" style="padding:0;"></div>
-	   				<div class="col-sm-8 col-md-8 col-lg-8" style="padding:0;z-index:1">
-	   					<a href="${urls.base}/display/org74741" onclick="javascript:_paq.push(['trackEvent', 'Scholars Affiliates', 'Homepage', 'Johnson School']);">
-							<div id="jgsm-image"></div>
-						</a>
+					<div class="col-sm-2 col-md-2 col-lg-2" style="padding:0;"></div>
+	   				<div class="col-sm-6 col-md-6 col-lg-6" style="padding:0;z-index:1">
+	   					<a href="${urls.base}/display/org73341" onclick="javascript:_paq.push(['trackEvent', 'Scholars Affiliates', 'Homepage', 'Engineering']);">
+			   				<div id="eng-image"><img src="${urls.theme!}/images/eng-logo.png"></div>
+			   			</a>
 	   				</div>
 					<div class="col-sm-2 col-md-2 col-lg-2" style="padding:0;"></div>
 				</div>
-				<div id="partners-row1d" class="row fff-bkg" style="margin:0;padding:0;">
+				<div id="partners-row1d" class="row fff-bkg" style="margin:40px 0 0;padding:0;">
 	   				<div class="col-sm-7 col-md-7 col-lg-7" style="padding:0;margin: 0;"></div>	
 	   				<div class="col-sm-5 col-md-5 col-lg-5" style="padding:0;margin:0;"> 
-	   					<a id="bti-link" href="${urls.base}/display/org98030" onclick="javascript:_paq.push(['trackEvent', 'Scholars Affiliates', 'Homepage', 'BTI']);">
-	   						<div id="bti-image"></div>
+	   					<a href="${urls.base}/display/org74741" onclick="javascript:_paq.push(['trackEvent', 'Scholars Affiliates', 'Homepage', 'Johnson School']);">
+							<div id="jgsm-image"><img src="${urls.theme!}/images/johnson-logo.png"></div>
 						</a>
 	   				</div>
 				</div>
 			</div>
 		</div>
 		<div id="partners-row2" class="row fff-bkg" style="padding:0;margin:0 30px 10px 30px;"> 
-	   		<div class="col-sm-2 col-md-2 col-lg-2" style="padding:0;margin: 0;"></div>
-	   		<div class="col-sm-6 col-md-6 col-lg-6" style="padding:0;margin: 0;"> 
-	   			<a href="${urls.base}/display/org73341" onclick="javascript:_paq.push(['trackEvent', 'Scholars Affiliates', 'Homepage', 'Engineering']);">
-	   				<div id="eng-image"></div>
-	   			</a>
+	   		<div class="col-sm-5 col-md-5 col-lg-5" style="padding:0;margin: 0;"></div>
+	   		<div class="col-sm-3 col-md-3 col-lg-3" style="padding:0;margin: 0;"> 
+	   			<a id="bti-link" href="${urls.base}/display/org98030" onclick="javascript:_paq.push(['trackEvent', 'Scholars Affiliates', 'Homepage', 'BTI']);">
+					<div id="bti-image"><img src="${urls.theme!}/images/bti-logo.png"></div>
+				</a>
 	   		</div>
 	   	</div>
    	</div>
