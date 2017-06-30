@@ -144,7 +144,7 @@
 				<div id="partners-row1b" class="row fff-bkg" style="margin:0;padding:0;">
    					<div class="col-sm-12 col-md-12 col-lg-12" style="text-align:center;vertical-align:middle;padding:0;margin:0"> 
    						<p class="home-header">Our Partners</p>
-   						<p style="font-size:18px;margin:0">We're currently collaborating with these academic units to ensure the integrity of Scholars@Cornell data. <a href="#">Become a partner.</a></p>
+   						<p style="font-size:18px;margin:0">We're currently collaborating with these academic units to ensure the integrity of Scholars@Cornell data. <a href="${urls.base!}/contact">Become a partner.</a></p>
    					</div>
 				</div>
 			</div>
