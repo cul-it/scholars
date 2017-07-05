@@ -77,6 +77,14 @@ $(document).ready(function() {
 	<#assign webpageLabel = webpageStmt.label! />
 	<#assign webpageUrl = webpageStmt.url! />
 </#if>
+<#assign optInProp = propertyGroups.pullProperty("http://scholars.cornell.edu/ontology/vivoc.owl#isOptIn")!>
+<#if optInProp?has_content && optInProp.statements?has_content>
+	<#assign optInStmt = optInProp.statements?first!/>
+	<#assign optIn = optInStmt.value!"false" />
+<#else>
+	<#assign optIn = "false" />
+</#if>
+
 <#-- for some reason pullProperty was only working when logged in, and even with the display level set to public. Weird! So using datagetter-->
 <#if orcidID?has_content> 
 	<#assign theOrcidId = orcidID?first.orcidId! />
@@ -131,7 +139,7 @@ $(document).ready(function() {
 </div> <!-- row1 -->
 
 
-<#if isAuthor || isInvestigator || editable >
+<#if optIn == "true" && (isAuthor || isInvestigator || editable) >
 <#-- The row2 div contains the visualization section and the publication and grants lists -->
 <div id="row2" class="row scholars-row foaf-person-row2">
 
