@@ -15,7 +15,7 @@
                 <#assign classCount = 0 >
                 <#assign splitGroup = false>
                 <#-- Only render classgroups that have at least one populated class -->
-                <#if (classGroup.individualCount > 0)> 
+                <#if (classGroup.individualCount > 0) && classGroup.displayName != "locations"> 
                 	<div class="class-group">             
                         <h2 class="group-name">${classGroup.displayName?capitalize}</h2>
                         <ul role="list">
