@@ -139,7 +139,7 @@ $(document).ready(function() {
 </div> <!-- row1 -->
 
 
-<#if optIn == "true" && (isAuthor || isInvestigator || editable) >
+<#if (optIn == "true" && (isAuthor || isInvestigator)) || editable >
 <#-- The row2 div contains the visualization section and the publication and grants lists -->
 <div id="row2" class="row scholars-row foaf-person-row2">
 
