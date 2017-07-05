@@ -2715,7 +2715,7 @@ div#research-faculty-mbrs li img {
     float: left;
 	font-size: 20px;
 	color: rgb(95, 88, 88);
-	margin: 5px 0 0 12px;
+	margin: 15px 0 0 12px;
 }
 .searchResultsHeader img {
 	margin: 0 0 0 22px !important;
@@ -3625,4 +3625,12 @@ a.toggle-children i:hover {
 /*  scholars updates to generic pages (index, siteAdmin, etc) */
 .siteMap {
 	padding: 0 40px 40px;
+}
+ul.searchhits span.display-title {
+	font-size: .825em;
+	color: #5e6363;
+	border-left: 1px solid #A6B1B0;
+	padding-left: .7em;
+	padding-right: .3em;
+	margin-right: 0;
 }
