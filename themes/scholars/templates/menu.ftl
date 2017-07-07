@@ -13,10 +13,18 @@
 		 <nav id="nav-pages" class="pages" >
 			<ul>
 				<li class="nav-menu-option" role="listitem">
+				  <#if urls.currentPage?contains("about") >
+					<span class="menu-links" style="color:#CC6949">About<span>
+				  <#else>
 					<a class="menu-links" href="${urls.about}" title="about" onclick="javascript:_paq.push(['trackEvent', 'General', 'Homepage', 'About']);">About</a>
+				  </#if>
 				</li>
 				<li class="nav-menu-option" role="listitem">
+				  <#if urls.currentPage?contains("tour") >
+					<span class="menu-links" style="color:#CC6949">Take the Tour<span>
+				  <#else>
 					<a class="menu-links" href="${urls.base}/tour" title="take the tour" onclick="javascript:_paq.push(['trackEvent', 'General', 'Homepage', 'Take The Tour']);">Take the Tour</a>
+				  </#if>
 				</li>
 				<#if currentServlet != "home" >
 					<li class="nav-menu-option" id="discover-menu-option" role="listitem">
