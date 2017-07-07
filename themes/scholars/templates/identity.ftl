@@ -20,6 +20,6 @@
 		<li></li>
 	</ul>
 </div>
-<div id="tagline" style="${backsplashDisplay!};z-index:-1;position:fixed;left:10px;bottom:178px;">
+<div id="tagline" style="display:none;z-index:-1;position:fixed;left:10px;bottom:178px;">
 	<img width="112%" src="${urls.theme}/images/tagline.png" />
 </div>

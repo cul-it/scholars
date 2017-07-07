@@ -22,7 +22,7 @@
 					<#include "menu.ftl" />
 				</header>
 			</div>
-			<div id="home-body" class="row">
+			<div id="home-body" class="row" style="position:relative;z-index:3;">
 					<#include "developer.ftl">
 				<div id="discover-header" class="row fff-bkg">
 					<div class="col-sm-12 col-md-12 col-lg-12 e3e6e9-bkg">
@@ -136,7 +136,7 @@
 				
 				
 	<div class="container-fluid scholars-home-container">
-   		<div id="partners-row1" class="row fff-bkg" style="margin:30px 30px 0 30px;">
+   		<div id="partners-row1" class="row fff-bkg" style="margin:25px 30px 0 30px;">
    			<div class="col-sm-4 col-md-4 col-lg-4" style="padding:0;">
 				<div id="partners-row1a" class="row fff-bkg" style="margin:0;padding:0;">
 					<div class="col-sm-12 col-md-12 col-lg-12" style="padding:0;margin:0;min-height: 45px;"></div>
@@ -168,7 +168,7 @@
 				</div>
 			</div>
 		</div>
-		<div id="partners-row2" class="row fff-bkg" style="padding:0;margin:0 30px 10px 30px;"> 
+		<div id="partners-row2" class="row fff-bkg" style="padding:0;margin:0 30px 40px 30px;"> 
 	   		<div class="col-sm-5 col-md-5 col-lg-5" style="padding:0;margin: 0;"></div>
 	   		<div class="col-sm-3 col-md-3 col-lg-3" style="padding:0;margin: 0;"> 
 	   			<a id="bti-link" href="${urls.base}/display/org98030" onclick="javascript:_paq.push(['trackEvent', 'Scholars Affiliates', 'Homepage', 'BTI']);">
@@ -177,19 +177,8 @@
 	   		</div>
 	   	</div>
    	</div>
-
-
-				<div id="download-header" class="row fff-bkg">
-					<div class="col-sm-12 col-md-12 col-lg-12 home-divider">
-						<p class="home-header">
-							By the Numbers
-						</p>
-					</div>
-				</div>
-				<div class="container-fluid scholars-home-container">
-					<@lh.downloadCounts />
-				</div>
-			</div> <!-- home-body div -->
+  </div> <!-- home-body div -->
+  	<@lh.downloadCounts />
 
 	        <#include "footer.ftl" />
 		</div> <!-- home -->

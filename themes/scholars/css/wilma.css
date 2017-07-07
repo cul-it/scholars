@@ -1994,211 +1994,60 @@ span.subclassExpandMinus {
 /* ------------------------------------------------->  */
 /* SCHOLARS SPECIFIC */
 /* ------------------------------------------------->  */
-div#researcher-count {
-	background-color:#3770b7;
-	width:130px;
-	height:130px;
-	border-radius:50%;
-	border:1px solid #9b9b9b;
-	font-size:30px;
-	font-family: Muli, Arial, Verdana, Helvetica;
-	color:#fff;
-	z-index: 1;
-}
-div#researcher-count p {
-	color:#fff;
-	margin:53px 0 0 0;
+div#researchers-count {
+	display: none;
+	margin-top: 0;
+	text-align: center;
+	position: fixed;
+	bottom: 190px;
+	left: 10%;
 	z-index: 2;
 }
-div#researcher-count:hover {
-	background-color:#78b9f2;
-	width:130px;
-	height:130px;
-	border-radius:50%;
-	border:1px solid #bebebe;
-	font-size:30px;
-	font-family: Muli, Arial, Verdana, Helvetica;
-	text-decoration: none !important;
+.btn-count-container {
+	background-color:rgba(0, 0, 0, 0.3);
+	border-radius: 6px;
+/*	width: 180px;
+	padding: 10px; */
 }
-div#researcher-count:hover > p {
-	color:#3770b7;
-	text-decoration: none !important;
-}
-div#grant-count {
-	background-color:#c62d2d;
-	width:130px;
-	height:130px;
-	border-radius:50%;
-	border:1px solid #9b9b9b;
+.btn-count {
 	font-size:30px;
 	font-family: Muli, Arial, Verdana, Helvetica;
 	color:#fff;
-	z-index: 1;
+	margin: 0;
 }
-div#grant-count p {
-	color:#fff;
-	margin:53px 0 0 0;
+.btn-text {
+	margin: 0;
+	padding-top: 20px;
+	color: #fff;
+	font-size: 24px;
+	
+}
+div#grants-count {
+	display: none;
+	margin-top: 0;
+	text-align: center;
+	position: fixed;
+	bottom: 190px;
+	left: 60%;
 	z-index: 2;
 }
-div#grant-count:hover {
-	background-color:#ff8073;
-	width:130px;
-	height:130px;
-	border-radius:50%;
-	border:1px solid #bebebe;
-	font-size:30px;
-	font-family: Muli, Arial, Verdana, Helvetica;
-}
-div#grant-count:hover > p {
-	color:#c62d2d;
-}
-div#article-count {
-	background-color:#0d9455; 
-	width:130px;
-	height:130px;
-	border-radius:50%;
-	border:1px solid #9b9b9b;
-	font-size:30px;
-	font-family: Muli, Arial, Verdana, Helvetica;
-	color:#fff;
-	z-index: 1;
-}
-div#article-count p {
-	color:#fff;
-	margin:53px 0 0 0;
+div#articles-count {
+	display: none;
+	margin-top: 0;
+	text-align: center;
+	position: fixed;
+	bottom: 190px;
+	left: 37%;
 	z-index: 2;
 }
-div#article-count:hover {
-	background-color:#76ecb6;
-	width:130px;
-	height:130px;
-	border-radius:50%;
-	border:1px solid #bebebe;
-	font-size:30px;
-	font-family: Muli, Arial, Verdana, Helvetica;
-}
-div#article-count:hover > p {
-	color:#0d9455;
-}
-div#journal-count {
-	background-color:#fd8918;
-	width:130px;
-	height:130px;
-	border-radius:50%;
-	border:1px solid #9b9b9b;
-	font-size:30px;
-	font-family: Muli, Arial, Verdana, Helvetica;
-	color:#fff;
-	z-index: 1;
-}
-div#journal-count p {
-	color:#fff;
-	margin:53px 0 0 0;
+div#journals-count {
+	display: none;
+	margin-top: 0;
+	text-align: center;
+	position: fixed;
+	bottom: 190px;
+	right: 10%;
 	z-index: 2;
-}
-div#journal-count:hover {
-	background-color:#ffd75d;
-	width:130px;
-	height:130px;
-	border-radius:50%;
-	border:1px solid #bebebe;
-	font-size:30px;
-	font-family: Muli, Arial, Verdana, Helvetica;
-}
-div#journal-count:hover > p {
-	color:#fd8918;
-}
-div#researcher-text {
-	width:130px;
-	height:40px;
-	text-align:center;
-	padding-top:18px;
-}
-div#researcher-text p {
-	margin:0 6px 0 6px;
-	font-size:18px;
-	font-family: Muli, Arial, Verdana, Helvetica;color:#3770b7;
-}
-div#researcher-text p:hover {
-	margin:0 12px 0 12px;
-	font-size:18px;
-	font-family: Muli, Arial, Verdana, Helvetica;color:#fff;
-	border-radius:4%;
-	border:1px solid #bebebe;
-	background-color: #3770b7;
-}
-div#grant-text {
-	width:130px;
-	height:40px;
-	text-align:center;
-	padding-top:18px;
-}
-div#grant-text p {
-	margin:0 6px 0 6px;
-	font-size:18px;
-	font-family: Muli, Arial, Verdana, Helvetica;color:#c62d2d;
-}
-div#grant-text p:hover {
-	margin:0 12px 0 12px;
-	font-size:18px;
-	font-family: Muli, Arial, Verdana, Helvetica;color:#fff;
-	border-radius:4%;
-	border:1px solid #bebebe;
-	background-color: #c62d2d;
-}
-div#article-text {
-	width:130px;
-	height:40px;
-	text-align:center;
-	padding-top:18px;
-}
-div#article-text p {
-	margin:0 6px 0 6px;
-	font-size:18px;
-	font-family: Muli, Arial, Verdana, Helvetica;color:#11946d;
-}
-div#article-text p:hover {
-	margin:0 12px 0 12px;
-	font-size:18px;
-	font-family: Muli, Arial, Verdana, Helvetica;color:#fff;
-	border-radius:4%;
-	border:1px solid #bebebe;
-	background-color: #0d9455;
-}
-div#journal-text {
-	width:130px;
-	height:40px;
-	text-align:center;
-	padding-top:18px;
-}
-div#journal-text p {
-	margin:0 6px 0 6px;
-	font-size:18px;
-	font-family: Muli, Arial, Verdana, Helvetica;color:#fd8918;
-}
-div#journal-text p:hover {
-	margin:0 12px 0 12px;
-	font-size:18px;
-	font-family: Muli, Arial, Verdana, Helvetica;color:#fff;
-	border-radius:4%;
-	border:1px solid #bebebe;
-	background-color: #fd8918;
-}
-a.researcher-link:hover {
-	text-decoration: none !important;
-	color: #3770b7;
-}
-a.grant-link:hover {
-	text-decoration: none !important;
-	color: #c62d2d;
-}
-a.article-link:hover {
-	text-decoration: none !important;
-	color: #11946d;
-}
-a.journal-link:hover {
-	text-decoration: none !important;
-	color: #fd8918;
 }
 .scholars-container {
 	border: 1px solid #cdd4e7;
