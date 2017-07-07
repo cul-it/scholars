@@ -39,36 +39,20 @@
 <#macro downloadCounts>
 <div id="download-content" class="row fff-bkg" style="position: relative;width:100%;min-height:620px;background: #fff url('${urls.theme}/images/mcgraw-summer.jpg') no-repeat center center;background-size: cover;background-position: 100% 0%;background-repeat: no-repeat;background-attachment: fixed;margin:0;padding:25px 30px 0 30px;">
 		<div id="researchers-count" class="btn-count-container">
-			<a class="researcher-link" href="/scholars/people">
-			  <p id="researcher-count" class="btn-count">0</p>
-			</a>
-			<a class="researcher-link" href="/scholars/people">
+			<p id="researcher-count" class="btn-count">0</p>
 				<p class="btn-text">Researchers</p>
-			</a>
 		</div>
 		<div id="articles-count" class="btn-count-container">
-			<a class="article-link" href="/scholars/people">
 			  <p id="article-count" class="btn-count">0</p>
-			</a>
-			<a class="article-link" href="/scholars/people">
 				<p class="btn-text">Articles</p>
-			</a>
 		</div>
 		<div id="grants-count" class="btn-count-container">
-			<a class="grant-link" href="/scholars/people">
 			  <p id="grant-count" class="btn-count">0</p>
-			</a>
-			<a class="grant-link" href="/scholars/people">
 				<p class="btn-text">Grants</p>
-			</a>
 		</div>
 		<div id="journals-count" class="btn-count-container">
-			<a class="journal-link" href="/scholars/people">
 			  <p id="journal-count" class="btn-count">0</p>
-			</a>
-			<a class="journal-link" href="/scholars/people">
 				<p class="btn-text"> Journals</p>
-			</a>
 		</div>
 		<div id="by-the-numbers-text" style="display:none;position: fixed;bottom: 80px;left:50%;background-color:rgba(0, 0, 0, 0.3);border-radius:6px;padding:18px;margin-left:-277px">
 	  		<p style="margin:0;color:#fff;font-size:28px;font-family: Muli, Arial, Verdana, Helvetica;">Scholars<em style="color:#fff;">@</em>Cornell &ndash; By the Numbers</p>
