@@ -10,7 +10,7 @@ ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/browseIndex.css
 <div class="row scholars-row">
 	<div id="index-container" class="col-sm-12 scholars-container">
 	<section class="individualListx">
-	    <h2 class="searchResultsHeader">${title!} 
+	    <h2 class="searchResultsHeader">${title!}
 	        <#if rdfUrl?has_content>
 	            <span class="rdfLink"><a class="icon-rdf" href="${rdfUrl}" title="${i18n().view_list_in_rdf(title)}">${i18n().rdf}</a></span>
 	        </#if>

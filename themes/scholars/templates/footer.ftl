@@ -18,7 +18,7 @@
     	<#if user.loggedIn>
 			<nav role="navigation">
 	            <ul id="footer-controls" class="footer-menu" role="list">
-	                <li role="listitem"><a href="${urls.index}">Index</a></li>
+	                <li role="listitem"><a href="${urls.index}">Site Map</a></li>
 					<#if user.hasSiteAdminAccess>
 						<li role="listitem"><a href="${urls.siteAdmin}">Site Admin</a></li>
 					</#if>

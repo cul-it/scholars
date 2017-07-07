@@ -1,9 +1,12 @@
 <#-- $This file is distributed under the terms of the license in /doc/license.txt$ -->
 
 <#-- List class groups, and classes within each group. -->
+<script>
+	document.title = "Site Map";
+</script>
 <div class="row scholars-row">
   <div class="col-md-12 scholars-container">
-	<h2 class="expertsResultsHeader">Index</h2>
+	<h2 class="expertsResultsHeader">Site Map</h2>
 	
 <#include "classgroups-checkForData.ftl">
 
