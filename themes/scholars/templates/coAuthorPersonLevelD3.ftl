@@ -269,9 +269,12 @@ $(document).ready(function(){
 
     function chord_click() {
         return function (g, i) {
-            if (i > 0) {
+        	if ( i > 0 && (uris[i].indexOf("VI") == -1 ) ) {
                 window.location.href = getWellFormedURLs(uris[i], "profile");
             }
+			else {
+				alert(" This person is not affilated with Cornell \n and does not have a profile page in Scholars.");
+			}
         };
     }
 </script>
