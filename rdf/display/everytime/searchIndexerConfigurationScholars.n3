@@ -186,7 +186,7 @@
 		}
         """ .
 
-#
+# 
 # When indexing a contract, add the inferred keywords to the index.
 #
 :vivodocumentModifier_addKeywordsToContract
