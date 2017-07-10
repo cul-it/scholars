@@ -24,6 +24,7 @@
 <!-- Emergency banner -->
 <script src="https://embanner.univcomm.cornell.edu/OWC-emergency-banner.js" type="text/javascript"> </script>
 ${headScripts.add('<script type="text/javascript" src="${urls.theme}/js/scholarsSearch.js"></script>')}
+${headScripts.add('<script type="text/javascript" src="${urls.theme}/js/scholarsUtils.js"></script>')}
 <#include "headScripts.ftl">
 
 <!--[if lt IE 7]>

@@ -3487,3 +3487,20 @@ ul.searchhits span.display-title {
 	padding-right: .3em;
 	margin-right: 0;
 }
+.faq-panel {
+    cursor: pointer;
+    width: 65%;
+    text-align: left;
+    font-size: 16px;
+    transition: 0.4s;
+	margin-bottom: 12px;
+}
+
+button.accordion.active, button.accordion:hover {
+    background-color: #e4e4e4; 
+}
+
+.faq-answer {
+    display: none;
+    font-size: 14px;
+}
