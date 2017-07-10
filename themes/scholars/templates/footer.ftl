@@ -28,7 +28,12 @@
 		<#else>
         	<nav role="navigation">
 	            <ul id="footer-controls" class="footer-menu" role="list">
-	                <li role="listitem"><a href="${urls.index}">Index</a></li>
+                	<li role="listitem">
+						<a href="https://twitter.com/ScholarsCornell" target="_blank" style="text-decoration:none !important;">
+							<img src="${urls.theme}/images/twitter.jpeg" style="vertical-align:middle;" width="20px">
+						</a>
+					</li>
+                	<li role="listitem"><a href="${urls.index}">Site Map</a></li>
 	                <#if urls.contact??>
 	                    <li role="listitem"><a href="${urls.contact}" title="contact us">Contact Us</a></li>
 	                </#if> 
