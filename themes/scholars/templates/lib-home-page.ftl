@@ -54,7 +54,7 @@
 			  <p id="journal-count" class="btn-count">0</p>
 				<p class="btn-text"> Journals</p>
 		</div>
-		<div id="by-the-numbers-text" style="display:none;position: fixed;bottom: 80px;left:50%;background-color:rgba(0, 0, 0, 0.3);border-radius:6px;padding:18px;margin-left:-277px">
+		<div id="by-the-numbers-text" style="display:none;position: fixed;bottom: 80px;left:50%;background-color:rgba(0, 0, 0, 0.3);border-radius:6px;padding:10px;margin-left:-277px">
 	  		<p style="margin:0;color:#fff;font-size:28px;font-family: Muli, Arial, Verdana, Helvetica;">Scholars<em style="color:#fff;">@</em>Cornell &ndash; By the Numbers</p>
 		</div>
 </div>

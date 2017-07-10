@@ -1999,7 +1999,8 @@ div#researchers-count {
 	margin-top: 0;
 	text-align: center;
 	position: fixed;
-	bottom: 190px;
+	bottom: 180px;
+	padding: 8px;
 	left: 10%;
 	z-index: 2;
 }
@@ -2027,7 +2028,8 @@ div#grants-count {
 	margin-top: 0;
 	text-align: center;
 	position: fixed;
-	bottom: 190px;
+	bottom: 180px;
+	padding: 8px;
 	left: 60%;
 	z-index: 2;
 }
@@ -2036,7 +2038,8 @@ div#articles-count {
 	margin-top: 0;
 	text-align: center;
 	position: fixed;
-	bottom: 190px;
+	bottom: 180px;
+	padding: 8px;
 	left: 37%;
 	z-index: 2;
 }
@@ -2045,7 +2048,8 @@ div#journals-count {
 	margin-top: 0;
 	text-align: center;
 	position: fixed;
-	bottom: 190px;
+	bottom: 180px;
+	padding: 8px;
 	right: 10%;
 	z-index: 2;
 }
