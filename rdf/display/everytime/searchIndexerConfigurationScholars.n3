@@ -124,7 +124,7 @@
         <java:edu.cornell.mannlib.vitro.webapp.searchindex.documentBuilding.DocumentModifier> ;
     rdfs:label "Add keywords to author" ;
     :hasTypeRestriction "http://xmlns.com/foaf/0.1/Person" ;
-    :hasTargetField "keyword_txt" ;
+    :hasTargetField "keyword_key" ;
     :hasTargetField "keyword_ss" ;
     :hasSelectQuery """
         PREFIX bibo:     <http://purl.org/ontology/bibo/>
@@ -176,7 +176,7 @@
         <java:edu.cornell.mannlib.vitro.webapp.searchindex.documentBuilding.DocumentModifier> ;
     rdfs:label "Add keywords to grant" ;
     :hasTypeRestriction "http://vivoweb.org/ontology/core#Grant" ;
-    :hasTargetField "keyword_txt" ;
+    :hasTargetField "keyword_key" ;
     :hasTargetField "keyword_ss" ;
     :hasSelectQuery """
         PREFIX vivoc: <http://scholars.cornell.edu/ontology/vivoc.owl#>
@@ -194,7 +194,7 @@
         <java:edu.cornell.mannlib.vitro.webapp.searchindex.documentBuilding.DocumentModifier> ;
     rdfs:label "Add keywords to contract" ;
     :hasTypeRestriction "http://vivoweb.org/ontology/core#Contract" ;
-    :hasTargetField "keyword_txt" ;
+    :hasTargetField "keyword_key" ;
     :hasTargetField "keyword_ss" ;
     :hasSelectQuery """
         PREFIX vivoc:    <http://scholars.cornell.edu/ontology/vivoc.owl#>
@@ -212,7 +212,7 @@
         <java:edu.cornell.mannlib.vitro.webapp.searchindex.documentBuilding.DocumentModifier> ;
     rdfs:label "Add keywords to author" ;
     :hasTypeRestriction "http://purl.org/ontology/bibo/Document" ;
-    :hasTargetField "keyword_txt" ;
+    :hasTargetField "keyword_key" ;
     :hasTargetField "keyword_ss" ;
     :hasSelectQuery """
         PREFIX vivo:     <http://vivoweb.org/ontology/core#>

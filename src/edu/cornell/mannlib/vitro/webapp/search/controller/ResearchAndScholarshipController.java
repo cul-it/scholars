@@ -96,7 +96,7 @@ public class ResearchAndScholarshipController extends FreemarkerHttpServlet {
     private static final String PARAM_QUERY_TYPE = "querytype";
     private static final String PARAM_UNSELECTED_RADIO = "unselectedRadio";
     private static final String PARAM_RADIO_COUNT = "radioCount";
-	private static final String KEYWORD_FIELD = "keyword_txt";
+	private static final String KEYWORD_FIELD = "keyword_key";
 	private static final String TEMPLATE = "exploreResearch.ftl";
 	
     protected enum Format { 

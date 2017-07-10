@@ -104,7 +104,7 @@ public class ResearchAndScholarshipJsonServlet extends VitroHttpServlet {
     private static final String PARAM_ACTIVE_YEAR = "activeYear";
     private static final String PARAM_QUERY_TEXT = "querytext";
     private static final String PARAM_QUERY_TYPE = "querytype";
-	private static final String KEYWORD_FIELD = "keyword_txt";
+	private static final String KEYWORD_FIELD = "keyword_key";
 
     protected enum Order {
         ASC, DESC         
