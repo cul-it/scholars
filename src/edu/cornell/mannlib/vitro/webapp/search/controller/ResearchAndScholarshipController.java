@@ -714,6 +714,7 @@ public class ResearchAndScholarshipController extends FreemarkerHttpServlet {
     
 	private static void addShortViewRenderings(JSONObject rObj, VitroRequest vreq) throws JSONException {
 		JSONArray individuals = rObj.getJSONArray("individuals");
+		log.debug("individuals = " + individuals.toString());
 		String vclassName = rObj.getJSONObject("vclass").getString("name");
 		for (int i = 0; i < individuals.length(); i++) {
 			JSONObject individual = individuals.getJSONObject(i);
@@ -725,8 +726,11 @@ public class ResearchAndScholarshipController extends FreemarkerHttpServlet {
 	private static String renderShortView(String individualUri, String vclassName, VitroRequest vreq) {
 		IndividualDao iDao = vreq.getWebappDaoFactory().getIndividualDao();
 		Individual individual = iDao.getIndividualByURI(individualUri);
-
+		log.debug("individualUri = " + individualUri);
+		log.debug("vclassName = " + vclassName);
+		log.debug("Individual = " + individual.toString());
 		IndividualTemplateModel itm = new IndividualTemplateModel(individual, vreq);
+		log.debug("ITM = " + itm.toString());
 		Collection<String> mst = itm.getMostSpecificTypes();
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 		modelMap.put("individual", itm);
