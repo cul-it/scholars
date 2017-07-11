@@ -21,14 +21,14 @@ var initUtilities = {
 		});
 		
 		$('#faq-toggle').on("click", function(){
-			if ( $(this).text().indexOf('expand') > -1 ) {
-				$(this).text("collapse all");
+			if ( $(this).text().indexOf('Expand') > -1 ) {
+				$(this).text("Collapse all");
 				$.each($('.faq-answer'), function() {
 					$(this).show();
 				});
 			}
 			else {
-				$(this).text("expand all");
+				$(this).text("Expand all");
 				$.each($('.faq-answer'), function() {
 					$(this).hide();
 				});
