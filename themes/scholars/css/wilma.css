@@ -2549,11 +2549,11 @@ body footer {
 	background-color: #23527c;
 }
 .twitter-link {
-	margin-top: 20px;
+	margin-top: 15px;
 }
 .twitter-link a {
 	color: #3770b7;
-	font-size:32px;
+	font-size:48px;
 	text-decoration:none !important;
 }
 .twitter-link a:hover {
