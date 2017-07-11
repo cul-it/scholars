@@ -1,5 +1,5 @@
 <#-- $This file is distributed under the terms of the license in /doc/license.txt$ -->
-<#if navbarLogoDisplay?contains("inline") >
+<#if !navbarLogoDisplay?has_content || navbarLogoDisplay?contains("inline") >
 	<#assign bannerDisplay = "display:none;" />
 <#else>
 	<#assign bannerDisplay = "" />

@@ -2510,13 +2510,17 @@ ul#footer-controls {
 div.cul-footer {
 	position: relative;
 	z-index: 30;
-	text-align: left;
-	font-size: 14px;
-	font-family: Muli, Arial, Verdana, Helvetica;
 	background-color: #f1f2f3;
 	padding: 20px 0 0 30px;
 	height: 110px;
 }
+div.cul-footer-inner {
+	text-align: left;
+	font-size: 14px;
+	font-family: Muli, Arial, Verdana, Helvetica;
+	background-color: #f1f2f3;
+}
+
 div.cul-footer nav p,
 div.cul-footer nav ul,
 div.cul-footer nav li {
@@ -2538,13 +2542,25 @@ body footer {
 	padding: 0 6px;
 	background-color: #3770b7;
 	color: #fff;
-	float: right;
-	margin-right: 30px;
 }
 .btn-give:hover {
-	color: #3770b7;
+	color: #fff;
 	text-decoration: none !important;
-	background-color: #c2d6ef;
+	background-color: #23527c;
+}
+.twitter-link {
+	margin-top: 20px;
+}
+.twitter-link a {
+	color: #3770b7;
+	font-size:32px;
+	text-decoration:none !important;
+}
+.twitter-link a:hover {
+	color: #23527c;
+}
+.footer-right-col {
+	text-align:right;margin-right:20px
 }
 .devPanelFixed {
 	position: fixed;
