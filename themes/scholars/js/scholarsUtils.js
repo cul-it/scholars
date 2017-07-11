@@ -19,7 +19,21 @@ var initUtilities = {
 				}
 			});
 		});
-
+		
+		$('#faq-toggle').on("click", function(){
+			if ( $(this).text().indexOf('expand') > -1 ) {
+				$(this).text("collapse all");
+				$.each($('.faq-answer'), function() {
+					$(this).show();
+				});
+			}
+			else {
+				$(this).text("expand all");
+				$.each($('.faq-answer'), function() {
+					$(this).hide();
+				});
+			}
+		});
 	}
 
 };

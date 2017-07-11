@@ -3489,11 +3489,10 @@ ul.searchhits span.display-title {
 }
 .faq-panel {
     cursor: pointer;
-    width: 65%;
     text-align: left;
     font-size: 16px;
     transition: 0.4s;
-	margin-bottom: 12px;
+	margin: 0 225px 12px 0;
 }
 
 button.accordion.active, button.accordion:hover {
