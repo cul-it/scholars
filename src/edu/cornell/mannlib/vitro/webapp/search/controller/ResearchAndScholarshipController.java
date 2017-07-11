@@ -726,29 +726,31 @@ public class ResearchAndScholarshipController extends FreemarkerHttpServlet {
 	private static String renderShortView(String individualUri, String vclassName, VitroRequest vreq) {
 		IndividualDao iDao = vreq.getWebappDaoFactory().getIndividualDao();
 		Individual individual = iDao.getIndividualByURI(individualUri);
-		log.debug("individualUri = " + individualUri);
-		log.debug("vclassName = " + vclassName);
-		log.debug("Individual = " + individual.toString());
 		IndividualTemplateModel itm = new IndividualTemplateModel(individual, vreq);
-		log.debug("ITM = " + itm.toString());
 		Collection<String> mst = itm.getMostSpecificTypes();
+
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 		modelMap.put("individual", itm);
 		modelMap.put("vclass", vclassName);
-		log.debug("Individual MST = " + mst.iterator().next());
+
 		ShortViewContext svc;
-		switch(mst.iterator().next()) {
-			case "Journal Article": 
-				svc = ShortViewContext.PUBLICATIONS;
-				break;
-			case "Grant": 
-				svc = ShortViewContext.RESEARCH;
-				break;
-			case "Contract": 
-				svc = ShortViewContext.RESEARCH;
-				break;
-			default :
-		 		svc = ShortViewContext.BROWSE;
+		if ( mst.iterator().hasNext() ) {
+			switch(mst.iterator().next()) {
+				case "Journal Article": 
+					svc = ShortViewContext.PUBLICATIONS;
+					break;
+				case "Grant": 
+					svc = ShortViewContext.RESEARCH;
+					break;
+				case "Contract": 
+					svc = ShortViewContext.RESEARCH;
+					break;
+				default :
+			 		svc = ShortViewContext.BROWSE;
+			}
+		}
+		else {
+			svc = ShortViewContext.BROWSE;
 		}
 		ServletContext ctx = vreq.getSession().getServletContext();
 		ShortViewService svs = ShortViewServiceSetup.getService(ctx);
