@@ -2569,7 +2569,7 @@ body footer {
 	width: 100%;
 	overflow: hidden;
 }
-#bodyPannel {
+#bodyPanel {
 	height: 100% !important;
 }
 /* homepage images */
@@ -3518,4 +3518,15 @@ button.accordion.active, button.accordion:hover {
 .faq-answer {
     display: none;
     font-size: 14px;
+	font-family: Muli, Arial, Verdana, Helvetica;
+}
+.faq-answer ul li {
+	cursor: default;
+}
+.faq-heading:hover {
+	text-decoration: underline;
+}
+#aboutText {
+	font-size: 14px;
+	font-family: Muli, Arial, Verdana, Helvetica;
 }
