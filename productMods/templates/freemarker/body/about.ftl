@@ -13,10 +13,10 @@
  </p>
 	<p style="margin-left:30px;margin-right:50px">Scholars's portfolio of visualizations contains these interactive experiences:
 		<ul style="margin-left:46px;margin-right:60px;list-style:disc;">
-			<li style="padding-bottom:10px">Concept Map - faculty members mapped to research interests</li>
+			<li style="padding-bottom:10px">Research Interests - faculty members mapped to their research areas</li>
 			<li style="padding-bottom:10px">Keyword Clouds - faculty "fingerprints" based on publications</li>
-			<li style="padding-bottom:10px">Global Collaborations Map - faculty collaborations in the USA and Worldwide</li>
-			<li style="padding-bottom:10px">Grants Exploration - faculty grant activity, current and historical</li>
+			<li style="padding-bottom:10px">Global Collaborations - faculty collaborations mapped in the USA and Worldwide</li>
+			<li style="padding-bottom:10px">Grants and Contracts - faculty grant and contract activity, both current and historical</li>
 		</ul>
 	</p>
 	<div class="pageGroupBody" id="acknowledgementText">
