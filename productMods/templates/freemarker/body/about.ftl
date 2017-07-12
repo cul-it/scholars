@@ -9,12 +9,12 @@
 		<h2 class="expertsResultsHeader">About Scholars@Cornell</h2>
 		<div class="pageGroupBody" id="aboutText">
  			<p style="margin-left:30px;margin-right:250px">Scholars@Cornell is an interactive knowledge network that provides visualizations for exploring the scholarly record of faculty members, researchers, and departments at Cornell. As stewards of the scholarly record, Cornell University Library developed Scholars as a data and visualization service to improve the visibility of Cornell research. Scholars enables you to find domain experts, to explore Cornell scholarship and research &mdash; including grants &mdash; and to visualize patterns in the data that comprises Cornell scholarship.   </p>
- 			<p style="margin-left:30px;margin-right:50px">Through its innovative tools, Scholars provides dynamic visualizations that serve as interactive entry points into a rich graph of knowledge. Scholars@Cornell answers questions such as which faculty members are doing research in particular subject areas?  What does the scholarly record tell us about faculty expertise and co-authorship?  Which departments collaborate with each other?  What are the patterns of Cornell’s interdisciplinary and international research? 
+ 			<p style="margin-left:30px;margin-right:50px">Through its innovative tools, Scholars provides dynamic visualizations that serve as interactive entry points into a rich graph of knowledge. Scholars@Cornell answers questions such as which faculty members are doing research in particular subject areas?  What does the scholarly record tell us about faculty expertise and co-authorship?  Which departments collaborate with each other?  What are the patterns of Cornell's interdisciplinary and international research? 
  </p>
 	<p style="margin-left:30px;margin-right:50px">Scholars's portfolio of visualizations contains these interactive experiences:
 		<ul style="margin-left:46px;margin-right:60px;list-style:disc;">
 			<li style="padding-bottom:10px">Concept Map - faculty members mapped to research interests</li>
-			<li style="padding-bottom:10px">Keyword Clouds - faculty “fingerprints” based on publications</li>
+			<li style="padding-bottom:10px">Keyword Clouds - faculty "fingerprints" based on publications</li>
 			<li style="padding-bottom:10px">Global Collaborations Map - faculty collaborations in the USA and Worldwide</li>
 			<li style="padding-bottom:10px">Grants Exploration - faculty grant activity, current and historical</li>
 		</ul>
