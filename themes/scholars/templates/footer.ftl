@@ -76,7 +76,7 @@
 			</div>
 			<div class="row cul-footer-inner">
 				<div class="col-sm-12 col-md-12 col-lg-12 footer-right-col twitter-link">
-					<a href="https://twitter.com/ScholarsCornell" target="_blank">    
+					<a href="https://twitter.com/ScholarsCornell" target="_blank" onclick="javascript:_paq.push(['trackEvent', 'Links', 'Footer', 'Twitter Link']);">    
 						<i class="fa fa-twitter-square" alt="Follow us on Twitter"><span class="sr-only">Twitter</span></i>
 					</a>
 				</div>

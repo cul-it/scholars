@@ -101,11 +101,11 @@
 							</div>
 						</div>
 						<div class="col-sm-3 col-md-3 col-lg-3">
-							<a href="${urls.base}/homeWordcloudVisualization" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Homepage', 'Research Keywords']);">
+							<a href="${urls.base}/homeWordcloudVisualization" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Homepage', 'Keyword Clouds']);">
 								<img id="vizIcon" width="190px" src="${urls.base}/themes/scholars/images/wordcloud-icon.png"/>
 							</a>
 							<div>
-								<p>Research Keywords</p>
+								<p>Keyword Clouds</p>
 							</div>
 						</div>
 						<div class="col-sm-3 col-md-3 col-lg-3"> 
@@ -117,11 +117,11 @@
 							</div>
 						</div>
 						<div class="col-sm-3 col-md-3 col-lg-3">
-							<a href="${urls.base}/grantsVisualization" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Homepage', 'Research Grants']);">
+							<a href="${urls.base}/grantsVisualization" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Homepage', 'Grants and Contracts']);">
 								<img id="vizIcon" width="190px" src="${urls.base}/themes/scholars/images/home-grants.png"/>
 							</a>
 							<div>
-								<p>Research Grants</p>
+								<p>Grants and Contracts</p>
 							</div>
 						</div>
 					</div>
