@@ -8,7 +8,7 @@ var initUtilities = {
 	
 	bindEventListeners: function() {
 		// controls the "Accordion" feature on the FAQ page
-		$.each($('.panel-heading'), function() {
+		$.each($('.faq-heading'), function() {
 			var answer = $(this).next($('.panel-body'));
 			$(this).on("click", function(){
 				if ( $(answer).is(':visible') ) {

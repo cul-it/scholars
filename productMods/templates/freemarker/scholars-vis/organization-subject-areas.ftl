@@ -4,21 +4,19 @@
     <div class="col-md-4 kwcloud-selector">
 
             <div id="legendDiv" class="center-block">
-         <h2 style="padding:0;color:#5f5858;font-size:20px">
+         <h2 style="padding:0 0 20px 0;color:#5f5858;font-size:20px">
             Browse research interests
          </h2>
-         <p style="font-size:12px">Select an academic unit.</p>
       </div>
       
       <div class="panel-group" id="accordion">
 
         <div id="departmentSelectionPanel" class="panel panel-default selection-list">
-          <div class="panel-heading">
-            <h4 class="panel-title">
-              <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-                <span class="start">Select:</span> Academic Unit
-              </a>
-            </h4>
+          <div class="panel-heading facet-panel-heading panel-title">
+            <span class="start">Select:</span> 
+			<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+              Academic Unit
+            </a>
           </div>
           <div id="collapseOne" class="panel-collapse collapse">
             <div class="panel-body" id="selector">
@@ -47,19 +45,19 @@
 	  <div id="organization-subject-areas" style="padding-bottom:60px;width:100%">
 		    <div id="info_icon_text" style="display:none">
 		      <p>
-			  This visualization represents all the faculty in the selected organizational unit 
-			  linked to all the subject areas in which faculty have published in. Subject areas 
+			  This visualization represents all the faculty in the selected academic unit 
+			  linked to all the subject areas in which the faculty have published. Subject areas 
 			  are derived from the subject area classification of the journals assigned by the 
 			  publishers. We infer that any article that is published in a particular journal 
 			  has the subject area classification of that journal. Thus, the author of such 
 			  article is said to have research interest in those subject areas. 
 			  </p>
 			  <p>
-			  This visualization
-			  can be looked in two ways. One is by hovering over the author names (given in the 
-			  center), in which case, the links to the subject areas will be highlighted. 
-			  Alternatively, by hovering over a subject area, will highlight all the authors 
-			  who have published in that subject area.
+			  You can use the visualization
+			  in two ways: hover over the author names (given in the 
+			  center) and the links to the subject areas will be highlighted;
+			  alternatively, hover over a subject area to highlight all the authors 
+			  who have published in that area.
 			  </p> 
 			  <hr> 
 			  <p>
