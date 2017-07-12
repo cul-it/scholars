@@ -28,10 +28,10 @@
   <div class="panel-body faq-answer" style="display: none;">
   <ul style="list-style-type:lower-alpha;padding-left:12px;line-height: 22px;">
 		<li style="padding-bottom:10px;">
-		Scholars@Cornell is fed automatically with a variety of data sources, such as Cornell’s own Human Resources (HR) data, publication data from <a href="http://symplectic.co.uk/products/elements/" title="Symplectic Elements">Symplectic Elements</a>, and grants data from <a href="https://www.osp.cornell.edu/" title="Office of Sponsored Programs">Office of Sponsored Programs</a> (OSP).
+		Scholars@Cornell is fed automatically with a variety of data sources, such as Cornell's own Human Resources (HR) data, publication data from <a href="http://symplectic.co.uk/products/elements/" title="Symplectic Elements">Symplectic Elements</a>, and grants data from <a href="https://www.osp.cornell.edu/" title="Office of Sponsored Programs">Office of Sponsored Programs</a> (OSP).
       </li>
 	<li style="padding-bottom:10px;">
-		Once data has entered Scholars@Cornell’s workflow, the “feed machine” engages in automated data curation, which entails cleansing data anomalies and suppressing duplicates.  A special process known as “uberization” evaluates the publication data coming from Elements (i.e. multiple sources) to select the best, most accurate data elements to be included in Scholars@Cornell.  If the “feed machine” determines that the data is not of sufficient quality and cannot be automatically corrected, it sends the data to a “curation bin” where it can be examined and corrected or rejected as necessary by a local data curator.
+		Once data has entered Scholars@Cornell's workflow, the "feed machine" engages in automated data curation, which entails cleansing data anomalies and suppressing duplicates.  A special process known as "uberization" evaluates the publication data coming from Elements (i.e. multiple sources) to select the best, most accurate data elements to be included in Scholars@Cornell.  If the "feed machine" determines that the data is not of sufficient quality and cannot be automatically corrected, it sends the data to a "curation bin" where it can be examined and corrected or rejected as necessary by a local data curator.
 	</li>
 	</ul>
   </div>
@@ -47,7 +47,7 @@
 			Elements harvests Cornell faculty member scholarship data from well known citation services (e.g. <a href="https://www.webofknowledge.com/" title="Web of Science">Web of Science</a>, <a href="https://www.scopus.com" title="Scopus">Scopus</a>, <a href="https://www.ncbi.nlm.nih.gov/pubmed/" title="PubMed">PubMed</a>, <a href="https://www.mla.org/" title="MLA">MLA</a>), data is claimed by a college/department data curator, in turn that data is fed to Scholars@Cornell, where researcher profile pages are created and exciting visualizations of data are presented.
   		</li>
 		<li style="padding-bottom:10px;">
-			Enabling <a href="https://orcid.org/" title="ORCID">ORCID</a>, and other author ID’s for individual profiles provides the benefit of reducing manual data curation through an auto-claim feature in Elements.
+			Enabling <a href="https://orcid.org/" title="ORCID">ORCID</a>, and other author ID's for individual profiles provides the benefit of reducing manual data curation through an auto-claim feature in Elements.
   		</li>
 		<li style="padding-bottom:10px;">
 			Cornell University Library subscribes to <a href="http://symplectic.co.uk/products/elements/" title="Symplectic Elements">Symplectic Elements</a> and administers the Cornell instance of Elements.
@@ -60,13 +60,13 @@
   <div class="panel-body faq-answer" style="display: none;">
   <ul style="list-style-type:lower-alpha;padding-left:12px;line-height: 22px;">
 		<li style="padding-bottom:10px;">
-			Affiliated Partners have agreed to “Opt-In” and have agreed to ensure data quality.
+			Affiliated Partners have agreed to "Opt-In" and have agreed to ensure data quality.
   		</li>
 		<li style="padding-bottom:10px;">
 			Departments will designate data curator(s) charged with claiming individual faculty/researcher publications found by Symplectic Elements searches of upstream data sources, including <a href="https://www.webofknowledge.com/" title="Web of Science">Web of Science</a>, <a href="https://www.scopus.com" title="Scopus">Scopus</a>, <a href="https://www.ncbi.nlm.nih.gov/pubmed/" title="PubMed">PubMed</a>, <a href="https://www.mla.org/" title="MLA">MLA</a> and others such as SSRN and arXiv.
   		</li>
 		<li style="padding-bottom:10px;">
-			Data curators are responsible for periodic review of the department/college “curation bin” produced by the Scholars@Cornell “feed machine” in order to clear items rejected due to data anomalies.
+			Data curators are responsible for periodic review of the department/college "curation bin" produced by the Scholars@Cornell "feed machine" in order to clear items rejected due to data anomalies.
   		</li>
 		<li style="padding-bottom:10px;">
 			Other data not coming from automated feeds can be entered by college/department data curators at the discretion of the department/college.
