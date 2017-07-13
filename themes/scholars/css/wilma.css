@@ -2511,14 +2511,17 @@ div.cul-footer {
 	position: relative;
 	z-index: 30;
 	background-color: #f1f2f3;
-	padding: 20px 0 0 30px;
-	height: 110px;
+	padding: 20px 0 0 10px;
+	height: 140px;
 }
 div.cul-footer-inner {
 	text-align: left;
 	font-size: 14px;
 	font-family: Muli, Arial, Verdana, Helvetica;
 	background-color: #f1f2f3;
+	width:	100%;
+	margin: 0;
+	padding: 0;
 }
 
 div.cul-footer nav p,
