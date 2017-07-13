@@ -1,6 +1,5 @@
-#mapRow{
-  margin-top: 2%;
-  background-color: #FFF;
+#worldMapContainer {
+  padding: 22px 0;
 }
 
 body {
