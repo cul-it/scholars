@@ -3530,3 +3530,6 @@ button.accordion.active, button.accordion:hover {
 	font-size: 14px;
 	font-family: Muli, Arial, Verdana, Helvetica;
 }
+i.fa-download {
+	display:none;
+}
