@@ -96,9 +96,9 @@
 		<a href="#" id="word_cloud_trigger" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Department-School', 'Research-Keywords']);">
 			<img id="vizIcon" width="145px" src="${urls.base}/themes/scholars/images/wordcloud-icon.png"/>
 		</a>
-		<p>Research Keywords</p>
+		<p>Keyword Cloud</p>
 	</div>
-	<div <#if isJohnsonOrHotelSchool >style="display:none"</#if>>
+	<div>
 		<a href="${urls.base}/oneOrganizationSubjectAreaVisualization?deptURI=${individual.uri?url}&deptLabel=${individual.name?url}" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Department-School', 'Research-Interests']);">
 		  <img id="vizIcon" width="68%" src="${urls.base}/themes/scholars/images/person_sa.png"/>
 		</a>
@@ -106,7 +106,7 @@
 	</div>
 	<div id="grants_icon_holder" style="display:none">
   		<a href="#" id="grants_trigger"><img id="vizIcon" width="40%" src="${urls.base}/themes/scholars/images/dept_grants.png"/></a>
-		<p>Grants</p>
+		<p>Grants and Contracts</p>
 	</div>
   <#elseif isCollegeOrSchool && !isJohnsonOrHotelSchool>
 	<div id="grants_icon_holder" style="display:none">
