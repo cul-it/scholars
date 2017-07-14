@@ -1,73 +1,59 @@
 <div class="row scholars-row">
-  <div id="wc-vis-container" class="col-md-12 scholars-container">
-    <div class="row scholars-row visualization-row">
-    <div class="col-md-4 kwcloud-selector">
-
-            <div id="legendDiv" class="center-block">
-         <h2 style="padding:0 0 20px 0;color:#5f5858;font-size:20px">
-            Browse research interests
-         </h2>
-      </div>
-      
-      <div class="panel-group" id="accordion">
-
-        <div id="departmentSelectionPanel" class="panel panel-default selection-list">
-          <div class="panel-heading facet-panel-heading panel-title">
-            <span class="start">Select:</span> 
-			<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-              Academic Unit
-            </a>
-          </div>
-          <div id="collapseOne" class="panel-collapse collapse">
-            <div class="panel-body" id="selector">
-              <input id="searcher" type="text" class="form-control" placeholder="Search"/>
-            </div>
-          </div>
-        </div>
-                
-      </div> 
-    </div> 
-
-    <!--
-    <div class="col-md-8 kwcloud-selector">
-      <div>
-        <font face="Times New Roman" size="2">
-          <span><i>
-            Hover over a faculty's name to see one's research interests.  
-          </i></span>
-        </font>
-      </div>
-    </div>
-    -->
-    </div>
-  <div class="row scholars-row visualization-row">
-  <div class="col-md-12">
-	  <div id="organization-subject-areas" style="padding-bottom:60px;width:100%">
-		    <div id="info_icon_text" style="display:none">
-		      <p>
-			  This visualization represents all the faculty in the selected academic unit 
-			  linked to all the subject areas in which the faculty have published. Subject areas 
-			  are derived from the subject area classification of the journals assigned by the 
-			  publishers. We infer that any article that is published in a particular journal 
-			  has the subject area classification of that journal. Thus, the author of such 
-			  article is said to have research interest in those subject areas. 
-			  </p>
-			  <p>
-			  You can use the visualization
-			  in two ways: hover over the author names (given in the 
-			  center) and the links to the subject areas will be highlighted;
-			  alternatively, hover over a subject area to highlight all the authors 
-			  who have published in that area.
-			  </p> 
-			  <hr> 
-			  <p>
-			  Note: This information is based solely on publications that have been loaded 
-			  into the system.
-			  </p> 
+	<div id="wc-vis-container" class="col-md-12 scholars-container">
+		<div class="row"  style="background-color:#fff;margin:0;padding:0;">
+	    	<div class="col-md-4 kwcloud-selector">
+	        	<div id="legendDiv" class="center-block">
+	         		<h2 style="padding:0 0 20px 0;color:#5f5858;font-size:20px">
+	            		Browse research interests
+	         		</h2>
+	      		</div>
+	      		<div class="panel-group" id="accordion">
+	        		<div id="departmentSelectionPanel" class="panel panel-default selection-list">
+	          			<div class="panel-heading facet-panel-heading panel-title">
+	            			<span class="start">Select:</span> 
+							<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+	              				Academic Unit
+	            			</a>
+	          			</div>
+					</div>
+	          		<div id="collapseOne" class="panel-collapse collapse">
+	            		<div class="panel-body" id="selector">
+	              			<input id="searcher" type="text" class="form-control" placeholder="Search"/>
+	            		</div>
+	          		</div>
+	        	</div>    
+	      	</div> 
+    	</div>
+  		<div class="row visualization-row">
+  			<div class="col-md-12">
+	  			<div id="organization-subject-areas" style="padding-bottom:60px;width:100%">
+		    		<div id="info_icon_text" style="display:none">
+		      			<p>
+						is visualization represents all the faculty in the selected academic unit 
+						linked to all the subject areas in which the faculty have published. Subject areas 
+						are derived from the subject area classification of the journals assigned by the 
+						publishers. We infer that any article that is published in a particular journal 
+						has the subject area classification of that journal. Thus, the author of such 
+						article is said to have research interest in those subject areas. 
+						</p>
+						<p>
+						You can use the visualization
+						in two ways: hover over the author names (given in the 
+						center) and the links to the subject areas will be highlighted;
+						alternatively, hover over a subject area to highlight all the authors 
+						who have published in that area.
+						</p> 
+						<hr> 
+						<p>
+						Note: This information is based solely on publications that have been loaded 
+						into the system.
+						</p> 
+					</div>
+					<div id="selection_text"></div>
+	  			</div>
 			</div>
-			<div id="selection_text"></div>
-	  </div>
-  </div>
+		</div>
+	</div>
 </div>
 
 ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/utils/accordion-controls.css" />',
