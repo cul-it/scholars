@@ -116,16 +116,16 @@
 		<p>Grants</p>
 	</div>
 	<div id="interd_collab_icon_holder" style="display:none">
-		<a id="interd_collab_trigger" class="jqModal" href="#" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'College', 'Interdepartmental-CoAuthorships']);">
+		<a id="interd_collab_trigger" class="jqModal" href="#" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'College', 'Interdepartmental-Co-authorships']);">
 			<img id="vizIcon" width="54%" src="${urls.base}/themes/scholars/images/interd_collab.png"/>
 		</a>
-		<p>Interdepartmental<br/>CoAuthorships</p>
+		<p>Interdepartmental<br/>Co-authorships</p>
 	</div>
 	<div id="cross_unit_collab_icon_holder" style="display:none">
-		<a id="cross_unit_collab_trigger" class="jqModal" href="#" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'College', 'Cross-unit-CoAuthorships']);">
+		<a id="cross_unit_collab_trigger" class="jqModal" href="#" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'College', 'Cross-unit-Co-authorships']);">
 			<img id="vizIcon" width="54%" src="${urls.base}/themes/scholars/images/cross_unit_collab.png"/>
 		</a>
-		<p>Cross-unit<br/>CoAuthorships</p>
+		<p>Cross-unit<br/>Co-authorships</p>
 	</div>
   <#else>
 	<#-- Do not display anything if the individual is neither an academic department nor a college. -->
@@ -306,7 +306,7 @@ $().ready(function() {
 
 ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/keywordcloud/kwcloud.css" />')}
 <div id="word_cloud_vis" class="vis_modal" style="display:none;">
-	<font face="Times New Roman" size="2">
+	<font size="2">
 	<span><i>Click on a keyword to view the list of the relevant faculty.</i></span>
 <#--	
 <label class="boxLabel"><input id="keyword" type="checkbox" class="cbox" checked>Article Keywords<span id="kw">(0)</span></label>
@@ -317,10 +317,10 @@ ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/ke
 
         <div id="info_icon_text" style="display:none">
         	<p>
-        		This visualization represents the research keywords for an entire academic unit which is an aggregation of all the keywords found in all the articles authored by all faculty and researchers of a academic unit. The size of the keyword indicates the frequency of the keyword in the author’s publications which suggests that in which subject author published most (or least) frequently. 
+        		This visualization displays the research keywords for the entire academic unit, and is an aggregation of the keywords found in all the articles authored by all faculty and researchers of an academic unit. The size of the keyword indicates the frequency with which the keyword appears in the author’s publications, indicating which subjects the author published on most (or least) frequently. 
         	</p>
         	<p>
-        		This is not a static visualization. A user can click on any keyword to see the list of authors that have this keyword associated with one of more of their articles. One can click on the author’s name in the list to go to the author’s page which contains the full list of author’s publications in Scholars.
+        		To interact with the visualization, click on any keyword to see the list of authors that have this keyword associated with one of more of their articles. One can click on the author’s name in the list to go to the author’s page, which contains the full list of author’s publications in Scholars.
          	</p>
           	<hr> 
           	<p>
@@ -371,18 +371,18 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></
 <#if isCollegeOrSchool >
   <div id="interd_collab_vis" class="vis_modal dept_collab_vis" style="display:none">
  	
-	<font face="Times New Roman" size="2">
+	<font size="2">
 	<span><i>Click on any arc to zoom in and on the center circle to zoom out.
-	Once zoomed in to a faculty of interest, click on the outer arc to view the list of coauthored publications.
+	Once zoomed in on a faculty member, click on the outer arc to view a list of co-authored publications.
 	</i></span>
  	</font>
 
     <div id="info_icon_text" style="display:none">
     	<p>
-    		The interdepartmental co-authorships were identified based on the affiliation data extracted from the citation of a publication. Currently, we present co-authorships between researchers with the faculty appointments only. This visualization has a zoom-in/zoom-out functionality. The visualization consists of three layers i.e., department-level layer (inner most), person-level layer 1 (i.e., author in context) and the person-level layer 2 (i.e., the co-authors). 
+    		The interdepartmental co-authorships are identified based on the affiliation data extracted from the citation of a publication. Currently, we only present co-authorships between researchers with faculty appointments. This visualization has a zoom-in/zoom-out functionality. The visualization consists of three layers: a department-level layer (inner most), person-level layer 1 (i.e., author in context), and the person-level layer 2 (i.e., the co-authors). 
     	</p>
     	<p>
-    		To view the co-authorships, a user is first required to select a department of interest. In this view, a user can observe, who has co-authored with whom and how often did they co-author. To view the co-authored publications, user is required to select a faculty member of interest. In this view, clicking on a co-author (in the outer circle) displays the list of co-authored articles in the tooltip. Click in the center circle to zoom out to select any other faculty/department of interest.
+    		To view the co-authorships, begin by selecting a department of interest. In this view, you can observe who has co-authored with whom and how often they co-authored. To view the co-authored publications, begin by selecting a faculty member of interest. In this view, clicking on a co-author (in the outer circle) displays the list of co-authored articles in the tooltip. Click in the center circle to zoom out to select any other faculty/department of interest.
     	</p>
         <hr> 
         <p>
@@ -392,18 +392,18 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></
   </div>
   <div id="cross_unit_collab_vis" class="vis_modal dept_collab_vis" style="display:none">
 
-	<font face="Times New Roman" size="2">
+	<font size="2">
 	<span><i>Click on any arc to zoom in and on the center circle to zoom out.
-	Once zoomed in to a faculty of interest, click on the outer arc to view the list of coauthored publications.
+	Once zoomed in on a faculty member, click on the outer arc to view a list of co-authored publications.
 	</i></span>
 	</font>
 
     <div id="info_icon_text" style="display:none">
       	<p>
-      		The cross-unit co-authorships were identified based on the affiliation data extracted from the citation of a publication. Currently, we present co-authorships between researchers with the faculty appointments only. This visualization has a zoom-in/zoom-out functionality. The visualization consists of three layers i.e., unit-level layer (inner most), person-level layer 1 (i.e., author in context) and the person-level layer 2 (i.e., the co-authors). 
+      		The cross-unit co-authorships are identified based on the affiliation data extracted from the citation of a publication. Currently, we only present co-authorships between researchers with faculty appointments. This visualization has a zoom-in/zoom-out functionality. The visualization consists of three layers: unit-level layer (inner most), person-level layer 1 (i.e., author in context) and the person-level layer 2 (i.e., the co-authors). 
     	</p>
     	<p>
-    		To view the co-authorships, a user is first required to select an academic unit of interest. In this view, a user can observe, who has co-authored with whom and how often did they co-authored. To view the co-authored publications, user is required to select a faculty member of interest. In this view, clicking on a co-author (in the outer circle) displays the list of co-authored articles in the tooltip. Click in the center circle to zoom out to select any other faculty/academic unit of interest.
+    		To view the co-authorships, begin by selecting  an academic unit of interest. In this view, you can observe who has co-authored with whom and how often they co-authored. To view the co-authored publications, begin by selecting a faculty member of interest. In this view, clicking on a co-author (in the outer circle) displays the list of co-authored articles in the tooltip. Click in the center circle to zoom out to select any other faculty/academic unit of interest.
     	</p>
         <hr> 
         <p>
@@ -423,7 +423,7 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></
 	      $('#cross_unit_collab_icon_holder').show();
 	      $('#cross_unit_collab_trigger').click(cucs.show);
 	      $('#cross_unit_collab_exporter').click(cucs.showVisData);
-          new ScholarsVis.Toolbar("#cross_unit_collab_vis", "Cross-unit CoAuthorships");
+          new ScholarsVis.Toolbar("#cross_unit_collab_vis", "Cross-unit Co-authorships");
 	    }
       });
 
@@ -437,7 +437,7 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></
 	      $('#interd_collab_icon_holder').show();
 	      $('#interd_collab_trigger').click(idcs.show);
 	      $('#interd_collab_exporter').click(idcs.showVisData);
-          new ScholarsVis.Toolbar("#interd_collab_vis", "Interdepartmental CoAuthorships");
+          new ScholarsVis.Toolbar("#interd_collab_vis", "Interdepartmental Co-authorships");
 	    }
       });
 
@@ -458,16 +458,15 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></
     </p> 
   </div>
   <div>
-    <font face="Times New Roman" size="2">
+    <font size="2">
       <span><i>
-        Hover over grant bubbles to browse the titles of the grants. 
-        Click on a grant's bubble to view the details of a funded grant.
+        Hover over a grant bubble to view the title of the grant, or click on a bubble to view the details of a funded grant.
       </i></span>
     </font>
   </div>
   
-  <div id="grantsLegendDiv"></div>
   <div id="grantsMainDiv"></div>
+  <div id="grantsLegendDiv"></div>
 </div>
 
 
