@@ -466,7 +466,7 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></
   </div>
   
   <div id="grantsMainDiv"></div>
-  <div id="grantsLegendDiv"></div>
+  <div id="grantsLegendDiv" class="grantsLegendDivXtra"></div>
 </div>
 
 

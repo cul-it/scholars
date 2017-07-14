@@ -78,11 +78,12 @@ a {
   padding-top: 10px;
   display: inline-block; 
   vertical-align: top;
-  position: absolute;
+}
+.grantsLegendDivXtra {
+	position: absolute;
   left: 30px;
   bottom: 30px;
 }
-
 #grantsLegendDiv text {
   font: 16px Muli, Helvetica, Arial, sans-serif;
   pointer-events: none;
