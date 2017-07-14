@@ -317,10 +317,10 @@ ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/ke
 
         <div id="info_icon_text" style="display:none">
         	<p>
-        		This visualization displays the research keywords for the entire academic unit, and is an aggregation of the keywords found in all the articles authored by all faculty and researchers of an academic unit. The size of the keyword indicates the frequency with which the keyword appears in the author’s publications, indicating which subjects the author published on most (or least) frequently. 
+        		This visualization displays the research keywords for the entire academic unit, and is an aggregation of the keywords found in all the articles authored by all faculty and researchers of an academic unit. The size of the keyword indicates the frequency with which the keyword appears in the author's publications, indicating which subjects the author published on most (or least) frequently. 
         	</p>
         	<p>
-        		To interact with the visualization, click on any keyword to see the list of authors that have this keyword associated with one of more of their articles. One can click on the author’s name in the list to go to the author’s page, which contains the full list of author’s publications in Scholars.
+        		To interact with the visualization, click on any keyword to see the list of authors that have this keyword associated with one of more of their articles. One can click on the author's name in the list to go to the author's page, which contains the full list of author's publications in Scholars.
          	</p>
           	<hr> 
           	<p>
