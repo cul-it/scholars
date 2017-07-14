@@ -29,7 +29,7 @@
 	  			<div id="organization-subject-areas" style="padding-bottom:60px;width:100%">
 		    		<div id="info_icon_text" style="display:none">
 		      			<p>
-						is visualization represents all the faculty in the selected academic unit 
+						This visualization represents all the faculty in the selected academic unit 
 						linked to all the subject areas in which the faculty have published. Subject areas 
 						are derived from the subject area classification of the journals assigned by the 
 						publishers. We infer that any article that is published in a particular journal 
