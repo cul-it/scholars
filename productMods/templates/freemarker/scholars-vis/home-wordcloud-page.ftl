@@ -85,7 +85,7 @@
             This visualization displays the research keywords associated with the author, and is an aggregation of keywords found in all of the author’s articles. There are different sources of these keywords: those expressed by the author in the articles, those assigned by the publishers to the article, and those that are algorithmically inferred from the text of the article’s abstract. The size of the keyword indicates the frequency with which the keyword appears in the author’s publications, indicating which subject the author published on most (or least) frequently. 
           </p>
           <p>
-             To interact with the visualization, click on any the keyword to see the list of the articles associated with the keyword. You can then click on the article title in this list to navigate to the full view of the article’s metadata and a link to the full text when its available.
+             To interact with the visualization, click on any the keyword to see the list of the articles associated with the keyword. You can then click on the article title in this list to navigate to the full view of the article’s metadata and a link to the full text when it's available.
           </p>
           <hr> 
           <p>

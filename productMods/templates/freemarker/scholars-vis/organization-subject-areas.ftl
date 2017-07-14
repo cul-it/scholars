@@ -15,12 +15,12 @@
 	              				Academic Unit
 	            			</a>
 	          			</div>
+	          			<div id="collapseOne" class="panel-collapse collapse">
+	            			<div class="panel-body" id="selector">
+	              				<input id="searcher" type="text" class="form-control" placeholder="Search"/>
+	            			</div>
+	          			</div>
 					</div>
-	          		<div id="collapseOne" class="panel-collapse collapse">
-	            		<div class="panel-body" id="selector">
-	              			<input id="searcher" type="text" class="form-control" placeholder="Search"/>
-	            		</div>
-	          		</div>
 	        	</div>    
 	      	</div> 
     	</div>

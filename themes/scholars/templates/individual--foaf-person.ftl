@@ -215,8 +215,8 @@ $(document).ready(function() {
 <div id="foaf-person-blank-row" class="row scholars-row"></div>
 </#if>
 <div id="word_cloud_vis" class="vis_modal" style="display:none;">
-	<font face="Times New Roman" size="2">
-	<span><i>Click on a keyword to view the list of the related publications.</i></span>
+	<font size="2">
+	<span><i>Click on a keyword to view the list of related publications.</i></span>
     <br>
 	<label class="radio-inline radio-inline-override"><input id="all" type="radio" name="kwRadio" class="radio" checked>Featured Keywords</label>
 	<label class="radio-inline"><input id="keyword"  type="radio" name="kwRadio" class="radio" >Article Keywords</label>
@@ -226,10 +226,10 @@ $(document).ready(function() {
 	
     <div id="info_icon_text" style="display:none">
     	<p>
-    		This visualization represents the research keywords of the author which is an aggregation of keywords found in all the author’s articles. There are different sources of these keywords; those expressed by the author in the articles, those assigned by the publishers to the article and those that are algorithmically inferred from the text of the article’s abstract. The size of the keyword indicates the frequency of the keyword in the author’s publications which suggests that in which subject author published most (or least) frequently.
+    		This visualization represents the research keywords of the author and is an aggregation of keywords found in all of the author’s articles. There are different sources of these keywords: those expressed by the author in the articles, those assigned by the publishers to the article, and those that are algorithmically inferred from the text of the article’s abstract. The size of a keyword indicates the frequency with which it appears in the author’s publications, indicating which subjects the author published on most (or least) frequently.
         </p>
         <p>
-        	This is not a static visualization. A user can click on any the keyword to see the list of actual articles that have this keyword. One can click on the article title in the list to navigate to the full view of the article’s metadata and a link to the full text when its available.
+        	To interact with the visualization. click on any keyword to see the list of articles associated with the keyword. You can then click on the article title to navigate to the full view of the article’s metadata and a link to the full text when it's available.
 	 	</p>
 	 	<hr> 
 		<p>
