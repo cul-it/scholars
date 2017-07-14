@@ -5,7 +5,7 @@
 	<#assign bannerDisplay = "" />
 </#if>
 <div id="nav-bar" class="${navbarClass!}" role="navigation"  style="z-index:8">
-	<div id="nav-bar-row"class="row">
+	<div id="nav-bar-row" class="row">
 		<span style="margin-left:-30px;${bannerDisplay!}" id="beta-banner"><img src="${urls.base}/themes/scholars/images/banner.png"/ style="width:134px"></span>
 		<a id="nav-logo" href="${urls.home}" title="" style="${navbarLogoDisplay!}">
 			<span><img src="${urls.base}/themes/scholars/images/menu_logo.png"/></span>
@@ -52,7 +52,7 @@
 									</ul>
 								</li>
 								<li class="discover-menu-li">
-									<h3 id="vis-header"">Visualizations</h3>
+									<h3 id="vis-header">Visualizations</h3>
 									<ul id="vis-links">
 										<li><a class="discover-menu-link" href="${urls.base}/orgSAVisualization">Research Interests</a></li>
 										<li><a class="discover-menu-link" href="${urls.base}/homeWordcloudVisualization">Research Keywords</a></li>

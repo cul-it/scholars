@@ -102,4 +102,4 @@
 	
 </footer>
 
-</footer><#include "scripts.ftl">
+<#include "scripts.ftl">
