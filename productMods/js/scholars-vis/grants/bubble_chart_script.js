@@ -47,7 +47,8 @@ function GrantsController(grants, display, options) {
     $(options.resetLink).click(resetFilters);
     
 //    resetFilters();
-    setToolbarText(grants.length + " grants");
+	grantCount = grants.length.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+    setToolbarText(grantCount + " grants");
     display.draw(grants);
 
     function getPersonData() {
@@ -161,7 +162,8 @@ function GrantsController(grants, display, options) {
         if (count == 1) {
             return count + " " + text;
         } else {
-            return count + " " + text + "s"
+			formattedCount = count.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+            return formattedCount + " " + text + "s"
         }
     }
     
@@ -175,7 +177,8 @@ function GrantsController(grants, display, options) {
         dateRange.collapse();
         dateRange.reset();
 
-        setToolbarText(grants.length + " grants");
+		grantCount = grants.length.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+        setToolbarText(grantCount + " grants");
         display.draw(grants);
     }
     
