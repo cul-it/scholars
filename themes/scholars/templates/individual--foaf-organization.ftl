@@ -113,7 +113,7 @@
   		<a href="#" id="grants_trigger" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Department-School', 'Research-Grants']);">
   			<img id="vizIcon" width="40%" src="${urls.base}/themes/scholars/images/dept_grants.png"/>
   		</a>
-		<p>Grants</p>
+		<p>Grants and Contracts</p>
 	</div>
 	<div id="interd_collab_icon_holder" style="display:none">
 		<a id="interd_collab_trigger" class="jqModal" href="#" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'College', 'Interdepartmental-Co-authorships']);">
@@ -139,7 +139,7 @@
 
 <#assign facultyDeptListColumn >
   <#if !isCollegeOrSchool && (facultyList?has_content || adminsGrant?has_content)>
-	<div id="foafOrgTabs" class="col-sm-8 col-md-8 col-lg-8 scholars-container <#if !showVisualizations>scholars-container-full</#if>">
+	<div id="foafOrgTabs" class="col-md-8 scholars-container <#if !showVisualizations>scholars-container-full</#if>">
 	  <#if facultyList?has_content || adminsGrant?has_content >
 		<div id="scholars-tabs-container">
 		  <ul id="scholars-tabs">
@@ -180,7 +180,7 @@
 	  </#if>
 	</div>
   <#elseif isCollegeOrSchool && (subOrgs?has_content || facultyList?has_content)>
-	<div id="foafOrgTabs" class="col-sm-8 col-md-8 col-lg-8 scholars-container <#if !showVisualizations>scholars-container-full</#if>">
+	<div id="foafOrgTabs" class="col-md-8 scholars-container <#if !showVisualizations>scholars-container-full</#if>">
 		<div id="scholars-tabs-container">
 		  <ul id="scholars-tabs">
 		    <#if subOrgs?has_content ><li><a href="#tabs-1">Academic Units</a></li></#if>
@@ -247,7 +247,7 @@
 <#assign nameForOtherGroup = "${i18n().other}"> 
 
 <#-- The row2 div contains the visualization section and the faculty or department list, separated by a "spacer" column -->
-<div id="row2" class="row scholars-row foaf-organization-row2">
+<div id="row2" class="row scholars-row foaf-organization-row2" style="display:none;">
 	<#if showVisualizations>${visualizationColumn}</#if>
 	<div id="foafOrgSpacer" class="col-sm-1 col-md-1 col-lg-1"></div>
 	${facultyDeptListColumn}
@@ -413,6 +413,8 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></
   </div>
 	<script>
 	$().ready(function() {
+	  var showVizColumn = false;
+	
 	  var cucs = new ScholarsVis.CrossUnitCollaborationSunburst({
 	    department : '${individual.uri}',
 	    target : '#cross_unit_collab_vis',
@@ -420,6 +422,7 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></
       });
       cucs.examineData(function(data) {
 	    if (data && data.children && data.children.length > 0) {
+	  	  showVizColumn = true;
 	      $('#cross_unit_collab_icon_holder').show();
 	      $('#cross_unit_collab_trigger').click(cucs.show);
 	      $('#cross_unit_collab_exporter').click(cucs.showVisData);
@@ -434,13 +437,27 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></
       });
       idcs.examineData(function(data) {
 	    if (data && data.children && data.children.length > 0) {
+	  	  showVizColumn = true;
 	      $('#interd_collab_icon_holder').show();
 	      $('#interd_collab_trigger').click(idcs.show);
 	      $('#interd_collab_exporter').click(idcs.showVisData);
           new ScholarsVis.Toolbar("#interd_collab_vis", "Interdepartmental Co-authorships");
 	    }
       });
-
+	// not all colleges or schools will have data for the collab visualizations,
+	// so we want to hide the vizColumn. But because getting the data for the 
+	// visualizations takes some time, we need to delay checking the boolean
+	// that determines whether the column gets displayed.
+	  setTimeout(isVizColumnNeeded, 200);
+	  function isVizColumnNeeded() {
+	  	if ( !showVizColumn ) {
+			$('#visualization-column').remove();
+			$('#foafOrgSpacer').remove();
+			$('#foafOrgTabs').removeClass("col-md-8");
+			$('#foafOrgTabs').addClass("col-md-12");
+		}	
+	  }
+	
 	});
 	</script>
 </#if>
@@ -506,5 +523,14 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></
       });
       new ScholarsVis.Toolbar("#modal_grants_vis", "Browse Research Grants");
     }
+
+	// because getting the data for the visualizations takes some time,
+	// delay the display of the second row of the profile page 
+	setTimeout(showRowTwo, 300);
+	function showRowTwo() {
+		$('.foaf-organization-row2').show();
+	}
+
   });
+
 </script>
