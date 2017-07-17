@@ -52,7 +52,7 @@
 			</div>
 			<div class="col-sm-5 col-md-5 col-lg-5">
 				<div style="text-align:center">
-					<p class="tour-text">Use these scholarly fingerprints to identify the research keywords of Cornell scholars.</p>
+					<p class="tour-text">Use these scholarly fingerprints to identify the associated articles of a researcher.</p>
 				</div>
 			</div>
     	</div>
