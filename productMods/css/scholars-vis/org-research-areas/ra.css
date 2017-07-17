@@ -187,3 +187,9 @@ padding-top: 10px;
         {
             width: 400px;
         }
+        
+#noData {
+    display: block;
+    margin: auto;
+}
+        

@@ -276,7 +276,7 @@ var types = ["KEYWORD","MESH","INFERRED"];
 var keywords;
 
 function draw_word_cloud(unfiltered, target, options) {
-    console.log("UNFILTERED DATA: " + JSON.stringify(unfiltered));
+
     if (!unfiltered || unfiltered.length == 0) {
       drawNoData(target, options);
       return;

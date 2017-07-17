@@ -113,6 +113,11 @@ function transformFlaredata(graph) {
 }
 
 function plotConceptMap(flaredata, target) {
+    console.log("Concepts: " + JSON.stringify(flaredata));
+    if (!flaredata || !flaredata.ditems || flaredata.ditems.length == 0) {
+      drawNoData(target);
+      return;
+    }
 	
 		function addNewlines(str) {
 		var splitStr = str.split(" ");
@@ -775,9 +780,18 @@ function plotConceptMap(flaredata, target) {
 			return k.map[X.key] ? Z : aa
 		}
 	}
+
+   function drawNoData(target, options) {
+      d3.select(target)
+        .append("img")
+  		.attr("id", "noData")
+  		.attr("src", applicationContextPath + "/themes/scholars/images/person_sa_noData.png")
+   }
+
 };
 
 function closeConceptMap(target) {
     $(target).children(".conceptmap").remove();
     $(target).children(".graph-info").remove();
+    $(target).children("#noData").remove();
 }
