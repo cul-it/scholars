@@ -209,15 +209,15 @@
 		</script>
         <script type="application/ld+json">
         	{
-  				"@context": "http://schema.org",
-  				"@type": "WebSite",
-  				"name": "Scholars@Cornell",
-  				"alternateName": "Scholars at Cornell",
-  				"url": "https://scholars.cornell.edu/",
+				"@context": "http://schema.org",
+				"@type": "WebSite",
+				"name": "Scholars@Cornell",
+				"alternateName": "Scholars at Cornell",
+				"url": "https://scholars.cornell.edu/",
 				"description": "Scholars@Cornell is a data and visualization service developed at Cornell University Library with the goal of improving the visibility of Cornell research and enabling discovery of explicit and latent patterns of scholarly collaboration.",
-  				"sameAs" :[
-       				"https://twitter.com/ScholarsCornell"
-   				]
+				"sameAs" :[
+				"https://twitter.com/ScholarsCornell"
+				]
 			}
 		</script>
     </body>
