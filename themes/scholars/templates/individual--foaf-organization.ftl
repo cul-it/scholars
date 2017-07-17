@@ -448,7 +448,7 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></
 	// so we want to hide the vizColumn. But because getting the data for the 
 	// visualizations takes some time, we need to delay checking the boolean
 	// that determines whether the column gets displayed.
-	  setTimeout(isVizColumnNeeded, 250);
+	  setTimeout(isVizColumnNeeded, 300);
 	  function isVizColumnNeeded() {
 	  	if ( !showVizColumn ) {
 			$('#visualization-column').remove();
@@ -526,7 +526,7 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></
 
 	// because getting the data for the visualizations takes some time,
 	// delay the display of the second row of the profile page 
-	setTimeout(showRowTwo, 350);
+	setTimeout(showRowTwo, 400);
 	function showRowTwo() {
 		$('.foaf-organization-row2').show();
 	}
