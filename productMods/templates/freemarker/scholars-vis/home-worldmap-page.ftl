@@ -1,10 +1,11 @@
 <div class="row scholars-row" id="mapRow">
 	<div id="worldMapContainer" class="col-md-12 scholars-container">
 		<div class="col-md-4">
-			<div>
-         		<h2 style="padding:0 0 20px 0;color:#5f5858;font-size:20px">
+			<div style="padding:0 0 20px 0">
+         		<h2 style="color:#5f5858;font-size:20px">
             		Browse global collaborations
          		</h2>
+         		<font size="2"><span><i>(2012 - 2017)</i></span></font>
       		</div>
 
 			<div class="panel-group" id="accordion">
