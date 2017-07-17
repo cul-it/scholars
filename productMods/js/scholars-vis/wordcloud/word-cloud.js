@@ -275,7 +275,13 @@ var currentOptions;
 var types = ["KEYWORD","MESH","INFERRED"];
 var keywords;
 
-function draw_word_cloud(unfiltered, target, options) {	
+function draw_word_cloud(unfiltered, target, options) {
+    console.log("UNFILTERED DATA: " + JSON.stringify(unfiltered));
+    if (!unfiltered || unfiltered.length == 0) {
+      drawNoData(target, options);
+      return;
+    }
+    
 	targetDiv = target; 
     currentOptions = options;
 
@@ -436,6 +442,12 @@ function draw(input) {
    	});
    }
    
+   function drawNoData(target, options) {
+      d3.select(target)
+        .append("img")
+  		.attr("id", "noData")
+  		.attr("src", applicationContextPath + "/themes/scholars/images/wordcloud-noData.png")
+   }
 };
 
 /*******************************************************************************
@@ -443,7 +455,7 @@ function draw(input) {
  ******************************************************************************/
 function close_word_cloud(target) {
 	$(target).children("svg").remove();
-	$(target).children("#none").remove();
+	$(target).children("#noData").remove();
 	$('div.d3-tip').remove();
 }
 

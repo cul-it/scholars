@@ -34,3 +34,9 @@
 .radio-inline-override {
 	margin-top: 0 !important;
 }
+
+#noData {
+    display: block;
+    margin: auto;
+
+}
