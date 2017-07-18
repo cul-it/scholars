@@ -3,7 +3,7 @@
  <div id="position-facets" class="panel panel-default selection-list" style="float:right;margin-top:64px">
    <div class="panel-heading facet-panel-heading" style="font-size:14px">Quick Links</div>
   <div class="panel-body scholars-facet"><a href="./technology">Scholars: Under the Hood</a></div>
-  <div class="panel-body scholars-facet"><a href="./marketing">Marketing / Communication</a></div>
+  <div class="panel-body scholars-facet" style="display:none;"><a href="./marketing">Marketing / Communication</a></div>
  </div>
 <h2 class="expertsResultsHeader">Frequently Asked Questions</h2>
 <!-- start -->
