@@ -142,6 +142,7 @@ var getScholarship = {
 			$("#res-search-input").val("");
 			$("#hidden-querytype").val("all");
 			$("#res-search-input").focus();
+			$("#sort-results").parent().hide();
 			$(this).hide();
 		});
 		

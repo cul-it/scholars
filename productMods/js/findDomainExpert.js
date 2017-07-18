@@ -149,6 +149,7 @@ var getDomainExperts = {
 			$("#results-blurb").empty();
 			$("#de-search-input").val("");
 			$("#de-search-input").focus();
+			$("#sort-results").parent().hide();
 			$(this).hide();
 		});
 		
