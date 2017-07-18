@@ -109,7 +109,7 @@ $(document).ready(function() {
 				};
 			};			
 
-			var numbersViewable = isInViewport($("#download-content"), true);
+			var numbersViewable = isInViewport($("#by-the-numbers-backdrop"), true);
 			if ( numbersViewable ) {
 				$("#articles-count").show();
 				$("#grants-count").show();

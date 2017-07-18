@@ -347,7 +347,7 @@ public class ResearchAndScholarshipController extends FreemarkerHttpServlet {
 	
 	    SearchQuery query = ApplicationUtils.instance().getSearchEngine().createQuery();
 	
-		String queryString = KEYWORD_FIELD + ":\"" + queryText.toLowerCase() + "\" OR nameLowercase:\"" + queryText.toLowerCase().replaceAll("\"","") 
+		String queryString = KEYWORD_FIELD + ":\"" + queryText.toLowerCase() + "\" OR nameText:\"" + queryText.toLowerCase().replaceAll("\"","") 
 						+ "\" OR ALLTEXT:\"" + queryText.toLowerCase().replaceAll("\"","") + "\"";
 	
 		query.setQuery(queryString);
