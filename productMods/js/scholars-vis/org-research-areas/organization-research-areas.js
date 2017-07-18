@@ -113,7 +113,7 @@ function transformFlaredata(graph) {
 }
 
 function plotConceptMap(flaredata, target) {
-    console.log("Concepts: " + JSON.stringify(flaredata));
+
     if (!flaredata || !flaredata.ditems || flaredata.ditems.length == 0) {
       drawNoData(target);
       return;
@@ -795,3 +795,4 @@ function closeConceptMap(target) {
     $(target).children(".graph-info").remove();
     $(target).children("#noData").remove();
 }
+

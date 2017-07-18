@@ -3100,6 +3100,8 @@ header {
 	margin:-91px 0 0 0;
 	background-color:#fff;
 	min-height: 0;
+	position:relative;
+	z-index:3;
 }
 #discover-header {
 	margin:0;

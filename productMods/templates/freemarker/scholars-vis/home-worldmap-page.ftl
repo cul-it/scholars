@@ -73,7 +73,11 @@
           			<p>
             			Note: This information is based solely on publications that have been loaded into the system.
           			</p> 
-        		</div>
+	        		</div>
+	  			
+				<div id="time-indicator">
+				    <img id="time-indicator-img" src="${urls.images}/indicator1.gif"/>
+  				</div>
 			</div>
 		</div>
 

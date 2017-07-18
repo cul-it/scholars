@@ -2,6 +2,9 @@
   <div id="wc-vis-container" class="col-md-12 scholars-container">
     <div class="row scholars-row visualization-row">
 	  <div id="organization-subject-areas" style="padding-bottom:60px;width:100%">
+ 			<div id="time-indicator">
+ 			    <img id="time-indicator-img" src="${urls.images}/indicator1.gif"/>
+  			</div>
 		    <div id="info_icon_text" style="display:none">
 		      <p>
 			  This visualization represents all the faculty in the selected organizational unit 
