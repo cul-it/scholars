@@ -64,7 +64,7 @@
 		</div>
 		<div class="row cul-footer-inner">
 			<div class="col-md-12">
-		    	<p>&copy; 2016 Cornell University Library / <a href="tel:6072554144">(607) 255-4144 </a>  / <a href="https://www.library.cornell.edu/privacy">Privacy</a></p>
+		    	<p>&copy; 2017 Cornell University Library / <a href="tel:6072554144">(607) 255-4144 </a>  / <a href="https://www.library.cornell.edu/privacy">Privacy</a></p>
 			</div>
 		</div>
 	  </div>
