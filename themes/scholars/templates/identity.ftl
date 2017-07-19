@@ -13,10 +13,13 @@
 	</style>
 </#if>
 <div id="logo-container" style="${backsplashDisplay!}">
-	<img width="56%" src="${urls.base}/themes/scholars/images/scholars_logo.png" />
+	<img width="56%" src="${urls.theme}/images/scholars_logo.png" />
 </div>
 <div id="welcome" style="${backsplashDisplay!}">
 	<ul>
 		<li></li>
 	</ul>
+</div>
+<div id="tagline" style="display:none;z-index:-1;position:fixed;left:10px;bottom:178px;">
+	<img width="112%" src="${urls.theme}/images/tagline.png" />
 </div>

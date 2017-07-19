@@ -6,18 +6,16 @@
          <h2 style="padding:0;color:#5f5858;font-size:20px">
             Browse research keywords
          </h2>
-         <p style="font-size:12px">Select faculty member or academic unit.</p>
       </div>
       
       <div class="panel-group" id="accordion">
 
         <div id="personSelectionPanel" class="panel panel-default selection-list">
-          <div class="panel-heading">
-            <h4 class="panel-title">
+          <div class="panel-heading panel-title facet-panel-heading">
+			  <span class="start">Select:</span> 
               <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
-               <span class="start">Select:</span> Faculty Member
+               Faculty Member
              </a>
-            </h4>
           </div>
           <div id="collapseTwo" class="panel-collapse collapse">
             <div class="panel-body" id="selector">
@@ -27,12 +25,11 @@
         </div>
         
         <div id="departmentSelectionPanel" class="panel panel-default selection-list">
-          <div class="panel-heading">
-            <h4 class="panel-title">
-              <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-                <span class="start">Select:</span> Academic Unit
+          <div class="panel-heading panel-title facet-panel-heading">
+              <span class="start">Select:</span>
+				<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                 Academic Unit
               </a>
-            </h4>
           </div>
           <div id="collapseOne" class="panel-collapse collapse">
             <div class="panel-body" id="selector">
@@ -45,9 +42,14 @@
         
       </div> 
 
-      <div>
-        <font face="Times New Roman" size="2">
-          <span><i>Click on a keyword to view the list of the relevant faculty. In a faculty keyword cloud, click on a keyword to view the list of the related publications of the selected faculty.</i></span>
+      <div id="unit-help-text">
+        <font size="2">
+          <span><i>Click on a keyword to view the list of faculty who have publications associated with the keyword.</i></span>
+        </font>
+      </div>
+      <div id="person-help-text" style="display:none;">
+        <font size="2">
+          <span><i>Click on a keyword to view the list of publications associated with the keyword.</i></span>
         </font>
       </div>
 
@@ -62,10 +64,10 @@
 
         <div id="info_icon_text" style="display:none">
           <p>
-            This visualization represents the research keywords for an entire academic unit which is an aggregation of all the keywords found in all the articles authored by all faculty and researchers of an academic unit. The size of the keyword indicates the frequency of the keyword in the author’s publications which suggests that in which subject author published most (or least) frequently. 
+            This visualization displays the research keywords for an entire academic unit, and is an aggregation of the keywords found in all the articles authored by all faculty and researchers of an academic unit. The size of the keyword indicates the frequency with which the keyword appears in the author's publications, indicating which subjects the author published on most (or least) frequently. 
           </p>
           <p>
-            This is not a static visualization. A user can click on any keyword to see the list of authors that have this keyword associated with one of more of their articles. One can click on the author’s name in the list to go to the author’s page which contains the full list of author’s publications in Scholars.
+            To interact with the visualization, click on any keyword to see the list of authors that have this keyword associated with one of more of their articles. One can click on the author's name in the list to go to the author's page, which contains the full list of author's publications in Scholars.
           </p>
           <hr> 
           <p>
@@ -80,10 +82,10 @@
 
         <div id="info_icon_text" style="display:none">
           <p>
-            This visualization represents the research keywords of the author which is an aggregation of keywords found in all the author’s articles. There are different sources of these keywords; those expressed by the author in the articles, those assigned by the publishers to the article and those that are algorithmically inferred from the text of the article’s abstract. The size of the keyword indicates the frequency of the keyword in the author’s publications which suggests that in which subject author published most (or least) frequently. 
+            This visualization displays the research keywords associated with the author, and is an aggregation of keywords found in all of the author's articles. There are different sources of these keywords: those expressed by the author in the articles, those assigned by the publishers to the article, and those that are algorithmically inferred from the text of the article's abstract. The size of the keyword indicates the frequency with which the keyword appears in the author's publications, indicating which subject the author published on most (or least) frequently. 
           </p>
           <p>
-            This is not a static visualization. A user can click on any the keyword to see the list of actual articles that have this keyword. One can click on the article title in the list to navigate to the full view of the article’s metadata and a link to the full text when its available.
+             To interact with the visualization, click on any the keyword to see the list of the articles associated with the keyword. You can then click on the article title in this list to navigate to the full view of the article's metadata and a link to the full text when its available.
           </p>
           <hr> 
           <p>
@@ -100,10 +102,10 @@
 
         <div id="info_icon_text" style="display:none">
           <p>
-            This visualization gives a bird-view of the research keywords of the Cornell faculty and researchers which is an aggregation of all the keywords found in their published articles. The size of the keyword indicates the frequency of the keyword in the author’s publications which suggests that in which subject Cornell faculty and researchers published most (or least) frequently. 
+            This visualization gives a bird's eye view of the research keywords associated with all Cornell faculty and researchers, and is an aggregation of all the keywords found in their published articles. The size of the keyword indicates the frequency with which the keyword appeared in the authors's publications, indicating which subjects Cornell faculty and researchers published on most (or least) frequently. 
           </p>
           <p>
-            This is not a static visualization. A user can click on any keyword to see the list of authors that have this keyword associated with one of more of their articles. One can click on the author’s name in the list to go to the author’s page which contains the full list of author’s publications in Scholars.
+             To interact with the visualization, click on any keyword to see the list of authors that have this keyword associated with one of more of their articles. You can then click on the author's name in the list to go to the author's page, which contains the full list of the author's publications in Scholars.
           </p>
           <hr> 
           <p>
@@ -140,6 +142,6 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></
 <script>
 $().ready(function() {
   createWordCloudSelector("#siteSelector", "#departmentSelectionPanel", "#personSelectionPanel", 
-                          "#siteWordCloudVis", "#departmentWordCloudVis", "#personWordCloudVis");
+                          "#siteWordCloudVis", "#departmentWordCloudVis", "#personWordCloudVis", "#unit-help-text", "#person-help-text");
 });
 </script>

@@ -77,6 +77,14 @@ $(document).ready(function() {
 	<#assign webpageLabel = webpageStmt.label! />
 	<#assign webpageUrl = webpageStmt.url! />
 </#if>
+<#assign optInProp = propertyGroups.pullProperty("http://scholars.cornell.edu/ontology/vivoc.owl#isOptIn")!>
+<#if optInProp?has_content && optInProp.statements?has_content>
+	<#assign optInStmt = optInProp.statements?first!/>
+	<#assign optIn = optInStmt.value!"false" />
+<#else>
+	<#assign optIn = "false" />
+</#if>
+
 <#-- for some reason pullProperty was only working when logged in, and even with the display level set to public. Weird! So using datagetter-->
 <#if orcidID?has_content> 
 	<#assign theOrcidId = orcidID?first.orcidId! />
@@ -131,24 +139,30 @@ $(document).ready(function() {
 </div> <!-- row1 -->
 
 
-<#if isAuthor || isInvestigator || editable >
+<#if (optIn == "true" && (isAuthor || isInvestigator)) || editable >
 <#-- The row2 div contains the visualization section and the publication and grants lists -->
 <div id="row2" class="row scholars-row foaf-person-row2">
 
 <div id="visualization-column" class="col-sm-3 col-md-3 col-lg-3 scholars-container">
  	<#if isAuthor >
 		<div id="word_cloud_icon_holder" style="display:none">
-		    <a href="#" id="word_cloud_trigger"><img id="vizIcon" width="145px" src="${urls.base}/themes/scholars/images/wordcloud-icon.png"/></a>
+		    <a href="#" id="word_cloud_trigger" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Person', 'Research-Keywords']);">
+		    	<img id="vizIcon" width="145px" src="${urls.base}/themes/scholars/images/wordcloud-icon.png"/>
+		    </a>
 			<p>Research Keywords</p>
 		</div>
  		<div>
- 			<a href="${coAuthorVisUrl}"><img id="vizIcon" width="120px" src="${urls.base}/themes/scholars/images/co-authors.png"/></a>
+ 			<a href="${coAuthorVisUrl}" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Person', 'Co-authors']);">
+ 				<img id="vizIcon" width="120px" src="${urls.base}/themes/scholars/images/co-authors.png"/>
+ 			</a>
  			<p>Co-authors</p>
  		</div>
  	</#if>
  	<#if isInvestigator >
  		<div>
- 			<a href="${coInvestigatorVisUrl}"><img id="vizIcon" width="120px" src="${urls.base}/themes/scholars/images/co-investigators.png"/></a>
+ 			<a href="${coInvestigatorVisUrl}" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Person', 'Co-investigtors']);">
+ 				<img id="vizIcon" width="120px" src="${urls.base}/themes/scholars/images/co-investigators.png"/>
+ 			</a>
  			<p>Co-investigators</p>
  		</div>
  	</#if>
@@ -157,14 +171,14 @@ $(document).ready(function() {
 <div id="foafPersonTabs" class="col-sm-8 col-md-8 col-lg-8  scholars-container">
 	<div id="scholars-tabs-container">
 	  <ul id="scholars-tabs">
-	    <#if isAuthor ><li><a href="#tabs-1">Publications</a></li></#if>
-	    <#if isInvestigator ><li><a href="#tabs-2">Grants</a></li></#if>
+	    <#if isAuthor ><li><a href="#tabs-1" onclick="javascript:_paq.push(['trackEvent', 'Tab', 'Person', 'Publications']);">Publications</a></li></#if>
+	    <#if isInvestigator ><li><a href="#tabs-2" onclick="javascript:_paq.push(['trackEvent', 'Tab', 'Person', 'Grants']);">Grants</a></li></#if>
 	  </ul>
 	  <#if isAuthor >
 		  <div id="tabs-1" class="tab-content">
 			<article class="property" role="article">
 			<#if subjectAreaList?has_content>
-				<a id="subject-area-link" href="#" class="jqModal" >Subject Areas</a>
+				<a id="subject-area-link" href="#" class="jqModal" onclick="javascript:_paq.push(['trackEvent', 'Link', 'Person', 'Subject-Areas']);">Subject Areas</a>
 			</#if>
 		    <ul id="individual-publications" class="property-list" role="list" >
 		    	${publications!}
@@ -200,9 +214,9 @@ $(document).ready(function() {
 <#else>
 <div id="foaf-person-blank-row" class="row scholars-row"></div>
 </#if>
-<div id="word_cloud_vis">
-	<font face="Times New Roman" size="2">
-	<span><i>Click on a keyword to view the list of the related publications.</i></span>
+<div id="word_cloud_vis" class="vis_modal" style="display:none;">
+	<font size="2">
+	<span><i>Click on a keyword to view the list of related publications.</i></span>
     <br>
 	<label class="radio-inline radio-inline-override"><input id="all" type="radio" name="kwRadio" class="radio" checked>Featured Keywords</label>
 	<label class="radio-inline"><input id="keyword"  type="radio" name="kwRadio" class="radio" >Article Keywords</label>
@@ -212,10 +226,10 @@ $(document).ready(function() {
 	
     <div id="info_icon_text" style="display:none">
     	<p>
-    		This visualization represents the research keywords of the author which is an aggregation of keywords found in all the author’s articles. There are different sources of these keywords; those expressed by the author in the articles, those assigned by the publishers to the article and those that are algorithmically inferred from the text of the article’s abstract. The size of the keyword indicates the frequency of the keyword in the author’s publications which suggests that in which subject author published most (or least) frequently.
+    		This visualization represents the research keywords of the author which is an aggregation of keywords found in all the author's articles. There are different sources of these keywords; those expressed by the author in the articles, those assigned by the publishers to the article and those that are algorithmically inferred from the text of the article's abstract. The size of the keyword indicates the frequency of the keyword in the author's publications which suggests that in which subject author published most (or least) frequently.
         </p>
         <p>
-        	This is not a static visualization. A user can click on any the keyword to see the list of actual articles that have this keyword. One can click on the article title in the list to navigate to the full view of the article’s metadata and a link to the full text when its available.
+        	This is not a static visualization. A user can click on any the keyword to see the list of actual articles that have this keyword. One can click on the article title in the list to navigate to the full view of the article's metadata and a link to the full text when its available.
 	 	</p>
 	 	<hr> 
 		<p>

@@ -37,26 +37,25 @@
 <#-- conjunction with the homePageMaps.js and latLongJson.js files, as well -->
 <#-- as the leaflet javascript library.                                     -->
 <#macro downloadCounts>
-	<#if facultyCount?has_content>
-        <#assign researchersCount = facultyCount[0].count?number + professionalCount[0].count?number />
-		<div id="download-content" class="row fff-bkg">
-				<div class="col-sm-1 col-md-1 col-lg-1"></div>
-				<div class="col-sm-3 col-md-3 col-lg-3">
-					<a class="researcher-link" href="/scholars/people"><div id="researcher-count"><p>${researchersCount}</p></div></a>
-					<a class="researcher-link" href="/scholars/people"><div id="researcher-text"><p>Researchers</p></div></a>
-				</div>
-				<div class="col-sm-3 col-md-3 col-lg-3">
-					<a class="grant-link" href="/scholars/research#http://vivoweb.org/ontology/core#Grant"><div id="grant-count" ><p>${grantCount[0].count?number}</p></div></a>
-					<a class="grant-link" href="/scholars/research#http://vivoweb.org/ontology/core#Grant"><div id="grant-text"><p>Grants</p></div></a>
-				</div>
-				<div class="col-sm-3 col-md-3 col-lg-3">
-					<a class="article-link" href="/scholars/research#http://purl.org/ontology/bibo/AcademicArticle "><div id="article-count" ><p >${articleCount[0].count?number}</p></div></a>
-					<a class="article-link" href="/scholars/research#http://purl.org/ontology/bibo/AcademicArticle "><div id="article-text"><p>Articles</p></div></a>
-				</div>
-				<div class="col-sm-2 col-md-2 col-lg-2">
-					<a class="journal-link" href="/scholars/research#http://purl.org/ontology/bibo/Journal "><div id="journal-count" ><p>${journalCount[0].count?number}</p></div></a>
-					<a class="journal-link" href="/scholars/research#http://purl.org/ontology/bibo/Journal "><div id="journal-text"><p>Journals</p></div></a>
-				</div>
+<div id="by-the-numbers-backdrop" class="row fff-bkg">
+		<div id="researchers-count" class="btn-count-container">
+			<p id="researcher-count" class="btn-count">0</p>
+				<p class="btn-text">Researchers</p>
 		</div>
-	</#if>
+		<div id="articles-count" class="btn-count-container">
+			  <p id="article-count" class="btn-count">0</p>
+				<p class="btn-text">Articles</p>
+		</div>
+		<div id="grants-count" class="btn-count-container">
+			  <p id="grant-count" class="btn-count">0</p>
+				<p class="btn-text">Grants</p>
+		</div>
+		<div id="journals-count" class="btn-count-container">
+			  <p id="journal-count" class="btn-count">0</p>
+				<p class="btn-text"> Journals</p>
+		</div>
+		<div id="by-the-numbers-text">
+	  		<p>Scholars<span>@</span>Cornell &ndash; By the Numbers</p>
+		</div>
+</div>
 </#macro>

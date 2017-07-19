@@ -13,7 +13,7 @@
 #
 
 # 
-# If an authorship is altered, re-index all of the related authors. 
+# If a position is altered, re-index all of the related people. 
 # 
 :scholars_position_uriFinder
     a   <java:edu.cornell.mannlib.vitro.webapp.searchindex.indexing.IndexingUriFinder> ,
@@ -86,3 +86,222 @@
 		}
         """ .
 
+
+#
+# When indexing a grant, add administrating org.
+#
+:vivodocumentModifier_addAdminToGrant
+    a   <java:edu.cornell.mannlib.vitro.webapp.searchindex.documentBuilding.SelectQueryDocumentModifier> ,
+        <java:edu.cornell.mannlib.vitro.webapp.searchindex.documentBuilding.DocumentModifier> ;
+    rdfs:label "Add Administrator to Grant" ;
+    :hasTypeRestriction "http://vivoweb.org/ontology/core#Grant" ;
+    :hasTypeRestriction "http://vivoweb.org/ontology/core#Contract" ;
+    :hasTargetField "administrator_txt" ;
+    :hasTargetField "administrator_ss" ;
+    :hasSelectQuery """
+        PREFIX rdfs:     <http://www.w3.org/2000/01/rdf-schema#>
+		PREFIX foaf:     <http://xmlns.com/foaf/0.1/>
+		PREFIX vivo:     <http://vivoweb.org/ontology/core#>
+		SELECT DISTINCT ?admLabel
+		WHERE
+		{
+		       ?uri vivo:relates ?adm .
+		       ?adm a foaf:Organization .
+		       ?adm rdfs:label ?admLabel .
+		}
+        """ .
+
+#
+# When indexing a grant, add funding agency.
+#
+:vivodocumentModifier_addFunderToGrant
+    a   <java:edu.cornell.mannlib.vitro.webapp.searchindex.documentBuilding.SelectQueryDocumentModifier> ,
+        <java:edu.cornell.mannlib.vitro.webapp.searchindex.documentBuilding.DocumentModifier> ;
+    rdfs:label "Add Funding Agency to Grant" ;
+    :hasTypeRestriction "http://vivoweb.org/ontology/core#Grant" ;
+    :hasTypeRestriction "http://vivoweb.org/ontology/core#Contract" ;
+    :hasTargetField "funder_txt" ;
+    :hasTargetField "funder_ss" ;
+    :hasSelectQuery """
+        PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+		PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+		PREFIX vivo: <http://vivoweb.org/ontology/core#>
+		SELECT DISTINCT ?funderLabel
+		WHERE
+		{
+		       ?uri vivo:assignedBy ?funder .
+		       ?funder a foaf:Organization .
+		       ?funder rdfs:label ?funderLabel .
+		}
+        """ .
+
+#
+# When indexing a grant, add PI affiliation.
+#
+:vivodocumentModifier_addPIToGrant
+    a   <java:edu.cornell.mannlib.vitro.webapp.searchindex.documentBuilding.SelectQueryDocumentModifier> ,
+        <java:edu.cornell.mannlib.vitro.webapp.searchindex.documentBuilding.DocumentModifier> ;
+    rdfs:label "Add PIs to Grant" ;
+    :hasTypeRestriction "http://vivoweb.org/ontology/core#Grant" ;
+    :hasTypeRestriction "http://vivoweb.org/ontology/core#Contract" ;
+    :hasTargetField "affiliation_txt" ;
+    :hasTargetField "affiliation_ss" ;
+    :hasSelectQuery """
+        PREFIX rdfs:     <http://www.w3.org/2000/01/rdf-schema#>
+		PREFIX foaf:     <http://xmlns.com/foaf/0.1/>
+		PREFIX vivo:     <http://vivoweb.org/ontology/core#>
+		PREFIX obo:      <http://purl.obolibrary.org/obo/>
+	    SELECT DISTINCT ?label
+		WHERE
+		{
+		       ?uri vivo:relates ?piRole .
+		       ?piRole a vivo:PrincipalInvestigatorRole .
+		       ?piRole obo:RO_0000052 ?person .
+	           ?person vivo:relatedBy ?posn .
+	           ?posn a vivo:Position .
+		       ?posn a vivo:PrimaryPosition .
+	           ?posn vivo:relates ?college .
+	           ?college a foaf:Organization .
+	           ?college rdfs:label ?label . 
+		}
+        """ ;
+    :hasSelectQuery """
+        PREFIX rdfs:     <http://www.w3.org/2000/01/rdf-schema#>
+		PREFIX foaf:     <http://xmlns.com/foaf/0.1/>
+		PREFIX vivo:     <http://vivoweb.org/ontology/core#>
+		PREFIX obo:      <http://purl.obolibrary.org/obo/>
+	    SELECT DISTINCT ?label
+		WHERE
+		{
+		       ?uri vivo:relates ?piRole .
+		       ?piRole a vivo:CoPrincipalInvestigatorRole .
+		       ?piRole obo:RO_0000052 ?person .
+	           ?person vivo:relatedBy ?posn .
+	           ?posn a vivo:Position .
+		       ?posn a vivo:PrimaryPosition .
+	           ?posn vivo:relates ?college .
+	           ?college a foaf:Organization .
+	           ?college rdfs:label ?label . 
+		}
+        """ .
+
+#
+# When indexing a grant, add start date.
+#
+:vivodocumentModifier_addStartDateToGrant
+    a   <java:edu.cornell.mannlib.vitro.webapp.searchindex.documentBuilding.SelectQueryDocumentModifier> ,
+        <java:edu.cornell.mannlib.vitro.webapp.searchindex.documentBuilding.DocumentModifier> ;
+    rdfs:label "Add Start Date to Grant" ;
+    :hasTypeRestriction "http://vivoweb.org/ontology/core#Grant" ;
+    :hasTypeRestriction "http://vivoweb.org/ontology/core#Contract" ;
+    :hasTargetField "start_date_dt" ;
+    :hasSelectQuery """
+    	PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+		PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+		PREFIX vivo: <http://vivoweb.org/ontology/core#>
+		PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
+		SELECT DISTINCT (strdt(concat(?substring,"-01-01T00:00:00.00Z"), xsd:dateTime) AS ?startYear)
+		WHERE
+		{
+		       ?uri vivo:dateTimeInterval ?dti .
+			   ?dti vivo:start ?startDate .
+			   ?startDate vivo:dateTime ?year .
+               bind( substr(str( ?year), 1, 4 ) as ?substring )
+		}
+        """ .
+
+#
+# When indexing a grant, add end date.
+#
+:vivodocumentModifier_addEndDateToGrant
+    a   <java:edu.cornell.mannlib.vitro.webapp.searchindex.documentBuilding.SelectQueryDocumentModifier> ,
+        <java:edu.cornell.mannlib.vitro.webapp.searchindex.documentBuilding.DocumentModifier> ;
+    rdfs:label "Add End Date to Grant" ;
+    :hasTypeRestriction "http://vivoweb.org/ontology/core#Grant" ;
+    :hasTypeRestriction "http://vivoweb.org/ontology/core#Contract" ;
+    :hasTargetField "end_date_dt" ;
+    :hasSelectQuery """
+		PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+		PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+		PREFIX vivo: <http://vivoweb.org/ontology/core#>
+		PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
+		SELECT DISTINCT (strdt(concat(?substring,"-01-01T00:00:00.00Z"), xsd:dateTime) AS ?endYear)
+		WHERE
+		{
+		       ?uri vivo:dateTimeInterval ?dti .
+			   ?dti vivo:end ?endDate .
+			   ?endDate vivo:dateTime ?year .
+	           bind( substr(str( ?year), 1, 4 ) as ?substring )
+		}
+        """ .
+
+#
+# When indexing a publication, add Author affiliation.
+#
+:vivodocumentModifier_addAuthAffiliationToPub
+    a   <java:edu.cornell.mannlib.vitro.webapp.searchindex.documentBuilding.SelectQueryDocumentModifier> ,
+        <java:edu.cornell.mannlib.vitro.webapp.searchindex.documentBuilding.DocumentModifier> ;
+    rdfs:label "Add Author Affiliation to Publication" ;
+    :hasTypeRestriction "http://purl.org/ontology/bibo/Document" ;
+    :hasTargetField "affiliation_txt" ;
+    :hasTargetField "affiliation_ss" ;
+    :hasSelectQuery """
+		PREFIX rdfs:     <http://www.w3.org/2000/01/rdf-schema#>
+		PREFIX foaf:     <http://xmlns.com/foaf/0.1/>
+		PREFIX vivo:     <http://vivoweb.org/ontology/core#>
+    	SELECT DISTINCT ?label
+		WHERE
+		{
+      		?uri vivo:relatedBy ?authorship .
+       		?authorship a vivo:Authorship .
+       		?authorship vivo:relates ?person .
+            ?person a foaf:Person .
+            ?person vivo:relatedBy ?posn .
+       		?posn a vivo:PrimaryPosition .
+            ?posn vivo:relates ?college .
+            ?college a foaf:Organization .
+            ?college rdfs:label ?label . 
+     }
+     """ .
+
+#
+# When indexing a publication, add publication venue.
+#
+:vivodocumentModifier_addPubVenueToPub
+    a   <java:edu.cornell.mannlib.vitro.webapp.searchindex.documentBuilding.SelectQueryDocumentModifier> ,
+        <java:edu.cornell.mannlib.vitro.webapp.searchindex.documentBuilding.DocumentModifier> ;
+    rdfs:label "Add Pub Venue to Publication" ;
+    :hasTypeRestriction "http://purl.org/ontology/bibo/Document" ;
+    :hasTargetField "pub_venue_txt" ;
+    :hasTargetField "pub_venue_ss" ;
+    :hasSelectQuery """
+		PREFIX rdfs:     <http://www.w3.org/2000/01/rdf-schema#>
+		PREFIX vivo:     <http://vivoweb.org/ontology/core#>
+    	SELECT DISTINCT ?label
+		WHERE
+		{
+      		?uri vivo:hasPublicationVenue ?journal .
+       		?journal rdfs:label ?label . 
+     }
+     """ .
+
+#
+# When indexing a publication, add publication date.
+#
+:vivodocumentModifier_addPubDateToPub
+    a   <java:edu.cornell.mannlib.vitro.webapp.searchindex.documentBuilding.SelectQueryDocumentModifier> ,
+        <java:edu.cornell.mannlib.vitro.webapp.searchindex.documentBuilding.DocumentModifier> ;
+    rdfs:label "Add Pub Date to Publication" ;
+    :hasTypeRestriction "http://purl.org/ontology/bibo/Document" ;
+    :hasTargetField "pub_date_dt" ;
+    :hasSelectQuery """
+		PREFIX vivo:     <http://vivoweb.org/ontology/core#>
+		PREFIX xsd:      <http://www.w3.org/2001/XMLSchema#>
+    	SELECT DISTINCT (strdt(concat(?substring,"-01-01T00:00:00.00Z"), xsd:dateTime) AS ?pubDate)
+		WHERE 
+		{
+      		?uri vivo:dateTimeValue ?dtv .
+       		?dtv vivo:dateTime ?year . 
+   			bind( substr(str( ?year), 1, 4 ) as ?substring )
+     }
+     """ .

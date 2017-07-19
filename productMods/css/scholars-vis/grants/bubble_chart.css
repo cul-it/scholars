@@ -66,9 +66,10 @@ a {
 }
 
 #grantsMainDiv {
- width:500px; 
- height:500px; 
+ width:400px; 
+ height:400px; 
  display: inline-block;
+ margin-left: 25%;
 }
 
 #grantsLegendDiv {
@@ -78,8 +79,12 @@ a {
   display: inline-block; 
   vertical-align: top;
 }
-
+.grantsLegendDivXtra {
+	position: absolute;
+  left: 30px;
+  bottom: 30px;
+}
 #grantsLegendDiv text {
-  font: 16px "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font: 16px Muli, Helvetica, Arial, sans-serif;
   pointer-events: none;
 }

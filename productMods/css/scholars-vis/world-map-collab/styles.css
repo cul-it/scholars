@@ -1,6 +1,5 @@
-#mapRow{
-  margin-top: 2%;
-  background-color: #FFF;
+#worldMapContainer {
+  padding: 22px 0;
 }
 
 body {
@@ -270,4 +269,8 @@ html{
   color: white;
   display: inline-block;
   max-width: 70%;
+}
+
+#time-indicator-img{
+   padding-top: 50px;
 }

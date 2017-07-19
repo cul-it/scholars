@@ -94,11 +94,12 @@ public class DomainExpertJsonServlet extends VitroHttpServlet {
     private static final String PARAM_CLASSGROUP = "classgroup";
     private static final String PARAM_RDFTYPE = "type";
     private static final String PARAM_VCLASS_ID = "vclassId";
+    private static final String PARAM_SORT_BY = "sortby";
     private static final String PARAM_COLLEGES = "colleges";
     private static final String PARAM_DEPARTMENTS = "departments";
     private static final String PARAM_QUERY_TEXT = "querytext";
     private static final String PARAM_QUERY_TYPE = "querytype";
-	private static final String KEYWORD_FIELD = "keyword_txt";
+	private static final String KEYWORD_FIELD = "keyword_key";
 
     protected enum Order {
         ASC, DESC         
@@ -182,19 +183,6 @@ public class DomainExpertJsonServlet extends VitroHttpServlet {
 					log.debug("Adding individual " + uri + " to individual list");
 				}
 			}
-//			
-/*			IndividualListQueryResults results = null;
-			try{
-		        results = IndividualListQueryResults.runQuery(query, iDao);
-				log.debug("results hit count: " + results.getHitCount());
-		 	} catch (SearchEngineException e) {
-				log.error("Search exception occurred: " + e);
-				JSONObject jsonObj = new JSONObject("['what the hell?]");
-		 	    return jsonObj;
-		   	}
-		
-			IndividualListResults ilResults = new IndividualListResults(hitsPerPage, results.getIndividuals(), "", false, Collections.<PageRecord>emptyList());
-*/
 
 			IndividualListQueryResults results = new IndividualListQueryResults((int) hitCount, individuals);
 			IndividualListResults ilResults = new IndividualListResults(hitsPerPage, results.getIndividuals(), "", false, Collections.<PageRecord>emptyList());
@@ -215,7 +203,6 @@ public class DomainExpertJsonServlet extends VitroHttpServlet {
 		}
 		catch (Throwable e) {
 			log.error("Search exception occurred: " + e);
-			//JSONObject jsonObj = new JSONObject("[]");
 	 	    return rObj;
 			
 		}
@@ -256,24 +243,10 @@ public class DomainExpertJsonServlet extends VitroHttpServlet {
    
     private static SearchQuery getQuery(String queryText, String queryType,int hitsPerPage, int startIndex, VitroRequest vreq) {
 		
-		Enumeration params = vreq.getParameterNames(); 
-		while(params.hasMoreElements()){
-		 String paramName = (String)params.nextElement();
-		 log.debug("Parameter Name - "+paramName+", Value - "+vreq.getParameter(paramName));
-		}
-		
+		String sortBy = (vreq.getParameter(PARAM_SORT_BY) == null) ? "relevance" : vreq.getParameter(PARAM_SORT_BY);
 		String vclassids = vreq.getParameter(PARAM_VCLASS_ID).replaceAll(",","\" OR type:\"");
-		
-		if (vreq.getParameterMap().containsKey(PARAM_COLLEGES)) {
-			String colleges = vreq.getParameter(PARAM_COLLEGES).replaceAll(",","\" OR type:\"");
-		}
-		if (vreq.getParameterMap().containsKey(PARAM_DEPARTMENTS)) {
-			String departments = vreq.getParameter(PARAM_DEPARTMENTS).replaceAll(",","\" OR type:\"");
-		}
-		
-		
 		log.debug("VCLASSIDS = " + vclassids);
-        //String typeParam = "type:\"" + vreq.getParameter(PARAM_VCLASS_ID) + "\"";
+
 		String typeParam = "type:\"" + vclassids + "\"";
 		
         SearchQuery query = ApplicationUtils.instance().getSearchEngine().createQuery();
@@ -291,6 +264,10 @@ public class DomainExpertJsonServlet extends VitroHttpServlet {
 		} 
 		else {
 			queryString = KEYWORD_FIELD + ":\"" + queryText.toLowerCase() + "\"";
+
+			if ( sortBy.equals("name") ) {
+	        	query.addSortField("nameLowercaseSingleValued",SearchQuery.Order.ASC);
+			}
 		}
 
 		query.setQuery(queryString);
@@ -298,18 +275,16 @@ public class DomainExpertJsonServlet extends VitroHttpServlet {
         query.setStart( startIndex )
              .setRows(hitsPerPage);
 
-        // ClassGroup filtering param
-        String classgroupParam = "http://vivoweb.org/ontology#vitroClassGrouppeople";
         query.addFilterQuery(typeParam);
 
 		// if we have colleges or departments in the request, add filters for them
 		if (vreq.getParameterMap().containsKey(PARAM_COLLEGES)) {
 			String colleges = vreq.getParameter(PARAM_COLLEGES).replaceAll(",","\" OR college_txt:\"");
-			query.addFilterQuery("college_txt:\"" + colleges + "\"");
+			query.addFilterQuery("college_ss:\"" + colleges + "\"");
 		}
 		if (vreq.getParameterMap().containsKey(PARAM_DEPARTMENTS)) {
 			String departments = vreq.getParameter(PARAM_DEPARTMENTS).replaceAll(",","\" OR department_txt:\"");
-			query.addFilterQuery("department_txt:\"" + departments + "\"");
+			query.addFilterQuery("department_ss:\"" + departments + "\"");
 		}
 
 		// filtering out people whose MST is 

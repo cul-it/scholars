@@ -94,7 +94,7 @@ public class DomainExpertController extends FreemarkerHttpServlet {
     private static final String PARAM_VCLASS_ID = "vclassId";
     private static final String PARAM_QUERY_TEXT = "querytext";
     private static final String PARAM_QUERY_TYPE = "querytype";
-	private static final String KEYWORD_FIELD = "keyword_txt";
+	private static final String KEYWORD_FIELD = "keyword_key";
 	private static final String TEMPLATE = "findDomainExpert.ftl";
 	
     protected enum Format { 
@@ -142,8 +142,8 @@ public class DomainExpertController extends FreemarkerHttpServlet {
              
              ApplicationBean appBean = vreq.getAppBean();
              
-             log.debug("IndividualDao is " + iDao.toString() + " Public classes in the classgroup are " + grpDao.getPublicGroupsWithVClasses().toString());
-             log.debug("VClassDao is "+ vclassDao.toString() );            
+             //log.debug("IndividualDao is " + iDao.toString() + " Public classes in the classgroup are " + grpDao.getPublicGroupsWithVClasses().toString());
+             //log.debug("VClassDao is "+ vclassDao.toString() );            
              
              int startIndex = getStartIndex(vreq);            
              int hitsPerPage = getHitsPerPage( vreq );           
@@ -373,7 +373,9 @@ public class DomainExpertController extends FreemarkerHttpServlet {
         List<VClassSearchLink> classFacets= new ArrayList<VClassSearchLink>(sortedClassFacets.size());
 		for (Map.Entry<String, Long> entry : sortedClassFacets.entrySet()) {
 			VClass type = vclassDao.getVClassByURI(entry.getKey());
-			classFacets.add(new VClassSearchLink(type, entry.getValue() ));
+			if ( !type.getName().equals("Person") ) {
+				classFacets.add(new VClassSearchLink(type, entry.getValue() ));
+			}
 		}
         return classFacets;
     }       

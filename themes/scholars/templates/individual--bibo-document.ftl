@@ -97,7 +97,7 @@
 		  </div>
 		  <div class="col-sm-10">
 			<div class="scholars-article-metadata">
-				<em><a href="${profileUrl(pubVenue.object)}" title="${pubVenue.label!}">${pubVenue.label!}</a></em>
+				<em><a href="${profileUrl(pubVenue.object)}" title="${pubVenue.label!}" onclick="javascript:_paq.push(['trackEvent', 'Link', 'Publication', 'Journal']);">${pubVenue.label!}</a></em>
 				<#if lcp??><a href="${lcp}" target="_blank"><i class="fa fa-external-link-square external-link" aria-hidden="true"></i></a></#if>
 			</div>
 		  </div>
@@ -238,7 +238,7 @@
 		  </div>
 		  <div class="col-sm-10">
 			<div class="scholars-article-metadata">
-				<a href="http://dx.doi.org/${doi!}" title="link to DOI" target="_blank">${doi!}</a>
+				<a href="http://dx.doi.org/${doi!}" title="link to DOI" target="_blank" onclick="javascript:_paq.push(['trackEvent', 'Link', 'Publication', 'DOI']);">${doi!}</a>
 			</div>
 		  </div>
 	</#assign>
@@ -252,7 +252,7 @@
 		  </div>
 		  <div class="col-sm-3">
 			<div class="scholars-article-metadata">
-				<a href="http://www.ncbi.nlm.nih.gov/pubmed/?term=${pmid!}" title="View in PubMed" target="_blank">${pmid!}</a>
+				<a href="http://www.ncbi.nlm.nih.gov/pubmed/?term=${pmid!}" title="View in PubMed" target="_blank" onclick="javascript:_paq.push(['trackEvent', 'Link', 'Publication', 'PMID']);">${pmid!}</a>
 			</div>
 		  </div>
 	</#assign>

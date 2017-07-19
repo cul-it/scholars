@@ -6,7 +6,7 @@
  * selector brings up the dept wordcloud
  */
 function createWordCloudSelector(siteSelector, departmentSelector, personSelector, 
-                                 site_wc_container, unit_wc_container, person_wc_container) {
+                                 site_wc_container, unit_wc_container, person_wc_container, unit_help_text, person_help_text) {
   var wc;  
   $(siteSelector).click(showSiteCloud);
   
@@ -72,14 +72,20 @@ function createWordCloudSelector(siteSelector, departmentSelector, personSelecto
       $(site_wc_container).hide();
       $(unit_wc_container).show();
       $(person_wc_container).hide();
+      $(person_help_text).hide();
+      $(unit_help_text).show();
     } else if (which == "person") {
       $(site_wc_container).hide();
       $(unit_wc_container).hide();
       $(person_wc_container).show();
+      $(person_help_text).show();
+      $(unit_help_text).hide();
     } else { // site
       $(site_wc_container).show();
       $(unit_wc_container).hide();
       $(person_wc_container).hide();
+      $(person_help_text).hide();
+      $(unit_help_text).show();
     }
   }
 }

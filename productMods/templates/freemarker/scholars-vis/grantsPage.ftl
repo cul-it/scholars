@@ -3,21 +3,19 @@
     <div class="col-md-4" class="scholars-container">
      
       <div>
-         <h2 style="padding:0;color:#5f5858;font-size:20px">
+         <h2 style="padding:0 0 20px 0;color:#5f5858;font-size:20px">
             Browse research grants
          </h2>
-         <p style="font-size:12px">Filter grants by selecting an investigator, academic unit, funding agency or active year(s).</p>
       </div>
 
       <div class="panel-group" id="accordion">
         
         <div id="personSelectionPanel" class="panel panel-default selection-list">
-          <div class="panel-heading">
-            <h4 class="panel-title">
+          <div class="panel-heading panel-title facet-panel-heading">
+			  <span class="start">Select:</span> 
               <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapsePerson">
-                <span class="start">Select:</span> Investigator
+                Investigator
               </a>
-            </h4>
           </div>
           <div id="collapsePerson" class="panel-collapse collapse">
             <div class="panel-body" id="selector">
@@ -27,12 +25,11 @@
         </div>
 
         <div id="unitSelectionPanel" class="panel panel-default selection-list">
-          <div class="panel-heading">
-            <h4 class="panel-title">
+          <div class="panel-heading panel-title facet-panel-heading">
+			  <span class="start">Select:</span> 
               <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseUnit">
-                <span class="start">Select:</span> Academic Unit
+                Academic Unit
               </a>
-            </h4>
           </div>
           <div id="collapseUnit" class="panel-collapse collapse">
             <div class="panel-body" id="selector">
@@ -42,12 +39,11 @@
         </div>
 
         <div id="agencySelectionPanel" class="panel panel-default selection-list">
-          <div class="panel-heading">
-            <h4 class="panel-title">
+          <div class="panel-heading panel-title facet-panel-heading">
+			  <span class="start">Select:</span> 
               <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseAgency">
-                <span class="start">Select:</span> Funding Agency
+                Funding Agency
               </a>
-            </h4>
           </div>
           <div id="collapseAgency" class="panel-collapse collapse">
             <div class="panel-body" id="selector">
@@ -57,12 +53,11 @@
         </div>
 
         <div id="dateRangePanel" class="panel panel-default">
-          <div class="panel-heading">
-            <h4 class="panel-title">
+          <div class="panel-heading panel-title facet-panel-heading">
+			  <span class="start">Filter by:</span> 
               <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseDate">
-                <span class="start">Filter by:</span> Active Year
+                Active Year
               </a>
-            </h4>
           </div>
           <div id="collapseDate" class="panel-collapse collapse">
             <div class="panel-body" id="date">
@@ -76,8 +71,8 @@
         </div>
 
         <div>
-          <font face="Times New Roman" size="2">
-            <span><i>Hover over grant bubbles to browse the titles of the grants. Click on a grant's bubble to view the details of a funded grant.</i></span>
+          <font size="2">
+            <span><i>Hover over grant bubbles to browse the titles of the grants. Click on a bubble to view the details of the funded grant.</i></span>
           </font><br>
         </div>
 
@@ -89,10 +84,10 @@
     <div class="col-md-8" id="vis_holder">
         <div id="info_icon_text" style="display:none"> 
           <p>
-            This visualization represents a bird-view of all the grants where a Cornell faculty member or a researcher is either a Principal or Co-Principal Investigator. The data is represented as a cluster of bubbles where each bubble represents a grant and the size of the bubble indicates the relative award amount. The color scheme in lower left of the page reveals the dollar amount range of the grant. This provides a quick visual view of the active research grants for the entire university. 
+            This visualization represents a bird's eye view of all the grants where a Cornell faculty member or a researcher is either a Principal or Co-Principal Investigator. The data is represented as a cluster of bubbles where each bubble represents a grant and the size of the bubble indicates the relative award amount. The color scheme in the lower left of the page reveals the dollar amount range of the grant. This provides a quick visual view of the active research grants for the entire university. 
           </p>
           <p>
-            While the visualization starts from a big cluster, one can narrow down the view by selecting the funding agency, academic unit, active year range or the faculty member of interest. Clicking on a grant bubble will display the full description of the grant including title, list of investigators and other information.
+            While the visualization starts from a big cluster, one can scale the view by selecting a funding agency, academic unit, active year range or faculty member of interest. Clicking on a grant bubble displays the full description of the grant, including the title, the list of investigators, and other information.
           </p>
           <hr> 
           <p>

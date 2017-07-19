@@ -908,6 +908,24 @@
   </servlet-mapping>
   
   <servlet>
+    <servlet-name>AcademicUnitsController</servlet-name>
+    <servlet-class>edu.cornell.mannlib.vitro.webapp.search.controller.AcademicUnitsController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AcademicUnitsController</servlet-name>
+    <url-pattern>/academicUnits</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>AcademicUnitsJsonServlet</servlet-name>
+    <servlet-class>edu.cornell.mannlib.vitro.webapp.controller.json.AcademicUnitsJsonServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AcademicUnitsJsonServlet</servlet-name>
+    <url-pattern>/academicUnitsJson</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
     <servlet-name>DomainExpertController</servlet-name>
     <servlet-class>edu.cornell.mannlib.vitro.webapp.search.controller.DomainExpertController</servlet-class>
   </servlet>
@@ -923,6 +941,33 @@
   <servlet-mapping>
     <servlet-name>DomainExpertJsonServlet</servlet-name>
     <url-pattern>/domainExpertJson</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>ResearchAndScholarshipController</servlet-name>
+    <servlet-class>edu.cornell.mannlib.vitro.webapp.search.controller.ResearchAndScholarshipController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ResearchAndScholarshipController</servlet-name>
+    <url-pattern>/scholarship</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>ResearchAndScholarshipJsonServlet</servlet-name>
+    <servlet-class>edu.cornell.mannlib.vitro.webapp.controller.json.ResearchAndScholarshipJsonServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ResearchAndScholarshipJsonServlet</servlet-name>
+    <url-pattern>/scholarshipJson</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>ScholarsAjaxController</servlet-name>
+    <servlet-class>edu.cornell.mannlib.vitro.webapp.controller.ajax.ScholarsAjaxController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ScholarsAjaxController</servlet-name>
+    <url-pattern>/scholarsAjax</url-pattern>
   </servlet-mapping>
   
   <servlet>

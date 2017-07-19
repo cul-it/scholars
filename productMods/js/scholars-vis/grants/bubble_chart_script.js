@@ -47,7 +47,8 @@ function GrantsController(grants, display, options) {
     $(options.resetLink).click(resetFilters);
     
 //    resetFilters();
-    setToolbarText(grants.length + " grants");
+	grantCount = grants.length.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+    setToolbarText(grantCount + " grants");
     display.draw(grants);
 
     function getPersonData() {
@@ -89,9 +90,13 @@ function GrantsController(grants, display, options) {
     }
     
     function ignoreCaseSort(a, b) {
-        var aa = a.label.toUpperCase();
-        var bb = b.label.toUpperCase();
-        return (aa < bb) ? -1 : (aa > bb) ? 1 : 0;
+        var al = a.label.toUpperCase();
+        var bl = b.label.toUpperCase();
+        return (al < bl) ? -1 : 
+            (al > bl) ? 1 : 
+                (a.uri < b.uri) ? -1 : 
+                    (a.uri > b.uri) ? 1 : 
+                        0;
     }
     
     function uniqueUris(element, index, array) {
@@ -110,7 +115,7 @@ function GrantsController(grants, display, options) {
         dateRange.reset();
 
         var filtered = grants.filter(peopleFilter);
-        setToolbarText(filtered.length + " grants involving " + selectedPerson.label);
+        setToolbarText(pluralize(filtered.length, "grant") + " involving " + selectedPerson.label);
         display.draw(filtered);
         
         function peopleFilter(g) {
@@ -124,7 +129,7 @@ function GrantsController(grants, display, options) {
         dateRange.reset();
         
         var filtered = grants.filter(g => g.dept.uri == selectedUnit.uri)
-        setToolbarText(filtered.length + " grants involving " + selectedUnit.label);
+        setToolbarText(pluralize(filtered.length, "grant") + " involving " + selectedUnit.label);
         display.draw(filtered);
     }
     
@@ -134,7 +139,7 @@ function GrantsController(grants, display, options) {
         dateRange.reset();
         
         var filtered = grants.filter(g => g.funagen.uri == selectedAgency.uri);
-        setToolbarText(filtered.length + " grants from " + selectedAgency.label);
+        setToolbarText(pluralize(filtered.length, "grant") + " from " + selectedAgency.label);
         display.draw(filtered);
     }
     
@@ -145,11 +150,20 @@ function GrantsController(grants, display, options) {
 
         var currentDates = dateRange.getCurrentValues();
         var filtered = grants.filter(yearFilter);
-        setToolbarText(filtered.length + " grants from " + currentDates[0] + " to " + currentDates[1]);
+        setToolbarText(pluralize(filtered.length, "grant") + " from " + currentDates[0] + " to " + currentDates[1]);
         display.draw(filtered);
         
         function yearFilter(g) {
             return Number(g.Start) <= currentDates[1] && Number(g.End) >= currentDates[0] ;
+        }
+    }
+    
+    function pluralize(count, text) {
+        if (count == 1) {
+            return count + " " + text;
+        } else {
+			formattedCount = count.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+            return formattedCount + " " + text + "s"
         }
     }
     
@@ -163,7 +177,8 @@ function GrantsController(grants, display, options) {
         dateRange.collapse();
         dateRange.reset();
 
-        setToolbarText(grants.length + " grants");
+		grantCount = grants.length.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+        setToolbarText(grantCount + " grants");
         display.draw(grants);
     }
     

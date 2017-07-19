@@ -269,9 +269,12 @@ $(document).ready(function(){
 
     function chord_click() {
         return function (g, i) {
-            if (i > 0) {
+        	if ( i > 0 && (uris[i].indexOf("VI") == -1 ) ) {
                 window.location.href = getWellFormedURLs(uris[i], "profile");
             }
+			else {
+				alert(" This person is not affilated with Cornell \n and does not have a profile page in Scholars.");
+			}
         };
     }
 </script>
@@ -325,7 +328,7 @@ $(document).ready(function(){
     </#if>
 
     <div style="clear:both"></div>
-        <div id="incomplete-data-small">${i18n().incomplete_data_note1}<p></p><p></p>
+        <div id="incomplete-data-small">Note: This information is based solely on publications that have been loaded into the Scholars@Cornell system. This may only be a small sample of the person's total work.<p></p><p></p>
             <#if user.loggedIn >
                 ${i18n().incomplete_data_note2}
             <#else>

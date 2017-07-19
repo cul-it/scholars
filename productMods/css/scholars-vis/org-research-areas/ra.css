@@ -187,3 +187,12 @@ padding-top: 10px;
         {
             width: 400px;
         }
+        
+#noData {
+    display: block;
+    margin: auto;
+}
+#time-indicator-img{
+   padding-top: 50px;
+}
+        

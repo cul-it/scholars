@@ -3,7 +3,7 @@
 }
 #nav-bar.homepage {
 	position: absolute;
-	bottom: 80px;
+	bottom: 90px;
 }
 .fixed {
 	position: fixed !important;
@@ -73,9 +73,10 @@ div#logo-container {
 #unit-search-link:hover  #unit-placeholder {
 	display:block;
 }
-#expert-search {
+.home-search-container {
 	background-color: rgba(0, 0, 0, 0.5);
-	border-radius: 10px;
+	border-bottom-right-radius: 10px;
+	border-bottom-left-radius: 10px;
 	display: none;
 	font-family: Arial,Helvetica,sans-serif;
 	text-align: center;
@@ -85,24 +86,24 @@ div#logo-container {
 	padding: 166px 0 20px 0;
 	margin: 0;
 	border-radius: 10px;
-	height: 290px;
+	height: 310px;
 	width: 100%;
 	background-size: cover;
 }
-#de-search-input {
+.home-search-input {
 	margin-top: 5px;
 	color: #656;
 	font-size: 14px;
 	height: 32px;
 	width: 80%;
 }
-#de-search-submit {
+.home-page-submit {
 	background :none;
 	border: none;
 	font-size: 16px;
 	color: #fff;
 }
-#de-search-submit:hover {
+.home-page-submit:hover {
 	color: #CC6949;
 }
 .search-radio-container {
@@ -110,13 +111,14 @@ div#logo-container {
 	text-align: left;
 	margin-top: -12px;
 	padding-left: 22px;
+	font-size: 15px;
 }
 #ongoing-research {
 	background: #fff url('../images/academic-units.jpg') no-repeat center center;
 	padding: 166px 0 20px 0;
 	margin: 0;
 	border-radius: 10px;
-	height: 290px;
+	height: 310px;
 	width: 100%;
 	background-size: cover;
 }
@@ -125,7 +127,7 @@ div#logo-container {
 	padding: 166px 0 20px 0;
 	margin: 0;
 	border-radius: 10px;
-	height: 290px;
+	height: 310px;
 	width: 100%;
 	background-size: cover;
 }
@@ -133,29 +135,39 @@ div#logo-container {
 	margin: 0 20px;
 	padding-left: 6px;
 }
-#jgsm-image {
-	background: #fff url('../images/sage_hall.jpg') no-repeat center center;
-	height: 210px;
-	background-size: cover;
+/*#jgsm-image {
+	padding: 15px 0 10px 25px;
+	margin: -15px 0 -10px -25px;
 }
 #eng-image {
-	background: #fff url('../images/eng_quad.jpg') no-repeat center center;
-	height: 210px;
-	background-size: cover;
+	padding: 15px 0 5px 20px;
+	margin: -15px 0 -5px -20px;
 }
-#arts-image {
-	background: #fff url('../images/arts_quad.jpg') no-repeat center center;
-	height: 210px;
-	background-size: cover;
+#bti-image {
+	padding: 8px 0 10px 20px;
+	margin: -8px 0 -10px -20px;
+} */
+#jgsm-image img {
+	height: 75px;
 }
-#jgsm-image:hover, #eng-image:hover, #arts-image:hover {
-	box-shadow: 10px 10px 5px #888888;
+#eng-image img {
+	height: 42px;
+}
+#bti-image img {
+	height: 75px;
+}
+#cals-image {
+	height: 210px;
+}
+#jgsm-image:hover, #eng-image:hover, #cals-image:hover, #bti-image:hover {
+	opacity: 0.6;
 }
 #partners-row1 {
-	margin: 30px 30px 0 30px;
+	margin: 25px 30px 0 30px;
 }
 #partners-row2 {
-	margin: 10px 30px 0 30px;
+	padding:0;
+	margin: 0 30px 40px 30px;
 }
 #partners-row3 {
 	margin:10px 30px 20px;
@@ -176,15 +188,48 @@ div#logo-container {
 	margin: 0;
 	font-size: 18px;
 }
-#arts-text {
+#cals-text {
 	text-align: center;
 	padding: 0;
 	margin: 0;
 }
-#arts-text p {
+#cals-text p {
 	margin: 0;
 	font-size: 18px;
 }
 .partner-shadow {
 	box-shadow: 10px 10px 5px #888888;
+}
+#by-the-numbers-backdrop {
+	position: relative;
+	width:100%;
+	min-height:620px;
+	background: #fff url('../images/mcgraw-summer.jpg') no-repeat center center;
+	background-size: cover;
+	background-position: 100% 0%;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	margin:0;
+	padding:25px 30px 0 30px;
+}
+#by-the-numbers-text {
+	display:none;
+	position: fixed;
+	bottom: 80px;
+	left:50%;
+	background-color:rgba(0, 0, 0, 0.3);
+	border-radius:6px;
+	padding:10px;
+	margin-left:-277px;
+}
+#by-the-numbers-text p  {
+	margin:0;
+	color:#fff;
+	font-size:28px;
+	font-family: Muli, Arial, Verdana, Helvetica;
+}
+#by-the-numbers-text p  span {
+	color: #fff;
+	font-style: italic;
+	font-family: Verdana, Arial, Helvetica;
 }

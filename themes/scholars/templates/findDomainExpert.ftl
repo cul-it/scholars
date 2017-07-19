@@ -42,7 +42,7 @@
 	<div id="results-container" class="panel panel-default new-search">
 		<div id="no-results-text">
 			<div class="no-results-found">Locate domain experts by subject or keyword, or by the person's name.</div>
-			<div class="no-results-found">Enter your own search term or select one from the list of suggestions.</div>
+			<div class="no-results-found">Begin by typing a term or name and then selecting a match from the list of suggestions.</div>
 		</div>
 	</div>
 </div>
@@ -53,12 +53,12 @@
 				<#if message?? && message == "no_matches">
 					<div class="no-results-found">No results matched the term:</div>
 					<div id="unmatched-term"><span>'${badquerytext!}'</span></div>
-					<div class="no-results-found">Try another term or select one from the list of suggestions.</div>
+					<div class="no-results-found">Try selecting another one from the list of suggestions, or <a href="${urls.base}/search?querytext=${badquerytext!}">search the full site</a>.</div>
 				<#elseif  message?? && message == "no_search_term">
 					<div class="no-results-found">Please enter a search term or select one from the list of suggestions.</div>
 				<#else>
 					<div class="no-results-found">Your search for the term '${badquerytext!}' did not complete successfully.</div>
-					<div class="no-results-found">Try another term or select one from the list of suggestions.</div>
+					<div class="no-results-found">Try selecting another one from the list of suggestions, or <a href="${urls.base}/search?querytext=${badquerytext!}">search the full site</a>.</div>
 				</#if>
 			</div>
         </div>
@@ -67,8 +67,17 @@
 </div>
 <#if individuals?? >
   <div class="row fff-bkg" style="padding:0;margin:0;">
-  	<div id="results-blurb" class="col-md-7 col-md-offset-4">
+  	<div id="results-blurb" class="col-md-4 col-md-offset-4">
 		${searchResults!}
+  	</div>
+  	<div class="col-md-4" style="text-align:right;padding-right:40px">
+	  <#if querytype != "name">
+		Sort by
+		<select id="sort-results">
+			<option value="relevance">relevance</option>
+			<option value="name">last name</option>
+		</select/>
+	  </#if>
   	</div>
   </div>
   <div id="facets-and-results" class="contentsBrowseGroup row fff-bkg">
@@ -78,7 +87,6 @@
                 <div class="panel-heading facet-panel-heading">Position</div>
 				<#assign classCount = 0 />
             <#list classFacet as class>
-				<#if class.text != "Person" >
                 	<div class="panel-body scholars-facet">
 						<#assign vclassid = class.url[class.url?index_of("vclassId=")+9..] />
 						<label>
@@ -86,7 +94,6 @@
 						</label>
 					</div>
 					<#assign classCount = classCount + class.count?number />
-				</#if>
             </#list>
 			<#if (classCount > hitCount?number)>
 				<div class="facet-note" data-cc="${classCount?number}" data-hc="${hitCount?number}">* Some scholars have multiple positions.</div>
@@ -127,6 +134,10 @@
     <div id="results-column" class="col-md-8">
 	  <div id="results-container" class="panel panel-default">
       <ul class="searchhits">
+			<li id="time-indicator">
+				<img id="time-indicator-img" src="${urls.images}/indicator1.gif"/>
+				<p>Searching</p>
+			</li>
   			<#list individuals as indy>
   				${indy!}
   			</#list>

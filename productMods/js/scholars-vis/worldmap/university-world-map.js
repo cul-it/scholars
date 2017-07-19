@@ -1288,15 +1288,24 @@ function addListeners(){
         d3.select("#nowShowing").text("Articles Published: " + yearsArray[0] + " - " + yearsArray[1]);
     }
     
+    function showTimeIndicator() {
+        $("#time-indicator").show();
+    }
+    
+    function hideTimeIndicator() {
+        $("#time-indicator").hide();
+    }
     
     
     function initializeMap(){
+        showTimeIndicator();
         word = "usa"
         d3.select("#nowShowing").text("Loading map visualization"); 
         d3.queue()
         .defer(d3.json, urlsBase+"/api/dataRequest/collabus")
         .defer(d3.json, urlsBase+"/api/dataRequest/collabworld")
         .await(function(err, rawStates, rawWorld){
+            hideTimeIndicator();
             window.filterVariable = false;
             window.countryRaw = rawStates; 
             window.worldRaw = rawWorld;

@@ -124,7 +124,7 @@
         <java:edu.cornell.mannlib.vitro.webapp.searchindex.documentBuilding.DocumentModifier> ;
     rdfs:label "Add keywords to author" ;
     :hasTypeRestriction "http://xmlns.com/foaf/0.1/Person" ;
-    :hasTargetField "keyword_txt" ;
+    :hasTargetField "keyword_key" ;
     :hasTargetField "keyword_ss" ;
     :hasSelectQuery """
         PREFIX bibo:     <http://purl.org/ontology/bibo/>
@@ -167,3 +167,76 @@
             ?pub vivoc:inferredKeyword ?infkeyword . 
 		}
         """ .
+
+#
+# When indexing a grant, add the inferred keywords to the index.
+#
+:vivodocumentModifier_addKeywordsToGrant
+    a   <java:edu.cornell.mannlib.vitro.webapp.searchindex.documentBuilding.SelectQueryDocumentModifier> ,
+        <java:edu.cornell.mannlib.vitro.webapp.searchindex.documentBuilding.DocumentModifier> ;
+    rdfs:label "Add keywords to grant" ;
+    :hasTypeRestriction "http://vivoweb.org/ontology/core#Grant" ;
+    :hasTargetField "keyword_key" ;
+    :hasTargetField "keyword_ss" ;
+    :hasSelectQuery """
+        PREFIX vivoc: <http://scholars.cornell.edu/ontology/vivoc.owl#>
+		SELECT (lcase(?infkeyword) AS ?kw) 
+		WHERE {
+            ?uri vivoc:inferredKeyword ?infkeyword  .
+		}
+        """ .
+
+# 
+# When indexing a contract, add the inferred keywords to the index.
+#
+:vivodocumentModifier_addKeywordsToContract
+    a   <java:edu.cornell.mannlib.vitro.webapp.searchindex.documentBuilding.SelectQueryDocumentModifier> ,
+        <java:edu.cornell.mannlib.vitro.webapp.searchindex.documentBuilding.DocumentModifier> ;
+    rdfs:label "Add keywords to contract" ;
+    :hasTypeRestriction "http://vivoweb.org/ontology/core#Contract" ;
+    :hasTargetField "keyword_key" ;
+    :hasTargetField "keyword_ss" ;
+    :hasSelectQuery """
+        PREFIX vivoc:    <http://scholars.cornell.edu/ontology/vivoc.owl#>
+		SELECT (lcase(?infkeyword) AS ?kw) 
+		WHERE {
+            ?uri vivoc:inferredKeyword ?infkeyword  .
+		}
+        """ .
+
+#
+# When indexing a publication, add all of the keywords to the index.
+#
+:vivodocumentModifier_addKeywordsToPublication
+    a   <java:edu.cornell.mannlib.vitro.webapp.searchindex.documentBuilding.SelectQueryDocumentModifier> ,
+        <java:edu.cornell.mannlib.vitro.webapp.searchindex.documentBuilding.DocumentModifier> ;
+    rdfs:label "Add keywords to author" ;
+    :hasTypeRestriction "http://purl.org/ontology/bibo/Document" ;
+    :hasTargetField "keyword_key" ;
+    :hasTargetField "keyword_ss" ;
+    :hasSelectQuery """
+        PREFIX vivo:     <http://vivoweb.org/ontology/core#>
+		SELECT (lcase(?keyword) as ?kw) 
+		WHERE {
+            ?uri vivo:freetextKeyword ?keyword . 
+		}
+        """ ;
+    :hasSelectQuery """
+        PREFIX rdfs:     <http://www.w3.org/2000/01/rdf-schema#>
+        PREFIX vivo:     <http://vivoweb.org/ontology/core#>
+        PREFIX vivoc:    <http://scholars.cornell.edu/ontology/vivoc.owl#>
+		SELECT (lcase(?meshLabel) AS ?kw) 
+		WHERE {
+            ?uri vivo:hasSubjectArea ?mesh .
+            ?mesh a vivoc:MeshTerm .
+            ?mesh rdfs:label ?meshLabel .
+		}
+        """ ;
+    :hasSelectQuery """
+        PREFIX vivoc:    <http://scholars.cornell.edu/ontology/vivoc.owl#>
+		SELECT (lcase(?infkeyword) AS ?kw) 
+		WHERE {
+            ?uri vivoc:inferredKeyword ?infkeyword . 
+		}
+        """ .
+

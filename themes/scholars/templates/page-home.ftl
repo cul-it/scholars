@@ -40,11 +40,11 @@
 										Find a<br/>Domain Expert
 									</span>
 								</div>
-								<div id="expert-search" >
+								<div id="expert-search" class="home-search-container">
 									<form id="de-search-form" action="${urls.base}/domainExpert" name="search" role="search" accept-charset="UTF-8" method="POST"> 
-										<input id="de-search-vclass" type="hidden" name="vclassId" value="http://xmlns.com/foaf/0.1/Person" />
-										<input id="de-search-input" class="subject-search" type="text" name="querytext" value="${querytext!}" />
-										<input id="de-search-submit" type="submit" action="${urls.base}/domainExpert?origin=homepage" value="GO" />
+										<input id="de-search-vclass" type="hidden" name="vclassId" value="http://purl.obolibrary.org/obo/BFO_0000002" />
+										<input id="de-search-input" class="home-search-input subject-search" type="text" name="querytext" value="${querytext!}" />
+										<input id="de-search-submit" class="home-page-submit" type="submit" action="${urls.base}/domainExpert?origin=homepage" value="GO"  onclick="javascript:_paq.push(['trackEvent', 'Search', 'Homepage', 'Find A Domain Expert']);" />
 										<div class="search-radio-container">
 											<input type="radio" name="querytype" value="subject" checked> by subject or keyword
 								   			<input id="by-name-radio" type="radio" name="querytype" value="name"> by name
@@ -54,55 +54,46 @@
 							</div>
 						</div>
 						<div id="res-search-link" class="col-sm-4 col-md-4 col-lg-4 search-links" >
-							<#-- a class="image-links" href="/scholars/research" -->
 								<div id="discover-scholarship" class="search-link-div">
 									<div class="discovery-details">
 										<span>
 											Explore<br/>Research & Scholarship
 										</span>
 									</div>
-									<div id="research-placeholder" class="discovery-details">
-										<span>&#8212 Coming Soon &#8212</span>
+									<div id="research-search" class="home-search-container">
+										<form id="res-search-form" action="${urls.base}/scholarship" name="search" role="search" accept-charset="UTF-8" method="POST"> 
+											<input id="res-search-vclass" type="hidden" name="vclassId" value="http://purl.obolibrary.org/obo/BFO_0000002" />
+											<input id="res-search-input" class="home-search-input" type="text" name="querytext" value="${querytext!}" />
+											<input id="res-search-submit" class="home-page-submit" type="submit" action="${urls.base}/domainExpert?origin=homepage" value="GO"  onclick="javascript:_paq.push(['trackEvent', 'Search', 'Homepage', 'Explore Research and Scholarship']);"/>
+												<input type="hidden" name="querytype" value="all" /> 
+										</form>
 									</div>
 								</div>
-								<div id="research-search" style="display:none">
-									<form id="res-search-form" action="${urls.base}/domainExpert" name="search" role="search" accept-charset="UTF-8" method="POST"> 
-										<input id="res-search-vclass" type="hidden" name="vclassId" value="http://xmlns.com/foaf/0.1/Person" />
-										<input id="res-search-input" class="subject-search" type="text" name="querytext" value="${querytext!}" />
-										<input id="res-search-submit" type="submit" action="${urls.base}/domainExpert?origin=homepage" value="GO" />
-										<div class="search-radio-container">
-											<input type="radio" name="querytype" value="subject" checked> by subject or keyword
-								   			<input id="by-name-radio" type="radio" name="querytype" value="name"> by title
-								  		</div>
-									</form>
-								</div>
-							<#-- /a -->
 						</div>
 						<div id="unit-search-link" class="col-sm-4 col-md-4 col-lg-4 search-links">
-							<#-- a class="image-links" href="/scholars/research#http://vivoweb.org/ontology/core#Grant" -->
 								<div id="ongoing-research" class="search-link-div">
+									<form id="unit-search-form" action="${urls.base}/academicUnits" name="search" role="search" accept-charset="UTF-8" method="POST"> 
+										<input id="unit-search-vclass" type="hidden" name="vclassId" value="http://xmlns.com/foaf/0.1/Organization" />
+										<input type="hidden" name="querytype" value="colleges" /> 
+									</form>
 									<div class="discovery-details">
-										<span>Review<br/>Academic Units</span>
-									</div>
-									<div id="unit-placeholder" class="discovery-details">
-										<span>&#8212 Coming Soon &#8212</span>
+										<a class="image-links" id="browse-units-link" href="javascript:" onclick="javascript:_paq.push(['trackEvent', 'Search', 'Homepage', 'Browse Academic Units']);"><span>Browse<br/>Academic Units</span></a>
 									</div>
 								</div>
-							<#-- /a -->
 						</div>
 					</div>
 				</div>
 				<div id="visualize-header" class="row fff-bkg">
-					<div class="col-sm-12 col-md-12 col-lg-12 e3e6e9-bkg">
+					<div class="col-sm-12 col-md-12 col-lg-12 home-divider">
 						<p class="home-header">
-							Visualizations
+							The Visualizations
 						</p>
 					</div>
 				</div>
 				<div class="container-fluid scholars-home-container">
 					<div id="visualize-content" class="row fff-bkg">
 						<div class="col-sm-3 col-md-3 col-lg-3"> 
-							<a id="person-to-sa" href="${urls.base}/orgSAVisualization">
+							<a id="person-to-sa" href="${urls.base}/orgSAVisualization" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Homepage', 'Research Interest']);">
 								<img id="vizIcon" width="190px" src="${urls.base}/themes/scholars/images/home-person-sa.png"/>
 							</a>
 							<div>
@@ -110,15 +101,15 @@
 							</div>
 						</div>
 						<div class="col-sm-3 col-md-3 col-lg-3">
-							<a href="${urls.base}/homeWordcloudVisualization">
+							<a href="${urls.base}/homeWordcloudVisualization" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Homepage', 'Keyword Clouds']);">
 								<img id="vizIcon" width="190px" src="${urls.base}/themes/scholars/images/wordcloud-icon.png"/>
 							</a>
 							<div>
-								<p>Research Keywords</p>
+								<p>Keyword Clouds</p>
 							</div>
 						</div>
 						<div class="col-sm-3 col-md-3 col-lg-3"> 
-							<a href="${urls.base}/homeWorldmapVisualization">
+							<a href="${urls.base}/homeWorldmapVisualization" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Homepage', 'Global Collaborations']);">
 								<img id="vizIcon" width="190px" src="${urls.base}/themes/scholars/images/home-worldmap.png"/>
 							</a>
 							<div>
@@ -126,11 +117,11 @@
 							</div>
 						</div>
 						<div class="col-sm-3 col-md-3 col-lg-3">
-							<a href="${urls.base}/grantsVisualization">
+							<a href="${urls.base}/grantsVisualization" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Homepage', 'Grants and Contracts']);">
 								<img id="vizIcon" width="190px" src="${urls.base}/themes/scholars/images/home-grants.png"/>
 							</a>
 							<div>
-								<p>Research Grants</p>
+								<p>Grants and Contracts</p>
 							</div>
 						</div>
 					</div>
@@ -138,47 +129,55 @@
 
 
 				<div id="partners-header" class="row fff-bkg">
-					<div class="col-sm-12 col-md-12 col-lg-12 e3e6e9-bkg">
-						<p class="home-header">
-							Partner Alliance
-						</p>
+					<div class="col-sm-12 col-md-12 col-lg-12 home-divider">
 					</div>
 				</div>
-				<div class="container-fluid scholars-home-container">
-					<div id="partners-row1" class="row fff-bkg" style="margin:30px 30px 30px 30px;">
-					<div class="col-sm-4 col-md-4 col-lg-4"> 
-					  <div id="eng-text" style="padding:0 0 10px;font-size:18px;">
-						<p><a id="eng-link" href="${urls.base}/display/org73341">College of Engineering</a></p>
-					  </div>
-						<a href="${urls.base}/display/org73341">
-							<div id="eng-image" style="margin-right:-40px"> 
-							</div>
+				
+				
+	<div class="container-fluid scholars-home-container">
+   		<div id="partners-row1" class="row fff-bkg">
+   			<div class="col-sm-4 col-md-4 col-lg-4" style="padding:0;">
+				<div id="partners-row1a" class="row fff-bkg" style="margin:0;padding:0;">
+					<div class="col-sm-12 col-md-12 col-lg-12" style="padding:0;margin:0;min-height: 45px;"></div>
+				</div>
+				<div id="partners-row1b" class="row fff-bkg" style="margin:0;padding:0;">
+   					<div class="col-sm-12 col-md-12 col-lg-12" style="text-align:center;vertical-align:middle;padding:0;margin:0"> 
+   						<p class="home-header">Our Partners</p>
+   						<p style="font-size:18px;margin:0">We're currently collaborating with these academic units to ensure the integrity of Scholars@Cornell data. <a href="${urls.base!}/contact">Become a partner.</a></p>
+   					</div>
+				</div>
+			</div>
+   			<div class="col-sm-8 col-md-8 col-lg-8" style="padding:0;">
+				<div id="partners-row1c" class="row fff-bkg" style="margin:0;padding:0;">
+					<div class="col-sm-2 col-md-2 col-lg-2" style="padding:0;"></div>
+	   				<div class="col-sm-6 col-md-6 col-lg-6" style="padding:0;z-index:1">
+	   					<a href="${urls.base}/display/org73341" onclick="javascript:_paq.push(['trackEvent', 'Scholars Affiliates', 'Homepage', 'Engineering']);">
+			   				<div id="eng-image"><img src="${urls.theme!}/images/eng-logo.png"></div>
+			   			</a>
+	   				</div>
+					<div class="col-sm-2 col-md-2 col-lg-2" style="padding:0;"></div>
+				</div>
+				<div id="partners-row1d" class="row fff-bkg" style="margin:40px 0 0;padding:0;">
+	   				<div class="col-sm-7 col-md-7 col-lg-7" style="padding:0;margin: 0;"></div>	
+	   				<div class="col-sm-5 col-md-5 col-lg-5" style="padding:0;margin:0;"> 
+	   					<a href="${urls.base}/display/org74741" onclick="javascript:_paq.push(['trackEvent', 'Scholars Affiliates', 'Homepage', 'Johnson School']);">
+							<div id="jgsm-image"><img src="${urls.theme!}/images/johnson-logo.png"></div>
 						</a>
-					</div>
-						<div id="jgsm-text" class="col-sm-3 col-md-3 col-lg-3" style="padding-top:40px;margin-left: 40px;"> 
-							<p><a id="jgsm-link" href="${urls.base}/display/org74741">Samuel Curtis Johnson<br/>School of Management</a></p>
-						</div>
-						<div class="col-sm-4 col-md-4 col-lg-4" style="padding-top:36px"> 
-							<a href="${urls.base}/display/org74741">
-								<div id="jgsm-image" style="margin-right:-40px"> 
-								</div>
-							</a>
-						</div>
-					</div>
+	   				</div>
 				</div>
-
-
-				<div id="download-header" class="row fff-bkg">
-					<div class="col-sm-12 col-md-12 col-lg-12 e3e6e9-bkg">
-						<p class="home-header">
-							By the Numbers
-						</p>
-					</div>
-				</div>
-				<div class="container-fluid scholars-home-container">
-					<@lh.downloadCounts />
-				</div>
-			</div> <!-- home-body div -->
+			</div>
+		</div>
+		<div id="partners-row2" class="row fff-bkg"> 
+	   		<div class="col-sm-5 col-md-5 col-lg-5" style="padding:0;margin: 0;"></div>
+	   		<div class="col-sm-3 col-md-3 col-lg-3" style="padding:0;margin: 0;"> 
+	   			<a id="bti-link" href="${urls.base}/display/org98030" onclick="javascript:_paq.push(['trackEvent', 'Scholars Affiliates', 'Homepage', 'BTI']);">
+					<div id="bti-image"><img src="${urls.theme!}/images/bti-logo.png"></div>
+				</a>
+	   		</div>
+	   	</div>
+   	</div>
+  </div> <!-- home-body div -->
+  	<@lh.downloadCounts />
 
 	        <#include "footer.ftl" />
 		</div> <!-- home -->
@@ -210,15 +209,15 @@
 		</script>
         <script type="application/ld+json">
         	{
-  				"@context": "http://schema.org",
-  				"@type": "WebSite",
-  				"name": "Scholars@Cornell",
-  				"alternateName": "Scholars at Cornell",
-  				"url": "https://scholars.cornell.edu/",
+				"@context": "http://schema.org",
+				"@type": "WebSite",
+				"name": "Scholars@Cornell",
+				"alternateName": "Scholars at Cornell",
+				"url": "https://scholars.cornell.edu/",
 				"description": "Scholars@Cornell is a data and visualization service developed at Cornell University Library with the goal of improving the visibility of Cornell research and enabling discovery of explicit and latent patterns of scholarly collaboration.",
-  				"sameAs" :[
-       				"https://twitter.com/ScholarsCornell"
-   				]
+				"sameAs" :[
+				"https://twitter.com/ScholarsCornell"
+				]
 			}
 		</script>
     </body>

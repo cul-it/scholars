@@ -95,10 +95,10 @@ var ScholarsVis = (function() {
             e && e.preventDefault();
             if (options.modal) {
                 debugIt("Vis:showModal");
-                fetch().then(parse).then(transform).then(positionModal).then(display).then(makeModal);
+                displayProgress().then(fetch).then(parse).then(transform).then(positionModal).then(hideProgress).then(display).then(makeModal);
             } else {
                 debugIt("Vis:show");
-                fetch().then(parse).then(transform).then(display).then(makeVisible);
+                displayProgress().then(fetch).then(parse).then(transform).then(hideProgress).then(display).then(makeVisible);
             }
         }
         
@@ -119,7 +119,19 @@ var ScholarsVis = (function() {
             fetch().then(parse).then(transform).then(exportData);
         }
         
-        function fetch(nextFunction) {
+        function displayProgress() {
+            return defer("displayingProgressIndicator", function() {
+                options.showProgress(options.target, options);
+            });
+        }
+        
+        function hideProgress() {
+            return defer("hidingProgressIndicator", function() {
+                options.hideProgress(options.target, options);
+            });
+        }
+        
+        function fetch() {
             if (typeof options.fetched === "undefined") {
                 debugIt("set up fetching");
                 return $.get(options.url).then(storeFetchedData);
@@ -243,11 +255,13 @@ var ScholarsVis = (function() {
             url: o.url, 
             target: getOneElement(o.target), 
             parser: figureParseFunction(o), 
-            transformer: getFunctionReference(o.transform, noopTransform), 
-            displayer: getFunctionReference(o.display, prettyPrintDisplay), 
-            closer: getFunctionReference(o.closer, noopCloser),
+            transformer: getFunctionReference("transform", noopTransform),
+            showProgress: getFunctionReference("showProgress", defaultShowProgress), 
+            hideProgress: getFunctionReference("hideProgress", defaultHideProgress), 
+            displayer: getFunctionReference("display", prettyPrintDisplay), 
+            closer: getFunctionReference("closer", noopCloser),
             modal: o.modal,
-            exporter: getFunctionReference(o.exporter, noopExporter)
+            exporter: getFunctionReference("exporter", noopExporter)
         });
         
         function getOneElement(selector) {
@@ -269,7 +283,8 @@ var ScholarsVis = (function() {
             }
         }
         
-        function getFunctionReference(provided, defaultFunction) {
+        function getFunctionReference(name, defaultFunction) {
+            var provided = o[name];
             if (!provided) {
                 return defaultFunction;
             } else if (typeof provided == 'function') {
@@ -283,8 +298,16 @@ var ScholarsVis = (function() {
                 }
             } else {
                 throw new Error(
-                "If provided, 'transform' must be a function name or a function reference.");
+                "If provided, 'options." + name + "' must be a function name or a function reference.");
             }
+        }
+        
+        function defaultShowProgress(target) {
+            $(target).find("#time-indicator").show();
+        }
+        
+        function defaultHideProgress(target) {
+            $(target).find("#time-indicator").hide();
         }
         
         function noopParser(data) {
@@ -341,7 +364,7 @@ var ScholarsVis = (function() {
         var exporter = $("<a href='#' id='exporter' class=\"pull-right\"></a>").append(exportIcon);
 
         var tooltip = $("<span></span>").addClass("glyphicon glyphicon-info-sign pull-right").tooltip(tipOptions);
-        var toolbar = $("<div class=\"visualization-toolbar\"></div>").append(heading, exporter, tooltip);
+        var toolbar = $("<div class=\"vis_toolbar\"></div>").append(heading, exporter, tooltip);
         $(targetSelector).prepend(toolbar);
         
         if (typeof headingText != "undefined") {
