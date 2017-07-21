@@ -16,6 +16,10 @@
 <#if individual.mostSpecificTypes?seq_contains("Academic Department") >
 	<#assign isAcademicDept = true />
 </#if>
+<#assign isCollege = false />
+<#if individual.mostSpecificTypes?seq_contains("College") >
+	<#assign isCollege = true />
+</#if>
 <#assign isCollegeOrSchool = false />
 <#if individual.mostSpecificTypes?seq_contains("College") || individual.mostSpecificTypes?seq_contains("School") || individual.mostSpecificTypes?seq_contains("Administrative Unit")>
 	<#assign isCollegeOrSchool = true />
@@ -413,55 +417,46 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></
   </div>
 	<script>
 	$().ready(function() {
-	  var showVizColumn = false;
 	
-	  var cucs = new ScholarsVis.CrossUnitCollaborationSunburst({
-	    department : '${individual.uri}',
-	    target : '#cross_unit_collab_vis',
-	    modal : true
-      });
-      cucs.examineData(function(data) {
-	    if (data && data.children && data.children.length > 0) {
-	  	  showVizColumn = true;
-	      $('#cross_unit_collab_icon_holder').show();
-	      $('#cross_unit_collab_trigger').click(cucs.show);
-	      $('#cross_unit_collab_exporter').click(cucs.showVisData);
-          new ScholarsVis.Toolbar("#cross_unit_collab_vis", "Cross-unit Co-authorships");
-	    }
-      });
+	<#if !isJohnsonOrHotelSchool >
+	
+	  	  $('#visualization-column').hide();
+	
+		  var cucs = new ScholarsVis.CrossUnitCollaborationSunburst({
+		    department : '${individual.uri}',
+		    target : '#cross_unit_collab_vis',
+		    modal : true
+	      });
+	      cucs.examineData(function(data) {
+		    if (data && data.children && data.children.length > 0) {
+			  $('#visualization-column').show();
+		      $('#cross_unit_collab_icon_holder').show();
+		      $('#cross_unit_collab_trigger').click(cucs.show);
+		      $('#cross_unit_collab_exporter').click(cucs.showVisData);
+	          new ScholarsVis.Toolbar("#cross_unit_collab_vis", "Cross-unit Co-authorships");
+		    }
+	      });
+	
+		  var idcs = new ScholarsVis.InterDepartmentCollaborationSunburst({
+		    department : '${individual.uri}',
+		    target : '#interd_collab_vis',
+		    modal : true
+	      });
+	      idcs.examineData(function(data) {
+		    if (data && data.children && data.children.length > 0) {
+			  $('#visualization-column').show();
+		      $('#interd_collab_icon_holder').show();
+		      $('#interd_collab_trigger').click(idcs.show);
+		      $('#interd_collab_exporter').click(idcs.showVisData);
+	          new ScholarsVis.Toolbar("#interd_collab_vis", "Interdepartmental Co-authorships");
+		    }
+	      });
 
-	  var idcs = new ScholarsVis.InterDepartmentCollaborationSunburst({
-	    department : '${individual.uri}',
-	    target : '#interd_collab_vis',
-	    modal : true
-      });
-      idcs.examineData(function(data) {
-	    if (data && data.children && data.children.length > 0) {
-	  	  showVizColumn = true;
-	      $('#interd_collab_icon_holder').show();
-	      $('#interd_collab_trigger').click(idcs.show);
-	      $('#interd_collab_exporter').click(idcs.showVisData);
-          new ScholarsVis.Toolbar("#interd_collab_vis", "Interdepartmental Co-authorships");
-	    }
-      });
-	// not all colleges or schools will have data for the collab visualizations,
-	// so we want to hide the vizColumn. But because getting the data for the 
-	// visualizations takes some time, we need to delay checking the boolean
-	// that determines whether the column gets displayed.
-	  setTimeout(isVizColumnNeeded, 300);
-	  function isVizColumnNeeded() {
-	  	if ( !showVizColumn ) {
-			$('#visualization-column').remove();
-			$('#foafOrgSpacer').remove();
-			$('#foafOrgTabs').removeClass("col-md-8");
-			$('#foafOrgTabs').addClass("col-md-12");
-		}	
-	  }
+	</#if>
 	
 	});
 	</script>
 </#if>
-</script>
 
 <div id="modal_grants_vis" class="vis_modal dept_grants_vis" style="display:none">
   <div id="info_icon_text" style="display:none"> 
@@ -527,8 +522,13 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></
 	// because getting the data for the visualizations takes some time,
 	// delay the display of the second row of the profile page 
 	setTimeout(showRowTwo, 400);
+	
 	function showRowTwo() {
 		$('.foaf-organization-row2').show();
+	
+		if ( $('#visualization-column').is(":hidden") ) {
+			$('#foafOrgTabs').addClass('scholars-container-full');
+		}
 	}
 
   });
