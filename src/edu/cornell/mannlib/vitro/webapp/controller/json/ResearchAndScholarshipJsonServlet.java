@@ -254,7 +254,7 @@ public class ResearchAndScholarshipJsonServlet extends VitroHttpServlet {
         SearchQuery query = ApplicationUtils.instance().getSearchEngine().createQuery();
         
 		String sortBy = (vreq.getParameter(PARAM_SORT_BY) == null) ? "relevance" : vreq.getParameter(PARAM_SORT_BY);
-		String queryString = KEYWORD_FIELD + ":\"" + queryText.toLowerCase() + "\" OR nameLowercase:\"" + queryText.toLowerCase() 
+		String queryString = KEYWORD_FIELD + ":\"" + queryText.toLowerCase() + "\" OR nameText:\"" + queryText.toLowerCase() 
 						+ "\" OR ALLTEXT:\"" + queryText.toLowerCase() + "\"";
 
 		query.setQuery(queryString);
