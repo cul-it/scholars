@@ -2,13 +2,11 @@
 
 <#include "menupage-checkForData.ftl">
 
-<div class="row"  style="background-color:#fff;">
-<div id="container" class="col-sm-12 col-md-12 col-lg-12" style="border: 1px solid #cdd4e7;border-top:5px solid #CC6949;">
+<div class="row fff-bkg">
+<div id="menupage-container" class="col-sm-12 col-md-12 col-lg-12 scholars-container">
 
 <#if !noData>
-    <section id="menupage-intro" role="region">
-        <h2 style="font-size:20px;color:rgb(95, 88, 88)">${page.title}</h2>
-    </section>
+        <h2 class="expertsResultsHeader">${page.title}</h2>
     
     <#include "menupage-browse.ftl">
     

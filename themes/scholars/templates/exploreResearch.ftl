@@ -108,7 +108,7 @@
 <#if (pubCount?string?replace(",","")?number == 0 || grantContractTotal?string?replace(",","")?number == 0) >
 	<#assign disableAll = true />
 </#if>
-  <div class="row fff-bkg" style="padding:12px 0 1px 0;margin:0;">
+  <div id="research-radios-results" class="row fff-bkg">
 	<div id="research-radio-container" class="col-md-4">
 		<input id="all-radio" class="research-radio" type="radio" name="querytype" value="all" <#if adjQueryType == "all">checked</#if> <#if disableAll> disabled</#if>>
 		<label for="all-radio"> All</label>
@@ -121,7 +121,7 @@
   	<div id="results-blurb" class="col-md-4">
 		${searchResults!}
   	</div>
-  	<div class="col-md-4" style="text-align:right;padding-right:40px">
+  	<div id="search-sort-by" class="col-md-4">
 		Sort by
 		<select id="sort-results">
 			<option value="relevance">relevance</option>
@@ -166,7 +166,7 @@
     <#if pubVenueFacet?has_content && adjQueryType == "pubs">
         <div id="pubvenue-facets" class="panel panel-default selection-list" >
                 <div class="panel-heading facet-panel-heading">Publication Venue</div>
-				<div style="max-height:320px;overflow:auto;">
+				<div class="inner-facets-container">
             	<#list pubVenueFacet?keys as key>
                 	<div class="panel-body scholars-facet">
 						<label>
@@ -180,7 +180,7 @@
     <#if administratorFacet?has_content && adjQueryType == "grants" >
         <div id="administrator-facets" class="panel panel-default selection-list" >
                 <div class="panel-heading facet-panel-heading">Administered by</div>
-				<div style="max-height:320px;overflow:auto;">
+				<div class="inner-facets-container">
             	<#list administratorFacet?keys as key>
                 	<div class="panel-body scholars-facet">
 						<label>
@@ -194,7 +194,7 @@
     <#if funderFacet?has_content && adjQueryType == "grants">
         <div id="funder-facets" class="panel panel-default selection-list" >
                 <div class="panel-heading facet-panel-heading">Funding Agency</div>
-				<div style="max-height:320px;overflow:auto;">
+				<div class="inner-facets-container">
             	<#list funderFacet?keys as key>
                 	<div class="panel-body scholars-facet">
 						<label>
@@ -212,20 +212,20 @@
 		</script>
         <div id="yearRange-facets" class="panel panel-default selection-list" >
                 <div class="panel-heading facet-panel-heading"><#if adjQueryType == "pubs">Publication<#else>Active</#if> Year</div>
-				<div style="max-height:320px;overflow:auto;">
+				<div class="inner-facets-container">
                 	<div class="panel-body scholars-facet">
 					  <#if adjQueryType == "grants">
-						<div id="reset-dates" style="width:100%;text-align:right;display:none">
+						<div id="reset-dates" class="search-date-reset">
 							<a id="reset-dates-link" href="javascript:return false;">Reset</a>
 						</div>
 					  </#if>
-						<div id="slider" style="margin: 50px 20px 10px;"></div>
+						<div id="slider" class="search-date-slider"></div>
 						<#if adjQueryType == "grants">
-							<div id="pips" style="padding:0 20px">
-								<div style="float:left">|</div><div style="float:right">|</div>
+							<div id="search-pips">
+								<div class="pull-left">|</div><div class="pull-right">|</div>
 							</div>
-							<div id="demarcation" style="clear: both;padding: 4px 6px 20px;">
-								<span id="date-start" data-date="${startYear?c!}" style="float:left">${startYear?c!}</span><span id="date-end" data-date="${endYear?c!}" style="float:right">${endYear?c!}</span>
+							<div id="demarcation">
+								<span id="date-start" data-date="${startYear?c!}" class="pull-left">${startYear?c!}</span><span id="date-end" data-date="${endYear?c!}" class="pull-right">${endYear?c!}</span>
 							</div>
 						</#if>
 					</div>

@@ -66,11 +66,11 @@
 </#if>
 </div>
 <#if individuals?? >
-  <div class="row fff-bkg" style="padding:0;margin:0;">
+  <div class="row fff-bkg visualization-row">
   	<div id="results-blurb" class="col-md-4 col-md-offset-4">
 		${searchResults!}
   	</div>
-  	<div class="col-md-4" style="text-align:right;padding-right:40px">
+  	<div id="search-sort-by" class="col-md-4">
 	  <#if querytype != "name">
 		Sort by
 		<select id="sort-results">
