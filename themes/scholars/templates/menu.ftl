@@ -4,7 +4,7 @@
 <#else>
 	<#assign bannerDisplay = "" />
 </#if>
-<div id="nav-bar" class="${navbarClass!}" role="navigation"  style="z-index:8">
+<div id="nav-bar" class="${navbarClass!}" role="navigation">
 	<div id="nav-bar-row" class="row">
 		<span style="margin-left:-30px;${bannerDisplay!}" id="beta-banner"><img src="${urls.base}/themes/scholars/images/banner.png"/ style="width:134px"></span>
 		<a id="nav-logo" href="${urls.home}" title="" style="${navbarLogoDisplay!}">
@@ -14,14 +14,14 @@
 			<ul>
 				<li class="nav-menu-option" role="listitem">
 				  <#if urls.currentPage?contains("about") >
-					<span class="menu-links" style="color:#CC6949">About<span>
+					<span class="menu-links menu-links-active" style="">About<span>
 				  <#else>
 					<a class="menu-links" href="${urls.about}" title="about" onclick="javascript:_paq.push(['trackEvent', 'General', 'Homepage', 'About']);">About</a>
 				  </#if>
 				</li>
 				<li class="nav-menu-option" role="listitem">
 				  <#if urls.currentPage?contains("tour") >
-					<span class="menu-links" style="color:#CC6949">Take the Tour<span>
+					<span class="menu-links menu-links-active">Take the Tour<span>
 				  <#else>
 					<a class="menu-links" href="${urls.base}/tour" title="take the tour" onclick="javascript:_paq.push(['trackEvent', 'General', 'Homepage', 'Take The Tour']);">Take the Tour</a>
 				  </#if>
@@ -39,12 +39,12 @@
 												Find a Domain Expert
 											</a>
 										</li>
-										<li style="letter-spacing:0">
+										<li>
 											<a class="discover-menu-link" href="${urls.base}/scholarship?querytype=new">
 												Explore Research & Scholarship
 											</a>
 										</li>
-										<li style="letter-spacing:0">
+										<li>
 											<a class="discover-menu-link" href="${urls.base}/academicUnits?vclassId=http://xmlns.com/foaf/0.1/Organization">
 												Browse Academic Units
 											</a>

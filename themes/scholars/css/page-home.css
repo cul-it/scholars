@@ -233,3 +233,22 @@ div#logo-container {
 	font-style: italic;
 	font-family: Verdana, Arial, Helvetica;
 }
+.nopadding-nomargin {
+	padding: 0;
+	margin: 0;
+}
+#partners-spacer {
+	min-height: 45px;
+}
+#partners-text {
+	font-size: 18px;
+	margin: 0;
+}
+#partners-container {
+	text-align: center;
+	vertical-align: middle;
+}
+#partners-row1d {
+	margin: 40px 0 0;
+	padding: 0;
+}

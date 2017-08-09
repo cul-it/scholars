@@ -1,7 +1,7 @@
 <div class="row scholars-row">
 <div class="col-sm-12 col-md-12 col-lg-12 scholars-container">
- <div id="position-facets" class="panel panel-default selection-list" style="float:right;margin-top:64px">
-   <div class="panel-heading facet-panel-heading" style="font-size:14px">Quick Links</div>
+ <div id="position-facets" class="panel panel-default selection-list quick-links">
+   <div class="panel-heading facet-panel-heading" id="quick-links-heading" >Quick Links</div>
   <div class="panel-body scholars-facet"><a href="./faq">Frequently Asked Questions</a></div>
   <div class="panel-body scholars-facet"><a href="./technology">Scholars: Under the Hood</a></div>
  </div>

@@ -306,7 +306,7 @@ $(document).ready(function(){
     <#if (builtFromCacheTime??) >
         <div class="cache-info-small">${i18n().using_cache_time} ${builtFromCacheTime?time} (${builtFromCacheTime?date?string("MMM dd yyyy")})</div>
     </#if>
-    <div style="clear:both;"></div>
+    <div class="clear-both"></div>
 
     <#if (numOfAuthors?? && numOfAuthors > 0) >
     <#else>
@@ -320,14 +320,14 @@ $(document).ready(function(){
     <#if (numOfCoAuthorShips?? && numOfCoAuthorShips > 0) || (numOfAuthors?? && numOfAuthors > 0) >
     
         <div id="bodyPannel">
-            <form id="vcardstoggle" method="get" style="float: right; display: none;margin:-40px 35px 0 0;">
-                <span for="vcards" style="font-size:15px">Include non-faculty co-authors <input type="checkbox" id="vcards" onclick="render_chord();"  checked /></span>
+            <form id="vcardstoggle" method="get">
+                <span for="vcards">Include non-faculty co-authors <input type="checkbox" id="vcards" onclick="render_chord();"  checked /></span>
             </form>
-            <div id="chord" style="margin-top:"></div>
+            <div id="chord"></div>
         </div>
     </#if>
 
-    <div style="clear:both"></div>
+    <div class="clear-both"></div>
         <div id="incomplete-data-small">Note: This information is based solely on publications that have been loaded into the Scholars@Cornell system. This may only be a small sample of the person's total work.<p></p><p></p>
             <#if user.loggedIn >
                 ${i18n().incomplete_data_note2}
@@ -336,7 +336,7 @@ $(document).ready(function(){
             </#if>
         </div>
         <p></p>
-    <div style="clear:both"></div>
+    <div class="clear-both"></div>
 
     <#if (numOfAuthors?? && numOfAuthors > 0) >
 
@@ -389,7 +389,7 @@ $(document).ready(function(){
             
             </#if>
             
-            <div style="clear:both"></div>
+            <div class="clear-both"></div>
         
         </div>
         
