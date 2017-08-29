@@ -33,6 +33,13 @@
     
     <owl:Class rdf:about="http://scholars.cornell.edu/ontology/vivoc.owl#Orcid"/>
 
+    <!-- http://scholars.cornell.edu/ontology/vivoc.owl#Affiliation -->
+
+    <owl:Class rdf:about="http://scholars.cornell.edu/ontology/vivoc.owl#Affiliation">
+        <rdfs:subClassOf rdf:resource="http://vivoweb.org/ontology/core#Relationship"/>
+        <rdfs:comment xml:lang="en">Affiliation class is used to model the relationship between a Person and an Organization where the person do not have a position (according to HR Feed) in this specific organization.</rdfs:comment>
+        <skos:example xml:lang="en">Faculty members that are associated with Boyce Thompson Institute (BTI) but do not have a position at BTI (according to HR Feed).</skos:example>
+    </owl:Class>
 
 
     <!-- 
@@ -218,6 +225,12 @@
     <!-- http://scholars.cornell.edu/ontology/vivoc.owl#ssrnId -->
 
     <owl:DatatypeProperty rdf:about="http://scholars.cornell.edu/ontology/vivoc.owl#ssrnId">
+        <rdfs:subPropertyOf rdf:resource="http://purl.org/ontology/bibo/identifier"/>
+    </owl:DatatypeProperty>
+
+    <!-- http://scholars.cornell.edu/ontology/vivoc.owl#scopusDocumentId -->
+
+    <owl:DatatypeProperty rdf:about="http://scholars.cornell.edu/ontology/vivoc.owl#scopusDocumentId">
         <rdfs:subPropertyOf rdf:resource="http://purl.org/ontology/bibo/identifier"/>
     </owl:DatatypeProperty>
 

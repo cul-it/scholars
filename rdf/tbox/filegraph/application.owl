@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+
+
+<!DOCTYPE rdf:RDF [
+    <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY skos "http://www.w3.org/2004/02/skos/core#" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+]>
+
+
+<rdf:RDF xmlns="http://scholars.cornell.edu/ontology/application.owl#"
+     xml:base="http://scholars.cornell.edu/ontology/application.owl"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+    <owl:Ontology rdf:about="http://scholars.cornell.edu/ontology/application.owl"/>
+    
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    <!-- http://scholars.cornell.edu/ontology/application.owl#isFavorite -->
+    
+    <owl:DatatypeProperty rdf:about="http://scholars.cornell.edu/ontology/application.owl#isFavorite">
+        <rdfs:label xml:lang="en">Is Favorite</rdfs:label>
+        <rdfs:comment xml:lang="en">This property is used to demonstrate if an entity is selected as favorite.</rdfs:comment>
+        <rdfs:range rdf:resource="&xsd;boolean"/>
+    </owl:DatatypeProperty>
+
+</rdf:RDF>
