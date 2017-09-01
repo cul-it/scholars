@@ -61,11 +61,33 @@
 		<@p.objectProperty adminsGrantProp editable />
 	</#assign>
 </#if>
+<#-- 
+	When logged in, "adminsGrantProp?has_content" returns true even though there are no grants. Same for
+	"awardsGrantProp?has_content". As a result adminsGrant and awardsGrant will have content that is only 
+	whitespace. This boolean is used to prevent an empty Grants tab from displaying.
+-->
+<#assign showGrantsTab = false />
+<#if awardsGrant?? || adminsGrant??>
+	<#if (awardsGrant?string?replace(" ","")?replace("\n","")?length > 0) || (adminsGrant?string?replace(" ","")?replace("\n","")?length > 0)>
+		<#assign showGrantsTab = true />
+	</#if>
+</#if>
 <#assign facultyProp = propertyGroups.pullProperty("http://scholars.cornell.edu/ontology/hr.owl#hasPosition", "${core}Position")!>
-<#if facultyProp?has_content && facultyProp.statements??> 
+<#if facultyProp?has_content > 
     <#assign facultyList>
 		<@p.objectProperty facultyProp editable />
 	</#assign>
+</#if>
+<#-- 
+	When logged in, "facultyProp?has_content" returns true even though there are no faculty members, and
+	as a result facultyList will have content that is only whitespace. This boolean is used to prevent
+	an empty People tab from displaying.
+-->
+<#assign showPeopleTab = false />
+<#if facultyList?? >
+	<#if (facultyList?string?replace(" ","")?replace("\n","")?length > 0) >
+		<#assign showPeopleTab = true />
+	</#if>
 </#if>
 <#assign affiliationProp = propertyGroups.pullProperty("${core}relatedBy", "http://scholars.cornell.edu/ontology/vivoc.owl#Affiliation")!>
 <#if affiliationProp?has_content && affiliationProp.statements??> 
@@ -158,7 +180,7 @@
 		<div id="scholars-tabs-container">
 		  <ul id="scholars-tabs">
 		    <#if facultyList?has_content ><li><a href="#tabs-1" onclick="javascript:_paq.push(['trackEvent', 'Tab', 'Department-School', 'People']);">People</a></li> </#if>
-		    <#if adminsGrant?has_content ><li><a href="#tabs-2" onclick="javascript:_paq.push(['trackEvent', 'Tab', 'Department-School', 'Grants']);">Grants</a></li></#if>
+		    <#if (adminsGrant?has_content || awardsGrant?has_content) && showGrantsTab ><li><a href="#tabs-2" onclick="javascript:_paq.push(['trackEvent', 'Tab', 'Department-School', 'Grants']);">Grants</a></li></#if>
 		  </ul>
 		  <#if facultyList?has_content>
 			  <div id="tabs-1" class="tab-content" data="${publicationsProp!}-dude">
@@ -169,7 +191,7 @@
 					</article>	
 			  </div>
 		  </#if>
-		  <#if adminsGrant?has_content || awardsGrant?has_content >
+		  <#if (adminsGrant?has_content || awardsGrant?has_content) && showGrantsTab >
 			  <div id="tabs-2"  class="tab-content">
 				<article class="property" role="article">
 			    <ul id="individual-grants-pi" class="property-list" role="list" >
@@ -193,12 +215,12 @@
 		</div>
 	  </#if>
 	</div>
-  <#elseif isCollegeOrSchool && (subOrgs?has_content || facultyList?has_content)>
+  <#elseif isCollegeOrSchool && (subOrgs?has_content || (facultyList?has_content) && showPeopleTab)>
 	<div id="foafOrgTabs" class="col-md-8 scholars-container <#if !showVisualizations>scholars-container-full</#if>">
 		<div id="scholars-tabs-container">
 		  <ul id="scholars-tabs">
 		    <#if subOrgs?has_content ><li><a href="#tabs-1">Academic Units</a></li></#if>
-		    <#if facultyList?has_content ><li><a href="#tabs-2">People</a></li> </#if>
+		    <#if facultyList?has_content && showPeopleTab ><li><a href="#tabs-2">People</a></li> </#if>
 		  </ul>
 			  <#if subOrgs?has_content >
 				  <div id="tabs-1"  class="tab-content" data="${publicationsProp!}-dude">
@@ -209,7 +231,7 @@
 					</article>	
 				  </div>
 			  </#if>
-			  <#if facultyList?has_content>
+			  <#if facultyList?has_content && showPeopleTab>
 				  <div id="tabs-2" class="tab-content" data="${publicationsProp!}-dude">
 					<article class="property" role="article">
 				    	<ul id="individual-faculty" class="property-list" role="list" >
@@ -559,3 +581,4 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></
   });
 
 </script>
+
