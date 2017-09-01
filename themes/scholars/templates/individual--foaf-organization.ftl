@@ -95,6 +95,16 @@
 		<@p.objectProperty affiliationProp editable />
 	</#assign>
 </#if>
+<#-- 
+	When logged in, "affiliationProp?has_content" returns true even though there are no affiliated people, 
+	and as a result facultyList will have content that is only whitespace. This boolean is used to prevent
+	an empty People tab from displaying.
+-->
+<#if affiliationList?? >	
+	<#if (affiliationList?string?replace(" ","")?replace("\n","")?length > 0) >
+		<#assign showPeopleTab = true />
+	</#if>
+</#if>
 <#if academicOfficers?has_content>
   <#assign academicOfficerList>
 		<#list academicOfficers as officer>
@@ -180,7 +190,7 @@
 		<div id="scholars-tabs-container">
 		  <ul id="scholars-tabs">
 		    <#if facultyList?has_content ><li><a href="#tabs-1" onclick="javascript:_paq.push(['trackEvent', 'Tab', 'Department-School', 'People']);">People</a></li> </#if>
-		    <#if (adminsGrant?has_content || awardsGrant?has_content) && showGrantsTab ><li><a href="#tabs-2" onclick="javascript:_paq.push(['trackEvent', 'Tab', 'Department-School', 'Grants']);">Grants</a></li></#if>
+		    <#if showGrantsTab ><li><a href="#tabs-2" onclick="javascript:_paq.push(['trackEvent', 'Tab', 'Department-School', 'Grants']);">Grants</a></li></#if>
 		  </ul>
 		  <#if facultyList?has_content>
 			  <div id="tabs-1" class="tab-content" data="${publicationsProp!}-dude">
@@ -191,7 +201,7 @@
 					</article>	
 			  </div>
 		  </#if>
-		  <#if (adminsGrant?has_content || awardsGrant?has_content) && showGrantsTab >
+		  <#if showGrantsTab >
 			  <div id="tabs-2"  class="tab-content">
 				<article class="property" role="article">
 			    <ul id="individual-grants-pi" class="property-list" role="list" >
@@ -220,7 +230,7 @@
 		<div id="scholars-tabs-container">
 		  <ul id="scholars-tabs">
 		    <#if subOrgs?has_content ><li><a href="#tabs-1">Academic Units</a></li></#if>
-		    <#if facultyList?has_content && showPeopleTab ><li><a href="#tabs-2">People</a></li> </#if>
+		    <#if showPeopleTab ><li><a href="#tabs-2">People</a></li> </#if>
 		  </ul>
 			  <#if subOrgs?has_content >
 				  <div id="tabs-1"  class="tab-content" data="${publicationsProp!}-dude">
@@ -231,7 +241,7 @@
 					</article>	
 				  </div>
 			  </#if>
-			  <#if facultyList?has_content && showPeopleTab>
+			  <#if showPeopleTab>
 				  <div id="tabs-2" class="tab-content" data="${publicationsProp!}-dude">
 					<article class="property" role="article">
 				    	<ul id="individual-faculty" class="property-list" role="list" >
@@ -242,7 +252,7 @@
 			  </#if>
 		</div>
 	</div>
-  <#elseif isInstitute && affiliationList?has_content>
+  <#elseif isInstitute && showPeopleTab>
 	<div id="foafOrgTabs" class="col-md-8 scholars-container <#if !showVisualizations>scholars-container-full</#if>">
 		<div id="scholars-tabs-container">
 		  <ul id="scholars-tabs">
@@ -250,9 +260,16 @@
 		  </ul>
 				  <div id="tabs-1" class="tab-content" data="${publicationsProp!}-dude">
 					<article class="property" role="article">
+					  <#if (affiliationList?string?replace(" ","")?replace("\n","")?length > 0 ) >
 				    	<ul id="individual-faculty" class="property-list" role="list" >
 			    			${affiliationList!}
 						</ul>
+					  </#if>
+					  <#if (facultyList?string?replace(" ","")?replace("\n","")?length > 0 ) >
+				    	<ul id="individual-faculty" class="property-list" role="list" >
+			    			${facultyList?replace(" position","")!}
+						</ul>
+					  </#if>
 					</article>	
 				  </div>
 		</div>
@@ -581,4 +598,3 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></
   });
 
 </script>
-
