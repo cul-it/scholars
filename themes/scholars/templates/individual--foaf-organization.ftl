@@ -28,6 +28,10 @@
 <#if individual.name?contains(" Johnson Graduate School") || individual.name?contains("Hotel Administration")>
 	<#assign isJohnsonOrHotelSchool = true />
 </#if>
+<#assign isInstitute = false />
+<#if individual.mostSpecificTypes?seq_contains("Institute")>
+	<#assign isInstitute = true />
+</#if>
 <#assign showVisualizations = false>
 <#if individual.mostSpecificTypes?seq_contains("College") || individual.mostSpecificTypes?seq_contains("School") || individual.mostSpecificTypes?seq_contains("Academic Department")>
 	<#assign showVisualizations = true />
@@ -58,9 +62,15 @@
 	</#assign>
 </#if>
 <#assign facultyProp = propertyGroups.pullProperty("http://scholars.cornell.edu/ontology/hr.owl#hasPosition", "${core}Position")!>
-<#if facultyProp?has_content> 
+<#if facultyProp?has_content && facultyProp.statements??> 
     <#assign facultyList>
 		<@p.objectProperty facultyProp editable />
+	</#assign>
+</#if>
+<#assign affiliationProp = propertyGroups.pullProperty("${core}relatedBy", "http://scholars.cornell.edu/ontology/vivoc.owl#Affiliation")!>
+<#if affiliationProp?has_content && affiliationProp.statements??> 
+    <#assign affiliationList>
+		<@p.objectProperty affiliationProp editable />
 	</#assign>
 </#if>
 <#if academicOfficers?has_content>
@@ -142,7 +152,7 @@
 </#assign>
 
 <#assign facultyDeptListColumn >
-  <#if !isCollegeOrSchool && (facultyList?has_content || adminsGrant?has_content)>
+  <#if (!isCollegeOrSchool && !isInstitute) && (facultyList?has_content || adminsGrant?has_content)>
 	<div id="foafOrgTabs" class="col-md-8 scholars-container <#if !showVisualizations>scholars-container-full</#if>">
 	  <#if facultyList?has_content || adminsGrant?has_content >
 		<div id="scholars-tabs-container">
@@ -150,13 +160,13 @@
 		    <#if facultyList?has_content ><li><a href="#tabs-1" onclick="javascript:_paq.push(['trackEvent', 'Tab', 'Department-School', 'People']);">People</a></li> </#if>
 		    <#if adminsGrant?has_content ><li><a href="#tabs-2" onclick="javascript:_paq.push(['trackEvent', 'Tab', 'Department-School', 'Grants']);">Grants</a></li></#if>
 		  </ul>
-		  <#if facultyList?has_content >
+		  <#if facultyList?has_content>
 			  <div id="tabs-1" class="tab-content" data="${publicationsProp!}-dude">
-				<article class="property" role="article">
-			    <ul id="individual-faculty" class="property-list" role="list" >
-			    	${facultyList?replace(" position","")!}
-				</ul>
-				</article>	
+					<article class="property" role="article">
+			    		<ul id="individual-faculty" class="property-list" role="list" >
+			    			${facultyList?replace(" position","")!}
+						</ul>
+					</article>	
 			  </div>
 		  </#if>
 		  <#if adminsGrant?has_content || awardsGrant?has_content >
@@ -188,7 +198,7 @@
 		<div id="scholars-tabs-container">
 		  <ul id="scholars-tabs">
 		    <#if subOrgs?has_content ><li><a href="#tabs-1">Academic Units</a></li></#if>
-		    <#if facultyList?has_content ><li><a href="#tabs-1">People</a></li> </#if>
+		    <#if facultyList?has_content ><li><a href="#tabs-2">People</a></li> </#if>
 		  </ul>
 			  <#if subOrgs?has_content >
 				  <div id="tabs-1"  class="tab-content" data="${publicationsProp!}-dude">
@@ -199,15 +209,30 @@
 					</article>	
 				  </div>
 			  </#if>
-			  <#if facultyList?has_content && !subOrgs?has_content>
-				  <div id="tabs-1" class="tab-content" data="${publicationsProp!}-dude">
+			  <#if facultyList?has_content>
+				  <div id="tabs-2" class="tab-content" data="${publicationsProp!}-dude">
 					<article class="property" role="article">
-				    <ul id="individual-faculty" class="property-list" role="list" >
-				    	${facultyList?replace(" position","")!}
-					</ul>
+				    	<ul id="individual-faculty" class="property-list" role="list" >
+			    			${facultyList?replace(" position","")!}
+						</ul>
 					</article>	
 				  </div>
 			  </#if>
+		</div>
+	</div>
+  <#elseif isInstitute && affiliationList?has_content>
+	<div id="foafOrgTabs" class="col-md-8 scholars-container <#if !showVisualizations>scholars-container-full</#if>">
+		<div id="scholars-tabs-container">
+		  <ul id="scholars-tabs">
+		    <li><a href="#tabs-1">People</a></li>
+		  </ul>
+				  <div id="tabs-1" class="tab-content" data="${publicationsProp!}-dude">
+					<article class="property" role="article">
+				    	<ul id="individual-faculty" class="property-list" role="list" >
+			    			${affiliationList!}
+						</ul>
+					</article>	
+				  </div>
 		</div>
 	</div>
   <#else>
