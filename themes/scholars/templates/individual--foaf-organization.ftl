@@ -67,8 +67,8 @@
 	whitespace. This boolean is used to prevent an empty Grants tab from displaying.
 -->
 <#assign showGrantsTab = false />
-<#if awardsGrant?? || adminsGrant??>
-	<#if (awardsGrant?string?replace(" ","")?replace("\n","")?length > 0) || (adminsGrant?string?replace(" ","")?replace("\n","")?length > 0)>
+<#if awardsGrant?has_content || adminsGrant?has_content>
+	<#if (awardsGrant?has_content && (awardsGrant?string?replace(" ","")?replace("\n","")?length > 0)) || (adminsGrant?has_content  && (adminsGrant?string?replace(" ","")?replace("\n","")?length > 0))>
 		<#assign showGrantsTab = true />
 	</#if>
 </#if>
@@ -84,7 +84,7 @@
 	an empty People tab from displaying.
 -->
 <#assign showPeopleTab = false />
-<#if facultyList?? >
+<#if facultyList?has_content >
 	<#if (facultyList?string?replace(" ","")?replace("\n","")?length > 0) >
 		<#assign showPeopleTab = true />
 	</#if>
@@ -100,7 +100,7 @@
 	and as a result facultyList will have content that is only whitespace. This boolean is used to prevent
 	an empty People tab from displaying.
 -->
-<#if affiliationList?? >	
+<#if affiliationList?has_content >	
 	<#if (affiliationList?string?replace(" ","")?replace("\n","")?length > 0) >
 		<#assign showPeopleTab = true />
 	</#if>
@@ -252,26 +252,50 @@
 			  </#if>
 		</div>
 	</div>
-  <#elseif isInstitute && showPeopleTab>
+  <#elseif isInstitute && (showPeopleTab || showGrantsTab)>
 	<div id="foafOrgTabs" class="col-md-8 scholars-container <#if !showVisualizations>scholars-container-full</#if>">
 		<div id="scholars-tabs-container">
 		  <ul id="scholars-tabs">
-		    <li><a href="#tabs-1">People</a></li>
+		    <#if showPeopleTab ><li><a href="#tabs-1" onclick="javascript:_paq.push(['trackEvent', 'Tab', 'Department-School', 'People']);">People</a></li> </#if>
+		    <#if showGrantsTab ><li><a href="#tabs-2" onclick="javascript:_paq.push(['trackEvent', 'Tab', 'Department-School', 'Grants']);">Grants</a></li></#if>
 		  </ul>
+			  <#if showPeopleTab >
 				  <div id="tabs-1" class="tab-content" data="${publicationsProp!}-dude">
 					<article class="property" role="article">
-					  <#if (affiliationList?string?replace(" ","")?replace("\n","")?length > 0 ) >
+					  <#if affiliationList?has_content && (affiliationList?string?replace(" ","")?replace("\n","")?length > 0 ) >
 				    	<ul id="individual-faculty" class="property-list" role="list" >
 			    			${affiliationList!}
 						</ul>
 					  </#if>
-					  <#if (facultyList?string?replace(" ","")?replace("\n","")?length > 0 ) >
+					  <#if facultyList?has_content && (facultyList?string?replace(" ","")?replace("\n","")?length > 0 ) >
 				    	<ul id="individual-faculty" class="property-list" role="list" >
 			    			${facultyList?replace(" position","")!}
 						</ul>
 					  </#if>
 					</article>	
 				  </div>
+			  </#if>
+   			  <#if showGrantsTab >
+   				  <div id="tabs-2"  class="tab-content">
+   					<article class="property" role="article">
+   				    <ul id="individual-grants-pi" class="property-list" role="list" >
+   						<li class="subclass" role="listitem">
+   						  <#if adminsGrant?has_content >
+   							<h3>Administers Grant</h3>
+   						    <ul class="subclass-property-list">
+   				    			${adminsGrant!}
+   							</ul>
+   						  </#if>
+   						  <#if awardsGrant?has_content >
+   							<h3>Awards Grant</h3>
+   						    <ul class="subclass-property-list">
+   				    			${awardsGrant!}
+   							</ul>
+   						  </#if>
+   						</li>
+   					</ul>
+   				  </div>
+   			  </#if>
 		</div>
 	</div>
   <#else>
