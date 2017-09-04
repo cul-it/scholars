@@ -28,6 +28,10 @@
 <#if individual.name?contains(" Johnson Graduate School") || individual.name?contains("Hotel Administration")>
 	<#assign isJohnsonOrHotelSchool = true />
 </#if>
+<#assign isInstitute = false />
+<#if individual.mostSpecificTypes?seq_contains("Institute")>
+	<#assign isInstitute = true />
+</#if>
 <#assign showVisualizations = false>
 <#if individual.mostSpecificTypes?seq_contains("College") || individual.mostSpecificTypes?seq_contains("School") || individual.mostSpecificTypes?seq_contains("Academic Department")>
 	<#assign showVisualizations = true />
@@ -57,11 +61,49 @@
 		<@p.objectProperty adminsGrantProp editable />
 	</#assign>
 </#if>
+<#-- 
+	When logged in, "adminsGrantProp?has_content" returns true even though there are no grants. Same for
+	"awardsGrantProp?has_content". As a result adminsGrant and awardsGrant will have content that is only 
+	whitespace. This boolean is used to prevent an empty Grants tab from displaying.
+-->
+<#assign showGrantsTab = false />
+<#if awardsGrant?has_content || adminsGrant?has_content>
+	<#if (awardsGrant?has_content && (awardsGrant?string?replace(" ","")?replace("\n","")?length > 0)) || (adminsGrant?has_content  && (adminsGrant?string?replace(" ","")?replace("\n","")?length > 0))>
+		<#assign showGrantsTab = true />
+	</#if>
+</#if>
 <#assign facultyProp = propertyGroups.pullProperty("http://scholars.cornell.edu/ontology/hr.owl#hasPosition", "${core}Position")!>
-<#if facultyProp?has_content> 
+<#if facultyProp?has_content > 
     <#assign facultyList>
 		<@p.objectProperty facultyProp editable />
 	</#assign>
+</#if>
+<#-- 
+	When logged in, "facultyProp?has_content" returns true even though there are no faculty members, and
+	as a result facultyList will have content that is only whitespace. This boolean is used to prevent
+	an empty People tab from displaying.
+-->
+<#assign showPeopleTab = false />
+<#if facultyList?has_content >
+	<#if (facultyList?string?replace(" ","")?replace("\n","")?length > 0) >
+		<#assign showPeopleTab = true />
+	</#if>
+</#if>
+<#assign affiliationProp = propertyGroups.pullProperty("${core}relatedBy", "http://scholars.cornell.edu/ontology/vivoc.owl#Affiliation")!>
+<#if affiliationProp?has_content && affiliationProp.statements??> 
+    <#assign affiliationList>
+		<@p.objectProperty affiliationProp editable />
+	</#assign>
+</#if>
+<#-- 
+	When logged in, "affiliationProp?has_content" returns true even though there are no affiliated people, 
+	and as a result facultyList will have content that is only whitespace. This boolean is used to prevent
+	an empty People tab from displaying.
+-->
+<#if affiliationList?has_content >	
+	<#if (affiliationList?string?replace(" ","")?replace("\n","")?length > 0) >
+		<#assign showPeopleTab = true />
+	</#if>
 </#if>
 <#if academicOfficers?has_content>
   <#assign academicOfficerList>
@@ -142,24 +184,24 @@
 </#assign>
 
 <#assign facultyDeptListColumn >
-  <#if !isCollegeOrSchool && (facultyList?has_content || adminsGrant?has_content)>
+  <#if (!isCollegeOrSchool && !isInstitute) && (facultyList?has_content || adminsGrant?has_content)>
 	<div id="foafOrgTabs" class="col-md-8 scholars-container <#if !showVisualizations>scholars-container-full</#if>">
 	  <#if facultyList?has_content || adminsGrant?has_content >
 		<div id="scholars-tabs-container">
 		  <ul id="scholars-tabs">
 		    <#if facultyList?has_content ><li><a href="#tabs-1" onclick="javascript:_paq.push(['trackEvent', 'Tab', 'Department-School', 'People']);">People</a></li> </#if>
-		    <#if adminsGrant?has_content ><li><a href="#tabs-2" onclick="javascript:_paq.push(['trackEvent', 'Tab', 'Department-School', 'Grants']);">Grants</a></li></#if>
+		    <#if showGrantsTab ><li><a href="#tabs-2" onclick="javascript:_paq.push(['trackEvent', 'Tab', 'Department-School', 'Grants']);">Grants</a></li></#if>
 		  </ul>
-		  <#if facultyList?has_content >
+		  <#if facultyList?has_content>
 			  <div id="tabs-1" class="tab-content" data="${publicationsProp!}-dude">
-				<article class="property" role="article">
-			    <ul id="individual-faculty" class="property-list" role="list" >
-			    	${facultyList?replace(" position","")!}
-				</ul>
-				</article>	
+					<article class="property" role="article">
+			    		<ul id="individual-faculty" class="property-list" role="list" >
+			    			${facultyList?replace(" position","")!}
+						</ul>
+					</article>	
 			  </div>
 		  </#if>
-		  <#if adminsGrant?has_content || awardsGrant?has_content >
+		  <#if showGrantsTab >
 			  <div id="tabs-2"  class="tab-content">
 				<article class="property" role="article">
 			    <ul id="individual-grants-pi" class="property-list" role="list" >
@@ -183,12 +225,12 @@
 		</div>
 	  </#if>
 	</div>
-  <#elseif isCollegeOrSchool && (subOrgs?has_content || facultyList?has_content)>
+  <#elseif isCollegeOrSchool && (subOrgs?has_content || (facultyList?has_content) && showPeopleTab)>
 	<div id="foafOrgTabs" class="col-md-8 scholars-container <#if !showVisualizations>scholars-container-full</#if>">
 		<div id="scholars-tabs-container">
 		  <ul id="scholars-tabs">
 		    <#if subOrgs?has_content ><li><a href="#tabs-1">Academic Units</a></li></#if>
-		    <#if facultyList?has_content ><li><a href="#tabs-1">People</a></li> </#if>
+		    <#if showPeopleTab ><li><a href="#tabs-2">People</a></li> </#if>
 		  </ul>
 			  <#if subOrgs?has_content >
 				  <div id="tabs-1"  class="tab-content" data="${publicationsProp!}-dude">
@@ -199,15 +241,61 @@
 					</article>	
 				  </div>
 			  </#if>
-			  <#if facultyList?has_content && !subOrgs?has_content>
-				  <div id="tabs-1" class="tab-content" data="${publicationsProp!}-dude">
+			  <#if showPeopleTab>
+				  <div id="tabs-2" class="tab-content" data="${publicationsProp!}-dude">
 					<article class="property" role="article">
-				    <ul id="individual-faculty" class="property-list" role="list" >
-				    	${facultyList?replace(" position","")!}
-					</ul>
+				    	<ul id="individual-faculty" class="property-list" role="list" >
+			    			${facultyList?replace(" position","")!}
+						</ul>
 					</article>	
 				  </div>
 			  </#if>
+		</div>
+	</div>
+  <#elseif isInstitute && (showPeopleTab || showGrantsTab)>
+	<div id="foafOrgTabs" class="col-md-8 scholars-container <#if !showVisualizations>scholars-container-full</#if>">
+		<div id="scholars-tabs-container">
+		  <ul id="scholars-tabs">
+		    <#if showPeopleTab ><li><a href="#tabs-1" onclick="javascript:_paq.push(['trackEvent', 'Tab', 'Department-School', 'People']);">People</a></li> </#if>
+		    <#if showGrantsTab ><li><a href="#tabs-2" onclick="javascript:_paq.push(['trackEvent', 'Tab', 'Department-School', 'Grants']);">Grants</a></li></#if>
+		  </ul>
+			  <#if showPeopleTab >
+				  <div id="tabs-1" class="tab-content" data="${publicationsProp!}-dude">
+					<article class="property" role="article">
+					  <#if affiliationList?has_content && (affiliationList?string?replace(" ","")?replace("\n","")?length > 0 ) >
+				    	<ul id="individual-faculty" class="property-list" role="list" >
+			    			${affiliationList!}
+						</ul>
+					  </#if>
+					  <#if facultyList?has_content && (facultyList?string?replace(" ","")?replace("\n","")?length > 0 ) >
+				    	<ul id="individual-faculty" class="property-list" role="list" >
+			    			${facultyList?replace(" position","")!}
+						</ul>
+					  </#if>
+					</article>	
+				  </div>
+			  </#if>
+   			  <#if showGrantsTab >
+   				  <div id="tabs-2"  class="tab-content">
+   					<article class="property" role="article">
+   				    <ul id="individual-grants-pi" class="property-list" role="list" >
+   						<li class="subclass" role="listitem">
+   						  <#if adminsGrant?has_content >
+   							<h3>Administers Grant</h3>
+   						    <ul class="subclass-property-list">
+   				    			${adminsGrant!}
+   							</ul>
+   						  </#if>
+   						  <#if awardsGrant?has_content >
+   							<h3>Awards Grant</h3>
+   						    <ul class="subclass-property-list">
+   				    			${awardsGrant!}
+   							</ul>
+   						  </#if>
+   						</li>
+   					</ul>
+   				  </div>
+   			  </#if>
 		</div>
 	</div>
   <#else>
