@@ -2681,6 +2681,14 @@ nav#alpha-browse-container {
 	z-index: 3;
 }
 
+#info_icon_text {
+    display: none;
+}
+
+div[data-view-id] {
+    display: none;
+}
+
 .word_cloud_vis {
 	height:90%;
 }

@@ -309,30 +309,52 @@ $().ready(function() {
 </script>
 
 ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/keywordcloud/kwcloud.css" />')}
-<div id="word_cloud_vis" class="vis_modal" style="display:none;">
-	<font size="2">
-	<span><i>Click on a keyword to view the list of the relevant faculty.</i></span>
-<#--	
-<label class="boxLabel"><input id="keyword" type="checkbox" class="cbox" checked>Article Keywords<span id="kw">(0)</span></label>
-<label class="boxLabel"><input id="mined" type="checkbox" class="cbox" checked>Inferred Keywords<span id="minedt">(0)</span></label>
-<label class="boxLabel"><input id="mesh" type="checkbox" class="cbox" checked>Mesh Terms<span id="mt">(0)</span></label> 
--->
-</font>
 
-        <div id="info_icon_text" style="display:none">
-        	<p>
-        		This visualization displays the research keywords for the entire academic unit, and is an aggregation of the keywords found in all the articles authored by all faculty and researchers of an academic unit. The size of the keyword indicates the frequency with which the keyword appears in the author's publications, indicating which subjects the author published on most (or least) frequently. 
-        	</p>
-        	<p>
-        		To interact with the visualization, click on any keyword to see the list of authors that have this keyword associated with one of more of their articles. One can click on the author's name in the list to go to the author's page, which contains the full list of author's publications in Scholars.
-         	</p>
-          	<hr> 
-          	<p>
-            	Note: This information is based solely on publications that have been loaded into the system.
-          	</p> 
-        </div>
+<div id="word_cloud_vis" class="vis_modal" style="display:none;" data-label="Research Keywords">
+  <div class="vis_toolbar">
+    <span class="heading">Research Keywords</span>
+    <select id="vis_toolbar_select" class="pull-right"></select>
+  </div>
+  
+  <div id="info_icon_text">
+    <p>
+      This visualization displays the research keywords for the entire academic unit, 
+      and is an aggregation of the keywords found in all the articles authored by all 
+      faculty and researchers of an academic unit. The size of the keyword indicates the 
+      frequency with which the keyword appears in the author's publications, indicating which 
+      subjects the author published on most (or least) frequently. 
+    </p>
+    <p>
+      To interact with the visualization, click on any keyword to see the list of 
+      authors that have this keyword associated with one of more of their articles. 
+      One can click on the author's name in the list to go to the author's page, 
+      which contains the full list of author's publications in Scholars.
+    </p>
+    <hr> 
+    <p>
+      Note: This information is based solely on publications that have been loaded into the system.
+    </p> 
+  </div>
+  
+  <div data-view-id="vis" data-view-label="Visualization" style="height: 90%; ">
+    <span data-export-id="json">Export as JSON</span>
+    <font size="2">
+      <span><i>Click on a keyword to view the list of the relevant faculty.</i></span>
+      <#--	
+      <label class="boxLabel"><input id="keyword" type="checkbox" class="cbox" checked>Article Keywords<span id="kw">(0)</span></label>
+      <label class="boxLabel"><input id="mined" type="checkbox" class="cbox" checked>Inferred Keywords<span id="minedt">(0)</span></label>
+      <label class="boxLabel"><input id="mesh" type="checkbox" class="cbox" checked>Mesh Terms<span id="mt">(0)</span></label> 
+      -->
+    </font>
+  </div>
+
+  <div data-view-id="table" data-view-label="Table by Keywords">
+    <span data-export-id="json">Export as JSON</span>
+    <span data-export-id="cvs">Export as CVS</span>
+    <h1> Table by Keyword </h1>
+  </div>
+
 </div>
-
 
 ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/individual/individual-vivo.css?vers=1.5.1" />',
 					'<link rel="stylesheet" href="${urls.base}/css/individual/individual.css" />')}
@@ -371,6 +393,9 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></
             '<script type="text/javascript" src="${urls.base}/js/scholars-vis/d3/d3.layout.cloud.js"></script>',
               '<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>',
 			  '<script type="text/javascript" src="${urls.base}/js/scholars-vis/wordcloud/word-cloud.js"></script>')}
+
+${scripts.add('<script type="text/javascript" src="${urls.base}/js/scholars-vis/scholars-vis-2.js"></script>',
+			  '<script type="text/javascript" src="${urls.base}/js/scholars-vis/wordcloud/word-cloud-2.js"></script>')}
 
 <#if isCollegeOrSchool >
   <div id="interd_collab_vis" class="vis_modal dept_collab_vis" style="display:none">
@@ -485,7 +510,7 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></
 <script>
   $().ready(function() {
     if ($('#word_cloud_icon_holder')) {
-      var wc = new ScholarsVis.DepartmentWordCloud({
+      var wc = new ScholarsVis2.DepartmentWordCloud({
         target : '#word_cloud_vis',
         modal : true,
         department : "${individual.uri?url}",
@@ -495,10 +520,8 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></
         if (data.length > 0) {
           $('#word_cloud_icon_holder').show();
           $('#word_cloud_trigger').click(wc.show);
-          $('#word_cloud_exporter').click(wc.showVisData);
         }
       });
-      new ScholarsVis.Toolbar("#word_cloud_vis", "Research Keywords");
     }
 
     if ($('#grants_icon_holder')) {
