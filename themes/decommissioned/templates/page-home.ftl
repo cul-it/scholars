@@ -17,7 +17,7 @@
         <section id="intro" role="region" style="width:80%;margin:20px 0 0 70px;">
         	<h2 style="margin-bottom:20px">VIVO has been decommissioned.</h2>
         	<div style="padding-left: 40px">
-        		<p>Cornell University Library is no longer maintaining the VIVO web site. The site will remain live through the end of 2017, but no software updates or data ingests will take place. During this time, read-only versions of faculty and staff profile pages will still be accessible via their URLs.</p>
+        		<p>Cornell University Library is no longer maintaining the VIVO web site. Although the site will remain live, no software updates or data ingests will take place. During this time, read-only versions of faculty and staff profile pages will still be accessible via their URLs.</p>
         		<p style="background-color: #d9edf7;border: 1px solid #bcdff1;border-radius: 4px;padding: 12px 0 12px 12px;color: #31708f;margin-left: 24px;margin-right: 36px;">A new site, <a href="http://scholars.cornell.edu"><b>Scholars@Cornell</b></a> is now available. Scholars@Cornell is an interactive knowledge network that provides visualizations for exploring the scholarly record of faculty members, researchers, and departments at Cornell University.</p>
 				<p style="padding-bottom:90px">If you have questions about either the VIVO site or Scholars@Cornell, please <a href="${urls.contact!}">contact us</a>.
         	</div>
