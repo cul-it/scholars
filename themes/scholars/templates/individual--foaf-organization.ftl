@@ -521,7 +521,7 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></
 		      $('#cross_unit_collab_icon_holder').show();
 		      $('#cross_unit_collab_trigger').click(cucs.show);
 		      $('#cross_unit_collab_exporter').click(cucs.showVisData);
-	          new ScholarsVis.Toolbar("#cross_unit_collab_vis", "Cross-unit Co-authorships");
+	          new ScholarsVis.Toolbar("#cross_unit_collab_vis", "Cross-unit Co-authorships (Faculty only)");
 		    }
 	      });
 	
@@ -536,7 +536,7 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></
 		      $('#interd_collab_icon_holder').show();
 		      $('#interd_collab_trigger').click(idcs.show);
 		      $('#interd_collab_exporter').click(idcs.showVisData);
-	          new ScholarsVis.Toolbar("#interd_collab_vis", "Interdepartmental Co-authorships");
+	          new ScholarsVis.Toolbar("#interd_collab_vis", "Interdepartmental Co-authorships (Faculty only)");
 		    }
 	      });
 
