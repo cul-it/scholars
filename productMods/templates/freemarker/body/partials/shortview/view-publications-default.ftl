@@ -70,7 +70,7 @@
 	    </#if>
 <li class="individual" role="listitem" role="navigation">
     <div class="row fff-bkg" style="margin:0;padding:0;">
-		<div class="col-md-1" style="padding-left:0;font-size: 20px;margin-top: 3px;"><i class="fa fa-book" aria-hidden="true"></i>
+		<div class="col-md-1" style="padding-left:0;font-size: 20px;margin-top: 3px;"><img height="24px" src="${urls.theme}/images/pubs-icon.png"></i>
 		</div>
 		<div class="col-md-<#if !altmetric?has_content>11<#else>9</#if>" style="padding:0">
 	    	<h1 class="thumb" style="font-size:16px;margin-top:6px;line-height:1.25em">
