@@ -436,28 +436,27 @@ ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/ke
     </font>
   </div>
 
-<div data-view-id="table" data-view-label="Table by Keywords" style="height: 800px; ">
-  <h1> Table by Keyword </h1>
-    <div>
-    <button data-export-id="json">Export as JSON</button>
-    <button data-export-id="csv">Export as CSV</button>
+  <div data-view-id="table" data-view-label="Table by Keywords" style="height: 800px; ">
+    <h1> Table by Keyword </h1>
+      <div>
+      <button data-export-id="json">Export as JSON</button>
+      <button data-export-id="csv">Export as CSV</button>
+    </div>
+    <table class="scholars-vis-table" style="height: 700px; width: 800px; overflow: scroll; margin: 20 px; display: block; ">
+      <thead ">
+        <tr>
+          <th data-sort="string-ins">Keyword</th>
+          <th data-sort="string-ins">Faculty Member</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Template row</td>
+          <td style="background-color: #eeeeee;">Template row</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
-  <table class="scholars-vis-table" style="height: 700px; width: 800px; overflow: scroll; margin: 20 px; display: block; ">
-    <thead ">
-      <tr>
-        <th data-sort="string-ins">Keyword</th>
-        <th data-sort="string-ins">Faculty Member</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Template row</td>
-        <td style="background-color: grey">Template row</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-
 </div>
 
 ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/individual/individual-vivo.css?vers=1.5.1" />',
