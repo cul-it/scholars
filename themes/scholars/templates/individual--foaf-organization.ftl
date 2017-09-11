@@ -424,28 +424,6 @@ ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/ke
     </p> 
   </div>
   
-	<div data-view-id="table" data-view-label="Table by Keywords" style="height: 800px; ">
-		<h1> Table by Keyword </h1>
-	    <div>
-			<button data-export-id="json">Export as JSON</button>
-			<button data-export-id="json">Export as CVS</button>
-		</div>
-		<table class="scholars-vis-table" style="height: 700px; width: 800px; overflow: scroll; margin: 20 px; display: block; ">
-			<thead ">
-				<tr>
-					<th data-sort="string-ins">Keyword</th>
-					<th data-sort="string-ins">Faculty Member</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td>Template row</td>
-					<td>Template row</td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
-
   <div data-view-id="vis" data-view-label="Visualization" style="height: 90%; ">
     <button data-export-id="json" class="pull-right">Export as JSON</button>
     <font size="2">
@@ -457,6 +435,28 @@ ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/ke
       -->
     </font>
   </div>
+
+<div data-view-id="table" data-view-label="Table by Keywords" style="height: 800px; ">
+  <h1> Table by Keyword </h1>
+    <div>
+    <button data-export-id="json">Export as JSON</button>
+    <button data-export-id="csv">Export as CSV</button>
+  </div>
+  <table class="scholars-vis-table" style="height: 700px; width: 800px; overflow: scroll; margin: 20 px; display: block; ">
+    <thead ">
+      <tr>
+        <th data-sort="string-ins">Keyword</th>
+        <th data-sort="string-ins">Faculty Member</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Template row</td>
+        <td style="background-color: grey">Template row</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
 </div>
 
@@ -499,6 +499,7 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></
 			  '<script type="text/javascript" src="${urls.base}/js/scholars-vis/wordcloud/word-cloud.js"></script>')}
 
 ${scripts.add('<script type="text/javascript" src="${urls.base}/js/scholars-vis/scholars-vis-2.js"></script>',
+              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/FileSaver.js"></script>',
 			  '<script type="text/javascript" src="${urls.base}/js/stupidtable.min.js"></script>',
 			  '<script type="text/javascript" src="${urls.base}/js/scholars-vis/wordcloud/word-cloud-2.js"></script>')}
 

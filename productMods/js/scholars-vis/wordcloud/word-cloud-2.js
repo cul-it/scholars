@@ -6,10 +6,17 @@ ScholarsVis2["DepartmentWordCloud"] = function(options) {
             views : {
                 vis : {
                     display : draw_word_cloud,
-                    closer : close_word_cloud
+                    closer : close_word_cloud,
+                    export : {
+                        json : exportWcVisAsJson
+                    }
                 },
                 table: {
-                    display : draw_wc_table
+                    display : draw_wc_table,
+                    export : {
+                        csv : exportWcTableAsCsv,
+                        json : exportWcTableAsJson
+                    }
                 }
             },
             
@@ -537,4 +544,40 @@ function draw_wc_table(data, target, options) {
     template.clone().appendTo(table);
     
     table.stupidtable();
+}
+
+function exportWcVisAsJson(options) {
+    var blob = new Blob([JSON.stringify(options.transformed, null, 2)], {type: "application/json;charset=utf-8"});
+    saveAs(blob, "departmentWordCloud.json");
+}
+
+function exportWcTableAsCsv(options) {
+    var tableData = transformAgainForTable(options.transformed);
+    var blob = new Blob([d3.csv.format(tableData)], {type: "application/json;charset=utf-8"});
+    saveAs(blob, "departmentWordCloudTable.csv");
+}
+
+function exportWcTableAsJson(options) {
+    var tableData = transformAgainForTable(options.transformed);
+    var blob = new Blob([JSON.stringify(tableData, null, 2)], {type: "application/json;charset=utf-8"});
+    saveAs(blob, "departmentWordCloudTable.json");
+}
+
+function transformAgainForTable(data) {
+    var tableData = [];
+    data.forEach(doKeyword);
+    return tableData;
+    
+    function doKeyword(keywordData) {
+        keywordData.entities.forEach(doEntity); 
+        
+        function doEntity(entityData) {
+            var row = {
+                keyword: keywordData.text, 
+                label: entityData.text,
+                uri: entityData.uri
+            };
+            tableData.push(row);
+        }
+    }
 }

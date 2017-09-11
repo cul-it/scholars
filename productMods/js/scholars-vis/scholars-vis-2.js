@@ -222,6 +222,8 @@ var ScholarsVis2 = (function() {
             debugIt("Options: " + JSON.stringify(options, stringifyReplacer, 2));
             
             var toolbar = new Toolbar(options.target);
+            
+            linkExportButtons(options.target);
         } catch (e) {
             handleError(e);
         }
@@ -231,6 +233,24 @@ var ScholarsVis2 = (function() {
             show: show, 
             hide: hide
         };
+        
+        function linkExportButtons(target) {
+            $(target).find("[data-export-id]").click(serviceExportButton);
+        }
+        
+        function serviceExportButton(e) {
+            e && e.preventDefault();
+            
+            var viewId = $(e.target).closest("[data-view-id]").data("view-id");
+            var exportId = $(e.target).data("export-id");
+            debugIt("Servicing: view=" + viewId + ", export=" + exportId);
+            if (viewId && exportId) {
+                var viewStruct = options.viewsArray.find(v => { return v.id == viewId; });
+                if (viewStruct) {
+                    viewStruct.export[exportId](options);
+                }
+            }
+        }
         
         function examineData(examiner) {
             debugIt("Vis:examineData");
