@@ -193,8 +193,8 @@
      <!-- http://scholars.cornell.edu/ontology/vivoc.owl#isOptIn -->
 
     <owl:DatatypeProperty rdf:about="http://scholars.cornell.edu/ontology/vivoc.owl#isOptIn">
-        <rdfs:range rdf:resource="&xsd;boolean"/>
-         <rdfs:comment xml:lang="en">This property is used to demonstrate if an agent (person/organization) is optIn or optOut. In case, a person is opt in, a complete profile page will be displayed. In case of opt out, only top panel (with position information) will be displayed. </rdfs:comment>
+        <rdfs:range rdf:resource="&xsd;string"/>
+         <rdfs:comment xml:lang="en">This property is used to demonstrate if an agent (person/organization) is optIn, in pending mode or optOut. In case, a person is opt in, a complete profile page is displayed. In case of opt out, only top panel (with position information) and a horizontal viz panel is displayed. Pending mode is similar to optOut however displays a pending mode message.</rdfs:comment>
     </owl:DatatypeProperty>
 
 

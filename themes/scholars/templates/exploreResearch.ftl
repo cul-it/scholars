@@ -79,12 +79,13 @@
 				<#if message?? && message == "no_matches">
 					<div class="no-results-found">No results matched the term:</div>
 					<div id="unmatched-term"><span>'${badquerytext!}'</span></div>
-					<div class="no-results-found">Try selecting another term from the list of suggestions, or <a href="${urls.base}/search?querytext=${badquerytext!}">search the full site</a>.</div>
+					<div class="no-results-found">Try selecting another term from the list of suggestions. Or</div>
+					<div><a class="scholars-button" href="${urls.base}/search?querytext=${badquerytext!}">Search the full site</a></div>
 				<#elseif  message?? && message == "no_search_term">
 					<div class="no-results-found">Please enter a search term or select one from the list of suggestions.</div>
 				<#else>
 					<div class="no-results-found">Your search for the term '${badquerytext!}' did not complete successfully.</div>
-					<div class="no-results-found">Try selecting another term from the list of suggestions, or <a href="${urls.base}/search?querytext=${badquerytext!}">search the full site</a>.</div>
+					<div class="no-results-found">Try selecting another term from the list of suggestions. Or<br/><a class="scholars-button" href="${urls.base}/search?querytext=${badquerytext!}">Search the full site</a></div>
 				</#if>
 			</div>
         </div>
