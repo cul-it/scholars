@@ -398,7 +398,7 @@ $().ready(function() {
 
 ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/keywordcloud/kwcloud.css" />')}
 
-<div id="word_cloud_vis" class="vis_modal" style="display:none;" data-label="Research Keywords">
+<div id="word_cloud_vis" class="vis_modal" style="display:none; " data-label="Research Keywords">
   <div class="vis_toolbar">
     <span class="heading">Research Keywords</span>
     <select id="vis_toolbar_select" class="pull-right"></select>
@@ -424,8 +424,30 @@ ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/ke
     </p> 
   </div>
   
+	<div data-view-id="table" data-view-label="Table by Keywords" style="height: 800px; ">
+		<h1> Table by Keyword </h1>
+	    <div>
+			<button data-export-id="json">Export as JSON</button>
+			<button data-export-id="json">Export as CVS</button>
+		</div>
+		<table class="scholars-vis-table" style="height: 700px; width: 800px; overflow: scroll; margin: 20 px; display: block; ">
+			<thead ">
+				<tr>
+					<th data-sort="string-ins">Keyword</th>
+					<th data-sort="string-ins">Faculty Member</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>Template row</td>
+					<td>Template row</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
   <div data-view-id="vis" data-view-label="Visualization" style="height: 90%; ">
-    <span data-export-id="json">Export as JSON</span>
+    <button data-export-id="json" class="pull-right">Export as JSON</button>
     <font size="2">
       <span><i>Click on a keyword to view the list of the relevant faculty.</i></span>
       <#--	
@@ -434,12 +456,6 @@ ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/ke
       <label class="boxLabel"><input id="mesh" type="checkbox" class="cbox" checked>Mesh Terms<span id="mt">(0)</span></label> 
       -->
     </font>
-  </div>
-
-  <div data-view-id="table" data-view-label="Table by Keywords">
-    <span data-export-id="json">Export as JSON</span>
-    <span data-export-id="cvs">Export as CVS</span>
-    <h1> Table by Keyword </h1>
   </div>
 
 </div>
@@ -483,6 +499,7 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></
 			  '<script type="text/javascript" src="${urls.base}/js/scholars-vis/wordcloud/word-cloud.js"></script>')}
 
 ${scripts.add('<script type="text/javascript" src="${urls.base}/js/scholars-vis/scholars-vis-2.js"></script>',
+			  '<script type="text/javascript" src="${urls.base}/js/stupidtable.min.js"></script>',
 			  '<script type="text/javascript" src="${urls.base}/js/scholars-vis/wordcloud/word-cloud-2.js"></script>')}
 
 <#if isCollegeOrSchool >

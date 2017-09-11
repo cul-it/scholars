@@ -200,7 +200,12 @@ var ScholarsVis2 = (function() {
         if (typeof value === "function") {
             return "function()";
         } else if (value instanceof HTMLElement) {
-            return $(value).html();
+            var html = $(value).html();
+            if (html.length <= 50) {
+                return html;
+            } else {
+                return html.substring(0, 47) + "...";
+            }
         } else {
             return value;
         }

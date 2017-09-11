@@ -2689,6 +2689,23 @@ div[data-view-id] {
     display: none;
 }
 
+scholars-vis-table {
+    border-collapse: collapse;
+}
+
+scholars-vis-table th, td {
+    padding: 5px 10px;
+    border: 1px solid #999;
+}
+
+scholars-vis-table th {
+    background-color: #eee;
+}
+
+scholars-vis-table th[data-sort]{
+    cursor:pointer;
+}
+
 .word_cloud_vis {
 	height:90%;
 }
