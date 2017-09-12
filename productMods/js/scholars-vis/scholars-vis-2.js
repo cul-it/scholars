@@ -253,10 +253,18 @@ var ScholarsVis2 = (function() {
             var viewId = $(e.target).closest("[data-view-id]").data("view-id");
             var exportId = $(e.target).data("export-id");
             debugIt("Servicing: view=" + viewId + ", export=" + exportId);
+            
             if (viewId && exportId) {
                 var viewStruct = options.viewsArray.find(v => { return v.id == viewId; });
                 if (viewStruct) {
-                    viewStruct.export[exportId](options);
+                    var exportParms = viewStruct.export[exportId];
+                    if (exportParms) {
+                        var callback = exportParms.call;
+                        var filename = exportParms.filename;
+                        if (callback && filename) {
+                            callback(options.transformed, filename, options);
+                        }
+                    }
                 }
             }
         }

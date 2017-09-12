@@ -8,14 +8,23 @@ ScholarsVis2["DepartmentWordCloud"] = function(options) {
                     display : draw_word_cloud,
                     closer : close_word_cloud,
                     export : {
-                        json : exportWcVisAsJson
+                        json : {
+                            filename: "departmentWordCloud.json",
+                            call: exportWcVisAsJson
+                        }
                     }
                 },
                 table: {
                     display : draw_wc_table,
                     export : {
-                        csv : exportWcTableAsCsv,
-                        json : exportWcTableAsJson
+                        csv : {
+                            filename: "departmentWordCloudTable.csv",
+                            call: exportWcTableAsCsv,
+                        },
+                        json : {
+                            filename: "departmentWordCloudTable.json",
+                            call: exportWcTableAsJson
+                        }
                     }
                 }
             },
@@ -506,16 +515,16 @@ function draw_wc_table(data, target, options) {
     }
 }
 
-function exportWcVisAsJson(options) {
-    ScholarsVis2.Utilities.exportAsJson("departmentWordCloud.json", options.transformed);
+function exportWcVisAsJson(data, filename) {
+    ScholarsVis2.Utilities.exportAsJson(filename, data);
 }
 
-function exportWcTableAsCsv(options) {
-    ScholarsVis2.Utilities.exportAsCsv("departmentWordCloud.Table.csv", transformAgainForTable(options.transformed));
+function exportWcTableAsCsv(data, filename) {
+    ScholarsVis2.Utilities.exportAsCsv(filename, transformAgainForTable(data));
 }
 
-function exportWcTableAsJson(options) {
-    ScholarsVis2.Utilities.exportAsJson("departmentWordCloud.Table.json", transformAgainForTable(options.transformed));
+function exportWcTableAsJson(data, filename) {
+    ScholarsVis2.Utilities.exportAsJson(filename, transformAgainForTable(data));
 }
 
 function transformAgainForTable(data) {
