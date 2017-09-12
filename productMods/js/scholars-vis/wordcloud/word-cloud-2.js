@@ -547,20 +547,15 @@ function draw_wc_table(data, target, options) {
 }
 
 function exportWcVisAsJson(options) {
-    var blob = new Blob([JSON.stringify(options.transformed, null, 2)], {type: "application/json;charset=utf-8"});
-    saveAs(blob, "departmentWordCloud.json");
+    ScholarsVis2.Utilities.exportAsJson("departmentWordCloud.json", options.transformed);
 }
 
 function exportWcTableAsCsv(options) {
-    var tableData = transformAgainForTable(options.transformed);
-    var blob = new Blob([d3.csv.format(tableData)], {type: "application/json;charset=utf-8"});
-    saveAs(blob, "departmentWordCloudTable.csv");
+    ScholarsVis2.Utilities.exportAsCsv("departmentWordCloud.Table.csv", transformAgainForTable(options.transformed));
 }
 
 function exportWcTableAsJson(options) {
-    var tableData = transformAgainForTable(options.transformed);
-    var blob = new Blob([JSON.stringify(tableData, null, 2)], {type: "application/json;charset=utf-8"});
-    saveAs(blob, "departmentWordCloudTable.json");
+    ScholarsVis2.Utilities.exportAsJson("departmentWordCloud.Table.json", transformAgainForTable(options.transformed));
 }
 
 function transformAgainForTable(data) {
@@ -574,7 +569,7 @@ function transformAgainForTable(data) {
         function doEntity(entityData) {
             var row = {
                 keyword: keywordData.text, 
-                label: entityData.text,
+                name: entityData.text,
                 uri: entityData.uri
             };
             tableData.push(row);

@@ -176,8 +176,10 @@
  * </pre>
  */
 var ScholarsVis2 = (function() {
+
     return {
-        Visualization: Visualization
+        Visualization: Visualization,
+        Utilities: createUtilities()
     };
     
     function debugIt(message) {
@@ -617,4 +619,22 @@ var ScholarsVis2 = (function() {
         }
     }
 
+    function createUtilities() {
+        return {
+            exportAsJson: exportAsJson,
+            exportAsCsv: exportAsCsv
+        }
+        
+        function exportAsJson(filename, data) {
+            exportToFile(filename, JSON.stringify(data, null, 2), "application/json;charset=utf-8");
+        }
+        
+        function exportAsCsv(filename, data) {
+            exportToFile(filename, d3.csv.format(data), "text/csv;charset=utf-8");
+        }
+        
+        function exportToFile(filename, formatted, type) {
+            saveAs(new Blob([formatted], {type: type}), filename);
+        }
+    }
 })();
