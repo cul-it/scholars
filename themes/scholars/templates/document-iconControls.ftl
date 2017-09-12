@@ -3,7 +3,7 @@
 <#-- Icon controls displayed in upper-right corner -->
 <#-- CU directory link -->
 <#if fullTextLink?? && fullTextLink?has_content >
-	<a  href="${fullTextLink!}" title="View the departmental page" target="_blank" onclick="javascript:_paq.push(['trackEvent', 'Icons', 'Document', 'FullText-Icon']);">
+	<a  href="${fullTextLink!}" title="View the full text" target="_blank" onclick="javascript:_paq.push(['trackEvent', 'Icons', 'Document', 'FullText-Icon']);">
 		<i class="fa fa-file-text" aria-hidden="true"></i>Full Text</a>
 </#if>
 
