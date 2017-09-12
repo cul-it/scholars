@@ -179,7 +179,8 @@ var ScholarsVis2 = (function() {
 
     return {
         Visualization: Visualization,
-        Utilities: createUtilities()
+        VisTable: VisTable,
+        Utilities: new Utilities()
     };
     
     function debugIt(message) {
@@ -212,6 +213,12 @@ var ScholarsVis2 = (function() {
             return value;
         }
     }
+    
+    /*
+     * -------------------------------------------------------------------------
+     * Visualization
+     * -------------------------------------------------------------------------
+     */
     
     function Visualization(opts, defaults) {
         debugIt("create Visualization");
@@ -427,13 +434,13 @@ var ScholarsVis2 = (function() {
             });
         }
         
-        //----------------------------------------------------------------------
+        // ----------------------------------------------------------------------
         // Options class
         //
         // Preprocess all of the options, finding appropriate values, assigning
         // defaults as needed, throwing an error on an invalid value.
         //
-        //----------------------------------------------------------------------
+        // ----------------------------------------------------------------------
         
         function Options(o) {
             o = o || {};
@@ -550,13 +557,13 @@ var ScholarsVis2 = (function() {
                 debugIt("NOOP Closer");
             }
             
-            //----------------------------------------------------------------------
+            // ----------------------------------------------------------------------
             // ViewOptions class
             //
-            // Each view must have a target, a display method, a closer, and an 
+            // Each view must have a target, a display method, a closer, and an
             // export structure.
             //
-            //----------------------------------------------------------------------
+            // ----------------------------------------------------------------------
             
             function ViewOptions(v, t) {
                 v = v || {};
@@ -577,7 +584,7 @@ var ScholarsVis2 = (function() {
             }
         }
         
-        //----------------------------------------------------------------------
+        // ----------------------------------------------------------------------
         // Toolbar class
         //
         // Doesn't need to be a class, as it stands now, because the constructor
@@ -585,7 +592,7 @@ var ScholarsVis2 = (function() {
         //
         // So currently, it's just a way to organize this logic.
         //
-        //----------------------------------------------------------------------
+        // ----------------------------------------------------------------------
         
         function Toolbar(target) {
             var toolbar = $(target).find(".vis_toolbar");
@@ -619,7 +626,51 @@ var ScholarsVis2 = (function() {
         }
     }
 
-    function createUtilities() {
+    /*
+     * -------------------------------------------------------------------------
+     * VisTable
+     * 
+     * The first row of the table (other than the header) will be hidden and
+     * used as a template for the actual rows of data.
+     * 
+     * -------------------------------------------------------------------------
+     */
+
+    function VisTable(tableElement) {
+        var table = $(tableElement);
+        table.find("tr:has(td):gt(0)").remove();
+        
+        var  template = table.find("tr:has(td)").hide();
+        template.find("td").text("");
+
+        return {
+            addRow: addRow,
+            complete: complete
+        }
+        
+        function addRow(...values) {
+            var row = template.clone();
+            row.find("td").each(fillCell);
+            row.appendTo(table);
+            row.show();
+            
+            function fillCell(index, cell) {
+                $(cell).html(index < values.length ? values[index] : " ");
+            }
+        }
+        
+        function complete() {
+            table.stupidtable();
+        }
+    }
+    
+    /*
+     * -------------------------------------------------------------------------
+     * Utilities
+     * -------------------------------------------------------------------------
+     */
+    
+    function Utilities() {
         return {
             exportAsJson: exportAsJson,
             exportAsCsv: exportAsCsv

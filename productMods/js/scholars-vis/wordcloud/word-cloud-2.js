@@ -492,58 +492,18 @@ $(document).ready(function(){
  * Fill the table with data..
  ******************************************************************************/
 function draw_wc_table(data, target, options) {
-    /**
-     * Get the last row from the table. Remove from the table. Strip out the text.
-     * 
-     * Remove all rows from the table that have <td> in them
-     * 
-     * Clone, populate and append for each row entity within each record.
-     * .clone()
-     * .detach()
-     * .find("td").text(' ');
-     * 
-     * $(target).find("#byKeyword").stupidtable();
-     * 
-     *   {
-    "matcher": "nanotechnology",
-    "text": "Nanotechnology",
-    "entities": [
-      {
-        "uri": "/scholars/display/mrk93",
-        "text": "King, Michael R.",
-        "citationTypes": [
-          "KEYWORD"
-        ]
-      }
-    ]
-  },
-  */
-
-    var table = $(target).find(".scholars-vis-table");
+    var table = new ScholarsVis2.VisTable($(target).find(".scholars-vis-table").get(0));
+    var tableData = transformAgainForTable(data);
+    tableData.forEach(addRowToTable);
+    table.complete();
     
-    var  template = table.find("tr:has(td)").last().detach();
-    template.find("td").text("");
-    
-    data.forEach(doKeyword);
-    
-    function doKeyword(keywordData) {
-        keywordData.entities.forEach(doEntity); 
-        
-        function doEntity(entityData) {
-            addTableRow(keywordData.text, entityData.text, entityData.uri);
+    function addRowToTable(rowData) {
+        table.addRow(rowData.keyword, createLink(rowData.name, rowData.uri));
             
-            function addTableRow(keyword, label, uri) {
-                var row = template.clone();
-                row.find("td:first").html(keyword);
-                row.find("td:last").html("<a href='" + uri + "'>" + label + "</a>");
-                table.append(row);
-            }
+        function createLink(text, uri) {
+            return "<a href='" + uri + "'>" + text + "</a>"
         }
-        
     }
-    template.clone().appendTo(table);
-    
-    table.stupidtable();
 }
 
 function exportWcVisAsJson(options) {
