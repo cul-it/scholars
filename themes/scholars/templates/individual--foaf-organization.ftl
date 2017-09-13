@@ -426,6 +426,7 @@ ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/ke
   
   <div data-view-id="vis" data-view-label="Visualization" style="height: 90%; ">
     <button data-export-id="json" class="pull-right">Export as JSON</button>
+    <button data-export-id="svg" class="pull-right">Export as SVG</button>
     <font size="2">
       <span><i>Click on a keyword to view the list of the relevant faculty.</i></span>
       <#--	

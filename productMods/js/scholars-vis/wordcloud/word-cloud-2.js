@@ -11,6 +11,10 @@ ScholarsVis2["DepartmentWordCloud"] = function(options) {
                         json : {
                             filename: "departmentWordCloud.json",
                             call: exportWcVisAsJson
+                        },
+                        svg : {
+                            filename: "departmentWordCloud.svg",
+                            call: exportWcVisAsSvg
                         }
                     }
                 },
@@ -517,6 +521,10 @@ function draw_wc_table(data, target, options) {
 
 function exportWcVisAsJson(data, filename) {
     ScholarsVis2.Utilities.exportAsJson(filename, data);
+}
+
+function exportWcVisAsSvg(data, filename, options) {
+    ScholarsVis2.Utilities.exportAsSvg(filename, $(options.target).find("svg")[0]);
 }
 
 function exportWcTableAsCsv(data, filename) {

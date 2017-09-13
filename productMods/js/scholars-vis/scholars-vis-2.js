@@ -681,7 +681,8 @@ var ScholarsVis2 = (function() {
     function Utilities() {
         return {
             exportAsJson: exportAsJson,
-            exportAsCsv: exportAsCsv
+            exportAsCsv: exportAsCsv,
+            exportAsSvg: exportAsSvg
         }
         
         function exportAsJson(filename, data) {
@@ -690,6 +691,11 @@ var ScholarsVis2 = (function() {
         
         function exportAsCsv(filename, data) {
             exportToFile(filename, d3.csv.format(data), "text/csv;charset=utf-8");
+        }
+        
+        function exportAsSvg(filename, svgElement) {
+            var xml = (new XMLSerializer()).serializeToString(svgElement);
+            exportToFile(filename, xml, "image/svg+xml;charset=utf-8")
         }
         
         function exportToFile(filename, formatted, type) {
