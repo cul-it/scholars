@@ -669,6 +669,38 @@ var ScholarsVis2 = (function() {
         
         function complete() {
             table.stupidtable();
+            table.on("aftertablesort", showSortDirection); 
+            table.on("aftertablesort", highlightRows); 
+            table.find("thead th").eq(0).stupidsort("asc");
+            
+            function showSortDirection (event, data) {
+                var th = $(this).find("th");
+                th.find(".arrow").remove();
+                var arrow = data.direction === "asc" ? "&uarr;" : "&darr;";
+                th.eq(data.column).append('<span class="arrow">' + arrow +'</span>');
+            }
+            
+            function highlightRows(event, data) {
+                var previousValue = "";
+                var odd = false;
+                
+                table.find("tbody tr").each(setRowClasses);
+                
+                function setRowClasses(index, rowElement) {
+                    var row = $(rowElement);
+                    var value = row.find("td").eq(data.column).text();
+
+                    row.removeClass("first-row not-first-row odd-row even-row");
+                    if (value != previousValue) {
+                        previousValue = value;
+                        odd = !odd;
+                        row.addClass("first-row");
+                    } else {
+                        row.addClass("not-first-row");
+                    }
+                    row.addClass(odd ? "odd-row" : "even-row");
+                }
+            }
         }
     }
     

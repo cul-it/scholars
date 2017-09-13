@@ -2689,21 +2689,41 @@ div[data-view-id] {
     display: none;
 }
 
-scholars-vis-table {
+.scholars-vis-table {
     border-collapse: collapse;
 }
 
-scholars-vis-table th, td {
+.scholars-vis-table th, td {
     padding: 5px 10px;
     border: 1px solid #999;
 }
 
-scholars-vis-table th {
+.scholars-vis-table th {
     background-color: #eee;
 }
 
-scholars-vis-table th[data-sort]{
-    cursor:pointer;
+.scholars-vis-table th[data-sort] {
+    cursor: pointer;
+}
+
+.scholars-vis-table th span.arrow{ 
+    margin-left: 10px;
+}
+
+.scholars-vis-table tr.first-row {
+    font-weight: bold;
+}
+
+.scholars-vis-table tr.not-first-row {
+    font-style: italic;
+}
+
+.scholars-vis-table tr.odd-row {
+    background-color: #dff;
+}
+
+.scholars-vis-table tr.even-row {
+    background-color: #fdf;
 }
 
 .word_cloud_vis {

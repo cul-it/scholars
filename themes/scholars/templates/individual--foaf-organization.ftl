@@ -453,7 +453,7 @@ ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/ke
       <tbody>
         <tr>
           <td>Template row</td>
-          <td style="background-color: #eeeeee;">Template row</td>
+          <td>Template row</td>
         </tr>
       </tbody>
     </table>
