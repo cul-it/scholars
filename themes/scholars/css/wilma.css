@@ -2853,7 +2853,23 @@ div[data-view-id] {
 }
 .bibo-doc-controls {
 	float:right;
-	margin:14px 10px -14px 0;
+	margin:18px 10px -14px 0;
+}
+.bibo-doc-controls a {
+	background-color: #3770b7;
+	color: #fff;
+	border-radius: 4px;
+	padding: 8px 6px;
+	font-size: 12px;
+}
+.bibo-doc-controls a:hover {
+	color: #fff;
+	text-decoration: none !important;
+	background-color: #23527c;
+}
+.bibo-doc-controls a i {
+	font-size: 14px;
+	margin-right:4px;
 }
 #bibo-heading-break {
 	margin-left:24px;
