@@ -507,16 +507,20 @@ $(document).ready(function(){
  * 
  ******************************************************************************/
 function draw_wc_table(data, target, options) {
-    var table = new ScholarsVis2.VisTable($(target).find(".scholars-vis-table").get(0));
-    var tableData = transformAgainForTable(data);
-    tableData.forEach(addRowToTable);
-    table.complete();
-    
-    function addRowToTable(rowData) {
-        table.addRow(rowData.keyword, createLink(rowData.name, rowData.uri));
+    var tableElement = $(target).find(".scholars-vis-table").get(0);
+    if (!ScholarsVis2.Utilities.isVisTable(tableElement)) {
+        console.log("Creating the WordCloud table.");
+        var table = new ScholarsVis2.VisTable(tableElement);
+        var tableData = transformAgainForTable(data);
+        tableData.forEach(addRowToTable);
+        table.complete();
+        
+        function addRowToTable(rowData) {
+            table.addRow(rowData.keyword, createLink(rowData.name, rowData.uri));
             
-        function createLink(text, uri) {
-            return "<a href='" + uri + "'>" + text + "</a>"
+            function createLink(text, uri) {
+                return "<a href='" + uri + "'>" + text + "</a>"
+            }
         }
     }
 }

@@ -645,6 +645,8 @@ var ScholarsVis2 = (function() {
             table.stupidtable();
             table.on("aftertablesort", showSortDirection); 
             table.on("aftertablesort", highlightRows); 
+            table.on("aftertablesort", highlightCells); 
+            table.data("is-vis-table", "true");
             table.find("thead th").eq(0).stupidsort("asc");
             
             function showSortDirection (event, data) {
@@ -675,6 +677,11 @@ var ScholarsVis2 = (function() {
                     row.addClass(odd ? "odd-row" : "even-row");
                 }
             }
+            
+            function highlightCells(event, data) {
+                table.find("tbody tr td").removeClass("sorted-cell").addClass("unsorted-cell");
+                table.find("tbody tr td:nth-of-type(" + (data.column + 1) +")").removeClass("unsorted-cell").addClass("sorted-cell");
+            }
         }
     }
 
@@ -689,6 +696,7 @@ var ScholarsVis2 = (function() {
             exportAsJson: exportAsJson,
             exportAsCsv: exportAsCsv,
             exportAsSvg: exportAsSvg,
+            isVisTable: isVisTable,
             stringify: stringify
         }
         
@@ -707,6 +715,10 @@ var ScholarsVis2 = (function() {
         
         function exportToFile(filename, formatted, type) {
             saveAs(new Blob([formatted], {type: type}), filename);
+        }
+        
+        function isVisTable(tableElement) {
+            return (typeof $(tableElement).data("is-vis-table") !== "undefined");
         }
 
         function stringify(object) {
