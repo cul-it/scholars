@@ -240,6 +240,7 @@ var ScholarsVis2 = (function() {
         return {
             examineData: examineData,
             show: show, 
+            showView: showView,
             hide: hide
         };
         
@@ -370,9 +371,9 @@ var ScholarsVis2 = (function() {
         }
         
         function showView(e) {
-            var id = e ? $(this).val() : " ";
-            debugIt("View: " + id);
-
+            var id = e ? $(e.target).data("view-selector") : " ";
+            debugIt("View ID: " + id);
+            
             if (options.viewsArray.length == 0) {
                 debugIt("No views to display");
                 return "";
@@ -381,12 +382,10 @@ var ScholarsVis2 = (function() {
             options.viewsArray.forEach(closeView);
             
             function closeView(view) {
-                debugIt("Closing view " + view.id);
                 view.closer(view.target);
                 $(view.target).hide()
             }
-             
-            debugIt("View ID: " + id);
+            
             var view = options.viewsArray[0];
             options.viewsArray.forEach(v => {if (v.id == id) {view = v}});
             $(view.target).show();
@@ -596,7 +595,7 @@ var ScholarsVis2 = (function() {
         // Toolbar class
         //
         // Doesn't need to be a class, as it stands now, because the constructor
-        // does all the work and returns no functionalit.
+        // does all the work and returns no functionality.
         //
         // So currently, it's just a way to organize this logic.
         //
@@ -605,7 +604,6 @@ var ScholarsVis2 = (function() {
         function Toolbar(target) {
             var toolbar = $(target).find(".vis_toolbar");
             buildInfoIcon();
-            addViewOptions();
             return {};
             
             function buildInfoIcon() {
@@ -618,18 +616,6 @@ var ScholarsVis2 = (function() {
                 };
                 var tooltip = $("<span></span>").addClass("glyphicon glyphicon-info-sign pull-right").tooltip(tipOptions);
                 toolbar.append(tooltip);
-            }
-            
-            function addViewOptions() {
-                var selector = $(target).find("#vis_toolbar_select");
-                $(target).find("[data-view-id]").each(addOption);
-                $(selector).change(showView);
-                
-                function addOption(i, viewTarget) {
-                    var id = $(viewTarget).data("view-id");
-                    var label = $(viewTarget).data("view-label");
-                    selector.append($("<option></option").attr("value", id).text(label));
-                }
             }
         }
     }

@@ -502,7 +502,9 @@ $(document).ready(function(){
 }); 
 
 /*******************************************************************************
- * Fill the table with data..
+ * 
+ * Fill the table with data and draw it.
+ * 
  ******************************************************************************/
 function draw_wc_table(data, target, options) {
     var table = new ScholarsVis2.VisTable($(target).find(".scholars-vis-table").get(0));

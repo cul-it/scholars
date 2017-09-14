@@ -401,7 +401,8 @@ ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/ke
 <div id="word_cloud_vis" class="vis_modal" style="display:none; " data-label="Research Keywords">
   <div class="vis_toolbar">
     <span class="heading">Research Keywords</span>
-    <select id="vis_toolbar_select" class="pull-right"></select>
+    <a data-view-selector="vis" href="#" style="display: none">Show visualization</a>
+    <a data-view-selector="table" href="#">Show table</a>
   </div>
   
   <div id="info_icon_text">
@@ -626,6 +627,18 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/scholars-vis/
         if (data.length > 0) {
           $('#word_cloud_icon_holder').show();
           $('#word_cloud_trigger').click(wc.show);
+          $('[data-view-selector').click(showVis);
+          
+          function showVis(e) {
+            var viewId = $(e.target).data('view-selector');
+            $('#word_cloud_vis [data-view-selector]').show();
+            $('#word_cloud_vis [data-view-selector=' + viewId + ']').hide();
+            wc.showView(e);
+          }
+
+          function showTable(e) {
+            wc.showView(e);
+          }
         }
       });
     }
