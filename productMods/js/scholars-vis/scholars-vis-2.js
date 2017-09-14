@@ -199,21 +199,6 @@ var ScholarsVis2 = (function() {
         throw e;
     }
     
-    function stringifyReplacer(key, value) {
-        if (typeof value === "function") {
-            return "function()";
-        } else if (value instanceof HTMLElement) {
-            var html = $(value).html();
-            if (html.length <= 50) {
-                return html;
-            } else {
-                return html.substring(0, 47) + "...";
-            }
-        } else {
-            return value;
-        }
-    }
-    
     /*
      * -------------------------------------------------------------------------
      * Visualization
@@ -228,7 +213,7 @@ var ScholarsVis2 = (function() {
             } else {
                 var options = new Options(opts); 
             }
-            debugIt("Options: " + JSON.stringify(options, stringifyReplacer, 2));
+            debugIt("Options: " + ScholarsVis2.Utilities.stringify(options));
             
             var toolbar = new Toolbar(options.target);
             
@@ -634,6 +619,7 @@ var ScholarsVis2 = (function() {
 
     function VisTable(tableElement) {
         var table = $(tableElement);
+        
         table.find("tr:has(td):gt(0)").remove();
         
         var  template = table.find("tr:has(td)").hide();
@@ -691,7 +677,7 @@ var ScholarsVis2 = (function() {
             }
         }
     }
-    
+
     /*
      * -------------------------------------------------------------------------
      * Utilities
@@ -702,7 +688,8 @@ var ScholarsVis2 = (function() {
         return {
             exportAsJson: exportAsJson,
             exportAsCsv: exportAsCsv,
-            exportAsSvg: exportAsSvg
+            exportAsSvg: exportAsSvg,
+            stringify: stringify
         }
         
         function exportAsJson(filename, data) {
@@ -720,6 +707,25 @@ var ScholarsVis2 = (function() {
         
         function exportToFile(filename, formatted, type) {
             saveAs(new Blob([formatted], {type: type}), filename);
+        }
+
+        function stringify(object) {
+            return JSON.stringify(object, stringifyReplacer, 2);
+
+            function stringifyReplacer(key, value) {
+                if (typeof value === "function") {
+                    return "function()";
+                } else if (value instanceof HTMLElement) {
+                    var html = $(value).html();
+                    if (html.length <= 50) {
+                        return html;
+                    } else {
+                        return html.substring(0, 47) + "...";
+                    }
+                } else {
+                    return value;
+                }
+            }
         }
     }
 })();
