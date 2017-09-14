@@ -398,7 +398,7 @@ $().ready(function() {
 
 ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/keywordcloud/kwcloud.css" />')}
 
-<div id="word_cloud_vis" class="vis_modal" style="display:none; " data-label="Research Keywords">
+<div id="word_cloud_vis" class="vis_modal" style="display:none; ">
   <div class="vis_toolbar">
     <span class="heading">Research Keywords</span>
     <a data-view-selector="vis" href="#" class="vis-view-toggle" style="display: none">Show visualization</a>
@@ -496,8 +496,7 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></
 			'<script type="text/javascript" src="${urls.base}/js/scholars-vis/rdflib.js"></script>',
             '<script type="text/javascript" src="${urls.base}/js/scholars-vis/d3/d3-tip.js"></script>',
             '<script type="text/javascript" src="${urls.base}/js/scholars-vis/d3/d3.layout.cloud.js"></script>',
-              '<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>',
-			  '<script type="text/javascript" src="${urls.base}/js/scholars-vis/wordcloud/word-cloud.js"></script>')}
+              '<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>')}
 
 ${scripts.add('<script type="text/javascript" src="${urls.base}/js/scholars-vis/scholars-vis-2.js"></script>',
               '<script type="text/javascript" src="${urls.base}/js/scholars-vis/FileSaver.js"></script>',
@@ -627,7 +626,7 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/scholars-vis/
         if (data.length > 0) {
           $('#word_cloud_icon_holder').show();
           $('#word_cloud_trigger').click(showVis);
-          $('[data-view-selector]').click(showVisView);
+          $('#word_cloud_vis [data-view-selector]').click(showVisView);
           
           function showVis(e) {
             $('#word_cloud_vis [data-view-selector]').show();
@@ -639,10 +638,6 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/scholars-vis/
             var viewId = $(e.target).data('view-selector');
             $('#word_cloud_vis [data-view-selector]').show();
             $('#word_cloud_vis [data-view-selector=' + viewId + ']').hide();
-            wc.showView(e);
-          }
-
-          function showTable(e) {
             wc.showView(e);
           }
         }

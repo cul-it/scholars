@@ -1,3 +1,44 @@
+ScholarsVis2["PersonWordCloud"] = function(options) {
+    var defaults = {
+            url : applicationContextPath + "/api/dataRequest/person_word_cloud?person=" + options.person,
+            parse : 'turtle',
+            transform : transform_word_cloud_data,
+            views : {
+                vis : {
+                    display : draw_word_cloud,
+                    closer : close_word_cloud,
+                    export : {
+                        json : {
+                            filename: "personWordCloud.json",
+                            call: exportWcVisAsJson
+                        },
+                        svg : {
+                            filename: "personWordCloud.svg",
+                            call: exportWcVisAsSvg
+                        }
+                    }
+                },
+                table: {
+                    display : drawPersonWcTable,
+                    export : {
+                        csv : {
+                            filename: "personWordCloudTable.csv",
+                            call: exportPersonWcTableAsCsv,
+                        },
+                        json : {
+                            filename: "personWordCloudTable.json",
+                            call: exportPersonWcTableAsJson
+                        }
+                    }
+                }
+            },
+            maxKeywords : 50,
+            interactive : true,
+            scaleRange : [15, 60]
+    };
+    return new ScholarsVis2.Visualization(options, defaults);
+};
+
 ScholarsVis2["DepartmentWordCloud"] = function(options) {
     var defaults = {
             url : applicationContextPath + "/api/dataRequest/department_word_cloud?department=" + options.department,
@@ -19,20 +60,19 @@ ScholarsVis2["DepartmentWordCloud"] = function(options) {
                     }
                 },
                 table: {
-                    display : draw_wc_table,
+                    display : drawDepartmentWcTable,
                     export : {
                         csv : {
                             filename: "departmentWordCloudTable.csv",
-                            call: exportWcTableAsCsv,
+                            call: exportDepartmentWcTableAsCsv,
                         },
                         json : {
                             filename: "departmentWordCloudTable.json",
-                            call: exportWcTableAsJson
+                            call: exportDepartmentWcTableAsJson
                         }
                     }
                 }
             },
-            
             maxKeywords : 100,
             interactive : true,
             scaleRange : [15, 60]
@@ -503,15 +543,78 @@ $(document).ready(function(){
 
 /*******************************************************************************
  * 
- * Fill the table with data and draw it.
+ * Export the visualization data.
  * 
  ******************************************************************************/
-function draw_wc_table(data, target, options) {
+function exportWcVisAsJson(data, filename) {
+    ScholarsVis2.Utilities.exportAsJson(filename, data);
+}
+
+function exportWcVisAsSvg(data, filename, options) {
+    ScholarsVis2.Utilities.exportAsSvg(filename, $(options.target).find("svg")[0]);
+}
+
+/*******************************************************************************
+ * 
+ * Fill the Person Word Cloud table with data, draw it, export it.
+ * 
+ ******************************************************************************/
+function drawPersonWcTable(data, target, options) {
     var tableElement = $(target).find(".scholars-vis-table").get(0);
     if (!ScholarsVis2.Utilities.isVisTable(tableElement)) {
-        console.log("Creating the WordCloud table.");
         var table = new ScholarsVis2.VisTable(tableElement);
-        var tableData = transformAgainForTable(data);
+        var tableData = transformAgainForPersonTable(data);
+        tableData.forEach(addRowToTable);
+        table.complete();
+        
+        function addRowToTable(rowData) {
+            table.addRow(rowData.keyword, rowData.types, createLink(rowData.publication, rowData.uri));
+            
+            function createLink(text, uri) {
+                return "<a href='" + uri + "'>" + text + "</a>"
+            }
+        }
+    }
+}
+
+function exportPersonWcTableAsCsv(data, filename) {
+    ScholarsVis2.Utilities.exportAsCsv(filename, transformAgainForPersonTable(data));
+}
+
+function exportPersonWcTableAsJson(data, filename) {
+    ScholarsVis2.Utilities.exportAsJson(filename, transformAgainForPersonTable(data));
+}
+
+function transformAgainForPersonTable(data) {
+    var tableData = [];
+    data.forEach(doKeyword);
+    return tableData;
+    
+    function doKeyword(keywordData) {
+        keywordData.entities.forEach(doEntity); 
+        
+        function doEntity(entityData) {
+            var row = {
+                    keyword: keywordData.text, 
+                    types: entityData.citationTypes.sort().join(" "),
+                    publication: entityData.text,
+                    uri: entityData.uri
+            };
+            tableData.push(row);
+        }
+    }
+}
+
+/*******************************************************************************
+ * 
+ * Fill the Department Word Cloud table with data, draw it, export it.
+ * 
+ ******************************************************************************/
+function drawDepartmentWcTable(data, target, options) {
+    var tableElement = $(target).find(".scholars-vis-table").get(0);
+    if (!ScholarsVis2.Utilities.isVisTable(tableElement)) {
+        var table = new ScholarsVis2.VisTable(tableElement);
+        var tableData = transformAgainForDepartmentTable(data);
         tableData.forEach(addRowToTable);
         table.complete();
         
@@ -525,23 +628,15 @@ function draw_wc_table(data, target, options) {
     }
 }
 
-function exportWcVisAsJson(data, filename) {
-    ScholarsVis2.Utilities.exportAsJson(filename, data);
+function exportDepartmentWcTableAsCsv(data, filename) {
+    ScholarsVis2.Utilities.exportAsCsv(filename, transformAgainForDepartmentTable(data));
 }
 
-function exportWcVisAsSvg(data, filename, options) {
-    ScholarsVis2.Utilities.exportAsSvg(filename, $(options.target).find("svg")[0]);
+function exportDepartmentWcTableAsJson(data, filename) {
+    ScholarsVis2.Utilities.exportAsJson(filename, transformAgainForDepartmentTable(data));
 }
 
-function exportWcTableAsCsv(data, filename) {
-    ScholarsVis2.Utilities.exportAsCsv(filename, transformAgainForTable(data));
-}
-
-function exportWcTableAsJson(data, filename) {
-    ScholarsVis2.Utilities.exportAsJson(filename, transformAgainForTable(data));
-}
-
-function transformAgainForTable(data) {
+function transformAgainForDepartmentTable(data) {
     var tableData = [];
     data.forEach(doKeyword);
     return tableData;
