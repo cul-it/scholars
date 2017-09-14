@@ -401,8 +401,8 @@ ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/ke
 <div id="word_cloud_vis" class="vis_modal" style="display:none; " data-label="Research Keywords">
   <div class="vis_toolbar">
     <span class="heading">Research Keywords</span>
-    <a data-view-selector="vis" href="#" style="display: none">Show visualization</a>
-    <a data-view-selector="table" href="#">Show table</a>
+    <a data-view-selector="vis" href="#" class="vis-view-toggle" style="display: none">Show visualization</a>
+    <a data-view-selector="table" href="#" class="vis-view-toggle">Show table</a>
   </div>
   
   <div id="info_icon_text">
@@ -426,8 +426,8 @@ ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/ke
   </div>
   
   <div data-view-id="vis" data-view-label="Visualization" style="height: 90%; ">
-    <button data-export-id="json" class="pull-right">Export as JSON</button>
-    <button data-export-id="svg" class="pull-right">Export as SVG</button>
+    <a href="#" data-export-id="json" style="padding: 0px 6px;" class="vis-view-toggle pull-right">Export as JSON</a>
+    <a href="javascript:" data-export-id="svg" style="padding: 0px 6px; margin-right: 4px;" class="vis-view-toggle pull-right">Export as SVG</a>
     <font size="2">
       <span><i>Click on a keyword to view the list of the relevant faculty.</i></span>
       <#--	
@@ -441,8 +441,8 @@ ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/ke
   <div data-view-id="table" data-view-label="Table by Keywords" style="height: 800px; ">
     <h1> Table by Keyword </h1>
       <div>
-      <button data-export-id="json">Export as JSON</button>
-      <button data-export-id="csv">Export as CSV</button>
+      <a href="#" data-export-id="json" style="padding: 0px 6px;" class="vis-view-toggle pull-right">Export as JSON</a>
+      <a href="#" data-export-id="csv" style="padding: 0px 6px; margin-right: 4px;" class="vis-view-toggle pull-right">Export as CSV</a>
     </div>
     <table class="scholars-vis-table" style="height: 700px; width: 800px; overflow: scroll; margin: 20 px; display: block; ">
       <thead ">

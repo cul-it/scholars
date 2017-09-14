@@ -2711,19 +2711,31 @@ div[data-view-id] {
 }
 
 .scholars-vis-table tr.first-row {
-    font-weight: bold;
 }
 
 .scholars-vis-table tr.not-first-row {
-    font-style: italic;
 }
 
 .scholars-vis-table tr.odd-row {
-    background-color: #dff;
+    background-color: #d6e6f2;
 }
 
 .scholars-vis-table tr.even-row {
-    background-color: #fdf;
+    background-color: #f8eddd;
+}
+
+.vis-view-toggle {
+    background-color: #3770b7;
+    color: #fff;
+    border-radius: 4px;
+    padding: 6px;
+    font-size: 12px;
+}
+
+.vis-view-toggle:hover {
+    background-color: #23527c;
+    color: #fff;
+    text-decoration: none !important;
 }
 
 .word_cloud_vis {

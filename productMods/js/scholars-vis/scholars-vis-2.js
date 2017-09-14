@@ -371,6 +371,8 @@ var ScholarsVis2 = (function() {
         }
         
         function showView(e) {
+            e && e.preventDefault();
+
             var id = e ? $(e.target).data("view-selector") : " ";
             debugIt("View ID: " + id);
             
