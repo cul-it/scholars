@@ -249,7 +249,7 @@ ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/ke
 	</p>   
   </div>
   
-  <div data-view-id="vis" data-view-label="Visualization" style="height: 90%; ">
+  <div data-view-id="vis" style="height: 90%; ">
     <a href="#" data-export-id="json" style="padding: 0px 6px;" class="vis-view-toggle pull-right">Export as JSON</a>
     <a href="javascript:" data-export-id="svg" style="padding: 0px 6px; margin-right: 4px;" class="vis-view-toggle pull-right">Export as SVG</a>
     <font size="2">
@@ -262,7 +262,7 @@ ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/ke
     </font>
   </div>
 
-  <div data-view-id="table" data-view-label="Table by Keywords" style="height: 800px; ">
+  <div data-view-id="table" style="height: 800px; ">
     <h1> Table by Keyword </h1>
     <div>
       <a href="#" data-export-id="json" style="padding: 0px 6px;" class="vis-view-toggle pull-right">Export as JSON</a>
