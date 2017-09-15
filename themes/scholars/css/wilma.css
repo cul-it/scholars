@@ -2690,7 +2690,12 @@ div[data-view-id] {
 }
 
 .scholars-vis-table {
+    height: 95%; 
+    width: 95%; 
     border-collapse: collapse;
+    margin: 20 px; 
+    display: block;
+    overflow-y: scroll; 
 }
 
 .scholars-vis-table th, td {

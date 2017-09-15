@@ -268,7 +268,7 @@ ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/ke
       <a href="#" data-export-id="json" style="padding: 0px 6px;" class="vis-view-toggle pull-right">Export as JSON</a>
       <a href="#" data-export-id="csv" style="padding: 0px 6px; margin-right: 4px;" class="vis-view-toggle pull-right">Export as CSV</a>
     </div>
-    <table class="scholars-vis-table" style="height: 700px; width: 800px; overflow: scroll; margin: 20 px; display: block; ">
+    <table class="scholars-vis-table">
       <thead ">
         <tr>
           <th data-sort="string-ins">Keyword</th>
