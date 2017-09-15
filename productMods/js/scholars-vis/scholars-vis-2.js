@@ -333,7 +333,7 @@ var ScholarsVis2 = (function() {
             }
         }
         
-        function hide() {
+        function hide(e) {
             e && e.preventDefault();
             if (options.modal) {
                 debugIt("Vis:hide");
@@ -618,12 +618,14 @@ var ScholarsVis2 = (function() {
      */
 
     function VisTable(tableElement) {
+        var rowsToAdd = [];
+
         var table = $(tableElement);
-        
-        table.find("tr:has(td):gt(0)").remove();
-        
-        var  template = table.find("tr:has(td)").hide();
+
+        var template = table.find("tr:has(td):eq(0)").detach();
         template.find("td").text("");
+        
+        table.find("tr:has(td)").remove();
 
         return {
             addRow: addRow,
@@ -633,8 +635,7 @@ var ScholarsVis2 = (function() {
         function addRow(...values) {
             var row = template.clone();
             row.find("td").each(fillCell);
-            row.appendTo(table);
-            row.show();
+            rowsToAdd.push(row);
             
             function fillCell(index, cell) {
                 $(cell).html(index < values.length ? values[index] : " ");
@@ -642,6 +643,9 @@ var ScholarsVis2 = (function() {
         }
         
         function complete() {
+            table.append(rowsToAdd);
+            rowsToAdd = [];
+
             table.stupidtable();
             table.on("aftertablesort", showSortDirection); 
             table.on("aftertablesort", highlightRows); 
