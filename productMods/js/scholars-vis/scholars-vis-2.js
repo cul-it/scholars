@@ -601,8 +601,7 @@ var ScholarsVis2 = (function() {
                         placement: "bottom",
                         viewport: target
                 };
-                var tooltip = $("<span></span>").addClass("glyphicon glyphicon-info-sign pull-right").tooltip(tipOptions);
-                toolbar.append(tooltip);
+                var tooltip = $(target).find(".glyphicon-info-sign").tooltip(tipOptions);
             }
         }
     }
@@ -652,7 +651,7 @@ var ScholarsVis2 = (function() {
             function showSortDirection (event, data) {
                 var th = $(this).find("th");
                 th.find(".arrow").remove();
-                var arrow = data.direction === "asc" ? "&uarr;" : "&darr;";
+                var arrow = data.direction === "asc" ? "<i class='fa fa-arrow-up' aria-hidden='true'></i>" : "<i class='fa fa-arrow-down' aria-hidden='true'></i>";
                 th.eq(data.column).append('<span class="arrow">' + arrow +'</span>');
             }
             
