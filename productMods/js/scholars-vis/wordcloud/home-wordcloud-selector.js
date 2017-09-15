@@ -8,6 +8,8 @@
 function createWordCloudSelector(siteSelector, departmentSelector, personSelector, 
                                  site_wc_container, unit_wc_container, person_wc_container, unit_help_text, person_help_text) {
   var wc;  
+  var siteWc;
+  
   $(siteSelector).click(showSiteCloud);
   
   var departmentControl = new AccordionControls.Selector(departmentSelector, showDepartmentCloud);
@@ -22,21 +24,23 @@ function createWordCloudSelector(siteSelector, departmentSelector, personSelecto
   showSiteCloud();
   
   function showSiteCloud() {
-    if (wc) { wc.hide()};
-    wc = new ScholarsVis2.UniversityWordCloud({
-      target : site_wc_container,
-    });
-    
-    $(site_wc_container).find('[data-view-selector]').click(showVisView);
-    function showVisView(e) {
-      var viewId = $(e.target).data('view-selector');
-      $(site_wc_container).find('[data-view-selector]').show();
-      $(site_wc_container).find('[data-view-selector=' + viewId + ']').hide();
-      wc.showView(e);
-    }
-    
-    wc.show();
-    showClouds("site");
+      if (siteWc) {
+          siteWc.hide();
+      } else {
+          siteWc = new ScholarsVis2.UniversityWordCloud({
+              target : site_wc_container,
+          });
+          $(site_wc_container).find('[data-view-selector]').click(showVisView);
+          function showVisView(e) {
+              var viewId = $(e.target).data('view-selector');
+              $(site_wc_container).find('[data-view-selector]').show();
+              $(site_wc_container).find('[data-view-selector=' + viewId + ']').hide();
+              siteWc.showView(e);
+          }
+          
+          siteWc.show();
+      }          
+      showClouds("site");
   }
   
   function showDepartmentCloud(unit) {
