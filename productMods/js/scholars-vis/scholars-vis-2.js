@@ -271,12 +271,12 @@ var ScholarsVis2 = (function() {
             e && e.preventDefault();
             if (options.modal) {
                 debugIt("Vis:showModal");
-                displayProgress().then(fetchAndProcess).then(positionModal).then(hideProgress).then(displayMain).then(makeModal);
+                displayProgress().then(fetchAndProcess).then(positionModal).then(hideProgress).then(displayMain).then(makeModal).then(showView);
             } else {
                 debugIt("Vis:show");
-                displayProgress().then(fetchAndProcess).then(hideProgress).then(displayMain).then(makeVisible);
+                displayProgress().then(fetchAndProcess).then(hideProgress).then(displayMain).then(makeVisible).then(showView);
             }
-            showView();
+            
             
             function displayProgress() {
                 return defer("displayingProgressIndicator", function() {
