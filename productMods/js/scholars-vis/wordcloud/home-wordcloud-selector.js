@@ -18,18 +18,24 @@ function createWordCloudSelector(siteSelector, departmentSelector, personSelecto
   
   var personToolbar = new ScholarsVis.Toolbar(person_wc_container);
   var unitToolbar = new ScholarsVis.Toolbar(unit_wc_container);
-  var siteToolbar = new ScholarsVis.Toolbar(site_wc_container);
 
   showSiteCloud();
   
   function showSiteCloud() {
     if (wc) { wc.hide()};
-    wc = new ScholarsVis.UniversityWordCloud({
-      target : site_wc_container + ' #vis',
+    wc = new ScholarsVis2.UniversityWordCloud({
+      target : site_wc_container,
     });
+    
+    $(site_wc_container).find('[data-view-selector]').click(showVisView);
+    function showVisView(e) {
+      var viewId = $(e.target).data('view-selector');
+      $(site_wc_container).find('[data-view-selector]').show();
+      $(site_wc_container).find('[data-view-selector=' + viewId + ']').hide();
+      wc.showView(e);
+    }
+    
     wc.show();
-    $(site_wc_container + '>#exporter').click(wc.showVisData);
-    showSelection(siteToolbar);
     showClouds("site");
   }
   
@@ -59,7 +65,7 @@ function createWordCloudSelector(siteSelector, departmentSelector, personSelecto
   
   function showSelection(toolbar, message, uri) {
     if ( typeof message == "undefined") {
-      toolbar.setHeadingText("University-wide research keywords");
+    // NOTHING TO DO
     } else if ( typeof uri == "undefined") {
       toolbar.setHeadingText("Research keywords for " + message);
     } else {

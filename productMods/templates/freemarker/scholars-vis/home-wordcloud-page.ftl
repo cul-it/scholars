@@ -94,27 +94,76 @@
         </div>
       </div>
 
-      <div id="siteWordCloudVis" style="display:none">
-        <div id="wc-text-container">
-          <span class="text-primary" id="content"></span>
-        </div>
-        <div id="vis"></div>
+      <#-- 
+      =======================================================================
+      Site cloud
+      ======================================================================= 
+      -->
+
+      <div id="siteWordCloudVis" style="display:none; ">
+	    <div class="vis_toolbar">
+	      <span class="heading">University-wide research keywords</span>
+	      <a data-view-selector="vis" href="#" class="vis-view-toggle" style="display: none">Show visualization</a>
+	      <a data-view-selector="table" href="#" class="vis-view-toggle">Show table</a>
+	    </div>
 
         <div id="info_icon_text" style="display:none">
           <p>
-            This visualization gives a bird's eye view of the research keywords associated with all Cornell faculty and researchers, and is an aggregation of all the keywords found in their published articles. The size of the keyword indicates the frequency with which the keyword appeared in the authors's publications, indicating which subjects Cornell faculty and researchers published on most (or least) frequently. 
+            This visualization gives a bird's eye view of the research keywords associated 
+            with all Cornell faculty and researchers, and is an aggregation of all the 
+            keywords found in their published articles. The size of the keyword indicates 
+            the frequency with which the keyword appeared in the authors's publications, 
+            indicating which subjects Cornell faculty and researchers published on most 
+            (or least) frequently. 
           </p>
           <p>
-             To interact with the visualization, click on any keyword to see the list of authors that have this keyword associated with one of more of their articles. You can then click on the author's name in the list to go to the author's page, which contains the full list of the author's publications in Scholars.
+             To interact with the visualization, click on any keyword to see the list of 
+             authors that have this keyword associated with one of more of their articles. 
+             You can then click on the author's name in the list to go to the author's page, 
+             which contains the full list of the author's publications in Scholars.
           </p>
           <hr> 
           <p>
-            Note: This information is based solely on publications that have been loaded into the system.
+            Note: This information is based solely on publications that have been loaded 
+            into the system.
           </p> 
         </div>
-      </div>
+	  
+  	    <div data-view-id="vis" style="height: 90%; ">
+	      <a href="#" data-export-id="json" style="padding: 0px 6px;" class="vis-view-toggle pull-right">Export as JSON</a>
+	      <a href="javascript:" data-export-id="svg" style="padding: 0px 6px; margin-right: 4px;" class="vis-view-toggle pull-right">Export as SVG</a>
+	    </div>
+	
+	    <div data-view-id="table" style="height: 800px; ">
+	      <h1> Table by Keyword </h1>
+	        <div>
+	        <a href="#" data-export-id="json" style="padding: 0px 6px;" class="vis-view-toggle pull-right">Export as JSON</a>
+	        <a href="#" data-export-id="csv" style="padding: 0px 6px; margin-right: 4px;" class="vis-view-toggle pull-right">Export as CSV</a>
+	      </div>
+	      <table class="scholars-vis-table">
+	        <thead ">
+	          <tr>
+	            <th data-sort="string-ins">Keyword</th>
+	            <th data-sort="string-ins">Faculty Member</th>
+	            <th data-sort="int"># of Publications</th>
+	          </tr>
+	        </thead>
+	        <tbody>
+	          <tr>
+	            <td>Template cell</td>
+	            <td>Template cell</td>
+	            <td>Template cell</td>
+	          </tr>
+	        </tbody>
+	      </table>
+	    </div>
+	  </div>
 
-    </div>
+     <#-- 
+     =======================================================================
+       End of site cloud
+     ======================================================================= 
+     -->
 
   </div>
 </div>
@@ -126,6 +175,11 @@ ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/ut
                   '<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">',
                   '<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Raleway" />',
 	              '<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Muli" />')}
+
+${scripts.add('<script type="text/javascript" src="${urls.base}/js/scholars-vis/scholars-vis-2.js"></script>',
+              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/FileSaver.js"></script>',
+			  '<script type="text/javascript" src="${urls.base}/js/stupidtable.min.js"></script>',
+			  '<script type="text/javascript" src="${urls.base}/js/scholars-vis/wordcloud/word-cloud-2.js"></script>')}
 
 ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></script>',
               '<script type="text/javascript" src="${urls.base}/js/scholars-vis/d3/d3.layout.cloud.js"></script>',
