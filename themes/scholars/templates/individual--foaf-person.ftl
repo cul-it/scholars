@@ -419,7 +419,7 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></
 ${scripts.add('<script type="text/javascript" src="${urls.base}/js/scholars-vis/scholars-vis-2.js"></script>',
               '<script type="text/javascript" src="${urls.base}/js/scholars-vis/FileSaver.js"></script>',
 			  '<script type="text/javascript" src="${urls.base}/js/stupidtable.min.js"></script>',
-			  '<script type="text/javascript" src="${urls.base}/js/scholars-vis/wordcloud/word-cloud-2.js"></script>')}
+			  '<script type="text/javascript" src="${urls.base}/js/scholars-vis/wordcloud/word-cloud.js"></script>')}
 
 ${stylesheets.add('<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Raleway" />',
 	'<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Muli" />')}
