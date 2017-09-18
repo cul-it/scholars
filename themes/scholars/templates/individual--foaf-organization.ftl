@@ -405,13 +405,13 @@ ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/ke
     <a data-view-selector="table" href="#" class="vis-view-toggle">Show table</a>
   </div>
   
-  <div id="info_icon_text">
+  <div id="info_icon_text" style="display:none">
     <p>
-      This visualization displays the research keywords for the entire academic unit, 
+      This visualization displays the research keywords for an entire academic unit, 
       and is an aggregation of the keywords found in all the articles authored by all 
-      faculty and researchers of an academic unit. The size of the keyword indicates the 
-      frequency with which the keyword appears in the author's publications, indicating which 
-      subjects the author published on most (or least) frequently. 
+      faculty and researchers of an academic unit. The size of the keyword indicates 
+      the frequency with which the keyword appears in the author's publications, 
+      indicating which subjects the author published on most (or least) frequently. 
     </p>
     <p>
       To interact with the visualization, click on any keyword to see the list of 
@@ -427,7 +427,7 @@ ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/ke
   
   <div data-view-id="vis" style="height: 90%; ">
     <a href="#" data-export-id="json" style="padding: 0px 6px;" class="vis-view-toggle pull-right">Export as JSON</a>
-    <a href="javascript:" data-export-id="svg" style="padding: 0px 6px; margin-right: 4px;" class="vis-view-toggle pull-right">Export as SVG</a>
+    <a href="#" data-export-id="svg" style="padding: 0px 6px; margin-right: 4px;" class="vis-view-toggle pull-right">Export as SVG</a>
     <font size="2">
       <span><i>Click on a keyword to view the list of the relevant faculty.</i></span>
       <#--	
@@ -445,7 +445,7 @@ ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/ke
       <a href="#" data-export-id="csv" style="padding: 0px 6px; margin-right: 4px;" class="vis-view-toggle pull-right">Export as CSV</a>
     </div>
     <table class="scholars-vis-table">
-      <thead ">
+      <thead>
         <tr>
           <th data-sort="string-ins">Keyword</th>
           <th data-sort="string-ins">Faculty Member</th>

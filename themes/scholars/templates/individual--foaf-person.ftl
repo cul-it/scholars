@@ -227,31 +227,30 @@ ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/ke
   </div>
   
   <div id="info_icon_text">
-    	<p>
-    		This visualization represents the research keywords of the author 
-    		which is an aggregation of keywords found in all the author's articles. 
-    		There are different sources of these keywords; those expressed by the 
-    		author in the articles, those assigned by the publishers to the article 
-    		and those that are algorithmically inferred from the text of the 
-    		article's abstract. The size of the keyword indicates the frequency of 
-    		the keyword in the author's publications which suggests that in which 
-    		subject author published most (or least) frequently.
+    <p>
+      This visualization displays the research keywords associated with the author, 
+      and is an aggregation of keywords found in all of the author's articles. 
+      There are different sources of these keywords: those expressed by the author in the articles, 
+      those assigned by the publishers to the article, and those that are algorithmically inferred 
+      from the text of the article's abstract. The size of the keyword indicates the frequency 
+      with which the keyword appears in the author's publications, indicating which subject 
+      the author published on most (or least) frequently. 
     </p>
     <p>
-        	This is not a static visualization. A user can click on any the keyword 
-        	to see the list of actual articles that have this keyword. One can click 
-        	on the article title in the list to navigate to the full view of the 
-        	article's metadata and a link to the full text when its available.
-	</p>
- 	<hr> 
-	<p>
-     	Note: This information is based solely on publications that have been loaded into the system.
-	</p>   
+       To interact with the visualization, click on any the keyword to see the list of the 
+       articles associated with the keyword. You can then click on the article title in this 
+       list to navigate to the full view of the article's metadata and a link to the full 
+       text when its available.
+    </p>
+    <hr> 
+    <p>
+      Note: This information is based solely on publications that have been loaded into the system.
+    </p> 
   </div>
   
   <div data-view-id="vis" style="height: 90%; ">
     <a href="#" data-export-id="json" style="padding: 0px 6px;" class="vis-view-toggle pull-right">Export as JSON</a>
-    <a href="javascript:" data-export-id="svg" style="padding: 0px 6px; margin-right: 4px;" class="vis-view-toggle pull-right">Export as SVG</a>
+    <a href="#" data-export-id="svg" style="padding: 0px 6px; margin-right: 4px;" class="vis-view-toggle pull-right">Export as SVG</a>
     <font size="2">
       <span><i>Click on a keyword to view the list of related publications.</i></span>
     <br>
@@ -269,7 +268,7 @@ ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/ke
       <a href="#" data-export-id="csv" style="padding: 0px 6px; margin-right: 4px;" class="vis-view-toggle pull-right">Export as CSV</a>
     </div>
     <table class="scholars-vis-table">
-      <thead ">
+      <thead>
         <tr>
           <th data-sort="string-ins">Keyword</th>
           <th data-sort="string-ins">Keyword type(s)</th>
