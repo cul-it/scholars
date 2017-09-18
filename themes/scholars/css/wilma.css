@@ -2668,19 +2668,39 @@ nav#alpha-browse-container {
 }
 
 .vis_toolbar .heading {
-  font: 16px "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font: 20px "Helvetica Neue", Helvetica, Arial, sans-serif;
   margin-bottom: 8px;
 }
 
 .vis_modal {
-    display: table;
+    display: block;
 	height:80%;
 	width:75%;
 	background-color: #fff;
 	border-radius: 5px;
 	z-index: 3;
 }
-
+.vis-table-container {
+	height: 90%;
+	display: block;
+}
+.vis-table-container h1 {
+	margin-top: 8px;
+}
+.scholars-vis-table {
+	height: 90%; 
+	width: 80%; 
+	overflow: auto; 
+	margin: 20px; 
+	display: block;
+}
+.scholars-vis-table thead tr th {
+	color: #167093; 
+}
+.scholars-vis-table thead tr th:hover {
+	color: #167093; 
+	text-decoration: underline;
+}
 #info_icon_text {
     display: none;
 }
@@ -2728,25 +2748,38 @@ div[data-view-id] {
 .scholars-vis-table tr.even-row {
     background-color: #f8eddd;
 }
-
+.vis_toolbar a {
+	margin-right: 55px;
+}
 .vis-view-toggle {
     background-color: #3770b7;
     color: #fff;
-    border-radius: 4px;
-    padding: 6px;
-    font-size: 12px;
+    border-radius: 5px;
+    padding: 2px 6px;
+    font-size: 14px;
 }
-
 .vis-view-toggle:hover {
     background-color: #23527c;
     color: #fff;
     text-decoration: none !important;
 }
-
+.vis-view-toggle:focus {
+    background-color: #3770b7;
+    color: #fff;
+    text-decoration: none !important;
+}
+.vis-exports-container {
+	margin-top: 8px;
+}
 .word_cloud_vis {
 	height:90%;
 }
-
+.vis-container {
+	height: 90%;
+}
+.vis-container svg {
+	margin-top: 15px;
+}
 .dept_grants_vis svg g text {
 	font-size: 80%;
 }
@@ -3309,7 +3342,7 @@ header {
 }
 .glyphicon-info-sign {
     font-size: 22px;
-    color: #167093;
+    color: #3770b7;
 }
 .qtip-scholars {
 	font-size: 15px;
