@@ -120,8 +120,7 @@
  * }
  * 
  * Each key in the view structure should correspond to the data-view-id 
- * attribute of a div in the target. That div should also have a data-view-label
- * attribute, for use in the view selector in the toolbar.
+ * attribute of a div in the target.
  * 
  * Each view uses the same data, which has been fetched, parsed, and 
  * transformed as described above. The target for the view is the div with the

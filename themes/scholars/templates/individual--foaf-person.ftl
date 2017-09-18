@@ -264,7 +264,7 @@ ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/ke
     </font>
   </div>
 
-  <div data-view-id="table" data-view-label="Table by Keywords" class="vis-table-container">
+  <div data-view-id="table" class="vis-table-container">
     <div class="vis-exports-container">
       <a href="javascript:return false;" data-export-id="json"  class="vis-view-toggle pull-right">Export as JSON</a>
       <a href="javascript:return false;" data-export-id="csv" style="margin-right: 10px;" class="vis-view-toggle pull-right">Export as CSV</a>
