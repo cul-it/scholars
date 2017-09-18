@@ -67,8 +67,9 @@
       <div id="departmentWordCloudVis" style="display:none; ">
         <div class="vis_toolbar">
           <span class="heading">Research Keywords</span>
-          <a data-view-selector="vis" href="#" class="vis-view-toggle" style="display: none">Show visualization</a>
-          <a data-view-selector="table" href="#" class="vis-view-toggle">Show table</a>
+          <span class="glyphicon glyphicon-info-sign pull-right" data-original-title="" title=""></span>
+          <a data-view-selector="vis" href="#" class="vis-view-toggle pull-right" style="display: none">Show visualization</a>
+          <a data-view-selector="table" href="#" class="vis-view-toggle pull-right">Show table format</a>
         </div>
   
         <div id="info_icon_text" style="display:none">
@@ -92,8 +93,10 @@
         </div>
   
         <div data-view-id="vis" style="height: 90%;">
-          <a href="#" data-export-id="json" style="padding: 0px 6px;" class="vis-view-toggle pull-right">Export as JSON</a>
-          <a href="#" data-export-id="svg" style="padding: 0px 6px; margin-right: 4px;" class="vis-view-toggle pull-right">Export as SVG</a>
+          <div class="vis-exports-container" >
+            <a href="javascript:return false;" data-export-id="json" class="vis-view-toggle pull-right">Export as JSON</a>
+            <a href="javascript:return false;" data-export-id="svg" style="margin-right: 7px;" class="vis-view-toggle pull-right">Export as SVG</a>
+	      </div>
           <font size="2">
             <#--	
             <label class="boxLabel"><input id="keyword" type="checkbox" class="cbox" checked>Article Keywords<span id="kw">(0)</span></label>
@@ -103,12 +106,12 @@
           </font>
         </div>
 
-        <div data-view-id="table" style="height: 800px; ">
-          <h1> Table by Keyword </h1>
-            <div>
-            <a href="#" data-export-id="json" style="padding: 0px 6px;" class="vis-view-toggle pull-right">Export as JSON</a>
-            <a href="#" data-export-id="csv" style="padding: 0px 6px; margin-right: 4px;" class="vis-view-toggle pull-right">Export as CSV</a>
+        <div data-view-id="table" data-view-label="Table by Keywords" class="vis-table-container">
+          <div class="vis-exports-container">
+            <a href="javascript:return false;" data-export-id="json"  class="vis-view-toggle pull-right">Export as JSON</a>
+            <a href="javascript:return false;" data-export-id="csv" style="margin-right: 10px;" class="vis-view-toggle pull-right">Export as CSV</a>
           </div>
+          <h1>Table by Keyword</h1>
           <table class="scholars-vis-table">
             <thead>
               <tr>
@@ -135,8 +138,9 @@
       <div id="personWordCloudVis" style="display:none; ">
         <div class="vis_toolbar">
           <span class="heading">Research Keywords</span>
-          <a data-view-selector="vis" href="#" class="vis-view-toggle" style="display: none">Show visualization</a>
-          <a data-view-selector="table" href="#" class="vis-view-toggle">Show table</a>
+          <span class="glyphicon glyphicon-info-sign pull-right" data-original-title="" title=""></span>
+          <a data-view-selector="vis" href="#" class="vis-view-toggle pull-right" style="display: none">Show visualization</a>
+          <a data-view-selector="table" href="#" class="vis-view-toggle pull-right">Show table format</a>
         </div>
   
         <div id="info_icon_text">
@@ -162,8 +166,10 @@
         </div>
   
         <div data-view-id="vis" style="height: 90%; ">
-          <a href="#" data-export-id="json" style="padding: 0px 6px;" class="vis-view-toggle pull-right">Export as JSON</a>
-          <a href="#" data-export-id="svg" style="padding: 0px 6px; margin-right: 4px;" class="vis-view-toggle pull-right">Export as SVG</a>
+          <div class="vis-exports-container" >
+            <a href="javascript:return false;" data-export-id="json" class="vis-view-toggle pull-right">Export as JSON</a>
+            <a href="javascript:return false;" data-export-id="svg" style="margin-right: 7px;" class="vis-view-toggle pull-right">Export as SVG</a>
+	      </div>
           <font size="2">
           <br>
 	        <label class="radio-inline radio-inline-override"><input id="all" type="radio" name="kwRadio" class="radio" checked>Featured Keywords</label>
@@ -173,12 +179,12 @@
           </font>
         </div>
 
-        <div data-view-id="table" style="height: 800px; ">
-          <h1> Table by Keyword </h1>
-          <div>
-            <a href="#" data-export-id="json" style="padding: 0px 6px;" class="vis-view-toggle pull-right">Export as JSON</a>
-            <a href="#" data-export-id="csv" style="padding: 0px 6px; margin-right: 4px;" class="vis-view-toggle pull-right">Export as CSV</a>
+        <div data-view-id="table" data-view-label="Table by Keywords" class="vis-table-container">
+          <div class="vis-exports-container">
+            <a href="javascript:return false;" data-export-id="json"  class="vis-view-toggle pull-right">Export as JSON</a>
+            <a href="javascript:return false;" data-export-id="csv" style="margin-right: 10px;" class="vis-view-toggle pull-right">Export as CSV</a>
           </div>
+          <h1>Table by Keyword</h1>
           <table class="scholars-vis-table">
             <thead>
               <tr>
@@ -207,8 +213,9 @@
       <div id="siteWordCloudVis" style="display:none; ">
 	    <div class="vis_toolbar">
 	      <span class="heading">University-wide research keywords</span>
-	      <a data-view-selector="vis" href="#" class="vis-view-toggle" style="display: none">Show visualization</a>
-	      <a data-view-selector="table" href="#" class="vis-view-toggle">Show table</a>
+	      <span class="glyphicon glyphicon-info-sign pull-right" data-original-title="" title=""></span>
+          <a data-view-selector="vis" href="#" class="vis-view-toggle pull-right" style="display: none">Show visualization</a>
+          <a data-view-selector="table" href="#" class="vis-view-toggle pull-right">Show table format</a>
 	    </div>
 
         <div id="info_icon_text" style="display:none">
@@ -234,18 +241,20 @@
         </div>
 	  
   	    <div data-view-id="vis" style="height: 90%; ">
-	      <a href="#" data-export-id="json" style="padding: 0px 6px;" class="vis-view-toggle pull-right">Export as JSON</a>
-	      <a href="javascript:" data-export-id="svg" style="padding: 0px 6px; margin-right: 4px;" class="vis-view-toggle pull-right">Export as SVG</a>
+          <div class="vis-exports-container" >
+            <a href="javascript:return false;" data-export-id="json" class="vis-view-toggle pull-right">Export as JSON</a>
+            <a href="javascript:return false;" data-export-id="svg" style="margin-right: 7px;" class="vis-view-toggle pull-right">Export as SVG</a>
+	      </div>
 	    </div>
 	
-	    <div data-view-id="table" style="height: 800px; ">
-	      <h1> Table by Keyword </h1>
-	        <div>
-	        <a href="#" data-export-id="json" style="padding: 0px 6px;" class="vis-view-toggle pull-right">Export as JSON</a>
-	        <a href="#" data-export-id="csv" style="padding: 0px 6px; margin-right: 4px;" class="vis-view-toggle pull-right">Export as CSV</a>
-	      </div>
-	      <table class="scholars-vis-table">
-	        <thead>
+        <div data-view-id="table" data-view-label="Table by Keywords" class="vis-table-container">
+          <div class="vis-exports-container">
+            <a href="javascript:return false;" data-export-id="json"  class="vis-view-toggle pull-right">Export as JSON</a>
+            <a href="javascript:return false;" data-export-id="csv" style="margin-right: 10px;" class="vis-view-toggle pull-right">Export as CSV</a>
+          </div>
+          <h1>Table by Keyword</h1>
+          <table class="scholars-vis-table">
+            <thead>
 	          <tr>
 	            <th data-sort="string-ins">Keyword</th>
 	            <th data-sort="string-ins">Faculty Member</th>
