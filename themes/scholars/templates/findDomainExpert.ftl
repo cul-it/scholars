@@ -97,7 +97,7 @@
 					</div>
 					<#assign classCount = classCount + class.count?number />
             </#list>
-			<#if (classCount > hitCount?number)>
+			<#if (classCount?string?replace(",","")?number > hitCount?string?replace(",","")?number)>
 				<div class="facet-note" data-cc="${classCount?number}" data-hc="${hitCount?number}">* Some scholars have multiple positions.</div>
 			</#if>
         </div>
