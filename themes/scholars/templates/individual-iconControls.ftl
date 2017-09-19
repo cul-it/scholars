@@ -30,7 +30,7 @@
 			<#assign theType = "college or school" />
 		</#if>
 		<a href="${webpageUrl!}" title="View the departmental page" target="_blank" onclick="javascript:_paq.push(['trackEvent', 'Icons', 'Department-School-College', 'Webpage-Icon']);">
-			<img src="${urls.base}/themes/scholars/images/contact-info-icon.png" width="32px" title="Click to view the ${theType!} webpage" alt="contact info" />
+			<img src="${urls.base}/themes/scholars/images/websites-icon.png" width="32px" title="Click to view the ${theType!} webpage" alt="contact info" />
 		</a>
 	</#if>
 	<img id="uriIcon" title="Share the URI or view this profile's RDF" data="${individual.uri}" width="32px" src="${urls.base}/themes/scholars/images/share-uri-icon.png" alt="share the uri" class="icon-control"/>
