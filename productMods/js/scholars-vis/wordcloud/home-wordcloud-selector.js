@@ -62,7 +62,7 @@ function createWordCloudSelector(siteSelector, departmentSelector, personSelecto
     
     function setHeadingText(container, label, uri) {
         var span = $(container).find(".vis_toolbar span.heading")
-        span.html('Research keywords for <a href="' + toDisplayPageUrl(uri) + '">' + label + '</a>');
+        span.html('<a href="' + toDisplayPageUrl(uri) + '">' + label + '</a>');
     }
 
     function setupViewButtons(container, vis) {

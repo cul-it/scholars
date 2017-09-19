@@ -76,12 +76,11 @@
             <a href="javascript:return false;" data-export-id="json"  class="vis-view-toggle pull-right">Export as JSON</a>
             <a href="javascript:return false;" data-export-id="csv" style="margin-right: 10px;" class="vis-view-toggle pull-right">Export as CSV</a>
           </div>
-          <h1>Table by Keyword</h1>
           <table class="scholars-vis-table">
             <thead>
               <tr>
-                <th data-sort="string-ins">Keyword</th>
                 <th data-sort="string-ins">Faculty Member</th>
+                <th data-sort="string-ins">Subject Area</th>
               </tr>
             </thead>
             <tbody>

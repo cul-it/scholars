@@ -479,7 +479,6 @@ Word-cloud vis
       <a href="javascript:return false;" data-export-id="json"  class="vis-view-toggle pull-right">Export as JSON</a>
       <a href="javascript:return false;" data-export-id="csv" style="margin-right: 10px;" class="vis-view-toggle pull-right">Export as CSV</a>
     </div>
-    <h1>Table by Keyword</h1>
     <table class="scholars-vis-table">
       <thead>
         <tr>
@@ -496,6 +495,39 @@ Word-cloud vis
     </table>
   </div>
 </div>
+
+<script>
+$().ready(function() {
+    if ($('#word_cloud_icon_holder')) {
+        var wc = new ScholarsVis2.DepartmentWordCloud({
+            target : '#word_cloud_vis',
+            modal : true,
+            department : "${individual.uri?url}",
+            animation : true
+        });
+        wc.examineData(function(data) {
+            if (data.length > 0) {
+                $('#word_cloud_icon_holder').show();
+                $('#word_cloud_trigger').click(showVis);
+                $('#word_cloud_vis [data-view-selector]').click(showVisView);
+                
+                function showVis(e) {
+                    $('#word_cloud_vis [data-view-selector]').show();
+                    $('#word_cloud_vis [data-view-selector="vis"]').hide();
+                    wc.show(e);
+                }
+                
+                function showVisView(e) {
+                    var viewId = $(e.target).data('view-selector');
+                    $('#word_cloud_vis [data-view-selector]').show();
+                    $('#word_cloud_vis [data-view-selector=' + viewId + ']').hide();
+                    wc.showView(e);
+                }
+            }
+        });
+    }
+});
+</script>
 
 <#if isCollegeOrSchool >
 <#-- 
@@ -661,36 +693,6 @@ Cross-unit Collaboration Vis
 <script>
 var isJohnsonOrHotelSchool = ${isJohnsonOrHotelSchool?string};
 $().ready(function() {
-    if ($('#word_cloud_icon_holder')) {
-        var wc = new ScholarsVis2.DepartmentWordCloud({
-            target : '#word_cloud_vis',
-            modal : true,
-            department : "${individual.uri?url}",
-            animation : true
-        });
-        wc.examineData(function(data) {
-            if (data.length > 0) {
-                $('#word_cloud_icon_holder').show();
-                $('#word_cloud_trigger').click(showVis);
-                $('#word_cloud_vis [data-view-selector]').click(showVisView);
-                
-                function showVis(e) {
-                    $('#word_cloud_vis [data-view-selector]').show();
-                    $('#word_cloud_vis [data-view-selector="vis"]').hide();
-                    wc.show(e);
-                }
-                
-                function showVisView(e) {
-                    var viewId = $(e.target).data('view-selector');
-                    $('#word_cloud_vis [data-view-selector]').show();
-                    $('#word_cloud_vis [data-view-selector=' + viewId + ']').hide();
-                    wc.showView(e);
-                }
-            }
-        });
-    }
-    
-    
     if (!isJohnsonOrHotelSchool) {
         $('#visualization-column').hide();
         
