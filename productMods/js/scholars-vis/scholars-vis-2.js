@@ -334,6 +334,7 @@ var ScholarsVis2 = (function() {
         
         function hide(e) {
             e && e.preventDefault();
+            hideViews();
             if (options.modal) {
                 debugIt("Vis:hide");
                 $.when(releaseModal());
@@ -343,6 +344,7 @@ var ScholarsVis2 = (function() {
             
             function releaseModal() {
                 return defer("releaseModal", function() {
+                    options.closer(options.target);
                     $(options.target).jqmHide(); 
                 });
             }
@@ -364,13 +366,8 @@ var ScholarsVis2 = (function() {
                 debugIt("No views to display");
                 return "";
             }
-            
-            options.viewsArray.forEach(closeView);
-            
-            function closeView(view) {
-                view.closer(view.target);
-                $(view.target).hide()
-            }
+
+            hideViews();
             
             var view = options.viewsArray[0];
             options.viewsArray.forEach(v => {if (v.id == id) {view = v}});
@@ -380,6 +377,15 @@ var ScholarsVis2 = (function() {
                 var copyOfTransformed = JSON.parse(JSON.stringify(options.transformed));
                 view.displayer(copyOfTransformed, view.target, options)
             });
+        }
+        
+        function hideViews() {
+            options.viewsArray.forEach(closeView);
+            
+            function closeView(view) {
+                view.closer(view.target);
+                $(view.target).hide()
+            }
         }
         
         function fetchAndProcess() {

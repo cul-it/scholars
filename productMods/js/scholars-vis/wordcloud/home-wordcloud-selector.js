@@ -7,8 +7,9 @@
  */
 function createWordCloudSelector(siteSelector, departmentSelector, personSelector, 
         siteWcContainer, unitWcContainer, personWcContainer, unitHelpText, personHelpText) {
-    var wc;  
     var siteWc;
+    var personWc;
+    var deptWc;
     
     var departmentControl = new AccordionControls.Selector(departmentSelector, showDepartmentCloud);
     departmentControl.loadFromDataRequest("departmentList");
@@ -33,29 +34,29 @@ function createWordCloudSelector(siteSelector, departmentSelector, personSelecto
     }
     
     function showDepartmentCloud(unit) {
-        if (wc) { 
-            wc.hide()
+        if (deptWc) { 
+            deptWc.hide()
         };
-        wc = new ScholarsVis2.DepartmentWordCloud({
+        deptWc = new ScholarsVis2.DepartmentWordCloud({
             target : unitWcContainer,
             department : unit.uri
         });
-        wc.show();
-        setupViewButtons(unitWcContainer, wc);
+        deptWc.show();
+        setupViewButtons(unitWcContainer, deptWc);
         setHeadingText(unitWcContainer, unit.label, unit.uri);
         showClouds("unit");
     }
     
     function showPersonCloud(person) {
-        if (wc) { 
-            wc.hide()
+        if (personWc) { 
+            personWc.hide()
         };
-        wc = new ScholarsVis2.PersonWordCloud({
+        personWc = new ScholarsVis2.PersonWordCloud({
             target : personWcContainer,
             person : person.uri
         });
-        wc.show();
-        setupViewButtons(personWcContainer, wc);
+        personWc.show();
+        setupViewButtons(personWcContainer, personWc);
         setHeadingText(personWcContainer, person.label, person.uri);
         showClouds("person");
     }
