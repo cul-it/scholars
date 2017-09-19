@@ -396,7 +396,40 @@ $().ready(function() {
 });
 </script>
 
+<#-- 
+=======================================================================
+Visualizations
+======================================================================= 
+-->
+
 ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/keywordcloud/kwcloud.css" />')}
+${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/org-research-areas/ra.css" />',
+                  '<link rel="stylesheet" href="${urls.base}/css/scholars-vis/grants/bubble_chart.css" />',
+                  '<link rel="stylesheet" href="${urls.base}/css/jquery_plugins/jquery.qtip.min.css" />',
+                  '<link rel="stylesheet" href="${urls.base}/css/scholars-vis/jqModal.css" />')}
+${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/collaborations/collab.css" />')}
+
+${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></script>',
+              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/scholars-vis.js"></script>',
+              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/scholars-vis-2.js"></script>',
+              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/FileSaver.js"></script>',
+              '<script type="text/javascript" src="${urls.base}/js/stupidtable.min.js"></script>',
+              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/jqModal.js"></script>',
+              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/rdflib.js"></script>',
+              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/d3/d3-tip.js"></script>',
+              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/d3/d3.layout.cloud.js"></script>',
+              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/grants/transform-data.js"></script>',
+              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/grants/grants_tooltip.js"></script>',
+              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/grants/bubble_chart_script.js"></script>'
+              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/collaborations/collaborations.js"></script>',
+              '<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>',
+              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/wordcloud/word-cloud.js"></script>')}
+
+<#-- 
+=======================================================================
+Word-cloud vis
+======================================================================= 
+-->
 
 <div id="word_cloud_vis" class="vis_modal" style="display:none; ">
   <div class="vis_toolbar">
@@ -464,6 +497,267 @@ ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/ke
   </div>
 </div>
 
+<#if isCollegeOrSchool >
+<#-- 
+=======================================================================
+Inter-departmental Collaboration Vis
+======================================================================= 
+-->
+
+<div id="interd_collab_vis" class="vis_modal dept_collab_vis" style="display:none; ">
+  <div class="vis_toolbar">
+    <span class="heading">Interdepartmental Co-authorships (Faculty only)</span>
+    <span class="glyphicon glyphicon-info-sign pull-right" data-original-title="" title=""></span>
+    <a data-view-selector="vis" href="#" class="vis-view-toggle pull-right" style="display: none">Show visualization</a>
+    <a data-view-selector="table" href="#" class="vis-view-toggle pull-right">Show table format</a>
+  </div>
+  
+  <div id="info_icon_text" style="display:none">
+    <p>
+      The interdepartmental co-authorships are identified based on the affiliation 
+      data extracted from the citation of a publication. Currently, we only present 
+      co-authorships between researchers with faculty appointments. 
+      This visualization has a zoom-in/zoom-out functionality. The visualization 
+      consists of three layers: a department-level layer (inner most), person-level 
+      layer 1 (i.e., author in context), and the person-level layer 2 (i.e., the co-authors). 
+    </p>
+    <p>
+      To view the co-authorships, begin by selecting a department of interest. 
+      In this view, you can observe who has co-authored with whom and how often they 
+      co-authored. To view the co-authored publications, begin by selecting a 
+      faculty member of interest. In this view, clicking on a co-author (in the 
+      outer circle) displays the list of co-authored articles in the tooltip. 
+      Click in the center circle to zoom out to select any other faculty/department of interest.
+    </p>
+    <hr> 
+    <p>
+      Note: This information is based solely on publications that have been loaded into the system.
+    </p> 
+  </div>
+
+  <div data-view-id="vis" class="vis-container">
+    <div class="vis-exports-container" >
+      <a href="javascript:return false;" data-export-id="json" class="vis-view-toggle pull-right">Export as JSON</a>
+      <a href="javascript:return false;" data-export-id="svg" style="margin-right: 7px;" class="vis-view-toggle pull-right">Export as SVG</a>
+	</div>
+    <font size="2">
+      <span><i>
+        Click on any arc to zoom in and on the center circle to zoom out.
+        Once zoomed in on a faculty member, click on the outer arc to view a list of co-authored publications.
+      </i></span>
+    </font>
+  </div>
+
+  <div data-view-id="table" class="vis-table-container">
+    <div class="vis-exports-container">
+      <a href="javascript:return false;" data-export-id="json"  class="vis-view-toggle pull-right">Export as JSON</a>
+      <a href="javascript:return false;" data-export-id="csv" style="margin-right: 10px;" class="vis-view-toggle pull-right">Export as CSV</a>
+    </div>
+    <table class="scholars-vis-table">
+      <thead>
+        <tr>
+          <th data-sort="string-ins">Author</th>
+          <th data-sort="string-ins">Author Organization</th>
+          <th data-sort="string-ins">Co-Author</th>
+          <th data-sort="string-ins">Co-Author Organization</th>
+          <th data-sort="string-ins">Publication</th>
+          <th data-sort="string-ins">Publication Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Template row</td>
+          <td>Template row</td>
+          <td>Template row</td>
+          <td>Template row</td>
+          <td>Template row</td>
+          <td>Template row</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<#-- 
+=======================================================================
+Cross-unit Collaboration Vis
+======================================================================= 
+-->
+
+<div id="cross_unit_collab_vis" class="vis_modal dept_collab_vis" style="display:none; ">
+  <div class="vis_toolbar">
+    <span class="heading">Cross-unit Co-authorships (Faculty only)</span>
+    <span class="glyphicon glyphicon-info-sign pull-right" data-original-title="" title=""></span>
+    <a data-view-selector="vis" href="#" class="vis-view-toggle pull-right" style="display: none">Show visualization</a>
+    <a data-view-selector="table" href="#" class="vis-view-toggle pull-right">Show table format</a>
+  </div>
+  
+  <div id="info_icon_text" style="display:none">
+    <p>
+      The cross-unit co-authorships are identified based on the affiliation data 
+      extracted from the citation of a publication. Currently, we only present 
+      co-authorships between researchers with faculty appointments. This visualization 
+      has a zoom-in/zoom-out functionality. The visualization consists of three layers: 
+      unit-level layer (inner most), person-level layer 1 (i.e., author in context) and 
+      the person-level layer 2 (i.e., the co-authors). 
+    </p>
+    <p>
+      To view the co-authorships, begin by selecting  an academic unit of interest. 
+      In this view, you can observe who has co-authored with whom and how often they 
+      co-authored. To view the co-authored publications, begin by selecting a faculty 
+      member of interest. In this view, clicking on a co-author (in the outer circle) 
+      displays the list of co-authored articles in the tooltip. Click in the center 
+      circle to zoom out to select any other faculty/academic unit of interest.
+    </p>
+    <hr> 
+    <p>
+      Note: This information is based solely on publications that have been loaded into the system.
+    </p>
+  </div>
+
+  <div data-view-id="vis" class="vis-container">
+    <div class="vis-exports-container" >
+      <a href="javascript:return false;" data-export-id="json" class="vis-view-toggle pull-right">Export as JSON</a>
+      <a href="javascript:return false;" data-export-id="svg" style="margin-right: 7px;" class="vis-view-toggle pull-right">Export as SVG</a>
+	</div>
+    <font size="2">
+      <span><i>
+        Click on any arc to zoom in and on the center circle to zoom out.
+	    Once zoomed in on a faculty member, click on the outer arc to view a list of co-authored publications.
+      </i></span>
+    </font>
+  </div>
+
+  <div data-view-id="table" class="vis-table-container">
+    <div class="vis-exports-container">
+      <a href="javascript:return false;" data-export-id="json"  class="vis-view-toggle pull-right">Export as JSON</a>
+      <a href="javascript:return false;" data-export-id="csv" style="margin-right: 10px;" class="vis-view-toggle pull-right">Export as CSV</a>
+    </div>
+    <table class="scholars-vis-table">
+      <thead>
+        <tr>
+          <th data-sort="string-ins">Author</th>
+          <th data-sort="string-ins">Author Organization</th>
+          <th data-sort="string-ins">Co-Author</th>
+          <th data-sort="string-ins">Co-Author Organization</th>
+          <th data-sort="string-ins">Publication</th>
+          <th data-sort="string-ins">Publication Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Template row</td>
+          <td>Template row</td>
+          <td>Template row</td>
+          <td>Template row</td>
+          <td>Template row</td>
+          <td>Template row</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+var isJohnsonOrHotelSchool = ${isJohnsonOrHotelSchool?string};
+$().ready(function() {
+    if ($('#word_cloud_icon_holder')) {
+        var wc = new ScholarsVis2.DepartmentWordCloud({
+            target : '#word_cloud_vis',
+            modal : true,
+            department : "${individual.uri?url}",
+            animation : true
+        });
+        wc.examineData(function(data) {
+            if (data.length > 0) {
+                $('#word_cloud_icon_holder').show();
+                $('#word_cloud_trigger').click(showVis);
+                $('#word_cloud_vis [data-view-selector]').click(showVisView);
+                
+                function showVis(e) {
+                    $('#word_cloud_vis [data-view-selector]').show();
+                    $('#word_cloud_vis [data-view-selector="vis"]').hide();
+                    wc.show(e);
+                }
+                
+                function showVisView(e) {
+                    var viewId = $(e.target).data('view-selector');
+                    $('#word_cloud_vis [data-view-selector]').show();
+                    $('#word_cloud_vis [data-view-selector=' + viewId + ']').hide();
+                    wc.showView(e);
+                }
+            }
+        });
+    }
+    
+    
+    if (!isJohnsonOrHotelSchool) {
+        $('#visualization-column').hide();
+        
+        var cucs = new ScholarsVis2.CrossUnitCollaborationSunburst({
+            department : '${individual.uri}',
+            target : '#cross_unit_collab_vis',
+            modal : true
+        });
+        cucs.examineData(function(data) {
+            if (data && data.children && data.children.length > 0) {
+                $('#visualization-column').show();
+                $('#cross_unit_collab_icon_holder').show();
+                $('#cross_unit_collab_trigger').click(showVis);
+                $('#cross_unit_collab_vis [data-view-selector]').click(showVisView);
+                
+                function showVis(e) {
+                    $('#cross_unit_collab_vis [data-view-selector]').show();
+                    $('#cross_unit_collab_vis [data-view-selector="vis"]').hide();
+                    cucs.show(e);
+                }
+                
+                function showVisView(e) {
+                    var viewId = $(e.target).data('view-selector');
+                    $('#cross_unit_collab_vis [data-view-selector]').show();
+                    $('#cross_unit_collab_vis [data-view-selector=' + viewId + ']').hide();
+                    cucs.showView(e);
+                }
+            }
+        });
+        
+        var idcs = new ScholarsVis2.InterDepartmentCollaborationSunburst({
+            department : '${individual.uri}',
+            target : '#interd_collab_vis',
+            modal : true
+        });
+        idcs.examineData(function(data) {
+            if (data && data.children && data.children.length > 0) {
+                $('#visualization-column').show();
+                $('#interd_collab_icon_holder').show();
+                $('#interd_collab_trigger').click(idcs.show);
+                $('#interd_collab_trigger').click(showVis);
+                $('#interd_collab_vis [data-view-selector]').click(showVisView);
+                
+                function showVis(e) {
+                    $('#interd_collab_vis [data-view-selector]').show();
+                    $('#interd_collab_vis [data-view-selector="vis"]').hide();
+                    idcs.show(e);
+                }
+                
+                function showVisView(e) {
+                    var viewId = $(e.target).data('view-selector');
+                    $('#interd_collab_vis [data-view-selector]').show();
+                    $('#interd_collab_vis [data-view-selector=' + viewId + ']').hide();
+                    idcs.showView(e);
+                }
+            }
+        });
+    }
+});
+</script>
+<#-- 
+=======================================================================
+End visualizations
+======================================================================= 
+-->
+</#if>
+
 ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/individual/individual-vivo.css?vers=1.5.1" />',
 					'<link rel="stylesheet" href="${urls.base}/css/individual/individual.css" />')}
 
@@ -480,117 +774,6 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/individual/in
 <script type="text/javascript">
     i18n_confirmDelete = "${i18n().confirm_delete}"
 </script>
-
-${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/org-research-areas/ra.css" />',
-                  '<link rel="stylesheet" href="${urls.base}/css/scholars-vis/grants/bubble_chart.css" />',
-					'<link rel="stylesheet" href="${urls.base}/css/jquery_plugins/jquery.qtip.min.css" />',
-					'<link rel="stylesheet" href="${urls.base}/css/scholars-vis/jqModal.css" />')}
-
-<#if isCollegeOrSchool >
-	${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/collaborations/collab.css" />')}
-</#if>
-${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></script>',
-              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/scholars-vis.js"></script>',
-              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/grants/transform-data.js"></script>',
-              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/grants/grants_tooltip.js"></script>',
-              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/grants/bubble_chart_script.js"></script>'
-			'<script type="text/javascript" src="${urls.base}/js/scholars-vis/collaborations/collaborations.js"></script>',
-			'<script type="text/javascript" src="${urls.base}/js/scholars-vis/jqModal.js"></script>',
-			'<script type="text/javascript" src="${urls.base}/js/scholars-vis/rdflib.js"></script>',
-            '<script type="text/javascript" src="${urls.base}/js/scholars-vis/d3/d3-tip.js"></script>',
-            '<script type="text/javascript" src="${urls.base}/js/scholars-vis/d3/d3.layout.cloud.js"></script>',
-              '<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>')}
-
-${scripts.add('<script type="text/javascript" src="${urls.base}/js/scholars-vis/scholars-vis-2.js"></script>',
-              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/FileSaver.js"></script>',
-			  '<script type="text/javascript" src="${urls.base}/js/stupidtable.min.js"></script>',
-			  '<script type="text/javascript" src="${urls.base}/js/scholars-vis/wordcloud/word-cloud.js"></script>')}
-
-<#if isCollegeOrSchool >
-  <div id="interd_collab_vis" class="vis_modal dept_collab_vis" style="display:none">
- 	
-	<font size="2">
-	<span><i>Click on any arc to zoom in and on the center circle to zoom out.
-	Once zoomed in on a faculty member, click on the outer arc to view a list of co-authored publications.
-	</i></span>
- 	</font>
-
-    <div id="info_icon_text" style="display:none">
-    	<p>
-    		The interdepartmental co-authorships are identified based on the affiliation data extracted from the citation of a publication. Currently, we only present co-authorships between researchers with faculty appointments. This visualization has a zoom-in/zoom-out functionality. The visualization consists of three layers: a department-level layer (inner most), person-level layer 1 (i.e., author in context), and the person-level layer 2 (i.e., the co-authors). 
-    	</p>
-    	<p>
-    		To view the co-authorships, begin by selecting a department of interest. In this view, you can observe who has co-authored with whom and how often they co-authored. To view the co-authored publications, begin by selecting a faculty member of interest. In this view, clicking on a co-author (in the outer circle) displays the list of co-authored articles in the tooltip. Click in the center circle to zoom out to select any other faculty/department of interest.
-    	</p>
-        <hr> 
-        <p>
-        	Note: This information is based solely on publications that have been loaded into the system.
-        </p> 
-    </div>
-  </div>
-  <div id="cross_unit_collab_vis" class="vis_modal dept_collab_vis" style="display:none">
-
-	<font size="2">
-	<span><i>Click on any arc to zoom in and on the center circle to zoom out.
-	Once zoomed in on a faculty member, click on the outer arc to view a list of co-authored publications.
-	</i></span>
-	</font>
-
-    <div id="info_icon_text" style="display:none">
-      	<p>
-      		The cross-unit co-authorships are identified based on the affiliation data extracted from the citation of a publication. Currently, we only present co-authorships between researchers with faculty appointments. This visualization has a zoom-in/zoom-out functionality. The visualization consists of three layers: unit-level layer (inner most), person-level layer 1 (i.e., author in context) and the person-level layer 2 (i.e., the co-authors). 
-    	</p>
-    	<p>
-    		To view the co-authorships, begin by selecting  an academic unit of interest. In this view, you can observe who has co-authored with whom and how often they co-authored. To view the co-authored publications, begin by selecting a faculty member of interest. In this view, clicking on a co-author (in the outer circle) displays the list of co-authored articles in the tooltip. Click in the center circle to zoom out to select any other faculty/academic unit of interest.
-    	</p>
-        <hr> 
-        <p>
-        	Note: This information is based solely on publications that have been loaded into the system.
-        </p>
-    </div>
-  </div>
-	<script>
-	$().ready(function() {
-	
-	<#if !isJohnsonOrHotelSchool >
-	
-	  	  $('#visualization-column').hide();
-	
-		  var cucs = new ScholarsVis.CrossUnitCollaborationSunburst({
-		    department : '${individual.uri}',
-		    target : '#cross_unit_collab_vis',
-		    modal : true
-	      });
-	      cucs.examineData(function(data) {
-		    if (data && data.children && data.children.length > 0) {
-			  $('#visualization-column').show();
-		      $('#cross_unit_collab_icon_holder').show();
-		      $('#cross_unit_collab_trigger').click(cucs.show);
-		      $('#cross_unit_collab_exporter').click(cucs.showVisData);
-	          new ScholarsVis.Toolbar("#cross_unit_collab_vis", "Cross-unit Co-authorships (Faculty only)");
-		    }
-	      });
-	
-		  var idcs = new ScholarsVis.InterDepartmentCollaborationSunburst({
-		    department : '${individual.uri}',
-		    target : '#interd_collab_vis',
-		    modal : true
-	      });
-	      idcs.examineData(function(data) {
-		    if (data && data.children && data.children.length > 0) {
-			  $('#visualization-column').show();
-		      $('#interd_collab_icon_holder').show();
-		      $('#interd_collab_trigger').click(idcs.show);
-		      $('#interd_collab_exporter').click(idcs.showVisData);
-	          new ScholarsVis.Toolbar("#interd_collab_vis", "Interdepartmental Co-authorships (Faculty only)");
-		    }
-	      });
-
-	</#if>
-	
-	});
-	</script>
-</#if>
 
 <div id="modal_grants_vis" class="vis_modal dept_grants_vis" style="display:none">
   <div id="info_icon_text" style="display:none"> 
@@ -617,36 +800,8 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/scholars-vis/
 
 
 <script>
-  $().ready(function() {
-    if ($('#word_cloud_icon_holder')) {
-      var wc = new ScholarsVis2.DepartmentWordCloud({
-        target : '#word_cloud_vis',
-        modal : true,
-        department : "${individual.uri?url}",
-        animation : true
-      });
-      wc.examineData(function(data) {
-        if (data.length > 0) {
-          $('#word_cloud_icon_holder').show();
-          $('#word_cloud_trigger').click(showVis);
-          $('#word_cloud_vis [data-view-selector]').click(showVisView);
-          
-          function showVis(e) {
-            $('#word_cloud_vis [data-view-selector]').show();
-            $('#word_cloud_vis [data-view-selector="vis"]').hide();
-            wc.show(e);
-          }
-          
-          function showVisView(e) {
-            var viewId = $(e.target).data('view-selector');
-            $('#word_cloud_vis [data-view-selector]').show();
-            $('#word_cloud_vis [data-view-selector=' + viewId + ']').hide();
-            wc.showView(e);
-          }
-        }
-      });
-    }
 
+  $().ready(function() {
     if ($('#grants_icon_holder')) {
       var g = new ScholarsVis.DepartmentGrants({
         target : '#modal_grants_vis',
