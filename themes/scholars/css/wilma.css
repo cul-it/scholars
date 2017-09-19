@@ -2135,9 +2135,42 @@ div#visualization-column div p {
 	font-size: 16px;
 	color: #CC6949;
 }
-/*div#dynamic_word_cloud {
-	display: inline;
-}*/
+div#hztl-visualization-column div {
+	text-align: center; 
+	padding-top: 20px;
+	overflow: hidden;
+}
+div#hztl-visualization-column div p {
+	padding-top: 8px;
+	font-size: 16px;
+	color: #CC6949;
+}
+#available-vis {
+	padding-right: 30px;
+}
+.pending-tab-inactive {
+    padding: .5em 1em !important;
+	border: 1px solid #d3d3d3;
+	background: #e6e6e6;
+	color: #969090;;
+    border-bottom-width: 1px;
+    font-weight: normal;
+    border-top-right-radius: 4px;
+    border-top-left-radius: 4px;
+	font-size: 18px;	
+}
+.pending-asterisk {
+	color: #23527c;
+	float: left;
+	padding: 44px 15px 30px 30px;
+	font-size: 18px;
+}
+.pending-tab-content {
+	height: 320px; 
+}
+.pending-tab-content article p {
+	font-size:16px; 
+}
 a#subject-area-link {
 	color: #167093;
 	float: right;

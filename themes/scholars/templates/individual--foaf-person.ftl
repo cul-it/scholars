@@ -77,12 +77,29 @@ $(document).ready(function() {
 	<#assign webpageLabel = webpageStmt.label! />
 	<#assign webpageUrl = webpageStmt.url! />
 </#if>
+<#assign optIn = "pending" />
+<#assign skippedDept = false />
+<#assign collegeOptIn = "${orgOptIn?first.collegeOptIn!}" />
+<#assign departmentOptIn = "${orgOptIn?first.departmentOptIn!}" />
 <#assign optInProp = propertyGroups.pullProperty("http://scholars.cornell.edu/ontology/vivoc.owl#isOptIn")!>
 <#if optInProp?has_content && optInProp.statements?has_content>
 	<#assign optInStmt = optInProp.statements?first!/>
-	<#assign optIn = optInStmt.value!"false" />
-<#else>
-	<#assign optIn = "false" />
+	<#assign optIn = optInStmt.value!"pending" />
+<#elseif departmentOptIn?has_content>
+	<#if departmentOptIn?contains("true")>
+		<#assign optIn = "true" />
+	<#elseif departmentOptIn?contains("false")>
+		<#assign optIn = "false" />
+	<#else>
+		<#assign skippedDept = true />
+	</#if>
+</#if>
+<#if skippedDept && collegeOptIn?has_content>
+	<#if collegeOptIn?contains("true")>
+		<#assign optIn = "true" />
+	<#elseif collegeOptIn?contains("false")>
+		<#assign optIn = "false" />
+	</#if>
 </#if>
 
 <#-- for some reason pullProperty was only working when logged in, and even with the display level set to public. Weird! So using datagetter-->
@@ -139,15 +156,16 @@ $(document).ready(function() {
 </div> <!-- row1 -->
 
 
-<#if (optIn == "true" && (isAuthor || isInvestigator)) || editable >
+<#if isAuthor || isInvestigator>
 <#-- The row2 div contains the visualization section and the publication and grants lists -->
 <div id="row2" class="row scholars-row foaf-person-row2">
 
+<#if optIn == "true" || optIn == "pending" >
 <div id="visualization-column" class="col-sm-3 col-md-3 col-lg-3 scholars-container">
  	<#if isAuthor >
 		<div id="word_cloud_icon_holder" style="display:none">
 		    <a href="#" id="word_cloud_trigger" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Person', 'Research-Keywords']);">
-		    	<img id="vizIcon" width="145px" src="${urls.base}/themes/scholars/images/wordcloud-icon.png"/>
+		    	<img id="vizIcon" width="152px" src="${urls.base}/themes/scholars/images/wordcloud-icon-hztl.png"/>
 		    </a>
 			<p>Research Keywords</p>
 		</div>
@@ -170,6 +188,7 @@ $(document).ready(function() {
 <div id="foafPersonSpacer" class="col-sm-1 col-md-1 col-lg-1"></div>
 <div id="foafPersonTabs" class="col-sm-8 col-md-8 col-lg-8  scholars-container">
 	<div id="scholars-tabs-container">
+	  <#if optIn == "true" >
 	  <ul id="scholars-tabs">
 	    <#if isAuthor ><li><a href="#tabs-1" onclick="javascript:_paq.push(['trackEvent', 'Tab', 'Person', 'Publications']);">Publications</a></li></#if>
 	    <#if isInvestigator ><li><a href="#tabs-2" onclick="javascript:_paq.push(['trackEvent', 'Tab', 'Person', 'Grants']);">Grants</a></li></#if>
@@ -208,12 +227,79 @@ $(document).ready(function() {
 			</article>
 		  </div>
 	  </#if>
+	<#else>
+	  <ul id="scholars-tabs">
+	  		<li><a href="#tabs-1">Profile Status</a></li>
+	    	<#if isAuthor ><li class="pending-tab pending-tab-inactive">Publications</li></#if>
+	    	<#if isInvestigator ><li class="pending-tab pending-tab-inactive">Grants</li></#if>
+	  </ul>
+	  	<div id="tabs-1" class="pending-tab-content ui-tabs ui-tabs-panel">
+			<article class="property" role="article">
+				<i class="fa fa-asterisk pending-asterisk" aria-hidden="true"></i>
+				<p style="padding: 40px 40px 0 40px;">
+				Release of the full publication view<#if isInvestigator>, as well as grant details,</#if> is pending author approval.</p>
+
+				<p style="padding: 0 40px 20px 63px;">If this is your profile page, please contact the <a href="${urls.base!}/contact" style="color:#167093">Scholars<em style="color:#167093">@</em>Cornell team</a> to activate the display of your publications<#if isInvestigator> and grants</#if>.</p>
+			</article>
+	    </div>
+	  
+	</#if>
 	</div>
+	
 </div>
-</div> <!-- row2 div -->
-<#else>
+<#else> <#-- optin == false -->
+	<div id="hztl-visualization-column" class="col-md-12 scholars-container">
+	  <div class="row visualization-row">
+		<div id="available-vis" class="col-sm-3 col-md-3 col-lg-3">
+			<p>Available<br/>Visualizations</p>
+		</div>
+	 	<#if isAuthor && isInvestigator>
+			<div id="word_cloud_icon_holder" class="col-md-3" style="display:none;padding-top: 0;">
+			    <a href="#" id="word_cloud_trigger" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Person', 'Research-Keywords']);">
+			    	<img id="vizIcon" width="174px" src="${urls.base}/themes/scholars/images/wordcloud-icon-hztl.png"/>
+			    </a>
+				<p>Research Keywords</p>
+			</div>
+	 		<div id="co-author-vis" class="col-md-3" >
+	 			<a href="${coAuthorVisUrl}" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Person', 'Co-authors']);">
+	 				<img id="vizIcon" width="120px" src="${urls.base}/themes/scholars/images/co-authors.png"/>
+	 			</a>
+	 			<p>Co-authors</p>
+	 		</div>
+	 		<div id="co-investigator-vis" class="col-md-3" >
+	 			<a href="${coInvestigatorVisUrl}" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Person', 'Co-investigtors']);">
+	 				<img id="vizIcon" width="120px" src="${urls.base}/themes/scholars/images/co-investigators.png"/>
+	 			</a>
+	 			<p>Co-investigators</p>
+	 		</div>
+	 	<#elseif isAuthor >
+			<div id="word_cloud_icon_holder" class="col-md-5" style="display:none;padding-top: 0;">
+			    <a href="#" id="word_cloud_trigger" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Person', 'Research-Keywords']);">
+			    	<img id="vizIcon" width="174px" src="${urls.base}/themes/scholars/images/wordcloud-icon-hztl.png"/>
+			    </a>
+				<p>Research Keywords</p>
+			</div>
+	 		<div id="co-author-vis" class="col-md-4" >
+	 			<a href="${coAuthorVisUrl}" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Person', 'Co-authors']);">
+	 				<img id="vizIcon" width="120px" src="${urls.base}/themes/scholars/images/co-authors.png"/>
+	 			</a>
+	 			<p>Co-authors</p>
+	 		</div>
+		<#elseif  isInvestigator >
+	 		<div id="co-investigator-vis" class="col-sm-5 col-md-5 col-lg-5" >
+	 			<a href="${coInvestigatorVisUrl}" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Person', 'Co-investigtors']);">
+	 				<img id="vizIcon" width="120px" src="${urls.base}/themes/scholars/images/co-investigators.png"/>
+	 			</a>
+	 			<p>Co-investigators</p>
+	 		</div>
+	 	</#if>
+	  </div>
+	</div>
+</#if>
+<#else> <#-- not an author or investigator -->
 <div id="foaf-person-blank-row" class="row scholars-row"></div>
 </#if>
+</div> <!-- row2 div -->
 <div id="word_cloud_vis" class="vis_modal" style="display:none;">
 	<font size="2">
 	<span><i>Click on a keyword to view the list of related publications.</i></span>
@@ -319,6 +405,22 @@ $().ready(function() {
       $('#word_cloud_trigger').click(wc.show);
       $('#word_cloud_exporter').click(wc.showVisData);
     }
+	else {
+	  if ( $("#co-investigator-vis").length ) {
+		$("#co-author-vis").addClass("col-md-5");
+	  	$("#co-investigator-vis").addClass("col-md-4");
+		$("#co-author-vis").removeClass("col-md-3");
+	  	$("#co-investigator-vis").removeClass("col-md-3");
+	  }
+	  else {
+ 	  	$("#co-author-vis").addClass("col-md-8");
+		$("#available-vis").addClass("col-md-4");
+		$("#hztl-visualization-column").addClass("col-md-7");
+	  	$("#co-author-vis").removeClass("col-md-4");
+		$("#available-vis").removeClass("col-md-3");
+		$("#hztl-visualization-column").removeClass("col-md-12");
+	  }
+	}
   });
   new ScholarsVis.Toolbar("#word_cloud_vis", "Research Keywords");
 });
