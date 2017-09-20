@@ -126,6 +126,12 @@
             </tbody>
           </table>
         </div>
+
+        <div data-view-id="empty">
+          <div style="text-align: center;">
+            <img src="${urls.base}/themes/scholars/images/wordcloud-noData.png"/>
+          </div>
+        </div>
       </div>
 
       <#-- 
@@ -203,6 +209,12 @@
               </tr>
             </tbody>
           </table>
+        </div>
+
+        <div data-view-id="empty">
+          <div style="text-align: center;">
+            <img src="${urls.base}/themes/scholars/images/wordcloud-noData.png"/>
+          </div>
         </div>
       </div>
 

@@ -30,6 +30,9 @@ ScholarsVis2["PersonWordCloud"] = function(options) {
                             call: exportPersonWcTableAsJson
                         }
                     }
+                },
+                empty: {
+                    display : d => {}
                 }
             },
             maxKeywords : 50,
@@ -71,6 +74,9 @@ ScholarsVis2["DepartmentWordCloud"] = function(options) {
                             call: exportDepartmentWcTableAsJson
                         }
                     }
+                },
+                empty: {
+                    display : d => {}
                 }
             },
             maxKeywords : 100,
@@ -330,7 +336,6 @@ var keywords;
 function draw_word_cloud(unfiltered, target, options) {
 
     if (!unfiltered || unfiltered.length == 0) {
-      drawNoData(target, options);
       return;
     }
     
@@ -492,13 +497,6 @@ function draw(input) {
    			tip.hide();
    		}
    	});
-   }
-   
-   function drawNoData(target, options) {
-      d3.select(target)
-        .append("img")
-  		.attr("id", "noData")
-  		.attr("src", applicationContextPath + "/themes/scholars/images/wordcloud-noData.png")
    }
 };
 

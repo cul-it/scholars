@@ -43,6 +43,7 @@ function createWordCloudSelector(siteSelector, departmentSelector, personSelecto
         });
         deptWc.show();
         setupViewButtons(unitWcContainer, deptWc);
+        testForEmpty(unitWcContainer, deptWc);
         setHeadingText(unitWcContainer, unit.label, unit.uri);
         showClouds("unit");
     }
@@ -57,6 +58,7 @@ function createWordCloudSelector(siteSelector, departmentSelector, personSelecto
         });
         personWc.show();
         setupViewButtons(personWcContainer, personWc);
+        testForEmpty(personWcContainer, personWc);
         setHeadingText(personWcContainer, person.label, person.uri);
         showClouds("person");
     }
@@ -77,6 +79,16 @@ function createWordCloudSelector(siteSelector, departmentSelector, personSelecto
             $(container).find('[data-view-selector=' + viewId + ']').hide();
             vis.showView(viewId);
         }
+    }
+    
+    function testForEmpty(container, vis) {
+        vis.examineData(function(data) {
+            console.log("DATA LENGTH: " + data.length);
+            if (data.length == 0) {
+                $(container).find('[data-view-selector]').hide();
+                vis.showView("empty");
+            }
+        });
     }
     
     
