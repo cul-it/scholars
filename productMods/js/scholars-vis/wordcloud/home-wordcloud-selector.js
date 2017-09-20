@@ -83,7 +83,6 @@ function createWordCloudSelector(siteSelector, departmentSelector, personSelecto
     
     function testForEmpty(container, vis) {
         vis.examineData(function(data) {
-            console.log("DATA LENGTH: " + data.length);
             if (data.length == 0) {
                 $(container).find('[data-view-selector]').hide();
                 vis.showView("empty");

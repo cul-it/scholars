@@ -30,6 +30,9 @@ ScholarsVis2["OrganizationResearchAreas"] = function(options) {
                             call: exportConceptMapTableAsJson
                         }
                     }
+                },
+                empty: {
+                    display : d => {}
                 }
             }
     };
@@ -152,11 +155,9 @@ function transformFlaredata(graph) {
 function plotConceptMap(flaredata, target) {
 
     if (!flaredata || !flaredata.ditems || flaredata.ditems.length == 0) {
-      drawNoData(target);
       return;
     }
-	
-		function addNewlines(str) {
+	function addNewlines(str) {
 		var splitStr = str.split(" ");
 		var subarrays = [];
 		var wordsInSubstring = 3;
@@ -817,14 +818,6 @@ function plotConceptMap(flaredata, target) {
 			return k.map[X.key] ? Z : aa
 		}
 	}
-
-   function drawNoData(target, options) {
-      d3.select(target)
-        .append("img")
-  		.attr("id", "noData")
-  		.attr("src", applicationContextPath + "/themes/scholars/images/person_sa_noData.png")
-   }
-
 };
 
 function closeConceptMap(target) {

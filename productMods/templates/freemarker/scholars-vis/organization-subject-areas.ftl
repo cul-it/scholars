@@ -91,8 +91,14 @@
             </tbody>
           </table>
         </div>
-	  </div>
 
+        <div data-view-id="empty">
+          <div style="text-align: center;">
+            <img src="${urls.base}/themes/scholars/images/person_sa_noData.png"/>
+          </div>
+        </div>
+
+	  </div>
 			</div>
 		</div>
 	</div>
@@ -117,65 +123,77 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></
 
 <script>
 $().ready(function() {
-  /*
-   * What is the right place to do these things?
-   * - Create the selector and populate it
-   * - Show a featured department
-   * - Because 'ora' is global to showDepartmentCloud(), the ora.hide() functionality is brittle. How to do it correctly?
-   */
-  var departmentControl = new AccordionControls.Selector("#departmentSelectionPanel", showDepartmentCloud);
-  departmentControl.loadFromDataRequest("departmentList");
-
-  var ora = null;
-  showFeaturedDepartment();
-  
-  function showDepartmentCloud(dept) {
-    departmentControl.collapse();
-    $("#selection_text").html("Research areas for <a href=\"" + toDisplayPageUrl(dept.uri) + "\">" + dept.label + "</a>");
-    if (ora != null) {
-      ora.hide();
-    }
-    ora = new ScholarsVis2.OrganizationResearchAreas({
-	             target : '#organization-subject-areas',
-	      		 organization : dept.uri
-				 });
-	ora.show();
-  }
-
-  $('#organization-subject-areas [data-view-selector]').click(showVisView);
-          
-  function showVisView(e) {
-    var viewId = $(e.target).data('view-selector');
-    $('#organization-subject-areas [data-view-selector]').show();
-    $('#organization-subject-areas [data-view-selector=' + viewId + ']').hide();
-    ora.showView(viewId);
-  }
-
-  /*
-   * Start by displaying one of our featured departments. 
-   */
-  function showFeaturedDepartment() {
-    // This array should contain uris and labels for all of the featured departments.
-    var featuredDepartments = [
-      {
-        uri: "http://scholars.cornell.edu/individual/org68763",
-        label: "Meinig School of Biomedical Engineering"
-      },
-      {
-        uri: "http://scholars.cornell.edu/individual/org80541",
-        label: "Smith School of Chemical and Biomolecular Engineering"
-      }
-    ];
-   
-    showDepartmentCloud(randomArrayEntry(featuredDepartments));
-
-    function randomArrayEntry(array) {
-      return array[getRandomInt(0, array.length - 1)];
+    /*
+     * What is the right place to do these things?
+     * - Create the selector and populate it
+     * - Show a featured department
+     * - Because 'ora' is global to showDepartmentCloud(), the ora.hide() functionality is brittle. How to do it correctly?
+     */
+    var departmentControl = new AccordionControls.Selector("#departmentSelectionPanel", showDepartmentCloud);
+    departmentControl.loadFromDataRequest("departmentList");
     
-      function getRandomInt(min, max) {
-       return Math.floor(Math.random() * (max - min + 1)) + min;
-      }
+    var ora = null;
+    showFeaturedDepartment();
+    
+    function showDepartmentCloud(dept) {
+        departmentControl.collapse();
+        $("#selection_text").html("Research areas for <a href=\"" + toDisplayPageUrl(dept.uri) + "\">" + dept.label + "</a>");
+        if (ora != null) {
+            ora.hide();
+        }
+        ora = new ScholarsVis2.OrganizationResearchAreas({
+            target : '#organization-subject-areas',
+            organization : dept.uri
+        });
+        ora.show();
+        ora.examineData(function(flaredata) {
+            if (hasData()) {
+                showVisView("vis");
+            } else {
+                $('#organization-subject-areas [data-view-selector]').hide();
+                ora.showView("empty");
+            }
+            
+            function hasData() {
+              return flaredata && flaredata.ditems && flaredata.ditems.length > 0;
+            }
+        });
     }
-  }
+    
+    $('#organization-subject-areas [data-view-selector]').click(showVisView);
+    
+    function showVisView(e) {
+        var viewId = $(e.target).data('view-selector');
+        $('#organization-subject-areas [data-view-selector]').show();
+        $('#organization-subject-areas [data-view-selector=' + viewId + ']').hide();
+        ora.showView(viewId);
+    }
+    
+    /*
+     * Start by displaying one of our featured departments. 
+     */
+    function showFeaturedDepartment() {
+        // This array should contain uris and labels for all of the featured departments.
+        var featuredDepartments = [
+            {
+                uri: "http://scholars.cornell.edu/individual/org68763",
+                label: "Meinig School of Biomedical Engineering"
+            },
+            {
+                uri: "http://scholars.cornell.edu/individual/org80541",
+                label: "Smith School of Chemical and Biomolecular Engineering"
+            }
+            ];
+        
+        showDepartmentCloud(randomArrayEntry(featuredDepartments));
+        
+        function randomArrayEntry(array) {
+            return array[getRandomInt(0, array.length - 1)];
+            
+            function getRandomInt(min, max) {
+                return Math.floor(Math.random() * (max - min + 1)) + min;
+            }
+        }
+    }
 });
 </script>
