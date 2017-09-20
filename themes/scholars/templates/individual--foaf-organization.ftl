@@ -508,21 +508,7 @@ $().ready(function() {
         wc.examineData(function(data) {
             if (data.length > 0) {
                 $('#word_cloud_icon_holder').show();
-                $('#word_cloud_trigger').click(showVis);
-                $('#word_cloud_vis [data-view-selector]').click(showVisView);
-                
-                function showVis(e) {
-                    $('#word_cloud_vis [data-view-selector]').show();
-                    $('#word_cloud_vis [data-view-selector="vis"]').hide();
-                    wc.show(e);
-                }
-                
-                function showVisView(e) {
-                    var viewId = $(e.target).data('view-selector');
-                    $('#word_cloud_vis [data-view-selector]').show();
-                    $('#word_cloud_vis [data-view-selector=' + viewId + ']').hide();
-                    wc.showView(viewId);
-                }
+                $('#word_cloud_trigger').click(wc.show);
             }
         });
     }
@@ -705,21 +691,7 @@ $().ready(function() {
             if (data && data.children && data.children.length > 0) {
                 $('#visualization-column').show();
                 $('#cross_unit_collab_icon_holder').show();
-                $('#cross_unit_collab_trigger').click(showVis);
-                $('#cross_unit_collab_vis [data-view-selector]').click(showVisView);
-                
-                function showVis(e) {
-                    $('#cross_unit_collab_vis [data-view-selector]').show();
-                    $('#cross_unit_collab_vis [data-view-selector="vis"]').hide();
-                    cucs.show(e);
-                }
-                
-                function showVisView(e) {
-                    var viewId = $(e.target).data('view-selector');
-                    $('#cross_unit_collab_vis [data-view-selector]').show();
-                    $('#cross_unit_collab_vis [data-view-selector=' + viewId + ']').hide();
-                    cucs.showView(viewId);
-                }
+                $('#cross_unit_collab_trigger').click(cucs.show);
             }
         });
         
@@ -733,21 +705,6 @@ $().ready(function() {
                 $('#visualization-column').show();
                 $('#interd_collab_icon_holder').show();
                 $('#interd_collab_trigger').click(idcs.show);
-                $('#interd_collab_trigger').click(showVis);
-                $('#interd_collab_vis [data-view-selector]').click(showVisView);
-                
-                function showVis(e) {
-                    $('#interd_collab_vis [data-view-selector]').show();
-                    $('#interd_collab_vis [data-view-selector="vis"]').hide();
-                    idcs.show(e);
-                }
-                
-                function showVisView(e) {
-                    var viewId = $(e.target).data('view-selector');
-                    $('#interd_collab_vis [data-view-selector]').show();
-                    $('#interd_collab_vis [data-view-selector=' + viewId + ']').hide();
-                    idcs.showView(viewId);
-                }
             }
         });
     }

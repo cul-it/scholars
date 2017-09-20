@@ -27,7 +27,6 @@ function createWordCloudSelector(siteSelector, departmentSelector, personSelecto
             siteWc = new ScholarsVis2.UniversityWordCloud({
                 target : siteWcContainer,
             });
-            setupViewButtons(siteWcContainer, siteWc);
             siteWc.show();
         }          
         showClouds("site");
@@ -42,7 +41,6 @@ function createWordCloudSelector(siteSelector, departmentSelector, personSelecto
             department : unit.uri
         });
         deptWc.show();
-        setupViewButtons(unitWcContainer, deptWc);
         testForEmpty(unitWcContainer, deptWc);
         setHeadingText(unitWcContainer, unit.label, unit.uri);
         showClouds("unit");
@@ -57,7 +55,6 @@ function createWordCloudSelector(siteSelector, departmentSelector, personSelecto
             person : person.uri
         });
         personWc.show();
-        setupViewButtons(personWcContainer, personWc);
         testForEmpty(personWcContainer, personWc);
         setHeadingText(personWcContainer, person.label, person.uri);
         showClouds("person");
@@ -68,23 +65,9 @@ function createWordCloudSelector(siteSelector, departmentSelector, personSelecto
         span.html('<a href="' + toDisplayPageUrl(uri) + '">' + label + '</a>');
     }
 
-    function setupViewButtons(container, vis) {
-        $(container).find('[data-view-selector]').click(e => {respondToViewButton(container, vis, e) });
-        $(container).find('[data-view-selector]').show();
-        $(container).find('[data-view-selector]:first').hide();
-        
-        function respondToViewButton(container, vis, e) {
-            var viewId = $(e.target).data('view-selector');
-            $(container).find('[data-view-selector]').show();
-            $(container).find('[data-view-selector=' + viewId + ']').hide();
-            vis.showView(viewId);
-        }
-    }
-    
     function testForEmpty(container, vis) {
         vis.examineData(function(data) {
             if (data.length == 0) {
-                $(container).find('[data-view-selector]').hide();
                 vis.showView("empty");
             }
         });

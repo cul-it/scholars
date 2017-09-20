@@ -216,6 +216,7 @@ var ScholarsVis2 = (function() {
             
             var toolbar = new Toolbar(options.target);
             
+            linkViewButtons(options.target);
             linkExportButtons(options.target);
         } catch (e) {
             handleError(e);
@@ -228,8 +229,22 @@ var ScholarsVis2 = (function() {
             hide: hide
         };
         
+        function linkViewButtons(target) {
+            $(target).find("[data-view-selector]").off("click.ScholarsVis");
+            $(target).find("[data-view-selector]").on("click.ScholarsVis", serviceViewButton);
+        }
+        
+        function serviceViewButton(e) {
+            e && e.preventDefault();
+            
+            var viewId = $(e.target).data("view-selector");
+            debugIt("Servicing: view=" + viewId);
+            showView(viewId);
+        }
+        
         function linkExportButtons(target) {
-            $(target).find("[data-export-id]").click(serviceExportButton);
+            $(target).find("[data-export-id]").off("click.ScholarsVis");
+            $(target).find("[data-export-id]").on("click.ScholarsVis", serviceExportButton);
         }
         
         function serviceExportButton(e) {
@@ -357,24 +372,43 @@ var ScholarsVis2 = (function() {
         }
         
         function showView(viewId) {
-            var id = viewId ? viewId : " ";
-            debugIt("View ID: " + id);
-            
+            debugIt("View ID: " + viewId);
             if (options.viewsArray.length == 0) {
                 debugIt("No views to display");
                 return "";
             }
 
-            hideViews();
+            var view = chooseView();
+            debugIt("View is: " + view.id);
             
-            var view = options.viewsArray[0];
-            options.viewsArray.forEach(v => {if (v.id == id) {view = v}});
+            adjustViewButtons();
+            hideViews();
+
             $(view.target).show();
             
             return defer("displaying view", function() {
                 var copyOfTransformed = JSON.parse(JSON.stringify(options.transformed));
                 view.displayer(copyOfTransformed, view.target, options)
             });
+            
+            function chooseView() {
+                viewId = viewId || " ";
+                for (var i = 0; i < options.viewsArray.length; i++) {
+                    if (options.viewsArray[i].id == viewId) {
+                        return options.viewsArray[i];
+                    }
+                }
+                return options.viewsArray[0];
+            }
+            
+            function adjustViewButtons() {
+                if (view.id == "empty") {
+                    $(options.target).find('[data-view-selector]').hide();
+                } else {
+                    $(options.target).find('[data-view-selector]').show();
+                    $(options.target).find('[data-view-selector=' + view.id + ']').hide();
+                }
+            }
         }
         
         function hideViews() {

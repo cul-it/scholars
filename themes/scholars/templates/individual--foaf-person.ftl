@@ -371,21 +371,7 @@ $().ready(function() {
       wc.examineData(function(data) {
         if (data.length > 0) {
           $('#word_cloud_icon_holder').show();
-          $('#word_cloud_trigger').click(showVis);
-          $('#word_cloud_vis [data-view-selector]').click(showVisView);
-          
-          function showVis(e) {
-            $('#word_cloud_vis [data-view-selector]').show();
-            $('#word_cloud_vis [data-view-selector="vis"]').hide();
-            wc.show(e);
-          }
-          
-          function showVisView(e) {
-            var viewId = $(e.target).data('view-selector');
-            $('#word_cloud_vis [data-view-selector]').show();
-            $('#word_cloud_vis [data-view-selector=' + viewId + ']').hide();
-            wc.showView(viewId);
-          }
+          $('#word_cloud_trigger').click(wc.show);
         }
       });
 });

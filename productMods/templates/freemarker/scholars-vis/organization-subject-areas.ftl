@@ -147,26 +147,10 @@ $().ready(function() {
         });
         ora.show();
         ora.examineData(function(flaredata) {
-            if (hasData()) {
-                showVisView("vis");
-            } else {
-                $('#organization-subject-areas [data-view-selector]').hide();
+            if (!flaredata || !flaredata.ditems || flaredata.ditems.length == 0) {
                 ora.showView("empty");
             }
-            
-            function hasData() {
-              return flaredata && flaredata.ditems && flaredata.ditems.length > 0;
-            }
         });
-    }
-    
-    $('#organization-subject-areas [data-view-selector]').click(showVisView);
-    
-    function showVisView(e) {
-        var viewId = $(e.target).data('view-selector');
-        $('#organization-subject-areas [data-view-selector]').show();
-        $('#organization-subject-areas [data-view-selector=' + viewId + ']').hide();
-        ora.showView(viewId);
     }
     
     /*

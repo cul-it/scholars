@@ -112,16 +112,6 @@ $().ready(function() {
     target : '#organization-subject-areas',
     organization : deptUri
     });
-
-  $('#organization-subject-areas [data-view-selector]').click(showVisView);
-          
-  function showVisView(e) {
-    var viewId = $(e.target).data('view-selector');
-    $('#organization-subject-areas [data-view-selector]').show();
-    $('#organization-subject-areas [data-view-selector=' + viewId + ']').hide();
-    ora.showView(viewId);
-  }
-
   ora.show();
     
 });
