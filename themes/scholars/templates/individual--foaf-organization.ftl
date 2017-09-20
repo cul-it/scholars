@@ -33,7 +33,7 @@
 	<#assign isInstitute = true />
 </#if>
 <#assign showVisualizations = false>
-<#if individual.mostSpecificTypes?seq_contains("College") || individual.mostSpecificTypes?seq_contains("School") || individual.mostSpecificTypes?seq_contains("Academic Department")>
+<#if individual.mostSpecificTypes?seq_contains("College") || individual.mostSpecificTypes?seq_contains("School") || individual.mostSpecificTypes?seq_contains("Academic Department") || individual.mostSpecificTypes?seq_contains("Institute")>
 	<#assign showVisualizations = true />
 </#if>
 
@@ -134,10 +134,10 @@
 </#if>
 
 <#assign visualizationColumn >
-  <#if isAcademicDept || isCollegeOrSchool >
+  <#if isAcademicDept || isCollegeOrSchool || isInstitute >
   	<div id="visualization-column" class="col-sm-3 col-md-3 col-lg-3 scholars-container">
   </#if>
-  <#if isAcademicDept || isJohnsonOrHotelSchool >
+  <#if isAcademicDept || isJohnsonOrHotelSchool || isInstitute>
 	<div id="word_cloud_icon_holder" style="display:none">
 		<a href="#" id="word_cloud_trigger" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Department-School', 'Research-Keywords']);">
 			<img id="vizIcon" width="145px" src="${urls.base}/themes/scholars/images/wordcloud-icon.png"/>
@@ -178,7 +178,7 @@
     <div id="visualization-column" class="col-sm-3 col-md-3 col-lg-3 scholars-container">
     </div>
   </#if>
-  <#if isAcademicDept || isCollegeOrSchool >
+  <#if isAcademicDept || isCollegeOrSchool || isInstitute>
   	</div>
   </#if>
 </#assign>
