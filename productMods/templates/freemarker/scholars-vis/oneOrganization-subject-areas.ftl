@@ -119,7 +119,7 @@ $().ready(function() {
     var viewId = $(e.target).data('view-selector');
     $('#organization-subject-areas [data-view-selector]').show();
     $('#organization-subject-areas [data-view-selector=' + viewId + ']').hide();
-    ora.showView(e);
+    ora.showView(viewId);
   }
 
   ora.show();

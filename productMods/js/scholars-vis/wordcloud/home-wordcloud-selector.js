@@ -75,7 +75,7 @@ function createWordCloudSelector(siteSelector, departmentSelector, personSelecto
             var viewId = $(e.target).data('view-selector');
             $(container).find('[data-view-selector]').show();
             $(container).find('[data-view-selector=' + viewId + ']').hide();
-            vis.showView(e);
+            vis.showView(viewId);
         }
     }
     

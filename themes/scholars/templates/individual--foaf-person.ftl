@@ -384,7 +384,7 @@ $().ready(function() {
             var viewId = $(e.target).data('view-selector');
             $('#word_cloud_vis [data-view-selector]').show();
             $('#word_cloud_vis [data-view-selector=' + viewId + ']').hide();
-            wc.showView(e);
+            wc.showView(viewId);
           }
         }
       });

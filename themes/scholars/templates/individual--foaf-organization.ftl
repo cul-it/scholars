@@ -521,7 +521,7 @@ $().ready(function() {
                     var viewId = $(e.target).data('view-selector');
                     $('#word_cloud_vis [data-view-selector]').show();
                     $('#word_cloud_vis [data-view-selector=' + viewId + ']').hide();
-                    wc.showView(e);
+                    wc.showView(viewId);
                 }
             }
         });
@@ -718,7 +718,7 @@ $().ready(function() {
                     var viewId = $(e.target).data('view-selector');
                     $('#cross_unit_collab_vis [data-view-selector]').show();
                     $('#cross_unit_collab_vis [data-view-selector=' + viewId + ']').hide();
-                    cucs.showView(e);
+                    cucs.showView(viewId);
                 }
             }
         });
@@ -746,7 +746,7 @@ $().ready(function() {
                     var viewId = $(e.target).data('view-selector');
                     $('#interd_collab_vis [data-view-selector]').show();
                     $('#interd_collab_vis [data-view-selector=' + viewId + ']').hide();
-                    idcs.showView(e);
+                    idcs.showView(viewId);
                 }
             }
         });

@@ -356,10 +356,8 @@ var ScholarsVis2 = (function() {
             }
         }
         
-        function showView(e) {
-            e && e.preventDefault();
-
-            var id = e ? $(e.target).data("view-selector") : " ";
+        function showView(viewId) {
+            var id = viewId ? viewId : " ";
             debugIt("View ID: " + id);
             
             if (options.viewsArray.length == 0) {
