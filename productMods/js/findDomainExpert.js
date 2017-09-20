@@ -120,7 +120,7 @@ var getDomainExperts = {
 				});
 			},
 			select: function(event, ui) {
-				$("#de-search-input").val(ui.item.label);
+				$("#res-search-input").val(ui.item.label);
 				if ( $("#discover-content").length ) {
 					getDomainExperts.scrollToSearchField($("#discover-content"));
 				}
