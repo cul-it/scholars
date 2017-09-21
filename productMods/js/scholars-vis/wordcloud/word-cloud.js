@@ -20,6 +20,7 @@ ScholarsVis2["PersonWordCloud"] = function(options) {
                 },
                 table: {
                     display : drawPersonWcTable,
+                    closer : closePersonWcTable,
                     export : {
                         csv : {
                             filename: "personWordCloudTable.csv",
@@ -64,6 +65,7 @@ ScholarsVis2["DepartmentWordCloud"] = function(options) {
                 },
                 table: {
                     display : drawDepartmentWcTable,
+                    closer: closeDepartmentWcTable,
                     export : {
                         csv : {
                             filename: "departmentWordCloudTable.csv",
@@ -559,20 +561,22 @@ function exportWcVisAsSvg(data, filename, options) {
  ******************************************************************************/
 function drawPersonWcTable(data, target, options) {
     var tableElement = $(target).find(".scholars-vis-table").get(0);
-    if (!ScholarsVis2.Utilities.isVisTable(tableElement)) {
-        var table = new ScholarsVis2.VisTable(tableElement);
-        var tableData = transformAgainForPersonTable(data);
-        tableData.forEach(addRowToTable);
-        table.complete();
+    var table = new ScholarsVis2.VisTable(tableElement);
+    var tableData = transformAgainForPersonTable(data);
+    tableData.forEach(addRowToTable);
+    table.complete();
+    
+    function addRowToTable(rowData) {
+        table.addRow(rowData.keyword, rowData.types, createLink(rowData.publication, rowData.uri));
         
-        function addRowToTable(rowData) {
-            table.addRow(rowData.keyword, rowData.types, createLink(rowData.publication, rowData.uri));
-            
-            function createLink(text, uri) {
-                return "<a href='" + uri + "'>" + text + "</a>"
-            }
+        function createLink(text, uri) {
+            return "<a href='" + uri + "'>" + text + "</a>"
         }
     }
+}
+
+function closePersonWcTable(target) {
+    $(target).find("table").each(t => ScholarsVis2.Utilities.disableVisTable(t));
 }
 
 function exportPersonWcTableAsCsv(data, filename) {
@@ -610,20 +614,22 @@ function transformAgainForPersonTable(data) {
  ******************************************************************************/
 function drawDepartmentWcTable(data, target, options) {
     var tableElement = $(target).find(".scholars-vis-table").get(0);
-    if (!ScholarsVis2.Utilities.isVisTable(tableElement)) {
-        var table = new ScholarsVis2.VisTable(tableElement);
-        var tableData = transformAgainForDepartmentTable(data);
-        tableData.forEach(addRowToTable);
-        table.complete();
+    var table = new ScholarsVis2.VisTable(tableElement);
+    var tableData = transformAgainForDepartmentTable(data);
+    tableData.forEach(addRowToTable);
+    table.complete();
+    
+    function addRowToTable(rowData) {
+        table.addRow(rowData.keyword, createLink(rowData.name, rowData.uri));
         
-        function addRowToTable(rowData) {
-            table.addRow(rowData.keyword, createLink(rowData.name, rowData.uri));
-            
-            function createLink(text, uri) {
-                return "<a href='" + uri + "'>" + text + "</a>"
-            }
+        function createLink(text, uri) {
+            return "<a href='" + uri + "'>" + text + "</a>"
         }
     }
+}
+
+function closeDepartmentWcTable(target) {
+    $(target).find("table").each(t => ScholarsVis2.Utilities.disableVisTable(t));
 }
 
 function exportDepartmentWcTableAsCsv(data, filename) {

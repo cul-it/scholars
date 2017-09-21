@@ -19,6 +19,7 @@ ScholarsVis2["UniversityWordCloud"] = function(options) {
                 },
                 table: {
                     display : drawUniversityWcTable,
+                    closer : closeUniversityWcTable,
                     export : {
                         csv : {
                             filename: "personWordCloudTable.csv",
@@ -234,20 +235,22 @@ function exportUniversityWcVisAsSvg(data, filename, options) {
  ******************************************************************************/
 function drawUniversityWcTable(data, target, options) {
     var tableElement = $(target).find(".scholars-vis-table").get(0);
-    if (!ScholarsVis2.Utilities.isVisTable(tableElement)) {
-        var table = new ScholarsVis2.VisTable(tableElement);
-        var tableData = transformAgainForUniversityTable(data);
-        tableData.forEach(addRowToTable);
-        table.complete();
+    var table = new ScholarsVis2.VisTable(tableElement);
+    var tableData = transformAgainForUniversityTable(data);
+    tableData.forEach(addRowToTable);
+    table.complete();
+    
+    function addRowToTable(rowData) {
+        table.addRow(rowData.keyword, createLink(rowData.name, rowData.uri), rowData.pubCount);
         
-        function addRowToTable(rowData) {
-            table.addRow(rowData.keyword, createLink(rowData.name, rowData.uri), rowData.pubCount);
-            
-            function createLink(text, uri) {
-                return "<a href='" + uri + "'>" + text + "</a>"
-            }
+        function createLink(text, uri) {
+            return "<a href='" + uri + "'>" + text + "</a>"
         }
     }
+}
+
+function closeUniversityWcTable(target) {
+    $(target).find("table").each(t => ScholarsVis2.Utilities.disableVisTable(t));
 }
 
 function exportUniversityWcTableAsCsv(data, filename) {

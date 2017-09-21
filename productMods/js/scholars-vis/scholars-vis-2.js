@@ -654,6 +654,10 @@ var ScholarsVis2 = (function() {
      */
 
     function VisTable(tableElement) {
+        if (ScholarsVis2.Utilities.isVisTable(tableElement)) {
+            ScholarsVis2.Utilities.disableVisTable(tableElement);
+        }
+        
         var rowsToAdd = [];
 
         var table = $(tableElement);
@@ -737,6 +741,7 @@ var ScholarsVis2 = (function() {
             exportAsCsv: exportAsCsv,
             exportAsSvg: exportAsSvg,
             isVisTable: isVisTable,
+            disableVisTable: disableVisTable,
             stringify: stringify
         }
         
@@ -761,6 +766,19 @@ var ScholarsVis2 = (function() {
             return (typeof $(tableElement).data("is-vis-table") !== "undefined");
         }
 
+        function disableVisTable(tableElement) {
+            if (isVisTable(tableElement)) {
+                $(tableElement).removeData("is-vis-table");
+                $(tableElement).removeAttr("data-is-vis-table");
+                $(tableElement).removeData("sortFns");
+                $(tableElement).removeAttr("sortFns");
+                $(tableElement).removeData("stupidsort_internaltable");
+                $(tableElement).removeAttr("stupidsort_internaltable");
+                $(tableElement).removeAttr("stupidtable.settings");
+                $(tableElement).off("click.stupidtable", "thead th"); 
+            }
+        }
+        
         function stringify(object) {
             return JSON.stringify(object, stringifyReplacer, 2);
 

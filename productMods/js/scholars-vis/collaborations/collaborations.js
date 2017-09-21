@@ -19,6 +19,7 @@ ScholarsVis2["CrossUnitCollaborationSunburst"] = function(options) {
                 },
                 table: {
                     display : drawCrossUnitTable,
+                    closer : closeCrossUnitTable,
                     export : {
                         csv : {
                             filename: "crossUnitCollaborationTable.csv",
@@ -56,6 +57,7 @@ ScholarsVis2["InterDepartmentCollaborationSunburst"] = function(options) {
                 },
                 table: {
                     display : drawInterDepartmentTable,
+                    closer : closeInterDepartmentTable,
                     export : {
                         csv : {
                             filename: "interDepartmentCollaborationTable.csv",
@@ -560,29 +562,31 @@ function exportSunburstVisAsSvg(data, filename, options) {
  ******************************************************************************/
 function drawCrossUnitTable(data, target, options) {
     var tableElement = $(target).find(".scholars-vis-table").get(0);
-    if (!ScholarsVis2.Utilities.isVisTable(tableElement)) {
-        var table = new ScholarsVis2.VisTable(tableElement);
-        var tableData = transformAgainForCrossUnitTable(data);
-        tableData.forEach(addRowToTable);
-        table.complete();
+    var table = new ScholarsVis2.VisTable(tableElement);
+    var tableData = transformAgainForCrossUnitTable(data);
+    tableData.forEach(addRowToTable);
+    table.complete();
+    
+    function addRowToTable(rowData) {
+        table.addRow(createLink(rowData.authorName, rowData.authorUri), 
+                formatOrg(rowData.authorOrgLabel, rowData.authorOrgCode), 
+                createLink(rowData.coauthorName, rowData.coauthorUri), 
+                formatOrg(rowData.coauthorOrgLabel, rowData.coauthorOrgCode),
+                createLink(rowData.publicationTitle, rowData.publicationUri),
+                rowData.publicationDate);
         
-        function addRowToTable(rowData) {
-            table.addRow(createLink(rowData.authorName, rowData.authorUri), 
-                    formatOrg(rowData.authorOrgLabel, rowData.authorOrgCode), 
-                    createLink(rowData.coauthorName, rowData.coauthorUri), 
-                    formatOrg(rowData.coauthorOrgLabel, rowData.coauthorOrgCode),
-                    createLink(rowData.publicationTitle, rowData.publicationUri),
-                    rowData.publicationDate);
-            
-            function createLink(text, uri) {
-                return "<a href='" + toDisplayPageUrl(uri) + "'>" + text + "</a>"
-            }
-            
-            function formatOrg(label, code) {
-                return label + " (" + code + ")";
-            }
+        function createLink(text, uri) {
+            return "<a href='" + toDisplayPageUrl(uri) + "'>" + text + "</a>"
+        }
+        
+        function formatOrg(label, code) {
+            return label + " (" + code + ")";
         }
     }
+}
+
+function closeCrossUnitTable(target) {
+    $(target).find("table").each(t => ScholarsVis2.Utilities.disableVisTable(t));
 }
 
 function exportCrossUnitTableAsCsv(data, filename) {
@@ -636,6 +640,10 @@ function transformAgainForCrossUnitTable(data) {
  ******************************************************************************/
 function drawInterDepartmentTable(data, target, options) {
     drawCrossUnitTable(data, target, options);
+}
+
+function closeInterDepartmentTable(target) {
+    closeCrossUnitTable(target);
 }
 
 function exportInterDepartmentTableAsCsv(data, filename) {

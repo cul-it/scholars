@@ -20,6 +20,7 @@ ScholarsVis2["OrganizationResearchAreas"] = function(options) {
                 },
                 table: {
                     display : drawConceptMapTable,
+                    closer : closeConceptMapTable,
                     export : {
                         csv : {
                             filename: "conceptMapTable.csv",
@@ -846,20 +847,22 @@ function exportConceptMapVisAsSvg(data, filename, options) {
  ******************************************************************************/
 function drawConceptMapTable(data, target, options) {
     var tableElement = $(target).find(".scholars-vis-table").get(0);
-    if (!ScholarsVis2.Utilities.isVisTable(tableElement)) {
-        var table = new ScholarsVis2.VisTable(tableElement);
-        var tableData = transformAgainForTable(data);
-        tableData.forEach(addRowToTable);
-        table.complete();
+    var table = new ScholarsVis2.VisTable(tableElement);
+    var tableData = transformAgainForTable(data);
+    tableData.forEach(addRowToTable);
+    table.complete();
+    
+    function addRowToTable(rowData) {
+       table.addRow(createLink(rowData.personLabel, rowData.personUrl), createLink(rowData.subjectLabel, rowData.subjectUrl));
         
-        function addRowToTable(rowData) {
-           table.addRow(createLink(rowData.personLabel, rowData.personUrl), createLink(rowData.subjectLabel, rowData.subjectUrl));
-            
-            function createLink(text, uri) {
-                return "<a href='" + uri + "'>" + text + "</a>"
-            }
+        function createLink(text, uri) {
+            return "<a href='" + uri + "'>" + text + "</a>"
         }
     }
+}
+
+function closeConceptMapTable(target) {
+    $(target).find("table").each(t => ScholarsVis2.Utilities.disableVisTable(t));
 }
 
 function exportConceptMapTableAsCsv(data, filename) {
