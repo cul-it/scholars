@@ -1,12 +1,65 @@
-ScholarsVis["UniversityWordCloud"] = function(options) {
-  var defaults = {
-      url : applicationContextPath + "/api/dataRequest/university_word_cloud",
-      transform : transformUniversityWordcloud,
-      display : drawUniversityWordCloud,
-      closer : closeUniversityWordcloud
-  };
-  return new ScholarsVis.Visualization(options, defaults);
+ScholarsVis2["UniversityWordCloud"] = function(options) {
+    var defaults = {
+            url : applicationContextPath + "/api/dataRequest/university_word_cloud",
+            transform : transformUniversityWordcloud,
+            views : {
+                vis : {
+                    display : drawUniversityWordCloud,
+                    closer : closeUniversityWordcloud,
+                    export : {
+                        json : {
+                            filename: "universityWordCloud.json",
+                            call: exportUniversityWcVisAsJson
+                        },
+                        svg : {
+                            filename: "universityWordCloud.svg",
+                            call: exportUniversityWcVisAsSvg
+                        }
+                    }
+                },
+                table: {
+                    display : drawUniversityWcTable,
+                    closer : closeUniversityWcTable,
+                    export : {
+                        csv : {
+                            filename: "personWordCloudTable.csv",
+                            call: exportUniversityWcTableAsCsv,
+                        },
+                        json : {
+                            filename: "personWordCloudTable.json",
+                            call: exportUniversityWcTableAsJson
+                        }
+                    }
+                }
+            }
+    };
+    return new ScholarsVis2.Visualization(options, defaults);
 };
+
+
+/*******************************************************************************
+ * 
+ * Transform the RDF graph into the JSON structure that is expected by drawUniversityWordCloud
+ * 
+ * Output format:
+ * [
+ *   {
+ *     "text": "Time Factors",
+ *     "size": 224,
+ *     "articleCount": 395,
+ *     "entities": [
+ *       {
+ *         "text": "W  Butler",
+ *         "uri": "/scholars/display/wrb2",
+ *         "artcount": 15
+ *       },
+ *       ...
+ *     ]
+ *   },
+ *   ...
+ * ]
+ * 
+ ******************************************************************************/
 
 function transformUniversityWordcloud(rawData) {
   return rawData.map(keywordStructToWordCloudData).sort(descendingBySize);
@@ -161,3 +214,70 @@ function drawUniversityWordCloud(keywords, target) {
   );
 
 }
+
+/*******************************************************************************
+ * 
+ * Export the visualization data.
+ * 
+ ******************************************************************************/
+function exportUniversityWcVisAsJson(data, filename) {
+    ScholarsVis2.Utilities.exportAsJson(filename, data);
+}
+
+function exportUniversityWcVisAsSvg(data, filename, options) {
+    ScholarsVis2.Utilities.exportAsSvg(filename, $(options.target).find("svg")[0]);
+}
+
+/*******************************************************************************
+ * 
+ * Fill the University Word Cloud table with data, draw it, export it.
+ * 
+ ******************************************************************************/
+function drawUniversityWcTable(data, target, options) {
+    var tableElement = $(target).find(".scholars-vis-table").get(0);
+    var table = new ScholarsVis2.VisTable(tableElement);
+    var tableData = transformAgainForUniversityTable(data);
+    tableData.forEach(addRowToTable);
+    table.complete();
+    
+    function addRowToTable(rowData) {
+        table.addRow(rowData.keyword, createLink(rowData.name, rowData.uri), rowData.pubCount);
+        
+        function createLink(text, uri) {
+            return "<a href='" + uri + "'>" + text + "</a>"
+        }
+    }
+}
+
+function closeUniversityWcTable(target) {
+    $(target).find("table").each(t => ScholarsVis2.Utilities.disableVisTable(t));
+}
+
+function exportUniversityWcTableAsCsv(data, filename) {
+    ScholarsVis2.Utilities.exportAsCsv(filename, transformAgainForUniversityTable(data));
+}
+
+function exportUniversityWcTableAsJson(data, filename) {
+    ScholarsVis2.Utilities.exportAsJson(filename, transformAgainForUniversityTable(data));
+}
+
+function transformAgainForUniversityTable(data) {
+    var tableData = [];
+    data.forEach(doKeyword);
+    return tableData;
+    
+    function doKeyword(keywordData) {
+        keywordData.entities.forEach(doEntity); 
+        
+        function doEntity(entityData) {
+            var row = {
+                    keyword: keywordData.text,
+                    name: entityData.text,
+                    pubCount: entityData.artcount,
+                    uri: entityData.uri
+            };
+            tableData.push(row);
+        }
+    }
+}
+

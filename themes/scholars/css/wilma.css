@@ -2701,23 +2701,111 @@ nav#alpha-browse-container {
 }
 
 .vis_toolbar .heading {
-  font: 16px "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font: 20px "Helvetica Neue", Helvetica, Arial, sans-serif;
   margin-bottom: 8px;
 }
 
 .vis_modal {
-    display: table;
+    display: block;
 	height:80%;
 	width:75%;
 	background-color: #fff;
 	border-radius: 5px;
 	z-index: 3;
 }
+.vis-table-container {
+	height: 90%;
+	display: block;
+}
+.vis-table-container h1 {
+	margin-top: 8px;
+}
 
+#info_icon_text {
+    display: none;
+}
+
+div[data-view-id] {
+    display: none;
+}
+
+.scholars-vis-table {
+    height: 95%; 
+    width: 95%; 
+    border-collapse: collapse;
+    margin: 20 px; 
+    display: block;
+    overflow: auto; 
+}
+.scholars-vis-table thead tr th {
+	color: #167093; 
+}
+.scholars-vis-table thead tr th:hover {
+	color: #167093; 
+	text-decoration: underline;
+}
+.scholars-vis-table th, td {
+    padding: 5px 10px;
+    border: 1px solid #999;
+}
+
+.scholars-vis-table th {
+    background-color: #eee;
+}
+
+.scholars-vis-table th[data-sort] {
+    cursor: pointer;
+}
+
+.scholars-vis-table th span.arrow{ 
+    margin-left: 10px;
+}
+
+.scholars-vis-table tr.first-row {
+}
+
+.scholars-vis-table tr.not-first-row {
+}
+
+.scholars-vis-table tr.odd-row {
+    background-color: #d6e6f2;
+}
+
+.scholars-vis-table tr.even-row {
+    background-color: #f8eddd;
+}
+.vis_toolbar a {
+	margin-right: 55px;
+}
+.vis-view-toggle {
+    background-color: #3770b7;
+    color: #fff;
+    border-radius: 5px;
+    padding: 2px 6px;
+    font-size: 14px;
+}
+.vis-view-toggle:hover {
+    background-color: #23527c;
+    color: #fff;
+    text-decoration: none !important;
+}
+.vis-view-toggle:focus {
+    background-color: #3770b7;
+    color: #fff;
+    text-decoration: none !important;
+}
+.vis-exports-container {
+	margin-top: 8px;
+}
 .word_cloud_vis {
 	height:90%;
 }
-
+.vis-container {
+	height: 90%;
+}
+.vis-container svg {
+	margin-top: 15px;
+}
 .dept_grants_vis svg g text {
 	font-size: 80%;
 }
@@ -3280,7 +3368,7 @@ header {
 }
 .glyphicon-info-sign {
     font-size: 22px;
-    color: #167093;
+    color: #3770b7;
 }
 .qtip-scholars {
 	font-size: 15px;

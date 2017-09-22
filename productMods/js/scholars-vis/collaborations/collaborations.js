@@ -1,42 +1,141 @@
-ScholarsVis["CrossUnitCollaborationSunburst"] = function(options) {
-	var defaults = {
-		    url : applicationContextPath + "/api/dataRequest/cross_unit_sunburst?department=" + options.department,
-	    	transform : transformCollab,
-		    display : sunburst,
-		    closer : closeSunburst
-		};
-	return new ScholarsVis.Visualization(options, defaults);
+ScholarsVis2["CrossUnitCollaborationSunburst"] = function(options) {
+    var defaults = {
+            url : applicationContextPath + "/api/dataRequest/cross_unit_sunburst?department=" + options.department,
+            transform : transformCollab,
+            views : {
+                vis : {
+                    display : sunburst,
+                    closer : closeSunburst,
+                    export : {
+                        json : {
+                            filename: "crossUnitCollaboration.json",
+                            call: exportSunburstVisAsJson
+                        },
+                        svg : {
+                            filename: "crossUnitCollaboration.svg",
+                            call: exportSunburstVisAsSvg
+                        }
+                    }
+                },
+                table: {
+                    display : drawCrossUnitTable,
+                    closer : closeCrossUnitTable,
+                    export : {
+                        csv : {
+                            filename: "crossUnitCollaborationTable.csv",
+                            call: exportCrossUnitTableAsCsv,
+                        },
+                        json : {
+                            filename: "crossUnitCollaborationTable.json",
+                            call: exportCrossUnitTableAsJson
+                        }
+                    }
+                }
+            }
+    };
+    return new ScholarsVis2.Visualization(options, defaults);
 };
 
-ScholarsVis["InterDepartmentCollaborationSunburst"] = function(options) {
-	var defaults = {
-		    url : applicationContextPath + "/api/dataRequest/interdepartmental_sunburst?department=" + options.department,
-	    	transform : transformCollab,
-		    display : sunburst,
-		    closer : closeSunburst
-		};
-	return new ScholarsVis.Visualization(options, defaults);
+ScholarsVis2["InterDepartmentCollaborationSunburst"] = function(options) {
+    var defaults = {
+            url : applicationContextPath + "/api/dataRequest/interdepartmental_sunburst?department=" + options.department,
+            transform : transformCollab,
+            views : {
+                vis : {
+                    display : sunburst,
+                    closer : closeSunburst,
+                    export : {
+                        json : {
+                            filename: "interDepartmentCollaboration.json",
+                            call: exportSunburstVisAsJson
+                        },
+                        svg : {
+                            filename: "interDepartmentCollaboration.svg",
+                            call: exportSunburstVisAsSvg
+                        }
+                    }
+                },
+                table: {
+                    display : drawInterDepartmentTable,
+                    closer : closeInterDepartmentTable,
+                    export : {
+                        csv : {
+                            filename: "interDepartmentCollaborationTable.csv",
+                            call: exportInterDepartmentTableAsCsv,
+                        },
+                        json : {
+                            filename: "interDepartmentCollaborationTable.json",
+                            call: exportInterDepartmentTableAsJson
+                        }
+                    }
+                }
+            }
+    };
+    return new ScholarsVis2.Visualization(options, defaults);
 };
 
-/**
- * Take the fake data that comes from the server and convert the URIs
- * to display page URLs.
- */
-function transformCollab(fake) {
-	return transformNode(fake)
-	
-	function transformNode(node) {
-		if (node.uri) {
-			node.uri = toDisplayPageUrl(node.uri);
-		}
-		if (node.children) {
-			node.children = node.children.map(transformNode);
-		}
-		if (node.pubs) {
-			node.pubs = node.pubs.map(transformNode);
-		}
-		return node;
-	}
+/*******************************************************************************
+ * Take the data that comes from the server and add display URLs wherever you
+ * find URIs.
+ *
+ * The raw data looks like this:
+ *
+ * {
+ *   "name": "EN",
+ *   "description": "College of Engineering",
+ *   "children": [
+ *     {
+ *       "name": "AEP",
+ *       "description": "Applied and Engineering Physics",
+ *       "children": [
+ *         {
+ *           "name": "Kusse, Bruce Raymond",
+ *           "description": "Kusse, Bruce Raymond",
+ *           "orgCode": "AEP",
+ *           "uri": ""http://scholars.cornell.edu/individual/brk2",
+ *           "children": [
+ *             {
+ *               "name": "Hammer, David A.",
+ *               "description": "Hammer, David A.",
+ *               "orgCode": "ECE",
+ *               "pubs": [
+ *                 {
+ *                   "uri": "http://scholars.cornell.edu/individual/UR-303820",
+ *                   "title": "Experiments measuring the initial energy...",
+ *                   "date": "2001-01-01T00:00:00"
+ *                 },
+ *                 ...
+ *               ],
+ *               "uri": "http://scholars.cornell.edu/individual/mls50",
+ *               "size": 1
+ *             },
+ *             ...
+ *           ]
+ *         },
+ *         ...
+ *       ]
+ *     },
+ *     ...
+ *   ]
+ * }
+ *
+ ******************************************************************************/
+function transformCollab(rawData) {
+    var dataCopy = jQuery.extend(true, {}, rawData);
+    return transformNode(dataCopy);
+    
+    function transformNode(node) {
+        if (node.uri) {
+            node.url = toDisplayPageUrl(node.uri);
+        }
+        if (node.children) {
+            node.children = node.children.map(transformNode);
+        }
+        if (node.pubs) {
+            node.pubs = node.pubs.map(transformNode);
+        }
+        return node;
+    }
 }
 
 function closeSunburst(target) {
@@ -70,14 +169,14 @@ var luminance = d3.scale.sqrt()
 
 var tip = d3.tip().attr('class', 'd3-tip choices triangle-isosceles').attr("id", "specificTip").html(function(d) { 
   result = "";
-  if(d.uri != null){
-    result += "<p><b><a href='" + d.uri + "'>" + d.name + " ("+d.pubs.length+") </a></b></p>";
+  if(d.url != null){
+    result += "<p><b><a href='" + d.url + "'>" + d.name + " ("+d.pubs.length+") </a></b></p>";
   }else{
     result += "<p class='nonlinktext'>"+ d.name + " ("+d.pubs.length+")</p> ";
   }
   if(typeof d.pubs != "undefined") {
     for(var i = 0; i < d.pubs.length; i++) {
-      result += "<div class='collabhoverable'><a href='" + d.pubs[i].uri + "'>" +(i+1)+". "+d.pubs[i].title + "</a></div>";
+      result += "<div class='collabhoverable'><a href='" + d.pubs[i].url + "'>" +(i+1)+". "+d.pubs[i].title + "</a></div>";
     }
   }
   else {
@@ -441,4 +540,116 @@ function updateArc(d) {
 draw_it(json_data);
 
 d3.select(self.frameElement).style("height", margin.top + margin.bottom + "px");
+}
+
+/*******************************************************************************
+ * 
+ * Export the visualization data.
+ * 
+ ******************************************************************************/
+function exportSunburstVisAsJson(data, filename, options) {
+    ScholarsVis2.Utilities.exportAsJson(filename, options.fetched);
+}
+
+function exportSunburstVisAsSvg(data, filename, options) {
+    ScholarsVis2.Utilities.exportAsSvg(filename, $(options.target).find("svg")[0]);
+}
+
+/*******************************************************************************
+ * 
+ * Fill the Cross-unit Collaboration table with data, draw it, export it.
+ * 
+ ******************************************************************************/
+function drawCrossUnitTable(data, target, options) {
+    var tableElement = $(target).find(".scholars-vis-table").get(0);
+    var table = new ScholarsVis2.VisTable(tableElement);
+    var tableData = transformAgainForCrossUnitTable(data);
+    tableData.forEach(addRowToTable);
+    table.complete();
+    
+    function addRowToTable(rowData) {
+        table.addRow(createLink(rowData.authorName, rowData.authorUri), 
+                formatOrg(rowData.authorOrgLabel, rowData.authorOrgCode), 
+                createLink(rowData.coauthorName, rowData.coauthorUri), 
+                formatOrg(rowData.coauthorOrgLabel, rowData.coauthorOrgCode),
+                createLink(rowData.publicationTitle, rowData.publicationUri),
+                rowData.publicationDate);
+        
+        function createLink(text, uri) {
+            return "<a href='" + toDisplayPageUrl(uri) + "'>" + text + "</a>"
+        }
+        
+        function formatOrg(label, code) {
+            return label + " (" + code + ")";
+        }
+    }
+}
+
+function closeCrossUnitTable(target) {
+    $(target).find("table").each(t => ScholarsVis2.Utilities.disableVisTable(t));
+}
+
+function exportCrossUnitTableAsCsv(data, filename) {
+    ScholarsVis2.Utilities.exportAsCsv(filename, transformAgainForCrossUnitTable(data));
+}
+
+function exportCrossUnitTableAsJson(data, filename) {
+    ScholarsVis2.Utilities.exportAsJson(filename, transformAgainForCrossUnitTable(data));
+}
+
+function transformAgainForCrossUnitTable(data) {
+    var tableData = [];
+    data.children.forEach(doCollab);
+    return tableData;
+
+    function doCollab(collabStruct) {
+        collabStruct.children.forEach(doAuthor);
+        
+        function doAuthor(authorStruct) {
+            authorStruct.children.forEach(doCoauthor);
+            
+            function doCoauthor(coauthorStruct) {
+                coauthorStruct.pubs.forEach(doPub);
+                
+                function doPub(pubStruct) {
+                    tableData.push({
+                        authorOrgCode: data.name, 
+                        authorOrgLabel: data.description,
+                        authorName: authorStruct.name,
+                        authorUri: authorStruct.uri,
+                        coauthorOrgCode: collabStruct.name,
+                        coauthorOrgLabel: collabStruct.description,
+                        coauthorName: coauthorStruct.name,
+                        coauthorUri: coauthorStruct.uri,
+                        publicationTitle: pubStruct.title,
+                        publicationDate: pubStruct.date,
+                        publicationUri: pubStruct.uri
+                    });
+                }
+            }    
+        }
+    }
+}
+
+/*******************************************************************************
+ * 
+ * Fill the Inter-department Collaboration table with data, draw it, export it.
+ * 
+ * For now, this is exactly the same as the Cross-Unit Collaboration Table.
+ * 
+ ******************************************************************************/
+function drawInterDepartmentTable(data, target, options) {
+    drawCrossUnitTable(data, target, options);
+}
+
+function closeInterDepartmentTable(target) {
+    closeCrossUnitTable(target);
+}
+
+function exportInterDepartmentTableAsCsv(data, filename) {
+    exportCrossUnitTableAsCsv(data, filename);
+}
+
+function exportInterDepartmentTableAsJson(data, filename) {
+    exportCrossUnitTableAsJson(data, filename);
 }

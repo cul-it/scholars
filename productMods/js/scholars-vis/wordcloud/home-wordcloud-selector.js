@@ -6,86 +6,93 @@
  * selector brings up the dept wordcloud
  */
 function createWordCloudSelector(siteSelector, departmentSelector, personSelector, 
-                                 site_wc_container, unit_wc_container, person_wc_container, unit_help_text, person_help_text) {
-  var wc;  
-  $(siteSelector).click(showSiteCloud);
-  
-  var departmentControl = new AccordionControls.Selector(departmentSelector, showDepartmentCloud);
-  departmentControl.loadFromDataRequest("departmentList");
-  
-  var personControl = new AccordionControls.Selector(personSelector, showPersonCloud);
-  personControl.loadFromDataRequest("facultyList");
-  
-  var personToolbar = new ScholarsVis.Toolbar(person_wc_container);
-  var unitToolbar = new ScholarsVis.Toolbar(unit_wc_container);
-  var siteToolbar = new ScholarsVis.Toolbar(site_wc_container);
+        siteWcContainer, unitWcContainer, personWcContainer, unitHelpText, personHelpText) {
+    var siteWc;
+    var personWc;
+    var deptWc;
+    
+    var departmentControl = new AccordionControls.Selector(departmentSelector, showDepartmentCloud);
+    departmentControl.loadFromDataRequest("departmentList");
+    
+    var personControl = new AccordionControls.Selector(personSelector, showPersonCloud);
+    personControl.loadFromDataRequest("facultyList");
+    
+    $(siteSelector).click(showSiteCloud);
+    showSiteCloud();
+    
+    function showSiteCloud() {
+        if (siteWc) {
+            siteWc.hide();
+        } else {
+            siteWc = new ScholarsVis2.UniversityWordCloud({
+                target : siteWcContainer,
+            });
+            siteWc.show();
+        }          
+        showClouds("site");
+    }
+    
+    function showDepartmentCloud(unit) {
+        if (deptWc) { 
+            deptWc.hide()
+        };
+        deptWc = new ScholarsVis2.DepartmentWordCloud({
+            target : unitWcContainer,
+            department : unit.uri
+        });
+        deptWc.show();
+        testForEmpty(unitWcContainer, deptWc);
+        setHeadingText(unitWcContainer, unit.label, unit.uri);
+        showClouds("unit");
+    }
+    
+    function showPersonCloud(person) {
+        if (personWc) { 
+            personWc.hide()
+        };
+        personWc = new ScholarsVis2.PersonWordCloud({
+            target : personWcContainer,
+            person : person.uri
+        });
+        personWc.show();
+        testForEmpty(personWcContainer, personWc);
+        setHeadingText(personWcContainer, person.label, person.uri);
+        showClouds("person");
+    }
+    
+    function setHeadingText(container, label, uri) {
+        var span = $(container).find(".vis_toolbar span.heading")
+        span.html('<a href="' + toDisplayPageUrl(uri) + '">' + label + '</a>');
+    }
 
-  showSiteCloud();
-  
-  function showSiteCloud() {
-    if (wc) { wc.hide()};
-    wc = new ScholarsVis.UniversityWordCloud({
-      target : site_wc_container + ' #vis',
-    });
-    wc.show();
-    $(site_wc_container + '>#exporter').click(wc.showVisData);
-    showSelection(siteToolbar);
-    showClouds("site");
-  }
-  
-  function showDepartmentCloud(unit) {
-    if (wc) { wc.hide()};
-    wc = new ScholarsVis.DepartmentWordCloud({
-      target : unit_wc_container + ' #vis',
-      department : unit.uri
-    });
-    wc.show();
-    $(unit_wc_container + '>#exporter').click(wc.showVisData);
-    showSelection(unitToolbar, unit.label, unit.uri);
-    showClouds("unit");
-  }
-  
-  function showPersonCloud(person) {
-    if (wc) { wc.hide()};
-    wc = new ScholarsVis.PersonWordCloud({
-      target : person_wc_container + ' #vis',
-      person : person.uri
-    });
-    wc.show();
-    $(person_wc_container + ' #exporter').click(wc.showVisData);
-    showSelection(personToolbar, person.label, person.uri);
-    showClouds("person");
-  }
-  
-  function showSelection(toolbar, message, uri) {
-    if ( typeof message == "undefined") {
-      toolbar.setHeadingText("University-wide research keywords");
-    } else if ( typeof uri == "undefined") {
-      toolbar.setHeadingText("Research keywords for " + message);
-    } else {
-      toolbar.setHeadingText('Research keywords for <a href="' + toDisplayPageUrl(uri) + '">' + message + '</a>');
+    function testForEmpty(container, vis) {
+        vis.examineData(function(data) {
+            if (data.length == 0) {
+                vis.showView("empty");
+            }
+        });
     }
-  }
-  
-  function showClouds(which) {
-    if (which == "unit") {
-      $(site_wc_container).hide();
-      $(unit_wc_container).show();
-      $(person_wc_container).hide();
-      $(person_help_text).hide();
-      $(unit_help_text).show();
-    } else if (which == "person") {
-      $(site_wc_container).hide();
-      $(unit_wc_container).hide();
-      $(person_wc_container).show();
-      $(person_help_text).show();
-      $(unit_help_text).hide();
-    } else { // site
-      $(site_wc_container).show();
-      $(unit_wc_container).hide();
-      $(person_wc_container).hide();
-      $(person_help_text).hide();
-      $(unit_help_text).show();
+    
+    
+   function showClouds(which) {
+        if (which == "unit") {
+            $(siteWcContainer).hide();
+            $(unitWcContainer).show();
+            $(personWcContainer).hide();
+            $(personHelpText).hide();
+            $(unitHelpText).show();
+        } else if (which == "person") {
+            $(siteWcContainer).hide();
+            $(unitWcContainer).hide();
+            $(personWcContainer).show();
+            $(personHelpText).show();
+            $(unitHelpText).hide();
+        } else { // site
+            $(siteWcContainer).show();
+            $(unitWcContainer).hide();
+            $(personWcContainer).hide();
+            $(personHelpText).hide();
+            $(unitHelpText).show();
+        }
     }
-  }
 }

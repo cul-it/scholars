@@ -300,29 +300,84 @@ $(document).ready(function() {
 <div id="foaf-person-blank-row" class="row scholars-row"></div>
 </#if>
 </div> <!-- row2 div -->
-<div id="word_cloud_vis" class="vis_modal" style="display:none;">
-	<font size="2">
-	<span><i>Click on a keyword to view the list of related publications.</i></span>
-    <br>
-	<label class="radio-inline radio-inline-override"><input id="all" type="radio" name="kwRadio" class="radio" checked>Featured Keywords</label>
-	<label class="radio-inline"><input id="keyword"  type="radio" name="kwRadio" class="radio" >Article Keywords</label>
-	<label class="radio-inline"><input id="mesh"     type="radio" name="kwRadio" class="radio" >External Vocab. Terms</label>
-	<label class="radio-inline"><input id="inferred" type="radio" name="kwRadio" class="radio" >Mined Keywords</label>
-	</font>
-	
-    <div id="info_icon_text" style="display:none">
-    	<p>
-    		This visualization represents the research keywords of the author which is an aggregation of keywords found in all the author's articles. There are different sources of these keywords; those expressed by the author in the articles, those assigned by the publishers to the article and those that are algorithmically inferred from the text of the article's abstract. The size of the keyword indicates the frequency of the keyword in the author's publications which suggests that in which subject author published most (or least) frequently.
-        </p>
-        <p>
-        	This is not a static visualization. A user can click on any the keyword to see the list of actual articles that have this keyword. One can click on the article title in the list to navigate to the full view of the article's metadata and a link to the full text when its available.
-	 	</p>
-	 	<hr> 
-		<p>
-        	Note: This information is based solely on publications that have been loaded into the system.
-		</p>   
+
+<!-- =============== Word cloud visualization ======================= -->
+
+${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/keywordcloud/kwcloud.css" />')}
+
+<div id="word_cloud_vis" class="vis_modal" style="display:none; ">
+  <div class="vis_toolbar">
+    <span class="heading">Research Keywords</span>
+    <span class="glyphicon glyphicon-info-sign pull-right" data-original-title="" title=""></span>
+    <a data-view-selector="vis" href="#" class="vis-view-toggle pull-right" style="display: none">Show visualization</a>
+    <a data-view-selector="table" href="#" class="vis-view-toggle pull-right">Show table format</a>
+  </div>
+  
+  <div id="info_icon_text">
+    <p>
+      This visualization displays the research keywords associated with the author, 
+      and is an aggregation of keywords found in all of the author's articles. 
+      There are different sources of these keywords: those expressed by the author in the articles, 
+      those assigned by the publishers to the article, and those that are algorithmically inferred 
+      from the text of the article's abstract. The size of the keyword indicates the frequency 
+      with which the keyword appears in the author's publications, indicating which subject 
+      the author published on most (or least) frequently. 
+    </p>
+    <p>
+       To interact with the visualization, click on any the keyword to see the list of the 
+       articles associated with the keyword. You can then click on the article title in this 
+       list to navigate to the full view of the article's metadata and a link to the full 
+       text when its available.
+    </p>
+    <hr> 
+    <p>
+      Note: This information is based solely on publications that have been loaded into the system.
+    </p> 
+  </div>
+  
+  <div data-view-id="vis" style="height: 90%; ">
+    <div class="vis-exports-container" >
+      <a href="javascript:return false;" data-export-id="json" class="vis-view-toggle pull-right">Export as JSON</a>
+      <a href="javascript:return false;" data-export-id="svg" style="margin-right: 7px;" class="vis-view-toggle pull-right">Export as SVG</a>
+	</div>
+    <font size="2">
+      <span><i>Click on a keyword to view the list of related publications.</i></span>
+    </font>
+    <div style="margin-top: 10px">
+      <font size="2">
+        <label class="radio-inline radio-inline-override"><input id="all" type="radio" name="kwRadio" class="radio" checked>Featured Keywords</label>
+        <label class="radio-inline"><input id="keyword"  type="radio" name="kwRadio" class="radio" >Article Keywords</label>
+        <label class="radio-inline"><input id="mesh"     type="radio" name="kwRadio" class="radio" >External Vocab. Terms</label>
+        <label class="radio-inline"><input id="inferred" type="radio" name="kwRadio" class="radio" >Mined Keywords</label>
+      </font>
     </div>
+  </div>
+
+  <div data-view-id="table" class="vis-table-container">
+    <div class="vis-exports-container">
+      <a href="javascript:return false;" data-export-id="json"  class="vis-view-toggle pull-right">Export as JSON</a>
+      <a href="javascript:return false;" data-export-id="csv" style="margin-right: 10px;" class="vis-view-toggle pull-right">Export as CSV</a>
+    </div>
+    <table class="scholars-vis-table">
+      <thead>
+        <tr>
+          <th data-sort="string-ins">Keyword</th>
+          <th data-sort="string-ins">Keyword type(s)</th>
+          <th data-sort="string-ins">Publication</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Template cell</td>
+          <td>Template cell</td>
+          <td>Template cell</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
+
+<!-- ================================================================ -->
 
 <div class="jqmWindow" id="subject-area-dialog">
 	<div>
@@ -393,17 +448,16 @@ $().ready(function() {
 </script>
 <script>
 $().ready(function() {
-  var wc = new ScholarsVis.PersonWordCloud({
+  var wc = new ScholarsVis2.PersonWordCloud({
     target : '#word_cloud_vis',
     modal : true,
     person : "${individual.uri?url}",
     animation : true
-    });
+  });
   wc.examineData(function(data) {
     if (data.length > 0) {
       $('#word_cloud_icon_holder').show();
       $('#word_cloud_trigger').click(wc.show);
-      $('#word_cloud_exporter').click(wc.showVisData);
     }
 	else {
 	  if ( $("#co-investigator-vis").length ) {
@@ -422,7 +476,6 @@ $().ready(function() {
 	  }
 	}
   });
-  new ScholarsVis.Toolbar("#word_cloud_vis", "Research Keywords");
 });
 </script>
 
@@ -443,11 +496,12 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/themes/scholars/
               '<script type="text/javascript" src="${urls.base}/js/imageUpload/imageUploadUtils.js"></script>')}
 
 ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/jqModal.css" />')}
-${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/keywordcloud/kwcloud.css" />')}
 
 ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></script>',
 	              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/jqModal.js"></script>',
-	              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/scholars-vis.js"></script>',
+	              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/scholars-vis-2.js"></script>',
+                  '<script type="text/javascript" src="${urls.base}/js/scholars-vis/FileSaver.js"></script>',
+	              '<script type="text/javascript" src="${urls.base}/js/stupidtable.min.js"></script>',
 	              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/rdflib.js"></script>',
 	              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/d3/d3-tip.js"></script>',
 				  '<script type="text/javascript" src="https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js"></script>',

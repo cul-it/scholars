@@ -1,14 +1,50 @@
-ScholarsVis["OrganizationResearchAreas"] = function(options) {
-	var defaults = {
-		    url : applicationContextPath + "/api/dataRequest/organization_research_areas?organization=" + options.organization,
-		    parse : 'turtle',
-		    transform : transformFlaredata,
-		    display : plotConceptMap,
+ScholarsVis2["OrganizationResearchAreas"] = function(options) {
+    var defaults = {
+            url : applicationContextPath + "/api/dataRequest/organization_research_areas?organization=" + options.organization,
+            parse : 'turtle',
+            transform : transformFlaredata,
+            views : {
+                vis : {
+                    display : plotConceptMap,
                     closer : closeConceptMap,
-		};
-	return new ScholarsVis.Visualization(options, defaults);
+                    export : {
+                        json : {
+                            filename: "conceptMap.json",
+                            call: exportConceptMapVisAsJson
+                        },
+                        svg : {
+                            filename: "conceptMap.svg",
+                            call: exportConceptMapVisAsSvg
+                        }
+                    }
+                },
+                table: {
+                    display : drawConceptMapTable,
+                    closer : closeConceptMapTable,
+                    export : {
+                        csv : {
+                            filename: "conceptMapTable.csv",
+                            call: exportConceptMapTableAsCsv,
+                        },
+                        json : {
+                            filename: "conceptMapTable.json",
+                            call: exportConceptMapTableAsJson
+                        }
+                    }
+                },
+                empty: {
+                    display : d => {}
+                }
+            }
+    };
+    return new ScholarsVis2.Visualization(options, defaults);
 };
 
+/*******************************************************************************
+ * 
+ * Transform the RDF graph into the JSON structure that is expected by plotConceptMap
+ * 
+ ******************************************************************************/
 function transformFlaredata(graph) {
 	var BIBO = $rdf.Namespace("http://purl.org/ontology/bibo/");
 	var FOAF = $rdf.Namespace("http://xmlns.com/foaf/0.1/");
@@ -112,14 +148,17 @@ function transformFlaredata(graph) {
 	
 }
 
+/*******************************************************************************
+ * 
+ * Draw the concept map from the transformed data.
+ * 
+ ******************************************************************************/
 function plotConceptMap(flaredata, target) {
 
     if (!flaredata || !flaredata.ditems || flaredata.ditems.length == 0) {
-      drawNoData(target);
       return;
     }
-	
-		function addNewlines(str) {
+	function addNewlines(str) {
 		var splitStr = str.split(" ");
 		var subarrays = [];
 		var wordsInSubstring = 3;
@@ -780,19 +819,83 @@ function plotConceptMap(flaredata, target) {
 			return k.map[X.key] ? Z : aa
 		}
 	}
-
-   function drawNoData(target, options) {
-      d3.select(target)
-        .append("img")
-  		.attr("id", "noData")
-  		.attr("src", applicationContextPath + "/themes/scholars/images/person_sa_noData.png")
-   }
-
 };
 
 function closeConceptMap(target) {
     $(target).children(".conceptmap").remove();
     $(target).children(".graph-info").remove();
     $(target).children("#noData").remove();
+}
+
+/*******************************************************************************
+ * 
+ * Export the visualization data.
+ * 
+ ******************************************************************************/
+function exportConceptMapVisAsJson(data, filename) {
+    ScholarsVis2.Utilities.exportAsJson(filename, data);
+}
+
+function exportConceptMapVisAsSvg(data, filename, options) {
+    ScholarsVis2.Utilities.exportAsSvg(filename, $(options.target).find("svg")[0]);
+}
+
+/*******************************************************************************
+ * 
+ * Fill the Concept Map table with data, draw it, export it.
+ * 
+ ******************************************************************************/
+function drawConceptMapTable(data, target, options) {
+    var tableElement = $(target).find(".scholars-vis-table").get(0);
+    var table = new ScholarsVis2.VisTable(tableElement);
+    var tableData = transformAgainForTable(data);
+    tableData.forEach(addRowToTable);
+    table.complete();
+    
+    function addRowToTable(rowData) {
+       table.addRow(createLink(rowData.personLabel, rowData.personUrl), createLink(rowData.subjectLabel, rowData.subjectUrl));
+        
+        function createLink(text, uri) {
+            return "<a href='" + uri + "'>" + text + "</a>"
+        }
+    }
+}
+
+function closeConceptMapTable(target) {
+    $(target).find("table").each(t => ScholarsVis2.Utilities.disableVisTable(t));
+}
+
+function exportConceptMapTableAsCsv(data, filename) {
+    ScholarsVis2.Utilities.exportAsCsv(filename, transformAgainForTable(data));
+}
+
+function exportConceptMapTableAsJson(data, filename) {
+    ScholarsVis2.Utilities.exportAsJson(filename, transformAgainForTable(data));
+}
+
+function transformAgainForTable(data) {
+    var tableData = [];
+    var subjectUrls = mapSubjectUrls(); 
+    data.ditems.forEach(doPerson);
+    return tableData;
+    
+    function mapSubjectUrls() {
+        var map = {};
+        data.themes.forEach(theme => {map[theme.name] = toDisplayPageUrl(theme.uri)});
+        return map;
+    }
+    
+    function doPerson(personData) {
+        personData.links.forEach(doSubject);
+        
+        function doSubject(subjectName) {
+            tableData.push({
+                personLabel: personData.name,
+                personUrl: personData.url,
+                subjectLabel: subjectName,
+                subjectUrl: subjectUrls[subjectName]
+            });
+        }
+    }
 }
 
