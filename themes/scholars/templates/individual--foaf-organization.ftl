@@ -710,12 +710,124 @@ $().ready(function() {
     }
 });
 </script>
+</#if>
+
+<#-- 
+=======================================================================
+Grants Vis
+======================================================================= 
+-->
+
+<div id="modal_grants_vis" class="vis_modal dept_grants_vis" style="display:none">
+  <div class="vis_toolbar">
+    <span class="heading">Browse Research Grants</span>
+    <span class="glyphicon glyphicon-info-sign pull-right" data-original-title="" title=""></span>
+    <a data-view-selector="vis" href="#" class="vis-view-toggle pull-right" style="display: none">Show visualization</a>
+    <a data-view-selector="table" href="#" class="vis-view-toggle pull-right">Show table format</a>
+  </div>
+  
+  <div id="info_icon_text" style="display:none"> 
+    <p>
+      This visualization represents all the grants where a faculty member or a 
+      researcher of this department is either a Principal or Co-Principal Investigator. 
+      Grants data is represented as a cluster of bubbles where each bubble represents 
+      a grant and the size of the bubble indicates the relative award amount. The 
+      color scheme reveals the dollar amount range of the grant. This provides a quick 
+      visual view of the active research grants for the entire department. Clicking on 
+      a grant bubble will display the full description of the grant including title, 
+      list of investigators and other information.
+    </p>
+    <hr> 
+    <p>
+      Note: This information is based solely on grants that have been loaded into the 
+      system through OSP (Office of Sponsored Program) feed.
+    </p> 
+  </div>
+  
+  <div data-view-id="vis" class="vis-container">
+    <div class="vis-exports-container">
+      <a href="javascript:return false;" data-export-id="json"  class="vis-view-toggle pull-right">Export as JSON</a>
+    </div>
+    <div>
+      <font size="2">
+        <span><i>
+          Hover over a grant bubble to view the title of the grant, or click on a bubble 
+          to view the details of a funded grant.
+        </i></span>
+      </font>
+    </div>
+  
+    <div id="grantsMainDiv"></div>
+    <div id="grantsLegendDiv" class="grantsLegendDivXtra"></div>
+  </div>
+  
+  <div data-view-id="table" class="vis-table-container">
+    <div class="vis-exports-container">
+      <a href="javascript:return false;" data-export-id="json"  class="vis-view-toggle pull-right">Export as JSON</a>
+      <a href="javascript:return false;" data-export-id="csv" style="margin-right: 10px;" class="vis-view-toggle pull-right">Export as CSV</a>
+    </div>
+    <table class="scholars-vis-table">
+      <thead>
+        <tr>
+          <th data-sort="string-ins">Type</th>
+          <th data-sort="string-ins">Grant</th>
+          <th data-sort="string-ins">FundingAgency</th>
+          <th data-sort="string-ins">Start Year</th>
+          <th data-sort="string-ins">End Year</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Template row</td>
+          <td>Template row</td>
+          <td>Template row</td>
+          <td>Template row</td>
+          <td>Template row</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+</div>
+
+<script>
+  $().ready(function() {
+    if ($('#grants_icon_holder')) {
+      var g = new ScholarsVis2.DepartmentGrants({
+        target : '#modal_grants_vis',
+        mainDiv : '#grantsMainDiv',
+        legendDiv : '#grantsLegendDiv',
+        modal : true,
+        department : "${individual.uri}"
+      });
+      g.examineData(function(data) {
+        if (data && data.length > 0) {
+          $('#grants_icon_holder').show();
+          $('#grants_trigger').click(g.show);
+          $('#grants_exporter').click(g.showVisData);
+        }
+      });
+    }
+
+	// because getting the data for the visualizations takes some time,
+	// delay the display of the second row of the profile page 
+	setTimeout(showRowTwo, 400);
+	
+	function showRowTwo() {
+		$('.foaf-organization-row2').show();
+	
+		if ( $('#visualization-column').is(":hidden") ) {
+			$('#foafOrgTabs').addClass('scholars-container-full');
+		}
+	}
+
+  });
+</script>
+
 <#-- 
 =======================================================================
 End visualizations
 ======================================================================= 
 -->
-</#if>
 
 ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/individual/individual-vivo.css?vers=1.5.1" />',
 					'<link rel="stylesheet" href="${urls.base}/css/individual/individual.css" />')}
@@ -732,65 +844,4 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/individual/in
 
 <script type="text/javascript">
     i18n_confirmDelete = "${i18n().confirm_delete}"
-</script>
-
-<div id="modal_grants_vis" class="vis_modal dept_grants_vis" style="display:none">
-  <div id="info_icon_text" style="display:none"> 
-    <p>
-      This visualization represents all the grants where a faculty member or a researcher of this department is either a Principal or Co-Principal Investigator. Grants data is represented as a cluster of bubbles where each bubble represents a grant and the size of the bubble indicates the relative award amount. The color scheme reveals the dollar amount range of the grant. This provides a quick visual view of the active research grants for the entire department. Clicking on a grant bubble will display the full description of the grant including title, list of investigators and other information.
-    </p>
-    <hr> 
-    <p>
-      Note: This information is based solely on grants that have been loaded into the 
-      system through OSP (Office of Sponsored Program) feed.
-    </p> 
-  </div>
-  <div>
-    <font size="2">
-      <span><i>
-        Hover over a grant bubble to view the title of the grant, or click on a bubble to view the details of a funded grant.
-      </i></span>
-    </font>
-  </div>
-  
-  <div id="grantsMainDiv"></div>
-  <div id="grantsLegendDiv" class="grantsLegendDivXtra"></div>
-</div>
-
-
-<script>
-
-  $().ready(function() {
-    if ($('#grants_icon_holder')) {
-      var g = new ScholarsVis.DepartmentGrants({
-        target : '#modal_grants_vis',
-        mainDiv : '#grantsMainDiv',
-        legendDiv : '#grantsLegendDiv',
-        modal : true,
-        department : "${individual.uri}"
-      });
-      g.examineData(function(data) {
-        if (data && data.length > 0) {
-          $('#grants_icon_holder').show();
-          $('#grants_trigger').click(g.show);
-          $('#grants_exporter').click(g.showVisData);
-        }
-      });
-      new ScholarsVis.Toolbar("#modal_grants_vis", "Browse Research Grants");
-    }
-
-	// because getting the data for the visualizations takes some time,
-	// delay the display of the second row of the profile page 
-	setTimeout(showRowTwo, 400);
-	
-	function showRowTwo() {
-		$('.foaf-organization-row2').show();
-	
-		if ( $('#visualization-column').is(":hidden") ) {
-			$('#foafOrgTabs').addClass('scholars-container-full');
-		}
-	}
-
-  });
-
 </script>

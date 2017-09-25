@@ -9,6 +9,48 @@ function closeGrantsVis(target) {
  * This is a limited version, in that it assumes that all values are present, 
  * and that each grant is represented only once. In the future, we will need to 
  * check for both of those.
+ *
+ * The output looks like this:
+ *
+ * [
+ *   {
+ *     "group": "medium",
+ *     "people": [
+ *       {
+ *         "uri": "/scholars/display/dm24",
+ *         "name": "Muller, David Anthony",
+ *         "netid": "dm24",
+ *         "role": "PI"
+ *       },
+ *       {
+ *         "uri": "/scholars/display/hda1",
+ *         "name": "Abruna, Hector D.",
+ *         "netid": "hda1",
+ *         "role": "CO"
+ *       }
+ *     ],
+ *     "P-I-Id": "55226-3713",
+ *     "grant": {
+ *       "uri": "/scholars/display/gnt76832",
+ *       "title": "HIGHLY-ACCESSIBLE CATALYSTS FOR DURABLE HIGH-POWER PERFORMANCE",
+ *       "type": "CONTRACT"
+ *     },
+ *     "dept": {
+ *       "code": "CBE",
+ *       "name": "Applied and Engineering Physics",
+ *       "uri": "/scholars/display/org93835"
+ *     },
+ *     "funagen": {
+ *       "name": "GENERAL MOTORS",
+ *       "uri": "/scholars/display/org49248"
+ *     },
+ *     "Cost": 600000,
+ *     "End": "2019",
+ *     "Start": "2016",
+ *     "id": "76832"
+ *   }
+ * ...
+ * ]
  */
 function transformGrantsData(resultSet, options) {
 	var dummyPersonDetails = {
