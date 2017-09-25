@@ -36,15 +36,43 @@ ScholarsVis2["SiteGrants"] = function(options) {
     return new ScholarsVis2.Visualization(options, defaults);
 };
 
-//ScholarsVis["DepartmentGrants"] = function(options) {
-//    var defaults = {
-//            url : applicationContextPath + "/api/dataRequest/grants_bubble_chart",
-//            transform : transformGrantsData,
-//            display : displayGrantsWithoutControls,
-//            closer : closeGrantsVis
-//    };
-//    return new ScholarsVis.Visualization(options, defaults);
-//};
+ScholarsVis2["DepartmentGrants"] = function(options) {
+    var defaults = {
+            url : applicationContextPath + "/api/dataRequest/grants_bubble_chart",
+            transform : transformGrantsData,
+            views : {
+                vis : {
+                    display : displayGrantsWithoutControls,
+                    closer : closeGrantsVis,
+                    export : {
+                        json : {
+                            filename: "departmentGrants.json",
+                            call: exportDepartmentGrantsVisAsJson
+                        },
+                        svg : {
+                            filename: "departmentGrants.svg",
+                            call: exportDepartmentGrantsVisAsSvg
+                        }
+                    }
+                },
+                table: {
+                    display : drawDepartmentGrantsTable,
+                    closer : closeDepartmentGrantsTable,
+                    export : {
+                        csv : {
+                            filename: "departmentGrantsTable.csv",
+                            call: exportDepartmentGrantsTableAsCsv,
+                        },
+                        json : {
+                            filename: "departmentGrantsCloudTable.json",
+                            call: exportDepartmentGrantsTableAsJson
+                        }
+                    }
+                }
+            }
+    };
+    return new ScholarsVis2.Visualization(options, defaults);
+};
 
 var grantsController;
 
@@ -421,11 +449,21 @@ function GrantsDisplay(target, legend) {
 
 /*******************************************************************************
  * 
- * Export the visualization data.
+ * Export the Site visualization data.
  * 
  ******************************************************************************/
 function exportSiteGrantsVisAsJson(data, filename) {
-    ScholarsVis2.Utilities.exportAsJson(filename, data);
+    ScholarsVis2.Utilities.exportAsJson(filename, filterCost());
+    
+    function filterCost() {
+        return data.map(cutCosts);
+        
+        function cutCosts(item) {
+            var itemCopy = jQuery.extend(true, {}, item);
+            delete itemCopy.Cost;
+            return itemCopy;
+        }
+    }
 }
 
 function exportSiteGrantsVisAsSvg(data, filename, options) {
@@ -449,7 +487,7 @@ function drawSiteGrantsTable(data, target, options) {
                 createLink(rowData.grantTitle, rowData.grantUri),
                 createLink(rowData.deptName + " (" + rowData.deptCode + ")", rowData.deptUri),
                 createLink(rowData.fundingAgencyName, rowData.fundingAgencyUri),
-                rowData.cost, rowData.startYear, rowData.endYear);
+                rowData.startYear, rowData.endYear);
         
         function createLink(text, uri) {
             return "<a href='" + uri + "'>" + text + "</a>"
@@ -484,9 +522,86 @@ function transformAgainForSiteGrantsTable(data) {
             deptUri: gd.dept.uri,
             fundingAgencyName: gd.funagen.name,
             fundingAgencyUri: gd.funagen.uri,
-            cost: gd.Cost,
             startYear: gd.Start,
             endYear: gd.End
+        };
+        tableData.push(row);
+    }
+}
+
+/*******************************************************************************
+ * 
+ * Export the Department visualization data.
+ * 
+ ******************************************************************************/
+function exportDepartmentGrantsVisAsJson(data, filename) {
+    ScholarsVis2.Utilities.exportAsJson(filename, filterCost());
+    
+    function filterCost() {
+        return data.map(cutCosts);
+        
+        function cutCosts(item) {
+            var itemCopy = jQuery.extend(true, {}, item);
+            delete itemCopy.Cost;
+            return itemCopy;
+        }
+    }
+}
+
+function exportDepartmentGrantsVisAsSvg(data, filename, options) {
+    ScholarsVis2.Utilities.exportAsSvg(filename, $(options.target).find("svg")[0]);
+}
+
+/*******************************************************************************
+ * 
+ * Fill the Department Grants table with data, draw it, export it.
+ * 
+ ******************************************************************************/
+function drawDepartmentGrantsTable(data, target, options) {
+    var tableElement = $(target).find(".scholars-vis-table").get(0);
+    var table = new ScholarsVis2.VisTable(tableElement);
+    var tableData = transformAgainForSiteGrantsTable(data);
+    tableData.forEach(addRowToTable);
+    table.complete();
+    
+    function addRowToTable(rowData) {
+        table.addRow(rowData.grantType, 
+                createLink(rowData.grantTitle, rowData.grantUri),
+                createLink(rowData.fundingAgencyName, rowData.fundingAgencyUri),
+                rowData.startYear, rowData.endYear);
+        
+        function createLink(text, uri) {
+            return "<a href='" + uri + "'>" + text + "</a>"
+        }
+    }
+}
+
+function closeDepartmentGrantsTable(target) {
+    $(target).find("table").each(t => ScholarsVis2.Utilities.disableVisTable(t));
+}
+
+function exportDepartmentGrantsTableAsCsv(data, filename) {
+    ScholarsVis2.Utilities.exportAsCsv(filename, transformAgainForDepartmentGrantsTable(data));
+}
+
+function exportDepartmentGrantsTableAsJson(data, filename) {
+    ScholarsVis2.Utilities.exportAsJson(filename, transformAgainForDepartmentGrantsTable(data));
+}
+
+function transformAgainForDepartmentGrantsTable(data) {
+    var tableData = [];
+    data.forEach(doGrant);
+    return tableData;
+    
+    function doGrant(gd) {
+        var row = {
+                grantType: gd.grant.type,
+                grantTitle: gd.grant.title,
+                grantUri: gd.grant.uri,
+                fundingAgencyName: gd.funagen.name,
+                fundingAgencyUri: gd.funagen.uri,
+                startYear: gd.Start,
+                endYear: gd.End
         };
         tableData.push(row);
     }

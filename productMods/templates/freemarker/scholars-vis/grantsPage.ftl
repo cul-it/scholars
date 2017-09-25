@@ -130,21 +130,19 @@
       <a href="javascript:return false;" data-export-id="json"  class="vis-view-toggle pull-right">Export as JSON</a>
       <a href="javascript:return false;" data-export-id="csv" style="margin-right: 10px;" class="vis-view-toggle pull-right">Export as CSV</a>
     </div>
-    <table class="scholars-vis-table">
+    <table class="scholars-vis-table" style="height:600px">
       <thead>
         <tr>
           <th data-sort="string-ins">Type</th>
           <th data-sort="string-ins">Grant</th>
           <th data-sort="string-ins">Department</th>
           <th data-sort="string-ins">FundingAgency</th>
-          <th data-sort="string-ins">Cost</th>
           <th data-sort="string-ins">Start Year</th>
           <th data-sort="string-ins">End Year</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td>Template row</td>
           <td>Template row</td>
           <td>Template row</td>
           <td>Template row</td>
