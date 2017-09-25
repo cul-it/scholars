@@ -61,7 +61,6 @@
         <div data-view-id="vis" class="vis-container">
           <div class="vis-exports-container" >
             <a href="javascript:return false;" data-export-id="json" class="vis-view-toggle pull-right">Export as JSON</a>
-            <a href="javascript:return false;" data-export-id="svg" style="margin-right: 7px;" class="vis-view-toggle pull-right">Export as SVG</a>
 	      </div>
           <font size="2">
             <span><i>Click on a keyword to view the list of the relevant faculty.</i></span>
