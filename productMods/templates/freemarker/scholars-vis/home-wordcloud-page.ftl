@@ -66,10 +66,10 @@
 
       <div id="departmentWordCloudVis" style="display:none; ">
         <div class="vis_toolbar">
-          <span class="heading">Research Keywords</span>
           <span class="glyphicon glyphicon-info-sign pull-right" data-original-title="" title=""></span>
           <a data-view-selector="vis" href="#" class="vis-view-toggle pull-right" style="display: none">Show visualization</a>
           <a data-view-selector="table" href="#" class="vis-view-toggle pull-right">Show table format</a>
+          <span class="heading">Research Keywords</span>
         </div>
   
         <div id="info_icon_text" style="display:none">
@@ -142,10 +142,10 @@
 
       <div id="personWordCloudVis" style="display:none; ">
         <div class="vis_toolbar">
-          <span class="heading">Research Keywords</span>
           <span class="glyphicon glyphicon-info-sign pull-right" data-original-title="" title=""></span>
           <a data-view-selector="vis" href="#" class="vis-view-toggle pull-right" style="display: none">Show visualization</a>
           <a data-view-selector="table" href="#" class="vis-view-toggle pull-right">Show table format</a>
+          <span class="heading">Research Keywords</span>
         </div>
   
         <div id="info_icon_text">
@@ -226,10 +226,10 @@
 
       <div id="siteWordCloudVis" style="display:none; ">
 	    <div class="vis_toolbar">
-	      <span class="heading">University-wide research keywords</span>
 	      <span class="glyphicon glyphicon-info-sign pull-right" data-original-title="" title=""></span>
           <a data-view-selector="vis" href="#" class="vis-view-toggle pull-right" style="display: none">Show visualization</a>
           <a data-view-selector="table" href="#" class="vis-view-toggle pull-right">Show table format</a>
+	      <span class="heading">University-wide research keywords</span>
 	    </div>
 
         <div id="info_icon_text" style="display:none">

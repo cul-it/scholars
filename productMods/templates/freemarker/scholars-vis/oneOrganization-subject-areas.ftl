@@ -4,10 +4,10 @@
     
       <div id="organization-subject-areas">
         <div class="vis_toolbar">
-          <span id="selection_text" class="heading">Research areas</span>
           <span class="glyphicon glyphicon-info-sign pull-right" data-original-title="" title=""></span>
           <a data-view-selector="vis" href="#" class="vis-view-toggle pull-right" style="display: none">Show visualization</a>
           <a data-view-selector="table" href="#" class="vis-view-toggle pull-right">Show table format</a>
+          <span id="selection_text" class="heading">Research areas</span>
         </div>
   
 	    <div id="info_icon_text" style="display:none">
