@@ -780,7 +780,15 @@ var ScholarsVis2 = (function() {
         }
         
         function stringify(object) {
-            return JSON.stringify(object, stringifyReplacer, 2);
+            return "(" + richType() + ") " + JSON.stringify(object, stringifyReplacer, 2);
+            
+            function richType() {
+                if (object instanceof jQuery) {
+                    return "JQuery";
+                } else {
+                    return Object.prototype.toString.call(object);
+                }
+            }
 
             function stringifyReplacer(key, value) {
                 if (typeof value === "function") {
