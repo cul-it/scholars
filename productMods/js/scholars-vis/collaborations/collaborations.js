@@ -185,20 +185,20 @@ var tip = d3.tip().attr('class', 'd3-tip choices triangle-isosceles').attr("id",
   return result;
   });
 
-// remove any existing crumbs entity and create a new one.
-d3.select("#crumbs").remove();
-var crmb = d3.select(target).append("div")
-    .attr("id", "crumbs")
-    .append("ul")
-      .attr("id", "crumbList")
-      .attr("class", "cwbreadcrumb");
-
 var svg = d3.select(target).append("svg")
     .attr("id", "svgDiv")
     .attr("width", width)
     .attr("height", height)
   .append("g")
     .attr("transform", "translate(" + (width / 2) + "," + (height / 2) + ")").call(tip);
+
+//remove any existing crumbs entity and create a new one.
+d3.select("#crumbs").remove();
+var crmb = d3.select(target).append("div")
+    .attr("id", "crumbs")
+    .append("ul")
+      .attr("id", "crumbList")
+      .attr("class", "cwbreadcrumb");
 
 var nodeList = [];
 // bring to initial stage
