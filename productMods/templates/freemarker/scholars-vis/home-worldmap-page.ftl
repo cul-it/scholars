@@ -56,7 +56,20 @@
 
 		<div class="col-md-8 container">
 			<div id="mapViz">
+			    <div class="vis_toolbar">
+                    <span class="heading">Global Collaborations</span>
+                    <span class="glyphicon glyphicon-info-sign pull-right" data-original-title="" title=""></span>
+                </div>
+			
 				<h5 class="normal"> Now Showing: <span id="nowShowing">All</span></h5>
+				
+				<div class="vis-exports-container">
+<#-- JSON export is not ready
+                    <a href="javascript:return false;" data-export-id="json"  class="vis-view-toggle pull-right">Export as JSON</a>
+-->
+                    <a href="javascript:return false;" data-export-id="svg" style="margin-right: 10px;" class="vis-view-toggle pull-right">Export as SVG</a>
+                </div>
+				
 				<form class="form-inline">
 					<label class="radio-inline"><input type="radio" name="map" value="world" checked>World Map</label>
 					<label class="radio-inline" id="usa-label"><input type="radio" name="map" value="usa">USA Map</label>
@@ -105,6 +118,9 @@
 	${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></script>',
 	'<script type="text/javascript" src="${urls.base}/js/scholars-vis/d3/d3-tip.js"></script>',
 	'<script type="text/javascript" src="${urls.base}/js/scholars-vis/scholars-vis.js"></script>',
+	'<script type="text/javascript" src="${urls.base}/js/scholars-vis/scholars-vis-2.js"></script>',
+    '<script type="text/javascript" src="${urls.base}/js/scholars-vis/FileSaver.js"></script>',
+    '<script type="text/javascript" src="${urls.base}/js/stupidtable.min.js"></script>',
 	'<script type="text/javascript" src="${urls.base}/js/scholars-vis/rdflib.js"></script>',
 	'<script type="text/javascript" src="${urls.base}/js/scholars-vis/worldmap/topojson.v1.min.js"></script>', 
 	'<script type="text/javascript" src="${urls.base}/js/scholars-vis/worldmap/underscore-min.js"></script>', 
@@ -117,13 +133,8 @@
 	</script>
 	<script type="text/javascript">
 		$().ready(function() {
-			// new ScholarsVis.GlobalCollaboration({
-			// target: "#mapViz"
-			// }).show();
-			initializeMap();
-			
-		});
-		$().ready(function() {
-  			new ScholarsVis.Toolbar("#mapViz", "Global Collaborations");
+			new ScholarsVis2.GlobalCollaboration({
+			  target: "#mapViz"
+			}).show();
 		});
 	</script>

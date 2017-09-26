@@ -138,8 +138,8 @@
  * 
  *   Accepts: the options structure
  *   
- *   Returns: a jQuery Promise object which will fetch the data and store it in
- *            options.fetched
+ *   Returns: a jQuery Deferred object which will fetch the data and store it 
+ *            in options.fetched
  * 
  * showProgress:
  *   Optional. A function that displays some indication that data is being 
@@ -252,19 +252,31 @@ var ScholarsVis2 = (function() {
             
             var viewId = $(e.target).closest("[data-view-id]").data("view-id");
             var exportId = $(e.target).data("export-id");
-            debugIt("Servicing: view=" + viewId + ", export=" + exportId);
+            doExport(locateExportParms());
             
-            if (viewId && exportId) {
-                var viewStruct = options.viewsArray.find(v => { return v.id == viewId; });
-                if (viewStruct) {
-                    var exportParms = viewStruct.export[exportId];
-                    if (exportParms) {
-                        var callback = exportParms.call;
-                        var filename = exportParms.filename;
-                        if (callback && filename) {
-                            callback(options.transformed, filename, options);
-                        }
+            function locateExportParms() {
+                if (viewId) {
+                    var viewStruct = options.viewsArray.find(v => { return v.id == viewId; });
+                    return (viewStruct && viewStruct.export) ? viewStruct.export[exportId] : null;
+                } else {
+                    return (options.export) ? options.export[exportId] : null; 
+                }
+            }
+            
+            function doExport(exportParms) {
+                if (exportParms) {
+                    var callback = exportParms.call;
+                    var filename = exportParms.filename;
+                    if (!callback) {
+                        debugIt("Servicing: No callback for export=" + exportId + ", view=" + viewId);
+                    } else if (!filename) {
+                        debugIt("Servicing: No filename for export=" + exportId + ", view=" + viewId);
+                    } else {
+                        debugIt("Servicing: export=" + exportId + ", view=" + viewId);
+                        callback(options.transformed, filename, options);
                     }
+                } else {
+                    debugIt("Servicing: No export parameters for export=" + exportId + ", view=" + viewId);
                 }
             }
         }
@@ -315,7 +327,7 @@ var ScholarsVis2 = (function() {
             
             function displayMain() {
                 return defer("displaying main", function() {
-                    var copyOfTransformed = JSON.parse(JSON.stringify(options.transformed));
+                    var copyOfTransformed = JSON.parse(JSON.stringify(options.transformed || {}));
                     options.displayer(copyOfTransformed, options.target, options)
                 });
             }
