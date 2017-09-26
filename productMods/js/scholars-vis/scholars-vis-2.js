@@ -138,8 +138,8 @@
  * 
  *   Accepts: the options structure
  *   
- *   Returns: a jQuery Promise object which will fetch the data and store it in
- *            options.fetched
+ *   Returns: a jQuery Deferred object which will fetch the data and store it 
+ *            in options.fetched
  * 
  * showProgress:
  *   Optional. A function that displays some indication that data is being 
@@ -315,7 +315,7 @@ var ScholarsVis2 = (function() {
             
             function displayMain() {
                 return defer("displaying main", function() {
-                    var copyOfTransformed = JSON.parse(JSON.stringify(options.transformed));
+                    var copyOfTransformed = JSON.parse(JSON.stringify(options.transformed || {}));
                     options.displayer(copyOfTransformed, options.target, options)
                 });
             }

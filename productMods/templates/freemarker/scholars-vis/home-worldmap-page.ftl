@@ -127,8 +127,6 @@
 		$().ready(function() {
 			new ScholarsVis2.GlobalCollaboration({
 			  target: "#mapViz"
-			});
-			initializeMap();
-			
+			}).show();
 		});
 	</script>

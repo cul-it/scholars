@@ -1,12 +1,54 @@
+/*******************************************************************************
+ *
+ * The glue that binds the original world-map code to the ScholarsVis2 script.
+ *
+ ******************************************************************************/
+
 ScholarsVis2["GlobalCollaboration"] = function(options) {
     var defaults = {
+            fetch : fetcher,
+            display : displayer,
+            showProgress : progressShower,
+            hideProgress : progressHider
     };
     return new ScholarsVis2.Visualization(options, defaults);
+    
+    function fetcher() {
+        return $.when(
+                $.get(urlsBase+"/api/dataRequest/collabus"), 
+                $.get(urlsBase+"/api/dataRequest/collabworld")
+                ).then(storeData);
+        
+        function storeData(usData, worldData) {
+            window.countryRaw = usData[0];
+            window.worldRaw = worldData[0];
+        }
+    }
+    
+    function displayer() {
+        word = "usa"
+        window.filterVariable = false;
+        drawWorld(window.worldRaw);
+        d3.selectAll("#rh-panel").style("visibility", "visible")
+    }
+
+    function progressShower() {
+        $("#nowShowing").text("Loading map visualization"); 
+        $("#time-indicator").show();
+    }
+    
+    function progressHider() {
+        $("#nowShowing").text("All");
+        $("#time-indicator").hide();
+    }
+
 };
 
-
-
-
+/*******************************************************************************
+ *
+ * The original world-map code.
+ *
+ ******************************************************************************/
 
 $.extend(this, urlsBase);
 
@@ -1296,32 +1338,4 @@ function addListeners(){
         }
     
         d3.select("#nowShowing").text("Articles Published: " + yearsArray[0] + " - " + yearsArray[1]);
-    }
-    
-    function showTimeIndicator() {
-        $("#time-indicator").show();
-    }
-    
-    function hideTimeIndicator() {
-        $("#time-indicator").hide();
-    }
-    
-    
-    function initializeMap(){
-        showTimeIndicator();
-        word = "usa"
-        d3.select("#nowShowing").text("Loading map visualization"); 
-        d3.queue()
-        .defer(d3.json, urlsBase+"/api/dataRequest/collabus")
-        .defer(d3.json, urlsBase+"/api/dataRequest/collabworld")
-        .await(function(err, rawStates, rawWorld){
-            hideTimeIndicator();
-            window.filterVariable = false;
-            window.countryRaw = rawStates; 
-            window.worldRaw = rawWorld;
-            drawWorld(rawWorld);
-            d3.select("#nowShowing").text("All");
-            //console.log("done");
-            d3.selectAll("#rh-panel").style("visibility", "visible")
-        });
     }
