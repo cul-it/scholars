@@ -574,9 +574,9 @@ Inter-departmental Collaboration Vis
       <thead>
         <tr>
           <th data-sort="string-ins">Author</th>
-          <th data-sort="string-ins">Author Organization</th>
+          <th data-sort="string-ins">Author Affiliation</th>
           <th data-sort="string-ins">Co-Author</th>
-          <th data-sort="string-ins">Co-Author Organization</th>
+          <th data-sort="string-ins">Co-Author Affiliation</th>
           <th data-sort="string-ins">Publication</th>
           <th data-sort="string-ins">Publication Date</th>
         </tr>
@@ -653,9 +653,9 @@ Cross-unit Collaboration Vis
       <thead>
         <tr>
           <th data-sort="string-ins">Author</th>
-          <th data-sort="string-ins">Author Organization</th>
+          <th data-sort="string-ins">Author Affiliation</th>
           <th data-sort="string-ins">Co-Author</th>
-          <th data-sort="string-ins">Co-Author Organization</th>
+          <th data-sort="string-ins">Co-Author Affiliation</th>
           <th data-sort="string-ins">Publication</th>
           <th data-sort="string-ins">Publication Date</th>
         </tr>

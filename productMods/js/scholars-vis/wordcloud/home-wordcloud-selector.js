@@ -27,8 +27,8 @@ function createWordCloudSelector(siteSelector, departmentSelector, personSelecto
             siteWc = new ScholarsVis2.UniversityWordCloud({
                 target : siteWcContainer,
             });
-            siteWc.show();
         }          
+        siteWc.show();
         showClouds("site");
     }
     

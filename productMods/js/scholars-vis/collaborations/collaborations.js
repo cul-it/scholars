@@ -548,8 +548,32 @@ d3.select(self.frameElement).style("height", margin.top + margin.bottom + "px");
  * 
  ******************************************************************************/
 function exportSunburstVisAsJson(data, filename, options) {
-    ScholarsVis2.Utilities.exportAsJson(filename, options.fetched);
+    ScholarsVis2.Utilities.exportAsJson(filename, trimDates());
+
+    // Trim each date to just 4 characters.
+    function trimDates() {
+        var fullCopy = jQuery.extend(true, {}, data);
+        fullCopy.children.forEach(trimCoorgData);
+        return fullCopy;    
+        
+        function trimCoorgData(cod) {
+            cod.children.forEach(trimAuthorData);
+            
+            function trimAuthorData(ad) {
+                ad.children.forEach(trimCollabData);
+                
+                function trimCollabData(cd) {
+                    cd.pubs.forEach(trimPubData);
+                    
+                    function trimPubData(pd) {
+                        pd.date = pd.date.substring(0, 4);
+                    }
+                }
+            }
+        }
+    }
 }
+
 
 function exportSunburstVisAsSvg(data, filename, options) {
     ScholarsVis2.Utilities.exportAsSvg(filename, $(options.target).find("svg")[0]);
@@ -569,9 +593,9 @@ function drawCrossUnitTable(data, target, options) {
     
     function addRowToTable(rowData) {
         table.addRow(createLink(rowData.authorName, rowData.authorUri), 
-                formatOrg(rowData.authorOrgLabel, rowData.authorOrgCode), 
+                formatOrg(rowData.authorAffiliationLabel, rowData.authorAffiliationCode), 
                 createLink(rowData.coauthorName, rowData.coauthorUri), 
-                formatOrg(rowData.coauthorOrgLabel, rowData.coauthorOrgCode),
+                formatOrg(rowData.coauthorAffiliationLabel, rowData.coauthorAffiliationCode),
                 createLink(rowData.publicationTitle, rowData.publicationUri),
                 rowData.publicationDate);
         
@@ -599,9 +623,21 @@ function exportCrossUnitTableAsJson(data, filename) {
 
 function transformAgainForCrossUnitTable(data) {
     var tableData = [];
+    var orgLabels = mapOrgCodesToLabels();
     data.children.forEach(doCollab);
     return tableData;
 
+    function mapOrgCodesToLabels() {
+        var map = {};
+        mapOrgCode(data); // Include the top-level org.
+        data.children.forEach(mapOrgCode);
+        return map;
+        
+        function mapOrgCode(org) {
+            map[org.name] = org.description;
+        }
+    }
+    
     function doCollab(collabStruct) {
         collabStruct.children.forEach(doAuthor);
         
@@ -613,16 +649,16 @@ function transformAgainForCrossUnitTable(data) {
                 
                 function doPub(pubStruct) {
                     tableData.push({
-                        authorOrgCode: data.name, 
-                        authorOrgLabel: data.description,
+                        authorAffiliationCode: authorStruct.orgCode, 
+                        authorAffiliationLabel: orgLabels[authorStruct.orgCode],
                         authorName: authorStruct.name,
                         authorUri: authorStruct.uri,
-                        coauthorOrgCode: collabStruct.name,
-                        coauthorOrgLabel: collabStruct.description,
+                        coauthorAffiliationCode: coauthorStruct.orgCode,
+                        coauthorAffiliationLabel: orgLabels[coauthorStruct.orgCode],
                         coauthorName: coauthorStruct.name,
                         coauthorUri: coauthorStruct.uri,
                         publicationTitle: pubStruct.title,
-                        publicationDate: pubStruct.date,
+                        publicationDate: pubStruct.date.substring(0, 4),
                         publicationUri: pubStruct.uri
                     });
                 }

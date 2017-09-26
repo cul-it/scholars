@@ -335,6 +335,7 @@ var ScholarsVis2 = (function() {
                     function hideModal(hash) {
                         hash.w.hide(); 
                         hash.o && hash.o.remove();
+                        hideViews();
                         options.closer(options.target);
                     }
                 });
@@ -359,6 +360,7 @@ var ScholarsVis2 = (function() {
             
             function releaseModal() {
                 return defer("releaseModal", function() {
+                    hideViews();
                     options.closer(options.target);
                     $(options.target).jqmHide(); 
                 });
@@ -366,6 +368,7 @@ var ScholarsVis2 = (function() {
             
             function clearCanvas() {
                 return defer("clearCanvas", function() {
+                    hideViews();
                     options.closer(options.target);
                 });
             }
@@ -415,6 +418,7 @@ var ScholarsVis2 = (function() {
             options.viewsArray.forEach(closeView);
             
             function closeView(view) {
+                debugIt("closing view: " + view.id);
                 view.closer(view.target);
                 $(view.target).hide()
             }
