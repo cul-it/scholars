@@ -113,9 +113,9 @@
           </p> 
         </div>
         <div class="vis_toolbar">
-          <span class="heading">0 grants</span>
           <span class="glyphicon glyphicon-info-sign pull-right" data-original-title="" title=""></span>
           <a data-view-selector="table" href="#" class="vis-view-toggle pull-right">Show table format</a>
+          <span class="heading">0 grants</span>
         </div>
 
     <div class="vis-exports-container" >
