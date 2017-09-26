@@ -1,3 +1,13 @@
+ScholarsVis2["GlobalCollaboration"] = function(options) {
+    var defaults = {
+    };
+    return new ScholarsVis2.Visualization(options, defaults);
+};
+
+
+
+
+
 $.extend(this, urlsBase);
 
 function drawCountryMap(articles) {
