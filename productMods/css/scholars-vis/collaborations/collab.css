@@ -67,7 +67,12 @@
 }
 
 #svgDiv  { display: table-header-group; }
-#crumbs  { display: table-footer-group; }
+/*#crumbs  { display: table-footer-group; }*/
+#crumbs {
+	position: absolute;
+	bottom: 2px;
+	width: 100%;
+}
 
 .cwbreadcrumb { 
 	list-style: none; 
