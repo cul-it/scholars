@@ -285,10 +285,10 @@ var ScholarsVis2 = (function() {
             e && e.preventDefault();
             if (options.modal) {
                 debugIt("Vis:showModal");
-                displayProgress().then(fetchAndProcess).then(positionModal).then(hideProgress).then(displayMain).then(makeModal).then(showView);
+                displayProgress().then(fetchAndProcess).then(positionModal).then(displayMain).then(makeModal).then(showView).then(hideProgress);
             } else {
                 debugIt("Vis:show");
-                displayProgress().then(fetchAndProcess).then(hideProgress).then(displayMain).then(makeVisible).then(showView);
+                displayProgress().then(fetchAndProcess).then(displayMain).then(makeVisible).then(showView).then(hideProgress);
             }
             
             

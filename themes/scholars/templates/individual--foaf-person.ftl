@@ -335,6 +335,10 @@ ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/ke
     </p> 
   </div>
   
+  <div id="time-indicator">
+    <img id="time-indicator-img" src="${urls.images}/indicator1.gif"/>
+  </div>
+
   <div data-view-id="vis" style="height: 90%; ">
     <div class="vis-exports-container" >
       <a href="javascript:return false;" data-export-id="json" class="vis-view-toggle pull-right">Export as JSON</a>

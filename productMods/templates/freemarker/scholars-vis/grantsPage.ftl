@@ -1,5 +1,10 @@
 <div class="row scholars-row">
-  <div id="grants-vis-container" class="col-md-12 scholars-container">
+  <div id="grants-vis-container" class="col-md-12 scholars-container" style="min-height: 700px">
+
+    <div id="time-indicator">
+      <img id="time-indicator-img" src="${urls.images}/indicator1.gif"/>
+    </div>
+
     <div data-view-id="vis" class="vis-container">
     <div class="col-md-4" class="scholars-container">
      

@@ -459,6 +459,10 @@ Word-cloud vis
     </p> 
   </div>
   
+  <div id="time-indicator">
+    <img id="time-indicator-img" src="${urls.images}/indicator1.gif"/>
+  </div>
+
   <div data-view-id="vis" class="vis-container">
     <div class="vis-exports-container" >
       <a href="javascript:return false;" data-export-id="json" class="vis-view-toggle pull-right">Export as JSON</a>
@@ -553,6 +557,10 @@ Inter-departmental Collaboration Vis
     </p> 
   </div>
 
+  <div id="time-indicator">
+    <img id="time-indicator-img" src="${urls.images}/indicator1.gif"/>
+  </div>
+
   <div data-view-id="vis" class="vis-container">
     <div class="vis-exports-container" >
       <a href="javascript:return false;" data-export-id="json" class="vis-view-toggle pull-right">Export as JSON</a>
@@ -630,6 +638,10 @@ Cross-unit Collaboration Vis
     <p>
       Note: This information is based solely on publications that have been loaded into the system.
     </p>
+  </div>
+
+  <div id="time-indicator">
+    <img id="time-indicator-img" src="${urls.images}/indicator1.gif"/>
   </div>
 
   <div data-view-id="vis" class="vis-container">
@@ -742,6 +754,10 @@ Grants Vis
     </p> 
   </div>
   
+  <div id="time-indicator">
+    <img id="time-indicator-img" src="${urls.images}/indicator1.gif"/>
+  </div>
+
   <div data-view-id="vis" class="vis-container">
     <div class="vis-exports-container">
       <a href="javascript:return false;" data-export-id="json"  class="vis-view-toggle pull-right">Export as JSON</a>

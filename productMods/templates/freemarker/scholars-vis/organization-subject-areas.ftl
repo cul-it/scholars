@@ -58,6 +58,10 @@
 		  </p> 
         </div>
   
+        <div id="time-indicator">
+          <img id="time-indicator-img" src="${urls.images}/indicator1.gif"/>
+        </div>
+
         <div data-view-id="vis" class="vis-container">
           <div class="vis-exports-container" >
             <a href="javascript:return false;" data-export-id="json" class="vis-view-toggle pull-right">Export as JSON</a>
@@ -65,9 +69,6 @@
           <font size="2">
             <span><i>Click on a keyword to view the list of the relevant faculty.</i></span>
           </font>
-          <div id="time-indicator">
-            <img id="time-indicator-img" src="${urls.images}/indicator1.gif"/>
-          </div>
         </div>
 
         <div data-view-id="table" class="vis-table-container">
