@@ -9,7 +9,17 @@ ScholarsVis2["GlobalCollaboration"] = function(options) {
             fetch : fetcher,
             display : displayer,
             showProgress : progressShower,
-            hideProgress : progressHider
+            hideProgress : progressHider,
+            export : {
+                svg : {
+                    filename: "globalCollaboration.svg",
+                    call: exportGlobalCollaborationVisAsSvg
+                },
+                json : {
+                    filename: "globalCollaboration.json",
+                    call: exportGlobalCollaborationVisAsJson
+                }
+            }
     };
     return new ScholarsVis2.Visualization(options, defaults);
     
@@ -41,7 +51,14 @@ ScholarsVis2["GlobalCollaboration"] = function(options) {
         $("#nowShowing").text("All");
         $("#time-indicator").hide();
     }
+    
+    function exportGlobalCollaborationVisAsSvg(data, filename, options) {
+        ScholarsVis2.Utilities.exportAsSvg(filename, $(options.target).find("svg")[0]);
+    }
 
+    function exportGlobalCollaborationVisAsJson(data, filename, options) {
+        ScholarsVis2.Utilities.exportAsJson(filename, "{'BOGUS'}");
+    }
 };
 
 /*******************************************************************************

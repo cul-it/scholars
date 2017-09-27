@@ -62,6 +62,14 @@
                 </div>
 			
 				<h5 class="normal"> Now Showing: <span id="nowShowing">All</span></h5>
+				
+				<div class="vis-exports-container">
+<#-- JSON export is not ready
+                    <a href="javascript:return false;" data-export-id="json"  class="vis-view-toggle pull-right">Export as JSON</a>
+-->
+                    <a href="javascript:return false;" data-export-id="svg" style="margin-right: 10px;" class="vis-view-toggle pull-right">Export as SVG</a>
+                </div>
+				
 				<form class="form-inline">
 					<label class="radio-inline"><input type="radio" name="map" value="world" checked>World Map</label>
 					<label class="radio-inline" id="usa-label"><input type="radio" name="map" value="usa">USA Map</label>
