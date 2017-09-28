@@ -182,18 +182,18 @@ ScholarsVis["GlobalCollaboration"] = function(options) {
     function exportGlobalCollaborationTableAsCSV(data, filename) {
         var which = $('[data-view-id=table] input:radio[name=map]:checked').val();
         if (which == "world") {
-            ScholarsVis.Utilities.exportAsCsv(filename, dataForTable(window.worldRaw, "country"));
+            ScholarsVis.Utilities.exportAsCsv("WORLD-" + filename, dataForTable(window.worldRaw, "country"));
         } else {
-            ScholarsVis.Utilities.exportAsCsv(filename, dataForTable(window.countryRaw, "state"));
+            ScholarsVis.Utilities.exportAsCsv("US-" + filename, dataForTable(window.countryRaw, "state"));
         }
     }
     
     function exportGlobalCollaborationTableAsJSON(data, filename) {
         var which = $('[data-view-id=table] input:radio[name=map]:checked').val();
         if (which == "world") {
-            ScholarsVis.Utilities.exportAsJson(filename, dataForTable(window.worldRaw, "country"));
+            ScholarsVis.Utilities.exportAsJson("WORLD-" + filename, dataForTable(window.worldRaw, "country"));
         } else {
-            ScholarsVis.Utilities.exportAsJson(filename, dataForTable(window.countryRaw, "state"));
+            ScholarsVis.Utilities.exportAsJson("US-" + filename, dataForTable(window.countryRaw, "state"));
         }
     }
     
