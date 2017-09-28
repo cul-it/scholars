@@ -321,7 +321,7 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></
               '<script type="text/javascript" src="${urls.base}/js/scholars-vis/jqModal.js"></script>',
               '<script type="text/javascript" src="${urls.base}/js/scholars-vis/scholars-vis.js"></script>',
               '<script type="text/javascript" src="${urls.base}/js/scholars-vis/FileSaver.js"></script>',
-			  '<script type="text/javascript" src="${urls.base}/js/stupidtable.min.js"></script>',
+			  '<script type="text/javascript" src="${urls.base}/js/scholars-vis/stupidtable.min.js"></script>',
               '<script type="text/javascript" src="${urls.base}/js/scholars-vis/rdflib.js"></script>',
               '<script type="text/javascript" src="${urls.base}/js/scholars-vis/wordcloud/word-cloud.js"></script>',
               '<script type="text/javascript" src="${urls.base}/js/scholars-vis/wordcloud/university-word-cloud.js"></script>',

@@ -90,7 +90,7 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></
               '<script type="text/javascript" src="${urls.base}/js/scholars-vis/rdflib.js"></script>',
               '<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>',
               '<script type="text/javascript" src="${urls.base}/js/scholars-vis/FileSaver.js"></script>',
-			  '<script type="text/javascript" src="${urls.base}/js/stupidtable.min.js"></script>'
+			  '<script type="text/javascript" src="${urls.base}/js/scholars-vis/stupidtable.min.js"></script>'
 			  '<script type="text/javascript" src="${urls.base}/js/scholars-vis/org-research-areas/organization-research-areas.js"></script>')}
 
 
