@@ -113,7 +113,7 @@ ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/ut
 
 ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></script>',
               '<script type="text/javascript" src="${urls.base}/js/scholars-vis/jqModal.js"></script>',
-              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/scholars-vis-2.js"></script>',
+              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/scholars-vis.js"></script>',
               '<script type="text/javascript" src="${urls.base}/js/scholars-vis/rdflib.js"></script>',
               '<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>',
               '<script type="text/javascript" src="${urls.base}/js/scholars-vis/FileSaver.js"></script>',
@@ -141,7 +141,7 @@ $().ready(function() {
         if (ora != null) {
             ora.hide();
         }
-        ora = new ScholarsVis2.OrganizationResearchAreas({
+        ora = new ScholarsVis.OrganizationResearchAreas({
             target : '#organization-subject-areas',
             organization : dept.uri
         });

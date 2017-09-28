@@ -452,7 +452,7 @@ $().ready(function() {
 </script>
 <script>
 $().ready(function() {
-  var wc = new ScholarsVis2.PersonWordCloud({
+  var wc = new ScholarsVis.PersonWordCloud({
     target : '#word_cloud_vis',
     modal : true,
     person : "${individual.uri?url}",
@@ -503,7 +503,7 @@ ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/jq
 
 ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></script>',
 	              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/jqModal.js"></script>',
-	              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/scholars-vis-2.js"></script>',
+	              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/scholars-vis.js"></script>',
                   '<script type="text/javascript" src="${urls.base}/js/scholars-vis/FileSaver.js"></script>',
 	              '<script type="text/javascript" src="${urls.base}/js/stupidtable.min.js"></script>',
 	              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/rdflib.js"></script>',

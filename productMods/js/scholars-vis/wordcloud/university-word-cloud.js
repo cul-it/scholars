@@ -1,4 +1,4 @@
-ScholarsVis2["UniversityWordCloud"] = function(options) {
+ScholarsVis["UniversityWordCloud"] = function(options) {
     var defaults = {
             url : applicationContextPath + "/api/dataRequest/university_word_cloud",
             transform : transformUniversityWordcloud,
@@ -33,7 +33,7 @@ ScholarsVis2["UniversityWordCloud"] = function(options) {
                 }
             }
     };
-    return new ScholarsVis2.Visualization(options, defaults);
+    return new ScholarsVis.Visualization(options, defaults);
 };
 
 
@@ -221,11 +221,11 @@ function drawUniversityWordCloud(keywords, target) {
  * 
  ******************************************************************************/
 function exportUniversityWcVisAsJson(data, filename) {
-    ScholarsVis2.Utilities.exportAsJson(filename, data);
+    ScholarsVis.Utilities.exportAsJson(filename, data);
 }
 
 function exportUniversityWcVisAsSvg(data, filename, options) {
-    ScholarsVis2.Utilities.exportAsSvg(filename, $(options.target).find("svg")[0]);
+    ScholarsVis.Utilities.exportAsSvg(filename, $(options.target).find("svg")[0]);
 }
 
 /*******************************************************************************
@@ -235,7 +235,7 @@ function exportUniversityWcVisAsSvg(data, filename, options) {
  ******************************************************************************/
 function drawUniversityWcTable(data, target, options) {
     var tableElement = $(target).find(".scholars-vis-table").get(0);
-    var table = new ScholarsVis2.VisTable(tableElement);
+    var table = new ScholarsVis.VisTable(tableElement);
     var tableData = transformAgainForUniversityTable(data);
     tableData.forEach(addRowToTable);
     table.complete();
@@ -250,15 +250,15 @@ function drawUniversityWcTable(data, target, options) {
 }
 
 function closeUniversityWcTable(target) {
-    $(target).find("table").each(t => ScholarsVis2.Utilities.disableVisTable(t));
+    $(target).find("table").each(t => ScholarsVis.Utilities.disableVisTable(t));
 }
 
 function exportUniversityWcTableAsCsv(data, filename) {
-    ScholarsVis2.Utilities.exportAsCsv(filename, transformAgainForUniversityTable(data));
+    ScholarsVis.Utilities.exportAsCsv(filename, transformAgainForUniversityTable(data));
 }
 
 function exportUniversityWcTableAsJson(data, filename) {
-    ScholarsVis2.Utilities.exportAsJson(filename, transformAgainForUniversityTable(data));
+    ScholarsVis.Utilities.exportAsJson(filename, transformAgainForUniversityTable(data));
 }
 
 function transformAgainForUniversityTable(data) {

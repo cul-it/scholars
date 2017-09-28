@@ -1,10 +1,10 @@
 /*******************************************************************************
  *
- * The glue that binds the original world-map code to the ScholarsVis2 script.
+ * The glue that binds the original world-map code to the ScholarsVis script.
  *
  ******************************************************************************/
 
-ScholarsVis2["GlobalCollaboration"] = function(options) {
+ScholarsVis["GlobalCollaboration"] = function(options) {
     var defaults = {
             fetch : fetcher,
             display : displayer,
@@ -21,7 +21,7 @@ ScholarsVis2["GlobalCollaboration"] = function(options) {
                 }
             }
     };
-    return new ScholarsVis2.Visualization(options, defaults);
+    return new ScholarsVis.Visualization(options, defaults);
     
     function fetcher() {
         return $.when(
@@ -54,17 +54,17 @@ ScholarsVis2["GlobalCollaboration"] = function(options) {
     
     function exportGlobalCollaborationVisAsSvg(data, filename, options) {
         if (word == "world") {
-            ScholarsVis2.Utilities.exportAsSvg("WORLD-" + filename, $(options.target).find("svg")[0]);
+            ScholarsVis.Utilities.exportAsSvg("WORLD-" + filename, $(options.target).find("svg")[0]);
         } else {
-            ScholarsVis2.Utilities.exportAsSvg("US-" + filename, $(options.target).find("svg")[0]);
+            ScholarsVis.Utilities.exportAsSvg("US-" + filename, $(options.target).find("svg")[0]);
         }
     }
 
     function exportGlobalCollaborationVisAsJson(data, filename, options) {
         if (word == "world") {
-            ScholarsVis2.Utilities.exportAsJson("WORLD-" + filename, transformForJsonExport(worldRaw));
+            ScholarsVis.Utilities.exportAsJson("WORLD-" + filename, transformForJsonExport(worldRaw));
         } else {
-            ScholarsVis2.Utilities.exportAsJson("US-" + filename, transformForJsonExport(countryRaw));
+            ScholarsVis.Utilities.exportAsJson("US-" + filename, transformForJsonExport(countryRaw));
         }
         
         function transformForJsonExport(data) {

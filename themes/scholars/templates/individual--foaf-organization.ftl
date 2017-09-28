@@ -411,7 +411,6 @@ ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/co
 
 ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></script>',
               '<script type="text/javascript" src="${urls.base}/js/scholars-vis/scholars-vis.js"></script>',
-              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/scholars-vis-2.js"></script>',
               '<script type="text/javascript" src="${urls.base}/js/scholars-vis/FileSaver.js"></script>',
               '<script type="text/javascript" src="${urls.base}/js/stupidtable.min.js"></script>',
               '<script type="text/javascript" src="${urls.base}/js/scholars-vis/jqModal.js"></script>',
@@ -503,7 +502,7 @@ Word-cloud vis
 <script>
 $().ready(function() {
     if ($('#word_cloud_icon_holder')) {
-        var wc = new ScholarsVis2.DepartmentWordCloud({
+        var wc = new ScholarsVis.DepartmentWordCloud({
             target : '#word_cloud_vis',
             modal : true,
             department : "${individual.uri?url}",
@@ -692,7 +691,7 @@ $().ready(function() {
     if (!isJohnsonOrHotelSchool) {
         $('#visualization-column').hide();
         
-        var cucs = new ScholarsVis2.CrossUnitCollaborationSunburst({
+        var cucs = new ScholarsVis.CrossUnitCollaborationSunburst({
             department : '${individual.uri}',
             target : '#cross_unit_collab_vis',
             modal : true
@@ -705,7 +704,7 @@ $().ready(function() {
             }
         });
         
-        var idcs = new ScholarsVis2.InterDepartmentCollaborationSunburst({
+        var idcs = new ScholarsVis.InterDepartmentCollaborationSunburst({
             department : '${individual.uri}',
             target : '#interd_collab_vis',
             modal : true
@@ -806,7 +805,7 @@ Grants Vis
 <script>
   $().ready(function() {
     if ($('#grants_icon_holder')) {
-      var g = new ScholarsVis2.DepartmentGrants({
+      var g = new ScholarsVis.DepartmentGrants({
         target : '#modal_grants_vis',
         mainDiv : '#grantsMainDiv',
         legendDiv : '#grantsLegendDiv',

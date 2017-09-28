@@ -116,7 +116,6 @@
 	${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></script>',
 	'<script type="text/javascript" src="${urls.base}/js/scholars-vis/d3/d3-tip.js"></script>',
 	'<script type="text/javascript" src="${urls.base}/js/scholars-vis/scholars-vis.js"></script>',
-	'<script type="text/javascript" src="${urls.base}/js/scholars-vis/scholars-vis-2.js"></script>',
     '<script type="text/javascript" src="${urls.base}/js/scholars-vis/FileSaver.js"></script>',
     '<script type="text/javascript" src="${urls.base}/js/stupidtable.min.js"></script>',
 	'<script type="text/javascript" src="${urls.base}/js/scholars-vis/rdflib.js"></script>',
@@ -131,7 +130,7 @@
 	</script>
 	<script type="text/javascript">
 		$().ready(function() {
-			new ScholarsVis2.GlobalCollaboration({
+			new ScholarsVis.GlobalCollaboration({
 			  target: "#mapViz"
 			}).show();
 		});

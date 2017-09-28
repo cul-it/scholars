@@ -1,4 +1,4 @@
-ScholarsVis2["PersonWordCloud"] = function(options) {
+ScholarsVis["PersonWordCloud"] = function(options) {
     var defaults = {
             url : applicationContextPath + "/api/dataRequest/person_word_cloud?person=" + options.person,
             parse : 'turtle',
@@ -40,10 +40,10 @@ ScholarsVis2["PersonWordCloud"] = function(options) {
             interactive : true,
             scaleRange : [15, 60]
     };
-    return new ScholarsVis2.Visualization(options, defaults);
+    return new ScholarsVis.Visualization(options, defaults);
 };
 
-ScholarsVis2["DepartmentWordCloud"] = function(options) {
+ScholarsVis["DepartmentWordCloud"] = function(options) {
     var defaults = {
             url : applicationContextPath + "/api/dataRequest/department_word_cloud?department=" + options.department,
             parse : 'turtle',
@@ -85,7 +85,7 @@ ScholarsVis2["DepartmentWordCloud"] = function(options) {
             interactive : true,
             scaleRange : [15, 60]
     };
-    return new ScholarsVis2.Visualization(options, defaults);
+    return new ScholarsVis.Visualization(options, defaults);
 };
 
 /*******************************************************************************
@@ -547,11 +547,11 @@ $(document).ready(function(){
  * 
  ******************************************************************************/
 function exportWcVisAsJson(data, filename) {
-    ScholarsVis2.Utilities.exportAsJson(filename, data);
+    ScholarsVis.Utilities.exportAsJson(filename, data);
 }
 
 function exportWcVisAsSvg(data, filename, options) {
-    ScholarsVis2.Utilities.exportAsSvg(filename, $(options.target).find("svg")[0]);
+    ScholarsVis.Utilities.exportAsSvg(filename, $(options.target).find("svg")[0]);
 }
 
 /*******************************************************************************
@@ -561,7 +561,7 @@ function exportWcVisAsSvg(data, filename, options) {
  ******************************************************************************/
 function drawPersonWcTable(data, target, options) {
     var tableElement = $(target).find(".scholars-vis-table").get(0);
-    var table = new ScholarsVis2.VisTable(tableElement);
+    var table = new ScholarsVis.VisTable(tableElement);
     var tableData = transformAgainForPersonTable(data);
     tableData.forEach(addRowToTable);
     table.complete();
@@ -576,15 +576,15 @@ function drawPersonWcTable(data, target, options) {
 }
 
 function closePersonWcTable(target) {
-    $(target).find("table").each(t => ScholarsVis2.Utilities.disableVisTable(t));
+    $(target).find("table").each(t => ScholarsVis.Utilities.disableVisTable(t));
 }
 
 function exportPersonWcTableAsCsv(data, filename) {
-    ScholarsVis2.Utilities.exportAsCsv(filename, transformAgainForPersonTable(data));
+    ScholarsVis.Utilities.exportAsCsv(filename, transformAgainForPersonTable(data));
 }
 
 function exportPersonWcTableAsJson(data, filename) {
-    ScholarsVis2.Utilities.exportAsJson(filename, transformAgainForPersonTable(data));
+    ScholarsVis.Utilities.exportAsJson(filename, transformAgainForPersonTable(data));
 }
 
 function transformAgainForPersonTable(data) {
@@ -614,7 +614,7 @@ function transformAgainForPersonTable(data) {
  ******************************************************************************/
 function drawDepartmentWcTable(data, target, options) {
     var tableElement = $(target).find(".scholars-vis-table").get(0);
-    var table = new ScholarsVis2.VisTable(tableElement);
+    var table = new ScholarsVis.VisTable(tableElement);
     var tableData = transformAgainForDepartmentTable(data);
     tableData.forEach(addRowToTable);
     table.complete();
@@ -629,15 +629,15 @@ function drawDepartmentWcTable(data, target, options) {
 }
 
 function closeDepartmentWcTable(target) {
-    $(target).find("table").each(t => ScholarsVis2.Utilities.disableVisTable(t));
+    $(target).find("table").each(t => ScholarsVis.Utilities.disableVisTable(t));
 }
 
 function exportDepartmentWcTableAsCsv(data, filename) {
-    ScholarsVis2.Utilities.exportAsCsv(filename, transformAgainForDepartmentTable(data));
+    ScholarsVis.Utilities.exportAsCsv(filename, transformAgainForDepartmentTable(data));
 }
 
 function exportDepartmentWcTableAsJson(data, filename) {
-    ScholarsVis2.Utilities.exportAsJson(filename, transformAgainForDepartmentTable(data));
+    ScholarsVis.Utilities.exportAsJson(filename, transformAgainForDepartmentTable(data));
 }
 
 function transformAgainForDepartmentTable(data) {

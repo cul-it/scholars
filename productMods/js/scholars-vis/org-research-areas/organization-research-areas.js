@@ -1,4 +1,4 @@
-ScholarsVis2["OrganizationResearchAreas"] = function(options) {
+ScholarsVis["OrganizationResearchAreas"] = function(options) {
     var defaults = {
             url : applicationContextPath + "/api/dataRequest/organization_research_areas?organization=" + options.organization,
             parse : 'turtle',
@@ -37,7 +37,7 @@ ScholarsVis2["OrganizationResearchAreas"] = function(options) {
                 }
             }
     };
-    return new ScholarsVis2.Visualization(options, defaults);
+    return new ScholarsVis.Visualization(options, defaults);
 };
 
 /*******************************************************************************
@@ -833,11 +833,11 @@ function closeConceptMap(target) {
  * 
  ******************************************************************************/
 function exportConceptMapVisAsJson(data, filename) {
-    ScholarsVis2.Utilities.exportAsJson(filename, data);
+    ScholarsVis.Utilities.exportAsJson(filename, data);
 }
 
 function exportConceptMapVisAsSvg(data, filename, options) {
-    ScholarsVis2.Utilities.exportAsSvg(filename, $(options.target).find("svg")[0]);
+    ScholarsVis.Utilities.exportAsSvg(filename, $(options.target).find("svg")[0]);
 }
 
 /*******************************************************************************
@@ -847,7 +847,7 @@ function exportConceptMapVisAsSvg(data, filename, options) {
  ******************************************************************************/
 function drawConceptMapTable(data, target, options) {
     var tableElement = $(target).find(".scholars-vis-table").get(0);
-    var table = new ScholarsVis2.VisTable(tableElement);
+    var table = new ScholarsVis.VisTable(tableElement);
     var tableData = transformAgainForTable(data);
     tableData.forEach(addRowToTable);
     table.complete();
@@ -862,15 +862,15 @@ function drawConceptMapTable(data, target, options) {
 }
 
 function closeConceptMapTable(target) {
-    $(target).find("table").each(t => ScholarsVis2.Utilities.disableVisTable(t));
+    $(target).find("table").each(t => ScholarsVis.Utilities.disableVisTable(t));
 }
 
 function exportConceptMapTableAsCsv(data, filename) {
-    ScholarsVis2.Utilities.exportAsCsv(filename, transformAgainForTable(data));
+    ScholarsVis.Utilities.exportAsCsv(filename, transformAgainForTable(data));
 }
 
 function exportConceptMapTableAsJson(data, filename) {
-    ScholarsVis2.Utilities.exportAsJson(filename, transformAgainForTable(data));
+    ScholarsVis.Utilities.exportAsJson(filename, transformAgainForTable(data));
 }
 
 function transformAgainForTable(data) {

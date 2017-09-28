@@ -166,7 +166,7 @@ ${stylesheets.add('<link rel="stylesheet" type="text/css" href="${urls.base}/css
 ${stylesheets.add('<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">')}
 
 ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></script>',
-              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/scholars-vis-2.js"></script>',
+              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/scholars-vis.js"></script>',
               '<script type="text/javascript" src="${urls.base}/js/stupidtable.min.js"></script>',
               '<script type="text/javascript" src="${urls.base}/js/scholars-vis/FileSaver.js"></script>',
               '<script type="text/javascript" src="${urls.base}/js/scholars-vis/grants/transform-data.js"></script>',
@@ -181,7 +181,7 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></
 
 <script type="text/javascript">
     $(document).ready(function() {
-        var gv = new ScholarsVis2.SiteGrants({
+        var gv = new ScholarsVis.SiteGrants({
 		    target : '#grants-vis-container',
 		    mainDiv : '#grants_vis', 
 		    legendDiv : '#grantsLegendDiv',

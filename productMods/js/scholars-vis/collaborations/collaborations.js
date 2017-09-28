@@ -1,4 +1,4 @@
-ScholarsVis2["CrossUnitCollaborationSunburst"] = function(options) {
+ScholarsVis["CrossUnitCollaborationSunburst"] = function(options) {
     var defaults = {
             url : applicationContextPath + "/api/dataRequest/cross_unit_sunburst?department=" + options.department,
             transform : transformCollab,
@@ -33,10 +33,10 @@ ScholarsVis2["CrossUnitCollaborationSunburst"] = function(options) {
                 }
             }
     };
-    return new ScholarsVis2.Visualization(options, defaults);
+    return new ScholarsVis.Visualization(options, defaults);
 };
 
-ScholarsVis2["InterDepartmentCollaborationSunburst"] = function(options) {
+ScholarsVis["InterDepartmentCollaborationSunburst"] = function(options) {
     var defaults = {
             url : applicationContextPath + "/api/dataRequest/interdepartmental_sunburst?department=" + options.department,
             transform : transformCollab,
@@ -71,7 +71,7 @@ ScholarsVis2["InterDepartmentCollaborationSunburst"] = function(options) {
                 }
             }
     };
-    return new ScholarsVis2.Visualization(options, defaults);
+    return new ScholarsVis.Visualization(options, defaults);
 };
 
 /*******************************************************************************
@@ -548,7 +548,7 @@ d3.select(self.frameElement).style("height", margin.top + margin.bottom + "px");
  * 
  ******************************************************************************/
 function exportSunburstVisAsJson(data, filename, options) {
-    ScholarsVis2.Utilities.exportAsJson(filename, trimDates());
+    ScholarsVis.Utilities.exportAsJson(filename, trimDates());
 
     // Trim each date to just 4 characters.
     function trimDates() {
@@ -576,7 +576,7 @@ function exportSunburstVisAsJson(data, filename, options) {
 
 
 function exportSunburstVisAsSvg(data, filename, options) {
-    ScholarsVis2.Utilities.exportAsSvg(filename, $(options.target).find("svg")[0]);
+    ScholarsVis.Utilities.exportAsSvg(filename, $(options.target).find("svg")[0]);
 }
 
 /*******************************************************************************
@@ -586,7 +586,7 @@ function exportSunburstVisAsSvg(data, filename, options) {
  ******************************************************************************/
 function drawCrossUnitTable(data, target, options) {
     var tableElement = $(target).find(".scholars-vis-table").get(0);
-    var table = new ScholarsVis2.VisTable(tableElement);
+    var table = new ScholarsVis.VisTable(tableElement);
     var tableData = transformAgainForCrossUnitTable(data);
     tableData.forEach(addRowToTable);
     table.complete();
@@ -610,15 +610,15 @@ function drawCrossUnitTable(data, target, options) {
 }
 
 function closeCrossUnitTable(target) {
-    $(target).find("table").each(t => ScholarsVis2.Utilities.disableVisTable(t));
+    $(target).find("table").each(t => ScholarsVis.Utilities.disableVisTable(t));
 }
 
 function exportCrossUnitTableAsCsv(data, filename) {
-    ScholarsVis2.Utilities.exportAsCsv(filename, transformAgainForCrossUnitTable(data));
+    ScholarsVis.Utilities.exportAsCsv(filename, transformAgainForCrossUnitTable(data));
 }
 
 function exportCrossUnitTableAsJson(data, filename) {
-    ScholarsVis2.Utilities.exportAsJson(filename, transformAgainForCrossUnitTable(data));
+    ScholarsVis.Utilities.exportAsJson(filename, transformAgainForCrossUnitTable(data));
 }
 
 function transformAgainForCrossUnitTable(data) {

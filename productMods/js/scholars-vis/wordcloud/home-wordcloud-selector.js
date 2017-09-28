@@ -24,7 +24,7 @@ function createWordCloudSelector(siteSelector, departmentSelector, personSelecto
         if (siteWc) {
             siteWc.hide();
         } else {
-            siteWc = new ScholarsVis2.UniversityWordCloud({
+            siteWc = new ScholarsVis.UniversityWordCloud({
                 target : siteWcContainer,
             });
         }          
@@ -36,7 +36,7 @@ function createWordCloudSelector(siteSelector, departmentSelector, personSelecto
         if (deptWc) { 
             deptWc.hide()
         };
-        deptWc = new ScholarsVis2.DepartmentWordCloud({
+        deptWc = new ScholarsVis.DepartmentWordCloud({
             target : unitWcContainer,
             department : unit.uri
         });
@@ -50,7 +50,7 @@ function createWordCloudSelector(siteSelector, departmentSelector, personSelecto
         if (personWc) { 
             personWc.hide()
         };
-        personWc = new ScholarsVis2.PersonWordCloud({
+        personWc = new ScholarsVis.PersonWordCloud({
             target : personWcContainer,
             person : person.uri
         });

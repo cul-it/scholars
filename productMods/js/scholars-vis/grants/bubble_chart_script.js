@@ -1,4 +1,4 @@
-ScholarsVis2["SiteGrants"] = function(options) {
+ScholarsVis["SiteGrants"] = function(options) {
     var defaults = {
             url : applicationContextPath + "/api/dataRequest/grants_bubble_chart",
             transform : transformGrantsData,
@@ -33,10 +33,10 @@ ScholarsVis2["SiteGrants"] = function(options) {
                 }
             }
     };
-    return new ScholarsVis2.Visualization(options, defaults);
+    return new ScholarsVis.Visualization(options, defaults);
 };
 
-ScholarsVis2["DepartmentGrants"] = function(options) {
+ScholarsVis["DepartmentGrants"] = function(options) {
     var defaults = {
             url : applicationContextPath + "/api/dataRequest/grants_bubble_chart",
             transform : transformGrantsData,
@@ -71,7 +71,7 @@ ScholarsVis2["DepartmentGrants"] = function(options) {
                 }
             }
     };
-    return new ScholarsVis2.Visualization(options, defaults);
+    return new ScholarsVis.Visualization(options, defaults);
 };
 
 var grantsController;
@@ -453,7 +453,7 @@ function GrantsDisplay(target, legend) {
  * 
  ******************************************************************************/
 function exportSiteGrantsVisAsJson(data, filename) {
-    ScholarsVis2.Utilities.exportAsJson(filename, filterCost());
+    ScholarsVis.Utilities.exportAsJson(filename, filterCost());
     
     function filterCost() {
         return data.map(cutCosts);
@@ -467,7 +467,7 @@ function exportSiteGrantsVisAsJson(data, filename) {
 }
 
 function exportSiteGrantsVisAsSvg(data, filename, options) {
-    ScholarsVis2.Utilities.exportAsSvg(filename, $(options.target).find("svg")[0]);
+    ScholarsVis.Utilities.exportAsSvg(filename, $(options.target).find("svg")[0]);
 }
 
 /*******************************************************************************
@@ -477,7 +477,7 @@ function exportSiteGrantsVisAsSvg(data, filename, options) {
  ******************************************************************************/
 function drawSiteGrantsTable(data, target, options) {
     var tableElement = $(target).find(".scholars-vis-table").get(0);
-    var table = new ScholarsVis2.VisTable(tableElement);
+    var table = new ScholarsVis.VisTable(tableElement);
     var tableData = transformAgainForSiteGrantsTable(data);
     tableData.forEach(addRowToTable);
     table.complete();
@@ -496,15 +496,15 @@ function drawSiteGrantsTable(data, target, options) {
 }
 
 function closeSiteGrantsTable(target) {
-    $(target).find("table").each(t => ScholarsVis2.Utilities.disableVisTable(t));
+    $(target).find("table").each(t => ScholarsVis.Utilities.disableVisTable(t));
 }
 
 function exportSiteGrantsTableAsCsv(data, filename) {
-    ScholarsVis2.Utilities.exportAsCsv(filename, transformAgainForSiteGrantsTable(data));
+    ScholarsVis.Utilities.exportAsCsv(filename, transformAgainForSiteGrantsTable(data));
 }
 
 function exportSiteGrantsTableAsJson(data, filename) {
-    ScholarsVis2.Utilities.exportAsJson(filename, transformAgainForSiteGrantsTable(data));
+    ScholarsVis.Utilities.exportAsJson(filename, transformAgainForSiteGrantsTable(data));
 }
 
 function transformAgainForSiteGrantsTable(data) {
@@ -535,7 +535,7 @@ function transformAgainForSiteGrantsTable(data) {
  * 
  ******************************************************************************/
 function exportDepartmentGrantsVisAsJson(data, filename) {
-    ScholarsVis2.Utilities.exportAsJson(filename, filterCost());
+    ScholarsVis.Utilities.exportAsJson(filename, filterCost());
     
     function filterCost() {
         return data.map(cutCosts);
@@ -549,7 +549,7 @@ function exportDepartmentGrantsVisAsJson(data, filename) {
 }
 
 function exportDepartmentGrantsVisAsSvg(data, filename, options) {
-    ScholarsVis2.Utilities.exportAsSvg(filename, $(options.target).find("svg")[0]);
+    ScholarsVis.Utilities.exportAsSvg(filename, $(options.target).find("svg")[0]);
 }
 
 /*******************************************************************************
@@ -559,7 +559,7 @@ function exportDepartmentGrantsVisAsSvg(data, filename, options) {
  ******************************************************************************/
 function drawDepartmentGrantsTable(data, target, options) {
     var tableElement = $(target).find(".scholars-vis-table").get(0);
-    var table = new ScholarsVis2.VisTable(tableElement);
+    var table = new ScholarsVis.VisTable(tableElement);
     var tableData = transformAgainForSiteGrantsTable(data);
     tableData.forEach(addRowToTable);
     table.complete();
@@ -577,15 +577,15 @@ function drawDepartmentGrantsTable(data, target, options) {
 }
 
 function closeDepartmentGrantsTable(target) {
-    $(target).find("table").each(t => ScholarsVis2.Utilities.disableVisTable(t));
+    $(target).find("table").each(t => ScholarsVis.Utilities.disableVisTable(t));
 }
 
 function exportDepartmentGrantsTableAsCsv(data, filename) {
-    ScholarsVis2.Utilities.exportAsCsv(filename, transformAgainForDepartmentGrantsTable(data));
+    ScholarsVis.Utilities.exportAsCsv(filename, transformAgainForDepartmentGrantsTable(data));
 }
 
 function exportDepartmentGrantsTableAsJson(data, filename) {
-    ScholarsVis2.Utilities.exportAsJson(filename, transformAgainForDepartmentGrantsTable(data));
+    ScholarsVis.Utilities.exportAsJson(filename, transformAgainForDepartmentGrantsTable(data));
 }
 
 function transformAgainForDepartmentGrantsTable(data) {
