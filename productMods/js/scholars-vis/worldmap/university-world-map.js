@@ -53,11 +53,86 @@ ScholarsVis2["GlobalCollaboration"] = function(options) {
     }
     
     function exportGlobalCollaborationVisAsSvg(data, filename, options) {
-        ScholarsVis2.Utilities.exportAsSvg(filename, $(options.target).find("svg")[0]);
+        if (word == "world") {
+            ScholarsVis2.Utilities.exportAsSvg("WORLD-" + filename, $(options.target).find("svg")[0]);
+        } else {
+            ScholarsVis2.Utilities.exportAsSvg("US-" + filename, $(options.target).find("svg")[0]);
+        }
     }
 
     function exportGlobalCollaborationVisAsJson(data, filename, options) {
-        ScholarsVis2.Utilities.exportAsJson(filename, "{'BOGUS'}");
+        if (word == "world") {
+            ScholarsVis2.Utilities.exportAsJson("WORLD-" + filename, transformForJsonExport(worldRaw));
+        } else {
+            ScholarsVis2.Utilities.exportAsJson("US-" + filename, transformForJsonExport(countryRaw));
+        }
+        
+        function transformForJsonExport(data) {
+            return Object.keys(data).sort().map(doRegion);
+            
+            function doRegion(key) {
+                var regionStruct = data[key];
+                return {
+                    "name" : key,
+                    "publicationCount" : regionStruct.length,
+                    "collaboratingCornellResearchers" : buildCollaboratorMap(getAuthorName, isCornellAuthor),
+                    "collaboratingInstitutions" : buildCollaboratorMap(getInstitutionName, isOutsideInstitution)
+                }
+                
+                function getAuthorName(authorStruct) {
+                    return authorStruct.authorName;
+                }
+                
+                function getInstitutionName(authorStruct) {
+                    return authorStruct.authorAffiliation.localName;
+                }
+                
+                function isCornellAuthor(authorStruct) {
+                    return authorStruct.cornellAffiliation; 
+                }
+                
+                function isOutsideInstitution(authorStruct) {
+                    return !authorStruct.cornellAffiliation;
+                }
+
+                function buildCollaboratorMap(nameGetter, qualifier) {
+                    var researcherMap = {}
+                    regionStruct.forEach(collabsFromPubs);
+                    return pivotCollaboratorMap(researcherMap);
+                    
+                    function collabsFromPubs(pubStruct) {
+                        var collaborators = new Set();
+                        pubStruct.authors.forEach(addCollaborator);
+                        mergeIntoMap(researcherMap, collaborators);
+                        
+                        function addCollaborator(authorStruct) {
+                            if (qualifier(authorStruct)) {
+                                collaborators.add(nameGetter(authorStruct));
+                            }
+                        }
+                        
+                        function mergeIntoMap(map, set) {
+                            set.forEach(incrementCount);
+                            
+                            function incrementCount(name) {
+                                map[name] = 1 + (map[name] || 0);
+                            }
+                        }
+                    }
+                    
+                    function pivotCollaboratorMap(map) {
+                        return Object.keys(map).sort().map(pivotOne);
+                        
+                        function pivotOne(name) {
+                            return {
+                              name: name,
+                              publicationCount: map[name]
+                            };
+                        } 
+                    }
+                }
+            }
+        }
     }
 };
 
