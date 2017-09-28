@@ -7,23 +7,42 @@
 ScholarsVis["GlobalCollaboration"] = function(options) {
     var defaults = {
             fetch : fetcher,
-            display : displayer,
             showProgress : progressShower,
             hideProgress : progressHider,
-            export : {
-                svg : {
-                    filename: "globalCollaboration.svg",
-                    call: exportGlobalCollaborationVisAsSvg
+            views : {
+                vis : {
+                    display : visDisplayer,
+                    closer: visCloser,
+                    export : {
+                        svg : {
+                            filename: "globalCollaboration.svg",
+                            call: exportGlobalCollaborationVisAsSvg
+                        },
+                        json : {
+                            filename: "globalCollaboration.json",
+                            call: exportGlobalCollaborationVisAsJson
+                        }
+                    }
                 },
-                json : {
-                    filename: "globalCollaboration.json",
-                    call: exportGlobalCollaborationVisAsJson
+                table: {
+                    display : tableDisplayer,
+                    closer : tableCloser,
+                    export : {
+                        csv : {
+                            filename: "globalCollaborationTable.csv",
+                            call: exportGlobalCollaborationTableAsCSV,
+                        },
+                        json : {
+                            filename: "globalCollaborationTable.json",
+                            call: exportGlobalCollaborationTableAsJSON
+                        }
+                    }
                 }
             }
     };
     return new ScholarsVis.Visualization(options, defaults);
     
-    function fetcher() {
+    function fetcher(options) {
         return $.when(
                 $.get(urlsBase+"/api/dataRequest/collabus"), 
                 $.get(urlsBase+"/api/dataRequest/collabworld")
@@ -32,16 +51,21 @@ ScholarsVis["GlobalCollaboration"] = function(options) {
         function storeData(usData, worldData) {
             window.countryRaw = usData[0];
             window.worldRaw = worldData[0];
+            options.fetched = {};
         }
     }
     
-    function displayer() {
+    function visDisplayer() {
         word = "usa"
         window.filterVariable = false;
         drawWorld(window.worldRaw);
         d3.selectAll("#rh-panel").style("visibility", "visible")
     }
 
+    function visCloser(target) {
+        $(target).find("svg").remove();
+    }
+    
     function progressShower() {
         $("#nowShowing").text("Loading map visualization"); 
         $("#time-indicator").show();
@@ -75,26 +99,14 @@ ScholarsVis["GlobalCollaboration"] = function(options) {
                 return {
                     "name" : key,
                     "publicationCount" : regionStruct.length,
-                    "collaboratingCornellResearchers" : buildCollaboratorMap(getAuthorName, isCornellAuthor),
-                    "collaboratingInstitutions" : buildCollaboratorMap(getInstitutionName, isOutsideInstitution)
+                    "collaboratingCornellResearchers" : buildCollaboratorMap(
+                            auth => {return auth.authorName}, 
+                            auth => {return auth.cornellAffiliation}),
+                    "collaboratingInstitutions" : buildCollaboratorMap(
+                            auth => {return auth.authorAffiliation.localName}, 
+                            auth => {return !auth.cornellAffiliation})
                 }
                 
-                function getAuthorName(authorStruct) {
-                    return authorStruct.authorName;
-                }
-                
-                function getInstitutionName(authorStruct) {
-                    return authorStruct.authorAffiliation.localName;
-                }
-                
-                function isCornellAuthor(authorStruct) {
-                    return authorStruct.cornellAffiliation; 
-                }
-                
-                function isOutsideInstitution(authorStruct) {
-                    return !authorStruct.cornellAffiliation;
-                }
-
                 function buildCollaboratorMap(nameGetter, qualifier) {
                     var researcherMap = {}
                     regionStruct.forEach(collabsFromPubs);
@@ -134,6 +146,68 @@ ScholarsVis["GlobalCollaboration"] = function(options) {
             }
         }
     }
+    
+    function tableDisplayer(data, target, options) {
+        createTable("#world-table.scholars-vis-table", window.worldRaw, "country");
+        createTable("#country-table.scholars-vis-table", window.countryRaw, "state");
+        $('[data-view-id=table] input:radio[name=map]').off("change.ScholarsVis");
+        $('[data-view-id=table] input:radio[name=map]').on("change.ScholarsVis", flipTables);
+        $('[data-view-id=table] input:radio[name=map]:checked').change();
+        
+        function flipTables(e) {
+            $(".scholars-vis-table").hide();
+            if (e.target.value === "world") {
+                $("#world-table.scholars-vis-table").show();
+            } else {
+                $("#country-table.scholars-vis-table").show();
+            }
+        }
+        
+        function createTable(selector, rawData, keyName) {
+            var tableElement = $(target).find(selector).get(0);
+            var table = new ScholarsVis.VisTable(tableElement);
+            dataForTable(rawData, keyName).forEach(addRowToTable);
+            table.complete();
+
+            function addRowToTable(rowData) {
+                table.addRow(rowData[keyName], rowData.publicationCount);
+            }
+        }
+    }
+    
+    function tableCloser(target) {
+        $(target).find("table").each(t => ScholarsVis.Utilities.disableVisTable(t));
+    }
+    
+    function exportGlobalCollaborationTableAsCSV(data, filename) {
+        var which = $('[data-view-id=table] input:radio[name=map]:checked').val();
+        if (which == "world") {
+            ScholarsVis.Utilities.exportAsCsv(filename, dataForTable(window.worldRaw, "country"));
+        } else {
+            ScholarsVis.Utilities.exportAsCsv(filename, dataForTable(window.countryRaw, "state"));
+        }
+    }
+    
+    function exportGlobalCollaborationTableAsJSON(data, filename) {
+        var which = $('[data-view-id=table] input:radio[name=map]:checked').val();
+        if (which == "world") {
+            ScholarsVis.Utilities.exportAsJson(filename, dataForTable(window.worldRaw, "country"));
+        } else {
+            ScholarsVis.Utilities.exportAsJson(filename, dataForTable(window.countryRaw, "state"));
+        }
+    }
+    
+    function dataForTable(rawData, keyName) {
+        return Object.keys(rawData).sort().map(dataToRow);
+        
+        function dataToRow(key) {
+            var row = {};
+            row[keyName] = key;
+            row.publicationCount = rawData[key].length
+            return row;
+        }
+    }
+    
 };
 
 /*******************************************************************************
@@ -1360,8 +1434,8 @@ function addListSearch(){
     });
 }
 function addListeners(){
-      d3.selectAll('input[name="map"]').on("change", function(d){
-        word = d3.select('input[name="map"]:checked').node().value;  
+      d3.selectAll('[data-view-id=vis] input[name="map"]').on("change", function(d){
+        word = d3.select('[data-view-id=vis] input[name="map"]:checked').node().value;  
     
         destroyMap(); 
     
