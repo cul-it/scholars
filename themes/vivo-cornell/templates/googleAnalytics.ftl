@@ -3,7 +3,6 @@
 <#-- NOTICE: This is SAMPLE Google Analytics code. You must replace it with your institution's code. 
 Please see documentation at https://confluence.cornell.edu/display/ennsrd/Google+Analytics+for+UI. -->
 
-<#--
 <script type="text/javascript">  
     var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www."); document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E")); 
 </script>  
@@ -23,4 +22,3 @@ Please see documentation at https://confluence.cornell.edu/display/ennsrd/Google
 
 catch(err) {}  
 </script>
--->
