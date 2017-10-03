@@ -5,7 +5,7 @@
 				<h2 class="expertsResultsHeader">Take the Scholars@Cornell Tour</h2>
 				<div class="center-text">
 					<p class="video-heading">Introduction to Scholars</p>
-					<iframe height="460px" width="92%" src="https://www.youtube.com/embed/l_fMHUqSztM" ></iframe>
+					<iframe height="460px" width="92%" src="https://www.youtube.com/embed/-zdHiaeooO4" ></iframe>
 				</div>
 			</div>
     	</div>
