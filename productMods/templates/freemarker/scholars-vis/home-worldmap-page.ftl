@@ -99,8 +99,8 @@
             <div class="closed" id="rh-panel">
                 <div id="inner">
                     <div class="row topRow">
-                        <span id="hamburgerIcon" class="glyphicon glyphicon-menu-hamburger"></span>
                         <h3 id="areaTitle"></h3>
+                        <span id="hamburgerIcon" class="glyphicon glyphicon-remove-circle pull-right"></span>
                     </div>
                     <br>
                     <h4 class="heading-travis" id="res"></h4>
