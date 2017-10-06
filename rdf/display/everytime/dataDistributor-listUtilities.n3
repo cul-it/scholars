@@ -14,10 +14,14 @@
         PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
         PREFIX vivo: <http://vivoweb.org/ontology/core#>
         SELECT ?uri ?label
-        WHERE {
+        WHERE {{
           ?uri a vivo:AcademicDepartment ;
-               rdfs:label ?label .
-        }
+          		rdfs:label ?label .
+        } UNION
+		{
+		  ?uri a vivo:Institute ;
+          		rdfs:label ?label .
+		}}
         ORDER BY ?label
     """ .
 

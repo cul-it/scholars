@@ -86,3 +86,19 @@ local:departmentHasPositionConfig a :ObjectPropertyDisplayConfig ;
     vitro:hiddenFromDisplayBelowRoleLevelAnnot role:public ;
     vitro:prohibitedFromUpdateBelowRoleLevelAnnot role:public .
 
+local:orgHasAffilationsContext a :ConfigContext ;
+    :hasConfiguration local:orgHasAffilationsConfig ;
+    :configContextFor vivo:relatedBy ;
+    :qualifiedByDomain <http://xmlns.com/foaf/0.1/Organization> ;
+    :qualifiedBy vivoc:Affiliation .
+
+local:orgHasAffilationsConfig a :ObjectPropertyDisplayConfig ;
+    rdfs:label "orgHasAffilations"@en-US;
+    :displayName "affiliations" ;
+    :listViewConfigFile "listViewConfig-organizationHasAffiliations.xml"^^xsd:string ;
+    :propertyGroup <http://vivoweb.org/ontology#vitroPropertyGroupaffiliation> ;
+    vitro:collateBySubclassAnnot
+              "false"^^xsd:boolean;
+    vitro:displayRankAnnot 20;
+    vitro:hiddenFromDisplayBelowRoleLevelAnnot role:public ;
+    vitro:prohibitedFromUpdateBelowRoleLevelAnnot role:public .

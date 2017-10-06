@@ -24,7 +24,7 @@
 	</#list>
 </#if>
 <h2 class="expertsResultsHeader">Browse Academic Units</h2>
-<div id="search-field-container" class="contentsBrowseGroup row fff-bkg" style="margin-bottom:15px">
+<div id="search-field-container" class="contentsBrowseGroup row fff-bkg">
   <div class="col-md-5">
     <fieldset>
         <legend>${i18n().search_form}</legend>
@@ -70,34 +70,34 @@
 </#if>
 </div>
 <#if individuals?? >
-  <div id="facets-and-results" class="contentsBrowseGroup row fff-bkg">
-  <div id="facet-container" class="col-md-3" style="padding-right:0">
+  <div id="units-facets-and-results" class="contentsBrowseGroup row fff-bkg">
+  <div id="units-facet-container" class="col-md-3">
         <div id="position-facets" class="panel panel-default selection-list" >
                 <div class="panel-heading facet-panel-heading">Unit Type</div>
 				<#assign classCount = 0 />
             	<div class="panel-body scholars-facet">
 				  <label>
-					<input type="radio" style="margin:0 0 0 -18px;" name="querytype" value="colleges" <#if querytype == "colleges">checked</#if>/> Colleges<span> (${collegeCount!}) </span>
+					<input class="units-radio" type="radio" name="querytype" value="colleges" <#if querytype == "colleges">checked</#if>/> Colleges<span> (${collegeCount!}) </span>
 				  </label>
 				</div>
             	<div class="panel-body scholars-facet">
 				  <label>
-					<input type="radio" style="margin:10px 0 0 -18px;" name="querytype" value="schools" <#if querytype == "schools">checked</#if> /> Schools<span> (${schoolCount!}) </span>
+					<input class="units-radio" type="radio" name="querytype" value="schools" <#if querytype == "schools">checked</#if> /> Schools<span> (${schoolCount!}) </span>
 				  </label>
 				</div>
             	<div class="panel-body scholars-facet">
 				  <label>
-					<input type="radio" style="margin:10px 0 0 -18px;" name="querytype" value="departments" <#if querytype == "departments">checked</#if> /> Academic Departments<span> (${departmentCount!}) </span>
+					<input class="units-radio" type="radio" name="querytype" value="departments" <#if querytype == "departments">checked</#if> /> Academic Departments<span> (${departmentCount!}) </span>
 				  </label>
 				</div>
             	<div class="panel-body scholars-facet">
 				  <label>
-					<input type="radio" style="margin:10px 0 0 -18px;" name="querytype" value="libraries" <#if querytype == "libraries">checked</#if> /> Libraries<span> (${libraryCount!}) </span>
+					<input class="units-radio" type="radio" name="querytype" value="libraries" <#if querytype == "libraries">checked</#if> /> Libraries<span> (${libraryCount!}) </span>
 				  </label>
 				</div>
             	<div class="panel-body scholars-facet">
 				  <label>
-					<input type="radio" style="margin:10px 0 0 -18px;" name="querytype" value="institutes" <#if querytype == "institutes">checked</#if> /> Institutes<span> (${instituteCount!}) </span>
+					<input class="units-radio" type="radio" name="querytype" value="institutes" <#if querytype == "institutes">checked</#if> /> Institutes<span> (${instituteCount!}) </span>
 				  </label>
 				</div>
         </div>
@@ -109,19 +109,19 @@
 
  	<!-- facet container -->
 	<#if querytype == "colleges" >
-			<div class="col-md-9" style="text-align:right;padding-right: 60px;margin-top:-30px">
-				<a id="show-all-children" href="javascript:" style="font-size:14px" data-state="hidden">show all departments/schools</a>
+			<div id="show-all-control" class="col-md-9">
+				<a id="show-all-children" href="javascript:" data-state="hidden">show all departments/schools</a>
 				<i class="fa fa-caret-down" aria-hidden="true"></i>
 			</div>
 	</#if>
     <div id="results-column" class="col-md-9">
 	  <div id="results-container" class="panel panel-default">
 	    <#if (hitCount > 20) && alphaList?has_content>
-	      <div class="panel-heading" style="width:100%;background-color:#394e6b;padding:10px 0 10px 0;">
-			<ul id="alpha-browse" style="padding-left:20px;" >
-				<li style="color:#fff;display:inline;font-size:14px;padding-right:20px;"><a id="all-link" href="javascript:" data-qtype="${querytype!}" class="active-browse-links browse-links">All ${querytype?capitalize!}</a></li>
+	      <div class="panel-heading pagination-header">
+			<ul id="alpha-browse">
+				<li><a id="all-link" href="javascript:" data-qtype="${querytype!}" class="active-browse-links browse-links">All ${querytype?capitalize!}</a></li>
 				<#list alphaList as ltr >
-					<li style="color:#fff;display:inline;padding-right:15px;">
+					<li>
 						<a href="javascript:" id="nav-${ltr!}" data-letter="${ltr!}" class="browse-links">${ltr!}</a>
 					</li>
 				</#list>

@@ -1,31 +1,91 @@
 ScholarsVis["PersonWordCloud"] = function(options) {
-	var defaults = {
-		    url : applicationContextPath + "/api/dataRequest/person_word_cloud?person=" + options.person,
-		    parse : 'turtle',
-	    	transform : transform_word_cloud_data,
-		    display : draw_word_cloud,
-		    closer : close_word_cloud,
-		    
-		    maxKeywords : 50,
-		    interactive : true,
-		    scaleRange : [15, 60]
-		};
-	return new ScholarsVis.Visualization(options, defaults);
+    var defaults = {
+            url : applicationContextPath + "/api/dataRequest/person_word_cloud?person=" + options.person,
+            parse : 'turtle',
+            transform : transform_word_cloud_data,
+            views : {
+                vis : {
+                    display : draw_word_cloud,
+                    closer : close_word_cloud,
+                    export : {
+                        json : {
+                            filename: "personWordCloud.json",
+                            call: exportWcVisAsJson
+                        },
+                        svg : {
+                            filename: "personWordCloud.svg",
+                            call: exportWcVisAsSvg
+                        }
+                    }
+                },
+                table: {
+                    display : drawPersonWcTable,
+                    closer : closePersonWcTable,
+                    export : {
+                        csv : {
+                            filename: "personWordCloudTable.csv",
+                            call: exportPersonWcTableAsCsv,
+                        },
+                        json : {
+                            filename: "personWordCloudTable.json",
+                            call: exportPersonWcTableAsJson
+                        }
+                    }
+                },
+                empty: {
+                    display : d => {}
+                }
+            },
+            maxKeywords : 50,
+            interactive : true,
+            scaleRange : [15, 60]
+    };
+    return new ScholarsVis.Visualization(options, defaults);
 };
 
 ScholarsVis["DepartmentWordCloud"] = function(options) {
-	var defaults = {
-		    url : applicationContextPath + "/api/dataRequest/department_word_cloud?department=" + options.department,
-		    parse : 'turtle',
-	    	transform : transform_word_cloud_data,
-		    display : draw_word_cloud,
-		    closer : close_word_cloud,
-		    
-		    maxKeywords : 100,
-		    interactive : true,
-		    scaleRange : [15, 60]
-		};
-	return new ScholarsVis.Visualization(options, defaults);
+    var defaults = {
+            url : applicationContextPath + "/api/dataRequest/department_word_cloud?department=" + options.department,
+            parse : 'turtle',
+            transform : transform_word_cloud_data,
+            views : {
+                vis : {
+                    display : draw_word_cloud,
+                    closer : close_word_cloud,
+                    export : {
+                        json : {
+                            filename: "departmentWordCloud.json",
+                            call: exportWcVisAsJson
+                        },
+                        svg : {
+                            filename: "departmentWordCloud.svg",
+                            call: exportWcVisAsSvg
+                        }
+                    }
+                },
+                table: {
+                    display : drawDepartmentWcTable,
+                    closer: closeDepartmentWcTable,
+                    export : {
+                        csv : {
+                            filename: "departmentWordCloudTable.csv",
+                            call: exportDepartmentWcTableAsCsv,
+                        },
+                        json : {
+                            filename: "departmentWordCloudTable.json",
+                            call: exportDepartmentWcTableAsJson
+                        }
+                    }
+                },
+                empty: {
+                    display : d => {}
+                }
+            },
+            maxKeywords : 100,
+            interactive : true,
+            scaleRange : [15, 60]
+    };
+    return new ScholarsVis.Visualization(options, defaults);
 };
 
 /*******************************************************************************
@@ -278,7 +338,6 @@ var keywords;
 function draw_word_cloud(unfiltered, target, options) {
 
     if (!unfiltered || unfiltered.length == 0) {
-      drawNoData(target, options);
       return;
     }
     
@@ -441,13 +500,6 @@ function draw(input) {
    		}
    	});
    }
-   
-   function drawNoData(target, options) {
-      d3.select(target)
-        .append("img")
-  		.attr("id", "noData")
-  		.attr("src", applicationContextPath + "/themes/scholars/images/wordcloud-noData.png")
-   }
 };
 
 /*******************************************************************************
@@ -488,3 +540,121 @@ $(document).ready(function(){
 
 	});
 }); 
+
+/*******************************************************************************
+ * 
+ * Export the visualization data.
+ * 
+ ******************************************************************************/
+function exportWcVisAsJson(data, filename) {
+    ScholarsVis.Utilities.exportAsJson(filename, data);
+}
+
+function exportWcVisAsSvg(data, filename, options) {
+    ScholarsVis.Utilities.exportAsSvg(filename, $(options.target).find("svg")[0]);
+}
+
+/*******************************************************************************
+ * 
+ * Fill the Person Word Cloud table with data, draw it, export it.
+ * 
+ ******************************************************************************/
+function drawPersonWcTable(data, target, options) {
+    var tableElement = $(target).find(".scholars-vis-table").get(0);
+    var table = new ScholarsVis.VisTable(tableElement);
+    var tableData = transformAgainForPersonTable(data);
+    tableData.forEach(addRowToTable);
+    table.complete();
+    
+    function addRowToTable(rowData) {
+        table.addRow(rowData.keyword, rowData.types, createLink(rowData.publication, rowData.uri));
+        
+        function createLink(text, uri) {
+            return "<a href='" + uri + "'>" + text + "</a>"
+        }
+    }
+}
+
+function closePersonWcTable(target) {
+    $(target).find("table").each(t => ScholarsVis.Utilities.disableVisTable(t));
+}
+
+function exportPersonWcTableAsCsv(data, filename) {
+    ScholarsVis.Utilities.exportAsCsv(filename, transformAgainForPersonTable(data));
+}
+
+function exportPersonWcTableAsJson(data, filename) {
+    ScholarsVis.Utilities.exportAsJson(filename, transformAgainForPersonTable(data));
+}
+
+function transformAgainForPersonTable(data) {
+    var tableData = [];
+    data.forEach(doKeyword);
+    return tableData;
+    
+    function doKeyword(keywordData) {
+        keywordData.entities.forEach(doEntity); 
+        
+        function doEntity(entityData) {
+            var row = {
+                    keyword: keywordData.text, 
+                    types: entityData.citationTypes.sort().join(" "),
+                    publication: entityData.text,
+                    uri: entityData.uri
+            };
+            tableData.push(row);
+        }
+    }
+}
+
+/*******************************************************************************
+ * 
+ * Fill the Department Word Cloud table with data, draw it, export it.
+ * 
+ ******************************************************************************/
+function drawDepartmentWcTable(data, target, options) {
+    var tableElement = $(target).find(".scholars-vis-table").get(0);
+    var table = new ScholarsVis.VisTable(tableElement);
+    var tableData = transformAgainForDepartmentTable(data);
+    tableData.forEach(addRowToTable);
+    table.complete();
+    
+    function addRowToTable(rowData) {
+        table.addRow(rowData.keyword, createLink(rowData.name, rowData.uri));
+        
+        function createLink(text, uri) {
+            return "<a href='" + uri + "'>" + text + "</a>"
+        }
+    }
+}
+
+function closeDepartmentWcTable(target) {
+    $(target).find("table").each(t => ScholarsVis.Utilities.disableVisTable(t));
+}
+
+function exportDepartmentWcTableAsCsv(data, filename) {
+    ScholarsVis.Utilities.exportAsCsv(filename, transformAgainForDepartmentTable(data));
+}
+
+function exportDepartmentWcTableAsJson(data, filename) {
+    ScholarsVis.Utilities.exportAsJson(filename, transformAgainForDepartmentTable(data));
+}
+
+function transformAgainForDepartmentTable(data) {
+    var tableData = [];
+    data.forEach(doKeyword);
+    return tableData;
+    
+    function doKeyword(keywordData) {
+        keywordData.entities.forEach(doEntity); 
+        
+        function doEntity(entityData) {
+            var row = {
+                keyword: keywordData.text, 
+                name: entityData.text,
+                uri: entityData.uri
+            };
+            tableData.push(row);
+        }
+    }
+}

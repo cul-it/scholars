@@ -8,8 +8,17 @@
   margin-bottom: 8px;
 }
 
-.col-md-8 #vis {
+.col-md-8 #siteWordCloudVis {
    height: 600px;
    margin-bottom: 20px;
 }
- 
+
+.col-md-8 #departmentWordCloudVis {
+   height: 600px;
+   margin-bottom: 20px;
+}
+
+.col-md-8 #personWordCloudVis {
+   height: 600px;
+   margin-bottom: 20px;
+}

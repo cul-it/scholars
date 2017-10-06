@@ -2135,9 +2135,42 @@ div#visualization-column div p {
 	font-size: 16px;
 	color: #CC6949;
 }
-/*div#dynamic_word_cloud {
-	display: inline;
-}*/
+div#hztl-visualization-column div {
+	text-align: center; 
+	padding-top: 20px;
+	overflow: hidden;
+}
+div#hztl-visualization-column div p {
+	padding-top: 8px;
+	font-size: 16px;
+	color: #CC6949;
+}
+#available-vis {
+	padding-right: 30px;
+}
+.pending-tab-inactive {
+    padding: .5em 1em !important;
+	border: 1px solid #d3d3d3;
+	background: #e6e6e6;
+	color: #969090;;
+    border-bottom-width: 1px;
+    font-weight: normal;
+    border-top-right-radius: 4px;
+    border-top-left-radius: 4px;
+	font-size: 18px;	
+}
+.pending-asterisk {
+	color: #23527c;
+	float: left;
+	padding: 44px 15px 30px 30px;
+	font-size: 18px;
+}
+.pending-tab-content {
+	height: 320px; 
+}
+.pending-tab-content article p {
+	font-size:16px; 
+}
 a#subject-area-link {
 	color: #167093;
 	float: right;
@@ -2668,23 +2701,112 @@ nav#alpha-browse-container {
 }
 
 .vis_toolbar .heading {
-  font: 16px "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font: 20px "Helvetica Neue", Helvetica, Arial, sans-serif;
   margin-bottom: 8px;
 }
 
 .vis_modal {
-    display: table;
-	height:80%;
+    display: block;
+	height:85%;
 	width:75%;
 	background-color: #fff;
 	border-radius: 5px;
 	z-index: 3;
 }
+.vis-table-container {
+	height: 90%;
+	display: block;
+}
+.vis-table-container h1 {
+	margin-top: 8px;
+}
 
+#info_icon_text {
+    display: none;
+}
+
+div[data-view-id] {
+    display: none;
+}
+
+.scholars-vis-table {
+    height: 95%; 
+    width: 95%; 
+    border-collapse: collapse;
+    margin: 20 px; 
+    display: block;
+    overflow: auto; 
+}
+.scholars-vis-table thead tr th {
+	color: #167093; 
+}
+.scholars-vis-table thead tr th:hover {
+	color: #167093; 
+	text-decoration: underline;
+}
+.scholars-vis-table th, td {
+    padding: 5px 10px;
+    border: 1px solid #999;
+}
+
+.scholars-vis-table th {
+    background-color: #eee;
+}
+
+.scholars-vis-table th[data-sort] {
+    cursor: pointer;
+}
+
+.scholars-vis-table th span.arrow{ 
+    margin-left: 10px;
+}
+
+.scholars-vis-table tr.first-row {
+}
+
+.scholars-vis-table tr.not-first-row {
+}
+
+.scholars-vis-table tr.odd-row {
+    background-color: #d6e6f2;
+}
+
+.scholars-vis-table tr.even-row {
+    background-color: #f8eddd;
+}
+.vis_toolbar a {
+	margin-right: 55px;
+}
+.vis-view-toggle {
+    background-color: #3770b7;
+    color: #fff;
+    border-radius: 5px;
+    padding: 2px 6px;
+    margin-bottom: 6px;
+    font-size: 14px;
+}
+.vis-view-toggle:hover {
+    background-color: #23527c;
+    color: #fff;
+    text-decoration: none !important;
+}
+.vis-view-toggle:focus {
+    background-color: #3770b7;
+    color: #fff;
+    text-decoration: none !important;
+}
+.vis-exports-container {
+	margin-top: 8px;
+}
 .word_cloud_vis {
 	height:90%;
 }
-
+.vis-container {
+	height: 90%;
+}
+.vis-container svg {
+	margin-top: 15px;
+}
 .dept_grants_vis svg g text {
 	font-size: 80%;
 }
@@ -2808,7 +2930,23 @@ nav#alpha-browse-container {
 }
 .bibo-doc-controls {
 	float:right;
-	margin:14px 10px -14px 0;
+	margin:18px 10px -14px 0;
+}
+.bibo-doc-controls a {
+	background-color: #3770b7;
+	color: #fff;
+	border-radius: 4px;
+	padding: 8px 6px;
+	font-size: 12px;
+}
+.bibo-doc-controls a:hover {
+	color: #fff;
+	text-decoration: none !important;
+	background-color: #23527c;
+}
+.bibo-doc-controls a i {
+	font-size: 14px;
+	margin-right:4px;
 }
 #bibo-heading-break {
 	margin-left:24px;
@@ -2821,6 +2959,14 @@ nav#alpha-browse-container {
 }
 .clear-both {
 	clear: both;
+}
+#vcardstoggle {
+	float: right; 
+	display: none;
+	margin: -40px 35px 0 0;
+}
+#vcardstoggle span {
+	font-size: 15px;
 }
 #bibo-row-two {
 	margin-top:15px;
@@ -2886,7 +3032,7 @@ a#author-name {
 	background: url('../images/nav-menu-background.png') no-repeat center center !important;
 	background-size: cover !important;
 	height: 95px !important;
-	z-index: 2;
+	z-index: 8;
 	width:100%;
 	margin:0;
 	padding:0;
@@ -2945,6 +3091,9 @@ a#author-name {
 	font-size:14px;
 	transition: .5s;
 	text-decoration: none;
+}
+.menu-links-active {
+	color: #CC6949;
 }
 .nav-bar-search {
 	margin:0 0 0 40px !important;
@@ -3021,6 +3170,9 @@ a#author-name {
 	padding: 0 22px 2px 4px;
 	margin: 0 25px 0 0;
 }
+.icon-control {
+	margin-left: 6px;
+}
 /*** identity.ftl ***/
 #welcome {
 	position: fixed;
@@ -3048,6 +3200,13 @@ a#author-name {
 	min-height:100%;
 	background: transparent url('../images/scholars-backdrop.jpg') no-repeat 50% 70%;
 	background-size: cover;
+}
+#tagline {
+	display: none;
+	z-index: -1;
+	position: fixed;
+	left: 10px;
+	bottom: 178px;
 }
 /** lib-home-page.ftl ***/
 #download-content {
@@ -3210,7 +3369,7 @@ header {
 }
 .glyphicon-info-sign {
     font-size: 22px;
-    color: #167093;
+    color: #3770b7;
 }
 .qtip-scholars {
 	font-size: 15px;
@@ -3299,6 +3458,68 @@ header {
 }
 #facets-and-results {
 	padding-top: 0 !important;
+}
+#units-facets-and-results {
+	padding-top: 0 0 18px !important;
+}
+#units-facets-container {
+	padding-right: 0;
+}
+.inner-facets-container {
+	max-height: 320px;
+	overflow: auto;
+}
+.units-radio {
+	margin: 10px 0 0 -18px !important;
+}
+#show-all-control {
+	text-align: right;
+	padding-right: 60px;
+	margin-top: -30px;
+}
+#show-all-children {
+	font-size:14px;
+}
+.pagination-header {
+	width: 100%;
+	background-color: #394e6b !important;
+	padding: 10px 0 10px 0;
+	border-color: #394e6b !important;
+}
+ul#alpha-browse {
+	padding-left: 20px;
+}
+ul#alpha-browse li {
+	color: #fff;
+	display: inline;
+	padding-right: 15px;
+	font-size:14px;
+}
+ul#alpha-browse li:first {
+	padding-right:20px;
+}
+#research-radios-results {
+	padding: 12px 0 1px 0;
+	margin: 0;
+}
+#search-sort-by {
+	text-align: right;
+	padding-right: 40px;
+}
+.search-date-reset {
+	width: 100%;
+	text-align: right;
+	display: none;
+}
+.search-date-slider {
+	margin: 50px 20px 10px;
+}
+#search-pips {
+	padding:0 20px;
+}
+#demarcation {
+	clear: both;
+	padding: 4px 6px 20px;
 }
 #results-blurb {
 	padding: 0 0 3px 48px;
@@ -3527,8 +3748,16 @@ button.accordion.active, button.accordion:hover {
 .faq-answer ul li {
 	cursor: default;
 }
+.faq-heading {
+	line-height: 24px;
+}
 .faq-heading:hover {
 	text-decoration: underline;
+}
+#faq-toggle-container {
+	margin-right: 240px;
+	text-align: right;
+	font-size: 14px;
 }
 #aboutText {
 	font-size: 14px;
@@ -3554,6 +3783,69 @@ i.fa-download {
 .large-tour-text {
 	display: none;
 }
+.quick-links {
+	float: right;
+	margin-top: 64px;
+}
+quick-links-heading {
+	font-size: 14px;
+}
+.about-para-narrow {
+	margin-left: 30px;
+	margin-right: 250px
+}
+.about-para-wide {
+	margin-left: 30px;
+	margin-right: 50px
+}
+#credits {
+	font-size: 12px;
+	margin-top: 20px;
+	margin-bottom: 0;
+}
+#credits-list {
+	margin: -2px 60px 0 30px;
+	font-size: 12px;
+}
+#credits-list li {
+	line-height: 20px;
+}
+#about-vis-list {
+	margin-left: 46px;
+	margin-right: 60px;
+	list-style: disc;
+}
+#team-list {
+	margin-left: 30px;
+	margin-right: 60px;
+	list-style: none;
+}
+.tour-row-top {
+	margin: 0px; 
+	padding: 0px;
+	background-color: #fff;
+}
+.tour-row-middle {
+	margin: 40px 0 0; 
+	padding: 0px;
+	background-color: #fff;
+}
+.tour-row-bottom {
+	margin: 40px 0 20px;
+	padding: 0px;
+	background-color: #fff;
+}
+.center-text {
+	text-align: center;
+}
+ul.lower-alpha-list {
+	list-style-type: lower-alpha;
+	padding-left: 12px;
+	line-height: 22px;
+}
+ul.lower-alpha-list li {
+	padding-bottom: 10px;
+}
 @media screen and (min-width: 750px) {
 	.tour-text {
   		margin: 100px 0 15px;
@@ -3564,4 +3856,35 @@ i.fa-download {
 	.small-tour-text {
 		display: none;
 	}
+}
+.scholars-button {
+	color: #fff;
+	background-color: #3770b7;
+	border-color: #2e6da4;
+	border-radius: 4px;
+	display: inline-block;
+	padding: 6px 12px;
+	margin-bottom: 0;
+	font-size: 14px;
+	font-weight: 400;
+	font-family: Muli,Arial,Verdana,Helvetica;
+	line-height: 1.42857143;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	-ms-touch-action: manipulation;
+	touch-action: manipulation;
+	cursor: pointer;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	background-image: none;
+	border: 1px solid transparent;
+}
+.scholars-button:hover {
+	color: #fff;
+	text-decoration: none !important;
+	background-color: #23527c;
+
 }

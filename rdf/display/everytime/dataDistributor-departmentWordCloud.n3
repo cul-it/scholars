@@ -29,7 +29,7 @@
 		  ?person vivo:freetextKeyword ?keyword .
 		}
 		WHERE
-		{
+		{{
 		  ?department hr:hasPosition ?posn .
 		  ?posn a vivo:Position .
 		  ?posn vivo:relates ?person .
@@ -39,8 +39,20 @@
 		  ?auth a vivo:Authorship .
 		  ?auth vivo:relates ?pub .
 		  ?pub a bibo:Document .
-      ?pub vivo:freetextKeyword ?keyword . 
-		}
+      	  ?pub vivo:freetextKeyword ?keyword . 
+      } UNION
+      {
+		  ?department vivo:relatedBy ?affn .
+		  ?affn a vivoc:Affiliation .
+		  ?affn vivo:relates ?person .
+		  ?person a foaf:Person .
+		  ?person rdfs:label ?label .
+		  ?person vivo:relatedBy ?auth .
+		  ?auth a vivo:Authorship .
+		  ?auth vivo:relates ?pub .
+		  ?pub a bibo:Document .
+      	  ?pub vivo:freetextKeyword ?keyword . 
+		}}
       """ .
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  
@@ -79,13 +91,20 @@
         CONSTRUCT {
           ?person rdfs:label ?label .
         }
-        WHERE {
+        WHERE {{
           ?department hr:hasPosition ?posn .
           ?posn a vivo:Position .
           ?posn vivo:relates ?person .
           ?person a foaf:Person .
           ?person rdfs:label ?label .
-        }
+        } UNION
+        {
+		  ?department vivo:relatedBy ?affn .
+		  ?affn a vivoc:Affiliation .
+		  ?affn vivo:relates ?person .
+		  ?person a foaf:Person .
+		  ?person rdfs:label ?label .
+		}}
     """ .
         
 :dwc_drill_mb_level_2

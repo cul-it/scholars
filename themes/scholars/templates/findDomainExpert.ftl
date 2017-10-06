@@ -53,12 +53,14 @@
 				<#if message?? && message == "no_matches">
 					<div class="no-results-found">No results matched the term:</div>
 					<div id="unmatched-term"><span>'${badquerytext!}'</span></div>
-					<div class="no-results-found">Try selecting another one from the list of suggestions, or <a href="${urls.base}/search?querytext=${badquerytext!}">search the full site</a>.</div>
+					<div class="no-results-found">Try selecting another term from the list of suggestions. Or</div>
+					<div><a class="scholars-button" href="${urls.base}/search?querytext=${badquerytext!}">Search the full site</a></div>
 				<#elseif  message?? && message == "no_search_term">
 					<div class="no-results-found">Please enter a search term or select one from the list of suggestions.</div>
 				<#else>
 					<div class="no-results-found">Your search for the term '${badquerytext!}' did not complete successfully.</div>
-					<div class="no-results-found">Try selecting another one from the list of suggestions, or <a href="${urls.base}/search?querytext=${badquerytext!}">search the full site</a>.</div>
+					<div class="no-results-found">Try selecting another term from the list of suggestions. Or</div>
+					<div><a class="scholars-button" href="${urls.base}/search?querytext=${badquerytext!}">Search the full site</a></div>
 				</#if>
 			</div>
         </div>
@@ -66,11 +68,11 @@
 </#if>
 </div>
 <#if individuals?? >
-  <div class="row fff-bkg" style="padding:0;margin:0;">
+  <div class="row fff-bkg visualization-row">
   	<div id="results-blurb" class="col-md-4 col-md-offset-4">
 		${searchResults!}
   	</div>
-  	<div class="col-md-4" style="text-align:right;padding-right:40px">
+  	<div id="search-sort-by" class="col-md-4">
 	  <#if querytype != "name">
 		Sort by
 		<select id="sort-results">
@@ -95,7 +97,7 @@
 					</div>
 					<#assign classCount = classCount + class.count?number />
             </#list>
-			<#if (classCount > hitCount?number)>
+			<#if (classCount?string?replace(",","")?number > hitCount?string?replace(",","")?number)>
 				<div class="facet-note" data-cc="${classCount?number}" data-hc="${hitCount?number}">* Some scholars have multiple positions.</div>
 			</#if>
         </div>

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!-- $This file is distributed under the terms of the license in /doc/license.txt$ -->
+
+<!-- See guidelines at https://wiki.duraspace.org/x/eYXVAw -->
+
+<list-view-config>
+    <query-select>
+		PREFIX rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt;
+        PREFIX rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt;
+        PREFIX vivo: &lt;http://vivoweb.org/ontology/core#&gt;
+        PREFIX vivoc: &lt;http://scholars.cornell.edu/ontology/vivoc.owl#&gt;
+        PREFIX foaf: &lt;http://xmlns.com/foaf/0.1/&gt;
+
+		SELECT ?personLabel ?affn ?person ?posnLabel (group_concat(distinct ?homeOrgLabel;separator=", ") as ?orgs)
+		WHERE
+		{
+		      ?subject ?property ?affn .
+		      ?affn vivo:relates ?person .
+		      OPTIONAL { ?person rdfs:label ?personLabel . }
+		      ?person vivo:relatedBy ?posn .
+		      ?posn a vivo:Position .
+		      OPTIONAL { ?posn rdfs:label ?posnLabel . }
+		      ?posn vivo:relates ?homeOrg .
+		      OPTIONAL { ?homeOrg rdfs:label ?homeOrgLabel . }
+		}
+		GROUP BY ?personLabel ?affn ?person ?posnLabel
+		ORDER BY ?personLabel
+    </query-select>
+
+    <query-construct>
+		PREFIX rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt;
+        PREFIX rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt;
+        PREFIX vivo: &lt;http://vivoweb.org/ontology/core#&gt;
+        PREFIX vivoc: &lt;http://scholars.cornell.edu/ontology/vivoc.owl#&gt;
+        PREFIX foaf: &lt;http://xmlns.com/foaf/0.1/&gt;
+
+        CONSTRUCT
+        {
+  			?subject ?property ?affn .
+  			?affn a vivoc:Affiliation .
+  			?affn vivo:relates ?person .
+  			?person a foaf:Person .
+      		?person vivo:relatedBy ?posn .
+      		?posn a vivo:Position .
+      		?posn vivo:relates ?homeOrg .
+      		?homeOrg a foaf:Organization .
+			?person rdfs:label ?personLabel . 
+			?posn rdfs:label ?posnLabel . 
+			?homeOrg rdfs:label ?homeOrgLabel . 
+        }
+        WHERE
+        {
+            {
+	      		?subject ?property ?affn .
+	      		?affn a vivoc:Affiliation .
+	      		?affn vivo:relates ?person .
+	      		?person a foaf:Person .
+		      	?person vivo:relatedBy ?posn .
+		      	?posn a vivo:Position .
+		      	?posn vivo:relates ?homeOrg .
+		      	?homeOrg a foaf:Organization .
+            }
+            UNION
+            {
+      			?subject ?property ?affn .
+      			?affn a vivoc:Affiliation .
+      			?affn vivo:relates ?person .
+      			?person a foaf:Person .
+	      		?person rdfs:label ?personLabel . 
+            }
+            UNION
+            {
+                ?subject ?property ?affn .
+		      	?affn a vivoc:Affiliation .
+		      	?affn vivo:relates ?person .
+		      	?person a foaf:Person .
+		      	?person vivo:relatedBy ?posn .
+		      	?posn a vivo:Position .
+		      	?posn rdfs:label ?posnLabel . 
+		    }
+            UNION
+            {
+                ?subject ?property ?affn .
+		      	?affn a vivoc:Affiliation .
+		      	?affn vivo:relates ?person .
+		      	?person a foaf:Person .
+		      	?person vivo:relatedBy ?posn .
+		      	?posn a vivo:Position .
+		      	?posn vivo:relates ?homeOrg .
+		      	?homeOrg a foaf:Organization .
+		      	?homeOrg rdfs:label ?homeOrgLabel . 
+		     }
+        }
+    </query-construct>
+
+	<template>propStatement-organizationHasAffiliations.ftl</template>
+</list-view-config>

@@ -136,30 +136,30 @@
 				
 	<div class="container-fluid scholars-home-container">
    		<div id="partners-row1" class="row fff-bkg">
-   			<div class="col-sm-4 col-md-4 col-lg-4" style="padding:0;">
-				<div id="partners-row1a" class="row fff-bkg" style="margin:0;padding:0;">
-					<div class="col-sm-12 col-md-12 col-lg-12" style="padding:0;margin:0;min-height: 45px;"></div>
+   			<div class="col-sm-4 col-md-4 col-lg-4 nopadding-nomargin">
+				<div id="partners-row1a" class="row fff-bkg nopadding-nomargin">
+					<div id="partners-spacer" class="col-sm-12 col-md-12 col-lg-12 nopadding-nomargin"></div>
 				</div>
-				<div id="partners-row1b" class="row fff-bkg" style="margin:0;padding:0;">
-   					<div class="col-sm-12 col-md-12 col-lg-12" style="text-align:center;vertical-align:middle;padding:0;margin:0"> 
+				<div id="partners-row1b" class="row fff-bkg nopadding-nomargin">
+   					<div id="partners-container" class="col-sm-12 col-md-12 col-lg-12 nopadding-nomargin"> 
    						<p class="home-header">Our Partners</p>
-   						<p style="font-size:18px;margin:0">We're currently collaborating with these academic units to ensure the integrity of Scholars@Cornell data. <a href="${urls.base!}/contact">Become a partner.</a></p>
+   						<p id="partners-text">We're currently collaborating with these academic units to ensure the integrity of Scholars@Cornell data. <a href="${urls.base!}/contact">Become a partner.</a></p>
    					</div>
 				</div>
 			</div>
-   			<div class="col-sm-8 col-md-8 col-lg-8" style="padding:0;">
-				<div id="partners-row1c" class="row fff-bkg" style="margin:0;padding:0;">
-					<div class="col-sm-2 col-md-2 col-lg-2" style="padding:0;"></div>
-	   				<div class="col-sm-6 col-md-6 col-lg-6" style="padding:0;z-index:1">
+   			<div class="col-sm-8 col-md-8 col-lg-8 nopadding-nomargin">
+				<div id="partners-row1c" class="row fff-bkg nopadding-nomargin">
+					<div class="col-sm-2 col-md-2 col-lg-2 nopadding-nomargin"></div>
+	   				<div class="col-sm-6 col-md-6 col-lg-6 nopadding-nomargin">
 	   					<a href="${urls.base}/display/org73341" onclick="javascript:_paq.push(['trackEvent', 'Scholars Affiliates', 'Homepage', 'Engineering']);">
 			   				<div id="eng-image"><img src="${urls.theme!}/images/eng-logo.png"></div>
 			   			</a>
 	   				</div>
-					<div class="col-sm-2 col-md-2 col-lg-2" style="padding:0;"></div>
+					<div class="col-sm-2 col-md-2 col-lg-2 nopadding-nomargin"></div>
 				</div>
-				<div id="partners-row1d" class="row fff-bkg" style="margin:40px 0 0;padding:0;">
-	   				<div class="col-sm-7 col-md-7 col-lg-7" style="padding:0;margin: 0;"></div>	
-	   				<div class="col-sm-5 col-md-5 col-lg-5" style="padding:0;margin:0;"> 
+				<div id="partners-row1d" class="row fff-bkg">
+	   				<div class="col-sm-7 col-md-7 col-lg-7 nopadding-nomargin"></div>	
+	   				<div class="col-sm-5 col-md-5 col-lg-5 nopadding-nomargin"> 
 	   					<a href="${urls.base}/display/org74741" onclick="javascript:_paq.push(['trackEvent', 'Scholars Affiliates', 'Homepage', 'Johnson School']);">
 							<div id="jgsm-image"><img src="${urls.theme!}/images/johnson-logo.png"></div>
 						</a>
@@ -168,8 +168,8 @@
 			</div>
 		</div>
 		<div id="partners-row2" class="row fff-bkg"> 
-	   		<div class="col-sm-5 col-md-5 col-lg-5" style="padding:0;margin: 0;"></div>
-	   		<div class="col-sm-3 col-md-3 col-lg-3" style="padding:0;margin: 0;"> 
+	   		<div class="col-sm-5 col-md-5 col-lg-5 nopadding-nomargin"></div>
+	   		<div class="col-sm-3 col-md-3 col-lg-3 nopadding-nomargin"> 
 	   			<a id="bti-link" href="${urls.base}/display/org98030" onclick="javascript:_paq.push(['trackEvent', 'Scholars Affiliates', 'Homepage', 'BTI']);">
 					<div id="bti-image"><img src="${urls.theme!}/images/bti-logo.png"></div>
 				</a>

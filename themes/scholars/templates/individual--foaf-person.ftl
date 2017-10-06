@@ -77,12 +77,29 @@ $(document).ready(function() {
 	<#assign webpageLabel = webpageStmt.label! />
 	<#assign webpageUrl = webpageStmt.url! />
 </#if>
+<#assign optIn = "pending" />
+<#assign skippedDept = false />
+<#assign collegeOptIn = "${orgOptIn?first.collegeOptIn!}" />
+<#assign departmentOptIn = "${orgOptIn?first.departmentOptIn!}" />
 <#assign optInProp = propertyGroups.pullProperty("http://scholars.cornell.edu/ontology/vivoc.owl#isOptIn")!>
 <#if optInProp?has_content && optInProp.statements?has_content>
 	<#assign optInStmt = optInProp.statements?first!/>
-	<#assign optIn = optInStmt.value!"false" />
-<#else>
-	<#assign optIn = "false" />
+	<#assign optIn = optInStmt.value!"pending" />
+<#elseif departmentOptIn?has_content>
+	<#if departmentOptIn?contains("true")>
+		<#assign optIn = "true" />
+	<#elseif departmentOptIn?contains("false")>
+		<#assign optIn = "false" />
+	<#else>
+		<#assign skippedDept = true />
+	</#if>
+</#if>
+<#if skippedDept && collegeOptIn?has_content>
+	<#if collegeOptIn?contains("true")>
+		<#assign optIn = "true" />
+	<#elseif collegeOptIn?contains("false")>
+		<#assign optIn = "false" />
+	</#if>
 </#if>
 
 <#-- for some reason pullProperty was only working when logged in, and even with the display level set to public. Weird! So using datagetter-->
@@ -139,15 +156,16 @@ $(document).ready(function() {
 </div> <!-- row1 -->
 
 
-<#if (optIn == "true" && (isAuthor || isInvestigator)) || editable >
+<#if isAuthor || isInvestigator>
 <#-- The row2 div contains the visualization section and the publication and grants lists -->
 <div id="row2" class="row scholars-row foaf-person-row2">
 
+<#if optIn == "true" || optIn == "pending" >
 <div id="visualization-column" class="col-sm-3 col-md-3 col-lg-3 scholars-container">
  	<#if isAuthor >
 		<div id="word_cloud_icon_holder" style="display:none">
 		    <a href="#" id="word_cloud_trigger" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Person', 'Research-Keywords']);">
-		    	<img id="vizIcon" width="145px" src="${urls.base}/themes/scholars/images/wordcloud-icon.png"/>
+		    	<img id="vizIcon" width="152px" src="${urls.base}/themes/scholars/images/wordcloud-icon-hztl.png"/>
 		    </a>
 			<p>Research Keywords</p>
 		</div>
@@ -170,6 +188,7 @@ $(document).ready(function() {
 <div id="foafPersonSpacer" class="col-sm-1 col-md-1 col-lg-1"></div>
 <div id="foafPersonTabs" class="col-sm-8 col-md-8 col-lg-8  scholars-container">
 	<div id="scholars-tabs-container">
+	  <#if optIn == "true" >
 	  <ul id="scholars-tabs">
 	    <#if isAuthor ><li><a href="#tabs-1" onclick="javascript:_paq.push(['trackEvent', 'Tab', 'Person', 'Publications']);">Publications</a></li></#if>
 	    <#if isInvestigator ><li><a href="#tabs-2" onclick="javascript:_paq.push(['trackEvent', 'Tab', 'Person', 'Grants']);">Grants</a></li></#if>
@@ -208,35 +227,161 @@ $(document).ready(function() {
 			</article>
 		  </div>
 	  </#if>
+	<#else>
+	  <ul id="scholars-tabs">
+	  		<li><a href="#tabs-1">Profile Status</a></li>
+	    	<#if isAuthor ><li class="pending-tab pending-tab-inactive">Publications</li></#if>
+	    	<#if isInvestigator ><li class="pending-tab pending-tab-inactive">Grants</li></#if>
+	  </ul>
+	  	<div id="tabs-1" class="pending-tab-content ui-tabs ui-tabs-panel">
+			<article class="property" role="article">
+				<i class="fa fa-asterisk pending-asterisk" aria-hidden="true"></i>
+				<p style="padding: 40px 40px 0 40px;">
+				Release of the full publication view<#if isInvestigator>, as well as grant details,</#if> is pending author approval.</p>
+
+				<p style="padding: 0 40px 20px 63px;">If this is your profile page, please contact the <a href="${urls.base!}/contact" style="color:#167093">Scholars<em style="color:#167093">@</em>Cornell team</a> to activate the display of your publications<#if isInvestigator> and grants</#if>.</p>
+			</article>
+	    </div>
+	  
+	</#if>
 	</div>
+	
 </div>
-</div> <!-- row2 div -->
-<#else>
+<#else> <#-- optin == false -->
+	<div id="hztl-visualization-column" class="col-md-12 scholars-container">
+	  <div class="row visualization-row">
+		<div id="available-vis" class="col-sm-3 col-md-3 col-lg-3">
+			<p>Available<br/>Visualizations</p>
+		</div>
+	 	<#if isAuthor && isInvestigator>
+			<div id="word_cloud_icon_holder" class="col-md-3" style="display:none;padding-top: 0;">
+			    <a href="#" id="word_cloud_trigger" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Person', 'Research-Keywords']);">
+			    	<img id="vizIcon" width="174px" src="${urls.base}/themes/scholars/images/wordcloud-icon-hztl.png"/>
+			    </a>
+				<p>Research Keywords</p>
+			</div>
+	 		<div id="co-author-vis" class="col-md-3" >
+	 			<a href="${coAuthorVisUrl}" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Person', 'Co-authors']);">
+	 				<img id="vizIcon" width="120px" src="${urls.base}/themes/scholars/images/co-authors.png"/>
+	 			</a>
+	 			<p>Co-authors</p>
+	 		</div>
+	 		<div id="co-investigator-vis" class="col-md-3" >
+	 			<a href="${coInvestigatorVisUrl}" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Person', 'Co-investigtors']);">
+	 				<img id="vizIcon" width="120px" src="${urls.base}/themes/scholars/images/co-investigators.png"/>
+	 			</a>
+	 			<p>Co-investigators</p>
+	 		</div>
+	 	<#elseif isAuthor >
+			<div id="word_cloud_icon_holder" class="col-md-5" style="display:none;padding-top: 0;">
+			    <a href="#" id="word_cloud_trigger" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Person', 'Research-Keywords']);">
+			    	<img id="vizIcon" width="174px" src="${urls.base}/themes/scholars/images/wordcloud-icon-hztl.png"/>
+			    </a>
+				<p>Research Keywords</p>
+			</div>
+	 		<div id="co-author-vis" class="col-md-4" >
+	 			<a href="${coAuthorVisUrl}" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Person', 'Co-authors']);">
+	 				<img id="vizIcon" width="120px" src="${urls.base}/themes/scholars/images/co-authors.png"/>
+	 			</a>
+	 			<p>Co-authors</p>
+	 		</div>
+		<#elseif  isInvestigator >
+	 		<div id="co-investigator-vis" class="col-sm-5 col-md-5 col-lg-5" >
+	 			<a href="${coInvestigatorVisUrl}" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Person', 'Co-investigtors']);">
+	 				<img id="vizIcon" width="120px" src="${urls.base}/themes/scholars/images/co-investigators.png"/>
+	 			</a>
+	 			<p>Co-investigators</p>
+	 		</div>
+	 	</#if>
+	  </div>
+	</div>
+</#if>
+<#else> <#-- not an author or investigator -->
 <div id="foaf-person-blank-row" class="row scholars-row"></div>
 </#if>
-<div id="word_cloud_vis" class="vis_modal" style="display:none;">
-	<font size="2">
-	<span><i>Click on a keyword to view the list of related publications.</i></span>
-    <br>
-	<label class="radio-inline radio-inline-override"><input id="all" type="radio" name="kwRadio" class="radio" checked>Featured Keywords</label>
-	<label class="radio-inline"><input id="keyword"  type="radio" name="kwRadio" class="radio" >Article Keywords</label>
-	<label class="radio-inline"><input id="mesh"     type="radio" name="kwRadio" class="radio" >External Vocab. Terms</label>
-	<label class="radio-inline"><input id="inferred" type="radio" name="kwRadio" class="radio" >Mined Keywords</label>
-	</font>
-	
-    <div id="info_icon_text" style="display:none">
-    	<p>
-    		This visualization represents the research keywords of the author which is an aggregation of keywords found in all the author's articles. There are different sources of these keywords; those expressed by the author in the articles, those assigned by the publishers to the article and those that are algorithmically inferred from the text of the article's abstract. The size of the keyword indicates the frequency of the keyword in the author's publications which suggests that in which subject author published most (or least) frequently.
-        </p>
-        <p>
-        	This is not a static visualization. A user can click on any the keyword to see the list of actual articles that have this keyword. One can click on the article title in the list to navigate to the full view of the article's metadata and a link to the full text when its available.
-	 	</p>
-	 	<hr> 
-		<p>
-        	Note: This information is based solely on publications that have been loaded into the system.
-		</p>   
+</div> <!-- row2 div -->
+
+<!-- =============== Word cloud visualization ======================= -->
+
+${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/keywordcloud/kwcloud.css" />')}
+
+<div id="word_cloud_vis" class="vis_modal" style="display:none; ">
+  <div class="vis_toolbar">
+    <span class="heading">Research Keywords</span>
+    <span class="glyphicon glyphicon-info-sign pull-right" data-original-title="" title=""></span>
+    <a data-view-selector="vis" href="#" class="vis-view-toggle pull-right" style="display: none">Show visualization</a>
+    <a data-view-selector="table" href="#" class="vis-view-toggle pull-right">Show table format</a>
+  </div>
+  
+  <div id="info_icon_text">
+    <p>
+      This visualization displays the research keywords associated with the author, 
+      and is an aggregation of keywords found in all of the author's articles. 
+      There are different sources of these keywords: those expressed by the author in the articles, 
+      those assigned by the publishers to the article, and those that are algorithmically inferred 
+      from the text of the article's abstract. The size of the keyword indicates the frequency 
+      with which the keyword appears in the author's publications, indicating which subject 
+      the author published on most (or least) frequently. 
+    </p>
+    <p>
+       To interact with the visualization, click on any the keyword to see the list of the 
+       articles associated with the keyword. You can then click on the article title in this 
+       list to navigate to the full view of the article's metadata and a link to the full 
+       text when its available.
+    </p>
+    <hr> 
+    <p>
+      Note: This information is based solely on publications that have been loaded into the system.
+    </p> 
+  </div>
+  
+  <div id="time-indicator">
+    <img id="time-indicator-img" src="${urls.images}/indicator1.gif"/>
+  </div>
+
+  <div data-view-id="vis" style="height: 90%; ">
+    <div class="vis-exports-container" >
+      <a href="javascript:return false;" data-export-id="json" class="vis-view-toggle pull-right">Export as JSON</a>
+      <a href="javascript:return false;" data-export-id="svg" style="margin-right: 7px;" class="vis-view-toggle pull-right">Export as SVG</a>
+	</div>
+    <font size="2">
+      <span><i>Click on a keyword to view the list of related publications.</i></span>
+    </font>
+    <div style="margin-top: 10px">
+      <font size="2">
+        <label class="radio-inline radio-inline-override"><input id="all" type="radio" name="kwRadio" class="radio" checked>Featured Keywords</label>
+        <label class="radio-inline"><input id="keyword"  type="radio" name="kwRadio" class="radio" >Article Keywords</label>
+        <label class="radio-inline"><input id="mesh"     type="radio" name="kwRadio" class="radio" >External Vocab. Terms</label>
+        <label class="radio-inline"><input id="inferred" type="radio" name="kwRadio" class="radio" >Mined Keywords</label>
+      </font>
     </div>
+  </div>
+
+  <div data-view-id="table" class="vis-table-container">
+    <div class="vis-exports-container">
+      <a href="javascript:return false;" data-export-id="json"  class="vis-view-toggle pull-right">Export as JSON</a>
+      <a href="javascript:return false;" data-export-id="csv" style="margin-right: 10px;" class="vis-view-toggle pull-right">Export as CSV</a>
+    </div>
+    <table class="scholars-vis-table">
+      <thead>
+        <tr>
+          <th data-sort="string-ins">Keyword</th>
+          <th data-sort="string-ins">Keyword type(s)</th>
+          <th data-sort="string-ins">Publication</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Template cell</td>
+          <td>Template cell</td>
+          <td>Template cell</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
+
+<!-- ================================================================ -->
 
 <div class="jqmWindow" id="subject-area-dialog">
 	<div>
@@ -312,15 +457,29 @@ $().ready(function() {
     modal : true,
     person : "${individual.uri?url}",
     animation : true
-    });
+  });
   wc.examineData(function(data) {
     if (data.length > 0) {
       $('#word_cloud_icon_holder').show();
       $('#word_cloud_trigger').click(wc.show);
-      $('#word_cloud_exporter').click(wc.showVisData);
     }
+	else {
+	  if ( $("#co-investigator-vis").length ) {
+		$("#co-author-vis").addClass("col-md-5");
+	  	$("#co-investigator-vis").addClass("col-md-4");
+		$("#co-author-vis").removeClass("col-md-3");
+	  	$("#co-investigator-vis").removeClass("col-md-3");
+	  }
+	  else {
+ 	  	$("#co-author-vis").addClass("col-md-8");
+		$("#available-vis").addClass("col-md-4");
+		$("#hztl-visualization-column").addClass("col-md-7");
+	  	$("#co-author-vis").removeClass("col-md-4");
+		$("#available-vis").removeClass("col-md-3");
+		$("#hztl-visualization-column").removeClass("col-md-12");
+	  }
+	}
   });
-  new ScholarsVis.Toolbar("#word_cloud_vis", "Research Keywords");
 });
 </script>
 
@@ -341,11 +500,12 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/themes/scholars/
               '<script type="text/javascript" src="${urls.base}/js/imageUpload/imageUploadUtils.js"></script>')}
 
 ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/jqModal.css" />')}
-${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/keywordcloud/kwcloud.css" />')}
 
 ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></script>',
 	              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/jqModal.js"></script>',
 	              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/scholars-vis.js"></script>',
+                  '<script type="text/javascript" src="${urls.base}/js/scholars-vis/FileSaver.js"></script>',
+	              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/stupidtable.min.js"></script>',
 	              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/rdflib.js"></script>',
 	              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/d3/d3-tip.js"></script>',
 				  '<script type="text/javascript" src="https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js"></script>',
