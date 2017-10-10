@@ -118,7 +118,7 @@
             <div class="col-md-12">
 
                 <div class="vis_toolbar">
-                    <span class="heading">All grants</span>
+                    <span class="heading">Global Collaborations</span>
                     <span class="glyphicon glyphicon-info-sign pull-right" data-original-title="" title=""></span>
                     <a data-view-selector="vis" href="#" class="vis-view-toggle pull-right">Show visualization</a>
                 </div>
