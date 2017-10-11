@@ -42,7 +42,7 @@
 	  <div class="col-sm-9 col-md-9 col-lg-9">
 		<div class="row cul-footer-inner">
 			<div class="col-md-12">
-		    	<a href="https://www.library.cornell.edu/libraries">CORNELL UNIVERSITY LIBRARIES</a>
+		    	<a href="https://www.library.cornell.edu/libraries">CORNELL UNIVERSITY LIBRARY</a>
 			</div>
 		</div>
 		<div class="row cul-footer-inner">
