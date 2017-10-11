@@ -2,8 +2,6 @@
 
 <@widget name="login" include="assets" />
 
-<#assign string_time = .now?time?string />
-<#assign randomized = string_time[string_time?index_of(":")+2..string_time?index_of("M")-3] />
 <#import "lib-home-page.ftl" as lh>
 <!DOCTYPE html>
 <html lang="en">
