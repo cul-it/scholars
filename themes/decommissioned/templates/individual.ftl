@@ -3,7 +3,7 @@
 <#-- Default VIVO individual profile page template (extends individual.ftl in vitro) -->
 
 <script>
-	window.location = "${urls.base}";
+	window.location = "${urls.base}/";
 </script>
 
 <#include "individual-setup.ftl">
