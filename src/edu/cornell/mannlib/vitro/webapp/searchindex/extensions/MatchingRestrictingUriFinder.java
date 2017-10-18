@@ -2,8 +2,8 @@
 
 package edu.cornell.mannlib.vitro.webapp.searchindex.extensions;
 
-import static edu.cornell.library.scholars.webapp.utils.sparqlrunner.SparqlQueryRunner.createAskQueryContext;
-import static edu.cornell.library.scholars.webapp.utils.sparqlrunner.SparqlQueryRunner.createSelectQueryContext;
+import static edu.cornell.mannlib.vitro.webapp.utils.sparqlrunner.SparqlQueryRunner.createAskQueryContext;
+import static edu.cornell.mannlib.vitro.webapp.utils.sparqlrunner.SparqlQueryRunner.createSelectQueryContext;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -22,12 +22,12 @@ import com.hp.hpl.jena.rdf.model.ModelFactory;
 import com.hp.hpl.jena.rdf.model.Selector;
 import com.hp.hpl.jena.rdf.model.Statement;
 
-import edu.cornell.library.scholars.webapp.utils.sparqlrunner.QueryHolder;
 import edu.cornell.mannlib.vitro.webapp.modelaccess.ContextModelAccess;
 import edu.cornell.mannlib.vitro.webapp.rdfservice.RDFService;
 import edu.cornell.mannlib.vitro.webapp.searchindex.indexing.IndexingUriFinder;
 import edu.cornell.mannlib.vitro.webapp.utils.configuration.ContextModelsUser;
 import edu.cornell.mannlib.vitro.webapp.utils.configuration.Property;
+import edu.cornell.mannlib.vitro.webapp.utils.sparqlrunner.QueryHolder;
 
 /**
  * Find URIs to be indexed. The supplied statement must satisfy the matchers and
