@@ -6,6 +6,7 @@
 </#if>
 <div id="nav-bar" class="${navbarClass!}" role="navigation">
 	<div id="nav-bar-row" class="row">
+		<span style="margin-left:-30px;${bannerDisplay!}" id="beta-banner"><img src="${urls.base}/themes/scholars/images/banner.png"/ style="width:134px"></span>
 		<a id="nav-logo" href="${urls.home}" title="" style="${navbarLogoDisplay!}">
 			<span><img src="${urls.base}/themes/scholars/images/menu_logo.png"/></span>
 		</a>
