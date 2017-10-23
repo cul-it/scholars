@@ -10,13 +10,13 @@
 #
 :pwc_dd
     a   <java:edu.cornell.library.scholars.webapp.controller.api.distribute.DataDistributor> ,
-        <java:edu.cornell.library.scholars.webapp.controller.api.distribute.RdfGraphDistributor> ;
+        <java:edu.cornell.library.scholars.webapp.controller.api.distribute.rdf.RdfGraphDistributor> ;
     :actionName "person_word_cloud" ;
-    :modelBuilder :pwc_mb .
+    :graphBuilder :pwc_mb .
     
 :pwc_mb
-    a   <java:edu.cornell.library.scholars.webapp.controller.api.distribute.modelbuilder.ModelBuilder> ,
-        <java:edu.cornell.library.scholars.webapp.controller.api.distribute.modelbuilder.ConstructModelBuilder> ;
+    a   <java:edu.cornell.library.scholars.webapp.controller.api.distribute.rdf.graphbuilder.GraphBuilder> ,
+        <java:edu.cornell.library.scholars.webapp.controller.api.distribute.rdf.graphbuilder.ConstructQueryGraphBuilder> ;
     :uriBinding "person" ;
     :constructQuery """
         PREFIX rdf:      <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -59,4 +59,3 @@
           }
         }
       """ .
-      

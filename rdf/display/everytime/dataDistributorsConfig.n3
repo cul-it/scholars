@@ -8,61 +8,52 @@
 # Start with some simple ones.
 #
 
-:data_distributor_topoc_json :actionName "topoc" .
 :data_distributor_topoc_json
     a   <java:edu.cornell.library.scholars.webapp.controller.api.distribute.DataDistributor> ,
-        <java:edu.cornell.library.scholars.webapp.controller.api.distribute.FileDistributor> ;
+        <java:edu.cornell.library.scholars.webapp.controller.api.distribute.file.FileDistributor> ;
+    :actionName "topoc" ;
     :path "visualizationData/countries.topo.json" ;
     :contentType "application/json" .
 
-:data_distributor_us_json :actionName "usjson" .
 :data_distributor_us_json
     a   <java:edu.cornell.library.scholars.webapp.controller.api.distribute.DataDistributor> ,
-        <java:edu.cornell.library.scholars.webapp.controller.api.distribute.FileDistributor> ;
+        <java:edu.cornell.library.scholars.webapp.controller.api.distribute.file.FileDistributor> ;
+    :actionName "usjson" ;
     :path "visualizationData/us.json" ;
     :contentType "application/json" .
 
-:data_distributor_stateshash_json :actionName "stateshash" .
 :data_distributor_stateshash_json
     a   <java:edu.cornell.library.scholars.webapp.controller.api.distribute.DataDistributor> ,
-        <java:edu.cornell.library.scholars.webapp.controller.api.distribute.FileDistributor> ;
+        <java:edu.cornell.library.scholars.webapp.controller.api.distribute.file.FileDistributor> ;
+    :actionName "stateshash" ;
     :path "visualizationData/statesHash.csv" ;
     :contentType "application/json" .
 
-:data_distributor_collab_us_json :actionName "collabus" .
 :data_distributor_collab_us_json
     a   <java:edu.cornell.library.scholars.webapp.controller.api.distribute.DataDistributor> ,
-        <java:edu.cornell.library.scholars.webapp.controller.api.distribute.FileDistributor> ;
+        <java:edu.cornell.library.scholars.webapp.controller.api.distribute.file.FileDistributor> ;
+    :actionName "collabus" ;
     :path "visualizationData/ExternalCollaborations-State.json" ;
     :contentType "application/json" .
 
-:data_distributor_collab_world_json :actionName "collabworld" .
 :data_distributor_collab_world_json
     a   <java:edu.cornell.library.scholars.webapp.controller.api.distribute.DataDistributor> ,
-        <java:edu.cornell.library.scholars.webapp.controller.api.distribute.FileDistributor> ;
+        <java:edu.cornell.library.scholars.webapp.controller.api.distribute.file.FileDistributor> ;
+    :actionName "collabworld" ;
     :path "visualizationData/ExternalCollaborations-Country.json" ;
     :contentType "application/json" .
 
-
-:data_distributor_collaborations :actionName "collaboration_sunburst" .
-:data_distributor_collaborations
-    a   <java:edu.cornell.library.scholars.webapp.controller.api.distribute.DataDistributor> ,
-        <java:edu.cornell.library.scholars.webapp.controller.api.distribute.FileDistributor> ;
-    :path "visualizationData/fake_collab_data.json" ;
-    :contentType "application/json" ;
-    :permitsCorsFrom "*" .
-
-:data_distributor_ra_bubble_chart :actionName "research_area_bubbles" .
 :data_distributor_ra_bubble_chart
     a   <java:edu.cornell.library.scholars.webapp.controller.api.distribute.DataDistributor> ,
-        <java:edu.cornell.library.scholars.webapp.controller.api.distribute.FileDistributor> ;
+        <java:edu.cornell.library.scholars.webapp.controller.api.distribute.file.FileDistributor> ;
+    :actionName "research_area_bubbles" ;
     :path "visualizationData/fake_bubble_chart_data.json" ;
     :contentType "application/json" .
 
-:data_distributor_university_word_cloud :actionName "university_word_cloud" .
 :data_distributor_university_word_cloud
     a   <java:edu.cornell.library.scholars.webapp.controller.api.distribute.DataDistributor> ,
-        <java:edu.cornell.library.scholars.webapp.controller.api.distribute.FileDistributor> ;
+        <java:edu.cornell.library.scholars.webapp.controller.api.distribute.file.FileDistributor> ;
+    :actionName "university_word_cloud" ;
     :path "visualizationData/HomepageKWCloud.json" ;
     :contentType "application/json" .
 
@@ -72,21 +63,20 @@
 
 :sunburst_inter_dd
     a   <java:edu.cornell.library.scholars.webapp.controller.api.distribute.DataDistributor> ,
-        <java:edu.cornell.library.scholars.webapp.controller.api.distribute.PatternMatchingFileDistributor> ;
+        <java:edu.cornell.library.scholars.webapp.controller.api.distribute.file.SelectingFileDistributor> ;
     :actionName "interdepartmental_sunburst" ;
     :parameterName "department" ;                             # ?department=[department URI]
     :parameterPattern "[^/#]+$";                              # matches the localname of the department URI.
-    :filepathPattern "visualizationData/interdept-\\0.json" ; # substitute the localname into this path.
+    :filepathTemplate "visualizationData/interdept-\\0.json" ; # substitute the localname into this path.
     :emptyResponse "{}" ;                                     # if file not found, return this.
     :contentType "application/json" .
 
 :sunburst_cross_dd
     a   <java:edu.cornell.library.scholars.webapp.controller.api.distribute.DataDistributor> ,
-        <java:edu.cornell.library.scholars.webapp.controller.api.distribute.PatternMatchingFileDistributor> ;
+        <java:edu.cornell.library.scholars.webapp.controller.api.distribute.file.SelectingFileDistributor> ;
     :actionName "cross_unit_sunburst" ;
     :parameterName "department" ;                             # ?department=[department URI]
     :parameterPattern "[^/#]+$";                              # matches the localname of the department URI.
-    :filepathPattern "visualizationData/crossunit-\\0.json" ; # substitute the localname into this path.
+    :filepathTemplate "visualizationData/crossunit-\\0.json" ; # substitute the localname into this path.
     :emptyResponse "{}" ;                                     # if file not found, return this.
     :contentType "application/json" .
-

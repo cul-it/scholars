@@ -14,7 +14,7 @@
 # The remaining six construct queries provide two sets of optional data for 
 # Grant/Contract/CooperativeInvestigation.
 #
-# The select query creates a result set from the model built by the construct queries.
+# The select query creates a result set from the graph built by the construct queries.
 #
 # Javed says this about the data:
 # - Every grant should have a link to at least one person. Person can have PI 
@@ -34,7 +34,7 @@
 #
 :data_distributor_grants_page_cached
     a   <java:edu.cornell.library.scholars.webapp.controller.api.distribute.DataDistributor> ,
-        <java:edu.cornell.library.scholars.webapp.controller.api.distribute.FileDistributor> ;
+        <java:edu.cornell.library.scholars.webapp.controller.api.distribute.file.FileDistributor> ;
     :actionName "grants_bubble_chart" ;
     :path "visualizationData/grants_select_results.json" ;
     :contentType "application/sparql-results+json" .
@@ -44,12 +44,12 @@
 #
 :data_distributor_grants_page_iterate_select
     a   <java:edu.cornell.library.scholars.webapp.controller.api.distribute.DataDistributor> ,
-        <java:edu.cornell.library.scholars.webapp.controller.api.distribute.SelectFromLocalModelDataDistributor> ;
+        <java:edu.cornell.library.scholars.webapp.controller.api.distribute.rdf.SelectFromGraphDistributor> ;
     :actionName "grants_bubble_chart_cache" ;
-    :modelBuilder :grants_page_model_builder_A ;
-    :modelBuilder :grants_page_model_builder_B ;
-    :modelBuilder :grants_page_model_builder_C ;
-    :selectQuery """
+    :graphBuilder :grants_page_graph_builder_A ;
+    :graphBuilder :grants_page_graph_builder_B ;
+    :graphBuilder :grants_page_graph_builder_C ;
+    :query """
       PREFIX local:          <http://scholars.cornell.edu/individual/>
       PREFIX obo:            <http://purl.obolibrary.org/obo/>
       PREFIX rdfs:           <http://www.w3.org/2000/01/rdf-schema#>
@@ -94,16 +94,30 @@
       }
       """ .
       
-:grants_page_model_builder_A
-    a   <java:edu.cornell.library.scholars.webapp.controller.api.distribute.modelbuilder.ModelBuilder> ,
-        <java:edu.cornell.library.scholars.webapp.controller.api.distribute.modelbuilder.IteratingConstructModelBuilder> ;
-    :iterator """grantClass=
-      http://vivoweb.org/ontology/core#Grant, 
-      http://vivoweb.org/ontology/core#Contract, 
-      http://vivoweb.org/ontology/core#CooperativeInvestigation""" ;
-    :iterator """investigatorRoleClass=
-      http://vivoweb.org/ontology/core#PrincipalInvestigatorRole, 
-      http://vivoweb.org/ontology/core#CoPrincipalInvestigatorRole""" ;
+:grants_page_graph_builder_A
+    a   <java:edu.cornell.library.scholars.webapp.controller.api.distribute.rdf.graphbuilder.GraphBuilder> ,
+        <java:edu.cornell.library.scholars.webapp.controller.api.distribute.rdf.graphbuilder.IteratingGraphBuilder> ;
+    :parameterName "grantClass" ;
+    :parameterValue 
+        "http://vivoweb.org/ontology/core#Grant", 
+        "http://vivoweb.org/ontology/core#Contract", 
+        "http://vivoweb.org/ontology/core#CooperativeInvestigation" ;
+    :childGraphBuilder :grants_page_graph_builder_A1 .
+
+:grants_page_graph_builder_A1
+    a   <java:edu.cornell.library.scholars.webapp.controller.api.distribute.rdf.graphbuilder.GraphBuilder> ,
+        <java:edu.cornell.library.scholars.webapp.controller.api.distribute.rdf.graphbuilder.IteratingGraphBuilder> ;
+    :parameterName "investigatorRoleClass" ;
+    :parameterValue 
+        "http://vivoweb.org/ontology/core#PrincipalInvestigatorRole", 
+        "http://vivoweb.org/ontology/core#CoPrincipalInvestigatorRole";
+    :childGraphBuilder :grants_page_graph_builder_A2 .
+
+:grants_page_graph_builder_A2
+    a   <java:edu.cornell.library.scholars.webapp.controller.api.distribute.rdf.graphbuilder.GraphBuilder> ,
+        <java:edu.cornell.library.scholars.webapp.controller.api.distribute.rdf.graphbuilder.ConstructQueryGraphBuilder> ;
+    :uriBinding "grantClass" ;
+    :uriBinding "investigatorRoleClass" ;
     :constructQuery """
       PREFIX obo:            <http://purl.obolibrary.org/obo/>
       PREFIX rdfs:           <http://www.w3.org/2000/01/rdf-schema#>
@@ -151,13 +165,20 @@
       }
       """ .
       
-:grants_page_model_builder_B
-    a   <java:edu.cornell.library.scholars.webapp.controller.api.distribute.modelbuilder.ModelBuilder> ,
-        <java:edu.cornell.library.scholars.webapp.controller.api.distribute.modelbuilder.IteratingConstructModelBuilder> ;
-    :iterator """grantClass=
-      http://vivoweb.org/ontology/core#Grant, 
-      http://vivoweb.org/ontology/core#Contract, 
-      http://vivoweb.org/ontology/core#CooperativeInvestigation""" ;
+:grants_page_graph_builder_B
+    a   <java:edu.cornell.library.scholars.webapp.controller.api.distribute.rdf.graphbuilder.GraphBuilder> ,
+        <java:edu.cornell.library.scholars.webapp.controller.api.distribute.rdf.graphbuilder.IteratingGraphBuilder> ;
+    :parameterName "grantClass" ;
+    :parameterValue 
+        "http://vivoweb.org/ontology/core#Grant", 
+        "http://vivoweb.org/ontology/core#Contract", 
+        "http://vivoweb.org/ontology/core#CooperativeInvestigation" ;
+    :childGraphBuilder :grants_page_graph_builder_B1 .
+
+:grants_page_graph_builder_B1
+    a   <java:edu.cornell.library.scholars.webapp.controller.api.distribute.rdf.graphbuilder.GraphBuilder> ,
+        <java:edu.cornell.library.scholars.webapp.controller.api.distribute.rdf.graphbuilder.ConstructQueryGraphBuilder> ;
+    :uriBinding "grantClass" ;
     :constructQuery """
       PREFIX rdfs:           <http://www.w3.org/2000/01/rdf-schema#>
       PREFIX vivo:           <http://vivoweb.org/ontology/core#>
@@ -174,13 +195,20 @@
       }
       """ .
       
-:grants_page_model_builder_C
-    a   <java:edu.cornell.library.scholars.webapp.controller.api.distribute.modelbuilder.ModelBuilder> ,
-        <java:edu.cornell.library.scholars.webapp.controller.api.distribute.modelbuilder.IteratingConstructModelBuilder> ;
-    :iterator """grantClass=
-      http://vivoweb.org/ontology/core#Grant, 
-      http://vivoweb.org/ontology/core#Contract, 
-      http://vivoweb.org/ontology/core#CooperativeInvestigation""" ;
+:grants_page_graph_builder_C
+    a   <java:edu.cornell.library.scholars.webapp.controller.api.distribute.rdf.graphbuilder.GraphBuilder> ,
+        <java:edu.cornell.library.scholars.webapp.controller.api.distribute.rdf.graphbuilder.IteratingGraphBuilder> ;
+    :parameterName "grantClass" ;
+    :parameterValue 
+        "http://vivoweb.org/ontology/core#Grant", 
+        "http://vivoweb.org/ontology/core#Contract", 
+        "http://vivoweb.org/ontology/core#CooperativeInvestigation" ;
+    :childGraphBuilder :grants_page_graph_builder_C1 .
+
+:grants_page_graph_builder_C1
+    a   <java:edu.cornell.library.scholars.webapp.controller.api.distribute.rdf.graphbuilder.GraphBuilder> ,
+        <java:edu.cornell.library.scholars.webapp.controller.api.distribute.rdf.graphbuilder.ConstructQueryGraphBuilder> ;
+    :uriBinding "grantClass" ;
     :constructQuery """
       PREFIX obo:            <http://purl.obolibrary.org/obo/>
       PREFIX rdfs:           <http://www.w3.org/2000/01/rdf-schema#>
