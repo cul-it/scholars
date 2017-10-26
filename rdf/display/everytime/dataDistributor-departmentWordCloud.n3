@@ -2,101 +2,55 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  
 #
-# Department word cloud
-# Drilldown to UNIONS model builder
+# Department word cloud -- freetext keywords only.
 #
-:dwc_drill_dd
+
+:data_distributor_department_word_cloud :actionName "department_word_cloud" .
+:data_distributor_department_word_cloud
     a   <java:edu.cornell.library.scholars.webapp.controller.api.distribute.DataDistributor> ,
         <java:edu.cornell.library.scholars.webapp.controller.api.distribute.rdf.RdfGraphDistributor> ;
-    :actionName "department_word_cloud" ;
-    :graphBuilder :dwc_drill_gb .
+    :graphBuilder :graph_builder_department_word_cloud .
     
-:dwc_drill_gb
-    a   <java:edu.cornell.library.scholars.webapp.controller.api.distribute.rdf.graphbuilder.GraphBuilder> ,
-        <java:edu.cornell.library.scholars.webapp.controller.api.distribute.rdf.graphbuilder.DrillDownGraphBuilder> ;
-    :topLevelGraphBuilder :dwc_drill_gb_level_1 ;
-    :childGraphBuilder :dwc_drill_gb_level_2 ;        
-    :drillDownQuery """
-        PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-        SELECT ?person 
-        WHERE {
-          ?person rdfs:label ?label .
-        }
-    """ .
-
-:dwc_drill_gb_level_1
+:graph_builder_department_word_cloud
     a   <java:edu.cornell.library.scholars.webapp.controller.api.distribute.rdf.graphbuilder.GraphBuilder> ,
         <java:edu.cornell.library.scholars.webapp.controller.api.distribute.rdf.graphbuilder.ConstructQueryGraphBuilder> ;
-    :uriBinding "department" ;
-    :constructQuery """
-        PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-        PREFIX foaf: <http://xmlns.com/foaf/0.1/>
-        PREFIX hr:   <http://scholars.cornell.edu/ontology/hr.owl#>
-        PREFIX vivo: <http://vivoweb.org/ontology/core#>
-        PREFIX vivoc: <http://scholars.cornell.edu/ontology/vivoc.owl#>
-        CONSTRUCT {
-          ?person rdfs:label ?label .
-        }
-        WHERE {{
-          ?department hr:hasPosition ?posn .
-          ?posn a vivo:Position .
-          ?posn vivo:relates ?person .
-          ?person a foaf:Person .
-          ?person rdfs:label ?label .
-        } UNION
-        {
-		  ?department vivo:relatedBy ?affn .
-		  ?affn a vivoc:Affiliation .
-		  ?affn vivo:relates ?person .
-		  ?person a foaf:Person .
-		  ?person rdfs:label ?label .
-		}}
-    """ .
-        
-:dwc_drill_gb_level_2
-    a   <java:edu.cornell.library.scholars.webapp.controller.api.distribute.rdf.graphbuilder.GraphBuilder> ,
-        <java:edu.cornell.library.scholars.webapp.controller.api.distribute.rdf.graphbuilder.ConstructQueryGraphBuilder> ;
-    :uriBinding "person" ;
-    :constructQuery """
-        PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
-        PREFIX bibo:  <http://purl.org/ontology/bibo/>
-        PREFIX vivo:  <http://vivoweb.org/ontology/core#>
-        PREFIX foaf:  <http://xmlns.com/foaf/0.1/>
-        PREFIX vivoc: <http://scholars.cornell.edu/ontology/vivoc.owl#>
-        PREFIX hr:    <http://scholars.cornell.edu/ontology/hr.owl#>
-        CONSTRUCT {
-          ?person vivo:freetextKeyword ?keyword .
-          ?person vivo:hasSubjectArea ?mesh .
-          ?mesh rdfs:label ?meshLabel .
-          ?person vivoc:inferredKeyword ?infkeyword . 
-        }
-        WHERE {
-          {
-            ?person vivo:relatedBy ?auth .
-            ?auth a vivo:Authorship .
-            ?auth vivo:relates ?pub .
-            ?pub a bibo:Document .
-        
-            ?pub vivo:freetextKeyword ?keyword . 
-          } UNION {
-            ?person vivo:relatedBy ?auth .
-            ?auth a vivo:Authorship .
-            ?auth vivo:relates ?pub .
-            ?pub a bibo:Document .
-        
-            ?pub vivo:hasSubjectArea ?mesh .
-            ?mesh a vivoc:MeshTerm .
-            ?mesh rdfs:label ?meshLabel .
-          } UNION {
-            ?person vivo:relatedBy ?auth .
-            ?auth a vivo:Authorship .
-            ?auth vivo:relates ?pub .
-            ?pub a bibo:Document .
-        
-            ?pub vivoc:inferredKeyword ?infkeyword . 
+        :uriBinding "department" ;
+        :constructQuery """
+          PREFIX rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+          PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
+          PREFIX bibo:  <http://purl.org/ontology/bibo/>
+          PREFIX vivo:  <http://vivoweb.org/ontology/core#>
+          PREFIX foaf:  <http://xmlns.com/foaf/0.1/>
+          PREFIX vivoc: <http://scholars.cornell.edu/ontology/vivoc.owl#>
+          PREFIX hr:    <http://scholars.cornell.edu/ontology/hr.owl#>
+          CONSTRUCT {
+            ?person rdfs:label ?label .
+            ?person vivo:freetextKeyword ?keyword .
           }
-        }
-    """ .
-        
+          WHERE {
+            {
+              ?department hr:hasPosition ?posn .
+              ?posn a vivo:Position .
+              ?posn vivo:relates ?person .
+              ?person a foaf:Person .
+              ?person rdfs:label ?label .
+              ?person vivo:relatedBy ?auth .
+              ?auth a vivo:Authorship .
+              ?auth vivo:relates ?pub .
+              ?pub a bibo:Document .
+              ?pub vivo:freetextKeyword ?keyword . 
+            } UNION {
+              ?department vivo:relatedBy ?affn .
+              ?affn a vivoc:Affiliation .
+              ?affn vivo:relates ?person .
+              ?person a foaf:Person .
+              ?person rdfs:label ?label .
+              ?person vivo:relatedBy ?auth .
+              ?auth a vivo:Authorship .
+              ?auth vivo:relates ?pub .
+              ?pub a bibo:Document .
+              ?pub vivo:freetextKeyword ?keyword . 
+            }
+          }
+        """ .
