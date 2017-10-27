@@ -183,7 +183,7 @@ var ScholarsVis = (function() {
     };
     
     function debugIt(message) {
-        if (false) {
+        if (true) {
             var now = new Date();
             var time = now.toLocaleTimeString();
             var millis = ("000" + now.getMilliseconds().toString()).slice(-3);
@@ -753,12 +753,49 @@ var ScholarsVis = (function() {
     
     function Utilities() {
         return {
+            baseUrl: figureBaseUrl(),
+            loadScripts: loadScripts,
+            loadStyles: loadStyles,
             exportAsJson: exportAsJson,
             exportAsCsv: exportAsCsv,
             exportAsSvg: exportAsSvg,
             isVisTable: isVisTable,
             disableVisTable: disableVisTable,
             stringify: stringify
+        }
+        
+        function figureBaseUrl() {
+            var rawSrc = $('script[src$="/scholars-vis.js"]').attr('src');
+            debugIt("Raw URL:" + rawSrc);
+            debugIt("Base URL: " + rawSrc.slice(0, - "js/scholars-vis/scholars-vis.js".length));
+        }
+        
+        function loadScripts(scriptPaths) {
+            var paths = [...arguments]
+            debugIt("ScholarsVis.Utilities.loadScripts: " + paths);
+            if (paths.length == 0) {
+                return;
+            }
+            
+            $.holdReady(true);
+            $.ajax({ 
+                url: paths[0], 
+                dataType: "script",
+                cache: true
+                    }).done(doTheNext).always(release);
+            
+            function doTheNext() {
+                debugIt("Loaded " + paths[0])
+                loadScripts(...paths.slice(1));
+            }
+            
+            function release() {
+                $.holdReady(false);
+            }
+        }
+        
+        function loadStyles() {
+            debugIt("ScholarsVis.Utilities.loadStyles not implemented.");
         }
         
         function exportAsJson(filename, data) {
