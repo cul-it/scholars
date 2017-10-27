@@ -22,11 +22,11 @@ ScholarsVis["UniversityWordCloud"] = function(options) {
                     closer : closeUniversityWcTable,
                     export : {
                         csv : {
-                            filename: "personWordCloudTable.csv",
+                            filename: "universityWordCloudTable.csv",
                             call: exportUniversityWcTableAsCsv,
                         },
                         json : {
-                            filename: "personWordCloudTable.json",
+                            filename: "universityWordCloudTable.json",
                             call: exportUniversityWcTableAsJson
                         }
                     }
