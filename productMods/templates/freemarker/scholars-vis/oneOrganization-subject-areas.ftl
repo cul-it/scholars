@@ -97,7 +97,7 @@ $().ready(function() {
    */
   var deptUri = getParameterByName("deptURI", window.location.http);
   var deptLabel = getParameterByName("deptLabel", window.location.http);
-  $("#selection_text").html("Research areas for <a href=\"" + toDisplayPageUrl(deptUri) + "\">" + deptLabel + "</a>");
+  $("#selection_text").html("Research areas for <a href=\"" + ScholarsVis.Utilities.toDisplayUrl(deptUri) + "\">" + deptLabel + "</a>");
 
   function getParameterByName(name, url) {
     if (!url) url = window.location.href;

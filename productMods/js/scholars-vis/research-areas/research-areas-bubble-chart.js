@@ -1,6 +1,6 @@
 ScholarsVis["ResearchAreasBubbleChart"] = function(options) {
 	var defaults = {
-		    url : applicationContextPath + "/api/dataRequest/research_area_bubbles",
+		    url : ScholarsVis.Utilities.baseUrl + "api/dataRequest/research_area_bubbles",
 	    	transform : transform_bubble_chart_data,
 		    display : draw_bubble_chart
 		};

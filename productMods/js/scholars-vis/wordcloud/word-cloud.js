@@ -1,6 +1,6 @@
 ScholarsVis["PersonWordCloud"] = function(options) {
     var defaults = {
-            url : applicationContextPath + "/api/dataRequest/person_word_cloud?person=" + options.person,
+            url : ScholarsVis.Utilities.baseUrl + "api/dataRequest/person_word_cloud?person=" + options.person,
             parse : 'turtle',
             transform : transform_word_cloud_data,
             views : {
@@ -45,7 +45,7 @@ ScholarsVis["PersonWordCloud"] = function(options) {
 
 ScholarsVis["DepartmentWordCloud"] = function(options) {
     var defaults = {
-            url : applicationContextPath + "/api/dataRequest/department_word_cloud?department=" + options.department,
+            url : ScholarsVis.Utilities.baseUrl + "api/dataRequest/department_word_cloud?department=" + options.department,
             parse : 'turtle',
             transform : transform_word_cloud_data,
             views : {
@@ -201,7 +201,7 @@ function transform_word_cloud_data(graph, options) {
 			function addToBucket(uri, bucket) {
 				var label = graph.any($rdf.sym(uri), RDFS("label"));
 				if (label && label.value) {
-					var displayUri = toDisplayPageUrl(uri);
+					var displayUri = ScholarsVis.Utilities.toDisplayUrl(uri);
 					var entity = findEntity() || createEntity();
 					addToEntity(entity);
 				}

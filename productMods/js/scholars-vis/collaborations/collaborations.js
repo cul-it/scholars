@@ -1,6 +1,6 @@
 ScholarsVis["CrossUnitCollaborationSunburst"] = function(options) {
     var defaults = {
-            url : applicationContextPath + "/api/dataRequest/cross_unit_sunburst?department=" + options.department,
+            url : ScholarsVis.Utilities.baseUrl + "api/dataRequest/cross_unit_sunburst?department=" + options.department,
             transform : transformCollab,
             views : {
                 vis : {
@@ -38,7 +38,7 @@ ScholarsVis["CrossUnitCollaborationSunburst"] = function(options) {
 
 ScholarsVis["InterDepartmentCollaborationSunburst"] = function(options) {
     var defaults = {
-            url : applicationContextPath + "/api/dataRequest/interdepartmental_sunburst?department=" + options.department,
+            url : ScholarsVis.Utilities.baseUrl + "api/dataRequest/interdepartmental_sunburst?department=" + options.department,
             transform : transformCollab,
             views : {
                 vis : {
@@ -126,7 +126,7 @@ function transformCollab(rawData) {
     
     function transformNode(node) {
         if (node.uri) {
-            node.url = toDisplayPageUrl(node.uri);
+            node.url = ScholarsVis.Utilities.toDisplayUrl(node.uri);
         }
         if (node.children) {
             node.children = node.children.map(transformNode);
@@ -600,7 +600,7 @@ function drawCrossUnitTable(data, target, options) {
                 rowData.publicationDate);
         
         function createLink(text, uri) {
-            return "<a href='" + toDisplayPageUrl(uri) + "'>" + text + "</a>"
+            return "<a href='" + ScholarsVis.Utilities.toDisplayUrl(uri) + "'>" + text + "</a>"
         }
         
         function formatOrg(label, code) {

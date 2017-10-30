@@ -764,6 +764,7 @@ var ScholarsVis = (function() {
     function Utilities() {
         return {
             baseUrl: figureBaseUrl(),
+            toDisplayUrl: toDisplayUrl,
             loadScripts: loadScripts,
             loadStyles: loadStyles,
             exportAsJson: exportAsJson,
@@ -778,6 +779,15 @@ var ScholarsVis = (function() {
             var rawSrc = $('script[src$="/scholars-vis.js"]').attr('src');
             var baseUrl = rawSrc.slice(0, - "js/scholars-vis/scholars-vis.js".length);
             return baseUrl;
+        }
+        
+        function toDisplayUrl(uri) {
+            // How do you test links to profile pages on a server other than the
+            // one in the default namespace? Use displayPage URLs instead of
+            // URIs for links.
+            var delimiterHere = Math.max(uri.lastIndexOf('/'), uri.lastIndexOf('#'));
+            var localname = uri.substring(delimiterHere + 1);
+            return ScholarsVis.Utilities.baseUrl + "display/" + localname;
         }
         
         function loadScripts(scriptPaths) {

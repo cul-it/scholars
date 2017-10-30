@@ -1,6 +1,6 @@
 ScholarsVis["UniversityWordCloud"] = function(options) {
     var defaults = {
-            url : applicationContextPath + "/api/dataRequest/university_word_cloud",
+            url : ScholarsVis.Utilities.baseUrl + "api/dataRequest/university_word_cloud",
             transform : transformUniversityWordcloud,
             views : {
                 vis : {
@@ -76,7 +76,7 @@ function transformUniversityWordcloud(rawData) {
     function personToEntity(pStruct) {
       return {
         text : pStruct.personName,
-        uri : toDisplayPageUrl(pStruct.personURI),
+        uri : ScholarsVis.Utilities.toDisplayUrl(pStruct.personURI),
         artcount : pStruct.articleCount
       }
     }

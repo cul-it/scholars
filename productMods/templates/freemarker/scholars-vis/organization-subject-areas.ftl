@@ -132,7 +132,7 @@ $().ready(function() {
     
     function showDepartmentCloud(dept) {
         departmentControl.collapse();
-        $("#selection_text").html("Research areas for <a href=\"" + toDisplayPageUrl(dept.uri) + "\">" + dept.label + "</a>");
+        $("#selection_text").html("Research areas for <a href=\"" + ScholarsVis.Utilities.toDisplayUrl(dept.uri) + "\">" + dept.label + "</a>");
         if (ora != null) {
             ora.hide();
         }

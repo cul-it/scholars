@@ -62,7 +62,7 @@ function createWordCloudSelector(siteSelector, departmentSelector, personSelecto
     
     function setHeadingText(container, label, uri) {
         var span = $(container).find(".vis_toolbar span.heading")
-        span.html('<a href="' + toDisplayPageUrl(uri) + '">' + label + '</a>');
+        span.html('<a href="' + ScholarsVis.Utilities.toDisplayUrl(uri) + '">' + label + '</a>');
     }
 
     function testForEmpty(container, vis) {

@@ -1,6 +1,6 @@
 ScholarsVis["SiteGrants"] = function(options) {
     var defaults = {
-            url : applicationContextPath + "/api/dataRequest/grants_bubble_chart",
+            url : ScholarsVis.Utilities.baseUrl + "api/dataRequest/grants_bubble_chart",
             transform : transformGrantsData,
             views : {
                 vis : {
@@ -38,7 +38,7 @@ ScholarsVis["SiteGrants"] = function(options) {
 
 ScholarsVis["DepartmentGrants"] = function(options) {
     var defaults = {
-            url : applicationContextPath + "/api/dataRequest/grants_bubble_chart",
+            url : ScholarsVis.Utilities.baseUrl + "api/dataRequest/grants_bubble_chart",
             transform : transformGrantsData,
             views : {
                 vis : {

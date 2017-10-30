@@ -1,6 +1,6 @@
 ScholarsVis["OrganizationResearchAreas"] = function(options) {
     var defaults = {
-            url : applicationContextPath + "/api/dataRequest/organization_research_areas?organization=" + options.organization,
+            url : ScholarsVis.Utilities.baseUrl + "api/dataRequest/organization_research_areas?organization=" + options.organization,
             parse : 'turtle',
             transform : transformFlaredata,
             views : {
@@ -69,7 +69,7 @@ function transformFlaredata(graph) {
 				"type"  : "ditem",
 				"ditem" : index, 
 				"name"  : getLabel(author),
-				"url"   : toDisplayPageUrl(author),
+				"url"   : ScholarsVis.Utilities.toDisplayUrl(author),
 				"links" : figureLinks()
 			}
 
@@ -881,7 +881,7 @@ function transformAgainForTable(data) {
     
     function mapSubjectUrls() {
         var map = {};
-        data.themes.forEach(theme => {map[theme.name] = toDisplayPageUrl(theme.uri)});
+        data.themes.forEach(theme => {map[theme.name] = ScholarsVis.Utilities.toDisplayUrl(theme.uri)});
         return map;
     }
     
