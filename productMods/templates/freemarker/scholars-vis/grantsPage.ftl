@@ -167,8 +167,6 @@ ${stylesheets.add('<link rel="stylesheet" type="text/css" href="https://maxcdn.b
 
 ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></script>',
               '<script type="text/javascript" src="${urls.base}/js/scholars-vis/scholars-vis.js"></script>',
-              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/stupidtable.min.js"></script>',
-              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/FileSaver.js"></script>',
               '<script type="text/javascript" src="${urls.base}/js/scholars-vis/grants/transform-data.js"></script>',
               '<script type="text/javascript" src="${urls.base}/js/scholars-vis/grants/grants_tooltip.js"></script>',
               '<script type="text/javascript" src="https://d3js.org/d3.v3.min.js"></script>',

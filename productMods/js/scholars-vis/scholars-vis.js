@@ -175,11 +175,21 @@
  * </pre>
  */
 var ScholarsVis = (function() {
+    var utilities = new Utilities();
+    utilities.loadScripts(
+            utilities.baseUrl + "js/scholars-vis/stupidtable.min.js",
+            utilities.baseUrl + "js/scholars-vis/rdflib.js", 
+            utilities.baseUrl + "js/scholars-vis/FileSaver.js",
+            utilities.baseUrl + "js/scholars-vis/jqModal.js"
+            );
+    utilities.loadStyles(
+            utilities.baseUrl + "css/scholars-vis/jqModal.css"
+            );
 
     return {
         Visualization: Visualization,
         VisTable: VisTable,
-        Utilities: new Utilities()
+        Utilities: utilities
     };
     
     function debugIt(message) {
@@ -766,13 +776,12 @@ var ScholarsVis = (function() {
         
         function figureBaseUrl() {
             var rawSrc = $('script[src$="/scholars-vis.js"]').attr('src');
-            debugIt("Raw URL:" + rawSrc);
-            debugIt("Base URL: " + rawSrc.slice(0, - "js/scholars-vis/scholars-vis.js".length));
+            var baseUrl = rawSrc.slice(0, - "js/scholars-vis/scholars-vis.js".length);
+            return baseUrl;
         }
         
         function loadScripts(scriptPaths) {
             var paths = [...arguments]
-            debugIt("ScholarsVis.Utilities.loadScripts: " + paths);
             if (paths.length == 0) {
                 return;
             }
@@ -782,11 +791,15 @@ var ScholarsVis = (function() {
                 url: paths[0], 
                 dataType: "script",
                 cache: true
-                    }).done(doTheNext).always(release);
+                    }).done(doTheNext).fail(reportFailure).always(release);
             
             function doTheNext() {
                 debugIt("Loaded " + paths[0])
                 loadScripts(...paths.slice(1));
+            }
+            
+            function reportFailure(jqXHR, textStatus, errorThrown) {
+                debugIt("Failed to load " + paths[0] + "; reason is " + textStatus + " -- " + errorThrown);
             }
             
             function release() {
@@ -794,8 +807,17 @@ var ScholarsVis = (function() {
             }
         }
         
-        function loadStyles() {
-            debugIt("ScholarsVis.Utilities.loadStyles not implemented.");
+        function loadStyles(stylePaths) {
+            [...arguments].forEach(createLink);
+            
+            function createLink(path) {
+                $('<link/>', {
+                    rel: 'stylesheet',
+                    type: 'text/css',
+                    href: path
+                 }).prependTo('head');
+                debugIt("Loaded " + path);
+            }
         }
         
         function exportAsJson(filename, data) {

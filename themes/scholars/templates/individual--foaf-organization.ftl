@@ -405,16 +405,11 @@ Visualizations
 ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/keywordcloud/kwcloud.css" />')}
 ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/org-research-areas/ra.css" />',
                   '<link rel="stylesheet" href="${urls.base}/css/scholars-vis/grants/bubble_chart.css" />',
-                  '<link rel="stylesheet" href="${urls.base}/css/jquery_plugins/jquery.qtip.min.css" />',
-                  '<link rel="stylesheet" href="${urls.base}/css/scholars-vis/jqModal.css" />')}
+                  '<link rel="stylesheet" href="${urls.base}/css/jquery_plugins/jquery.qtip.min.css" />')}
 ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/collaborations/collab.css" />')}
 
 ${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></script>',
               '<script type="text/javascript" src="${urls.base}/js/scholars-vis/scholars-vis.js"></script>',
-              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/FileSaver.js"></script>',
-              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/stupidtable.min.js"></script>',
-              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/jqModal.js"></script>',
-              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/rdflib.js"></script>',
               '<script type="text/javascript" src="${urls.base}/js/scholars-vis/d3/d3-tip.js"></script>',
               '<script type="text/javascript" src="${urls.base}/js/scholars-vis/d3/d3.layout.cloud.js"></script>',
               '<script type="text/javascript" src="${urls.base}/js/scholars-vis/grants/transform-data.js"></script>',
