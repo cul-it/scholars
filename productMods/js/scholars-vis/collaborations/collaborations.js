@@ -302,7 +302,7 @@ function draw_it(root, target) {
       .value(function(d) { return d.sum; });
 
   var center = svg.append("circle")
-      .attr("r", radius / 3).on("click", zoomOut);
+      .attr("r", radius / 3).attr("fill", "#fff").on("click", zoomOut);
   // why specificly defined as Engineering. This will not work for other units.
 
   var defaultFontSize = 11;
