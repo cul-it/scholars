@@ -585,7 +585,7 @@ function exportSunburstVisAsSvg(data, filename, options) {
  * 
  ******************************************************************************/
 function drawCrossUnitTable(data, target, options) {
-    var tableElement = $(target).find(".scholars-vis-table").get(0);
+    var tableElement = $(target).find(".vis_table").get(0);
     var table = new ScholarsVis.VisTable(tableElement);
     var tableData = transformAgainForCrossUnitTable(data);
     tableData.forEach(addRowToTable);

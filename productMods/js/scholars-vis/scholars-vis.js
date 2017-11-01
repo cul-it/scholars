@@ -9,8 +9,8 @@
  *   A JQuery selector for the div that will hold the visualization. In the case 
  *   of a modal visualization, this is the div that will appear/disappear. 
  *   
- *   The div may contain a div#info_icon_text that will be used as the 
- *   contents of the info icon in the toolbar.
+ *   The div may contain a div#title_bar_info_text that will be used as the 
+ *   contents of the info icon in the title bar.
  *   
  *   The div may contain one or more div[data-view-id] to provide views of the
  *   visualization data.
@@ -96,7 +96,7 @@
  *   A structure of options that will be used in constructing multiple views of
  *   the data. If views are specified, one view is visible whenever the 
  *   visualizataion as a whole is visible. If more than one view is specified,
- *   a selector will be created in the toolbar, so the desired view can be 
+ *   a selector will be created in the title bar, so the desired view can be 
  *   selected.
  *   
  * Example of the views structure:
@@ -183,7 +183,8 @@ var ScholarsVis = (function() {
             utilities.baseUrl + "js/scholars-vis/jqModal.js"
             );
     utilities.loadStyles(
-            utilities.baseUrl + "css/scholars-vis/jqModal.css"
+            utilities.baseUrl + "css/scholars-vis/jqModal.css",
+            utilities.baseUrl + "css/scholars-vis/scholars-vis.css"
             );
 
     return {
@@ -224,7 +225,7 @@ var ScholarsVis = (function() {
             }
             debugIt("Options: " + ScholarsVis.Utilities.stringify(options));
             
-            var toolbar = new Toolbar(options.target);
+            var titleBar = new TitleBar(options.target);
             
             linkViewButtons(options.target);
             linkExportButtons(options.target);
@@ -642,7 +643,7 @@ var ScholarsVis = (function() {
         }
         
         // ----------------------------------------------------------------------
-        // Toolbar class
+        // TitleBar class
         //
         // Doesn't need to be a class, as it stands now, because the constructor
         // does all the work and returns no functionality.
@@ -651,20 +652,19 @@ var ScholarsVis = (function() {
         //
         // ----------------------------------------------------------------------
         
-        function Toolbar(target) {
-            var toolbar = $(target).find(".vis_toolbar");
+        function TitleBar(target) {
             buildInfoIcon();
             return {};
             
             function buildInfoIcon() {
-                var tipText = $(target).find("#info_icon_text").html();
+                var tipText = $(target).find("#title_bar_info_text").html();
                 var tipOptions = {
                         title: tipText,
                         html: true,
                         placement: "bottom",
                         viewport: target
                 };
-                var tooltip = $(target).find(".glyphicon-info-sign").tooltip(tipOptions);
+                var tooltip = $(target).find("#title_bar .glyphicon-info-sign").tooltip(tipOptions);
             }
         }
     }

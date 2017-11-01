@@ -148,18 +148,18 @@ ScholarsVis["GlobalCollaboration"] = function(options) {
     }
     
     function tableDisplayer(data, target, options) {
-        createTable("#world-table.scholars-vis-table", window.worldRaw, "country");
-        createTable("#country-table.scholars-vis-table", window.countryRaw, "state");
+        createTable("#world-table.vis_table", window.worldRaw, "country");
+        createTable("#country-table.vis_table", window.countryRaw, "state");
         $('[data-view-id=table] input:radio[name=map]').off("change.ScholarsVis");
         $('[data-view-id=table] input:radio[name=map]').on("change.ScholarsVis", flipTables);
         $('[data-view-id=table] input:radio[name=map]:checked').change();
         
         function flipTables(e) {
-            $(".scholars-vis-table").hide();
+            $(".vis_table").hide();
             if (e.target.value === "world") {
-                $("#world-table.scholars-vis-table").show();
+                $("#world-table.vis_table").show();
             } else {
-                $("#country-table.scholars-vis-table").show();
+                $("#country-table.vis_table").show();
             }
         }
         

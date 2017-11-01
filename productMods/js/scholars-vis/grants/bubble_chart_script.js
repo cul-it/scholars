@@ -243,7 +243,7 @@ function GrantsController(grants, display, options) {
     }
     
     function setToolbarText(text) {
-        $("[data-view-id='vis'] .vis_toolbar .heading").html(text);
+        $("[data-view-id='vis'] #title_bar .heading").html(text);
     }
 }
 
@@ -476,7 +476,7 @@ function exportSiteGrantsVisAsSvg(data, filename, options) {
  * 
  ******************************************************************************/
 function drawSiteGrantsTable(data, target, options) {
-    var tableElement = $(target).find(".scholars-vis-table").get(0);
+    var tableElement = $(target).find(".vis_table").get(0);
     var table = new ScholarsVis.VisTable(tableElement);
     var tableData = transformAgainForSiteGrantsTable(data);
     tableData.forEach(addRowToTable);
@@ -558,7 +558,7 @@ function exportDepartmentGrantsVisAsSvg(data, filename, options) {
  * 
  ******************************************************************************/
 function drawDepartmentGrantsTable(data, target, options) {
-    var tableElement = $(target).find(".scholars-vis-table").get(0);
+    var tableElement = $(target).find(".vis_table").get(0);
     var table = new ScholarsVis.VisTable(tableElement);
     var tableData = transformAgainForSiteGrantsTable(data);
     tableData.forEach(addRowToTable);

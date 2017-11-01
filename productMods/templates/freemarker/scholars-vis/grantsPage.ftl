@@ -1,11 +1,7 @@
 <div class="row scholars-row">
-  <div id="grants-vis-container" class="col-md-12 scholars-container" style="min-height: 700px">
+  <div id="grants-vis-container" class="col-md-12 scholars-container scholars_vis_container" style="min-height: 700px">
 
-    <div id="time-indicator">
-      <img id="time-indicator-img" src="${urls.images}/indicator1.gif"/>
-    </div>
-
-    <div data-view-id="vis" class="vis-container">
+    <div data-view-id="vis">
     <div class="col-md-4" class="scholars-container">
      
       <div>
@@ -89,7 +85,11 @@
     </div>
     
     <div class="col-md-8" id="vis_holder">
-        <div id="info_icon_text" style="display:none"> 
+	    <div id="time-indicator">
+	      <img src="${urls.images}/indicator1.gif"/>
+	    </div>
+
+        <div id="title_bar_info_text" style="display:none"> 
           <p>
             This visualization represents a bird's eye view of all the grants where 
             a Cornell faculty member or a researcher is either a Principal or 
@@ -112,30 +112,30 @@
             into the system through OSP (Office of Sponsored Program) feed.
           </p> 
         </div>
-        <div class="vis_toolbar">
-          <span class="glyphicon glyphicon-info-sign pull-right" data-original-title="" title=""></span>
-          <a data-view-selector="table" href="#" class="vis-view-toggle pull-right">Show table format</a>
+        <div id="title_bar">
+          <span class="glyphicon glyphicon-info-sign"></span>
+          <a data-view-selector="table" href="#">Show table format</a>
           <span class="heading">0 grants</span>
         </div>
 
-    <div class="vis-exports-container" >
-      <a href="javascript:return false;" data-export-id="json" class="vis-view-toggle pull-right">Export as JSON</a>
+    <div id="exports_panel" >
+      <a href="#" data-export-id="json">Export as JSON</a>
 	</div>
       
         <div id="grants_vis" style="width:600px; height:600px"> </div>
     </div>
     </div>
-    <div data-view-id="table" class="vis-table-container">
-      <div class="vis_toolbar">
+    <div data-view-id="table">
+      <div id="title_bar">
           <span class="heading">All grants</span>
-          <span class="glyphicon glyphicon-info-sign pull-right" data-original-title="" title=""></span>
-          <a data-view-selector="vis" href="#" class="vis-view-toggle pull-right">Show visualization</a>
+          <span class="glyphicon glyphicon-info-sign"></span>
+          <a data-view-selector="vis" href="#">Show visualization</a>
       </div>
-    <div class="vis-exports-container">
-      <a href="javascript:return false;" data-export-id="json"  class="vis-view-toggle pull-right">Export as JSON</a>
-      <a href="javascript:return false;" data-export-id="csv" style="margin-right: 10px;" class="vis-view-toggle pull-right">Export as CSV</a>
+    <div id="exports_panel">
+      <a href="#" data-export-id="json">Export as JSON</a>
+      <a href="#" data-export-id="csv">Export as CSV</a>
     </div>
-    <table class="scholars-vis-table" style="height:600px">
+    <table class="vis_table" style="height:600px">
       <thead>
         <tr>
           <th data-sort="string-ins">Type</th>

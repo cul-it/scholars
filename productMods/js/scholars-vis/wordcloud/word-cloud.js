@@ -560,7 +560,7 @@ function exportWcVisAsSvg(data, filename, options) {
  * 
  ******************************************************************************/
 function drawPersonWcTable(data, target, options) {
-    var tableElement = $(target).find(".scholars-vis-table").get(0);
+    var tableElement = $(target).find(".vis_table").get(0);
     var table = new ScholarsVis.VisTable(tableElement);
     var tableData = transformAgainForPersonTable(data);
     tableData.forEach(addRowToTable);
@@ -613,7 +613,7 @@ function transformAgainForPersonTable(data) {
  * 
  ******************************************************************************/
 function drawDepartmentWcTable(data, target, options) {
-    var tableElement = $(target).find(".scholars-vis-table").get(0);
+    var tableElement = $(target).find(".vis_table").get(0);
     var table = new ScholarsVis.VisTable(tableElement);
     var tableData = transformAgainForDepartmentTable(data);
     tableData.forEach(addRowToTable);

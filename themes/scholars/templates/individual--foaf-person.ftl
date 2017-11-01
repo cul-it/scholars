@@ -305,15 +305,15 @@ $(document).ready(function() {
 
 ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/keywordcloud/kwcloud.css" />')}
 
-<div id="word_cloud_vis" class="vis_modal" style="display:none; ">
-  <div class="vis_toolbar">
+<div id="word_cloud_vis" class="scholars_vis_container vis_modal">
+  <div id="title_bar">
     <span class="heading">Research Keywords</span>
-    <span class="glyphicon glyphicon-info-sign pull-right" data-original-title="" title=""></span>
-    <a data-view-selector="vis" href="#" class="vis-view-toggle pull-right" style="display: none">Show visualization</a>
-    <a data-view-selector="table" href="#" class="vis-view-toggle pull-right">Show table format</a>
+    <span class="glyphicon glyphicon-info-sign"></span>
+    <a data-view-selector="vis" href="#" style="display: none">Show visualization</a>
+    <a data-view-selector="table" href="#" >Show table format</a>
   </div>
   
-  <div id="info_icon_text">
+  <div id="title_bar_info_text">
     <p>
       This visualization displays the research keywords associated with the author, 
       and is an aggregation of keywords found in all of the author's articles. 
@@ -336,13 +336,13 @@ ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/ke
   </div>
   
   <div id="time-indicator">
-    <img id="time-indicator-img" src="${urls.images}/indicator1.gif"/>
+    <img src="${urls.images}/indicator1.gif"/>
   </div>
 
-  <div data-view-id="vis" style="height: 90%; ">
-    <div class="vis-exports-container" >
-      <a href="javascript:return false;" data-export-id="json" class="vis-view-toggle pull-right">Export as JSON</a>
-      <a href="javascript:return false;" data-export-id="svg" style="margin-right: 7px;" class="vis-view-toggle pull-right">Export as SVG</a>
+  <div data-view-id="vis">
+    <div id="exports_panel" >
+      <a href="#" data-export-id="json">Export as JSON</a>
+      <a href="#" data-export-id="svg">Export as SVG</a>
 	</div>
     <font size="2">
       <span><i>Click on a keyword to view the list of related publications.</i></span>
@@ -357,12 +357,12 @@ ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/ke
     </div>
   </div>
 
-  <div data-view-id="table" class="vis-table-container">
-    <div class="vis-exports-container">
-      <a href="javascript:return false;" data-export-id="json"  class="vis-view-toggle pull-right">Export as JSON</a>
-      <a href="javascript:return false;" data-export-id="csv" style="margin-right: 10px;" class="vis-view-toggle pull-right">Export as CSV</a>
+  <div data-view-id="table">
+    <div id="exports_panel">
+      <a href="#" data-export-id="json">Export as JSON</a>
+      <a href="#" data-export-id="csv"">Export as CSV</a>
     </div>
-    <table class="scholars-vis-table">
+    <table class="vis_table">
       <thead>
         <tr>
           <th data-sort="string-ins">Keyword</th>

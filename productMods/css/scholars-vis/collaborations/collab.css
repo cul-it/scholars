@@ -1,3 +1,7 @@
+.dept_collab_vis svg g text {
+	font-size: 80%;
+}
+
 .dept_collab_vis circle, path {
 	cursor: pointer;
 }

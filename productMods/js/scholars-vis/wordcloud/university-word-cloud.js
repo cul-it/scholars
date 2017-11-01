@@ -234,7 +234,7 @@ function exportUniversityWcVisAsSvg(data, filename, options) {
  * 
  ******************************************************************************/
 function drawUniversityWcTable(data, target, options) {
-    var tableElement = $(target).find(".scholars-vis-table").get(0);
+    var tableElement = $(target).find(".vis_table").get(0);
     var table = new ScholarsVis.VisTable(tableElement);
     var tableData = transformAgainForUniversityTable(data);
     tableData.forEach(addRowToTable);

@@ -2,15 +2,15 @@
   <div id="wc-vis-container" class="col-md-12 scholars-container">
     <div class="row scholars-row visualization-row">
     
-      <div id="organization-subject-areas">
-        <div class="vis_toolbar">
-          <span class="glyphicon glyphicon-info-sign pull-right" data-original-title="" title=""></span>
-          <a data-view-selector="vis" href="#" class="vis-view-toggle pull-right" style="display: none">Show visualization</a>
-          <a data-view-selector="table" href="#" class="vis-view-toggle pull-right">Show table format</a>
+      <div id="organization-subject-areas" class="scholars_vis_container">
+        <div id="title_bar">
+          <span class="glyphicon glyphicon-info-sign"></span>
+          <a data-view-selector="vis" href="#" style="display: none">Show visualization</a>
+          <a data-view-selector="table" href="#">Show table format</a>
           <span id="selection_text" class="heading">Research areas</span>
         </div>
   
-	    <div id="info_icon_text" style="display:none">
+	    <div id="title_bar_info_text" style="display:none">
 	      <p>
 		    This visualization represents all the faculty in the selected organizational unit 
 		    linked to all the subject areas in which faculty have published in. Subject areas 
@@ -34,24 +34,24 @@
         </div>
 
         <div id="time-indicator">
-          <img id="time-indicator-img" src="${urls.images}/indicator1.gif"/>
+          <img src="${urls.images}/indicator1.gif"/>
         </div>
   
-        <div data-view-id="vis" class="vis-container">
-          <div class="vis-exports-container" >
-            <a href="javascript:return false;" data-export-id="json" class="vis-view-toggle pull-right">Export as JSON</a>
+        <div data-view-id="vis">
+          <div id="exports_panel" >
+            <a href="#" data-export-id="json">Export as JSON</a>
 	      </div>
           <font size="2">
             <span><i>Click on a keyword to view the list of the relevant faculty.</i></span>
           </font>
         </div>
 
-        <div data-view-id="table" class="vis-table-container">
-          <div class="vis-exports-container">
-            <a href="javascript:return false;" data-export-id="json"  class="vis-view-toggle pull-right">Export as JSON</a>
-            <a href="javascript:return false;" data-export-id="csv" style="margin-right: 10px;" class="vis-view-toggle pull-right">Export as CSV</a>
+        <div data-view-id="table">
+          <div id="exports_panel">
+            <a href="#" data-export-id="json">Export as JSON</a>
+            <a href="#" data-export-id="csv">Export as CSV</a>
           </div>
-          <table class="scholars-vis-table">
+          <table class="vis_table">
             <thead>
               <tr>
                 <th data-sort="string-ins">Faculty Member</th>

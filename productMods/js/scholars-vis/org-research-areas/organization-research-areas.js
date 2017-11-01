@@ -846,7 +846,7 @@ function exportConceptMapVisAsSvg(data, filename, options) {
  * 
  ******************************************************************************/
 function drawConceptMapTable(data, target, options) {
-    var tableElement = $(target).find(".scholars-vis-table").get(0);
+    var tableElement = $(target).find(".vis_table").get(0);
     var table = new ScholarsVis.VisTable(tableElement);
     var tableData = transformAgainForTable(data);
     tableData.forEach(addRowToTable);
