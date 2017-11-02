@@ -297,7 +297,7 @@ public class DomainExpertJsonServlet extends VitroHttpServlet {
         return query;
     }   
 	private static Map<String,Long> getDepartmentFacet(SearchResultDocumentList docs, SearchResponse rsp){        
-	    HashSet<String> typesInHits = getFacetResultsForHits(docs, "college_ss");                                
+	    HashSet<String> typesInHits = getFacetResultsForHits(docs, "department_ss");                                
 	    Map<String,Long> departmentFacets = new HashMap<String,Long>();        
 	
 	    List<SearchFacetField> ffs = rsp.getFacetFields();

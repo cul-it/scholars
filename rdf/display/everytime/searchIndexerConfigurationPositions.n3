@@ -56,7 +56,7 @@
 		WHERE {
             ?uri vivo:relatedBy ?posn .
             ?posn a vivo:Position .
-			?posn rdf:type vivo:PrimaryPosition .
+#			?posn rdf:type vivo:PrimaryPosition .
             ?posn hr:positionIn ?dept .
             ?dept a foaf:Organization .
             ?dept rdfs:label ?label . 
@@ -79,7 +79,7 @@
 		WHERE {
             ?uri vivo:relatedBy ?posn .
             ?posn a vivo:Position .
-			?posn rdf:type vivo:PrimaryPosition .
+#			?posn rdf:type vivo:PrimaryPosition .
             ?posn vivo:relates ?college .
             ?college a foaf:Organization .
             ?college rdfs:label ?label . 
