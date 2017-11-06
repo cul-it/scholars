@@ -418,6 +418,7 @@ var getDomainExperts = {
 		
 		// need to bind click event for these new checkboxes
         $(".department-cb").click(function() {
+			$("#time-indicator").show();
 			var vclassIds =  getDomainExperts.getVClassIds();
             var queryText = getDomainExperts.getQueryText();
             var queryType = getDomainExperts.getQueryType();
