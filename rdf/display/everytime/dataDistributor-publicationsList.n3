@@ -1,0 +1,92 @@
+#
+# ------------------------------------------------------------------------------
+#
+# ------------------------------------------------------------------------------
+# 
+# The inner distributor produces output in this format:
+#
+# {
+#   "head": {
+#     "vars": [ "label" ]
+#   } ,
+#   "results": {
+#     "bindings": [
+#       {
+#         "label": { "type": "literal" , "value": "A Microfluidic Biomaterial" }
+#       } ,
+#
+#       ... more publications ...
+#
+#     ]
+#   }
+# }
+# 
+
+@prefix : <http://vitro.mannlib.cornell.edu/ns/vitro/ApplicationSetup#> .
+
+:list_publications_distributor
+    a   <java:edu.cornell.library.scholars.webapp.controller.api.distribute.DataDistributor> ,
+        <java:edu.cornell.library.scholars.webapp.controller.api.distribute.decorator.JavaScriptTransformDistributor> ;
+    :actionName "listPublications" ;
+    :contentType "application/json" ;
+    :child :list_publications_inner_distributor ;
+    :script """
+        function transform(rawOutput) {
+            return rawOutput;
+            var selected = JSON.parse(rawOutput);
+            return JSON.stringify(selected.results.bindings.map(mapARecord), null, 2);
+            
+            function mapARecord(record) {
+                return {
+                    title: record.label.value,
+                    author: record.authorName.value,
+                    rank: record.ranks.value,
+                    publicationDate: record.dateTime.value.substring(0, 4),
+                    journalName: record.journalName.value,
+                    doi: record.doi.value
+                };
+            }
+        }
+    """ .
+
+:list_publications_inner_distributor
+    a   <java:edu.cornell.library.scholars.webapp.controller.api.distribute.DataDistributor> ,
+        <java:edu.cornell.library.scholars.webapp.controller.api.distribute.rdf.SelectFromContentDistributor> ;
+    :actionName "_none_" ;
+    :uriBinding "person" ;
+    :query """
+        PREFIX rdf:      <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+        PREFIX rdfs:     <http://www.w3.org/2000/01/rdf-schema#>
+        PREFIX bibo:     <http://purl.org/ontology/bibo/>
+        PREFIX foaf:     <http://xmlns.com/foaf/0.1/>
+        PREFIX vivo:     <http://vivoweb.org/ontology/core#>
+        SELECT ?label ?authorName ?rank ?dateTime ?journalName ?doi
+        WHERE
+        {
+          ?person vivo:relatedBy ?auth .
+          ?auth a vivo:Authorship .
+          ?auth vivo:relates ?pub .
+          ?pub a bibo:Document .
+          
+          ?pub rdfs:label ?label .
+
+          ?pub vivo:relatedBy ?auth2 .
+          ?auth2 a vivo:Authorship .
+          ?auth2 vivo:relates ?author .
+          ?author a foaf:Person .
+          ?author rdfs:label ?authorName .
+          ?auth2 vivo:rank ?rank .
+
+          OPTIONAL {
+              ?pub vivo:dateTimeValue ?timeStamp .
+              ?timeStamp vivo:dateTime ?dateTime .
+          }
+          OPTIONAL {
+              ?pub vivo:hasPublicationVenue ?journal .
+              ?journal rdfs:label ?journalName .
+          }
+          OPTIONAL {
+              ?pub bibo:doi ?doi .
+          }
+        }
+    """ .
