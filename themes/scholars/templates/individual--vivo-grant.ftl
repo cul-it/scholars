@@ -107,8 +107,10 @@
 			<div class="scholars-article-metadata">
 			<#list adminByProp.statements as statement>
 				<span class="hzntl-author-list">
-		        	<a href="${profileUrl(statement.uri("organization"))}"">${statement.organizationLabel!}</a>
-		        	<#if statement_has_next>,</span><#else></span></#if>
+					<#if statement.organization??>
+		        		<a href="${profileUrl(statement.uri("organization"))}"">${statement.organizationLabel!}</a>
+		        		<#if statement_has_next>,</span><#else></span></#if>
+					</#if>
 			</#list>
 			</div>
 		  </div>
