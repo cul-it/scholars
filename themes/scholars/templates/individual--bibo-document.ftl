@@ -59,6 +59,7 @@
 <#if authorsProp?has_content && authorsProp.statements?has_content>
 	<#assign authors = [] />
 	<#assign authorList>
+		<div class="row profile-row" role="row">
 		  <div class="col-sm-1 no-padding align-text-right" >
 			<span class="profile-label">Authors</span>
 		  </div>
@@ -80,10 +81,10 @@
 		        	<#if statement_has_next>,</span><#else></span></#if>
 		        	<#assign authors = authors + [statement.authorName?trim] />
 		    	</#if>
-				 
 			</#list>
 			</div>
 		  </div>
+		</div>
 	</#assign>
 </#if>
 <#if lcpProp?has_content && lcpProp.statements?has_content>
@@ -92,6 +93,7 @@
 <#if pubVenueProp?has_content && pubVenueProp.statements?has_content>
 	<#assign pubVenue = pubVenueProp.statements?first/>
 	<#assign journalTitle>
+		<div class="row profile-row" role="row">
 		  <div class="col-sm-1  no-padding align-text-right">
 			<span class="profile-label">Journal</span>
 		  </div>
@@ -101,6 +103,7 @@
 				<#if lcp??><a href="${lcp}" target="_blank"><i class="fa fa-external-link-square external-link" aria-hidden="true"></i></a></#if>
 			</div>
 		  </div>
+		</div>
 	</#assign>
 </#if>
 <#if volumeProp?has_content && volumeProp.statements?has_content>
@@ -117,6 +120,7 @@
 </#if>
 <#if volume && issue >
 	<#assign volumeIssue>
+		<div class="row profile-row" role="row">
 		  <div class="col-sm-9 no-padding align-text-right">
 			<span class="profile-label">Volume(Issue)</span>
 		  </div>
@@ -125,9 +129,11 @@
 				${volumeStmt.value!}(${issueStmt.value!})
 			</div>
 		  </div>
+		</div>
 	</#assign>
 <#elseif volume && !issue >
 	<#assign volumeIssue>
+		<div class="row profile-row" role="row">
 		  <div class="col-sm-9 no-padding align-text-right">
 			<span class="profile-label">Volume</span>
 		  </div>
@@ -136,9 +142,11 @@
 				${volumeStmt.value!}
 			</div>
 		  </div>
+		</div>
 	</#assign>
 <#elseif !volume && issue >
 	<#assign volumeIssue>
+		<div class="row profile-row" role="row">
 		  <div class="col-sm-9 no-padding align-text-right">
 			<span class="profile-label">Issue</span>
 		  </div>
@@ -147,11 +155,13 @@
 				${issueStmt.value!}
 			</div>
 		  </div>
+		</div>
 	</#assign>
 </#if>
 <#if freeTextTitleProp?has_content && freeTextTitleProp.statements?has_content>
 	<#assign freeTextTitleStmt = freeTextTitleProp.statements?first!""/>
 	<#assign freeTextTitle>
+		<div class="row profile-row" role="row">
 		  <div class="col-sm-1  no-padding align-text-right">
 			<span class="profile-label">Journal</span>
 		  </div>
@@ -160,6 +170,7 @@
 				<em>${freeTextTitleStmt.value!}</em>
 			</div>
 	  	  </div>
+		</div>
 	</#assign>
 </#if>  
 <#if startProp?has_content && startProp.statements?has_content>
@@ -172,6 +183,7 @@
 </#if>
 <#if startPage?has_content && endPage?has_content >
 	<#assign pages>
+		<div class="row profile-row" role="row">
 		  <div class="col-sm-1  no-padding align-text-right">
 			<span class="profile-label">Pages</span>
 		  </div>
@@ -180,9 +192,11 @@
 				${startPage!} - ${endPage!}
 			</div>
 		  </div>
+		</div>
 	</#assign>
 <#elseif startPage?has_content && !endPage?has_content >
 	<#assign pages>
+		<div class="row profile-row" role="row">
 		  <div class="col-sm-1  no-padding align-text-right">
 			<span class="profile-label">Starts</span>
 		  </div>
@@ -191,9 +205,11 @@
 				${startPage!}
 			</div>
 		  </div>
+		</div>
 	</#assign>
 <#elseif !startPage?has_content && endPage?has_content >
 	<#assign pages>
+		<div class="row profile-row" role="row">
 		  <div class="col-sm-1  no-padding align-text-right>
 			<span class="profile-label">Ends</span>
 		  </div>
@@ -202,10 +218,12 @@
 				${endPage!}
 			</div>
 		  </div>
+		</div>
 	</#assign>
 </#if>
 <#if pubDate?has_content>
 	<#assign publishedInline >
+		<div class="row profile-row" role="row">
 		  <div class="col-sm-9 no-padding align-text-right">
 			<span class="profile-label">Published</span>
 		  </div>
@@ -214,11 +232,13 @@
 				${pubDate!}
 			</div>
 		  </div>
+		</div>
 	</#assign>
 
 </#if>
 <#if gccProp?has_content && gccProp.statements?has_content >
 	<#assign gcc>
+		<div class="row profile-row" role="row">
 		  <div class="col-sm-9 no-padding align-text-right">
 			<span class="profile-label">Citations</span>
 		  </div>
@@ -227,12 +247,14 @@
 				${gccProp.statements[0].count!}
 			</div>
 		  </div>
+		</div>
 	</#assign>
 </#if>
 <#if doiProp?has_content && doiProp.statements?has_content>
 	<#assign doiStmt = doiProp.statements?first!""/>
 	<#assign doi = doiStmt.value! />
 	<#assign doiInline>
+		<div class="row profile-row" role="row">
 		  <div class="col-sm-1  no-padding align-text-right">
 			<span class="profile-label">DOI</span>
 		  </div>
@@ -241,12 +263,14 @@
 				<a href="http://dx.doi.org/${doi!}" title="link to DOI" target="_blank" onclick="javascript:_paq.push(['trackEvent', 'Link', 'Publication', 'DOI']);">${doi!}</a>
 			</div>
 		  </div>
+		</div>
 	</#assign>
 </#if>
 <#if pmidProp?has_content && pmidProp.statements?has_content>
 	<#assign pmidStmt = pmidProp.statements?first!""/>
 	<#assign pmid = pmidStmt.value! />
 	<#assign pmidInline>
+		<div class="row profile-row" role="row">
 		  <div class="col-sm-9  no-padding align-text-right">
 			<span class="profile-label">PMID</span>
 		  </div>
@@ -255,6 +279,7 @@
 				<a href="http://www.ncbi.nlm.nih.gov/pubmed/?term=${pmid!}" title="View in PubMed" target="_blank" onclick="javascript:_paq.push(['trackEvent', 'Link', 'Publication', 'PMID']);">${pmid!}</a>
 			</div>
 		  </div>
+		</div>
 	</#assign>
 </#if>
 <#if doi?has_content>
@@ -358,42 +383,23 @@
 
 		<h2 id="bibo-heading-break">  </h2>
     </header>
-	<div class="row profile-row fff-bkg bibo-metadata" role="row">
+	<div class="row profile-row fff-bkg header-metadata" role="row">
 		<div class="col-sm-9 col-md-9 col-lg-9">
-			<div class="row profile-row" role="row">
-				${authorList?replace(" ,",",")!}
-			</div>
-			<div class="row profile-row" role="row">
-				<#if journalTitle?has_content >
-					${journalTitle!}
-				<#else>
-					${freeTextTitle!}
-				</#if>
-			</div>
-			<div class="row profile-row" role="row">
-				${pages!}
-			</div>
-			<div class="row profile-row" >
-				${doiInline!}
-			</div>
-			<div class="row profile-row" role="row">
-				
-			</div>
+ 			${authorList?replace(" ,",",")!}
+ 			<#if journalTitle?has_content >
+ 				${journalTitle!}
+ 			<#else>
+ 				${freeTextTitle!}
+ 			</#if>
+ 			${pages!}
+ 			${doiInline!}
 		</div>
 
 		<div class="col-sm-2 col-md-2 col-lg-2">
-			<div class="row profile-row" role="row">
 				${gcc!}
-			</div>
-			<div class="row profile-row" role="row">
 				${volumeIssue!}
-			</div>
-			<div class="row profile-row" role="row">
 				${publishedInline!}
-			</div>
-			<div class="row profile-row" >
 				${pmidInline!}
-			</div>
 		</div>
 	</div>
 
