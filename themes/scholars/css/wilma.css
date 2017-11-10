@@ -2094,7 +2094,7 @@ div#scholars-tabs-container {
 .scholars-article-metadata {
 	color: #595b5b;
 	font-size: 16px;
-	padding-left: 15px;
+	padding-left: 0;
 }
 #by-the-numbers {
 	margin-top: 50px;
@@ -2745,6 +2745,10 @@ nav#alpha-browse-container {
 .profile-row {
 	background-color: #fff;
 }
+.profile-sub-row {
+	background-color: #fff;
+	padding-top: 4px;
+}
 .profile-row-margins {
 	background-color: #fff;
 	margin: 16px 0;
@@ -2796,6 +2800,15 @@ nav#alpha-browse-container {
 #inlineMeshTerms {
 	margin-left:6px;
 }
+.no-left-padding {
+	padding-left: 0;
+}
+.grant-profile-title {
+	margin-top:17px;
+	float:left;
+	margin-left:24px;
+	width:96%;
+}
 .bibo-profile-title {
 	margin-top:17px;
 	float:left;
@@ -2828,8 +2841,8 @@ nav#alpha-browse-container {
 	padding-top:0 !important;
 	border-bottom:1px solid #b9b9b9;
 }
-.bibo-metadata {
-	margin:8px 0 0 16px;
+.header-metadata {
+	margin:8px 0 10px 16px;
 }
 .clear-both {
 	clear: both;
@@ -3286,7 +3299,7 @@ header {
 	padding: 0 45px 0 20px;
 }
 #by-name-radio {
-	margin-left: 18px;
+	margin-left: 5px;
 }
 .results-search-radio-container {
 	color: rgb(95, 88, 88);

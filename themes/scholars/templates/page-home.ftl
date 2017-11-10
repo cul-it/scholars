@@ -44,8 +44,8 @@
 										<input id="de-search-input" class="home-search-input subject-search" type="text" name="querytext" value="${querytext!}" />
 										<input id="de-search-submit" class="home-page-submit" type="submit" action="${urls.base}/domainExpert?origin=homepage" value="GO"  onclick="javascript:_paq.push(['trackEvent', 'Search', 'Homepage', 'Find A Domain Expert']);" />
 										<div class="search-radio-container">
-											<input type="radio" name="querytype" value="subject" checked> by subject or keyword
-								   			<input id="by-name-radio" type="radio" name="querytype" value="name"> by name
+											<input type="radio" name="querytype" value="subject" checked> By Subject / Keyword
+								   			<input id="by-name-radio" type="radio" name="querytype" value="name"> By Name
 								  		</div>
 									</form>
 								</div>
