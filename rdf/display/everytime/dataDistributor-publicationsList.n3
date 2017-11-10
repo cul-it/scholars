@@ -15,8 +15,7 @@
 @prefix : <http://vitro.mannlib.cornell.edu/ns/vitro/ApplicationSetup#> .
 
 #
-# The inner distributor just uses a GraphBuilder and converts the result to 
-# TURTLE format.
+# The inner distributor uses a GraphBuilder and converts the result to TURTLE.
 #
 
 :publist_inner
@@ -124,6 +123,35 @@
         {
           ?pub bibo:doi ?doi .
         }
+    """ , """
+        PREFIX bibo:     <http://purl.org/ontology/bibo/>
+        CONSTRUCT {
+          ?pub bibo:volume ?volume .
+        }
+        WHERE
+        {
+          ?pub bibo:volume ?volume .
+        }
+    """ , """
+        PREFIX bibo:     <http://purl.org/ontology/bibo/>
+        CONSTRUCT {
+          ?pub bibo:issue ?issue .
+        }
+        WHERE
+        {
+          ?pub bibo:issue ?issue .
+        }
+    """ , """
+        PREFIX bibo:     <http://purl.org/ontology/bibo/>
+        CONSTRUCT {
+          ?pub bibo:pageStart ?pageStart .
+          ?pub bibo:pageEnd ?pageEnd .
+        }
+        WHERE
+        {
+          ?pub bibo:pageStart ?pageStart .
+          ?pub bibo:pageEnd ?pageEnd .
+        }
     """ .    
 
 #
@@ -156,6 +184,9 @@
                 addOptionalField(result, "pubDate", findPubDate);
                 addOptionalField(result, "journalName", findJournalName);
                 addOptionalField(result, "doi", findDoi);
+                addOptionalField(result, "volume", findVolume);
+                addOptionalField(result, "issue", findIssue);
+                addOptionalField(result, "pages", findPages);
                 results.push(result);
                     
                 function findPublicationName() {
@@ -187,6 +218,21 @@
                 
                 function findDoi() {
                     return getAnyValue(graph, pubNode, BIBO('doi'));
+                }
+
+                function findVolume() {
+                    return getAnyValue(graph, pubNode, BIBO('volume'))
+                }
+
+                function findIssue() {
+                    return getAnyValue(graph, pubNode, BIBO('issue'))
+                }
+                
+                function findPages() {
+                    return {
+                        pageStart: getAnyValue(graph, pubNode, BIBO('pageStart')),
+                        pageEnd: getAnyValue(graph, pubNode, BIBO('pageEnd'))
+                    }
                 }
             }
                 
