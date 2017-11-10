@@ -1,7 +1,11 @@
-var RDF = $rdf.Namespace("http://www.w3.org/1999/02/22-rdf-syntax-ns#");
-var RDFS = $rdf.Namespace("http://www.w3.org/2000/01/rdf-schema#");
-var BIBO = $rdf.Namespace("http://purl.org/ontology/bibo/");
-var VIVO = $rdf.Namespace("http://vivoweb.org/ontology/core#");
+var RDF, RDFS, BIBO, VIVO;
+
+function standardPrefixes() {
+    RDF = $rdf.Namespace("http://www.w3.org/1999/02/22-rdf-syntax-ns#");
+    RDFS = $rdf.Namespace("http://www.w3.org/2000/01/rdf-schema#");
+    BIBO = $rdf.Namespace("http://purl.org/ontology/bibo/");
+    VIVO = $rdf.Namespace("http://vivoweb.org/ontology/core#");
+}
 
 /*
  * Use RDFlib to create a graph structure from a string of RDF in Turtle format.

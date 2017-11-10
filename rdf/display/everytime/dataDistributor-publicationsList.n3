@@ -1,92 +1,198 @@
 #
 # ------------------------------------------------------------------------------
 #
+# Get a JSON formatted list of publications for a specific person.
+#
+# Run an inner data distributor that creates a TURTLE file for the result, and 
+# wrap it in a decorator that convewrts the TURTLE to JSON.
+#
+# Play games with the inner distributor, including drill-down and multiple 
+# sub-queries, to try to speed it up.
+# 
 # ------------------------------------------------------------------------------
-# 
-# The inner distributor produces output in this format:
 #
-# {
-#   "head": {
-#     "vars": [ "label" ]
-#   } ,
-#   "results": {
-#     "bindings": [
-#       {
-#         "label": { "type": "literal" , "value": "A Microfluidic Biomaterial" }
-#       } ,
-#
-#       ... more publications ...
-#
-#     ]
-#   }
-# }
-# 
-
+ 
 @prefix : <http://vitro.mannlib.cornell.edu/ns/vitro/ApplicationSetup#> .
 
-:list_publications_distributor
+#
+# The inner distributor just uses a GraphBuilder and converts the result to 
+# TURTLE format.
+#
+
+:publist_inner
     a   <java:edu.cornell.library.scholars.webapp.controller.api.distribute.DataDistributor> ,
-        <java:edu.cornell.library.scholars.webapp.controller.api.distribute.decorator.JavaScriptTransformDistributor> ;
-    :actionName "listPublications" ;
-    :contentType "application/json" ;
-    :child :list_publications_inner_distributor ;
-    :script """
-        function transform(rawOutput) {
-            return rawOutput;
-            var selected = JSON.parse(rawOutput);
-            return JSON.stringify(selected.results.bindings.map(mapARecord), null, 2);
-            
-            function mapARecord(record) {
-                return {
-                    title: record.label.value,
-                    author: record.authorName.value,
-                    rank: record.ranks.value,
-                    publicationDate: record.dateTime.value.substring(0, 4),
-                    journalName: record.journalName.value,
-                    doi: record.doi.value
-                };
-            }
+        <java:edu.cornell.library.scholars.webapp.controller.api.distribute.rdf.RdfGraphDistributor> ;
+    :actionName "_none_" ;
+    :graphBuilder :publist_driller .
+
+#
+# the GraphBuilder gets the publications for the person, and then drills down 
+# to get the information for each publication.
+#    
+:publist_driller
+    a   <java:edu.cornell.library.scholars.webapp.controller.api.distribute.rdf.graphbuilder.GraphBuilder> ,
+        <java:edu.cornell.library.scholars.webapp.controller.api.distribute.rdf.graphbuilder.DrillDownGraphBuilder> ;
+    :topLevelGraphBuilder :publist_drill_top ;
+    :childGraphBuilder :publist_drill_bottom ;
+    :drillDownQuery """
+        PREFIX bibo: <http://purl.org/ontology/bibo/>
+        SELECT ?pub
+        WHERE {
+          ?pub a bibo:Document .
         }
     """ .
 
-:list_publications_inner_distributor
-    a   <java:edu.cornell.library.scholars.webapp.controller.api.distribute.DataDistributor> ,
-        <java:edu.cornell.library.scholars.webapp.controller.api.distribute.rdf.SelectFromContentDistributor> ;
-    :actionName "_none_" ;
+:publist_drill_top
+    a   <java:edu.cornell.library.scholars.webapp.controller.api.distribute.rdf.graphbuilder.GraphBuilder> ,
+        <java:edu.cornell.library.scholars.webapp.controller.api.distribute.rdf.graphbuilder.ConstructQueryGraphBuilder> ;
     :uriBinding "person" ;
-    :query """
-        PREFIX rdf:      <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+    :constructQuery """
         PREFIX rdfs:     <http://www.w3.org/2000/01/rdf-schema#>
         PREFIX bibo:     <http://purl.org/ontology/bibo/>
-        PREFIX foaf:     <http://xmlns.com/foaf/0.1/>
         PREFIX vivo:     <http://vivoweb.org/ontology/core#>
-        SELECT ?label ?authorName ?rank ?dateTime ?journalName ?doi
+        CONSTRUCT {
+          ?pub a bibo:Document .
+          ?pub rdfs:label ?pubLabel .
+        }
         WHERE
         {
           ?person vivo:relatedBy ?auth .
           ?auth a vivo:Authorship .
           ?auth vivo:relates ?pub .
           ?pub a bibo:Document .
-          
-          ?pub rdfs:label ?label .
+          ?pub rdfs:label ?pubLabel .
+        }
+    """ .
 
+#
+# For each publication, run a group of queries, rather than one query with
+# multiple OPTIONAL or UNION clauses.
+#
+    
+:publist_drill_bottom
+    a   <java:edu.cornell.library.scholars.webapp.controller.api.distribute.rdf.graphbuilder.GraphBuilder> ,
+        <java:edu.cornell.library.scholars.webapp.controller.api.distribute.rdf.graphbuilder.ConstructQueryGraphBuilder> ;
+    :uriBinding "pub" ;
+    :constructQuery """
+        PREFIX rdfs:     <http://www.w3.org/2000/01/rdf-schema#>
+        PREFIX foaf:     <http://xmlns.com/foaf/0.1/>
+        PREFIX vivo:     <http://vivoweb.org/ontology/core#>
+        CONSTRUCT {
+          ?pub vivo:relatedBy ?auth2 .
+          ?auth2 vivo:rank ?rank .
+          ?auth2 vivo:relates ?author .
+          ?author rdfs:label ?authorName .
+        }
+        WHERE
+        {
           ?pub vivo:relatedBy ?auth2 .
           ?auth2 a vivo:Authorship .
+          ?auth2 vivo:rank ?rank .
           ?auth2 vivo:relates ?author .
           ?author a foaf:Person .
           ?author rdfs:label ?authorName .
-          ?auth2 vivo:rank ?rank .
+        }
+    """ , """
+        PREFIX vivo:     <http://vivoweb.org/ontology/core#>
+        CONSTRUCT {
+          ?pub vivo:dateTimeValue ?timeStamp .
+          ?timeStamp vivo:dateTime ?dateTime .
+        }
+        WHERE
+        {
+          ?pub vivo:dateTimeValue ?timeStamp .
+          ?timeStamp vivo:dateTime ?dateTime .
+        }
+    """ , """
+        PREFIX rdfs:     <http://www.w3.org/2000/01/rdf-schema#>
+        PREFIX vivo:     <http://vivoweb.org/ontology/core#>
+        CONSTRUCT {
+          ?pub vivo:hasPublicationVenue ?journal .
+          ?journal rdfs:label ?journalName .
+        }
+        WHERE
+        {
+          ?pub vivo:hasPublicationVenue ?journal .
+          ?journal rdfs:label ?journalName .
+        }
+    """ , """
+        PREFIX bibo:     <http://purl.org/ontology/bibo/>
+        CONSTRUCT {
+          ?pub bibo:doi ?doi .
+        }
+        WHERE
+        {
+          ?pub bibo:doi ?doi .
+        }
+    """ .    
 
-          OPTIONAL {
-              ?pub vivo:dateTimeValue ?timeStamp .
-              ?timeStamp vivo:dateTime ?dateTime .
-          }
-          OPTIONAL {
-              ?pub vivo:hasPublicationVenue ?journal .
-              ?journal rdfs:label ?journalName .
-          }
-          OPTIONAL {
-              ?pub bibo:doi ?doi .
-          }
+#
+# The decorator converts the TURTLE RDF model into a JSON structure.
+#
+:publist_distributor
+    a   <java:edu.cornell.library.scholars.webapp.controller.api.distribute.DataDistributor> ,
+        <java:edu.cornell.library.scholars.webapp.controller.api.distribute.decorator.JavaScriptTransformDistributor> ;
+    :actionName "listPublications" ;
+    :contentType "application/json" ;
+    :child :publist_inner ;
+    :supportingScript "/js/scholars-vis/rdflib.js";
+    :supportingScript "/js/scholars-vis/rdf-helper-methods.js";
+    :script """
+        function transform(turtleRdf) {
+            var graph = populateGraph(turtleRdf);
+            standardPrefixes();
+            
+            var results = [];
+            getPubStatements().forEach(processPublication);
+            
+            return JSON.stringify(results, null, 2);
+                
+            function processPublication(stmt) {
+                var pubNode = stmt.subject;
+ 
+                var result = { uri: pubNode.uri };
+                addRequiredField(result, "label", findPublicationName);
+                addRequiredField(result, "authors", findAuthors);
+                addOptionalField(result, "pubDate", findPubDate);
+                addOptionalField(result, "journalName", findJournalName);
+                addOptionalField(result, "doi", findDoi);
+                results.push(result);
+                    
+                function findPublicationName() {
+                    return getAnyValue(graph, pubNode, RDFS('label'));
+                }
+                    
+                function findAuthors() {
+                    return graph.each(pubNode, VIVO('relatedBy')).map(findAuthorInfo).sort(rankSorter);
+                        
+                    function findAuthorInfo(authorshipNode) {
+                        return {
+                            rank: parseInt(getAnyValue(graph, authorshipNode, VIVO('rank'))),
+                            label: getAnyValue(graph, authorshipNode, VIVO('relates'), RDFS('label'))
+                        };
+                    }
+                        
+                    function rankSorter(a, b) {
+                        return a.rank - b.rank;
+                    }
+                }
+                
+                function findPubDate() {
+                    return getAnyValue(graph, pubNode, VIVO('dateTimeValue'), VIVO('dateTime')).substring(0, 4);
+                }
+                
+                function findJournalName() {
+                    return getAnyValue(graph, pubNode, VIVO('hasPublicationVenue'), RDFS('label'));
+                }
+                
+                function findDoi() {
+                    return getAnyValue(graph, pubNode, BIBO('doi'));
+                }
+            }
+                
+            function getPubStatements() {
+                return graph.statementsMatching(undefined, RDF('type'), BIBO('Document'));
+            }
         }
     """ .
+
