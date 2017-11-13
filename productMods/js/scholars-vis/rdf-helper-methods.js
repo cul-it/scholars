@@ -1,9 +1,11 @@
-var RDF, RDFS, BIBO, VIVO;
+var RDF, RDFS, BIBO, FOAF, VCARD, VIVO;
 
 function standardPrefixes() {
     RDF = $rdf.Namespace("http://www.w3.org/1999/02/22-rdf-syntax-ns#");
     RDFS = $rdf.Namespace("http://www.w3.org/2000/01/rdf-schema#");
     BIBO = $rdf.Namespace("http://purl.org/ontology/bibo/");
+    FOAF = $rdf.Namespace("http://xmlns.com/foaf/0.1/");
+    VCARD = $rdf.Namespace("http://www.w3.org/2006/vcard/ns#");
     VIVO = $rdf.Namespace("http://vivoweb.org/ontology/core#");
 }
 

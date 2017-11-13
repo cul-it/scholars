@@ -77,19 +77,50 @@
         PREFIX foaf:     <http://xmlns.com/foaf/0.1/>
         PREFIX vivo:     <http://vivoweb.org/ontology/core#>
         CONSTRUCT {
-          ?pub vivo:relatedBy ?auth2 .
-          ?auth2 vivo:rank ?rank .
-          ?auth2 vivo:relates ?author .
+          ?pub vivo:relatedBy ?auth .
+          ?auth vivo:rank ?rank .
+          ?auth vivo:relates ?author .
+          ?author a foaf:Person .
           ?author rdfs:label ?authorName .
         }
         WHERE
         {
-          ?pub vivo:relatedBy ?auth2 .
-          ?auth2 a vivo:Authorship .
-          ?auth2 vivo:rank ?rank .
-          ?auth2 vivo:relates ?author .
+          ?pub vivo:relatedBy ?auth .
+          ?auth a vivo:Authorship .
+          ?auth vivo:rank ?rank .
+          ?auth vivo:relates ?author .
           ?author a foaf:Person .
           ?author rdfs:label ?authorName .
+        }
+    """ , """
+        PREFIX rdfs:     <http://www.w3.org/2000/01/rdf-schema#>
+        PREFIX vcard:    <http://www.w3.org/2006/vcard/ns#>
+        PREFIX vivo:     <http://vivoweb.org/ontology/core#>
+        CONSTRUCT {
+          ?pub vivo:relatedBy ?auth .
+          ?auth vivo:rank ?rank .
+          ?auth vivo:relates ?vcard .
+          ?vcard vcard:hasName ?vname .
+          ?vname vcard:givenName ?givenName .
+          ?vname vivo:middleName ?middleName .
+          ?vname vcard:familyName ?familyName .
+        }
+        WHERE
+        {
+          ?pub vivo:relatedBy ?auth .
+          ?auth a vivo:Authorship .
+          ?auth vivo:rank ?rank .
+          ?auth vivo:relates ?vcard .
+          ?vcard vcard:hasName ?vname .
+          OPTIONAL {
+              ?vname vcard:givenName ?givenName .
+          } 
+          OPTIONAL {
+              ?vname vivo:middleName ?middleName .
+          } 
+          OPTIONAL {
+              ?vname vcard:familyName ?familyName .
+          } 
         }
     """ , """
         PREFIX vivo:     <http://vivoweb.org/ontology/core#>
@@ -192,20 +223,88 @@
                 function findPublicationName() {
                     return getAnyValue(graph, pubNode, RDFS('label'));
                 }
-                    
+                
                 function findAuthors() {
-                    return graph.each(pubNode, VIVO('relatedBy')).map(findAuthorInfo).sort(rankSorter);
-                        
-                    function findAuthorInfo(authorshipNode) {
-                        return {
-                            rank: parseInt(getAnyValue(graph, authorshipNode, VIVO('rank'))),
-                            label: getAnyValue(graph, authorshipNode, VIVO('relates'), RDFS('label'))
-                        };
+                    return findAuthorshipNodes().map(getAuthorInfo).sort(rankSorter);
+                    
+                    function findAuthorshipNodes() {
+                        return graph.each(pubNode, VIVO('relatedBy'));
                     }
+                    
+                    function getAuthorInfo(authorshipNode) {
+                        var rank = parseInt(getAnyValue(graph, authorshipNode, VIVO('rank')));
+                        var authorNode = graph.any(authorshipNode, VIVO('relates'));
                         
+                        if (authorIsPerson()) {
+                            return personAuthorInfo();
+                        } else {
+                            return vcardAuthorInfo();
+                        }
+                        
+                        function authorIsPerson() {
+                            return graph.statementsMatching(authorNode, RDF('type'), FOAF('Person')).length > 0;
+                        }
+                        
+                        function personAuthorInfo() {
+                            return {
+                                rank: rank,
+                                label: getAnyValue(graph, authorshipNode, VIVO('relates'), RDFS('label'))
+                            };
+                        }
+                        
+                        function vcardAuthorInfo() {
+                            var firstName = findVCardFirstName();
+                            var middleName = findVCardMiddleName();
+                            var lastName = findVCardLastName();
+                            return {
+                                rank: rank,
+                                bogus: firstName + "+" + middleName + "+" + lastName,
+                                label: combineNameParts()
+                            }
+                            
+                            function findVCardFirstName() {
+                                return getAnyValue(graph, authorNode, VCARD('hasName'), VCARD('givenName'));
+                            }
+
+                            function findVCardMiddleName() {
+                                return getAnyValue(graph, authorNode, VCARD('hasName'), VIVO('middleName'));
+                            }
+
+                            function findVCardLastName() {
+                                return getAnyValue(graph, authorNode, VCARD('hasName'), VCARD('familyName'));
+                            }
+                            
+                            function combineNameParts() {
+                                if (!lastName) {
+                                    return "NO NAME";
+                                }
+                                var name = lastName;
+                                
+                                if (firstName || middleName) {
+                                    name += ",";
+                                }
+                                if (firstName) {
+                                    name += " " + firstName;
+                                    if (firstName.length == 1) {
+                                        name += ".";
+                                    }
+                                }
+                                if (middleName) {
+                                    name += " " + middleName;
+                                    if (middleName.length == 1) {
+                                        name += ".";
+                                    }
+                                }
+                                return name;
+                            }
+                        }
+                        
+                    }
+
                     function rankSorter(a, b) {
                         return a.rank - b.rank;
                     }
+                    
                 }
                 
                 function findPubDate() {
