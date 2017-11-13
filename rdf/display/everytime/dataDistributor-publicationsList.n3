@@ -102,7 +102,45 @@
           ?auth vivo:relates ?vcard .
           ?vcard vcard:hasName ?vname .
           ?vname vcard:givenName ?givenName .
+        }
+        WHERE
+        {
+          ?pub vivo:relatedBy ?auth .
+          ?auth a vivo:Authorship .
+          ?auth vivo:rank ?rank .
+          ?auth vivo:relates ?vcard .
+          ?vcard vcard:hasName ?vname .
+          ?vname vcard:givenName ?givenName .
+        }
+    """ , """
+        PREFIX rdfs:     <http://www.w3.org/2000/01/rdf-schema#>
+        PREFIX vcard:    <http://www.w3.org/2006/vcard/ns#>
+        PREFIX vivo:     <http://vivoweb.org/ontology/core#>
+        CONSTRUCT {
+          ?pub vivo:relatedBy ?auth .
+          ?auth vivo:rank ?rank .
+          ?auth vivo:relates ?vcard .
+          ?vcard vcard:hasName ?vname .
           ?vname vivo:middleName ?middleName .
+        }
+        WHERE
+        {
+          ?pub vivo:relatedBy ?auth .
+          ?auth a vivo:Authorship .
+          ?auth vivo:rank ?rank .
+          ?auth vivo:relates ?vcard .
+          ?vcard vcard:hasName ?vname .
+          ?vname vivo:middleName ?middleName .
+        }
+    """ , """
+        PREFIX rdfs:     <http://www.w3.org/2000/01/rdf-schema#>
+        PREFIX vcard:    <http://www.w3.org/2006/vcard/ns#>
+        PREFIX vivo:     <http://vivoweb.org/ontology/core#>
+        CONSTRUCT {
+          ?pub vivo:relatedBy ?auth .
+          ?auth vivo:rank ?rank .
+          ?auth vivo:relates ?vcard .
+          ?vcard vcard:hasName ?vname .
           ?vname vcard:familyName ?familyName .
         }
         WHERE
@@ -112,15 +150,7 @@
           ?auth vivo:rank ?rank .
           ?auth vivo:relates ?vcard .
           ?vcard vcard:hasName ?vname .
-          OPTIONAL {
-              ?vname vcard:givenName ?givenName .
-          } 
-          OPTIONAL {
-              ?vname vivo:middleName ?middleName .
-          } 
-          OPTIONAL {
-              ?vname vcard:familyName ?familyName .
-          } 
+          ?vname vcard:familyName ?familyName .
         }
     """ , """
         PREFIX vivo:     <http://vivoweb.org/ontology/core#>
