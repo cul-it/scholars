@@ -357,9 +357,15 @@
                 }
                 
                 function findPages() {
-                    return {
-                        pageStart: getAnyValue(graph, pubNode, BIBO('pageStart')),
-                        pageEnd: getAnyValue(graph, pubNode, BIBO('pageEnd'))
+                    var pageStart = getAnyValue(graph, pubNode, BIBO('pageStart'));
+                    var pageEnd = getAnyValue(graph, pubNode, BIBO('pageEnd'));
+                    if (pageStart == null && pageEnd == null) {
+                        return null;
+                    } else {
+                        return {
+                            pageStart: pageStart,
+                            pageEnd: pageEnd
+                        }
                     }
                 }
             }
