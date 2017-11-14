@@ -10,20 +10,17 @@ var biboDocument = {
 	// account for both possibilities. That's why there *appears* to be redundant code.
 	hidePlumX: function() {
 		// PlumX attribute calls this function. Remove the plumx text container
-		console.log("hide plumx");
 		$("#plum-container").hide();
 		$("span#metric-divider").remove();
 	},
 	
 	showPlumX: function() {
 		// PlumX attribute calls this function. Remove the plumx text container
-		console.log("show plumx");
 		$("#metrics-container").show();
 		$("#title-container").removeClass("col-sm-9");
 		$("#title-container").addClass("col-sm-8");
 		$("#title-container").css("margin-left","0");
 		if ( biboDocument.altmetricsHidden ) {
-			console.log("show plumx w/ altmetrics hidden");
 			$("#plum-container").html("PlumX");
 			$(".ppp-container").css("padding-top","6px");
 			$("#plumx").show();
@@ -52,9 +49,7 @@ var biboDocument = {
 		// When no altmetrics, check to see if
 		$('div.altmetric-embed').on('altmetric:hide', function () {
 			biboDocument.altmetricsHidden = true;
-			console.log("hide altmetrics");
 			if ( $("#plum-container").is(":visible") ) {
-				console.log("plumx visible");
 				$("#plum-container").html("PlumX");
 				$(".ppp-container").css("padding-top","6px");
 				$("#plumx").show();
@@ -63,14 +58,12 @@ var biboDocument = {
 				$("#title-container").css("margin-left","0");
 			}
 			else {
-				console.log("plumx not visible");
 				$("#metrics-container").hide();
 				$("#title-container").removeClass("col-sm-8");
 				$("#title-container").addClass("col-sm-9");
 			}
 	    });
 		$('div.altmetric-embed').on('altmetric:show', function () {
-			console.log("show altmetrics");
 			$("#metrics-container").show();			
 			$("#title-container").css("margin-left","0");
 		});
