@@ -18,18 +18,16 @@ div.altmetric-hidden {
                      data-doi="${doi!}">
                 </div>
             </div>
-    <#else>
-           <#if pmid?has_content> <#-- true when the property is in the list, even if not populated (when editing) -->
-	           <div class="individual-altmetric-badge">
-	               <div class="altmetric-embed"
-	                    data-badge-type="donut"
-	                    <#if altmetricPopover??>data-badge-popover="right"</#if>
-	                    <#if altmetricDetails??>data-badge-details="${altmetricDetails}"</#if>
-	                    <#if altmetricHideEmpty??>data-hide-no-mentions="true"</#if>
-	                    data-link-target="_blank"
-	                    data-doi="${pmid!}">
-	               </div>
-	           </div>
-        </#if>
+    <#elseif pmid?has_content> <#-- true when the property is in the list, even if not populated (when editing) -->
+	        <div class="individual-altmetric-badge">
+	        	<div class="altmetric-embed"
+	                 data-badge-type="donut"
+	                 <#if altmetricPopover??>data-badge-popover="right"</#if>
+	                 <#if altmetricDetails??>data-badge-details="${altmetricDetails}"</#if>
+	                 <#if altmetricHideEmpty??>data-hide-no-mentions="true"</#if>
+	                 data-link-target="_blank"
+	                 data-doi="${pmid!}">
+	             </div>
+	         </div>
     </#if>
 </#if>

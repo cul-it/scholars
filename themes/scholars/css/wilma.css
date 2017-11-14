@@ -2394,7 +2394,7 @@ section#share-contact {
 	margin-bottom: 0;
 }
 #individual-info h1.fn {
-    font-size: 1.6em;
+    font-size: 1.7em;
     color: #5f5858 ;/* #167093; */
     
 }
@@ -2812,12 +2812,10 @@ nav#alpha-browse-container {
 .bibo-profile-title {
 	margin-top:17px;
 	float:left;
-	margin-left:24px;
-	width:72%;
 }
 .bibo-doc-controls {
 	float:right;
-	margin:18px 10px -14px 0;
+	margin:18px 6px 0 0;
 }
 .bibo-doc-controls a {
 	background-color: #3770b7;
@@ -2874,8 +2872,7 @@ div#grantsVis {
     margin-left:6px
 }
 .individual-altmetric-badge {
-	float: left; 
-	padding:14px 0 0 26px; 
+	padding: 14px 0 0 0; 
 	margin-bottom: -10px;
 }
 .individual-altmetric-badge-inline {
@@ -2885,11 +2882,19 @@ div#grantsVis {
 .individual-altmetric-badge-inline .altmetric-embed {
 	display: inline;
 }
-
 .individual-altmetric-badge-inline .altmetric-embed img {
 	vertical-align: middle;
 }
-
+.PlumX-Popup .ppp-container.ppp-medium {
+	width: 100% !important;
+}
+.ppp-pop-right {
+	left: 105px !important;
+}
+#plumx {
+	margin-top: 13px;
+	display: none;
+}
 /*** co-author and co-pi pages ***/
 .sub_headings {
 	margin-left: 20px;
@@ -3774,4 +3779,7 @@ ul.lower-alpha-list li {
 	text-decoration: none !important;
 	background-color: #23527c;
 
+}
+#title-container {
+	margin-left: 30px;
 }
