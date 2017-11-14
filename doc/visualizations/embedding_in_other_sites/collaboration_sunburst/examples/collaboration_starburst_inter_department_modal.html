@@ -1,0 +1,30 @@
+<html>
+	<head>
+	    <title>Inter-Department Collaboration Starburst (modal)</title>
+	</head>
+	<body>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+		<!-- In production, use these:
+		<script src="http://scholars.cornell.edu/js/scholars-vis/scholars-vis.js"></script>
+		<script src="http://scholars.cornell.edu/js/scholars-vis/embed/collaboration-sunburst.js"></script>
+		-- instead of these: -->
+		<script src="http://localhost:8080/scholars/js/scholars-vis/scholars-vis.js"></script>
+		<script src="http://localhost:8080/scholars/js/scholars-vis/embed/collaboration-sunburst.js"></script>
+
+		<script>
+			$().ready(function() {
+		        var cucs = new ScholarsVis.CollaborationSunburst.InterDepartmentVisualization({
+		            department : 'http://scholars.cornell.edu/individual/org73341',
+		            target : '#collab_vis',
+		            modal : true
+		        });
+		        $('#cu_collab_trigger').click(cucs.show);
+			});
+		</script>
+
+		<div id="collab_vis" class="scholars_vis_container vis_modal dept_collab_vis"></div>
+		<button id="cu_collab_trigger">Inter-Department Sunburst</button>
+	</body>
+</html>

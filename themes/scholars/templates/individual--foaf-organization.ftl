@@ -406,16 +406,13 @@ ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/ke
 ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/org-research-areas/ra.css" />',
                   '<link rel="stylesheet" href="${urls.base}/css/scholars-vis/grants/bubble_chart.css" />',
                   '<link rel="stylesheet" href="${urls.base}/css/jquery_plugins/jquery.qtip.min.css" />')}
-${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/collaborations/collab.css" />')}
 
-${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></script>',
-              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/scholars-vis.js"></script>',
-              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/d3/d3-tip.js"></script>',
+${scripts.add('<script type="text/javascript" src="${urls.base}/js/scholars-vis/scholars-vis.js"></script>',
+              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/embed/collaboration-sunburst.js"></script>',
               '<script type="text/javascript" src="${urls.base}/js/scholars-vis/d3/d3.layout.cloud.js"></script>',
               '<script type="text/javascript" src="${urls.base}/js/scholars-vis/grants/transform-data.js"></script>',
               '<script type="text/javascript" src="${urls.base}/js/scholars-vis/grants/grants_tooltip.js"></script>',
               '<script type="text/javascript" src="${urls.base}/js/scholars-vis/grants/bubble_chart_script.js"></script>'
-              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/collaborations/collaborations.js"></script>',
               '<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>',
               '<script type="text/javascript" src="${urls.base}/js/scholars-vis/wordcloud/word-cloud.js"></script>')}
 
@@ -688,7 +685,7 @@ $().ready(function() {
     if (!isJohnsonOrHotelSchool) {
         $('#visualization-column').hide();
         
-        var cucs = new ScholarsVis.CrossUnitCollaborationSunburst({
+        var cucs = new ScholarsVis.CollaborationSunburst.FullCrossUnitVisualization({
             department : '${individual.uri}',
             target : '#cross_unit_collab_vis',
             modal : true
@@ -701,7 +698,7 @@ $().ready(function() {
             }
         });
         
-        var idcs = new ScholarsVis.InterDepartmentCollaborationSunburst({
+        var idcs = new ScholarsVis.CollaborationSunburst.FullInterDepartmentVisualization({
             department : '${individual.uri}',
             target : '#interd_collab_vis',
             modal : true

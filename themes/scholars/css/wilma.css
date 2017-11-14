@@ -2728,9 +2728,6 @@ nav#alpha-browse-container {
 .developer {
 	z-index: 2;
 }
-#collab_vis svg {
-	background-color: #fff;
-}
 .conceptMap svg {
 	padding: none !important;
 }

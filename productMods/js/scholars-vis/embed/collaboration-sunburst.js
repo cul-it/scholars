@@ -1,3 +1,6 @@
+/*
+ * Include this script to embed the Collaboration Sunburst visualization.
+ */
 ScholarsVis.Utilities.loadScripts(
         ScholarsVis.Utilities.baseUrl + "js/scholars-vis/collaborations/collaborations.js",
         ScholarsVis.Utilities.baseUrl + "js/d3.min.js",
@@ -5,5 +8,5 @@ ScholarsVis.Utilities.loadScripts(
         );
 
 ScholarsVis.Utilities.loadStyles(
-        ScholarsVis.Utilities.baseUrl + "css/scholars-vis/collaborations/collab.csss"
+        ScholarsVis.Utilities.baseUrl + "css/scholars-vis/collaborations/collab.css"
         );

@@ -1,0 +1,59 @@
+<html>
+	<head>
+	    <title>Cross-Unit Collaboration Starburst (modified)</title>
+		<style type="text/css">
+			#collab_vis {
+				height: 800px;
+				width: 800px;
+			}
+		</style>
+	</head>
+	
+	<body>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+		<!-- In production, use these:
+		<script src="http://scholars.cornell.edu/js/scholars-vis/scholars-vis.js"></script>
+		<script src="http://scholars.cornell.edu/js/scholars-vis/embed/collaboration-sunburst.js"></script>
+		-- instead of these: -->
+		<script src="http://localhost:8080/scholars/js/scholars-vis/scholars-vis.js"></script>
+		<script src="http://localhost:8080/scholars/js/scholars-vis/embed/collaboration-sunburst.js"></script>
+
+		<script>
+			$().ready(function() {
+		        var cucs = new ScholarsVis.CollaborationSunburst.CrossUnitVisualization({
+		            department : 'http://scholars.cornell.edu/individual/org73341',
+		            target : '#collab_vis',
+		            transform : dataModifier
+		        });
+		        cucs.show();
+			});
+			
+			function dataModifier(rawDataStruct) {
+			    // Execute the default transformation first.
+			    var dataStruct = ScholarsVis.CollaborationSunburst.transform(rawDataStruct);
+
+			    // Modify the resulting structure, as desired.
+			    dataStruct.children.forEach(modifyUnit);
+			    
+			    // Return the modified data structure.
+			    return dataStruct;
+			    
+			    function modifyUnit(unitStruct) {
+			        unitStruct.children.forEach(modifyFacultyMember);
+			    }
+			        
+    	            function modifyFacultyMember(facultyStruct) {
+			        facultyStruct.children.forEach(modifyCollaborator);
+			    }
+			            
+			    function modifyCollaborator(collabStruct) {
+			        collabStruct.url = "http://my.site/facultyPage/" + collabStruct.uri.split('/').pop();
+			    }
+			}
+		</script>
+
+		<div id="collab_vis" class="scholars_vis_container dept_collab_vis"></div>
+	</body>
+</html>

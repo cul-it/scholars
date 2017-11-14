@@ -1,78 +1,115 @@
-ScholarsVis["CrossUnitCollaborationSunburst"] = function(options) {
-    var defaults = {
-            url : ScholarsVis.Utilities.baseUrl + "api/dataRequest/cross_unit_sunburst?department=" + options.department,
-            transform : transformCollab,
-            views : {
-                vis : {
-                    display : sunburst,
-                    closer : closeSunburst,
-                    export : {
-                        json : {
-                            filename: "crossUnitCollaboration.json",
-                            call: exportSunburstVisAsJson
-                        },
-                        svg : {
-                            filename: "crossUnitCollaboration.svg",
-                            call: exportSunburstVisAsSvg
-                        }
-                    }
-                },
-                table: {
-                    display : drawCrossUnitTable,
-                    closer : closeCrossUnitTable,
-                    export : {
-                        csv : {
-                            filename: "crossUnitCollaborationTable.csv",
-                            call: exportCrossUnitTableAsCsv,
-                        },
-                        json : {
-                            filename: "crossUnitCollaborationTable.json",
-                            call: exportCrossUnitTableAsJson
-                        }
-                    }
-                }
-            }
-    };
-    return new ScholarsVis.Visualization(options, defaults);
-};
+/*******************************************************************************
+ * 
+ * Define the structures that embed the visualization into HTML:
+ *   cross-unit: simple and full
+ *   inter-department: simple and full
+ * Where "full" includes the table view and the export functions.
+ * 
+ * Also, define the functions that another site might want to override.
+ *
+ ******************************************************************************/
 
-ScholarsVis["InterDepartmentCollaborationSunburst"] = function(options) {
-    var defaults = {
-            url : ScholarsVis.Utilities.baseUrl + "api/dataRequest/interdepartmental_sunburst?department=" + options.department,
-            transform : transformCollab,
-            views : {
-                vis : {
+ScholarsVis["CollaborationSunburst"] = {
+        transform: transformCollab,
+        display: sunburst,
+        closer: closeSunburst,
+        
+        CrossUnitVisualization: function(options) {
+            var defaults = {
+                    url : ScholarsVis.Utilities.baseUrl + "api/dataRequest/cross_unit_sunburst?department=" + options.department,
+                    transform : transformCollab,
                     display : sunburst,
                     closer : closeSunburst,
-                    export : {
-                        json : {
-                            filename: "interDepartmentCollaboration.json",
-                            call: exportSunburstVisAsJson
+            };
+            return new ScholarsVis.Visualization(options, defaults);
+        },
+        
+        FullCrossUnitVisualization: function(options) {
+            var defaults = {
+                    url : ScholarsVis.Utilities.baseUrl + "api/dataRequest/cross_unit_sunburst?department=" + options.department,
+                    transform : transformCollab,
+                    views : {
+                        vis : {
+                            display : sunburst,
+                            closer : closeSunburst,
+                            export : {
+                                json : {
+                                    filename: "crossUnitCollaboration.json",
+                                    call: exportSunburstVisAsJson
+                                },
+                                svg : {
+                                    filename: "crossUnitCollaboration.svg",
+                                    call: exportSunburstVisAsSvg
+                                }
+                            }
                         },
-                        svg : {
-                            filename: "interDepartmentCollaboration.svg",
-                            call: exportSunburstVisAsSvg
+                        table: {
+                            display : drawCrossUnitTable,
+                            closer : closeCrossUnitTable,
+                            export : {
+                                csv : {
+                                    filename: "crossUnitCollaborationTable.csv",
+                                    call: exportCrossUnitTableAsCsv,
+                                },
+                                json : {
+                                    filename: "crossUnitCollaborationTable.json",
+                                    call: exportCrossUnitTableAsJson
+                                }
+                            }
                         }
                     }
-                },
-                table: {
-                    display : drawInterDepartmentTable,
-                    closer : closeInterDepartmentTable,
-                    export : {
-                        csv : {
-                            filename: "interDepartmentCollaborationTable.csv",
-                            call: exportInterDepartmentTableAsCsv,
+            };
+            return new ScholarsVis.Visualization(options, defaults);
+        },
+        
+        InterDepartmentVisualization: function(options) {
+            var defaults = {
+                    url : ScholarsVis.Utilities.baseUrl + "api/dataRequest/interdepartmental_sunburst?department=" + options.department,
+                    transform : transformCollab,
+                    display : sunburst,
+                    closer : closeSunburst,
+            };
+            return new ScholarsVis.Visualization(options, defaults);
+        },
+        
+        FullInterDepartmentVisualization: function(options) {
+            var defaults = {
+                    url : ScholarsVis.Utilities.baseUrl + "api/dataRequest/interdepartmental_sunburst?department=" + options.department,
+                    transform : transformCollab,
+                    views : {
+                        vis : {
+                            display : sunburst,
+                            closer : closeSunburst,
+                            export : {
+                                json : {
+                                    filename: "interDepartmentCollaboration.json",
+                                    call: exportSunburstVisAsJson
+                                },
+                                svg : {
+                                    filename: "interDepartmentCollaboration.svg",
+                                    call: exportSunburstVisAsSvg
+                                }
+                            }
                         },
-                        json : {
-                            filename: "interDepartmentCollaborationTable.json",
-                            call: exportInterDepartmentTableAsJson
+                        table: {
+                            display : drawInterDepartmentTable,
+                            closer : closeInterDepartmentTable,
+                            export : {
+                                csv : {
+                                    filename: "interDepartmentCollaborationTable.csv",
+                                    call: exportInterDepartmentTableAsCsv,
+                                },
+                                json : {
+                                    filename: "interDepartmentCollaborationTable.json",
+                                    call: exportInterDepartmentTableAsJson
+                                }
+                            }
                         }
                     }
-                }
-            }
-    };
-    return new ScholarsVis.Visualization(options, defaults);
-};
+            };
+            return new ScholarsVis.Visualization(options, defaults);
+        }
+}
 
 /*******************************************************************************
  * Take the data that comes from the server and add display URLs wherever you
