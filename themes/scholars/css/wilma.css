@@ -2775,6 +2775,11 @@ nav#alpha-browse-container {
 	font-size:16px;
 	padding:2px 2px 0 12px;
 }
+.pubvenue-list {
+	min-height: 100px;
+	max-height: 650px;
+	overflow: auto;
+}
 .mesh-term-list {
 	color:#595b5b;
 	font-size:16px !important;
