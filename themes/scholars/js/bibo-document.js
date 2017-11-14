@@ -23,6 +23,7 @@ var biboDocument = {
 		$("#title-container").addClass("col-sm-8");
 		$("#title-container").css("margin-left","0");
 		if ( biboDocument.altmetricsHidden ) {
+			console.log("show plumx w/ altmetrics hidden");
 			$("#plum-container").html("PlumX");
 			$(".ppp-container").css("padding-top","6px");
 			$("#plumx").show();
@@ -50,10 +51,10 @@ var biboDocument = {
 		});
 		// When no altmetrics, check to see if
 		$('div.altmetric-embed').on('altmetric:hide', function () {
+			biboDocument.altmetricsHidden = true;
 			console.log("hide altmetrics");
 			if ( $("#plum-container").is(":visible") ) {
 				console.log("plumx visible");
-				biboDocument.altmetricsHidden = true;
 				$("#plum-container").html("PlumX");
 				$(".ppp-container").css("padding-top","6px");
 				$("#plumx").show();
