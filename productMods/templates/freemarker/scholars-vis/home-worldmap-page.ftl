@@ -166,7 +166,8 @@
     </div>
 </div>
 
-	${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/world-map-collab/styles.css"/>', '<link rel="stylesheet" href="${urls.base}/css/scholars-vis/world-map-collab/nouislider.min.css"/>')}
+	${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/world-map-collab/styles.css"/>', 
+	'<link rel="stylesheet" href="${urls.base}/css/scholars-vis/utils/nouislider.min.css"/>')}
 
 
 	${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></script>',
@@ -177,7 +178,7 @@
 	'<script type="text/javascript" src="${urls.base}/js/scholars-vis/worldmap/d3-queue.v3.min.js"></script>', 
 	'<script type="text/javascript" src="${urls.base}/js/scholars-vis/worldmap/university-world-map.js"></script>',
 	'<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>',
-	'<script src="${urls.base}/js/scholars-vis/grants/nouislider.min.js"></script>')}
+	'<script src="${urls.base}/js/scholars-vis/utils/nouislider.min.js"></script>')}
 	<script>
 		var urlsBase = "${urls.base}";
 	</script>

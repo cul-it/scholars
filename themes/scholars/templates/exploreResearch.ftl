@@ -278,7 +278,7 @@
 </div> <!-- end of row -->
 
 ${stylesheets.add('<link rel="stylesheet" href="//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />',
-				  '<link rel="stylesheet" type="text/css" href="${urls.base}/css/scholars-vis/grants/nouislider.min.css">',
+				  '<link rel="stylesheet" type="text/css" href="${urls.base}/css/scholars-vis/utils/nouislider.min.css">',
   				  '<link rel="stylesheet" href="${urls.base}/css/search.css" />')}
 
 ${scripts.add('<script type="text/javascript" src="${urls.base}/js/searchDownload.js"></script>')}
@@ -288,6 +288,6 @@ var imagesUrl = "${urls.images}";
 </script>
 ${scripts.add('<script type="text/javascript" src="${urls.base}/js/exploreResearch.js"></script>',
 			  '<script type="text/javascript" src="https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js"></script>',
-			  '<script type="text/javascript" src="${urls.base}/js/scholars-vis/grants/nouislider.min.js"></script>',
+			  '<script type="text/javascript" src="${urls.base}/js/scholars-vis/utils/nouislider.min.js"></script>',
 			  '<script type="text/javascript" src="${urls.base}/js/jquery_plugins/jquery.scrollTo-min.js"></script>')}
 <#-- @dumpAll/ -->
