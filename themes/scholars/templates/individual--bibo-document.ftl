@@ -284,8 +284,10 @@
 </#if>
 <#if doi?has_content>
 	<#assign fullTextLink = "http://dx.doi.org/${doi!}" />
+	<#assign plumxParam = "doi=${doi!}" />
 <#elseif pmid?has_content>
 	<#assign fullTextLink = "http://www.ncbi.nlm.nih.gov/pubmed/?term=${pmid!}" />
+	<#assign plumxParam = "pmid=${pmid!}" />
 </#if>
 <#if keywordsProp?has_content && keywordsProp.statements?has_content>
 	<#assign keywordsList>
@@ -373,7 +375,7 @@
 <div class="col-sm-12 col-md-12 col-lg-12 scholars-container" id="biboDocumentMainColumn">
 
 <section id="individual-info" ${infoClass!} role="region">
-    <#include "individual-adminPanel.ftl" >
+    <#-- include "individual-adminPanel.ftl" -->
 
     <#if individualProductExtensionPreHeader??>
         ${individualProductExtensionPreHeader}
@@ -386,7 +388,7 @@
 					<#include "individual-altmetric.ftl" >
 				</div>
 				<div id="plumx">
-					<a href="https://plu.mx/plum/a/?doi=${doi!}" data-size="medium" data-on-success="biboDocument.showPlumX" data-on-empty="biboDocument.hidePlumX" data-hide-when-empty="true" data-popup="right" class="plumx-plum-print-popup"></a>
+					<a href="https://plu.mx/plum/a/?${plumxParam!}" data-size="medium" data-on-success="biboDocument.showPlumX" data-on-empty="biboDocument.hidePlumX" data-hide-when-empty="true" data-popup="right" class="plumx-plum-print-popup"></a>
 				</div>
 				<div id="metric-links"> 
 					<span id="alt-container" style="font-size:10px;font-weight:bold">Altmetrics</span>

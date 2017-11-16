@@ -3788,3 +3788,19 @@ ul.lower-alpha-list li {
 #title-container {
 	margin-left: 30px;
 }
+.PlumX-Popup .ppp-container.ppp-badge > a {
+	font-size: 11px !important;
+}
+.PlumX-Popup .ppp-container.ppp-small > a {
+	height: 24px !important;
+}
+.ppp-title, .ppp-label, .ppp-count {
+	font-size: 13px !important;
+	display: inline !important;
+}
+.plx-usage {
+/*	display: inline-flex; */
+}
+.subclass-property-list li div.PlumX-Popup {
+	display: inline;
+}

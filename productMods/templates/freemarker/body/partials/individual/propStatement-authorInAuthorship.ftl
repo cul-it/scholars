@@ -104,7 +104,7 @@
 		            <div class="individual-altmetric-badge-inline">
 		                <div class="altmetric-embed"
 		                     data-badge-type="4"
-		                     <#if altmetricPopover??>data-badge-popover="right"</#if>
+		                     <#if altmetricPopover??>data-badge-popover="left"</#if>
 		                     <#if altmetricDetails??>data-badge-details="${altmetricDetails}"</#if>
 		                     <#if altmetricHideEmpty??>data-hide-no-mentions="true"</#if>
 		                     data-link-target="_blank"
@@ -116,7 +116,7 @@
 			           <div class="individual-altmetric-badge">
 			               <div class="altmetric-embed"
 			                    data-badge-type="4"
-			                    <#if altmetricPopover??>data-badge-popover="right"</#if>
+			                    <#if altmetricPopover??>data-badge-popover="left"</#if>
 			                    <#if altmetricDetails??>data-badge-details="${altmetricDetails}"</#if>
 			                    <#if altmetricHideEmpty??>data-hide-no-mentions="true"</#if>
 			                    data-link-target="_blank"
@@ -125,6 +125,13 @@
 			           </div>
 		        </#if>
 		    </#if>
+		</#if>
+	</#local>
+	<#local plumx>
+		<#if statement.doi?has_content>
+			<a href="https://plu.mx/plum/a/?doi=${statement.doi!}" data-badge="true" data-on-success="biboDocument.showPlumX" data-on-empty="biboDocument.hidePlumX" data-hide-when-empty="true" data-popup="bottom" class="plumx-plum-print-popup"></a>
+		<#elseif statement.pmid?has_content>
+			<a href="https://plu.mx/plum/a/?pmid=${statement.pmid!}" data-badge="true" data-on-success="biboDocument.showPlumX" data-on-empty="biboDocument.hidePlumX" data-hide-when-empty="true" data-popup="bottom" class="plumx-plum-print-popup"></a>
 		</#if>
 	</#local>
 
@@ -141,6 +148,6 @@
         </#if>
     </#local>
 
-    ${resourceTitle} ${citationDetails} <@dt.yearSpan "${statement.dateTime!}"/> ${altmetric!}
+    ${resourceTitle} ${citationDetails} <@dt.yearSpan "${statement.dateTime!}"/> ${altmetric!} ${plumx!}
 </#if>
 </#macro>
