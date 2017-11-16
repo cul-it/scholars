@@ -1,0 +1,37 @@
+<html>
+	<head>
+	    <title>Grants Bubble Chart (Modal)</title>
+	</head>
+	
+	<body>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+		<!-- In production, use these:
+		<script src="http://scholars.cornell.edu/js/scholars-vis/scholars-vis.js"></script>
+		<script src="http://scholars.cornell.edu/js/scholars-vis/embed/grants_bubble_chart.js"></script>
+		-- instead of these: -->
+		<script src="http://localhost:8080/scholars/js/scholars-vis/scholars-vis.js"></script>
+		<script src="http://localhost:8080/scholars/js/scholars-vis/embed/grants_bubble_chart.js"></script>
+
+		<script>
+			$().ready(function() {
+		        var gbc = new ScholarsVis.GrantsBubbleChart.DepartmentVisualization({
+		            department : 'http://scholars.cornell.edu/individual/org68763',
+		            target : '#modal_grants_vis',
+		            mainDiv : '#grantsMainDiv',
+			        legendDiv : '#grantsLegendDiv',
+			        modal : true
+		        });
+		        $('#grants_trigger').click(gbc.show);
+			});
+		</script>
+
+		<div id="modal_grants_vis" class="scholars_vis_container vis_modal dept_grants_vis">
+		    <div id="grantsMainDiv"></div>
+            <div id="grantsLegendDiv"></div>
+		</div>
+		<button id="grants_trigger">Grants Bubble Chart</button>
+		
+	</body>
+</html>

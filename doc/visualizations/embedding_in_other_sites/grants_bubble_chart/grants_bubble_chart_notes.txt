@@ -1,0 +1,154 @@
+--------------------------------------------------------------------------------
+
+JavaScript requirements:
+
+--------------------------------------------------------------------------------
+
+A recent version of JQuery. For example:
+    https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js
+    
+A recent version of Bootstrap. For example:
+    https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js
+
+The main Scholars Visualization script:
+    http://scholars.cornell.edu/js/scholars-vis/scholars-vis.js
+    
+The script for the Grants bubble chart:
+    http://scholars.cornell.edu/js/scholars-vis/embed/grants_bubble_chart.js
+
+--------------------------------------------------------------------------------
+
+JavaScript resources:
+
+--------------------------------------------------------------------------------
+
+new ScholarsVis.GrantsBubbleChart.DepartmentVisualization()
+      Creates a structure for the simple bubble-chart for a specified 
+      department. There are no filter controls.
+
+new ScholarsVis.GrantsBubbleChart.FullDepartmentVisualization()
+      Creates a structure for the full bubble-chart for a specified
+      department, including vis view, table view, and export buttons. 
+      There are no filter controls.
+
+new ScholarsVis.GrantsBubbleChart.FullSiteVisualization()
+      Creates a structure for the full bubble-chart for all departments, 
+      including vis view, table view, and export buttons. 
+      The structure contains hooks for filter controls.
+
+ScholarsVis.GrantsBubbleChart.transform
+      The default function for transforming the data from the server into the 
+      form that is used by the display function.
+      INPUTS AND OUTPUTS LISTED BELOW.
+
+ScholarsVis.GrantsBubbleChart.display
+      The default function for displaying the bubble-chart.
+
+ScholarsVis.GrantsBubbleChart.closer
+      The default function for closing the bubble-chart. Used when switching 
+      between views, or when closing a modal dialog box.
+
+--------------------------------------------------------------------------------
+
+Data from the server (prior to transform):
+
+The format is the output of a SPARQL SELECT query, with content type of
+"application/sparql-results+json". 
+
+The head contains a list of the available variables in the results.
+
+The results is an array of bindings, each represenging one result row from the
+SELECT query. If a variable is not bound in a given result, it is omitted from 
+the bindings object. 
+
+The data contains results for all departments. The transform function will 
+filter out data for other departments.
+   
+--------------------------------------------------------------------------------
+
+{
+  "head": {
+    "vars": [ "grant" , "grantTitle" , "grantId" , "type" , "amount" , "fundingOrg" , "fundingOrgName" , 
+              "person" , "personName" , "personNetid" , "role" , "dept" , "deptName" , "startdt" , "enddt" ]
+  } ,
+  "results": {
+    "bindings": [
+      {
+        "grant": { "type": "uri" , "value": "http://scholars.cornell.edu/individual/gnt81803" } ,
+        "grantTitle": { "type": "literal" , "value": "BIOLOGICAL CONTROL OF CORN ROOTWORM USING NATIVE NY ENTOMOPATHOGENIC NEMATODES" } ,
+        "grantId": { "type": "literal" , "value": "81803" } ,
+        "type": { "type": "uri" , "value": "http://vivoweb.org/ontology/core#Grant" } ,
+        "amount": { "type": "literal" , "value": "99979.0" } ,
+        "fundingOrg": { "type": "uri" , "value": "http://scholars.cornell.edu/individual/org57380" } ,
+        "fundingOrgName": { "type": "literal" , "value": "NEW YORK FARM VIABILITY INSTITUTE" } ,
+        "person": { "type": "uri" , "value": "http://scholars.cornell.edu/individual/es28" } ,
+        "personName": { "type": "literal" , "value": "Shields, Elson J." } ,
+        "personNetid": { "type": "literal" , "value": "es28" } ,
+        "role": { "type": "uri" , "value": "http://vivoweb.org/ontology/core#PrincipalInvestigatorRole" } ,
+        "dept": { "type": "uri" , "value": "http://scholars.cornell.edu/individual/org95927" } ,
+        "deptName": { "type": "literal" , "value": "Entomology" } ,
+        "startdt": { "datatype": "http://www.w3.org/2001/XMLSchema#dateTime" , "type": "typed-literal" , "value": "2017-01-01T05:00:00.872Z" } ,
+        "enddt": { "datatype": "http://www.w3.org/2001/XMLSchema#dateTime" , "type": "typed-literal" , "value": "2019-12-31T05:00:00.872Z" }
+      } ,
+      
+      ... additional bindings ...
+      
+    ]
+  }
+}
+
+--------------------------------------------------------------------------------
+
+The default transform function...
+
+* Filters out data for other departments.
+
+* Simplifies the data structure.
+
+* Merges multiple records for each grant.
+    The original results contain one record for each person associated with a
+    graph, either as Principal Investigator or Co-Principal Investigator, 
+
+Here is an example of the resulting format:
+   
+--------------------------------------------------------------------------------
+
+[
+  {
+    "group": "medium",
+    "people": [
+      {
+        "uri": "/scholars/display/dm24",
+        "name": "Muller, David Anthony",
+        "netid": "dm24",
+        "role": "PI"
+      },
+      {
+        "uri": "/scholars/display/hda1",
+        "name": "Abruna, Hector D.",
+        "netid": "hda1",
+        "role": "CO"
+      }
+    ],
+    "P-I-Id": "55226-3713",
+    "grant": {
+      "uri": "/scholars/display/gnt76832",
+      "title": "HIGHLY-ACCESSIBLE CATALYSTS FOR DURABLE HIGH-POWER PERFORMANCE",
+      "type": "CONTRACT"
+    },
+    "dept": {
+      "code": "CBE",
+      "name": "Applied and Engineering Physics",
+      "uri": "/scholars/display/org93835"
+    },
+    "funagen": {
+      "name": "GENERAL MOTORS",
+      "uri": "/scholars/display/org49248"
+    },
+    "Cost": 600000,
+    "End": "2019",
+    "Start": "2016",
+    "id": "76832"
+  }
+...
+]

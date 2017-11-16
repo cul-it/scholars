@@ -1,78 +1,107 @@
-ScholarsVis["SiteGrants"] = function(options) {
-    var defaults = {
-            url : ScholarsVis.Utilities.baseUrl + "api/dataRequest/grants_bubble_chart",
-            transform : transformGrantsData,
-            views : {
-                vis : {
-                    display : displayGrantsWithControls,
-                    closer : closeGrantsVis,
-                    export : {
-                        json : {
-                            filename: "siteGrants.json",
-                            call: exportSiteGrantsVisAsJson
-                        },
-                        svg : {
-                            filename: "siteGrants.svg",
-                            call: exportSiteGrantsVisAsSvg
-                        }
-                    }
-                },
-                table: {
-                    display : drawSiteGrantsTable,
-                    closer : closeSiteGrantsTable,
-                    export : {
-                        csv : {
-                            filename: "siteGrantsTable.csv",
-                            call: exportSiteGrantsTableAsCsv,
-                        },
-                        json : {
-                            filename: "siteGrantsCloudTable.json",
-                            call: exportSiteGrantsTableAsJson
-                        }
-                    }
-                }
-            }
-    };
-    return new ScholarsVis.Visualization(options, defaults);
-};
+/*******************************************************************************
+ * 
+ * Define the structures that embed the visualization into HTML
+ *   simple for one department, no controls.
+ *   full (multiple views and export buttons), for one department, no controls.
+ *   full (multiple views and export buttons), for the site, with controls.
+ * 
+ * Also, define the functions that another site might want to override.
+ *
+ ******************************************************************************/
 
-ScholarsVis["DepartmentGrants"] = function(options) {
-    var defaults = {
-            url : ScholarsVis.Utilities.baseUrl + "api/dataRequest/grants_bubble_chart",
-            transform : transformGrantsData,
-            views : {
-                vis : {
+ScholarsVis["GrantsBubbleChart"] = {
+        transform: transformGrantsData,
+        display: displayGrantsWithoutControls,
+        closer: closeGrantsVis,
+        
+        DepartmentVisualization: function(options) {
+            var defaults = {
+                    url : ScholarsVis.Utilities.baseUrl + "api/dataRequest/grants_bubble_chart",
+                    transform : transformGrantsData,
                     display : displayGrantsWithoutControls,
-                    closer : closeGrantsVis,
-                    export : {
-                        json : {
-                            filename: "departmentGrants.json",
-                            call: exportDepartmentGrantsVisAsJson
+                    closer : closeGrantsVis
+            };
+            return new ScholarsVis.Visualization(options, defaults);
+        },
+
+        FullDepartmentVisualization: function(options) {
+            var defaults = {
+                    url : ScholarsVis.Utilities.baseUrl + "api/dataRequest/grants_bubble_chart",
+                    transform : transformGrantsData,
+                    views : {
+                        vis : {
+                            display : displayGrantsWithoutControls,
+                            closer : closeGrantsVis,
+                            export : {
+                                json : {
+                                    filename: "departmentGrants.json",
+                                    call: exportDepartmentGrantsVisAsJson
+                                },
+                                svg : {
+                                    filename: "departmentGrants.svg",
+                                    call: exportDepartmentGrantsVisAsSvg
+                                }
+                            }
                         },
-                        svg : {
-                            filename: "departmentGrants.svg",
-                            call: exportDepartmentGrantsVisAsSvg
+                        table: {
+                            display : drawDepartmentGrantsTable,
+                            closer : closeDepartmentGrantsTable,
+                            export : {
+                                csv : {
+                                    filename: "departmentGrantsTable.csv",
+                                    call: exportDepartmentGrantsTableAsCsv,
+                                },
+                                json : {
+                                    filename: "departmentGrantsCloudTable.json",
+                                    call: exportDepartmentGrantsTableAsJson
+                                }
+                            }
                         }
                     }
-                },
-                table: {
-                    display : drawDepartmentGrantsTable,
-                    closer : closeDepartmentGrantsTable,
-                    export : {
-                        csv : {
-                            filename: "departmentGrantsTable.csv",
-                            call: exportDepartmentGrantsTableAsCsv,
+            };
+            return new ScholarsVis.Visualization(options, defaults);
+        },
+        
+        FullSiteVisualization: function(options) {
+            var defaults = {
+                    url : ScholarsVis.Utilities.baseUrl + "api/dataRequest/grants_bubble_chart",
+                    transform : transformGrantsData,
+                    views : {
+                        vis : {
+                            display : displayGrantsWithControls,
+                            closer : closeGrantsVis,
+                            export : {
+                                json : {
+                                    filename: "siteGrants.json",
+                                    call: exportSiteGrantsVisAsJson
+                                },
+                                svg : {
+                                    filename: "siteGrants.svg",
+                                    call: exportSiteGrantsVisAsSvg
+                                }
+                            }
                         },
-                        json : {
-                            filename: "departmentGrantsCloudTable.json",
-                            call: exportDepartmentGrantsTableAsJson
+                        table: {
+                            display : drawSiteGrantsTable,
+                            closer : closeSiteGrantsTable,
+                            export : {
+                                csv : {
+                                    filename: "siteGrantsTable.csv",
+                                    call: exportSiteGrantsTableAsCsv,
+                                },
+                                json : {
+                                    filename: "siteGrantsCloudTable.json",
+                                    call: exportSiteGrantsTableAsJson
+                                }
+                            }
                         }
                     }
-                }
-            }
-    };
-    return new ScholarsVis.Visualization(options, defaults);
-};
+            };
+            return new ScholarsVis.Visualization(options, defaults);
+        }
+}
+
+/*****************************************************************************/
 
 var grantsController;
 
