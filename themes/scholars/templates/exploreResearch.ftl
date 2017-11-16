@@ -288,6 +288,7 @@ var imagesUrl = "${urls.images}";
 </script>
 ${scripts.add('<script type="text/javascript" src="${urls.base}/js/exploreResearch.js"></script>',
 			  '<script type="text/javascript" src="https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js"></script>',
+			  '<script type="text/javascript" src="https://d39af2mgp1pqhg.cloudfront.net/widget-popup.js"></script>',
 			  '<script type="text/javascript" src="${urls.base}/js/scholars-vis/utils/nouislider.min.js"></script>',
 			  '<script type="text/javascript" src="${urls.base}/js/jquery_plugins/jquery.scrollTo-min.js"></script>')}
 <#-- @dumpAll/ -->

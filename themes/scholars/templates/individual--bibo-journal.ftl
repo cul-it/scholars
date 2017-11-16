@@ -81,7 +81,7 @@
 	<#assign pubVenueList>
 		<div class="row profile-sub-row" role="row">
 			<div id="abstract-hdr" class="profile-label">Articles in Scholars@Cornell</div>
-			<div class="abstract-text" style="max-height:650px;overflow:auto">
+			<div class="abstract-text pubvenue-list">
 				<@p.objectProperty pubVenueProp false />
 			</div>
 		</div>

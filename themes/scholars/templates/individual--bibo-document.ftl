@@ -284,8 +284,10 @@
 </#if>
 <#if doi?has_content>
 	<#assign fullTextLink = "http://dx.doi.org/${doi!}" />
+	<#assign plumxParam = "doi=${doi!}" />
 <#elseif pmid?has_content>
 	<#assign fullTextLink = "http://www.ncbi.nlm.nih.gov/pubmed/?term=${pmid!}" />
+	<#assign plumxParam = "pmid=${pmid!}" />
 </#if>
 <#if keywordsProp?has_content && keywordsProp.statements?has_content>
 	<#assign keywordsList>
@@ -358,30 +360,56 @@
 		</div>
 	</#assign>
 </#if>
+<#-- 
+		No DOI or PMID means no metrics. Set column width accordingly.
+-->
+<#if !doi?has_content && !pmid?has_content>
+	<#assign setColumn = "col-sm-12" />
+	
+<#else>
+	<#assign setColumn = "col-sm-8" />
+	
+</#if>
 <#-- The row1 div contains the top portion of the profile page: tile, icon controls, authors, key metadata -->
 <div id="row1" class="row f1f2f3-bkg">
 <div class="col-sm-12 col-md-12 col-lg-12 scholars-container" id="biboDocumentMainColumn">
 
 <section id="individual-info" ${infoClass!} role="region">
-    <#include "individual-adminPanel.ftl">
+    <#-- include "individual-adminPanel.ftl" -->
 
     <#if individualProductExtensionPreHeader??>
         ${individualProductExtensionPreHeader}
     </#if>
 	
     <header>
-			<#include "individual-altmetric.ftl">
-            <h1 class="fn bibo-profile-title" itemprop="name">
-                <#-- Label -->
-                <@p.label individual editable labelCount localesCount languageCount/>
-                <#--  Most-specific types -->
-                <@p.mostSpecificTypes individual />
-            </h1>
-		<div class="bibo-doc-controls">
-			<#include "document-iconControls.ftl" />
-		</div>
+		<div  class="row fff-bkg no-padding no-margin">
+			<div id="metrics-container" class="col-sm-2" style="text-align:center;display:none;">
+				<div id="altmetrics">
+					<#include "individual-altmetric.ftl" >
+				</div>
+				<div id="plumx">
+					<a href="https://plu.mx/plum/a/?${plumxParam!}" data-size="medium" data-on-success="biboDocument.showPlumX" data-on-empty="biboDocument.hidePlumX" data-hide-when-empty="true" data-popup="right" class="plumx-plum-print-popup"></a>
+				</div>
+				<div id="metric-links"> 
+					<span id="alt-container" style="font-size:10px;font-weight:bold">Altmetrics</span>
+					<span id="metric-divider">|</span>
+					<span id="plum-container" style="font-size:10px;font-weight:bold"><a id="plumx-link" href="javascript:" style="font-weight:bold">PlumX</a></span>
+				</div>
+			</div>
+			<div id="title-container" class="${setColumn!} no-padding">
+            	<h1 class="fn bibo-profile-title" itemprop="name">
+                	<#-- Label -->
+                	<@p.label individual false labelCount localesCount languageCount/>
+                	<#--  Most-specific types -->
+                	<@p.mostSpecificTypes individual />
+            	</h1>
+			</div>
+			<div class="col-sm-2 no-padding">
+				<div class="bibo-doc-controls"><#include "document-iconControls.ftl" /></div>
+			</div>
 
 		<h2 id="bibo-heading-break">  </h2>
+		</div>
     </header>
 	<div class="row profile-row fff-bkg header-metadata" role="row">
 		<div class="col-sm-9 col-md-9 col-lg-9">
@@ -517,8 +545,12 @@
 
 <div id="profile-bottom" class="row f1f2f3-bkg"></div>
 
-<script>
+<script type="text/javascript">
     var individualLocalName = "${individual.localName}";
+	$(document).ready(function(){
+	  $('.metrics').slick();
+	});
+	
 </script>
 <script>
 var i18nStrings = {
@@ -537,7 +569,6 @@ var i18nStringsUriRdf = {
     viewRDFProfile: '${i18n().view_profile_in_rdf}',
     closeString: '${i18n().close}'
 };
-
 </script>
 
 
@@ -575,6 +606,7 @@ var i18nStringsUriRdf = {
 
 ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/individual/individual-vivo.css?vers=1.5.1" />',
 				  '<link rel="stylesheet" href="${urls.base}/css/jquery_plugins/jquery.qtip.min.css" />',
+				  '<link rel="stylesheet" href="https://cdn.jsdelivr.net/jquery.slick/1.6.0/slick.css" />',
 				  '<link rel="stylesheet" href="${urls.base}/css/individual/individual.css?vers=1.5.1" />')}
 
 ${headScripts.add('<script type="text/javascript" src="${urls.base}/js/jquery_plugins/jquery.truncator.js"></script>',
@@ -582,6 +614,11 @@ ${headScripts.add('<script type="text/javascript" src="${urls.base}/js/jquery_pl
                   '<script type="text/javascript" src="${urls.base}/js/json2.js"></script>')}
                   
 ${scripts.add('<script type="text/javascript" src="${urls.base}/js/individual/individualUtils.js?vers=1.5.1"></script>',
+			  '<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery.slick/1.6.0/slick.min.js"></script>',
 			  '<script type="text/javascript" src="https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js"></script>',
+			  '<script type="text/javascript" src="https://d39af2mgp1pqhg.cloudfront.net/widget-popup.js"></script>',
 	          '<script type="text/javascript" src="${urls.base}/js/individual/moreLessController.js"></script>',
-              '<script type="text/javascript" src="${urls.base}/themes/scholars/js/individualUriRdf.js"></script>')}
+              '<script type="text/javascript" src="${urls.base}/themes/scholars/js/individualUriRdf.js"></script>',
+              '<script type="text/javascript" src="${urls.base}/themes/scholars/js/bibo-document.js"></script>')}
+
+
