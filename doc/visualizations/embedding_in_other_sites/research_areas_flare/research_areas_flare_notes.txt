@@ -1,0 +1,114 @@
+--------------------------------------------------------------------------------
+
+JavaScript requirements:
+
+--------------------------------------------------------------------------------
+
+A recent version of JQuery. For example:
+    https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js
+    
+A recent version of Bootstrap. For example:
+    https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js
+
+The main Scholars Visualization script:
+    http://scholars.cornell.edu/js/scholars-vis/scholars-vis.js
+    
+The script for the research areas flare:
+    http://scholars.cornell.edu/js/scholars-vis/embed/reserarch_areas_flare.js
+
+--------------------------------------------------------------------------------
+
+JavaScript resources:
+
+--------------------------------------------------------------------------------
+
+new ScholarsVis.ResearchAreasFlare.Visualization()
+      Creates a structure for the simple flare. Fetches data for research areas 
+      from a specified department.
+
+new ScholarsVis.ResearchAreasFlare.FullVisualization()
+      Creates a structure for the full flare visualization, including vis 
+      view, table view, and export buttons. Fetches data for research areas 
+      from a specified department.
+
+ScholarsVis.ResearchAreasFlare.transform
+      The default function for transforming the data from the server into the 
+      form that is used by the display function.
+      INPUTS AND OUTPUTS LISTED BELOW.
+
+ScholarsVis.ResearchAreasFlare.display
+      The default function for displaying the flare.
+
+ScholarsVis.ResearchAreasFlare.closer
+      The default function for closing the flare. Used when switching between
+      views, or when closing a modal dialog box.
+
+--------------------------------------------------------------------------------
+
+Data from the server (prior to transform):
+
+An RDF graph in Turtle format, relating authors with the subject areas of their 
+publications, based on which journal each article was published in, and the 
+subject areas of those journals. 
+
+The RDF structure of the graph looks like this:
+   
+--------------------------------------------------------------------------------
+
+?author 
+    rdfs:label ?name ;
+    vivo:relatedBy ?authorship .
+?authorship vivo:relates ?article .
+?article 
+    vivo:hasPublicationVenue ?journal .
+?journal
+    vivo:hasSubjectArea ?concept .
+?concept 
+    rdfs:label ?subject .
+
+
+--------------------------------------------------------------------------------
+
+The default transform function...
+
+...traverses the model, accunulating a list of all authors, and all subject 
+areas, and creates links between them.
+   
+--------------------------------------------------------------------------------
+
+{
+	"ditems": [{
+		"type": "ditem",
+		"ditem": 21,
+		"name": "Adie, Steven Graham",
+		"url": "/scholars/display/sga42",
+		"links": ["Oncology & Carcinogenesis", "Optoelectronics & Photonics"]
+	}, {
+		"type": "ditem",
+		"ditem": 18,
+		"name": "Archer, Shivaun D.",
+		"url": "/scholars/display/sda4",
+		"links": ["Nanoscience & Nanotechnology"]
+	}, {
+
+    ... more faculty members ...
+	
+	}],
+	"themes": [{
+		"type": "theme",
+		"name": "Acoustics",
+		"description": "",
+		"slug": "Acoustics",
+		"uri": "http://scholars.cornell.edu/individual/SA-33392"
+	}, {
+		"type": "theme",
+		"name": "Aerospace & Aeronautics",
+		"description": "",
+		"slug": "Aerospace & Aeronautics",
+		"uri": "http://scholars.cornell.edu/individual/SA-89197"
+	}, {
+	
+	... more subject areas ...
+	
+	}]
+}

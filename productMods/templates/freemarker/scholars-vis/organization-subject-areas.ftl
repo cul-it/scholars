@@ -105,16 +105,14 @@
 </div>
 
 ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/utils/accordion-controls.css" />',
-                  '<link rel="stylesheet" href="${urls.base}/css/scholars-vis/org-research-areas/ra.css" />',
                   '<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">',
                   '<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Raleway" />',
 	              '<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Muli" />')}
 
-${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></script>',
-              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/scholars-vis.js"></script>',
+${scripts.add('<script type="text/javascript" src="${urls.base}/js/scholars-vis/scholars-vis.js"></script>',
               '<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>',
               '<script type="text/javascript" src="${urls.base}/js/scholars-vis/utils/accordion-controls.js"></script>',
-			  '<script type="text/javascript" src="${urls.base}/js/scholars-vis/org-research-areas/organization-research-areas.js"></script>')}
+			  '<script type="text/javascript" src="${urls.base}/js/scholars-vis/embed/research_areas_flare.js"></script>')}
 
 <script>
 $().ready(function() {
@@ -136,7 +134,7 @@ $().ready(function() {
         if (ora != null) {
             ora.hide();
         }
-        ora = new ScholarsVis.OrganizationResearchAreas({
+        ora = new ScholarsVis.ResearchAreasFlare.FullVisualization({
             target : '#organization-subject-areas',
             organization : dept.uri
         });
