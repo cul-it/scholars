@@ -1,6 +1,5 @@
 <html>
 	<head>
-	    <title>Grants Bubble Chart</title>
 		<style type="text/css">
 			#grants_vis {
 				height: 800px;
@@ -10,6 +9,12 @@
 	</head>
 	
 	<body>
+	    <h1>Grants Bubble Chart</h1>
+		<div id="grants_vis" class="scholars_vis_container dept_grants_vis">
+		    <div id="grantsMainDiv"></div>
+            <div id="grantsLegendDiv"></div>
+		</div>
+
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
@@ -31,10 +36,5 @@
 		        gbc.show();
 			});
 		</script>
-
-		<div id="grants_vis" class="scholars_vis_container dept_grants_vis">
-		    <div id="grantsMainDiv"></div>
-            <div id="grantsLegendDiv"></div>
-		</div>
 	</body>
 </html>

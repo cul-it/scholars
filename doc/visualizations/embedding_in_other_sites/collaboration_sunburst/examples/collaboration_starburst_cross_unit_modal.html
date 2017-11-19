@@ -1,8 +1,11 @@
 <html>
 	<head>
-	    <title>Cross-Unit Collaboration Starburst (modal)</title>
 	</head>
 	<body>
+	    <h1>Cross-Unit Collaboration Starburst (modal)</h1>
+		<div id="collab_vis" class="scholars_vis_container vis_modal dept_collab_vis"></div>
+		<button id="cu_collab_trigger">Cross-unit Sunburst</button>
+
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
@@ -23,8 +26,5 @@
 		        $('#cu_collab_trigger').click(cucs.show);
 			});
 		</script>
-
-		<div id="collab_vis" class="scholars_vis_container vis_modal dept_collab_vis"></div>
-		<button id="cu_collab_trigger">Cross-unit Sunburst</button>
 	</body>
 </html>
