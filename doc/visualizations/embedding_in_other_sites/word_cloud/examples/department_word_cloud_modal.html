@@ -1,0 +1,36 @@
+<html>
+	<head>
+		<style type="text/css">
+			#wc_vis {
+				height: 800px;
+				width: 800px;
+			}
+		</style>
+	</head>
+	
+	<body>
+	    <h1>Department Word Cloud (Modal)</h1>
+		<div id="wc_vis" class="scholars_vis_container vis_modal dept_collab_vis"></div>
+		<button id="dwc_trigger">Department Word Cloud</button>
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+		<!-- In production, use these:
+		<script src="http://scholars.cornell.edu/js/scholars-vis/scholars-vis.js"></script>
+		<script src="http://scholars.cornell.edu/js/scholars-vis/embed/word_cloud.js"></script>
+		-- instead of these: -->
+		<script src="http://localhost:8080/scholars/js/scholars-vis/scholars-vis.js"></script>
+		<script src="http://localhost:8080/scholars/js/scholars-vis/embed/word_cloud.js"></script>
+
+		<script>
+			$().ready(function() {
+		        var dwc = new ScholarsVis.WordCloud.DepartmentVisualization({
+		            department : 'http://scholars.cornell.edu/individual/org68763',
+		            target : '#wc_vis'
+		        });
+		        $('#dwc_trigger').click(dwc.show);
+			});
+		</script>
+	</body>
+</html>

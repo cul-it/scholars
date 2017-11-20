@@ -36,7 +36,7 @@ function createWordCloudSelector(siteSelector, departmentSelector, personSelecto
         if (deptWc) { 
             deptWc.hide()
         };
-        deptWc = new ScholarsVis.DepartmentWordCloud({
+        deptWc = new ScholarsVis.WordCloud.FullDepartmentVisualization({
             target : unitWcContainer,
             department : unit.uri
         });
@@ -50,7 +50,7 @@ function createWordCloudSelector(siteSelector, departmentSelector, personSelecto
         if (personWc) { 
             personWc.hide()
         };
-        personWc = new ScholarsVis.PersonWordCloud({
+        personWc = new ScholarsVis.WordCloud.FullPersonVisualization({
             target : personWcContainer,
             person : person.uri
         });

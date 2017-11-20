@@ -402,16 +402,14 @@ Visualizations
 ======================================================================= 
 -->
 
-${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/keywordcloud/kwcloud.css" />')}
 ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/org-research-areas/ra.css" />',
                   '<link rel="stylesheet" href="${urls.base}/css/jquery_plugins/jquery.qtip.min.css" />')}
 
 ${scripts.add('<script type="text/javascript" src="${urls.base}/js/scholars-vis/scholars-vis.js"></script>',
+              '<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>',
               '<script type="text/javascript" src="${urls.base}/js/scholars-vis/embed/collaboration-sunburst.js"></script>',
               '<script type="text/javascript" src="${urls.base}/js/scholars-vis/embed/grants_bubble_chart.js"></script>',
-              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/d3/d3.layout.cloud.js"></script>',
-              '<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>',
-              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/wordcloud/word-cloud.js"></script>')}
+              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/embed/word_cloud.js"></script>')}
 
 <#-- 
 =======================================================================
@@ -491,7 +489,7 @@ Word-cloud vis
 <script>
 $().ready(function() {
     if ($('#word_cloud_icon_holder')) {
-        var wc = new ScholarsVis.DepartmentWordCloud({
+        var wc = new ScholarsVis.WordCloud.FullDepartmentVisualization({
             target : '#word_cloud_vis',
             modal : true,
             department : "${individual.uri?url}",

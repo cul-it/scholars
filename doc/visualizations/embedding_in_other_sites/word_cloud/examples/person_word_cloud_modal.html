@@ -1,0 +1,31 @@
+<html>
+	<head>
+	</head>
+	
+	<body>
+	    <h1>Person Word Cloud (Modal)</h1>
+		<div id="wc_vis" class="scholars_vis_container vis_modal dept_collab_vis"></div>
+		<button id="pwc_trigger">Person Word Cloud</button>
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+		<!-- In production, use these:
+		<script src="http://scholars.cornell.edu/js/scholars-vis/scholars-vis.js"></script>
+		<script src="http://scholars.cornell.edu/js/scholars-vis/embed/word_cloud.js"></script>
+		-- instead of these: -->
+		<script src="http://localhost:8080/scholars/js/scholars-vis/scholars-vis.js"></script>
+		<script src="http://localhost:8080/scholars/js/scholars-vis/embed/word_cloud.js"></script>
+
+		<script>
+			$().ready(function() {
+		        var pwc = new ScholarsVis.WordCloud.PersonVisualization({
+		            person : 'http://scholars.cornell.edu/individual/lb244',
+		            target : '#wc_vis',
+		            modal : true
+		        });
+		        $('#pwc_trigger').click(pwc.show);
+			});
+		</script>
+	</body>
+</html>
