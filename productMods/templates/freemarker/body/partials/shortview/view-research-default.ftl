@@ -64,6 +64,7 @@
 			</div>
 		</div>
 	</#if>
+	<#if adminOrg?has_content>
     <div class="row fff-bkg" style="margin:0;padding:8px 0 0;">
 		<div class="col-md-3" style="font-size:16px;color:#CC6949;padding:0;line-height:1.25em">
 				Administered By
@@ -72,6 +73,8 @@
 				<a href="${profileUrl(adminOrg!)}" title="View the profile page for ${orgLabel!}">${orgLabel!}</a>
 		</div>
 	</div>
+	</#if>
+	<#if fundingOrg?has_content>
     <div class="row fff-bkg" style="margin:0;padding:8px 0 0;">
 		<div class="col-md-3" style="font-size:16px;color:#CC6949;padding:0;line-height:1.25em">
 				Funding Agency
@@ -83,6 +86,7 @@
 	  </#if>
 		</div>
 	</div>
+	</#if>
     <div class="row fff-bkg" style="margin:0;padding:8px 0 0;">
 		<div class="col-md-3" style="font-size:16px;color:#CC6949;padding:0;line-height:1.25em">
 			Years Active

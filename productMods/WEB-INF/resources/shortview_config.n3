@@ -356,11 +356,18 @@ mydomain:grantContractDetailsDG
 	PREFIX vivo:     <http://vivoweb.org/ontology/core#>
 	SELECT DISTINCT ?adminOrg ?fundingOrg ?orgLabel ?funder ?start ?end
 	WHERE
-	{
+	{{
 	      ?individualUri vivo:relates ?adminRole .
 	      ?adminRole a vivo:AdministratorRole .
 	      ?adminRole obo:RO_0000052 ?adminOrg .
 	      ?adminOrg rdfs:label ?orgLabel .
+	      ?individualUri vivo:dateTimeInterval ?dtv .
+	      ?dtv vivo:start ?startDate .
+	      ?startDate vivo:dateTime ?start .
+	      ?dtv vivo:end ?endDate .
+	      ?endDate vivo:dateTime ?end .
+	} UNION
+	{
 		  ?individualUri vivo:assignedBy ?fundingOrg .
 		  ?fundingOrg rdfs:label ?funder .
 	      ?individualUri vivo:dateTimeInterval ?dtv .
@@ -368,7 +375,7 @@ mydomain:grantContractDetailsDG
 	      ?startDate vivo:dateTime ?start .
 	      ?dtv vivo:end ?endDate .
 	      ?endDate vivo:dateTime ?end .
-	}
+	}}
 	""" .
 
 mydomain:grantContractInvestigatorsDG
