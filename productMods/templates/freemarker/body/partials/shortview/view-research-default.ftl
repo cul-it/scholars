@@ -83,7 +83,7 @@
 	  <#if funder?? >
 		<a href="${profileUrl(fundingOrg!)}" title="View the profile page for funding agency">
 		${funder?capitalize?replace("Nsf","NSF")?replace("Nih","NIH")?replace("Dhhs","DHHS")?replace("usda","USDA")?replace("Usda","USDA")?replace("A&m","A&M")?replace("Doe","DOE")?replace("Dod","DOD")?replace("Rsch","RSCH")?replace("Res","RES")?replace("Ltd","LTD")?replace("Fdn","FDN")?replace("Doi","DOI")?replace("Gsa","GSA")?replace("Doc","DOC")?replace(" Us"," US")}</a>
-	  </#if>
+	  </#if> 
 		</div>
 	</div>
 	</#if>
