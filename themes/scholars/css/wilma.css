@@ -2169,7 +2169,13 @@ div#hztl-visualization-column div p {
 	height: 320px; 
 }
 .pending-tab-content article p {
-	font-size:16px; 
+	font-size:17px; 
+}
+#approval-notice {
+	padding: 40px 40px 0 40px;
+}
+#approval-contact {
+	padding: 10px 40px 20px 63px;
 }
 a#subject-area-link {
 	color: #167093;
@@ -2685,6 +2691,10 @@ nav#alpha-browse-container {
 	height:90%;
 }
 
+.dept_grants_vis svg g text {
+	font-size: 80%;
+}
+
 .choices {
     background-color: rgba(50, 50, 50, 0.8);
     color: #DDDDDD;
@@ -2723,6 +2733,9 @@ nav#alpha-browse-container {
 }
 .developer {
 	z-index: 2;
+}
+#collab_vis svg {
+	background-color: #fff;
 }
 .conceptMap svg {
 	padding: none !important;

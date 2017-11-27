@@ -236,10 +236,9 @@ $(document).ready(function() {
 	  	<div id="tabs-1" class="pending-tab-content ui-tabs ui-tabs-panel">
 			<article class="property" role="article">
 				<i class="fa fa-asterisk pending-asterisk" aria-hidden="true"></i>
-				<p style="padding: 40px 40px 0 40px;">
-				Release of the full publication view<#if isInvestigator>, as well as grant details,</#if> is pending author approval.</p>
+				<p id="approval-notice">Pending author approval.</p>
 
-				<p style="padding: 0 40px 20px 63px;">If this is your profile page, please contact the <a href="${urls.base!}/contact" style="color:#167093">Scholars<em style="color:#167093">@</em>Cornell team</a> to activate the display of your publications<#if isInvestigator> and grants</#if>.</p>
+				<p id="approval-contact">Is this your page? Contact <a href="${urls.base!}/contact" style="color:#167093">Scholars<em style="color:#167093">@</em>Cornell</a> to activate your profile.</p>
 			</article>
 	    </div>
 	  
@@ -452,7 +451,7 @@ $().ready(function() {
 </script>
 <script>
 $().ready(function() {
-  var wc = new ScholarsVis.WordCloud.FullPersonVisualization({
+  var wc = new ScholarsVis.PersonWordCloud({
     target : '#word_cloud_vis',
     modal : true,
     person : "${individual.uri?url}",
@@ -499,11 +498,17 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/themes/scholars/
               '<script type="text/javascript" src="${urls.base}/js/individual/individualProfilePageType.js"></script>',
               '<script type="text/javascript" src="${urls.base}/js/imageUpload/imageUploadUtils.js"></script>')}
 
-${scripts.add('<script type="text/javascript" src="${urls.base}/js/scholars-vis/scholars-vis.js"></script>',
+${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/jqModal.css" />')}
+
+${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></script>',
+	              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/jqModal.js"></script>',
+	              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/scholars-vis.js"></script>',
+	              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/d3/d3-tip.js"></script>',
 				  '<script type="text/javascript" src="https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js"></script>',
 				  '<script type="text/javascript" src="https://d39af2mgp1pqhg.cloudfront.net/widget-popup.js"></script>',
+	              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/d3/d3.layout.cloud.js"></script>',
                   '<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>',
-				  '<script type="text/javascript" src="${urls.base}/js/scholars-vis/embed/word_cloud.js"></script>')}
+				  '<script type="text/javascript" src="${urls.base}/js/scholars-vis/wordcloud/word-cloud.js"></script>')}
 
 ${stylesheets.add('<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Raleway" />',
 	'<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Muli" />')}
