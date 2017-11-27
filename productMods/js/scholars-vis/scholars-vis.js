@@ -776,7 +776,8 @@ var ScholarsVis = (function() {
         }
         
         function figureBaseUrl() {
-            var rawSrc = $('script[src$="/scholars-vis.js"]').attr('src');
+            var rawSrc = $('script[src*="/scholars-vis.js"]').attr('src');
+            rawSrc = rawSrc.slice(0, rawSrc.indexOf('?'));
             var baseUrl = rawSrc.slice(0, - "js/scholars-vis/scholars-vis.js".length);
             return baseUrl;
         }
