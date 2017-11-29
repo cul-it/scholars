@@ -375,7 +375,7 @@
 <div class="col-sm-12 col-md-12 col-lg-12 scholars-container" id="biboDocumentMainColumn">
 
 <section id="individual-info" ${infoClass!} role="region">
-    <#-- include "individual-adminPanel.ftl" -->
+    <include "individual-adminPanel.ftl">
 
     <#if individualProductExtensionPreHeader??>
         ${individualProductExtensionPreHeader}
