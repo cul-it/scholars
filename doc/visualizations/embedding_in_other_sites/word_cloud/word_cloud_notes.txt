@@ -27,7 +27,7 @@ JavaScript resources:
 --------------------------------------------------------------------------------
 
 new ScholarsVis.WordCloud.PersonVisualization()
-      Creates a structure for the simple sunburst. Fetches data for the
+      Creates a structure for the simple word cloud. Fetches data for the
       specified faculty member.
 
 new ScholarsVis.WordCloud.FullPersonVisualization()

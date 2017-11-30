@@ -1,40 +1,67 @@
-ScholarsVis["UniversityWordCloud"] = function(options) {
-    var defaults = {
-            url : ScholarsVis.Utilities.baseUrl + "api/dataRequest/university_word_cloud",
-            transform : transformUniversityWordcloud,
-            views : {
-                vis : {
+/*******************************************************************************
+ * 
+ * Define the structures that embed the visualization into HTML:
+ *   person: simple and full
+ *   department: simple and full
+ * Where "full" includes the table view and the export functions.
+ * 
+ * Also, define the functions that another site might want to override.
+ *
+ ******************************************************************************/
+
+ScholarsVis["UniversityWordCloud"] = {
+        transform: transformUniversityWordcloud,
+        display: drawUniversityWordCloud,
+        closer: closeUniversityWordcloud,
+        
+        Visualization: function(options) {
+            var defaults = {
+                    url : ScholarsVis.Utilities.baseUrl + "api/dataRequest/university_word_cloud",
+                    transform : transformUniversityWordcloud,
                     display : drawUniversityWordCloud,
                     closer : closeUniversityWordcloud,
-                    export : {
-                        json : {
-                            filename: "universityWordCloud.json",
-                            call: exportUniversityWcVisAsJson
+            };
+            return new ScholarsVis.Visualization(options, defaults);
+        },
+        
+        FullVisualization: function(options) {
+            var defaults = {
+                    url : ScholarsVis.Utilities.baseUrl + "api/dataRequest/university_word_cloud",
+                    transform : transformUniversityWordcloud,
+                    views : {
+                        vis : {
+                            display : drawUniversityWordCloud,
+                            closer : closeUniversityWordcloud,
+                            export : {
+                                json : {
+                                    filename: "universityWordCloud.json",
+                                    call: exportUniversityWcVisAsJson
+                                },
+                                svg : {
+                                    filename: "universityWordCloud.svg",
+                                    call: exportUniversityWcVisAsSvg
+                                }
+                            }
                         },
-                        svg : {
-                            filename: "universityWordCloud.svg",
-                            call: exportUniversityWcVisAsSvg
+                        table: {
+                            display : drawUniversityWcTable,
+                            closer : closeUniversityWcTable,
+                            export : {
+                                csv : {
+                                    filename: "universityWordCloudTable.csv",
+                                    call: exportUniversityWcTableAsCsv,
+                                },
+                                json : {
+                                    filename: "universityWordCloudTable.json",
+                                    call: exportUniversityWcTableAsJson
+                                }
+                            }
                         }
                     }
-                },
-                table: {
-                    display : drawUniversityWcTable,
-                    closer : closeUniversityWcTable,
-                    export : {
-                        csv : {
-                            filename: "universityWordCloudTable.csv",
-                            call: exportUniversityWcTableAsCsv,
-                        },
-                        json : {
-                            filename: "universityWordCloudTable.json",
-                            call: exportUniversityWcTableAsJson
-                        }
-                    }
-                }
-            }
-    };
-    return new ScholarsVis.Visualization(options, defaults);
-};
+            };
+            return new ScholarsVis.Visualization(options, defaults);
+        }
+}
 
 
 /*******************************************************************************

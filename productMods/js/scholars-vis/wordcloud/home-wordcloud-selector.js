@@ -24,7 +24,7 @@ function createWordCloudSelector(siteSelector, departmentSelector, personSelecto
         if (siteWc) {
             siteWc.hide();
         } else {
-            siteWc = new ScholarsVis.UniversityWordCloud({
+            siteWc = new ScholarsVis.UniversityWordCloud.FullVisualization({
                 target : siteWcContainer,
             });
         }          

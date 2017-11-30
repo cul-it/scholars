@@ -1,0 +1,177 @@
+This is about embedding the Individual word cloud or the Department word cloud.
+
+The Site word cloud is not covered.
+
+--------------------------------------------------------------------------------
+
+JavaScript requirements:
+
+--------------------------------------------------------------------------------
+
+A recent version of JQuery. For example:
+    https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js
+    
+A recent version of Bootstrap. For example:
+    https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js
+
+The main Scholars Visualization script:
+    http://scholars.cornell.edu/js/scholars-vis/scholars-vis.js
+    
+The script for the word cloud:
+    http://scholars.cornell.edu/js/scholars-vis/embed/university_word_cloud.js
+
+--------------------------------------------------------------------------------
+
+JavaScript resources:
+
+--------------------------------------------------------------------------------
+
+new ScholarsVis.UniversityWordCloud.Visualization()
+      Creates a structure for the simple word cloud. Fetches data for the
+      entire university.
+
+new ScholarsVis.UniversityWordCloud.FullVisualization()
+      Creates a structure for the full word cloud visualization, including vis 
+      view, table view, and export buttons. Fetches data for the specified
+      entire university.
+
+ScholarsVis.UniversityWordCloud.transform
+      The default function for transforming the data from the server into the 
+      form that is used by the display function.
+      INPUTS AND OUTPUTS LISTED BELOW.
+
+ScholarsVis.UniversityWordCloud.display
+      The default function for displaying the word cloud.
+
+ScholarsVis.UniversityWordCloud.closer
+      The default function for closing the word cloud. Used when switching between
+      views, or when closing a modal dialog box.
+
+--------------------------------------------------------------------------------
+
+Data from the server (prior to transform):
+
+The data is in a JSON array. Each item of the array represents a keyword, with
+fields that specify 
+  - how many people use that keyword in their arcicles
+  - how many articles use that keyword
+Each keyword also includes an array of people with information about who that
+person is, and how many times they used the keyword in question.
+
+Note: the data includes some fields that are empty or null. 
+Note: each person may appear under more than one keyword.
+
+Here is an excerpt of the data from the server:
+   
+--------------------------------------------------------------------------------
+
+[
+  {
+    "persons": [
+      {
+        "personName": "Cynthia A Reinhart-King",
+        "personURI": "http://scholars.cornell.edu/individual/cak57",
+        "dt_yr_map": {},
+        "articleCount": 2
+      },
+      {
+        "personName": "Li  Li",
+        "personURI": "http://scholars.cornell.edu/individual/ll37",
+        "dt_yr_map": {},
+        "articleCount": 1
+      },
+      
+      ...
+      
+    ],
+    "countOfArticle": 395,
+    "keyword": "Time Factors",
+    "types": [
+      "MESH"
+    ],
+    "dates": null,
+    "countByPerson": 224
+  },
+  {
+    "persons": [
+    
+    ...
+    
+        ],
+    "countOfArticle": 969,
+    "keyword": "Molecular Sequence Data",
+    "types": [
+      "MESH"
+    ],
+    "dates": null,
+    "countByPerson": 186
+  }
+]    
+
+ 
+--------------------------------------------------------------------------------
+
+The default transform function...
+
+... reformats the JSON in a simple transformation, to it will meet the needs of
+the display method. 
+
+The data still consists of an array of keyword structures, each of which 
+contains some summary information and an array of structures for people who use
+that keyword in their articles.
+
+The fields are generally in a one-to-one correspondence, except that the empty
+fields have been removed, and the remaining names have been changed to fit the
+code in the display method.
+
+The keyword structures are sorted in descending order by size (number of people).
+Within each keyword structure the people structures are sorted in descending 
+order by article count.
+
+Here are some excerpts of the transformed data:
+
+--------------------------------------------------------------------------------
+
+[
+  {
+    "text": "Time Factors",
+    "size": 224,
+    "articleCount": 395,
+    "entities": [
+      {
+        "text": "W  Butler",
+        "uri": "/scholars/display/wrb2",
+        "artcount": 15
+      },
+      {
+        "text": "Kathryn Jean Boor",
+        "uri": "/scholars/display/kjb4",
+        "artcount": 11
+      },
+
+      ...      
+      
+    ]
+  },
+  {
+    "text": "Molecular Sequence Data",
+    "size": 186,
+    "articleCount": 969,
+    "entities": [
+      {
+        "text": "June Bowman Nasrallah",
+        "uri": "/scholars/display/jbn2",
+        "artcount": 27
+      },
+      {
+        "text": "Charles F Aquadro",
+        "uri": "/scholars/display/cfa1",
+        "artcount": 22
+      },
+      
+      ...
+      
+    ]
+  }
+]
+      
