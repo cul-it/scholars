@@ -782,6 +782,9 @@ var ScholarsVis = (function() {
                 rawSrc = rawSrc.slice(0, questionHere);
             }
             var baseUrl = rawSrc.slice(0, - "js/scholars-vis/scholars-vis.js".length);
+            if (baseUrl.length == 0) {
+                baseUrl = '/';
+            }
             return baseUrl;
         }
         
