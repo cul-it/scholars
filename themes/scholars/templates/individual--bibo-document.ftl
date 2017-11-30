@@ -375,7 +375,7 @@
 <div class="col-sm-12 col-md-12 col-lg-12 scholars-container" id="biboDocumentMainColumn">
 
 <section id="individual-info" ${infoClass!} role="region">
-    <#include "individual-adminPanel.ftl">
+    <#-- include "individual-adminPanel.ftl" -->
 
     <#if individualProductExtensionPreHeader??>
         ${individualProductExtensionPreHeader}
@@ -440,7 +440,7 @@
 <#if abstract?has_content || keywordsList?has_content || hasMeshTerm >
 	<div id="bibo-row-two" class="row f1f2f3-bkg">
 	<#if abstract?has_content>
-	  <div class="col-sm-5 col-md-5 col-lg-5 f1f2f3-bkg">
+	  <div class="col-sm-5 col-md-5 col-lg-5 f1f2f3-bkg no-left-padding">
   	  <#if keywordsList?has_content>
 	    <div class="row f1f2f3-bkg row-no-margins">
 			<div id="keywords" class="col-sm-12 col-md-12 col-lg-12 scholars-container">
@@ -451,8 +451,8 @@
 				</div>
 			</div>
 		</div>
-		</#if>
-		<#if hasMeshTerm>
+	  </#if>
+	  <#if hasMeshTerm>
 	    <div class="row f1f2f3-bkg row-no-margins">
 			<div id="keywords" class="col-sm-12 col-md-12 col-lg-12 scholars-container">
 				<div class="row profile-row profile-row-margins" >
@@ -462,7 +462,7 @@
 				</div>
 			</div>
 		</div>
-		</#if>
+	  </#if>
 	  </div>
 	  <#if keywordsList?has_content || hasMeshTerm > 
 	  <div class="col-sm-7 col-md-7 col-lg-7 no-padding">
@@ -470,18 +470,20 @@
 			<div id="abstract" class="col-sm-12 col-md-12 col-lg-12 scholars-container">
 				${abstract!}
 				<div class="row profile-row profile-row-margins" >
+				</div>
 			</div>
-		</div>
+	  	</div>
 	  </div>
 	  <#else>
-	  <div class="col-sm-12 col-md-12 col-lg-12 no-padding">
-		<div class="row f1f2f3-bkg row-no-margins">
-			<div id="abstract" class="col-sm-12 col-md-12 col-lg-12 scholars-container">
-				${abstract!}
-				<div class="row profile-row profile-row-margins" >
-			</div>
+	  	<div class="col-sm-12 col-md-12 col-lg-12 no-padding">
+			<div class="row f1f2f3-bkg row-no-margins">
+				<div id="abstract" class="col-sm-12 col-md-12 col-lg-12 scholars-container">
+					${abstract!}
+					<div class="row profile-row profile-row-margins" >
+					</div>
+				</div>
+	  		</div>
 		</div>
-	  </div>
 	  </#if>
 	<#else>
 		<#if keywordsList?has_content && hasMeshTerm>
