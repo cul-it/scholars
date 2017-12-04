@@ -102,3 +102,73 @@ local:orgHasAffilationsConfig a :ObjectPropertyDisplayConfig ;
     vitro:displayRankAnnot 20;
     vitro:hiddenFromDisplayBelowRoleLevelAnnot role:public ;
     vitro:prohibitedFromUpdateBelowRoleLevelAnnot role:public .
+
+### grant roles using the core:relates property ###
+
+local:grantPIRelatesContext a :ConfigContext ;
+    :hasConfiguration local:grantPIRelatesConfig ;
+    :configContextFor <http://vivoweb.org/ontology/core#relates> ;
+    :qualifiedByDomain      <http://vivoweb.org/ontology/core#Grant> ;
+    :qualifiedBy      <http://vivoweb.org/ontology/core#PrincipalInvestigatorRole> .
+
+local:grantPIRelatesConfig a :ObjectPropertyDisplayConfig ;
+    :listViewConfigFile "listViewConfig-relatedRole.xml"^^xsd:string ;
+    rdfs:label "grantRelates"@en-US;
+    :displayName "principal investigator" ;
+    vitro:displayRankAnnot 55;
+    vitro:hiddenFromDisplayBelowRoleLevelAnnot role:public ;
+    vitro:prohibitedFromUpdateBelowRoleLevelAnnot role:nobody ;
+    vitro:customEntryFormAnnot "edu.cornell.mannlib.vitro.webapp.edit.n3editing.configuration.generators.GrantHasContributorGenerator"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    :propertyGroup <http://vivoweb.org/ontology#vitroPropertyGroupaffiliation> .
+
+local:grantCoPIRelatesContext a :ConfigContext ;
+    :hasConfiguration local:grantCoPIRelatesConfig ;
+    :configContextFor <http://vivoweb.org/ontology/core#relates> ;
+    :qualifiedByDomain      <http://vivoweb.org/ontology/core#Grant> ;
+    :qualifiedBy      <http://vivoweb.org/ontology/core#CoPrincipalInvestigatorRole> .
+
+local:grantCoPIRelatesConfig a :ObjectPropertyDisplayConfig ;
+    :listViewConfigFile "listViewConfig-relatedRole.xml"^^xsd:string ;
+    rdfs:label "grantRelates"@en-US;
+    :displayName "co-principal investigator" ;
+    vitro:displayRankAnnot 55;
+    vitro:hiddenFromDisplayBelowRoleLevelAnnot role:public ;
+    vitro:prohibitedFromUpdateBelowRoleLevelAnnot role:nobody ;
+    vitro:customEntryFormAnnot "edu.cornell.mannlib.vitro.webapp.edit.n3editing.configuration.generators.GrantHasContributorGenerator"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    :propertyGroup <http://vivoweb.org/ontology#vitroPropertyGroupaffiliation> .
+
+### contract roles using the core:relates property ###
+
+local:contractPIRelatesContext a :ConfigContext ;
+    :hasConfiguration local:contractPIRelatesConfig ;
+    :configContextFor <http://vivoweb.org/ontology/core#relates> ;
+    :qualifiedByDomain      <http://vivoweb.org/ontology/core#Contract> ;
+    :qualifiedBy      <http://vivoweb.org/ontology/core#PrincipalInvestigatorRole> .
+
+local:contractPIRelatesConfig a :ObjectPropertyDisplayConfig ;
+    :listViewConfigFile "listViewConfig-relatedRole.xml"^^xsd:string ;
+    rdfs:label "grantRelates"@en-US;
+    :displayName "principal investigator" ;
+    vitro:displayRankAnnot 55;
+    vitro:hiddenFromDisplayBelowRoleLevelAnnot role:public ;
+    vitro:prohibitedFromUpdateBelowRoleLevelAnnot role:nobody ;
+    vitro:customEntryFormAnnot "edu.cornell.mannlib.vitro.webapp.edit.n3editing.configuration.generators.GrantHasContributorGenerator"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    :propertyGroup <http://vivoweb.org/ontology#vitroPropertyGroupaffiliation> .
+
+local:contractCoPIRelatesContext a :ConfigContext ;
+    :hasConfiguration local:contractCoPIRelatesConfig ;
+    :configContextFor <http://vivoweb.org/ontology/core#relates> ;
+    :qualifiedByDomain      <http://vivoweb.org/ontology/core#Contract> ;
+    :qualifiedBy      <http://vivoweb.org/ontology/core#CoPrincipalInvestigatorRole> .
+
+local:contractCoPIRelatesConfig a :ObjectPropertyDisplayConfig ;
+    :listViewConfigFile "listViewConfig-relatedRole.xml"^^xsd:string ;
+    rdfs:label "grantRelates"@en-US;
+    :displayName "co-principal investigator" ;
+    vitro:displayRankAnnot 55;
+    vitro:hiddenFromDisplayBelowRoleLevelAnnot role:public ;
+    vitro:prohibitedFromUpdateBelowRoleLevelAnnot role:nobody ;
+    vitro:customEntryFormAnnot "edu.cornell.mannlib.vitro.webapp.edit.n3editing.configuration.generators.GrantHasContributorGenerator"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    :propertyGroup <http://vivoweb.org/ontology#vitroPropertyGroupaffiliation> .
+
+

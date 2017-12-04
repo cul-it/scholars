@@ -64,15 +64,15 @@
       ======================================================================= 
       -->
 
-      <div id="departmentWordCloudVis" style="display:none; ">
-        <div class="vis_toolbar">
-          <span class="glyphicon glyphicon-info-sign pull-right" data-original-title="" title=""></span>
-          <a data-view-selector="vis" href="#" class="vis-view-toggle pull-right" style="display: none">Show visualization</a>
-          <a data-view-selector="table" href="#" class="vis-view-toggle pull-right">Show table format</a>
+      <div id="departmentWordCloudVis" class="scholars_vis_container" style="display:none; ">
+        <div id="title_bar">
+          <span class="glyphicon glyphicon-info-sign"></span>
+          <a data-view-selector="vis" href="#" style="display: none">Show visualization</a>
+          <a data-view-selector="table" href="#">Show table format</a>
           <span class="heading">Research Keywords</span>
         </div>
   
-        <div id="info_icon_text" style="display:none">
+        <div id="title_bar_info_text" style="display:none">
           <p>
             This visualization displays the research keywords for an entire academic unit, 
             and is an aggregation of the keywords found in all the articles authored by all 
@@ -93,13 +93,13 @@
         </div>
   
         <div id="time-indicator">
-          <img id="time-indicator-img" src="${urls.images}/indicator1.gif"/>
+          <img src="${urls.images}/indicator1.gif"/>
         </div>
 
-        <div data-view-id="vis" style="height: 90%;">
-          <div class="vis-exports-container" >
-            <a href="javascript:return false;" data-export-id="json" class="vis-view-toggle pull-right">Export as JSON</a>
-            <a href="javascript:return false;" data-export-id="svg" style="margin-right: 7px;" class="vis-view-toggle pull-right">Export as SVG</a>
+        <div data-view-id="vis">
+          <div id="exports_panel" >
+            <a href="#" data-export-id="json">Export as JSON</a>
+            <a href="#" data-export-id="svg">Export as SVG</a>
 	      </div>
           <font size="2">
             <#--	
@@ -110,12 +110,12 @@
           </font>
         </div>
 
-        <div data-view-id="table" class="vis-table-container">
-          <div class="vis-exports-container">
-            <a href="javascript:return false;" data-export-id="json"  class="vis-view-toggle pull-right">Export as JSON</a>
-            <a href="javascript:return false;" data-export-id="csv" style="margin-right: 10px;" class="vis-view-toggle pull-right">Export as CSV</a>
+        <div data-view-id="table">
+          <div id="exports_panel">
+            <a href="#" data-export-id="json">Export as JSON</a>
+            <a href="#" data-export-id="csv">Export as CSV</a>
           </div>
-          <table class="scholars-vis-table">
+          <table class="vis_table">
             <thead>
               <tr>
                 <th data-sort="string-ins">Keyword</th>
@@ -144,15 +144,15 @@
       ======================================================================= 
       -->
 
-      <div id="personWordCloudVis" style="display:none; ">
-        <div class="vis_toolbar">
-          <span class="glyphicon glyphicon-info-sign pull-right" data-original-title="" title=""></span>
-          <a data-view-selector="vis" href="#" class="vis-view-toggle pull-right" style="display: none">Show visualization</a>
-          <a data-view-selector="table" href="#" class="vis-view-toggle pull-right">Show table format</a>
+      <div id="personWordCloudVis" class="scholars_vis_container" style="display:none; ">
+        <div id="title_bar">
+          <span class="glyphicon glyphicon-info-sign"></span>
+          <a data-view-selector="vis" href="#" style="display: none">Show visualization</a>
+          <a data-view-selector="table" href="#">Show table format</a>
           <span class="heading">Research Keywords</span>
         </div>
   
-        <div id="info_icon_text">
+        <div id="title_bar_info_text">
           <p>
             This visualization displays the research keywords associated with the author, 
             and is an aggregation of keywords found in all of the author's articles. 
@@ -175,13 +175,13 @@
         </div>
   
         <div id="time-indicator">
-          <img id="time-indicator-img" src="${urls.images}/indicator1.gif"/>
+          <img src="${urls.images}/indicator1.gif"/>
         </div>
 
-        <div data-view-id="vis" style="height: 90%; ">
-          <div class="vis-exports-container" >
-            <a href="javascript:return false;" data-export-id="json" class="vis-view-toggle pull-right">Export as JSON</a>
-            <a href="javascript:return false;" data-export-id="svg" style="margin-right: 7px;" class="vis-view-toggle pull-right">Export as SVG</a>
+        <div data-view-id="vis">
+          <div id="exports_panel" >
+            <a href="#" data-export-id="json">Export as JSON</a>
+            <a href="#" data-export-id="svg">Export as SVG</a>
 	      </div>
           <font size="2">
             <span><i>Click on a keyword to view the list of related publications.</i></span>
@@ -196,12 +196,12 @@
           </div>
         </div>
 
-        <div data-view-id="table" class="vis-table-container">
-          <div class="vis-exports-container">
-            <a href="javascript:return false;" data-export-id="json"  class="vis-view-toggle pull-right">Export as JSON</a>
-            <a href="javascript:return false;" data-export-id="csv" style="margin-right: 10px;" class="vis-view-toggle pull-right">Export as CSV</a>
+        <div data-view-id="table">
+          <div id="exports_panel">
+            <a href="#" data-export-id="json">Export as JSON</a>
+            <a href="#" data-export-id="csv">Export as CSV</a>
           </div>
-          <table class="scholars-vis-table">
+          <table class="vis_table">
             <thead>
               <tr>
                 <th data-sort="string-ins">Keyword</th>
@@ -232,15 +232,15 @@
       ======================================================================= 
       -->
 
-      <div id="siteWordCloudVis" style="display:none; ">
-	    <div class="vis_toolbar">
-	      <span class="glyphicon glyphicon-info-sign pull-right" data-original-title="" title=""></span>
-          <a data-view-selector="vis" href="#" class="vis-view-toggle pull-right" style="display: none">Show visualization</a>
-          <a data-view-selector="table" href="#" class="vis-view-toggle pull-right">Show table format</a>
+      <div id="siteWordCloudVis" class="scholars_vis_container" style="display:none; ">
+	    <div id="title_bar">
+	      <span class="glyphicon glyphicon-info-sign"></span>
+          <a data-view-selector="vis" href="#" style="display: none">Show visualization</a>
+          <a data-view-selector="table" href="#">Show table format</a>
 	      <span class="heading">University-wide research keywords</span>
 	    </div>
 
-        <div id="info_icon_text" style="display:none">
+        <div id="title_bar_info_text" style="display:none">
           <p>
             This visualization gives a bird's eye view of the research keywords associated 
             with all Cornell faculty and researchers, and is an aggregation of all the 
@@ -263,22 +263,22 @@
         </div>
 	  
         <div id="time-indicator">
-          <img id="time-indicator-img" src="${urls.images}/indicator1.gif"/>
+          <img src="${urls.images}/indicator1.gif"/>
         </div>
 
   	    <div data-view-id="vis" style="height: 90%; ">
-          <div class="vis-exports-container" >
-            <a href="javascript:return false;" data-export-id="json" class="vis-view-toggle pull-right">Export as JSON</a>
-            <a href="javascript:return false;" data-export-id="svg" style="margin-right: 7px;" class="vis-view-toggle pull-right">Export as SVG</a>
+          <div id="exports_panel" >
+            <a href="#" data-export-id="json">Export as JSON</a>
+            <a href="#" data-export-id="svg">Export as SVG</a>
 	      </div>
 	    </div>
 	
-        <div data-view-id="table" class="vis-table-container">
-          <div class="vis-exports-container">
-            <a href="javascript:return false;" data-export-id="json"  class="vis-view-toggle pull-right">Export as JSON</a>
-            <a href="javascript:return false;" data-export-id="csv" style="margin-right: 10px;" class="vis-view-toggle pull-right">Export as CSV</a>
+        <div data-view-id="table">
+          <div id="exports_panel">
+            <a href="#" data-export-id="json">Export as JSON</a>
+            <a href="#" data-export-id="csv">Export as CSV</a>
           </div>
-          <table class="scholars-vis-table">
+          <table class="vis_table">
             <thead>
 	          <tr>
 	            <th data-sort="string-ins">Keyword</th>
@@ -308,22 +308,14 @@
 
 ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/utils/accordion-controls.css" />',
                   '<link rel="stylesheet" href="${urls.base}/css/scholars-vis/keywordcloud/home-wordcloud.css" />',
-                  '<link rel="stylesheet" href="${urls.base}/css/scholars-vis/keywordcloud/kwcloud.css" />',
                   '<link rel="stylesheet" type="text/css" href="${urls.base}/css/scholars-vis/keywordcloud/site-kwcloud.css" />',
                   '<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">',
                   '<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Raleway" />',
 	              '<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Muli" />')}
 
-${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></script>',
-              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/d3/d3.layout.cloud.js"></script>',
-              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/d3/d3-tip.js"></script>',
-              '<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>',
-              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/jqModal.js"></script>',
+${scripts.add('<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>',
               '<script type="text/javascript" src="${urls.base}/js/scholars-vis/scholars-vis.js"></script>',
-              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/FileSaver.js"></script>',
-			  '<script type="text/javascript" src="${urls.base}/js/scholars-vis/stupidtable.min.js"></script>',
-              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/rdflib.js"></script>',
-              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/wordcloud/word-cloud.js"></script>',
+              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/embed/word_cloud.js"></script>',
               '<script type="text/javascript" src="${urls.base}/js/scholars-vis/wordcloud/university-word-cloud.js"></script>',
               '<script type="text/javascript" src="${urls.base}/js/scholars-vis/wordcloud/home-wordcloud-selector.js"></script>',
               '<script type="text/javascript" src="${urls.base}/js/scholars-vis/utils/accordion-controls.js"></script>')}

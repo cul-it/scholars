@@ -1,11 +1,7 @@
 <div class="row scholars-row">
-  <div id="grants-vis-container" class="col-md-12 scholars-container" style="min-height: 700px">
+  <div id="grants-vis-container" class="col-md-12 scholars-container scholars_vis_container" style="min-height: 700px">
 
-    <div id="time-indicator">
-      <img id="time-indicator-img" src="${urls.images}/indicator1.gif"/>
-    </div>
-
-    <div data-view-id="vis" class="vis-container">
+    <div data-view-id="vis">
     <div class="col-md-4" class="scholars-container">
      
       <div>
@@ -89,7 +85,11 @@
     </div>
     
     <div class="col-md-8" id="vis_holder">
-        <div id="info_icon_text" style="display:none"> 
+	    <div id="time-indicator">
+	      <img src="${urls.images}/indicator1.gif"/>
+	    </div>
+
+        <div id="title_bar_info_text" style="display:none"> 
           <p>
             This visualization represents a bird's eye view of all the grants where 
             a Cornell faculty member or a researcher is either a Principal or 
@@ -112,30 +112,30 @@
             into the system through OSP (Office of Sponsored Program) feed.
           </p> 
         </div>
-        <div class="vis_toolbar">
-          <span class="glyphicon glyphicon-info-sign pull-right" data-original-title="" title=""></span>
-          <a data-view-selector="table" href="#" class="vis-view-toggle pull-right">Show table format</a>
+        <div id="title_bar">
+          <span class="glyphicon glyphicon-info-sign"></span>
+          <a data-view-selector="table" href="#">Show table format</a>
           <span class="heading">0 grants</span>
         </div>
 
-    <div class="vis-exports-container" >
-      <a href="javascript:return false;" data-export-id="json" class="vis-view-toggle pull-right">Export as JSON</a>
+    <div id="exports_panel" >
+      <a href="#" data-export-id="json">Export as JSON</a>
 	</div>
       
         <div id="grants_vis" style="width:600px; height:600px"> </div>
     </div>
     </div>
-    <div data-view-id="table" class="vis-table-container">
-      <div class="vis_toolbar">
+    <div data-view-id="table">
+      <div id="title_bar">
           <span class="heading">All grants</span>
-          <span class="glyphicon glyphicon-info-sign pull-right" data-original-title="" title=""></span>
-          <a data-view-selector="vis" href="#" class="vis-view-toggle pull-right">Show visualization</a>
+          <span class="glyphicon glyphicon-info-sign"></span>
+          <a data-view-selector="vis" href="#">Show visualization</a>
       </div>
-    <div class="vis-exports-container">
-      <a href="javascript:return false;" data-export-id="json"  class="vis-view-toggle pull-right">Export as JSON</a>
-      <a href="javascript:return false;" data-export-id="csv" style="margin-right: 10px;" class="vis-view-toggle pull-right">Export as CSV</a>
+    <div id="exports_panel">
+      <a href="#" data-export-id="json">Export as JSON</a>
+      <a href="#" data-export-id="csv">Export as CSV</a>
     </div>
-    <table class="scholars-vis-table" style="height:600px">
+    <table class="vis_table" style="height:600px">
       <thead>
         <tr>
           <th data-sort="string-ins">Type</th>
@@ -160,28 +160,21 @@
     </div>
   </div>
 </div>
-${stylesheets.add('<link rel="stylesheet" type="text/css" href="${urls.base}/css/scholars-vis/grants/nouislider.min.css">')}
-${stylesheets.add('<link rel="stylesheet" type="text/css" href="${urls.base}/css/scholars-vis/grants/bubble_chart.css">')}
+${stylesheets.add('<link rel="stylesheet" type="text/css" href="${urls.base}/css/scholars-vis/utils/nouislider.min.css">')}
 ${stylesheets.add('<link rel="stylesheet" type="text/css" href="${urls.base}/css/scholars-vis/utils/accordion-controls.css">')}
 ${stylesheets.add('<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">')}
 
-${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></script>',
-              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/scholars-vis.js"></script>',
-              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/stupidtable.min.js"></script>',
-              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/FileSaver.js"></script>',
-              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/grants/transform-data.js"></script>',
-              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/grants/grants_tooltip.js"></script>',
-              '<script type="text/javascript" src="https://d3js.org/d3.v3.min.js"></script>',
+${scripts.add('<script type="text/javascript" src="${urls.base}/js/scholars-vis/scholars-vis.js"></script>',
+              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/embed/grants_bubble_chart.js"></script>',
               '<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>',
-              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/grants/nouislider.min.js"></script>',
+              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/utils/nouislider.min.js"></script>',
               '<script type="text/javascript" src="${urls.base}/js/scholars-vis/utils/accordion-controls.js"></script>',
-              '<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.16.6/lodash.min.js"></script>',
-              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/grants/bubble_chart_script.js"></script>'
+              '<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.16.6/lodash.min.js"></script>'
               )}
 
 <script type="text/javascript">
     $(document).ready(function() {
-        var gv = new ScholarsVis.SiteGrants({
+        var gv = new ScholarsVis.GrantsBubbleChart.FullSiteVisualization({
 		    target : '#grants-vis-container',
 		    mainDiv : '#grants_vis', 
 		    legendDiv : '#grantsLegendDiv',

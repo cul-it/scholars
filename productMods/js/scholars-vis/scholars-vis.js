@@ -9,8 +9,8 @@
  *   A JQuery selector for the div that will hold the visualization. In the case 
  *   of a modal visualization, this is the div that will appear/disappear. 
  *   
- *   The div may contain a div#info_icon_text that will be used as the 
- *   contents of the info icon in the toolbar.
+ *   The div may contain a div#title_bar_info_text that will be used as the 
+ *   contents of the info icon in the title bar.
  *   
  *   The div may contain one or more div[data-view-id] to provide views of the
  *   visualization data.
@@ -96,7 +96,7 @@
  *   A structure of options that will be used in constructing multiple views of
  *   the data. If views are specified, one view is visible whenever the 
  *   visualizataion as a whole is visible. If more than one view is specified,
- *   a selector will be created in the toolbar, so the desired view can be 
+ *   a selector will be created in the title bar, so the desired view can be 
  *   selected.
  *   
  * Example of the views structure:
@@ -175,15 +175,26 @@
  * </pre>
  */
 var ScholarsVis = (function() {
+    var utilities = new Utilities();
+    utilities.loadScripts(
+            utilities.baseUrl + "js/scholars-vis/stupidtable.min.js",
+            utilities.baseUrl + "js/scholars-vis/rdflib.js", 
+            utilities.baseUrl + "js/scholars-vis/FileSaver.js",
+            utilities.baseUrl + "js/scholars-vis/jqModal.js"
+            );
+    utilities.loadStyles(
+            utilities.baseUrl + "css/scholars-vis/jqModal.css",
+            utilities.baseUrl + "css/scholars-vis/scholars-vis.css"
+            );
 
     return {
         Visualization: Visualization,
         VisTable: VisTable,
-        Utilities: new Utilities()
+        Utilities: utilities
     };
     
     function debugIt(message) {
-        if (true) {
+        if (false) {
             var now = new Date();
             var time = now.toLocaleTimeString();
             var millis = ("000" + now.getMilliseconds().toString()).slice(-3);
@@ -214,7 +225,7 @@ var ScholarsVis = (function() {
             }
             debugIt("Options: " + ScholarsVis.Utilities.stringify(options));
             
-            var toolbar = new Toolbar(options.target);
+            var titleBar = new TitleBar(options.target);
             
             linkViewButtons(options.target);
             linkExportButtons(options.target);
@@ -632,7 +643,7 @@ var ScholarsVis = (function() {
         }
         
         // ----------------------------------------------------------------------
-        // Toolbar class
+        // TitleBar class
         //
         // Doesn't need to be a class, as it stands now, because the constructor
         // does all the work and returns no functionality.
@@ -641,20 +652,19 @@ var ScholarsVis = (function() {
         //
         // ----------------------------------------------------------------------
         
-        function Toolbar(target) {
-            var toolbar = $(target).find(".vis_toolbar");
+        function TitleBar(target) {
             buildInfoIcon();
             return {};
             
             function buildInfoIcon() {
-                var tipText = $(target).find("#info_icon_text").html();
+                var tipText = $(target).find("#title_bar_info_text").html();
                 var tipOptions = {
                         title: tipText,
                         html: true,
                         placement: "bottom",
                         viewport: target
                 };
-                var tooltip = $(target).find(".glyphicon-info-sign").tooltip(tipOptions);
+                var tooltip = $(target).find("#title_bar .glyphicon-info-sign").tooltip(tipOptions);
             }
         }
     }
@@ -753,12 +763,78 @@ var ScholarsVis = (function() {
     
     function Utilities() {
         return {
+            baseUrl: figureBaseUrl(),
+            toDisplayUrl: toDisplayUrl,
+            loadScripts: loadScripts,
+            loadStyles: loadStyles,
             exportAsJson: exportAsJson,
             exportAsCsv: exportAsCsv,
             exportAsSvg: exportAsSvg,
             isVisTable: isVisTable,
             disableVisTable: disableVisTable,
             stringify: stringify
+        }
+        
+        function figureBaseUrl() {
+            var rawSrc = $('script[src*="/scholars-vis.js"]').attr('src');
+            var questionHere = rawSrc.indexOf('?');
+            if (questionHere > 0) {
+                rawSrc = rawSrc.slice(0, questionHere);
+            }
+            var baseUrl = rawSrc.slice(0, - "js/scholars-vis/scholars-vis.js".length);
+            if (baseUrl.length == 0) {
+                baseUrl = '/';
+            }
+            return baseUrl;
+        }
+        
+        function toDisplayUrl(uri) {
+            // How do you test links to profile pages on a server other than the
+            // one in the default namespace? Use displayPage URLs instead of
+            // URIs for links.
+            var delimiterHere = Math.max(uri.lastIndexOf('/'), uri.lastIndexOf('#'));
+            var localname = uri.substring(delimiterHere + 1);
+            return ScholarsVis.Utilities.baseUrl + "display/" + localname;
+        }
+        
+        function loadScripts(scriptPaths) {
+            var paths = [...arguments]
+            if (paths.length == 0) {
+                return;
+            }
+            
+            $.holdReady(true);
+            $.ajax({ 
+                url: paths[0], 
+                dataType: "script",
+                cache: true
+                    }).done(doTheNext).fail(reportFailure).always(release);
+            
+            function doTheNext() {
+                debugIt("Loaded " + paths[0])
+                loadScripts(...paths.slice(1));
+            }
+            
+            function reportFailure(jqXHR, textStatus, errorThrown) {
+                debugIt("Failed to load " + paths[0] + "; reason is " + textStatus + " -- " + errorThrown);
+            }
+            
+            function release() {
+                $.holdReady(false);
+            }
+        }
+        
+        function loadStyles(stylePaths) {
+            [...arguments].forEach(createLink);
+            
+            function createLink(path) {
+                $('<link/>', {
+                    rel: 'stylesheet',
+                    type: 'text/css',
+                    href: path
+                 }).prependTo('head');
+                debugIt("Loaded " + path);
+            }
         }
         
         function exportAsJson(filename, data) {

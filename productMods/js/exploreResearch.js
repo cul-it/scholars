@@ -131,7 +131,7 @@ var getScholarship = {
 			var sibling = $(this).parent().parent().parent().find(".col-md-9");
 			$(sibling).removeClass("col-md-9");
 			$(sibling).addClass("col-md-11");
-			$(this).parent().parent().hide();
+//			$(this).parent().parent().hide();
 		});
 		
 		// start over link
@@ -520,8 +520,7 @@ var getScholarship = {
 				// totalCount is actually the hitsPerPage (not sure why it's named like this in the java class)
 				var adjPage = (results.currentPage + 1);
 				var adjStartIndex = (adjPage * results.totalCount);
-				console.log("ADJ START INDEX = " + adjStartIndex);
-				console.log("ADJ PAGE = " + adjPage);
+				
 				if ( results.hitCount > adjStartIndex ) {
 					$("ul.searchhits").append('<li id="scroll-control" data-start-index="' + 
 						adjStartIndex + '" data-current-page="' + adjPage + '"><img id="search-indicator" src="'
@@ -533,6 +532,8 @@ var getScholarship = {
 				getScholarship.makeTheCall = true;
 
 				getScholarship.affiliationFacetClicked = false;
+				_altmetric_embed_init();
+				__plumX.widgets.init();
             }            
         });
     },

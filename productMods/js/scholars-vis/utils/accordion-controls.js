@@ -114,7 +114,7 @@ var AccordionControls = (function() {
         
         /* Is this done properly? Should the mapper function be a parameter? */
         function loadFromDataRequest(actionName) {
-            $.get(applicationContextPath + "/api/dataRequest/" + actionName).then(mapAndLoad);
+            $.get(ScholarsVis.Utilities.baseUrl + "api/dataRequest/" + actionName).then(mapAndLoad);
             
             function mapAndLoad(data) {
                 loadData(data.results.bindings.map(mapper).sort(sorter).filter(distinct));

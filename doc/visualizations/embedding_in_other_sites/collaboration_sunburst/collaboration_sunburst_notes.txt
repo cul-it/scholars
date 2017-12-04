@@ -1,0 +1,162 @@
+--------------------------------------------------------------------------------
+
+JavaScript requirements:
+
+--------------------------------------------------------------------------------
+
+A recent version of JQuery. For example:
+    https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js
+    
+A recent version of Bootstrap. For example:
+    https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js
+
+The main Scholars Visualization script:
+    http://scholars.cornell.edu/js/scholars-vis/scholars-vis.js
+    
+The script for the collaboration sunburst:
+    http://scholars.cornell.edu/js/scholars-vis/embed/collaboration-sunburst.js
+
+--------------------------------------------------------------------------------
+
+JavaScript resources:
+
+--------------------------------------------------------------------------------
+
+new ScholarsVis.CollaborationSunburst.CrossUnitVisualization()
+      Creates a structure for the simple sunburst. Fetches data for 
+      collaborations with other colleges.
+
+new ScholarsVis.CollaborationSunburst.FullCrossUnitVisualization()
+      Creates a structure for the full sunburst visualization, including vis 
+      view, table view, and export buttons. Fetches data for collaborations with 
+      other colleges.
+
+new ScholarsVis.CollaborationSunburst.InterDepartmentVisualization()
+      Creates a structure for the simple sunburst. Fetches data for 
+      collaborations within the college.
+
+new ScholarsVis.CollaborationSunburst.FullInterDepartmentVisualization()
+      Creates a structure for the full sunburst visualization, including vis 
+      view, table view, and export buttons. Fetches data for collaborations 
+      within the college.
+
+ScholarsVis.CollaborationSunburst.transform
+      The default function for transforming the data from the server into the 
+      form that is used by the display function.
+      INPUTS AND OUTPUTS LISTED BELOW.
+
+ScholarsVis.CollaborationSunburst.display
+      The default function for displaying the sunburst.
+
+ScholarsVis.CollaborationSunburst.closer
+      The default function for closing the sunburst. Used when switching between
+      views, or when closing a modal dialog box.
+
+--------------------------------------------------------------------------------
+
+Data from the server (prior to transform):
+
+The top-level structure represents the college.
+The next level is an array, representing the collaborating units (other colleges 
+    or departments, depending on the visualization).
+Within each collaborating unit, the next level is an array, representing the
+    faculty members of the top-level college.
+Within each faculty member, the next level is an array, representing the 
+    collaborating faculty members within the collaborating unit.
+Within each collaborating faculty member, the final level is an array, 
+    representing publication on which they collaborated.
+   
+--------------------------------------------------------------------------------
+
+{
+   "name": "EN",
+   "description": "College of Engineering",
+   "children": [
+     {
+       "name": "AEP",
+       "description": "Applied and Engineering Physics",
+       "children": [
+         {
+           "name": "Kusse, Bruce Raymond",
+           "description": "Kusse, Bruce Raymond",
+           "orgCode": "AEP",
+           "uri": "http://scholars.cornell.edu/individual/brk2",
+           "children": [
+             {
+               "name": "Hammer, David A.",
+               "description": "Hammer, David A.",
+               "orgCode": "ECE",
+               "pubs": [
+                 {
+                   "uri": "http://scholars.cornell.edu/individual/UR-303820",
+                   "title": "Experiments measuring the initial energy...",
+                   "date": "2001-01-01T00:00:00"
+                 },
+                 ...
+               ],
+               "uri": "http://scholars.cornell.edu/individual/mls50",
+               "size": 1
+             },
+             ...
+           ]
+         },
+         ...
+       ]
+     },
+     ...
+   ]
+}
+ 
+--------------------------------------------------------------------------------
+
+The default transform function...
+
+...traverses the data structure. Where ever it finds a "uri" string, it creates
+a corresponding "url" string. Where the 'uri' is specific to the server at 
+scholars.cornell.edu, the 'url' is relative to the server that is currently
+being accessed. This allows testing the visualization on development servers.
+   
+--------------------------------------------------------------------------------
+
+{
+   "name": "EN",
+   "description": "College of Engineering",
+   "children": [
+     {
+       "name": "AEP",
+       "description": "Applied and Engineering Physics",
+       "children": [
+         {
+           "name": "Kusse, Bruce Raymond",
+           "description": "Kusse, Bruce Raymond",
+           "orgCode": "AEP",
+           "uri": "http://scholars.cornell.edu/individual/brk2",
+           "url": /display/brk2",
+           "children": [
+             {
+               "name": "Hammer, David A.",
+               "description": "Hammer, David A.",
+               "orgCode": "ECE",
+               "pubs": [
+                 {
+                   "uri": "http://scholars.cornell.edu/individual/UR-303820",
+                   "url": "/display/UR-303820",
+                   "title": "Experiments measuring the initial energy...",
+                   "date": "2001-01-01T00:00:00"
+                 },
+                 ...
+               ],
+               "uri": "http://scholars.cornell.edu/individual/mls50",
+               "url": "/display/mls50",
+               "size": 1
+             },
+             ...
+           ]
+         },
+         ...
+       ]
+     },
+     ...
+   ]
+}
+ 

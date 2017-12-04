@@ -24,7 +24,7 @@ function createWordCloudSelector(siteSelector, departmentSelector, personSelecto
         if (siteWc) {
             siteWc.hide();
         } else {
-            siteWc = new ScholarsVis.UniversityWordCloud({
+            siteWc = new ScholarsVis.UniversityWordCloud.FullVisualization({
                 target : siteWcContainer,
             });
         }          
@@ -36,7 +36,7 @@ function createWordCloudSelector(siteSelector, departmentSelector, personSelecto
         if (deptWc) { 
             deptWc.hide()
         };
-        deptWc = new ScholarsVis.DepartmentWordCloud({
+        deptWc = new ScholarsVis.WordCloud.FullDepartmentVisualization({
             target : unitWcContainer,
             department : unit.uri
         });
@@ -50,7 +50,7 @@ function createWordCloudSelector(siteSelector, departmentSelector, personSelecto
         if (personWc) { 
             personWc.hide()
         };
-        personWc = new ScholarsVis.PersonWordCloud({
+        personWc = new ScholarsVis.WordCloud.FullPersonVisualization({
             target : personWcContainer,
             person : person.uri
         });
@@ -61,8 +61,8 @@ function createWordCloudSelector(siteSelector, departmentSelector, personSelecto
     }
     
     function setHeadingText(container, label, uri) {
-        var span = $(container).find(".vis_toolbar span.heading")
-        span.html('<a href="' + toDisplayPageUrl(uri) + '">' + label + '</a>');
+        var span = $(container).find("#title_bar span.heading")
+        span.html('<a href="' + ScholarsVis.Utilities.toDisplayUrl(uri) + '">' + label + '</a>');
     }
 
     function testForEmpty(container, vis) {

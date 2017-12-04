@@ -1,0 +1,169 @@
+This is about embedding the Individual word cloud or the Department word cloud.
+
+The Site word cloud is not covered.
+
+--------------------------------------------------------------------------------
+
+JavaScript requirements:
+
+--------------------------------------------------------------------------------
+
+A recent version of JQuery. For example:
+    https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js
+    
+A recent version of Bootstrap. For example:
+    https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js
+
+The main Scholars Visualization script:
+    http://scholars.cornell.edu/js/scholars-vis/scholars-vis.js
+    
+The script for the word cloud:
+    http://scholars.cornell.edu/js/scholars-vis/embed/word_cloud.js
+
+--------------------------------------------------------------------------------
+
+JavaScript resources:
+
+--------------------------------------------------------------------------------
+
+new ScholarsVis.WordCloud.PersonVisualization()
+      Creates a structure for the simple word cloud. Fetches data for the
+      specified faculty member.
+
+new ScholarsVis.WordCloud.FullPersonVisualization()
+      Creates a structure for the full word cloud visualization, including vis 
+      view, table view, and export buttons. Fetches data for the specified
+      faculty member.
+
+new ScholarsVis.WordCloud.DepartmentVisualization()
+      Creates a structure for the simple word cloud. Fetches data for the
+      specified department. 
+
+new ScholarsVis.WordCloud.FullDepartmentVisualization()
+      Creates a structure for the full word cloud visualization, including vis 
+      view, table view, and export buttons. Fetches data for the specified
+      department. 
+
+ScholarsVis.WordCloud.transform
+      The default function for transforming the data from the server into the 
+      form that is used by the display function.
+      INPUTS AND OUTPUTS LISTED BELOW.
+
+ScholarsVis.WordCloud.display
+      The default function for displaying the word cloud.
+
+ScholarsVis.WordCloud.closer
+      The default function for closing the word cloud. Used when switching between
+      views, or when closing a modal dialog box.
+
+--------------------------------------------------------------------------------
+
+Data from the server (prior to transform):
+
+An RDF graph in Turtle format. In the case of the person word cloud, a list of
+publications and associated keywords. In the case of the department word cloud,
+a list of authors and associated keywords. Because the structure is the same, 
+the same code is used across both cases.
+
+The data for the person word cloud includes three different types of keywords.
+At this time, the data for the department word cloud includes only the free
+text keywords. 
+
+The RDF structure of the graph looks like this:
+   
+--------------------------------------------------------------------------------
+
+# person word cloud:
+
+          ?pub rdfs:label ?label .
+          ?pub vivo:freetextKeyword ?keyword .
+          ?pub vivo:hasSubjectArea ?mesh .
+          ?pub vivoc:inferredKeyword ?infkeyword .
+          ?mesh rdfs:label ?meshLabel .
+
+# department word cloud:
+
+          ?person rdfs:label ?label .
+          ?person vivo:freetextKeyword ?keyword .
+ 
+--------------------------------------------------------------------------------
+
+The default transform function...
+
+... traverses the RDF graph, collating the information for each keyword.
+
+The result is an array of structures, one for each keyword, as determined by
+a case-independent matching. The entities in the structure are articles (person
+word cloud) or people (department word cloud).
+
+Type information is listed for each citation, so the word cloud can be filtered
+by type: "KEYWORD", "MESH", or "INFERRED". An entity may be related to a single 
+keyword by more than one type of reference, so type information is stored in an
+array.
+
+Again, at this time the department word cloud contains only "KEYWORD" type
+citations.
+
+Here are some samples of the transformed data:
+
+--------------------------------------------------------------------------------
+
+# person word cloud:
+
+[
+  {
+    "matcher": "pluronic f-127",
+    "text": "Pluronic F-127",
+    "entities": [
+      {
+        "uri": "/scholars/display/UR-6025",
+        "text": "Aerosol delivery of mammalian cells for tissue engineering",
+        "citationTypes": [
+          "KEYWORD",
+          "INFERRED"
+        ]
+      },
+      {
+        "uri": "/scholars/display/UR-6796",
+        "text": "Tissue-Engineered Lung: An In Vivo and In Vitro Comparison of Polyglycolic Acid and Pluronic F-127 Hydrogel/Somatic Lung Progenitor Cell Constructs to Support Tissue Growth",
+        "citationTypes": [
+          "INFERRED"
+        ]
+      }
+    ]
+  },
+
+  ...
+  
+]
+
+# department word cloud:
+
+[
+  {
+    "matcher": "drug delivery",
+    "text": "Drug delivery",
+    "entities": [
+      {
+        "uri": "/scholars/display/mrk93",
+        "text": "King, Michael R.",
+        "citationTypes": [
+          "KEYWORD"
+        ]
+      },
+      {
+        "uri": "/scholars/display/cf99",
+        "text": "Fischbach, Claudia",
+        "citationTypes": [
+          "KEYWORD"
+        ]
+      },
+      
+      ...
+      
+    ]
+  },
+
+  ...
+  
+]

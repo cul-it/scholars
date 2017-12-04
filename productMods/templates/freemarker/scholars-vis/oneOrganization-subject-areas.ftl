@@ -2,15 +2,15 @@
   <div id="wc-vis-container" class="col-md-12 scholars-container">
     <div class="row scholars-row visualization-row">
     
-      <div id="organization-subject-areas">
-        <div class="vis_toolbar">
-          <span class="glyphicon glyphicon-info-sign pull-right" data-original-title="" title=""></span>
-          <a data-view-selector="vis" href="#" class="vis-view-toggle pull-right" style="display: none">Show visualization</a>
-          <a data-view-selector="table" href="#" class="vis-view-toggle pull-right">Show table format</a>
+      <div id="organization-subject-areas" class="scholars_vis_container">
+        <div id="title_bar">
+          <span class="glyphicon glyphicon-info-sign"></span>
+          <a data-view-selector="vis" href="#" style="display: none">Show visualization</a>
+          <a data-view-selector="table" href="#">Show table format</a>
           <span id="selection_text" class="heading">Research areas</span>
         </div>
   
-	    <div id="info_icon_text" style="display:none">
+	    <div id="title_bar_info_text" style="display:none">
 	      <p>
 		    This visualization represents all the faculty in the selected organizational unit 
 		    linked to all the subject areas in which faculty have published in. Subject areas 
@@ -34,24 +34,24 @@
         </div>
 
         <div id="time-indicator">
-          <img id="time-indicator-img" src="${urls.images}/indicator1.gif"/>
+          <img src="${urls.images}/indicator1.gif"/>
         </div>
   
-        <div data-view-id="vis" class="vis-container">
-          <div class="vis-exports-container" >
-            <a href="javascript:return false;" data-export-id="json" class="vis-view-toggle pull-right">Export as JSON</a>
+        <div data-view-id="vis">
+          <div id="exports_panel" >
+            <a href="#" data-export-id="json">Export as JSON</a>
 	      </div>
           <font size="2">
             <span><i>Click on a keyword to view the list of the relevant faculty.</i></span>
           </font>
         </div>
 
-        <div data-view-id="table" class="vis-table-container">
-          <div class="vis-exports-container">
-            <a href="javascript:return false;" data-export-id="json"  class="vis-view-toggle pull-right">Export as JSON</a>
-            <a href="javascript:return false;" data-export-id="csv" style="margin-right: 10px;" class="vis-view-toggle pull-right">Export as CSV</a>
+        <div data-view-id="table">
+          <div id="exports_panel">
+            <a href="#" data-export-id="json">Export as JSON</a>
+            <a href="#" data-export-id="csv">Export as CSV</a>
           </div>
-          <table class="scholars-vis-table">
+          <table class="vis_table">
             <thead>
               <tr>
                 <th data-sort="string-ins">Faculty Member</th>
@@ -78,20 +78,13 @@
   </div>
 </div>
 
-${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/org-research-areas/ra.css" />',
-                  '<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">',
-				  '<link rel="stylesheet" href="${urls.base}/css/scholars-vis/jqModal.css" />',
+${stylesheets.add('<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">',
                   '<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Raleway" />',
 	              '<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Muli" />')}
 
-${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></script>',
-              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/jqModal.js"></script>',
-              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/scholars-vis.js"></script>',
-              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/rdflib.js"></script>',
+${scripts.add('<script type="text/javascript" src="${urls.base}/js/scholars-vis/scholars-vis.js"></script>',
               '<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>',
-              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/FileSaver.js"></script>',
-			  '<script type="text/javascript" src="${urls.base}/js/scholars-vis/stupidtable.min.js"></script>'
-			  '<script type="text/javascript" src="${urls.base}/js/scholars-vis/org-research-areas/organization-research-areas.js"></script>')}
+			  '<script type="text/javascript" src="${urls.base}/js/scholars-vis/embed/research_areas_flare.js"></script>')}
 
 
 <script>
@@ -102,7 +95,7 @@ $().ready(function() {
    */
   var deptUri = getParameterByName("deptURI", window.location.http);
   var deptLabel = getParameterByName("deptLabel", window.location.http);
-  $("#selection_text").html("Research areas for <a href=\"" + toDisplayPageUrl(deptUri) + "\">" + deptLabel + "</a>");
+  $("#selection_text").html("Research areas for <a href=\"" + ScholarsVis.Utilities.toDisplayUrl(deptUri) + "\">" + deptLabel + "</a>");
 
   function getParameterByName(name, url) {
     if (!url) url = window.location.href;
@@ -114,14 +107,13 @@ $().ready(function() {
     return decodeURIComponent(results[2].replace(/\+/g, " "));
   }
   
-  var ora = new ScholarsVis.OrganizationResearchAreas({
+  var ora = new ScholarsVis.ResearchAreasFlare.FullVisualization({
     target : '#organization-subject-areas',
     organization : deptUri
     });
   ora.show();
   
   ora.examineData(function(flaredata) {
-    console.log("FLARE DATA\n" +flaredata);
     if (!flaredata || !flaredata.ditems || flaredata.ditems.length == 0) {
         ora.showView("empty");
     }

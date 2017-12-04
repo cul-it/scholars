@@ -1,11 +1,7 @@
 <div class="row scholars-row" id="mapRow">
-    <div id="worldMapContainer" class="col-md-12 scholars-container" style="min-height: 600px">
+    <div id="worldMapContainer" class="col-md-12 scholars-container scholars_vis_container" style="min-height: 600px">
 
-        <div id="time-indicator">
-            <img id="time-indicator-img" src="${urls.images}/indicator1.gif"/>
-        </div>
-
-        <div id="info_icon_text" style="display:none">
+        <div id="title_bar_info_text" style="display:none">
             <p>
                 This visualization presents the national and the international level co-authorships of Cornell faculty and researchers. The global co-authorships were identified from the affiliation data attached to the citation of a publication. While the visualization starts with co-authorships for all the Cornell academic units, one can filter the data by selecting either a specific academic unit, subject area or the publication year range. 
             </p>
@@ -18,7 +14,7 @@
             </p> 
         </div>
 
-        <div data-view-id="vis" class="vis-container">
+        <div data-view-id="vis">
             <div class="col-md-4">
                 <div style="padding:0 0 20px 0">
                     <h2 style="color:#5f5858;font-size:20px">
@@ -74,16 +70,20 @@
             </div> <!-- col-md-4 -->
 
             <div class="col-md-8 container">
+                <div id="time-indicator">
+                    <img id="time-indicator-img" src="${urls.images}/indicator1.gif"/>
+                </div>
+
                 <div id="mapViz">
-                    <div class="vis_toolbar">
-                        <span class="glyphicon glyphicon-info-sign pull-right" data-original-title="" title=""></span>
-                        <a data-view-selector="table" href="#" class="vis-view-toggle pull-right">Show table format</a>
+                    <div id="title_bar">
+                        <span class="glyphicon glyphicon-info-sign"></span>
+                        <a data-view-selector="table" href="#">Show table format</a>
                         <span class="heading">Global Collaborations</span>
                     </div>
 
-                    <div class="vis-exports-container">
-                        <a href="javascript:return false;" data-export-id="json"  class="vis-view-toggle pull-right">Export as JSON</a>
-                        <a href="javascript:return false;" data-export-id="svg" style="margin-right: 10px;" class="vis-view-toggle pull-right">Export as SVG</a>
+                    <div id="exports_panel">
+                        <a href="#" data-export-id="json">Export as JSON</a>
+                        <a href="#" data-export-id="svg">Export as SVG</a>
                     </div>
 
                     <h5 class="normal"> Now Showing: <span id="nowShowing">All</span></h5>
@@ -114,18 +114,17 @@
             </div>
         </div> <!-- data-view-id="vis" -->
 
-        <div data-view-id="table" class="vis-container">
+        <div data-view-id="table">
             <div class="col-md-12">
-
-                <div class="vis_toolbar">
+                <div id="title_bar">
                     <span class="heading">Global Collaborations</span>
-                    <span class="glyphicon glyphicon-info-sign pull-right" data-original-title="" title=""></span>
-                    <a data-view-selector="vis" href="#" class="vis-view-toggle pull-right">Show visualization</a>
+                    <span class="glyphicon glyphicon-info-sign"></span>
+                    <a data-view-selector="vis" href="#">Show visualization</a>
                 </div>
                 
-                <div class="vis-exports-container">
-                    <a href="javascript:return false;" data-export-id="json"  class="vis-view-toggle pull-right">Export as JSON</a>
-                    <a href="javascript:return false;" data-export-id="csv" style="margin-right: 10px;" class="vis-view-toggle pull-right">Export as CSV</a>
+                <div id="exports_panel">
+                    <a href="#" data-export-id="json">Export as JSON</a>
+                    <a href="#" data-export-id="csv">Export as CSV</a>
                 </div>
 
                 <form class="form-inline">
@@ -133,7 +132,7 @@
                     <label class="radio-inline" id="usa-label"><input type="radio" name="map" value="usa">USA Map</label>
                 </form>
                 
-                <table id="world-table" class="scholars-vis-table" style="height:600px; width:fit-content">
+                <table id="world-table" class="vis_table" style="height:600px; width:fit-content">
                     <thead>
                         <tr>
                             <th data-sort="string-ins">Country</th>
@@ -148,7 +147,7 @@
                     </tbody>
                 </table>
                 
-                <table id="country-table" class="scholars-vis-table" style="height:600px; width:fit-content">
+                <table id="country-table" class="vis_table" style="height:600px; width:fit-content">
                     <thead>
                         <tr>
                             <th data-sort="string-ins">State</th>
@@ -167,21 +166,19 @@
     </div>
 </div>
 
-	${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/world-map-collab/styles.css"/>', '<link rel="stylesheet" href="${urls.base}/css/scholars-vis/world-map-collab/nouislider.min.css"/>')}
+	${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/world-map-collab/styles.css"/>', 
+	'<link rel="stylesheet" href="${urls.base}/css/scholars-vis/utils/nouislider.min.css"/>')}
 
 
 	${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></script>',
 	'<script type="text/javascript" src="${urls.base}/js/scholars-vis/d3/d3-tip.js"></script>',
 	'<script type="text/javascript" src="${urls.base}/js/scholars-vis/scholars-vis.js"></script>',
-    '<script type="text/javascript" src="${urls.base}/js/scholars-vis/FileSaver.js"></script>',
-    '<script type="text/javascript" src="${urls.base}/js/scholars-vis/stupidtable.min.js"></script>',
-	'<script type="text/javascript" src="${urls.base}/js/scholars-vis/rdflib.js"></script>',
 	'<script type="text/javascript" src="${urls.base}/js/scholars-vis/worldmap/topojson.v1.min.js"></script>', 
 	'<script type="text/javascript" src="${urls.base}/js/scholars-vis/worldmap/underscore-min.js"></script>', 
 	'<script type="text/javascript" src="${urls.base}/js/scholars-vis/worldmap/d3-queue.v3.min.js"></script>', 
 	'<script type="text/javascript" src="${urls.base}/js/scholars-vis/worldmap/university-world-map.js"></script>',
 	'<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>',
-	'<script src="${urls.base}/js/scholars-vis/grants/nouislider.min.js"></script>')}
+	'<script src="${urls.base}/js/scholars-vis/utils/nouislider.min.js"></script>')}
 	<script>
 		var urlsBase = "${urls.base}";
 	</script>

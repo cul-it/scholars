@@ -17,15 +17,15 @@
 
 :ora_drill_L1_dd
     a   <java:edu.cornell.library.scholars.webapp.controller.api.distribute.DataDistributor> ,
-        <java:edu.cornell.library.scholars.webapp.controller.api.distribute.RdfGraphDistributor> ;
+        <java:edu.cornell.library.scholars.webapp.controller.api.distribute.rdf.RdfGraphDistributor> ;
     :actionName "organization_research_areas" ;
-    :modelBuilder :ora_drill_L1_mb0 .
+    :graphBuilder :ora_drill_L1_gb0 .
     
-:ora_drill_L1_mb0
-    a   <java:edu.cornell.library.scholars.webapp.controller.api.distribute.modelbuilder.ModelBuilder> ,
-        <java:edu.cornell.library.scholars.webapp.controller.api.distribute.modelbuilder.DrillDownModelBuilder> ;
-    :topLevelModelBuilder :ora_drill_L1_mb1 ;
-    :bottomLevelModelBuilder :ora_drill_L1_mb2 ;        
+:ora_drill_L1_gb0
+     a   <java:edu.cornell.library.scholars.webapp.controller.api.distribute.rdf.graphbuilder.GraphBuilder> ,
+         <java:edu.cornell.library.scholars.webapp.controller.api.distribute.rdf.graphbuilder.DrillDownGraphBuilder> ;
+    :topLevelGraphBuilder :ora_drill_L1_gb1 ;
+    :childGraphBuilder :ora_drill_L1_gb2 ;        
     :drillDownQuery """
         PREFIX hr:   <http://scholars.cornell.edu/ontology/hr.owl#>
 		PREFIX vivo:     <http://vivoweb.org/ontology/core#>
@@ -40,9 +40,9 @@
 		}}
     """ .
     
-:ora_drill_L1_mb1
-    a   <java:edu.cornell.library.scholars.webapp.controller.api.distribute.modelbuilder.ModelBuilder> ,
-        <java:edu.cornell.library.scholars.webapp.controller.api.distribute.modelbuilder.ConstructModelBuilder> ;
+:ora_drill_L1_gb1
+    a   <java:edu.cornell.library.scholars.webapp.controller.api.distribute.rdf.graphbuilder.GraphBuilder> ,
+        <java:edu.cornell.library.scholars.webapp.controller.api.distribute.rdf.graphbuilder.ConstructQueryGraphBuilder> ;
     :uriBinding "organization" ;
     :constructQuery """
         PREFIX foaf: <http://xmlns.com/foaf/0.1/>
@@ -65,9 +65,9 @@
 		}}
       """ .
 
-:ora_drill_L1_mb2
-    a   <java:edu.cornell.library.scholars.webapp.controller.api.distribute.modelbuilder.ResettableModelBuilder> ,
-        <java:edu.cornell.library.scholars.webapp.controller.api.distribute.modelbuilder.ConstructModelBuilder> ;
+:ora_drill_L1_gb2
+    a   <java:edu.cornell.library.scholars.webapp.controller.api.distribute.rdf.graphbuilder.GraphBuilder> ,
+        <java:edu.cornell.library.scholars.webapp.controller.api.distribute.rdf.graphbuilder.ConstructQueryGraphBuilder> ;
     :uriBinding "position" ;
     :constructQuery """
         PREFIX foaf: <http://xmlns.com/foaf/0.1/>

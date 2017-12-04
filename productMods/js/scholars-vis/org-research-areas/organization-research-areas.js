@@ -1,44 +1,71 @@
-ScholarsVis["OrganizationResearchAreas"] = function(options) {
-    var defaults = {
-            url : applicationContextPath + "/api/dataRequest/organization_research_areas?organization=" + options.organization,
-            parse : 'turtle',
-            transform : transformFlaredata,
-            views : {
-                vis : {
+/*******************************************************************************
+ * 
+ * Define the structures that embed the visualization into HTML
+ *   simple for one department.
+ *   full (multiple views and export buttons) for one department.
+ * 
+ * Also, define the functions that another site might want to override.
+ *
+ ******************************************************************************/
+
+ScholarsVis["ResearchAreasFlare"] = {
+        transform: transformFlaredata,
+        display: plotConceptMap,
+        closer: closeConceptMap,
+        
+        Visualization: function(options) {
+            var defaults = {
+                    url : ScholarsVis.Utilities.baseUrl + "api/dataRequest/organization_research_areas?organization=" + options.organization,
+                    parse : 'turtle',
+                    transform : transformFlaredata,
                     display : plotConceptMap,
                     closer : closeConceptMap,
-                    export : {
-                        json : {
-                            filename: "conceptMap.json",
-                            call: exportConceptMapVisAsJson
+            };
+            return new ScholarsVis.Visualization(options, defaults);
+        },
+        
+        FullVisualization: function(options) {
+            var defaults = {
+                    url : ScholarsVis.Utilities.baseUrl + "api/dataRequest/organization_research_areas?organization=" + options.organization,
+                    parse : 'turtle',
+                    transform : transformFlaredata,
+                    views : {
+                        vis : {
+                            display : plotConceptMap,
+                            closer : closeConceptMap,
+                            export : {
+                                json : {
+                                    filename: "conceptMap.json",
+                                    call: exportConceptMapVisAsJson
+                                },
+                                svg : {
+                                    filename: "conceptMap.svg",
+                                    call: exportConceptMapVisAsSvg
+                                }
+                            }
                         },
-                        svg : {
-                            filename: "conceptMap.svg",
-                            call: exportConceptMapVisAsSvg
+                        table: {
+                            display : drawConceptMapTable,
+                            closer : closeConceptMapTable,
+                            export : {
+                                csv : {
+                                    filename: "conceptMapTable.csv",
+                                    call: exportConceptMapTableAsCsv,
+                                },
+                                json : {
+                                    filename: "conceptMapTable.json",
+                                    call: exportConceptMapTableAsJson
+                                }
+                            }
+                        },
+                        empty: {
+                            display : d => {}
                         }
                     }
-                },
-                table: {
-                    display : drawConceptMapTable,
-                    closer : closeConceptMapTable,
-                    export : {
-                        csv : {
-                            filename: "conceptMapTable.csv",
-                            call: exportConceptMapTableAsCsv,
-                        },
-                        json : {
-                            filename: "conceptMapTable.json",
-                            call: exportConceptMapTableAsJson
-                        }
-                    }
-                },
-                empty: {
-                    display : d => {}
-                }
-            }
-    };
-    return new ScholarsVis.Visualization(options, defaults);
-};
+            };
+            return new ScholarsVis.Visualization(options, defaults);
+        }
+}
 
 /*******************************************************************************
  * 
@@ -69,7 +96,7 @@ function transformFlaredata(graph) {
 				"type"  : "ditem",
 				"ditem" : index, 
 				"name"  : getLabel(author),
-				"url"   : toDisplayPageUrl(author),
+				"url"   : ScholarsVis.Utilities.toDisplayUrl(author),
 				"links" : figureLinks()
 			}
 
@@ -154,7 +181,6 @@ function transformFlaredata(graph) {
  * 
  ******************************************************************************/
 function plotConceptMap(flaredata, target) {
-
     if (!flaredata || !flaredata.ditems || flaredata.ditems.length == 0) {
       return;
     }
@@ -846,7 +872,7 @@ function exportConceptMapVisAsSvg(data, filename, options) {
  * 
  ******************************************************************************/
 function drawConceptMapTable(data, target, options) {
-    var tableElement = $(target).find(".scholars-vis-table").get(0);
+    var tableElement = $(target).find(".vis_table").get(0);
     var table = new ScholarsVis.VisTable(tableElement);
     var tableData = transformAgainForTable(data);
     tableData.forEach(addRowToTable);
@@ -881,7 +907,7 @@ function transformAgainForTable(data) {
     
     function mapSubjectUrls() {
         var map = {};
-        data.themes.forEach(theme => {map[theme.name] = toDisplayPageUrl(theme.uri)});
+        data.themes.forEach(theme => {map[theme.name] = ScholarsVis.Utilities.toDisplayUrl(theme.uri)});
         return map;
     }
     

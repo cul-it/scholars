@@ -8,7 +8,7 @@
 
 :department_list_distributor
     a   <java:edu.cornell.library.scholars.webapp.controller.api.distribute.DataDistributor> ,
-        <java:edu.cornell.library.scholars.webapp.controller.api.distribute.SparqlSelectDataDistributor> ;
+        <java:edu.cornell.library.scholars.webapp.controller.api.distribute.rdf.SelectFromContentDistributor> ;
     :actionName "departmentList" ;
     :query """
         PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
@@ -27,7 +27,7 @@
 
 :faculty_list_distributor
     a   <java:edu.cornell.library.scholars.webapp.controller.api.distribute.DataDistributor> ,
-        <java:edu.cornell.library.scholars.webapp.controller.api.distribute.SparqlSelectDataDistributor> ;
+        <java:edu.cornell.library.scholars.webapp.controller.api.distribute.rdf.SelectFromContentDistributor> ;
     :actionName "facultyList" ;
     :query """
         PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>

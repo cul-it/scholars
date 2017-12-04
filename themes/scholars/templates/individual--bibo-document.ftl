@@ -59,6 +59,7 @@
 <#if authorsProp?has_content && authorsProp.statements?has_content>
 	<#assign authors = [] />
 	<#assign authorList>
+		<div class="row profile-row" role="row">
 		  <div class="col-sm-1 no-padding align-text-right" >
 			<span class="profile-label">Authors</span>
 		  </div>
@@ -80,10 +81,10 @@
 		        	<#if statement_has_next>,</span><#else></span></#if>
 		        	<#assign authors = authors + [statement.authorName?trim] />
 		    	</#if>
-				 
 			</#list>
 			</div>
 		  </div>
+		</div>
 	</#assign>
 </#if>
 <#if lcpProp?has_content && lcpProp.statements?has_content>
@@ -92,6 +93,7 @@
 <#if pubVenueProp?has_content && pubVenueProp.statements?has_content>
 	<#assign pubVenue = pubVenueProp.statements?first/>
 	<#assign journalTitle>
+		<div class="row profile-row" role="row">
 		  <div class="col-sm-1  no-padding align-text-right">
 			<span class="profile-label">Journal</span>
 		  </div>
@@ -101,6 +103,7 @@
 				<#if lcp??><a href="${lcp}" target="_blank"><i class="fa fa-external-link-square external-link" aria-hidden="true"></i></a></#if>
 			</div>
 		  </div>
+		</div>
 	</#assign>
 </#if>
 <#if volumeProp?has_content && volumeProp.statements?has_content>
@@ -117,6 +120,7 @@
 </#if>
 <#if volume && issue >
 	<#assign volumeIssue>
+		<div class="row profile-row" role="row">
 		  <div class="col-sm-9 no-padding align-text-right">
 			<span class="profile-label">Volume(Issue)</span>
 		  </div>
@@ -125,9 +129,11 @@
 				${volumeStmt.value!}(${issueStmt.value!})
 			</div>
 		  </div>
+		</div>
 	</#assign>
 <#elseif volume && !issue >
 	<#assign volumeIssue>
+		<div class="row profile-row" role="row">
 		  <div class="col-sm-9 no-padding align-text-right">
 			<span class="profile-label">Volume</span>
 		  </div>
@@ -136,9 +142,11 @@
 				${volumeStmt.value!}
 			</div>
 		  </div>
+		</div>
 	</#assign>
 <#elseif !volume && issue >
 	<#assign volumeIssue>
+		<div class="row profile-row" role="row">
 		  <div class="col-sm-9 no-padding align-text-right">
 			<span class="profile-label">Issue</span>
 		  </div>
@@ -147,11 +155,13 @@
 				${issueStmt.value!}
 			</div>
 		  </div>
+		</div>
 	</#assign>
 </#if>
 <#if freeTextTitleProp?has_content && freeTextTitleProp.statements?has_content>
 	<#assign freeTextTitleStmt = freeTextTitleProp.statements?first!""/>
 	<#assign freeTextTitle>
+		<div class="row profile-row" role="row">
 		  <div class="col-sm-1  no-padding align-text-right">
 			<span class="profile-label">Journal</span>
 		  </div>
@@ -160,6 +170,7 @@
 				<em>${freeTextTitleStmt.value!}</em>
 			</div>
 	  	  </div>
+		</div>
 	</#assign>
 </#if>  
 <#if startProp?has_content && startProp.statements?has_content>
@@ -172,6 +183,7 @@
 </#if>
 <#if startPage?has_content && endPage?has_content >
 	<#assign pages>
+		<div class="row profile-row" role="row">
 		  <div class="col-sm-1  no-padding align-text-right">
 			<span class="profile-label">Pages</span>
 		  </div>
@@ -180,9 +192,11 @@
 				${startPage!} - ${endPage!}
 			</div>
 		  </div>
+		</div>
 	</#assign>
 <#elseif startPage?has_content && !endPage?has_content >
 	<#assign pages>
+		<div class="row profile-row" role="row">
 		  <div class="col-sm-1  no-padding align-text-right">
 			<span class="profile-label">Starts</span>
 		  </div>
@@ -191,9 +205,11 @@
 				${startPage!}
 			</div>
 		  </div>
+		</div>
 	</#assign>
 <#elseif !startPage?has_content && endPage?has_content >
 	<#assign pages>
+		<div class="row profile-row" role="row">
 		  <div class="col-sm-1  no-padding align-text-right>
 			<span class="profile-label">Ends</span>
 		  </div>
@@ -202,10 +218,12 @@
 				${endPage!}
 			</div>
 		  </div>
+		</div>
 	</#assign>
 </#if>
 <#if pubDate?has_content>
 	<#assign publishedInline >
+		<div class="row profile-row" role="row">
 		  <div class="col-sm-9 no-padding align-text-right">
 			<span class="profile-label">Published</span>
 		  </div>
@@ -214,11 +232,13 @@
 				${pubDate!}
 			</div>
 		  </div>
+		</div>
 	</#assign>
 
 </#if>
 <#if gccProp?has_content && gccProp.statements?has_content >
 	<#assign gcc>
+		<div class="row profile-row" role="row">
 		  <div class="col-sm-9 no-padding align-text-right">
 			<span class="profile-label">Citations</span>
 		  </div>
@@ -227,12 +247,14 @@
 				${gccProp.statements[0].count!}
 			</div>
 		  </div>
+		</div>
 	</#assign>
 </#if>
 <#if doiProp?has_content && doiProp.statements?has_content>
 	<#assign doiStmt = doiProp.statements?first!""/>
 	<#assign doi = doiStmt.value! />
 	<#assign doiInline>
+		<div class="row profile-row" role="row">
 		  <div class="col-sm-1  no-padding align-text-right">
 			<span class="profile-label">DOI</span>
 		  </div>
@@ -241,12 +263,14 @@
 				<a href="http://dx.doi.org/${doi!}" title="link to DOI" target="_blank" onclick="javascript:_paq.push(['trackEvent', 'Link', 'Publication', 'DOI']);">${doi!}</a>
 			</div>
 		  </div>
+		</div>
 	</#assign>
 </#if>
 <#if pmidProp?has_content && pmidProp.statements?has_content>
 	<#assign pmidStmt = pmidProp.statements?first!""/>
 	<#assign pmid = pmidStmt.value! />
 	<#assign pmidInline>
+		<div class="row profile-row" role="row">
 		  <div class="col-sm-9  no-padding align-text-right">
 			<span class="profile-label">PMID</span>
 		  </div>
@@ -255,12 +279,15 @@
 				<a href="http://www.ncbi.nlm.nih.gov/pubmed/?term=${pmid!}" title="View in PubMed" target="_blank" onclick="javascript:_paq.push(['trackEvent', 'Link', 'Publication', 'PMID']);">${pmid!}</a>
 			</div>
 		  </div>
+		</div>
 	</#assign>
 </#if>
 <#if doi?has_content>
 	<#assign fullTextLink = "http://dx.doi.org/${doi!}" />
+	<#assign plumxParam = "doi=${doi!}" />
 <#elseif pmid?has_content>
 	<#assign fullTextLink = "http://www.ncbi.nlm.nih.gov/pubmed/?term=${pmid!}" />
+	<#assign plumxParam = "pmid=${pmid!}" />
 </#if>
 <#if keywordsProp?has_content && keywordsProp.statements?has_content>
 	<#assign keywordsList>
@@ -333,67 +360,74 @@
 		</div>
 	</#assign>
 </#if>
+<#-- 
+		No DOI or PMID means no metrics. Set column width accordingly.
+-->
+<#if !doi?has_content && !pmid?has_content>
+	<#assign setColumn = "col-sm-12" />
+	
+<#else>
+	<#assign setColumn = "col-sm-8" />
+	
+</#if>
 <#-- The row1 div contains the top portion of the profile page: tile, icon controls, authors, key metadata -->
 <div id="row1" class="row f1f2f3-bkg">
 <div class="col-sm-12 col-md-12 col-lg-12 scholars-container" id="biboDocumentMainColumn">
 
 <section id="individual-info" ${infoClass!} role="region">
-    <#include "individual-adminPanel.ftl">
+    <#-- include "individual-adminPanel.ftl" -->
 
     <#if individualProductExtensionPreHeader??>
         ${individualProductExtensionPreHeader}
     </#if>
 	
     <header>
-			<#include "individual-altmetric.ftl">
-            <h1 class="fn bibo-profile-title" itemprop="name">
-                <#-- Label -->
-                <@p.label individual editable labelCount localesCount languageCount/>
-                <#--  Most-specific types -->
-                <@p.mostSpecificTypes individual />
-            </h1>
-		<div class="bibo-doc-controls">
-			<#include "document-iconControls.ftl" />
-		</div>
+		<div  class="row fff-bkg no-padding no-margin">
+			<div id="metrics-container" class="col-sm-2" style="text-align:center;display:none;">
+				<div id="altmetrics">
+					<#include "individual-altmetric.ftl" >
+				</div>
+				<div id="plumx">
+					<a href="https://plu.mx/plum/a/?${plumxParam!}" data-size="medium" data-on-success="biboDocument.showPlumX" data-on-empty="biboDocument.hidePlumX" data-hide-when-empty="true" data-popup="right" class="plumx-plum-print-popup"></a>
+				</div>
+				<div id="metric-links"> 
+					<span id="alt-container" style="font-size:10px;font-weight:bold">Altmetrics</span>
+					<span id="metric-divider">|</span>
+					<span id="plum-container" style="font-size:10px;font-weight:bold"><a id="plumx-link" href="javascript:" style="font-weight:bold">PlumX</a></span>
+				</div>
+			</div>
+			<div id="title-container" class="${setColumn!} no-padding">
+            	<h1 class="fn bibo-profile-title" itemprop="name">
+                	<#-- Label -->
+                	<@p.label individual false labelCount localesCount languageCount/>
+                	<#--  Most-specific types -->
+                	<@p.mostSpecificTypes individual />
+            	</h1>
+			</div>
+			<div class="col-sm-2 no-padding">
+				<div class="bibo-doc-controls"><#include "document-iconControls.ftl" /></div>
+			</div>
 
 		<h2 id="bibo-heading-break">  </h2>
+		</div>
     </header>
-	<div class="row profile-row fff-bkg bibo-metadata" role="row">
+	<div class="row profile-row fff-bkg header-metadata" role="row">
 		<div class="col-sm-9 col-md-9 col-lg-9">
-			<div class="row profile-row" role="row">
-				${authorList?replace(" ,",",")!}
-			</div>
-			<div class="row profile-row" role="row">
-				<#if journalTitle?has_content >
-					${journalTitle!}
-				<#else>
-					${freeTextTitle!}
-				</#if>
-			</div>
-			<div class="row profile-row" role="row">
-				${pages!}
-			</div>
-			<div class="row profile-row" >
-				${doiInline!}
-			</div>
-			<div class="row profile-row" role="row">
-				
-			</div>
+ 			${authorList?replace(" ,",",")!}
+ 			<#if journalTitle?has_content >
+ 				${journalTitle!}
+ 			<#else>
+ 				${freeTextTitle!}
+ 			</#if>
+ 			${pages!}
+ 			${doiInline!}
 		</div>
 
 		<div class="col-sm-2 col-md-2 col-lg-2">
-			<div class="row profile-row" role="row">
 				${gcc!}
-			</div>
-			<div class="row profile-row" role="row">
 				${volumeIssue!}
-			</div>
-			<div class="row profile-row" role="row">
 				${publishedInline!}
-			</div>
-			<div class="row profile-row" >
 				${pmidInline!}
-			</div>
 		</div>
 	</div>
 
@@ -406,7 +440,7 @@
 <#if abstract?has_content || keywordsList?has_content || hasMeshTerm >
 	<div id="bibo-row-two" class="row f1f2f3-bkg">
 	<#if abstract?has_content>
-	  <div class="col-sm-5 col-md-5 col-lg-5 f1f2f3-bkg">
+	  <div class="col-sm-5 col-md-5 col-lg-5 f1f2f3-bkg no-left-padding">
   	  <#if keywordsList?has_content>
 	    <div class="row f1f2f3-bkg row-no-margins">
 			<div id="keywords" class="col-sm-12 col-md-12 col-lg-12 scholars-container">
@@ -417,8 +451,8 @@
 				</div>
 			</div>
 		</div>
-		</#if>
-		<#if hasMeshTerm>
+	  </#if>
+	  <#if hasMeshTerm>
 	    <div class="row f1f2f3-bkg row-no-margins">
 			<div id="keywords" class="col-sm-12 col-md-12 col-lg-12 scholars-container">
 				<div class="row profile-row profile-row-margins" >
@@ -428,7 +462,7 @@
 				</div>
 			</div>
 		</div>
-		</#if>
+	  </#if>
 	  </div>
 	  <#if keywordsList?has_content || hasMeshTerm > 
 	  <div class="col-sm-7 col-md-7 col-lg-7 no-padding">
@@ -436,18 +470,20 @@
 			<div id="abstract" class="col-sm-12 col-md-12 col-lg-12 scholars-container">
 				${abstract!}
 				<div class="row profile-row profile-row-margins" >
+				</div>
 			</div>
-		</div>
+	  	</div>
 	  </div>
 	  <#else>
-	  <div class="col-sm-12 col-md-12 col-lg-12 no-padding">
-		<div class="row f1f2f3-bkg row-no-margins">
-			<div id="abstract" class="col-sm-12 col-md-12 col-lg-12 scholars-container">
-				${abstract!}
-				<div class="row profile-row profile-row-margins" >
-			</div>
+	  	<div class="col-sm-12 col-md-12 col-lg-12 no-padding">
+			<div class="row f1f2f3-bkg row-no-margins">
+				<div id="abstract" class="col-sm-12 col-md-12 col-lg-12 scholars-container">
+					${abstract!}
+					<div class="row profile-row profile-row-margins" >
+					</div>
+				</div>
+	  		</div>
 		</div>
-	  </div>
 	  </#if>
 	<#else>
 		<#if keywordsList?has_content && hasMeshTerm>
@@ -511,8 +547,12 @@
 
 <div id="profile-bottom" class="row f1f2f3-bkg"></div>
 
-<script>
+<script type="text/javascript">
     var individualLocalName = "${individual.localName}";
+	$(document).ready(function(){
+	  $('.metrics').slick();
+	});
+	
 </script>
 <script>
 var i18nStrings = {
@@ -531,7 +571,6 @@ var i18nStringsUriRdf = {
     viewRDFProfile: '${i18n().view_profile_in_rdf}',
     closeString: '${i18n().close}'
 };
-
 </script>
 
 
@@ -569,6 +608,7 @@ var i18nStringsUriRdf = {
 
 ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/individual/individual-vivo.css?vers=1.5.1" />',
 				  '<link rel="stylesheet" href="${urls.base}/css/jquery_plugins/jquery.qtip.min.css" />',
+				  '<link rel="stylesheet" href="https://cdn.jsdelivr.net/jquery.slick/1.6.0/slick.css" />',
 				  '<link rel="stylesheet" href="${urls.base}/css/individual/individual.css?vers=1.5.1" />')}
 
 ${headScripts.add('<script type="text/javascript" src="${urls.base}/js/jquery_plugins/jquery.truncator.js"></script>',
@@ -576,6 +616,11 @@ ${headScripts.add('<script type="text/javascript" src="${urls.base}/js/jquery_pl
                   '<script type="text/javascript" src="${urls.base}/js/json2.js"></script>')}
                   
 ${scripts.add('<script type="text/javascript" src="${urls.base}/js/individual/individualUtils.js?vers=1.5.1"></script>',
+			  '<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery.slick/1.6.0/slick.min.js"></script>',
 			  '<script type="text/javascript" src="https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js"></script>',
+			  '<script type="text/javascript" src="https://d39af2mgp1pqhg.cloudfront.net/widget-popup.js"></script>',
 	          '<script type="text/javascript" src="${urls.base}/js/individual/moreLessController.js"></script>',
-              '<script type="text/javascript" src="${urls.base}/themes/scholars/js/individualUriRdf.js"></script>')}
+              '<script type="text/javascript" src="${urls.base}/themes/scholars/js/individualUriRdf.js"></script>',
+              '<script type="text/javascript" src="${urls.base}/themes/scholars/js/bibo-document.js"></script>')}
+
+

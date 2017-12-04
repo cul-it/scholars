@@ -402,27 +402,14 @@ Visualizations
 ======================================================================= 
 -->
 
-${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/keywordcloud/kwcloud.css" />')}
 ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/org-research-areas/ra.css" />',
-                  '<link rel="stylesheet" href="${urls.base}/css/scholars-vis/grants/bubble_chart.css" />',
-                  '<link rel="stylesheet" href="${urls.base}/css/jquery_plugins/jquery.qtip.min.css" />',
-                  '<link rel="stylesheet" href="${urls.base}/css/scholars-vis/jqModal.css" />')}
-${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/collaborations/collab.css" />')}
+                  '<link rel="stylesheet" href="${urls.base}/css/jquery_plugins/jquery.qtip.min.css" />')}
 
-${scripts.add('<script type="text/javascript" src="${urls.base}/js/d3.min.js"></script>',
-              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/scholars-vis.js"></script>',
-              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/FileSaver.js"></script>',
-              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/stupidtable.min.js"></script>',
-              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/jqModal.js"></script>',
-              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/rdflib.js"></script>',
-              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/d3/d3-tip.js"></script>',
-              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/d3/d3.layout.cloud.js"></script>',
-              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/grants/transform-data.js"></script>',
-              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/grants/grants_tooltip.js"></script>',
-              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/grants/bubble_chart_script.js"></script>'
-              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/collaborations/collaborations.js"></script>',
+${scripts.add('<script type="text/javascript" src="${urls.base}/js/scholars-vis/scholars-vis.js"></script>',
               '<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>',
-              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/wordcloud/word-cloud.js"></script>')}
+              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/embed/collaboration-sunburst.js"></script>',
+              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/embed/grants_bubble_chart.js"></script>',
+              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/embed/word_cloud.js"></script>')}
 
 <#-- 
 =======================================================================
@@ -430,15 +417,15 @@ Word-cloud vis
 ======================================================================= 
 -->
 
-<div id="word_cloud_vis" class="vis_modal" style="display:none; ">
-  <div class="vis_toolbar">
+<div id="word_cloud_vis" class="scholars_vis_container vis_modal">
+  <div id="title_bar">
     <span class="heading">Research Keywords</span>
-    <span class="glyphicon glyphicon-info-sign pull-right" data-original-title="" title=""></span>
-    <a data-view-selector="vis" href="#" class="vis-view-toggle pull-right" style="display: none">Show visualization</a>
-    <a data-view-selector="table" href="#" class="vis-view-toggle pull-right">Show table format</a>
+    <span class="glyphicon glyphicon-info-sign"></span>
+    <a data-view-selector="vis" href="#" style="display: none">Show visualization</a>
+    <a data-view-selector="table" href="#">Show table format</a>
   </div>
   
-  <div id="info_icon_text" style="display:none">
+  <div id="title_bar_info_text">
     <p>
       This visualization displays the research keywords for an entire academic unit, 
       and is an aggregation of the keywords found in all the articles authored by all 
@@ -459,13 +446,13 @@ Word-cloud vis
   </div>
   
   <div id="time-indicator">
-    <img id="time-indicator-img" src="${urls.images}/indicator1.gif"/>
+    <img src="${urls.images}/indicator1.gif"/>
   </div>
 
-  <div data-view-id="vis" class="vis-container">
-    <div class="vis-exports-container" >
-      <a href="javascript:return false;" data-export-id="json" class="vis-view-toggle pull-right">Export as JSON</a>
-      <a href="javascript:return false;" data-export-id="svg" style="margin-right: 7px;" class="vis-view-toggle pull-right">Export as SVG</a>
+  <div data-view-id="vis">
+    <div id="exports_panel" >
+      <a href="#" data-export-id="json">Export as JSON</a>
+      <a href="#" data-export-id="svg">Export as SVG</a>
 	</div>
     <font size="2">
       <span><i>Click on a keyword to view the list of the relevant faculty.</i></span>
@@ -477,12 +464,12 @@ Word-cloud vis
     </font>
   </div>
 
-  <div data-view-id="table" class="vis-table-container">
-    <div class="vis-exports-container">
-      <a href="javascript:return false;" data-export-id="json"  class="vis-view-toggle pull-right">Export as JSON</a>
-      <a href="javascript:return false;" data-export-id="csv" style="margin-right: 10px;" class="vis-view-toggle pull-right">Export as CSV</a>
+  <div data-view-id="table">
+    <div id="exports_panel">
+      <a href="#" data-export-id="json">Export as JSON</a>
+      <a href="#" data-export-id="csv">Export as CSV</a>
     </div>
-    <table class="scholars-vis-table">
+    <table class="vis_table">
       <thead>
         <tr>
           <th data-sort="string-ins">Keyword</th>
@@ -502,7 +489,7 @@ Word-cloud vis
 <script>
 $().ready(function() {
     if ($('#word_cloud_icon_holder')) {
-        var wc = new ScholarsVis.DepartmentWordCloud({
+        var wc = new ScholarsVis.WordCloud.FullDepartmentVisualization({
             target : '#word_cloud_vis',
             modal : true,
             department : "${individual.uri?url}",
@@ -525,15 +512,15 @@ Inter-departmental Collaboration Vis
 ======================================================================= 
 -->
 
-<div id="interd_collab_vis" class="vis_modal dept_collab_vis" style="display:none; ">
-  <div class="vis_toolbar">
+<div id="interd_collab_vis" class="scholars_vis_container vis_modal dept_collab_vis">
+  <div id="title_bar">
     <span class="heading">Interdepartmental Co-authorships (Faculty only)</span>
-    <span class="glyphicon glyphicon-info-sign pull-right" data-original-title="" title=""></span>
-    <a data-view-selector="vis" href="#" class="vis-view-toggle pull-right" style="display: none">Show visualization</a>
-    <a data-view-selector="table" href="#" class="vis-view-toggle pull-right">Show table format</a>
+    <span class="glyphicon glyphicon-info-sign"></span>
+    <a data-view-selector="vis" href="#" style="display: none">Show visualization</a>
+    <a data-view-selector="table" href="#">Show table format</a>
   </div>
   
-  <div id="info_icon_text" style="display:none">
+  <div id="title_bar_info_text">
     <p>
       The interdepartmental co-authorships are identified based on the affiliation 
       data extracted from the citation of a publication. Currently, we only present 
@@ -557,12 +544,13 @@ Inter-departmental Collaboration Vis
   </div>
 
   <div id="time-indicator">
-    <img id="time-indicator-img" src="${urls.images}/indicator1.gif"/>
+    <img src="${urls.images}/indicator1.gif"/>
   </div>
 
-  <div data-view-id="vis" class="vis-container">
-    <div class="vis-exports-container" >
-      <a href="javascript:return false;" data-export-id="json" class="vis-view-toggle pull-right">Export as JSON</a>
+  <div data-view-id="vis">
+    <div id="exports_panel" >
+      <a href="#" data-export-id="json">Export as JSON</a>
+      <a href="#" data-export-id="svg">Export as SVG</a>
 	</div>
     <font size="2">
       <span><i>
@@ -572,12 +560,12 @@ Inter-departmental Collaboration Vis
     </font>
   </div>
 
-  <div data-view-id="table" class="vis-table-container">
-    <div class="vis-exports-container">
-      <a href="javascript:return false;" data-export-id="json"  class="vis-view-toggle pull-right">Export as JSON</a>
-      <a href="javascript:return false;" data-export-id="csv" style="margin-right: 10px;" class="vis-view-toggle pull-right">Export as CSV</a>
+  <div data-view-id="table">
+    <div id="exports_panel">
+      <a href="#" data-export-id="json">Export as JSON</a>
+      <a href="#" data-export-id="csv">Export as CSV</a>
     </div>
-    <table class="scholars-vis-table">
+    <table class="vis_table">
       <thead>
         <tr>
           <th data-sort="string-ins">Author</th>
@@ -608,15 +596,15 @@ Cross-unit Collaboration Vis
 ======================================================================= 
 -->
 
-<div id="cross_unit_collab_vis" class="vis_modal dept_collab_vis" style="display:none; ">
-  <div class="vis_toolbar">
+<div id="cross_unit_collab_vis" class="scholars_vis_container vis_modal dept_collab_vis">
+  <div id="title_bar">
     <span class="heading">Cross-unit Co-authorships (Faculty only)</span>
-    <span class="glyphicon glyphicon-info-sign pull-right" data-original-title="" title=""></span>
-    <a data-view-selector="vis" href="#" class="vis-view-toggle pull-right" style="display: none">Show visualization</a>
-    <a data-view-selector="table" href="#" class="vis-view-toggle pull-right">Show table format</a>
+    <span class="glyphicon glyphicon-info-sign"></span>
+    <a data-view-selector="vis" href="#" style="display: none">Show visualization</a>
+    <a data-view-selector="table" href="#">Show table format</a>
   </div>
   
-  <div id="info_icon_text" style="display:none">
+  <div id="title_bar_info_text">
     <p>
       The cross-unit co-authorships are identified based on the affiliation data 
       extracted from the citation of a publication. Currently, we only present 
@@ -640,12 +628,13 @@ Cross-unit Collaboration Vis
   </div>
 
   <div id="time-indicator">
-    <img id="time-indicator-img" src="${urls.images}/indicator1.gif"/>
+    <img src="${urls.images}/indicator1.gif"/>
   </div>
 
-  <div data-view-id="vis" class="vis-container">
-    <div class="vis-exports-container" >
-      <a href="javascript:return false;" data-export-id="json" class="vis-view-toggle pull-right">Export as JSON</a>
+  <div data-view-id="vis">
+    <div id="exports_panel" >
+      <a href="#" data-export-id="json">Export as JSON</a>
+      <a href="#" data-export-id="svg">Export as SVG</a>
 	</div>
     <font size="2">
       <span><i>
@@ -655,12 +644,12 @@ Cross-unit Collaboration Vis
     </font>
   </div>
 
-  <div data-view-id="table" class="vis-table-container">
-    <div class="vis-exports-container">
-      <a href="javascript:return false;" data-export-id="json"  class="vis-view-toggle pull-right">Export as JSON</a>
-      <a href="javascript:return false;" data-export-id="csv" style="margin-right: 10px;" class="vis-view-toggle pull-right">Export as CSV</a>
+  <div data-view-id="table">
+    <div id="exports_panel">
+      <a href="#" data-export-id="json">Export as JSON</a>
+      <a href="#" data-export-id="csv">Export as CSV</a>
     </div>
-    <table class="scholars-vis-table">
+    <table class="vis_table">
       <thead>
         <tr>
           <th data-sort="string-ins">Author</th>
@@ -691,7 +680,7 @@ $().ready(function() {
     if (!isJohnsonOrHotelSchool) {
         $('#visualization-column').hide();
         
-        var cucs = new ScholarsVis.CrossUnitCollaborationSunburst({
+        var cucs = new ScholarsVis.CollaborationSunburst.FullCrossUnitVisualization({
             department : '${individual.uri}',
             target : '#cross_unit_collab_vis',
             modal : true
@@ -704,7 +693,7 @@ $().ready(function() {
             }
         });
         
-        var idcs = new ScholarsVis.InterDepartmentCollaborationSunburst({
+        var idcs = new ScholarsVis.CollaborationSunburst.FullInterDepartmentVisualization({
             department : '${individual.uri}',
             target : '#interd_collab_vis',
             modal : true
@@ -727,15 +716,15 @@ Grants Vis
 ======================================================================= 
 -->
 
-<div id="modal_grants_vis" class="vis_modal dept_grants_vis" style="display:none">
-  <div class="vis_toolbar">
+<div id="modal_grants_vis" class="scholars_vis_container vis_modal dept_grants_vis">
+  <div id="title_bar">
     <span class="heading">Browse Research Grants</span>
-    <span class="glyphicon glyphicon-info-sign pull-right" data-original-title="" title=""></span>
-    <a data-view-selector="vis" href="#" class="vis-view-toggle pull-right" style="display: none">Show visualization</a>
-    <a data-view-selector="table" href="#" class="vis-view-toggle pull-right">Show table format</a>
+    <span class="glyphicon glyphicon-info-sign"></span>
+    <a data-view-selector="vis" href="#" style="display: none">Show visualization</a>
+    <a data-view-selector="table" href="#">Show table format</a>
   </div>
   
-  <div id="info_icon_text" style="display:none"> 
+  <div id="title_bar_info_text"> 
     <p>
       This visualization represents all the grants where a faculty member or a 
       researcher of this department is either a Principal or Co-Principal Investigator. 
@@ -754,12 +743,12 @@ Grants Vis
   </div>
   
   <div id="time-indicator">
-    <img id="time-indicator-img" src="${urls.images}/indicator1.gif"/>
+    <img src="${urls.images}/indicator1.gif"/>
   </div>
 
-  <div data-view-id="vis" class="vis-container">
-    <div class="vis-exports-container">
-      <a href="javascript:return false;" data-export-id="json"  class="vis-view-toggle pull-right">Export as JSON</a>
+  <div data-view-id="vis">
+    <div id="exports_panel">
+      <a href="#" data-export-id="json">Export as JSON</a>
     </div>
     <div>
       <font size="2">
@@ -774,12 +763,12 @@ Grants Vis
     <div id="grantsLegendDiv" class="grantsLegendDivXtra"></div>
   </div>
   
-  <div data-view-id="table" class="vis-table-container">
-    <div class="vis-exports-container">
-      <a href="javascript:return false;" data-export-id="json"  class="vis-view-toggle pull-right">Export as JSON</a>
-      <a href="javascript:return false;" data-export-id="csv" style="margin-right: 10px;" class="vis-view-toggle pull-right">Export as CSV</a>
+  <div data-view-id="table">
+    <div id="exports_panel">
+      <a href="#" data-export-id="json">Export as JSON</a>
+      <a href="#" data-export-id="csv">Export as CSV</a>
     </div>
-    <table class="scholars-vis-table">
+    <table class="vis_table">
       <thead>
         <tr>
           <th data-sort="string-ins">Type</th>
@@ -805,7 +794,7 @@ Grants Vis
 <script>
   $().ready(function() {
     if ($('#grants_icon_holder')) {
-      var g = new ScholarsVis.DepartmentGrants({
+      var g = new ScholarsVis.GrantsBubbleChart.FullDepartmentVisualization({
         target : '#modal_grants_vis',
         mainDiv : '#grantsMainDiv',
         legendDiv : '#grantsLegendDiv',

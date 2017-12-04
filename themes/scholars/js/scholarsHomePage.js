@@ -144,7 +144,7 @@ $(document).ready(function() {
  	$('#expert-search-link').mouseenter(function() {
  			$('#expert-search').show("fade");
  	}).mouseleave(function() {
- 			if ( $('#de-search-input').val().length < 1 ) {
+ 			if ( $('#de-search-input').val().length < 1 && !$('#de-search-input').is(":focus") ) {
  				$('#expert-search').hide("fade");
  			}
  	});
@@ -152,26 +152,34 @@ $(document).ready(function() {
  	$('#res-search-link').mouseenter(function() {
  			$('#research-search').show("fade");
  	}).mouseleave(function() {
- 			if ( $('#res-search-input').val().length < 1 ) {
+ 			if ( $('#res-search-input').val().length < 1 && !$('#res-search-input').is(":focus") ) {
  				$('#research-search').hide("fade");
  			}
  	});
 
- 	  $("#jgsm-link").mouseenter(function() {
- 			$("#jgsm-image").addClass("partner-shadow");
- 	  }).mouseleave(function() {
- 			$("#jgsm-image").removeClass("partner-shadow");
- 	  });
- 	  $("#eng-link").mouseenter(function() {
- 			$("#eng-image").addClass("partner-shadow");
- 	  }).mouseleave(function() {
- 			$("#eng-image").removeClass("partner-shadow");
- 	  });
- 	  $("#arts-link").mouseenter(function() {
- 			$("#arts-image").addClass("partner-shadow");
- 	  }).mouseleave(function() {
- 			$("#arts-image").removeClass("partner-shadow");
- 	  });
+	$('#res-search-input').focus(function() {
+		$('#expert-search').hide("fade");
+	});
+
+	$('#de-search-input').focus(function() {
+		$('#research-search').hide("fade");
+	});
+
+    $("#jgsm-link").mouseenter(function() {
+  		$("#jgsm-image").addClass("partner-shadow");
+    }).mouseleave(function() {
+  		$("#jgsm-image").removeClass("partner-shadow");
+    });
+    $("#eng-link").mouseenter(function() {
+  		$("#eng-image").addClass("partner-shadow");
+    }).mouseleave(function() {
+  		$("#eng-image").removeClass("partner-shadow");
+    });
+    $("#arts-link").mouseenter(function() {
+  		$("#arts-image").addClass("partner-shadow");
+    }).mouseleave(function() {
+  		$("#arts-image").removeClass("partner-shadow");
+    });
 
 		function getResearcherCount() {
 

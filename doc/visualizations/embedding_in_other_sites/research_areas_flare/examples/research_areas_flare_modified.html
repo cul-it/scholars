@@ -1,0 +1,51 @@
+<html>
+	<head>
+		<style type="text/css">
+			#flare_vis {
+				height: 800px;
+				width: 800px;
+			}
+		</style>
+	</head>
+	
+	<body>
+	    <h1>Flare Research Areas (Modified)</h1>
+		<div id="flare_vis" class="scholars_vis_container"></div>
+	    
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+		<!-- In production, use these:
+		<script src="http://scholars.cornell.edu/js/scholars-vis/scholars-vis.js"></script>
+		<script src="http://scholars.cornell.edu/js/scholars-vis/embed/collaboration-sunburst.js"></script>
+		-- instead of these: -->
+		<script src="http://localhost:8080/scholars/js/scholars-vis/scholars-vis.js"></script>
+		<script src="http://localhost:8080/scholars/js/scholars-vis/embed/research_areas_flare.js"></script>
+
+		<script>
+			$().ready(function() {
+		        var raf = new ScholarsVis.ResearchAreasFlare.Visualization({
+		            organization : 'http://scholars.cornell.edu/individual/org68763',
+		            target : '#flare_vis',
+		            transform : dataModifier
+		        });
+		        raf.show();
+			});
+
+			function dataModifier(rawDataStruct) {
+			    // Execute the default transformation first.
+			    var dataStruct = ScholarsVis.ResearchAreasFlare.transform(rawDataStruct);
+
+			    // Modify the resulting structure, as desired.
+			    dataStruct.ditems.forEach(modifyFacultyMember);
+			    
+			    // Return the modified data structure.
+			    return dataStruct;
+			    
+			    function modifyFacultyMember(facultyStruct) {
+			        facultyStruct.name = facultyStruct.name.toUpperCase();
+			    }
+			}
+			</script>
+	</body>
+</html>

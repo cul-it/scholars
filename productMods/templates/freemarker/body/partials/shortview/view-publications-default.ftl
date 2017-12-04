@@ -40,7 +40,6 @@
 	</#assign>
 </#if>
 <#assign altmetric = "" />
-	<#-- if altmetricEnabled?? -->
 	    <#if doi?has_content>
 	 		<#assign altmetric >
 	            <div class="individual-altmetric-badge-inline">
@@ -53,6 +52,9 @@
 	                     data-doi="${doi!}">
 	                </div>
 	            </div>
+			</#assign>
+			<#assign plumx >
+				<a href="https://plu.mx/plum/a/?doi=${doi!}" data-badge="true" data-on-success="biboDocument.showPlumX" data-on-empty="biboDocument.hidePlumX" data-hide-when-empty="true" data-popup="left" class="plumx-plum-print-popup"></a>
 			</#assign>
 	    <#elseif pmid?has_content>
  			<#assign altmetric >
@@ -67,21 +69,19 @@
 		               </div>
 		           </div>
 			</#assign>
+			<#assign plumx >
+				<a href="https://plu.mx/plum/a/?pmid=${pmid!}" data-badge="true" data-on-success="biboDocument.showPlumX" data-on-empty="biboDocument.hidePlumX" data-hide-when-empty="true" data-popup="left" class="plumx-plum-print-popup"></a>
+			</#assign>
 	    </#if>
 <li class="individual" role="listitem" role="navigation">
     <div class="row fff-bkg" style="margin:0;padding:0;">
 		<div class="col-md-1" style="padding-left:0;font-size: 20px;margin-top: 3px;"><img height="24px" src="${urls.theme}/images/pubs-icon.png"></i>
 		</div>
-		<div class="col-md-<#if !altmetric?has_content>11<#else>9</#if>" style="padding:0">
+		<div class="col-md-11" style="padding:0">
 	    	<h1 class="thumb" style="font-size:16px;margin-top:6px;line-height:1.25em">
 	        	<a href="${individual.profileUrl}" title="View the profile page for ${individual.name}}">${individual.name}.</a> 
 	    	</h1>
 		</div>
-		<#if altmetric?has_content >
-			<div class="col-md-2" style="font-size:16px;padding:0">
-				${altmetric!}
-			</div>
-		</#if>
 	</div>
     <div class="row fff-bkg" style="margin:0;padding:8px 0 0;">
 		<div class="col-md-2" style="font-size:16px;color:#CC6949;padding:0;line-height:1.25em">
@@ -105,6 +105,16 @@
 		</div>
 		<div class="col-md-10" style="font-size:16px;padding:0;line-height:1.25em">
 			${pubYear!}
+		</div>
+	</div>
+    <div class="row fff-bkg" style="margin:0;padding:0;">
+		<div class="col-md-6" style="padding:0;">
+		</div>
+		<div class="col-md-3" style="padding:0;">
+			${altmetric!}
+		</div>
+		<div class="col-md-3" style="margin-top:-3px;padding:0;text-align:right;">
+			${plumx!}
 		</div>
 	</div>
 </li>

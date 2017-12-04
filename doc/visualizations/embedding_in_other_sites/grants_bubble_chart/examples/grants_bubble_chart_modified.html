@@ -1,0 +1,61 @@
+<html>
+	<head>
+		<style type="text/css">
+			#grants_vis {
+				height: 800px;
+				width: 800px;
+			}
+		</style>
+	</head>
+	
+	<body>
+	    <h1>Grants Bubble Chart (Modified)</h1>
+		<div id="grants_vis" class="scholars_vis_container dept_grants_vis">
+		    <div id="grantsMainDiv"></div>
+            <div id="grantsLegendDiv"></div>
+		</div>
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+		<!-- In production, use these:
+		<script src="http://scholars.cornell.edu/js/scholars-vis/scholars-vis.js"></script>
+		<script src="http://scholars.cornell.edu/js/scholars-vis/embed/grants_bubble_chart.js"></script>
+		-- instead of these: -->
+		<script src="http://localhost:8080/scholars/js/scholars-vis/scholars-vis.js"></script>
+		<script src="http://localhost:8080/scholars/js/scholars-vis/embed/grants_bubble_chart.js"></script>
+
+		<script>
+			$().ready(function() {
+		        var gbc = new ScholarsVis.GrantsBubbleChart.DepartmentVisualization({
+		            department : 'http://scholars.cornell.edu/individual/org68763',
+		            target : '#grants_vis',
+		            mainDiv : '#grantsMainDiv',
+			        legendDiv : '#grantsLegendDiv',
+		            transform : dataModifier
+		        });
+		        gbc.show();
+			});
+			
+			function dataModifier(rawDataStruct) {
+			    // Execute the default transformation first.
+			    var dataStruct = ScholarsVis.GrantsBubbleChart.transform(rawDataStruct);
+
+			    // Modify the resulting structure, as desired.
+			    dataStruct.children.forEach(modifyGrant);
+			    
+			    // Return the modified data structure.
+			    return dataStruct;
+			    
+			    function modifyGrant(grantStruct) {
+			        if (grantStruct.cost > 50000) {
+			            grantStruct.size = "BIG";
+			        } else {
+			            grantStruct.size = "SMALL";
+			        }
+			    }
+			}
+
+		</script>
+	</body>
+</html>

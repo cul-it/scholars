@@ -117,7 +117,7 @@ function transformGrantsData(resultSet, options) {
 
 		function getGrantDetails() {
 			return {
-				"uri" : toDisplayPageUrl(binding.grant.value),
+				"uri" : ScholarsVis.Utilities.toDisplayUrl(binding.grant.value),
 				"title" : binding.grantTitle.value,
 				"type" : figureGrantType()
 			};
@@ -146,7 +146,7 @@ function transformGrantsData(resultSet, options) {
 					return dummyPersonDetails;
 				} else {
 					return {
-						"uri" : toDisplayPageUrl(binding.person.value),
+						"uri" : ScholarsVis.Utilities.toDisplayUrl(binding.person.value),
 						"name" : binding.personName.value,
 						"netid" : binding.personNetid.value,
 						"role" : figureRole()
@@ -174,7 +174,7 @@ function transformGrantsData(resultSet, options) {
 				return {
 					"code" : "CBE", // BOGUS
 					"name" : binding.deptName.value,
-					"uri" : toDisplayPageUrl(binding.dept.value)
+					"uri" : ScholarsVis.Utilities.toDisplayUrl(binding.dept.value)
 				};
 			}
 		}
@@ -186,7 +186,7 @@ function transformGrantsData(resultSet, options) {
 			} else {
 				return {
 					"name" : binding.fundingOrgName.value,
-					"uri" : toDisplayPageUrl(binding.fundingOrg.value)
+					"uri" : ScholarsVis.Utilities.toDisplayUrl(binding.fundingOrg.value)
 				}
 			}
 		}

@@ -60,6 +60,7 @@
 										<li><a class="discover-menu-link" href="${urls.base}/grantsVisualization">Research Grants</a></li>
 									</ul>
 								</li>
+							</ul>
 						</div>
 					</li>
 				</#if>

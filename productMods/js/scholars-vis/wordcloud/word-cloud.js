@@ -1,92 +1,137 @@
-ScholarsVis["PersonWordCloud"] = function(options) {
-    var defaults = {
-            url : applicationContextPath + "/api/dataRequest/person_word_cloud?person=" + options.person,
-            parse : 'turtle',
-            transform : transform_word_cloud_data,
-            views : {
-                vis : {
-                    display : draw_word_cloud,
-                    closer : close_word_cloud,
-                    export : {
-                        json : {
-                            filename: "personWordCloud.json",
-                            call: exportWcVisAsJson
-                        },
-                        svg : {
-                            filename: "personWordCloud.svg",
-                            call: exportWcVisAsSvg
-                        }
-                    }
-                },
-                table: {
-                    display : drawPersonWcTable,
-                    closer : closePersonWcTable,
-                    export : {
-                        csv : {
-                            filename: "personWordCloudTable.csv",
-                            call: exportPersonWcTableAsCsv,
-                        },
-                        json : {
-                            filename: "personWordCloudTable.json",
-                            call: exportPersonWcTableAsJson
-                        }
-                    }
-                },
-                empty: {
-                    display : d => {}
-                }
-            },
-            maxKeywords : 50,
-            interactive : true,
-            scaleRange : [15, 60]
-    };
-    return new ScholarsVis.Visualization(options, defaults);
-};
+/*******************************************************************************
+ * 
+ * Define the structures that embed the visualization into HTML:
+ *   person: simple and full
+ *   department: simple and full
+ * Where "full" includes the table view and the export functions.
+ * 
+ * Also, define the functions that another site might want to override.
+ *
+ ******************************************************************************/
 
-ScholarsVis["DepartmentWordCloud"] = function(options) {
-    var defaults = {
-            url : applicationContextPath + "/api/dataRequest/department_word_cloud?department=" + options.department,
-            parse : 'turtle',
-            transform : transform_word_cloud_data,
-            views : {
-                vis : {
+ScholarsVis["WordCloud"] = {
+        transform: transform_word_cloud_data,
+        display: draw_word_cloud,
+        closer: close_word_cloud,
+        
+        PersonVisualization: function(options) {
+            var defaults = {
+                    url : ScholarsVis.Utilities.baseUrl + "api/dataRequest/person_word_cloud?person=" + options.person,
+                    parse : 'turtle',
+                    transform : transform_word_cloud_data,
                     display : draw_word_cloud,
                     closer : close_word_cloud,
-                    export : {
-                        json : {
-                            filename: "departmentWordCloud.json",
-                            call: exportWcVisAsJson
+                    maxKeywords : 50,
+                    interactive : true,
+                    scaleRange : [15, 60]
+            };
+            return new ScholarsVis.Visualization(options, defaults);
+        },
+        
+        FullPersonVisualization: function(options) {
+            var defaults = {
+                    url : ScholarsVis.Utilities.baseUrl + "api/dataRequest/person_word_cloud?person=" + options.person,
+                    parse : 'turtle',
+                    transform : transform_word_cloud_data,
+                    views : {
+                        vis : {
+                            display : draw_word_cloud,
+                            closer : close_word_cloud,
+                            export : {
+                                json : {
+                                    filename: "personWordCloud.json",
+                                    call: exportWcVisAsJson
+                                },
+                                svg : {
+                                    filename: "personWordCloud.svg",
+                                    call: exportWcVisAsSvg
+                                }
+                            }
                         },
-                        svg : {
-                            filename: "departmentWordCloud.svg",
-                            call: exportWcVisAsSvg
-                        }
-                    }
-                },
-                table: {
-                    display : drawDepartmentWcTable,
-                    closer: closeDepartmentWcTable,
-                    export : {
-                        csv : {
-                            filename: "departmentWordCloudTable.csv",
-                            call: exportDepartmentWcTableAsCsv,
+                        table: {
+                            display : drawPersonWcTable,
+                            closer : closePersonWcTable,
+                            export : {
+                                csv : {
+                                    filename: "personWordCloudTable.csv",
+                                    call: exportPersonWcTableAsCsv,
+                                },
+                                json : {
+                                    filename: "personWordCloudTable.json",
+                                    call: exportPersonWcTableAsJson
+                                }
+                            }
                         },
-                        json : {
-                            filename: "departmentWordCloudTable.json",
-                            call: exportDepartmentWcTableAsJson
+                        empty: {
+                            display : d => {}
                         }
-                    }
-                },
-                empty: {
-                    display : d => {}
-                }
-            },
-            maxKeywords : 100,
-            interactive : true,
-            scaleRange : [15, 60]
-    };
-    return new ScholarsVis.Visualization(options, defaults);
-};
+                    },
+                    maxKeywords : 50,
+                    interactive : true,
+                    scaleRange : [15, 60]
+            };
+            return new ScholarsVis.Visualization(options, defaults);
+        },
+        
+        DepartmentVisualization: function(options) {
+            var defaults = {
+                    url : ScholarsVis.Utilities.baseUrl + "api/dataRequest/department_word_cloud?department=" + options.department,
+                    parse : 'turtle',
+                    transform : transform_word_cloud_data,
+                    display : draw_word_cloud,
+                    closer : close_word_cloud,
+                    maxKeywords : 100,
+                    interactive : true,
+                    scaleRange : [15, 60]
+            };
+            return new ScholarsVis.Visualization(options, defaults);
+        },
+        
+        FullDepartmentVisualization: function(options) {
+            var defaults = {
+                    url : ScholarsVis.Utilities.baseUrl + "api/dataRequest/department_word_cloud?department=" + options.department,
+                    parse : 'turtle',
+                    transform : transform_word_cloud_data,
+                    views : {
+                        vis : {
+                            display : draw_word_cloud,
+                            closer : close_word_cloud,
+                            export : {
+                                json : {
+                                    filename: "departmentWordCloud.json",
+                                    call: exportWcVisAsJson
+                                },
+                                svg : {
+                                    filename: "departmentWordCloud.svg",
+                                    call: exportWcVisAsSvg
+                                }
+                            }
+                        },
+                        table: {
+                            display : drawDepartmentWcTable,
+                            closer: closeDepartmentWcTable,
+                            export : {
+                                csv : {
+                                    filename: "departmentWordCloudTable.csv",
+                                    call: exportDepartmentWcTableAsCsv,
+                                },
+                                json : {
+                                    filename: "departmentWordCloudTable.json",
+                                    call: exportDepartmentWcTableAsJson
+                                }
+                            }
+                        },
+                        empty: {
+                            display : d => {}
+                        }
+                    },
+                    maxKeywords : 100,
+                    interactive : true,
+                    scaleRange : [15, 60]
+            };
+            return new ScholarsVis.Visualization(options, defaults);
+        }
+}
 
 /*******************************************************************************
  * 
@@ -201,7 +246,7 @@ function transform_word_cloud_data(graph, options) {
 			function addToBucket(uri, bucket) {
 				var label = graph.any($rdf.sym(uri), RDFS("label"));
 				if (label && label.value) {
-					var displayUri = toDisplayPageUrl(uri);
+					var displayUri = ScholarsVis.Utilities.toDisplayUrl(uri);
 					var entity = findEntity() || createEntity();
 					addToEntity(entity);
 				}
@@ -560,7 +605,7 @@ function exportWcVisAsSvg(data, filename, options) {
  * 
  ******************************************************************************/
 function drawPersonWcTable(data, target, options) {
-    var tableElement = $(target).find(".scholars-vis-table").get(0);
+    var tableElement = $(target).find(".vis_table").get(0);
     var table = new ScholarsVis.VisTable(tableElement);
     var tableData = transformAgainForPersonTable(data);
     tableData.forEach(addRowToTable);
@@ -613,7 +658,7 @@ function transformAgainForPersonTable(data) {
  * 
  ******************************************************************************/
 function drawDepartmentWcTable(data, target, options) {
-    var tableElement = $(target).find(".scholars-vis-table").get(0);
+    var tableElement = $(target).find(".vis_table").get(0);
     var table = new ScholarsVis.VisTable(tableElement);
     var tableData = transformAgainForDepartmentTable(data);
     tableData.forEach(addRowToTable);
