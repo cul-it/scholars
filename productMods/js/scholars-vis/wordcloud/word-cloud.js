@@ -410,7 +410,7 @@ function draw_word_cloud(unfiltered, target, options) {
    
    	var keywordScale = d3.scale.linear().range(scaleRange);
      
-   var tip = d3.tip().attr('class', 'd3-tip choices triangle-isosceles').html(function(d) { 
+   var tip = d3.tip().attr('class', 'wcloud-tip d3-tip choices triangle-isosceles').html(function(d) { 
      var repr = "";
      for(var i = 0; i < d.entities.length; i++) {
        repr += "<div class='kwhoverable'><a href='" + d.entities[i].uri + "'>" +(i+1)+". " + d.entities[i].text + "</a></div>";
@@ -552,7 +552,6 @@ function draw(input) {
  ******************************************************************************/
 function close_word_cloud(target) {
 	$(target).children("svg").remove();
-	$(target).children("#noData").remove();
 	$('div.d3-tip').remove();
 }
 

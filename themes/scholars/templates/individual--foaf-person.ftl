@@ -302,8 +302,6 @@ $(document).ready(function() {
 
 <!-- =============== Word cloud visualization ======================= -->
 
-${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/keywordcloud/kwcloud.css" />')}
-
 <div id="word_cloud_vis" class="scholars_vis_container vis_modal">
   <div id="title_bar">
     <span class="heading">Research Keywords</span>
