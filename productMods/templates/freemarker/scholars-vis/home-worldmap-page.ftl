@@ -1,6 +1,10 @@
 <div class="row scholars-row" id="mapRow">
     <div id="worldMapContainer" class="col-md-12 scholars-container scholars_vis_container" style="min-height: 600px">
 
+        <div id="time-indicator">
+            <img id="time-indicator-img" src="${urls.images}/indicator1.gif"/>
+        </div>
+
         <div id="title_bar_info_text" style="display:none">
             <p>
                 This visualization presents the national and the international level co-authorships of Cornell faculty and researchers. The global co-authorships were identified from the affiliation data attached to the citation of a publication. While the visualization starts with co-authorships for all the Cornell academic units, one can filter the data by selecting either a specific academic unit, subject area or the publication year range. 
@@ -70,10 +74,6 @@
             </div> <!-- col-md-4 -->
 
             <div class="col-md-8 container">
-                <div id="time-indicator">
-                    <img id="time-indicator-img" src="${urls.images}/indicator1.gif"/>
-                </div>
-
                 <div id="mapViz">
                     <div id="title_bar">
                         <span class="glyphicon glyphicon-info-sign"></span>

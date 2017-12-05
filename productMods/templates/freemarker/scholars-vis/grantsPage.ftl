@@ -1,6 +1,10 @@
 <div class="row scholars-row">
   <div id="grants-vis-container" class="col-md-12 scholars-container scholars_vis_container" style="min-height: 700px">
 
+    <div id="time-indicator">
+      <img src="${urls.images}/indicator1.gif"/>
+    </div>
+
     <div data-view-id="vis">
     <div class="col-md-4" class="scholars-container">
      
@@ -85,10 +89,6 @@
     </div>
     
     <div class="col-md-8" id="vis_holder">
-	    <div id="time-indicator">
-	      <img src="${urls.images}/indicator1.gif"/>
-	    </div>
-
         <div id="title_bar_info_text" style="display:none"> 
           <p>
             This visualization represents a bird's eye view of all the grants where 
