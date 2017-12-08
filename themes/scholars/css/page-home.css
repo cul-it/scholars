@@ -156,8 +156,8 @@ div#logo-container {
 #bti-image img {
 	height: 75px;
 }
-#cals-image {
-	height: 210px;
+#jgsm-image {
+	margin-top: 45px;
 }
 #jgsm-image:hover, #eng-image:hover, #cals-image:hover, #bti-image:hover {
 	opacity: 0.6;
@@ -249,6 +249,6 @@ div#logo-container {
 	vertical-align: middle;
 }
 #partners-row1d {
-	margin: 40px 0 0;
+	margin: 25px 0 0;
 	padding: 0;
 }
