@@ -57,6 +57,15 @@ vivo:Contract  rdfs:label  "Contract"@en-US ;
         vitro:prohibitedFromUpdateBelowRoleLevelAnnot
                 <http://vitro.mannlib.cornell.edu/ns/vitro/role#public> .
 
+ospcu:CooperativeAgreement  
+		vitro:customDisplayViewAnnot  "individual--vivo-grant.ftl"^^xsd:string ;
+        vitro:hiddenFromDisplayBelowRoleLevelAnnot
+                <http://vitro.mannlib.cornell.edu/ns/vitro/role#public> ;
+        vitro:hiddenFromPublishBelowRoleLevelAnnot
+                <http://vitro.mannlib.cornell.edu/ns/vitro/role#public> ;
+        vitro:prohibitedFromUpdateBelowRoleLevelAnnot
+                <http://vitro.mannlib.cornell.edu/ns/vitro/role#public> .
+
 vivo:totalAwardAmount
       vitro:hiddenFromDisplayBelowRoleLevelAnnot
               <http://vitro.mannlib.cornell.edu/ns/vitro/role#dbAdmin> ;
