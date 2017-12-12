@@ -31,6 +31,15 @@ $(document).ready(function() {
 <#if emailProp?has_content && emailProp.statements?has_content>
 	<#assign email = emailProp.statements?first/>
 </#if>
+<#assign fullNameProp = propertyGroups.pullProperty("http://purl.obolibrary.org/obo/ARG_2000028","http://www.w3.org/2006/vcard/ns#Name")!>
+<#assign givenName = "" />
+<#assign familyName = "" />
+<#assign additionalName = "" />
+<#if fullNameProp?has_content && fullNameProp.statements?has_content>
+	<#assign givenName = fullNameProp.statements[0].firstName! />
+	<#assign familyName = fullNameProp.statements[0].lastName! />
+	<#assign additionalName = fullNameProp.statements[0].middleName! />
+</#if>
 <#assign isAuthor = p.hasVisualizationStatements(propertyGroups, "${core}relatedBy", "${core}Authorship") />
 <#assign coAuthorVisUrl = individual.coAuthorVisUrl()>
 <#assign obo_RO53 = "http://purl.obolibrary.org/obo/RO_0000053">
@@ -514,7 +523,9 @@ ${stylesheets.add('<link rel="stylesheet" type="text/css" href="https://fonts.go
   ldjson.text = JSON.stringify({
     "@context": "http://schema.org",
     "@type": "Person",
-	  "name": "${individual.name?replace("\"","")!}",
+	  "givenName": "${givenName!}",
+	  "familyName": "${familyName!}",
+	  "additionalName": "${additionalName!}",
 	  "affiliation": "Cornell University",
 	  "image": "${individual.thumbNail!}",
 	  "url": "${individual.uri}",
