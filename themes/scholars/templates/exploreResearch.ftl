@@ -127,6 +127,15 @@
 		<select id="sort-results">
 			<option value="relevance">relevance</option>
 			<option value="title">title</option>
+			<#if querytype == "pubs">
+				<option value="pub_date_desc">pub. date (new to old)</option>
+				<option value="pub_date_asc">pub. date (old to new)</option>
+			<#elseif querytype == "grants" >
+				<option value="start_date_desc">start date (new to old)</option>
+				<option value="start_date_asc">start date (old to new)</option>
+				<option value="end_date_desc">end date (new to old)</option>
+				<option value="end_date_asc">end date (old to new)</option>
+			</#if>
 		</select/>
   	</div>
   </div>

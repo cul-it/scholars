@@ -17,6 +17,7 @@
 @prefix mydomain: <http://localhost:8080/individual/> .
 @prefix obo: <http://purl.obolibrary.org/obo/> .
 @prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix ospcu: <http://scholars.cornell.edu/ontology/ospcu.owl#> .
 
 vivo:FacultyMember
         display:hasCustomView mydomain:peopleSearchView ;
@@ -55,6 +56,9 @@ vivo:Contract
 		display:hasCustomView mydomain:grantsResearchView .
 
 vivo:Grant
+		display:hasCustomView mydomain:grantsResearchView .
+
+ospcu:CooperativeAgreement
 		display:hasCustomView mydomain:grantsResearchView .
 
 vivo:AcademicDepartment

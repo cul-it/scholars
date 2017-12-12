@@ -221,6 +221,22 @@ local:agreementAdministeredByConfig a :ObjectPropertyDisplayConfig ;
     vitro:customEntryFormAnnot "edu.cornell.mannlib.vitro.webapp.edit.n3editing.configuration.generators.GrantAdministeredByGenerator"^^<http://www.w3.org/2001/XMLSchema#string> ;
     :propertyGroup <http://vivoweb.org/ontology#vitroPropertyGroupoverview> .
 
+local:agreementFundedByContext a :ConfigContext ;
+    :hasConfiguration local:agreementFundedByConfig ;
+    :configContextFor vivo:assignedBy ;
+    :qualifiedByDomain  <http://scholars.cornell.edu/ontology/ospcu.owl#CooperativeAgreement> ;
+    :qualifiedBy <http://xmlns.com/foaf/0.1/Organization> .
+
+local:agreementFundedByConfig a :ObjectPropertyDisplayConfig ;
+    :listViewConfigFile "listViewConfig-fauxPropertyDefault.xml"^^xsd:string ;
+    rdfs:label "grantAwardedBy"@en-US;
+    :displayName "funded by" ;
+    vitro:displayRankAnnot 14;
+    vitro:hiddenFromDisplayBelowRoleLevelAnnot role:public ;
+    vitro:prohibitedFromUpdateBelowRoleLevelAnnot role:public ;
+    vitro:offerCreateNewOptionAnnot "true"^^xsd:boolean ;
+    :propertyGroup <http://vivoweb.org/ontology#vitroPropertyGroupoverview> .
+
 
 
 

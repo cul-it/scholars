@@ -96,6 +96,7 @@
     rdfs:label "Add Administrator to Grant" ;
     :hasTypeRestriction "http://vivoweb.org/ontology/core#Grant" ;
     :hasTypeRestriction "http://vivoweb.org/ontology/core#Contract" ;
+	:hasTypeRestriction "http://scholars.cornell.edu/ontology/ospcu.owl#CooperativeAgreement" ;
     :hasTargetField "administrator_txt" ;
     :hasTargetField "administrator_ss" ;
     :hasSelectQuery """
@@ -120,6 +121,7 @@
     rdfs:label "Add Funding Agency to Grant" ;
     :hasTypeRestriction "http://vivoweb.org/ontology/core#Grant" ;
     :hasTypeRestriction "http://vivoweb.org/ontology/core#Contract" ;
+	:hasTypeRestriction "http://scholars.cornell.edu/ontology/ospcu.owl#CooperativeAgreement" ;
     :hasTargetField "funder_txt" ;
     :hasTargetField "funder_ss" ;
     :hasSelectQuery """
@@ -144,6 +146,7 @@
     rdfs:label "Add PIs to Grant" ;
     :hasTypeRestriction "http://vivoweb.org/ontology/core#Grant" ;
     :hasTypeRestriction "http://vivoweb.org/ontology/core#Contract" ;
+	:hasTypeRestriction "http://scholars.cornell.edu/ontology/ospcu.owl#CooperativeAgreement" ;
     :hasTargetField "affiliation_txt" ;
     :hasTargetField "affiliation_ss" ;
     :hasSelectQuery """
@@ -194,6 +197,7 @@
     rdfs:label "Add Start Date to Grant" ;
     :hasTypeRestriction "http://vivoweb.org/ontology/core#Grant" ;
     :hasTypeRestriction "http://vivoweb.org/ontology/core#Contract" ;
+	:hasTypeRestriction "http://scholars.cornell.edu/ontology/ospcu.owl#CooperativeAgreement" ;
     :hasTargetField "start_date_dt" ;
     :hasSelectQuery """
     	PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
@@ -219,6 +223,7 @@
     rdfs:label "Add End Date to Grant" ;
     :hasTypeRestriction "http://vivoweb.org/ontology/core#Grant" ;
     :hasTypeRestriction "http://vivoweb.org/ontology/core#Contract" ;
+	:hasTypeRestriction "http://scholars.cornell.edu/ontology/ospcu.owl#CooperativeAgreement" ;
     :hasTargetField "end_date_dt" ;
     :hasSelectQuery """
 		PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>

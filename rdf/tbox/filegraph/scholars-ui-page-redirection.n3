@@ -58,6 +58,7 @@ vivo:Contract  rdfs:label  "Contract"@en-US ;
                 <http://vitro.mannlib.cornell.edu/ns/vitro/role#public> .
 
 ospcu:CooperativeAgreement  
+		  rdfs:label  "Cooperative Agreement"@en-US ;
 		vitro:customDisplayViewAnnot  "individual--vivo-grant.ftl"^^xsd:string ;
         vitro:hiddenFromDisplayBelowRoleLevelAnnot
                 <http://vitro.mannlib.cornell.edu/ns/vitro/role#public> ;
