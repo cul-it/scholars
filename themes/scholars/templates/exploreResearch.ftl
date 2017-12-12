@@ -6,6 +6,7 @@
 <#assign hasPubs = false />
 <#assign hasGrants = false />
 <#assign hasContracts = false />
+<#assign hasAgreements = false />
 <#assign disableAll = false />
 <#if individuals?? >
 	<#assign searchResults>
@@ -22,7 +23,10 @@
 	<#if (contractCount > 0) >
 		<#assign hasContracts = true />
 	</#if>
-	<#assign grantContractTotal = (grantCount + contractCount) />
+	<#if (agreementCount > 0) >
+		<#assign hasAgreements = true />
+	</#if>
+	<#assign grantContractTotal = (grantCount + contractCount + agreementCount) />
 </#if>
 <#-- If we only have pubs or we only have grants, set the querytype accordingly -->
 <#if !querytype?? >
@@ -115,7 +119,7 @@
 		<label for="all-radio"> All</label>
 		<input id="pubs-radio" class="research-radio" type="radio" name="querytype" data-count="${pubCount!}" value="pubs" <#if adjQueryType == "pubs">checked</#if><#if !hasPubs> disabled</#if>>
 		<label for="pubs-radio"> Publications (${pubCount!})</label>
-		<input id="grants-radio" class="research-radio" type="radio" name="querytype" data-count="${grantContractTotal!}" value="grants" <#if adjQueryType == "grants">checked</#if><#if !hasGrants && !hasContracts> disabled</#if>>
+		<input id="grants-radio" class="research-radio" type="radio" name="querytype" data-count="${grantContractTotal!}" value="grants" <#if adjQueryType == "grants">checked</#if><#if !hasGrants && !hasContracts && !hasAgreements> disabled</#if>>
 		<label for="grants-radio"> Grants (${grantContractTotal!})</label>
 	</div>
 	

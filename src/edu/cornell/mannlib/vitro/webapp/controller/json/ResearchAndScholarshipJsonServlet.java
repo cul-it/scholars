@@ -447,6 +447,10 @@ public class ResearchAndScholarshipJsonServlet extends VitroHttpServlet {
 			case "CooperativeAgreement": 
 				svc = ShortViewContext.RESEARCH;
 				break;
+			// seeing different behavior in different envs, so including this as well
+			case "Cooperative Agreement": 
+				svc = ShortViewContext.RESEARCH;
+				break;
 			default :
 		 		svc = ShortViewContext.BROWSE;
 		}
