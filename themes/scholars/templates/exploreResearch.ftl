@@ -5,8 +5,8 @@
 <div id="biscuit-container" class="col-sm-12 scholars-container">
 <#assign hasPubs = false />
 <#assign hasGrants = false />
-<#assign hasContracts = false />
-<#assign hasAgreements = false />
+<#-- assign hasContracts = false / -->
+<#-- assign hasAgreements = false / -->
 <#assign disableAll = false />
 <#if individuals?? >
 	<#assign searchResults>
@@ -21,10 +21,10 @@
 		<#assign hasGrants = true />
 	</#if>
 	<#if (contractCount > 0) >
-		<#assign hasContracts = true />
+		<#assign hasGrants = true />
 	</#if>
 	<#if (agreementCount > 0) >
-		<#assign hasAgreements = true />
+		<#assign hasGrants = true />
 	</#if>
 	<#assign grantContractTotal = (grantCount + contractCount + agreementCount) />
 </#if>
@@ -119,7 +119,7 @@
 		<label for="all-radio"> All</label>
 		<input id="pubs-radio" class="research-radio" type="radio" name="querytype" data-count="${pubCount!}" value="pubs" <#if adjQueryType == "pubs">checked</#if><#if !hasPubs> disabled</#if>>
 		<label for="pubs-radio"> Publications (${pubCount!})</label>
-		<input id="grants-radio" class="research-radio" type="radio" name="querytype" data-count="${grantContractTotal!}" value="grants" <#if adjQueryType == "grants">checked</#if><#if !hasGrants && !hasContracts && !hasAgreements> disabled</#if>>
+		<input id="grants-radio" class="research-radio" type="radio" name="querytype" data-count="${grantContractTotal!}" value="grants" <#if adjQueryType == "grants">checked</#if><#if !hasGrants > disabled</#if>>
 		<label for="grants-radio"> Grants (${grantContractTotal!})</label>
 	</div>
 	
@@ -131,10 +131,10 @@
 		<select id="sort-results">
 			<option value="relevance">relevance</option>
 			<option value="title">title</option>
-			<#if querytype == "pubs">
+			<#if querytype == "pubs" || adjQueryType == "pubs">
 				<option value="pub_date_desc">pub. date (new to old)</option>
 				<option value="pub_date_asc">pub. date (old to new)</option>
-			<#elseif querytype == "grants" >
+			<#elseif querytype == "grants" || adjQueryType == "grants">
 				<option value="start_date_desc">start date (new to old)</option>
 				<option value="start_date_asc">start date (old to new)</option>
 				<option value="end_date_desc">end date (new to old)</option>
