@@ -254,7 +254,7 @@ var getScholarship = {
 		
 		// In case the user hits the enter key to submit search form rather
 		// than clicking the submit button
-		$("#results-search-form").on('submit' function() {
+		$("#results-search-form").on('submit', function() {
 			$("#hidden-querytype").val("all");
 			$("#results-search-form").submit();
 		});
