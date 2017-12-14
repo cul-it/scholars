@@ -21,27 +21,29 @@
             ?dateTimeStartRole ?dateTimeEndRole
             ?dateTimeStartGrant ?dateTimeEndGrant
             ?hideThis
-        WHERE {
+
+        WHERE
+        {
             ?subject ?property ?role .
             ?role a core:CoPrincipalInvestigatorRole .
 
             OPTIONAL
             {
-                ?role &lt;http://vivoweb.org/ontology/core#relatedBy&gt; ?activity .
+                ?role core:relatedBy ?activity .
                 ?activity rdfs:label ?activityLabel .
                 LET (?activityName := afn:localname(?activity)) .
             }
             OPTIONAL
             {
-                ?role &lt;http://vivoweb.org/ontology/core#relatedBy&gt; ?activity .
-				<!--                ?activity a core:Grant . -->
+                ?role core:relatedBy ?activity .
+<!--                ?activity a core:Grant . -->
                 ?activity core:assignedBy ?awardedBy .
                 ?awardedBy rdfs:label ?awardedByLabel .
             }
             OPTIONAL
             {
-                ?role &lt;http://vivoweb.org/ontology/core#relatedBy&gt; ?activity .
-				<!--                ?activity a core:Grant . -->
+                ?role core:relatedBy ?activity .
+<!--                ?activity a core:Grant . -->
                 ?activity core:relates ?adminedByRole .
                 ?adminedByRole &lt;http://purl.obolibrary.org/obo/RO_0000052&gt; ?adminedBy .
                 ?adminedBy rdfs:label ?adminedByLabel .
@@ -60,14 +62,14 @@
             }
             OPTIONAL
             {
-                ?role &lt;http://vivoweb.org/ontology/core#relatedBy&gt; ?activity .
+                ?role core:relatedBy ?activity .
                 ?activity core:dateTimeInterval ?dateTimeIntervalGrant .
                 ?dateTimeIntervalGrant core:start ?dateTimeStartValueGrant .
                 ?dateTimeStartValueGrant core:dateTime ?dateTimeStartGrant .
             }
             OPTIONAL
             {
-                ?role &lt;http://vivoweb.org/ontology/core#relatedBy&gt; ?activity .
+                ?role core:relatedBy ?activity .
                 ?activity core:dateTimeInterval ?dateTimeIntervalGrant .
                 ?dateTimeIntervalGrant core:end ?dateTimeEndValueGrant .
                 ?dateTimeEndValueGrant core:dateTime ?dateTimeEndGrant .
@@ -75,7 +77,13 @@
             OPTIONAL { ?role core:hideFromDisplay ?hideThis }
         } ORDER BY DESC(?dateTimeEndRole) DESC(?dateTimeStartRole) DESC(?dateTimeEndGrant) DESC(?dateTimeStartGrant) ?activityLabel ?activityName
     </query-select>
-
+    <!--
+                ?role rdfs:label ?roleLabel .
+                } UNION {
+                    ?subject ?property ?role .
+                    ?role a core:CoPrincipalInvestigatorRole .
+                    ?role rdfs:label ?roleLabel .
+    -->
     <query-construct>
         PREFIX core: &lt;http://vivoweb.org/ontology/core#&gt;
         PREFIX rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt;
@@ -84,36 +92,26 @@
         CONSTRUCT
         {
             ?subject ?property ?role .
-
             ?role a core:CoPrincipalInvestigatorRole .
-            ?role core:relatedBy ?activity .
             ?role core:hideFromDisplay ?hideThis .
-
+            ?role core:relatedBy ?activity .
             ?role core:dateTimeInterval ?dateTimeIntervalRole .
-
             ?dateTimeIntervalRole core:start ?dateTimeStartValueRole .
             ?dateTimeStartValueRole core:dateTime ?dateTimeStartRole .
-
             ?dateTimeIntervalRole core:end ?dateTimeEndValueRole .
             ?dateTimeEndValueRole core:dateTime ?dateTimeEndRole .
-
-		 <!--           ?activity a core:Grant . -->
             ?activity rdfs:label ?activityLabel .
-
+ <!--           ?activity a core:Grant . -->
             ?activity core:dateTimeInterval ?dateTimeIntervalGrant .
-
-            ?dateTimeIntervalGrant core:start ?dateTimeStartValueGrant .
-            ?dateTimeStartValueGrant core:dateTime ?dateTimeStartGrant .
-
-            ?dateTimeIntervalGrant core:end ?dateTimeEndValueGrant .
-            ?dateTimeEndValueGrant core:dateTime ?dateTimeEndGrant .
-
             ?activity core:assignedBy ?awardedBy .
             ?awardedBy rdfs:label ?awardedByLabel .
-
             ?activity core:relates ?adminedByRole .
             ?adminedByRole &lt;http://purl.obolibrary.org/obo/RO_0000052&gt; ?adminedBy .
             ?adminedBy rdfs:label ?adminedByLabel .
+            ?dateTimeIntervalGrant core:start ?dateTimeStartValueGrant .
+            ?dateTimeStartValueGrant core:dateTime ?dateTimeStartGrant .
+            ?dateTimeIntervalGrant core:end ?dateTimeEndValueGrant .
+            ?dateTimeEndValueGrant core:dateTime ?dateTimeEndGrant .
         }
         WHERE
         {
@@ -146,7 +144,7 @@
             UNION
             {
                 ?subject ?property ?role .
-                ?role a core:PrincipalInvestigatorRole .
+                ?role a core:CoPrincipalInvestigatorRole .
                 ?role core:relatedBy ?activity .
                 ?activity a ospcu:CooperativeAgreement .
                 ?activity rdfs:label ?activityLabel .
@@ -157,6 +155,26 @@
                 ?role a core:CoPrincipalInvestigatorRole .
                 ?role core:relatedBy ?activity .
                 ?activity a core:Grant .
+                ?activity core:assignedBy ?awardedBy .
+                ?awardedBy a foaf:Organization .
+                ?awardedBy rdfs:label ?awardedByLabel .
+            }
+            UNION
+            {
+                ?subject ?property ?role .
+                ?role a core:CoPrincipalInvestigatorRole .
+                ?role core:relatedBy ?activity .
+                ?activity a core:Contract .
+                ?activity core:assignedBy ?awardedBy .
+                ?awardedBy a foaf:Organization .
+                ?awardedBy rdfs:label ?awardedByLabel .
+            }
+            UNION
+            {
+                ?subject ?property ?role .
+                ?role a core:CoPrincipalInvestigatorRole .
+                ?role core:relatedBy ?activity .
+                ?activity a ospcu:CooperativeAgreement .
                 ?activity core:assignedBy ?awardedBy .
                 ?awardedBy a foaf:Organization .
                 ?awardedBy rdfs:label ?awardedByLabel .
@@ -190,7 +208,7 @@
                 ?subject ?property ?role .
                 ?role a core:CoPrincipalInvestigatorRole .
                 ?role core:relatedBy ?activity .
-                ?activity a core:CooperativeAgreement .
+                ?activity a ospcu:CooperativeAgreement .
                 ?activity core:relates ?adminedByRole .
                 ?adminedByRole a core:AdminsitratorRole.
                 ?adminedByRole &lt;http://purl.obolibrary.org/obo/RO_0000052&gt; ?adminedBy .
@@ -275,6 +293,6 @@
             }
         }
     </query-construct>
-		
+
     <template>propStatement-hasInvestigatorRole.ftl</template>
 </list-view-config>
