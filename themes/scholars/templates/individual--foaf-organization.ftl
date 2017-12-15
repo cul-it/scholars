@@ -223,6 +223,7 @@
 		  </#if>
 		  <#if showGrantsTab >
 			  <div id="tabs-2"  class="tab-content">
+				<p class="tab-caveat">May include contracts and cooperative agreements as well as grants.</p>
 				<article class="property" role="article">
 			    <ul id="individual-grants-pi" class="property-list" role="list" >
 					<li class="subclass" role="listitem">

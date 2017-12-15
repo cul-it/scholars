@@ -190,7 +190,7 @@ $(document).ready(function() {
  			<a href="${coInvestigatorVisUrl}" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Person', 'Co-investigtors']);">
  				<img id="vizIcon" width="120px" src="${urls.base}/themes/scholars/images/co-investigators.png"/>
  			</a>
- 			<p>Co-investigators</p>
+ 			<p>Co-investigators <span class="viz-col-caveat">(grants only)</span></p>
  		</div>
  	</#if>
 </div>
@@ -216,6 +216,7 @@ $(document).ready(function() {
 	  </#if>
 	  <#if isInvestigator >
 		  <div id="tabs-2"  class="tab-content">
+			<p class="tab-caveat">May include contracts and cooperative agreements as well as grants.</p>
 		    <article class="property" role="article">
 		    <ul id="individual-grants-pi" class="property-list" role="list" >
 				<li class="subclass" role="listitem">

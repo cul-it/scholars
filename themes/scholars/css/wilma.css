@@ -3796,3 +3796,10 @@ ul.lower-alpha-list li {
 .subclass-property-list li div.PlumX-Popup {
 	display: inline;
 }
+.tab-caveat {
+	margin: 15px 0 0 40px;
+}
+.viz-col-caveat {
+	font-size: 12px;
+	display: block;
+}
