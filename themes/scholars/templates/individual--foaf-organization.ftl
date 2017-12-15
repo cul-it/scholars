@@ -188,7 +188,7 @@
 </#assign>
 
 <#assign facultyDeptListColumn >
-  <#if isLibrary>
+  <#if  (!isCollegeOrSchool && !isInstitute) && (facultyList?has_content || adminsGrant?has_content || subOrgs?has_content )>
 	<div id="foafOrgTabs" class="col-md-8 scholars-container <#if !showVisualizations>scholars-container-full</#if>">
 	  <#if facultyList?has_content || adminsGrant?has_content >
 		<div id="scholars-tabs-container">
