@@ -32,6 +32,10 @@
 <#if individual.mostSpecificTypes?seq_contains("Institute")>
 	<#assign isInstitute = true />
 </#if>
+<#assign isLibrary = false />
+<#if individual.mostSpecificTypes?seq_contains("Library")>
+	<#assign isLibrary = true />
+</#if>
 <#assign showVisualizations = false>
 <#if individual.mostSpecificTypes?seq_contains("College") || individual.mostSpecificTypes?seq_contains("School") || individual.mostSpecificTypes?seq_contains("Academic Department") || individual.mostSpecificTypes?seq_contains("Institute")>
 	<#assign showVisualizations = true />
@@ -124,7 +128,7 @@
 	<#assign webpageLabel = webpageStmt.label! />
 	<#assign webpageUrl = webpageStmt.url! />
 </#if>
-<#if isCollegeOrSchool>
+<#if isCollegeOrSchool || isLibrary >
 	<#assign departmentsProp = propertyGroups.pullProperty("http://purl.obolibrary.org/obo/BFO_0000051","http://xmlns.com/foaf/0.1/Organization")!>
 	<#if departmentsProp?has_content && departmentsProp.statements?has_content> 
 	    <#assign subOrgs>
@@ -184,15 +188,31 @@
 </#assign>
 
 <#assign facultyDeptListColumn >
-  <#if (!isCollegeOrSchool && !isInstitute) && (facultyList?has_content || adminsGrant?has_content)>
+  <#if  (!isCollegeOrSchool && !isInstitute) && (facultyList?has_content || adminsGrant?has_content || subOrgs?has_content )>
 	<div id="foafOrgTabs" class="col-md-8 scholars-container <#if !showVisualizations>scholars-container-full</#if>">
 	  <#if facultyList?has_content || adminsGrant?has_content >
 		<div id="scholars-tabs-container">
 		  <ul id="scholars-tabs">
-		    <#if facultyList?has_content ><li><a href="#tabs-1" onclick="javascript:_paq.push(['trackEvent', 'Tab', 'Department-School', 'People']);">People</a></li> </#if>
+			<#if subOrgs?has_content && isLibrary>
+				<li>
+					<a href="#tabs-1" onclick="javascript:_paq.push(['trackEvent', 'Tab', 'Department-School', 'Sub-units']);">Unit Libraries</a>
+				</li>
+		    <#elseif facultyList?has_content >
+				<li>
+					<a href="#tabs-1" onclick="javascript:_paq.push(['trackEvent', 'Tab', 'Department-School', 'People']);">People</a>
+				</li> 
+				</#if>
 		    <#if showGrantsTab ><li><a href="#tabs-2" onclick="javascript:_paq.push(['trackEvent', 'Tab', 'Department-School', 'Grants']);">Grants</a></li></#if>
 		  </ul>
-		  <#if facultyList?has_content>
+		  <#if subOrgs?has_content && isLibrary>
+		  	<div id="tabs-1" class="tab-content" data="${publicationsProp!}-dude">
+				<article class="property" role="article">
+		    		<ul id="individual-faculty" class="property-list" role="list" >
+		    			${subOrgs!}
+					</ul>
+				</article>	
+		  	</div>
+		  <#elseif facultyList?has_content>
 			  <div id="tabs-1" class="tab-content" data="${publicationsProp!}-dude">
 					<article class="property" role="article">
 			    		<ul id="individual-faculty" class="property-list" role="list" >
@@ -203,6 +223,7 @@
 		  </#if>
 		  <#if showGrantsTab >
 			  <div id="tabs-2"  class="tab-content">
+				<p class="tab-caveat">May include contracts and cooperative agreements as well as grants.</p>
 				<article class="property" role="article">
 			    <ul id="individual-grants-pi" class="property-list" role="list" >
 					<li class="subclass" role="listitem">

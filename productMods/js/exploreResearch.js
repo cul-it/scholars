@@ -252,6 +252,16 @@ var getScholarship = {
 			$("#results-search-form").submit();
 		}); 
 		
+		// In case the user hits the enter key to submit search form rather
+		// than clicking the submit button
+		$("#results-search-form").on('submit', function() {
+			var obj = document.activeElement;
+			if ( $(obj).attr("id") == "res-search-input" ) {
+				$("#results-search-form").attr("action",baseUrl + "/scholarship?origin=homepage");
+				$("#hidden-querytype").val("all");
+			}
+		});
+		
 		// Year range facet behavior
 		if ( $("#yearRange-facets").length ) {
 			// If active year facet used with grants, show the tooltip and reset link

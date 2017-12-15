@@ -135,7 +135,7 @@ function drawUniversityWordCloud(keywords, target) {
   
   function createTooltip() {
     return d3.tip()
-    .attr('class', 'sitewc d3-tip choices triangle-isosceles')
+    .attr('class', 'sitewc-tip d3-tip choices triangle-isosceles')
     .html(produceTooltipHtml);
     
     function produceTooltipHtml(d) {

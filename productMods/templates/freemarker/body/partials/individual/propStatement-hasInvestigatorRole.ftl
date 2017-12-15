@@ -41,7 +41,7 @@
     </#local>
         
     <#local dateTime>
-		<#setting date_format="M/yyyy"> 
+		<#setting date_format="yyyy"> 
 		<#setting locale="en_US">
 		
         <#if statement.dateTimeStartRole?has_content || statement.dateTimeEndRole?has_content>

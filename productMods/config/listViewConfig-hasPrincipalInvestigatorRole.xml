@@ -164,6 +164,26 @@
                 ?subject ?property ?role .
                 ?role a core:PrincipalInvestigatorRole .
                 ?role core:relatedBy ?activity .
+                ?activity a core:Contract .
+                ?activity core:assignedBy ?awardedBy .
+                ?awardedBy a foaf:Organization .
+                ?awardedBy rdfs:label ?awardedByLabel .
+            }
+            UNION
+            {
+                ?subject ?property ?role .
+                ?role a core:PrincipalInvestigatorRole .
+                ?role core:relatedBy ?activity .
+                ?activity a ospcu:CooperativeAgreement .
+                ?activity core:assignedBy ?awardedBy .
+                ?awardedBy a foaf:Organization .
+                ?awardedBy rdfs:label ?awardedByLabel .
+            }
+            UNION
+            {
+                ?subject ?property ?role .
+                ?role a core:PrincipalInvestigatorRole .
+                ?role core:relatedBy ?activity .
                 ?activity a core:Grant .
                 ?activity core:relates ?adminedByRole .
                 ?adminedByRole a core:AdminsitratorRole.
@@ -188,7 +208,7 @@
                 ?subject ?property ?role .
                 ?role a core:PrincipalInvestigatorRole .
                 ?role core:relatedBy ?activity .
-                ?activity a core:CooperativeAgreement .
+                ?activity a ospcu:CooperativeAgreement .
                 ?activity core:relates ?adminedByRole .
                 ?adminedByRole a core:AdminsitratorRole.
                 ?adminedByRole &lt;http://purl.obolibrary.org/obo/RO_0000052&gt; ?adminedBy .

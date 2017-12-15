@@ -31,6 +31,15 @@ $(document).ready(function() {
 <#if emailProp?has_content && emailProp.statements?has_content>
 	<#assign email = emailProp.statements?first/>
 </#if>
+<#assign fullNameProp = propertyGroups.pullProperty("http://purl.obolibrary.org/obo/ARG_2000028","http://www.w3.org/2006/vcard/ns#Name")!>
+<#assign givenName = "" />
+<#assign familyName = "" />
+<#assign additionalName = "" />
+<#if fullNameProp?has_content && fullNameProp.statements?has_content>
+	<#assign givenName = fullNameProp.statements[0].firstName! />
+	<#assign familyName = fullNameProp.statements[0].lastName! />
+	<#assign additionalName = fullNameProp.statements[0].middleName! />
+</#if>
 <#assign isAuthor = p.hasVisualizationStatements(propertyGroups, "${core}relatedBy", "${core}Authorship") />
 <#assign coAuthorVisUrl = individual.coAuthorVisUrl()>
 <#assign obo_RO53 = "http://purl.obolibrary.org/obo/RO_0000053">
@@ -181,7 +190,7 @@ $(document).ready(function() {
  			<a href="${coInvestigatorVisUrl}" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Person', 'Co-investigtors']);">
  				<img id="vizIcon" width="120px" src="${urls.base}/themes/scholars/images/co-investigators.png"/>
  			</a>
- 			<p>Co-investigators</p>
+ 			<p>Co-investigators <span class="viz-col-caveat">(grants only)</span></p>
  		</div>
  	</#if>
 </div>
@@ -207,6 +216,7 @@ $(document).ready(function() {
 	  </#if>
 	  <#if isInvestigator >
 		  <div id="tabs-2"  class="tab-content">
+			<p class="tab-caveat">May include contracts and cooperative agreements as well as grants.</p>
 		    <article class="property" role="article">
 		    <ul id="individual-grants-pi" class="property-list" role="list" >
 				<li class="subclass" role="listitem">
@@ -301,8 +311,6 @@ $(document).ready(function() {
 </div> <!-- row2 div -->
 
 <!-- =============== Word cloud visualization ======================= -->
-
-${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/keywordcloud/kwcloud.css" />')}
 
 <div id="word_cloud_vis" class="scholars_vis_container vis_modal">
   <div id="title_bar">
@@ -516,7 +524,9 @@ ${stylesheets.add('<link rel="stylesheet" type="text/css" href="https://fonts.go
   ldjson.text = JSON.stringify({
     "@context": "http://schema.org",
     "@type": "Person",
-	  "name": "${individual.name?replace("\"","")!}",
+	  "givenName": "${givenName!}",
+	  "familyName": "${familyName!}",
+	  "additionalName": "${additionalName!}",
 	  "affiliation": "Cornell University",
 	  "image": "${individual.thumbNail!}",
 	  "url": "${individual.uri}",

@@ -315,7 +315,7 @@ public class ResearchAndScholarshipJsonServlet extends VitroHttpServlet {
 			query.addFilterQuery("type:\"http://purl.org/ontology/bibo/Document\"");
 		}
 		else if ( queryType.equals("grants") ) {
-			query.addFilterQuery("type:\"http://vivoweb.org/ontology/core#Grant\" OR type:\"http://vivoweb.org/ontology/core#Contract\"");
+			query.addFilterQuery("type:\"http://vivoweb.org/ontology/core#Grant\" OR type:\"http://vivoweb.org/ontology/core#Contract\" OR type:\"http://scholars.cornell.edu/ontology/ospcu.owl#CooperativeAgreement\"");
 		}
 		else {
 			query.addFilterQuery("-type:\"http://www.w3.org/2004/02/skos/core#Concept\"");
@@ -323,6 +323,27 @@ public class ResearchAndScholarshipJsonServlet extends VitroHttpServlet {
 		}
 		if ( sortBy.equals("title") ) {
         	query.addSortField("nameLowercaseSingleValued",SearchQuery.Order.ASC);
+		}
+		else if ( sortBy.equals("pub_date_desc") ) {
+        	query.addSortField("pub_date_dt",SearchQuery.Order.DESC);
+		}
+		else if ( sortBy.equals("pub_date_asc") ) {
+        	query.addSortField("pub_date_dt",SearchQuery.Order.ASC);
+		}
+		else if ( sortBy.equals("start_date_desc") ) {
+        	query.addSortField("start_date_dt",SearchQuery.Order.DESC).addSortField("end_date_dt",SearchQuery.Order.ASC);
+		}
+		else if ( sortBy.equals("start_date_asc") ) {
+        	query.addSortField("start_date_dt",SearchQuery.Order.ASC).addSortField("end_date_dt",SearchQuery.Order.ASC);;
+		}
+		else if ( sortBy.equals("end_date_desc") ) {
+        	query.addSortField("end_date_dt",SearchQuery.Order.DESC).addSortField("start_date_dt",SearchQuery.Order.ASC);
+		}
+		else if ( sortBy.equals("end_date_asc") ) {
+        	query.addSortField("end_date_dt",SearchQuery.Order.ASC).addSortField("start_date_dt",SearchQuery.Order.ASC);
+		}
+		if ( !sortBy.equals("title") && !sortBy.equals("relevance") && sortBy.length() > 0 ) {
+			query.addSortField("nameLowercaseSingleValued",SearchQuery.Order.ASC);
 		}
 		
         log.debug("Query = " + query.toString());
@@ -421,6 +442,13 @@ public class ResearchAndScholarshipJsonServlet extends VitroHttpServlet {
 				svc = ShortViewContext.RESEARCH;
 				break;
 			case "Contract": 
+				svc = ShortViewContext.RESEARCH;
+				break;
+			case "CooperativeAgreement": 
+				svc = ShortViewContext.RESEARCH;
+				break;
+			// seeing different behavior in different envs, so including this as well
+			case "Cooperative Agreement": 
 				svc = ShortViewContext.RESEARCH;
 				break;
 			default :

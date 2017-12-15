@@ -235,6 +235,7 @@ public class ResearchAndScholarshipController extends FreemarkerHttpServlet {
 			int pubCount = 0;
 			int grantCount = 0;
 			int contractCount = 0;
+			int agreementCount = 0;
 
 			for (VClassSearchLink facet : classFacet ) {
 				String name = facet.getName();
@@ -244,6 +245,9 @@ public class ResearchAndScholarshipController extends FreemarkerHttpServlet {
 				else if ( name.equals("Contract") ) {
 					contractCount += Integer.valueOf(facet.getCount());
 				}
+				else if ( name.equals("Cooperative Agreement") ) {
+					agreementCount += Integer.valueOf(facet.getCount());
+				}
 				else {
 					pubCount += Integer.valueOf(facet.getCount());
 				}
@@ -251,6 +255,7 @@ public class ResearchAndScholarshipController extends FreemarkerHttpServlet {
 			body.put("pubCount", pubCount); 
 			body.put("grantCount", grantCount); 
 			body.put("contractCount", contractCount); 
+			body.put("agreementCount", agreementCount); 
             body.put("affiliationFacet", getAffiliationFacet(docs, response));  
 			if ( queryType.equals("pubs") || queryType.equals("all") ) {
 				body.put("pubVenueFacet", getPubVenueFacet(docs, response));
@@ -361,7 +366,7 @@ public class ResearchAndScholarshipController extends FreemarkerHttpServlet {
 			query.addFilterQuery("type:\"http://purl.org/ontology/bibo/Document\"");
 		}
 		else if ( queryType.equals("grants") ) {
-			query.addFilterQuery("type:\"http://vivoweb.org/ontology/core#Grant\" OR type:\"http://vivoweb.org/ontology/core#Contract\"");
+			query.addFilterQuery("type:\"http://vivoweb.org/ontology/core#Grant\" OR type:\"http://vivoweb.org/ontology/core#Contract\" OR type:\"http://scholars.cornell.edu/ontology/ospcu.owl#CooperativeAgreement\"");
 		}
 		else {
 			query.addFilterQuery("-type:\"http://www.w3.org/2004/02/skos/core#Concept\"");
@@ -743,6 +748,13 @@ public class ResearchAndScholarshipController extends FreemarkerHttpServlet {
 					svc = ShortViewContext.RESEARCH;
 					break;
 				case "Contract": 
+					svc = ShortViewContext.RESEARCH;
+					break;
+				case "CooperativeAgreement": 
+					svc = ShortViewContext.RESEARCH;
+					break;
+				// seeing different behavior in different envs, so including this as well
+				case "Cooperative Agreement": 
 					svc = ShortViewContext.RESEARCH;
 					break;
 				default :

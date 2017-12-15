@@ -19,7 +19,7 @@
 	font-size: 12px;
 }
 
-.choices {
+.collab-tip.choices {
 	background-color: rgba(50, 50, 50, 0.8);
 	color: white;
 	font-family: Arial;
@@ -29,7 +29,7 @@
 	z-index: 10;
 }
 
-.choices a {
+.collab-tip.choices a {
 	color: #EFEFEF;
 	padding-top: 5px;
 	padding-bottom: 5px;
@@ -37,7 +37,7 @@
 	padding-left: 2px;
 }
 
-.triangle-isosceles {
+.collab-tip.triangle-isosceles {
 	max-height: 300px;
 	max-width: 800px;
 	overflow-y:scroll;
@@ -52,21 +52,21 @@
 	z-index: 100 !important;
 }
 
-.collabhoverable {
+.collab-tip .collabhoverable {
 	width: 100%;
 }
 
-.nonlinktext{
-	color: #A9A9A9;
-}
-
-.collabhoverable a {
+.collab-tip .collabhoverable a {
 	color: white;
 	text-decoration: none;
 }
 
-.collabhoverable:hover {
+.collab-tip .collabhoverable:hover {
 	background-color: rgba(50, 150, 200, 0.8);
+}
+
+.collab-tip .nonlinktext{
+	color: #A9A9A9;
 }
 
 #svgDiv  { display: table-header-group; }

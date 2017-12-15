@@ -204,7 +204,7 @@ var luminance = d3.scale.sqrt()
     .clamp(true)
     .range([90, 20]);
 
-var tip = d3.tip().attr('class', 'd3-tip choices triangle-isosceles').attr("id", "specificTip").html(function(d) { 
+var tip = d3.tip().attr('class', 'collab-tip d3-tip choices triangle-isosceles').attr("id", "specificTip").html(function(d) { 
   result = "";
   if(d.url != null){
     result += "<p><b><a href='" + d.url + "'>" + d.name + " ("+d.pubs.length+") </a></b></p>";
