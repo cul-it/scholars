@@ -250,6 +250,14 @@
         <rdfs:comment xml:lang="en">This property is used when a Journal string is neither mapped to an existing Journal label nor ISSN/EISSN is found for the Journal. In such cases, rather creating a new URL for a Journal, intent is to attach the Journal title string to the academic article via free text journl title property.</rdfs:comment>
     </owl:DatatypeProperty>
 
+    <!-- http://scholars.cornell.edu/ontology/vivoc.owl#freetextProceedingsTitle -->
+    
+    <owl:DatatypeProperty rdf:about="http://scholars.cornell.edu/ontology/vivoc.owl#freetextProceedingsTitle">
+        <rdfs:label xml:lang="en">Free text proceedings title</rdfs:label>
+        <rdfs:domain rdf:resource="http://vivoweb.org/ontology/core#ConferencePaper"/>
+        <rdfs:comment xml:lang="en">This property is used when a proceding string is neither mapped to an existing proceeding label nor ISSN/EISSN is found for the proceeding. In such cases, rather creating a new URL for a proceeding, intent is to attach the proceeding title string to the conference paper via free text proceeding title property.</rdfs:comment>
+    </owl:DatatypeProperty>
+
     <!-- http://scholars.cornell.edu/ontology/vivoc.owl#inferredKeyword -->
     
     <owl:DatatypeProperty rdf:about="http://scholars.cornell.edu/ontology/vivoc.owl#inferredKeyword">
@@ -516,6 +524,7 @@
         <rdf:type rdf:resource="http://scholars.cornell.edu/ontology/vivoc.owl#CourseAttribute"/>
         <rdfs:label xml:lang="en">Undergraduate Research Course (CU-UGR)</rdfs:label>
     </owl:NamedIndividual>
+
 </rdf:RDF>
 
 
