@@ -64,8 +64,6 @@ var BarChartVis = (function() {
         }
         
         function fillArticlesMap(map) {
-            console.log("years: " + JSON.stringify(years, null, 2));
-            console.log("map: " + JSON.stringify(map, null, 2));
             bindings.forEach(processBinding);
             return map;
             
@@ -74,9 +72,7 @@ var BarChartVis = (function() {
                 var year = binding.date.value.substring(0, 4);
                 var articleUri = binding.article.value;
                 var articleTitle = binding.title.value;
-                console.log("unit: " + unit);
-                console.log("year: " + year);
-                map[unit][year][articleUri] = articleTitle;
+                map[unit][year][articleTitle] = articleUri;
             } 
         }
         
@@ -96,21 +92,16 @@ var BarChartVis = (function() {
     }
     
     function display(data, target) {
-        console.log("DISPLAY_DATA: " + JSON.stringify(data, null, 2));
         var chart = c3.generate({
             bindto: target,
             data: {
                 columns: data.columnData,
                 type: 'bar',
                 groups: [data.units],
-                onclick: function (d, element) {
-                    addPanel();
-                    console.log(element);
-                    console.log(d);
-                }
+                onclick: showDetailsPanel
             },
             legend: {
-                position: 'right'
+                position: 'bottom'
             },
             axis: {
                 y: {
@@ -122,7 +113,8 @@ var BarChartVis = (function() {
                         position: 'outer-right'
                     },
                     tick: {
-                        rotate: 0 
+                        rotate: 75,
+                        multiline: false
                     },
                     type: 'category',
                     categories: data.years
@@ -131,6 +123,107 @@ var BarChartVis = (function() {
                     grouped: false // Default true
                 }
         });
+        
+        function showDetailsPanel(d, element) {
+            if ($('.c3-tooltip-container:visible').length == 0) {
+                return;
+            }
+            
+            var panel = addPanel();
+            var tip = replaceTooltipWithDetailtip();
+            var desiredSize = addDetailsAndPlayWithSizes();
+            animate();
+            
+            /*
+             * Create a panel that will block mouse events from the chart. Click
+             * on it, and it will go away.
+             */
+            function addPanel() {
+                var panel = $('<div class="transparentPanel"></div>');
+                panel.appendTo($(target));
+                panel.click(removePanel);
+                return panel;
+                
+                function removePanel(event) {
+                    panel.remove();
+                }
+            }
+            
+            /*
+             * Create the detail tip as a copy of the tooltip. Recognize mouse
+             * events, but don't pass them on to the panel.
+             */
+            function replaceTooltipWithDetailtip() {
+                var tooltip = $('.c3-tooltip-container'); 
+                tooltip.hide();
+                
+                var detail = tooltip.clone();
+                detail.addClass('detailTooltip');
+                detail.appendTo(panel);
+                detail.show();
+                
+                detail.css('pointer-events', 'auto');
+                detail.click(blockClicks);
+                
+                return detail;
+                
+                function blockClicks(event) {
+                    event.stopPropagation();
+                }
+            }
+
+            function addDetailsAndPlayWithSizes() {
+                var originalSize = {
+                        top: tip.position().top,
+                        left: tip.position().left,
+                        height: tip.height(),
+                        width: tip.width()
+                };
+                
+                hideAndAddDetails();
+                
+                var desiredSize = {
+                        top: 20,
+                        left: Math.floor((panel.width() - tip.width()) / 2),
+                        height: tip.height(),
+                        width: tip.width()
+                }
+                
+                restoreOriginalSize();
+                
+                return desiredSize;
+                    
+                function hideAndAddDetails() {
+                    var table = $('<table class="c3-tooltip details"><tbody></tbody></table>');
+                    var tbody = table.find('tbody');
+                    var articles = data.articles[d.id][data.years[d.index]];
+                    Object.keys(articles).sort().forEach(addTableRow);
+                    
+                    tip.css("opacity", 0.01);
+                    tip.css("left", Math.floor(panel.width() / 4));
+                    tip.css("top", Math.floor(panel.height() / 4));
+                    tip.append(table);
+                    table.width(tip.width());
+                    
+                    function addTableRow(title) {
+                        var link = ScholarsVis.Utilities.toDisplayUrl(articles[title]);
+                        tbody.append($('<tr><td class="name"><a href="' + link + '">' + title + '</a></td></tr>'));
+                    }
+                }
+                
+                function restoreOriginalSize() {
+                    tip.css("top", originalSize.top + "px");
+                    tip.css("left", originalSize.left + "px");
+                    tip.height(originalSize.height);
+                    tip.width(originalSize.width);
+                    tip.css("opacity", 1.0);
+                }
+            }
+            
+            function animate() {
+                tip.animate(desiredSize);
+            }
+        }
     }
     
     function close() {

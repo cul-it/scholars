@@ -279,7 +279,6 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/scholars-vis/
 
 <script>              
 $().ready(function() {
-  console.log("BOGUS READY");
   var barChart = new ScholarsVis.JournalBarChart.FullVisualization({
     target : '#bar_chart_vis',
     modal : true,

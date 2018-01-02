@@ -1,0 +1,23 @@
+.c3-tooltip-container {
+  top: 0
+}
+
+.c3-tooltip-container.detailTooltip {
+  overflow-x: hidden;
+  overflow-y: scroll;
+  max-height: 75%;
+}
+
+.c3 .transparentPanel {
+  z-index: 9;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: rgba(127, 127, 127, 0.1);
+}
+
+.c3 .transparentPanel table.c3-tooltip {
+  width: 100%
+}
