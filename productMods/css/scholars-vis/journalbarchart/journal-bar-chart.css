@@ -4,11 +4,15 @@
 
 .c3-tooltip-container.detailTooltip {
   overflow-x: hidden;
-  overflow-y: scroll;
+  overflow-y: auto;
   max-height: 75%;
 }
 
-.c3 .transparentPanel {
+#jbc {
+  height: 100%
+}
+
+#jbc .transparentPanel {
   z-index: 9;
   position: absolute;
   width: 100%;
@@ -18,6 +22,6 @@
   background: rgba(127, 127, 127, 0.1);
 }
 
-.c3 .transparentPanel table.c3-tooltip {
+#jbc .transparentPanel table.c3-tooltip {
   width: 100%
 }

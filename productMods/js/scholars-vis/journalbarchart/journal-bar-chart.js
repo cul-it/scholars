@@ -2,7 +2,7 @@ var BarChartVis = (function() {
     return {
         transformdata: transformdata,
         display: display,
-        close: close,
+        closer: closer,
         exportVisAsJson: exportVisAsJson,
         exportVisAsSvg: exportVisAsSvg,
         exportTableAsCsv: exportTableAsCsv,
@@ -37,16 +37,18 @@ var BarChartVis = (function() {
         }
         
         function enumerateYears() {
-            var lowest = 9999;
-            var highest = 0;
-            for (var i = 0; i < bindings.length; i++) {
-                var year = parseInt(bindings[i].date.value.substring(0, 4));
-                if (year <  lowest) lowest = year;
-                if (year >  highest) highest = year;
+            var highest = new Date().getFullYear();
+            var lowest = bindings.reduce(function(lowest, binding) {
+                return Math.min(lowest, parseInt(binding.date.value.substring(0, 4)));
+            }, 9999);
+            if (options.lowestYear) {
+                lowest = Math.max(lowest, options.lowestYear);
             }
+            console.log("LOWEST: " + lowest + ", HIGHEST: " + highest);
+            
             var years = [];
             for (var y = lowest; y <= highest; y++) {
-                years.push("" + y);
+                years.push(y.toString());
             }
             return years;
         }
@@ -72,7 +74,9 @@ var BarChartVis = (function() {
                 var year = binding.date.value.substring(0, 4);
                 var articleUri = binding.article.value;
                 var articleTitle = binding.title.value;
-                map[unit][year][articleTitle] = articleUri;
+                if (map[unit][year]) { // The lower years might have been truncated!
+                    map[unit][year][articleTitle] = articleUri;
+                }
             } 
         }
         
@@ -92,8 +96,9 @@ var BarChartVis = (function() {
     }
     
     function display(data, target) {
+        var chartDiv = $("<div id='jbc'></div>").appendTo(target);
         var chart = c3.generate({
-            bindto: target,
+            bindto: chartDiv[0],
             data: {
                 columns: data.columnData,
                 type: 'bar',
@@ -140,7 +145,7 @@ var BarChartVis = (function() {
              */
             function addPanel() {
                 var panel = $('<div class="transparentPanel"></div>');
-                panel.appendTo($(target));
+                panel.appendTo(chartDiv);
                 panel.click(removePanel);
                 return panel;
                 
@@ -226,8 +231,8 @@ var BarChartVis = (function() {
         }
     }
     
-    function close() {
-        console.log("BOGUS BarChartVis.close");
+    function closer(target) {
+        $("#jbc").remove();
     }
     
     function exportVisAsJson() {
@@ -261,14 +266,14 @@ var BarChartVis = (function() {
 ScholarsVis["JournalBarChart"] = {
         transform: BarChartVis.transformdata,
         display: BarChartVis.display,
-        closer: BarChartVis.close,
+        closer: BarChartVis.closer,
         
         Visualization: function(options) {
             var defaults = {
                     url : ScholarsVis.Utilities.baseUrl + "api/dataRequest/journalBarChart?journal=" + options.journal,
                     transform : BarChartVis.transformdata,
                     display : BarChartVis.display,
-                    closer : BarChartVis.close,
+                    closer : BarChartVis.closer,
             };
             return new ScholarsVis.Visualization(options, defaults);
         },
@@ -280,7 +285,7 @@ ScholarsVis["JournalBarChart"] = {
                     views : {
                         vis : {
                             display : BarChartVis.display,
-                            closer : BarChartVis.close,
+                            closer : BarChartVis.closer,
                             export : {
                                 json : {
                                     filename: "journalBarChart.json",
@@ -309,7 +314,8 @@ ScholarsVis["JournalBarChart"] = {
                         empty: {
                             display : d => {}
                         }
-                    }
+                    },
+                    lowestYear: 2000
             };
             return new ScholarsVis.Visualization(options, defaults);
         }
