@@ -1,0 +1,159 @@
+--------------------------------------------------------------------------------
+
+JavaScript requirements:
+
+--------------------------------------------------------------------------------
+
+A recent version of JQuery. For example:
+    https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js
+    
+A recent version of Bootstrap. For example:
+    https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js
+
+The main Scholars Visualization script:
+    http://scholars.cornell.edu/js/scholars-vis/scholars-vis.js
+
+The script for the collaboration sunburst:
+    http://scholars.cornell.edu/js/scholars-vis/embed/journal_bar_chart.js
+
+--------------------------------------------------------------------------------
+
+JavaScript resources:
+
+--------------------------------------------------------------------------------
+
+new ScholarsVis.JournalBarChart.Visualization()
+      Creates a structure for the simple bar chart. 
+				
+new ScholarsVis.JournalBarChart.FullVisualization()
+      Creates a structure for the full bar chart visualization, including vis 
+      view, table view, and export buttons. 
+				
+ScholarsVis.JournalBarChart.transform
+      The default function for transforming the data from the server into the 
+      form that is used by the display function.
+      INPUTS AND OUTPUTS LISTED BELOW.
+
+ScholarsVis.JournalBarChart.display
+      The default function for displaying the bar chart.
+
+ScholarsVis.JournalBarChart.closer
+      The default function for closing the bar chart. Used when switching between
+      views, or when closing a modal dialog box.
+
+--------------------------------------------------------------------------------
+
+Data from the server (prior to transform):
+
+The results of a SPARQL SELECT query in JavaScript format. There is one binding
+for each combination of published article and academic unit of the author.
+   
+--------------------------------------------------------------------------------
+
+{
+  "head": {
+    "vars": [
+      "article",
+      "title",
+      "date",
+      "unit",
+      "unitName"
+    ]
+  },
+  "results": {
+    "bindings": [
+      {
+        "article": {
+          "type": "uri",
+          "value": "http://scholars.cornell.edu/individual/UR-558674"
+        },
+        "title": {
+          "type": "literal",
+          "value": "Rapid infrared method for determination of casein content of milk"
+        },
+        "date": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#dateTime",
+          "type": "typed-literal",
+          "value": "1987-01-01T00:00:00"
+        },
+        "unit": {
+          "type": "uri",
+          "value": "http://scholars.cornell.edu/individual/org57969"
+        },
+        "unitName": {
+          "type": "literal",
+          "value": "College of Agriculture and Life Sciences"
+        }
+      },
+      ...
+    ]
+  }
+}
+
+--------------------------------------------------------------------------------
+
+The default transform function...
+
+... traverses the original data and produces:
+ 
+1) structures that are useful for the C3 bar chart:
+   a) a list of academic units with articles published in the journal
+   b) a list of years from the earliest publication date to the present
+      (truncated from options.lowestYear, if provided)
+   c) a two-dimensional array of column data: academic units and counts for 
+      each year. The count is the number of articles published that year by
+      authors in that academic unit. An article with multiple articles in the
+      same unit counts as one.
+2) structures that are useful for the detailed tooltip:
+   a) a triple-keyed map of article URIs, by academic unit, year, and title.
+
+For example:
+   
+--------------------------------------------------------------------------------
+
+{
+  "units": [
+    "College of Agriculture and Life Sciences",
+    "College of Veterinary Medicine"
+  ],
+  "years": [
+    "2016",
+    "2017",
+    "2018"
+  ],
+  "columnData": [
+    [
+      "College of Agriculture and Life Sciences",
+      3,
+      0,
+      0
+    ],
+    [
+      "College of Veterinary Medicine",
+      1,
+      2,
+      0
+    ]
+  ],
+  "articles": {
+    "College of Agriculture and Life Sciences": {
+      "2016": {
+        "Technical Note: Production of butter": "http://scholars.cornell.edu/individual/UR-553199",
+        "Whole-herd optimization with the Cornell Net": "http://scholars.cornell.edu/individual/UR-528965",
+        "Characterization and purification of a bacteriocin": "http://scholars.cornell.edu/individual/UR-552803"
+      },
+      "2017": {},
+      "2018": {}
+    },
+     "College of Veterinary Medicine": {
+      "2016": {
+        "Dry period plane of energy: Effects on composition in dairy cows": "http://scholars.cornell.edu/individual/UR-536635"
+      },
+      "2017": {
+        "Dry period plane of energy: Effects on glucose tolerance in dairy cows": "http://scholars.cornell.edu/individual/UR-536625",
+        "Insulin signaling, inflammation, and lipolysis in dairy cows": "http://scholars.cornell.edu/individual/UR-536621"
+      },
+      "2018": {}
+    }
+  }
+}

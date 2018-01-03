@@ -205,15 +205,13 @@
     <table class="vis_table">
       <thead>
         <tr>
-          <th data-sort="string-ins">Author's Academic Unit</th>
-          <th data-sort="string-ins">Author</th>
-          <th data-sort="string-ins">Article</th>
           <th data-sort="string-ins">Publication Date</th>
+          <th data-sort="string-ins">Author's Academic Unit</th>
+          <th data-sort="string-ins">Article</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td>Template cell</td>
           <td>Template cell</td>
           <td>Template cell</td>
           <td>Template cell</td>

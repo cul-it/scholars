@@ -5,6 +5,8 @@ var BarChartVis = (function() {
         closer: closer,
         exportVisAsJson: exportVisAsJson,
         exportVisAsSvg: exportVisAsSvg,
+        drawTable: drawTable,
+        closeTable: closeTable,
         exportTableAsCsv: exportTableAsCsv,
         exportTableAsJson: exportTableAsJson
     };
@@ -44,7 +46,6 @@ var BarChartVis = (function() {
             if (options.lowestYear) {
                 lowest = Math.max(lowest, options.lowestYear);
             }
-            console.log("LOWEST: " + lowest + ", HIGHEST: " + highest);
             
             var years = [];
             for (var y = lowest; y <= highest; y++) {
@@ -130,6 +131,7 @@ var BarChartVis = (function() {
         });
         
         function showDetailsPanel(d, element) {
+            // If there is no current tooltip, just skip it.
             if ($('.c3-tooltip-container:visible').length == 0) {
                 return;
             }
@@ -137,7 +139,7 @@ var BarChartVis = (function() {
             var panel = addPanel();
             var tip = replaceTooltipWithDetailtip();
             var desiredSize = addDetailsAndPlayWithSizes();
-            animate();
+            tip.animate(desiredSize);
             
             /*
              * Create a panel that will block mouse events from the chart. Click
@@ -177,6 +179,10 @@ var BarChartVis = (function() {
                 }
             }
 
+            /*
+             * Hide the tip, add the details in secret, record the preferred 
+             * size, then push it back to its original size and show it again.
+             */
             function addDetailsAndPlayWithSizes() {
                 var originalSize = {
                         top: tip.position().top,
@@ -224,10 +230,6 @@ var BarChartVis = (function() {
                     tip.css("opacity", 1.0);
                 }
             }
-            
-            function animate() {
-                tip.animate(desiredSize);
-            }
         }
     }
     
@@ -235,20 +237,58 @@ var BarChartVis = (function() {
         $("#jbc").remove();
     }
     
-    function exportVisAsJson() {
-        console.log("BOGUS BarChartVis.exportVisAsJson");
+    function exportVisAsJson(data, filename) {
+        ScholarsVis.Utilities.exportAsJson(filename, data);
     }
     
-    function exportVisAsSvg() {
-        console.log("BOGUS BarChartVis.exportVisAsSvg");
+    function exportVisAsSvg(data, filename, options) {
+        ScholarsVis.Utilities.exportAsSvg(filename, $(options.target).find("svg")[0]);
     }
     
-    function exportTableAsCsv() {
-        console.log("BOGUS BarChartVis.exportTableAsCsv");
+    function drawTable(data, target, options) {
+        var tableElement = $(target).find(".vis_table").get(0);
+        var table = new ScholarsVis.VisTable(tableElement);
+        var tableData = transformAgainForTable(data);
+        tableData.forEach(addRowToTable);
+        table.complete();
+        
+        function addRowToTable(rowData) {
+           table.addRow(rowData.publicationDate.toString(), rowData.academicUnit, rowData.title);
+        }
+    }
+
+    function closeTable(target) {
+        $(target).find("table").each(t => ScholarsVis.Utilities.disableVisTable(t));
+    }
+
+    function exportTableAsCsv(data, filename) {
+        ScholarsVis.Utilities.exportAsCsv(filename, transformAgainForTable(data));
     }
     
-    function exportTableAsJson() {
-        console.log("BOGUS BarChartVis.exportTableAsJson");
+    function exportTableAsJson(data, filename) {
+        ScholarsVis.Utilities.exportAsJson(filename, transformAgainForTable(data));
+    }
+    
+    function transformAgainForTable(data) {
+        var tableData = [];
+        Object.keys(data.articles).forEach(doUnit);
+        return tableData;
+        
+        function doUnit(unitName) {
+            Object.keys(data.articles[unitName]).forEach(doUnitYear);
+
+            function doUnitYear(year) {
+                Object.keys(data.articles[unitName][year]).forEach(doArticle);
+                
+                function doArticle(articleName) {
+                    tableData.push({
+                        publicationDate: parseInt(year),
+                        academicUnit: unitName,
+                        title: articleName
+                    });
+                }
+            }
+        }
     }
 })();
 

@@ -194,7 +194,7 @@ var ScholarsVis = (function() {
     };
     
     function debugIt(message) {
-        if (true) {
+        if (false) {
             var now = new Date();
             var time = now.toLocaleTimeString();
             var millis = ("000" + now.getMilliseconds().toString()).slice(-3);
