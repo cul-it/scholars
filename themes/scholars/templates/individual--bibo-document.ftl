@@ -375,7 +375,7 @@
 <div class="col-sm-12 col-md-12 col-lg-12 scholars-container" id="biboDocumentMainColumn">
 
 <section id="individual-info" ${infoClass!} role="region">
-    <#-- include "individual-adminPanel.ftl" -->
+    <#include "individual-adminPanel.ftl">
 
     <#if individualProductExtensionPreHeader??>
         ${individualProductExtensionPreHeader}
@@ -413,7 +413,7 @@
     </header>
 	<div class="row profile-row fff-bkg header-metadata" role="row">
 		<div class="col-sm-9 col-md-9 col-lg-9">
- 			${authorList?replace(" ,",",")!}
+ 			${authorList!?replace(" ,",",")!}
  			<#if journalTitle?has_content >
  				${journalTitle!}
  			<#else>
@@ -586,18 +586,20 @@ var i18nStringsUriRdf = {
 {
   "@context": "http://schema.org",
   "@type": "ScholarlyArticle",
-  "headline": "${individual.name?replace("\"","")!} (${authors?first})",
+  "headline": "${individual.name?replace("\"","")!} <#if authors??>(${authors?first})</#if>",
   "name": "${individual.name?replace("\"","")!}",
   "datePublished": "${pubDate!}",
   "pageStart": "${startPage!}",
   "pageEnd": "${endPage!}",
   "author": [
+    <#if authors??>
 		<#list authors as author>
 			{
 				"@type": "Person",
 				"name": "${author}"
 			}
 			<#if author_has_next>, </#if></#list>
+	</#if>
 		],
    "publisher": {
     "@type": "Periodical",
