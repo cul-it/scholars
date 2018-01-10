@@ -1,3 +1,8 @@
+/* Override the margin specified by scholars-vis.cvs */
+#bar_chart_vis div[data-view-id="vis"] svg {
+	margin-top: 0px;
+}
+
 .c3-tooltip-container {
   top: 0
 }

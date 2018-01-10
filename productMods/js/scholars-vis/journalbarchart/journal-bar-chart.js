@@ -22,12 +22,15 @@ var BarChartVis = (function() {
         var years = enumerateYears();
         var articlesMap = fillArticlesMap(createArticlesMap());
         var columnData = buildColumnData();
+        var yAxisMax = figureYAxisMaximum();
+        console.log("YAxisMax: " + yAxisMax);
         
         return {
             units: units,
             years: years,
             articles: articlesMap,
-            columnData: columnData
+            columnData: columnData,
+            yAxisMax: yAxisMax
         }
 
         function enumerateUnits() {
@@ -75,7 +78,8 @@ var BarChartVis = (function() {
                 var year = binding.date.value.substring(0, 4);
                 var articleUri = binding.article.value;
                 var articleTitle = binding.title.value;
-                if (map[unit][year]) { // The lower years might have been truncated!
+                if (map[unit][year]) { // The lower years might have been
+                                        // truncated!
                     map[unit][year][articleTitle] = articleUri;
                 }
             } 
@@ -94,6 +98,22 @@ var BarChartVis = (function() {
             }
             return columns;
         }
+        
+        function figureYAxisMaximum() {
+            var max = 0;
+            for (var col = 1; col < columnData[0].length; col++) {
+               var sum = 0;
+               for (var row = 0; row < columnData.length; row++) {
+                   sum += columnData[row][col];
+               }
+               max = Math.max(max, sum);
+           }
+           if (options.yAxisMax) {
+               return Math.max(max, options.yAxisMax);
+           } else {
+               return max; 
+           }
+        }
     }
     
     function display(data, target) {
@@ -111,9 +131,11 @@ var BarChartVis = (function() {
             },
             axis: {
                 y: {
-                    label: 'Publication Count'
+                    label: 'Publication Count',
+                    max: data.yAxisMax
                 },
                 x: {
+                    height: 55, // leave room for the label text
                     label: {
                         text: 'Publication Year',
                         position: 'outer-right'
@@ -180,7 +202,7 @@ var BarChartVis = (function() {
             }
 
             /*
-             * Hide the tip, add the details in secret, record the preferred 
+             * Hide the tip, add the details in secret, record the preferred
              * size, then push it back to its original size and show it again.
              */
             function addDetailsAndPlayWithSizes() {
@@ -355,7 +377,8 @@ ScholarsVis["JournalBarChart"] = {
                             display : d => {}
                         }
                     },
-                    lowestYear: 2000
+                    lowestYear: 2000,
+                    yAxisMax: 30
             };
             return new ScholarsVis.Visualization(options, defaults);
         }
