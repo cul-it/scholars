@@ -30,3 +30,11 @@
 #jbc .transparentPanel table.c3-tooltip {
   width: 100%
 }
+
+.nowShowing {
+  font-weight: bold;
+}
+
+.nowShowing .selection {
+  font-weight: normal;
+}
