@@ -39,6 +39,15 @@ bibo:Journal  rdfs:label  "Journal"@en-US ;
         vitro:prohibitedFromUpdateBelowRoleLevelAnnot
                 <http://vitro.mannlib.cornell.edu/ns/vitro/role#public> .
 
+bibo:Proceedings  
+		vitro:customDisplayViewAnnot  "individual--bibo-journal.ftl"^^xsd:string ;
+        vitro:hiddenFromDisplayBelowRoleLevelAnnot
+                <http://vitro.mannlib.cornell.edu/ns/vitro/role#public> ;
+        vitro:hiddenFromPublishBelowRoleLevelAnnot
+                <http://vitro.mannlib.cornell.edu/ns/vitro/role#public> ;
+        vitro:prohibitedFromUpdateBelowRoleLevelAnnot
+                <http://vitro.mannlib.cornell.edu/ns/vitro/role#public> .
+
 vivo:Grant  rdfs:label  "Grant"@en-US ;
 		vitro:customDisplayViewAnnot  "individual--vivo-grant.ftl"^^xsd:string ;
         vitro:hiddenFromDisplayBelowRoleLevelAnnot
