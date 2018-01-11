@@ -129,17 +129,17 @@
 	</div> <!-- biboDocumentMainColumn -->
 </div> <!-- row1 -->
 
-<!-- BOGUS -->
-<div id="bar_chart_icon_holder">
-    <a href="#" id="bar_chart_trigger">
-    		<img id="vizIcon" width="152px" src="${urls.base}/themes/scholars/images/wordcloud-icon-hztl.png"/>
-    </a>
-	<p>Articles Bar Chart</p>
-</div>
-<!-- END BOGUS -->
-`
 <div id="bibo-row-two" class="row f1f2f3-bkg">
-  <div class="col-sm-12 col-md-12 col-lg-12 no-padding">
+  <div id="visualization-column" class="col-sm-3 col-md-3 col-lg-3 scholars-container">
+	<div id="bar_chart_icon_holder">
+      <a href="#" id="bar_chart_trigger">
+    	<img id="vizIcon" width="152px" src="${urls.base}/themes/scholars/images/articles-bar-chart.png"/>
+      </a>
+	  <p>Articles Bar Chart</p>
+    </div>
+  </div>
+  <div id="foafPersonSpacer" class="col-sm-1 col-md-1 col-lg-1"></div>
+  <div class="col-sm-8 col-md-8 col-lg-8 no-padding">
 	<div class="row f1f2f3-bkg row-no-margins">
 		<div id="abstract" class="col-sm-12 col-md-12 col-lg-12 scholars-container">
 			<article class="property" role="article">
@@ -151,7 +151,7 @@
 	</div>
   </div>
 
-	</div> <!-- row2 div -->
+</div> <!-- row2 div -->
 
 <!-- =============== Bar Chart visualization ======================= -->
 
