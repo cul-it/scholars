@@ -313,6 +313,7 @@ public class ResearchAndScholarshipJsonServlet extends VitroHttpServlet {
 
 		if ( queryType.equals("pubs") ) {
 			query.addFilterQuery("type:\"http://purl.org/ontology/bibo/Document\"");
+			query.addFilterQuery("-type:\"http://purl.org/ontology/bibo/Proceedings\"");
 		}
 		else if ( queryType.equals("grants") ) {
 			query.addFilterQuery("type:\"http://vivoweb.org/ontology/core#Grant\" OR type:\"http://vivoweb.org/ontology/core#Contract\" OR type:\"http://scholars.cornell.edu/ontology/ospcu.owl#CooperativeAgreement\"");
@@ -320,6 +321,7 @@ public class ResearchAndScholarshipJsonServlet extends VitroHttpServlet {
 		else {
 			query.addFilterQuery("-type:\"http://www.w3.org/2004/02/skos/core#Concept\"");
 			query.addFilterQuery("-type:\"http://purl.org/ontology/bibo/Journal\"");
+			query.addFilterQuery("-type:\"http://purl.org/ontology/bibo/Proceedings\"");
 		}
 		if ( sortBy.equals("title") ) {
         	query.addSortField("nameLowercaseSingleValued",SearchQuery.Order.ASC);

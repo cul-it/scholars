@@ -267,7 +267,7 @@
 	<#assign doi = doiStmt.value! />
 	<#assign doiInline>
 		<div class="row profile-row" role="row">
-		  <div class="col-sm-1  no-padding align-text-right">
+		  <div class="<#if isConfPaper>col-sm-2<#else>col-sm-1</#if>  no-padding align-text-right">
 			<span class="profile-label">DOI</span>
 		  </div>
 		  <div class="col-sm-10">
