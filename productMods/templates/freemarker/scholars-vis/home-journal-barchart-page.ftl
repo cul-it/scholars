@@ -184,8 +184,20 @@ $().ready(function() {
                 label: "Journal of Dairy Science"
             },
             {
-                uri: "http://scholars.cornell.edu/individual/jrnl-0000481",
+                uri: "http://scholars.cornell.edu/individual/jrnl-0000183",
                 label: "Proceedings of the National Academy of Sciences of the United States of America"
+            },
+            {
+                uri: "http://scholars.cornell.edu/individual/jrnl-0000021",
+                label: "Applied Physics Letters"
+            },
+            {
+                uri: "http://scholars.cornell.edu/individual/jrnl-0000076",
+                label: "Genetics"
+            },
+            {
+                uri: "http://scholars.cornell.edu/individual/jrnl-0000901",
+                label: "PLoS One 6"
             }
             ];
         

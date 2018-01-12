@@ -131,7 +131,10 @@ var BarChartVis = (function() {
             },
             axis: {
                 y: {
-                    label: 'Publication Count',
+                    label: {
+                        text: 'Publication Count',
+                        position: 'outer-top'  
+                    },
                     max: data.yAxisMax
                 },
                 x: {
