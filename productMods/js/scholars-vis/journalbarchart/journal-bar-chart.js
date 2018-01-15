@@ -12,9 +12,12 @@ var BarChartVis = (function() {
     };
     
     /*
-     * Get: a sorted array of academic units, a sorted list of years, a double
-     * map of the articles, indexed by unit and year, a two-dimensional array of
-     * "column data", for the graph.
+     * Get: 
+     *   - a sorted array of academic units, 
+     *   - a sorted list of years, 
+     *   - a double map of the articles, indexed by unit and year, 
+     *   - a two-dimensional array of "column data", for the graph,
+     *   - a value for the height of the tallest bar.
      */
     function transformdata(rawData, options) {
         var bindings = rawData.results.bindings;
@@ -22,15 +25,14 @@ var BarChartVis = (function() {
         var years = enumerateYears();
         var articlesMap = fillArticlesMap(createArticlesMap());
         var columnData = buildColumnData();
-        var yAxisMax = figureYAxisMaximum();
-        console.log("YAxisMax: " + yAxisMax);
+        var largestYValue = figurelargestYValue();
         
         return {
             units: units,
             years: years,
             articles: articlesMap,
             columnData: columnData,
-            yAxisMax: yAxisMax
+            largestYValue: largestYValue
         }
 
         function enumerateUnits() {
@@ -47,7 +49,7 @@ var BarChartVis = (function() {
                 return Math.min(lowest, parseInt(binding.date.value.substring(0, 4)));
             }, 9999);
             if (options.lowestYear) {
-                lowest = Math.max(lowest, options.lowestYear);
+                lowest = Math.min(lowest, options.lowestYear);
             }
             
             var years = [];
@@ -99,24 +101,30 @@ var BarChartVis = (function() {
             return columns;
         }
         
-        function figureYAxisMaximum() {
+        function figurelargestYValue() {
             var max = 0;
-            for (var col = 1; col < columnData[0].length; col++) {
-               var sum = 0;
-               for (var row = 0; row < columnData.length; row++) {
-                   sum += columnData[row][col];
-               }
-               max = Math.max(max, sum);
-           }
-           if (options.yAxisMax) {
-               return Math.max(max, options.yAxisMax);
-           } else {
-               return max; 
-           }
+            if (columnData.length > 0) {
+                for (var col = 1; col < columnData[0].length; col++) {
+                    var sum = 0;
+                    for (var row = 0; row < columnData.length; row++) {
+                        sum += columnData[row][col];
+                    }
+                    max = Math.max(max, sum);
+                }
+            }
+            return max; 
         }
     }
     
-    function display(data, target) {
+    /*
+     * Draw the bar graph.
+     */
+    function display(data, target, options) {
+        var yAxisMax = adjustYAxisMax(data.largestYValue);
+        var yAxisTicks = figureYAxisTicks(yAxisMax);
+        
+        console.log("Largest Y value: " + data.largestYValue + ", Y-Axis Max: " + yAxisMax);
+        
         var chartDiv = $("<div id='jbc'></div>").appendTo(target);
         var chart = c3.generate({
             bindto: chartDiv[0],
@@ -135,7 +143,10 @@ var BarChartVis = (function() {
                         text: 'Publication Count',
                         position: 'outer-top'  
                     },
-                    max: data.yAxisMax
+                    max: yAxisMax,
+                    tick: {
+                        values: yAxisTicks
+                    }
                 },
                 x: {
                     height: 55, // leave room for the label text
@@ -154,6 +165,40 @@ var BarChartVis = (function() {
                     grouped: false // Default true
                 }
         });
+        
+        function figureYAxisTicks(yAxisMax) {
+            var increments = [1, 2, 5, 10];
+            var increment;
+            for (var i = 0; i < increments.length; i++) {
+                increment = increments[i];
+                if (increment * 10 >= yAxisMax) {
+                    break;
+                }
+            }
+            
+            var ticks = [0];
+            var value = 0;
+            while (value < yAxisMax) {
+                value += increment;
+                ticks.push(value);
+            }
+            return ticks;
+        }
+        
+        function adjustYAxisMax(largestY) {
+            if (!options.yAxisMax) {
+                return max;
+            }
+            var expectedMax = options.yAxisMax;
+            var expectedMin = (options.yAxisMin) ? options.yAxisMin : 0;
+            if (largestY >= expectedMax) {
+                return largestY;
+            } else if (largestY <= expectedMin) {
+                return expectedMin;
+            } else {
+                return Math.ceil(expectedMin + (expectedMax - expectedMin) * largestY / expectedMax);
+            }
+        }
         
         function showDetailsPanel(d, element) {
             // If there is no current tooltip, just skip it.
@@ -381,7 +426,8 @@ ScholarsVis["JournalBarChart"] = {
                         }
                     },
                     lowestYear: 2000,
-                    yAxisMax: 30
+                    yAxisMax: 30,
+                    yAxisMin: 6
             };
             return new ScholarsVis.Visualization(options, defaults);
         }

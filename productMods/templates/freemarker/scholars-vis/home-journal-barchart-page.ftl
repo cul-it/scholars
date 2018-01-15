@@ -141,6 +141,7 @@ ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/ut
 
 ${scripts.add('<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>',
               '<script type="text/javascript" src="${urls.base}/js/scholars-vis/scholars-vis.js"></script>',
+              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/journalbarchart/journal-bar-chart.js"></script>',
 			  '<script type="text/javascript" src="${urls.base}/js/scholars-vis/embed/journal_bar_chart.js"></script>',
               '<script type="text/javascript" src="${urls.base}/js/scholars-vis/utils/accordion-controls.js"></script>')}
 
@@ -180,23 +181,23 @@ $().ready(function() {
         // This array should contain uris and labels for all of the featured departments.
         var featuredJournals = [
             {
-                uri: "http://scholars.cornell.edu/individual/jrnl-0002044",
+                uri: "http://scholars.cornell.edu/individual/jrnl-0000343",
                 label: "Journal of Dairy Science"
             },
             {
-                uri: "http://scholars.cornell.edu/individual/jrnl-0000183",
+                uri: "http://scholars.cornell.edu/individual/jrnl-0000481",
                 label: "Proceedings of the National Academy of Sciences of the United States of America"
             },
             {
-                uri: "http://scholars.cornell.edu/individual/jrnl-0000021",
+                uri: "http://scholars.cornell.edu/individual/jrnl-0000073",
                 label: "Applied Physics Letters"
             },
             {
-                uri: "http://scholars.cornell.edu/individual/jrnl-0000076",
+                uri: "http://scholars.cornell.edu/individual/jrnl-0000237",
                 label: "Genetics"
             },
             {
-                uri: "http://scholars.cornell.edu/individual/jrnl-0000901",
+                uri: "http://scholars.cornell.edu/individual/jrnl-0002728",
                 label: "PLoS One 6"
             }
             ];
