@@ -140,7 +140,7 @@ var BarChartVis = (function() {
             axis: {
                 y: {
                     label: {
-                        text: 'Publication Count',
+                        text: 'Publication Count*',
                         position: 'outer-top'  
                     },
                     max: yAxisMax,
