@@ -157,15 +157,13 @@ $().ready(function() {
     var journalControl = new AccordionControls.Selector("#journalSelectionPanel", showBarChart);
     journalControl.loadFromDataRequest("journalList");
     
-    var proceedingsControl = new AccordionControls.Selector("#journalSelectionPanel", showBarChart);
+    var proceedingsControl = new AccordionControls.Selector("#proceedingsSelectionPanel", showBarChart);
     proceedingsControl.loadFromDataRequest("proceedingsList");
     
     var barChart = null;
     showFeaturedJournal();
     
     function showBarChart(journal) {
-        journalControl.collapse();
-        proceedingsControl.collapse();
         $(".nowShowing .selection").html("<a href=\"" + ScholarsVis.Utilities.toDisplayUrl(journal.uri) + "\">" + journal.label + "</a>");
         if (barChart != null) {
             barChart.hide();
