@@ -275,10 +275,10 @@ var BarChartVis = (function() {
                 return desiredSize;
                     
                 function hideAndAddDetails() {
-                    var table = $('<table class="c3-tooltip details"><tbody></tbody></table>');
-                    var tbody = table.find('tbody');
+                    var table = $('<table class="c3-tooltip details"><tbody><tr><td class="name"></td></tr></tbody></table>');
+                    var tcell = table.find('td');
                     var articles = data.articles[d.id][data.years[d.index]];
-                    Object.keys(articles).sort().forEach(addTableRow);
+                    Object.keys(articles).sort().forEach(addArticleToTable);
                     
                     tip.css("opacity", 0.01);
                     tip.css("left", Math.floor(panel.width() / 4));
@@ -286,9 +286,9 @@ var BarChartVis = (function() {
                     tip.append(table);
                     table.width(tip.width());
                     
-                    function addTableRow(title) {
+                    function addArticleToTable(title, index) {
                         var link = ScholarsVis.Utilities.toDisplayUrl(articles[title]);
-                        tbody.append($('<tr><td class="name"><a href="' + link + '">' + title + '</a></td></tr>'));
+                        tcell.append($('<div class="hoverable"><a href="' + link + '">' + (index + 1) + ". " + title + '</a></div>'));
                     }
                 }
                 

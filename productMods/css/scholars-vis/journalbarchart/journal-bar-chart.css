@@ -13,6 +13,21 @@
   max-height: 75%;
 }
 
+/* Must be specific enough to override c3.css */
+.c3-tooltip td.name,
+.c3-tooltip td.value {
+    background-color: rgba(50, 50, 50, 0.8);
+    color: #DDDDDD;
+    font-family: Arial;
+    font-size: 12px;
+}
+
+.c3-tooltip td.name a {
+    color: white;
+    text-decoration: none;
+    padding: 5px 5px 5px 2px;
+}
+
 #jbc {
   height: 90%;
 }
