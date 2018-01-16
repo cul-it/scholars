@@ -124,7 +124,7 @@
 						</div>
 						<div class="col-sm-3 col-md-3 col-lg-3"> <!-- BOGUS!!! -->
 							<a href="${urls.base}/journalProceedingsVisualization" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Homepage', 'Grants and Contracts']);">
-								<img id="vizIcon" width="190px" src="${urls.base}/themes/scholars/images/wordcloud-icon.png"/>
+								<img id="vizIcon" width="190px" src="${urls.base}/themes/scholars/images/articles-bar-chart.png"/>
 							</a>
 							<div>
 								<p>Journals and Proceedings</p>
