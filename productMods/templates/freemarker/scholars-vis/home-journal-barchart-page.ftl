@@ -155,11 +155,31 @@ $().ready(function() {
      * - Show a featured journal
      */
     var journalControl = new AccordionControls.Selector("#journalSelectionPanel", showBarChart);
-    journalControl.loadFromDataRequest("journalList");
+    journalControl.loadFromDataRequest("orderedJournalList", mapPubVenueResult, sortByCount);
     
     var proceedingsControl = new AccordionControls.Selector("#proceedingsSelectionPanel", showBarChart);
-    proceedingsControl.loadFromDataRequest("proceedingsList");
+    proceedingsControl.loadFromDataRequest("orderedProceedingsList", mapPubVenueResult, sortByCount);
     
+    function mapPubVenueResult(d) {
+        return {
+            uri: d.uri.value,
+            label: d.label.value,
+            count: parseInt(d.count.value)
+        }
+    }
+    
+    // Descending by count, alphabetical if counts are equal.
+    function sortByCount(a, b) {
+        if (a.count != b.count) {
+            return b.count - a.count;
+        } else {
+            return a.label.toLowerCase().localeCompare(b.label.toLowerCase());
+        }
+    }
+    
+    /*
+     * When a Journal or Proceedings is selected, show it.
+     */
     var barChart = null;
     showFeaturedJournal();
     
