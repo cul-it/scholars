@@ -100,7 +100,7 @@
 		</div>
         <div class="nowShowing">Now showing: <span class="selection"><span></div>
 	    <font size="2">
-	      <span><i>Click on something to see something.</i></span>
+	      <span><i>Click on a bar to view the list of publications for an academic unit. Click on an academic unit name to filter the data in view.</i></span>
 	    </font>
 	  </div>
 	
