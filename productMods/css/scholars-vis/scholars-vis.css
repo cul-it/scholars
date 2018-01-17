@@ -180,7 +180,8 @@
 	text-decoration: underline;
 }
 	
-.scholars_vis_container div[data-view-id="table"] .vis_table th, td {
+.scholars_vis_container div[data-view-id="table"] .vis_table th,
+.scholars_vis_container div[data-view-id="table"] .vis_table td {
     padding: 5px 10px;
     border: 1px solid #999;
 }

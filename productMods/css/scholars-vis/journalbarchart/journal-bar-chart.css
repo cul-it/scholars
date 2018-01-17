@@ -29,7 +29,7 @@
 }
 
 #jbc {
-  height: 90%;
+  height: 85%;
 }
 
 .vis_modal #jbc {
@@ -43,7 +43,7 @@
   height: 100%;
   top: 0;
   left: 0;
-  background: rgba(127, 127, 127, 0.1);
+  background: rgba(255, 255, 255, 0.1);
 }
 
 #jbc .transparentPanel table.c3-tooltip {
