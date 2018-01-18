@@ -742,7 +742,8 @@ public class ResearchAndScholarshipController extends FreemarkerHttpServlet {
 
 		ShortViewContext svc;
 		if ( mst.iterator().hasNext() ) {
-			switch(mst.iterator().next()) {
+			String temp = mst.iterator().next();
+			switch(temp) {
 				case "Journal Article": 
 					svc = ShortViewContext.PUBLICATIONS;
 					break;
@@ -759,9 +760,16 @@ public class ResearchAndScholarshipController extends FreemarkerHttpServlet {
 				case "Cooperative Agreement": 
 					svc = ShortViewContext.RESEARCH;
 					break;
+				case "Conference Paper": 
+					svc = ShortViewContext.PUBLICATIONS;
+					break;
+				case "ConferencePaper": 
+					svc = ShortViewContext.PUBLICATIONS;
+					break;
 				default :
 			 		svc = ShortViewContext.BROWSE;
 			}
+			log.debug("CLASS TYPE = "+ temp );  
 		}
 		else {
 			svc = ShortViewContext.BROWSE;

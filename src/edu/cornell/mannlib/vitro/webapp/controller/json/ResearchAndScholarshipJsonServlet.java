@@ -453,6 +453,12 @@ public class ResearchAndScholarshipJsonServlet extends VitroHttpServlet {
 			case "Cooperative Agreement": 
 				svc = ShortViewContext.RESEARCH;
 				break;
+			case "Conference Paper": 
+				svc = ShortViewContext.PUBLICATIONS;
+				break;
+			case "ConferencePaper": 
+				svc = ShortViewContext.PUBLICATIONS;
+				break;
 			default :
 		 		svc = ShortViewContext.BROWSE;
 		}
