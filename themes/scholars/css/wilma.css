@@ -3166,7 +3166,7 @@ header {
 }
 .home-divider {
 	border-top: 2px solid #a3a6a9;
-	padding: 10px 0 0 0;
+	padding: 4px 0 0 0;
 	text-align: center;
 	
 }
@@ -3175,16 +3175,16 @@ header {
 	padding:50px 30px 0 30px;
 }
 #visualize-content {
-	margin:0;
-	padding:10px 0 20px 0;
+	margin: 0;
+	padding: 0;
 }
 #visualize-content div {
 	text-align:center;
-	padding-top:30px;
+	padding-top:15px;
 	background-color:#fff;
 }
 #visualize-content div div {
-	padding-top:12px;
+	padding-top:0;
 	text-align:center;
 	line-height:23px
 }
@@ -3192,6 +3192,7 @@ header {
 	font-size:18px;
 	font-family: Muli, Arial, Verdana, Helvetica;
 	color:#5e6363;
+	margin-bottom: 12px;
 }
 #domain-experts {
 	background: #fff url('../images/home-domain-experts.png') no-repeat 30%;
