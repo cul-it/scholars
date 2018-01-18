@@ -91,6 +91,7 @@
 				${authorList!}
 		</div>
 	</div>
+	<#if (journal?length > 0)>
     <div class="row fff-bkg" style="margin:0;padding:8px 0 0;">
 		<div class="col-md-2" style="font-size:16px;color:#CC6949;padding:0;line-height:1.25em">
 			Journal
@@ -99,6 +100,7 @@
 			<em>${journal!}</em>.
 		</div>
 	</div>
+	</#if>
     <div class="row fff-bkg" style="margin:0;padding:8px 0 0;">
 		<div class="col-md-2" style="font-size:16px;color:#CC6949;padding:0;line-height:1.25em">
 			Published
@@ -118,5 +120,4 @@
 		</div>
 	</div>
 </li>
-
 
