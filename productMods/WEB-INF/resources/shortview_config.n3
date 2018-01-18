@@ -298,14 +298,16 @@ mydomain:articleDetailsDG
 PREFIX rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX vivo: <http://vivoweb.org/ontology/core#>
+PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
 PREFIX vivoc:    <http://scholars.cornell.edu/ontology/vivoc.owl#>
 PREFIX bibo:     <http://purl.org/ontology/bibo/>
 PREFIX obo:      <http://purl.obolibrary.org/obo/>
-SELECT ?label ?vol ?start ?end ?year ?pmid ?doi ?journal ?freeTextTitle 
+SELECT ?label ?vol ?start ?end ?year ?pmid ?doi ?journal ?freeTextTitle ?mst
 WHERE
 {
 ?individualUri rdf:type bibo:Article . 
 ?individualUri rdfs:label ?label .
+?individualUri vitro:mostSpecificType ?mst .
 OPTIONAL { ?individualUri bibo:doi ?doi }
 OPTIONAL { ?individualUri bibo:pmid ?pmid }
 OPTIONAL { ?individualUri bibo:volume ?vol }

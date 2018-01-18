@@ -14,6 +14,7 @@
 <#assign end = articleDetails[0].end! />
 <#assign year = articleDetails[0].year! />
 <#assign pubYear = year[0..3]?date('yyyy') />
+<#assign mst = articleDetails[0].mst! />
 <#assign journal = articleDetails[0].journal!articleDetails[0].freeTextTitle! /> 
 </#if>
 <#if articleAuthors?has_content>
@@ -94,7 +95,7 @@
 	<#if (journal?length > 0)>
     <div class="row fff-bkg" style="margin:0;padding:8px 0 0;">
 		<div class="col-md-2" style="font-size:16px;color:#CC6949;padding:0;line-height:1.25em">
-			Journal
+			<#if mst?contains("ConferencePaper")>Published in<#else>Journal</#if>
 		</div>
 		<div class="col-md-10" style="font-size:16px;padding:0;line-height:1.25em">
 			<em>${journal!}</em>.
@@ -103,7 +104,7 @@
 	</#if>
     <div class="row fff-bkg" style="margin:0;padding:8px 0 0;">
 		<div class="col-md-2" style="font-size:16px;color:#CC6949;padding:0;line-height:1.25em">
-			Published
+			Year
 		</div>
 		<div class="col-md-10" style="font-size:16px;padding:0;line-height:1.25em">
 			${pubYear!}
