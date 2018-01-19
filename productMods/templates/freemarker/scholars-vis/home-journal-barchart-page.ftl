@@ -117,6 +117,14 @@
 	      </tbody>
 	    </table>
 	  </div>
+
+      <div data-view-id="empty">
+        <div class="nowShowing">Now showing: <span class="selection"><span></div>
+        <div style="text-align: center;">
+          <img src="${urls.base}/themes/scholars/images/barchart-noData.png"/>
+        </div>
+      </div>
+
 	</div>
 
 	<!-- End of bar chart visualization -->
@@ -176,7 +184,14 @@ $().ready(function() {
             target : '#bar_chart_vis',
             journal : journal.uri
         });
-        barChart.show();
+        
+        barChart.examineData(function(data) {
+            if (data && data.units && data.units.length > 0) {
+                barChart.showView("vis");
+            } else {
+                barChart.showView("empty");
+            }
+        });
     }
     
     /*

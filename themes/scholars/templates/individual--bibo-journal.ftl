@@ -222,6 +222,13 @@
       </tbody>
     </table>
   </div>
+  
+  <div data-view-id="empty">
+    <div style="text-align: center;">
+      <img src="${urls.base}/themes/scholars/images/barchart-noData.png"/>
+    </div>
+  </div>
+
 </div>
 
 <!-- =============== End of Bar Chart visualization ======================= -->
@@ -287,6 +294,15 @@ $().ready(function() {
     modal : true,
     journal : "${individual.uri?url}",
   });
-  $('#bar_chart_trigger').click(barChart.show);
+  $('#bar_chart_trigger').click(function() {
+    barChart.examineData(function(data) {
+        barChart.show();
+        if (data && data.units && data.units.length > 0) {
+            barChart.showView("vis");
+        } else {
+            barChart.showView("empty");
+        }
+    });
+  });
 });
 </script>        
