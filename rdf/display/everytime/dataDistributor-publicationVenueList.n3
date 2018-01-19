@@ -1,0 +1,48 @@
+#
+# ------------------------------------------------------------------------------
+#
+# Run a SPARQL SELECT to get a list of Journals and Conference Proceedings. 
+# That is, publication venues.
+#
+# The list includes the name and URI of the venue, plus the number of articles
+# published in that venue. The list is sorted by article count, in descending 
+# order.
+# 
+# ------------------------------------------------------------------------------
+#
+ 
+@prefix : <http://vitro.mannlib.cornell.edu/ns/vitro/ApplicationSetup#> .
+
+:publication_venue_list_distributor
+    a   <java:edu.cornell.library.scholars.webapp.controller.api.distribute.DataDistributor> ,
+        <java:edu.cornell.library.scholars.webapp.controller.api.distribute.rdf.SelectFromContentDistributor> ;
+    :actionName "publicationVenueList" ;
+    :query """
+        PREFIX bibo: <http://purl.org/ontology/bibo/>
+        PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+        PREFIX vivo: <http://vivoweb.org/ontology/core#>
+
+        SELECT 
+          ?uri 
+          (SAMPLE(?title) AS ?label) 
+          (COUNT(DISTINCT(?article)) AS ?count)
+        WHERE {
+          {
+            ?uri 
+                a bibo:Journal ;
+                rdfs:label ?title .
+            ?article 
+                a bibo:Document ; 
+                vivo:hasPublicationVenue ?uri .
+          } UNION {
+            ?uri 
+                a bibo:Proceedings ;
+                rdfs:label ?title .
+            ?article 
+                a bibo:Document ; 
+                vivo:hasPublicationVenue ?uri .
+          }
+        }
+        GROUP BY ?uri
+        ORDER BY DESC(?count) 
+    """ .

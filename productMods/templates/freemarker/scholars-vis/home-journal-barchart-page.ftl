@@ -4,39 +4,26 @@
 
       <div id="legendDiv" class="center-block">
          <h2 style="padding:0;color:#5f5858;font-size:20px">
-            Browse research keywords
+            Browse publication venues
          </h2>
       </div>
       
       <div class="panel-group" id="accordion">
 
-        <div id="journalSelectionPanel" class="panel panel-default selection-list">
+        <div id="venueSelectionPanel" class="panel panel-default selection-list">
           <div class="panel-heading panel-title facet-panel-heading">
 			  <span class="start">Select:</span> 
-              <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseJournal">
-               Journal
+              <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseVenues">
+               Journal or Proceedings
              </a>
           </div>
-          <div id="collapseJournal" class="panel-collapse collapse">
+          <div id="collapseVenues" class="panel-collapse collapse">
             <div class="panel-body" id="selector">
               <input id="searcher" type="text" class="form-control" placeholder="Search"/>
             </div>
           </div>
         </div>
         
-        <div id="proceedingsSelectionPanel" class="panel panel-default selection-list">
-          <div class="panel-heading panel-title facet-panel-heading">
-              <span class="start">Select:</span>
-				<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseProceedings">
-                 Proceedings
-              </a>
-          </div>
-          <div id="collapseProceedings" class="panel-collapse collapse">
-            <div class="panel-body" id="selector">
-              <input id="searcher" type="text" class="form-control" placeholder="Search"/>
-            </div>
-          </div>
-        </div>
       </div> 
 
       <div id="unit-help-text">
@@ -154,11 +141,8 @@ $().ready(function() {
      * - Create the selectors and populate them
      * - Show a featured journal
      */
-    var journalControl = new AccordionControls.Selector("#journalSelectionPanel", showBarChart);
-    journalControl.loadFromDataRequest("orderedJournalList", mapPubVenueResult, sortByCount);
-    
-    var proceedingsControl = new AccordionControls.Selector("#proceedingsSelectionPanel", showBarChart);
-    proceedingsControl.loadFromDataRequest("orderedProceedingsList", mapPubVenueResult, sortByCount);
+    var pubVenueControl = new AccordionControls.Selector("#venueSelectionPanel", showBarChart);
+    pubVenueControl.loadFromDataRequest("publicationVenueList", mapPubVenueResult, sortByCount);
     
     function mapPubVenueResult(d) {
         return {
