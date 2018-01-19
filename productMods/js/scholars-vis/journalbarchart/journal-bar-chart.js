@@ -123,8 +123,6 @@ var BarChartVis = (function() {
         var yAxisMax = adjustYAxisMax(data.largestYValue);
         var yAxisTicks = figureYAxisTicks(yAxisMax);
         
-        console.log("Largest Y value: " + data.largestYValue + ", Y-Axis Max: " + yAxisMax);
-        
         var chartDiv = $("<div id='jbc'></div>").appendTo(target);
         var chart = c3.generate({
             bindto: chartDiv[0],
@@ -140,7 +138,7 @@ var BarChartVis = (function() {
             axis: {
                 y: {
                     label: {
-                        text: 'Publication Count*',
+                        text: '* Publication Count',
                         position: 'outer-top'  
                     },
                     max: yAxisMax,
