@@ -36,7 +36,9 @@
     PREFIX bibo: <http://purl.org/ontology/bibo/>
 	PREFIX foaf: <http://xmlns.com/foaf/0.1/>
 	PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+	PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
 	PREFIX vivo: <http://vivoweb.org/ontology/core#>
+	PREFIX scholars: <http://scholars.cornell.edu/ontology/vivoc.owl#>
     SELECT DISTINCT ?article ?title ?date ?unit ?unitName
 	WHERE {
 		?article 
@@ -51,14 +53,15 @@
 			a vivo:Authorship ;
 			vivo:relates ?person .
 		?person
-			 a foaf:Person ;
+			a foaf:Person ;
 			vivo:relatedBy ?position .
 		?position 
 			a vivo:PrimaryPosition ;
 			vivo:relates ?unit .
 		?unit
-			a vivo:College ;
+			a foaf:Organization ;
 			rdfs:label ?unitName .
+		FILTER NOT EXISTS { ?unit vitro:mostSpecificType scholars:AdministrativeUnit }
 	}
     """ .
 
@@ -117,7 +120,7 @@
 			a vivo:PrimaryPosition ;
 			vivo:relates ?unit .
 		?unit 
-			a vivo:College .
+			a foaf:Organization .
 	}
 	WHERE {
 		?person
@@ -127,7 +130,7 @@
 			a vivo:PrimaryPosition ;
 			vivo:relates ?unit .
 		?unit 
-			a vivo:College .
+			a foaf:Organization .
 	}
 	""" .
 
@@ -136,15 +139,18 @@
         <java:edu.cornell.library.scholars.webapp.controller.api.distribute.rdf.graphbuilder.ConstructQueryGraphBuilder> ;
     :constructQuery """
 	PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-	PREFIX vivo: <http://vivoweb.org/ontology/core#>
+	PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+	PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
 	CONSTRUCT {
 		?unit 
-			a vivo:College ;
+			a foaf:Organization ;
+			vitro:mostSpecificType ?type ;
 			rdfs:label ?unitName .     
 	}
 	WHERE {
 		?unit 
-			a vivo:College ;
+			a foaf:Organization ;
+			vitro:mostSpecificType ?type;
 			rdfs:label ?unitName .     
 	}
 	""" .
