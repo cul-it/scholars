@@ -58,17 +58,17 @@
 	  
 	  <div id="title_bar_info_text">
 	    <p>
-	      This visualization displays the research keywords for an entire academic unit, 
-	      and is an aggregation of the keywords found in all the articles authored by all 
-	      faculty and researchers of an academic unit. The size of the keyword indicates 
-	      the frequency with which the keyword appears in the author's publications, 
-	      indicating which subjects the author published on most (or least) frequently. 
+      This bar chart demonstrates the frequency of the publications by Cornell scholars
+      in a selected journal or proceeding, over the years. 
+      Click on a bar to see the list of publications by an academic unit in a specific year. 
+      Click on a publication's title to go to the publication's page, which 
+      contains the detailed citation data of the publication - including 
+      authors list, keywords, abstract and a link to the full text.
 	    </p>
 	    <p>
-	      To interact with the visualization, click on any keyword to see the list of 
-	      authors that have this keyword associated with one of more of their articles. 
-	      One can click on the author's name in the list to go to the author's page, 
-	      which contains the full list of author's publications in Scholars.
+      The data can be filtered by clicking on an academic unit name in the legend. 
+      As some publication are co-authored by scholars from multiple academic units, 
+      the height of the bar may differ from the actual publication count for a specific year.
 	    </p>
 	    <hr> 
 	    <p>
