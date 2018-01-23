@@ -28,12 +28,12 @@
 
       <div id="unit-help-text">
         <font size="2">
-          <span><i>* Some publications are co-authored by scholars of multiple academic units.</i></span>
+          <ul><li id="barchart-disclaimer"  class="barchart-help-text">Some publications are co-authored by scholars who are in multiple academic units.</li></ul>
         </font>
       </div>
       <div id="person-help-text" style="display:none;">
         <font size="2">
-          <span><i>Click on a keyword to view the list of publications associated with the keyword.</i></span>
+          <ul><li class="barchart-help-text">Click on a keyword to view the list of publications associated with the keyword.</li></ul>
         </font>
       </div>
 
@@ -87,10 +87,10 @@
 		</div>
         <div class="nowShowing">Now showing: <span class="selection"><span></div>
 	    <font size="2">
-	      <span><i>
+	      <ul><li class="barchart-help-text">
 	          Click on a bar to view the list of publications for an academic unit. 
-	          Click on an academic unit name to filter the data in view.
-	      </i></span>
+	          Click on an academic unit name to filter the data in the view.
+	      </li></ul>
 	    </font>
 	  </div>
 	

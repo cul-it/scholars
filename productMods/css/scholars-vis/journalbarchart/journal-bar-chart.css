@@ -52,8 +52,21 @@
 
 .nowShowing {
   font-weight: bold;
+  font-size: 16px;
 }
 
 .nowShowing .selection {
   font-weight: normal;
+}
+.barchart-help-text {
+	font-style: italic;
+	line-height: 18px;
+	list-style: none;
+}
+#barchart-disclaimer:before {
+  content: "*";
+  position: relative;
+  left: -10px;
+  bottom: -3px;
+  margin-right: -4px;
 }
