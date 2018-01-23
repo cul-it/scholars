@@ -196,23 +196,23 @@ $().ready(function() {
         var featuredJournals = [
             {
                 uri: "http://scholars.cornell.edu/individual/jrnl-0000343",
-                label: "Journal of Dairy Science"
+                rawLabel: "Journal of Dairy Science"
             },
             {
                 uri: "http://scholars.cornell.edu/individual/jrnl-0000481",
-                label: "Proceedings of the National Academy of Sciences of the United States of America"
+                rawLabel: "Proceedings of the National Academy of Sciences of the United States of America"
             },
             {
                 uri: "http://scholars.cornell.edu/individual/jrnl-0000073",
-                label: "Applied Physics Letters"
+                rawLabel: "Applied Physics Letters"
             },
             {
                 uri: "http://scholars.cornell.edu/individual/jrnl-0000237",
-                label: "Genetics"
+                rawLabel: "Genetics"
             },
             {
                 uri: "http://scholars.cornell.edu/individual/jrnl-0002728",
-                label: "PLoS One 6"
+                rawLabel: "PLoS One 6"
             }
             ];
         
