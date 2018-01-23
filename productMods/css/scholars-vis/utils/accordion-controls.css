@@ -15,8 +15,10 @@
 .selection-list .panel-body li {
   list-style-type: none;
   font-weight: 300;
-  padding-left: 0.5em;
-  line-height: 2;
+  padding-left: 1em;
+  text-indent: -0.5em;
+  padding-bottom: 0.5em;
+  line-height: 1.5;
 }
 
 .selection-list .panel-body li:hover {

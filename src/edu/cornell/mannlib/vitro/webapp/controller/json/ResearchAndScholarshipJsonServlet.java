@@ -313,6 +313,7 @@ public class ResearchAndScholarshipJsonServlet extends VitroHttpServlet {
 
 		if ( queryType.equals("pubs") ) {
 			query.addFilterQuery("type:\"http://purl.org/ontology/bibo/Document\"");
+			query.addFilterQuery("-type:\"http://purl.org/ontology/bibo/Proceedings\"");
 		}
 		else if ( queryType.equals("grants") ) {
 			query.addFilterQuery("type:\"http://vivoweb.org/ontology/core#Grant\" OR type:\"http://vivoweb.org/ontology/core#Contract\" OR type:\"http://scholars.cornell.edu/ontology/ospcu.owl#CooperativeAgreement\"");
@@ -320,6 +321,7 @@ public class ResearchAndScholarshipJsonServlet extends VitroHttpServlet {
 		else {
 			query.addFilterQuery("-type:\"http://www.w3.org/2004/02/skos/core#Concept\"");
 			query.addFilterQuery("-type:\"http://purl.org/ontology/bibo/Journal\"");
+			query.addFilterQuery("-type:\"http://purl.org/ontology/bibo/Proceedings\"");
 		}
 		if ( sortBy.equals("title") ) {
         	query.addSortField("nameLowercaseSingleValued",SearchQuery.Order.ASC);
@@ -450,6 +452,12 @@ public class ResearchAndScholarshipJsonServlet extends VitroHttpServlet {
 			// seeing different behavior in different envs, so including this as well
 			case "Cooperative Agreement": 
 				svc = ShortViewContext.RESEARCH;
+				break;
+			case "Conference Paper": 
+				svc = ShortViewContext.PUBLICATIONS;
+				break;
+			case "ConferencePaper": 
+				svc = ShortViewContext.PUBLICATIONS;
 				break;
 			default :
 		 		svc = ShortViewContext.BROWSE;

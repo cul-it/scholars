@@ -44,7 +44,7 @@
 		</div>
 		<div id="articles-count" class="btn-count-container">
 			  <p id="article-count" class="btn-count">0</p>
-				<p class="btn-text">Articles</p>
+				<p class="btn-text">Publications</p>
 		</div>
 		<div id="grants-count" class="btn-count-container">
 			  <p id="grant-count" class="btn-count">0</p>

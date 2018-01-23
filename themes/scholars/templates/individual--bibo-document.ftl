@@ -22,7 +22,17 @@
 <#--Number of distinct languages represented, with no language tag counting as a language, across labels-->
 <#if !languageCount??>
 	<#assign languageCount = 1>
-</#if>	
+</#if>
+<#-- what type of document do we have -->
+<#assign isArticle = false />
+<#if individual.mostSpecificTypes?seq_contains("Article") >
+	<#assign isArticle = true />
+</#if>
+<#assign isConfPaper = false />
+<#if individual.mostSpecificTypes?seq_contains("Conference Paper") >
+	<#assign isConfPaper = true />
+</#if>
+	
 <#-- pull properties -->
 <#assign abstractProp = propertyGroups.pullProperty("http://purl.org/ontology/bibo/abstract")!>
 <#assign authorsProp = propertyGroups.pullProperty("http://vivoweb.org/ontology/core#relatedBy","http://vivoweb.org/ontology/core#Authorship")!>
@@ -60,7 +70,7 @@
 	<#assign authors = [] />
 	<#assign authorList>
 		<div class="row profile-row" role="row">
-		  <div class="col-sm-1 no-padding align-text-right" >
+		  <div class="<#if isConfPaper>col-sm-2<#else>col-sm-1</#if> no-padding align-text-right" >
 			<span class="profile-label">Authors</span>
 		  </div>
 		  <div class="col-sm-10">
@@ -94,8 +104,10 @@
 	<#assign pubVenue = pubVenueProp.statements?first/>
 	<#assign journalTitle>
 		<div class="row profile-row" role="row">
-		  <div class="col-sm-1  no-padding align-text-right">
-			<span class="profile-label">Journal</span>
+		  <div class="<#if isConfPaper>col-sm-2<#else>col-sm-1</#if>  no-padding align-text-right">
+			<span class="profile-label">
+				<#if isConfPaper>Published in<#else>Journal</#if>
+			</span>
 		  </div>
 		  <div class="col-sm-10">
 			<div class="scholars-article-metadata">
@@ -162,8 +174,8 @@
 	<#assign freeTextTitleStmt = freeTextTitleProp.statements?first!""/>
 	<#assign freeTextTitle>
 		<div class="row profile-row" role="row">
-		  <div class="col-sm-1  no-padding align-text-right">
-			<span class="profile-label">Journal</span>
+		  <div class="<#if isConfPaper>col-sm-2<#else>col-sm-1</#if>  no-padding align-text-right">
+			<span class="profile-label">"<#if isConfPaper>Published in<#else>Journal</#if></span>
 		  </div>
 		  <div class="col-sm-10">
 			<div class="scholars-article-metadata">
@@ -184,7 +196,7 @@
 <#if startPage?has_content && endPage?has_content >
 	<#assign pages>
 		<div class="row profile-row" role="row">
-		  <div class="col-sm-1  no-padding align-text-right">
+		  <div class="<#if isConfPaper>col-sm-2<#else>col-sm-1</#if>  no-padding align-text-right">
 			<span class="profile-label">Pages</span>
 		  </div>
 		  <div class="col-sm-10">
@@ -197,7 +209,7 @@
 <#elseif startPage?has_content && !endPage?has_content >
 	<#assign pages>
 		<div class="row profile-row" role="row">
-		  <div class="col-sm-1  no-padding align-text-right">
+		  <div class="<#if isConfPaper>col-sm-2<#else>col-sm-1</#if>  no-padding align-text-right">
 			<span class="profile-label">Starts</span>
 		  </div>
 		  <div class="col-sm-10">
@@ -210,7 +222,7 @@
 <#elseif !startPage?has_content && endPage?has_content >
 	<#assign pages>
 		<div class="row profile-row" role="row">
-		  <div class="col-sm-1  no-padding align-text-right>
+		  <div class="<#if isConfPaper>col-sm-2<#else>col-sm-1</#if>  no-padding align-text-right>
 			<span class="profile-label">Ends</span>
 		  </div>
 		  <div class="col-sm-10">
@@ -255,7 +267,7 @@
 	<#assign doi = doiStmt.value! />
 	<#assign doiInline>
 		<div class="row profile-row" role="row">
-		  <div class="col-sm-1  no-padding align-text-right">
+		  <div class="<#if isConfPaper>col-sm-2<#else>col-sm-1</#if>  no-padding align-text-right">
 			<span class="profile-label">DOI</span>
 		  </div>
 		  <div class="col-sm-10">
@@ -375,7 +387,7 @@
 <div class="col-sm-12 col-md-12 col-lg-12 scholars-container" id="biboDocumentMainColumn">
 
 <section id="individual-info" ${infoClass!} role="region">
-    <#-- include "individual-adminPanel.ftl" -->
+    <#include "individual-adminPanel.ftl">
 
     <#if individualProductExtensionPreHeader??>
         ${individualProductExtensionPreHeader}
@@ -412,8 +424,8 @@
 		</div>
     </header>
 	<div class="row profile-row fff-bkg header-metadata" role="row">
-		<div class="col-sm-9 col-md-9 col-lg-9">
- 			${authorList?replace(" ,",",")!}
+		<div class="col-sm-9 col-md-9 col-lg-9<#if isConfPaper> no-padding</#if>">
+ 			${authorList!?replace(" ,",",")!}
  			<#if journalTitle?has_content >
  				${journalTitle!}
  			<#else>
@@ -586,18 +598,20 @@ var i18nStringsUriRdf = {
 {
   "@context": "http://schema.org",
   "@type": "ScholarlyArticle",
-  "headline": "${individual.name?replace("\"","")!} (${authors?first})",
+  "headline": "${individual.name?replace("\"","")!} <#if authors??>(${authors?first})</#if>",
   "name": "${individual.name?replace("\"","")!}",
   "datePublished": "${pubDate!}",
   "pageStart": "${startPage!}",
   "pageEnd": "${endPage!}",
   "author": [
+    <#if authors??>
 		<#list authors as author>
 			{
 				"@type": "Person",
 				"name": "${author}"
 			}
 			<#if author_has_next>, </#if></#list>
+	</#if>
 		],
    "publisher": {
     "@type": "Periodical",
@@ -622,5 +636,3 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/individual/in
 	          '<script type="text/javascript" src="${urls.base}/js/individual/moreLessController.js"></script>',
               '<script type="text/javascript" src="${urls.base}/themes/scholars/js/individualUriRdf.js"></script>',
               '<script type="text/javascript" src="${urls.base}/themes/scholars/js/bibo-document.js"></script>')}
-
-

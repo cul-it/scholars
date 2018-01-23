@@ -99,7 +99,7 @@
     </#if>
 	
     <header>
-			<#include "individual-altmetric.ftl">
+<#--			<#include "individual-altmetric.ftl"> -->
             <h1 class="fn grant-profile-title" itemprop="name">
                 <#-- Label -->
                 <@p.label individual false labelCount localesCount languageCount/>
@@ -128,20 +128,112 @@
 
 	</div> <!-- biboDocumentMainColumn -->
 </div> <!-- row1 -->
+
 <div id="bibo-row-two" class="row f1f2f3-bkg">
-  <div class="col-sm-12 col-md-12 col-lg-12 no-padding">
-	<div class="row f1f2f3-bkg row-no-margins">
-		<div id="abstract" class="col-sm-12 col-md-12 col-lg-12 scholars-container">
-			<article class="property" role="article">
-	    		<ul id="individual-faculty" class="property-list" role="list" >
-	    			${pubVenueList!}
-				</ul>
-			</article>	
+  <#if pubVenueList?has_content>
+	  <div id="visualization-column" class="col-sm-3 col-md-3 col-lg-3 scholars-container">
+		<div id="bar_chart_icon_holder">
+	      <a href="#" id="bar_chart_trigger">
+	    	<img id="vizIcon" width="152px" src="${urls.base}/themes/scholars/images/articles-bar-chart.png"/>
+	      </a>
+		  <p>Articles Bar Chart</p>
+	    </div>
+	  </div>
+	  <div id="foafPersonSpacer" class="col-sm-1 col-md-1 col-lg-1"></div>
+	  <div class="col-sm-8 col-md-8 col-lg-8 no-padding">
+		<div class="row f1f2f3-bkg row-no-margins">
+			<div id="abstract" class="col-sm-12 col-md-12 col-lg-12 scholars-container">
+				<article class="property" role="article">
+		    		<ul id="individual-faculty" class="property-list" role="list" >
+		    			${pubVenueList!}
+					</ul>
+				</article>	
+			</div>
 		</div>
-	</div>
+	  </div>
+  </#if>
+</div> <!-- row2 div -->
+
+<!-- =============== Bar Chart visualization ======================= -->
+
+<div id="bar_chart_vis" class="scholars_vis_container vis_modal">
+  <div id="title_bar">
+    <span class="heading">Articles by Year</span>
+    <span class="glyphicon glyphicon-info-sign"></span>
+    <a data-view-selector="vis" href="#" style="display: none">Show visualization</a>
+    <a data-view-selector="table" href="#" >Show table format</a>
+  </div>
+  
+  <div id="title_bar_info_text">
+    <p>
+      This bar chart demonstrates the frequency of the publications by Cornell scholars
+      in a selected journal or proceeding, over the years. 
+      Click on a bar to see the list of publications by an academic unit in a specific year. 
+      Click on a publication's title to go to the publication's page, which 
+      contains the detailed citation data of the publication - including 
+      authors list, keywords, abstract and a link to the full text.
+    </p>
+    <p>
+      The data can be filtered by clicking on an academic unit name in the legend. 
+      As some publication are co-authored by scholars from multiple academic units, 
+      the height of the bar may differ from the actual publication count for a specific year.
+    </p>
+    <hr>
+    <p>
+      Note: This information is based solely on publications that have been loaded into the system.
+    </p>
+  </div>
+  
+  <div id="time-indicator">
+    <img src="${urls.images}/indicator1.gif"/>
   </div>
 
-	</div> <!-- row2 div -->
+  <div data-view-id="vis">
+    <div id="exports_panel" >
+      <a href="#" data-export-id="json">Export as JSON</a>
+      <a href="#" data-export-id="svg">Export as SVG</a>
+	</div>
+    <font size="2">
+      <span><i>
+        Click on a bar to view the list of publications for an academic unit. 
+        Click on an academic unit name to filter the data in view.
+      </i></span>
+    </font>
+  </div>
+
+  <div data-view-id="table">
+    <div id="exports_panel">
+      <a href="#" data-export-id="json">Export as JSON</a>
+      <a href="#" data-export-id="csv"">Export as CSV</a>
+    </div>
+    <table class="vis_table">
+      <thead>
+        <tr>
+          <th data-sort="string-ins">Publication Date</th>
+          <th data-sort="string-ins">Author's Academic Unit</th>
+          <th data-sort="string-ins">Article</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Template cell</td>
+          <td>Template cell</td>
+          <td>Template cell</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
+  <div data-view-id="empty">
+    <div style="text-align: center;">
+      <img src="${urls.base}/themes/scholars/images/barchart-noData.png"/>
+    </div>
+  </div>
+
+</div>
+
+<!-- =============== End of Bar Chart visualization ======================= -->
+
 
 <#assign rdfUrl = individual.rdfUrl>
 <#if rdfUrl??>
@@ -190,3 +282,28 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/individual/in
  			  '<script type="text/javascript" src="https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js"></script>',
 	          '<script type="text/javascript" src="${urls.base}/js/individual/moreLessController.js"></script>',
               '<script type="text/javascript" src="${urls.base}/themes/scholars/js/individualUriRdf.js"></script>')}
+              
+${scripts.add('<script type="text/javascript" src="${urls.base}/js/scholars-vis/scholars-vis.js"></script>',
+              '<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>',
+              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/journalbarchart/journal-bar-chart.js"></script>',
+			  '<script type="text/javascript" src="${urls.base}/js/scholars-vis/embed/journal_bar_chart.js"></script>')}
+
+<script>              
+$().ready(function() {
+  var barChart = new ScholarsVis.JournalBarChart.FullVisualization({
+    target : '#bar_chart_vis',
+    modal : true,
+    journal : "${individual.uri?url}",
+  });
+  $('#bar_chart_trigger').click(function() {
+    barChart.examineData(function(data) {
+        barChart.show();
+        if (data && data.units && data.units.length > 0) {
+            barChart.showView("vis");
+        } else {
+            barChart.showView("empty");
+        }
+    });
+  });
+});
+</script>        

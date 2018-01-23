@@ -90,7 +90,7 @@
 				</div>
 				<div class="container-fluid scholars-home-container">
 					<div id="visualize-content" class="row fff-bkg">
-						<div class="col-sm-3 col-md-3 col-lg-3"> 
+						<div class="col-sm-4 col-md-4 col-lg-4"> 
 							<a id="person-to-sa" href="${urls.base}/orgSAVisualization" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Homepage', 'Research Interest']);">
 								<img id="vizIcon" width="190px" src="${urls.base}/themes/scholars/images/home-person-sa.png"/>
 							</a>
@@ -98,7 +98,7 @@
 								<p>Research Interests</p>
 							</div>
 						</div>
-						<div class="col-sm-3 col-md-3 col-lg-3">
+						<div class="col-sm-4 col-md-4 col-lg-4">
 							<a href="${urls.base}/homeWordcloudVisualization" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Homepage', 'Keyword Clouds']);">
 								<img id="vizIcon" width="190px" src="${urls.base}/themes/scholars/images/wordcloud-icon.png"/>
 							</a>
@@ -106,7 +106,7 @@
 								<p>Keyword Clouds</p>
 							</div>
 						</div>
-						<div class="col-sm-3 col-md-3 col-lg-3"> 
+						<div class="col-sm-4 col-md-4 col-lg-4"> 
 							<a href="${urls.base}/homeWorldmapVisualization" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Homepage', 'Global Collaborations']);">
 								<img id="vizIcon" width="190px" src="${urls.base}/themes/scholars/images/home-worldmap.png"/>
 							</a>
@@ -114,13 +114,27 @@
 								<p>Global Collaborations</p>
 							</div>
 						</div>
-						<div class="col-sm-3 col-md-3 col-lg-3">
+					</div>
+					<div id="visualize-content" class="row fff-bkg">
+						<div class="col-sm-2 col-md-2 col-lg-2">
+						</div>
+						<div class="col-sm-4 col-md-4 col-lg-4">
 							<a href="${urls.base}/grantsVisualization" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Homepage', 'Grants and Contracts']);">
 								<img id="vizIcon" width="190px" src="${urls.base}/themes/scholars/images/home-grants.png"/>
 							</a>
 							<div>
 								<p>Grants and Contracts</p>
 							</div>
+						</div>
+						<div class="col-sm-4 col-md-4 col-lg-4">
+							<a href="${urls.base}/journalProceedingsVisualization" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Homepage', 'Journals and Proceedings']);">
+								<img id="vizIcon" width="190px" src="${urls.base}/themes/scholars/images/home-bar-chart.png"/>
+							</a>
+							<div>
+								<p>Journals and Proceedings</p>
+							</div>
+						</div>
+						<div class="col-sm-2 col-md-2 col-lg-2">
 						</div>
 					</div>
 				</div>

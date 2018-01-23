@@ -79,6 +79,7 @@ $(document).ready(function() {
 				if(!$nav_bar.hasClass('fixed')){
 					$nav_bar.addClass('fixed');
 					$dev_bar.addClass('devPanelFixed');
+					$('#logo-container').hide();
 					$('#beta-banner').hide();
 					$('#nav-logo').show('fade');
 					$welcome.hide();
@@ -93,6 +94,7 @@ $(document).ready(function() {
 							$nav_bar.removeClass('fixed');
 							$dev_bar.removeClass('devPanelFixed');
 							$('#nav-logo').hide('fade', function(){
+								$('#logo-container').show('fade');
 								$('#beta-banner').show('fade');
 							});
 							$welcome.show();

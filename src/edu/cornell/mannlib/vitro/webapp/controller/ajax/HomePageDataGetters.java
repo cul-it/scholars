@@ -57,7 +57,7 @@ public class HomePageDataGetters extends AbstractAjaxResponder {
         + "PREFIX vivo: <http://vivoweb.org/ontology/core#>  \n"
         + "SELECT DISTINCT (count(distinct ?article) as ?count)  \n"
         + "WHERE { \n"
-        + " ?article rdf:type bibo:AcademicArticle .  \n"
+        + " ?article rdf:type bibo:Document .  \n"
         + "}";
 
     private static String JOURNAL_QUERY = ""

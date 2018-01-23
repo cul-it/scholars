@@ -1,0 +1,73 @@
+/* Override the margin specified by scholars-vis.cvs */
+#bar_chart_vis div[data-view-id="vis"] svg {
+	margin-top: 0px;
+}
+
+.c3-tooltip-container {
+  top: 0
+}
+
+.c3-tooltip-container.detailTooltip {
+  overflow-x: hidden;
+  overflow-y: auto;
+  max-height: 75%;
+}
+
+/* Must be specific enough to override c3.css */
+.c3-tooltip td.name,
+.c3-tooltip td.value {
+    background-color: rgba(50, 50, 50, 0.8);
+    color: #DDDDDD;
+    font-family: Arial;
+    font-size: 12px;
+}
+
+.c3-tooltip td.name a {
+    color: white;
+    text-decoration: none;
+    padding: 5px 5px 5px 2px;
+}
+
+#jbc {
+  height: 85%;
+}
+
+.vis_modal #jbc {
+  height: 100%;
+}
+
+#jbc .transparentPanel {
+  z-index: 9;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+#jbc .transparentPanel table.c3-tooltip {
+  width: 100%
+}
+
+.nowShowing {
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 22px;
+}
+
+.nowShowing .selection {
+  font-weight: normal;
+}
+.barchart-help-text {
+	font-style: italic;
+	line-height: 18px;
+	list-style: none;
+}
+#barchart-disclaimer:before {
+  content: "*";
+  position: relative;
+  left: -10px;
+  bottom: -3px;
+  margin-right: -4px;
+}

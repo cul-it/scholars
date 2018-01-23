@@ -65,3 +65,16 @@ display:HomeWorldmapPage
         display:urlMapping
                 "/homeWorldmapVisualization" .
 
+display:HomeJournalBarchartPage
+        a       display:Page ;
+        display:isSelfContainedTemplate
+                "true" ;
+        display:requiresAction
+                <java:edu.cornell.mannlib.vitro.webapp.auth.permissions.SimplePermission#PageViewablePublic> ;
+        display:requiresBodyTemplate
+                "home-journal-barchart-page.ftl" ;
+        display:title
+                "Journal/Proceedings Visualization" ;
+        display:urlMapping
+                "/journalProceedingsVisualization" .
+

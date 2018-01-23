@@ -1,0 +1,156 @@
+@prefix : <http://vitro.mannlib.cornell.edu/ns/vitro/ApplicationSetup#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+#
+# Data for Journals bar chart.
+#
+# Given a journal URI, find:
+#     all articles published in that journal, 
+#     publication dates for the articles
+#     colleges in which the articles' authors hold primary positions
+#
+# Instead of running the SELECT query against the content models, we run it
+#    against a local graph.
+#
+# The local graph is built by three queries:
+#    The first gets the articles, authors and dates for the journal.
+#    The second gets all persons and the colleges in which they hold their 
+#       primary position, with no regard for the journal or articles in 
+#       question. 
+#    The third gets labels for all colleges.
+#
+# One example, for the Journal of Dairy Science:
+#    Run directly againbst the content models, 29 seconds
+#    Run against the local graph, 0.7 seconds.
+#
+:journal_bar_chart_dd
+    a   <java:edu.cornell.library.scholars.webapp.controller.api.distribute.DataDistributor> ,
+        <java:edu.cornell.library.scholars.webapp.controller.api.distribute.rdf.SelectFromGraphDistributor> ;
+    :actionName "journalBarChart" ;
+    :uriBinding "journal" ;
+    :graphBuilder :journal_bar_chart_gb1;
+    :graphBuilder :journal_bar_chart_gb2;
+    :graphBuilder :journal_bar_chart_gb3;
+    :query """
+    PREFIX bibo: <http://purl.org/ontology/bibo/>
+	PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+	PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+	PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
+	PREFIX vivo: <http://vivoweb.org/ontology/core#>
+	PREFIX scholars: <http://scholars.cornell.edu/ontology/vivoc.owl#>
+    SELECT DISTINCT ?article ?title ?date ?unit ?unitName
+	WHERE {
+		?article 
+			a bibo:Document ;
+			vivo:hasPublicationVenue ?journal ;
+			rdfs:label ?title ;
+			vivo:relatedBy ?auth ;
+			vivo:dateTimeValue ?dtv .
+		?dtv 
+			vivo:dateTime ?date .
+		?auth 
+			a vivo:Authorship ;
+			vivo:relates ?person .
+		?person
+			a foaf:Person ;
+			vivo:relatedBy ?position .
+		?position 
+			a vivo:PrimaryPosition ;
+			vivo:relates ?unit .
+		?unit
+			a foaf:Organization ;
+			rdfs:label ?unitName .
+		FILTER NOT EXISTS { ?unit vitro:mostSpecificType scholars:AdministrativeUnit }
+	}
+    """ .
+
+:journal_bar_chart_gb1
+    a   <java:edu.cornell.library.scholars.webapp.controller.api.distribute.rdf.graphbuilder.GraphBuilder> ,
+        <java:edu.cornell.library.scholars.webapp.controller.api.distribute.rdf.graphbuilder.ConstructQueryGraphBuilder> ;
+    :uriBinding "journal" ;
+    :constructQuery """
+    PREFIX bibo: <http://purl.org/ontology/bibo/>
+	PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+	PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+	PREFIX vivo: <http://vivoweb.org/ontology/core#>
+	CONSTRUCT {
+		?article 
+			a bibo:Document ;
+			vivo:hasPublicationVenue ?journal ;
+			rdfs:label ?title ;
+			vivo:relatedBy ?auth ;
+			vivo:dateTimeValue ?dtv .
+		?dtv 
+			vivo:dateTime ?date .
+		?auth 
+			a vivo:Authorship ;
+			vivo:relates ?person .
+		?person
+			 a foaf:Person .
+	}
+	WHERE {
+		?article 
+			a bibo:Document ;
+			vivo:hasPublicationVenue ?journal ;
+			rdfs:label ?title ;
+			vivo:relatedBy ?auth ;
+			vivo:dateTimeValue ?dtv .
+		?dtv 
+			vivo:dateTime ?date .
+		?auth 
+			a vivo:Authorship ;
+			vivo:relates ?person .
+		?person
+			 a foaf:Person .
+	}
+	""" .
+
+:journal_bar_chart_gb2
+    a   <java:edu.cornell.library.scholars.webapp.controller.api.distribute.rdf.graphbuilder.GraphBuilder> ,
+        <java:edu.cornell.library.scholars.webapp.controller.api.distribute.rdf.graphbuilder.ConstructQueryGraphBuilder> ;
+    :constructQuery """
+	PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+	PREFIX vivo: <http://vivoweb.org/ontology/core#>
+	CONSTRUCT {
+		?person
+			a foaf:Person ;
+			vivo:relatedBy ?position .
+		?position
+			a vivo:PrimaryPosition ;
+			vivo:relates ?unit .
+		?unit 
+			a foaf:Organization .
+	}
+	WHERE {
+		?person
+			a foaf:Person ;
+			vivo:relatedBy ?position .
+		?position
+			a vivo:PrimaryPosition ;
+			vivo:relates ?unit .
+		?unit 
+			a foaf:Organization .
+	}
+	""" .
+
+:journal_bar_chart_gb3
+    a   <java:edu.cornell.library.scholars.webapp.controller.api.distribute.rdf.graphbuilder.GraphBuilder> ,
+        <java:edu.cornell.library.scholars.webapp.controller.api.distribute.rdf.graphbuilder.ConstructQueryGraphBuilder> ;
+    :constructQuery """
+	PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+	PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+	PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
+	CONSTRUCT {
+		?unit 
+			a foaf:Organization ;
+			vitro:mostSpecificType ?type ;
+			rdfs:label ?unitName .     
+	}
+	WHERE {
+		?unit 
+			a foaf:Organization ;
+			vitro:mostSpecificType ?type;
+			rdfs:label ?unitName .     
+	}
+	""" .

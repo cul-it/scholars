@@ -113,22 +113,27 @@ var AccordionControls = (function() {
         }
         
         /* Is this done properly? Should the mapper function be a parameter? */
-        function loadFromDataRequest(actionName) {
-            $.get(ScholarsVis.Utilities.baseUrl + "api/dataRequest/" + actionName).then(mapAndLoad);
-            
-            function mapAndLoad(data) {
-                loadData(data.results.bindings.map(mapper).sort(sorter).filter(distinct));
-                
-                function mapper(d) {
+        /* mapFunction and sortFunction are optional, with defaults */
+        function loadFromDataRequest(actionName, mapFunction, sortFunction) {
+            if (typeof mapFunction != "function") {
+                mapFunction = function (d) {
                     return {
                         uri: d.uri.value,
                         label: d.label.value
                     }
                 }
-                
-                function sorter(a, b) {
+            }
+            
+            if (typeof sortFunction != "function") {
+                sortFunction = function (a, b) {
                     return a.label.toLowerCase().localeCompare(b.label.toLowerCase());
                 }
+            }
+        
+            $.get(ScholarsVis.Utilities.baseUrl + "api/dataRequest/" + actionName).then(mapAndLoad);
+            
+            function mapAndLoad(data) {
+                loadData(data.results.bindings.map(mapFunction).sort(sortFunction).filter(distinct));
                 
                 function distinct(el, i, array) {
                     return i == 0 || el.uri != array[i-1].uri;
