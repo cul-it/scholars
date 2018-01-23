@@ -1,6 +1,7 @@
 var BarChartVis = (function() {
     return {
         transformdata: transformdata,
+        viewDecider: viewDecider,
         display: display,
         closer: closer,
         exportVisAsJson: exportVisAsJson,
@@ -115,6 +116,18 @@ var BarChartVis = (function() {
             return max; 
         }
     }
+    
+    /*
+     * What view should we show first, based on the transformed data?
+     */ 
+    function viewDecider(data, options) {
+        if (data && data.units && data.units.length > 0) {
+            return "vis";
+        } else {
+            return "empty";
+        }
+    } 
+    
     
     /*
      * Draw the bar graph.
@@ -390,6 +403,7 @@ ScholarsVis["JournalBarChart"] = {
             var defaults = {
                     url : ScholarsVis.Utilities.baseUrl + "api/dataRequest/journalBarChart?journal=" + options.journal,
                     transform : BarChartVis.transformdata,
+                    viewDecider : BarChartVis.viewDecider,
                     views : {
                         vis : {
                             display : BarChartVis.display,

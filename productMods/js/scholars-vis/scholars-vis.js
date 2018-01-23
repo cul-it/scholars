@@ -99,8 +99,14 @@
  *   a selector will be created in the title bar, so the desired view can be 
  *   selected.
  *   
- * Example of the views structure:
+ * viewDecider:
+ *   Optional. This function selects which view will be displayed, if no view 
+ *   is specified in a call to showView(). The default behavior is to display 
+ *   the view that appears first in the views array.
+ *   
+ * An example of the views structure:
  * 
+ * viewDecider : view_selection_function,
  * views : {
  *    vis : { 
  *      display : vis_display_function,
@@ -418,7 +424,8 @@ var ScholarsVis = (function() {
             });
             
             function chooseView() {
-                viewId = viewId || " ";
+                viewId = viewId || options.viewDecider(options.transformed, options);
+                
                 for (var i = 0; i < options.viewsArray.length; i++) {
                     if (options.viewsArray[i].id == viewId) {
                         return options.viewsArray[i];
@@ -513,6 +520,7 @@ var ScholarsVis = (function() {
                 fetcher: getFunctionReference("fetch", defaultFetcher),
                 parser: figureParseFunction(o.parse), 
                 transformer: getFunctionReference("transform", noopTransform),
+                viewDecider: getFunctionReference("viewDecider", defaultViewDecider),
                 showProgress: getFunctionReference("showProgress", defaultShowProgress), 
                 hideProgress: getFunctionReference("hideProgress", defaultHideProgress), 
                 displayer: getFunctionReference("display", defaultDisplayer), 
@@ -565,6 +573,10 @@ var ScholarsVis = (function() {
                     options.fetched = fetched;
                     debugIt("fetched");
                 }
+            }
+            
+            function defaultViewDecider(data, options) {
+                return " ";
             }
             
             function defaultShowProgress(target) {

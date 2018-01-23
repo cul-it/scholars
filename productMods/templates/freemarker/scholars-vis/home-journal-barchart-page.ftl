@@ -184,14 +184,7 @@ $().ready(function() {
             target : '#bar_chart_vis',
             journal : journal.uri
         });
-        
-        barChart.examineData(function(data) {
-            if (data && data.units && data.units.length > 0) {
-                barChart.showView("vis");
-            } else {
-                barChart.showView("empty");
-            }
-        });
+        barChart.show();
     }
     
     /*
