@@ -155,7 +155,8 @@ $().ready(function() {
     function mapPubVenueResult(d) {
         return {
             uri: d.uri.value,
-            label: d.label.value,
+            rawLabel: d.label.value,
+            label: d.label.value + " (" + d.count.value + ")",
             count: parseInt(d.count.value)
         }
     }
@@ -176,7 +177,7 @@ $().ready(function() {
     showFeaturedJournal();
     
     function showBarChart(journal) {
-        $(".nowShowing .selection").html("<a href=\"" + ScholarsVis.Utilities.toDisplayUrl(journal.uri) + "\">" + journal.label + "</a>");
+        $(".nowShowing .selection").html("<a href=\"" + ScholarsVis.Utilities.toDisplayUrl(journal.uri) + "\">" + journal.rawLabel + "</a>");
         if (barChart != null) {
             barChart.hide();
         }
