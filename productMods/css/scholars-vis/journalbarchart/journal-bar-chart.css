@@ -53,6 +53,7 @@
 .nowShowing {
   font-weight: bold;
   font-size: 16px;
+  line-height: 22px;
 }
 
 .nowShowing .selection {
