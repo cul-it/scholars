@@ -175,7 +175,7 @@
 	<#assign freeTextTitle>
 		<div class="row profile-row" role="row">
 		  <div class="<#if isConfPaper>col-sm-2<#else>col-sm-1</#if>  no-padding align-text-right">
-			<span class="profile-label">"<#if isConfPaper>Published in<#else>Journal</#if></span>
+			<span class="profile-label"><#if isConfPaper>Published in<#else>Journal</#if></span>
 		  </div>
 		  <div class="col-sm-10">
 			<div class="scholars-article-metadata">
