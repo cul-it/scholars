@@ -54,6 +54,7 @@
 <#assign gccProp = propertyGroups.pullProperty("http://purl.org/spar/c4o/hasGlobalCitationFrequency")!>
 <#assign pmidProp = propertyGroups.pullProperty("http://purl.org/ontology/bibo/pmid")!>
 <#assign freeTextTitleProp = propertyGroups.pullProperty("http://scholars.cornell.edu/ontology/vivoc.owl#freetextJournalTitle")!>
+<#assign freeTextProceedingTitleProp = propertyGroups.pullProperty("http://scholars.cornell.edu/ontology/vivoc.owl#freetextProceedingsTitle")!>
 <#if libraryCatalogPage?has_content>
 	<#assign lcp = libraryCatalogPage[0].lcp />
 </#if>
@@ -175,7 +176,22 @@
 	<#assign freeTextTitle>
 		<div class="row profile-row" role="row">
 		  <div class="<#if isConfPaper>col-sm-2<#else>col-sm-1</#if>  no-padding align-text-right">
-			<span class="profile-label"><#if isConfPaper>Published in<#else>Journal</#if></span>
+			<span class="profile-label">Journal</span>
+		  </div>
+		  <div class="col-sm-10">
+			<div class="scholars-article-metadata">
+				<em>${freeTextTitleStmt.value!}</em>
+			</div>
+	  	  </div>
+		</div>
+	</#assign>
+</#if>  
+<#if freeTextProceedingTitleProp?has_content && freeTextProceedingTitleProp.statements?has_content>
+	<#assign freeTextTitleStmt = freeTextProceedingTitleProp.statements?first!""/>
+	<#assign freeTextTitle>
+		<div class="row profile-row" role="row">
+		  <div class="<#if isConfPaper>col-sm-2<#else>col-sm-1</#if>  no-padding align-text-right">
+			<span class="profile-label">Published in</span>
 		  </div>
 		  <div class="col-sm-10">
 			<div class="scholars-article-metadata">
