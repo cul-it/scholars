@@ -141,6 +141,7 @@
       <#-- 
       =======================================================================
       Person cloud:  swiped from individual--foaf-person.ftl
+      -- REMOVED THE RADIO BUTTONS --
       ======================================================================= 
       -->
 
@@ -186,6 +187,8 @@
           <font size="2">
             <span><i>Click on a keyword to view the list of related publications.</i></span>
           </font>
+          
+<#-- DON'T WANT THEM RADIO BUTTONS!
           <div style="margin-top: 10px">
             <font size="2">
               <label class="radio-inline radio-inline-override"><input id="all" type="radio" name="kwRadio" class="radio" checked>Featured Keywords</label>
@@ -194,6 +197,7 @@
               <label class="radio-inline"><input id="inferred" type="radio" name="kwRadio" class="radio" >Mined Keywords</label>
             </font>
           </div>
+-->
         </div>
 
         <div data-view-id="table">

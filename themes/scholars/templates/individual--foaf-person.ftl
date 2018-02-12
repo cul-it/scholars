@@ -357,7 +357,7 @@ $(document).ready(function() {
     <div style="margin-top: 10px">
       <font size="2">
         <label class="radio-inline radio-inline-override"><input id="all" type="radio" name="kwRadio" class="radio" checked>Featured Keywords</label>
-        <label class="radio-inline"><input id="keyword"  type="radio" name="kwRadio" class="radio" >Article Keywords</label>
+        <label class="radio-inline"><input id="keyword"  type="radio" name="kwRadio" class="radio" >Author Keywords</label>
         <label class="radio-inline"><input id="mesh"     type="radio" name="kwRadio" class="radio" >External Vocab. Terms</label>
         <label class="radio-inline"><input id="inferred" type="radio" name="kwRadio" class="radio" >Mined Keywords</label>
       </font>
