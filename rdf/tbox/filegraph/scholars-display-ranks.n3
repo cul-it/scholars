@@ -1,0 +1,28 @@
+@prefix vitro:   <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+@prefix vivo:    <http://vivoweb.org/ontology/core#> .
+
+vivo:NonAcademicPosition
+	  vitro:displayRankAnnot
+        	  "6"^^xsd:int .
+
+vivo:FacultyAdministrativePosition
+      vitro:displayRankAnnot
+              "1"^^xsd:int .
+
+vivo:FacultyPosition
+      vitro:displayRankAnnot
+              "2"^^xsd:int .
+
+vivo:LibrarianPosition
+      vitro:displayRankAnnot
+              "3"^^xsd:int .
+
+vivo:NonFacultyAcademicPosition
+      vitro:displayRankAnnot
+              "4"^^xsd:int .
+
+vivo:PostdocPosition
+      vitro:displayRankAnnot
+              "5"^^xsd:int .
