@@ -12,12 +12,26 @@
 
         SELECT DISTINCT ?grantOrContract
                         ?label
+						?dateTimeStartGrant 
+						?dateTimeEndGrant
 
         WHERE {
                     ?subject ?property ?grantOrContract .
                     OPTIONAL { ?grantOrContract rdfs:label ?label .
                     }                
-        }  ORDER BY  ?label
+					OPTIONAL
+		            {
+		                ?grantOrContract core:dateTimeInterval ?dateTimeIntervalGrant .
+		                ?dateTimeIntervalGrant core:start ?dateTimeStartValueGrant .
+		                ?dateTimeStartValueGrant core:dateTime ?dateTimeStartGrant .
+		            }
+		            OPTIONAL
+		            {
+		                ?grantOrContract core:dateTimeInterval ?dateTimeIntervalGrant .
+		                ?dateTimeIntervalGrant core:end ?dateTimeEndValueGrant .
+		                ?dateTimeEndValueGrant core:dateTime ?dateTimeEndGrant .
+		            }
+        }  ORDER BY DESC(?dateTimeEndGrant) DESC(?dateTimeStartGrant)  ?label
   </query-select>
     
     <query-construct>
@@ -29,6 +43,11 @@
             CONSTRUCT {
                 ?subject ?property ?grantOrContract .
                 ?grantOrContract rdfs:label ?label .
+	            ?grantOrContract core:dateTimeInterval ?dateTimeIntervalGrant .
+	            ?dateTimeIntervalGrant core:start ?dateTimeStartValueGrant .
+	            ?dateTimeStartValueGrant core:dateTime ?dateTimeStartGrant .
+	            ?dateTimeIntervalGrant core:end ?dateTimeEndValueGrant .
+	            ?dateTimeEndValueGrant core:dateTime ?dateTimeEndGrant .
             } WHERE {
             {
                 ?subject ?property ?grantOrContract .
@@ -45,6 +64,54 @@
 	            ?grantOrContract a ospcu:CooperativeAgreement .
 	            ?grantOrContract rdfs:label ?label .
 	        }
+            UNION
+            {
+                ?subject ?property ?grantOrContract .
+	            ?grantOrContract a core:Grant .
+                ?grantOrContract core:dateTimeInterval ?dateTimeIntervalGrant .
+                ?dateTimeIntervalGrant core:start ?dateTimeStartValueGrant .
+                ?dateTimeStartValueGrant core:dateTime ?dateTimeStartGrant .
+            }
+            UNION
+            {
+				?subject ?property ?grantOrContract .
+	            ?grantOrContract a core:Contract .
+                ?grantOrContract core:dateTimeInterval ?dateTimeIntervalGrant .
+                ?dateTimeIntervalGrant core:start ?dateTimeStartValueGrant .
+                ?dateTimeStartValueGrant core:dateTime ?dateTimeStartGrant .
+            }
+            UNION
+            {
+				?subject ?property ?grantOrContract .
+	            ?grantOrContract a ospcu:CooperativeAgreement .
+                ?grantOrContract core:dateTimeInterval ?dateTimeIntervalGrant .
+                ?dateTimeIntervalGrant core:start ?dateTimeStartValueGrant .
+                ?dateTimeStartValueGrant core:dateTime ?dateTimeStartGrant .
+            }
+            UNION
+            {
+                ?subject ?property ?grantOrContract .
+	            ?grantOrContract a core:Grant .
+                ?grantOrContract core:dateTimeInterval ?dateTimeIntervalGrant .
+                ?dateTimeIntervalGrant core:end ?dateTimeEndValueGrant .
+                ?dateTimeEndValueGrant core:dateTime ?dateTimeEndGrant .
+            }
+            UNION
+            {
+                ?subject ?property ?grantOrContract .
+	            ?grantOrContract a core:Contract .
+                ?grantOrContract core:dateTimeInterval ?dateTimeIntervalGrant .
+                ?dateTimeIntervalGrant core:end ?dateTimeEndValueGrant .
+                ?dateTimeEndValueGrant core:dateTime ?dateTimeEndGrant .
+            }
+            UNION
+            {
+                ?subject ?property ?grantOrContract .
+	            ?grantOrContract a ospcu:CooperativeAgreement .
+                ?grantOrContract core:dateTimeInterval ?dateTimeIntervalGrant .
+                ?dateTimeIntervalGrant core:end ?dateTimeEndValueGrant .
+                ?dateTimeEndValueGrant core:dateTime ?dateTimeEndGrant .
+            }
         }
     </query-construct>
               
