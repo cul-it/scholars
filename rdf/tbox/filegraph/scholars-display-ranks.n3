@@ -2,11 +2,10 @@
 @prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
 @prefix vivo:    <http://vivoweb.org/ontology/core#> .
+@prefix bibo:    <http://purl.org/ontology/bibo/> .
+@prefix obo:     <http://purl.obolibrary.org/obo/> .
 
-vivo:NonAcademicPosition
-	  vitro:displayRankAnnot
-        	  "6"^^xsd:int .
-
+# display rank for position types
 vivo:FacultyAdministrativePosition
       vitro:displayRankAnnot
               "1"^^xsd:int .
@@ -26,3 +25,16 @@ vivo:NonFacultyAcademicPosition
 vivo:PostdocPosition
       vitro:displayRankAnnot
               "5"^^xsd:int .
+
+vivo:NonAcademicPosition
+	  vitro:displayRankAnnot
+        	  "6"^^xsd:int .
+
+# display rank for publication types
+obo:IAO_0000013 
+ 	  vitro:displayRankAnnot
+        	  "1"^^xsd:int .
+
+vivo:ConferencePaper
+ 	  vitro:displayRankAnnot
+        	  "5"^^xsd:int .
