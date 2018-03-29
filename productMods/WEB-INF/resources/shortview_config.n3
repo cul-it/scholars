@@ -24,31 +24,36 @@ vivo:FacultyMember
         display:hasCustomView mydomain:peopleSearchView ;
         display:hasCustomView mydomain:peopleIndexView ;
         display:hasCustomView mydomain:peopleBrowseView ;
-        display:hasCustomView mydomain:peopleExpertsView .
+        display:hasCustomView mydomain:peopleExpertsView ;
+        display:hasCustomView mydomain:peopleExpertsByNameView .
 
 vivo:Librarian
         display:hasCustomView mydomain:peopleSearchView ;
         display:hasCustomView mydomain:peopleIndexView ;
         display:hasCustomView mydomain:peopleBrowseView ;
-        display:hasCustomView mydomain:peopleExpertsView .
+        display:hasCustomView mydomain:peopleExpertsView ;
+        display:hasCustomView mydomain:peopleExpertsByNameView .
 
 vivo:NonFacultyAcademic
         display:hasCustomView mydomain:peopleSearchView ;
         display:hasCustomView mydomain:peopleIndexView ;
         display:hasCustomView mydomain:peopleBrowseView ;
-        display:hasCustomView mydomain:peopleExpertsView .
+        display:hasCustomView mydomain:peopleExpertsView ;
+        display:hasCustomView mydomain:peopleExpertsByNameView .
 
 vivo:NonAcademic
         display:hasCustomView mydomain:peopleSearchView ;
         display:hasCustomView mydomain:peopleIndexView ;
         display:hasCustomView mydomain:peopleBrowseView ;
-        display:hasCustomView mydomain:peopleExpertsView .
+        display:hasCustomView mydomain:peopleExpertsView ;
+        display:hasCustomView mydomain:peopleExpertsByNameView .
 
 vivo:EmeritusFaculty
         display:hasCustomView mydomain:peopleSearchView ;
         display:hasCustomView mydomain:peopleIndexView ;
         display:hasCustomView mydomain:peopleBrowseView ;
-        display:hasCustomView mydomain:peopleExpertsView .
+        display:hasCustomView mydomain:peopleExpertsView ;
+        display:hasCustomView mydomain:peopleExpertsByNameView .
 
 obo:IAO_0000013
 		display:hasCustomView mydomain:articlesPublicationsView .
@@ -122,6 +127,12 @@ mydomain:peopleExpertsView
 	display:hasTemplate "view-experts-default.ftl" ;
 	display:hasDataGetter mydomain:expertsInPositionDG ;
 	display:hasDataGetter mydomain:expertsPubCountDG .
+
+mydomain:peopleExpertsByNameView
+	a display:customViewForIndividual ;
+	display:appliesToContext "EXPERTS_BY_NAME" ;
+	display:hasTemplate "view-experts-by-name.ftl" ;
+	display:hasDataGetter mydomain:expertsInPositionDG .
 
 mydomain:departmentUnitsView
 	a display:customViewForIndividual ;

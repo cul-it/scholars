@@ -71,6 +71,7 @@ public interface ShortViewService {
 		INDEX("view-index-default.ftl"), 
 		BROWSE("view-browse-default.ftl"), 
 		EXPERTS("view-experts-default.ftl"),
+		EXPERTS_BY_NAME("view-experts-by-name.ftl"),
 		PUBLICATIONS("view-publications-default.ftl"),
 		RESEARCH("view-research-default.ftl"),
 		ACADEMIC_UNITS("view-units-default.ftl");

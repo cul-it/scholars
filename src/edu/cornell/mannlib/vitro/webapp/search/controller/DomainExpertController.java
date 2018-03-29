@@ -210,7 +210,7 @@ public class DomainExpertController extends FreemarkerHttpServlet {
 
 	        JSONObject rObj = IndividualListResultsUtils.wrapIndividualListResultsInJson(ilResults, vreq, true);
 
-			addShortViewRenderings(rObj, vreq);
+			addShortViewRenderings(rObj, vreq, queryType);
 
              /* Compile the data for the templates */             
              Map<String, Object> body = new HashMap<String, Object>();
@@ -551,27 +551,31 @@ public class DomainExpertController extends FreemarkerHttpServlet {
             return Format.HTML;
     }
     
-	private static void addShortViewRenderings(JSONObject rObj, VitroRequest vreq) throws JSONException {
+	private static void addShortViewRenderings(JSONObject rObj, VitroRequest vreq, String queryType) throws JSONException {
 		JSONArray individuals = rObj.getJSONArray("individuals");
 		String vclassName = rObj.getJSONObject("vclass").getString("name");
 		for (int i = 0; i < individuals.length(); i++) {
 			JSONObject individual = individuals.getJSONObject(i);
 			individual.put("shortViewHtml",
-					renderShortView(individual.getString("URI"), vclassName, vreq));
+					renderShortView(individual.getString("URI"), vclassName, vreq, queryType));
 		}
 	}
 
-	private static String renderShortView(String individualUri, String vclassName, VitroRequest vreq) {
+	private static String renderShortView(String individualUri, String vclassName, VitroRequest vreq, String queryType) {
 		IndividualDao iDao = vreq.getWebappDaoFactory().getIndividualDao();
 		Individual individual = iDao.getIndividualByURI(individualUri);
-
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 		modelMap.put("individual",
 				new IndividualTemplateModel(individual, vreq));
 		modelMap.put("vclass", vclassName);
 		ServletContext ctx = vreq.getSession().getServletContext();
 		ShortViewService svs = ShortViewServiceSetup.getService(ctx);
-		return svs.renderShortView(individual, ShortViewContext.EXPERTS,
+		ShortViewContext svc = ShortViewContext.EXPERTS;
+		if ( queryType.equals("name") ) {
+			svc = ShortViewContext.EXPERTS_BY_NAME;
+		}
+		
+		return svs.renderShortView(individual, svc,
 				modelMap, vreq);
 	}
 
