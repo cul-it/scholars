@@ -13,6 +13,8 @@
         SELECT DISTINCT ?administratorRole
                         ?grant
                         ?grantLabel
+						?dateTimeStartGrant 
+						?dateTimeEndGrant
 
         WHERE {
                     ?subject ?property ?administratorRole .
@@ -20,8 +22,22 @@
                     OPTIONAL { ?administratorRole core:relatedBy ?grant .
                                ?grant core:relates ?administratorRole .
                                ?grant rdfs:label ?grantLabel .
+							OPTIONAL
+				            {
+				                ?administratorRole core:relatedBy ?grant .
+				                ?grant core:dateTimeInterval ?dateTimeIntervalGrant .
+				                ?dateTimeIntervalGrant core:start ?dateTimeStartValueGrant .
+				                ?dateTimeStartValueGrant core:dateTime ?dateTimeStartGrant .
+				            }
+				            OPTIONAL
+				            {
+				                ?administratorRole core:relatedBy ?grant .
+				                ?grant core:dateTimeInterval ?dateTimeIntervalGrant .
+				                ?dateTimeIntervalGrant core:end ?dateTimeEndValueGrant .
+				                ?dateTimeEndValueGrant core:dateTime ?dateTimeEndGrant .
+				            }
                     }                
-        }  ORDER BY  ?grantLabel
+        }  ORDER BY DESC(?dateTimeEndGrant) DESC(?dateTimeStartGrant)  ?grantLabel
   </query-select>
     
     <query-construct>
@@ -36,6 +52,11 @@
                 ?administratorRole core:relatedBy ?grant .
                 ?grant core:relates ?administratorRole .
                 ?grant rdfs:label ?grantLabel .
+	            ?grant core:dateTimeInterval ?dateTimeIntervalGrant .
+	            ?dateTimeIntervalGrant core:start ?dateTimeStartValueGrant .
+	            ?dateTimeStartValueGrant core:dateTime ?dateTimeStartGrant .
+	            ?dateTimeIntervalGrant core:end ?dateTimeEndValueGrant .
+	            ?dateTimeEndValueGrant core:dateTime ?dateTimeEndGrant .
             } WHERE {
             {
                 ?subject ?property ?administratorRole .
@@ -62,6 +83,66 @@
 	            ?grant core:relates ?administratorRole .
 	            ?grant rdfs:label ?grantLabel .
 	        }
+            UNION
+            {
+                ?subject ?property ?administratorRole .
+	            ?administratorRole a core:AdministratorRole .
+	            ?administratorRole core:relatedBy ?grant .
+	            ?grant a core:Grant .
+                ?grant core:dateTimeInterval ?dateTimeIntervalGrant .
+                ?dateTimeIntervalGrant core:start ?dateTimeStartValueGrant .
+                ?dateTimeStartValueGrant core:dateTime ?dateTimeStartGrant .
+            }
+            UNION
+            {
+                ?subject ?property ?administratorRole .
+	            ?administratorRole a core:AdministratorRole .
+	            ?administratorRole core:relatedBy ?grant .
+	            ?grant a core:Contract .
+                ?grant core:dateTimeInterval ?dateTimeIntervalGrant .
+                ?dateTimeIntervalGrant core:start ?dateTimeStartValueGrant .
+                ?dateTimeStartValueGrant core:dateTime ?dateTimeStartGrant .
+            }
+            UNION
+            {
+                ?subject ?property ?administratorRole .
+	            ?administratorRole a core:AdministratorRole .
+	            ?administratorRole core:relatedBy ?grant .
+	            ?grant a ospcu:CooperativeAgreement .
+                ?grant core:dateTimeInterval ?dateTimeIntervalGrant .
+                ?dateTimeIntervalGrant core:start ?dateTimeStartValueGrant .
+                ?dateTimeStartValueGrant core:dateTime ?dateTimeStartGrant .
+            }
+            UNION
+            {
+                ?subject ?property ?administratorRole .
+	            ?administratorRole a core:AdministratorRole .
+	            ?administratorRole core:relatedBy ?grant .
+	            ?grant a core:Grant .
+                ?grant core:dateTimeInterval ?dateTimeIntervalGrant .
+                ?dateTimeIntervalGrant core:end ?dateTimeEndValueGrant .
+                ?dateTimeEndValueGrant core:dateTime ?dateTimeEndGrant .
+            }
+            UNION
+            {
+                ?subject ?property ?administratorRole .
+	            ?administratorRole a core:AdministratorRole .
+	            ?administratorRole core:relatedBy ?grant .
+	            ?grant a core:Contract .
+                ?grant core:dateTimeInterval ?dateTimeIntervalGrant .
+                ?dateTimeIntervalGrant core:end ?dateTimeEndValueGrant .
+                ?dateTimeEndValueGrant core:dateTime ?dateTimeEndGrant .
+            }
+            UNION
+            {
+                ?subject ?property ?administratorRole .
+	            ?administratorRole a core:AdministratorRole .
+	            ?administratorRole core:relatedBy ?grant .
+	            ?grant a ospcu:CooperativeAgreement .
+                ?grant core:dateTimeInterval ?dateTimeIntervalGrant .
+                ?dateTimeIntervalGrant core:end ?dateTimeEndValueGrant .
+                ?dateTimeEndValueGrant core:dateTime ?dateTimeEndGrant .
+            }
 		
         }
     </query-construct>

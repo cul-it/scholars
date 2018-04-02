@@ -11,6 +11,7 @@
 <#include "individual-setup.ftl">
 <#import "lib-vivo-properties.ftl" as vp>
 <#import "lib-microformats.ftl" as mf>
+<#import "lib-grant-listing.ftl" as gl>
 
 <#assign isAcademicDept = false />
 <#if individual.mostSpecificTypes?seq_contains("Academic Department") >
@@ -56,13 +57,13 @@
 <#assign awardsGrantProp = propertyGroups.pullProperty("http://vivoweb.org/ontology/core#assigns", "${core}Grant")!>
 <#if awardsGrantProp?has_content> 
     <#assign awardsGrant>
-		<@p.objectProperty awardsGrantProp editable />
+		<@gl.listGrants awardsGrantProp />
 	</#assign>
 </#if>
 <#assign adminsGrantProp = propertyGroups.pullProperty("http://purl.obolibrary.org/obo/RO_0000053", "${core}AdministratorRole")!>
 <#if adminsGrantProp?has_content> 
     <#assign adminsGrant>
-		<@p.objectProperty adminsGrantProp editable />
+		<@gl.listGrants adminsGrantProp />
 	</#assign>
 </#if>
 <#-- 

@@ -20,7 +20,11 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 <#include "stylesheets.ftl">
-<link rel="stylesheet" href="${urls.theme}/css/screen.css" />
+<#if (version.label?length > 12 ) >
+	<#assign revision = version.label[version.label?length-12..] />
+	<#assign revision = revision?replace(" tag","") />
+</#if>
+<link rel="stylesheet" href="${urls.theme}/css/screen.css?version=${revision!}" />
 <!-- Emergency banner -->
 <script src="https://embanner.univcomm.cornell.edu/OWC-emergency-banner.js" type="text/javascript"> </script>
 ${headScripts.add('<script type="text/javascript" src="${urls.theme}/js/scholarsSearch.js"></script>')}

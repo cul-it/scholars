@@ -3804,3 +3804,8 @@ ul.lower-alpha-list li {
 	font-size: 12px;
 	display: block;
 }
+.grantStatusHeading {
+	padding: 6px 6px 6px 12px;
+	background-color: #ededed;
+	margin: 12px 40px 0 40px;
+}

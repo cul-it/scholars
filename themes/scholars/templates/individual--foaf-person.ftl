@@ -13,6 +13,7 @@ $(document).ready(function() {
 <#include "individual-setup.ftl">
 <#import "individual-qrCodeGenerator.ftl" as qr>
 <#import "lib-vivo-properties.ftl" as vp>
+<#import "lib-grant-listing.ftl" as gl>
 <#--Number of labels present-->
 <#if !labelCount??>
     <#assign labelCount = 0 >
@@ -57,13 +58,13 @@ $(document).ready(function() {
 <#assign grantsPIProp = propertyGroups.pullProperty("http://purl.obolibrary.org/obo/RO_0000053", "${core}PrincipalInvestigatorRole")!>
 <#if grantsPIProp?has_content> 
     <#assign grantsPI>
-		<@p.objectProperty grantsPIProp editable />
+		<@gl.listGrants grantsPIProp />
 	</#assign>
 </#if>
 <#assign grantsCOPIProp = propertyGroups.pullProperty("http://purl.obolibrary.org/obo/RO_0000053", "${core}CoPrincipalInvestigatorRole")!>
 <#if grantsCOPIProp?has_content> 
     <#assign grantsCOPI>
-		<@p.objectProperty grantsCOPIProp editable />
+		<@gl.listGrants grantsCOPIProp />
 	</#assign>
 </#if>
 <#if subjectAreas?has_content>
