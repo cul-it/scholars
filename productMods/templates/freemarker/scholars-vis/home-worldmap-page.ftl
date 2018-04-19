@@ -24,7 +24,7 @@
                     <h2 style="color:#5f5858;font-size:20px">
                         Browse global collaborations
                     </h2>
-                    <font size="2"><span><i>(2012 - 2017)</i></span></font>
+                    <font size="2"><span><i>(2013 - 2018)</i></span></font>
                 </div>
 
                 <div class="panel-group" id="accordion">
