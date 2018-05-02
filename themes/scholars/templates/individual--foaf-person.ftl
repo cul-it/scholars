@@ -191,7 +191,7 @@ $(document).ready(function() {
  			<a href="${coInvestigatorVisUrl}" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Person', 'Co-investigtors']);">
  				<img id="vizIcon" width="120px" src="${urls.base}/themes/scholars/images/co-investigators.png"/>
  			</a>
- 			<p>Co-investigators</p>
+ 			<p>Co-investigators (grants only)</p>
  		</div>
  	</#if>
 </div>
