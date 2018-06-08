@@ -14,15 +14,15 @@
 <#import "lib-grant-listing.ftl" as gl>
 
 <#assign optIn = "pending" />
-<#assign parentOptIn = "${orgOptIn?first.parentOrgOptIn!}" />
+<#assign parentOptInState = "${parentOptIn?first.parentOrgOptIn!}" />
 <#assign optInProp = propertyGroups.pullProperty("http://scholars.cornell.edu/ontology/vivoc.owl#isOptIn")!>
 <#if optInProp?has_content && optInProp.statements?has_content>
 	<#assign optInStmt = optInProp.statements?first!/>
 	<#assign optIn = optInStmt.value!"pending" />
-<#elseif parentOptIn?has_content>
-	<#if parentOptIn?contains("true")>
+<#elseif parentOptInState?has_content>
+	<#if parentOptInState?contains("true")>
 		<#assign optIn = "true" />
-	<#elseif parentOptIn?contains("false")>
+	<#elseif parentOptInState?contains("false")>
 		<#assign optIn = "false" />
 	<#else>
 		<#assign optIn = "pending" />
@@ -898,5 +898,3 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/individual/in
 <script type="text/javascript">
     i18n_confirmDelete = "${i18n().confirm_delete}"
 </script>
-
-

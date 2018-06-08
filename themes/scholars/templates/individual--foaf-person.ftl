@@ -479,9 +479,9 @@ ${stylesheets.add('<link rel="stylesheet" type="text/css" href="https://fonts.go
   ldjson.text = JSON.stringify({
     "@context": "http://schema.org",
     "@type": "Person",
-	  "givenName": "${givenName!}",
-	  "familyName": "${familyName!}",
-	  "additionalName": "${additionalName!}",
+	  "givenName": "${givenName!}",
+	  "familyName": "${familyName!}",
+	  "additionalName": "${additionalName!}",
 	  "affiliation": "Cornell University",
 	  "image": "${individual.thumbNail!}",
 	  "url": "${individual.uri}",
@@ -490,9 +490,3 @@ ${stylesheets.add('<link rel="stylesheet" type="text/css" href="https://fonts.go
   });
   $('#ldjson').append(ldjson);
 </script>
-COLLEGE --> ${collegeOptIn!}<br/>
-DEPT --> ${departmentOptIn!}<br/>
-<#list orgOptIn as opt>
-	-- ${opt.collegeOptIn!}<br/>
-	-- ${opt.departmentOptIn!}<br/>
-</#list>
