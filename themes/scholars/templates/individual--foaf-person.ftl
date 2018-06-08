@@ -490,3 +490,9 @@ ${stylesheets.add('<link rel="stylesheet" type="text/css" href="https://fonts.go
   });
   $('#ldjson').append(ldjson);
 </script>
+COLLEGE --> ${collegeOptIn!}<br/>
+DEPT --> ${departmentOptIn!}<br/>
+<#list orgOptIn as opt>
+	-- ${opt.collegeOptIn!}<br/>
+	-- ${opt.departmentOptIn!}<br/>
+</#list>

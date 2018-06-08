@@ -12,7 +12,7 @@
 ## This may be a one-off just for the Johnson School -- because that's what we do....
 
 <http://vivoweb.org/ontology/core#School> display:hasDataGetter display:disciplinesForSchool .
-<http://xmlns.com/foaf/0.1/Organization> display:hasDataGetter display:deptAndCollegeOptIn .
+<http://xmlns.com/foaf/0.1/Organization> display:hasDataGetter display:parentOrgOptIn .
  
 ## define the datagetter ##
 
@@ -43,9 +43,9 @@ display:disciplinesForSchool
         } ORDER BY ?disciplineName
         """ .
 
-display:deptAndCollegeOptIn
+display:parentOrgOptIn
     a <java:edu.cornell.mannlib.vitro.webapp.utils.dataGetter.SparqlQueryDataGetter>;
-    display:saveToVar "orgOptIn";
+    display:saveToVar "parentOptIn";
     display:query 
         """
 		PREFIX rdfs:     <http://www.w3.org/2000/01/rdf-schema#>
@@ -53,14 +53,12 @@ display:deptAndCollegeOptIn
 		PREFIX obo:      <http://purl.obolibrary.org/obo/>
 		PREFIX vivoc:    <http://scholars.cornell.edu/ontology/vivoc.owl#>
 		
-		SELECT (group_concat (?parent; separator=" ") AS ?parentOrgOptIn) (group_concat (?individual; separator=" ") AS ?individualOptIn)
+		SELECT (group_concat (?parent; separator=" ") AS ?parentOrgOptIn)
 		WHERE
 		{
 		  ?individualURI rdfs:label ?label .
-		  OPTIONAL {?individualURI vivoc:isOptIn  ?indOptIn . }
 		  ?individualURI obo:BFO_0000050 ?parentOrg .
 		  OPTIONAL {?parentOrg vivoc:isOptIn  ?parentOptIn . }
-		  bind(COALESCE(?indOptIn, "blank") as ?individual)
 		  bind(COALESCE(?parentOptIn, "blank") as ?parent)
 		}
         """ .
