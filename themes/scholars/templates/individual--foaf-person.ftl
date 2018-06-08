@@ -74,7 +74,7 @@ $(document).ready(function() {
 		<ul id="journal-subject-area-list" class="property-list" role="list">
 			<#list subjectAreas as subject>
 				<li role="listitem">		
-					<a href="${urls.base}/individual?uri=${subject.subjectArea!}">${subject.subjectAreaLabel!}</a>
+					<a href="${urls.base}/individual?uri=${subject.subjectArea!}">${subject.subjectAreaLabel!} (${subject.saCount!})</a>
 				</li>
 			</#list>
 		</ul>
@@ -170,7 +170,7 @@ $(document).ready(function() {
 <#-- The row2 div contains the visualization section and the publication and grants lists -->
 <div id="row2" class="row scholars-row foaf-person-row2">
 
-<#if optIn == "true" || optIn == "pending" >
+<#if optIn == "true">
 <div id="visualization-column" class="col-sm-3 col-md-3 col-lg-3 scholars-container">
  	<#if isAuthor >
 		<div id="word_cloud_icon_holder" style="display:none">
@@ -195,8 +195,10 @@ $(document).ready(function() {
  		</div>
  	</#if>
 </div>
+</#if>
+<#if optIn == "true" || optIn == "pending" >
 <div id="foafPersonSpacer" class="col-sm-1 col-md-1 col-lg-1"></div>
-<div id="foafPersonTabs" class="col-sm-8 col-md-8 col-lg-8  scholars-container">
+<div id="foafPersonTabs" class="col-sm-8 col-md-8 col-lg-8  scholars-container <#if optIn == "pending" >scholars-container-full</#if>">
 	<div id="scholars-tabs-container">
 	  <#if optIn == "true" >
 	  <ul id="scholars-tabs">
@@ -257,54 +259,6 @@ $(document).ready(function() {
 	</div>
 	
 </div>
-<#else> <#-- optin == false -->
-	<div id="hztl-visualization-column" class="col-md-12 scholars-container">
-	  <div class="row visualization-row">
-		<div id="available-vis" class="col-sm-3 col-md-3 col-lg-3">
-			<p>Available<br/>Visualizations</p>
-		</div>
-	 	<#if isAuthor && isInvestigator>
-			<div id="word_cloud_icon_holder" class="col-md-3" style="display:none;padding-top: 0;">
-			    <a href="#" id="word_cloud_trigger" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Person', 'Research-Keywords']);">
-			    	<img id="vizIcon" width="174px" src="${urls.base}/themes/scholars/images/wordcloud-icon-hztl.png"/>
-			    </a>
-				<p>Research Keywords</p>
-			</div>
-	 		<div id="co-author-vis" class="col-md-3" >
-	 			<a href="${coAuthorVisUrl}" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Person', 'Co-authors']);">
-	 				<img id="vizIcon" width="120px" src="${urls.base}/themes/scholars/images/co-authors.png"/>
-	 			</a>
-	 			<p>Co-authors</p>
-	 		</div>
-	 		<div id="co-investigator-vis" class="col-md-3" >
-	 			<a href="${coInvestigatorVisUrl}" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Person', 'Co-investigtors']);">
-	 				<img id="vizIcon" width="120px" src="${urls.base}/themes/scholars/images/co-investigators.png"/>
-	 			</a>
-	 			<p>Co-investigators</p>
-	 		</div>
-	 	<#elseif isAuthor >
-			<div id="word_cloud_icon_holder" class="col-md-5" style="display:none;padding-top: 0;">
-			    <a href="#" id="word_cloud_trigger" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Person', 'Research-Keywords']);">
-			    	<img id="vizIcon" width="174px" src="${urls.base}/themes/scholars/images/wordcloud-icon-hztl.png"/>
-			    </a>
-				<p>Research Keywords</p>
-			</div>
-	 		<div id="co-author-vis" class="col-md-4" >
-	 			<a href="${coAuthorVisUrl}" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Person', 'Co-authors']);">
-	 				<img id="vizIcon" width="120px" src="${urls.base}/themes/scholars/images/co-authors.png"/>
-	 			</a>
-	 			<p>Co-authors</p>
-	 		</div>
-		<#elseif  isInvestigator >
-	 		<div id="co-investigator-vis" class="col-sm-5 col-md-5 col-lg-5" >
-	 			<a href="${coInvestigatorVisUrl}" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Person', 'Co-investigtors']);">
-	 				<img id="vizIcon" width="120px" src="${urls.base}/themes/scholars/images/co-investigators.png"/>
-	 			</a>
-	 			<p>Co-investigators</p>
-	 		</div>
-	 	</#if>
-	  </div>
-	</div>
 </#if>
 <#else> <#-- not an author or investigator -->
 <div id="foaf-person-blank-row" class="row scholars-row"></div>

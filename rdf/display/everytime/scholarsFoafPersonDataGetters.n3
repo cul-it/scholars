@@ -34,6 +34,7 @@ display:subjectAreasFromPubs
 		SELECT DISTINCT 
 		    ?subjectArea
 		    ?subjectAreaLabel
+		    ( str(COUNT(?subjectAreaLabel)) AS ?saCount )
 		WHERE
 		{
 		    ?individualURI vivo:relatedBy ?authorship .
@@ -44,6 +45,7 @@ display:subjectAreasFromPubs
 		    ?venue vivo:hasSubjectArea ?subjectArea .
 		    ?subjectArea rdfs:label ?subjectAreaLabel .
 		}
+		GROUP BY ?subjectArea ?subjectAreaLabel
 		ORDER BY ?subjectAreaLabel
         """ .
 
