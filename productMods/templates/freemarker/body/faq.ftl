@@ -28,8 +28,8 @@
   <div class="panel-body faq-answer">
   <ul class="lower-alpha-list">
 		<li>
-		Scholars@Cornell is fed automatically with a variety of data sources, such as Cornell's own Human Resources (HR) data, publication data from <a href="http://symplectic.co.uk/products/elements/" title="Symplectic Elements">Symplectic Elements</a>, and grants data from <a href="https://www.osp.cornell.edu/" title="Office of Sponsored Programs">Office of Sponsored Programs</a> (OSP).
-      </li>
+		Scholars@Cornell is fed from a variety of data sources, such as positions and affiliation data from Cornell's own Human Resources (HR) and grants data from <a href="https://www.osp.cornell.edu/" title="Office of Sponsored Programs">Office of Sponsored Programs</a> (OSP). Publications data is fed to Scholars@Cornell from <a href="http://elements.library.cornell.edu/" title="Symplectic Elements">Symplectic Elements</a>. A Cornell scholar who has a Scholars@Cornell profile, also has a Symplectic Elements user profile. One can go to <a href="http://elements.library.cornell.edu/" title="Symplectic Elements">Symplectic Elements website</a>, log in with Cornell credentials and claim/curate their publications.
+    </li>
 	<li>
 		Once data has entered Scholars@Cornell's workflow, the "feed machine" engages in automated data curation, which entails cleansing data anomalies and suppressing duplicates.  A special process known as "uberization" evaluates the publication data coming from Elements (i.e. multiple sources) to select the best, most accurate data elements to be included in Scholars@Cornell.  If the "feed machine" determines that the data is not of sufficient quality and cannot be automatically corrected, it sends the data to a "curation bin" where it can be examined and corrected or rejected as necessary by a local data curator.
 	</li>
@@ -53,6 +53,20 @@
 			Cornell University Library subscribes to <a href="http://symplectic.co.uk/products/elements/" title="Symplectic Elements">Symplectic Elements</a> and administers the Cornell instance of Elements.
   		</li>
 	</ul>
+  </div>
+</div>
+<div class="panel panel-default selection-list faq-panel">
+  <div class="panel-heading facet-panel-heading faq-heading">Can data be downloaded from Scholars@Cornell?</div>
+  <div class="panel-body faq-answer">
+  <ul class="lower-alpha-list">
+    <li>
+      Much of the visualization data represented on the Scholars@Cornell website can be downloaded by clicking on the download icon found in the upper right corner of the page.  Scholarship data can be accessed (in JSON format) via the Scholars@Cornell API. To download publication data for a Scholar, one needs to know the netId of the Scholar. For example, following query will access publications for netId <code>mj495</code>. <br/>
+      <code> https://scholars.cornell.edu/api/dataRequest/listPublications?person=http://scholars.cornell.edu/individual/mj495</code>
+      </li>
+    <li>
+      Additionally, publication data can also be downloaded manually from <a href="http://elements.library.cornell.edu/" title="Symplectic Elements">Symplectic Elements</a>.
+      </li>
+  </ul>
   </div>
 </div>
 <div class="panel panel-default selection-list faq-panel">
@@ -110,16 +124,6 @@
   <ul class="lower-alpha-list">
 		<li>
 			Contact your college/department Scholars@Cornell representative or <a href="mailto:Scholars-Admin@cornell.edu" title="email address">Scholars-Admin@cornell.edu</a>.
-      </li>
-	</ul>
-  </div>
-</div>
-<div class="panel panel-default selection-list faq-panel">
-  <div class="panel-heading facet-panel-heading faq-heading">Can data be downloaded from Scholars@Cornell?</div>
-  <div class="panel-body faq-answer">
-  <ul class="lower-alpha-list">
-		<li>
-			Much of the visualization data represented on the Scholars@Cornell website can be downloaded by clicking on the download icon found in the upper right corner of the page.  Scholarship data can be accessed via the Scholars@Cornell API.
       </li>
 	</ul>
   </div>
