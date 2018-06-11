@@ -14,19 +14,10 @@
 <#import "lib-grant-listing.ftl" as gl>
 
 <#assign optIn = "pending" />
-<#assign parentOptInState = "${parentOptIn?first.parentOrgOptIn!}" />
 <#assign optInProp = propertyGroups.pullProperty("http://scholars.cornell.edu/ontology/vivoc.owl#isOptIn")!>
 <#if optInProp?has_content && optInProp.statements?has_content>
 	<#assign optInStmt = optInProp.statements?first!/>
 	<#assign optIn = optInStmt.value!"pending" />
-<#elseif parentOptInState?has_content>
-	<#if parentOptInState?contains("true")>
-		<#assign optIn = "true" />
-	<#elseif parentOptInState?contains("false")>
-		<#assign optIn = "false" />
-	<#else>
-		<#assign optIn = "pending" />
-	</#if>
 </#if>
 <#assign isAcademicDept = false />
 <#if individual.mostSpecificTypes?seq_contains("Academic Department") >

@@ -16,7 +16,6 @@
 
 <http://xmlns.com/foaf/0.1/Person> display:hasDataGetter display:subjectAreasFromPubs .
 <http://xmlns.com/foaf/0.1/Person> display:hasDataGetter display:orcidId .
-<http://xmlns.com/foaf/0.1/Person> display:hasDataGetter display:deptAndCollegeOptIn .
  
 ## define the datagetter ##
 
@@ -61,30 +60,4 @@ display:orcidId
 		}
 		LIMIT 1
         """ .
-
-display:deptAndCollegeOptIn
-    a <java:edu.cornell.mannlib.vitro.webapp.utils.dataGetter.SparqlQueryDataGetter>;
-    display:saveToVar "orgOptIn";
-    display:query 
-        """
-		PREFIX vivo: <http://vivoweb.org/ontology/core#>
-		PREFIX hr:       <http://scholars.cornell.edu/ontology/hr.owl#>
-		PREFIX vivoc:    <http://scholars.cornell.edu/ontology/vivoc.owl#>
-		PREFIX foaf: <http://xmlns.com/foaf/0.1/>
-		
-		SELECT (group_concat (?college; separator=" ") AS ?collegeOptIn) (group_concat (?dept; separator=" ") AS ?departmentOptIn)
-		WHERE
-		{
-		  ?individualURI vivo:relatedBy ?position .
-		  ?position a vivo:Position .
-		  ?position vivo:relates ?org .
-		  ?org a foaf:Organization .
-		  OPTIONAL {?org vivoc:isOptIn  ?orgOptIn . }
-		  ?position hr:positionIn ?posnInUnit .
-		  OPTIONAL {?posnInUnit vivoc:isOptIn  ?deptOptIn .}
-		  bind(COALESCE(?deptOptIn, "blank") as ?dept)
-		  bind(COALESCE(?orgOptIn, "blank") as ?college)
-		}
-        """ .
-
 

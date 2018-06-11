@@ -88,28 +88,10 @@ $(document).ready(function() {
 	<#assign webpageUrl = webpageStmt.url! />
 </#if>
 <#assign optIn = "pending" />
-<#assign skippedDept = false />
-<#assign collegeOptIn = "${orgOptIn?first.collegeOptIn!}" />
-<#assign departmentOptIn = "${orgOptIn?first.departmentOptIn!}" />
 <#assign optInProp = propertyGroups.pullProperty("http://scholars.cornell.edu/ontology/vivoc.owl#isOptIn")!>
 <#if optInProp?has_content && optInProp.statements?has_content>
 	<#assign optInStmt = optInProp.statements?first!/>
 	<#assign optIn = optInStmt.value!"pending" />
-<#elseif departmentOptIn?has_content>
-	<#if departmentOptIn?contains("true")>
-		<#assign optIn = "true" />
-	<#elseif departmentOptIn?contains("false")>
-		<#assign optIn = "false" />
-	<#else>
-		<#assign skippedDept = true />
-	</#if>
-</#if>
-<#if skippedDept && collegeOptIn?has_content>
-	<#if collegeOptIn?contains("true")>
-		<#assign optIn = "true" />
-	<#elseif collegeOptIn?contains("false")>
-		<#assign optIn = "false" />
-	</#if>
 </#if>
 
 <#-- for some reason pullProperty was only working when logged in, and even with the display level set to public. Weird! So using datagetter-->
