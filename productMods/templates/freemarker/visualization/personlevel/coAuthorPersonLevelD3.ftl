@@ -278,7 +278,7 @@ $(document).ready(function(){
                 window.location.href = getWellFormedURLs(uris[i], "profile");
             }
 			else {
-				alert(" This person is not affilated with Cornell \n and does not have a profile page in Scholars.");
+				alert(" This person does not have a profile page in Scholars@Cornell.");
 			}
         };
     }
