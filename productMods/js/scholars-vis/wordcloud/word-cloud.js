@@ -222,7 +222,6 @@ function transform_word_cloud_data(graph, options) {
         }
         function dontIncludeCommonMeshTerms(keyword) {
             if (COMMON_MESH_TERMS.includes(keyword.toLowerCase())) {
-                console.log("excluding " + keyword);
                 return false;
             } else {
                 return true;
