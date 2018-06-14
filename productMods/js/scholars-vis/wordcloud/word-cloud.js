@@ -140,7 +140,8 @@ ScholarsVis["WordCloud"] = {
  * Here is an example of the output:
  * [
  *   {
- *     "text": "prostate cancer",
+ *     "matcher": "prostate cancer",
+ *     "text": "Prostate cancer",
  *     "entities": [
  *       {
  *         "uri": "/scholars/display/UR-380249",
@@ -175,6 +176,7 @@ function transform_word_cloud_data(graph, options) {
 	var VIVO = $rdf.Namespace("http://vivoweb.org/ontology/core#");
 	var RDFS = $rdf.Namespace("http://www.w3.org/2000/01/rdf-schema#");
 	var VIVOC= $rdf.Namespace("http://scholars.cornell.edu/ontology/vivoc.owl#");
+	var COMMON_MESH_TERMS = ["human", "humans", "animal", "animals", "male", "female"];
 
 	var jsonResult = [];
 
@@ -191,12 +193,16 @@ function transform_word_cloud_data(graph, options) {
 	
 	function StatementProcessor(citationType) {
 		var labelFunction;
+		var includeFunction;
 		if (citationType == "KEYWORD") {
 			labelFunction = labelOfKeyword;
+                        includeFunction = includeAll;
 		} else if (citationType == "MESH"){
 			labelFunction = labelOfMeshTerm;
+                        includeFunction = dontIncludeCommonMeshTerms;
 		} else if (citationType == "INFERRED"){
 			labelFunction = labelOfInferredTerm;
+                        includeFunction = includeAll;
 		} 
 		
 		return {processStatement: processStatement};
@@ -210,12 +216,26 @@ function transform_word_cloud_data(graph, options) {
 		function labelOfInferredTerm(statement) {
 			return statement.object.value;
 		}
+		
+		function includeAll(keyword) {
+		    return true;
+		}
+		function dontIncludeCommonMeshTerms(keyword) {
+		    if (COMMON_MESH_TERMS.includes(keyword.toLowerCase())) {
+		        console.log("excluding " + keyword);
+		        return false;
+		    } else {
+		        return true;
+		    }
+		}
 
 		function processStatement(statement) {
 			var articleUri = statement.subject.uri;
 			var keyword = labelFunction(statement);
-			var bucket = findBucket() || createBucket();
-			addToBucket(articleUri, bucket);
+			if (includeFunction(keyword)) {
+			    var bucket = findBucket() || createBucket();
+			    addToBucket(articleUri, bucket);
+			}
 
 			function findBucket() {
 				return jsonResult.find(bucketMatcher);
