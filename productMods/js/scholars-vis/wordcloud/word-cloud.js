@@ -173,130 +173,130 @@ ScholarsVis["WordCloud"] = {
  *                    Defaults to 20 keywords, may not be set to less than 5.
  ******************************************************************************/
 function transform_word_cloud_data(graph, options) {
-	var VIVO = $rdf.Namespace("http://vivoweb.org/ontology/core#");
-	var RDFS = $rdf.Namespace("http://www.w3.org/2000/01/rdf-schema#");
-	var VIVOC= $rdf.Namespace("http://scholars.cornell.edu/ontology/vivoc.owl#");
-	var COMMON_MESH_TERMS = ["human", "humans", "animal", "animals", "male", "female"];
-
-	var jsonResult = [];
-
-	var stmts = graph.statementsMatching(undefined, VIVO('freetextKeyword'));
-	stmts.forEach(new StatementProcessor("KEYWORD").processStatement);
-
-	stmts = graph.statementsMatching(undefined, VIVO('hasSubjectArea'));
-	stmts.forEach(new StatementProcessor("MESH").processStatement);
-
-	stmts = graph.statementsMatching(undefined, VIVOC('inferredKeyword'));
-	stmts.forEach(new StatementProcessor("INFERRED").processStatement);
-	
-	return jsonResult;
-	
-	function StatementProcessor(citationType) {
-		var labelFunction;
-		var includeFunction;
-		if (citationType == "KEYWORD") {
-			labelFunction = labelOfKeyword;
-                        includeFunction = includeAll;
-		} else if (citationType == "MESH"){
-			labelFunction = labelOfMeshTerm;
-                        includeFunction = dontIncludeCommonMeshTerms;
-		} else if (citationType == "INFERRED"){
-			labelFunction = labelOfInferredTerm;
-                        includeFunction = includeAll;
-		} 
-		
-		return {processStatement: processStatement};
-	
-		function labelOfKeyword(statement) {
-			return statement.object.value;
-		}
-		function labelOfMeshTerm(statement) {
-			return graph.any(statement.object, RDFS("label")).value;
-		}
-		function labelOfInferredTerm(statement) {
-			return statement.object.value;
-		}
-		
-		function includeAll(keyword) {
-		    return true;
-		}
-		function dontIncludeCommonMeshTerms(keyword) {
-		    if (COMMON_MESH_TERMS.includes(keyword.toLowerCase())) {
-		        console.log("excluding " + keyword);
-		        return false;
-		    } else {
-		        return true;
-		    }
-		}
-
-		function processStatement(statement) {
-			var articleUri = statement.subject.uri;
-			var keyword = labelFunction(statement);
-			if (includeFunction(keyword)) {
-			    var bucket = findBucket() || createBucket();
-			    addToBucket(articleUri, bucket);
-			}
-
-			function findBucket() {
-				return jsonResult.find(bucketMatcher);
-				
-				function bucketMatcher(bucket) {
-					return toMatcher(keyword) === bucket.matcher;
-				}
-			}
-			
-			function createBucket() {
-				var bucket = {
-						matcher: toMatcher(keyword),
-						text: toDisplay(keyword),
-						entities: []
-				};
-				jsonResult.push(bucket);
-				return bucket;
-				
-				function toDisplay(keyword) {
-					return keyword.charAt(0).toUpperCase() + keyword.slice(1);
-				}
-			}
-			
-			function toMatcher(keyword) {
-				return keyword.toLowerCase();
-			}
-	
-			function addToBucket(uri, bucket) {
-				var label = graph.any($rdf.sym(uri), RDFS("label"));
-				if (label && label.value) {
-					var displayUri = ScholarsVis.Utilities.toDisplayUrl(uri);
-					var entity = findEntity() || createEntity();
-					addToEntity(entity);
-				}
-				
-				function findEntity() {
-					return bucket.entities.find(entityMatcher);
-					
-					function entityMatcher(entity) {
-						return displayUri === entity.uri;
-					}
-				}
-				
-				function createEntity() {
-					var entity = {
-	 	 				uri: displayUri,
-	 	 				text: label.value,
-	 	 				citationTypes: []
-					};
-					bucket.entities.push(entity);
-					return entity;
-				}
-
-				function addToEntity(entity) {
-					if (! entity.citationTypes.includes(citationType)) {
-						entity.citationTypes.push(citationType) ;
-					}
-				}
-			}
-		}
-	}
+    var VIVO = $rdf.Namespace("http://vivoweb.org/ontology/core#");
+    var RDFS = $rdf.Namespace("http://www.w3.org/2000/01/rdf-schema#");
+    var VIVOC= $rdf.Namespace("http://scholars.cornell.edu/ontology/vivoc.owl#");
+    var COMMON_MESH_TERMS = ["human", "humans", "animal", "animals", "male", "female"];
+    
+    var jsonResult = [];
+    
+    var stmts = graph.statementsMatching(undefined, VIVO('freetextKeyword'));
+    stmts.forEach(new StatementProcessor("KEYWORD").processStatement);
+    
+    stmts = graph.statementsMatching(undefined, VIVO('hasSubjectArea'));
+    stmts.forEach(new StatementProcessor("MESH").processStatement);
+    
+    stmts = graph.statementsMatching(undefined, VIVOC('inferredKeyword'));
+    stmts.forEach(new StatementProcessor("INFERRED").processStatement);
+    
+    return jsonResult;
+    
+    function StatementProcessor(citationType) {
+        var labelFunction;
+        var includeFunction;
+        if (citationType == "KEYWORD") {
+            labelFunction = labelOfKeyword;
+            includeFunction = includeAll;
+        } else if (citationType == "MESH"){
+            labelFunction = labelOfMeshTerm;
+            includeFunction = dontIncludeCommonMeshTerms;
+        } else if (citationType == "INFERRED"){
+            labelFunction = labelOfInferredTerm;
+            includeFunction = includeAll;
+        } 
+        
+        return {processStatement: processStatement};
+        
+        function labelOfKeyword(statement) {
+            return statement.object.value;
+        }
+        function labelOfMeshTerm(statement) {
+            return graph.any(statement.object, RDFS("label")).value;
+        }
+        function labelOfInferredTerm(statement) {
+            return statement.object.value;
+        }
+        
+        function includeAll(keyword) {
+            return true;
+        }
+        function dontIncludeCommonMeshTerms(keyword) {
+            if (COMMON_MESH_TERMS.includes(keyword.toLowerCase())) {
+                console.log("excluding " + keyword);
+                return false;
+            } else {
+                return true;
+            }
+        }
+        
+        function processStatement(statement) {
+            var articleUri = statement.subject.uri;
+            var keyword = labelFunction(statement);
+            if (includeFunction(keyword)) {
+                var bucket = findBucket() || createBucket();
+                addToBucket(articleUri, bucket);
+            }
+            
+            function findBucket() {
+                return jsonResult.find(bucketMatcher);
+                
+                function bucketMatcher(bucket) {
+                    return toMatcher(keyword) === bucket.matcher;
+                }
+            }
+            
+            function createBucket() {
+                var bucket = {
+                        matcher: toMatcher(keyword),
+                        text: toDisplay(keyword),
+                        entities: []
+                };
+                jsonResult.push(bucket);
+                return bucket;
+                
+                function toDisplay(keyword) {
+                    return keyword.charAt(0).toUpperCase() + keyword.slice(1);
+                }
+            }
+            
+            function toMatcher(keyword) {
+                return keyword.toLowerCase();
+            }
+            
+            function addToBucket(uri, bucket) {
+                var label = graph.any($rdf.sym(uri), RDFS("label"));
+                if (label && label.value) {
+                    var displayUri = ScholarsVis.Utilities.toDisplayUrl(uri);
+                    var entity = findEntity() || createEntity();
+                    addToEntity(entity);
+                }
+                
+                function findEntity() {
+                    return bucket.entities.find(entityMatcher);
+                    
+                    function entityMatcher(entity) {
+                        return displayUri === entity.uri;
+                    }
+                }
+                
+                function createEntity() {
+                    var entity = {
+                            uri: displayUri,
+                            text: label.value,
+                            citationTypes: []
+                    };
+                    bucket.entities.push(entity);
+                    return entity;
+                }
+                
+                function addToEntity(entity) {
+                    if (! entity.citationTypes.includes(citationType)) {
+                        entity.citationTypes.push(citationType) ;
+                    }
+                }
+            }
+        }
+    }
 }
 
 /*******************************************************************************
@@ -341,44 +341,44 @@ function transform_word_cloud_data(graph, options) {
  * 
  ******************************************************************************/
 function filterSortAndSlice(unfiltered, options, citationTypes) {
-	var maxKeywords = Math.max(options.maxKeywords || 20, 5);
-	var typesArray = [].concat(citationTypes);
-	
-	return unfiltered.reduce(listFilter, []).sort(compareSizes).slice(0, maxKeywords);
-	//return unfiltered.sort(compareSizes).slice(0, maxKeywords).reduce(listFilter, []);
-
-	function listFilter(keywordsSoFar, keywordStruct) {
-		var filteredEntities = keywordStruct.entities.reduce(entityFilter, []);
-		var size = filteredEntities.length;
-		if (size > 0) {
-			keywordsSoFar.push({
-				text: keywordStruct.text,
-				size: size,
-			    entities: filteredEntities
-			});
-		}
-		return keywordsSoFar;
-		
-		function entityFilter(entitiesSoFar, entity) {
-			if (entity.citationTypes.reduce(typeMatcher, false)) {
-				entitiesSoFar.push({
-					uri: entity.uri,
-					text: entity.text,
-					citationsTypes: entity.citationTypes
-				});
-			}
-			return entitiesSoFar;
-			
-			function typeMatcher(matchingSoFar, type) {
-				return matchingSoFar || typesArray.includes(type);
-			}
-		}
-	}
-
-	function compareSizes(a, b) {
-	  return b.size - a.size;
-	  //return b.entities.length - a.entities.length;
-	}
+    var maxKeywords = Math.max(options.maxKeywords || 20, 5);
+    var typesArray = [].concat(citationTypes);
+    
+    return unfiltered.reduce(listFilter, []).sort(compareSizes).slice(0, maxKeywords);
+    //return unfiltered.sort(compareSizes).slice(0, maxKeywords).reduce(listFilter, []);
+    
+    function listFilter(keywordsSoFar, keywordStruct) {
+        var filteredEntities = keywordStruct.entities.reduce(entityFilter, []);
+        var size = filteredEntities.length;
+        if (size > 0) {
+            keywordsSoFar.push({
+                text: keywordStruct.text,
+                size: size,
+                entities: filteredEntities
+            });
+        }
+        return keywordsSoFar;
+        
+        function entityFilter(entitiesSoFar, entity) {
+            if (entity.citationTypes.reduce(typeMatcher, false)) {
+                entitiesSoFar.push({
+                    uri: entity.uri,
+                    text: entity.text,
+                    citationsTypes: entity.citationTypes
+                });
+            }
+            return entitiesSoFar;
+            
+            function typeMatcher(matchingSoFar, type) {
+                return matchingSoFar || typesArray.includes(type);
+            }
+        }
+    }
+    
+    function compareSizes(a, b) {
+        return b.size - a.size;
+        //return b.entities.length - a.entities.length;
+    }
 }
 
 
