@@ -1055,7 +1055,7 @@ function drawCountry(data) {
     window.currentData = data; 
     drawCountryMap(window.currentData);
     addListeners();
-    addChecks("#academicUnit", getAcademicUnits(window.currentData), "academic");
+    addChecks("#academicUnit", filterUnitsForOptIn(getAcademicUnits(window.currentData)), "academic");
     addChecks("#subjectArea", getSubjectArea(window.currentData), "subject");
     addClicks();
     addListSearch();
@@ -1068,7 +1068,7 @@ function drawWorld(data){
     window.word = "world";
     drawWorldMap(data);
     addListeners();
-    addChecks("#academicUnit", getAcademicUnits(window.currentData), "academic");
+    addChecks("#academicUnit", filterUnitsForOptIn(getAcademicUnits(window.currentData)), "academic");
     addChecks("#subjectArea", getSubjectArea(window.currentData), "subject");
     addClicks();
     addListSearch();
@@ -1117,6 +1117,17 @@ function getAcademicUnits(articles){
 
     units = units.reduce((a,b)=>a.concat(b)); 
     return _.uniq(units); 
+}
+
+function filterUnitsForOptIn(units) {
+    // BOGUS HARDCODED LIST
+    var OPT_IN_UNITS = [
+       "College of Agriculture and Life Sciences",
+       "College of Engineering",
+       "Cornell SC Johnson College of Business"
+       ];
+
+	return units.filter(u => OPT_IN_UNITS.includes(u));
 }
 
 function getSubjectArea(articles){
