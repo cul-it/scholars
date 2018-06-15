@@ -12,7 +12,7 @@
 
         <div id="personSelectionPanel" class="panel panel-default selection-list">
           <div class="panel-heading panel-title facet-panel-heading">
-			  <span class="start">Select:</span> 
+			  <span class="start">Select participating</span><br> 
               <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
                Faculty Member
              </a>
@@ -26,7 +26,7 @@
         
         <div id="departmentSelectionPanel" class="panel panel-default selection-list">
           <div class="panel-heading panel-title facet-panel-heading">
-              <span class="start">Select:</span>
+              <span class="start">Select participating</span><br>
 				<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
                  Academic Unit
               </a>

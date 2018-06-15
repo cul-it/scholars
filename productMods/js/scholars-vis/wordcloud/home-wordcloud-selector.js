@@ -12,10 +12,10 @@ function createWordCloudSelector(siteSelector, departmentSelector, personSelecto
     var deptWc;
     
     var departmentControl = new AccordionControls.Selector(departmentSelector, showDepartmentCloud);
-    departmentControl.loadFromDataRequest("departmentList");
+    departmentControl.loadFromDataRequest("optinDepartmentList");
     
     var personControl = new AccordionControls.Selector(personSelector, showPersonCloud);
-    personControl.loadFromDataRequest("facultyList");
+    personControl.loadFromDataRequest("optinFacultyList");
     
     $(siteSelector).click(showSiteCloud);
     showSiteCloud();
