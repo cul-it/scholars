@@ -78,9 +78,9 @@ ScholarsVis["GlobalCollaboration"] = function(options) {
     
     function exportGlobalCollaborationVisAsSvg(data, filename, options) {
         if (word == "world") {
-            ScholarsVis.Utilities.exportAsSvg("WORLD-" + filename, $(options.target).find("svg")[0]);
+            ScholarsVis.Utilities.exportAsSvg("WORLD-" + filename, $("#mapViz").find("svg")[0]);
         } else {
-            ScholarsVis.Utilities.exportAsSvg("US-" + filename, $(options.target).find("svg")[0]);
+            ScholarsVis.Utilities.exportAsSvg("US-" + filename, $("#mapViz").find("svg")[0]);
         }
     }
 
