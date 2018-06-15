@@ -106,12 +106,16 @@
 	}
 	""" .
 
+# MODIFIED to include vivoc:PrimaryAcademicPosition as equivalent to vivo:PrimaryPosition.
+# NOTE that both of these are constructed in the temp model as vivo:PrimaryPosition, 
+#   so the SELECT query (above) does not change.
 :journal_bar_chart_gb2
     a   <java:edu.cornell.library.scholars.webapp.controller.api.distribute.rdf.graphbuilder.GraphBuilder> ,
         <java:edu.cornell.library.scholars.webapp.controller.api.distribute.rdf.graphbuilder.ConstructQueryGraphBuilder> ;
     :constructQuery """
 	PREFIX foaf: <http://xmlns.com/foaf/0.1/>
 	PREFIX vivo: <http://vivoweb.org/ontology/core#>
+	PREFIX vivoc: <http://scholars.cornell.edu/ontology/vivoc.owl#>
 	CONSTRUCT {
 		?person
 			a foaf:Person ;
@@ -122,7 +126,7 @@
 		?unit 
 			a foaf:Organization .
 	}
-	WHERE {
+	WHERE {{
 		?person
 			a foaf:Person ;
 			vivo:relatedBy ?position .
@@ -131,7 +135,16 @@
 			vivo:relates ?unit .
 		?unit 
 			a foaf:Organization .
-	}
+	} UNION {
+		?person
+			a foaf:Person ;
+			vivo:relatedBy ?position .
+		?position
+			a vivoc:PrimaryAcademicPosition ;
+			vivo:relates ?unit .
+		?unit 
+			a foaf:Organization .
+	}}
 	""" .
 
 :journal_bar_chart_gb3
