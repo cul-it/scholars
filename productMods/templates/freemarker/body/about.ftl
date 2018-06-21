@@ -4,6 +4,7 @@
    			<div id="quick-links-heading" class="panel-heading facet-panel-heading">Quick Links</div>
   			<div class="panel-body scholars-facet"><a href="./faq">Frequently Asked Questions</a></div>
   			<div class="panel-body scholars-facet"><a href="./technology">Scholars: Under the Hood</a></div>
+  			<div class="panel-body scholars-facet"><a href="http://blogs.cornell.edu/scholars/" target="_blank">Scholars Release Notes</a></div>
   			<div class="panel-body scholars-facet" style="display:none;><a href="./marketing">Marketing / Communication</a></div>
  		</div>
 		<h2 class="expertsResultsHeader">About Scholars@Cornell</h2>

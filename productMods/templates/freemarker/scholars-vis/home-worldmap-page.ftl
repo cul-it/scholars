@@ -30,7 +30,7 @@
                 <div class="panel-group" id="accordion">
                     <div class="panel panel-default">
                         <div class="panel-heading panel-title facet-panel-heading">
-                            <span class="start">Filter by:</span>
+                            <span class="start">Filter by participating</span><br>
                             <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
                                 Academic Unit
                             </a>

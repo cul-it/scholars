@@ -10,28 +10,28 @@
       
       <div class="panel-group" id="accordion">
 
-        <div id="personSelectionPanel" class="panel panel-default selection-list">
+        <div id="departmentSelectionPanel" class="panel panel-default selection-list">
           <div class="panel-heading panel-title facet-panel-heading">
-			  <span class="start">Select:</span> 
-              <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
-               Faculty Member
-             </a>
+              <span class="start">Select participating</span><br>
+        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                 Academic Unit
+              </a>
           </div>
-          <div id="collapseTwo" class="panel-collapse collapse">
+          <div id="collapseOne" class="panel-collapse collapse">
             <div class="panel-body" id="selector">
               <input id="searcher" type="text" class="form-control" placeholder="Search"/>
             </div>
           </div>
         </div>
-        
-        <div id="departmentSelectionPanel" class="panel panel-default selection-list">
+
+        <div id="personSelectionPanel" class="panel panel-default selection-list">
           <div class="panel-heading panel-title facet-panel-heading">
-              <span class="start">Select:</span>
-				<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-                 Academic Unit
-              </a>
+			  <span class="start">Select</span><br> 
+              <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+               Faculty Member
+             </a>
           </div>
-          <div id="collapseOne" class="panel-collapse collapse">
+          <div id="collapseTwo" class="panel-collapse collapse">
             <div class="panel-body" id="selector">
               <input id="searcher" type="text" class="form-control" placeholder="Search"/>
             </div>

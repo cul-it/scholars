@@ -10,7 +10,7 @@
 	      		<div class="panel-group" id="accordion">
 	        		<div id="departmentSelectionPanel" class="panel panel-default selection-list">
 	          			<div class="panel-heading facet-panel-heading panel-title">
-	            			<span class="start">Select:</span> 
+	            			<span class="start">Select participating</span><br> 
 							<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
 	              				Academic Unit
 	            			</a>
@@ -123,7 +123,7 @@ $().ready(function() {
      * - Because 'ora' is global to showDepartmentCloud(), the ora.hide() functionality is brittle. How to do it correctly?
      */
     var departmentControl = new AccordionControls.Selector("#departmentSelectionPanel", showDepartmentCloud);
-    departmentControl.loadFromDataRequest("departmentList");
+    departmentControl.loadFromDataRequest("optinDepartmentList");
     
     var ora = null;
     showFeaturedDepartment();

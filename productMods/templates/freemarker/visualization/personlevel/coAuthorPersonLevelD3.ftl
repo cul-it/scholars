@@ -116,29 +116,34 @@ $(document).ready(function(){
         labels = [];
         uris = [];
         matrix = [];
-
+				displayLabel = "";
         var matrixX = 0;
-        <#list coAuthorshipData.collaborators as collaborator>
-            <#if collaborator.isVCard>
-                vcards.push(true);
-                $("#vcardstoggle").show();
-            <#else>
-                vcards.push(false);
-            </#if>
-            if (showVCards || !vcards[vcards.length-1]) {
-                labels.push("${collaborator.collaboratorName}");
-                uris.push("${collaborator.collaboratorURI}");
-            }
-        </#list>
-        <#list coAuthorshipData.collaborationMatrix as row>
-            if (showVCards || !vcards[${row_index}]) {
-                matrix[matrixX] = [];
-                <#list row as cell>
-                    matrix[matrixX].push(${cell?c});
-                </#list>
-                matrixX++;
-            }
-        </#list>
+
+
+				<#list coAuthorshipData.collaborators as collaborator>
+				    <#if collaborator.isVCard>
+				        vcards.push(true);
+				        $("#vcardstoggle").show();
+								displayLabel = "${collaborator.collaboratorURI}";
+				    <#else>
+				        vcards.push(false);
+								displayLabel = "${collaborator.collaboratorName}";
+				    </#if>
+				    if (showVCards || !vcards[vcards.length-1]) {
+				        labels.push(displayLabel);
+				        uris.push("${collaborator.collaboratorURI}");
+				    }
+				</#list>
+				<#list coAuthorshipData.collaborationMatrix as row>
+				    if (showVCards || !vcards[${row_index}]) {
+				        matrix[matrixX] = [];
+				        <#list row as cell>
+				            matrix[matrixX].push(${cell?c});
+				        </#list>
+				        matrixX++;
+				    }
+				</#list>
+
 
         $( "#chord" ).empty();
 
@@ -269,11 +274,11 @@ $(document).ready(function(){
 
     function chord_click() {
         return function (g, i) {
-        	if ( i > 0 && (uris[i].indexOf("VI") == -1 ) ) {
+        	if ( (uris[i].indexOf("http") >= 0 ) ) {
                 window.location.href = getWellFormedURLs(uris[i], "profile");
             }
 			else {
-				alert(" This person is not affilated with Cornell \n and does not have a profile page in Scholars.");
+				alert(" This person does not have a profile page in Scholars@Cornell.");
 			}
         };
     }

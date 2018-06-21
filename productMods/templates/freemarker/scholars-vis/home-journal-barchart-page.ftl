@@ -200,7 +200,7 @@ $().ready(function() {
             },
             {
                 uri: "http://scholars.cornell.edu/individual/jrnl-0000481",
-                rawLabel: "Proceedings of the National Academy of Sciences of the United States of America"
+                rawLabel: "Proceedings of the National Academy of Sciences"
             },
             {
                 uri: "http://scholars.cornell.edu/individual/jrnl-0000073",
@@ -212,7 +212,7 @@ $().ready(function() {
             },
             {
                 uri: "http://scholars.cornell.edu/individual/jrnl-0002728",
-                rawLabel: "PLoS One 6"
+                rawLabel: "PLOS One"
             }
             ];
         

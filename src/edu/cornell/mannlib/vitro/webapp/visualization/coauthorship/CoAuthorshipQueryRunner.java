@@ -423,8 +423,6 @@ public class CoAuthorshipQueryRunner implements QueryRunner<CoAuthorshipData> {
 				+ "} \n"
 				+ "ORDER BY ?document ?coAuthorPerson\n";
 
-		log.debug("COAUTHORSHIP QUERY - " + sparqlQuery);
-
 		return sparqlQuery;
 	}
 
@@ -466,11 +464,12 @@ public class CoAuthorshipQueryRunner implements QueryRunner<CoAuthorshipData> {
 				+ "        ?document rdf:type <http://purl.obolibrary.org/obo/IAO_0000030> ; \n"
 				+ "                core:relatedBy ?coAuthorshipNode . \n"
 				+ "        ?coAuthorshipNode rdf:type core:Authorship ; \n"
-				+ "                core:relates ?coAuthorPerson . \n"
-				+ "        ?coAuthorPerson rdf:type <http://www.w3.org/2006/vcard/ns#Individual> ; \n"
+				+ "                core:relates ?coAuthorVcardPerson . \n"
+				+ "        ?coAuthorVcardPerson rdf:type <http://www.w3.org/2006/vcard/ns#Individual> ; \n"
 				+ "                <http://www.w3.org/2006/vcard/ns#hasName> ?coAuthorPersonName . \n"
 				+ "        ?coAuthorPersonName <http://www.w3.org/2006/vcard/ns#familyName> ?coAuthorPersonFamilyName ; \n"
 				+ "                <http://www.w3.org/2006/vcard/ns#givenName> ?coAuthorPersonGivenName . \n"
+				+ "        BIND(CONCAT(str(?coAuthorPersonFamilyName), ', ', str(?coAuthorPersonGivenName)) AS ?coAuthorPerson) . "
 				+ "    }\n"
                 + "    UNION\n"
                 + "    {\n"
@@ -484,7 +483,6 @@ public class CoAuthorshipQueryRunner implements QueryRunner<CoAuthorshipData> {
                 + "    }\n"
 				+ "}\n"
 		;
-
 		return sparqlConstruct;
 	}
 
