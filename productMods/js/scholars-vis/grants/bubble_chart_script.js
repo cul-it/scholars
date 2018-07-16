@@ -516,7 +516,7 @@ function drawSiteGrantsTable(data, target, options) {
                 createLink(rowData.grantTitle, rowData.grantUri),
                 createLink(rowData.deptName + " (" + rowData.deptCode + ")", rowData.deptUri),
                 createLink(rowData.fundingAgencyName, rowData.fundingAgencyUri),
-                rowData.startYear, rowData.endYear);
+                rowData.people, rowData.startYear, rowData.endYear);
         
         function createLink(text, uri) {
             return "<a href='" + uri + "'>" + text + "</a>"
@@ -551,6 +551,7 @@ function transformAgainForSiteGrantsTable(data) {
             deptUri: gd.dept.uri,
             fundingAgencyName: gd.funagen.name,
             fundingAgencyUri: gd.funagen.uri,
+            people: formatPeopleForTable(gd.people),
             startYear: gd.Start,
             endYear: gd.End
         };
@@ -597,7 +598,7 @@ function drawDepartmentGrantsTable(data, target, options) {
         table.addRow(rowData.grantType, 
                 createLink(rowData.grantTitle, rowData.grantUri),
                 createLink(rowData.fundingAgencyName, rowData.fundingAgencyUri),
-                rowData.startYear, rowData.endYear);
+                rowData.people, rowData.startYear, rowData.endYear);
         
         function createLink(text, uri) {
             return "<a href='" + uri + "'>" + text + "</a>"
@@ -629,9 +630,37 @@ function transformAgainForDepartmentGrantsTable(data) {
                 grantUri: gd.grant.uri,
                 fundingAgencyName: gd.funagen.name,
                 fundingAgencyUri: gd.funagen.uri,
+                people: formatPeopleForTable(gd.people),
                 startYear: gd.Start,
                 endYear: gd.End
         };
         tableData.push(row);
+    }
+}
+
+function formatPeopleForTable(people) {
+    return people.sort(sorter).map(formatter).join("; ");
+    
+    function sorter(personA, personB) {
+        // PIs before Co-PIs
+        if (personA.role > personB.role) {
+            return -1;
+        }
+        if (personA.role < personB.role) {
+            return 1;
+        }
+        // Then alpha by name
+        if (personA.name < personB.name) {
+            return -1;
+        }
+        if (personA.name > personB.name) {
+            return 1;
+        }
+        // Or equal
+        return 0;
+    }
+    
+    function formatter(person) {
+        return person.name + (person.role == "PI" ? " (PI)" : " (Co-PI)");
     }
 }

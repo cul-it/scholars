@@ -142,12 +142,14 @@
           <th data-sort="string-ins">Grant</th>
           <th data-sort="string-ins">Department</th>
           <th data-sort="string-ins">FundingAgency</th>
+          <th>People</th>
           <th data-sort="string-ins">Start Year</th>
           <th data-sort="string-ins">End Year</th>
         </tr>
       </thead>
       <tbody>
         <tr>
+          <td>Template row</td>
           <td>Template row</td>
           <td>Template row</td>
           <td>Template row</td>
