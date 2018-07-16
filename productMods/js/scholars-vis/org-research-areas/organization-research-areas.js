@@ -92,21 +92,22 @@ function transformFlaredata(graph) {
         
         function figureDItem(stmt, index) {
             var author = stmt.subject.uri;
+            var linkCounts = figureLinkCounts();
             return {
-                "type"  : "ditem",
+                "type" : "ditem",
                 "ditem" : index, 
-                "name"  : getLabel(author),
-                "url"   : ScholarsVis.Utilities.toDisplayUrl(author),
-                "links" : figureLinks()
+                "name" : getLabel(author),
+                "url" : ScholarsVis.Utilities.toDisplayUrl(author),
+                "linkCounts" : linkCounts,
+                "links" : justLinks(linkCounts)
             }
             
-            function figureLinks() {
+            function figureLinkCounts() {
                 var authorships = findAuthorships();
                 var articles = authorships.map(findArticles).reduce(flattener, []);
                 var journals = articles.map(findJournals).reduce(flattener, []);
                 var subjectAreas = journals.map(findSubjectAreas).reduce(flattener, []);
-                var labels = new Set(subjectAreas.map(getLabel));
-                return Array.from(labels);
+                return subjectAreas.map(getLabel).reduce(counter, {});
                 
                 function findAuthorships() {
                     var stmts = graph.statementsMatching($rdf.sym(author), VIVO("relatedBy"), undefined)
@@ -132,9 +133,22 @@ function transformFlaredata(graph) {
                     return stmts.map(getObjectUri);
                 }
                 
-                function flattener(array, addition) {
-                    return array.concat(addition);
+                function counter(counts, label) {
+                    if (counts[label]) {
+                        counts[label] += 1;
+                    } else {
+                        counts[label] = 1;
+                    }
+                    return counts;
                 }
+            }
+            
+            function justLinks(linkCounts) {
+                return Object.keys(linkCounts).sort();
+            }
+            
+            function flattener(array, addition) {
+                return array.concat(addition);
             }
         }
     }
@@ -879,7 +893,9 @@ function drawConceptMapTable(data, target, options) {
     table.complete();
     
     function addRowToTable(rowData) {
-        table.addRow(createLink(rowData.personLabel, rowData.personUrl), createLink(rowData.subjectLabel, rowData.subjectUrl));
+        table.addRow(createLink(rowData.personLabel, rowData.personUrl), 
+                createLink(rowData.subjectLabel, rowData.subjectUrl), 
+                rowData.publicationCount);
         
         function createLink(text, uri) {
             return "<a href='" + uri + "'>" + text + "</a>"
@@ -912,14 +928,15 @@ function transformAgainForTable(data) {
     }
     
     function doPerson(personData) {
-        personData.links.forEach(doSubject);
+        Object.keys(personData.linkCounts).sort().forEach(doSubject);
         
         function doSubject(subjectName) {
             tableData.push({
                 personLabel: personData.name,
                 personUrl: personData.url,
                 subjectLabel: subjectName,
-                subjectUrl: subjectUrls[subjectName]
+                subjectUrl: subjectUrls[subjectName],
+                publicationCount: personData.linkCounts[subjectName]
             });
         }
     }

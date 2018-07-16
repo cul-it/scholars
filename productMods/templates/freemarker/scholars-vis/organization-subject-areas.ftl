@@ -81,10 +81,12 @@
               <tr>
                 <th data-sort="string-ins">Faculty Member</th>
                 <th data-sort="string-ins">Subject Area</th>
+                <th data-sort="int">Publication Count</th>
               </tr>
             </thead>
             <tbody>
               <tr>
+                <td>Template row</td>
                 <td>Template row</td>
                 <td>Template row</td>
               </tr>
