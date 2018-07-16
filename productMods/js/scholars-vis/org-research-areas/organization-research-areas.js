@@ -73,106 +73,106 @@ ScholarsVis["ResearchAreasFlare"] = {
  * 
  ******************************************************************************/
 function transformFlaredata(graph) {
-	var BIBO = $rdf.Namespace("http://purl.org/ontology/bibo/");
-	var FOAF = $rdf.Namespace("http://xmlns.com/foaf/0.1/");
-	var RDF = $rdf.Namespace("http://www.w3.org/1999/02/22-rdf-syntax-ns#");
-	var RDFS = $rdf.Namespace("http://www.w3.org/2000/01/rdf-schema#");
-	var SCHOLARS = $rdf.Namespace("http://scholars.cornell.edu/individual/");
-	var SKOS = $rdf.Namespace("http://www.w3.org/2004/02/skos/core#");
-	var VIVO = $rdf.Namespace("http://vivoweb.org/ontology/core#");
-
-	return {
-		"ditems": figureDItems(),
-		"themes": figureThemes()
-	}
-	
-	function figureDItems() {
-		var stmts = graph.statementsMatching(undefined, RDF("type"), FOAF("Person"))
-		return stmts.map(figureDItem).sort(sortByName);
-
-		function figureDItem(stmt, index) {
-			var author = stmt.subject.uri;
-			return {
-				"type"  : "ditem",
-				"ditem" : index, 
-				"name"  : getLabel(author),
-				"url"   : ScholarsVis.Utilities.toDisplayUrl(author),
-				"links" : figureLinks()
-			}
-
-			function figureLinks() {
-				var authorships = findAuthorships();
-				var articles = authorships.map(findArticles).reduce(flattener, []);
-				var journals = articles.map(findJournals).reduce(flattener, []);
-				var subjectAreas = journals.map(findSubjectAreas).reduce(flattener, []);
-				var labels = new Set(subjectAreas.map(getLabel));
-				return Array.from(labels);
-
-				function findAuthorships() {
-					var stmts = graph.statementsMatching($rdf.sym(author), VIVO("relatedBy"), undefined)
-					return stmts.map(getObjectUri);
-				}
-				
-				function findArticles(authorship) {
-					var stmts = graph.statementsMatching($rdf.sym(authorship), VIVO("relates"), undefined)
-					var uris = stmts.map(getObjectUri);
-					var authorHere = uris.indexOf(author)
-					if (authorHere >= 0) {
-						uris.splice(authorHere, 1) 
-					}
-					return uris;
-				}
-				function findJournals(article) {
-					var stmts = graph.statementsMatching($rdf.sym(article), VIVO("hasPublicationVenue"), undefined)
-					return stmts.map(getObjectUri);
-				}
-				
-				function findSubjectAreas(journal) {
-					var stmts = graph.statementsMatching($rdf.sym(journal), VIVO("hasSubjectArea"), undefined)
-					return stmts.map(getObjectUri);
-				}
-				
-				function flattener(array, addition) {
-					return array.concat(addition);
-				}
-			}
-		}
-	}
-	
-	function figureThemes() {
-		var stmts = graph.statementsMatching(undefined, RDF("type"), SKOS("Concept"))
-		var uris = Array.from(new Set(stmts.map(getSubjectUri)));
-		return uris.map(figureTheme).sort(sortByName);
-		
-		function figureTheme(uri) {
-			var label = getLabel(uri);
-			return {
-				"type"        : "theme",
-				"name"        : label,
-				"description" : "",
-				"slug"        : label,
-				"uri"         : uri
-			}
-		}
-	}
-	
-	function getLabel(uri) {
-		return graph.any($rdf.sym(uri), RDFS("label")).value;
-	}
-	
-	function getSubjectUri(stmt) {
-		return stmt.subject.uri;
-	}
-	
-	function getObjectUri(stmt) {
-		return stmt.object.uri;
-	}
-	function sortByName(a, b) {
-		var aname = a.name.toLowerCase();
-		var bname = b.name.toLowerCase();
-		return aname > bname ? 1 : (aname < bname ? -1 : 0);
-	}
-	
+    var BIBO = $rdf.Namespace("http://purl.org/ontology/bibo/");
+    var FOAF = $rdf.Namespace("http://xmlns.com/foaf/0.1/");
+    var RDF = $rdf.Namespace("http://www.w3.org/1999/02/22-rdf-syntax-ns#");
+    var RDFS = $rdf.Namespace("http://www.w3.org/2000/01/rdf-schema#");
+    var SCHOLARS = $rdf.Namespace("http://scholars.cornell.edu/individual/");
+    var SKOS = $rdf.Namespace("http://www.w3.org/2004/02/skos/core#");
+    var VIVO = $rdf.Namespace("http://vivoweb.org/ontology/core#");
+    
+    return {
+        "ditems": figureDItems(),
+        "themes": figureThemes()
+    }
+    
+    function figureDItems() {
+        var stmts = graph.statementsMatching(undefined, RDF("type"), FOAF("Person"))
+        return stmts.map(figureDItem).sort(sortByName);
+        
+        function figureDItem(stmt, index) {
+            var author = stmt.subject.uri;
+            return {
+                "type"  : "ditem",
+                "ditem" : index, 
+                "name"  : getLabel(author),
+                "url"   : ScholarsVis.Utilities.toDisplayUrl(author),
+                "links" : figureLinks()
+            }
+            
+            function figureLinks() {
+                var authorships = findAuthorships();
+                var articles = authorships.map(findArticles).reduce(flattener, []);
+                var journals = articles.map(findJournals).reduce(flattener, []);
+                var subjectAreas = journals.map(findSubjectAreas).reduce(flattener, []);
+                var labels = new Set(subjectAreas.map(getLabel));
+                return Array.from(labels);
+                
+                function findAuthorships() {
+                    var stmts = graph.statementsMatching($rdf.sym(author), VIVO("relatedBy"), undefined)
+                    return stmts.map(getObjectUri);
+                }
+                
+                function findArticles(authorship) {
+                    var stmts = graph.statementsMatching($rdf.sym(authorship), VIVO("relates"), undefined)
+                    var uris = stmts.map(getObjectUri);
+                    var authorHere = uris.indexOf(author)
+                    if (authorHere >= 0) {
+                        uris.splice(authorHere, 1) 
+                    }
+                    return uris;
+                }
+                function findJournals(article) {
+                    var stmts = graph.statementsMatching($rdf.sym(article), VIVO("hasPublicationVenue"), undefined)
+                    return stmts.map(getObjectUri);
+                }
+                
+                function findSubjectAreas(journal) {
+                    var stmts = graph.statementsMatching($rdf.sym(journal), VIVO("hasSubjectArea"), undefined)
+                    return stmts.map(getObjectUri);
+                }
+                
+                function flattener(array, addition) {
+                    return array.concat(addition);
+                }
+            }
+        }
+    }
+    
+    function figureThemes() {
+        var stmts = graph.statementsMatching(undefined, RDF("type"), SKOS("Concept"))
+        var uris = Array.from(new Set(stmts.map(getSubjectUri)));
+        return uris.map(figureTheme).sort(sortByName);
+        
+        function figureTheme(uri) {
+            var label = getLabel(uri);
+            return {
+                "type"        : "theme",
+                "name"        : label,
+                "description" : "",
+                "slug"        : label,
+                "uri"         : uri
+            }
+        }
+    }
+    
+    function getLabel(uri) {
+        return graph.any($rdf.sym(uri), RDFS("label")).value;
+    }
+    
+    function getSubjectUri(stmt) {
+        return stmt.subject.uri;
+    }
+    
+    function getObjectUri(stmt) {
+        return stmt.object.uri;
+    }
+    function sortByName(a, b) {
+        var aname = a.name.toLowerCase();
+        var bname = b.name.toLowerCase();
+        return aname > bname ? 1 : (aname < bname ? -1 : 0);
+    }
+    
 }
 
 /*******************************************************************************
@@ -879,7 +879,7 @@ function drawConceptMapTable(data, target, options) {
     table.complete();
     
     function addRowToTable(rowData) {
-       table.addRow(createLink(rowData.personLabel, rowData.personUrl), createLink(rowData.subjectLabel, rowData.subjectUrl));
+        table.addRow(createLink(rowData.personLabel, rowData.personUrl), createLink(rowData.subjectLabel, rowData.subjectUrl));
         
         function createLink(text, uri) {
             return "<a href='" + uri + "'>" + text + "</a>"
