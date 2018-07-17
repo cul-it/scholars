@@ -1,6 +1,6 @@
 --------------------------------------------------------------------------------
 
-JavaScript requirements:
+JavaScript/CSS requirements:
 
 --------------------------------------------------------------------------------
 
@@ -13,8 +13,12 @@ A recent version of Bootstrap. For example:
 The main Scholars Visualization script:
     http://scholars.cornell.edu/js/scholars-vis/scholars-vis.js
     
-The script for the research areas flare:
-    http://scholars.cornell.edu/js/scholars-vis/embed/reserarch_areas_flare.js
+The scripts for the research areas flare:
+    http://scholars.cornell.edu/js/scholars-vis/org-research-areas/organization-research-areas.js
+    http://scholars.cornell.edu/js/d3.min.js
+
+The stylesheets for the research areas flare:
+    http://scholars.cornell.edu/css/scholars-vis/org-research-areas/ra.css
 
 --------------------------------------------------------------------------------
 
