@@ -435,12 +435,18 @@ $().ready(function() {
 	-->
 	
 	${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/scholars-vis/org-research-areas/ra.css" />',
-	                  '<link rel="stylesheet" href="${urls.base}/css/jquery_plugins/jquery.qtip.min.css" />')}
+	                  '<link rel="stylesheet" href="${urls.base}/css/jquery_plugins/jquery.qtip.min.css" />',
+                      '<link rel="stylesheet" href="${urls.base}/css/scholars-vis/grants/bubble_chart.css">')}
 	
 	${scripts.add('<script type="text/javascript" src="${urls.base}/js/scholars-vis/scholars-vis.js"></script>',
 	              '<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>',
 	              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/embed/collaboration-sunburst.js"></script>',
-	              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/embed/grants_bubble_chart.js"></script>',
+
+                  '<script type="text/javascript" src="${urls.base}/js/d3.min.js"></script>',
+                  '<script type="text/javascript" src="${urls.base}/js/scholars-vis/grants/transform-data.js"></script>',
+                  '<script type="text/javascript" src="${urls.base}/js/scholars-vis/grants/grants_tooltip.js"></script>',
+                  '<script type="text/javascript" src="${urls.base}/js/scholars-vis/grants/bubble_chart_script.js"></script>',
+
 	              '<script type="text/javascript" src="${urls.base}/js/scholars-vis/embed/word_cloud.js"></script>')}
 	
 	<#-- 

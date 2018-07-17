@@ -1,5 +1,10 @@
 /*
- * Include this script to embed the Grants Bubble Chart visualization.
+ * DEPRECATED - This script will be removed in a future release of Scholars.
+ *
+ * For updated instructions on how to embed the Grants Bubble Chart visualization, 
+ * consult the notes and examples here:
+ * https://github.com/cul-it/scholars/tree/develop/doc/visualizations/embedding_in_other_sites/grants_bubble_chart
+ *
  */
 ScholarsVis.Utilities.loadScripts(
         ScholarsVis.Utilities.baseUrl + "js/d3.min.js",
