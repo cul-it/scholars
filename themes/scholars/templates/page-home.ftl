@@ -191,7 +191,7 @@
 			   		</div>
 			   		<div class="col-sm-1 col-md-1 col-lg-1 nopadding-nomargin"></div>
 			   		<div class="col-sm-5 col-md-5 col-lg-5 nopadding-nomargin">
-								<a id="bti-link" href="${urls.base}/display/org44670" onclick="javascript:_paq.push(['trackEvent', 'Scholars Affiliates', 'Homepage', 'Vet School']);">
+								<a id="bti-link" href="${urls.base}/display/org20700" onclick="javascript:_paq.push(['trackEvent', 'Scholars Affiliates', 'Homepage', 'Vet School']);">
 								<div id="vet-image"><img src="${urls.theme!}/images/vet-logo.png"></div>
 							</a>
 						</div>
