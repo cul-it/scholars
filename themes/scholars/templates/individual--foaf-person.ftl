@@ -130,9 +130,7 @@ $(document).ready(function() {
 	<#assign optIn = optInStmt.value!"pending" />
 </#if>
 <#assign managePubs >
-  <div style="float:right">
-		<a id="manage-pubs" class="verbose-toggle small" href="https://elements.library.cornell.edu" target="_blank" title="link to Elements">Manage Publications</a>
-	</div>
+		<a id="manage-pubs" class="scholars-btn-link" href="https://elements.library.cornell.edu" target="_blank" title="link to Elements">Manage Publications</a>
 </#assign>
 <#-- for some reason pullProperty was only working when logged in, and even with the display level set to public. Weird! So using datagetter-->
 <#if orcidID?has_content> 

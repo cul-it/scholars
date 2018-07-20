@@ -3845,3 +3845,22 @@ h4.subtab-subheader {
 	color: #595b5b;
 	padding: 10px 0 12px 19px;
 }
+.scholars-btn-link {
+    background-color: #3770b7;
+    color: #fff;
+    border-radius: 5px;
+    padding: 2px 6px;
+    margin-top: 20px;
+    font-size: 14px;
+	float: right !important;
+}
+.scholars-btn-link:hover {
+    background-color: #23527c;
+    color: #fff  !important;
+    text-decoration: none !important;
+}
+.scholars-btn-link:focus {
+    background-color: #3770b7;
+    color: #fff  !important;
+    text-decoration: none !important;
+}

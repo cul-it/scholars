@@ -7,6 +7,11 @@ var foafPersonUtilities = {
 	},
 	
 	bindEventListeners: function() {
+		
+		$("#manage-pubs").focus(function(event) {
+			$("#manage-pubs").blur();
+		});
+		
 		// controls the sub tab feature on the Publications tab
 		$.each($("[data-type='tab-controller']"), function() {
 			$selectedTab = $(this);
