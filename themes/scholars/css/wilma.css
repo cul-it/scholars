@@ -2102,9 +2102,6 @@ div#scholars-tabs-container {
 .burnt-orange {
 	color: #CC6949;
 }
-#journal-subject-area-list {
-	padding-top: 12px;
-}
 .scholars-row {
 	background-color: #f1f2f3;
 }
@@ -3808,4 +3805,43 @@ ul.lower-alpha-list li {
 	padding: 6px 6px 6px 12px;
 	background-color: #ededed;
 	margin: 12px 40px 0 40px;
+}
+/* sub tab styles on person profile page */
+ul#subtabs {
+	background-color: #fff;
+	position: sticky;
+	position: -webkit-sticky;
+	top: 0;
+	padding-top: 10px;
+	z-index: 1;
+	margin-left: 10px;
+	padding-bottom: 6px;
+	border-bottom: 1px solid #dad3d3;
+	margin-right: 10px;
+}
+ul#subtabs  li {
+	display: inline;
+}
+ul.subtab-property-list {
+	line-height: 1.2em;
+	padding: 10px 20px 5px 20px;
+	background-color: #fff;
+}
+ul.subtab-property-list li {
+	padding-top: 8px;
+}
+ul.subtab-property-list li a {
+	color: #167093;
+	line-height: 1.6em;
+}
+.activeSubTab, .activeSubTab:hover {
+	color: rgb(204, 105, 73) !important;
+	text-decoration: none !important;
+}
+.inactiveSubTab {
+	color: #167093 !important;
+}
+h4.subtab-subheader {
+	color: #595b5b;
+	padding: 10px 0 12px 19px;
 }

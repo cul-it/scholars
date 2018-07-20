@@ -27,6 +27,18 @@ $(document).ready(function() {
 <#if !languageCount??>
 	<#assign languageCount = 1>
 </#if>	
+<#if subjectAreas?has_content>
+  <#assign subjectAreaList>
+		<h4 class="subtab-subheader">These are the subject areas associated with the journals.</h4>
+		<ul id="journal-subject-area-list" class="property-list" role="list">
+			<#list subjectAreas as subject>
+				<li role="listitem">		
+					<a href="${urls.base}/individual?uri=${subject.subjectArea!}">${subject.subjectAreaLabel!} (${subject.saCount!})</a>
+				</li>
+			</#list>
+		</ul>
+  </#assign>
+</#if>
 <#assign emailProp = propertyGroups.pullProperty("http://purl.obolibrary.org/obo/ARG_2000028","http://www.w3.org/2006/vcard/ns#Email")!>
 <#assign email = "" />
 <#if emailProp?has_content && emailProp.statements?has_content>
@@ -51,8 +63,46 @@ $(document).ready(function() {
 <#assign visRequestingTemplate = "foaf-person-2column">
 <#assign publicationsProp = propertyGroups.pullProperty("${core}relatedBy", "${core}Authorship")!>
 <#if publicationsProp?has_content> 
-    <#assign publications>
-		<@p.objectProperty publicationsProp editable />
+	<#assign counter = 1 />
+	<#assign subclasses = publicationsProp.subclasses />
+	<#assign publications >
+		<div id="subtabs-container">
+		  <ul id="subtabs">
+  		<#list subclasses as subone>
+		  		<li><a id="#subtabs-${subone.name?lower_case?replace(" ","")}" data-type="tab-controller" <#if (counter > 1)> class="inactiveSubTab"<#else>class="activeSubTab"</#if> href="javascript:" onclick="javascript:_paq.push(['trackEvent', 'Tab', 'Person', '${subclass!}']);">${subone.name}s</a> <#if subone_has_next> | </#if></li>
+				<#assign counter = counter + 1 />
+		  </#list>
+		  <#if subjectAreas?has_content>
+				| <a id="#subtabs-subjectAreas" data-type="tab-controller" class="inactiveSubTab" href="javascript:" onclick="javascript:_paq.push(['trackEvent', 'Tab', 'Person', 'Subject Areas']);">Subject Areas</a></li>
+		  </#if>
+				<#assign counter = 1 />
+		  </ul>
+				  <#list subclasses as subtwo>
+						<div id="subtabs-${subtwo.name?lower_case?replace(" ","")}" data-type="tab-contents" <#if (counter > 1)> style="display:none"</#if> >
+						<article class="property" role="article">
+					    <ul id="individual-publications" class="subtab-property-list" role="list" >
+								<li>
+							<ul class="subclass-property-list">
+								<@p.objectPropertyList publicationsProp editable subtwo.statements publicationsProp.template />
+							</ul>
+							</li>
+								</ul>
+							</article>
+						</div>
+						<#assign counter = counter + 1 />
+					</#list> 
+					<#if subjectAreas?has_content>
+						<div id="subtabs-subjectAreas" data-type="tab-contents" style="display:none" >
+						  <article class="property" role="article">
+					      <ul id="individual-publications" class="subtab-property-list" role="list" >
+								  <li>
+										${subjectAreaList!}
+								  </li>
+							  </ul>
+						  </article>
+						</div>
+					</#if>
+		</div>
 	</#assign>
 </#if>
 <#assign grantsPIProp = propertyGroups.pullProperty("http://purl.obolibrary.org/obo/RO_0000053", "${core}PrincipalInvestigatorRole")!>
@@ -67,20 +117,6 @@ $(document).ready(function() {
 		<@gl.listGrants grantsCOPIProp />
 	</#assign>
 </#if>
-<#if subjectAreas?has_content>
-  <#assign subjectAreaList>
-	<article class="property" role="article">
-		<h3 class="burnt-orange">Journal Subject Areas</h3>
-		<ul id="journal-subject-area-list" class="property-list" role="list">
-			<#list subjectAreas as subject>
-				<li role="listitem">		
-					<a href="${urls.base}/individual?uri=${subject.subjectArea!}">${subject.subjectAreaLabel!} (${subject.saCount!})</a>
-				</li>
-			</#list>
-		</ul>
-	</article>
-  </#assign>
-</#if>
 <#assign webpageProp = propertyGroups.pullProperty("http://purl.obolibrary.org/obo/ARG_2000028","http://www.w3.org/2006/vcard/ns#URL")!>
 <#if webpageProp?has_content && webpageProp.statements?has_content> 
     <#assign webpageStmt = webpageProp.statements?first />
@@ -93,7 +129,11 @@ $(document).ready(function() {
 	<#assign optInStmt = optInProp.statements?first!/>
 	<#assign optIn = optInStmt.value!"pending" />
 </#if>
-
+<#assign managePubs >
+  <div style="float:right">
+		<a id="manage-pubs" class="verbose-toggle small" href="https://elements.library.cornell.edu" target="_blank" title="link to Elements">Manage Publications</a>
+	</div>
+</#assign>
 <#-- for some reason pullProperty was only working when logged in, and even with the display level set to public. Weird! So using datagetter-->
 <#if orcidID?has_content> 
 	<#assign theOrcidId = orcidID?first.orcidId! />
@@ -143,6 +183,7 @@ $(document).ready(function() {
 		<h2 id="page-heading-break">  </h2>
     	<#include "individual-positions.ftl">
     </header>
+${managePubs}
 	</section>
 </div> <!-- foafPersonMainColumn -->
 </div> <!-- row1 -->
@@ -189,14 +230,7 @@ $(document).ready(function() {
 	  </ul>
 	  <#if isAuthor >
 		  <div id="tabs-1" class="tab-content">
-			<article class="property" role="article">
-			<#if subjectAreaList?has_content>
-				<a id="subject-area-link" href="#" class="jqModal" onclick="javascript:_paq.push(['trackEvent', 'Link', 'Person', 'Subject-Areas']);">Subject Areas</a>
-			</#if>
-		    <ul id="individual-publications" class="property-list" role="list" >
 		    	${publications!}
-			</ul>
-			</article>	
 		  </div>
 	  </#if>
 	  <#if isInvestigator >
@@ -439,7 +473,8 @@ ${headScripts.add('<script type="text/javascript" src="${urls.base}/js/tiny_mce/
 
 ${scripts.add('<script type="text/javascript" src="${urls.base}/themes/scholars/js/individualUriRdf.js"></script>',
               '<script type="text/javascript" src="${urls.base}/js/individual/individualUtils.js?vers=1.5.1"></script>',
-			  '<script type="text/javascript" src="${urls.base}/js/individual/moreLessController.js"></script>',
+						  '<script type="text/javascript" src="${urls.base}/js/individual/moreLessController.js"></script>',
+						  '<script type="text/javascript" src="${urls.theme}/js/foafPersonUtils.js"></script>',
               '<script type="text/javascript" src="${urls.base}/js/individual/individualProfilePageType.js"></script>',
               '<script type="text/javascript" src="${urls.base}/js/imageUpload/imageUploadUtils.js"></script>')}
 
