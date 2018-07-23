@@ -3863,6 +3863,38 @@ h4.subtab-subheader {
     color: #fff  !important;
     text-decoration: none !important;
 }
+.orcid-btn-link {
+    background-color: #a6ce39;
+    color: #fff;
+    border-radius: 5px;
+    padding: 2px 6px;
+    font-size: 14px;
+    margin-left: 10px;
+}
+.orcid-btn-link:hover {
+    background-color: #7c9b2b;
+    color: #fff  !important;
+    text-decoration: none !important;
+}
+.orcid-btn-link:focus {
+    background-color: #3770b7;
+    color: #fff  !important;
+    text-decoration: none !important;
+}
+.orcid-page h1 {
+  font-size: 1.7em;
+  color: #5f5858;
+  line-height: 1.3em;
+  height: 20px;
+  margin: 10px 8px 15px 0;
+}
+.orcid-page p {
+  color: #167093;
+  line-height: 1.1em;
+  font-family: Verdana,Ariel,sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+}
 .manage-pubs-row {
 	background-color: #fff;
 	padding-right: 0;

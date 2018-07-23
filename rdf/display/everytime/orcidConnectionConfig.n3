@@ -1,0 +1,185 @@
+@prefix :        <http://vitro.mannlib.cornell.edu/ns/vitro/ApplicationSetup#> .
+@prefix display: <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#> .
+
+#
+# ------------------------------------------------------------------------------
+#
+# Managed page:
+#
+#
+# ------------------------------------------------------------------------------
+#
+:scorconn_status_page
+    a display:Page ;
+    display:requiresBodyTemplate "orcid-connection-page.ftl" ;
+    display:title "ORCID Connection" ;
+    display:urlMapping "/orcidConnection" .
+
+#
+# ------------------------------------------------------------------------------
+#
+# Data Getter:
+#
+# Create a DataGetter and attach it to the orcid connection templates.
+#
+# ------------------------------------------------------------------------------
+#
+
+<freemarker:orcid-connection-check.ftl> display:hasDataGetter :orcid_connection_data_getter .
+<freemarker:orcid-connection-page.ftl> display:hasDataGetter :orcid_connection_data_getter .
+
+:orcid_connection_data_getter
+    a <java:edu.cornell.mannlib.vitro.webapp.utils.dataGetter.OrcidConnectionDataGetter>.
+
+#
+# ------------------------------------------------------------------------------
+#
+# Data Distributor:
+#  
+# Get a JSON formatted list of publications for a specific person. The list is
+# formatted for the Scholars-ORCID connection to read.
+#
+# Run an inner data distributor that builds a model and runs a SELECT query, and 
+# wrap it in a decorator that converts the result to JSON.
+#
+# Play games with the inner distributor, including drill-down and multiple 
+# sub-queries, to speed it up.
+# 
+# ------------------------------------------------------------------------------
+#
+ 
+#
+# The inner distributor uses a GraphBuilder and converts the result to TURTLE.
+#
+
+:scorconn_inner
+    a   <java:edu.cornell.library.scholars.webapp.controller.api.distribute.DataDistributor> ,
+        <java:edu.cornell.library.scholars.webapp.controller.api.distribute.rdf.SelectFromGraphDistributor> ;
+    :actionName "scorconn_inner" ;
+    :query """
+        PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+        PREFIX hr:   <http://scholars.cornell.edu/ontology/hr.owl#>
+        PREFIX bibo: <http://purl.org/ontology/bibo/>
+        PREFIX vivo: <http://vivoweb.org/ontology/core#>
+        SELECT ?pub ?pubLabel ?doi ?journalName
+        WHERE {
+          ?person hr:netId ?localID .
+          ?person vivo:relatedBy ?auth .
+          ?auth a vivo:Authorship .
+          ?auth vivo:relates ?pub .
+          ?pub a bibo:AcademicArticle .
+          ?pub rdfs:label ?pubLabel .
+          OPTIONAL {
+            ?pub bibo:doi ?doi .
+          }
+          OPTIONAL {
+            ?pub vivo:hasPublicationVenue ?journal .
+            ?journal rdfs:label ?journalName .
+          }
+        }
+    """ ;
+    :literalBinding "localID" ;
+    :graphBuilder :scorconn_driller .
+
+:scorconn_driller
+    a   <java:edu.cornell.library.scholars.webapp.controller.api.distribute.rdf.graphbuilder.GraphBuilder> ,
+        <java:edu.cornell.library.scholars.webapp.controller.api.distribute.rdf.graphbuilder.DrillDownGraphBuilder> ;
+    :topLevelGraphBuilder :scorconn_drill_top ;
+    :childGraphBuilder :scorconn_drill_bottom ;
+    :drillDownQuery """
+        PREFIX bibo: <http://purl.org/ontology/bibo/>
+        SELECT ?pub
+        WHERE {
+          ?pub a bibo:AcademicArticle .
+        }
+    """ .
+
+:scorconn_drill_top
+    a   <java:edu.cornell.library.scholars.webapp.controller.api.distribute.rdf.graphbuilder.GraphBuilder> ,
+        <java:edu.cornell.library.scholars.webapp.controller.api.distribute.rdf.graphbuilder.ConstructQueryGraphBuilder> ;
+    :literalBinding "localID" ;
+    :constructQuery """
+        PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
+        PREFIX bibo:  <http://purl.org/ontology/bibo/>
+        PREFIX vivo:  <http://vivoweb.org/ontology/core#>
+        PREFIX hr:    <http://scholars.cornell.edu/ontology/hr.owl#>
+        CONSTRUCT {
+          ?person hr:netId ?localID .
+          ?person vivo:relatedBy ?auth .
+          ?auth a vivo:Authorship .
+          ?auth vivo:relates ?pub .
+          ?pub a bibo:AcademicArticle .
+          ?pub rdfs:label ?pubLabel .
+        }
+        WHERE {
+          ?person hr:netId ?localID .
+          ?person vivo:relatedBy ?auth .
+          ?auth a vivo:Authorship .
+          ?auth vivo:relates ?pub .
+          ?pub a bibo:AcademicArticle .
+          ?pub rdfs:label ?pubLabel .
+        }
+    """ .
+
+#
+# For each publication, run a group of queries, rather than one query with
+# multiple OPTIONAL or UNION clauses.
+#
+    
+:scorconn_drill_bottom
+    a   <java:edu.cornell.library.scholars.webapp.controller.api.distribute.rdf.graphbuilder.GraphBuilder> ,
+        <java:edu.cornell.library.scholars.webapp.controller.api.distribute.rdf.graphbuilder.ConstructQueryGraphBuilder> ;
+    :uriBinding "pub" ;
+    :constructQuery """
+        PREFIX vivo: <http://vivoweb.org/ontology/core#>
+        CONSTRUCT {
+          ?pub vivo:dateTimeValue ?timeStamp .
+          ?timeStamp vivo:dateTime ?dateTime .
+          ?timeStamp vivo:dateTimePrecision ?dtPrecision .
+        }
+        WHERE {
+          ?pub vivo:dateTimeValue ?timeStamp .
+          ?timeStamp vivo:dateTime ?dateTime .
+          ?timeStamp vivo:dateTimePrecision ?dtPrecision .
+        }
+    """ , """
+        PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+        PREFIX vivo: <http://vivoweb.org/ontology/core#>
+        CONSTRUCT {
+          ?pub vivo:hasPublicationVenue ?journal .
+          ?journal rdfs:label ?journalName .
+        }
+        WHERE {
+          ?pub vivo:hasPublicationVenue ?journal .
+          ?journal rdfs:label ?journalName .
+        }
+    """ , """
+        PREFIX bibo: <http://purl.org/ontology/bibo/>
+        CONSTRUCT {
+          ?pub bibo:doi ?doi .
+        }
+        WHERE {
+          ?pub bibo:doi ?doi .
+        }
+    """ .    
+
+#
+# The decorator converts the SELECT query output into a JSON structure.
+#
+# The meat of the transform is in a separate file, for quick development.
+# It will be reloaded each time the distributor is used.
+# NOTE: Not terribly efficient.
+#
+:scorconn_distributor
+    a   <java:edu.cornell.library.scholars.webapp.controller.api.distribute.DataDistributor> ,
+        <java:edu.cornell.library.scholars.webapp.controller.api.distribute.decorator.JavaScriptTransformDistributor> ;
+    :actionName "listPublicationsForOrcidConnection" ;
+    :contentType "application/json" ;
+    :child :scorconn_inner ;
+    :supportingScript "/js/scholars-vis/scorconnFormatter.js";
+    :script """
+        function transform(outputFromSelect) {
+            return convertToScorconnFormat(JSON.parse(outputFromSelect));
+        }
+    """ .
+
