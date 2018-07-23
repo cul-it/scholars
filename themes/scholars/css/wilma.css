@@ -3850,9 +3850,7 @@ h4.subtab-subheader {
     color: #fff;
     border-radius: 5px;
     padding: 2px 6px;
-    margin-top: 20px;
     font-size: 14px;
-	float: right !important;
 }
 .scholars-btn-link:hover {
     background-color: #23527c;
@@ -3863,4 +3861,12 @@ h4.subtab-subheader {
     background-color: #3770b7;
     color: #fff  !important;
     text-decoration: none !important;
+}
+.manage-pubs-row {
+	background-color: #fff;
+	padding-right: 0;
+}
+.manage-pubs-container {
+	text-align: right;
+	margin-top: 10px;
 }

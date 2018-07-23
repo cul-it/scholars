@@ -130,7 +130,11 @@ $(document).ready(function() {
 	<#assign optIn = optInStmt.value!"pending" />
 </#if>
 <#assign managePubs >
-		<a id="manage-pubs" class="scholars-btn-link" href="https://elements.library.cornell.edu" target="_blank" title="link to Elements">Manage Publications</a>
+	<div class="row manage-pubs-row">
+		<div class="col-sm-12 col-md-12 col-lg-12 manage-pubs-container">
+			<a id="manage-pubs" class="scholars-btn-link" href="https://elements.library.cornell.edu" target="_blank" title="link to Elements">Manage Publications</a>
+		</div>
+	</div>
 </#assign>
 <#-- for some reason pullProperty was only working when logged in, and even with the display level set to public. Weird! So using datagetter-->
 <#if orcidID?has_content> 
@@ -159,7 +163,8 @@ $(document).ready(function() {
 <div itemscope itemtype="http://schema.org/Person" class="col-sm-12 col-md-12 col-lg-12 scholars-container" id="foafPersonMainColumn">
 <section id="share-contact" role="region" <#if !hasImage >style="display:none"</#if>> 
 
-    <div id="photo-wrapper" >${individualImage}</div>
+    <div id="photo-wrapper" >${individualImage}
+		</div>
     
     <#-- include "individual-visualizationFoafPerson.ftl" -->
 </section> <!-- end share-contact -->
