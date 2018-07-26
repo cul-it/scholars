@@ -324,8 +324,8 @@ ${managePubs}
 
   <div data-view-id="vis">
     <div id="exports_panel" >
-      <a href="#" data-export-id="json">Export as JSON</a>
-      <a href="#" data-export-id="svg">Export as SVG</a>
+      <a href="#" data-export-id="json" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Person', 'KW-ExportAsJSON']);">Export as JSON</a>
+      <a href="#" data-export-id="svg" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Person', 'KW-ExportAsSVG']);">Export as SVG</a>
 	</div>
     <font size="2">
       <span><i>Click on a keyword to view the list of related publications.</i></span>
@@ -342,8 +342,8 @@ ${managePubs}
 
   <div data-view-id="table">
     <div id="exports_panel">
-      <a href="#" data-export-id="json">Export as JSON</a>
-      <a href="#" data-export-id="csv"">Export as CSV</a>
+      <a href="#" data-export-id="json" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Person', 'KW-ExportAsJSON']);">Export as JSON</a>
+      <a href="#" data-export-id="csv" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Person', 'KW-ExportAsCSV']);">Export as CSV</a>
     </div>
     <table class="vis_table">
       <thead>

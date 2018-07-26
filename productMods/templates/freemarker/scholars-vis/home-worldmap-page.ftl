@@ -82,8 +82,8 @@
                     </div>
 
                     <div id="exports_panel">
-                        <a href="#" data-export-id="json">Export as JSON</a>
-                        <a href="#" data-export-id="svg">Export as SVG</a>
+                        <a href="#" data-export-id="json" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Homepage', 'WMAP-ExportAsJSON']);">Export as JSON</a>
+                        <a href="#" data-export-id="svg" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Homepage', 'WMAP-ExportAsSVG']);">Export as SVG</a>
                     </div>
 
                     <h5 class="normal"> Now Showing: <span id="nowShowing">All</span></h5>
@@ -123,8 +123,8 @@
                 </div>
                 
                 <div id="exports_panel">
-                    <a href="#" data-export-id="json">Export as JSON</a>
-                    <a href="#" data-export-id="csv">Export as CSV</a>
+                    <a href="#" data-export-id="json" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Homepage', 'WMAP-ExportAsJSON']);">Export as JSON</a>
+                    <a href="#" data-export-id="csv" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Homepage', 'WMAP-ExportAsCSV']);">Export as CSV</a>
                 </div>
 
                 <form class="form-inline">

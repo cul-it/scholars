@@ -489,8 +489,8 @@ $().ready(function() {
 	
 	  <div data-view-id="vis">
 	    <div id="exports_panel" >
-	      <a href="#" data-export-id="json">Export as JSON</a>
-	      <a href="#" data-export-id="svg">Export as SVG</a>
+	      <a href="#" data-export-id="json" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Organization', 'KW-ExportAsJSON']);">Export as JSON</a>
+	      <a href="#" data-export-id="svg" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Organization', 'KW-ExportAsSVG']);">Export as SVG</a>
 		</div>
 	    <font size="2">
 	      <span><i>Click on a keyword to view the list of the relevant faculty.</i></span>
@@ -504,8 +504,8 @@ $().ready(function() {
 	
 	  <div data-view-id="table">
 	    <div id="exports_panel">
-	      <a href="#" data-export-id="json">Export as JSON</a>
-	      <a href="#" data-export-id="csv">Export as CSV</a>
+	      <a href="#" data-export-id="json" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Organization', 'KW-ExportAsJSON']);">Export as JSON</a>
+	      <a href="#" data-export-id="csv" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Organization', 'KW-ExportAsCSV']);">Export as CSV</a>
 	    </div>
 	    <table class="vis_table">
 	      <thead>
@@ -587,8 +587,8 @@ $().ready(function() {
 	
 	  <div data-view-id="vis">
 	    <div id="exports_panel" >
-	      <a href="#" data-export-id="json">Export as JSON</a>
-	      <a href="#" data-export-id="svg">Export as SVG</a>
+	      <a href="#" data-export-id="json" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Organization', 'InterDeptCollab-ExportAsJOSN']);">Export as JSON</a>
+	      <a href="#" data-export-id="svg" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Organization', 'InterDeptCollab-ExportAsSVG']);">Export as SVG</a>
 		</div>
 	    <font size="2">
 	      <span><i>
@@ -600,8 +600,8 @@ $().ready(function() {
 	
 	  <div data-view-id="table">
 	    <div id="exports_panel">
-	      <a href="#" data-export-id="json">Export as JSON</a>
-	      <a href="#" data-export-id="csv">Export as CSV</a>
+	      <a href="#" data-export-id="json" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Organization', 'InterDeptCollab-ExportAsJSON']);">Export as JSON</a>
+	      <a href="#" data-export-id="csv" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Organization', 'InterDeptCollab-ExportAsCSV']);">Export as CSV</a>
 	    </div>
 	    <table class="vis_table">
 	      <thead>
@@ -671,8 +671,8 @@ $().ready(function() {
 	
 	  <div data-view-id="vis">
 	    <div id="exports_panel" >
-	      <a href="#" data-export-id="json">Export as JSON</a>
-	      <a href="#" data-export-id="svg">Export as SVG</a>
+	      <a href="#" data-export-id="json" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Organization', 'CrossUnitCollab-ExportAsJSON']);">Export as JSON</a>
+	      <a href="#" data-export-id="svg" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Organization', 'CrossUnitCollab-ExportAsSVG']);">Export as SVG</a>
 		</div>
 	    <font size="2">
 	      <span><i>
@@ -684,8 +684,8 @@ $().ready(function() {
 	
 	  <div data-view-id="table">
 	    <div id="exports_panel">
-	      <a href="#" data-export-id="json">Export as JSON</a>
-	      <a href="#" data-export-id="csv">Export as CSV</a>
+	      <a href="#" data-export-id="json" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Organization', 'CrossUnitCollab-ExportAsJSON']);">Export as JSON</a>
+	      <a href="#" data-export-id="csv" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Organization', 'CrossUnitCollab-ExportAsCSV']);">Export as CSV</a>
 	    </div>
 	    <table class="vis_table">
 	      <thead>
@@ -786,7 +786,7 @@ $().ready(function() {
 	
 	  <div data-view-id="vis">
 	    <div id="exports_panel">
-	      <a href="#" data-export-id="json">Export as JSON</a>
+	      <a href="#" data-export-id="json" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Organization', 'Grants-ExportAsJSON']);">Export as JSON</a>
 	    </div>
 	    <div>
 	      <font size="2">
@@ -803,8 +803,8 @@ $().ready(function() {
 	  
 	  <div data-view-id="table">
 	    <div id="exports_panel">
-	      <a href="#" data-export-id="json">Export as JSON</a>
-	      <a href="#" data-export-id="csv">Export as CSV</a>
+	      <a href="#" data-export-id="json" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Organization', 'Grants-ExportAsJSON']);">Export as JSON</a>
+	      <a href="#" data-export-id="csv" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Organization', 'Grants-ExportAsCSV']);">Export as CSV</a>
 	    </div>
 	    <table class="vis_table">
 	      <thead>
