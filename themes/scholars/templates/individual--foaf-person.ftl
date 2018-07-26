@@ -132,7 +132,9 @@ $(document).ready(function() {
 <#assign managePubs >
 	<div class="row manage-pubs-row">
 		<div class="col-sm-12 col-md-12 col-lg-12 manage-pubs-container">
-			<a id="manage-pubs" class="scholars-btn-link" href="https://elements.library.cornell.edu" target="_blank" title="link to Elements">Manage Publications</a>
+			<a id="manage-pubs" class="scholars-btn-link" href="https://elements.library.cornell.edu" target="_blank" title="link to Elements"  onclick="javascript:_paq.push(['trackEvent', 'Navigation', 'Person', 'Manage Publications']);">
+				Manage Publications
+			</a>
 		</div>
 	</div>
 </#assign>
