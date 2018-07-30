@@ -77,7 +77,7 @@
                 ?editorObj rdfs:label ?editor .
             }
             OPTIONAL { ?authorship core:hideFromDisplay ?hideThis }
-        } ORDER BY ?subclass  DESC(?dateTime) ?infoResourceName
+		    } ORDER BY DESC(?dateTime) ?infoResourceName
     </query-select>
 
     <query-construct>

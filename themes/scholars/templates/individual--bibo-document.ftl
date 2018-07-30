@@ -32,6 +32,10 @@
 <#if individual.mostSpecificTypes?seq_contains("Conference Paper") >
 	<#assign isConfPaper = true />
 </#if>
+<#assign isBook = false />
+<#if individual.mostSpecificTypes?seq_contains("Book") >
+	<#assign isBook = true />
+</#if>
 	
 <#-- pull properties -->
 <#assign abstractProp = propertyGroups.pullProperty("http://purl.org/ontology/bibo/abstract")!>
@@ -55,6 +59,99 @@
 <#assign pmidProp = propertyGroups.pullProperty("http://purl.org/ontology/bibo/pmid")!>
 <#assign freeTextTitleProp = propertyGroups.pullProperty("http://scholars.cornell.edu/ontology/vivoc.owl#freetextJournalTitle")!>
 <#assign freeTextProceedingTitleProp = propertyGroups.pullProperty("http://scholars.cornell.edu/ontology/vivoc.owl#freetextProceedingsTitle")!>
+<#-- book specific properties -->
+<#assign isbn10Prop = propertyGroups.pullProperty("http://purl.org/ontology/bibo/isbn10")!>
+<#assign isbn13Prop = propertyGroups.pullProperty("http://purl.org/ontology/bibo/isbn13")!>
+<#assign statusProp = propertyGroups.pullProperty("http://purl.org/ontology/bibo/status")!>
+<#assign totalPagesProp = propertyGroups.pullProperty("http://purl.org/ontology/bibo/numPages")!>
+<#assign googleIDProp = propertyGroups.pullProperty("http://scholars.cornell.edu/ontology/vivoc.owl#google-booksId")!>
+<#assign publisherProp = propertyGroups.pullProperty("http://vivoweb.org/ontology/core#publisher")!>
+<#if isbn10Prop?has_content && isbn10Prop.statements?has_content>
+	<#assign isbn10Stmt = isbn10Prop.statements?first />
+	<#assign isbn10 =	isbn10Stmt.value />
+</#if>
+<#if isbn13Prop?has_content && isbn13Prop.statements?has_content>
+<#assign isbn13Stmt = isbn13Prop.statements?first />
+	<#assign isbn13 = isbn13Stmt.value />
+</#if>
+<#if isbn?has_content || isbn13?has_content>
+	<#assign isbn >
+		<div class="row profile-row" role="row">
+	  	<div class="<#if isConfPaper || isBook>col-sm-2<#else>col-sm-1</#if> no-padding align-text-right">
+				<span class="profile-label">ISBN</span>
+	  	</div>
+	  	<div class="col-sm-10">
+				<div class="scholars-article-metadata">
+					${isbn10!}<#if isbn10?has_content>, </#if>${isbn13!}
+				</div>
+	  	</div>
+		</div>
+	</#assign>
+</#if>
+<#if totalPagesProp?has_content && totalPagesProp.statements?has_content>
+	<#assign totalPagesStmt = totalPagesProp.statements?first />
+	<#assign totalPages >
+		<div class="row profile-row" role="row">
+	  	<div class="col-sm-9 no-padding align-text-right">
+				<span class="profile-label">Total Pages</span>
+	  	</div>
+	  	<div class="col-sm-3">
+				<div class="scholars-article-metadata">
+					${totalPagesStmt.value!}
+				</div>
+	  	</div>
+		</div>
+	</#assign>
+</#if>
+<#if googleIDProp?has_content && googleIDProp.statements?has_content>
+	<#assign googleIDStmt = googleIDProp.statements?first />
+	<#assign googleID>
+	<div class="row profile-row" role="row">
+		<div class="col-sm-9 no-padding align-text-right">
+			<span class="profile-label">Google Link</span>
+		</div>
+		<div class="col-sm-3">
+			<div class="scholars-article-metadata">
+				<a href="https://books.google.com/books?id=${googleIDStmt.value!}" target="_blank">
+					<i class="fa fa-external-link-square external-link" aria-hidden="true" style="margin-left:0;"></i>
+				</a>
+			</div>
+		</div>
+	</div>
+	</#assign>
+</#if>
+<#if statusProp?has_content && statusProp.statements?has_content>
+	<#assign statusStmt = statusProp.statements?first />
+	<#assign status >
+		<div class="row profile-row" role="row">
+		  <div class="col-sm-1 no-padding align-text-right">
+			<span class="profile-label">Status</span>
+		  </div>
+		  <div class="col-sm-10">
+			<div class="scholars-article-metadata">
+				${statusStmt.labe!}
+			</div>
+		  </div>
+		</div>
+	</#assign>
+</#if>
+<#if publisherProp?has_content && publisherProp.statements?has_content>
+	<#assign publisherStmt = publisherProp.statements?first/>
+	<#assign publisher>
+		<div class="row profile-row" role="row">
+		  <div class="<#if isConfPaper || isBook>col-sm-2<#else>col-sm-1</#if> no-padding align-text-right">
+				<span class="profile-label">
+					Publisher
+				</span>
+		  </div>
+		  <div class="col-sm-10">
+			<div class="scholars-article-metadata">
+				${publisherStmt.label!}
+			</div>
+		  </div>
+		</div>
+	</#assign>
+</#if>
 <#if libraryCatalogPage?has_content>
 	<#assign lcp = libraryCatalogPage[0].lcp />
 </#if>
@@ -71,7 +168,7 @@
 	<#assign authors = [] />
 	<#assign authorList>
 		<div class="row profile-row" role="row">
-		  <div class="<#if isConfPaper>col-sm-2<#else>col-sm-1</#if> no-padding align-text-right" >
+		  <div class="<#if isConfPaper || isBook>col-sm-2<#else>col-sm-1</#if> no-padding align-text-right" >
 			<span class="profile-label">Authors</span>
 		  </div>
 		  <div class="col-sm-10">
@@ -107,7 +204,7 @@
 		<div class="row profile-row" role="row">
 		  <div class="<#if isConfPaper>col-sm-2<#else>col-sm-1</#if>  no-padding align-text-right">
 			<span class="profile-label">
-				<#if isConfPaper>Published in<#else>Journal</#if>
+				<#if isConfPaper || isBook>Published in<#else>Journal</#if>
 			</span>
 		  </div>
 		  <div class="col-sm-10">
@@ -175,7 +272,7 @@
 	<#assign freeTextTitleStmt = freeTextTitleProp.statements?first!""/>
 	<#assign freeTextTitle>
 		<div class="row profile-row" role="row">
-		  <div class="<#if isConfPaper>col-sm-2<#else>col-sm-1</#if>  no-padding align-text-right">
+		  <div class="<#if isConfPaper || isBook>col-sm-2<#else>col-sm-1</#if>  no-padding align-text-right">
 			<span class="profile-label">Journal</span>
 		  </div>
 		  <div class="col-sm-10">
@@ -190,7 +287,7 @@
 	<#assign freeTextTitleStmt = freeTextProceedingTitleProp.statements?first!""/>
 	<#assign freeTextTitle>
 		<div class="row profile-row" role="row">
-		  <div class="<#if isConfPaper>col-sm-2<#else>col-sm-1</#if>  no-padding align-text-right">
+		  <div class="<#if isConfPaper || isBook>col-sm-2<#else>col-sm-1</#if>  no-padding align-text-right">
 			<span class="profile-label">Published in</span>
 		  </div>
 		  <div class="col-sm-10">
@@ -212,7 +309,7 @@
 <#if startPage?has_content && endPage?has_content >
 	<#assign pages>
 		<div class="row profile-row" role="row">
-		  <div class="<#if isConfPaper>col-sm-2<#else>col-sm-1</#if>  no-padding align-text-right">
+		  <div class="<#if isConfPaper || isBook>col-sm-2<#else>col-sm-1</#if>  no-padding align-text-right">
 			<span class="profile-label">Pages</span>
 		  </div>
 		  <div class="col-sm-10">
@@ -225,7 +322,7 @@
 <#elseif startPage?has_content && !endPage?has_content >
 	<#assign pages>
 		<div class="row profile-row" role="row">
-		  <div class="<#if isConfPaper>col-sm-2<#else>col-sm-1</#if>  no-padding align-text-right">
+		  <div class="<#if isConfPaper || isBook>col-sm-2<#else>col-sm-1</#if>  no-padding align-text-right">
 			<span class="profile-label">Starts</span>
 		  </div>
 		  <div class="col-sm-10">
@@ -238,7 +335,7 @@
 <#elseif !startPage?has_content && endPage?has_content >
 	<#assign pages>
 		<div class="row profile-row" role="row">
-		  <div class="<#if isConfPaper>col-sm-2<#else>col-sm-1</#if>  no-padding align-text-right>
+		  <div class="<#if isConfPaper || isBook>col-sm-2<#else>col-sm-1</#if>  no-padding align-text-right>
 			<span class="profile-label">Ends</span>
 		  </div>
 		  <div class="col-sm-10">
@@ -283,7 +380,7 @@
 	<#assign doi = doiStmt.value! />
 	<#assign doiInline>
 		<div class="row profile-row" role="row">
-		  <div class="<#if isConfPaper>col-sm-2<#else>col-sm-1</#if>  no-padding align-text-right">
+		  <div class="<#if isConfPaper || isBook>col-sm-2<#else>col-sm-1</#if>  no-padding align-text-right">
 			<span class="profile-label">DOI</span>
 		  </div>
 		  <div class="col-sm-10">
@@ -440,7 +537,7 @@
 		</div>
     </header>
 	<div class="row profile-row fff-bkg header-metadata" role="row">
-		<div class="col-sm-9 col-md-9 col-lg-9<#if isConfPaper> no-padding</#if>">
+		<div class="col-sm-9 col-md-9 col-lg-9<#if isConfPaper || isBook > no-padding</#if>">
  			${authorList!?replace(" ,",",")!}
  			<#if journalTitle?has_content >
  				${journalTitle!}
@@ -449,6 +546,8 @@
  			</#if>
  			${pages!}
  			${doiInline!}
+			${isbn!}
+			${publisher!}
 		</div>
 
 		<div class="col-sm-2 col-md-2 col-lg-2">
@@ -456,9 +555,10 @@
 				${volumeIssue!}
 				${publishedInline!}
 				${pmidInline!}
+				${totalPages!}
+				${googleID!}
 		</div>
 	</div>
-
 
         </section> <!-- individual-info -->
 		<div class="clear-both"></div>
@@ -652,3 +752,5 @@ ${scripts.add('<script type="text/javascript" src="${urls.base}/js/individual/in
 	          '<script type="text/javascript" src="${urls.base}/js/individual/moreLessController.js"></script>',
               '<script type="text/javascript" src="${urls.base}/themes/scholars/js/individualUriRdf.js"></script>',
               '<script type="text/javascript" src="${urls.base}/themes/scholars/js/bibo-document.js"></script>')}
+
+

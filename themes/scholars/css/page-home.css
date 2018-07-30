@@ -135,44 +135,34 @@ div#logo-container {
 	margin: 0 20px;
 	padding-left: 6px;
 }
-/*#jgsm-image {
-	padding: 15px 0 10px 25px;
-	margin: -15px 0 -10px -25px;
-}
-#eng-image {
-	padding: 15px 0 5px 20px;
-	margin: -15px 0 -5px -20px;
-}
-#bti-image {
-	padding: 8px 0 10px 20px;
-	margin: -8px 0 -10px -20px;
-} */
 #jgsm-image img {
-	height: 75px;
+	height: 72px;
 }
 #eng-image img {
-	height: 42px;
+	height: 34px;
 }
 #bti-image img {
-	height: 75px;
+	height: 66px;
 }
-#jgsm-image {
-	margin-top: 45px;
+#cals-image img {
+	height: 50px;
 }
-#jgsm-image:hover, #eng-image:hover, #cals-image:hover, #bti-image:hover {
+#vet-image img {
+	height: 86px;
+}
+#eng-image {
+	margin-left: 30px;
+}
+#cals-image {
+	margin-top: 12px;
+}
+#jgsm-image:hover, #eng-image:hover, #cals-image:hover, #bti-image:hover, #vet-image:hover {
 	opacity: 0.6;
 }
 #partners-row1 {
-	margin: 25px 30px 0 30px;
+	margin: 36px 28px;
 }
-#partners-row2 {
-	padding:0;
-	margin: 0 30px 40px 30px;
-}
-#partners-row3 {
-	margin:10px 30px 20px;
-}
-#jgsm-text {
+/*#jgsm-text {
 	padding-right: 5px;
 	text-align: right;
 }
@@ -196,7 +186,7 @@ div#logo-container {
 #cals-text p {
 	margin: 0;
 	font-size: 18px;
-}
+}*/
 .partner-shadow {
 	box-shadow: 10px 10px 5px #888888;
 }
@@ -248,7 +238,10 @@ div#logo-container {
 	text-align: center;
 	vertical-align: middle;
 }
-#partners-row1d {
-	margin: 25px 0 0;
+#partners-row1c {
+	text-align: center;
+}
+#partners-row1d, #partners-row1e {
+	margin: 40px 0 0;
 	padding: 0;
 }

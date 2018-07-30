@@ -190,8 +190,8 @@
 
   <div data-view-id="vis">
     <div id="exports_panel" >
-      <a href="#" data-export-id="json">Export as JSON</a>
-      <a href="#" data-export-id="svg">Export as SVG</a>
+      <a href="#" data-export-id="json" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Journal', 'ExportAsJSON']);">Export as JSON</a>
+      <a href="#" data-export-id="svg" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Journal', 'ExportAsSVG']);">Export as SVG</a>
 	</div>
     <font size="2">
       <span><i>
@@ -203,8 +203,8 @@
 
   <div data-view-id="table">
     <div id="exports_panel">
-      <a href="#" data-export-id="json">Export as JSON</a>
-      <a href="#" data-export-id="csv"">Export as CSV</a>
+      <a href="#" data-export-id="json" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Journal', 'ExportAsJSON']);">Export as JSON</a>
+      <a href="#" data-export-id="csv" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Journal', 'ExportAsCSV']);">Export as CSV</a>
     </div>
     <table class="vis_table">
       <thead>

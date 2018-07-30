@@ -27,6 +27,20 @@ $(document).ready(function() {
 <#if !languageCount??>
 	<#assign languageCount = 1>
 </#if>	
+<#if subjectAreas?has_content>
+  <#assign subjectAreaList>
+	<article class="property" role="article">
+		<h3 class="burnt-orange">Journal Subject Areas</h3>
+		<ul id="journal-subject-area-list" class="property-list" role="list">
+			<#list subjectAreas as subject>
+				<li role="listitem">		
+					<a href="${urls.base}/individual?uri=${subject.subjectArea!}">${subject.subjectAreaLabel!} (${subject.saCount!})</a>
+				</li>
+			</#list>
+		</ul>
+	</article>
+  </#assign>
+</#if>
 <#assign emailProp = propertyGroups.pullProperty("http://purl.obolibrary.org/obo/ARG_2000028","http://www.w3.org/2006/vcard/ns#Email")!>
 <#assign email = "" />
 <#if emailProp?has_content && emailProp.statements?has_content>
@@ -51,8 +65,18 @@ $(document).ready(function() {
 <#assign visRequestingTemplate = "foaf-person-2column">
 <#assign publicationsProp = propertyGroups.pullProperty("${core}relatedBy", "${core}Authorship")!>
 <#if publicationsProp?has_content> 
-    <#assign publications>
-		<@p.objectProperty publicationsProp editable />
+	<#assign publications >
+		<div>
+		<article class="property" role="article">
+	    <ul id="individual-publications" class="property-list" role="list" >
+				<li>
+					<ul class="subclass-property-list">
+							<@p.objectProperty publicationsProp editable />
+				  </ul>	
+				</li>
+						</ul>
+					</article>
+		</div>
 	</#assign>
 </#if>
 <#assign grantsPIProp = propertyGroups.pullProperty("http://purl.obolibrary.org/obo/RO_0000053", "${core}PrincipalInvestigatorRole")!>
@@ -67,20 +91,6 @@ $(document).ready(function() {
 		<@gl.listGrants grantsCOPIProp />
 	</#assign>
 </#if>
-<#if subjectAreas?has_content>
-  <#assign subjectAreaList>
-	<article class="property" role="article">
-		<h3 class="burnt-orange">Journal Subject Areas</h3>
-		<ul id="journal-subject-area-list" class="property-list" role="list">
-			<#list subjectAreas as subject>
-				<li role="listitem">		
-					<a href="${urls.base}/individual?uri=${subject.subjectArea!}">${subject.subjectAreaLabel!} (${subject.saCount!})</a>
-				</li>
-			</#list>
-		</ul>
-	</article>
-  </#assign>
-</#if>
 <#assign webpageProp = propertyGroups.pullProperty("http://purl.obolibrary.org/obo/ARG_2000028","http://www.w3.org/2006/vcard/ns#URL")!>
 <#if webpageProp?has_content && webpageProp.statements?has_content> 
     <#assign webpageStmt = webpageProp.statements?first />
@@ -93,7 +103,15 @@ $(document).ready(function() {
 	<#assign optInStmt = optInProp.statements?first!/>
 	<#assign optIn = optInStmt.value!"pending" />
 </#if>
-
+<#assign managePubs >
+	<div class="row manage-pubs-row">
+		<div class="col-sm-12 col-md-12 col-lg-12 manage-pubs-container">
+			<a id="manage-pubs" class="scholars-btn-link" href="https://elements.library.cornell.edu" target="_blank" title="link to Elements"  onclick="javascript:_paq.push(['trackEvent', 'Navigation', 'Person', 'Manage Publications']);">
+				Manage Publications
+			</a>
+		</div>
+	</div>
+</#assign>
 <#-- for some reason pullProperty was only working when logged in, and even with the display level set to public. Weird! So using datagetter-->
 <#if orcidID?has_content> 
 	<#assign theOrcidId = orcidID?first.orcidId! />
@@ -121,7 +139,8 @@ $(document).ready(function() {
 <div itemscope itemtype="http://schema.org/Person" class="col-sm-12 col-md-12 col-lg-12 scholars-container" id="foafPersonMainColumn">
 <section id="share-contact" role="region" <#if !hasImage >style="display:none"</#if>> 
 
-    <div id="photo-wrapper" >${individualImage}</div>
+    <div id="photo-wrapper" >${individualImage}
+		</div>
     
     <#-- include "individual-visualizationFoafPerson.ftl" -->
 </section> <!-- end share-contact -->
@@ -143,6 +162,7 @@ $(document).ready(function() {
 		<h2 id="page-heading-break">  </h2>
     	<#include "individual-positions.ftl">
     </header>
+${managePubs}
 	</section>
 </div> <!-- foafPersonMainColumn -->
 </div> <!-- row1 -->
@@ -188,16 +208,14 @@ $(document).ready(function() {
 	    <#if isInvestigator ><li><a href="#tabs-2" onclick="javascript:_paq.push(['trackEvent', 'Tab', 'Person', 'Grants']);">Grants</a></li></#if>
 	  </ul>
 	  <#if isAuthor >
-		  <div id="tabs-1" class="tab-content">
-			<article class="property" role="article">
-			<#if subjectAreaList?has_content>
-				<a id="subject-area-link" href="#" class="jqModal" onclick="javascript:_paq.push(['trackEvent', 'Link', 'Person', 'Subject-Areas']);">Subject Areas</a>
-			</#if>
-		    <ul id="individual-publications" class="property-list" role="list" >
-		    	${publications!}
-			</ul>
-			</article>	
-		  </div>
+	  	<div id="tabs-1" class="tab-content">
+				<#if subjectAreaList?has_content>
+				  <div style="margin-bottom:20px">
+						<a id="subject-area-link" href="#" class="jqModal" onclick="javascript:_paq.push(['trackEvent', 'Link', 'Person', 'Subject-Areas']);">Subject Areas</a>
+					</div>
+				</#if>
+	    	${publications!}
+	  	</div>
 	  </#if>
 	  <#if isInvestigator >
 		  <div id="tabs-2"  class="tab-content">
@@ -285,8 +303,8 @@ $(document).ready(function() {
 
   <div data-view-id="vis">
     <div id="exports_panel" >
-      <a href="#" data-export-id="json">Export as JSON</a>
-      <a href="#" data-export-id="svg">Export as SVG</a>
+      <a href="#" data-export-id="json" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Person', 'KW-ExportAsJSON']);">Export as JSON</a>
+      <a href="#" data-export-id="svg" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Person', 'KW-ExportAsSVG']);">Export as SVG</a>
 	</div>
     <font size="2">
       <span><i>Click on a keyword to view the list of related publications.</i></span>
@@ -303,8 +321,8 @@ $(document).ready(function() {
 
   <div data-view-id="table">
     <div id="exports_panel">
-      <a href="#" data-export-id="json">Export as JSON</a>
-      <a href="#" data-export-id="csv"">Export as CSV</a>
+      <a href="#" data-export-id="json" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Person', 'KW-ExportAsJSON']);">Export as JSON</a>
+      <a href="#" data-export-id="csv" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Person', 'KW-ExportAsCSV']);">Export as CSV</a>
     </div>
     <table class="vis_table">
       <thead>
@@ -439,7 +457,8 @@ ${headScripts.add('<script type="text/javascript" src="${urls.base}/js/tiny_mce/
 
 ${scripts.add('<script type="text/javascript" src="${urls.base}/themes/scholars/js/individualUriRdf.js"></script>',
               '<script type="text/javascript" src="${urls.base}/js/individual/individualUtils.js?vers=1.5.1"></script>',
-			  '<script type="text/javascript" src="${urls.base}/js/individual/moreLessController.js"></script>',
+						  '<script type="text/javascript" src="${urls.base}/js/individual/moreLessController.js"></script>',
+						  '<script type="text/javascript" src="${urls.theme}/js/foafPersonUtils.js"></script>',
               '<script type="text/javascript" src="${urls.base}/js/individual/individualProfilePageType.js"></script>',
               '<script type="text/javascript" src="${urls.base}/js/imageUpload/imageUploadUtils.js"></script>')}
 

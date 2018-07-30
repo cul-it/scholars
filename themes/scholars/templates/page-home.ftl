@@ -161,39 +161,44 @@
 			</div>
    			<div class="col-sm-8 col-md-8 col-lg-8 nopadding-nomargin">
 				<div id="partners-row1c" class="row fff-bkg nopadding-nomargin">
-					<div class="col-sm-2 col-md-2 col-lg-2 nopadding-nomargin"></div>
-	   				<div class="col-sm-6 col-md-6 col-lg-6 nopadding-nomargin">
-	   					<a href="${urls.base}/display/org73341" onclick="javascript:_paq.push(['trackEvent', 'Scholars Affiliates', 'Homepage', 'Engineering']);">
-			   				<div id="eng-image"><img src="${urls.theme!}/images/eng-logo.png"></div>
-			   			</a>
-	   				</div>
-					<div class="col-sm-2 col-md-2 col-lg-2 nopadding-nomargin"></div>
+	   			<div class="col-sm-12 col-md-12 col-lg-12 nopadding-nomargin">
+	   				<a href="${urls.base}/display/org73341" onclick="javascript:_paq.push(['trackEvent', 'Scholars Affiliates', 'Homepage', 'Engineering']);">
+			   			<div id="eng-image"><img src="${urls.theme!}/images/eng-logo.png"></div>
+			   		</a>
+	   			</div>
 				</div>
 				<div id="partners-row1d" class="row fff-bkg">
 					<div class="col-sm-1 col-md-1 col-lg-1 nopadding-nomargin">
 					</div>
-	   				<div class="col-sm-6 col-md-6 col-lg-6 nopadding-nomargin">
+	   				<div class="col-sm-5 col-md-5 col-lg-5 nopadding-nomargin">
    						<a href="${urls.base}/display/org57969" onclick="javascript:_paq.push(['trackEvent', 'Scholars Affiliates', 'Homepage', 'CALS']);">
 							<div id="cals-image"><img src="${urls.theme!}/images/cals-logo.png"></div>
 						</a>
-					</div>	
+					</div>
+					<div class="col-sm-1 col-md-1 col-lg-1 nopadding-nomargin"></div>	
 	   				<div class="col-sm-5 col-md-5 col-lg-5 nopadding-nomargin"> 
 	   					<a href="${urls.base}/display/org74741" onclick="javascript:_paq.push(['trackEvent', 'Scholars Affiliates', 'Homepage', 'Johnson School']);">
 							<div id="jgsm-image"><img src="${urls.theme!}/images/johnson-logo.png"></div>
 						</a>
 	   				</div>
 				</div>
+				<div id="partners-row1e" class="row fff-bkg nopadding-nomargin"> 
+			   		<div class="col-sm-1 col-md-1 col-lg-1 nopadding-nomargin"></div>
+			   		<div class="col-sm-5 col-md-5 col-lg-5 nopadding-nomargin"> 
+			   			<a id="bti-link" href="${urls.base}/display/org98030" onclick="javascript:_paq.push(['trackEvent', 'Scholars Affiliates', 'Homepage', 'BTI']);">
+							<div id="bti-image"><img src="${urls.theme!}/images/bti-logo.png"></div>
+						</a>
+			   		</div>
+			   		<div class="col-sm-1 col-md-1 col-lg-1 nopadding-nomargin"></div>
+			   		<div class="col-sm-5 col-md-5 col-lg-5 nopadding-nomargin">
+								<a id="bti-link" href="${urls.base}/display/org20700" onclick="javascript:_paq.push(['trackEvent', 'Scholars Affiliates', 'Homepage', 'Vet School']);">
+								<div id="vet-image"><img src="${urls.theme!}/images/vet-logo.png"></div>
+							</a>
+						</div>
+			   	</div>
+		   	</div>
 			</div>
 		</div>
-		<div id="partners-row2" class="row fff-bkg"> 
-	   		<div class="col-sm-6 col-md-6 col-lg-6 nopadding-nomargin"></div>
-	   		<div class="col-sm-3 col-md-3 col-lg-3 nopadding-nomargin"> 
-	   			<a id="bti-link" href="${urls.base}/display/org98030" onclick="javascript:_paq.push(['trackEvent', 'Scholars Affiliates', 'Homepage', 'BTI']);">
-					<div id="bti-image"><img src="${urls.theme!}/images/bti-logo.png"></div>
-				</a>
-	   		</div>
-	   	</div>
-   	</div>
   </div> <!-- home-body div -->
   	<@lh.downloadCounts />
 
