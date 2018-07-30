@@ -1,6 +1,6 @@
 --------------------------------------------------------------------------------
 
-JavaScript requirements:
+JavaScript/CSS requirements:
 
 --------------------------------------------------------------------------------
 
@@ -13,8 +13,12 @@ A recent version of Bootstrap. For example:
 The main Scholars Visualization script:
     http://scholars.cornell.edu/js/scholars-vis/scholars-vis.js
     
-The script for the research areas flare:
-    http://scholars.cornell.edu/js/scholars-vis/embed/reserarch_areas_flare.js
+The scripts for the research areas flare:
+    http://scholars.cornell.edu/js/scholars-vis/org-research-areas/organization-research-areas.js
+    http://scholars.cornell.edu/js/d3.min.js
+
+The stylesheets for the research areas flare:
+    http://scholars.cornell.edu/css/scholars-vis/org-research-areas/ra.css
 
 --------------------------------------------------------------------------------
 
@@ -71,8 +75,12 @@ The RDF structure of the graph looks like this:
 
 The default transform function...
 
-...traverses the model, accunulating a list of all authors, and all subject 
+...traverses the model, accumulating a list of all authors, and all subject 
 areas, and creates links between them.
+
+Regarding the redundancy between the "links" and the "linkCounts". The 
+"linkCounts" were added so they could be displayed in the table view, and the 
+"links" were retained so we would not need to modify the visualization code.
    
 --------------------------------------------------------------------------------
 
@@ -82,13 +90,17 @@ areas, and creates links between them.
 		"ditem": 21,
 		"name": "Adie, Steven Graham",
 		"url": "/scholars/display/sga42",
-		"links": ["Oncology & Carcinogenesis", "Optoelectronics & Photonics"]
+		"links": ["Oncology & Carcinogenesis", "Optoelectronics & Photonics"],
+		"linkCounts": {"Oncology & Carcinogenesis": 2, "Optoelectronics & Photonics": 1}
+      },
+		
 	}, {
 		"type": "ditem",
 		"ditem": 18,
 		"name": "Archer, Shivaun D.",
 		"url": "/scholars/display/sda4",
 		"links": ["Nanoscience & Nanotechnology"]
+		"linkCounts": {"Nanoscience & Nanotechnology": 3}
 	}, {
 
     ... more faculty members ...

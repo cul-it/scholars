@@ -56,10 +56,12 @@
               <tr>
                 <th data-sort="string-ins">Faculty Member</th>
                 <th data-sort="string-ins">Subject Area</th>
+                <th data-sort="int">Publication Count</th>
               </tr>
             </thead>
             <tbody>
               <tr>
+                <td>Template row</td>
                 <td>Template row</td>
                 <td>Template row</td>
               </tr>
@@ -80,11 +82,13 @@
 
 ${stylesheets.add('<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">',
                   '<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Raleway" />',
-	              '<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Muli" />')}
+	              '<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Muli" />',
+                  '<link rel="stylesheet" type="text/css" href="${urls.base}/css/scholars-vis/org-research-areas/ra.css" />')}
 
 ${scripts.add('<script type="text/javascript" src="${urls.base}/js/scholars-vis/scholars-vis.js"></script>',
               '<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>',
-			  '<script type="text/javascript" src="${urls.base}/js/scholars-vis/embed/research_areas_flare.js"></script>')}
+			  '<script type="text/javascript" src="${urls.base}/js/scholars-vis/org-research-areas/organization-research-areas.js"></script>',
+			  '<script type="text/javascript" src="${urls.base}/js/d3.min.js"></script>')}
 
 
 <script>

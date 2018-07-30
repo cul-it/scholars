@@ -98,8 +98,8 @@
 
         <div data-view-id="vis">
           <div id="exports_panel" >
-            <a href="#" data-export-id="json">Export as JSON</a>
-            <a href="#" data-export-id="svg">Export as SVG</a>
+            <a href="#" data-export-id="json" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Homepage', 'OKW-ExportAsJSON']);">Export as JSON</a>
+            <a href="#" data-export-id="svg" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Homepage', 'OKW-ExportAsSVG']);">Export as SVG</a>
 	      </div>
           <font size="2">
             <#--	
@@ -112,8 +112,8 @@
 
         <div data-view-id="table">
           <div id="exports_panel">
-            <a href="#" data-export-id="json">Export as JSON</a>
-            <a href="#" data-export-id="csv">Export as CSV</a>
+            <a href="#" data-export-id="json" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Homepage', 'OKW-ExportAsJSON']);">Export as JSON</a>
+            <a href="#" data-export-id="csv" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Homepage', 'OKW-ExportAsCSV']);">Export as CSV</a>
           </div>
           <table class="vis_table">
             <thead>
@@ -181,8 +181,8 @@
 
         <div data-view-id="vis">
           <div id="exports_panel" >
-            <a href="#" data-export-id="json">Export as JSON</a>
-            <a href="#" data-export-id="svg">Export as SVG</a>
+            <a href="#" data-export-id="json" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Homepage', 'PKW-ExportAsJSON']);">Export as JSON</a>
+            <a href="#" data-export-id="svg" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Homepage', 'PKW-ExportAsSVG']);">Export as SVG</a>
 	      </div>
           <font size="2">
             <span><i>Click on a keyword to view the list of related publications.</i></span>
@@ -202,8 +202,8 @@
 
         <div data-view-id="table">
           <div id="exports_panel">
-            <a href="#" data-export-id="json">Export as JSON</a>
-            <a href="#" data-export-id="csv">Export as CSV</a>
+            <a href="#" data-export-id="json" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Homepage', 'PKW-ExportAsJSON']);">Export as JSON</a>
+            <a href="#" data-export-id="csv" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Homepage', 'PKW-ExportAsCSV']);">Export as CSV</a>
           </div>
           <table class="vis_table">
             <thead>
@@ -272,15 +272,15 @@
 
   	    <div data-view-id="vis" style="height: 90%; ">
           <div id="exports_panel" >
-            <a href="#" data-export-id="json">Export as JSON</a>
-            <a href="#" data-export-id="svg">Export as SVG</a>
+            <a href="#" data-export-id="json" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Homepage', 'UKW-ExportAsJSON']);">Export as JSON</a>
+            <a href="#" data-export-id="svg" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Homepage', 'UKW-ExportAsSVG']);">Export as SVG</a>
 	      </div>
 	    </div>
 	
         <div data-view-id="table">
           <div id="exports_panel">
-            <a href="#" data-export-id="json">Export as JSON</a>
-            <a href="#" data-export-id="csv">Export as CSV</a>
+            <a href="#" data-export-id="json" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Homepage', 'UKW-ExportAsJSON']);">Export as JSON</a>
+            <a href="#" data-export-id="csv" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Homepage', 'UKW-ExportAsCSV']);">Export as CSV</a>
           </div>
           <table class="vis_table">
             <thead>

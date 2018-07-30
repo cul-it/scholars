@@ -213,6 +213,11 @@
     <owl:DatatypeProperty rdf:about="http://purl.org/ontology/bibo/identifier"/>
     
 
+    <!-- http://scholars.cornell.edu/ontology/vivoc.owl#google-booksId -->
+
+    <owl:DatatypeProperty rdf:about="http://scholars.cornell.edu/ontology/vivoc.owl#google-booksId">
+        <rdfs:subPropertyOf rdf:resource="http://purl.org/ontology/bibo/identifier"/>
+    </owl:DatatypeProperty>
 
     <!-- http://scholars.cornell.edu/ontology/vivoc.owl#actinsId -->
 
