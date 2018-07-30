@@ -34,7 +34,7 @@ $(document).ready(function() {
 		<ul id="journal-subject-area-list" class="property-list" role="list">
 			<#list subjectAreas as subject>
 				<li role="listitem">		
-					<a href="${urls.base}/individual?uri=${subject.subjectArea!}">${subject.subjectAreaLabel!}</a>
+					<a href="${urls.base}/individual?uri=${subject.subjectArea!}">${subject.subjectAreaLabel!} (${subject.saCount!})</a>
 				</li>
 			</#list>
 		</ul>
