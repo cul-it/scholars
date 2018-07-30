@@ -29,14 +29,16 @@ $(document).ready(function() {
 </#if>	
 <#if subjectAreas?has_content>
   <#assign subjectAreaList>
-		<h4 class="subtab-subheader">These are the subject areas associated with the journals.</h4>
+	<article class="property" role="article">
+		<h3 class="burnt-orange">Journal Subject Areas</h3>
 		<ul id="journal-subject-area-list" class="property-list" role="list">
 			<#list subjectAreas as subject>
 				<li role="listitem">		
-					<a href="${urls.base}/individual?uri=${subject.subjectArea!}">${subject.subjectAreaLabel!} (${subject.saCount!})</a>
+					<a href="${urls.base}/individual?uri=${subject.subjectArea!}">${subject.subjectAreaLabel!}</a>
 				</li>
 			</#list>
 		</ul>
+	</article>
   </#assign>
 </#if>
 <#assign emailProp = propertyGroups.pullProperty("http://purl.obolibrary.org/obo/ARG_2000028","http://www.w3.org/2006/vcard/ns#Email")!>
@@ -63,45 +65,17 @@ $(document).ready(function() {
 <#assign visRequestingTemplate = "foaf-person-2column">
 <#assign publicationsProp = propertyGroups.pullProperty("${core}relatedBy", "${core}Authorship")!>
 <#if publicationsProp?has_content> 
-	<#assign counter = 1 />
-	<#assign subclasses = publicationsProp.subclasses />
 	<#assign publications >
-		<div id="subtabs-container">
-		  <ul id="subtabs">
-  		<#list subclasses as subone>
-		  		<li><a id="#subtabs-${subone.name?lower_case?replace(" ","")}" data-type="tab-controller" <#if (counter > 1)> class="inactiveSubTab"<#else>class="activeSubTab"</#if> href="javascript:" onclick="javascript:_paq.push(['trackEvent', 'Tab', 'Person', '${subclass!}']);">${subone.name}s</a> <#if subone_has_next> | </#if></li>
-				<#assign counter = counter + 1 />
-		  </#list>
-		  <#if subjectAreas?has_content>
-				| <a id="#subtabs-subjectAreas" data-type="tab-controller" class="inactiveSubTab" href="javascript:" onclick="javascript:_paq.push(['trackEvent', 'Tab', 'Person', 'Subject Areas']);">Subject Areas</a></li>
-		  </#if>
-				<#assign counter = 1 />
-		  </ul>
-				  <#list subclasses as subtwo>
-						<div id="subtabs-${subtwo.name?lower_case?replace(" ","")}" data-type="tab-contents" <#if (counter > 1)> style="display:none"</#if> >
-						<article class="property" role="article">
-					    <ul id="individual-publications" class="subtab-property-list" role="list" >
-								<li>
-							<ul class="subclass-property-list">
-								<@p.objectPropertyList publicationsProp editable subtwo.statements publicationsProp.template />
-							</ul>
-							</li>
-								</ul>
-							</article>
-						</div>
-						<#assign counter = counter + 1 />
-					</#list> 
-					<#if subjectAreas?has_content>
-						<div id="subtabs-subjectAreas" data-type="tab-contents" style="display:none" >
-						  <article class="property" role="article">
-					      <ul id="individual-publications" class="subtab-property-list" role="list" >
-								  <li>
-										${subjectAreaList!}
-								  </li>
-							  </ul>
-						  </article>
-						</div>
-					</#if>
+		<div>
+		<article class="property" role="article">
+	    <ul id="individual-publications" class="property-list" role="list" >
+				<li>
+					<ul class="subclass-property-list">
+							<@p.objectProperty publicationsProp editable />
+				  </ul>	
+				</li>
+						</ul>
+					</article>
 		</div>
 	</#assign>
 </#if>
@@ -234,9 +208,14 @@ ${managePubs}
 	    <#if isInvestigator ><li><a href="#tabs-2" onclick="javascript:_paq.push(['trackEvent', 'Tab', 'Person', 'Grants']);">Grants</a></li></#if>
 	  </ul>
 	  <#if isAuthor >
-		  <div id="tabs-1" class="tab-content">
-		    	${publications!}
-		  </div>
+	  	<div id="tabs-1" class="tab-content">
+				<#if subjectAreaList?has_content>
+				  <div style="margin-bottom:20px">
+						<a id="subject-area-link" href="#" class="jqModal" onclick="javascript:_paq.push(['trackEvent', 'Link', 'Person', 'Subject-Areas']);">Subject Areas</a>
+					</div>
+				</#if>
+	    	${publications!}
+	  	</div>
 	  </#if>
 	  <#if isInvestigator >
 		  <div id="tabs-2"  class="tab-content">
