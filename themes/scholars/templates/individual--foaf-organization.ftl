@@ -120,13 +120,17 @@
 <#if academicOfficers?has_content>
   <#assign academicOfficerList>
 		<#list academicOfficers as officer>
-			<div id="academic-officer-list-title">
-				${officer.positionTitle!}
-			</div>
-			<div id="academic-officer-list-name">
-				${officer.personName!}
-			</div>
-			<div class="clear-both"></div>
+		  <#if !officer.positionTitle?contains("Director") >
+  			<div id="academic-officer-list-title">
+				  ${officer.positionTitle!}
+			  </div>
+			  <div id="academic-officer-list-name">
+				  ${officer.personName!}
+			  </div>
+			  <div class="clear-both"></div>
+			<#else>
+				<div class="clear-both" style="margin-top: 30px;"></div>
+		  </#if>
 		</#list>
   </#assign>
 </#if>
