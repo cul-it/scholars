@@ -78,29 +78,15 @@ display:HomeJournalBarchartPage
         display:urlMapping
                 "/journalProceedingsVisualization" .
 
-display:HomeInterdepartmentalCoauthorshipsPage
+display:HomeCoauthorshipsPage
         a       display:Page ;
         display:isSelfContainedTemplate
                 "true" ;
         display:requiresAction
                 <java:edu.cornell.mannlib.vitro.webapp.auth.permissions.SimplePermission#PageViewablePublic> ;
         display:requiresBodyTemplate
-                "home-interdepartmental-coauthorships-page.ftl" ;
+                "home-coauthorships-page.ftl" ;
         display:title
-                "Interdepartmental Coauthorships Visualization" ;
+                "Coauthorships Visualization" ;
         display:urlMapping
-                "/interdepartmentalCoauthorshipsVisualization" .
-
-display:HomeCrossunitCoauthorshipsPage
-        a       display:Page ;
-        display:isSelfContainedTemplate
-                "true" ;
-        display:requiresAction
-                <java:edu.cornell.mannlib.vitro.webapp.auth.permissions.SimplePermission#PageViewablePublic> ;
-        display:requiresBodyTemplate
-                "home-crossunit-coauthorships-page.ftl" ;
-        display:title
-                "Cross-unit Co-authorships Visualization" ;
-        display:urlMapping
-                "/crossunitCoauthorshipsVisualization" .
-
+                "/coauthorshipsVisualization" .

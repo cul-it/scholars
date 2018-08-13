@@ -15,6 +15,7 @@ var AccordionControls = (function() {
     return {
         Selector: Selector,
         Checklist: Checklist,
+        RadioButtons: RadioButtons,
         RangeSlider: RangeSlider
         };
     
@@ -251,6 +252,70 @@ var AccordionControls = (function() {
             $(mainElementId + " .collapse").collapse("show");
         }
 
+        function collapse() {
+            $(mainElementId + " .collapse").collapse("hide");
+        }
+    }
+    
+    /**
+     * Within the main element, display the data. When a data item is clicked,
+     * execute the callback function.
+     * 
+     * mainElementId -- a d3 selector string
+     * 
+     * selectionCallback -- a function to be called when the user checks or 
+     * unchecks a data item.
+     * 
+     * Methods:
+     * 
+     * loadData(array) -- set the list of choices. 
+     *     array -- an array of strings, already in the desired order.
+     *     
+     * expand() -- open the selection panel
+     * 
+     * collapse() -- close the selection panel
+     * 
+     * The main element must have a descendent with id="checkarea", where the list
+     * elements will be created.
+     */
+    function RadioButtons(mainElementId, changeCallback) {
+        return {
+            loadData: loadData,
+            expand: expand,
+            collapse: collapse
+        }
+        
+        function loadData(array) {
+            var anchorDiv = d3.select(mainElementId);
+            var labels = anchorDiv
+            .select("#checkarea")
+            .selectAll("li")
+            .data(array)
+            .enter()
+            .append("li");
+            
+            labels
+            .append("label")
+            .attr("class", "checkListLabel")
+            .append("input")
+            .attr("type", "radio")
+            .attr("name", "radioButton")
+            .on("change", changeCallback);
+            
+            labels
+            .selectAll("label")
+            .append("span")
+            .text(d => d);
+            
+            anchorDiv
+            .select("input")
+            .attr("checked", true);
+        }
+        
+        function expand() {
+            $(mainElementId + " .collapse").collapse("show");
+        }
+        
         function collapse() {
             $(mainElementId + " .collapse").collapse("hide");
         }

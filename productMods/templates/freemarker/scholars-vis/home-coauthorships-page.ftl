@@ -4,7 +4,7 @@
 
       <div id="legendDiv" class="center-block">
          <h2 style="padding:0;color:#5f5858;font-size:20px">
-            Browse academic units
+            Select college and collaboration type
          </h2>
       </div>
       
@@ -16,8 +16,23 @@
                participating college
              </a>
           </div>
-          <div id="collapseColleges" class="panel-collapse collapse">
+          <div id="collapseColleges" class="panel-collapse">
             <div class="panel-body" id="selector">
+            </div>
+          </div>
+        </div>
+        
+        <div id="collabTypes" class="panel panel-default selection-list">
+          <div class="panel-heading panel-title facet-panel-heading">
+			  <span class="start">Select:</span> 
+              <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseTypes">
+               collaboration type
+             </a>
+          </div>
+          <div id="collapseTypes" class="panel-collapse">
+            <div class="panel-body" id="selector">
+              <div id="checkarea">
+              </div>
             </div>
           </div>
         </div>
@@ -44,7 +59,7 @@
 
 	<div id="collab_vis" class="scholars_vis_container dept_collab_vis">
 	  <div id="title_bar">
-	    <span class="heading">Interdepartmental Co-authorships (Faculty only)</span>
+	    <span class="heading"><span id="nowShowing"></span> Co-authorships (Faculty only)</span>
 	    <span class="glyphicon glyphicon-info-sign"></span>
 	    <a data-view-selector="vis" href="#" style="display: none">Show visualization</a>
 	    <a data-view-selector="table" href="#">Show table format</a>
@@ -52,25 +67,25 @@
 	  
 	  <div id="title_bar_info_text">
 	    <p>
-	      The interdepartmental co-authorships are identified based on the affiliation 
-	      data extracted from the citation of a publication. Currently, we only present 
-	      co-authorships between researchers with faculty appointments. 
-	      This visualization has a zoom-in/zoom-out functionality. The visualization 
-	      consists of three layers: a department-level layer (inner most), person-level 
-	      layer 1 (i.e., author in context), and the person-level layer 2 (i.e., the co-authors). 
+	      The co-authorships are identified based on the affiliation data 
+	      extracted from the citation of a publication. Currently, we only present 
+	      co-authorships between researchers with faculty appointments. This visualization 
+	      has a zoom-in/zoom-out functionality. The visualization consists of three layers: 
+	      unit-level layer (inner most), person-level layer 1 (i.e., author in context) and 
+	      the person-level layer 2 (i.e., the co-authors). 
 	    </p>
 	    <p>
-	      To view the co-authorships, begin by selecting a department of interest. 
+	      To view the co-authorships, begin by selecting  an academic unit of interest. 
 	      In this view, you can observe who has co-authored with whom and how often they 
-	      co-authored. To view the co-authored publications, begin by selecting a 
-	      faculty member of interest. In this view, clicking on a co-author (in the 
-	      outer circle) displays the list of co-authored articles in the tooltip. 
-	      Click in the center circle to zoom out to select any other faculty/department of interest.
+	      co-authored. To view the co-authored publications, begin by selecting a faculty 
+	      member of interest. In this view, clicking on a co-author (in the outer circle) 
+	      displays the list of co-authored articles in the tooltip. Click in the center 
+	      circle to zoom out to select any other faculty/academic unit of interest.
 	    </p>
 	    <hr> 
 	    <p>
 	      Note: This information is based solely on publications that have been loaded into the system.
-	    </p> 
+	    </p>
 	  </div>
 	
 	  <div id="time-indicator">
@@ -79,15 +94,15 @@
 	
 	  <div data-view-id="vis">
 	    <div id="exports_panel" >
-	      <a href="#" data-export-id="json" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Organization', 'InterDeptCollab-ExportAsJOSN']);">Export as JSON</a>
-	      <a href="#" data-export-id="svg" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Organization', 'InterDeptCollab-ExportAsSVG']);">Export as SVG</a>
+	      <a href="#" data-export-id="json" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Organization', 'Collab-ExportAsJSON']);">Export as JSON</a>
+	      <a href="#" data-export-id="svg" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Organization', 'Collab-ExportAsSVG']);">Export as SVG</a>
 		</div>
 	  </div>
 	
 	  <div data-view-id="table">
 	    <div id="exports_panel">
-	      <a href="#" data-export-id="json" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Organization', 'InterDeptCollab-ExportAsJSON']);">Export as JSON</a>
-	      <a href="#" data-export-id="csv" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Organization', 'InterDeptCollab-ExportAsCSV']);">Export as CSV</a>
+	      <a href="#" data-export-id="json" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Organization', 'Collab-ExportAsJSON']);">Export as JSON</a>
+	      <a href="#" data-export-id="csv" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Organization', 'Collab-ExportAsCSV']);">Export as CSV</a>
 	    </div>
 	    <table class="vis_table">
 	      <thead>
@@ -145,43 +160,65 @@ $().ready(function() {
         }
     ];
     
+    var typesData = [
+        "Cross-unit Co-authorships",
+        "Interdepartmental Co-authorships"
+    ];
+    
     /*
-     * - Create the selector and populate it
-     * - Show a random college
+     * - Create the selectors
      */
-    var pubCollegeControl = new AccordionControls.Selector("#collegeSelectionPanel", showCollabChart);
+    var pubCollegeControl = new AccordionControls.Selector("#collegeSelectionPanel", collegeSelected);
     pubCollegeControl.loadData(collegesData);
     
+    var radioButtons = new AccordionControls.RadioButtons("#collabTypes", typeSelected);
+    radioButtons.loadData(typesData);
+    radioButtons.expand();
+    
     /*
-     * When a College is selected, show it.
+     * Initialize the selections and show the visualization;
      */
     var collabChart = null;
-    showRandomCollege();
+    var selectedCollege;
+    var selectedCrossUnit = true;
+    $("#collegeSelectionPanel li:first").click();
     
-    function showCollabChart(college) {
-        $(".nowShowing .selection").html("<a href=\"" + ScholarsVis.Utilities.toDisplayUrl(college.uri) + "\">" + college.label + "</a>");
-        if (collabChart != null) {
-            collabChart.hide();
-        }
-        collabChart = new ScholarsVis.CollaborationSunburst.FullInterDepartmentVisualization({
-            target : '#collab_vis',
-            department : college.uri
-        });
-        collabChart.show();
+    
+    function collegeSelected(college) {
+      selectedCollege = college;
+      showCollaboration();
     }
     
-    /*
-     * Start by displaying a random college. 
-     */
-    function showRandomCollege() {
-        showCollabChart(randomArrayEntry(collegesData));
-        
-        function randomArrayEntry(array) {
-            return array[getRandomInt(0, array.length - 1)];
-            
-            function getRandomInt(min, max) {
-                return Math.floor(Math.random() * (max - min + 1)) + min;
-            }
+    function typeSelected(label) {
+      selectedCrossUnit = (label.indexOf("Cross") > -1);
+      showCollaboration();
+    }
+    
+    function showCollaboration() {
+      if (collabChart != null) {
+        collabChart.hide();
+      }
+      if (selectedCrossUnit) {
+        $("#nowShowing").text("Cross-unit");
+        collabChart = new ScholarsVis.CollaborationSunburst.FullCrossUnitVisualization({
+            target : '#collab_vis',
+            department : selectedCollege.uri
+        });
+      } else {
+        $("#nowShowing").text("Interdepartmental");
+        collabChart = new ScholarsVis.CollaborationSunburst.FullInterDepartmentVisualization({
+            target : '#collab_vis',
+            department : selectedCollege.uri
+        });
+      }
+      collabChart.show();
+    }
+    
+    function randomArrayEntry(array) {
+        return array[getRandomInt(0, array.length - 1)];
+          
+        function getRandomInt(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
         }
     }
 });
