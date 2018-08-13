@@ -137,6 +137,28 @@
 						<div class="col-sm-2 col-md-2 col-lg-2">
 						</div>
 					</div>
+					<div id="visualize-content" class="row fff-bkg">
+						<div class="col-sm-2 col-md-2 col-lg-2">
+						</div>
+						<div class="col-sm-4 col-md-4 col-lg-4">
+							<a href="${urls.base}/interdepartmentalCoauthorshipsVisualization" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Homepage', 'Interdepartmental Co-authorships']);">
+								<img id="vizIcon" width="190px" src="${urls.base}/themes/scholars/images/home-collaborations-inter.png"/>
+							</a>
+							<div>
+								<p>Interdepartmental Co-authorships</p>
+							</div>
+						</div>
+						<div class="col-sm-4 col-md-4 col-lg-4">
+							<a href="${urls.base}/crossunitCoauthorshipsVisualization" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Homepage', 'Cross-unit Co-authorships']);">
+								<img id="vizIcon" width="190px" src="${urls.base}/themes/scholars/images/home-collaborations.png"/>
+							</a>
+							<div>
+								<p>Cross-unit Co-authorships</p>
+							</div>
+						</div>
+						<div class="col-sm-2 col-md-2 col-lg-2">
+						</div>
+					</div>
 				</div>
 
 

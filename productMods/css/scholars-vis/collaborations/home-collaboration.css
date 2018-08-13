@@ -1,0 +1,14 @@
+.collaboration-selector #legendDiv {
+  font: 16px "Helvetica Neue", Helvetica, Arial, sans-serif;
+  margin-bottom: 20px;
+}
+
+#selectedCollaborationLabel {
+  font: 16px "Helvetica Neue", Helvetica, Arial, sans-serif;
+  margin-bottom: 8px;
+}
+
+.col-md-8 #collab_vis {
+   height: 600px;
+   margin-bottom: 20px;
+}
