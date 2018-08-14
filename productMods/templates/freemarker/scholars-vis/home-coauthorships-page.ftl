@@ -31,8 +31,6 @@
           </div>
           <div id="collapseTypes" class="panel-collapse">
             <div class="panel-body" id="selector">
-              <div id="checkarea">
-              </div>
             </div>
           </div>
         </div>
@@ -161,19 +159,24 @@ $().ready(function() {
     ];
     
     var typesData = [
-        "Cross-unit Co-authorships",
-        "Interdepartmental Co-authorships"
+        {
+            label: "Cross-unit Co-authorships"
+        },
+        {
+            label: "Interdepartmental Co-authorships"
+        }
     ];
     
     /*
      * - Create the selectors
      */
-    var pubCollegeControl = new AccordionControls.Selector("#collegeSelectionPanel", collegeSelected);
-    pubCollegeControl.loadData(collegesData);
+    var collegeSelector = new AccordionControls.Selector("#collegeSelectionPanel", collegeSelected);
+    collegeSelector.loadData(collegesData);
+    collegeSelector.expand();
     
-    var radioButtons = new AccordionControls.RadioButtons("#collabTypes", typeSelected);
-    radioButtons.loadData(typesData);
-    radioButtons.expand();
+    var typeSelector = new AccordionControls.Selector("#collabTypes", typeSelected);
+    typeSelector.loadData(typesData);
+    typeSelector.expand();
     
     /*
      * Initialize the selections and show the visualization;
@@ -182,15 +185,15 @@ $().ready(function() {
     var selectedCollege;
     var selectedCrossUnit = true;
     $("#collegeSelectionPanel li:first").click();
-    
+    $("#collabTypes li:first").click();
     
     function collegeSelected(college) {
       selectedCollege = college;
       showCollaboration();
     }
     
-    function typeSelected(label) {
-      selectedCrossUnit = (label.indexOf("Cross") > -1);
+    function typeSelected(type) {
+      selectedCrossUnit = (type.label.indexOf("Cross") > -1);
       showCollaboration();
     }
     

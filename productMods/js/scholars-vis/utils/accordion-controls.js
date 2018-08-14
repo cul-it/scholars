@@ -72,6 +72,7 @@ var AccordionControls = (function() {
             loadData: loadData,
             loadFromDataRequest: loadFromDataRequest,
             collapse: collapse,
+            expand: expand,
             clearSelection: clearSelection
         };
         
