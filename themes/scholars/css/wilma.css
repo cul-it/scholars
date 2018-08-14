@@ -3001,6 +3001,7 @@ a#author-name {
 	text-transform: none;
 	background-color: #f8f3dd;
 	display:none;
+	border-radius: 4px;
 }
 #discover-menu-option {
 	color: #fff;
