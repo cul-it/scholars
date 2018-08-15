@@ -212,12 +212,18 @@
 						<#if isLibrary>Unit Libraries<#else>Academic Units</#if>
 					</a>
 				</li>
-		    <#elseif facultyList?has_content >
+			</#if>
+			<#-- need a hack to keep the People tab from displaying on the CUL page. Not sure why it returns a string with white space -->
+		  <#if facultyList?has_content && (facultyList?replace(" ","")?length > 5) >
 				<li>
-					<a href="#tabs-1" onclick="javascript:_paq.push(['trackEvent', 'Tab', 'Department-School', 'People']);">People</a>
+					<a href="#tabs-2" onclick="javascript:_paq.push(['trackEvent', 'Tab', 'Department-School', 'People']);">People</a>
 				</li> 
 				</#if>
-		    <#if showGrantsTab ><li><a href="#tabs-2" onclick="javascript:_paq.push(['trackEvent', 'Tab', 'Department-School', 'Grants']);">Grants</a></li></#if>
+		    <#if showGrantsTab >
+		      <li>
+		        <a href="#tabs-3" onclick="javascript:_paq.push(['trackEvent', 'Tab', 'Department-School', 'Grants']);">Grants</a>
+		      </li>
+	      </#if>
 		  </ul>
 		  <#if subOrgs?has_content>
 		  	<div id="tabs-1" class="tab-content" data="${publicationsProp!}-dude">
@@ -227,8 +233,10 @@
 					</ul>
 				</article>	
 		  	</div>
-		  <#elseif facultyList?has_content>
-			  <div id="tabs-1" class="tab-content" data="${publicationsProp!}-dude">
+		  </#if>
+		<#-- need a hack to keep the People tab from displaying on the CUL page. Not sure why it returns a string with white space -->
+		  <#if facultyList?has_content && (facultyList?replace(" ","")?length > 5) >
+			  <div id="tabs-2" class="tab-content" data="${publicationsProp!}-dude">
 					<article class="property" role="article">
 			    		<ul id="individual-faculty" class="property-list" role="list" >
 			    			${facultyList?replace(" position","")!}
@@ -237,7 +245,7 @@
 			  </div>
 		  </#if>
 		  <#if showGrantsTab >
-			  <div id="tabs-2"  class="tab-content">
+			  <div id="tabs-3"  class="tab-content">
 				<p class="tab-caveat">May include contracts and cooperative agreements as well as grants.</p>
 				<article class="property" role="article">
 			    <ul id="individual-grants-pi" class="property-list" role="list" >
