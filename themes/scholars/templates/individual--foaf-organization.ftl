@@ -120,13 +120,17 @@
 <#if academicOfficers?has_content>
   <#assign academicOfficerList>
 		<#list academicOfficers as officer>
-			<div id="academic-officer-list-title">
-				${officer.positionTitle!}
-			</div>
-			<div id="academic-officer-list-name">
-				${officer.personName!}
-			</div>
-			<div class="clear-both"></div>
+		  <#if !officer.positionTitle?contains("Director") >
+  			<div id="academic-officer-list-title">
+				  ${officer.positionTitle!}
+			  </div>
+			  <div id="academic-officer-list-name">
+				  ${officer.personName!}
+			  </div>
+			  <div class="clear-both"></div>
+			<#else>
+				<div class="clear-both" style="margin-top: 30px;"></div>
+		  </#if>
 		</#list>
   </#assign>
 </#if>
@@ -136,7 +140,7 @@
 	<#assign webpageLabel = webpageStmt.label! />
 	<#assign webpageUrl = webpageStmt.url! />
 </#if>
-<#if isCollegeOrSchool || isLibrary >
+<#if isCollegeOrSchool || isLibrary || isAcademicDept >
 	<#assign departmentsProp = propertyGroups.pullProperty("http://purl.obolibrary.org/obo/BFO_0000051","http://xmlns.com/foaf/0.1/Organization")!>
 	<#if departmentsProp?has_content && departmentsProp.statements?has_content> 
 	    <#assign subOrgs>
@@ -199,21 +203,29 @@
 <#assign facultyDeptListColumn >
   <#if  (!isCollegeOrSchool && !isInstitute) && (facultyList?has_content || adminsGrant?has_content || subOrgs?has_content )>
 	<div id="foafOrgTabs" class="col-md-8 scholars-container <#if !showVisualizations || optIn != "true" >scholars-container-full</#if>">
-	  <#if facultyList?has_content || adminsGrant?has_content >
+	  <#if facultyList?has_content || adminsGrant?has_content || subOrgs?has_content>
 		<div id="scholars-tabs-container">
 		  <ul id="scholars-tabs">
-			<#if subOrgs?has_content && isLibrary>
+			<#if subOrgs?has_content>
 				<li>
-					<a href="#tabs-1" onclick="javascript:_paq.push(['trackEvent', 'Tab', 'Department-School', 'Sub-units']);">Unit Libraries</a>
+					<a href="#tabs-1" onclick="javascript:_paq.push(['trackEvent', 'Tab', 'Department-School', 'Sub-units']);">
+						<#if isLibrary>Unit Libraries<#else>Academic Units</#if>
+					</a>
 				</li>
-		    <#elseif facultyList?has_content >
+			</#if>
+			<#-- need a hack to keep the People tab from displaying on the CUL page. Not sure why it returns a string with white space -->
+		  <#if facultyList?has_content && (facultyList?replace(" ","")?length > 5) >
 				<li>
-					<a href="#tabs-1" onclick="javascript:_paq.push(['trackEvent', 'Tab', 'Department-School', 'People']);">People</a>
+					<a href="#tabs-2" onclick="javascript:_paq.push(['trackEvent', 'Tab', 'Department-School', 'People']);">People</a>
 				</li> 
 				</#if>
-		    <#if showGrantsTab ><li><a href="#tabs-2" onclick="javascript:_paq.push(['trackEvent', 'Tab', 'Department-School', 'Grants']);">Grants</a></li></#if>
+		    <#if showGrantsTab >
+		      <li>
+		        <a href="#tabs-3" onclick="javascript:_paq.push(['trackEvent', 'Tab', 'Department-School', 'Grants']);">Grants</a>
+		      </li>
+	      </#if>
 		  </ul>
-		  <#if subOrgs?has_content && isLibrary>
+		  <#if subOrgs?has_content>
 		  	<div id="tabs-1" class="tab-content" data="${publicationsProp!}-dude">
 				<article class="property" role="article">
 		    		<ul id="individual-faculty" class="property-list" role="list" >
@@ -221,8 +233,10 @@
 					</ul>
 				</article>	
 		  	</div>
-		  <#elseif facultyList?has_content>
-			  <div id="tabs-1" class="tab-content" data="${publicationsProp!}-dude">
+		  </#if>
+		<#-- need a hack to keep the People tab from displaying on the CUL page. Not sure why it returns a string with white space -->
+		  <#if facultyList?has_content && (facultyList?replace(" ","")?length > 5) >
+			  <div id="tabs-2" class="tab-content" data="${publicationsProp!}-dude">
 					<article class="property" role="article">
 			    		<ul id="individual-faculty" class="property-list" role="list" >
 			    			${facultyList?replace(" position","")!}
@@ -231,7 +245,7 @@
 			  </div>
 		  </#if>
 		  <#if showGrantsTab >
-			  <div id="tabs-2"  class="tab-content">
+			  <div id="tabs-3"  class="tab-content">
 				<p class="tab-caveat">May include contracts and cooperative agreements as well as grants.</p>
 				<article class="property" role="article">
 			    <ul id="individual-grants-pi" class="property-list" role="list" >

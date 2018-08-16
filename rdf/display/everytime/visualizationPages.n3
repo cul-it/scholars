@@ -78,3 +78,15 @@ display:HomeJournalBarchartPage
         display:urlMapping
                 "/journalProceedingsVisualization" .
 
+display:HomeCoauthorshipsPage
+        a       display:Page ;
+        display:isSelfContainedTemplate
+                "true" ;
+        display:requiresAction
+                <java:edu.cornell.mannlib.vitro.webapp.auth.permissions.SimplePermission#PageViewablePublic> ;
+        display:requiresBodyTemplate
+                "home-coauthorships-page.ftl" ;
+        display:title
+                "Coauthorships Visualization" ;
+        display:urlMapping
+                "/coauthorshipsVisualization" .

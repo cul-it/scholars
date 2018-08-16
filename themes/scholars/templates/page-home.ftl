@@ -116,8 +116,6 @@
 						</div>
 					</div>
 					<div id="visualize-content" class="row fff-bkg">
-						<div class="col-sm-2 col-md-2 col-lg-2">
-						</div>
 						<div class="col-sm-4 col-md-4 col-lg-4">
 							<a href="${urls.base}/grantsVisualization" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Homepage', 'Grants and Contracts']);">
 								<img id="vizIcon" width="190px" src="${urls.base}/themes/scholars/images/home-grants.png"/>
@@ -134,7 +132,13 @@
 								<p>Journals and Proceedings</p>
 							</div>
 						</div>
-						<div class="col-sm-2 col-md-2 col-lg-2">
+						<div class="col-sm-4 col-md-4 col-lg-4">
+							<a href="${urls.base}/coauthorshipsVisualization" onclick="javascript:_paq.push(['trackEvent', 'Visualization', 'Homepage', 'Co-authorships']);">
+								<img id="vizIcon" width="190px" src="${urls.base}/themes/scholars/images/home-collaborations.png"/>
+							</a>
+							<div>
+								<p>Co-authorships</p>
+							</div>
 						</div>
 					</div>
 				</div>
