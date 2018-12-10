@@ -78,7 +78,6 @@ $(document).ready(function() {
 					</article>
 		</div>
 	</#assign>
-	<#include "orcid-connection-check.ftl">
 </#if>
 <#assign grantsPIProp = propertyGroups.pullProperty("http://purl.obolibrary.org/obo/RO_0000053", "${core}PrincipalInvestigatorRole")!>
 <#if grantsPIProp?has_content> 
@@ -107,11 +106,6 @@ $(document).ready(function() {
 <#assign managePubs >
 	<div class="row manage-pubs-row">
 		<div class="col-sm-12 col-md-12 col-lg-12 manage-pubs-container">
-			<#if orcidStatus??>
-			  <a id="orcid-connect" class="orcid-btn-link" href="${urls.base}/orcidConnection?localID=${localId.value}" title="ORCID connection"  onclick="javascript:_paq.push(['trackEvent', 'Navigation', 'Person', 'ORCID Connection']);">
-				  ORCID Connection
-			  </a>
-			</#if>
 		</div>
 	</div>
 </#assign>
