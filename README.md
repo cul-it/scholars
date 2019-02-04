@@ -2,7 +2,20 @@
 
 A "third layer" to add Scholars@Cornell functionality to a VIVO 1.8 distribution.
 
-# How to build it
+# Decommission and archive
+ 
+It was decided by Cornell Library Leadership to discontinue the project. The application was decommissioned on Jan 2nd 2019. The data from production instance has been archived and is available (on request) on following links.
+ 
+### Data: Scholars Triple Graphs and SQL Database Dump
+__*Location:*__ `s3://scholars-elements-archive/ScholarsGraphsAndDatabase/`
+
+### Data: Documentation of SEA archive
+__*Location:*__ `s3://scholars-elements-archive/SEA-DOCUMENTATION`
+ 
+### Data: Elements Publication Data Archive
+__*Location:*__ `s3://scholars-elements-archive/SEA`
+
+# How to build a Scholars instance
 
 ## Read the instructions
 For information on how to install VIVO 1.8, consult the installation instructions for VIVO 1.8, perhaps starting with [A simple installation][simple install], and continuing with [Building VIVO in 3 tiers][3tier install].
